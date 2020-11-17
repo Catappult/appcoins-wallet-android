@@ -2,12 +2,14 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmFragment
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import java.math.BigDecimal
 
 
-class CarrierVerifyNavigator(private val fragmentManager: FragmentManager) {
+class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
+                             private val iabActivity: IabActivity) {
 
   fun navigateBack() {
     fragmentManager.popBackStack()
@@ -35,5 +37,9 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager) {
                 showSupport))
         .addToBackStack(null)
         .commit()
+  }
+
+  fun finishActivityWithError() {
+    iabActivity.finishWithError()
   }
 }

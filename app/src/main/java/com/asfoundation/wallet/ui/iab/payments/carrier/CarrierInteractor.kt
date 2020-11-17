@@ -2,21 +2,21 @@ package com.asfoundation.wallet.ui.iab.payments.carrier
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.work.*
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
+import com.appcoins.wallet.billing.carrierbilling.GenericError
+import com.appcoins.wallet.billing.carrierbilling.NoError
 import com.appcoins.wallet.billing.common.response.TransactionStatus
-import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.transactions.CancelTransactionWorker
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -35,7 +35,6 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                         private val smsValidationInteract: SmsValidationInteract,
                         private val billing: Billing,
                         private val billingMessagesMapper: BillingMessagesMapper,
-                        private val workManager: WorkManager,
                         private val logger: Logger,
                         private val ioScheduler: Scheduler) {
 
@@ -64,30 +63,18 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
         }
         .firstOrError()
         .map { paymentModel ->
-          if (!paymentModel.networkError.hasError) {
+          if (paymentModel.error == NoError && isErrorStatus(paymentModel.status)) {
             return@map paymentModel.copy(
-                networkError = Error(hasError = true, isNetworkError = false, code = -1,
-                    message = getErrorReasonFromUri(uri)))
+                error = GenericError(false, -1, getErrorReasonFromUri(uri)))
           }
           return@map paymentModel
         }
   }
 
-  fun cancelTransaction(uid: String, packageName: String) {
-    val data = workDataOf(
-        CancelTransactionWorker.UID_KEY to uid,
-        CancelTransactionWorker.DOMAIN to packageName,
-        CancelTransactionWorker.GATEWAY_KEY to CarrierBillingRepository.GATEWAY_NAME
-    )
-    val constraints = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
-    val request = OneTimeWorkRequestBuilder<CancelTransactionWorker>()
-        .setConstraints(constraints)
-        .setInputData(data)
-        .build()
-    workManager.enqueue(request)
-  }
+  private fun isErrorStatus(status: TransactionStatus) =
+      status == TransactionStatus.FAILED ||
+          status == TransactionStatus.CANCELED ||
+          status == TransactionStatus.INVALID_TRANSACTION
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
@@ -95,9 +82,17 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
     return if (isInApp(type) && sku != null) {
       billing.getSkuPurchase(merchantName, sku, scheduler)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
+          .map { bundle -> addPreselected(bundle) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
+          .map { bundle -> addPreselected(bundle) }
     }
+  }
+
+  private fun addPreselected(bundle: Bundle): Bundle? {
+    bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.CARRIER_BILLING.id)
+    return bundle
   }
 
   fun getTransactionBuilder(transactionData: String): Single<TransactionBuilder> {

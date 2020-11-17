@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.biometric.BiometricManager
-import androidx.work.WorkManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
@@ -554,11 +553,10 @@ class InteractorModule {
                                 smsValidationInteract: SmsValidationInteract,
                                 billing: Billing,
                                 billingMessagesMapper: BillingMessagesMapper,
-                                workManager: WorkManager,
                                 logger: Logger): CarrierInteractor {
     return CarrierInteractor(repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, walletBlockedInteract, smsValidationInteract, billing,
-        billingMessagesMapper, workManager, logger, Schedulers.io())
+        billingMessagesMapper, logger, Schedulers.io())
   }
 
 }

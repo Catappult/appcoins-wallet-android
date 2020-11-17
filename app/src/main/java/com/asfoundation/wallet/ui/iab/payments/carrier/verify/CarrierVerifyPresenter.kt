@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
@@ -29,6 +30,7 @@ class CarrierVerifyPresenter(
     initializeView()
     handleBackButton()
     handleNextButton()
+    handleOtherPaymentsButton()
   }
 
   private fun initializeView() {
@@ -37,7 +39,7 @@ class CarrierVerifyPresenter(
             .observeOn(viewScheduler)
             .doOnSuccess { ai ->
               view.initializeView(ai.appName, ai.icon, data.currency, data.fiatAmount,
-                  data.appcAmount, data.skuDescription, data.bonusAmount)
+                  data.appcAmount, data.skuDescription, data.bonusAmount, data.preselected)
             }
             .subscribe({}, { e -> e.printStackTrace() })
     )
@@ -55,30 +57,8 @@ class CarrierVerifyPresenter(
             }
             .observeOn(viewScheduler)
             .doOnNext { paymentModel ->
-              if (paymentModel.hasError()) {
-                var showSupport = true
-                var message = stringProvider.getString(R.string.activity_iab_error_message)
-                paymentModel.error?.let { error ->
-                  if (error.name == "phone_number") {
-                    message = stringProvider.getString(R.string.purchase_carrier_error)
-                    showSupport = false
-                  }
-                  when (error.type) {
-                    "LOWER_BOUND" -> {
-                      message =
-                          stringProvider.getString(R.string.purchase_carrier_error_minimum,
-                              formatFiatValue(error.value!!, data.currency))
-                      showSupport = false
-                    }
-                    "UPPER_BOUND" -> {
-                      message =
-                          stringProvider.getString(R.string.purchase_carrier_error_maximum,
-                              formatFiatValue(error.value!!, data.currency))
-                      showSupport = false
-                    }
-                  }
-                }
-                navigator.navigateToError(message, showSupport)
+              if (paymentModel.error !is NoError) {
+                handleError(paymentModel)
               } else {
                 if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
                   safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
@@ -95,6 +75,37 @@ class CarrierVerifyPresenter(
             .retry()
             .subscribe({}, { e -> e.printStackTrace() })
     )
+  }
+
+  private fun handleError(paymentModel: CarrierPaymentModel) {
+    var showSupport = true
+    var message = stringProvider.getString(R.string.activity_iab_error_message)
+    when (paymentModel.error) {
+      is InvalidPhoneNumber -> {
+        message = stringProvider.getString(R.string.purchase_carrier_error)
+        showSupport = false
+      }
+      is InvalidPriceError -> {
+        val error = paymentModel.error as InvalidPriceError
+        showSupport = false
+        message = when (error.type) {
+          InvalidPriceError.BoundType.LOWER -> {
+            stringProvider.getString(R.string.purchase_carrier_error_minimum,
+                formatFiatValue(error.value, data.currency))
+          }
+          InvalidPriceError.BoundType.UPPER -> {
+            stringProvider.getString(R.string.purchase_carrier_error_maximum,
+                formatFiatValue(error.value, data.currency))
+          }
+        }
+      }
+      is GenericError -> {
+        showSupport = true
+        message = stringProvider.getString(R.string.activity_iab_error_message)
+      }
+      else -> Unit
+    }
+    navigator.navigateToError(message, showSupport)
   }
 
   private fun formatFiatValue(value: BigDecimal, currencyCode: String): String {
@@ -114,7 +125,24 @@ class CarrierVerifyPresenter(
   private fun handleBackButton() {
     disposables.add(
         view.backEvent()
-            .doOnNext { navigator.navigateBack() }
+            .doOnNext {
+              if (data.preselected) {
+                navigator.finishActivityWithError()
+              } else {
+                navigator.navigateBack()
+              }
+            }
+            .retry()
+            .subscribe({}, { e -> e.printStackTrace() })
+    )
+  }
+
+  private fun handleOtherPaymentsButton() {
+    disposables.add(
+        view.otherPaymentMethodsEvent()
+            .doOnNext {
+              navigator.navigateBack()
+            }
             .retry()
             .subscribe({}, { e -> e.printStackTrace() })
     )

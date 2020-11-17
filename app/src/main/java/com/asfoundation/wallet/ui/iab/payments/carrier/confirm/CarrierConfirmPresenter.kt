@@ -71,7 +71,6 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
     disposables.add(
         view.backEvent()
             .doOnNext {
-              interactor.cancelTransaction(data.uid, data.domain)
               sendPaymentConfirmationEvent("back")
               navigator.navigateBack()
             }

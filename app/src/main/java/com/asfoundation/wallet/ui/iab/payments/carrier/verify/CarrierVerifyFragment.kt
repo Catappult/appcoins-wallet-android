@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import android.content.res.Configuration
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -60,7 +61,8 @@ class CarrierVerifyFragment : DaggerFragment(),
                               currency: String,
                               fiatAmount: BigDecimal, appcAmount: BigDecimal,
                               skuDescription: String,
-                              bonusAmount: BigDecimal) {
+                              bonusAmount: BigDecimal,
+                              preselected: Boolean) {
     payment_methods_header.setTitle(appName)
     payment_methods_header.setIcon(icon)
     payment_methods_header.setDescription(skuDescription)
@@ -69,6 +71,15 @@ class CarrierVerifyFragment : DaggerFragment(),
     payment_methods_header.hideSkeleton()
     purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
     purchase_bonus.hideSkeleton()
+
+    if (preselected) {
+      other_payments_button.visibility = View.VISIBLE
+      cancel_button.setText(R.string.cancel_button)
+      if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        val marginParams = purchase_bonus.layoutParams as ViewGroup.MarginLayoutParams
+        marginParams.topMargin = 0
+      }
+    }
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -96,10 +107,15 @@ class CarrierVerifyFragment : DaggerFragment(),
     buy_button.isEnabled = false
   }
 
+  override fun otherPaymentMethodsEvent(): Observable<Any> {
+    return RxView.clicks(other_payments_button)
+  }
+
   companion object {
 
     const val BACKSTACK_NAME = "carrier_entry_point"
 
+    internal const val PRE_SELECTED_KEY = "pre_selected"
     internal const val TRANSACTION_TYPE_KEY = "type"
     internal const val DOMAIN_KEY = "domain"
     internal const val ORIGIN_KEY = "origin"
@@ -111,33 +127,24 @@ class CarrierVerifyFragment : DaggerFragment(),
     internal const val SKU_DESCRIPTION = "sku_description"
 
     @JvmStatic
-    fun newInstance(domain: String, origin: String?, transactionType: String,
+    fun newInstance(preSelected: Boolean, domain: String, origin: String?, transactionType: String,
                     transactionData: String?,
                     currency: String?, amount: BigDecimal, appcAmount: BigDecimal,
                     bonus: BigDecimal?, skuDescription: String): CarrierVerifyFragment {
       val fragment =
           CarrierVerifyFragment()
 
-
       fragment.arguments = Bundle().apply {
-        putString(
-            DOMAIN_KEY, domain)
-        putString(
-            ORIGIN_KEY, origin)
-        putString(
-            TRANSACTION_TYPE_KEY, transactionType)
-        putString(
-            TRANSACTION_DATA_KEY, transactionData)
-        putString(
-            CURRENCY_KEY, currency)
-        putSerializable(
-            FIAT_AMOUNT_KEY, amount)
-        putSerializable(
-            APPC_AMOUNT_KEY, appcAmount)
-        putSerializable(
-            BONUS_AMOUNT_KEY, bonus)
-        putString(
-            SKU_DESCRIPTION, skuDescription)
+        putBoolean(PRE_SELECTED_KEY, preSelected)
+        putString(DOMAIN_KEY, domain)
+        putString(ORIGIN_KEY, origin)
+        putString(TRANSACTION_TYPE_KEY, transactionType)
+        putString(TRANSACTION_DATA_KEY, transactionData)
+        putString(CURRENCY_KEY, currency)
+        putSerializable(FIAT_AMOUNT_KEY, amount)
+        putSerializable(APPC_AMOUNT_KEY, appcAmount)
+        putSerializable(BONUS_AMOUNT_KEY, bonus)
+        putString(SKU_DESCRIPTION, skuDescription)
       }
       return fragment
     }

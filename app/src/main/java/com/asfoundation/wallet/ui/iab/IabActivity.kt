@@ -187,10 +187,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showCarrierBilling(currency: String?, amount: BigDecimal,
-                                  bonus: BigDecimal) {
+                                  bonus: BigDecimal, isPreselected: Boolean) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CarrierVerifyFragment.newInstance(transaction!!.domain, getOrigin(isBds),
+            CarrierVerifyFragment.newInstance(true, transaction!!.domain, getOrigin(isBds),
                 transaction!!.type, intent.dataString, currency, amount, transaction!!.amount(),
                 bonus, getSkuDescription()))
         .addToBackStack(CarrierVerifyFragment.BACKSTACK_NAME)

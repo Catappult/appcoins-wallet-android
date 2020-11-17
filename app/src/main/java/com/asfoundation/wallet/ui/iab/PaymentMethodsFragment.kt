@@ -359,8 +359,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     return RxView.clicks(buy_button)
   }
 
-  override fun showCarrierBilling(fiatValue: FiatValue) {
-    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue!!)
+  override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) {
+    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue!!, isPreselected)
   }
 
   override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue) {

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.StringProvider
@@ -16,13 +17,15 @@ class CarrierVerifyModule {
 
   @Provides
   fun providesCarrierVerifyNavigator(fragment: CarrierVerifyFragment): CarrierVerifyNavigator {
-    return CarrierVerifyNavigator(fragment.requireFragmentManager())
+    return CarrierVerifyNavigator(fragment.requireFragmentManager(),
+        fragment.activity as IabActivity)
   }
 
   @Provides
   fun providesCarrierVerifyPhoneData(fragment: CarrierVerifyFragment): CarrierVerifyData {
     fragment.arguments!!.apply {
-      return CarrierVerifyData(getString(CarrierVerifyFragment.DOMAIN_KEY)!!,
+      return CarrierVerifyData(getBoolean(CarrierVerifyFragment.PRE_SELECTED_KEY),
+          getString(CarrierVerifyFragment.DOMAIN_KEY)!!,
           getString(CarrierVerifyFragment.ORIGIN_KEY),
           getString(CarrierVerifyFragment.TRANSACTION_TYPE_KEY) ?: "",
           getString(CarrierVerifyFragment.TRANSACTION_DATA_KEY) ?: "",

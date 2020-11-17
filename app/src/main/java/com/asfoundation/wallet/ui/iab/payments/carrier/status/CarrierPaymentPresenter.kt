@@ -59,11 +59,11 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
           when {
             isErrorStatus(payment.status) -> {
               logger.log(TAG, "Transaction came with error status: ${payment.status}")
-              return@flatMap sendPaymentErrorEvent(payment.networkError.code,
-                  payment.networkError.message)
+              return@flatMap sendPaymentErrorEvent(payment.error.errorCode,
+                  payment.error.errorMessage)
                   .observeOn(viewScheduler)
                   .andThen(
-                      if (payment.networkError.code == 403) {
+                      if (payment.error.errorCode == 403) {
                         handleFraudFlow()
                       } else {
                         Completable.fromAction {
@@ -126,7 +126,6 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
         .subscribeOn(ioScheduler)
         .ignoreElement()
   }
-
 
   private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?): Completable {
     return Completable.fromAction {

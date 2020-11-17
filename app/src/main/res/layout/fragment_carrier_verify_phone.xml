@@ -128,6 +128,17 @@
 
   </LinearLayout>
 
+  <TextView
+      android:id="@+id/other_payments_button"
+      style="@style/PaymentMethods.Error.OtherPaymentsButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/purchase_more_payment_methods_button"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
+      app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+      />
+
   <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
       android:id="@+id/purchase_bonus"
       android:layout_width="0dp"
@@ -135,7 +146,7 @@
       android:layout_marginTop="24dp"
       app:layout_constraintEnd_toEndOf="@+id/payment_methods_header"
       app:layout_constraintStart_toStartOf="@+id/payment_methods_header"
-      app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+      app:layout_constraintTop_toBottomOf="@+id/other_payments_button"
       />
 
 

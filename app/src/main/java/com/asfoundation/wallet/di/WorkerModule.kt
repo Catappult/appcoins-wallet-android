@@ -5,11 +5,6 @@ import android.util.Log
 import androidx.work.Configuration
 import androidx.work.DelegatingWorkerFactory
 import androidx.work.WorkManager
-import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.transactions.CancelTransactionWorkerFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -17,6 +12,12 @@ import javax.inject.Singleton
 @Module
 class WorkerModule {
 
+  /**
+   * This module serves as a base for injecting dependencies to workers
+   * It initially was built to cancel a transaction but that was scrapped.
+   *
+   * To use it, simply create a factory for each worker and add it to the DelegatingWorkerFactory
+   */
   @Singleton
   @Provides
   fun providesWorkManager(context: Context,
@@ -31,23 +32,10 @@ class WorkerModule {
     return WorkManager.getInstance(context)
   }
 
-
   @Singleton
   @Provides
-  fun providesDelegatingWorkerFactory(
-      cancelTransactionWorkerFactory: CancelTransactionWorkerFactory): DelegatingWorkerFactory {
-    return DelegatingWorkerFactory().apply {
-      addFactory(cancelTransactionWorkerFactory)
-    }
+  fun providesDelegatingWorkerFactory(): DelegatingWorkerFactory {
+    return DelegatingWorkerFactory()
   }
 
-  @Singleton
-  @Provides
-  fun providesTransactionWorkerFactory(remoteRepository: RemoteRepository,
-                                       walletService: WalletService,
-                                       partnerAddressService: AddressService,
-                                       logger: Logger): CancelTransactionWorkerFactory {
-    return CancelTransactionWorkerFactory(remoteRepository, walletService, partnerAddressService,
-        logger)
-  }
 }
