@@ -353,22 +353,28 @@ public class InAppPurchaseInteractor {
   }
 
   private Integer mergeDisableReason(PaymentMethod appcMethod, PaymentMethod creditsMethod) {
-    Integer reason = null;
-
-    if (!creditsMethod.isEnabled()) {
-      if (creditsMethod.getDisabledReason() != -1) {
-        reason = creditsMethod.getDisabledReason();
-      } else {
-        reason = appcMethod.getDisabledReason();
-      }
-    } else if (!appcMethod.isEnabled()) {
-      if (appcMethod.getDisabledReason() != -1) {
-        reason = appcMethod.getDisabledReason();
-      } else {
-        reason = creditsMethod.getDisabledReason();
-      }
+    Integer creditsReason = creditsMethod.getDisabledReason();
+    Integer appcReason = appcMethod.getDisabledReason();
+    // Specific cases to treat differently:
+    // - If user does not have APPC-C, has APPC, but no ETH, the message should be to display
+    //    that user does not have ETH
+    // - If user does not have APPC-C nor APPC, the message should be indicating that user
+    //  does not have funds
+    // TODO - change purchase_no_eth_body to a shorter string (not yet in strings.xml) indicating:
+    //    "You need ETH to pay for the gas"
+    //  Also, change p2p_send_error_not_enough_funds to an actual string (not yet in strings.xml)
+    //    related to purchase flow, indicating that the user does not have enough funds
+    if(!creditsMethod.isEnabled() && !appcMethod.isEnabled()) {
+      return (appcReason == R.string.purchase_no_eth_body) ? appcReason :
+          R.string.p2p_send_error_not_enough_funds;
     }
-    return reason;
+    if (!creditsMethod.isEnabled()) {
+      return (creditsReason != -1) ? creditsReason : appcReason;
+    }
+    if (!appcMethod.isEnabled()) {
+      return (appcReason != -1) ? appcReason : creditsReason;
+    }
+    return null;
   }
 
   private PaymentMethod getCreditsMethod(List<PaymentMethod> paymentMethods) {
