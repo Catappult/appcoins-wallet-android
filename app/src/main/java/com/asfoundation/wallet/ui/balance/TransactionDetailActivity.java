@@ -59,6 +59,9 @@ public class TransactionDetailActivity extends BaseActivity {
   private View paymentMethodLabel;
   private View paymentMethod;
   private Button cancelSubscription;
+  private View cancelSubscriptionLayout;
+  private View logo;
+  private View brand;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -85,7 +88,10 @@ public class TransactionDetailActivity extends BaseActivity {
 
     paymentMethodLabel = findViewById(R.id.payment_method_label);
     paymentMethod = findViewById(R.id.payment_method);
-    cancelSubscription = findViewById(R.id.cancel_button);
+    cancelSubscriptionLayout = findViewById(R.id.cancel__subscription_layout);
+    cancelSubscription = findViewById(R.id.cancel_subscription_button);
+    logo = findViewById(R.id.logo);
+    brand = findViewById(R.id.brand);
 
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
@@ -119,7 +125,8 @@ public class TransactionDetailActivity extends BaseActivity {
   private void onSubscriptionDetails(SubscriptionDetails subscriptionDetails) {
     paymentMethodLabel.setVisibility(View.VISIBLE);
     paymentMethod.setVisibility(View.VISIBLE);
-
+    logo.setVisibility(View.GONE);
+    brand.setVisibility(View.GONE);
     GlideApp.with(this)
         .load(subscriptionDetails.getPaymentMethodUrl())
         .into((ImageView) findViewById(R.id.payment_method_icon));
@@ -127,10 +134,10 @@ public class TransactionDetailActivity extends BaseActivity {
     ((TextView) findViewById(R.id.payment_method_value)).setText(
         subscriptionDetails.getPaymentMethod());
 
-    boolean visible = subscriptionDetails instanceof ActiveSubscriptionDetails;
+    boolean isActiveSubscription = subscriptionDetails instanceof ActiveSubscriptionDetails;
 
-    if (cancelSubscription != null) {
-      cancelSubscription.setVisibility(visible ? View.VISIBLE : View.GONE);
+    if (cancelSubscription != null && cancelSubscriptionLayout != null && isActiveSubscription) {
+      cancelSubscriptionLayout.setVisibility(View.VISIBLE);
       cancelSubscription.setOnClickListener(view -> viewModel.cancelSubscription(view.getContext(),
           subscriptionDetails.getPackageName()));
     }
@@ -281,7 +288,7 @@ public class TransactionDetailActivity extends BaseActivity {
         manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
-      case SUBS:
+      case SUBS_OFFCHAIN:
         typeStr = R.string.subscriptions_category_title;
         typeIcon = R.drawable.ic_transaction_subscription;
         categoryBackground.setBackground(null);

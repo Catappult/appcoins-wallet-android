@@ -118,7 +118,7 @@ enum class WalletCurrency(val symbol: String) {
         "APPC" -> APPCOINS
         "ETH" -> ETHEREUM
         "APPC-C" -> CREDITS
-        else -> throw IllegalArgumentException()
+        else -> throw IllegalArgumentException("$currencySymbol is not supported")
       }
     }
 

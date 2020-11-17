@@ -34,12 +34,13 @@ class OneStepTransactionParser(
                 getAmount(oneStepUri, skuDetailsResponse.product),
                 Function5 { token: Token, iabContract: String, walletAddress: String,
                             tokenContract: String, amount: BigDecimal ->
+                  val product = skuDetailsResponse.product
                   TransactionBuilder(token.tokenInfo.symbol, tokenContract, getChainId(oneStepUri),
                       walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
                       iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, null,
                       getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
                       getOrderReference(oneStepUri), referrerUrl,
-                      skuDetailsResponse.product?.title.orEmpty()).shouldSendToken(true)
+                      product?.title.orEmpty()).shouldSendToken(true)
                 })
                 .map {
                   it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
@@ -88,7 +89,7 @@ class OneStepTransactionParser(
   }
 
   private fun getType(uri: OneStepUri): String {
-    return uri.parameters[Parameters.TYPE] ?: "INAPP_UNMANAGED"
+    return uri.parameters[Parameters.TYPE] ?: "INAPP"
   }
 
   private fun getChainId(uri: OneStepUri): Long {

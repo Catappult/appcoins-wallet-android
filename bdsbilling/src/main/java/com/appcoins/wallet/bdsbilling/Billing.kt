@@ -19,16 +19,17 @@ interface Billing {
 
   fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction>
 
-  fun getSkuPurchase(merchantName: String, sku: String?, scheduler: Scheduler,
+  fun getSkuPurchase(merchantName: String, sku: String?, purchaseUid: String?, scheduler: Scheduler,
                      type: BillingSupportedType): Single<Purchase>
 
   fun getPurchases(packageName: String, type: BillingSupportedType,
                    scheduler: Scheduler): Single<List<Purchase>>
 
   fun consumePurchases(merchantName: String, purchaseToken: String,
-                       scheduler: Scheduler): Single<Boolean>
+                       scheduler: Scheduler, type: BillingSupportedType?): Single<Boolean>
 
-  fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethodEntity>>
+  fun getPaymentMethods(transactionType: String? = null, value: String,
+                        currency: String): Single<List<PaymentMethodEntity>>
 
   enum class BillingSupportType {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR

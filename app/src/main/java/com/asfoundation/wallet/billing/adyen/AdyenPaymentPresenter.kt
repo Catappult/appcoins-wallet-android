@@ -9,8 +9,7 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
@@ -226,7 +225,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               when {
                 it.status == COMPLETED -> {
                   sendPaymentSuccessEvent()
-                  createBundle(it.hash, it.orderReference)
+                  createBundle(it.hash, it.orderReference, it.purchaseUid)
                       .doOnSuccess {
                         sendPaymentEvent()
                         sendRevenueEvent()
@@ -348,12 +347,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     )
   }
 
-  private fun buildRefusalReason(status: Status, message: String?): String {
+  private fun buildRefusalReason(status: PaymentModel.Status, message: String?): String {
     return message?.let { "$status : $it" } ?: status.toString()
   }
 
-  private fun isPaymentFailed(status: Status): Boolean {
-    return status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
+  private fun isPaymentFailed(status: PaymentModel.Status): Boolean {
+    return status == PaymentModel.Status.FAILED || status == CANCELED ||
+        status == PaymentModel.Status.INVALID_TRANSACTION || status == PaymentModel.Status.FRAUD
   }
 
   private fun handlePaymentDetails() {
@@ -543,10 +543,11 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     }
   }
 
-  private fun createBundle(hash: String?, orderReference: String?): Single<Bundle> {
+  private fun createBundle(hash: String?, orderReference: String?,
+                           purchaseUid: String?): Single<Bundle> {
     return transactionBuilder.flatMap {
       adyenPaymentInteractor.getCompletePurchaseBundle(transactionType, domain, it.skuId,
-          orderReference, hash, networkScheduler)
+          purchaseUid, orderReference, hash, networkScheduler)
     }
         .map { mapPaymentMethodId(it) }
   }

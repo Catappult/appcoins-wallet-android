@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.util
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
@@ -7,6 +8,7 @@ import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.view.WindowManager
+import com.asf.wallet.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -77,6 +79,26 @@ fun HttpException.getMessage(): String {
   val message = reader?.readText()
   reader?.close()
   return if (message.isNullOrBlank()) message() else message
+}
+
+fun String.mapToSubFrequency(context: Context?, price: String,
+                             currency: String): String? {
+  if (context != null && this.length == 3) {
+    val numberOfTimes = this[1].toString()
+    val frequency = this[2].toString()
+    if (numberOfTimes == "1") {
+      return when (frequency) {
+        "D" -> context.getString(R.string.subscriptions_per_day, price, currency)
+        "W" -> context.getString(R.string.subscriptions_per_week, price, currency)
+        "M" -> context.getString(R.string.subscriptions_per_month, price, currency)
+        "Y" -> context.getString(R.string.subscriptions_per_year, price, currency)
+        else -> null
+      }
+    } else {
+      context.getString(R.string.subscriptions_every_x_month, price, currency, numberOfTimes)
+    }
+  }
+  return null
 }
 
 inline fun <T> Iterable<T>.sumByBigDecimal(selector: (T) -> BigDecimal): BigDecimal {

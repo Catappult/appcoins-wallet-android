@@ -6,6 +6,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
+import com.appcoins.wallet.bdsbilling.repository.entity.Metadata
 import com.appcoins.wallet.commons.MemoryCache
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -35,6 +36,7 @@ class AppcoinsRewardsTest {
     private const val OEM_ADDRESS: String = "0x652d25ac09f79e9619fba99f34f0d8420d0956b1"
     private const val STORE_ADDRESS: String = "0x652d25ac09f79e9619fba99f34f0d8420d0956b1"
     private const val SKU: String = "cm.aptoide.pt:gas"
+    private const val PURCHASE_UID = "ve43f95meo"
     private val BALANCE: BigDecimal = BigDecimal(2)
     private const val TYPE: String = "INAPP"
     private const val TYPE_TRANSFER: String = "TRANSFER"
@@ -50,8 +52,10 @@ class AppcoinsRewardsTest {
   private lateinit var appcoinsRewards: AppcoinsRewards
 
   private val scheduler = TestScheduler()
+
   @Mock
   lateinit var billing: Billing
+
   @Mock
   lateinit var remoteApi: RemoteRepository
 
@@ -67,26 +71,27 @@ class AppcoinsRewardsTest {
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
+            Gateway.unknown(), "0x32453134",
+            Metadata(PURCHASE_UID), "orderReference", null, "")))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
+            Gateway.unknown(), "0x32453134", Metadata(PURCHASE_UID), "orderReference", null, "")))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, null, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
+            Gateway.unknown(), "0x32453134", Metadata(PURCHASE_UID), "orderReference", null, "")))
 
     `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
+            Gateway.unknown(), "0x32453134", Metadata(PURCHASE_UID), "orderReference", null, "")))
 
     scheduler.advanceTimeBy(1, TimeUnit.DAYS)
     scheduler.triggerActions()
@@ -122,9 +127,10 @@ class AppcoinsRewardsTest {
         .assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, BDS_ORIGIN, Transaction.Status.PROCESSING, null, null, null, null, null),
+            PRICE, BDS_ORIGIN, Transaction.Status.PROCESSING, null, null, null, null, null, null),
         Transaction(SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, BDS_ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null))
+            PRICE, BDS_ORIGIN, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null, null,
+            null))
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)
   }
@@ -145,9 +151,10 @@ class AppcoinsRewardsTest {
         .assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null),
+            PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null))
+            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null, null,
+            null))
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)
   }
@@ -168,9 +175,10 @@ class AppcoinsRewardsTest {
         .assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null),
+            PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null))
+            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null, null,
+            null))
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)
   }

@@ -176,12 +176,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                                iconUrl: String?, gamificationLevel: Int, frequency: String?) {
+                                iconUrl: String?, gamificationLevel: Int, isSubscription: Boolean,
+                                frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, getSkuDescription(), frequency))
+                bonus, isPreselected, gamificationLevel, getSkuDescription(), isSubscription,
+                frequency, "10/12/20"))
         .commit()
   }
 
@@ -208,16 +210,18 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showPaymentMethodsView() {
-    val isDonation = TransactionData.TransactionType.DONATION.name
-        .equals(transaction?.type, ignoreCase = true)
-    val isSubscription = TransactionData.TransactionType.SUBS.name
-        .equals(transaction?.type, ignoreCase = true)
+    val isDonation =
+        TransactionData.TransactionType.DONATION.name.equals(transaction?.type, ignoreCase = true)
+    val isSubscription =
+        TransactionData.TransactionType.INAPP_SUBSCRIPTION.name.equals(transaction?.type,
+            ignoreCase = true)
     layout_error.visibility = View.GONE
     fragment_container.visibility = View.VISIBLE
+
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getSkuDescription(), isBds, isDonation, developerPayload, uri,
-            intent.dataString, isSubscription, "Month"))
+            isSubscription, transaction?.subscriptionPeriod))
         .commit()
   }
 
@@ -398,7 +402,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
     @JvmStatic
     fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,
-                  isBds: Boolean?, developerPayload: String?): Intent {
+                  isBds: Boolean, developerPayload: String?): Intent {
       return Intent(activity, IabActivity::class.java)
           .apply {
             data = previousIntent.data

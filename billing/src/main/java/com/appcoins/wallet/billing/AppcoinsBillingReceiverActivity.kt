@@ -11,10 +11,7 @@ import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Scheduler
@@ -51,15 +48,15 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
           "application must implement ${BillingDependenciesProvider::class.java.simpleName}")
     }
     window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    serializer = ExternalBillingSerializer()
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
-    val bdsBilling = BdsBilling(BdsRepository(
-        RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
+    val bdsBilling = BdsBilling(
+        BdsRepository(RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(
+            SubscriptionsMapper(), InAppMapper(serializer)),
             dependenciesProvider.bdsApiSecondary(),
             dependenciesProvider.subscriptionBillingService())),
-        dependenciesProvider.walletService(),
-        BillingThrowableCodeMapper())
+        dependenciesProvider.walletService(), BillingThrowableCodeMapper())
 
-    serializer = ExternalBillingSerializer()
 
     proxyService = dependenciesProvider.proxyService()
     billingMessagesMapper = dependenciesProvider.billingMessagesMapper()
@@ -91,7 +88,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       1 -> getSkuDetails(apiVersion, packageName, billingType, args.getBundle("SKUS_BUNDLE"))
       2 -> getPurchases(apiVersion, packageName, billingType)
       3 -> getBuyIntent(apiVersion, packageName, sku, billingType, developerPayload)
-      4 -> consumePurchase(apiVersion, packageName, purchaseToken)
+      4 -> consumePurchase(apiVersion, packageName, purchaseToken, billingType)
       else -> {
         Log.w(TAG, "Unknown method id for: $methodId")
         return createReturnBundle(Bundle().apply {
@@ -102,7 +99,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
   }
 
   private fun consumePurchase(apiVersion: Int, packageName: String,
-                              purchaseToken: String?): Parcelable {
+                              purchaseToken: String?, type: String?): Parcelable {
     if (apiVersion != SUPPORTED_API_VERSION) {
       return Bundle().apply {
         putInt(RESULT_VALUE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
@@ -114,8 +111,9 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       result.putInt(RESULT_VALUE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
       return result
     }
+    val billingType = type?.let { BillingSupportedType.valueOfItemType(it) }
     result.putInt(RESULT_VALUE, try {
-      billing.consumePurchases(purchaseToken, packageName)
+      billing.consumePurchases(purchaseToken, packageName, billingType)
           .map { AppcoinsBillingBinder.RESULT_OK }
           .blockingGet()
     } catch (exception: Exception) {
@@ -137,7 +135,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     requireNotNull(sku!!)
 
     val type = try {
-      BillingSupportedType.valueOfInsensitive(billingType)
+      BillingSupportedType.valueOfItemType(billingType)
     } catch (e: Exception) {
       return Bundle().apply {
         putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
@@ -158,9 +156,11 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
             getDeveloperAddress,
             Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
               try {
-                intentBuilder.buildBuyIntentBundle(tokenContractAddress, iabContractAddress,
-                    developerPayload, true, packageName, developerAddress, skuDetails[0].sku,
-                    BigDecimal(skuDetails[0].price.appcoinsAmount), skuDetails[0].title)
+                val product = skuDetails[0]
+                intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress,
+                    iabContractAddress, developerPayload, true, packageName, developerAddress,
+                    product.sku, BigDecimal(product.price.appcoinsAmount), product.title,
+                    product.subscriptionPeriod, product.trialPeriod)
               } catch (exception: Exception) {
                 if (skuDetails.isEmpty()) {
                   billingMessagesMapper.mapBuyIntentError(
@@ -202,7 +202,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     val type =
         billingType?.let {
           try {
-            BillingSupportedType.valueOfInsensitive(billingType)
+            BillingSupportedType.valueOfItemType(billingType)
           } catch (e: Exception) {
             return Bundle().apply {
               putInt(
@@ -217,7 +217,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
 
       purchases.forEach { purchase: Purchase ->
         idsList.add(purchase.uid)
-        dataList.add(serializer.serializeSignatureData(purchase))
+        dataList.add(purchase.signature.message)
         signatureList.add(purchase.signature.value)
         skuList.add(purchase.product.name)
       }
@@ -256,7 +256,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }
 
     val type = try {
-      BillingSupportedType.valueOfInsensitive(billingType)
+      BillingSupportedType.valueOfItemType(billingType)
     } catch (e: Exception) {
       with(result) {
         putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)

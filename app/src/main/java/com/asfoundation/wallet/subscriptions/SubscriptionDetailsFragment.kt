@@ -13,6 +13,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.target.SizeReadyCallback
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -56,17 +57,9 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     presenter.present(packageName)
   }
 
-  override fun getBackClicks() = RxView.clicks(back_button)
-
   override fun getCancelClicks() = RxView.clicks(cancel_subscription)
 
-  override fun cancelSubscription() {
-    activity.showCancelSubscription(packageName)
-  }
-
-  override fun navigateBack() {
-    activity.navigateBack()
-  }
+  override fun cancelSubscription() = activity.showCancelSubscription(packageName)
 
   override fun setActiveDetails(subscriptionDetails: ActiveSubscriptionDetails) {
     layout_expired_subscription_content.visibility = View.GONE
@@ -74,19 +67,21 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     layout_active_subscription_content.visibility = View.VISIBLE
     context?.let {
       status.setTextColor(ContextCompat.getColor(it, R.color.green))
+      GlideApp.with(it)
+          .asBitmap()
+          .load(subscriptionDetails.iconUrl)
+          .into(target)
+      GlideApp.with(it)
+          .asBitmap()
+          .load(subscriptionDetails.iconUrl)
+          .into(target)
+      GlideApp.with(it)
+          .load(subscriptionDetails.paymentMethodUrl)
+          .into(layout_active_subscription_content.payment_method_icon)
     }
 
-    GlideApp.with(context!!)
-        .asBitmap()
-        .load(subscriptionDetails.iconUrl)
-        .into(target)
-
-    GlideApp.with(context!!)
-        .load(subscriptionDetails.paymentMethodUrl)
-        .into(layout_active_subscription_content.payment_method_icon)
-
     app_name.text = subscriptionDetails.appName
-    status.text = "ACTIVE"
+    status.text = getString(R.string.subscriptions_active_title)
     total_value.text = String.format("%s / %s",
         subscriptionDetails.symbol + subscriptionDetails.amount.setScale(FIAT_SCALE,
             RoundingMode.FLOOR), subscriptionDetails.recurrence)
@@ -96,27 +91,23 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
     layout_active_subscription_content.payment_method_value.text = subscriptionDetails.paymentMethod
 
-
     if (subscriptionDetails.expiresOn != null) {
       setExpireOnDetails(subscriptionDetails)
-
     } else if (subscriptionDetails.nextPayment != null) {
       next_payment_value.text = getDateString(subscriptionDetails.nextPayment)
     }
   }
 
-  private fun setExpireOnDetails(
-      subscriptionDetails: ActiveSubscriptionDetails) {
+  private fun setExpireOnDetails(subscriptionDetails: ActiveSubscriptionDetails) {
     expires_on.visibility = View.VISIBLE
     cancel_subscription.visibility = View.GONE
-    next_payment_value.text = "Canceled"
+    next_payment_value.text = getString(R.string.subscriptions_canceled_body)
     next_payment_value.setTextColor(resources.getColor(R.color.red))
 
     val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
 
-    expires_on.text =
-        String.format("Canceled - It expires on %s",
-            dateFormat.format(subscriptionDetails.expiresOn))
+    expires_on.text = getString(R.string.subscriptions_details_cancelled_body,
+        dateFormat.format(subscriptionDetails.expiresOn))
 
     info.visibility = View.GONE
     info_text.visibility = View.GONE
@@ -130,19 +121,17 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     cancel_subscription.visibility = View.GONE
     context?.let {
       status.setTextColor(ContextCompat.getColor(it, R.color.red))
+      GlideApp.with(it)
+          .asBitmap()
+          .load(subscriptionDetails.iconUrl)
+          .into(target)
+      GlideApp.with(it)
+          .load(subscriptionDetails.paymentMethodUrl)
+          .into(layout_expired_subscription_content.payment_method_icon)
     }
 
-    GlideApp.with(context!!)
-        .asBitmap()
-        .load(subscriptionDetails.iconUrl)
-        .into(target)
-
-    GlideApp.with(context!!)
-        .load(subscriptionDetails.paymentMethodUrl)
-        .into(layout_expired_subscription_content.payment_method_icon)
-
     app_name.text = subscriptionDetails.appName
-    status.text = "EXPIRED"
+    status.text = getString(R.string.subscriptions_expired_title)
 
     last_bill_value.text = getDateString(subscriptionDetails.lastBill)
     start_date_value.text = getDateString(subscriptionDetails.startDate)
@@ -223,7 +212,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
         .toString()
   }
 
-  private val target = object : com.bumptech.glide.request.target.Target<Bitmap> {
+  private val target = object : Target<Bitmap> {
 
     override fun onLoadStarted(placeholder: Drawable?) {
       app_icon.visibility = View.GONE
@@ -239,27 +228,8 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     }
 
     override fun getSize(cb: SizeReadyCallback) {
-      cb.onSizeReady(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL,
-          com.bumptech.glide.request.target.Target.SIZE_ORIGINAL)
-    }
-
-    override fun getRequest(): Request? {
-      return null
-    }
-
-    override fun setRequest(request: Request?) {
-    }
-
-    override fun removeCallback(cb: SizeReadyCallback) {
-    }
-
-    override fun onLoadCleared(placeholder: Drawable?) {
-    }
-
-    override fun onStart() {
-    }
-
-    override fun onDestroy() {
+      cb.onSizeReady(Target.SIZE_ORIGINAL,
+          Target.SIZE_ORIGINAL)
     }
 
     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
@@ -268,8 +238,13 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
       app_icon.setImageBitmap(resource)
     }
 
-    override fun onStop() {
-    }
+    override fun getRequest(): Request? = null
+    override fun setRequest(request: Request?) = Unit
+    override fun removeCallback(cb: SizeReadyCallback) = Unit
+    override fun onLoadCleared(placeholder: Drawable?) = Unit
+    override fun onStart() = Unit
+    override fun onDestroy() = Unit
+    override fun onStop() = Unit
   }
 
   companion object {

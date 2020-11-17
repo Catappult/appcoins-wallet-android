@@ -42,14 +42,17 @@ interface PaymentMethodsView {
 
   fun getBuyClick(): Observable<Any>
 
-  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?)
+  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                 isSubscription: Boolean)
 
   fun showAdyen(fiatAmount: BigDecimal,
                 fiatCurrency: String,
                 paymentType: PaymentType,
-                iconUrl: String?, gamificationLevel: Int, frequency: String?)
+                iconUrl: String?, gamificationLevel: Int, frequency: String?,
+                isSubscription: Boolean)
 
-  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?)
+  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                     isSubscription: Boolean)
 
   fun showAppCoins(gamificationLevel: Int)
 
@@ -111,6 +114,5 @@ interface PaymentMethodsView {
     MERGED_APPC("merged_appcoins"),
     CREDIT_CARD("credit_card"),
     ASK_FRIEND("ask_friend")
-
   }
 }

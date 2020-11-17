@@ -7,17 +7,16 @@ import androidx.recyclerview.widget.ListAdapter
 import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
-class SubscriptionAdapter(
-    private var clickListener: PublishSubject<String>?
-) : ListAdapter<SubscriptionItem, SubscriptionViewHolder>(
-    object : DiffUtil.ItemCallback<SubscriptionItem>() {
-      override fun areItemsTheSame(oldItem: SubscriptionItem, newItem: SubscriptionItem) =
-          oldItem.appName == newItem.appName
+class SubscriptionAdapter(private var clickListener: PublishSubject<String>?) :
+    ListAdapter<SubscriptionItem, SubscriptionViewHolder>(
+        object : DiffUtil.ItemCallback<SubscriptionItem>() {
+          override fun areItemsTheSame(oldItem: SubscriptionItem, newItem: SubscriptionItem) =
+              oldItem.appName == newItem.appName
 
-      override fun areContentsTheSame(oldItem: SubscriptionItem, newItem: SubscriptionItem) =
-          oldItem == newItem
-    }
-) {
+          override fun areContentsTheSame(oldItem: SubscriptionItem, newItem: SubscriptionItem) =
+              oldItem == newItem
+        }
+    ) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriptionViewHolder {
     val view = LayoutInflater.from(parent.context)

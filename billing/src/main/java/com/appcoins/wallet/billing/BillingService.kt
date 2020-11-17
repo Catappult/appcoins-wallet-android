@@ -8,9 +8,7 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingFactory
 import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.*
 import io.reactivex.schedulers.Schedulers
 
 class BillingService : Service() {
@@ -24,19 +22,21 @@ class BillingService : Service() {
 
   override fun onBind(intent: Intent): IBinder {
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
+    val serializer = ExternalBillingSerializer()
     return AppcoinsBillingBinder(dependenciesProvider.supportedVersion(),
         dependenciesProvider.billingMessagesMapper(),
         packageManager,
         object : BillingFactory {
           override fun getBilling(): Billing {
             return BdsBilling(BdsRepository(
-                RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
+                RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(
+                    SubscriptionsMapper(), InAppMapper(serializer)),
                     dependenciesProvider.bdsApiSecondary(),
                     dependenciesProvider.subscriptionBillingService())),
                 dependenciesProvider.walletService(),
                 BillingThrowableCodeMapper())
           }
-        }, ExternalBillingSerializer(), dependenciesProvider.proxyService(),
+        }, serializer, dependenciesProvider.proxyService(),
         BillingIntentBuilder(applicationContext), Schedulers.io())
   }
 }

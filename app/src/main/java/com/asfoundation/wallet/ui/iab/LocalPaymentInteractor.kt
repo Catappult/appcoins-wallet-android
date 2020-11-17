@@ -4,8 +4,8 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -87,19 +87,16 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
           status == INVALID_TRANSACTION
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
+                                purchaseUid: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
-    return if (isValidType(type) && sku != null) {
-      val billingType = BillingSupportedType.valueOfInsensitive(type)
-      billing.getSkuPurchase(merchantName, sku, scheduler, billingType)
+    val billingType = BillingSupportedType.valueOfInsensitive(type)
+    return if (isManagedType(billingType) && sku != null) {
+      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
     }
-  }
-
-  private fun isValidType(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true) || type.equals("SUBS", ignoreCase = true)
   }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {
@@ -108,6 +105,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun saveAsyncLocalPayment(paymentMethod: String) {
     inAppPurchaseInteractor.saveAsyncLocalPayment(paymentMethod)
+  }
+
+  private fun isManagedType(type: BillingSupportedType): Boolean {
+    return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION
   }
 
   fun showSupport(gamificationLevel: Int): Completable {

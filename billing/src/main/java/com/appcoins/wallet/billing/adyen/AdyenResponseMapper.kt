@@ -6,6 +6,8 @@ import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.model.payments.response.RedirectAction
 import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
@@ -54,14 +56,44 @@ class AdyenResponseMapper {
     }
     return PaymentModel(adyenResponse?.resultCode, adyenResponse?.refusalReason,
         adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl,
-        action?.paymentData, response.uid, response.hash, response.orderReference,
-        response.status, response.metadata?.errorMessage, response.metadata?.errorCode)
+        action?.paymentData, response.uid, null, response.hash, response.orderReference,
+        map(response.status), response.metadata?.errorMessage, response.metadata?.errorCode)
   }
 
-  fun map(response: TransactionResponse): PaymentModel {
-    return PaymentModel("", null, null, null, "", "", response.uid, response.hash,
-        response.orderReference, response.status, response.metadata?.errorMessage,
-        response.metadata?.errorCode)
+  private fun map(status: TransactionResponse.Status): PaymentModel.Status {
+    return when (status) {
+      TransactionResponse.Status.PENDING -> PENDING
+      TransactionResponse.Status.PENDING_SERVICE_AUTHORIZATION -> PENDING_SERVICE_AUTHORIZATION
+      TransactionResponse.Status.SETTLED -> SETTLED
+      TransactionResponse.Status.PROCESSING -> PROCESSING
+      TransactionResponse.Status.COMPLETED -> COMPLETED
+      TransactionResponse.Status.PENDING_USER_PAYMENT -> PENDING_USER_PAYMENT
+      TransactionResponse.Status.INVALID_TRANSACTION -> INVALID_TRANSACTION
+      TransactionResponse.Status.FAILED -> FAILED
+      TransactionResponse.Status.CANCELED -> CANCELED
+      TransactionResponse.Status.FRAUD -> FRAUD
+    }
+  }
+
+  fun map(response: Transaction): PaymentModel {
+    return PaymentModel("", null, null, null, "", "",
+        response.uid, response.metadata?.purchaseUid,
+        response.hash, response.orderReference, map(response.status))
+  }
+
+  private fun map(status: Transaction.Status): PaymentModel.Status {
+    return when (status) {
+      Transaction.Status.PENDING -> PENDING
+      Transaction.Status.PENDING_SERVICE_AUTHORIZATION -> PENDING_SERVICE_AUTHORIZATION
+      Transaction.Status.SETTLED -> SETTLED
+      Transaction.Status.PROCESSING -> PROCESSING
+      Transaction.Status.COMPLETED -> COMPLETED
+      Transaction.Status.PENDING_USER_PAYMENT -> PENDING_USER_PAYMENT
+      Transaction.Status.INVALID_TRANSACTION -> INVALID_TRANSACTION
+      Transaction.Status.FAILED -> FAILED
+      Transaction.Status.CANCELED -> CANCELED
+      Transaction.Status.FRAUD -> FRAUD
+    }
   }
 
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {

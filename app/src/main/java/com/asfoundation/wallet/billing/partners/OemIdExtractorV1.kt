@@ -5,8 +5,7 @@ import io.reactivex.Single
 import java.util.*
 import java.util.zip.ZipFile
 
-class OemIdExtractorV1(private val context: Context) :
-    IExtractOemId {
+class OemIdExtractorV1(private val context: Context) : IExtractOemId {
   override fun extract(packageName: String): Single<String> {
     return Single.create {
       try {

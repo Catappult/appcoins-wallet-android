@@ -147,13 +147,13 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesBillingPaymentProofSubmission(api: BdsApi, walletService: WalletService,
-                                            subscriptionBillingService: SubscriptionBillingService,
+                                            subscriptionBillingApi: SubscriptionBillingApi,
                                             bdsApi: BdsApiSecondary): BillingPaymentProofSubmission {
     return BillingPaymentProofSubmissionImpl.Builder()
         .setApi(api)
         .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
-        .setSubscriptionBillingService(subscriptionBillingService)
+        .setSubscriptionBillingService(subscriptionBillingApi)
         .build()
   }
 

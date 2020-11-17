@@ -1,10 +1,9 @@
 package com.appcoins.wallet.bdsbilling
 
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.TransactionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
@@ -23,14 +22,15 @@ interface BdsApi {
   fun getSkuPurchase(@Path("packageName") packageName: String,
                      @Path("skuId") skuId: String?,
                      @Query("wallet.address") walletAddress: String,
-                     @Query("wallet.signature") walletSignature: String): Single<Purchase>
+                     @Query("wallet.signature")
+                     walletSignature: String): Single<InappPurchaseResponse>
 
-  @GET("broker/8.20180518/transactions")
+  @GET("broker/8.20200101/transactions")
   fun getSkuTransaction(
       @Query("wallet.address") walletAddress: String,
       @Query("wallet.signature") walletSignature: String,
       @Query("cursor") cursor: Long,
-      @Query("type") type: TransactionType,
+      @Query("type") type: BillingSupportedType,
       @Query("limit") limit: Long,
       @Query("sort.name") sort: String,
       @Query("sort.reverse") isReverse: Boolean,
@@ -38,7 +38,7 @@ interface BdsApi {
       @Query("domain") packageName: String
   ): Single<TransactionsResponse>
 
-  @GET("broker/8.20180518/transactions/{uId}")
+  @GET("broker/8.20200101/transactions/{uId}")
   fun getAppcoinsTransaction(@Path("uId") uId: String,
                              @Query("wallet.address") walletAddress: String,
                              @Query("wallet.signature")
@@ -67,7 +67,8 @@ interface BdsApi {
    *
    */
   @GET("broker/8.20200720/methods")
-  fun getPaymentMethods(@Query("price.value") value: String? = null,
+  fun getPaymentMethods(@Query("transaction.type") transactionType: String? = null,
+                        @Query("price.value") value: String? = null,
                         @Query("price.currency") currency: String? = null,
                         @Query("currency.type") type: String? = null,
                         @Query("direct") direct: Boolean? = null

@@ -194,7 +194,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
     return localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
-        transaction.orderReference, transaction.hash, networkScheduler)
+        transaction.metadata?.purchaseUid, transaction.orderReference, transaction.hash,
+        networkScheduler)
         .doOnSuccess {
           analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
           analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,

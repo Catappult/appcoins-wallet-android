@@ -1,9 +1,6 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.BdsApi
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
-import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
-import com.appcoins.wallet.bdsbilling.merge
+import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.entity.*
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -15,7 +12,7 @@ import java.util.*
 class RemoteRepository(private val inAppApi: BdsApi,
                        private val responseMapper: BdsApiResponseMapper,
                        private val bdsApiSecondary: BdsApiSecondary,
-                       private val subsApi: SubscriptionBillingService
+                       private val subsApi: SubscriptionBillingApi
 ) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
@@ -29,8 +26,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   internal fun isBillingSupportedSubs(packageName: String): Single<Boolean> {
-    return subsApi.getPackage(packageName)
-        .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
+    return subsApi.getPackage(
+        packageName) // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
 
   internal fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
@@ -60,10 +57,12 @@ class RemoteRepository(private val inAppApi: BdsApi,
   private fun requestSkusDetailsSubs(packageName: String,
                                      skus: List<String>): Single<SubscriptionsResponse> {
     return if (skus.size <= SKUS_SUBS_DETAILS_REQUEST_LIMIT) {
-      subsApi.getSubscriptions(packageName, skus)
+      subsApi.getSubscriptions(Locale.getDefault()
+          .toLanguageTag(), packageName, skus)
     } else {
       Single.zip(
-          subsApi.getSubscriptions(packageName, skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT)),
+          subsApi.getSubscriptions(Locale.getDefault()
+              .toLanguageTag(), packageName, skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT)),
           requestSkusDetailsSubs(packageName, skus.drop(SKUS_SUBS_DETAILS_REQUEST_LIMIT)),
           BiFunction { firstResponse: SubscriptionsResponse, secondResponse: SubscriptionsResponse ->
             firstResponse.merge(secondResponse)
@@ -74,17 +73,18 @@ class RemoteRepository(private val inAppApi: BdsApi,
   internal fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
     return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+        .map { responseMapper.map(packageName, it) }
   }
 
-  internal fun getSkuPurchaseSubs(packageName: String, skuId: String?): Single<Purchase> {
-    return subsApi.getPurchases(packageName)
-        .map { it.items.filter { purchase -> purchase.sku == skuId } }
-        .map { responseMapper.map(packageName, it.first()) }
+  internal fun getSkuPurchaseSubs(packageName: String, purchaseUid: String, walletAddress: String,
+                                  walletSignature: String): Single<Purchase> {
+    return subsApi.getPurchase(packageName, purchaseUid, walletAddress, walletSignature)
+        .map { responseMapper.map(packageName, it) }
   }
 
   internal fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
                                  walletSignature: String,
-                                 type: TransactionType): Single<TransactionsResponse> {
+                                 type: BillingSupportedType): Single<TransactionsResponse> {
     return inAppApi.getSkuTransaction(walletAddress, walletSignature, 0, type, 1,
         "latest", false, skuId, packageName)
   }
@@ -93,11 +93,12 @@ class RemoteRepository(private val inAppApi: BdsApi,
                             walletSignature: String): Single<List<Purchase>> {
     return inAppApi.getPurchases(packageName, walletAddress, walletSignature,
         BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
-        .map { responseMapper.map(it) }
+        .map { responseMapper.map(packageName, it) }
   }
 
-  internal fun getPurchasesSubs(packageName: String): Single<List<Purchase>> {
-    return subsApi.getPurchases(packageName)
+  internal fun getPurchasesSubs(packageName: String, walletAddress: String,
+                                walletSignature: String): Single<List<Purchase>> {
+    return subsApi.getPurchases(packageName, walletAddress, walletSignature)
         .map { responseMapper.map(packageName, it) }
   }
 
@@ -105,6 +106,14 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                walletSignature: String): Single<Boolean> {
     return inAppApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
         Consumed())
+        .toSingle { true }
+  }
+
+  internal fun consumePurchaseSubs(packageName: String, purchaseToken: String,
+                                   walletAddress: String,
+                                   walletSignature: String): Single<Boolean> {
+    return subsApi.updatePurchase(packageName, purchaseToken, walletAddress, walletSignature,
+        PurchaseUpdate(PurchaseState.CONSUMED))
         .toSingle { true }
   }
 
@@ -126,11 +135,12 @@ class RemoteRepository(private val inAppApi: BdsApi,
         paymentProof)
   }
 
-  internal fun getPaymentMethods(value: String?,
+  internal fun getPaymentMethods(transactionType: String?,
+                                 value: String?,
                                  currency: String?,
                                  currencyType: String?,
                                  direct: Boolean? = null): Single<List<PaymentMethodEntity>> {
-    return inAppApi.getPaymentMethods(value, currency, currencyType, direct)
+    return inAppApi.getPaymentMethods(transactionType, value, currency, currencyType, direct)
         .map { responseMapper.map(it) }
   }
 

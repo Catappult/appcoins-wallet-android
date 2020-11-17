@@ -30,7 +30,7 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
           callbackUrl: String?, orderReference: String?, referrerUrl: String?): Completable {
     return cache.save(getKey(amount.toString(), sku, packageName),
         Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
-            origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference,
+            origin, Transaction.Status.PENDING, null, null, payload, callbackUrl, orderReference,
             referrerUrl))
   }
 
@@ -59,6 +59,7 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
                             waitTransactionCompletion(transaction1).andThen {
                               val tx = Transaction(transaction, Transaction.Status.COMPLETED)
                               tx.txId = transaction1.hash
+                              tx.purchaseUid = transaction1.metadata?.purchaseUid
                               cache.saveSync(getKey(tx), tx)
                             }
                           }

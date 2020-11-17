@@ -44,6 +44,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.mapToSubFrequency
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -271,6 +272,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showSuccess() {
     iab_activity_transaction_completed.visibility = VISIBLE
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
+    if (isSubscription) next_payment_date.visibility = VISIBLE
     if (isPreSelected) {
       main_view?.visibility = GONE
       main_view_pre_selected?.visibility = GONE
@@ -365,7 +367,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showProductPrice(amount: String, currencyCode: String) {
     var fiatText = "$amount $currencyCode"
-    frequency?.let { fiatText = "$fiatText/$it" }
+    if (isSubscription && frequency != null) {
+      frequency?.mapToSubFrequency(context, amount, currency)
+          ?.let { fiatText = it }
+      appc_price.text = "~${appc_price.text}"
+    }
     fiat_price.text = fiatText
     fiat_price_skeleton.visibility = GONE
     appc_price_skeleton.visibility = GONE
@@ -567,6 +573,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
       lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation)
+      if (isSubscription) {
+        val nextPaymentText = getString(R.string.subscriptions_details_next_payment_title)
+        next_payment_date.text = "$nextPaymentText $nextPaymentDate"
+      }
       setupTransactionCompleteAnimation()
     } else {
       lottie_transaction_success.setAnimation(R.raw.success_animation)
@@ -586,9 +596,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true) -> {
         buy_button.setText(R.string.action_donate)
       }
-      transactionType.equals(TransactionData.TransactionType.SUBS.name, ignoreCase = true) -> {
-        buy_button.text = "Subscribe"
-      }
+      transactionType.equals(TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
+          ignoreCase = true) -> buy_button.text = "Subscribe"
+      //TODO Change string hardcode for resources
       else -> {
         buy_button.setText(R.string.action_buy)
       }
@@ -621,7 +631,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val CURRENCY_KEY = "currency"
     private const val BONUS_KEY = "bonus"
     private const val PRE_SELECTED_KEY = "pre_selected"
+    private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
+    private const val NEXT_PAYMENT_DATE = "next_payment_date"
     private const val CARD_NUMBER_KEY = "card_number"
     private const val EXPIRY_DATE_KEY = "expiry_date"
     private const val CVV_KEY = "cvv_key"
@@ -634,7 +646,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
                     origin: String?, transactionData: String?, appcAmount: BigDecimal,
                     amount: BigDecimal, currency: String?, bonus: String?,
                     isPreSelected: Boolean, gamificationLevel: Int,
-                    skuDescription: String, frequency: String?): AdyenPaymentFragment {
+                    skuDescription: String, isSubscription:
+                    Boolean, frequency: String?, nextPaymentDate: String?): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
@@ -649,7 +662,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         putBoolean(PRE_SELECTED_KEY, isPreSelected)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
         putString(SKU_DESCRIPTION, skuDescription)
+        putBoolean(IS_SUBSCRIPTION, isSubscription)
         putString(FREQUENCY, frequency)
+        putString(NEXT_PAYMENT_DATE, nextPaymentDate)
         fragment.arguments = this
       }
       return fragment
@@ -752,9 +767,25 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     }
   }
 
+  private val isSubscription: Boolean by lazy {
+    if (arguments!!.containsKey(IS_SUBSCRIPTION)) {
+      arguments!!.getBoolean(IS_SUBSCRIPTION)
+    } else {
+      throw IllegalArgumentException("isSubscription data not found")
+    }
+  }
+
   private val frequency: String? by lazy {
     if (arguments!!.containsKey(FREQUENCY)) {
       arguments!!.getString(FREQUENCY)
+    } else {
+      null
+    }
+  }
+
+  private val nextPaymentDate: String? by lazy {
+    if (arguments!!.containsKey(NEXT_PAYMENT_DATE)) {
+      arguments!!.getString(NEXT_PAYMENT_DATE)
     } else {
       null
     }

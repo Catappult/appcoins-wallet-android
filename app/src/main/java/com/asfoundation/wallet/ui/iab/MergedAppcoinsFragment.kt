@@ -25,6 +25,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.mapToSubFrequency
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -248,8 +249,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHeaderInformation()
-    buy_button.text = setBuyButtonText()
-    cancel_button.text = getString(R.string.back_button)
+    setButtonsText()
     setBonus()
     iabView.disableBack()
     mergedAppcoinsPresenter.present(savedInstanceState)
@@ -266,9 +266,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setBuyButtonText(): String {
-    return if (isSubscription) {
-      "Subscribe"
-    } else {
+    return if (isSubscription) "Subscribe"
+    else {
       if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
     }
   }
@@ -292,33 +291,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setHeaderInformation() {
-    if (isDonation) {
-      app_name.text = getString(R.string.item_donation)
-      app_sku_description.text = getString(R.string.item_donation)
-    } else {
-      app_name.text = getApplicationName(appName)
-      app_sku_description.text = productName
-    }
-    try {
-      app_icon.setImageDrawable(context!!.packageManager
-          .getApplicationIcon(appName))
-    } catch (e: PackageManager.NameNotFoundException) {
-      e.printStackTrace()
-    }
-    var appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
-        .plus(" " + WalletCurrency.APPCOINS.symbol)
-    var fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
-        .plus(" $currency")
-    if (isSubscription) {
-      fiatText += "/$frequency"
-      appcText = "~$appcText"
-    }
-    fiat_price.text = fiatText
-    appc_price.text = appcText
-    fiat_price_skeleton.visibility = GONE
-    appc_price_skeleton.visibility = GONE
-    fiat_price.visibility = VISIBLE
-    appc_price.visibility = VISIBLE
+    setNameAndDescription()
+    setAppIcon()
+    setPriceInformation()
   }
 
   override fun setPaymentsInformation(hasCredits: Boolean, creditsDisableReason: Int?,
@@ -447,10 +422,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         }
   }
 
-
-  override fun getPaymentSelection(): Observable<String> {
-    return paymentSelectionSubject!!
-  }
+  override fun getPaymentSelection() = paymentSelectionSubject!!
 
   override fun hideBonus() {
     bonus_layout?.visibility = INVISIBLE
@@ -558,5 +530,48 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onDestroy() {
     paymentSelectionSubject = null
     super.onDestroy()
+  }
+
+  private fun setNameAndDescription() {
+    if (isDonation) {
+      app_name.text = getString(R.string.item_donation)
+      app_sku_description.text = getString(R.string.item_donation)
+    } else {
+      app_name.text = getApplicationName(appName)
+      app_sku_description.text = productName
+    }
+  }
+
+  private fun setAppIcon() {
+    try {
+      app_icon.setImageDrawable(context!!.packageManager
+          .getApplicationIcon(appName))
+    } catch (e: PackageManager.NameNotFoundException) {
+      e.printStackTrace()
+    }
+  }
+
+
+  private fun setPriceInformation() {
+    var appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
+        .plus(" " + WalletCurrency.APPCOINS.symbol)
+    var fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
+        .plus(" $currency")
+    if (isSubscription && frequency != null) {
+      frequency?.mapToSubFrequency(context, fiatAmount.toString(), currency)
+          ?.let { fiatText = it }
+      appcText = "~$appcText"
+    }
+    fiat_price.text = fiatText
+    appc_price.text = appcText
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
+    fiat_price.visibility = VISIBLE
+    appc_price.visibility = VISIBLE
+  }
+
+  private fun setButtonsText() {
+    buy_button.text = setBuyButtonText()
+    cancel_button.text = getString(R.string.back_button)
   }
 }

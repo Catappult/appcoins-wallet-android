@@ -47,7 +47,7 @@
       android:fillViewport="true"
       android:overScrollMode="never"
       android:scrollbars="none"
-      app:layout_constraintBottom_toTopOf="@id/bottom_buttons"
+      app:layout_constraintBottom_toTopOf="@id/cancel_subscription"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.0"
       >
@@ -119,7 +119,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/normal_margin"
-          android:background="@drawable/view_border"
           android:textColor="@color/red"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="@id/status"
@@ -206,7 +205,7 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="8dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:text="APPC value can be volatile, the value shown may not match  the next  payment"
+          android:text="@string/subscriptions_details_disclaimer"
           android:textSize="10sp"
           app:layout_constraintBottom_toBottomOf="@id/info"
           app:layout_constraintEnd_toEndOf="parent"
@@ -218,48 +217,24 @@
 
   </ScrollView>
 
-  <LinearLayout
-      android:id="@+id/bottom_buttons"
+  <Button
+      android:id="@+id/cancel_subscription"
+      style="@style/ButtonStyle.Light"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="8dp"
+      android:minWidth="64dp"
+      android:minHeight="36dp"
       android:orientation="vertical"
+      android:text="@string/subscriptions_cancel_button"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      >
-
-    <Button
-        android:id="@+id/cancel_subscription"
-        style="@style/ButtonStyle.Light"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:layout_marginBottom="8dp"
-        android:minWidth="64dp"
-        android:minHeight="36dp"
-        android:text="Cancel Subscription"
-        android:visibility="gone"
-        tools:visibility="visible"
-        />
-
-    <Button
-        android:id="@+id/back_button"
-        style="@style/ButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:layout_marginBottom="24dp"
-        android:maxWidth="126dp"
-        android:minWidth="80dp"
-        android:text="@string/back_button"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        />
-
-  </LinearLayout>
+      tools:visibility="visible"
+      />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/layout_guideline"

@@ -5,15 +5,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
-import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.BuildConfig;
@@ -46,7 +43,6 @@ public class InAppPurchaseInteractor {
   private static final long EARN_APPCOINS_APTOIDE_VERCODE = 9961;
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
-  private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
@@ -54,13 +50,11 @@ public class InAppPurchaseInteractor {
   private final BackupInteractContract backupInteract;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
-      SharedPreferences sharedPreferences, PackageManager packageManager,
+      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor, AppcoinsRewards appcoinsRewards,
+      Billing billing, SharedPreferences sharedPreferences, PackageManager packageManager,
       BackupInteractContract backupInteract) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
-    this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
@@ -157,8 +151,9 @@ public class InAppPurchaseInteractor {
   }
 
   private Single<Purchase> getCompletedPurchase(String packageName, String productName,
-      String type) {
-    return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName, type);
+      String purchaseUid, String type) {
+    return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName, purchaseUid,
+        type);
   }
 
   Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
@@ -166,7 +161,8 @@ public class InAppPurchaseInteractor {
       if (isBds && transactionBuilder.getType()
           .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
         return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId(),
-            transactionBuilder.getType()).map(purchase -> mapToBdsPayment(transaction, purchase))
+            transaction.getPurchaseUid(), transactionBuilder.getType()).map(
+            purchase -> mapToBdsPayment(transaction, purchase))
             .observeOn(AndroidSchedulers.mainThread())
             .flatMap(payment -> remove(transaction.getUri()).toSingleDefault(payment));
       } else {
@@ -178,9 +174,10 @@ public class InAppPurchaseInteractor {
 
   private Payment mapToBdsPayment(Payment transaction, Purchase purchase) {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
-        purchase.getSignature()
-            .getValue(), billingSerializer.serializeSignatureData(purchase),
-        transaction.getOrderReference(), transaction.getErrorCode(), transaction.getErrorMessage());
+        transaction.getPurchaseUid(), purchase.getSignature()
+        .getValue(), purchase.getSignature()
+        .getMessage(), transaction.getOrderReference(), transaction.getErrorCode(),
+        transaction.getErrorMessage());
   }
 
   public Single<Boolean> isWalletFromBds(String packageName, String wallet) {
@@ -244,7 +241,8 @@ public class InAppPurchaseInteractor {
 
   Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
       String transactionValue, String currency) {
-    return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency)
+    return bdsInAppPurchaseInteractor.getPaymentMethods(transaction.getType(), transactionValue,
+        currency)
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))

@@ -10,7 +10,8 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.COMPLETED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.PENDING_USER_PAYMENT
 import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
@@ -325,7 +326,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           handleErrors(paymentModel, appcValue.toDouble())
         }
       }
-      paymentModel.status == CANCELED -> Completable.fromAction {
+      paymentModel.status == PaymentModel.Status.CANCELED -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error", "",
             "canceled")
         view.cancelPayment()
@@ -405,7 +406,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun buildRefusalReason(status: Status, message: String?): String {
+  private fun buildRefusalReason(status: PaymentModel.Status, message: String?): String {
     return message?.let { "$status : $it" } ?: status.toString()
   }
 

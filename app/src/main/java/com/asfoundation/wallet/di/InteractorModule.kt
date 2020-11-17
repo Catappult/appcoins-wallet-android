@@ -10,7 +10,6 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -192,8 +191,7 @@ class InteractorModule {
                                          packageManager: PackageManager,
                                          backupInteract: BackupInteractContract): InAppPurchaseInteractor {
     return InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences, packageManager,
-        backupInteract)
+        appcoinsRewards, billing, sharedPreferences, packageManager, backupInteract)
   }
 
   @Provides

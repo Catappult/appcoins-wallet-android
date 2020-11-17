@@ -72,7 +72,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by trinkes on 14/03/2018.
  */
-public class InAppPurchaseInteractorTest {
+public class InAppSubscriptionPurchaseResponseInteractorTest {
 
   private static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   private static final String APPROVE_HASH = "approve_hash";
@@ -183,14 +183,15 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, TYPE)),
-        Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, TYPE)));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, null, "orderReference", null, TYPE,
+            "")), Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
+        new Gateway(Gateway.Name.appcoins, "", ""), null, null, "orderReference", null, TYPE, "")));
 
     when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class),
         any(BillingSupportedType.class))).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, TYPE)));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, null, "orderReference", null, TYPE,
+            "")));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));

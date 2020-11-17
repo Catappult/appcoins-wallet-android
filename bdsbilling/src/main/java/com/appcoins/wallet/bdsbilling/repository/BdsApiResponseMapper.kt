@@ -1,61 +1,40 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.PurchaseResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import java.util.*
-import kotlin.collections.ArrayList
 
-class BdsApiResponseMapper {
+class BdsApiResponseMapper(private val subscriptionsMapper: SubscriptionsMapper,
+                           private val inAppMapper: InAppMapper) {
+
   fun map(productDetails: DetailsResponseBody): List<Product> {
-    return ArrayList(productDetails.items.map {
-      Product(it.name, it.label, it.description,
-          Price(it.price.base, it.price.appc, it.price.fiat.value, it.price.fiat.currency.code,
-              it.price.fiat.currency.symbol), "inapp")
-    })
+    return inAppMapper.map(productDetails)
   }
 
-  fun map(purchasesResponse: GetPurchasesResponse): List<Purchase> {
-    return purchasesResponse.items
+  fun map(packageName: String, inappPurchaseResponse: InappPurchaseResponse): Purchase {
+    return inAppMapper.map(packageName, inappPurchaseResponse)
+  }
+
+  fun map(packageName: String, purchasesResponse: GetPurchasesResponse): List<Purchase> {
+    return inAppMapper.map(packageName, purchasesResponse)
   }
 
   fun map(gatewaysResponse: GetMethodsResponse): List<PaymentMethodEntity> {
     return gatewaysResponse.items
   }
 
-  //TODO this method should be in SubscriptionsResponse mapper
-  //TODO current price values are wrong
-  //TODO Price has currency but we need code and symbol
   fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {
-    return ArrayList(subscriptionsResponse.items.map {
-      Product(it.sku, it.title, it.description,
-          Price(it.price.currency, it.price.appc.value.toDouble(), it.price.value.toDouble(),
-              it.price.currency, it.price.currency), "subs", it.period, it.trialPeriod,
-          Price(it.intro.price.currency, it.intro.price.appc.value.toDouble(),
-              it.intro.price.value.toDouble(),
-              it.intro.price.currency, it.intro.price.currency)
-      )
-    })
+    return subscriptionsMapper.map(subscriptionsResponse)
   }
 
-  //TODO this method should be in SubscriptionsResponse mapper
-  //TODO This method does nothing. Needs to me implemented
-  fun map(packageName: String, purchasesResponse: PurchaseResponse): List<Purchase> {
-    return purchasesResponse.items.map { map(packageName, it) }
+  fun map(packageName: String,
+          purchasesResponseSubscription: SubscriptionPurchaseListResponse): List<Purchase> {
+    return subscriptionsMapper.map(packageName, purchasesResponseSubscription)
   }
 
-  //TODO this method should be in SubscriptionsResponse mapper
-  //TODO This method does nothing. Needs to me implemented
-  fun map(packageName: String, purchase: com.appcoins.wallet.bdsbilling.Purchase): Purchase {
-    val developerPurchase = DeveloperPurchase()
-    developerPurchase.packageName = packageName
-    developerPurchase.orderId = purchase.orderReference
-    developerPurchase.productId = purchase.sku
-    developerPurchase.purchaseState = 0
-    developerPurchase.purchaseTime = System.currentTimeMillis()
-    developerPurchase.purchaseToken = UUID.randomUUID()
-        .toString()
-    return Purchase(purchase.uid, RemoteProduct(purchase.sku), purchase.status.name,
-        Package(packageName), Signature(purchase.verification.signature, developerPurchase))
+  fun map(packageName: String,
+          subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
+    return subscriptionsMapper.map(packageName, subscriptionPurchaseResponse)
   }
 }

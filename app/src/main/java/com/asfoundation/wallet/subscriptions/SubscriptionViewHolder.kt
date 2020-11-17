@@ -28,7 +28,8 @@ class SubscriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
         val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
 
-        expires_on.text = String.format("It expires on %s", dateFormat.format(item.expiresOn))
+        expires_on.text = context.getString(R.string.subscriptions_expiration_body,
+            dateFormat.format(item.expiresOn))
       }
 
       more_button.setOnClickListener { clickCallback?.onNext(item.packageName) }

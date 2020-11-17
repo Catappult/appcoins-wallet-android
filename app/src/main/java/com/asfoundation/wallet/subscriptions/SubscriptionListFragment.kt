@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -51,15 +52,15 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     expiredAdapter = SubscriptionAdapter(clickSubject)
 
     rvActiveSubs.adapter = activeAdapter
+    rvActiveSubs.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     rvExpiredSubs.adapter = expiredAdapter
+    rvExpiredSubs.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
     presenter.present()
   }
 
 
-  override fun subscriptionClicks(): Observable<String> {
-    return clickSubject!!
-  }
+  override fun subscriptionClicks(): Observable<String> = clickSubject!!
 
   override fun showSubscriptionDetails(packageName: String) {
     activity.showSubscriptionDetails(packageName)

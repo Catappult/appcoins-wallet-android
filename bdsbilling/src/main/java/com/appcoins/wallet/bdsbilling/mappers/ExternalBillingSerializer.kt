@@ -1,8 +1,8 @@
 package com.appcoins.wallet.bdsbilling.mappers
 
+import com.appcoins.wallet.bdsbilling.repository.entity.InappPurchaseResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.bdsbilling.repository.entity.PurchaseSignatureSerializer
+import com.appcoins.wallet.bdsbilling.repository.entity.PurchaseSignatureEntitySerializer
 import com.appcoins.wallet.bdsbilling.repository.entity.SKU
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -69,8 +69,9 @@ class ExternalBillingSerializer {
     return (product.price.appcoinsAmount * 1000000).toLong()
   }
 
-  fun serializeSignatureData(purchase: Purchase): String {
-    return GsonBuilder().registerTypeAdapter(Purchase::class.java, PurchaseSignatureSerializer())
+  fun serializeSignatureData(purchase: InappPurchaseResponse): String {
+    return GsonBuilder().registerTypeAdapter(InappPurchaseResponse::class.java,
+        PurchaseSignatureEntitySerializer())
         .disableHtmlEscaping()
         .create()
         .toJson(purchase)

@@ -17,14 +17,14 @@ class SubscriptionDetailsPresenter(
   fun present(packageName: String) {
     loadSubscriptionDetails(packageName)
     handleCancelClicks()
-    handleBackClicks()
     handleNoNetworkRetryClicks(packageName)
     handleGenericRetryClicks(packageName)
   }
 
   private fun loadSubscriptionDetails(packageName: String) {
     disposables.add(
-        Single.fromCallable { view.showLoading() }.subscribeOn(viewScheduler)
+        Single.fromCallable { view.showLoading() }
+            .subscribeOn(viewScheduler)
             .observeOn(networkScheduler)
             .flatMap { subscriptionInteract.loadSubscriptionDetails(packageName) }
             .delay(1, TimeUnit.SECONDS)
@@ -57,14 +57,6 @@ class SubscriptionDetailsPresenter(
         view.getCancelClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.cancelSubscription() }
-            .subscribe({}, { it.printStackTrace() }))
-  }
-
-  private fun handleBackClicks() {
-    disposables.add(
-        view.getBackClicks()
-            .observeOn(viewScheduler)
-            .doOnNext { view.navigateBack() }
             .subscribe({}, { it.printStackTrace() }))
   }
 

@@ -82,7 +82,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .observeOn(networkScheduler)
         .flatMapSingle {
           Single.zip(hasEnoughCredits(it.creditsAppcAmount),
-              mergedAppcoinsInteractor.hasAppcFunds(transactionBuilder),
+              mergedAppcoinsInteractor.retrieveAppcAvailability(transactionBuilder, isSubscription),
               BiFunction { hasCredits: Availability, hasAppc: Availability ->
                 Pair(hasCredits, hasAppc)
               })

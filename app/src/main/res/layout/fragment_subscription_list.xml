@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
+      <!-- TODO -->
       <TextView
           android:id="@+id/active_title"
           style="@style/SettingsTextStyle"
@@ -99,6 +99,8 @@
             />
 
       </androidx.cardview.widget.CardView>
+
+      <!-- TODO -->
       <TextView
           android:id="@+id/expired_title"
           style="@style/SettingsTextStyle"

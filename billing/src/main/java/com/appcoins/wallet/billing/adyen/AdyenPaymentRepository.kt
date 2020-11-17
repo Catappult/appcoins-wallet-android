@@ -1,6 +1,9 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.core.model.ModelObject
+import com.appcoins.wallet.bdsbilling.BdsApi
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -9,6 +12,8 @@ import org.json.JSONObject
 import retrofit2.http.*
 
 class AdyenPaymentRepository(private val adyenApi: AdyenApi,
+                             private val bdsApi: BdsApi,
+                             private val subscriptionsApi: SubscriptionBillingApi,
                              private val adyenResponseMapper: AdyenResponseMapper) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
@@ -29,10 +34,10 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
-    return adyenApi.makePayment(walletAddress, walletSignature,
-        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-            billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku, reference,
-            transactionType, currency, value, developerWallet, storeWallet, oemWallet, userWallet))
+    return makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+        callbackUrl, packageName, metadata, paymentType, origin, sku, reference, transactionType,
+        currency, value, developerWallet, storeWallet, oemWallet, userWallet, walletAddress,
+        walletSignature, billingAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -55,9 +60,39 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun getTransaction(uid: String, walletAddress: String,
                      signedWalletAddress: String): Single<PaymentModel> {
-    return adyenApi.getTransaction(uid, walletAddress, signedWalletAddress)
+    return bdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+  }
+
+  private fun makePayment(adyenPaymentMethod: ModelObject,
+                          shouldStoreMethod: Boolean, returnUrl: String,
+                          shopperInteraction: String,
+                          callbackUrl: String?, packageName: String?,
+                          metadata: String?, paymentType: String,
+                          origin: String?, sku: String?,
+                          reference: String?, transactionType: String,
+                          currency: String, value: String,
+                          developerWallet: String?, storeWallet: String?,
+                          oemWallet: String?, userWallet: String?,
+                          walletAddress: String,
+                          walletSignature: String,
+                          billingAddress: AdyenBillingAddress?): Single<AdyenTransactionResponse> {
+    return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
+      subscriptionsApi.getSkuSubscriptionToken(packageName!!, sku!!, currency)
+          .map {
+            TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+                billingAddress, callbackUrl, metadata, paymentType, origin, reference,
+                developerWallet, storeWallet, oemWallet, userWallet, it)
+          }
+          .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
+    } else {
+      adyenApi.makePayment(walletAddress, walletSignature,
+          Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+              billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku,
+              reference, transactionType, currency,
+              value, developerWallet, storeWallet, oemWallet, userWallet))
+    }
   }
 
   //This method is used to avoid the nameValuePairs key problem that occurs when we pass a JSONObject trough a GSON converter
@@ -92,6 +127,12 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                     @Query("wallet.signature") walletSignature: String,
                     @Body payment: Payment): Single<AdyenTransactionResponse>
 
+    @Headers("Content-Type: application/json;format=product_token")
+    @POST("transactions")
+    fun makeTokenPayment(@Query("wallet.address") walletAddress: String,
+                         @Query("wallet.signature") walletSignature: String,
+                         @Body payment: TokenPayment): Single<AdyenTransactionResponse>
+
     @PATCH("transactions/{uid}")
     fun submitRedirect(@Path("uid") uid: String,
                        @Query("wallet.address") address: String,
@@ -101,27 +142,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     @POST("disable-recurring")
     fun disablePayments(@Body wallet: DisableWallet): Completable
   }
-
-  data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
-                     @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
-                     @SerializedName("payment.return_url") val returnUrl: String,
-                     @SerializedName("payment.shopper_interaction") val shopperInteraction: String?,
-                     @SerializedName("payment.billing_address")
-                     val billingAddress: AdyenBillingAddress?,
-                     @SerializedName("callback_url") val callbackUrl: String?,
-                     @SerializedName("domain") val domain: String?,
-                     @SerializedName("metadata") val metadata: String?,
-                     @SerializedName("method") val method: String?,
-                     @SerializedName("origin") val origin: String?,
-                     @SerializedName("product") val sku: String?,
-                     @SerializedName("reference") val reference: String?,
-                     @SerializedName("type") val type: String?,
-                     @SerializedName("price.currency") val currency: String?,
-                     @SerializedName("price.value") val value: String?,
-                     @SerializedName("wallets.developer") val developer: String?,
-                     @SerializedName("wallets.store") val store: String?,
-                     @SerializedName("wallets.oem") val oem: String?,
-                     @SerializedName("wallets.user") val user: String?)
 
   data class AdyenPayment(@SerializedName("payment.details") val details: Any,
                           @SerializedName("payment.data") val data: String?)

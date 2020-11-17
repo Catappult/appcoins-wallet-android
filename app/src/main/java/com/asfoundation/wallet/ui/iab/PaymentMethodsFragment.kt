@@ -20,6 +20,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.mapToSubFrequency
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
@@ -57,10 +58,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
     @JvmStatic
     fun newInstance(transaction: TransactionBuilder?, productName: String?,
-                    isBds: Boolean, isDonation: Boolean,
-                    developerPayload: String?, uri: String?,
-                    transactionData: String?, isSubscription: Boolean,
-                    frequency: String?): Fragment {
+                    isBds: Boolean, isDonation: Boolean, developerPayload: String?, uri: String?,
+                    isSubscription: Boolean, frequency: String?): Fragment {
       val bundle = Bundle()
       bundle.apply {
         putParcelable(TRANSACTION, transaction)
@@ -71,7 +70,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         putString(IabActivity.URI, uri)
         putBoolean(IS_BDS, isBds)
         putBoolean(IS_DONATION, isDonation)
-        putString(IabActivity.TRANSACTION_DATA, transactionData)
         putString(FREQUENCY, frequency)
         putBoolean(IS_SUBSCRIPTION, isSubscription)
       }
@@ -188,8 +186,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                frequency: String?, isSubscription: Boolean) {
     var appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     var fiatPrice = "$fiatAmount $currency"
-    if (isSubscription) {
-      fiatPrice += "/$frequency"
+    if (isSubscription && frequency != null) {
+      frequency.mapToSubFrequency(context, fiatAmount, currency)
+          ?.let { fiatPrice = it }
       appcPrice = "~$appcPrice"
     }
     appc_price.text = appcPrice
@@ -375,23 +374,28 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     return RxView.clicks(buy_button)
   }
 
-  override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?) {
+  override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                          isSubscription: Boolean) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel, frequency)
+        PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel, isSubscription,
+        frequency)
   }
 
 
   override fun showAdyen(fiatAmount: BigDecimal, fiatCurrency: String, paymentType: PaymentType,
-                         iconUrl: String?, gamificationLevel: Int, frequency: String?) {
+                         iconUrl: String?, gamificationLevel: Int, frequency: String?,
+                         isSubscription: Boolean) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType, bonusMessageValue,
-          true, iconUrl, gamificationLevel, frequency)
+          true, iconUrl, gamificationLevel, isSubscription, frequency)
     }
   }
 
-  override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?) {
+  override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                              isSubscription: Boolean) {
     iabView.showAdyenPayment(fiatValue.amount, fiatValue.currency, isBds,
-        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel, frequency)
+        PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel,
+        isSubscription, frequency)
   }
 
   override fun showAppCoins(gamificationLevel: Int) {

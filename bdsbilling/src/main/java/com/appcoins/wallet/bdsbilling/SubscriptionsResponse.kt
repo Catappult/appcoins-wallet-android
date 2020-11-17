@@ -3,8 +3,6 @@ package com.appcoins.wallet.bdsbilling
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
-data class SellerDomain(val domain: String)
-
 data class SubscriptionsResponse(val items: List<SubscriptionResponse>)
 
 data class SubscriptionResponse(val sku: String,
@@ -13,42 +11,50 @@ data class SubscriptionResponse(val sku: String,
                                 val trialPeriod: String?,
                                 val title: String,
                                 val description: String,
-                                val price: Price,
-                                val intro: Intro)
+                                val price: Price
+)
 
-data class Price(val currency: String, val value: BigDecimal, val label: String, val micros: Long,
-                 val appc: AppcPrice)
+data class Price(val currency: String, val value: BigDecimal, val label: String, val symbol: String,
+                 val micros: Long, val appc: AppcPrice)
 
-data class AppcPrice(val value: BigDecimal, val micros: Long)
+data class AppcPrice(val value: BigDecimal, val label: String, val micros: Long)
 
-data class Intro(val period: String, val cycles: String, val price: Price)
+data class SubscriptionPurchaseListResponse(val items: List<SubscriptionPurchaseResponse>)
 
-data class PurchaseResponse(val items: List<Purchase>)
-
-data class Purchase(val uid: String,
-                    val sku: String,
-                    val status: Status,
-                    @SerializedName("order_reference")
-                    val orderReference: String,
-                    @SerializedName("auto_renewing")
-                    val autoRenewing: Boolean,
-                    val payload: String?,
-                    val created: String,
-                    val modified: String,
-                    val verification: Verification)
+/**
+ * @param verification The subscription purchase verification object, to be used by the in-app seller to cryptographically verify the subscription purchase, in order to acknowledge and activate it.
+ */
+data class SubscriptionPurchaseResponse(val uid: String,
+                                        val sku: String,
+                                        val status: Status,
+                                        val state: PurchaseState,
+                                        @SerializedName("order_uid")
+                                        val orderUid: String,
+                                        @SerializedName("auto_renewing")
+                                        val autoRenewing: Boolean,
+                                        val payload: String?,
+                                        val created: String,
+                                        val verification: Verification)
 
 data class Verification(val type: String, val data: String, val signature: String)
 
-data class PurchaseUpdate(val status: Status, val autoRenewing: Boolean)
+/**
+ * @param state The state property is only allowed to be updated as follows:
+ * from PENDING to ACKNOWLEDGED
+ * to CONSUMED
+ */
+data class PurchaseUpdate(val state: PurchaseState)
 
 enum class Status {
   PENDING, //The subscription purchase is pending acknowledgement from the in-app seller.
-  ACKNOWLEDGED, //The subscription purchase has been acknowledged by the in-app seller, and may now be activated.
-  ACTIVE,//The subscription purchase is currently active.
-  PAUSED,//The subscription purchase is currently paused and will resume at a later time set by the buyer.
-  EXPIRED,//The subscription purchase has expired.
+  COMPLETED, //The subscription purchase is successfully completed, and may now be activated.
   CANCELED,//The subscription purchase has been explicitly canceled.
-  REVOKED//The subscription purchase has been explicitly revoked and a refund was issued to the buyer.
+}
+
+enum class PurchaseState {
+  PENDING, //The subscription purchase is pending acknowledgement.
+  ACKNOWLEDGED, //The subscription purchase has been acknowledged.
+  CONSUMED //The subscription purchase has been consumed.
 }
 
 fun SubscriptionsResponse.merge(other: SubscriptionsResponse): SubscriptionsResponse {

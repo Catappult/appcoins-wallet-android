@@ -410,7 +410,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideDeepLinkApi(@Named("default") client: OkHttpClient, gson: Gson): DeepLinkApi {
-    val baseUrl = BuildConfig.CATAPPULT_BASE_HOST
+    val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -423,7 +423,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun providesTopUpValuesApi(@Named("default") client: OkHttpClient, gson: Gson): TopUpValuesApi {
-    val baseUrl = BuildConfig.CATAPPULT_BASE_HOST
+    val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -436,7 +436,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideBdsShareLinkApi(@Named("default") client: OkHttpClient, gson: Gson): BdsShareLinkApi {
-    val baseUrl = BuildConfig.CATAPPULT_BASE_HOST
+    val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -555,13 +555,14 @@ class ServiceModule {
 
   @Provides
   fun provideSubscriptionBillingService(@Named("blockchain") client: OkHttpClient,
-                                        gson: Gson): SubscriptionBillingService {
+                                        gson: Gson): SubscriptionBillingApi {
+    val baseUrl = BuildConfig.CATAPPULT_HOST
     return Retrofit.Builder()
-        .baseUrl("http://192.168.2.3:8080/api/")
+        .baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(SubscriptionBillingService::class.java)
+        .create(SubscriptionBillingApi::class.java)
   }
 }

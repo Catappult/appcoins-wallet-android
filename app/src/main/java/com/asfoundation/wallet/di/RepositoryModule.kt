@@ -3,14 +3,10 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.appcoins.wallet.bdsbilling.BdsApi
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingService
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
+import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
@@ -101,9 +97,10 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideRemoteRepository(subscriptionBillingService: SubscriptionBillingService,
+  fun provideRemoteRepository(subscriptionBillingApi: SubscriptionBillingApi,
                               bdsApi: BdsApi, api: BdsApiSecondary): RemoteRepository {
-    return RemoteRepository(bdsApi, BdsApiResponseMapper(), api, subscriptionBillingService)
+    return RemoteRepository(bdsApi, BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(
+        ExternalBillingSerializer())), api, subscriptionBillingApi)
   }
 
   @Singleton
@@ -112,8 +109,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideAdyenPaymentRepository(
-      @Named("default") client: OkHttpClient): AdyenPaymentRepository {
+  fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient, bdsApi: BdsApi,
+                                    subscriptionBillingApi: SubscriptionBillingApi): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
@@ -121,7 +118,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AdyenApi::class.java)
-    return AdyenPaymentRepository(api, AdyenResponseMapper())
+    return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi, AdyenResponseMapper())
   }
 
   @Provides

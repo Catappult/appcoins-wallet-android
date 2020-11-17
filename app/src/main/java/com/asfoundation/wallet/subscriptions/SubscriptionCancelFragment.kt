@@ -70,13 +70,9 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     error.visibility = View.VISIBLE
   }
 
-  override fun showCancelSuccess() {
-    activity.showCancelSuccess()
-  }
+  override fun showCancelSuccess() = activity.showCancelSuccess()
 
-  override fun navigateBack() {
-    activity.navigateBack()
-  }
+  override fun navigateBack() = activity.navigateBack()
 
   override fun showSubscriptionDetails(subscriptionDetails: ActiveSubscriptionDetails) {
     no_network_retry_only_layout.visibility = View.GONE
@@ -103,39 +99,27 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
             Target.SIZE_ORIGINAL)
       }
 
-      override fun getRequest(): Request? {
-        return null
-      }
-
-      override fun setRequest(request: Request?) {
-      }
-
-      override fun removeCallback(cb: SizeReadyCallback) {
-      }
-
-      override fun onLoadCleared(placeholder: Drawable?) {
-      }
-
-      override fun onStart() {
-      }
-
-      override fun onDestroy() {
-      }
-
       override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
         app_icon.visibility = View.VISIBLE
         app_icon_animation.visibility = View.GONE
         app_icon.setImageBitmap(resource)
       }
 
-      override fun onStop() {
-      }
+      override fun getRequest(): Request? = null
+      override fun setRequest(request: Request?) = Unit
+      override fun removeCallback(cb: SizeReadyCallback) = Unit
+      override fun onLoadCleared(placeholder: Drawable?) = Unit
+      override fun onStart() = Unit
+      override fun onDestroy() = Unit
+      override fun onStop() = Unit
     }
 
-    GlideApp.with(context!!)
-        .asBitmap()
-        .load(subscriptionDetails.iconUrl)
-        .into(target)
+    context?.let {
+      GlideApp.with(it)
+          .asBitmap()
+          .load(subscriptionDetails.iconUrl)
+          .into(target)
+    }
 
     app_name.text = subscriptionDetails.appName
 
