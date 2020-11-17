@@ -190,7 +190,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                   bonus: BigDecimal, isPreselected: Boolean) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CarrierVerifyFragment.newInstance(true, transaction!!.domain, getOrigin(isBds),
+            CarrierVerifyFragment.newInstance(isPreselected, transaction!!.domain, getOrigin(isBds),
                 transaction!!.type, intent.dataString, currency, amount, transaction!!.amount(),
                 bonus, getSkuDescription()))
         .addToBackStack(CarrierVerifyFragment.BACKSTACK_NAME)

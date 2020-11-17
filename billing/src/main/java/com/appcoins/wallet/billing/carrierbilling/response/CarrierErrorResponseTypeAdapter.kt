@@ -46,7 +46,6 @@ class CarrierErrorResponseTypeAdapter : TypeAdapter<CarrierErrorResponse>() {
           } else {
             throw JsonParseException("Unexpected token $dataPeek");
           }
-          text = reader.nextString()
         }
       }
     }
