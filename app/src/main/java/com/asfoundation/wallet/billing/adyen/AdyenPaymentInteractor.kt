@@ -6,11 +6,11 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.adyen.*
-import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
@@ -68,7 +68,8 @@ class AdyenPaymentInteractor(
                   returnUrl: String, value: String, currency: String, reference: String?,
                   paymentType: String, origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?, billingAddress: AdyenBillingAddress? = null, autoRenewing: Boolean?): Single<PaymentModel> {
+                  developerWallet: String?,
+                  billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { address ->
           Single.zip(
@@ -82,7 +83,7 @@ class AdyenPaymentInteractor(
                     supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
                     address.address, origin, packageName, metadata, sku, callbackUrl,
                     transactionType, developerWallet, it.first, it.second, address.address,
-                    address.signedAddress, billingAddress, autoRenewing)
+                    address.signedAddress, billingAddress)
               }
         }
   }
@@ -97,7 +98,7 @@ class AdyenPaymentInteractor(
           adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
               supportedShopperInteraction, returnUrl, value, currency, null, paymentType,
               it.address, null, packageName, null, null, null, transactionType, null, null, null,
-              null, it.signedAddress, billingAddress, null)
+              null, it.signedAddress, billingAddress)
         }
   }
 

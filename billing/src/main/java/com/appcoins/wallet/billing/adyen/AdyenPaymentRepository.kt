@@ -29,15 +29,15 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                   origin: String?, packageName: String?, metadata: String?, sku: String?,
                   callbackUrl: String?, transactionType: String, developerWallet: String?,
                   storeWallet: String?, oemWallet: String?, userWallet: String?,
-                  walletSignature: String, billingAddress: AdyenBillingAddress?,
-                  autoRenewing: Boolean?): Single<PaymentModel> {
+                  walletSignature: String,
+                  billingAddress: AdyenBillingAddress?): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
     return makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
         callbackUrl, packageName, metadata, paymentType, origin, sku, reference, transactionType,
-        currency, value, developerWallet, storeWallet, oemWallet, userWallet, autoRenewing,
-        walletAddress, walletSignature, billingAddress)
+        currency, value, developerWallet, storeWallet, oemWallet, userWallet, walletAddress,
+        walletSignature, billingAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -75,7 +75,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                           currency: String, value: String,
                           developerWallet: String?, storeWallet: String?,
                           oemWallet: String?, userWallet: String?,
-                          autoRenewing: Boolean?,
                           walletAddress: String,
                           walletSignature: String,
                           billingAddress: AdyenBillingAddress?): Single<AdyenTransactionResponse> {
@@ -84,7 +83,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
           .map {
             TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
                 billingAddress, callbackUrl, metadata, paymentType, origin, reference,
-                developerWallet, storeWallet, oemWallet, userWallet, autoRenewing, it)
+                developerWallet, storeWallet, oemWallet, userWallet, it)
           }
           .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
     } else {

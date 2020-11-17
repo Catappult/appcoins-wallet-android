@@ -404,12 +404,6 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     view?.let { KeyboardUtils.hideKeyboard(view) }
   }
 
-  override fun retrieveAutoRenewing(): Boolean {
-    //TODO When this logic is implemented it should be an option from the user,
-    // but as of right now this logic is not implemented
-    return false
-  }
-
   private fun setupAdyenLayouts() {
     adyenCardNumberLayout =
         adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_cardNumber)

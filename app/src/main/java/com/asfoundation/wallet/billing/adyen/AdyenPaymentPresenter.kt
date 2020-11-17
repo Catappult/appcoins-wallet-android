@@ -3,7 +3,6 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
@@ -154,7 +153,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       adyenPaymentInteractor.makePayment(paymentMethodInfo, false, false, emptyList(), returnUrl,
           priceAmount.toString(), priceCurrency, it.orderReference,
           mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
-          it.skuId, it.callbackUrl, it.type, it.toAddress(), null, retrieveAutoRenewing())
+          it.skuId, it.callbackUrl, it.type, it.toAddress(), null)
     }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -167,14 +166,6 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           logger.log(TAG, it)
           view.showGenericError()
         }))
-  }
-
-  private fun retrieveAutoRenewing(): Boolean? {
-    return if (transactionType.equals(BillingSupportedType.INAPP_SUBSCRIPTION.name, true)) {
-      view.retrieveAutoRenewing()
-    } else {
-      null
-    }
   }
 
   private fun handlePaymentModel(paymentModel: PaymentModel) {
@@ -212,7 +203,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                     returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
                     mapPaymentToService(paymentType).transactionType, origin, domain,
                     it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
-                    mapToAdyenBillingAddress(billingAddressModel), retrieveAutoRenewing())
+                    mapToAdyenBillingAddress(billingAddressModel))
               }
         }
         .observeOn(viewScheduler)

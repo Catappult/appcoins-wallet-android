@@ -82,6 +82,4 @@ interface AdyenPaymentView {
   fun setup3DSComponent()
 
   fun showBillingAddress(value: BigDecimal, currency: String)
-
-  fun retrieveAutoRenewing(): Boolean?
 }

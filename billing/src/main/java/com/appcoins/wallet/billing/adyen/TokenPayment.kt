@@ -19,5 +19,4 @@ data class TokenPayment(@SerializedName("payment.method") val adyenPaymentMethod
                         @SerializedName("wallets.store") val store: String?,
                         @SerializedName("wallets.oem") val oem: String?,
                         @SerializedName("wallets.user") val user: String?,
-                        @SerializedName("auto_renewing") val autoRenewing: Boolean? = null,
                         @SerializedName("product_token") val token: String? = null)
