@@ -2,7 +2,6 @@ package com.asfoundation.wallet.topup
 
 import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -29,6 +28,7 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.convertDpToPx
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -98,9 +98,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     fragmentView?.let {
       val heightDiff: Int = it.rootView.height - it.height - appBarHeight
 
-      val threshold = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150f,
-          requireContext().resources.displayMetrics)
-          .toInt()
+      val threshold = 150.convertDpToPx(resources)
 
       keyboardEvents.onNext(heightDiff > threshold)
     }
@@ -190,10 +188,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       val orientation = resources.configuration.orientation
       val params: LayoutParams = payment_methods.layoutParams as LayoutParams
       if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        params.height = dpToPx(164f)
+        params.height = 164.convertDpToPx(resources)
       }
       if (orientation == Configuration.ORIENTATION_PORTRAIT && paymentMethods.size > 3) {
-        params.height = dpToPx(228f)
+        params.height = 228.convertDpToPx(resources)
       }
       payment_methods.layoutParams = params
     }
@@ -586,22 +584,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
-  private fun dpToPx(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
-      Resources.getSystem().displayMetrics)
-      .toInt()
-
   private fun getTopUpValuesSpanCount(): Int {
-    val screenWidth =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
-            fragmentContainer.measuredWidth.toFloat(),
-            requireContext().resources
-                .displayMetrics)
-            .toInt()
-
-    val viewWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80f,
-        requireContext().resources
-            .displayMetrics)
-        .toInt()
+    val screenWidth = fragmentContainer.measuredWidth.convertDpToPx(resources)
+    val viewWidth = 80.convertDpToPx(resources)
 
     return screenWidth / viewWidth
   }

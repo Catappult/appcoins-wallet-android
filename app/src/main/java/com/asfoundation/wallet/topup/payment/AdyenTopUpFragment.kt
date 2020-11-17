@@ -499,6 +499,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     view.setPadding(0, 0, 24, 0)
 
     adyenCardNumberLayout.minimumHeight = height
+    adyenCardNumberLayout.errorIconDrawable = null
     adyenExpiryDateLayout.minimumHeight = height
     adyenSecurityCodeLayout.minimumHeight = height
   }
