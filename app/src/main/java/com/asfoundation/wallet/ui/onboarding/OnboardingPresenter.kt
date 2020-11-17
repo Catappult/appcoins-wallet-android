@@ -116,14 +116,15 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     )
   }
 
-  fun onOnboardingCompleted() {
-    navigator.navigateToTransactions()
+  fun endOnboarding() {
     onboardingInteractor.saveOnboardingCompleted()
+    navigator.navigateToTransactions()
   }
 
   private fun finishOnBoarding(showAnimation: Boolean) {
     onboardingInteractor.clickSkipOnboarding()
-    view.finishOnboarding(showAnimation)
+    if (!showAnimation) endOnboarding()
+    else view.finishOnboarding(showAnimation)
   }
 
   companion object {
