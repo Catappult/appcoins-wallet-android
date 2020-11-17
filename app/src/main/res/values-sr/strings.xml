@@ -611,6 +611,7 @@
   <string name="backup_additional_security_body">Choose a password</string>
   <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
+  <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>
