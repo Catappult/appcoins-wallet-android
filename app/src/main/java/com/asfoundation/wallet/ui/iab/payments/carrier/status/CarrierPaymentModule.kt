@@ -5,11 +5,13 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmFragment
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
 
 @Module
 class CarrierPaymentModule {
@@ -26,7 +28,9 @@ class CarrierPaymentModule {
       return CarrierPaymentData(getString(CarrierPaymentFragment.DOMAIN_KEY)!!,
           getString(CarrierPaymentFragment.TRANSACTION_DATA_KEY)!!,
           getString(CarrierPaymentFragment.TRANSACTION_TYPE_KEY)!!,
-          getString(CarrierPaymentFragment.PAYMENT_URL)!!)
+          getString(CarrierPaymentFragment.PAYMENT_URL)!!,
+          getString(CarrierConfirmFragment.CURRENCY_KEY)!!,
+          getSerializable(CarrierConfirmFragment.BONUS_AMOUNT_KEY) as BigDecimal)
     }
   }
 

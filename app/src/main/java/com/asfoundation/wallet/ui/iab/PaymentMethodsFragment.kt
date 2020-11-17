@@ -427,6 +427,15 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun setBonus(bonus: BigDecimal, currency: String) {
+    var scaledBonus = bonus.stripTrailingZeros()
+        .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
+    var newCurrencyString = currency
+    if (scaledBonus < BigDecimal("0.01")) {
+      newCurrencyString = "~$currency"
+    }
+    scaledBonus = scaledBonus.max(BigDecimal("0.01"))
+    val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
+    bonusMessageValue = newCurrencyString + formattedBonus
     bonusValue = bonus
     bonus_view.setPurchaseBonusHeaderValue(bonus, currency)
   }

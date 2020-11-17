@@ -33,8 +33,13 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   }
 
   fun present() {
+    initializeView()
     initializePayment()
     handleTransactionResult()
+  }
+
+  private fun initializeView() {
+    view.initializeView(data.bonusAmount, data.currency)
   }
 
   private fun initializePayment() {

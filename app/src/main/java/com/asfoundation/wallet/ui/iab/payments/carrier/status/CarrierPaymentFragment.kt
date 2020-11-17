@@ -2,18 +2,27 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.status
 
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.airbnb.lottie.FontAssetDelegate
+import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabView
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_carrier_payment_status.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   @Inject
   lateinit var presenter: CarrierPaymentPresenter
@@ -33,6 +42,32 @@ class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
   private fun setupUi() {
     iabView.disableBack()
     lockRotation()
+
+  }
+
+  override fun initializeView(bonusValue: BigDecimal, currency: String) {
+    val textDelegate = TextDelegate(complete_payment_view.lottie_transaction_success)
+    textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
+    textDelegate.setText("bonus_received",
+        resources.getString(R.string.gamification_purchase_completed_bonus_received))
+    complete_payment_view.lottie_transaction_success.setTextDelegate(textDelegate)
+    complete_payment_view.lottie_transaction_success.setFontAssetDelegate(object :
+        FontAssetDelegate() {
+      override fun fetchFont(fontFamily: String?) =
+          Typeface.create("sans-serif-medium", Typeface.BOLD)
+    })
+  }
+
+  private fun getBonusMessage(bonusValue: BigDecimal, currency: String): String {
+    var scaledBonus = bonusValue.stripTrailingZeros()
+        .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
+    var newCurrencyString = currency
+    if (scaledBonus < BigDecimal("0.01")) {
+      newCurrencyString = "~$currency"
+    }
+    scaledBonus = scaledBonus.max(BigDecimal("0.01"))
+    val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
+    return newCurrencyString + formattedBonus
   }
 
   override fun onDestroyView() {
@@ -75,10 +110,13 @@ class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
     internal const val TRANSACTION_DATA_KEY = "transaction_data"
     internal const val TRANSACTION_TYPE_KEY = "transaction_type"
     internal const val PAYMENT_URL = "payment_url"
+    internal const val CURRENCY_KEY = "currency"
+    internal const val BONUS_AMOUNT_KEY = "bonus_amount"
 
     @JvmStatic
     fun newInstance(domain: String, transactionData: String,
-                    transactionType: String, paymentUrl: String): CarrierPaymentFragment {
+                    transactionType: String, paymentUrl: String,
+                    currency: String?, bonus: BigDecimal?): CarrierPaymentFragment {
       val fragment =
           CarrierPaymentFragment()
       fragment.arguments = Bundle().apply {
@@ -90,6 +128,10 @@ class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
             TRANSACTION_TYPE_KEY, transactionType)
         putString(
             PAYMENT_URL, paymentUrl)
+        putString(
+            CURRENCY_KEY, currency)
+        putSerializable(
+            BONUS_AMOUNT_KEY, bonus)
       }
       return fragment
     }

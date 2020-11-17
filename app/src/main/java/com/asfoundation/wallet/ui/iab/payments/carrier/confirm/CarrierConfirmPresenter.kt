@@ -60,7 +60,7 @@ class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
             .doOnNext {
               sendPaymentConfirmationEvent("buy")
               navigator.navigateToPayment(data.domain, data.transactionData, data.transactionType,
-                  data.paymentUrl)
+                  data.paymentUrl, data.currency, data.bonusAmount)
             }
             .retry()
             .subscribe({}, { e -> e.printStackTrace() })
