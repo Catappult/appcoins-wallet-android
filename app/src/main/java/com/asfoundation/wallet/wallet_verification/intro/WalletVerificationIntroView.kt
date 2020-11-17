@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
+import java.math.BigDecimal
 
 interface WalletVerificationIntroView {
 
@@ -25,12 +26,20 @@ interface WalletVerificationIntroView {
 
   fun showLoading()
 
-  fun showGenericError()
+  fun hideLoading()
 
   fun hideKeyboard()
 
   fun lockRotation()
 
   fun unlockRotation()
+
+  fun showGenericError()
+
+  fun showNetworkError()
+
+  fun showSpecificError(stringRes: Int)
+
+  fun showCvvError()
 
 }

@@ -234,7 +234,23 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
   override fun forgetCardClick(): Observable<Any> = RxView.clicks(change_card_button)
 
   override fun showLoading() {
+    title.visibility = View.GONE
+    cc_container.visibility = View.GONE
+    description.visibility = View.GONE
+    bottom_separator?.visibility = View.GONE
+    submit.visibility = View.GONE
+    cancel.visibility = View.GONE
+    progress_bar.visibility = View.VISIBLE
+  }
 
+  override fun hideLoading() {
+    progress_bar.visibility = View.GONE
+    title.visibility = View.VISIBLE
+    cc_container.visibility = View.VISIBLE
+    description.visibility = View.VISIBLE
+    bottom_separator?.visibility = View.VISIBLE
+    submit.visibility = View.VISIBLE
+    cancel.visibility = View.VISIBLE
   }
 
   override fun showGenericError() {

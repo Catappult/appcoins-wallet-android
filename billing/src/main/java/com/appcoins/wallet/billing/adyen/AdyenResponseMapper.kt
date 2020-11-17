@@ -85,6 +85,13 @@ class AdyenResponseMapper {
         Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
   }
 
+  fun mapVerificationCodeError(throwable: Throwable): VerificationCodeModel {
+    throwable.printStackTrace()
+    val codeAndMessage = getErrorCodeAndMessageFromThrowable(throwable)
+    return VerificationCodeModel(
+        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
+  }
+
   private fun getErrorCodeAndMessageFromThrowable(throwable: Throwable): Pair<Int?, String?> {
     val code: Int?
     val message: String?

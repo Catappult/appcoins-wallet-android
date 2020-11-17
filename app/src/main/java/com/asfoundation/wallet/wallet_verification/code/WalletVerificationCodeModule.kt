@@ -12,7 +12,6 @@ class WalletVerificationCodeModule {
 
   @Provides
   fun providesWalletVerificationCodePresenter(fragment: WalletVerificationCodeFragment,
-                                              eventSender: WalletsEventSender,
                                               currencyFormatUtils: CurrencyFormatUtils): WalletVerificationCodePresenter {
     return WalletVerificationCodePresenter(fragment as WalletVerificationCodeView,
         CompositeDisposable(), Schedulers.io(), Schedulers.computation())
