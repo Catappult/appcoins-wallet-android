@@ -573,7 +573,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
       lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation)
-      if (isSubscription) next_payment_date.text = "Next payment: $nextPaymentDate"
+      if (isSubscription) {
+        val nextPaymentText = getString(R.string.subscriptions_details_next_payment_title)
+        next_payment_date.text = "$nextPaymentText $nextPaymentDate"
+      }
       setupTransactionCompleteAnimation()
     } else {
       lottie_transaction_success.setAnimation(R.raw.success_animation)
@@ -594,9 +597,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         buy_button.setText(R.string.action_donate)
       }
       transactionType.equals(TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
-          ignoreCase = true) -> {
-        buy_button.text = "Subscribe"
-      }
+          ignoreCase = true) -> buy_button.text = "Subscribe"
+      //TODO Change string hardcode for resources
       else -> {
         buy_button.setText(R.string.action_buy)
       }
