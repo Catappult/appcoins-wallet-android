@@ -33,10 +33,14 @@ class BackupWalletPresenter(private val balanceInteractor: BalanceInteractor,
         .subscribeOn(dbScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          view.showBalance(data.walletAddress, it.symbol,
-              currencyFormatUtils.formatCurrency(it.amount))
+          view.setupUi(data.walletAddress, it.symbol, currencyFormatUtils.formatCurrency(it.amount))
         }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  fun onCheckedChanged(checked: Boolean) {
+    if (checked) view.showPasswordFields()
+    else view.hidePasswordFields()
   }
 
   fun stop() = disposables.clear()
