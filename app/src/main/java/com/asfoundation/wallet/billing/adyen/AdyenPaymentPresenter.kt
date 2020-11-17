@@ -153,7 +153,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       adyenPaymentInteractor.makePayment(paymentMethodInfo, false, false, emptyList(), returnUrl,
           priceAmount.toString(), priceCurrency, it.orderReference,
           mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
-          it.skuId, it.callbackUrl, it.type, it.toAddress(), null)
+          it.skuId, it.callbackUrl, it.type, it.toAddress())
     }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
