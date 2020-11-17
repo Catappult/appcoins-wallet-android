@@ -12,6 +12,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_backup_wallet_layout.*
 import kotlinx.android.synthetic.main.item_wallet_addr.*
+import kotlinx.android.synthetic.main.layout_backup_password_toggle.*
 import javax.inject.Inject
 
 class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
@@ -40,6 +41,13 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
+    backup_password_toggle.setOnCheckedChangeListener { _, isChecked ->
+      if (isChecked) {
+        password_group.visibility = View.VISIBLE
+      } else {
+        password_group.visibility = View.GONE
+      }
+    }
   }
 
   override fun showBalance(walletAddress: String, symbol: String, formattedAmount: String) {
@@ -48,11 +56,11 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   }
 
   override fun getBackupClick(): Observable<String> = RxView.clicks(backup_btn)
-      .map { password.text.toString() }
+      .map { "password?.text.toString() " }
 
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-    imm?.hideSoftInputFromWindow(password.windowToken, 0)
+    //imm?.hideSoftInputFromWindow(password?.windowToken, 0)
   }
 
   override fun onDestroyView() {

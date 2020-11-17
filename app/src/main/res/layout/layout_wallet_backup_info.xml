@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_alpha_6b"
+    android:paddingVertical="@dimen/big_margin"
+    >
+
+  <ImageView
+      android:id="@+id/backup_wallet_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_wallet_address"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/backup_wallet_address"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:gravity="center"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/backup_wallet_icon"
+      tools:text="0xnioiONFGIODNGnsndgoisfngi"
+      />
+  <TextView
+      android:id="@+id/backup_balance"
+      style="@style/WalletBackupTextStyle.Bold"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:gravity="center"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/backup_wallet_address"
+      tools:text="$2.40"
+      />
+
+  <View
+      android:id="@+id/backup_separator"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginBottom="@dimen/big_margin"
+      android:background="@color/list_separator_color"
+      app:layout_constraintTop_toBottomOf="@id/backup_balance"
+      />
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:gravity="center"
+      android:text="@string/backup_body"
+      android:textAlignment="gravity"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/backup_separator"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

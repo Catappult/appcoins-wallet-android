@@ -16,131 +16,37 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:paddingStart="16dp"
+        android:paddingTop="@dimen/normal_margin"
         android:paddingEnd="16dp"
+        android:paddingBottom="@dimen/normal_margin"
         >
 
       <include
-          android:id="@+id/wallet_info"
-          layout="@layout/item_wallet_addr"
+          android:id="@+id/wallet_backup_info"
+          layout="@layout/layout_wallet_backup_info"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="8dp"
-          android:layout_marginTop="48dp"
-          android:layout_marginEnd="16dp"
-          app:layout_constraintEnd_toEndOf="@id/half_vertical_guideline"
+          android:layout_marginEnd="@dimen/normal_margin"
+          app:layout_constraintEnd_toEndOf="@id/backup_half_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
-
-      <ImageView
-          android:id="@+id/password_label_ic"
-          android:layout_width="16dp"
-          android:layout_height="16dp"
-          android:layout_marginStart="8dp"
-          android:layout_marginTop="14dp"
-          android:src="@drawable/ic_password_locket"
-          app:layout_constraintBottom_toTopOf="@id/password_container"
-          app:layout_constraintStart_toStartOf="@id/password_container"
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/backup_half_guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.5"
+          />
+      <include
+          android:id="@+id/backup_password_toggle_layout"
+          layout="@layout/layout_backup_password_toggle"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/normal_margin"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/backup_half_guideline"
           app:layout_constraintTop_toTopOf="parent"
-          />
-
-      <TextView
-          android:id="@+id/password_label"
-          style="@style/WalletBackupTextStyle.Big"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="6dp"
-          android:layout_marginEnd="8dp"
-          android:ellipsize="end"
-          android:lineHeight="24sp"
-          android:maxLines="1"
-          android:text="@string/backup_password_title"
-          app:layout_constraintBottom_toBottomOf="@id/password_label_ic"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/password_label_ic"
-          app:layout_constraintTop_toTopOf="@id/password_label_ic"
-          />
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/password_container"
-          style="@style/PasswordTextInputLayout"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:layout_marginTop="14dp"
-          android:layout_marginEnd="4dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="@id/half_vertical_guideline"
-          app:layout_constraintTop_toBottomOf="@id/password_label_ic"
-          >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
-            style="@style/PasswordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            />
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="24dp"
-          android:layout_marginBottom="8dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="@id/vertical_guideline2"
-          app:layout_constraintStart_toStartOf="@id/vertical_guideline1"
-          app:layout_constraintTop_toBottomOf="@id/password_container"
-
-          >
-        <TextView
-            android:id="@+id/description"
-            style="@style/WalletBackupTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/item_curved_border"
-            android:lineHeight="20sp"
-            android:paddingHorizontal="14dp"
-            android:paddingTop="22dp"
-            android:paddingBottom="18dp"
-            android:text="@string/backup_body"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:background="@color/white"
-            android:src="@drawable/ic_info_white_bg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-      </androidx.constraintlayout.widget.ConstraintLayout>
-
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/half_vertical_guideline"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.50"
-          />
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/vertical_guideline1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.143"
-          />
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/vertical_guideline2"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.857"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>

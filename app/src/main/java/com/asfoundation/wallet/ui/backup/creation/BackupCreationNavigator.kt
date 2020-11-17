@@ -16,5 +16,4 @@ class BackupCreationNavigator(private val fragmentManager: FragmentManager,
         .replace(R.id.fragment_container, BackupSuccessFragment.newInstance())
         .commit()
   }
-
 }

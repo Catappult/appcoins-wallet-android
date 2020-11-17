@@ -4,7 +4,8 @@
   <color name="red">#d32f2f</color>
   <color name="orange">#ef6c00</color>
   <color name="white">#FFFFFFFF</color>
-  <color name="black">#313849</color>
+  <color name="black">#000000</color>
+  <color name="fakeBlack">#313849</color>
   <color name="appc_pink">#fe7073</color>
 
   <color name="colorPrimary">#fc9d48</color>
@@ -103,8 +104,14 @@
   <color name="edit_text_label">@color/appc_pink</color>
   <color name="disable_reason">#fe6e76</color>
 
+  <color name="tooltip_black">#212121</color>
+
   <color name="adyen_3DS_color">#111B3B</color>
 
+  <!-- Backup -->
+
+  <color name="warning_background_color">#ffcccb</color>
+  <color name="warning_text_red">#ff2f2f</color>
   <!-- Skeletons -->
 
   <color name="skeleton_dark_base_color">#5cd8d8d8</color>
