@@ -53,10 +53,12 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   }
 
   private fun setTextWatchers() {
-    backup_password_edit_text.addTextChangedListener(
-        PasswordTextWatcher(passwordSubject!!, backup_repeat_password_edit_text))
-    backup_repeat_password_edit_text.addTextChangedListener(
-        PasswordTextWatcher(passwordSubject!!, backup_password_edit_text))
+    val passwordEditText = backup_password_edit_text
+    val repeatPasswordEditText = backup_repeat_password_edit_text
+    passwordEditText.addTextChangedListener(
+        PasswordTextWatcher(passwordSubject!!, repeatPasswordEditText))
+    repeatPasswordEditText.addTextChangedListener(
+        PasswordTextWatcher(passwordSubject!!, passwordEditText))
   }
 
   private fun setToggleListener() {

@@ -545,6 +545,9 @@
   </style>
 
   <style name="PasswordTextInputLayout" parent="BackupRestoreTextInputLayout">
+    <item name="boxStrokeErrorColor">@color/colorPrimaryDark</item>
+    <item name="errorIconDrawable">@null</item>
+    <item name="errorTextColor">@color/colorPrimaryDark</item>
     <item name="android:hint">@string/backup_password</item>
     <item name="passwordToggleEnabled">true</item>
     <item name="passwordToggleTint">@color/password_toggle_selector</item>
