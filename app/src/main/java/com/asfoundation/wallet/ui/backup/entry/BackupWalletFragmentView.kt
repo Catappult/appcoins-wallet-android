@@ -13,4 +13,14 @@ interface BackupWalletFragmentView {
   fun showPasswordFields()
 
   fun hidePasswordFields()
+
+  fun onPasswordTextChanged(): Observable<PasswordFields>
+
+  fun disableButton()
+
+  fun enableButton()
+
+  fun clearErrors()
+
+  fun showPasswordError()
 }

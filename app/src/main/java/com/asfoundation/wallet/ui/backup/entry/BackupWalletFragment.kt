@@ -10,6 +10,7 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_backup_wallet_layout.*
 import kotlinx.android.synthetic.main.layout_backup_password_toggle.*
 import kotlinx.android.synthetic.main.layout_wallet_backup_info.*
@@ -19,6 +20,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   @Inject
   lateinit var presenter: BackupWalletPresenter
+  private var passwordSubject: PublishSubject<PasswordFields>? = null
 
   companion object {
     const val PARAM_WALLET_ADDR = "PARAM_WALLET_ADDR"
@@ -31,6 +33,11 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
       fragment.arguments = bundle
       return fragment
     }
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    passwordSubject = PublishSubject.create()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,10 +54,9 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   private fun setTextWatchers() {
     backup_password_edit_text.addTextChangedListener(
-        PasswordTextWatcher(backup_btn, backup_repeat_password_input,
-            backup_repeat_password_edit_text))
+        PasswordTextWatcher(passwordSubject!!, backup_repeat_password_edit_text))
     backup_repeat_password_edit_text.addTextChangedListener(
-        PasswordTextWatcher(backup_btn, backup_repeat_password_input, backup_password_edit_text))
+        PasswordTextWatcher(passwordSubject!!, backup_password_edit_text))
   }
 
   private fun setToggleListener() {
@@ -82,14 +88,37 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
     if (areInvalidPasswordFields()) backup_btn.isEnabled = false
   }
 
+  override fun onPasswordTextChanged(): Observable<PasswordFields> = passwordSubject!!
+
   private fun areInvalidPasswordFields(): Boolean {
     val password = backup_password_edit_text.text.toString()
     val repeatedPassword = backup_repeat_password_edit_text.text.toString()
     return password.isEmpty() || password != repeatedPassword
   }
 
+  override fun disableButton() {
+    backup_btn.isEnabled = false
+  }
+
+  override fun enableButton() {
+    backup_btn.isEnabled = true
+  }
+
+  override fun clearErrors() {
+    backup_repeat_password_input.error = null
+  }
+
+  override fun showPasswordError() {
+    backup_repeat_password_input.error = "Password don't match"
+  }
+
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+  }
+
+  override fun onDestroy() {
+    passwordSubject = null
+    super.onDestroy()
   }
 }
