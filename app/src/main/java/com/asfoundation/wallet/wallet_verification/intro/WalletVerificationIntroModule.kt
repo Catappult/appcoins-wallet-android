@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallet_verification.intro
 
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.logging.Logger
 import dagger.Module
 import dagger.Provides
@@ -23,7 +24,7 @@ class WalletVerificationIntroModule {
                                                interactor: WalletVerificationIntroInteractor): WalletVerificationIntroPresenter {
     return WalletVerificationIntroPresenter(fragment as WalletVerificationIntroView,
         CompositeDisposable(), navigator, logger, AndroidSchedulers.mainThread(),
-        Schedulers.io(), interactor)
+        Schedulers.io(), interactor, AdyenErrorCodeMapper())
   }
 
 }

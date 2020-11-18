@@ -2,15 +2,21 @@ package com.asfoundation.wallet.wallet_verification.intro
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
+import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.support.SupportRepository
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
 class WalletVerificationIntroInteractor(
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val adyenPaymentInteractor: AdyenPaymentInteractor,
-    private val walletService: WalletService
+    private val walletService: WalletService,
+    private val supportRepository: SupportRepository
 ) {
 
   companion object {
@@ -30,7 +36,7 @@ class WalletVerificationIntroInteractor(
   }
 
   fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                  returnUrl: String): Single<VerificationPaymentModel> {
+                  returnUrl: String): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap {
           adyenPaymentRepository.makeVerificationPayment(adyenPaymentMethod, shouldStoreMethod,
@@ -62,4 +68,10 @@ class WalletVerificationIntroInteractor(
         response.format, response.period)
   }
 
+  fun showSupport(): Completable {
+    return Completable.fromAction {
+      supportRepository.displayChatScreen()
+    }
+
+  }
 }

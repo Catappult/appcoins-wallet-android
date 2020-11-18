@@ -4,13 +4,16 @@ import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
-import java.math.BigDecimal
 
 interface WalletVerificationIntroView {
 
   fun getCancelClicks(): Observable<Any>
 
   fun getSubmitClicks(): Observable<Any>
+
+  fun getTryAgainClicks(): Observable<Any>
+
+  fun getSupportClicks(): Observable<Any>
 
   fun forgetCardClick(): Observable<Any>
 

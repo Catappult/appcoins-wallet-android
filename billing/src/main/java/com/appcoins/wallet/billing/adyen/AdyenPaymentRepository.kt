@@ -39,11 +39,11 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                               returnUrl: String, walletAddress: String,
-                              walletSignature: String): Single<VerificationPaymentModel> {
+                              walletSignature: String): Single<PaymentModel> {
     return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        .map { VerificationPaymentModel() }
-        .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
+        .map { adyenResponseMapper.map(it) }
+        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
   fun validateCode(code: String, walletAddress: String,
@@ -128,7 +128,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     @POST("verification/generate")
     fun makeVerificationPayment(@Query("wallet.address") walletAddress: String,
                                 @Query("wallet.signature") walletSignature: String,
-                                @Body verificationPayment: VerificationPayment): Single<Void>
+                                @Body
+                                verificationPayment: VerificationPayment): Single<AdyenTransactionResponse>
 
     @POST("verification/generate")
     fun validateCode(@Query("wallet.address") walletAddress: String,

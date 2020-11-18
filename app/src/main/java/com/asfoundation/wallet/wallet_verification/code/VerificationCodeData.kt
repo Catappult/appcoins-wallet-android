@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.wallet_verification.code
 
 data class VerificationCodeData(
-    val transDate: String,
-    val description: String,
+    val date: Long,
+    val format: String,
     val amount: String,
-    val currency: String
+    val currency: String,
+    val period: String,
+    val digits: Int
 )

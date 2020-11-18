@@ -13,8 +13,6 @@ import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_verification_code.*
-import kotlinx.android.synthetic.main.fragment_verification_intro.*
-import kotlinx.android.synthetic.main.layout_verify_example.*
 import javax.inject.Inject
 
 class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeView {
@@ -32,8 +30,28 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
   companion object {
 
+    internal const val CURRENCY_KEY = "currency"
+    internal const val AMOUNT_KEY = "amount"
+    internal const val DIGITS_KEY = "digits"
+    internal const val FORMAT_KEY = "format"
+    internal const val PERIOD_KEY = "period"
+    internal const val DATE_KEY = "period"
+
+
     @JvmStatic
-    fun newInstance() = WalletVerificationCodeFragment()
+    fun newInstance(currency: String, value: String, digits: Int, format: String,
+                    period: String, date: Long): WalletVerificationCodeFragment {
+      return WalletVerificationCodeFragment().apply {
+        arguments = Bundle().apply {
+          putString(CURRENCY_KEY, currency)
+          putString(AMOUNT_KEY, value)
+          putString(FORMAT_KEY, format)
+          putString(PERIOD_KEY, period)
+          putLong(DATE_KEY, date)
+          putInt(DIGITS_KEY, digits)
+        }
+      }
+    }
   }
 
   override fun onAttach(context: Context) {
@@ -80,10 +98,10 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     val amount = formatter.formatCurrency(data.amount, WalletCurrency.FIAT)
     val amountWithCurrency = "${data.currency} $amount"
 
-    trans_date_value.text = data.transDate
-    description_value.text = data.description
-    amount_value.text = amountWithCurrency
-    code_disclaimer.text = getString(R.string.card_verification_code_enter_body, amountWithCurrency)
+    /* trans_date_value.text = data.date
+     description_value.text = data.format
+     amount_value.text = amountWithCurrency
+     code_disclaimer.text = getString(R.string.card_verification_code_enter_body, amountWithCurrency)*/
   }
 
   override fun getMaybeLaterClicks() = RxView.clicks(maybe_later)

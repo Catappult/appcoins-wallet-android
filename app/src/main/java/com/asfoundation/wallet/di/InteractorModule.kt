@@ -523,10 +523,11 @@ class InteractorModule {
   fun provideWalletVerificationIntroInteractor(
       adyenPaymentRepository: AdyenPaymentRepository,
       adyenPaymentInteractor: AdyenPaymentInteractor,
-      walletService: WalletService
+      walletService: WalletService,
+      supportRepository: SupportRepository
   ): WalletVerificationIntroInteractor {
     return WalletVerificationIntroInteractor(adyenPaymentRepository, adyenPaymentInteractor,
-        walletService)
+        walletService, supportRepository)
   }
 
   @Provides

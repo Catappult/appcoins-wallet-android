@@ -1,17 +1,15 @@
 package com.asfoundation.wallet.wallet_verification.intro
 
 import android.os.Bundle
-import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentPresenter
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 
 class WalletVerificationIntroPresenter(private val view: WalletVerificationIntroView,
                                        private val disposable: CompositeDisposable,
@@ -31,6 +29,8 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
     loadModel(savedInstanceState)
     handleCancelClicks()
     handleForgetCardClick()
+    handleTryAgainClicks()
+    handleSupportClicks()
   }
 
   private fun loadModel(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
               view.updateUi(it)
               view.hideLoading()
               view.unlockRotation()
-              handleSubmitClicks(it.verificationInfoModel.value, it.verificationInfoModel.currency)
+              handleSubmitClicks(it.verificationInfoModel)
             }
             .doOnSubscribe {
               view.lockRotation()
@@ -62,7 +62,25 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
     )
   }
 
-  private fun handleSubmitClicks(priceAmount: String, priceCurrency: String) {
+  private fun handleTryAgainClicks() {
+    disposable.add(view.getTryAgainClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .doOnNext { loadModel(null) }
+        .observeOn(viewScheduler)
+        .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  private fun handleSupportClicks() {
+    disposable.add(view.getSupportClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { interactor.showSupport() }
+        .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  private fun handleSubmitClicks(verificationInfoModel: VerificationInfoModel) {
     disposable.add(
         view.getSubmitClicks()
             .flatMapSingle {
@@ -75,19 +93,21 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
               view.hideKeyboard()
               view.lockRotation()
             }
+            .observeOn(ioScheduler)
             .flatMapSingle { adyenCard ->
               interactor.makePayment(adyenCard.cardPaymentMethod, adyenCard.shouldStoreCard, "")
             }
-            .observeOn(ioScheduler)
-            .flatMapCompletable {
-              handlePaymentResult(it, priceAmount.toBigDecimal(), priceCurrency)
-            }
-            .subscribe({}, { it.printStackTrace() })
+            .observeOn(viewScheduler)
+            .flatMapCompletable { handlePaymentResult(it, verificationInfoModel) }
+            .subscribe({}, {
+              logger.log(TAG, it)
+              view.showGenericError()
+            })
     )
   }
 
-  private fun handlePaymentResult(paymentModel: PaymentModel, priceAmount: BigDecimal? = null,
-                                  priceCurrency: String? = null): Completable {
+  private fun handlePaymentResult(paymentModel: PaymentModel,
+                                  verificationInfoModel: VerificationInfoModel): Completable {
     return when {
       paymentModel.resultCode.equals("AUTHORISED", true) -> {
         interactor.getAuthorisedTransaction(paymentModel.uid)
@@ -98,7 +118,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
                 it.status == TransactionResponse.Status.COMPLETED -> {
                   Completable.complete()
                       .observeOn(viewScheduler)
-                      .andThen(handleSuccessTransaction())
+                      .andThen(handleSuccessTransaction(verificationInfoModel))
                 }
                 isPaymentFailed(it.status) -> {
                   Completable.fromAction { handleErrors(it.error) }
@@ -110,13 +130,6 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
               }
             }
       }
-      paymentModel.status == TransactionResponse.Status.PENDING_USER_PAYMENT && paymentModel.action != null -> {
-        Completable.fromAction {
-          view.showLoading()
-          view.lockRotation()
-          handleAdyenAction(paymentModel)
-        }
-      }
       paymentModel.refusalReason != null -> Completable.fromAction {
         paymentModel.refusalCode?.let { code ->
           when (code) {
@@ -126,11 +139,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
         }
       }
       paymentModel.error.hasError -> Completable.fromAction {
-        if (isBillingAddressError(paymentModel.error, priceAmount, priceCurrency)) {
-          view.showBillingAddress(priceAmount!!, priceCurrency!!)
-        } else {
-          handleErrors(paymentModel.error)
-        }
+        handleErrors(paymentModel.error)
       }
       paymentModel.status == TransactionResponse.Status.CANCELED -> Completable.fromAction { view.cancel() }
       else -> Completable.fromAction {
@@ -139,37 +148,13 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
     }
   }
 
-  private fun handleSuccessTransaction(): Completable {
-    return Completable.fromAction { navigator.navigateToCodeView() }
-  }
-
-  private fun handleAdyenAction(paymentModel: PaymentModel) {
-    if (paymentModel.action != null) {
-      val type = paymentModel.action?.type
-      if (type == AdyenResponseMapper.REDIRECT) {
-        cachedPaymentData = paymentModel.paymentData
-        cachedUid = paymentModel.uid
-        navigator.navigateToUriForResult(paymentModel.redirectUrl)
-        waitingResult = true
-      } else if (type == AdyenResponseMapper.THREEDS2FINGERPRINT || type == AdyenResponseMapper.THREEDS2CHALLENGE) {
-        cachedUid = paymentModel.uid
-        view.handle3DSAction(paymentModel.action!!)
-        waitingResult = true
-      } else {
-        logger.log(AdyenPaymentPresenter.TAG, "Unknown adyen action: $type")
-        view.showGenericError()
-      }
+  private fun handleSuccessTransaction(verificationInfoModel: VerificationInfoModel): Completable {
+    val ts = System.currentTimeMillis()
+    return Completable.fromAction {
+      navigator.navigateToCodeView(verificationInfoModel.currency, verificationInfoModel.value,
+          verificationInfoModel.digits, verificationInfoModel.format, verificationInfoModel.period,
+          ts)
     }
-  }
-
-  private fun isBillingAddressError(error: Error,
-                                    priceAmount: BigDecimal?,
-                                    priceCurrency: String?): Boolean {
-    return error.code != null
-        && error.code == 400
-        && error.message?.contains("payment.billing_address") == true
-        && priceAmount != null
-        && priceCurrency != null
   }
 
   private fun isPaymentFailed(status: TransactionResponse.Status): Boolean {
@@ -179,11 +164,6 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
   private fun handleErrors(error: Error) {
     when {
       error.isNetworkError -> view.showNetworkError()
-      error.code != null -> {
-        val resId = servicesErrorCodeMapper.mapError(error.code!!)
-        if (error.code == 403) view.showGenericError()
-        else view.showSpecificError(resId)
-      }
       else -> view.showGenericError()
     }
   }

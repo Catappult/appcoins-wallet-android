@@ -26,6 +26,8 @@ import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
+import kotlinx.android.synthetic.main.error_top_up_layout.*
+import kotlinx.android.synthetic.main.error_top_up_layout.view.*
 import kotlinx.android.synthetic.main.fragment_verification_intro.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import javax.inject.Inject
@@ -233,28 +235,56 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
 
   override fun forgetCardClick(): Observable<Any> = RxView.clicks(change_card_button)
 
+  override fun getTryAgainClicks() = RxView.clicks(try_again)
+
+  override fun getSupportClicks(): Observable<Any> {
+    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+  }
+
   override fun showLoading() {
-    title.visibility = View.GONE
-    cc_container.visibility = View.GONE
-    description.visibility = View.GONE
-    bottom_separator?.visibility = View.GONE
-    submit.visibility = View.GONE
-    cancel.visibility = View.GONE
+    no_network.visibility = View.GONE
+    fragment_adyen_error?.visibility = View.GONE
+    content_container.visibility = View.GONE
     progress_bar.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
     progress_bar.visibility = View.GONE
-    title.visibility = View.VISIBLE
-    cc_container.visibility = View.VISIBLE
-    description.visibility = View.VISIBLE
-    bottom_separator?.visibility = View.VISIBLE
-    submit.visibility = View.VISIBLE
-    cancel.visibility = View.VISIBLE
+    content_container.visibility = View.VISIBLE
   }
 
   override fun showGenericError() {
+    showSpecificError(R.string.unknown_error)
+  }
 
+  override fun showNetworkError() {
+    unlockRotation()
+    progress_bar.visibility = View.GONE
+    content_container.visibility = View.GONE
+    no_network.visibility = View.VISIBLE
+  }
+
+  override fun showSpecificError(stringRes: Int) {
+    unlockRotation()
+    progress_bar.visibility = View.GONE
+    content_container.visibility = View.GONE
+
+    val message = getString(stringRes)
+    fragment_adyen_error?.error_message?.text = message
+    fragment_adyen_error?.visibility = View.VISIBLE
+  }
+
+  override fun showCvvError() {
+    unlockRotation()
+    progress_bar.visibility = View.GONE
+    submit.isEnabled = false
+    if (isStored) {
+      change_card_button.visibility = View.VISIBLE
+    } else {
+      change_card_button.visibility = View.INVISIBLE
+    }
+    content_container.visibility = View.VISIBLE
+    adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
   }
 
   override fun retrievePaymentData() = paymentDataSubject!!
