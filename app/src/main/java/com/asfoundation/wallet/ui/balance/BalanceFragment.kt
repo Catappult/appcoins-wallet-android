@@ -5,9 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +18,7 @@ import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.convertDpToPx
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.asfoundation.wallet.wallet_verification.WalletVerificationActivity
@@ -123,7 +122,7 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     popup = PopupWindow(tooltip)
     popup?.height = ViewGroup.LayoutParams.WRAP_CONTENT
     popup?.width = ViewGroup.LayoutParams.MATCH_PARENT
-    val offset = dpToPx(25f)
+    val offset = 25.convertDpToPx(resources)
     faded_background.visibility = View.VISIBLE
     popup?.showAsDropDown(backup_active_button, 0, offset * -1)
   }
@@ -370,8 +369,4 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
   private fun setAlpha(view: View, alphaPercentage: Float) {
     view.alpha = 1 - alphaPercentage * 1.20f
   }
-
-  private fun dpToPx(value: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
-      Resources.getSystem().displayMetrics)
-      .toInt()
 }
