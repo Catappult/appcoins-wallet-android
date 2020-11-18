@@ -18,6 +18,10 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val logger: Logger,
                           private val navigator: OnboardingNavigator) {
 
+  companion object {
+    private val TAG = OnboardingPresenter::class.java.name
+  }
+
   private var hasShowedWarning = false
 
   fun present() {
@@ -125,9 +129,5 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     onboardingInteractor.clickSkipOnboarding()
     if (!showAnimation) endOnboarding()
     else view.finishOnboarding(showAnimation)
-  }
-
-  companion object {
-    private val TAG = OnboardingPresenter::class.java.name
   }
 }

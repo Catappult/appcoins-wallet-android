@@ -18,8 +18,7 @@ import io.reactivex.subjects.ReplaySubject
 class OnboardingModule {
 
   @Provides
-  fun providesOnboardingPresenter(activity: OnboardingActivity,
-                                  interactor: OnboardingInteractor,
+  fun providesOnboardingPresenter(activity: OnboardingActivity, interactor: OnboardingInteractor,
                                   logger: Logger,
                                   navigator: OnboardingNavigator): OnboardingPresenter {
     return OnboardingPresenter(CompositeDisposable(), activity as OnboardingView, interactor,
