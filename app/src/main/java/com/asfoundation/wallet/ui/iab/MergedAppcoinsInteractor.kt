@@ -7,17 +7,17 @@ import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.*
 
-class MergedAppcoinsInteractor(private val balanceInteract: BalanceInteract,
+class MergedAppcoinsInteractor(private val balanceInteractor: BalanceInteractor,
                                private val walletBlockedInteract: WalletBlockedInteract,
-                               private val supportInteractor: SupportInteractor,
+                               private val supportRepository: SupportRepository,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                private val walletService: WalletService,
                                private val preferencesRepositoryType: PreferencesRepositoryType) {
@@ -26,20 +26,20 @@ class MergedAppcoinsInteractor(private val balanceInteract: BalanceInteract,
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
+            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
+            supportRepository.displayChatScreen()
           }
         }
   }
 
-  fun getEthBalance(): Observable<FiatValue> = balanceInteract.getEthBalance()
+  fun getEthBalance(): Observable<FiatValue> = balanceInteractor.getEthBalance()
       .map { it.second }
 
-  fun getAppcBalance(): Observable<FiatValue> = balanceInteract.getAppcBalance()
+  fun getAppcBalance(): Observable<FiatValue> = balanceInteractor.getAppcBalance()
       .map { it.second }
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> =
-      balanceInteract.getCreditsBalance()
+      balanceInteractor.getCreditsBalance()
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 

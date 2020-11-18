@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-import com.asfoundation.wallet.transactions.Transaction
+import com.asfoundation.wallet.entity.WalletHistory
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -12,14 +12,14 @@ class TransactionsLoadObservable(private val offChainTransactions: OffChainTrans
                                  private val endDate: Long? = null,
                                  private val sort: OffChainTransactions.Sort? = null,
                                  private val limit: Int = 10) :
-    Observable<List<Transaction>>() {
+    Observable<List<WalletHistory.Transaction>>() {
 
-  override fun subscribeActual(observer: Observer<in List<Transaction>>) {
+  override fun subscribeActual(observer: Observer<in List<WalletHistory.Transaction>>) {
     val transactionDisposable = TransactionsDisposable()
     observer.onSubscribe(transactionDisposable)
     try {
       var i = 0
-      var list: List<Transaction>? = null
+      var list: List<WalletHistory.Transaction>? = null
       while (!transactionDisposable.isDisposed && (list == null || list.isNotEmpty())) {
         list = offChainTransactions.getTransactions(wallet, startingDate, endDate, i, sort, limit)
         if (!transactionDisposable.isDisposed) {

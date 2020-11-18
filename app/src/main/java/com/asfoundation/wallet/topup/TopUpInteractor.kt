@@ -7,7 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
-import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -29,7 +29,7 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private var limitValues: TopUpLimitValues,
                       private var walletBlockedInteract: WalletBlockedInteract,
                       private var inAppPurchaseInteractor: InAppPurchaseInteractor,
-                      private var supportInteractor: SupportInteractor) {
+                      private var supportRepository: SupportRepository) {
 
 
   fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> {
@@ -50,8 +50,8 @@ class TopUpInteractor(private val repository: BdsRepository,
           inAppPurchaseInteractor.walletAddress
               .flatMapCompletable { wallet ->
                 Completable.fromAction {
-                  supportInteractor.registerUser(level, wallet.toLowerCase(Locale.ROOT))
-                  supportInteractor.displayChatScreen()
+                  supportRepository.registerUser(level, wallet.toLowerCase(Locale.ROOT))
+                  supportRepository.displayChatScreen()
                 }
               }
         }

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository
 
 import com.asfoundation.wallet.entity.WalletHistory
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -21,7 +22,13 @@ class OffChainTransactionsRepository(private val api: TransactionsApi,
         limit = limit, languageCode = Locale.getDefault().language)
   }
 
+  fun getTransactionsById(wallet: String,
+                          txList: List<String>): Single<List<WalletHistory.Transaction>> {
+    return api.getTransactionsById(wallet, txList.toTypedArray())
+  }
+
   interface TransactionsApi {
+
     @GET("appc/wallethistory")
     fun transactionHistorySync(
         @Query("wallet") wallet: String,
@@ -33,5 +40,10 @@ class OffChainTransactionsRepository(private val api: TransactionsApi,
         @Query("sort") sort: String? = "desc",
         @Query("limit") limit: Int,
         @Query("lang_code") languageCode: String): Call<WalletHistory>
+
+    fun getTransactionsById(
+        @Query("wallet") wallet: String,
+        @Query("transaction_list")
+        transactions: Array<String>): Single<List<WalletHistory.Transaction>>
   }
 }

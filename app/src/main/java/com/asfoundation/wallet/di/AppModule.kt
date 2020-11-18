@@ -383,7 +383,7 @@ internal class AppModule {
   @Provides
   fun providesOffChainTransactions(repository: OffChainTransactionsRepository,
                                    mapper: TransactionsMapper): OffChainTransactions {
-    return OffChainTransactions(repository, mapper, versionCode)
+    return OffChainTransactions(repository, versionCode)
   }
 
   private val versionCode: String
@@ -505,6 +505,33 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesBiometricManager(context: Context) = BiometricManager.from(context)
+
+  @Singleton
+  @Provides
+  fun provideTransactionsDatabase(context: Context): TransactionsDatabase {
+    return Room.databaseBuilder(context.applicationContext,
+        TransactionsDatabase::class.java,
+        "transactions_database")
+        .addMigrations(
+            TransactionsDatabase.MIGRATION_1_2,
+            TransactionsDatabase.MIGRATION_2_3,
+            TransactionsDatabase.MIGRATION_3_4,
+            TransactionsDatabase.MIGRATION_4_5
+        )
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun provideTransactionsDao(transactionsDatabase: TransactionsDatabase): TransactionsDao =
+      transactionsDatabase.transactionsDao()
+
+  @Singleton
+  @Provides
+  fun provideTransactionsLinkIdDao(
+      transactionsDatabase: TransactionsDatabase): TransactionLinkIdDao =
+      transactionsDatabase.transactionLinkIdDao()
+
 
   @Singleton
   @Provides

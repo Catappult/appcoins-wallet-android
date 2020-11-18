@@ -1,17 +1,17 @@
 package com.asfoundation.wallet.repository
 
 import android.annotation.SuppressLint
-import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.transactions.TransactionsMapper
+import com.asfoundation.wallet.entity.WalletHistory
+import io.reactivex.Single
 import retrofit2.HttpException
 
-class OffChainTransactions(private val repository: OffChainTransactionsRepository,
-                           private val mapper: TransactionsMapper,
-                           private val versionCode: String) {
+class OffChainTransactions(
+    private val repository: OffChainTransactionsRepository,
+    private val versionCode: String) {
 
   fun getTransactions(wallet: String, startingDate: Long? = null,
                       endingDate: Long? = null, offset: Int, sort: Sort?,
-                      limit: Int = 10): List<Transaction> {
+                      limit: Int = 10): MutableList<WalletHistory.Transaction> {
     @SuppressLint("DefaultLocale") val lowerCaseSort = sort?.name?.toLowerCase()
     val transactions =
         repository.getTransactionsSync(wallet, versionCode, startingDate, endingDate, offset,
@@ -19,9 +19,15 @@ class OffChainTransactions(private val repository: OffChainTransactionsRepositor
             .execute()
     val body = transactions.body()
     if (transactions.isSuccessful && body != null) {
-      return mapper.mapTransactionsFromWalletHistory(body.result)
+      return body.result
     }
     throw HttpException(transactions)
+  }
+
+  fun getTransactionsById(wallet: String,
+                          txId: String): Single<Map<String, WalletHistory.Transaction>> {
+    return repository.getTransactionsById(wallet, listOf(txId))
+        .map { transactions -> transactions.associateBy({ it.txID }, { it }) }
   }
 
   enum class Sort {

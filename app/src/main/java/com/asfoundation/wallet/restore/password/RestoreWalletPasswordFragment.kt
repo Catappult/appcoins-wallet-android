@@ -1,6 +1,5 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.restore.password
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -8,41 +7,27 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.restore.RestoreWalletActivityView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.restore_wallet_password_layout.*
+import kotlinx.android.synthetic.main.fragment_restore_wallet_password.*
 import kotlinx.android.synthetic.main.wallet_outlined_card.*
 import javax.inject.Inject
 
 class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordView {
 
   @Inject
-  lateinit var restoreWalletPasswordInteractor: RestoreWalletPasswordInteractor
-
-  @Inject
-  lateinit var walletsEventSender: WalletsEventSender
-
-  @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
-  private lateinit var activityView: RestoreWalletActivityView
-  private lateinit var presenter: RestoreWalletPasswordPresenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter =
-        RestoreWalletPasswordPresenter(this, activityView, restoreWalletPasswordInteractor,
-            walletsEventSender, CompositeDisposable(), AndroidSchedulers.mainThread(),
-            Schedulers.io(), Schedulers.computation())
-  }
+  @Inject
+  lateinit var presenter: RestoreWalletPasswordPresenter
+
+  private lateinit var activityView: RestoreWalletActivityView
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -56,19 +41,17 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setTextChangeListener()
-    presenter.present(keystore)
+    presenter.present()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.restore_wallet_password_layout, container, false)
+    return inflater.inflate(R.layout.fragment_restore_wallet_password, container, false)
   }
 
-  @SuppressLint("SetTextI18n")
-  override fun updateUi(address: String, fiatValue: FiatValue) {
+  override fun updateUi(address: String, fiatAmount: String, fiatSymbol: String) {
     wallet_address.text = address
-    wallet_balance.text =
-        "${fiatValue.symbol}${currencyFormatUtils.formatCurrency(fiatValue.amount)}"
+    wallet_balance.text = getString(R.string.value_fiat, fiatSymbol, fiatAmount)
   }
 
   override fun restoreWalletButtonClick(): Observable<String> {
@@ -81,6 +64,11 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
   override fun showWalletRestoredAnimation() = activityView.showWalletRestoredAnimation()
 
   override fun hideAnimation() = activityView.hideAnimation()
+
+  override fun hideKeyboard() {
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(password_edit_text.windowToken, 0)
+  }
 
   override fun showError(type: RestoreErrorType) {
     label_input.isErrorEnabled = true
@@ -110,17 +98,9 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
     })
   }
 
-  private val keystore: String by lazy {
-    if (arguments!!.containsKey(KEYSTORE_KEY)) {
-      arguments!!.getString(KEYSTORE_KEY)!!
-    } else {
-      throw IllegalArgumentException("keystore not found")
-    }
-  }
-
   companion object {
 
-    private const val KEYSTORE_KEY = "keystore"
+    const val KEYSTORE_KEY = "keystore"
 
     fun newInstance(keystore: String): RestoreWalletPasswordFragment {
       val fragment = RestoreWalletPasswordFragment()

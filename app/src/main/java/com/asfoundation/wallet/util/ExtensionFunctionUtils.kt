@@ -1,11 +1,13 @@
 package com.asfoundation.wallet.util
 
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.view.WindowManager
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
@@ -85,6 +87,15 @@ inline fun <T> Iterable<T>.sumByBigDecimal(selector: (T) -> BigDecimal): BigDeci
     sum += selector(element)
   }
   return sum
+}
+
+fun Int.convertDpToPx(resources: Resources): Int {
+  return TypedValue.applyDimension(
+      TypedValue.COMPLEX_UNIT_DIP,
+      this.toFloat(),
+      resources.displayMetrics
+  )
+      .toInt()
 }
 
 fun <T1 : Any, T2 : Any, R : Any> safeLet(p1: T1?, p2: T2?, block: (T1, T2) -> R?): R? {

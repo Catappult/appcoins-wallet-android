@@ -7,14 +7,21 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
+import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
 
 @Database(
-    entities = [TransactionEntity::class, TransactionDetailsEntity::class, TransactionDetailsEntity.Icon::class],
-    version = 4)
+    entities = [
+      TransactionEntity::class,
+      TransactionDetailsEntity::class,
+      TransactionDetailsEntity.Icon::class,
+      TransactionLinkIdEntity::class
+    ],
+    version = 5)
 @TypeConverters(TransactionTypeConverter::class)
 abstract class TransactionsDatabase : RoomDatabase() {
 
   abstract fun transactionsDao(): TransactionsDao
+  abstract fun transactionLinkIdDao(): TransactionLinkIdDao
 
   companion object {
 
@@ -57,6 +64,16 @@ abstract class TransactionsDatabase : RoomDatabase() {
         // transactions that happened after this is converted into the layout of the perk bonus
         // processed time has milliseconds into account
         database.execSQL("DELETE FROM TransactionEntity WHERE processedTime >= 1600084800000")
+      }
+    }
+
+    val MIGRATION_4_5: Migration = object : Migration(4, 5) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL(
+            "CREATE TABLE IF NOT EXISTS transaction_link_id (id INTEGER PRIMARY KEY AUTOINCREMENT, transactionId TEXT NOT NULL, linkTransactionId TEXT NOT NULL)")
+        database.execSQL(
+            "CREATE UNIQUE INDEX IF NOT EXISTS index_transaction_link_id_transactionId_linkTransactionId ON transaction_link_id (transactionId, linkTransactionId)")
+        database.execSQL("DELETE FROM TransactionEntity WHERE processedTime >= 1583280000000")
       }
     }
   }

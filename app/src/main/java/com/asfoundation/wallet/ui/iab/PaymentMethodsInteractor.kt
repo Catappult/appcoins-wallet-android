@@ -10,8 +10,8 @@ import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -22,9 +22,9 @@ import java.math.BigDecimal
 import java.util.*
 
 class PaymentMethodsInteractor(private val walletService: WalletService,
-                               private val supportInteractor: SupportInteractor,
+                               private val supportRepository: SupportRepository,
                                private val gamificationInteractor: GamificationInteractor,
-                               private val balanceInteract: BalanceInteract,
+                               private val balanceInteractor: BalanceInteractor,
                                private val walletBlockedInteract: WalletBlockedInteract,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                private val preferencesRepositoryType: PreferencesRepositoryType,
@@ -36,18 +36,18 @@ class PaymentMethodsInteractor(private val walletService: WalletService,
     return walletService.getWalletAddress()
         .flatMapCompletable {
           Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
+            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
+            supportRepository.displayChatScreen()
           }
         }
   }
 
-  fun getEthBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteract.getEthBalance()
+  fun getEthBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteractor.getEthBalance()
 
-  fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteract.getAppcBalance()
+  fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteractor.getAppcBalance()
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> =
-      balanceInteract.getCreditsBalance()
+      balanceInteractor.getCreditsBalance()
 
   fun isBonusActiveAndValid() = gamificationInteractor.isBonusActiveAndValid()
 

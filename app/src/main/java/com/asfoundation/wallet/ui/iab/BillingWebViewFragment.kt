@@ -55,7 +55,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val URL = "url"
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
-    const val OPEN_SUPPORT = BuildConfig.MY_APPCOINS_SUPPORT_HOST + "open-support"
+    const val OPEN_SUPPORT = BuildConfig.MY_APPCOINS_BASE_HOST + "open-support"
 
     fun newInstance(url: String?): BillingWebViewFragment {
       return BillingWebViewFragment().apply {

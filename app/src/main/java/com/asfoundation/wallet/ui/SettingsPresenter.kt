@@ -89,8 +89,9 @@ class SettingsPresenter(private val view: SettingsView,
     disposables.add(view.authenticationResult()
         .filter { it }
         .doOnNext {
-          settingsInteractor.changeAuthorizationPermission(false)
-          view.toggleFingerprint(false)
+          val hasPermission = settingsInteractor.hasAuthenticationPermission()
+          settingsInteractor.changeAuthorizationPermission(!hasPermission)
+          view.toggleFingerprint(!hasPermission)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -141,13 +142,7 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun onFingerPrintPreferenceChange() {
     disposables.add(view.switchPreferenceChange()
-        .doOnNext {
-          if (settingsInteractor.hasAuthenticationPermission()) activityView.showAuthentication()
-          else {
-            view.toggleFingerprint(true)
-            settingsInteractor.changeAuthorizationPermission(true)
-          }
-        }
+        .doOnNext { activityView.showAuthentication() }
         .subscribe({}, { it.printStackTrace() }))
   }
 }

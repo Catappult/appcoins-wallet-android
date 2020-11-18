@@ -125,11 +125,6 @@ class ReferralInteractor(
         }
   }
 
-  override fun getReferralInfo(): Single<ReferralModel> {
-    return promotionsRepository.getReferralInfo()
-        .map { mapResponse(it) }
-  }
-
   private fun isRedeemed(userStatus: ReferralResponse.UserStatus?): Boolean {
     return userStatus?.let { it == ReferralResponse.UserStatus.REDEEMED } ?: false
   }

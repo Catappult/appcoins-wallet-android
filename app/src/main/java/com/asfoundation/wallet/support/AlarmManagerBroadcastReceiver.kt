@@ -29,7 +29,7 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
   lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
   @Inject
-  lateinit var supportInteractor: SupportInteractor
+  lateinit var supportRepository: SupportRepository
 
   lateinit var notificationManager: NotificationManager
 
@@ -61,8 +61,8 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
     notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    if (supportInteractor.shouldShowNotification()) {
-      supportInteractor.updateUnreadConversations()
+    if (supportRepository.shouldShowNotification()) {
+      supportRepository.updateUnreadConversations()
       notificationManager.notify(NOTIFICATION_SERVICE_ID, createNotification(context).build())
     }
   }

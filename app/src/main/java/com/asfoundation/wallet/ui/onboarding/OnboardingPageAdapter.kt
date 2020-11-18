@@ -19,10 +19,4 @@ class OnboardingPageAdapter(private var items: List<OnboardingItem>) :
   override fun onBindViewHolder(holder: OnboardingViewHolder, position: Int) {
     holder.bind(items[position])
   }
-
-  fun setPages(items: List<OnboardingItem>) {
-    this.items = items
-    notifyDataSetChanged()
-  }
-
 }

@@ -2,16 +2,18 @@ package com.asfoundation.wallet.di
 
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
+import com.asfoundation.wallet.restore.RestoreWalletActivity
+import com.asfoundation.wallet.restore.RestoreWalletActivityModule
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.*
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity
 import com.asfoundation.wallet.ui.balance.QrCodeActivity
-import com.asfoundation.wallet.ui.balance.RestoreWalletActivity
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity
+import com.asfoundation.wallet.ui.onboarding.OnboardingModule
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
@@ -70,8 +72,8 @@ abstract class ActivityBuilders {
   internal abstract fun bindTopUpActivity(): TopUpActivity
 
   @ActivityScope
-  @ContributesAndroidInjector
-  internal abstract fun bindOnboardingModule(): OnboardingActivity
+  @ContributesAndroidInjector(modules = [OnboardingModule::class])
+  internal abstract fun bindOnboardingActivity(): OnboardingActivity
 
   @ActivityScope
   @ContributesAndroidInjector
@@ -104,7 +106,8 @@ abstract class ActivityBuilders {
   internal abstract fun bindWalletBlockedActivity(): WalletBlockedActivity
 
   @ActivityScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(
+      modules = [RestoreWalletActivityModule::class])
   internal abstract fun bindRestoreWalletActivity(): RestoreWalletActivity
 
   @ActivityScope
