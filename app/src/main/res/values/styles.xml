@@ -183,6 +183,7 @@
   </style>
 
   <style name="ButtonStyle.Alternative.Backup" parent="ButtonStyle.Alternative">
+    <item name="android:gravity">center</item>
     <item name="android:minWidth">240dp</item>
     <item name="android:paddingStart">@dimen/half_large_padding</item>
     <item name="android:paddingEnd">@dimen/half_large_padding</item>
