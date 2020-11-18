@@ -649,12 +649,12 @@
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
     <item name="android:ellipsize">end</item>
-    <item name="maxLines">1</item>
+    <item name="android:maxLines">1</item>
     <item name="android:gravity">center</item>
   </style>
 
   <style name="WalletBackupTextStyle.Bold" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textSize">14sp</item>
+    <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
     <item name="android:color">@color/black</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">6sp</item>
@@ -665,14 +665,14 @@
   </style>
 
   <style name="WalletBackupTextStyle.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textSize">14sp</item>
+    <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
     <item name="android:color">@color/grey_5a</item>
-    <item name="android:lineSpacingExtra">6sp</item>
+    <item name="android:lineSpacingExtra">@dimen/backup_description_line_spacing_extra</item>
     <item name="android:gravity">center_horizontal</item>
   </style>
 
   <style name="WalletBackupTextStyle.Normal" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textSize">14sp</item>
+    <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
     <item name="android:color">@color/black</item>
     <item name="android:letterSpacing">0.01</item>
     <item name="android:lineSpacingExtra">2sp</item>
