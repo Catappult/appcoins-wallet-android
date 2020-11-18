@@ -585,7 +585,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   private fun getTopUpValuesSpanCount(): Int {
-    val screenWidth = fragmentContainer.measuredWidth.convertDpToPx(resources)
+    val screenWidth =
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+            fragmentContainer.measuredWidth.toFloat(),
+            requireContext().resources
+                .displayMetrics)
+            .toInt()
     val viewWidth = 80.convertDpToPx(resources)
 
     return screenWidth / viewWidth

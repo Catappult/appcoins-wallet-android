@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.appcoins
 
 import android.graphics.Rect
+import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.asfoundation.wallet.util.convertDpToPx
@@ -39,7 +40,11 @@ class CardNotificationsItemDecorator : RecyclerView.ItemDecoration() {
 
       val margins = 32.convertDpToPx(parent.context.resources)
 
-      val screenWidth = parent.measuredWidth.convertDpToPx(parent.context.resources)
+      val screenWidth =
+          TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, parent.measuredWidth.toFloat(),
+              parent.context.resources
+                  .displayMetrics)
+              .toInt()
 
       val cardWidth = if (screenWidth > maxWidth) {
         maxWidth
