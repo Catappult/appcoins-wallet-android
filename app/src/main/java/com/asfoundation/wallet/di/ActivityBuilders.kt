@@ -13,6 +13,7 @@ import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity
+import com.asfoundation.wallet.ui.onboarding.OnboardingModule
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
@@ -71,8 +72,8 @@ abstract class ActivityBuilders {
   internal abstract fun bindTopUpActivity(): TopUpActivity
 
   @ActivityScope
-  @ContributesAndroidInjector
-  internal abstract fun bindOnboardingModule(): OnboardingActivity
+  @ContributesAndroidInjector(modules = [OnboardingModule::class])
+  internal abstract fun bindOnboardingActivity(): OnboardingActivity
 
   @ActivityScope
   @ContributesAndroidInjector
