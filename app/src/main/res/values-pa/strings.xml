@@ -231,6 +231,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
+  <string name="transaction_type_voucher">e-Voucher</string>
+  <string name="transaction_type_voucher_title">Voucher in %s</string>
   <string name="transaction_type_reverted_bonus_title">ਵਾਪਸ ਕੀਤਾ ਬੋਨਸ</string>
   <string name="transaction_type_reverted_bonus_body">%s ਨੂੰ ਦਿੱਤਾ ਬੋਨਸ ਵਾਪਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="transaction_type_reverted_topup_title">ਟੌਪ-ਅਪ ਰਿਫੰਡ</string>
@@ -557,6 +559,8 @@
   <string name="promotions_tab_poa_title">ਖੇਲੋ &amp; ਕਮਾਓ</string>
   <string name="promotions_empty_promotions_body">ਇਸ ਸਮੇਂ ਕੋਈ ਵੀ ਆਫਰਾਂ ਉਪਲਬਧ ਨਹੀਂ ਹਨ| ਬਾਅਦ ਵਿਚ ਵਾਪਸ ਆਓ!</string>
   <string name="promotions_empty_poa_body">ਇਸ ਸਮੇਂ ਇੱਥੇ ਕੋਈ ਵੀ ਐਪ ਇਨਾਮ ਲਈ ਉਪਲਬਧ ਨਹੀਂ ਹੈ| ਬਾਅਦ ਵਿਚ ਵਾਪਸ ਆਓ!</string>
+  <string name="promotions_perks_button">Perks</string>
+  <string name="promotions_vouhers_button">Vouchers</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਪਡੇਟ ਕਰੋ</string>
   <string name="update_wallet_poa_notification_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਅਪਡੇਟ ਕਰੋ|</string>
@@ -856,4 +860,12 @@
   <string name="card_verification_wallets_one_step_title">One more step to validate</string>
   <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
   <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <!--Vouchers-->
+  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
+  <string name="voucher_buy_header">Voucher for %s</string>
+  <string name="voucher_buy_no_game_title">Don\'t you have the game?</string>
+  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
+  <string name="voucher_code_title">Voucher Code</string>
+  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
+  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
 </resources>
