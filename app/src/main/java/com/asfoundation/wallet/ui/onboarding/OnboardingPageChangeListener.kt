@@ -14,20 +14,18 @@ import com.rd.PageIndicatorView
 
 
 class OnboardingPageChangeListener internal constructor(private val view: View,
-                                                        private var isActive: Boolean = false,
                                                         private var paymentMethodsIcons: List<String> = emptyList()) :
     ViewPager2.OnPageChangeCallback() {
 
   companion object {
     private const val ANIMATION_TRANSITIONS = 3
-    private const val PAGE_COUNT = 4
+    private const val PAGE_COUNT = 3
   }
 
   private var lottieViewPortrait: LottieAnimationView? = null
   private var lottieViewLandscape: LottieAnimationView? = null
   private lateinit var skipButton: Button
   private lateinit var nextButton: Button
-  private lateinit var beenInvitedButton: Button
   private lateinit var paymentMethodsRecyclerView: RecyclerView
   private lateinit var checkBox: CheckBox
   private lateinit var warningText: TextView
@@ -45,21 +43,12 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
     skipButton = view.findViewById(R.id.skip_button)
     nextButton = view.findViewById(R.id.next_button)
     checkBox = view.findViewById(R.id.onboarding_checkbox)
-    beenInvitedButton = view.findViewById(R.id.been_invited_bonus)
     paymentMethodsRecyclerView = view.findViewById(R.id.payment_methods_recycler_view)
     warningText = view.findViewById(R.id.terms_conditions_warning)
     termsConditionsLayout = view.findViewById(R.id.terms_conditions_layout)
     pageIndicatorView = view.findViewById(R.id.page_indicator)
     updatePageIndicator(0)
     handleUI(0)
-  }
-
-  fun setIsActiveFlag(isActive: Boolean) {
-    this.isActive = isActive
-  }
-
-  fun updateUI() {
-    if (isActive && currentPage == 3) beenInvitedButton.visibility = View.VISIBLE
   }
 
   fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>) {
@@ -85,26 +74,20 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
   }
 
   private fun handleUI(position: Int) {
-    if (position < 3) {
+    if (position < 2) {
       showFirstPageLayout()
-    } else if (position == 3) {
+    } else if (position == 2) {
       showLastPageLayout()
-    }
-
-    if (position == 2 && paymentMethodsIcons.isNotEmpty()) {
-      paymentMethodsRecyclerView.visibility = View.VISIBLE
-    } else {
-      paymentMethodsRecyclerView.visibility = View.GONE
+      if (paymentMethodsIcons.isNotEmpty()) paymentMethodsRecyclerView.visibility = View.VISIBLE
     }
   }
 
   private fun showLastPageLayout() {
     skipButton.visibility = View.GONE
     nextButton.visibility = View.VISIBLE
-    if (isActive) beenInvitedButton.visibility = View.VISIBLE
     termsConditionsLayout.visibility = View.VISIBLE
     nextButton.isEnabled = checkBox.isChecked
-    beenInvitedButton.isEnabled = checkBox.isChecked
+    paymentMethodsRecyclerView.visibility = View.INVISIBLE
 
     if (checkBox.isChecked) {
       if (warningText.visibility == View.VISIBLE) {
@@ -117,8 +100,8 @@ class OnboardingPageChangeListener internal constructor(private val view: View,
   private fun showFirstPageLayout() {
     skipButton.visibility = View.VISIBLE
     nextButton.visibility = View.GONE
-    beenInvitedButton.visibility = View.GONE
     termsConditionsLayout.visibility = View.GONE
+    paymentMethodsRecyclerView.visibility = View.INVISIBLE
 
     if (warningText.visibility == View.VISIBLE) {
       animateHideWarning(warningText)

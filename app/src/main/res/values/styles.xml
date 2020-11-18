@@ -469,6 +469,7 @@
 
   <style name="OnboardingTermsConditionsTextStyle">
     <item name="android:fontFamily">sans-serif</item>
+    <item name="android:lineSpacingExtra">1sp</item>
     <item name="android:textSize">9sp</item>
   </style>
 

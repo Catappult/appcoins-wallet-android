@@ -61,7 +61,6 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
-import com.asfoundation.wallet.ui.onboarding.OnboardingInteract
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator
 import com.asfoundation.wallet.ui.transact.TransferInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
@@ -252,16 +251,6 @@ class InteractorModule {
   fun provideWalletCreatorInteract(accountRepository: WalletRepositoryType,
                                    passwordStore: PasswordStore, syncScheduler: ExecutorScheduler) =
       WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
-
-  @Provides
-  fun provideOnboardingInteract(walletService: WalletService,
-                                preferencesRepositoryType: PreferencesRepositoryType,
-                                supportRepository: SupportRepository, gamification: Gamification,
-                                smsValidationInteract: SmsValidationInteract,
-                                referralInteractor: ReferralInteractorContract,
-                                bdsRepository: BdsRepository) =
-      OnboardingInteract(walletService, preferencesRepositoryType, supportRepository, gamification,
-          smsValidationInteract, referralInteractor, bdsRepository)
 
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,
