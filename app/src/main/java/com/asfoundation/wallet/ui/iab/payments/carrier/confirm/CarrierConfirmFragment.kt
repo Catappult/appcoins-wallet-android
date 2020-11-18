@@ -134,6 +134,7 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     internal const val CURRENCY_KEY = "currency"
     internal const val BONUS_AMOUNT_KEY = "bonus_amount"
     internal const val SKU_DESCRIPTION = "sku_description"
+    internal const val SKU_ID = "sku_id"
     internal const val FEE_FIAT_AMOUNT = "fee_fiat_amount"
     internal const val CARRIER_NAME = "carrier_name"
     internal const val CARRIER_IMAGE = "carrier_image"
@@ -141,38 +142,26 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
     @JvmStatic
     fun newInstance(uid: String, domain: String, transactionData: String, transactionType: String,
                     paymentUrl: String?, currency: String?, amount: BigDecimal,
-                    appcAmount: BigDecimal,
-                    bonus: BigDecimal?, skuDescription: String, feeFiatAmount: BigDecimal,
-                    carrierName: String, carrierImage: String): CarrierConfirmFragment {
+                    appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
+                    skuId: String?, feeFiatAmount: BigDecimal, carrierName: String,
+                    carrierImage: String): CarrierConfirmFragment {
       val fragment =
           CarrierConfirmFragment()
       fragment.arguments = Bundle().apply {
-        putString(
-            UID_KEY, uid)
-        putString(
-            DOMAIN_KEY, domain)
-        putString(
-            TRANSACTION_DATA_KEY, transactionData)
-        putString(
-            TRANSACTION_TYPE_KEY, transactionType)
-        putString(
-            PAYMENT_URL_KEY, paymentUrl)
-        putString(
-            CURRENCY_KEY, currency)
-        putSerializable(
-            FIAT_AMOUNT_KEY, amount)
-        putSerializable(
-            APPC_AMOUNT_KEY, appcAmount)
-        putSerializable(
-            BONUS_AMOUNT_KEY, bonus)
-        putString(
-            SKU_DESCRIPTION, skuDescription)
-        putSerializable(
-            FEE_FIAT_AMOUNT, feeFiatAmount)
-        putString(
-            CARRIER_NAME, carrierName)
-        putString(
-            CARRIER_IMAGE, carrierImage)
+        putString(UID_KEY, uid)
+        putString(DOMAIN_KEY, domain)
+        putString(TRANSACTION_DATA_KEY, transactionData)
+        putString(TRANSACTION_TYPE_KEY, transactionType)
+        putString(PAYMENT_URL_KEY, paymentUrl)
+        putString(CURRENCY_KEY, currency)
+        putSerializable(FIAT_AMOUNT_KEY, amount)
+        putSerializable(APPC_AMOUNT_KEY, appcAmount)
+        putSerializable(BONUS_AMOUNT_KEY, bonus)
+        putString(SKU_DESCRIPTION, skuDescription)
+        putString(SKU_ID, skuId)
+        putSerializable(FEE_FIAT_AMOUNT, feeFiatAmount)
+        putString(CARRIER_NAME, carrierName)
+        putString(CARRIER_IMAGE, carrierImage)
       }
       return fragment
     }

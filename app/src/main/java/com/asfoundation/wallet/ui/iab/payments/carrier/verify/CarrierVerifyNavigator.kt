@@ -17,15 +17,15 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
   }
 
   fun navigateToConfirm(uid: String, domain: String, transactionData: String,
-                        transactionType: String,
-                        paymentUrl: String?, currency: String?, amount: BigDecimal,
-                        appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
-                        feeFiatAmount: BigDecimal,
+                        transactionType: String, paymentUrl: String?, currency: String?,
+                        amount: BigDecimal, appcAmount: BigDecimal, bonus: BigDecimal?,
+                        skuDescription: String, skuId: String?, feeFiatAmount: BigDecimal,
                         carrierName: String, carrierImage: String) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             CarrierConfirmFragment.newInstance(uid, domain, transactionData, transactionType,
-                paymentUrl, currency, amount, appcAmount, bonus, skuDescription, feeFiatAmount,
+                paymentUrl, currency, amount, appcAmount, bonus, skuDescription, skuId,
+                feeFiatAmount,
                 carrierName, carrierImage))
         .addToBackStack(null)
         .commit()

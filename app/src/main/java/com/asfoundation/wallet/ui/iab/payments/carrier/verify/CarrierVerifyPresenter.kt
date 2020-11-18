@@ -3,6 +3,8 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.StringProvider
@@ -22,9 +24,11 @@ class CarrierVerifyPresenter(
     private val data: CarrierVerifyData,
     private val navigator: CarrierVerifyNavigator,
     private val interactor: CarrierInteractor,
+    private val billingAnalytics: BillingAnalytics,
     private val appInfoLoader: ApplicationInfoLoader,
     private val stringProvider: StringProvider,
     private val formatter: CurrencyFormatUtils,
+    private val logger: Logger,
     private val viewScheduler: Scheduler,
     private val ioScheduler: Scheduler) {
 
@@ -63,7 +67,12 @@ class CarrierVerifyPresenter(
     disposables.add(
         view.nextClickEvent()
             .doOnNext {
+              view.lockRotation()
               view.setLoading()
+              billingAnalytics.sendPaymentMethodDetailsActionEvent(data.domain,
+                  data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+                  data.transactionType,
+                  "next")
             }
             .flatMapSingle { phoneNumber ->
               interactor.createPayment(phoneNumber, data.domain, data.origin, data.transactionData,
@@ -71,6 +80,7 @@ class CarrierVerifyPresenter(
             }
             .observeOn(viewScheduler)
             .flatMap { paymentModel ->
+              view.unlockRotation()
               var completable = Completable.complete()
               if (paymentModel.error !is NoError) {
                 completable = handleError(paymentModel)
@@ -82,7 +92,7 @@ class CarrierVerifyPresenter(
                         navigator.navigateToConfirm(paymentModel.uid, data.domain,
                             data.transactionData, data.transactionType, paymentModel.paymentUrl,
                             data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
-                            data.skuDescription, cost.value, carrier.name, carrier.icon)
+                            data.skuDescription, data.skuId, cost.value, carrier.name, carrier.icon)
                       }
                     }
                   }
@@ -96,6 +106,7 @@ class CarrierVerifyPresenter(
   }
 
   private fun handleError(paymentModel: CarrierPaymentModel): Completable {
+    logger.log(CarrierVerifyFragment.TAG, paymentModel.error.errorMessage)
     when (paymentModel.error) {
       is InvalidPhoneNumber -> {
         return Completable.fromAction { view.showInvalidPhoneNumberError() }
@@ -170,8 +181,15 @@ class CarrierVerifyPresenter(
         view.backEvent()
             .doOnNext {
               if (data.preselected) {
+                billingAnalytics.sendPaymentMethodDetailsActionEvent(data.domain, data.skuId,
+                    data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+                    data.transactionType, "cancel")
                 navigator.finishActivityWithError()
               } else {
+                billingAnalytics.sendPaymentMethodDetailsActionEvent(data.domain, data.skuId,
+                    data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+                    data.transactionType,
+                    "back")
                 navigator.navigateBack()
               }
             }
@@ -184,6 +202,10 @@ class CarrierVerifyPresenter(
     disposables.add(
         view.otherPaymentMethodsEvent()
             .doOnNext {
+              billingAnalytics.sendPaymentMethodDetailsActionEvent(data.domain,
+                  data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+                  data.transactionType,
+                  "other_payments")
               navigator.navigateBack()
             }
             .retry()

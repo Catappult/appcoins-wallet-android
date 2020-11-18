@@ -64,12 +64,21 @@ public class BillingAnalytics implements EventSender {
   @Override
   public void sendPaymentMethodDetailsEvent(String packageName, String skuDetails, String value,
       String purchaseDetails, String transactionType) {
+    sendPaymentMethodDetailsActionEvent(packageName, skuDetails, value, purchaseDetails,
+        transactionType, null);
+  }
+
+  @Override public void sendPaymentMethodDetailsActionEvent(String packageName, String skuDetails,
+      String value, String purchaseDetails, String transactionType, String action) {
     Map<String, Object> eventData = new HashMap<>();
     Map<String, Object> purchaseData = new HashMap<>();
 
     purchaseData.put(EVENT_PACKAGE_NAME, packageName);
     purchaseData.put(EVENT_SKU, skuDetails);
     purchaseData.put(EVENT_VALUE, value);
+    if (action != null) {
+      purchaseData.put(EVENT_ACTION, action);
+    }
 
     eventData.put(EVENT_PURCHASE, purchaseData);
     eventData.put(EVENT_PAYMENT_METHOD, purchaseDetails);

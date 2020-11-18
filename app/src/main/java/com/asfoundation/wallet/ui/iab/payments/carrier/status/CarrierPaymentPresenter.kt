@@ -5,7 +5,6 @@ import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import io.reactivex.Completable
@@ -26,29 +25,14 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
                               private val viewScheduler: Scheduler,
                               private val ioScheduler: Scheduler) {
 
-  private lateinit var transactionBuilder: TransactionBuilder
-
-  companion object {
-    private val TAG = CarrierPaymentPresenter::class.java.simpleName
-  }
-
   fun present() {
     initializeView()
-    initializePayment()
     handleTransactionResult()
   }
 
   private fun initializeView() {
     view.initializeView(data.bonusAmount, data.currency)
-  }
-
-  private fun initializePayment() {
-    disposables.add(carrierInteractor.getTransactionBuilder(data.transactionData)
-        .doOnSuccess { transactionBuilder ->
-          this.transactionBuilder = transactionBuilder
-          navigator.navigateToPaymentWebView(data.paymentUrl)
-        }
-        .subscribe({}, { e -> e.printStackTrace() }))
+    navigator.navigateToPaymentWebView(data.paymentUrl)
   }
 
   private fun handleTransactionResult() {
@@ -63,7 +47,8 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
         .flatMap { payment ->
           when {
             isErrorStatus(payment.status) -> {
-              logger.log(TAG, "Transaction came with error status: ${payment.status}")
+              logger.log(CarrierPaymentFragment.TAG,
+                  "Transaction came with error status: ${payment.status}")
               return@flatMap sendPaymentErrorEvent(payment.error.errorCode,
                   payment.error.errorMessage)
                   .observeOn(viewScheduler)
@@ -102,7 +87,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
           status == TransactionStatus.INVALID_TRANSACTION
 
   private fun handleError(throwable: Throwable): Completable {
-    logger.log(TAG, throwable)
+    logger.log(CarrierPaymentFragment.TAG, throwable)
     return if (throwable is HttpException) {
       sendPaymentErrorEvent(throwable.code(), throwable.message())
           .andThen(
@@ -121,9 +106,8 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun finishPayment(payment: CarrierPaymentModel): Completable {
-    return carrierInteractor.getCompletePurchaseBundle(transactionBuilder.type,
-        transactionBuilder.domain, transactionBuilder.skuId, payment.reference, payment.hash,
-        ioScheduler)
+    return carrierInteractor.getCompletePurchaseBundle(data.transactionType, data.domain,
+        data.skuId, payment.reference, payment.hash, ioScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { bundle ->
           navigator.finishPayment(bundle)
@@ -135,23 +119,22 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?): Completable {
     return Completable.fromAction {
       val code: String? = if (refusalCode == -1) "ERROR" else refusalCode.toString()
-      billingAnalytics.sendPaymentErrorWithDetailsEvent(data.domain, transactionBuilder.skuId,
-          transactionBuilder.amount()
-              .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, transactionBuilder.type,
+      billingAnalytics.sendPaymentErrorWithDetailsEvent(data.domain, data.skuId,
+          data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType,
           code, refusalReason)
     }
   }
 
   private fun sendPaymentSuccessEvents(): Completable {
-    return carrierInteractor.convertToFiat(transactionBuilder.amount()
+    return carrierInteractor.convertToFiat(data.appcAmount
         .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
         .doOnSuccess { fiatValue ->
-          billingAnalytics.sendPaymentSuccessEvent(data.domain, transactionBuilder.skuId,
-              transactionBuilder.amount()
-                  .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, transactionBuilder.type)
-          billingAnalytics.sendPaymentEvent(data.domain, transactionBuilder.skuId,
-              transactionBuilder.amount()
-                  .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, transactionBuilder.type)
+          billingAnalytics.sendPaymentSuccessEvent(data.domain, data.skuId,
+              data.appcAmount
+                  .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType)
+          billingAnalytics.sendPaymentEvent(data.domain, data.skuId,
+              data.appcAmount
+                  .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType)
           billingAnalytics.sendRevenueEvent(fiatValue.amount.setScale(2, BigDecimal.ROUND_UP)
               .toString())
         }

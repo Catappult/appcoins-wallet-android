@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
+import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import dagger.Module
 import dagger.Provides
@@ -16,7 +15,8 @@ class CarrierConfirmModule {
 
   @Provides
   fun providesCarrierConfirmNavigator(fragment: CarrierConfirmFragment): CarrierConfirmNavigator {
-    return CarrierConfirmNavigator(fragment.requireFragmentManager())
+    return CarrierConfirmNavigator(fragment.activity as IabActivity,
+        fragment.requireFragmentManager())
   }
 
   @Provides
@@ -27,6 +27,7 @@ class CarrierConfirmModule {
           getString(CarrierConfirmFragment.TRANSACTION_DATA_KEY)!!,
           getString(CarrierConfirmFragment.TRANSACTION_TYPE_KEY)!!,
           getString(CarrierConfirmFragment.SKU_DESCRIPTION)!!,
+          getString(CarrierConfirmFragment.SKU_ID),
           getString(CarrierConfirmFragment.PAYMENT_URL_KEY)!!,
           getString(CarrierConfirmFragment.CURRENCY_KEY)!!,
           getSerializable(CarrierConfirmFragment.FIAT_AMOUNT_KEY) as BigDecimal,
@@ -42,12 +43,9 @@ class CarrierConfirmModule {
   fun providesCarrierConfirmPresenter(fragment: CarrierConfirmFragment,
                                       data: CarrierConfirmData,
                                       navigator: CarrierConfirmNavigator,
-                                      interactor: CarrierInteractor,
                                       billingAnalytics: BillingAnalytics,
-                                      logger: Logger,
                                       appInfoLoader: ApplicationInfoLoader): CarrierConfirmPresenter {
-    return CarrierConfirmPresenter(
-        CompositeDisposable(), fragment as CarrierConfirmView, data, navigator, interactor,
-        billingAnalytics, appInfoLoader, logger, AndroidSchedulers.mainThread(), Schedulers.io())
+    return CarrierConfirmPresenter(CompositeDisposable(), fragment as CarrierConfirmView, data,
+        navigator, billingAnalytics, appInfoLoader, AndroidSchedulers.mainThread(), Schedulers.io())
   }
 }

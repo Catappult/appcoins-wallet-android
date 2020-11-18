@@ -192,7 +192,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             CarrierVerifyFragment.newInstance(isPreselected, transaction!!.domain, getOrigin(isBds),
                 transaction!!.type, intent.dataString, currency, amount, transaction!!.amount(),
-                bonus, getSkuDescription()))
+                bonus, getSkuDescription(), transaction!!.skuId))
         .addToBackStack(CarrierVerifyFragment.BACKSTACK_NAME)
         .commit()
   }

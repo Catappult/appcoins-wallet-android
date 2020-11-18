@@ -6,4 +6,4 @@ data class CarrierVerifyData(val preselected: Boolean, val domain: String, val o
                              val transactionType: String, val transactionData: String,
                              val currency: String, val fiatAmount: BigDecimal,
                              val appcAmount: BigDecimal, val bonusAmount: BigDecimal,
-                             val skuDescription: String)
+                             val skuDescription: String, val skuId: String?)

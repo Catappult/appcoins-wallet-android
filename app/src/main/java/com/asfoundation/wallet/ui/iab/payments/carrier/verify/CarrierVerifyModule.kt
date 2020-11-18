@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -33,7 +35,8 @@ class CarrierVerifyModule {
           getSerializable(CarrierVerifyFragment.FIAT_AMOUNT_KEY) as BigDecimal,
           getSerializable(CarrierVerifyFragment.APPC_AMOUNT_KEY) as BigDecimal,
           getSerializable(CarrierVerifyFragment.BONUS_AMOUNT_KEY) as BigDecimal,
-          getString(CarrierVerifyFragment.SKU_DESCRIPTION)!!)
+          getString(CarrierVerifyFragment.SKU_DESCRIPTION)!!,
+          getString(CarrierVerifyFragment.SKU_ID))
     }
   }
 
@@ -42,10 +45,12 @@ class CarrierVerifyModule {
                                      data: CarrierVerifyData,
                                      navigator: CarrierVerifyNavigator,
                                      interactor: CarrierInteractor,
+                                     billingAnalytics: BillingAnalytics,
                                      stringProvider: StringProvider,
-                                     applicationInfoLoader: ApplicationInfoLoader): CarrierVerifyPresenter {
+                                     applicationInfoLoader: ApplicationInfoLoader,
+                                     logger: Logger): CarrierVerifyPresenter {
     return CarrierVerifyPresenter(CompositeDisposable(), fragment as CarrierVerifyView, data,
-        navigator, interactor, applicationInfoLoader, stringProvider, CurrencyFormatUtils(),
-        AndroidSchedulers.mainThread(), Schedulers.io())
+        navigator, interactor, billingAnalytics, applicationInfoLoader, stringProvider,
+        CurrencyFormatUtils(), logger, AndroidSchedulers.mainThread(), Schedulers.io())
   }
 }

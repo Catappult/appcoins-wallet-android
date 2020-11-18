@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -40,7 +41,7 @@ class CarrierVerifyFragment : DaggerFragment(),
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.putBoolean(IS_PHONE_ERROR_VISIBLE_KEY, field_error_text.visibility == View.VISIBLE)
+    outState.putBoolean(IS_PHONE_ERROR_VISIBLE_KEY, field_error_text?.visibility == View.VISIBLE)
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -157,12 +158,21 @@ class CarrierVerifyFragment : DaggerFragment(),
     buy_button.isEnabled = enabled
   }
 
+  override fun unlockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+  }
+
+  override fun lockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+  }
+
   override fun otherPaymentMethodsEvent(): Observable<Any> {
     return RxView.clicks(other_payments_button)
   }
 
   companion object {
 
+    val TAG = CarrierVerifyFragment::class.java.simpleName
     const val BACKSTACK_NAME = "carrier_entry_point"
 
     private const val IS_PHONE_ERROR_VISIBLE_KEY = "IS_PHONE_ERROR_VISIBLE"
@@ -177,12 +187,14 @@ class CarrierVerifyFragment : DaggerFragment(),
     internal const val CURRENCY_KEY = "currency"
     internal const val BONUS_AMOUNT_KEY = "bonus_amount"
     internal const val SKU_DESCRIPTION = "sku_description"
+    internal const val SKU_ID = "sku_id"
 
     @JvmStatic
     fun newInstance(preSelected: Boolean, domain: String, origin: String?, transactionType: String,
                     transactionData: String?,
                     currency: String?, amount: BigDecimal, appcAmount: BigDecimal,
-                    bonus: BigDecimal?, skuDescription: String): CarrierVerifyFragment {
+                    bonus: BigDecimal?, skuDescription: String,
+                    skuId: String?): CarrierVerifyFragment {
       val fragment =
           CarrierVerifyFragment()
 
@@ -197,6 +209,7 @@ class CarrierVerifyFragment : DaggerFragment(),
         putSerializable(APPC_AMOUNT_KEY, appcAmount)
         putSerializable(BONUS_AMOUNT_KEY, bonus)
         putString(SKU_DESCRIPTION, skuDescription)
+        putString(SKU_ID, skuId)
       }
       return fragment
     }

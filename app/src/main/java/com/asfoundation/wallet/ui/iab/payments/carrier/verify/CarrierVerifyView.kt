@@ -26,4 +26,8 @@ interface CarrierVerifyView {
   fun removePhoneNumberFieldError()
 
   fun setNextButtonEnabled(enabled: Boolean)
+
+  fun lockRotation()
+
+  fun unlockRotation()
 }

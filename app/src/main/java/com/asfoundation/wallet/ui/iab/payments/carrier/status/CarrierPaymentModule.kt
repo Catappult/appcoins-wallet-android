@@ -28,8 +28,10 @@ class CarrierPaymentModule {
       return CarrierPaymentData(getString(CarrierPaymentFragment.DOMAIN_KEY)!!,
           getString(CarrierPaymentFragment.TRANSACTION_DATA_KEY)!!,
           getString(CarrierPaymentFragment.TRANSACTION_TYPE_KEY)!!,
+          getString(CarrierPaymentFragment.SKU_ID_KEY),
           getString(CarrierPaymentFragment.PAYMENT_URL)!!,
           getString(CarrierConfirmFragment.CURRENCY_KEY)!!,
+          getSerializable(CarrierConfirmFragment.APPC_AMOUNT_KEY) as BigDecimal,
           getSerializable(CarrierConfirmFragment.BONUS_AMOUNT_KEY) as BigDecimal)
     }
   }

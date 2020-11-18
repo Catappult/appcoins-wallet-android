@@ -105,33 +105,33 @@ class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
       complete_payment_view.lottie_transaction_success.duration
 
   companion object {
+    val TAG = CarrierPaymentFragment::class.java.simpleName
 
     internal const val DOMAIN_KEY = "domain"
     internal const val TRANSACTION_DATA_KEY = "transaction_data"
     internal const val TRANSACTION_TYPE_KEY = "transaction_type"
+    internal const val SKU_ID_KEY = "sku_id"
+    internal const val APPC_AMOUNT_KEY = "appc_amount"
     internal const val PAYMENT_URL = "payment_url"
     internal const val CURRENCY_KEY = "currency"
     internal const val BONUS_AMOUNT_KEY = "bonus_amount"
 
     @JvmStatic
     fun newInstance(domain: String, transactionData: String,
-                    transactionType: String, paymentUrl: String,
+                    transactionType: String, skuId: String?, paymentUrl: String,
+                    appcAmount: BigDecimal,
                     currency: String?, bonus: BigDecimal?): CarrierPaymentFragment {
       val fragment =
           CarrierPaymentFragment()
       fragment.arguments = Bundle().apply {
-        putString(
-            DOMAIN_KEY, domain)
-        putString(
-            TRANSACTION_DATA_KEY, transactionData)
-        putString(
-            TRANSACTION_TYPE_KEY, transactionType)
-        putString(
-            PAYMENT_URL, paymentUrl)
-        putString(
-            CURRENCY_KEY, currency)
-        putSerializable(
-            BONUS_AMOUNT_KEY, bonus)
+        putString(DOMAIN_KEY, domain)
+        putString(TRANSACTION_DATA_KEY, transactionData)
+        putString(TRANSACTION_TYPE_KEY, transactionType)
+        putString(SKU_ID_KEY, skuId)
+        putSerializable(APPC_AMOUNT_KEY, appcAmount)
+        putString(PAYMENT_URL, paymentUrl)
+        putString(CURRENCY_KEY, currency)
+        putSerializable(BONUS_AMOUNT_KEY, bonus)
       }
       return fragment
     }
