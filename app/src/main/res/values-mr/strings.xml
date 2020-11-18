@@ -232,7 +232,7 @@
   <string name="transaction_type_standard">हस्तांतरण</string>
   <string name="transaction_type_bonus">बोनस</string>
   <string name="transaction_type_voucher">e-Voucher</string>
-  <string name="transaction_type_voucher_title">Voucher in %s</string>
+  <string name="transaction_type_voucher_title">Voucher for %s</string>
   <string name="transaction_type_reverted_bonus_title">परत केलेला बोनस</string>
   <string name="transaction_type_reverted_bonus_body">%s ह्यावर आपणांस मिळालेला बोनस परतवला गेलाय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_type_reverted_topup_title">टॉप-अपची परतफेड</string>
@@ -879,7 +879,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
   <string name="voucher_buy_header">Voucher for %s</string>
-  <string name="voucher_buy_no_game_title">Don\'t you have the game?</string>
+  <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
   <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
   <string name="voucher_code_title">Voucher Code</string>
   <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
