@@ -6,7 +6,7 @@ interface BackupWalletFragmentView {
 
   fun setupUi(walletAddress: String, symbol: String, formattedAmount: String)
 
-  fun getBackupClick(): Observable<String>
+  fun getBackupClick(): Observable<PasswordStatus>
 
   fun hideKeyboard()
 

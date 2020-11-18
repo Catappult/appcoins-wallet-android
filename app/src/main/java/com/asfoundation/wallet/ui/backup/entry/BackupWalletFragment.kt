@@ -75,8 +75,10 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
     backup_balance.text = getString(R.string.value_fiat, symbol, formattedAmount)
   }
 
-  override fun getBackupClick(): Observable<String> = RxView.clicks(backup_btn)
-      .map { "password?.text.toString() " }
+  override fun getBackupClick(): Observable<PasswordStatus> = RxView.clicks(backup_btn)
+      .map {
+        PasswordStatus(backup_password_edit_text.text.toString(), backup_password_toggle.isChecked)
+      }
 
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?

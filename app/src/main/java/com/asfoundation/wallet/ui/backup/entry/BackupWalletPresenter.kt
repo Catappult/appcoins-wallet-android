@@ -41,7 +41,8 @@ class BackupWalletPresenter(private val balanceInteractor: BalanceInteractor,
     disposables.add(view.getBackupClick()
         .doOnNext {
           view.hideKeyboard()
-          navigator.showBackupCreationScreen(data.walletAddress, it)
+          val password = if (it.wantsPassword) it.password else ""
+          navigator.showBackupCreationScreen(data.walletAddress, password)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
