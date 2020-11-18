@@ -35,7 +35,7 @@
       android:layout_height="wrap_content"
       android:indeterminateDrawable="@drawable/gradient_progress"
       android:visibility="invisible"
-      app:layout_constraintBottom_toTopOf="@id/purchase_bonus"
+      app:layout_constraintBottom_toTopOf="@id/field_error_text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/line_separator"
@@ -87,6 +87,7 @@
         app:ccp_arrowColor="@color/black_87_alpha"
         app:ccp_arrowSize="16dp"
         app:ccp_autoDetectCountry="true"
+        app:ccp_rememberLastSelection="true"
         app:ccp_showNameCode="false"
         app:ccp_textSize="14sp"
         />
@@ -129,6 +130,20 @@
   </LinearLayout>
 
   <TextView
+      android:id="@+id/field_error_text"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="5dp"
+      android:layout_marginTop="5dp"
+      android:text="@string/purchase_carrier_error"
+      android:textColor="@color/remove_wallet_red"
+      android:textSize="12sp"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
+      app:layout_constraintStart_toStartOf="@+id/phone_number_layout"
+      app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+      />
+  <TextView
       android:id="@+id/other_payments_button"
       style="@style/PaymentMethods.Error.OtherPaymentsButton"
       android:layout_width="wrap_content"
@@ -136,7 +151,7 @@
       android:text="@string/purchase_more_payment_methods_button"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
-      app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+      app:layout_constraintTop_toBottomOf="@+id/field_error_text"
       />
 
   <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView

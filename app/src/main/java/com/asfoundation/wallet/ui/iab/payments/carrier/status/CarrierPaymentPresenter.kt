@@ -72,7 +72,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
                         handleFraudFlow()
                       } else {
                         Completable.fromAction {
-                          navigator.navigateToError(R.string.activity_iab_error_message, false)
+                          navigator.navigateToError(R.string.activity_iab_error_message)
                         }
                       }
                   )
@@ -113,7 +113,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
               })
     } else {
       Completable.fromAction {
-        navigator.navigateToError(R.string.activity_iab_error_message, false)
+        navigator.navigateToError(R.string.activity_iab_error_message)
       }
           .subscribeOn(viewScheduler)
     }
@@ -165,14 +165,12 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
         .doOnSuccess { walletStatus ->
           if (walletStatus.blocked) {
             if (walletStatus.verified) {
-              navigator.navigateToError(
-                  R.string.purchase_error_wallet_block_code_403, false)
+              navigator.navigateToError(R.string.purchase_error_wallet_block_code_403)
             } else {
-              navigator.navigateToWalletValidation(
-                  R.string.purchase_error_wallet_block_code_403)
+              navigator.navigateToWalletValidation(R.string.purchase_error_wallet_block_code_403)
             }
           } else {
-            navigator.navigateToError(R.string.purchase_error_wallet_block_code_403, false)
+            navigator.navigateToError(R.string.purchase_error_wallet_block_code_403)
           }
         }
         .ignoreElement()

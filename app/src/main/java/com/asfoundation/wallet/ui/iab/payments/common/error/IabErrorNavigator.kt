@@ -1,22 +1,18 @@
 package com.asfoundation.wallet.ui.iab.payments.common.error
 
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
+import com.asfoundation.wallet.ui.iab.IabActivity
 
-class IabErrorNavigator(private val activity: FragmentActivity,
+class IabErrorNavigator(private val activity: IabActivity,
                         private val fragmentManager: FragmentManager) {
 
-  fun navigateToOtherPayments(backStackEntryName: String) {
-    fragmentManager.popBackStack(backStackEntryName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-  }
-
   fun cancelPayment() {
-    // This assumes IabActivity is listening for back presses to cancel the payment
-    activity.onBackPressed()
+    activity.finishWithError()
   }
 
   fun navigateBackToPayment(backStackEntryName: String) {
-    fragmentManager.popBackStack(backStackEntryName, 0)
+    fragmentManager.popBackStack(backStackEntryName, POP_BACK_STACK_INCLUSIVE)
   }
 
 }

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabActivity
@@ -30,16 +31,19 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
         .commit()
   }
 
-  fun navigateToError(message: String, showSupport: Boolean) {
+  fun navigateToError(message: String) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            IabErrorFragment.newInstance(message, CarrierVerifyFragment.BACKSTACK_NAME,
-                showSupport))
+            IabErrorFragment.newInstance(message, CarrierVerifyFragment.BACKSTACK_NAME))
         .addToBackStack(null)
         .commit()
   }
 
   fun finishActivityWithError() {
     iabActivity.finishWithError()
+  }
+
+  fun navigateToWalletValidation(@StringRes messageStringRes: Int) {
+    iabActivity.showWalletValidation(messageStringRes)
   }
 }

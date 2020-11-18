@@ -6,23 +6,12 @@
     android:theme="@style/MaterialAppTheme"
     >
 
-  <ProgressBar
-      android:id="@+id/progress_bar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:indeterminateDrawable="@drawable/gradient_progress"
-      android:visibility="gone"
-      app:layout_constraintBottom_toTopOf="@id/bottom_separator"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="@id/mid_guideline"
-      app:layout_constraintTop_toBottomOf="@id/top_separator"
-      />
-
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/info_view"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:layout_marginTop="16dp"
+      android:animateLayoutChanges="true"
       android:paddingStart="@dimen/big_margin"
       android:paddingEnd="@dimen/big_margin"
       app:layout_constraintBottom_toTopOf="@id/bottom_separator"
@@ -31,13 +20,25 @@
       app:layout_constraintTop_toBottomOf="@id/top_separator"
       >
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/field_error_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <TextView
         android:id="@+id/title"
         style="@style/PaymentMethods.CarrierBilling.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="@string/carrier_billing_insert_phone_body"
-        app:layout_constraintBottom_toTopOf="@id/disclaimer"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -49,7 +50,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/carrier_billing_fees_disclaimer"
-        app:layout_constraintBottom_toTopOf="@id/phone_number_layout"
         app:layout_constraintLeft_toLeftOf="@id/title"
         app:layout_constraintTop_toBottomOf="@+id/title"
 
@@ -64,7 +64,6 @@
         android:orientation="horizontal"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/disclaimer"
@@ -81,6 +80,7 @@
           app:ccp_arrowColor="@color/black_87_alpha"
           app:ccp_arrowSize="16dp"
           app:ccp_autoDetectCountry="true"
+          app:ccp_rememberLastSelection="true"
           app:ccp_showNameCode="false"
           app:ccp_textSize="14sp"
           />
@@ -122,6 +122,22 @@
 
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/field_error_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/purchase_carrier_error"
+        android:textColor="@color/remove_wallet_red"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
+        app:layout_constraintStart_toStartOf="@+id/phone_number_layout"
+        app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+        />
+
     <TextView
         android:id="@+id/other_payments_button"
         style="@style/PaymentMethods.Error.OtherPaymentsButton"
@@ -130,7 +146,7 @@
         android:text="@string/purchase_more_payment_methods_button"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
-        app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+        app:layout_constraintTop_toBottomOf="@+id/field_error_text"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
@@ -182,6 +198,7 @@
       android:layout_height="0dp"
       android:layout_marginTop="7dp"
       android:layout_marginBottom="8dp"
+      android:visibility="invisible"
       app:layout_constraintBottom_toTopOf="@id/bottom_separator"
       app:layout_constraintStart_toEndOf="@id/mid_guideline"
       app:layout_constraintTop_toBottomOf="@id/top_separator"
@@ -194,6 +211,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
+      android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"

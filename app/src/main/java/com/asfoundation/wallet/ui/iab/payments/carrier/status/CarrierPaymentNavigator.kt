@@ -27,11 +27,10 @@ class CarrierPaymentNavigator(private val fragmentManager: FragmentManager,
     iabActivity.showWalletValidation(messageStringRes)
   }
 
-  fun navigateToError(@StringRes messageStringRes: Int, showSupport: Boolean) {
+  fun navigateToError(@StringRes messageStringRes: Int) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            IabErrorFragment.newInstance(messageStringRes, CarrierVerifyFragment.BACKSTACK_NAME,
-                showSupport))
+            IabErrorFragment.newInstance(messageStringRes, CarrierVerifyFragment.BACKSTACK_NAME))
         .addToBackStack(null)
         .commit()
   }

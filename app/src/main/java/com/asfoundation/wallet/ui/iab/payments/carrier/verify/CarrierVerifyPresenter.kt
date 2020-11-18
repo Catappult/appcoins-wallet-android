@@ -9,6 +9,8 @@ import com.asfoundation.wallet.util.StringProvider
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import com.asfoundation.wallet.util.safeLet
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
@@ -31,6 +33,7 @@ class CarrierVerifyPresenter(
     handleBackButton()
     handleNextButton()
     handleOtherPaymentsButton()
+    handlePhoneNumberChange()
   }
 
   private fun initializeView() {
@@ -40,6 +43,17 @@ class CarrierVerifyPresenter(
             .doOnSuccess { ai ->
               view.initializeView(ai.appName, ai.icon, data.currency, data.fiatAmount,
                   data.appcAmount, data.skuDescription, data.bonusAmount, data.preselected)
+            }
+            .subscribe({}, { e -> e.printStackTrace() })
+    )
+  }
+
+  private fun handlePhoneNumberChange() {
+    disposables.add(
+        view.phoneNumberChangeEvent()
+            .doOnNext { event ->
+              view.setNextButtonEnabled(event.second)
+              view.removePhoneNumberFieldError()
             }
             .subscribe({}, { e -> e.printStackTrace() })
     )
@@ -56,56 +70,85 @@ class CarrierVerifyPresenter(
                   data.transactionType, data.currency, data.fiatAmount.toString())
             }
             .observeOn(viewScheduler)
-            .doOnNext { paymentModel ->
+            .flatMap { paymentModel ->
+              var completable = Completable.complete()
               if (paymentModel.error !is NoError) {
-                handleError(paymentModel)
+                completable = handleError(paymentModel)
               } else {
                 if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
-                  safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
-                    fee.cost?.let { cost ->
-                      navigator.navigateToConfirm(paymentModel.uid, data.domain,
-                          data.transactionData, data.transactionType, paymentModel.paymentUrl,
-                          data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
-                          data.skuDescription, cost.value, carrier.name, carrier.icon)
+                  completable = Completable.fromAction {
+                    safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
+                      fee.cost?.let { cost ->
+                        navigator.navigateToConfirm(paymentModel.uid, data.domain,
+                            data.transactionData, data.transactionType, paymentModel.paymentUrl,
+                            data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
+                            data.skuDescription, cost.value, carrier.name, carrier.icon)
+                      }
                     }
                   }
                 }
               }
+              return@flatMap completable.andThen(Observable.just(paymentModel))
             }
             .retry()
             .subscribe({}, { e -> e.printStackTrace() })
     )
   }
 
-  private fun handleError(paymentModel: CarrierPaymentModel) {
-    var showSupport = true
-    var message = stringProvider.getString(R.string.activity_iab_error_message)
+  private fun handleError(paymentModel: CarrierPaymentModel): Completable {
     when (paymentModel.error) {
       is InvalidPhoneNumber -> {
-        message = stringProvider.getString(R.string.purchase_carrier_error)
-        showSupport = false
+        return Completable.fromAction { view.showInvalidPhoneNumberError() }
       }
       is InvalidPriceError -> {
         val error = paymentModel.error as InvalidPriceError
-        showSupport = false
-        message = when (error.type) {
+        when (error.type) {
           InvalidPriceError.BoundType.LOWER -> {
-            stringProvider.getString(R.string.purchase_carrier_error_minimum,
-                formatFiatValue(error.value, data.currency))
+            return Completable.fromAction {
+              navigator.navigateToError(
+                  stringProvider.getString(R.string.purchase_carrier_error_minimum,
+                      formatFiatValue(error.value, data.currency)))
+            }
           }
           InvalidPriceError.BoundType.UPPER -> {
-            stringProvider.getString(R.string.purchase_carrier_error_maximum,
-                formatFiatValue(error.value, data.currency))
+            return Completable.fromAction {
+              navigator.navigateToError(
+                  stringProvider.getString(R.string.purchase_carrier_error_maximum,
+                      formatFiatValue(error.value, data.currency)))
+            }
           }
         }
       }
       is GenericError -> {
-        showSupport = true
-        message = stringProvider.getString(R.string.activity_iab_error_message)
+        if (paymentModel.error.errorCode == 403) {
+          return handleFraudFlow()
+        }
+        return Completable.fromAction {
+          navigator.navigateToError(
+              stringProvider.getString(R.string.activity_iab_error_message))
+        }
       }
-      else -> Unit
+      else -> return Completable.complete()
     }
-    navigator.navigateToError(message, showSupport)
+  }
+
+  private fun handleFraudFlow(): Completable {
+    return interactor.getWalletStatus()
+        .observeOn(viewScheduler)
+        .doOnSuccess { walletStatus ->
+          if (walletStatus.blocked) {
+            if (walletStatus.verified) {
+              navigator.navigateToError(
+                  stringProvider.getString(R.string.purchase_error_wallet_block_code_403))
+            } else {
+              navigator.navigateToWalletValidation(R.string.purchase_error_wallet_block_code_403)
+            }
+          } else {
+            navigator.navigateToError(
+                stringProvider.getString(R.string.purchase_error_wallet_block_code_403))
+          }
+        }
+        .ignoreElement()
   }
 
   private fun formatFiatValue(value: BigDecimal, currencyCode: String): String {

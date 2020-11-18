@@ -51,26 +51,12 @@
       android:textAlignment="center"
       android:textColor="@color/pending_payment_text_color"
       android:textSize="16sp"
-      app:layout_constraintBottom_toTopOf="@+id/more_payment_methods"
+      app:layout_constraintBottom_toTopOf="@+id/contact_us"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/error_title"
       app:layout_constraintVertical_bias="0"
       tools:text="@string/purchase_carrier_error"
-      />
-
-
-  <Button
-      android:id="@+id/more_payment_methods"
-      style="@style/PaymentMethods.Error.OtherPaymentsButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="25dp"
-      android:text="@string/purchase_more_payment_methods_button"
-      android:visibility="gone"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/error_message"
       />
 
   <TextView
@@ -85,7 +71,7 @@
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/more_payment_methods"
+      app:layout_constraintTop_toBottomOf="@+id/error_message"
       />
 
   <ImageView

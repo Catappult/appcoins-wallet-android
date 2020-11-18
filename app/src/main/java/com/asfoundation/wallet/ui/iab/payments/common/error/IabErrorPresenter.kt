@@ -12,21 +12,10 @@ class IabErrorPresenter(
     initializeView()
     handleBackClick()
     handleCancelClick()
-    handleOtherPaymentsClick()
   }
 
   private fun initializeView() {
     view.setErrorMessage(data.errorMessage)
-    view.setSupportVisibility(data.showSupport)
-  }
-
-  private fun handleOtherPaymentsClick() {
-    disposables.add(
-        view.otherPaymentMethodsClickEvent()
-            .doOnNext { navigator.navigateToOtherPayments(data.backStackEntryName) }
-            .retry()
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
   }
 
   private fun handleCancelClick() {

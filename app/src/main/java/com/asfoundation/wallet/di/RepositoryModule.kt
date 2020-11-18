@@ -13,6 +13,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
+import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
@@ -127,7 +128,7 @@ class RepositoryModule {
   @Provides
   fun provideCarrierBillingRepository(
       @Named("default") client: OkHttpClient): CarrierBillingRepository {
-    val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponseTypeAdapter::class.java,
+    val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
         CarrierErrorResponseTypeAdapter())
         .create()
     val retrofit = Retrofit.Builder()

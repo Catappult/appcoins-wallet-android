@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_carrier_verify_phone.*
 import java.math.BigDecimal
@@ -23,6 +25,8 @@ class CarrierVerifyFragment : DaggerFragment(),
   @Inject
   lateinit var presenter: CarrierVerifyPresenter
 
+  private val phoneNumberChangedSubject = PublishSubject.create<Any>()
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_carrier_verify_phone, container, false)
@@ -32,6 +36,20 @@ class CarrierVerifyFragment : DaggerFragment(),
     setupUi()
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putBoolean(IS_PHONE_ERROR_VISIBLE_KEY, field_error_text.visibility == View.VISIBLE)
+  }
+
+  override fun onViewStateRestored(savedInstanceState: Bundle?) {
+    super.onViewStateRestored(savedInstanceState)
+    if (savedInstanceState?.getBoolean(IS_PHONE_ERROR_VISIBLE_KEY, false) == true) {
+      showInvalidPhoneNumberError()
+    } else {
+      removePhoneNumberFieldError()
+    }
   }
 
   override fun onDestroyView() {
@@ -51,8 +69,12 @@ class CarrierVerifyFragment : DaggerFragment(),
     country_code_picker.registerCarrierNumberEditText(phone_number)
     country_code_picker.textView_selectedCountry.typeface =
         Typeface.create("sans-serif-medium", Typeface.NORMAL)
-    country_code_picker.setPhoneNumberValidityChangeListener { isValidNumber ->
-      buy_button.isEnabled = isValidNumber
+
+    country_code_picker.setOnCountryChangeListener {
+      phoneNumberChangedSubject.onNext(Unit)
+    }
+    phone_number.doOnTextChanged { _, _, _, _ ->
+      phoneNumberChangedSubject.onNext(Unit)
     }
   }
 
@@ -99,12 +121,40 @@ class CarrierVerifyFragment : DaggerFragment(),
         .map { country_code_picker.fullNumberWithPlus.toString() }
   }
 
+  override fun phoneNumberChangeEvent(): Observable<Pair<String, Boolean>> {
+    return phoneNumberChangedSubject
+        .map {
+          Pair(country_code_picker.fullNumberWithPlus.toString(),
+              country_code_picker.isValidFullNumber)
+        }
+  }
+
   override fun setLoading() {
     title.visibility = View.INVISIBLE
     disclaimer.visibility = View.INVISIBLE
     phone_number_layout.visibility = View.INVISIBLE
     progress_bar.visibility = View.VISIBLE
+    removePhoneNumberFieldError()
     buy_button.isEnabled = false
+  }
+
+  override fun showInvalidPhoneNumberError() {
+    buy_button.isEnabled = true
+    phone_number_layout.setBackgroundResource(R.drawable.rectangle_outline_red_radius_8dp)
+    field_error_text.visibility = View.VISIBLE
+    title.visibility = View.VISIBLE
+    disclaimer.visibility = View.VISIBLE
+    phone_number_layout.visibility = View.VISIBLE
+    progress_bar.visibility = View.INVISIBLE
+  }
+
+  override fun removePhoneNumberFieldError() {
+    field_error_text.visibility = View.GONE
+    phone_number_layout.setBackgroundResource(R.drawable.rectangle_outline_grey_radius_8dp)
+  }
+
+  override fun setNextButtonEnabled(enabled: Boolean) {
+    buy_button.isEnabled = enabled
   }
 
   override fun otherPaymentMethodsEvent(): Observable<Any> {
@@ -114,6 +164,8 @@ class CarrierVerifyFragment : DaggerFragment(),
   companion object {
 
     const val BACKSTACK_NAME = "carrier_entry_point"
+
+    private const val IS_PHONE_ERROR_VISIBLE_KEY = "IS_PHONE_ERROR_VISIBLE"
 
     internal const val PRE_SELECTED_KEY = "pre_selected"
     internal const val TRANSACTION_TYPE_KEY = "type"

@@ -15,7 +15,15 @@ interface CarrierVerifyView {
 
   fun nextClickEvent(): Observable<String>
 
+  fun phoneNumberChangeEvent(): Observable<Pair<String, Boolean>>
+
   fun otherPaymentMethodsEvent(): Observable<Any>
 
   fun setLoading()
+
+  fun showInvalidPhoneNumberError()
+
+  fun removePhoneNumberFieldError()
+
+  fun setNextButtonEnabled(enabled: Boolean)
 }

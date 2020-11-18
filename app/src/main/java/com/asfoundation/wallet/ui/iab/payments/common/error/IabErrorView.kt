@@ -8,10 +8,6 @@ interface IabErrorView {
 
   fun backClickEvent(): Observable<Any>
 
-  fun otherPaymentMethodsClickEvent(): Observable<Any>
-
   fun setErrorMessage(errorMessage: String)
-
-  fun setSupportVisibility(showSupport: Boolean)
 
 }
