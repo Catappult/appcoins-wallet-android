@@ -117,6 +117,7 @@
   <string name="intro_3_body">သင့္စိတ္ႀကိဳက္ ေငြေပးေခ်မႈ နည္းလမ္းကို အသံုးျပဳ၍ အက္ပ္အတြင္း ဝယ္ယူမႈမ်ား အားလံုးကို စီစဥ္ေဆာင္ရြက္လိုက္ပါ။</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
   <string name="intro_4_body">သင့္သီးသန္႔ကီးမ်ားသည္ သင့္စက္ပစၥည္းတြင္သာ ရွိေနမည္ ျဖစ္ေသာေၾကာင့္ သင့္ AppCoins မ်ားမွာ အခ်ိန္ျပည့္ လံုျခံဳပါသည္။</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">အခမဲ့ AppCoins Credits မ်ားကို ရယူလိုက္ပါ။</string>
   <string name="intro_5_body">အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားကို စမ္းသံုးျခင္းျဖင့္ AppCoins Credits မ်ားကို သင္အခမဲ့ ရရွိပါမည္။</string>
   <string name="intro_creating_wallet_short">သင့္္အတြက္ ပိုက္ဆံအိတ္ကို ျပဳလုပ္ေနပါသည္&#8230;</string>
@@ -224,17 +225,21 @@
   <string name="transaction_status_success">ေအာင္ျမင္ပါသည္</string>
   <string name="transaction_status_pending">စိစစ္ဆဲျဖစ္ပါသည္</string>
   <string name="transaction_status_failed">မေအာင္ျမင္ပါ</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">အက္ပ္အတြင္း ဝယ္ယူမႈ</string>
   <string name="transaction_type_poa">ဆု</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">လႊဲေျပာင္းမည္</string>
   <string name="transaction_type_bonus">ေဘာနပ္စ္</string>
+  <string name="transaction_type_voucher">e-Voucher</string>
+  <string name="transaction_type_voucher_title">Voucher for %s</string>
   <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
   <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum မွ ျပဳလုပ္ပါသည္</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -402,6 +407,13 @@
   <string name="connectoin_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
   <string name="common_or">သို႔မဟုတ္</string>
   <string name="share_via">မွ်ေ၀ရန္ -</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
+  <string name="no_thanks_button">No,thanks</string>
+  <string name="remind_later_button">Remind me later</string>
+  <string name="get_code_button">Get code</string>
+  <string name="confirm_button">Confirm</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -414,6 +426,8 @@
   <!--Settings-->
   <string name="title_redeem">လဲလွယ္ရန္ကုဒ္</string>
   <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">လုပ္ေဆာင္ေနပါသည္&#8230;</string>
   <string name="local_payments_inprogress_body">ေငြေပးေခ်မႈ ျပဳလုပ္ၿပီးသည္ႏွင့္ သင့္ပိုက္ဆံအိတ္တြင္ AppCoins Credit မ်ားကို ရရွိပါမည္။ ယင္းေနာက္တြင္ ၀ယ္ယူမႈျပဳလုပ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
@@ -479,10 +493,13 @@
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_wallet_error_contact_us">အိုး သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_carrier_error">သင့္ဖုန္းနံပါတ္သည္ ဤေငြေပးေခ်မႈနည္းလမ္းျဖင့္ မကိုက္ညီျခင္း ျဖစ္ပံုရပါသည္။</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">အိုး ဤဝယ္ယူမႈႏွင့္ပတ္သက္၍ ကၽြႏ္ုပ္တို႔ထံတြင္ ျပႆနာမ်ား ရွိေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_error_wallet_block_code_403">သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပံုရပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_card_error_CVV">CVV/CVC မွားေနပါသည္</string>
   <string name="error_contac_us_body">ျပႆနာဆက္ရွိေနပါက ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -542,6 +559,8 @@
   <string name="promotions_tab_poa_title">ကစားကာ&amp;ရယူပါ</string>
   <string name="promotions_empty_promotions_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရွိေသးပါ။ ေနာက္မွျပန္လာခဲ့ပါ။</string>
   <string name="promotions_empty_poa_body">လက္ရွိတြင္ ဆုမ်ားရရွိနိုင္ေသာ အက္ပ္မ်ား မရွိေသးပါ။ ေနာက္မွျပန္လာခဲ့ပါ။</string>
+  <string name="promotions_perks_button">Perks</string>
+  <string name="promotions_vouhers_button">Vouchers</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ဆုမ်ားကိုရရွိရန္ အပ္ဒိတ္လုပ္ပါ</string>
   <string name="update_wallet_poa_notification_body">ဤဆုကိုရရွိရန္ AppCoins Wallet ကို အပ္ဒိတ္လုပ္ေပးပါ။</string>
@@ -592,6 +611,11 @@
   <string name="backup_notification_title">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_notification_body">သင့္ေငြမ်ားကို ေဘးကင္းေအာင္ထားရွိကာ သင့္ပိုက္ဆံအိတ္ကို အၿမဲတမ္း ၀င္ေရာက္အသံုးျပဳႏိုင္ေအာင္ ျပဳလုပ္ထားပါ။</string>
   <string name="backup_choose_wallet_title">အရံသိမ္းဆည္းရန္အတြက္ ပိုက္ဆံအိတ္တစ္ခုကို ေရြးခ်ယ္ပါ</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
+  <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <!--Wallets Management-->
   <string name="wallets_title">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="wallets_total_balance_title">%s တြင္ စုစုေပါင္းလက္က်န္ေငြ</string>
@@ -741,6 +765,7 @@
   <string name="carrier_billing_code_field">သင့္ကုဒ္...</string>
   <string name="carrier_billing_code_resend_button">ကုဒ္ျပန္ပို႔ပါ</string>
   <string name="carrier_billing_submit_button">ေပးပို႔မည္</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">ေပးပို႔မည္တြင္ ႏွိပ္ျခင္းျဖင့္ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကိုယ္ေရးလံုျခံဳမႈ မူ၀ါဒတို႔ကို သင္လက္ခံေၾကာင္း အတည္ျပဳျခင္း ျဖစ္ပါသည္။</string>
   <string name="carrier_billing_help_1">အကူအညီ လိုအပ္ပါသလား။</string>
   <string name="carrier_billing_help_2_button">ပံ့ပိုးမႈအား ဆက္သြယ္ပါ။</string>
@@ -790,8 +815,51 @@
   <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>
   <string name="fingerprint_authentication_required_body">ဆက္လုပ္ရန္အတြက္ သင့္လက္ေခ်ာင္း သို႔မဟုတ္ စကားဝွက္ကို အသံုးျပဳေပးပါ။</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">မွတ္တမ္းမ်ားကို ပံ့ပိုးေရးအဖြဲ႕ထံသို႔ ေပးပို႔မည္</string>
   <string name="send_logs_sending">ေပးပို႔ေနပါသည္&#8230;</string>
   <string name="send_logs_send">ေပးပို႔လိုက္ပါသည္။</string>
+  <!--Rate us-->
+  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">Not really</string>
+  <string name="rate_us_yes">Yes!</string>
+  <string name="rate_us_improve_title">What can we improve?</string>
+  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
+  <string name="rate_us_improve_field__empty_error">Please write something</string>
+  <string name="rate_us_possitive_thanks_title">Thank you!</string>
+  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
+  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <!--Card verification-->
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
+  <string name="card_verification_code_title">Check the code in the transaction details</string>
+  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
+  <string name="card_verification_code_example_title">Example of Transaction Summary</string>
+  <string name="card_verification_code_example_date">Trans. Date</string>
+  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_code_example_amount">Amount</string>
+  <string name="card_verification_code_example_code">Unique code</string>
+  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
+  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
+  <plurals name="card_verification_code_enter_hours_body">
+    <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
+  </plurals>
+  <plurals name="card_verification_code_enter_days_body">
+    <item quantity="other">%1$s will be refunded within %2$s days after you confirm the code.</item>
+  </plurals>
+  <string name="card_verification_code_other_card_button">Try with another card</string>
+  <string name="card_verification_code_wrong_error">Wrong code</string>
+  <string name="card_verification_wallets_one_step_title">One more step to validate</string>
+  <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
+  <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <!--Vouchers-->
+  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
+  <string name="voucher_buy_header">Voucher for %s</string>
+  <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
+  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
+  <string name="voucher_code_title">Voucher Code</string>
+  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
+  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
 </resources>

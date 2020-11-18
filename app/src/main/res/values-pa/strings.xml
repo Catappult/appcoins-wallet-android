@@ -117,6 +117,7 @@
   <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
   <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
+  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
   <string name="intro_5_body">ਤੁਸੀਂ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਚਲਾ ਕੇ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਸਕਦੇ ਹੋ|</string>
   <string name="intro_creating_wallet_short">ਤੁਹਾਡੇ ਲਈ ਤੁਹਾਡਾ ਬਟੂਆ ਸੈਟ ਅਪ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
@@ -224,17 +225,21 @@
   <string name="transaction_status_success">ਸਫਲ</string>
   <string name="transaction_status_pending">ਬਕਾਇਆ</string>
   <string name="transaction_status_failed">ਅਸਫਲ</string>
+  <string name="transaction_status_reverted">Reverted</string>
   <string name="transaction_type_iab">ਇਨ-ਐਪ ਖਰੀਦ</string>
   <string name="transaction_type_poa">ਇਨਾਮ</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
+  <string name="transaction_type_voucher">e-Voucher</string>
+  <string name="transaction_type_voucher_title">Voucher for %s</string>
   <string name="transaction_type_reverted_bonus_title">ਵਾਪਸ ਕੀਤਾ ਬੋਨਸ</string>
   <string name="transaction_type_reverted_bonus_body">%s ਨੂੰ ਦਿੱਤਾ ਬੋਨਸ ਵਾਪਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="transaction_type_reverted_topup_title">ਟੌਪ-ਅਪ ਰਿਫੰਡ</string>
   <string name="transaction_type_reverted_topup_body">%s ਨੂੰ ਕੀਤਾ ਟਾਪ ਅੱਪ ਵਾਪਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="transaction_type_reverted_purchase_title">ਖਰੀਦ ਦਾ ਰਿਫੰਡ</string>
   <string name="transaction_type_reverted_purchase_body">%s ਨੂੰ ਕੀਤੀ ਖਰੀਦ ਵਾਪਸ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">ਇਥਿਰਿਅਮ ਦੁਆਰਾ ਸੰਚਾਲਿਤ</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -402,6 +407,13 @@
   <string name="connectoin_error_body">ਇੰਝ ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜੇ ਨਹੀਂ ਹੋ, ਆਪਣੇ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="common_or">ਜਾਂ</string>
   <string name="share_via">ਇਸ ਦੁਆਰਾ ਸਾਂਝਾ ਕਰੋ:</string>
+  <string name="password">Password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="turn_on_button">Turn on</string>
+  <string name="no_thanks_button">No,thanks</string>
+  <string name="remind_later_button">Remind me later</string>
+  <string name="get_code_button">Get code</string>
+  <string name="confirm_button">Confirm</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -414,6 +426,8 @@
   <!--Settings-->
   <string name="title_redeem">ਕੋਡ ਵਰਤੋ</string>
   <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
+  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="local_payments_inprogress_body">ਇੱਕ ਵਾਰ ਤੁਸੀਂ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰ ਲੈਂਦੇ ਹੋ ਤਾਂ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਹੋਣਗੇ| ਫਿਰ ਖਰੀਦਣ ਲਈ ਗੇਮ ਵਿੱਚ ਵਾਪਸ ਜਾਓ!</string>
@@ -479,10 +493,13 @@
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_wallet_error_contact_us">ਓਹ ਹੋ, ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_carrier_error">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
+  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
+  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
   <string name="purchase_error_fraud_code_20">ਓਹ ਹੋ, ਇਸ ਖਰੀਦ ਵਿੱਚ ਸਾਨੂੰ ਮੁਸ਼ਕਲਾਂ ਹੋ ਰਹੀਆਂ ਹਨ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_error_wallet_block_code_403">ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਲੱਗ ਰਿਹਾ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
@@ -542,6 +559,8 @@
   <string name="promotions_tab_poa_title">ਖੇਲੋ &amp; ਕਮਾਓ</string>
   <string name="promotions_empty_promotions_body">ਇਸ ਸਮੇਂ ਕੋਈ ਵੀ ਆਫਰਾਂ ਉਪਲਬਧ ਨਹੀਂ ਹਨ| ਬਾਅਦ ਵਿਚ ਵਾਪਸ ਆਓ!</string>
   <string name="promotions_empty_poa_body">ਇਸ ਸਮੇਂ ਇੱਥੇ ਕੋਈ ਵੀ ਐਪ ਇਨਾਮ ਲਈ ਉਪਲਬਧ ਨਹੀਂ ਹੈ| ਬਾਅਦ ਵਿਚ ਵਾਪਸ ਆਓ!</string>
+  <string name="promotions_perks_button">Perks</string>
+  <string name="promotions_vouhers_button">Vouchers</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਪਡੇਟ ਕਰੋ</string>
   <string name="update_wallet_poa_notification_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਅਪਡੇਟ ਕਰੋ|</string>
@@ -592,6 +611,11 @@
   <string name="backup_notification_title">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
   <string name="backup_notification_body">ਆਪਣੇ ਫੰਡਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ ਅਤੇ ਇਹ ਸੁਨਿਸ਼ਚਿਤ ਕਰੋ ਕਿ ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਵਰਤ ਕਰ ਸਕਦੇ ਹੋ|</string>
   <string name="backup_choose_wallet_title">ਬੈਕਅਪ ਲਈ ਇੱਕ ਬਟੂਏ ਦੀ ਚੋਣ ਕਰੋ</string>
+  <string name="backup_additional_security_title">Additional Security (optional)</string>
+  <string name="backup_additional_security_body">Choose a password</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
+  <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <!--Wallets Management-->
   <string name="wallets_title">ਬਟੂਏ</string>
   <string name="wallets_total_balance_title">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
@@ -742,6 +766,7 @@
   <string name="carrier_billing_code_field">ਤੁਹਾਡਾ ਕੋਡ...</string>
   <string name="carrier_billing_code_resend_button">ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ</string>
   <string name="carrier_billing_submit_button">ਜਮ੍ਹਾਂ ਕਰੋ</string>
+  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">ਜਮ੍ਹਾਂ ਕਰੋ ਤੇ ਦੱਬ ਕੇ, ਤੁਸੀਂ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਨਿਯਮ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਗੋਪਨੀਯਤਾ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰਦੇ ਹੋ|</string>
   <string name="carrier_billing_help_1">ਮਦਦ ਦੀ ਲੋੜ ਹੈ?</string>
   <string name="carrier_billing_help_2_button">ਸਹਾਇਤਾ ਸੰਪਰਕ</string>
@@ -794,8 +819,53 @@
   <string name="fingerprint_failed_body">%s ਸਕਿੰਟਾਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ.</string>
   <string name="fingerprint_authentication_required_title">ਪ੍ਰਮਾਣਿਕਤਾ ਦੀ ਲੋੜ ਹੈ!</string>
   <string name="fingerprint_authentication_required_body">ਕਿਰਪਾ ਕਰਕੇ ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੀ ਉਂਗਲ ਜਾਂ ਪਾਸਵਰਡ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
+  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">ਸਹਾਇਤਾ ਟੀਮ ਨੂੰ ਲੌਗ ਭੇਜੋ</string>
   <string name="send_logs_sending">ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="send_logs_send">ਭੇਜਿਆ ਗਿਆ!</string>
+  <!--Rate us-->
+  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
+  <string name="rate_us_no">Not really</string>
+  <string name="rate_us_yes">Yes!</string>
+  <string name="rate_us_improve_title">What can we improve?</string>
+  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
+  <string name="rate_us_improve_field__empty_error">Please write something</string>
+  <string name="rate_us_possitive_thanks_title">Thank you!</string>
+  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
+  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <!--Card verification-->
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
+  <string name="card_verification_code_title">Check the code in the transaction details</string>
+  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
+  <string name="card_verification_code_example_title">Example of Transaction Summary</string>
+  <string name="card_verification_code_example_date">Trans. Date</string>
+  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_code_example_amount">Amount</string>
+  <string name="card_verification_code_example_code">Unique code</string>
+  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
+  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
+  <plurals name="card_verification_code_enter_hours_body">
+    <item quantity="one">%1$s will be refunded within %2$s hour after you confirm the code.</item>
+    <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
+  </plurals>
+  <plurals name="card_verification_code_enter_days_body">
+    <item quantity="one">%1$s will be refunded within %2$s day after you confirm the code.</item>
+    <item quantity="other">%1$s will be refunded within %2$s days after you confirm the code.</item>
+  </plurals>
+  <string name="card_verification_code_other_card_button">Try with another card</string>
+  <string name="card_verification_code_wrong_error">Wrong code</string>
+  <string name="card_verification_wallets_one_step_title">One more step to validate</string>
+  <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
+  <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <!--Vouchers-->
+  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
+  <string name="voucher_buy_header">Voucher for %s</string>
+  <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
+  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
+  <string name="voucher_code_title">Voucher Code</string>
+  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
+  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
 </resources>
