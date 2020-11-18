@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -85,10 +86,12 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun hidePasswordFields() {
     password_group.visibility = View.GONE
     backup_btn.isEnabled = true
+    password_toggle_title.setTextColor(ResourcesCompat.getColor(resources, R.color.grey_65, null))
   }
 
   override fun showPasswordFields() {
     password_group.visibility = View.VISIBLE
+    password_toggle_title.setTextColor(ResourcesCompat.getColor(resources, R.color.black, null))
     if (areInvalidPasswordFields()) backup_btn.isEnabled = false
   }
 

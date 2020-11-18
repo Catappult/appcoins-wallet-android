@@ -643,6 +643,40 @@
     <item name="android:gravity">center</item>
   </style>
 
+  <style name="WalletBackupTextStyle.Address" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+    <item name="android:ellipsize">end</item>
+    <item name="maxLines">1</item>
+    <item name="android:gravity">center</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Bold" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">14sp</item>
+    <item name="android:color">@color/black</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:lineSpacingExtra">6sp</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Bold.Inactive" parent="WalletBackupTextStyle.Bold">
+    <item name="android:color">@color/grey_65</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">14sp</item>
+    <item name="android:color">@color/grey_5a</item>
+    <item name="android:lineSpacingExtra">6sp</item>
+    <item name="android:gravity">center_horizontal</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Normal" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">14sp</item>
+    <item name="android:color">@color/black</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
   <style name="WalletValidationTextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">@color/color_title</item>
     <item name="android:textSize">15sp</item>
@@ -656,11 +690,6 @@
   <style name="WalletValidationTextStyle.Tooltip" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">#4a4a4a</item>
     <item name="android:textSize">10sp</item>
-  </style>
-
-  <style name="WalletBackupTextStyle.Bold">
-    <item name="android:color">@color/black</item>
-    <item name="android:textStyle">bold</item>
   </style>
 
   <style name="BalanceVerifyWalletChip" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -781,11 +810,14 @@
     <item name="android:imeOptions">flagNoFullscreen|flagNoExtractUi</item>
   </style>
 
-  <style name="WalletBackupWarningStyle">
+  <style name="WalletBackupWarningStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/warning_text_red</item>
+    <item name="android:lineSpacingExtra">5sp</item>
   </style>
 
   <style name="WalletBackupWarningStyle.Bold">
     <item name="android:textStyle">bold</item>
+    <item name="android:textSize">13sp</item>
   </style>
 </resources>
