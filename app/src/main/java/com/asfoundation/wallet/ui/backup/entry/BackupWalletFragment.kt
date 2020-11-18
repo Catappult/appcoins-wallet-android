@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.backup.entry
 
+import android.animation.LayoutTransition
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,6 +50,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
     super.onViewCreated(view, savedInstanceState)
     setToggleListener()
     setTextWatchers()
+    setTransitionListener()
     presenter.present()
   }
 
@@ -90,13 +92,13 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
     if (areInvalidPasswordFields()) backup_btn.isEnabled = false
   }
 
-  override fun onPasswordTextChanged(): Observable<PasswordFields> = passwordSubject!!
-
   private fun areInvalidPasswordFields(): Boolean {
     val password = backup_password_edit_text.text.toString()
     val repeatedPassword = backup_repeat_password_edit_text.text.toString()
     return password.isEmpty() || password != repeatedPassword
   }
+
+  override fun onPasswordTextChanged(): Observable<PasswordFields> = passwordSubject!!
 
   override fun disableButton() {
     backup_btn.isEnabled = false
@@ -112,6 +114,21 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   override fun showPasswordError() {
     backup_repeat_password_input.error = "Password don't match"
+  }
+
+  private fun setTransitionListener() {
+    backup_password_toggle_layout.layoutTransition.addTransitionListener(object :
+        LayoutTransition.TransitionListener {
+      override fun startTransition(transition: LayoutTransition?, container: ViewGroup?,
+                                   view: View?, transitionType: Int) = Unit
+
+      override fun endTransition(transition: LayoutTransition?, container: ViewGroup?,
+                                 view: View?, transitionType: Int) {
+        if (transitionType == LayoutTransition.APPEARING) {
+          backup_scroll_view.smoothScrollTo(backup_scroll_view.x.toInt(), backup_scroll_view.bottom)
+        }
+      }
+    })
   }
 
   override fun onDestroyView() {
