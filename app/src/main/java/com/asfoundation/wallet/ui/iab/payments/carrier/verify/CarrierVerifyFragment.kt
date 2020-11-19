@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import android.animation.LayoutTransition
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Typeface
@@ -96,7 +97,12 @@ class CarrierVerifyFragment : DaggerFragment(),
     purchase_bonus.hideSkeleton()
 
     if (preselected) {
+      val lt = (other_payments_button.parent as ViewGroup).layoutTransition
+      lt.disableTransitionType(LayoutTransition.APPEARING)
+      lt.disableTransitionType(LayoutTransition.CHANGE_APPEARING)
       other_payments_button.visibility = View.VISIBLE
+      lt.enableTransitionType(LayoutTransition.APPEARING)
+      lt.enableTransitionType(LayoutTransition.CHANGE_APPEARING)
       cancel_button.setText(R.string.cancel_button)
       if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         val marginParams = purchase_bonus.layoutParams as ViewGroup.MarginLayoutParams

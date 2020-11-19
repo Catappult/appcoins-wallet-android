@@ -206,6 +206,7 @@ class CarrierVerifyPresenter(
                   data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
                   data.transactionType,
                   "other_payments")
+              interactor.removePreSelectedPaymentMethod()
               navigator.navigateBack()
             }
             .retry()

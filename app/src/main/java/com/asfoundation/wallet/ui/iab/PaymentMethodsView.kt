@@ -106,7 +106,7 @@ interface PaymentMethodsView {
     APPC_CREDITS("appcoins_credits"),
     MERGED_APPC("merged_appcoins"),
     CREDIT_CARD("credit_card"),
-    CARRIER_BILLING("carrier_billing"),
+    CARRIER_BILLING("onebip"),
     ASK_FRIEND("ask_friend")
 
   }

@@ -95,6 +95,10 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
     return bundle
   }
 
+  fun removePreSelectedPaymentMethod() {
+    inAppPurchaseInteractor.removePreSelectedPaymentMethod()
+  }
+
   private fun getTransactionBuilder(transactionData: String): Single<TransactionBuilder> {
     return inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .subscribeOn(ioScheduler)
