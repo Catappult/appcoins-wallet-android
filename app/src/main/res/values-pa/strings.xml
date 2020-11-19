@@ -407,13 +407,13 @@
   <string name="connectoin_error_body">ਇੰਝ ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜੇ ਨਹੀਂ ਹੋ, ਆਪਣੇ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="common_or">ਜਾਂ</string>
   <string name="share_via">ਇਸ ਦੁਆਰਾ ਸਾਂਝਾ ਕਰੋ:</string>
-  <string name="password">Password</string>
+  <string name="password">ਪਾਸਵਰਡ</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
   <string name="no_thanks_button">No,thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
-  <string name="confirm_button">Confirm</string>
+  <string name="confirm_button">ਪੁਸ਼ਟੀ ਕਰੋ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -426,7 +426,7 @@
   <!--Settings-->
   <string name="title_redeem">ਕੋਡ ਵਰਤੋ</string>
   <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
-  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_support">ਸਪੋਰਟ</string>
   <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
@@ -843,7 +843,7 @@
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
   <string name="card_verification_code_example_date">Trans. Date</string>
   <string name="card_verification_code_example_description">Description</string>
-  <string name="card_verification_code_example_amount">Amount</string>
+  <string name="card_verification_code_example_amount">ਰਕਮ</string>
   <string name="card_verification_code_example_code">Unique code</string>
   <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
   <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
