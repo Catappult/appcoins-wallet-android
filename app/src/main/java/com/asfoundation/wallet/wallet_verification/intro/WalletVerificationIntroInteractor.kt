@@ -2,10 +2,7 @@ package com.asfoundation.wallet.wallet_verification.intro
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
+import com.appcoins.wallet.billing.adyen.*
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.support.SupportRepository
 import io.reactivex.Completable

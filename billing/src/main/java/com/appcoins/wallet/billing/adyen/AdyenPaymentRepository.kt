@@ -43,7 +43,12 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
         .map { adyenResponseMapper.map(it) }
-        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+        .onErrorReturn {
+          //TODO DEBUG CODE
+          PaymentModel("AUTHORISED", null, null, null, null, null, "RANDOM_UID", null,
+              null, TransactionResponse.Status.COMPLETED, null, null)
+        }
+        //.onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
   fun validateCode(code: String, walletAddress: String,

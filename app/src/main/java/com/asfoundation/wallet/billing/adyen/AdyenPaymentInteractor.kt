@@ -148,6 +148,11 @@ class AdyenPaymentInteractor(
                 adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
                     walletAddressModel.signedAddress)
                     .toObservable()
+                    //TODO DEBUG CODE
+                    .onErrorReturn {
+                      PaymentModel("AUTHORISED", null, null, null, null, null, "RANDOM_UID", null,
+                          null, TransactionResponse.Status.COMPLETED, null, null)
+                    }
               }
               .filter { isEndingState(it.status) }
               .distinctUntilChanged { transaction -> transaction.status }
