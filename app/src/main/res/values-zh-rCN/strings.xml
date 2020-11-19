@@ -407,13 +407,13 @@
   <string name="connectoin_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
   <string name="common_or">或</string>
   <string name="share_via">分享方式：</string>
-  <string name="password">Password</string>
+  <string name="password">密码</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
   <string name="no_thanks_button">No,thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
-  <string name="confirm_button">Confirm</string>
+  <string name="confirm_button">确认</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -426,7 +426,7 @@
   <!--Settings-->
   <string name="title_redeem">兑换码</string>
   <string name="settings_item_support">联系支持团队</string>
-  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_support">支持</string>
   <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">正在进行中&#8230;</string>
@@ -839,7 +839,7 @@
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
   <string name="card_verification_code_example_date">Trans. Date</string>
   <string name="card_verification_code_example_description">Description</string>
-  <string name="card_verification_code_example_amount">Amount</string>
+  <string name="card_verification_code_example_amount">金额</string>
   <string name="card_verification_code_example_code">Unique code</string>
   <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
   <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
