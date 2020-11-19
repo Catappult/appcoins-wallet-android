@@ -362,15 +362,11 @@ public class InAppPurchaseInteractor {
       appcReason = -1;
     }
     if (!creditsMethod.isEnabled() && !appcMethod.isEnabled()) {
-      // Specific cases to treat differently:
+      // Specific cases that are treated differently:
       // - If user does not have APPC-C, has APPC, but no ETH, the message should be to display
-      //    that user does not have ETH
-      // - If user does not have APPC-C nor APPC, the message should be indicating that user
-      //  does not have funds
-      // TODO - change purchase_no_eth_body to a shorter string (not yet in strings.xml) indicating:
-      //    "You need ETH to pay for the gas"
-      //  Also, change p2p_send_error_not_enough_funds to an actual string (not yet in strings.xml)
-      //    related to purchase flow, indicating that the user does not have enough funds
+      //    that user does not have enough ETH (may have none, or some but not enough)
+      // - If user does not have APPC-C nor APPC (ETH value doesn't matter),
+      //    the message should be more generic, indicating that user does not have funds
       return (appcReason == R.string.purchase_no_eth_body) ? appcReason :
           R.string.p2p_send_error_not_enough_funds;
     }
