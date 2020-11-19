@@ -8,6 +8,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationViewHolder
+import com.asfoundation.wallet.util.convertDpToPx
 import rx.functions.Action2
 
 class CardNotificationsAdapter(
@@ -22,15 +23,9 @@ class CardNotificationsAdapter(
         .inflate(R.layout.item_card_notification, parent,
             false)
 
-    val maxWith = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400f,
-        parent.context.resources
-            .displayMetrics)
-        .toInt()
+    val maxWith = 400.convertDpToPx(parent.context.resources)
 
-    val margins = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32f,
-        parent.context.resources
-            .displayMetrics)
-        .toInt()
+    val margins = 32.convertDpToPx(parent.context.resources)
 
     if (itemCount > 1) {
       val screenWith =

@@ -62,7 +62,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lottie_onboarding_portrait"
         app:piv_animationType="none"
-        app:piv_count="4"
+        app:piv_count="3"
         app:piv_padding="30dp"
         app:piv_radius="4dp"
         app:piv_selectedColor="@color/selection_dot_selected"
@@ -97,23 +97,6 @@
         app:layout_constraintGuide_percent="0.70"
         />
 
-    <Button
-        android:id="@+id/been_invited_bonus"
-        style="@style/ButtonStyle.Light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:clickable="true"
-        android:focusable="true"
-        android:minWidth="64dp"
-        android:minHeight="36dp"
-        android:text="@string/referral_onboarding_redeem_button"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
-        />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/payment_methods_recycler_view"
         android:layout_width="wrap_content"
@@ -123,41 +106,25 @@
         android:overScrollMode="never"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
         />
 
-    <TextView
-        android:id="@+id/terms_conditions_warning"
-        style="@style/OnboardingTermsConditionsTextStyle.Warning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center"
-        android:text="@string/terms_and_conditions_error"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/been_invited_bonus"
-        />
-
     <LinearLayout
         android:id="@+id/terms_conditions_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/terms_conditions_warning"
+        app:layout_constraintTop_toBottomOf="@id/payment_methods_recycler_view"
         >
       <CheckBox
           android:id="@+id/onboarding_checkbox"
@@ -177,18 +144,34 @@
           />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/terms_conditions_warning"
+        style="@style/OnboardingTermsConditionsTextStyle.Warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:gravity="center"
+        android:text="@string/terms_and_conditions_error"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/terms_conditions_layout"
+        />
+
     <Button
         android:id="@+id/next_button"
         style="@style/ButtonStyle.Alternative"
         android:layout_width="120dp"
         android:layout_height="@dimen/button_height"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="@dimen/normal_margin"
         android:layout_marginBottom="20dp"
         android:text="@string/action_next"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/terms_conditions_layout"
+        app:layout_constraintTop_toBottomOf="@id/terms_conditions_warning"
         />
 
     <Button
@@ -210,14 +193,4 @@
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-
-  <include
-      android:id="@+id/onboarding_layout_validation_no_internet"
-      layout="@layout/layout_validation_no_internet"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_centerInParent="true"
-      android:layout_marginBottom="8dp"
-      android:visibility="gone"
-      />
 </RelativeLayout>
