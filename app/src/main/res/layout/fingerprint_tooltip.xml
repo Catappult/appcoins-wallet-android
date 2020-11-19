@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
     >
 
   <androidx.cardview.widget.CardView
-      android:id="@+id/backup_tooltip"
+      android:id="@+id/fingerprint_tooltip"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       app:cardCornerRadius="8dp"
@@ -30,7 +30,7 @@
           android:layout_marginTop="16dp"
           android:layout_marginEnd="12dp"
           android:fontFamily="sans-serif"
-          android:text="@string/backup_tooltip_body"
+          android:text="@string/fingerprint_popup_body"
           android:textColor="@color/black"
           android:textSize="14sp"
           app:layout_constraintStart_toStartOf="parent"
@@ -53,16 +53,15 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp"
-            android:text="@string/backup_tooltip_later_button"
+            android:text="@string/dismiss_button"
             />
         <Button
-            android:id="@+id/tooltip_backup_button"
+            android:id="@+id/tooltip_turn_on_button"
             style="@style/TooltipButtonStyle.Positive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:backgroundTint="@color/white"
-            android:text="@string/backup_tooltip_backup_button"
+            android:text="@string/turn_on_button"
             />
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -71,18 +70,18 @@
       android:id="@+id/arrow_up_tip"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
+      android:layout_marginEnd="8dp"
       android:elevation="1dp"
       android:src="@drawable/ic_tooltip_arrow_up"
-      app:layout_constraintBottom_toTopOf="@id/backup_tooltip"
-      app:layout_constraintEnd_toEndOf="@id/backup_tooltip"
+      app:layout_constraintBottom_toTopOf="@id/fingerprint_tooltip"
+      app:layout_constraintEnd_toEndOf="@id/fingerprint_tooltip"
       app:layout_constraintTop_toTopOf="parent"
       />
   <ImageView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="10dp"
-      android:src="@drawable/ic_backup_white"
+      android:src="@drawable/ic_settings_white_24dp"
       app:layout_constraintBottom_toTopOf="@id/arrow_up_tip"
       app:layout_constraintEnd_toEndOf="@id/arrow_up_tip"
       app:layout_constraintStart_toStartOf="@id/arrow_up_tip"

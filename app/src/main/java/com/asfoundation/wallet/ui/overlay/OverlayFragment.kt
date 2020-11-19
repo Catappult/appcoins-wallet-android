@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.overlay
 
 import android.content.Context
 import android.os.Bundle
@@ -9,18 +9,21 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.TransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.overlay_fragment.*
+import javax.inject.Inject
 
 
-class OverlayFragment : Fragment(), OverlayView {
+class OverlayFragment : DaggerFragment(), OverlayView {
 
-  private lateinit var presenter: OverlayPresenter
+  @Inject
+  lateinit var presenter: OverlayPresenter
   private lateinit var activity: TransactionsActivity
 
   private val item: Int by lazy {
@@ -29,11 +32,6 @@ class OverlayFragment : Fragment(), OverlayView {
     } else {
       throw IllegalArgumentException("item not found")
     }
-  }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter = OverlayPresenter(this, CompositeDisposable())
   }
 
   override fun onAttach(context: Context) {
@@ -124,7 +122,8 @@ class OverlayFragment : Fragment(), OverlayView {
     fun newInstance(highlightedBottomNavigationItem: Int): Fragment {
       val fragment = OverlayFragment()
       val bundle = Bundle()
-      bundle.putInt(ITEM_KEY, highlightedBottomNavigationItem)
+      bundle.putInt(
+          ITEM_KEY, highlightedBottomNavigationItem)
       fragment.arguments = bundle
       return fragment
     }

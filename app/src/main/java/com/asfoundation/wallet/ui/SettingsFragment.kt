@@ -63,7 +63,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present()
+    presenter.present(savedInstanceState)
   }
 
   override fun onResume() {
@@ -120,8 +120,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setRestorePreference() {
     val restorePreference = findPreference<Preference>("pref_restore")
     restorePreference?.setOnPreferenceClickListener {
-      context?.let { startActivity(
-          RestoreWalletActivity.newIntent(it)) }
+      context?.let {
+        startActivity(
+            RestoreWalletActivity.newIntent(it))
+      }
       false
     }
   }

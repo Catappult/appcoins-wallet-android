@@ -770,4 +770,27 @@
     <item name="android:inputType">textPassword</item>
     <item name="android:imeOptions">flagNoFullscreen|flagNoExtractUi</item>
   </style>
+
+  <style name="TooltipButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
+    <item name="android:backgroundTint">@color/white</item>
+    <item name="android:minWidth">80dp</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:letterSpacing">0.09</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="TooltipButtonStyle.Negative">
+    <item name="android:maxWidth">126dp</item>
+    <item name="android:paddingStart">6dp</item>
+    <item name="android:paddingEnd">6dp</item>
+    <item name="android:textColor">@color/btn_cancel_text</item>
+  </style>
+
+  <style name="TooltipButtonStyle.Positive">
+    <item name="android:maxWidth">160dp</item>
+    <item name="android:paddingStart">2dp</item>
+    <item name="android:paddingEnd">2dp</item>
+    <item name="android:textColor">@color/text_button_color</item>
+  </style>
 </resources>

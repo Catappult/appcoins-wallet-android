@@ -29,6 +29,8 @@ import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.ui.overlay.OverlayFragment
+import com.asfoundation.wallet.ui.overlay.OverlayModule
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
 import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
@@ -205,4 +207,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindAuthenticationErrorFragment(): AuthenticationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [OverlayModule::class])
+  abstract fun bindOverlayFragment(): OverlayFragment
 }

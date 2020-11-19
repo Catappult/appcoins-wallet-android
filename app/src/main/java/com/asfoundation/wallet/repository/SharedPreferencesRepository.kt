@@ -28,8 +28,8 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
     private const val SHOW_GAMIFICATION_DISCLAIMER = "SHOW_GAMIFICATION_DISCLAIMER"
-    private const val AUTHENTICATION_PERMISSION = "authentication_permission"
-    private const val AUTHENTICATION_ERROR_TIME = "authentication_error_time"
+    private const val HAS_BEEN_IN_SETTINGS = "has_been_in_settings"
+    private const val NUMBER_OF_TIMES_IN_HOME = "number_of_times_in_home"
   }
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
@@ -59,12 +59,12 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   }
 
   override fun isFirstTimeOnTransactionActivity(): Boolean {
-    return pref.getBoolean(FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY, false)
+    return pref.getBoolean(FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY, true)
   }
 
   override fun setFirstTimeOnTransactionActivity() {
     pref.edit()
-        .putBoolean(FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY, true)
+        .putBoolean(FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY, false)
         .apply()
   }
 
@@ -238,21 +238,20 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
         .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
         .apply()
   }
-  override fun setAuthenticationPermission(result: Boolean) {
+
+  override fun hasBeenInSettings(): Boolean = pref.getBoolean(HAS_BEEN_IN_SETTINGS, false)
+
+  override fun setBeenInSettings() {
     pref.edit()
-        .putBoolean(AUTHENTICATION_PERMISSION, result)
+        .putBoolean(HAS_BEEN_IN_SETTINGS, true)
         .apply()
   }
 
-  override fun hasAuthenticationPermission(): Boolean {
-    return pref.getBoolean(AUTHENTICATION_PERMISSION, false)
-  }
-
-  override fun setAuthenticationErrorTime(timer: Long) {
+  override fun increaseTimesOnHome() {
     pref.edit()
-        .putLong(AUTHENTICATION_ERROR_TIME, timer)
+        .putInt(NUMBER_OF_TIMES_IN_HOME, pref.getInt(NUMBER_OF_TIMES_IN_HOME, 0) + 1)
         .apply()
   }
 
-  override fun getAuthenticationErrorTime() = pref.getLong(AUTHENTICATION_ERROR_TIME, 0)
+  override fun getNumberOfTimesOnHome(): Int = pref.getInt(NUMBER_OF_TIMES_IN_HOME, 0)
 }

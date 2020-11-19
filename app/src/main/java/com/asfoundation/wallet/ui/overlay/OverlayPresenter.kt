@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.overlay
 
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -22,7 +22,5 @@ class OverlayPresenter(private val view: OverlayView, private val disposable: Co
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun stop() {
-    disposable.clear()
-  }
+  fun stop() = disposable.clear()
 }

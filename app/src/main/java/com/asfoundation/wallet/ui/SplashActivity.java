@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import com.asfoundation.wallet.fingerprint.FingerprintPreferenceRepositoryContract;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.router.OnboardingRouter;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 public class SplashActivity extends BaseActivity implements SplashView {
 
   private static final int AUTHENTICATION_REQUEST_CODE = 33;
+  @Inject FingerprintPreferenceRepositoryContract fingerprintPreferences;
   @Inject PreferencesRepositoryType preferencesRepositoryType;
   @Inject AutoUpdateInteract autoUpdateInteract;
   private SplashPresenter presenter;
@@ -29,7 +31,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
 
-    presenter = new SplashPresenter(this, preferencesRepositoryType, AndroidSchedulers.mainThread(),
+    presenter = new SplashPresenter(this, fingerprintPreferences, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), autoUpdateInteract);
 
     presenter.present(savedInstanceState);

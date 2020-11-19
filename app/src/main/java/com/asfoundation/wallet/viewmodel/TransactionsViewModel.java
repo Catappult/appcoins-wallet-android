@@ -58,6 +58,8 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -65,6 +67,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final SupportRepository supportRepository;
   private final Handler handler = new Handler();
   private final WalletsEventSender walletsEventSender;
+  private final PublishSubject<Boolean> createOptionsCalledSubject = PublishSubject.create();
   private final PublishSubject<Context> topUpClicks = PublishSubject.create();
   private final CurrencyFormatUtils formatter;
   private CompositeDisposable disposables;
@@ -117,11 +120,16 @@ public class TransactionsViewModel extends BaseViewModel {
     return defaultWalletBalance;
   }
 
+  public MutableLiveData<Boolean> shouldShowPromotionsTooltip() {
+    return showPromotionTooltip;
+  }
+
   public void prepare() {
     if (disposables.isDisposed()) {
       disposables = new CompositeDisposable();
     }
     progress.postValue(true);
+    handlePromotionTooltipVisibility();
     disposables.add(transactionViewInteract.findNetwork()
         .subscribe(this::onDefaultNetwork, this::onError));
     disposables.add(transactionViewInteract.hasPromotionUpdate()
@@ -138,6 +146,28 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(wallet -> {
         }, this::onError));
     handleTopUpClicks();
+  }
+
+  public void handleFingerprintTooltipVisibility(String packageName) {
+    disposables.add(transactionViewInteract.shouldShowFingerprintTooltip(packageName)
+        .filter(shouldShow -> shouldShow)
+        .doOnSuccess(shouldShow -> showFingerprintTooltip.postValue(true))
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
+  }
+
+  private void handlePromotionTooltipVisibility() {
+    disposables.add(transactionViewInteract.isFirstTimeOnTransactionActivity()
+        .doOnSuccess(isFirstTime -> {
+          if (isFirstTime) {
+            showPromotionTooltip.postValue(true);
+            transactionViewInteract.setFirstTimeOnTransactionActivity();
+          } else {
+            //handleFingerprintTooltipVisibility(packageName);
+          }
+        })
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
   }
 
   public void handleUnreadConversationCount() {
@@ -460,5 +490,22 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void clearShareApp() {
     shareApp.setValue(null);
+  }
+
+  public MutableLiveData<Boolean> shouldShowFingerprintTooltip() {
+    return showFingerprintTooltip;
+  }
+
+  public void increaseTimesInHome() {
+    transactionViewInteract.increaseTimesOnHome();
+  }
+
+  public void onFingerprintTooltipDismiss() {
+    transactionViewInteract.setSeenFingerprintTooltip();
+  }
+
+  public void onTurnFingerprintOnClick(Context context) {
+    transactionViewInteract.setSeenFingerprintTooltip();
+    transactionViewNavigator.openSettings(context);
   }
 }

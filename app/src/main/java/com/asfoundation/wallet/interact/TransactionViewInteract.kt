@@ -1,22 +1,28 @@
 package com.asfoundation.wallet.interact
 
+import android.content.pm.PackageManager
+import android.hardware.biometrics.BiometricManager
 import android.util.Pair
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.fingerprint.FingerprintPreferenceRepositoryContract
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractorContract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralsScreen
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.transactions.Transaction
+import com.asfoundation.wallet.ui.FingerPrintInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+
 
 class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
                               private val findDefaultWalletInteract: FindDefaultWalletInteract,
@@ -25,7 +31,11 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
                               private val balanceInteractor: BalanceInteractor,
                               private val promotionsInteractor: PromotionsInteractorContract,
                               private val cardNotificationsInteractor: CardNotificationsInteractor,
-                              private val autoUpdateInteract: AutoUpdateInteract) {
+                              private val autoUpdateInteract: AutoUpdateInteract,
+                              private val preferencesRepositoryType: PreferencesRepositoryType,
+                              private val packageManager: PackageManager,
+                              private val fingerPrintInteractor: FingerPrintInteractor,
+                              private val fingerprintPreferences: FingerprintPreferenceRepositoryContract) {
 
   val levels: Single<Levels>
     get() = gamificationInteractor.getLevels()
@@ -71,4 +81,52 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   }
 
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
+
+  fun isFirstTimeOnTransactionActivity(): Single<Boolean> =
+      Single.just(preferencesRepositoryType.isFirstTimeOnTransactionActivity())
+
+  fun setFirstTimeOnTransactionActivity() =
+      preferencesRepositoryType.setFirstTimeOnTransactionActivity()
+
+  fun increaseTimesOnHome() {
+    if (preferencesRepositoryType.getNumberOfTimesOnHome() < 4) {
+      preferencesRepositoryType.increaseTimesOnHome()
+    }
+  }
+
+  private fun getNumberOfTimesOnHome(): Int = preferencesRepositoryType.getNumberOfTimesOnHome()
+
+  fun shouldShowFingerprintTooltip(packageName: String): Single<Boolean> {
+    var shouldShow = false
+    if (!preferencesRepositoryType.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip() && hasFingerprint()) {
+      val numberOfTimesInHome = getNumberOfTimesOnHome()
+      if (!isFirstInstall(packageName)) {
+        if (numberOfTimesInHome > 1) {
+          shouldShow = true
+        }
+      } else if (numberOfTimesInHome >= 3) {
+        shouldShow = true
+      }
+    }
+    return Single.just(shouldShow)
+  }
+
+  fun setSeenFingerprintTooltip() = fingerprintPreferences.setSeenFingerprintTooltip()
+
+  private fun isFirstInstall(packageName: String): Boolean {
+    return try {
+      val firstInstallTime: Long = packageManager
+          .getPackageInfo(packageName, 0).firstInstallTime
+      val lastUpdateTime: Long = packageManager
+          .getPackageInfo(packageName, 0).lastUpdateTime
+      firstInstallTime == lastUpdateTime
+    } catch (e: PackageManager.NameNotFoundException) {
+      e.printStackTrace()
+      true
+    }
+  }
+
+  private fun hasFingerprint(): Boolean {
+    return fingerPrintInteractor.getDeviceCompatibility() == BiometricManager.BIOMETRIC_SUCCESS
+  }
 }

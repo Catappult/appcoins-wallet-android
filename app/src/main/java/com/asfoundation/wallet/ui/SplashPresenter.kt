@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.ui
 
 import android.os.Bundle
+import com.asfoundation.wallet.fingerprint.FingerprintPreferenceRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 
 class SplashPresenter(
     private val view: SplashView,
-    private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val fingerprintPreferences: FingerprintPreferenceRepositoryContract,
     private val viewScheduler: Scheduler,
     private val ioScheduler: Scheduler,
     private val disposables: CompositeDisposable,
@@ -30,7 +30,7 @@ class SplashPresenter(
           if (autoUpdateInteract.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)) {
             view.navigateToAutoUpdate()
           } else {
-            if (preferencesRepositoryType.hasAuthenticationPermission()) {
+            if (fingerprintPreferences.hasAuthenticationPermission()) {
               view.showAuthenticationActivity()
               hasStartedAuth = true
             } else {

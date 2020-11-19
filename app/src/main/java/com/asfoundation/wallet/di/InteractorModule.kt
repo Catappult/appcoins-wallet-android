@@ -34,6 +34,7 @@ import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.fingerprint.FingerprintPreferenceRepositoryContract
 import com.asfoundation.wallet.interact.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
@@ -330,13 +331,12 @@ class InteractorModule {
                                       balanceInteractor: BalanceInteractor,
                                       walletBlockedInteract: WalletBlockedInteract,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                      preferencesRepositoryType: PreferencesRepositoryType,
+                                      fingerprintPreferences: FingerprintPreferenceRepositoryContract,
                                       billing: Billing,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(walletService, supportRepository, gamificationInteractor,
         balanceInteractor, walletBlockedInteract, inAppPurchaseInteractor,
-        preferencesRepositoryType,
-        billing, bdsPendingTransactionService)
+        fingerprintPreferences, billing, bdsPendingTransactionService)
   }
 
   @Provides
@@ -345,9 +345,9 @@ class InteractorModule {
                                       supportRepository: SupportRepository,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       walletService: WalletService,
-                                      preferencesRepositoryType: PreferencesRepositoryType): MergedAppcoinsInteractor {
+                                      fingerprintPreferences: FingerprintPreferenceRepositoryContract): MergedAppcoinsInteractor {
     return MergedAppcoinsInteractor(balanceInteractor, walletBlockedInteract, supportRepository,
-        inAppPurchaseInteractor, walletService, preferencesRepositoryType)
+        inAppPurchaseInteractor, walletService, fingerprintPreferences)
   }
 
   @Provides
@@ -395,10 +395,16 @@ class InteractorModule {
                                       balanceInteractor: BalanceInteractor,
                                       promotionsInteractorContract: PromotionsInteractorContract,
                                       cardNotificationsInteractor: CardNotificationsInteractor,
-                                      autoUpdateInteract: AutoUpdateInteract): TransactionViewInteract {
+                                      autoUpdateInteract: AutoUpdateInteract,
+                                      preferencesRepositoryType: PreferencesRepositoryType,
+                                      packageManager: PackageManager,
+                                      fingerPrintInteractor: FingerPrintInteractor,
+                                      fingerprintPreferenceRepository: FingerprintPreferenceRepositoryContract): TransactionViewInteract {
     return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
-        promotionsInteractorContract, cardNotificationsInteractor, autoUpdateInteract)
+        promotionsInteractorContract, cardNotificationsInteractor, autoUpdateInteract,
+        preferencesRepositoryType, packageManager, fingerPrintInteractor,
+        fingerprintPreferenceRepository)
   }
 
   @Provides
@@ -442,8 +448,10 @@ class InteractorModule {
 
   @Provides
   fun provideDeleteAccountInteract(accountRepository: WalletRepositoryType, store: PasswordStore,
-                                   preferencesRepositoryType: PreferencesRepositoryType): DeleteWalletInteract {
-    return DeleteWalletInteract(accountRepository, store, preferencesRepositoryType)
+                                   preferencesRepositoryType: PreferencesRepositoryType,
+                                   fingerprintPreferenceRepository: FingerprintPreferenceRepositoryContract): DeleteWalletInteract {
+    return DeleteWalletInteract(accountRepository, store, preferencesRepositoryType,
+        fingerprintPreferenceRepository)
   }
 
   @Provides
@@ -495,9 +503,11 @@ class InteractorModule {
                                autoUpdateInteract: AutoUpdateInteract,
                                fingerPrintInteractor: FingerPrintInteractor,
                                walletsEventSender: WalletsEventSender,
-                               preferencesRepositoryType: PreferencesRepositoryType): SettingsInteractor {
+                               preferencesRepositoryType: PreferencesRepositoryType,
+                               fingerprintPreferenceRepository: FingerprintPreferenceRepositoryContract): SettingsInteractor {
     return SettingsInteractor(findDefaultWalletInteract, supportRepository, walletsInteract,
-        autoUpdateInteract, fingerPrintInteractor, walletsEventSender, preferencesRepositoryType)
+        autoUpdateInteract, fingerPrintInteractor, walletsEventSender, preferencesRepositoryType,
+        fingerprintPreferenceRepository)
   }
 
   @Provides
@@ -513,8 +523,8 @@ class InteractorModule {
   @Provides
   fun provideFingerprintInteract(biometricManager: BiometricManager,
                                  packageManager: PackageManager,
-                                 preferencesRepositoryType: PreferencesRepositoryType): FingerPrintInteractor {
-    return FingerPrintInteractor(biometricManager, packageManager, preferencesRepositoryType)
+                                 fingerprintPreferenceRepository: FingerprintPreferenceRepositoryContract): FingerPrintInteractor {
+    return FingerPrintInteractor(biometricManager, packageManager, fingerprintPreferenceRepository)
   }
 
 }
