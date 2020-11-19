@@ -28,8 +28,8 @@ import com.asfoundation.wallet.ui.backup.BackupWalletFragment
 import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
-import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmFragment
-import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmModule
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeModule
 import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentModule
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
@@ -221,8 +221,8 @@ abstract class FragmentBuilders {
 
   @FragmentScope
   @ContributesAndroidInjector(
-      modules = [CarrierConfirmModule::class])
-  abstract fun bindCarrierConfirmFragment(): CarrierConfirmFragment
+      modules = [CarrierFeeModule::class])
+  abstract fun bindCarrierFeeFragment(): CarrierFeeFragment
 
   @FragmentScope
   @ContributesAndroidInjector(

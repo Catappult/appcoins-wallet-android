@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import io.reactivex.Observable
 import java.math.BigDecimal
 
-interface CarrierConfirmView {
+interface CarrierFeeView {
 
   fun initializeView(appName: String, appIcon: Drawable,
                      currency: String, fiatAmount: BigDecimal,

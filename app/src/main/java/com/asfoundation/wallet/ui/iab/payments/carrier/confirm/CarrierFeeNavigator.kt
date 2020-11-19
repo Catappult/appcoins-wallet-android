@@ -6,8 +6,8 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentFragment
 import java.math.BigDecimal
 
-class CarrierConfirmNavigator(private val iabActivity: IabActivity,
-                              private val fragmentManager: FragmentManager) {
+class CarrierFeeNavigator(private val iabActivity: IabActivity,
+                          private val fragmentManager: FragmentManager) {
 
   fun navigateToPaymentMethods() {
     iabActivity.showPaymentMethodsView()

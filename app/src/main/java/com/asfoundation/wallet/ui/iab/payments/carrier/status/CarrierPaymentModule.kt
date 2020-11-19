@@ -5,7 +5,6 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
-import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmFragment
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,9 +29,9 @@ class CarrierPaymentModule {
           getString(CarrierPaymentFragment.TRANSACTION_TYPE_KEY)!!,
           getString(CarrierPaymentFragment.SKU_ID_KEY),
           getString(CarrierPaymentFragment.PAYMENT_URL)!!,
-          getString(CarrierConfirmFragment.CURRENCY_KEY)!!,
-          getSerializable(CarrierConfirmFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierConfirmFragment.BONUS_AMOUNT_KEY) as BigDecimal)
+          getString(CarrierPaymentFragment.CURRENCY_KEY)!!,
+          getSerializable(CarrierPaymentFragment.APPC_AMOUNT_KEY) as BigDecimal,
+          getSerializable(CarrierPaymentFragment.BONUS_AMOUNT_KEY) as BigDecimal)
     }
   }
 

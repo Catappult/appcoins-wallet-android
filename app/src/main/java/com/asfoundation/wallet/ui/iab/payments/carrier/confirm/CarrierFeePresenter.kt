@@ -5,14 +5,14 @@ import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class CarrierConfirmPresenter(private val disposables: CompositeDisposable,
-                              private val view: CarrierConfirmView,
-                              private val data: CarrierConfirmData,
-                              private val navigator: CarrierConfirmNavigator,
-                              private val billingAnalytics: BillingAnalytics,
-                              private val appInfoLoader: ApplicationInfoLoader,
-                              private val viewScheduler: Scheduler,
-                              private val ioScheduler: Scheduler) {
+class CarrierFeePresenter(private val disposables: CompositeDisposable,
+                          private val view: CarrierFeeView,
+                          private val data: CarrierFeeData,
+                          private val navigator: CarrierFeeNavigator,
+                          private val billingAnalytics: BillingAnalytics,
+                          private val appInfoLoader: ApplicationInfoLoader,
+                          private val viewScheduler: Scheduler,
+                          private val ioScheduler: Scheduler) {
 
   fun present() {
     initializeView()

@@ -25,12 +25,12 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
-class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
+class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
 
   private val formatter = CurrencyFormatUtils()
 
   @Inject
-  lateinit var presenter: CarrierConfirmPresenter
+  lateinit var presenter: CarrierFeePresenter
 
   lateinit var iabView: IabView
 
@@ -144,9 +144,9 @@ class CarrierConfirmFragment : DaggerFragment(), CarrierConfirmView {
                     paymentUrl: String?, currency: String?, amount: BigDecimal,
                     appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
                     skuId: String?, feeFiatAmount: BigDecimal, carrierName: String,
-                    carrierImage: String): CarrierConfirmFragment {
+                    carrierImage: String): CarrierFeeFragment {
       val fragment =
-          CarrierConfirmFragment()
+          CarrierFeeFragment()
       fragment.arguments = Bundle().apply {
         putString(UID_KEY, uid)
         putString(DOMAIN_KEY, domain)

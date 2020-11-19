@@ -89,7 +89,7 @@ class CarrierVerifyPresenter(
                   completable = Completable.fromAction {
                     safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
                       fee.cost?.let { cost ->
-                        navigator.navigateToConfirm(paymentModel.uid, data.domain,
+                        navigator.navigateToFee(paymentModel.uid, data.domain,
                             data.transactionData, data.transactionType, paymentModel.paymentUrl,
                             data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
                             data.skuDescription, data.skuId, cost.value, carrier.name, carrier.icon)

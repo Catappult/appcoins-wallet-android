@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabActivity
-import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierConfirmFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeFragment
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import java.math.BigDecimal
 
@@ -16,14 +16,14 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
     fragmentManager.popBackStack()
   }
 
-  fun navigateToConfirm(uid: String, domain: String, transactionData: String,
-                        transactionType: String, paymentUrl: String?, currency: String?,
-                        amount: BigDecimal, appcAmount: BigDecimal, bonus: BigDecimal?,
-                        skuDescription: String, skuId: String?, feeFiatAmount: BigDecimal,
-                        carrierName: String, carrierImage: String) {
+  fun navigateToFee(uid: String, domain: String, transactionData: String,
+                    transactionType: String, paymentUrl: String?, currency: String?,
+                    amount: BigDecimal, appcAmount: BigDecimal, bonus: BigDecimal?,
+                    skuDescription: String, skuId: String?, feeFiatAmount: BigDecimal,
+                    carrierName: String, carrierImage: String) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CarrierConfirmFragment.newInstance(uid, domain, transactionData, transactionType,
+            CarrierFeeFragment.newInstance(uid, domain, transactionData, transactionType,
                 paymentUrl, currency, amount, appcAmount, bonus, skuDescription, skuId,
                 feeFiatAmount,
                 carrierName, carrierImage))
