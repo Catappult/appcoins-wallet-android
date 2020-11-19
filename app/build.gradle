@@ -19,8 +19,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 175
-    versionName "9.9.8.1"
+    versionCode 174
+    versionName "9.9.8.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
