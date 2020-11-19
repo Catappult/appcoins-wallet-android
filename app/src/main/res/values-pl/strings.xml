@@ -407,13 +407,13 @@
   <string name="connectoin_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
   <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
-  <string name="password">Password</string>
+  <string name="password">Hasło</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
   <string name="no_thanks_button">No,thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
-  <string name="confirm_button">Confirm</string>
+  <string name="confirm_button">Potwierdź</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
@@ -426,7 +426,7 @@
   <!--Settings-->
   <string name="title_redeem">Odbierz kod</string>
   <string name="settings_item_support">Contact Support Team</string>
-  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_support">Wsparcie</string>
   <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">W trakcie&#8230;</string>
@@ -766,14 +766,14 @@
   <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
   <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
   <string name="carrier_billing_code_field">Your code...</string>
-  <string name="carrier_billing_code_resend_button">RESEND CODE</string>
+  <string name="carrier_billing_code_resend_button">PONOWNIE WYŚLIJ KOD</string>
   <string name="carrier_billing_submit_button">SUBMIT</string>
   <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
   <string name="carrier_billing_help_1">Need help?</string>
   <string name="carrier_billing_help_2_button">Contact Support</string>
-  <string name="carrier_billing_terms_button">Terms and Conditions</string>
-  <string name="carrier_billing_privacy_button">Privacy Policy</string>
+  <string name="carrier_billing_terms_button">Regulamin</string>
+  <string name="carrier_billing_privacy_button">Polityka prywatności</string>
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Manage cards</string>
@@ -791,7 +791,7 @@
   <!--Perks-->
   <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
-  <string name="perks_title">Promotions</string>
+  <string name="perks_title">Promocje</string>
   <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
   <plurals name="promotion_ends">
     <item quantity="one">The promotion ends in %s day.</item>
@@ -851,7 +851,7 @@
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
   <string name="card_verification_code_example_date">Trans. Date</string>
   <string name="card_verification_code_example_description">Description</string>
-  <string name="card_verification_code_example_amount">Amount</string>
+  <string name="card_verification_code_example_amount">Kwota</string>
   <string name="card_verification_code_example_code">Unique code</string>
   <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
   <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
