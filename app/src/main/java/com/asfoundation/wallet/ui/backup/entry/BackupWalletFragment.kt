@@ -118,7 +118,8 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   }
 
   override fun showPasswordError() {
-    backup_repeat_password_input.error = "Password don't match"
+    backup_repeat_password_input.error =
+        getString(R.string.backup_additional_security_password_not_march)
   }
 
   private fun setTransitionListener() {
