@@ -5,8 +5,6 @@ import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransact
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import io.reactivex.Observable
 import io.reactivex.Single
-import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.*
 
 class CarrierBillingRepository(private val api: CarrierBillingApi,
@@ -50,11 +48,5 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
                    @Query("wallet.address") walletAddress: String,
                    @Query("wallet.signature")
                    walletSignature: String): Observable<TransactionResponse>
-
-    @POST("transactions/{uid}/cancel")
-    fun cancelPayment(@Path("uid") uid: String,
-                      @Query("wallet.address") walletAddress: String,
-                      @Query("wallet.signature")
-                      walletSignature: String): Single<Response<ResponseBody>>
   }
 }
