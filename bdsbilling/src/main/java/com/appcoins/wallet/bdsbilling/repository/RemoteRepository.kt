@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.*
 import java.math.BigDecimal
 import java.util.*
@@ -149,14 +147,6 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     }
   }
 
-  fun cancelPayment(gateway: String, uid: String, walletAddress: String,
-                    walletSignature: String): Single<Boolean> {
-    return api.cancelPayment(gateway, uid, walletAddress, walletSignature)
-        .map { response -> response.code() == 200 || response.code() == 204 }
-        .onErrorReturn { false }
-  }
-
-
   interface BdsApi {
 
     @GET("inapp/8.20180518/packages/{packageName}")
@@ -297,13 +287,6 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Query("wallet.address") walletAddress: String,
                           @Query("wallet.signature") walletSignature: String,
                           @Body localPaymentBody: LocalPaymentBody): Single<Transaction>
-
-    @GET("broker/8.20201101/gateways/{gateway}/transactions/{uid}/cancel")
-    fun cancelPayment(@Path("gateway") gateway: String,
-                      @Path("uid") uid: String,
-                      @Query("wallet.address") walletAddress: String,
-                      @Query("wallet.signature")
-                      walletSignature: String): Single<Response<ResponseBody>>
   }
 
   data class Consumed(val status: String = "CONSUMED")
