@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,7 +92,6 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
     view.webview.webViewClient = object : WebViewClient() {
       override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
-        Log.i("WEBVIEW_URL", clickUrl) // TODO: REMOVE THIS
         when {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(ADYEN_PAYMENT_SCHEMA) -> {
             currentUrl = clickUrl
