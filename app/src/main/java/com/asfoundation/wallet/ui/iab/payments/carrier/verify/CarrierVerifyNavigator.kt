@@ -12,9 +12,7 @@ import java.math.BigDecimal
 class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
                              private val iabActivity: IabActivity) {
 
-  fun navigateBack() {
-    fragmentManager.popBackStack()
-  }
+  fun navigateBack() = fragmentManager.popBackStack()
 
   fun navigateToFee(uid: String, domain: String, transactionData: String,
                     transactionType: String, paymentUrl: String, currency: String,
@@ -25,8 +23,7 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
         .replace(R.id.fragment_container,
             CarrierFeeFragment.newInstance(uid, domain, transactionData, transactionType,
                 paymentUrl, currency, amount, appcAmount, bonus, skuDescription, skuId,
-                feeFiatAmount,
-                carrierName, carrierImage))
+                feeFiatAmount, carrierName, carrierImage))
         .addToBackStack(null)
         .commit()
   }

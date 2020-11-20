@@ -123,9 +123,7 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
           .symbol
   }
 
-  override fun backEvent(): Observable<Any> {
-    return RxView.clicks(cancel_button)
-  }
+  override fun backEvent(): Observable<Any> = RxView.clicks(cancel_button)
 
   override fun nextClickEvent(): Observable<String> {
     return RxView.clicks(buy_button)
@@ -205,8 +203,7 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
                     currency: String?, amount: BigDecimal, appcAmount: BigDecimal,
                     bonus: BigDecimal?, skuDescription: String,
                     skuId: String?): CarrierVerifyFragment {
-      val fragment =
-          CarrierVerifyFragment()
+      val fragment = CarrierVerifyFragment()
 
       fragment.arguments = Bundle().apply {
         putBoolean(PRE_SELECTED_KEY, preSelected)
