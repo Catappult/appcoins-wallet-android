@@ -34,8 +34,8 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    setupUi()
     super.onViewCreated(view, savedInstanceState)
+    setupUi()
     presenter.present()
   }
 
