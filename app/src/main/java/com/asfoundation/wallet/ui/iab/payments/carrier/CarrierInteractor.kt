@@ -123,9 +123,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                                         walletSignature: String): Observable<CarrierPaymentModel> {
     return Observable.interval(0, 5, TimeUnit.SECONDS, ioScheduler)
         .timeInterval()
-        .switchMap {
-          repository.getPayment(uid, walletAddress, walletSignature)
-        }
+        .switchMap { repository.getPayment(uid, walletAddress, walletSignature) }
         .filter { paymentModel -> isEndingState(paymentModel.status) }
         .distinctUntilChanged { transaction -> transaction.status }
   }
