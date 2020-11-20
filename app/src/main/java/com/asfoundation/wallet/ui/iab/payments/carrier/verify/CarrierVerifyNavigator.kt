@@ -36,11 +36,8 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
         .commit()
   }
 
-  fun finishActivityWithError() {
-    iabActivity.finishWithError()
-  }
+  fun finishActivityWithError() = iabActivity.finishWithError()
 
-  fun navigateToWalletValidation(@StringRes messageStringRes: Int) {
-    iabActivity.showWalletValidation(messageStringRes)
-  }
+  fun navigateToWalletValidation(@StringRes messageStringRes: Int) =
+      iabActivity.showWalletValidation(messageStringRes)
 }

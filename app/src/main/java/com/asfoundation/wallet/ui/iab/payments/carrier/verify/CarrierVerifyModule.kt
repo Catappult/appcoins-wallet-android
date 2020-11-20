@@ -11,7 +11,6 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 
 @Module
@@ -51,6 +50,6 @@ class CarrierVerifyModule {
                                      logger: Logger): CarrierVerifyPresenter {
     return CarrierVerifyPresenter(CompositeDisposable(), fragment as CarrierVerifyView, data,
         navigator, interactor, billingAnalytics, applicationInfoLoader, stringProvider,
-        CurrencyFormatUtils(), logger, AndroidSchedulers.mainThread(), Schedulers.io())
+        CurrencyFormatUtils(), logger, AndroidSchedulers.mainThread())
   }
 }
