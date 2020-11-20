@@ -12,7 +12,9 @@ interface CarrierFeeView {
                      bonusAmount: BigDecimal?, carrierName: String, carrierImage: String,
                      carrierFeeFiat: BigDecimal)
 
-  fun backEvent(): Observable<Any>
+  fun cancelButtonEvent(): Observable<Any>
+
+  fun systemBackEvent(): Observable<Any>
 
   fun nextClickEvent(): Observable<Any>
 

@@ -119,10 +119,14 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
           .symbol
   }
 
-  override fun backEvent(): Observable<Any> {
+  override fun cancelButtonEvent(): Observable<Any> {
     return RxView.clicks(cancel_button)
-        .mergeWith(iabView.backButtonPress())
   }
+
+  override fun systemBackEvent(): Observable<Any> {
+    return iabView.backButtonPress()
+  }
+
 
   override fun nextClickEvent(): Observable<Any> {
     return RxView.clicks(buy_button)

@@ -48,7 +48,8 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
 
   private fun handleBackEvents() {
     disposables.add(
-        view.backEvent()
+        view.cancelButtonEvent()
+            .mergeWith(view.systemBackEvent())
             .doOnNext {
               sendPaymentConfirmationEvent("back")
               navigator.navigateToPaymentMethods()
