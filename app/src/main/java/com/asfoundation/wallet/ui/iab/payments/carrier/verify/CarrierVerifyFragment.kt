@@ -21,8 +21,7 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
-class CarrierVerifyFragment : DaggerFragment(),
-    CarrierVerifyView {
+class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
 
   @Inject
   lateinit var presenter: CarrierVerifyPresenter

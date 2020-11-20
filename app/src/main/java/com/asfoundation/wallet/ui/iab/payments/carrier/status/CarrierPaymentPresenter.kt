@@ -93,9 +93,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
     return carrierInteractor.getCompletePurchaseBundle(data.transactionType, data.domain,
         data.skuId, payment.reference, payment.hash, ioScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { bundle ->
-          navigator.finishPayment(bundle)
-        }
+        .doOnSuccess { bundle -> navigator.finishPayment(bundle) }
         .subscribeOn(ioScheduler)
         .ignoreElement()
   }
@@ -143,7 +141,5 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
         .ignoreElement()
   }
 
-
   fun stop() = disposables.clear()
-
 }
