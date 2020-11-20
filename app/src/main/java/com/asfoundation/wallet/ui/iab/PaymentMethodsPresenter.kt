@@ -134,8 +134,8 @@ class PaymentMethodsPresenter(
           if (cachedPaymentNavigationData == null) close()
           else if (!it) {
             hasStartedAuth = false
-            if (cachedPaymentNavigationData!!.isPreselected && paymentMethodsMapper.map(
-                    cachedPaymentNavigationData!!.paymentId) == SelectedPaymentMethod.CREDIT_CARD) {
+            if (cachedPaymentNavigationData!!.isPreselected &&
+                hasPaymentOwnPreselectedView(cachedPaymentNavigationData!!.paymentId)) {
               close()
             }
           } else {
@@ -143,6 +143,12 @@ class PaymentMethodsPresenter(
           }
         }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun hasPaymentOwnPreselectedView(paymentId: String): Boolean {
+    val paymentMethod = paymentMethodsMapper.map(paymentId)
+    return paymentMethod == SelectedPaymentMethod.CREDIT_CARD ||
+        paymentMethod == SelectedPaymentMethod.CARRIER_BILLING
   }
 
   private fun handleWalletBlockStatus(selectedPaymentMethod: PaymentMethod) {
