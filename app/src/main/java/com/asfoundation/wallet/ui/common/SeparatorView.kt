@@ -2,11 +2,9 @@ package com.asfoundation.wallet.ui.common
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
-import androidx.annotation.Dimension
-import androidx.annotation.Px
 import com.asf.wallet.R
+import com.asfoundation.wallet.util.convertDpToPx
 
 class SeparatorView : View {
 
@@ -64,15 +62,15 @@ class SeparatorView : View {
       Orientation.HORIZONTAL -> {
         if (MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY) {
           heightSpec = if (type == Type.DASHED) {
-            MeasureSpec.makeMeasureSpec(dpToPx(5).toInt(), MeasureSpec.EXACTLY)
+            MeasureSpec.makeMeasureSpec(5.convertDpToPx(resources), MeasureSpec.EXACTLY)
           } else {
-            MeasureSpec.makeMeasureSpec(dpToPx(1).toInt(), MeasureSpec.EXACTLY)
+            MeasureSpec.makeMeasureSpec(1.convertDpToPx(resources), MeasureSpec.EXACTLY)
           }
         }
       }
       Orientation.VERTICAL -> {
         if (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY) {
-          widthSpec = MeasureSpec.makeMeasureSpec(dpToPx(1).toInt(), MeasureSpec.EXACTLY)
+          widthSpec = MeasureSpec.makeMeasureSpec(1.convertDpToPx(resources), MeasureSpec.EXACTLY)
         }
       }
     }
@@ -84,9 +82,4 @@ class SeparatorView : View {
 
   enum class Orientation { HORIZONTAL, VERTICAL }
 
-  @Px
-  private fun dpToPx(@Dimension(unit = Dimension.DP) dp: Int): Float {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(),
-        resources.displayMetrics)
-  }
 }
