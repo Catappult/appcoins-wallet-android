@@ -8,6 +8,7 @@ import android.text.SpannedString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import com.asf.wallet.R
@@ -89,7 +90,7 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
     appc_price_text.text = appc
 
     val feeString: SpannedString = buildSpannedString {
-      color(resources.getColor(R.color.disable_reason)) {
+      color(ResourcesCompat.getColor(resources, R.color.disable_reason, null)) {
         append("${formatter.formatCurrency(carrierFeeFiat, WalletCurrency.FIAT)} $currency")
       }
     }
