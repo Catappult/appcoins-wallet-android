@@ -38,12 +38,6 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
         .onErrorReturn { e -> mapper.mapPaymentError(e) }
   }
 
-  fun cancelPayment(uid: String, walletAddress: String, walletSignature: String): Single<Boolean> {
-    return api.cancelPayment(uid, walletAddress, walletSignature)
-        .map { response -> response.code() == 200 }
-        .onErrorReturn { false }
-  }
-
   interface CarrierBillingApi {
     @POST("transactions")
     fun makePayment(@Query("wallet.address") walletAddress: String,
@@ -62,7 +56,5 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
                       @Query("wallet.address") walletAddress: String,
                       @Query("wallet.signature")
                       walletSignature: String): Single<Response<ResponseBody>>
-
   }
-
 }
