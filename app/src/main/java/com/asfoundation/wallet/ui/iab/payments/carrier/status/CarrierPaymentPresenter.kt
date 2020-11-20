@@ -63,11 +63,9 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
             payment.status == TransactionStatus.COMPLETED -> {
               return@flatMap sendPaymentSuccessEvents()
                   .observeOn(viewScheduler)
-                  .andThen(
-                      Completable.fromAction { view.showFinishedTransaction() }
-                          .andThen(
-                              Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
-                          .andThen(finishPayment(payment))
+                  .andThen(Completable.fromAction { view.showFinishedTransaction() }
+                      .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
+                      .andThen(finishPayment(payment))
                   )
                   .andThen(Observable.just(Unit))
             }
