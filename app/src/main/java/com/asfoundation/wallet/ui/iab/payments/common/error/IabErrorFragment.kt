@@ -39,13 +39,9 @@ class IabErrorFragment : DaggerFragment(), IabErrorView {
     cancel_button.text = getString(R.string.button_cancel)
   }
 
-  override fun cancelClickEvent(): Observable<Any> {
-    return RxView.clicks(cancel_button)
-  }
+  override fun cancelClickEvent(): Observable<Any> = RxView.clicks(cancel_button)
 
-  override fun backClickEvent(): Observable<Any> {
-    return RxView.clicks(buy_button)
-  }
+  override fun backClickEvent(): Observable<Any> = RxView.clicks(buy_button)
 
   override fun setErrorMessage(errorMessage: String) {
     error_message.text = errorMessage
@@ -71,14 +67,11 @@ class IabErrorFragment : DaggerFragment(), IabErrorView {
      */
     @JvmStatic
     fun newInstance(errorMessage: String, entryBackStackName: String): IabErrorFragment {
-      val fragment =
-          IabErrorFragment()
+      val fragment = IabErrorFragment()
 
       fragment.arguments = Bundle().apply {
-        putString(
-            ERROR_MESSAGE_STRING, errorMessage)
-        putString(
-            FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
+        putString(ERROR_MESSAGE_STRING, errorMessage)
+        putString(FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
       }
       return fragment
     }
@@ -86,14 +79,11 @@ class IabErrorFragment : DaggerFragment(), IabErrorView {
     @JvmStatic
     fun newInstance(@StringRes errorMessageResource: Int,
                     entryBackStackName: String): IabErrorFragment {
-      val fragment =
-          IabErrorFragment()
+      val fragment = IabErrorFragment()
 
       fragment.arguments = Bundle().apply {
-        putInt(
-            ERROR_MESSAGE_RESOURCE, errorMessageResource)
-        putString(
-            FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
+        putInt(ERROR_MESSAGE_RESOURCE, errorMessageResource)
+        putString(FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
       }
       return fragment
     }
