@@ -11,7 +11,9 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
     private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
     private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
-    private const val FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY = "first_time_on_transaction_activity"
+
+    //String was kept the same for legacy purposes
+    private const val HAS_BEEN_IN_TRANSACTION_ACTIVITY = "first_time_on_transaction_activity"
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
@@ -58,13 +60,13 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
         .apply()
   }
 
-  override fun isFirstTimeOnTransactionActivity(): Boolean {
-    return pref.getBoolean(FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY, true)
+  override fun hasBeenInTransactionActivity(): Boolean {
+    return pref.getBoolean(HAS_BEEN_IN_TRANSACTION_ACTIVITY, false)
   }
 
   override fun setFirstTimeOnTransactionActivity() {
     pref.edit()
-        .putBoolean(FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY, false)
+        .putBoolean(HAS_BEEN_IN_TRANSACTION_ACTIVITY, true)
         .apply()
   }
 

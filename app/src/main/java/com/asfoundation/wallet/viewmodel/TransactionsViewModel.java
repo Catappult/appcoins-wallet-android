@@ -67,7 +67,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final SupportRepository supportRepository;
   private final Handler handler = new Handler();
   private final WalletsEventSender walletsEventSender;
-  private final PublishSubject<Boolean> createOptionsCalledSubject = PublishSubject.create();
   private final PublishSubject<Context> topUpClicks = PublishSubject.create();
   private final CurrencyFormatUtils formatter;
   private CompositeDisposable disposables;
@@ -157,14 +156,11 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void handlePromotionTooltipVisibility() {
-    disposables.add(transactionViewInteract.isFirstTimeOnTransactionActivity()
-        .doOnSuccess(isFirstTime -> {
-          if (isFirstTime) {
-            showPromotionTooltip.postValue(true);
-            transactionViewInteract.setFirstTimeOnTransactionActivity();
-          } else {
-            //handleFingerprintTooltipVisibility(packageName);
-          }
+    disposables.add(transactionViewInteract.hasBeenInTransactionActivity()
+        .filter(hasBeen -> !hasBeen)
+        .doOnSuccess(hasBeen -> {
+          showPromotionTooltip.postValue(true);
+          transactionViewInteract.setFirstTimeOnTransactionActivity();
         })
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
@@ -355,7 +351,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showSettings(Context context) {
-    transactionViewNavigator.openSettings(context);
+    transactionViewNavigator.openSettings(context, false);
   }
 
   public void showSend(Context context) {
@@ -506,6 +502,6 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void onTurnFingerprintOnClick(Context context) {
     transactionViewInteract.setSeenFingerprintTooltip();
-    transactionViewNavigator.openSettings(context);
+    transactionViewNavigator.openSettings(context, true);
   }
 }

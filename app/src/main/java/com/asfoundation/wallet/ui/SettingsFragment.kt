@@ -39,6 +39,20 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private lateinit var activityView: SettingsActivityView
   private var switchSubject: PublishSubject<Unit>? = null
 
+  companion object {
+
+    private const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
+
+    @JvmStatic
+    fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
+      return SettingsFragment().apply {
+        arguments = Bundle().apply {
+          putBoolean(TURN_ON_FINGERPRINT, turnOnFingerprint)
+        }
+      }
+    }
+  }
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is SettingsActivityView) {
@@ -51,9 +65,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
     switchSubject = PublishSubject.create()
+    val turnOnFingerprint = arguments?.getBoolean(TURN_ON_FINGERPRINT, false) ?: false
     presenter =
         SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
-            CompositeDisposable(), settingsInteract)
+            CompositeDisposable(), settingsInteract, SettingsData(turnOnFingerprint))
     presenter.setFingerPrintPreference()
   }
 

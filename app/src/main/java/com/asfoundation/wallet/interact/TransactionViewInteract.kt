@@ -82,8 +82,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 
-  fun isFirstTimeOnTransactionActivity(): Single<Boolean> =
-      Single.just(preferencesRepositoryType.isFirstTimeOnTransactionActivity())
+  fun hasBeenInTransactionActivity(): Single<Boolean> =
+      Single.just(preferencesRepositoryType.hasBeenInTransactionActivity())
 
   fun setFirstTimeOnTransactionActivity() =
       preferencesRepositoryType.setFirstTimeOnTransactionActivity()
@@ -98,7 +98,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   fun shouldShowFingerprintTooltip(packageName: String): Single<Boolean> {
     var shouldShow = false
-    if (!preferencesRepositoryType.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip() && hasFingerprint()) {
+    if (!preferencesRepositoryType.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
+        && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission()) {
       val numberOfTimesInHome = getNumberOfTimesOnHome()
       if (!isFirstInstall(packageName)) {
         if (numberOfTimesInHome > 1) {

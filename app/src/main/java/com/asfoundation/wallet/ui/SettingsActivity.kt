@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -20,15 +21,32 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
   lateinit var androidInjector: DispatchingAndroidInjector<Any>
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
 
+  companion object {
+    private const val AUTHENTICATION_REQUEST_CODE = 33
+    private const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
+
+    @JvmStatic
+    fun newIntent(context: Context, turnOnFingerprint: Boolean = false): Intent {
+      val intent = Intent(context, SettingsActivity::class.java)
+      return intent.apply {
+        putExtra(TURN_ON_FINGERPRINT, turnOnFingerprint)
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_settings)
     toolbar()
     authenticationResultSubject = PublishSubject.create()
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, SettingsFragment())
-        .commit()
+    if (savedInstanceState == null) {
+      supportFragmentManager.beginTransaction()
+          .replace(R.id.fragment_container, SettingsFragment.newInstance(intent.getBooleanExtra(
+              TURN_ON_FINGERPRINT, false)))
+          .commit()
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -78,9 +96,5 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
   override fun onDestroy() {
     authenticationResultSubject = null
     super.onDestroy()
-  }
-
-  private companion object {
-    private const val AUTHENTICATION_REQUEST_CODE = 33
   }
 }

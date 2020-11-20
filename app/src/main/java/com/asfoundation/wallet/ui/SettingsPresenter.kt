@@ -13,12 +13,14 @@ class SettingsPresenter(private val view: SettingsView,
                         private val networkScheduler: Scheduler,
                         private val viewScheduler: Scheduler,
                         private val disposables: CompositeDisposable,
-                        private val settingsInteractor: SettingsInteractor) {
+                        private val settingsInteractor: SettingsInteractor,
+                        private val settingsData: SettingsData) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
     handleAuthenticationResult()
     onFingerPrintPreferenceChange()
+    if (settingsData.turnOnFingerprint && savedInstanceState == null) activityView.showAuthentication()
   }
 
   fun onResume() {

@@ -17,7 +17,7 @@ interface PreferencesRepositoryType {
 
   fun setCurrentWalletAddress(address: String)
 
-  fun isFirstTimeOnTransactionActivity(): Boolean
+  fun hasBeenInTransactionActivity(): Boolean
 
   fun setFirstTimeOnTransactionActivity()
 
