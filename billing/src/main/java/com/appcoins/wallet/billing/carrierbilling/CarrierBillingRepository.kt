@@ -15,7 +15,6 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
 
   companion object {
     private const val METHOD = "onebip"
-    const val GATEWAY_NAME = "dimoco"
   }
 
   private val RETURN_URL = "http://${packageName}/return/carrier_billing"
