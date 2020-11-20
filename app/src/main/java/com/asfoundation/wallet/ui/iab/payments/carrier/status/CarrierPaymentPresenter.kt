@@ -11,7 +11,6 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -37,9 +36,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun handleTransactionResult() {
     disposables.add(navigator.uriResults()
-        .doOnNext {
-          view.setLoading()
-        }
+        .doOnNext { view.setLoading() }
         .flatMapSingle { uri ->
           carrierInteractor.getFinishedPayment(uri, data.domain)
               .subscribeOn(ioScheduler)
@@ -77,8 +74,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
             else -> Observable.just(Unit)
           }
         }
-        .onErrorReturn { e -> handleError(e).andThen(Observable.just(Unit)) }
-        .subscribe({}, { e -> e.printStackTrace() }))
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun isErrorStatus(status: TransactionStatus) =
@@ -86,22 +82,9 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
           status == TransactionStatus.CANCELED ||
           status == TransactionStatus.INVALID_TRANSACTION
 
-  private fun handleError(throwable: Throwable): Completable {
+  private fun handleError(throwable: Throwable) {
     logger.log(CarrierPaymentFragment.TAG, throwable)
-    return if (throwable is HttpException) {
-      sendPaymentErrorEvent(throwable.code(), throwable.message())
-          .andThen(
-              if (throwable.code() == 403) {
-                handleFraudFlow()
-              } else {
-                Completable.complete()
-              })
-    } else {
-      Completable.fromAction {
-        navigator.navigateToError(R.string.activity_iab_error_message)
-      }
-          .subscribeOn(viewScheduler)
-    }
+    navigator.navigateToError(R.string.activity_iab_error_message)
   }
 
   private fun finishPayment(payment: CarrierPaymentModel): Completable {

@@ -128,9 +128,7 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
   }
 
 
-  override fun nextClickEvent(): Observable<Any> {
-    return RxView.clicks(buy_button)
-  }
+  override fun nextClickEvent(): Observable<Any> = RxView.clicks(buy_button)
 
   companion object {
 
@@ -155,8 +153,7 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
                     appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
                     skuId: String?, feeFiatAmount: BigDecimal, carrierName: String,
                     carrierImage: String): CarrierFeeFragment {
-      val fragment =
-          CarrierFeeFragment()
+      val fragment = CarrierFeeFragment()
       fragment.arguments = Bundle().apply {
         putString(UID_KEY, uid)
         putString(DOMAIN_KEY, domain)

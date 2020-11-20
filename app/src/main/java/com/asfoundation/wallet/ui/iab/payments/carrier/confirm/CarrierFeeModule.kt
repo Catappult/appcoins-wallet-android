@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 
 @Module
@@ -15,8 +14,7 @@ class CarrierFeeModule {
 
   @Provides
   fun providesCarrierFeeNavigator(fragment: CarrierFeeFragment): CarrierFeeNavigator {
-    return CarrierFeeNavigator(fragment.activity as IabActivity,
-        fragment.requireFragmentManager())
+    return CarrierFeeNavigator(fragment.activity as IabActivity, fragment.requireFragmentManager())
   }
 
   @Provides
@@ -46,6 +44,6 @@ class CarrierFeeModule {
                                   billingAnalytics: BillingAnalytics,
                                   appInfoLoader: ApplicationInfoLoader): CarrierFeePresenter {
     return CarrierFeePresenter(CompositeDisposable(), fragment as CarrierFeeView, data,
-        navigator, billingAnalytics, appInfoLoader, AndroidSchedulers.mainThread(), Schedulers.io())
+        navigator, billingAnalytics, appInfoLoader, AndroidSchedulers.mainThread())
   }
 }

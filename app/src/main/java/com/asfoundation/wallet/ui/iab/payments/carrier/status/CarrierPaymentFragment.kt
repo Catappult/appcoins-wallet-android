@@ -127,8 +127,7 @@ class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
                     transactionType: String, skuId: String?, paymentUrl: String,
                     appcAmount: BigDecimal,
                     currency: String, bonus: BigDecimal?): CarrierPaymentFragment {
-      val fragment =
-          CarrierPaymentFragment()
+      val fragment = CarrierPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(DOMAIN_KEY, domain)
         putString(TRANSACTION_DATA_KEY, transactionData)

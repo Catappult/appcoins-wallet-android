@@ -15,13 +15,9 @@ class CarrierPaymentNavigator(private val fragmentManager: FragmentManager,
                               private val uriNavigator: UriNavigator,
                               private val iabActivity: IabActivity) {
 
-  fun navigateToPaymentWebView(paymentUrl: String) {
-    uriNavigator.navigateToUri(paymentUrl)
-  }
+  fun navigateToPaymentWebView(paymentUrl: String) = uriNavigator.navigateToUri(paymentUrl)
 
-  fun uriResults(): Observable<Uri> {
-    return uriNavigator.uriResults()
-  }
+  fun uriResults(): Observable<Uri> = uriNavigator.uriResults()
 
   fun navigateToWalletValidation(@StringRes messageStringRes: Int) {
     iabActivity.showWalletValidation(messageStringRes)
@@ -35,7 +31,5 @@ class CarrierPaymentNavigator(private val fragmentManager: FragmentManager,
         .commit()
   }
 
-  fun finishPayment(bundle: Bundle) {
-    iabActivity.finish(bundle)
-  }
+  fun finishPayment(bundle: Bundle) = iabActivity.finish(bundle)
 }

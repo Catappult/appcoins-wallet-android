@@ -11,8 +11,7 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
                           private val navigator: CarrierFeeNavigator,
                           private val billingAnalytics: BillingAnalytics,
                           private val appInfoLoader: ApplicationInfoLoader,
-                          private val viewScheduler: Scheduler,
-                          private val ioScheduler: Scheduler) {
+                          private val viewScheduler: Scheduler) {
 
   fun present() {
     initializeView()

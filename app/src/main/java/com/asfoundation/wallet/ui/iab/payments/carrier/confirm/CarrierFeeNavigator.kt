@@ -9,9 +9,7 @@ import java.math.BigDecimal
 class CarrierFeeNavigator(private val iabActivity: IabActivity,
                           private val fragmentManager: FragmentManager) {
 
-  fun navigateToPaymentMethods() {
-    iabActivity.showPaymentMethodsView()
-  }
+  fun navigateToPaymentMethods() = iabActivity.showPaymentMethodsView()
 
   fun navigateToPayment(domain: String, transactionData: String,
                         transactionType: String, skuId: String?, paymentUrl: String,

@@ -43,8 +43,7 @@ class CarrierPaymentModule {
                                             billingAnalytics: BillingAnalytics,
                                             logger: Logger): CarrierPaymentPresenter {
     return CarrierPaymentPresenter(
-        CompositeDisposable(), fragment as CarrierPaymentView, data, navigator,
-        carrierInteractor,
+        CompositeDisposable(), fragment as CarrierPaymentView, data, navigator, carrierInteractor,
         billingAnalytics, logger, AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
