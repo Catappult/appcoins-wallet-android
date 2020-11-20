@@ -103,7 +103,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     fun disablePayments(@Body wallet: DisableWallet): Completable
   }
 
-
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
                      @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
                      @SerializedName("payment.return_url") val returnUrl: String,
