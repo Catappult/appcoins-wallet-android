@@ -52,7 +52,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
               currency, value, pair.second.toAddress(), pair.first.oemAddress,
               pair.first.storeAddress, pair.first.address)
         }
-        .doOnError { e -> logger.log("CarrierInteractor", e) }
+        .doOnError { logger.log("CarrierInteractor", it) }
   }
 
   fun getFinishedPayment(uri: Uri, packageName: String): Single<CarrierPaymentModel> {
@@ -110,8 +110,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
         .subscribeOn(ioScheduler),
         partnerAddressService.getOemAddressForPackage(packageName)
             .subscribeOn(ioScheduler), Function3 { addressModel, storeAddress, oemAddress ->
-      return@Function3 WalletAddresses(addressModel.address, addressModel.signedAddress,
-          storeAddress, oemAddress)
+      WalletAddresses(addressModel.address, addressModel.signedAddress, storeAddress, oemAddress)
     })
   }
 
@@ -149,14 +148,11 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
   fun getWalletStatus(): Single<WalletStatus> {
     return Single.zip(walletBlockedInteract.isWalletBlocked()
         .subscribeOn(ioScheduler), isWalletVerified().subscribeOn(ioScheduler),
-        BiFunction { blocked, verified ->
-          WalletStatus(blocked, verified)
-        })
+        BiFunction { blocked, verified -> WalletStatus(blocked, verified) })
   }
 
   private fun isWalletVerified(): Single<Boolean> =
       walletService.getWalletAddress()
           .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
-
 }
