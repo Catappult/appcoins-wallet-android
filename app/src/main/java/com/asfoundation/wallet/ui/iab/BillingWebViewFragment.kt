@@ -148,7 +148,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     } else {
       val intent = Intent()
       intent.data = Uri.parse(currentUrl)
-      webViewActivity!!.setResult(WebViewActivity.FAIL, intent)
+      webViewActivity?.setResult(WebViewActivity.FAIL, intent)
       false
     }
   }
@@ -185,14 +185,14 @@ class BillingWebViewFragment : BasePageViewFragment() {
   private fun finishWithSuccess(url: String) {
     val intent = Intent()
     intent.data = Uri.parse(url)
-    webViewActivity!!.setResult(WebViewActivity.SUCCESS, intent)
-    webViewActivity!!.finish()
+    webViewActivity?.setResult(WebViewActivity.SUCCESS, intent)
+    webViewActivity?.finish()
   }
 
   private fun finishWithFail(url: String) {
     val intent = Intent()
     intent.data = Uri.parse(url)
-    webViewActivity!!.setResult(WebViewActivity.FAIL, intent)
-    webViewActivity!!.finish()
+    webViewActivity?.setResult(WebViewActivity.FAIL, intent)
+    webViewActivity?.finish()
   }
 }
