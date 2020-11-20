@@ -135,7 +135,7 @@ class CarrierVerifyPresenter(
         }
       }
       is GenericError -> {
-        if (paymentModel.error.errorCode == 403) {
+        if (isUnauthorizedCode(paymentModel.error.errorCode)) {
           return handleFraudFlow()
         }
         return Completable.fromAction {
@@ -145,6 +145,10 @@ class CarrierVerifyPresenter(
       }
       else -> return Completable.complete()
     }
+  }
+
+  private fun isUnauthorizedCode(errorCode: Int?): Boolean {
+    return errorCode == 403
   }
 
   private fun handleFraudFlow(): Completable {
