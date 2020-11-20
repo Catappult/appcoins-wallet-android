@@ -924,9 +924,8 @@
   <string name="card_verification_code_example_date">Trans. Date</string>
   <string name="card_verification_code_example_description">Description</string>
   <string name="card_verification_code_example_amount">Amount</string>
-  <string name="card_verification_code_example_code">Unique code</string>
-  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
-  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
+  <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
+  <string name="card_verification_code_enter_title">Enter the %s digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="one">%1$s will be refunded within %2$s hour after you confirm the code.</item>
     <item quantity="two">%1$s will be refunded within %2$s hours after you confirm the code.</item>
