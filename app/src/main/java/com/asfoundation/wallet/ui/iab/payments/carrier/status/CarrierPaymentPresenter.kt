@@ -50,7 +50,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
                   payment.error.errorMessage)
                   .observeOn(viewScheduler)
                   .andThen(
-                      if (payment.error.errorCode == 403) {
+                      if (isUnauthorizedCode(payment.error.errorCode)) {
                         handleFraudFlow()
                       } else {
                         Completable.fromAction {
@@ -75,6 +75,10 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
           }
         }
         .subscribe({}, { handleError(it) }))
+  }
+
+  private fun isUnauthorizedCode(errorCode: Int?): Boolean {
+    return errorCode == 403
   }
 
   private fun isErrorStatus(status: TransactionStatus) =
