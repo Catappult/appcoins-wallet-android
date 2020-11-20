@@ -139,8 +139,7 @@ class CarrierVerifyPresenter(
           return handleFraudFlow()
         }
         return Completable.fromAction {
-          navigator.navigateToError(
-              stringProvider.getString(R.string.activity_iab_error_message))
+          navigator.navigateToError(stringProvider.getString(R.string.activity_iab_error_message))
         }
       }
       else -> return Completable.complete()

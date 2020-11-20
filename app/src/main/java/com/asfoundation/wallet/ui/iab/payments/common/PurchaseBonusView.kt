@@ -40,7 +40,6 @@ class PurchaseBonusView : FrameLayout {
     val bonusMessageValue = newCurrencyString + formattedBonus
     setPurchaseBonusHeaderValue(
         context.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue))
-
   }
 
   fun setPurchaseBonusHeaderValue(valueText: String) {
@@ -76,6 +75,4 @@ class PurchaseBonusView : FrameLayout {
     }
     bonus_msg_skeleton.visibility = View.GONE
   }
-
-
 }
