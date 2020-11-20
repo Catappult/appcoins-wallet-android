@@ -9,7 +9,7 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.StringProvider
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import com.asfoundation.wallet.util.safeLet
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -25,7 +25,7 @@ class CarrierVerifyPresenter(
     private val navigator: CarrierVerifyNavigator,
     private val interactor: CarrierInteractor,
     private val billingAnalytics: BillingAnalytics,
-    private val appInfoLoader: ApplicationInfoLoader,
+    private val appInfoProvider: ApplicationInfoProvider,
     private val stringProvider: StringProvider,
     private val formatter: CurrencyFormatUtils,
     private val logger: Logger,
@@ -41,7 +41,7 @@ class CarrierVerifyPresenter(
 
   private fun initializeView() {
     disposables.add(
-        appInfoLoader.getApplicationInfo(data.domain)
+        appInfoProvider.getApplicationInfo(data.domain)
             .observeOn(viewScheduler)
             .doOnSuccess { ai ->
               view.initializeView(ai.appName, ai.icon, data.currency, data.fiatAmount,

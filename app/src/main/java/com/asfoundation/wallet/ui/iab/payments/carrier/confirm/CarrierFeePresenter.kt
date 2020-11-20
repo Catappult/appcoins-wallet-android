@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -10,7 +10,7 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
                           private val data: CarrierFeeData,
                           private val navigator: CarrierFeeNavigator,
                           private val billingAnalytics: BillingAnalytics,
-                          private val appInfoLoader: ApplicationInfoLoader,
+                          private val appInfoProvider: ApplicationInfoProvider,
                           private val viewScheduler: Scheduler) {
 
   fun present() {
@@ -21,7 +21,7 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
 
   private fun initializeView() {
     disposables.add(
-        appInfoLoader.getApplicationInfo(data.domain)
+        appInfoProvider.getApplicationInfo(data.domain)
             .observeOn(viewScheduler)
             .doOnSuccess { ai ->
               view.initializeView(ai.appName, ai.icon, data.currency, data.fiatAmount,
@@ -63,7 +63,6 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
         data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType,
         event)
   }
-
 
   fun stop() = disposables.clear()
 }

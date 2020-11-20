@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.IabActivity
-import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,8 +42,8 @@ class CarrierFeeModule {
                                   data: CarrierFeeData,
                                   navigator: CarrierFeeNavigator,
                                   billingAnalytics: BillingAnalytics,
-                                  appInfoLoader: ApplicationInfoLoader): CarrierFeePresenter {
+                                  appInfoProvider: ApplicationInfoProvider): CarrierFeePresenter {
     return CarrierFeePresenter(CompositeDisposable(), fragment as CarrierFeeView, data,
-        navigator, billingAnalytics, appInfoLoader, AndroidSchedulers.mainThread())
+        navigator, billingAnalytics, appInfoProvider, AndroidSchedulers.mainThread())
   }
 }

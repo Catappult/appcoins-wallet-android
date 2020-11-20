@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Helper class to load resources from installed applications
  */
-class ApplicationInfoLoader(val context: Context) {
+class ApplicationInfoProvider(val context: Context) {
 
   fun getApplicationInfo(packageName: String): Single<ApplicationInfoModel> {
     return Single.zip(getApplicationName(packageName), getApplicationIcon(packageName),
@@ -34,4 +34,12 @@ class ApplicationInfoLoader(val context: Context) {
         }
         .subscribeOn(Schedulers.io())
   }
+
+  fun getAppInfo(packageName: String): ApplicationInfoModel {
+    val packageInfo = context.packageManager.getApplicationInfo(packageName, 0)
+    val appName = context.packageManager.getApplicationLabel(packageInfo)
+    val icon = context.packageManager.getApplicationIcon(packageName)
+    return ApplicationInfoModel(packageName, appName.toString(), icon)
+  }
+
 }

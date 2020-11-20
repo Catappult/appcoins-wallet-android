@@ -6,7 +6,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.StringProvider
-import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoLoader
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,10 +46,10 @@ class CarrierVerifyModule {
                                      interactor: CarrierInteractor,
                                      billingAnalytics: BillingAnalytics,
                                      stringProvider: StringProvider,
-                                     applicationInfoLoader: ApplicationInfoLoader,
+                                     applicationInfoProvider: ApplicationInfoProvider,
                                      logger: Logger): CarrierVerifyPresenter {
     return CarrierVerifyPresenter(CompositeDisposable(), fragment as CarrierVerifyView, data,
-        navigator, interactor, billingAnalytics, applicationInfoLoader, stringProvider,
+        navigator, interactor, billingAnalytics, applicationInfoProvider, stringProvider,
         CurrencyFormatUtils(), logger, AndroidSchedulers.mainThread())
   }
 }
