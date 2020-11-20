@@ -165,13 +165,11 @@ abstract class FragmentBuilders {
   abstract fun bindWalletRemoveConfirmationFragment(): WalletRemoveConfirmationFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [RestoreWalletModule::class])
+  @ContributesAndroidInjector(modules = [RestoreWalletModule::class])
   abstract fun bindRestoreWalletFragment(): RestoreWalletFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [RestoreWalletPasswordModule::class])
+  @ContributesAndroidInjector(modules = [RestoreWalletPasswordModule::class])
   abstract fun bindRestoreWalletPasswordFragment(): RestoreWalletPasswordFragment
 
   @FragmentScope
@@ -215,22 +213,18 @@ abstract class FragmentBuilders {
   abstract fun bindAuthenticationErrorFragment(): AuthenticationErrorFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [CarrierVerifyModule::class])
+  @ContributesAndroidInjector(modules = [CarrierVerifyModule::class])
   abstract fun bindCarrierVerifyFragment(): CarrierVerifyFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [CarrierFeeModule::class])
+  @ContributesAndroidInjector(modules = [CarrierFeeModule::class])
   abstract fun bindCarrierFeeFragment(): CarrierFeeFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [CarrierPaymentModule::class])
+  @ContributesAndroidInjector(modules = [CarrierPaymentModule::class])
   abstract fun bindCarrierPaymentStatusFragment(): CarrierPaymentFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [IabErrorModule::class])
+  @ContributesAndroidInjector(modules = [IabErrorModule::class])
   abstract fun bindIabErrorFragment(): IabErrorFragment
 }
