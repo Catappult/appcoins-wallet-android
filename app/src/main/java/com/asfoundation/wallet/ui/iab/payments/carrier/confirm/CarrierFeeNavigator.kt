@@ -15,7 +15,7 @@ class CarrierFeeNavigator(private val iabActivity: IabActivity,
 
   fun navigateToPayment(domain: String, transactionData: String,
                         transactionType: String, skuId: String?, paymentUrl: String,
-                        appcAmount: BigDecimal, currency: String, bonusAmount: BigDecimal) {
+                        appcAmount: BigDecimal, currency: String, bonusAmount: BigDecimal?) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             CarrierPaymentFragment.newInstance(domain, transactionData, transactionType, skuId,

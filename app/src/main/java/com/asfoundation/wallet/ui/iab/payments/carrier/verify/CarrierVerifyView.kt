@@ -9,7 +9,7 @@ interface CarrierVerifyView {
   fun initializeView(appName: String, icon: Drawable,
                      currency: String, fiatAmount: BigDecimal,
                      appcAmount: BigDecimal, skuDescription: String,
-                     bonusAmount: BigDecimal, preselected: Boolean)
+                     bonusAmount: BigDecimal?, preselected: Boolean)
 
   fun backEvent(): Observable<Any>
 

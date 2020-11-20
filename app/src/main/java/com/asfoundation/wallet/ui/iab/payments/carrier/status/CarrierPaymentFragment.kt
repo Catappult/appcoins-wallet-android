@@ -45,17 +45,23 @@ class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
 
   }
 
-  override fun initializeView(bonusValue: BigDecimal, currency: String) {
-    val textDelegate = TextDelegate(complete_payment_view.lottie_transaction_success)
-    textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
-    textDelegate.setText("bonus_received",
-        resources.getString(R.string.gamification_purchase_completed_bonus_received))
-    complete_payment_view.lottie_transaction_success.setTextDelegate(textDelegate)
-    complete_payment_view.lottie_transaction_success.setFontAssetDelegate(object :
-        FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String?) =
-          Typeface.create("sans-serif-medium", Typeface.BOLD)
-    })
+  override fun initializeView(bonusValue: BigDecimal?, currency: String) {
+    if (bonusValue != null) {
+      complete_payment_view.lottie_transaction_success.setAnimation(
+          R.raw.transaction_complete_bonus_animation)
+      val textDelegate = TextDelegate(complete_payment_view.lottie_transaction_success)
+      textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
+      textDelegate.setText("bonus_received",
+          resources.getString(R.string.gamification_purchase_completed_bonus_received))
+      complete_payment_view.lottie_transaction_success.setTextDelegate(textDelegate)
+      complete_payment_view.lottie_transaction_success.setFontAssetDelegate(object :
+          FontAssetDelegate() {
+        override fun fetchFont(fontFamily: String?) =
+            Typeface.create("sans-serif-medium", Typeface.BOLD)
+      })
+    } else {
+      complete_payment_view.lottie_transaction_success.setAnimation(R.raw.success_animation)
+    }
   }
 
   private fun getBonusMessage(bonusValue: BigDecimal, currency: String): String {
@@ -120,7 +126,7 @@ class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
     fun newInstance(domain: String, transactionData: String,
                     transactionType: String, skuId: String?, paymentUrl: String,
                     appcAmount: BigDecimal,
-                    currency: String?, bonus: BigDecimal?): CarrierPaymentFragment {
+                    currency: String, bonus: BigDecimal?): CarrierPaymentFragment {
       val fragment =
           CarrierPaymentFragment()
       fragment.arguments = Bundle().apply {

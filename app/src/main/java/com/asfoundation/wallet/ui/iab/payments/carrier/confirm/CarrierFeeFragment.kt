@@ -71,7 +71,7 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
   override fun initializeView(appName: String, appIcon: Drawable,
                               currency: String, fiatAmount: BigDecimal,
                               appcAmount: BigDecimal, skuDescription: String,
-                              bonusAmount: BigDecimal, carrierName: String, carrierImage: String,
+                              bonusAmount: BigDecimal?, carrierName: String, carrierImage: String,
                               carrierFeeFiat: BigDecimal) {
     buy_button.isEnabled = true
     payment_methods_header.setTitle(appName)
@@ -101,8 +101,13 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
         .load(carrierImage)
         .into(carrier_image)
 
-    purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
-    purchase_bonus.hideSkeleton()
+    if (bonusAmount != null) {
+      purchase_bonus.visibility = View.VISIBLE
+      purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+      purchase_bonus.hideSkeleton()
+    } else {
+      purchase_bonus.visibility = View.GONE
+    }
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {

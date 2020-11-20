@@ -6,5 +6,5 @@ data class CarrierFeeData(val uid: String, val domain: String, val transactionDa
                           val transactionType: String, val skuDescription: String,
                           val skuId: String?, val paymentUrl: String, val currency: String,
                           val fiatAmount: BigDecimal, val appcAmount: BigDecimal,
-                          val bonusAmount: BigDecimal, val feeFiatAmount: BigDecimal,
+                          val bonusAmount: BigDecimal?, val feeFiatAmount: BigDecimal,
                           val carrierName: String, val carrierImage: String)

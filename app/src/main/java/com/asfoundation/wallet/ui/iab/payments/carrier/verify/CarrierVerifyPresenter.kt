@@ -15,6 +15,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.*
 
@@ -90,7 +91,7 @@ class CarrierVerifyPresenter(
                     safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
                       fee.cost?.let { cost ->
                         navigator.navigateToFee(paymentModel.uid, data.domain,
-                            data.transactionData, data.transactionType, paymentModel.paymentUrl,
+                            data.transactionData, data.transactionType, paymentModel.paymentUrl!!,
                             data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
                             data.skuDescription, data.skuId, cost.value, carrier.name, carrier.icon)
                       }
@@ -100,9 +101,34 @@ class CarrierVerifyPresenter(
               }
               return@flatMap completable.andThen(Observable.just(paymentModel))
             }
+            .onErrorResumeNext { e: Throwable -> handleException(e) }
             .retry()
-            .subscribe({}, { e -> e.printStackTrace() })
+            .subscribe({}, { it.printStackTrace() })
     )
+  }
+
+  private fun handleException(throwable: Throwable): Observable<CarrierPaymentModel> {
+    logger.log(CarrierVerifyFragment.TAG, throwable)
+    return if (throwable is HttpException) {
+      if (throwable.code() == 403) {
+        handleFraudFlow()
+            .andThen(Observable.just(
+                CarrierPaymentModel(GenericError(true, throwable.code(), throwable.message()))))
+      } else {
+        Completable.fromAction {
+          navigator.navigateToError(stringProvider.getString(R.string.activity_iab_error_message))
+        }
+            .andThen(Observable.just(
+                CarrierPaymentModel(GenericError(true, throwable.code(), throwable.message()))))
+
+      }
+    } else {
+      Completable.fromAction {
+        navigator.navigateToError(stringProvider.getString(R.string.activity_iab_error_message))
+      }
+          .andThen(Observable.just(CarrierPaymentModel(GenericError(false, -1, throwable.message))))
+          .subscribeOn(viewScheduler)
+    }
   }
 
   private fun handleError(paymentModel: CarrierPaymentModel): Completable {

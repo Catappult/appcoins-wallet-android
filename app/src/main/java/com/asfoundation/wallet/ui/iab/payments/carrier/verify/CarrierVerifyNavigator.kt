@@ -17,7 +17,7 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
   }
 
   fun navigateToFee(uid: String, domain: String, transactionData: String,
-                    transactionType: String, paymentUrl: String?, currency: String?,
+                    transactionType: String, paymentUrl: String, currency: String,
                     amount: BigDecimal, appcAmount: BigDecimal, bonus: BigDecimal?,
                     skuDescription: String, skuId: String?, feeFiatAmount: BigDecimal,
                     carrierName: String, carrierImage: String) {

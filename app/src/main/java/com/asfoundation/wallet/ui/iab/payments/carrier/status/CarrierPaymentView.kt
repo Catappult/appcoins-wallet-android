@@ -4,7 +4,7 @@ import java.math.BigDecimal
 
 interface CarrierPaymentView {
 
-  fun initializeView(bonusValue: BigDecimal, currency: String)
+  fun initializeView(bonusValue: BigDecimal?, currency: String)
 
   fun setLoading()
 

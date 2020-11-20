@@ -9,7 +9,7 @@ interface CarrierFeeView {
   fun initializeView(appName: String, appIcon: Drawable,
                      currency: String, fiatAmount: BigDecimal,
                      appcAmount: BigDecimal, skuDescription: String,
-                     bonusAmount: BigDecimal, carrierName: String, carrierImage: String,
+                     bonusAmount: BigDecimal?, carrierName: String, carrierImage: String,
                      carrierFeeFiat: BigDecimal)
 
   fun backEvent(): Observable<Any>

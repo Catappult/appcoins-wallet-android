@@ -85,7 +85,7 @@ class CarrierVerifyFragment : DaggerFragment(),
                               currency: String,
                               fiatAmount: BigDecimal, appcAmount: BigDecimal,
                               skuDescription: String,
-                              bonusAmount: BigDecimal,
+                              bonusAmount: BigDecimal?,
                               preselected: Boolean) {
     payment_methods_header.setTitle(appName)
     payment_methods_header.setIcon(icon)
@@ -93,8 +93,13 @@ class CarrierVerifyFragment : DaggerFragment(),
     payment_methods_header.setPrice(fiatAmount, appcAmount, currency)
     payment_methods_header.showPrice()
     payment_methods_header.hideSkeleton()
-    purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
-    purchase_bonus.hideSkeleton()
+    if (bonusAmount != null) {
+      purchase_bonus.visibility = View.VISIBLE
+      purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+      purchase_bonus.hideSkeleton()
+    } else {
+      purchase_bonus.visibility = View.GONE
+    }
 
     if (preselected) {
       val lt = (other_payments_button.parent as ViewGroup).layoutTransition

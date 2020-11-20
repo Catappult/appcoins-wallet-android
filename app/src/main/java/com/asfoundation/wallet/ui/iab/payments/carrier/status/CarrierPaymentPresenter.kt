@@ -102,7 +102,6 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
       }
           .subscribeOn(viewScheduler)
     }
-
   }
 
   private fun finishPayment(payment: CarrierPaymentModel): Completable {
