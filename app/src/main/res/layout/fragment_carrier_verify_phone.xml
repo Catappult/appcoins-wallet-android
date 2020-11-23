@@ -121,13 +121,12 @@
 
   <TextView
       android:id="@+id/field_error_text"
+      style="@style/PaymentMethods.Carrier.PhoneFieldError"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="5dp"
       android:layout_marginTop="5dp"
       android:text="@string/purchase_carrier_error"
-      android:textColor="@color/remove_wallet_red"
-      android:textSize="12sp"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
       app:layout_constraintStart_toStartOf="@+id/phone_number_layout"
