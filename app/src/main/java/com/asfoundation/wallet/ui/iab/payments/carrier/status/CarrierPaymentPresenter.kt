@@ -44,12 +44,8 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
         .flatMap { payment ->
           var action = Completable.complete()
           when {
-            isErrorStatus(payment.status) -> {
-              action = handleErrorStatus(payment)
-            }
-            payment.status == TransactionStatus.COMPLETED -> {
-              action = handleCompletedStatus(payment)
-            }
+            isErrorStatus(payment.status) -> action = handleErrorStatus(payment)
+            payment.status == TransactionStatus.COMPLETED -> action = handleCompletedStatus(payment)
             else -> Unit
           }
           action.andThen(Observable.just(payment))
