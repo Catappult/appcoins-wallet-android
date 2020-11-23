@@ -39,7 +39,7 @@ class WalletVerificationCodeModule {
           getString(WalletVerificationCodeFragment.FORMAT_KEY)!!,
           getString(WalletVerificationCodeFragment.AMOUNT_KEY)!!,
           getString(WalletVerificationCodeFragment.CURRENCY_KEY)!!,
-          getString(WalletVerificationCodeFragment.SYMBOL_KEY)!!,
+          getString(WalletVerificationCodeFragment.SIGN_KEY)!!,
           getString(WalletVerificationCodeFragment.PERIOD_KEY)!!,
           getInt(WalletVerificationCodeFragment.DIGITS_KEY)
       )

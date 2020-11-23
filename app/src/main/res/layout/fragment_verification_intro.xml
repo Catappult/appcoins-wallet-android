@@ -105,6 +105,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="56dp"
+          android:layout_marginEnd="@dimen/normal_margin"
           android:text="@string/cancel"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/submit"

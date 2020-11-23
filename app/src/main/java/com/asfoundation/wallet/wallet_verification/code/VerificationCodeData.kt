@@ -5,7 +5,7 @@ data class VerificationCodeData(
     val format: String,
     val amount: String,
     val currency: String,
-    val symbol: String,
+    val sign: String,
     val period: String,
     val digits: Int
 )

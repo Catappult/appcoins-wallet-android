@@ -9,7 +9,7 @@ data class VerificationIntroModel(
 
 data class VerificationInfoModel(
     val currency: String,
-    val symbol: String,
+    val sign: String,
     val value: String,
     val digits: Int,
     val format: String,

@@ -39,7 +39,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
   companion object {
 
     internal const val CURRENCY_KEY = "currency"
-    internal const val SYMBOL_KEY = "symbol"
+    internal const val SIGN_KEY = "sign"
     internal const val AMOUNT_KEY = "amount"
     internal const val DIGITS_KEY = "digits"
     internal const val FORMAT_KEY = "format"
@@ -47,12 +47,12 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     internal const val DATE_KEY = "date"
 
     @JvmStatic
-    fun newInstance(currency: String, symbol: String, value: String, digits: Int, format: String,
+    fun newInstance(currency: String, sign: String, value: String, digits: Int, format: String,
                     period: String, date: Long): WalletVerificationCodeFragment {
       return WalletVerificationCodeFragment().apply {
         arguments = Bundle().apply {
           putString(CURRENCY_KEY, currency)
-          putString(SYMBOL_KEY, symbol)
+          putString(SIGN_KEY, sign)
           putString(AMOUNT_KEY, value)
           putString(FORMAT_KEY, format)
           putString(PERIOD_KEY, period)
@@ -85,8 +85,8 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
   fun setupUi() {
     val amount = formatter.formatCurrency(data.amount, WalletCurrency.FIAT)
-    val amountWithCurrency = "${data.symbol} $amount"
-    val amountWithCurrencyAndSign = "${data.symbol} -$amount"
+    val amountWithCurrency = "${data.sign} $amount"
+    val amountWithCurrencyAndSign = "${data.sign} -$amount"
 
     val date = convertToDate(data.date)
     val duration = Duration.parse(data.period)
@@ -94,8 +94,10 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     val periodInDays = duration.toDays()
     val periodInHours = duration.toHours()
 
-    val period = getString(R.string.card_verification_code_example_code, periodInDays)
-    val codeTitle = getString(R.string.card_verification_code_enter_title, data.digits)
+    val period = String.format(getString(R.string.card_verification_code_example_code),
+        periodInDays.toString())
+    val codeTitle = String.format(getString(R.string.card_verification_code_enter_title),
+        data.digits.toString())
     val codeDisclaimer = if (periodInDays > 0) {
       resources.getQuantityString(R.plurals.card_verification_code_enter_days_body,
           periodInDays.toInt(), amountWithCurrency, periodInDays.toString())

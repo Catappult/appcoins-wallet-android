@@ -151,7 +151,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
   private fun handleSuccessTransaction(verificationInfoModel: VerificationInfoModel): Completable {
     val ts = System.currentTimeMillis()
     return Completable.fromAction {
-      navigator.navigateToCodeView(verificationInfoModel.currency, verificationInfoModel.symbol,
+      navigator.navigateToCodeView(verificationInfoModel.currency, verificationInfoModel.sign,
           verificationInfoModel.value, verificationInfoModel.digits, verificationInfoModel.format,
           verificationInfoModel.period, ts)
     }

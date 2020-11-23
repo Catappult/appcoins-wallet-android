@@ -142,7 +142,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="56dp"
-          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/normal_margin"
           android:layout_marginBottom="22dp"
           android:text="@string/backup_tooltip_later_button"
           app:layout_constraintBottom_toBottomOf="parent"
