@@ -65,6 +65,16 @@
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:lineSpacingExtra">4sp</item>
     <item name="android:textStyle">normal</item>
+    <item name="android:letterSpacing">0.03</item>
+  </style>
+
+  <style name="PaymentMethods.Error.Title">
+    <item name="android:textColor">@color/btn_light_enabled_color</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:letterSpacing">0.03</item>
   </style>
 
 </resources>
