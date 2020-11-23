@@ -66,8 +66,8 @@ class WalletVerificationIntroInteractor(
 
   private fun mapToVerificationInfoModel(
       response: VerificationInfoResponse): VerificationInfoModel {
-    return VerificationInfoModel(response.currency, response.value, response.digits,
-        response.format, response.period)
+    return VerificationInfoModel(response.currency, response.symbol, response.value,
+        response.digits, response.format, response.period)
   }
 
   fun showSupport(): Completable {

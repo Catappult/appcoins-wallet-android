@@ -81,7 +81,9 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun getVerificationInfo(): Single<VerificationInfoResponse> {
     return adyenApi.getVerificationInfo()
-        .onErrorReturn { VerificationInfoResponse("EUR", "1.00", 4, "APPC*{{code}}CODE", "P2D") }
+        .onErrorReturn {
+          VerificationInfoResponse("EUR", "€", "1.00", 4, "APPC*{{code}}CODE", "P2D")
+        }
   }
 
   fun getTransaction(uid: String, walletAddress: String,

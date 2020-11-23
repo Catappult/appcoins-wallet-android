@@ -39,6 +39,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
   companion object {
 
     internal const val CURRENCY_KEY = "currency"
+    internal const val SYMBOL_KEY = "symbol"
     internal const val AMOUNT_KEY = "amount"
     internal const val DIGITS_KEY = "digits"
     internal const val FORMAT_KEY = "format"
@@ -46,11 +47,12 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     internal const val DATE_KEY = "date"
 
     @JvmStatic
-    fun newInstance(currency: String, value: String, digits: Int, format: String,
+    fun newInstance(currency: String, symbol: String, value: String, digits: Int, format: String,
                     period: String, date: Long): WalletVerificationCodeFragment {
       return WalletVerificationCodeFragment().apply {
         arguments = Bundle().apply {
           putString(CURRENCY_KEY, currency)
+          putString(SYMBOL_KEY, symbol)
           putString(AMOUNT_KEY, value)
           putString(FORMAT_KEY, format)
           putString(PERIOD_KEY, period)
@@ -83,7 +85,8 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
   fun setupUi() {
     val amount = formatter.formatCurrency(data.amount, WalletCurrency.FIAT)
-    val amountWithCurrency = "${data.currency} $amount"
+    val amountWithCurrency = "${data.symbol} $amount"
+    val amountWithCurrencyAndSign = "${data.symbol} -$amount"
 
     val date = convertToDate(data.date)
     val duration = Duration.parse(data.period)
@@ -106,7 +109,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
     layout_example.trans_date_value.text = date
     layout_example.description_value.text = data.format
-    layout_example.amount_value.text = amountWithCurrency
+    layout_example.amount_value.text = amountWithCurrencyAndSign
     layout_example.arrow_desc.text = period
     code_title.text = codeTitle
     code_disclaimer.text = codeDisclaimer

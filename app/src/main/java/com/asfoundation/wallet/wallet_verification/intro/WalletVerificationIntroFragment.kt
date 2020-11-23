@@ -138,7 +138,7 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
     val amount = formatter.formatCurrency(verificationIntroModel.verificationInfoModel.value,
         WalletCurrency.FIAT)
     description.text = getString(R.string.card_verification_charde_disclaimer,
-        "${verificationIntroModel.verificationInfoModel.currency} $amount")
+        "${verificationIntroModel.verificationInfoModel.symbol} $amount")
   }
 
   override fun finishCardConfiguration(
