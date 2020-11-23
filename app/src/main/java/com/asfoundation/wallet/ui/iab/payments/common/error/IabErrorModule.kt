@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.ui.iab.payments.common.error
 
+import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.gamification.Gamification
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.iab.IabActivity
 import dagger.Module
 import dagger.Provides
@@ -28,7 +31,11 @@ class IabErrorModule {
   @Provides
   fun providesIabErrorPresenter(fragment: IabErrorFragment,
                                 data: IabErrorData,
-                                navigator: IabErrorNavigator): IabErrorPresenter {
-    return IabErrorPresenter(fragment as IabErrorView, data, navigator, CompositeDisposable())
+                                navigator: IabErrorNavigator,
+                                walletService: WalletService,
+                                supportRepository: SupportRepository,
+                                gamification: Gamification): IabErrorPresenter {
+    return IabErrorPresenter(fragment as IabErrorView, data, navigator, walletService,
+        supportRepository, gamification, CompositeDisposable())
   }
 }

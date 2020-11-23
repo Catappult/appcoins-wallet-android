@@ -10,4 +10,7 @@ interface IabErrorView {
 
   fun setErrorMessage(errorMessage: String)
 
+  fun getSupportLogoClicks(): Observable<Any>
+
+  fun getSupportIconClicks(): Observable<Any>
 }

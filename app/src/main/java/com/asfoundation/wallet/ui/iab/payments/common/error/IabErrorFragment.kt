@@ -43,6 +43,10 @@ class IabErrorFragment : DaggerFragment(), IabErrorView {
 
   override fun backClickEvent(): Observable<Any> = RxView.clicks(buy_button)
 
+  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
+
+  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
+
   override fun setErrorMessage(errorMessage: String) {
     error_message.text = errorMessage
   }
