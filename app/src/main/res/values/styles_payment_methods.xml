@@ -77,4 +77,9 @@
     <item name="android:letterSpacing">0.03</item>
   </style>
 
+  <style name="PaymentMethods.Error.Message" parent="@style/TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/pending_payment_text_color</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+
 </resources>
