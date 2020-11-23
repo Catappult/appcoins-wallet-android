@@ -20,8 +20,8 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
   fun makePayment(walletAddress: String, walletSignature: String,
                   phoneNumber: String, packageName: String, origin: String?, sku: String?,
                   reference: String?, transactionType: String, currency: String,
-                  value: String, developerWallet: String, oemWallet: String, storeWallet: String,
-                  userWallet: String): Single<CarrierPaymentModel> {
+                  value: String, developerWallet: String?, oemWallet: String?, storeWallet: String?,
+                  userWallet: String?): Single<CarrierPaymentModel> {
     return api.makePayment(walletAddress, walletSignature,
         CarrierTransactionBody(phoneNumber, RETURN_URL, METHOD, packageName, origin, sku, reference,
             transactionType, currency, value, developerWallet, oemWallet, storeWallet, userWallet))
