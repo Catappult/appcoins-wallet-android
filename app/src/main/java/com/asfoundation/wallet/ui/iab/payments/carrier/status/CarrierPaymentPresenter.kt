@@ -42,37 +42,45 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
               .subscribeOn(ioScheduler)
         }
         .flatMap { payment ->
+          var action = Completable.complete()
           when {
             isErrorStatus(payment.status) -> {
-              logger.log(CarrierPaymentFragment.TAG,
-                  "Transaction came with error status: ${payment.status}")
-              return@flatMap sendPaymentErrorEvent(payment.error.errorCode,
-                  payment.error.errorMessage)
-                  .observeOn(viewScheduler)
-                  .andThen(
-                      if (isUnauthorizedCode(payment.error.errorCode)) {
-                        handleFraudFlow()
-                      } else {
-                        Completable.fromAction {
-                          navigator.navigateToError(R.string.activity_iab_error_message)
-                        }
-                      }
-                  )
-                  .andThen(Observable.just(Unit))
+              action = handleErrorStatus(payment)
             }
             payment.status == TransactionStatus.COMPLETED -> {
-              return@flatMap sendPaymentSuccessEvents()
-                  .observeOn(viewScheduler)
-                  .andThen(Completable.fromAction { view.showFinishedTransaction() }
-                      .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
-                      .andThen(finishPayment(payment))
-                  )
-                  .andThen(Observable.just(Unit))
+              action = handleCompletedStatus(payment)
             }
-            else -> Observable.just(Unit)
+            else -> Unit
           }
+          action.andThen(Observable.just(payment))
         }
         .subscribe({}, { handleError(it) }))
+  }
+
+  private fun handleErrorStatus(payment: CarrierPaymentModel): Completable {
+    logger.log(CarrierPaymentFragment.TAG,
+        "Transaction came with error status: ${payment.status}")
+    return sendPaymentErrorEvent(payment.error.errorCode,
+        payment.error.errorMessage)
+        .observeOn(viewScheduler)
+        .andThen(
+            if (isUnauthorizedCode(payment.error.errorCode)) {
+              handleFraudFlow()
+            } else {
+              Completable.fromAction {
+                navigator.navigateToError(R.string.activity_iab_error_message)
+              }
+            }
+        )
+  }
+
+  private fun handleCompletedStatus(payment: CarrierPaymentModel): Completable {
+    return sendPaymentSuccessEvents()
+        .observeOn(viewScheduler)
+        .andThen(Completable.fromAction { view.showFinishedTransaction() }
+            .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
+            .andThen(finishPayment(payment))
+        )
   }
 
   private fun isUnauthorizedCode(errorCode: Int?): Boolean {
