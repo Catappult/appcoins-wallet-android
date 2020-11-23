@@ -5,7 +5,7 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferenceRepositoryContra
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerPrintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import dagger.Module
@@ -35,14 +35,14 @@ class SettingsModule {
 
   @Provides
   fun providesSettingsInteractor(findDefaultWalletInteract: FindDefaultWalletInteract,
-                                 supportRepository: SupportRepository,
+                                 supportInteractor: SupportInteractor,
                                  walletsInteract: WalletsInteract,
                                  autoUpdateInteract: AutoUpdateInteract,
                                  fingerPrintInteractor: FingerPrintInteractor,
                                  walletsEventSender: WalletsEventSender,
                                  preferencesRepositoryType: PreferencesRepositoryType,
                                  fingerprintPreferenceRepository: FingerprintPreferenceRepositoryContract): SettingsInteractor {
-    return SettingsInteractor(findDefaultWalletInteract, supportRepository, walletsInteract,
+    return SettingsInteractor(findDefaultWalletInteract, supportInteractor, walletsInteract,
         autoUpdateInteract, fingerPrintInteractor, walletsEventSender, preferencesRepositoryType,
         fingerprintPreferenceRepository)
   }
