@@ -47,12 +47,10 @@
 
     <TextView
         android:id="@+id/fiat_price_text"
+        style="@style/PaymentMethods.CarrierBilling.FiatValueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/dialog_buy_fiat_value"
-        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/appc_price_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/fee_title"
@@ -62,11 +60,10 @@
 
     <TextView
         android:id="@+id/appc_price_text"
+        style="@style/PaymentMethods.CarrierBilling.AppcValueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:textColor="@color/dialog_secondary_price"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/fee_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"

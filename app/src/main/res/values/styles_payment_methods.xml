@@ -27,6 +27,17 @@
     <item name="android:textSize">14sp</item>
   </style>
 
+  <style name="PaymentMethods.CarrierBilling.FiatValueText" parent="PaymentMethods.Carrier.TextStyle">
+    <item name="android:textSize">15sp</item>
+    <item name="android:textColor">@color/dialog_buy_fiat_value</item>
+  </style>
+
+  <style name="PaymentMethods.CarrierBilling.AppcValueText" parent="PaymentMethods.Carrier.TextStyle">
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@color/dialog_secondary_price</item>
+    <item name="android:fontFamily">sans-serif</item>
+  </style>
+
   <style name="PaymentMethods.CarrierBilling.Description" parent="PaymentMethods.Carrier.TextStyle">
     <item name="android:textColor">@color/top_up_bonus_text</item>
     <item name="android:textSize">12sp</item>
