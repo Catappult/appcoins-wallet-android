@@ -4,7 +4,6 @@ import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.IabActivity
 import dagger.Module
 import dagger.Provides
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 @Module
@@ -33,6 +32,6 @@ class IabErrorModule {
                                 navigator: IabErrorNavigator,
                                 supportInteractor: SupportInteractor): IabErrorPresenter {
     return IabErrorPresenter(fragment as IabErrorView, data, navigator, supportInteractor,
-        AndroidSchedulers.mainThread(), CompositeDisposable())
+        CompositeDisposable())
   }
 }
