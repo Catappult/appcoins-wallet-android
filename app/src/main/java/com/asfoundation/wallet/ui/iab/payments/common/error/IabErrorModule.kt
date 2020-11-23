@@ -1,11 +1,10 @@
 package com.asfoundation.wallet.ui.iab.payments.common.error
 
-import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.gamification.Gamification
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.IabActivity
 import dagger.Module
 import dagger.Provides
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 @Module
@@ -32,10 +31,8 @@ class IabErrorModule {
   fun providesIabErrorPresenter(fragment: IabErrorFragment,
                                 data: IabErrorData,
                                 navigator: IabErrorNavigator,
-                                walletService: WalletService,
-                                supportRepository: SupportRepository,
-                                gamification: Gamification): IabErrorPresenter {
-    return IabErrorPresenter(fragment as IabErrorView, data, navigator, walletService,
-        supportRepository, gamification, CompositeDisposable())
+                                supportInteractor: SupportInteractor): IabErrorPresenter {
+    return IabErrorPresenter(fragment as IabErrorView, data, navigator, supportInteractor,
+        AndroidSchedulers.mainThread(), CompositeDisposable())
   }
 }

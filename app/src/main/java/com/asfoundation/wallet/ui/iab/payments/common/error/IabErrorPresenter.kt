@@ -1,21 +1,17 @@
 package com.asfoundation.wallet.ui.iab.payments.common.error
 
-import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.gamification.Gamification
-import com.asfoundation.wallet.support.SupportRepository
-import io.reactivex.Completable
+import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class IabErrorPresenter(
     private val view: IabErrorView,
     private val data: IabErrorData,
     private val navigator: IabErrorNavigator,
-    private val walletService: WalletService,
-    private val supportRepository: SupportRepository,
-    private val gamificationRepository: Gamification,
+    private val supportInteractor: SupportInteractor,
+    private val viewScheduler: Scheduler,
     private val disposables: CompositeDisposable) {
 
   fun present() {
@@ -50,23 +46,9 @@ class IabErrorPresenter(
   private fun handleSupportClick() {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .flatMapCompletable { showSupport() }
+        .flatMapCompletable { supportInteractor.showSupport() }
         .subscribe({}, { it.printStackTrace() })
     )
-  }
-
-  fun showSupport(): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable { address ->
-          return@flatMapCompletable gamificationRepository.getUserStats(address)
-              .flatMapCompletable { gamificationStats ->
-                Completable.fromAction {
-                  supportRepository.registerUser(gamificationStats.level,
-                      address.toLowerCase(Locale.ROOT))
-                  supportRepository.displayChatScreen()
-                }
-              }
-        }
   }
 
   fun stop() = disposables.clear()

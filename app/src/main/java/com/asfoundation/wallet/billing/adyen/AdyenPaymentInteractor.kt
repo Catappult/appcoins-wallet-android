@@ -13,7 +13,7 @@ import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -24,7 +24,6 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(
@@ -34,7 +33,7 @@ class AdyenPaymentInteractor(
     private val partnerAddressService: AddressService,
     private val billing: Billing,
     private val walletService: WalletService,
-    private val supportRepository: SupportRepository,
+    private val supportInteractor: SupportInteractor,
     private val walletBlockedInteract: WalletBlockedInteract,
     private val smsValidationInteract: SmsValidationInteract
 ) {
@@ -48,13 +47,7 @@ class AdyenPaymentInteractor(
 
 
   fun showSupport(gamificationLevel: Int): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable {
-          Completable.fromAction {
-            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportRepository.displayChatScreen()
-          }
-        }
+    return supportInteractor.showSupport(gamificationLevel)
   }
 
   fun loadPaymentInfo(methods: AdyenPaymentRepository.Methods, value: String,
