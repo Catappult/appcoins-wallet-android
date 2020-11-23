@@ -102,20 +102,10 @@
           >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phone_number"
+            style="@style/PaymentMethods.Carrier.PhoneNumberEditText"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:fontFamily="sans-serif-medium"
             android:hint="@string/carrier_billing_phone_field"
-            android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textCursorDrawable="@drawable/text_cursor_black"
-            android:textSize="14sp"
-            app:colorControlActivated="#000000"
-            app:colorControlHighlight="#000000"
-            app:colorControlNormal="#000000"
-            app:hintTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
             tools:text="912345678"
             />
       </com.google.android.material.textfield.TextInputLayout>

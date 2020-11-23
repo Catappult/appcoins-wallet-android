@@ -57,6 +57,20 @@
     <item name="android:theme">@style/EditTextCursorTheme</item>
   </style>
 
+  <style name="PaymentMethods.Carrier.PhoneNumberEditText">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:imeOptions">flagNoExtractUi|flagNoFullscreen</item>
+    <item name="android:inputType">phone</item>
+    <item name="android:textCursorDrawable">@drawable/text_cursor_black</item>
+    <item name="colorControlActivated">#000000</item>
+    <item name="colorControlNormal">#000000</item>
+    <item name="colorControlHighlight">#000000</item>
+    <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+  </style>
+
   <style name="PaymentMethods.Error" />
 
   <style name="PaymentMethods.Error.OtherPaymentsButton" parent="@style/Widget.MaterialComponents.Button.TextButton">
