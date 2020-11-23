@@ -29,23 +29,25 @@ class CarrierResponseMapper(private val retrofit: Retrofit) {
     var carrierError: CarrierError = GenericError(isNoNetworkException, code, throwable.message)
 
     // If we retrieve a specific error from response body, specify the error
-    (throwable as HttpException).response()
-        ?.errorBody()
-        ?.let { body ->
-          val errorConverter: Converter<ResponseBody, CarrierErrorResponse> = retrofit
-              .responseBodyConverter(CarrierErrorResponse::class.java,
-                  arrayOfNulls<Annotation>(0))
-          val bodyErrorResponse = try {
-            errorConverter.convert(body)
-          } catch (e: Exception) {
-            e.printStackTrace()
-            null
-          } finally {
-            body.close()
+    if (throwable is HttpException) {
+      throwable.response()
+          ?.errorBody()
+          ?.let { body ->
+            val errorConverter: Converter<ResponseBody, CarrierErrorResponse> = retrofit
+                .responseBodyConverter(CarrierErrorResponse::class.java,
+                    arrayOfNulls<Annotation>(0))
+            val bodyErrorResponse = try {
+              errorConverter.convert(body)
+            } catch (e: Exception) {
+              e.printStackTrace()
+              null
+            } finally {
+              body.close()
+            }
+            carrierError = mapErrorResponseToCarrierError(code, bodyErrorResponse)
+                ?: carrierError
           }
-          carrierError = mapErrorResponseToCarrierError(code, bodyErrorResponse)
-              ?: carrierError
-        }
+    }
 
     return CarrierPaymentModel(carrierError)
   }

@@ -99,6 +99,7 @@ class CarrierVerifyPresenter(
               }
               return@flatMap completable.andThen(Observable.just(paymentModel))
             }
+            .doOnError { handleException(it) }
             .retry()
             .subscribe({}, { handleException(it) })
     )
