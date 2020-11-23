@@ -11,14 +11,13 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import java.util.*
 
 class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
                              private val walletService: WalletService,
@@ -26,7 +25,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
                              private val billingMessagesMapper: BillingMessagesMapper,
-                             private val supportRepository: SupportRepository,
+                             private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val smsValidationInteract: SmsValidationInteract,
                              private val remoteRepository: RemoteRepository) {
@@ -106,13 +105,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   }
 
   fun showSupport(gamificationLevel: Int): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable {
-          Completable.fromAction {
-            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportRepository.displayChatScreen()
-          }
-        }
+    return supportInteractor.showSupport(gamificationLevel)
   }
 
   private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)

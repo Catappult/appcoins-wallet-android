@@ -26,6 +26,14 @@ import com.asfoundation.wallet.ui.backup.BackupWalletFragment
 import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeModule
+import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentModule
+import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyModule
+import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
+import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
@@ -160,13 +168,11 @@ abstract class FragmentBuilders {
   abstract fun bindWalletRemoveConfirmationFragment(): WalletRemoveConfirmationFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [RestoreWalletModule::class])
+  @ContributesAndroidInjector(modules = [RestoreWalletModule::class])
   abstract fun bindRestoreWalletFragment(): RestoreWalletFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(
-      modules = [RestoreWalletPasswordModule::class])
+  @ContributesAndroidInjector(modules = [RestoreWalletPasswordModule::class])
   abstract fun bindRestoreWalletPasswordFragment(): RestoreWalletPasswordFragment
 
   @FragmentScope
@@ -208,6 +214,22 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindAuthenticationErrorFragment(): AuthenticationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [CarrierVerifyModule::class])
+  abstract fun bindCarrierVerifyFragment(): CarrierVerifyFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [CarrierFeeModule::class])
+  abstract fun bindCarrierFeeFragment(): CarrierFeeFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [CarrierPaymentModule::class])
+  abstract fun bindCarrierPaymentStatusFragment(): CarrierPaymentFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [IabErrorModule::class])
+  abstract fun bindIabErrorFragment(): IabErrorFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [OverlayModule::class])

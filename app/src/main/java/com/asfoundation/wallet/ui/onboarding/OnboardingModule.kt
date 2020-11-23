@@ -6,7 +6,7 @@ import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,9 +28,9 @@ class OnboardingModule {
   @Provides
   fun providesOnboardingInteractor(walletService: WalletService,
                                    preferencesRepositoryType: PreferencesRepositoryType,
-                                   supportRepository: SupportRepository, gamification: Gamification,
+                                   supportInteractor: SupportInteractor, gamification: Gamification,
                                    bdsRepository: BdsRepository): OnboardingInteractor {
-    return OnboardingInteractor(walletService, preferencesRepositoryType, supportRepository,
+    return OnboardingInteractor(walletService, preferencesRepositoryType, supportInteractor,
         gamification, bdsRepository)
   }
 

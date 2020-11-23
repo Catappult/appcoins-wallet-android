@@ -21,7 +21,7 @@ import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.promotions.PromotionNotification;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
-import com.asfoundation.wallet.support.SupportRepository;
+import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
@@ -64,7 +64,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
   private final TransactionViewInteract transactionViewInteract;
-  private final SupportRepository supportRepository;
+  private final SupportInteractor supportInteractor;
   private final Handler handler = new Handler();
   private final WalletsEventSender walletsEventSender;
   private final PublishSubject<Context> topUpClicks = PublishSubject.create();
@@ -77,13 +77,13 @@ public class TransactionsViewModel extends BaseViewModel {
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
-      TransactionViewInteract transactionViewInteract, SupportRepository supportRepository,
+      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor,
       WalletsEventSender walletsEventSender, CurrencyFormatUtils formatter) {
     this.applications = applications;
     this.analytics = analytics;
     this.transactionViewNavigator = transactionViewNavigator;
     this.transactionViewInteract = transactionViewInteract;
-    this.supportRepository = supportRepository;
+    this.supportInteractor = supportInteractor;
     this.walletsEventSender = walletsEventSender;
     this.formatter = formatter;
     this.disposables = new CompositeDisposable();
@@ -162,14 +162,14 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void handleUnreadConversationCount() {
-    disposables.add(supportRepository.getUnreadConversationCountListener()
+    disposables.add(supportInteractor.getUnreadConversationCountEvents()
         .subscribeOn(AndroidSchedulers.mainThread())
         .doOnNext(this::updateIntercomAnimation)
         .subscribe());
   }
 
   public void updateConversationCount() {
-    disposables.add(supportRepository.getUnreadConversationCount()
+    disposables.add(supportInteractor.getUnreadConversationCount()
         .subscribeOn(AndroidSchedulers.mainThread())
         .doOnNext(this::updateIntercomAnimation)
         .subscribe());
@@ -463,14 +463,14 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showSupportScreen(boolean fromNotification) {
     if (fromNotification) {
-      supportRepository.displayConversationListOrChat();
+      supportInteractor.displayConversationListOrChat();
     } else {
-      supportRepository.displayChatScreen();
+      supportInteractor.displayChatScreen();
     }
   }
 
   private void registerSupportUser(Integer level, String walletAddress) {
-    supportRepository.registerUser(level, walletAddress);
+    supportInteractor.registerUser(level, walletAddress);
   }
 
   private void handleTopUpClicks() {

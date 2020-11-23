@@ -38,6 +38,8 @@ class BillingWebViewFragment : BasePageViewFragment() {
   private var asyncDetailsShown = false
 
   companion object {
+    private const val CARRIER_BILLING_RETURN_SCHEMA = "https://%s/return/carrier_billing"
+    const val CARRIER_BILLING_ONE_BIP_SCHEMA = "https://pay.onebip.com/"
     private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
     private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
@@ -105,6 +107,10 @@ class BillingWebViewFragment : BasePageViewFragment() {
                 .getQueryParameter(ORDER_ID_PARAMETER)
             finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
           }
+          clickUrl.contains(CARRIER_BILLING_RETURN_SCHEMA.format(BuildConfig.APPLICATION_ID)) -> {
+            currentUrl = clickUrl
+            finishWithSuccess(clickUrl)
+          }
           clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
           else -> {
@@ -140,6 +146,9 @@ class BillingWebViewFragment : BasePageViewFragment() {
       asyncDetailsShown = false
       true
     } else {
+      val intent = Intent()
+      intent.data = Uri.parse(currentUrl)
+      webViewActivity?.setResult(WebViewActivity.FAIL, intent)
       false
     }
   }
@@ -176,14 +185,14 @@ class BillingWebViewFragment : BasePageViewFragment() {
   private fun finishWithSuccess(url: String) {
     val intent = Intent()
     intent.data = Uri.parse(url)
-    webViewActivity!!.setResult(WebViewActivity.SUCCESS, intent)
-    webViewActivity!!.finish()
+    webViewActivity?.setResult(WebViewActivity.SUCCESS, intent)
+    webViewActivity?.finish()
   }
 
   private fun finishWithFail(url: String) {
     val intent = Intent()
     intent.data = Uri.parse(url)
-    webViewActivity!!.setResult(WebViewActivity.FAIL, intent)
-    webViewActivity!!.finish()
+    webViewActivity?.setResult(WebViewActivity.FAIL, intent)
+    webViewActivity?.finish()
   }
 }

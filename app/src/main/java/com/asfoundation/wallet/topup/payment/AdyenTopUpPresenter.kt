@@ -10,8 +10,7 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
+import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
@@ -289,10 +288,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
-              if (it.status == COMPLETED) {
+              if (it.status == TransactionStatus.COMPLETED) {
                 handleSuccessTransaction()
               } else {
-                if (paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
+                if (paymentModel.status == TransactionStatus.FAILED && paymentType == PaymentType.PAYPAL.name) {
                   retrieveFailedReason(paymentModel.uid)
                 } else {
                   Completable.fromAction { handleErrors(paymentModel, appcValue.toDouble()) }
@@ -300,7 +299,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               }
             }
       }
-      paymentModel.status == PENDING_USER_PAYMENT && paymentModel.action != null -> {
+      paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT && paymentModel.action != null -> {
         Completable.fromAction {
           view.showLoading()
           view.lockRotation()
@@ -325,12 +324,12 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
           handleErrors(paymentModel, appcValue.toDouble())
         }
       }
-      paymentModel.status == CANCELED -> Completable.fromAction {
+      paymentModel.status == TransactionStatus.CANCELED -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error", "",
             "canceled")
         view.cancelPayment()
       }
-      paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
+      paymentModel.status == TransactionStatus.FAILED && paymentType == PaymentType.PAYPAL.name -> {
         retrieveFailedReason(paymentModel.uid)
       }
       else -> Completable.fromAction {
@@ -405,7 +404,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun buildRefusalReason(status: Status, message: String?): String {
+  private fun buildRefusalReason(status: TransactionStatus, message: String?): String {
     return message?.let { "$status : $it" } ?: status.toString()
   }
 
