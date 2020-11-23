@@ -493,6 +493,11 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void onTurnFingerprintOnClick(Context context) {
     transactionViewNavigator.openSettings(context, true);
+    transactionViewInteract.setSeenFingerprintTooltip();
+  }
+
+  public void onFingerprintDismissed(){
+    transactionViewInteract.setSeenFingerprintTooltip();
   }
 
   public void onPromotionsShown() {
@@ -501,7 +506,6 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void onFingerprintTooltipShown() {
-    transactionViewInteract.setSeenFingerprintTooltip();
     showFingerprintTooltip.postValue(false);
   }
 }

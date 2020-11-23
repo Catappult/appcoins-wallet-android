@@ -205,9 +205,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   @Override public void onBackPressed() {
-    if (popup != null && popup.isShowing()) {
-      popup.dismiss();
-      if (fadedBackground != null) fadedBackground.setVisibility(View.GONE);
+    if (popup != null && popup.isShowing() && fadedBackground != null) {
+      dismissPopup();
     } else {
       super.onBackPressed();
     }
@@ -450,24 +449,26 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       fadedBackground = findViewById(R.id.faded_background);
       fadedBackground.setVisibility(View.VISIBLE);
       popup.showAsDropDown(settingsView, 0, yOffset * -1);
-      setTooltipListeners(fadedBackground, popup);
+      setTooltipListeners();
       viewModel.onFingerprintTooltipShown();
     }
   }
 
-  private void setTooltipListeners(View fadedBackground, PopupWindow popup) {
+  private void setTooltipListeners() {
     tooltip.findViewById(R.id.tooltip_later_button)
-        .setOnClickListener(v -> {
-          fadedBackground.setVisibility(View.GONE);
-          popup.dismiss();
-        });
+        .setOnClickListener(v -> dismissPopup());
     Context context = this;
     tooltip.findViewById(R.id.tooltip_turn_on_button)
         .setOnClickListener(v -> {
-          fadedBackground.setVisibility(View.GONE);
-          popup.dismiss();
+          dismissPopup();
           viewModel.onTurnFingerprintOnClick(context);
         });
+  }
+
+  private void dismissPopup() {
+    viewModel.onFingerprintDismissed();
+    fadedBackground.setVisibility(View.GONE);
+    popup.dismiss();
   }
 
   private void onBalanceChanged(GlobalBalance globalBalance) {
