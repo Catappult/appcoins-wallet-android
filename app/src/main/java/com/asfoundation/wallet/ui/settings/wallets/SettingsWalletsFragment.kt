@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.settings.wallets
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.settings.SettingsActivityView
+import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
@@ -59,8 +61,7 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    walletsBottomSheet =
-        BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    walletsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
     presenter.present()
   }
 
@@ -88,7 +89,7 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
 
   override fun outsideOfBottomSheetClick() = RxView.clicks(faded_background)
 
-  override fun navigateToBackup(address: String) = activityView.navigateToBackup(address, true)
+  override fun navigateToBackup(address: String) = activityView.navigateToBackup(address)
 
   private val walletsModel: WalletsModel by lazy {
     if (arguments!!.containsKey(WALLET_MODEL_KEY)) {

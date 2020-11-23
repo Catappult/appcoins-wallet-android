@@ -19,8 +19,6 @@ import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.AuthenticationErrorFragment
-import com.asfoundation.wallet.ui.SettingsFragment
-import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment
 import com.asfoundation.wallet.ui.backup.BackupCreationFragment
 import com.asfoundation.wallet.ui.backup.BackupSuccessFragment
@@ -31,6 +29,9 @@ import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
+import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
+import com.asfoundation.wallet.ui.settings.entry.SettingsModule
+import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
 import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
@@ -181,7 +182,7 @@ abstract class FragmentBuilders {
   abstract fun bindBackupSuccessFragment(): BackupSuccessFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [SettingsModule::class])
   abstract fun bindSettingsFragment(): SettingsFragment
 
   @FragmentScope

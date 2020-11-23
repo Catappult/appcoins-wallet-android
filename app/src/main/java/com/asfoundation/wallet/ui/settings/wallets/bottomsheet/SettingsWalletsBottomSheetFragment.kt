@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.settings.wallets.bottomsheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsView
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletsAdapter
 import com.asfoundation.wallet.ui.wallets.WalletsModel
@@ -21,7 +22,6 @@ import kotlinx.android.synthetic.main.settings_wallet_bottom_sheet_layout.*
 import javax.inject.Inject
 
 class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalletsBottomSheetView {
-
 
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
@@ -66,9 +66,8 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   override fun setupUi(walletsBalance: List<WalletBalance>) {
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
-    adapter =
-        WalletsAdapter(context!!, walletsBalance, uiEventListener!!, currencyFormatter,
-            WalletsViewType.SETTINGS)
+    adapter = WalletsAdapter(context!!, walletsBalance, uiEventListener!!, currencyFormatter,
+        WalletsViewType.SETTINGS)
     bottom_sheet_wallets_cards.addItemDecoration(MarginItemDecoration(
         resources.getDimension(R.dimen.wallets_card_margin)
             .toInt()))

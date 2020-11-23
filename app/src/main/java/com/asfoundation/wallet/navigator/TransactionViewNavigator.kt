@@ -7,8 +7,8 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsActivity
 import com.asfoundation.wallet.router.*
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.SettingsActivity
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity
+import com.asfoundation.wallet.ui.settings.SettingsActivity
 
 class TransactionViewNavigator(private val sendRouter: SendRouter,
                                private val transactionDetailRouter: TransactionDetailRouter,

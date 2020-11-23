@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.settings.entry
 
 import android.content.Intent
 import android.hardware.biometrics.BiometricManager
@@ -9,7 +9,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
 class SettingsPresenter(private val view: SettingsView,
-                        private val activityView: SettingsActivityView,
+                        private val navigator: SettingsNavigator,
                         private val networkScheduler: Scheduler,
                         private val viewScheduler: Scheduler,
                         private val disposables: CompositeDisposable,
@@ -20,7 +20,7 @@ class SettingsPresenter(private val view: SettingsView,
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
     handleAuthenticationResult()
     onFingerPrintPreferenceChange()
-    if (settingsData.turnOnFingerprint && savedInstanceState == null) activityView.showAuthentication()
+    if (settingsData.turnOnFingerprint && savedInstanceState == null) navigator.showAuthentication()
   }
 
   fun onResume() {
@@ -124,9 +124,9 @@ class SettingsPresenter(private val view: SettingsView,
       }
       1 -> {
         settingsInteractor.sendCreateSuccessEvent()
-        activityView.navigateToBackup(walletModel.walletsBalance[0].walletAddress)
+        navigator.navigateToBackup(walletModel.walletsBalance[0].walletAddress)
       }
-      else -> activityView.showWalletsBottomSheet(walletModel)
+      else -> navigator.showWalletsBottomSheet(walletModel)
     }
   }
 
@@ -146,7 +146,7 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun onFingerPrintPreferenceChange() {
     disposables.add(view.switchPreferenceChange()
-        .doOnNext { activityView.showAuthentication() }
+        .doOnNext { navigator.showAuthentication() }
         .subscribe({}, { it.printStackTrace() }))
   }
 }

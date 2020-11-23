@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.settings
 
 import android.content.Context
 import android.content.Intent
@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
+import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.backup.WalletBackupActivity
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -43,8 +45,8 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
     authenticationResultSubject = PublishSubject.create()
     if (savedInstanceState == null) {
       supportFragmentManager.beginTransaction()
-          .replace(R.id.fragment_container, SettingsFragment.newInstance(intent.getBooleanExtra(
-              TURN_ON_FINGERPRINT, false)))
+          .replace(R.id.fragment_container,
+              SettingsFragment.newInstance(intent.getBooleanExtra(TURN_ON_FINGERPRINT, false)))
           .commit()
     }
   }
@@ -68,28 +70,12 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
 
   override fun androidInjector() = androidInjector
 
-  override fun showWalletsBottomSheet(walletModel: WalletsModel) {
-    supportFragmentManager.beginTransaction()
-        .setCustomAnimations(R.anim.fade_in_animation, R.anim.fragment_slide_down,
-            R.anim.fade_in_animation, R.anim.fragment_slide_down)
-        .replace(R.id.bottom_sheet_fragment_container,
-            SettingsWalletsFragment.newInstance(walletModel))
-        .addToBackStack(SettingsWalletsFragment::class.java.simpleName)
-        .commit()
-  }
-
-  override fun navigateToBackup(address: String, popBackStack: Boolean) {
+  override fun navigateToBackup(address: String) {
     startActivity(WalletBackupActivity.newIntent(this, address))
-    if (popBackStack) supportFragmentManager.popBackStack()
+    supportFragmentManager.popBackStack()
   }
 
   override fun hideBottomSheet() = supportFragmentManager.popBackStack()
-
-  override fun showAuthentication() {
-    val intent = AuthenticationPromptActivity.newIntent(this)
-    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-    startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
-  }
 
   override fun authenticationResult(): Observable<Boolean> = authenticationResultSubject!!
 

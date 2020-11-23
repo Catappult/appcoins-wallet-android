@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.settings.entry
 
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
@@ -7,6 +7,7 @@ import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.ui.FingerPrintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 
 class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalletInteract,

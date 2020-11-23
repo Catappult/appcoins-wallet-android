@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.settings.entry
 
 import android.content.Intent
 import io.reactivex.Observable

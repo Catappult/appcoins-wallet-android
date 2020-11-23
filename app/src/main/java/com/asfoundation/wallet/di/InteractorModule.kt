@@ -28,7 +28,6 @@ import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
@@ -52,7 +51,6 @@ import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.ui.FingerPrintInteractor
-import com.asfoundation.wallet.ui.SettingsInteractor
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
@@ -494,20 +492,6 @@ class InteractorModule {
       fileInteractor: FileInteractor): RestoreWalletInteractor {
     return RestoreWalletInteractor(walletRepository, setDefaultWalletInteractor,
         passwordStore, preferencesRepositoryType, fileInteractor)
-  }
-
-  @Provides
-  fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
-                               supportRepository: SupportRepository,
-                               walletsInteract: WalletsInteract,
-                               autoUpdateInteract: AutoUpdateInteract,
-                               fingerPrintInteractor: FingerPrintInteractor,
-                               walletsEventSender: WalletsEventSender,
-                               preferencesRepositoryType: PreferencesRepositoryType,
-                               fingerprintPreferenceRepository: FingerprintPreferenceRepositoryContract): SettingsInteractor {
-    return SettingsInteractor(findDefaultWalletInteract, supportRepository, walletsInteract,
-        autoUpdateInteract, fingerPrintInteractor, walletsEventSender, preferencesRepositoryType,
-        fingerprintPreferenceRepository)
   }
 
   @Provides

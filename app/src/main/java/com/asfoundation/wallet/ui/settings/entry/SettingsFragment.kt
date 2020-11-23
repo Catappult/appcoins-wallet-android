@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.settings.entry
 
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
@@ -16,12 +16,10 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
+import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.preference_fingerprint.*
 import kotlinx.android.synthetic.main.preference_fingerprint_off.*
@@ -30,18 +28,16 @@ import javax.inject.Inject
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
-  lateinit var settingsInteract: SettingsInteractor
-
-  @Inject
   lateinit var pageViewAnalytics: PageViewAnalytics
 
-  private lateinit var presenter: SettingsPresenter
+  @Inject
+  lateinit var presenter: SettingsPresenter
   private lateinit var activityView: SettingsActivityView
   private var switchSubject: PublishSubject<Unit>? = null
 
   companion object {
 
-    private const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
+    const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
 
     @JvmStatic
     fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
@@ -65,10 +61,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
     switchSubject = PublishSubject.create()
-    val turnOnFingerprint = arguments?.getBoolean(TURN_ON_FINGERPRINT, false) ?: false
-    presenter =
-        SettingsPresenter(this, activityView, Schedulers.io(), AndroidSchedulers.mainThread(),
-            CompositeDisposable(), settingsInteract, SettingsData(turnOnFingerprint))
     presenter.setFingerPrintPreference()
   }
 

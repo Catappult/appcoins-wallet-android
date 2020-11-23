@@ -14,6 +14,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity
 import com.asfoundation.wallet.ui.onboarding.OnboardingModule
+import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
