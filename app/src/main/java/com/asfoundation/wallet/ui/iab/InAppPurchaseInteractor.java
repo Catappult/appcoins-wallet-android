@@ -355,10 +355,10 @@ public class InAppPurchaseInteractor {
   private Integer mergeDisableReason(PaymentMethod appcMethod, PaymentMethod creditsMethod) {
     Integer creditsReason = creditsMethod.getDisabledReason();
     Integer appcReason = appcMethod.getDisabledReason();
-    if (creditsReason==null) {
+    if (creditsReason == null) {
       creditsReason = -1;
     }
-    if (appcReason==null) {
+    if (appcReason == null) {
       appcReason = -1;
     }
     if (!creditsMethod.isEnabled() && !appcMethod.isEnabled()) {
@@ -367,8 +367,8 @@ public class InAppPurchaseInteractor {
       //    that user does not have enough ETH (may have none, or some but not enough)
       // - If user does not have APPC-C nor APPC (ETH value doesn't matter),
       //    the message should be more generic, indicating that user does not have funds
-      return (appcReason == R.string.purchase_no_eth_body) ? appcReason :
-          R.string.p2p_send_error_not_enough_funds;
+      return (appcReason == R.string.purchase_no_eth_body) ? appcReason
+          : R.string.p2p_send_error_not_enough_funds;
     }
     if (!creditsMethod.isEnabled()) {
       return (creditsReason != -1) ? creditsReason : appcReason;
