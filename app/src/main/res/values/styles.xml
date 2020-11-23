@@ -793,4 +793,9 @@
     <item name="android:paddingEnd">2dp</item>
     <item name="android:textColor">@color/text_button_color</item>
   </style>
+
+  <style name="TooltipTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
 </resources>

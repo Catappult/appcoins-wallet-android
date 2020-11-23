@@ -83,6 +83,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private int paddingDp;
   private boolean showScroll = false;
   private View tooltip;
+  private PopupWindow popup;
+  private View fadedBackground;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -182,8 +184,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
         .observe(this, this::showPromotionsOverlay);
-    viewModel.shouldShowFingerprintTooltip()
-        .observe(this, this::showFingerprintTooltip);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
 
     if (savedInstanceState == null) {
@@ -202,6 +202,15 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       viewModel.showSettings(this);
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override public void onBackPressed() {
+    if (popup != null && popup.isShowing()) {
+      popup.dismiss();
+      if (fadedBackground != null) fadedBackground.setVisibility(View.GONE);
+    } else {
+      super.onBackPressed();
+    }
   }
 
   private void shareApp(String url) {
@@ -308,6 +317,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
     supportActionView = menu.findItem(R.id.action_support);
     viewModel.handleUnreadConversationCount();
+    viewModel.shouldShowFingerprintTooltip()
+        .observe(this, this::showFingerprintTooltip);
     viewModel.handleFingerprintTooltipVisibility(getPackageName());
     return super.onCreateOptionsMenu(menu);
   }
@@ -429,15 +440,19 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void setTooltip() {
-    PopupWindow popup = new PopupWindow(tooltip);
-    popup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-    popup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-    int yOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35f,
-        getResources().getDisplayMetrics());
-    View fadedBackground = findViewById(R.id.faded_background);
-    fadedBackground.setVisibility(View.VISIBLE);
-    popup.showAsDropDown(findViewById(R.id.action_settings), 0, yOffset * -1);
-    setTooltipListeners(fadedBackground, popup);
+    View settingsView = findViewById(R.id.action_settings);
+    if (settingsView != null) {
+      popup = new PopupWindow(tooltip);
+      popup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+      popup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+      int yOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35f,
+          getResources().getDisplayMetrics());
+      fadedBackground = findViewById(R.id.faded_background);
+      fadedBackground.setVisibility(View.VISIBLE);
+      popup.showAsDropDown(settingsView, 0, yOffset * -1);
+      setTooltipListeners(fadedBackground, popup);
+      viewModel.onFingerprintTooltipShown();
+    }
   }
 
   private void setTooltipListeners(View fadedBackground, PopupWindow popup) {
@@ -445,7 +460,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .setOnClickListener(v -> {
           fadedBackground.setVisibility(View.GONE);
           popup.dismiss();
-          viewModel.onFingerprintTooltipDismiss();
         });
     Context context = this;
     tooltip.findViewById(R.id.tooltip_turn_on_button)
@@ -533,6 +547,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .add(R.id.container, OverlayFragment.newInstance(0))
           .addToBackStack(OverlayFragment.class.getName())
           .commit();
+      viewModel.onPromotionsShown();
     }
   }
 

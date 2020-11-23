@@ -149,19 +149,14 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void handleFingerprintTooltipVisibility(String packageName) {
     disposables.add(transactionViewInteract.shouldShowFingerprintTooltip(packageName)
-        .filter(shouldShow -> shouldShow)
-        .doOnSuccess(shouldShow -> showFingerprintTooltip.postValue(true))
+        .doOnSuccess(showFingerprintTooltip::postValue)
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
 
   private void handlePromotionTooltipVisibility() {
     disposables.add(transactionViewInteract.hasBeenInTransactionActivity()
-        .filter(hasBeen -> !hasBeen)
-        .doOnSuccess(hasBeen -> {
-          showPromotionTooltip.postValue(true);
-          transactionViewInteract.setFirstTimeOnTransactionActivity();
-        })
+        .doOnSuccess(hasBeen -> showPromotionTooltip.postValue(!hasBeen))
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
@@ -496,12 +491,17 @@ public class TransactionsViewModel extends BaseViewModel {
     transactionViewInteract.increaseTimesOnHome();
   }
 
-  public void onFingerprintTooltipDismiss() {
-    transactionViewInteract.setSeenFingerprintTooltip();
+  public void onTurnFingerprintOnClick(Context context) {
+    transactionViewNavigator.openSettings(context, true);
   }
 
-  public void onTurnFingerprintOnClick(Context context) {
+  public void onPromotionsShown() {
+    transactionViewInteract.setFirstTimeOnTransactionActivity();
+    showPromotionTooltip.postValue(false);
+  }
+
+  public void onFingerprintTooltipShown() {
     transactionViewInteract.setSeenFingerprintTooltip();
-    transactionViewNavigator.openSettings(context, true);
+    showFingerprintTooltip.postValue(false);
   }
 }

@@ -24,15 +24,13 @@
         >
       <TextView
           android:id="@+id/dialog_message"
+          style="@style/TooltipTextStyle"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="14dp"
           android:layout_marginTop="16dp"
           android:layout_marginEnd="12dp"
-          android:fontFamily="sans-serif"
           android:text="@string/backup_tooltip_body"
-          android:textColor="@color/black"
-          android:textSize="14sp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
