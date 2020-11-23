@@ -89,6 +89,8 @@ project.ext {
   zxing_version = '3.4.0'
   sentry_version = '1.7.30'
   amplitude_version = '2.25.2'
+  corektx_version = '1.3.2'
+  work_version = '2.4.0'
 }
 
 task clean(type: Delete) {

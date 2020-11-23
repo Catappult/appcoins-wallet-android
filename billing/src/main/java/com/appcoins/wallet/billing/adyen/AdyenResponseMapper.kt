@@ -6,11 +6,11 @@ import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.model.payments.response.RedirectAction
 import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
+import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.billing.util.getMessage
+import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
 import org.json.JSONObject
-import retrofit2.HttpException
 
 class AdyenResponseMapper {
 
@@ -66,29 +66,16 @@ class AdyenResponseMapper {
 
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
     throwable.printStackTrace()
-    val codeAndMessage = getErrorCodeAndMessageFromThrowable(throwable)
+    val codeAndMessage = throwable.getErrorCodeAndMessage()
     return PaymentInfoModel(
         Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
   }
 
   fun mapPaymentModelError(throwable: Throwable): PaymentModel {
     throwable.printStackTrace()
-    val codeAndMessage = getErrorCodeAndMessageFromThrowable(throwable)
+    val codeAndMessage = throwable.getErrorCodeAndMessage()
     return PaymentModel(
         Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
-  }
-
-  private fun getErrorCodeAndMessageFromThrowable(throwable: Throwable): Pair<Int?, String?> {
-    val code: Int?
-    val message: String?
-    if (throwable is HttpException) {
-      code = throwable.code()
-      message = throwable.getMessage()
-    } else {
-      code = null
-      message = throwable.message
-    }
-    return Pair(code, message)
   }
 
   private fun findPaymentMethod(paymentMethods: List<PaymentMethod>?,

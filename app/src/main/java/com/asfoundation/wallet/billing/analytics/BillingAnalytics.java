@@ -13,6 +13,7 @@ public class BillingAnalytics implements EventSender {
   public static final String PAYMENT_METHOD_CC = "CREDIT_CARD";
   public static final String PAYMENT_METHOD_REWARDS = "REWARDS";
   public static final String PAYMENT_METHOD_PAYPAL = "PAYPAL";
+  public static final String PAYMENT_METHOD_CARRIER = "CARRIER";
   public static final String RAKAM_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method";
   public static final String RAKAM_PAYMENT_METHOD = "wallet_payment_method";
   public static final String RAKAM_PAYMENT_CONFIRMATION = "wallet_payment_confirmation";
@@ -63,12 +64,21 @@ public class BillingAnalytics implements EventSender {
   @Override
   public void sendPaymentMethodDetailsEvent(String packageName, String skuDetails, String value,
       String purchaseDetails, String transactionType) {
+    sendPaymentMethodDetailsActionEvent(packageName, skuDetails, value, purchaseDetails,
+        transactionType, null);
+  }
+
+  @Override public void sendPaymentMethodDetailsActionEvent(String packageName, String skuDetails,
+      String value, String purchaseDetails, String transactionType, String action) {
     Map<String, Object> eventData = new HashMap<>();
     Map<String, Object> purchaseData = new HashMap<>();
 
     purchaseData.put(EVENT_PACKAGE_NAME, packageName);
     purchaseData.put(EVENT_SKU, skuDetails);
     purchaseData.put(EVENT_VALUE, value);
+    if (action != null) {
+      purchaseData.put(EVENT_ACTION, action);
+    }
 
     eventData.put(EVENT_PURCHASE, purchaseData);
     eventData.put(EVENT_PAYMENT_METHOD, purchaseDetails);

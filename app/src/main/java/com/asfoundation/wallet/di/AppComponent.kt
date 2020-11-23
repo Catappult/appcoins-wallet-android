@@ -17,7 +17,8 @@ import javax.inject.Singleton
       AnalyticsModule::class,
       ServiceModule::class,
       BroadcastReceiverBuilders::class,
-      ServiceBuilders::class])
+      ServiceBuilders::class,
+      WorkerModule::class])
 interface AppComponent {
 
   fun inject(app: App?)

@@ -9,8 +9,7 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
+import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
@@ -224,7 +223,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               when {
-                it.status == COMPLETED -> {
+                it.status == TransactionStatus.COMPLETED -> {
                   sendPaymentSuccessEvent()
                   createBundle(it.hash, it.orderReference)
                       .doOnSuccess {
@@ -236,7 +235,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
                 }
                 isPaymentFailed(it.status) -> {
-                  if (paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
+                  if (paymentModel.status == TransactionStatus.FAILED && paymentType == PaymentType.PAYPAL.name) {
                     retrieveFailedReason(paymentModel.uid)
                   } else {
                     Completable.fromAction {
@@ -254,7 +253,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               }
             }
       }
-      paymentModel.status == PENDING_USER_PAYMENT && paymentModel.action != null -> {
+      paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT && paymentModel.action != null -> {
         Completable.fromAction {
           view.showLoading()
           view.lockRotation()
@@ -279,10 +278,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           handleErrors(paymentModel.error)
         }
       }
-      paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
+      paymentModel.status == TransactionStatus.FAILED && paymentType == PaymentType.PAYPAL.name -> {
         retrieveFailedReason(paymentModel.uid)
       }
-      paymentModel.status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
+      paymentModel.status == TransactionStatus.CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
         sendPaymentErrorEvent(paymentModel.error.code, "${paymentModel.status}: Generic Error")
         view.showGenericError()
@@ -348,12 +347,12 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     )
   }
 
-  private fun buildRefusalReason(status: Status, message: String?): String {
+  private fun buildRefusalReason(status: TransactionStatus, message: String?): String {
     return message?.let { "$status : $it" } ?: status.toString()
   }
 
-  private fun isPaymentFailed(status: Status): Boolean {
-    return status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
+  private fun isPaymentFailed(status: TransactionStatus): Boolean {
+    return status == TransactionStatus.FAILED || status == TransactionStatus.CANCELED || status == TransactionStatus.INVALID_TRANSACTION
   }
 
   private fun handlePaymentDetails() {
