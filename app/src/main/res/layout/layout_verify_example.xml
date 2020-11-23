@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/normal_margin"
     >
 
   <androidx.cardview.widget.CardView
@@ -21,24 +22,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="9dp"
         >
-
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/guideline_start"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.33"
-          />
-
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/guideline_end"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.66"
-          />
 
       <TextView
           android:id="@+id/example_title"
@@ -46,84 +30,112 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="6dp"
+          android:text="@string/card_verification_code_example_title"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:text="Example of transaction summary"
           />
 
-      <TextView
-          android:id="@+id/trans_date_label"
-          style="@style/VerifyWallet.Example.Summary.Title"
-          android:layout_width="wrap_content"
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          app:layout_constraintEnd_toStartOf="@id/guideline_start"
+          android:layout_marginTop="6dp"
+          android:background="@color/verify_wallet_example_background"
+          android:paddingBottom="9dp"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/example_title"
-          tools:text="Trans Date"
-          />
+          >
 
-      <TextView
-          android:id="@+id/trans_date_value"
-          style="@style/VerifyWallet.Example.Summary.Value"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          app:layout_constraintEnd_toStartOf="@id/guideline_start"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/trans_date_label"
-          tools:text="01/12/2020"
-          />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33"
+            />
 
-      <TextView
-          android:id="@+id/description_label"
-          style="@style/VerifyWallet.Example.Summary.Title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          app:layout_constraintEnd_toStartOf="@id/guideline_end"
-          app:layout_constraintStart_toEndOf="@id/guideline_start"
-          app:layout_constraintTop_toBottomOf="@id/example_title"
-          tools:text="Description"
-          />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.66"
+            />
 
-      <TextView
-          android:id="@+id/description_value"
-          style="@style/VerifyWallet.Example.Summary.Value"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:background="@drawable/background_example_code"
-          app:layout_constraintEnd_toStartOf="@id/guideline_end"
-          app:layout_constraintStart_toEndOf="@id/guideline_start"
-          app:layout_constraintTop_toBottomOf="@id/description_label"
-          tools:text="APPC*  1234  CODE"
-          />
+        <TextView
+            android:id="@+id/trans_date_label"
+            style="@style/VerifyWallet.Example.Summary.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/card_verification_code_example_date"
+            app:layout_constraintEnd_toStartOf="@id/guideline_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-      <TextView
-          android:id="@+id/amount_label"
-          style="@style/VerifyWallet.Example.Summary.Title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/guideline_end"
-          app:layout_constraintTop_toBottomOf="@id/example_title"
-          tools:text="Amount"
-          />
+        <TextView
+            android:id="@+id/trans_date_value"
+            style="@style/VerifyWallet.Example.Summary.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/trans_date_label"
+            tools:text="01/12/2020"
+            />
 
-      <TextView
-          android:id="@+id/amount_value"
-          style="@style/VerifyWallet.Example.Summary.Value"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/guideline_end"
-          app:layout_constraintTop_toBottomOf="@id/amount_label"
-          tools:text="-0.01€"
-          />
+        <TextView
+            android:id="@+id/description_label"
+            style="@style/VerifyWallet.Example.Summary.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/card_verification_code_example_description"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/description_value"
+            style="@style/VerifyWallet.Example.Summary.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/description_label"
+            tools:text="APPC*  1234  CODE"
+            />
+
+        <TextView
+            android:id="@+id/amount_label"
+            style="@style/VerifyWallet.Example.Summary.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/card_verification_code_example_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_end"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/amount_value"
+            style="@style/VerifyWallet.Example.Summary.Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_end"
+            app:layout_constraintTop_toBottomOf="@id/amount_label"
+            tools:text="-0.01€"
+            />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -159,7 +171,7 @@
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/arrow"
       app:layout_constraintTop_toBottomOf="@id/card_container"
-      tools:text="Unique code.\nExpires in 3 days"
+      tools:text="@string/card_verification_code_example_code"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

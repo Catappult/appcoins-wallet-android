@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.wallet_verification.code
 
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -11,9 +12,23 @@ class WalletVerificationCodeModule {
 
   @Provides
   fun providesWalletVerificationCodePresenter(fragment: WalletVerificationCodeFragment,
-                                              currencyFormatUtils: CurrencyFormatUtils): WalletVerificationCodePresenter {
+                                              walletVerificationCodeInteractor: WalletVerificationCodeInteractor,
+                                              walletVerificationCodeNavigator: WalletVerificationCodeNavigator): WalletVerificationCodePresenter {
     return WalletVerificationCodePresenter(fragment as WalletVerificationCodeView,
-        CompositeDisposable(), Schedulers.io(), Schedulers.computation())
+        CompositeDisposable(), Schedulers.io(), Schedulers.computation(),
+        walletVerificationCodeInteractor, walletVerificationCodeNavigator)
+  }
+
+  @Provides
+  fun provideWalletVerificationCodeInteractor(adyenPaymentRepository: AdyenPaymentRepository,
+                                              walletService: WalletService): WalletVerificationCodeInteractor {
+    return WalletVerificationCodeInteractor(adyenPaymentRepository, walletService)
+  }
+
+  @Provides
+  fun providesWalletVerificationCodeNavigator(
+      fragment: WalletVerificationCodeFragment): WalletVerificationCodeNavigator {
+    return WalletVerificationCodeNavigator(fragment.requireFragmentManager())
   }
 
   @Provides

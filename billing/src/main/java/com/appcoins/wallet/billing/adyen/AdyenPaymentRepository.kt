@@ -42,19 +42,24 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                               walletSignature: String): Single<PaymentModel> {
     return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        .map { adyenResponseMapper.map(it) }
+        //.map { adyenResponseMapper.map(it) }
+        //TODO DEBUG CODE
+        .map {
+          PaymentModel("AUTHORISED", null, null, null, null, null, "RANDOM_UID", null,
+              null, TransactionResponse.Status.COMPLETED, null, null)
+        }
         .onErrorReturn {
           //TODO DEBUG CODE
           PaymentModel("AUTHORISED", null, null, null, null, null, "RANDOM_UID", null,
               null, TransactionResponse.Status.COMPLETED, null, null)
         }
-        //.onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+    //.onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
   fun validateCode(code: String, walletAddress: String,
-                   walletSignature: String): Single<VerificationCodeModel> {
+                   walletSignature: String): Single<VerificationCodeResult> {
     return adyenApi.validateCode(walletAddress, walletSignature, code)
-        .map { VerificationCodeModel() }
+        .map { VerificationCodeResult(true) }
         .onErrorReturn { adyenResponseMapper.mapVerificationCodeError(it) }
   }
 
@@ -76,7 +81,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun getVerificationInfo(): Single<VerificationInfoResponse> {
     return adyenApi.getVerificationInfo()
-        .onErrorReturn { VerificationInfoResponse("EUR", "1.00", 4, "APPC*{{code}}CODE", "PT2M") }
+        .onErrorReturn { VerificationInfoResponse("EUR", "1.00", 4, "APPC*{{code}}CODE", "P2D") }
   }
 
   fun getTransaction(uid: String, walletAddress: String,
@@ -139,7 +144,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     @POST("verification/generate")
     fun validateCode(@Query("wallet.address") walletAddress: String,
                      @Query("wallet.signature") walletSignature: String,
-                     @Body code: String): Single<Void>
+                     @Body code: String): Single<VerificationCodeResponse>
   }
 
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,

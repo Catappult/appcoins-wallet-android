@@ -2,17 +2,25 @@ package com.asfoundation.wallet.wallet_verification.code
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.Duration
+import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.wallet_verification.WalletVerificationActivityView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.error_top_up_layout.*
+import kotlinx.android.synthetic.main.error_top_up_layout.view.*
 import kotlinx.android.synthetic.main.fragment_verification_code.*
+import kotlinx.android.synthetic.main.layout_verify_example.view.*
+import java.util.*
 import javax.inject.Inject
 
 class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeView {
@@ -35,8 +43,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     internal const val DIGITS_KEY = "digits"
     internal const val FORMAT_KEY = "format"
     internal const val PERIOD_KEY = "period"
-    internal const val DATE_KEY = "period"
-
+    internal const val DATE_KEY = "date"
 
     @JvmStatic
     fun newInstance(currency: String, value: String, digits: Int, format: String,
@@ -69,13 +76,52 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     return inflater.inflate(R.layout.fragment_verification_code, container, false)
   }
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    setupUi()
+  }
+
+  fun setupUi() {
+    val amount = formatter.formatCurrency(data.amount, WalletCurrency.FIAT)
+    val amountWithCurrency = "${data.currency} $amount"
+
+    val date = convertToDate(data.date)
+    val duration = Duration.parse(data.period)
+
+    val periodInDays = duration.toDays()
+    val periodInHours = duration.toHours()
+
+    val period = getString(R.string.card_verification_code_example_code, periodInDays)
+    val codeTitle = getString(R.string.card_verification_code_enter_title, data.digits)
+    val codeDisclaimer = if (periodInDays > 0) {
+      resources.getQuantityString(R.plurals.card_verification_code_enter_days_body,
+          periodInDays.toInt(), amountWithCurrency, periodInDays.toString())
+    } else {
+      resources.getQuantityString(R.plurals.card_verification_code_enter_hours_body,
+          periodInHours.toInt(), amountWithCurrency, periodInHours.toString())
+    }
+
+    code.setEms(data.digits)
+    code.filters = arrayOf(InputFilter.LengthFilter(data.digits))
+
+    layout_example.trans_date_value.text = date
+    layout_example.description_value.text = data.format
+    layout_example.amount_value.text = amountWithCurrency
+    layout_example.arrow_desc.text = period
+    code_title.text = codeTitle
+    code_disclaimer.text = codeDisclaimer
+  }
 
   override fun showLoading() {
-    TODO("Not yet implemented")
+    no_network.visibility = View.GONE
+    fragment_adyen_error?.visibility = View.GONE
+    content_container.visibility = View.GONE
+    progress_bar.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
-    TODO("Not yet implemented")
+    progress_bar.visibility = View.GONE
+    content_container.visibility = View.VISIBLE
   }
 
   override fun showSuccess() {
@@ -83,31 +129,57 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
   }
 
   override fun showGenericError() {
-    TODO("Not yet implemented")
+    showSpecificError(R.string.unknown_error)
   }
 
   override fun showNetworkError() {
-    TODO("Not yet implemented")
+    unlockRotation()
+    progress_bar.visibility = View.GONE
+    content_container.visibility = View.GONE
+    no_network.visibility = View.VISIBLE
   }
 
   override fun showSpecificError(stringRes: Int) {
-    TODO("Not yet implemented")
+    unlockRotation()
+    progress_bar.visibility = View.GONE
+    content_container.visibility = View.GONE
+
+    val message = getString(stringRes)
+    fragment_adyen_error?.error_message?.text = message
+    fragment_adyen_error?.visibility = View.VISIBLE
   }
 
-  override fun updateUi() {
-    val amount = formatter.formatCurrency(data.amount, WalletCurrency.FIAT)
-    val amountWithCurrency = "${data.currency} $amount"
+  override fun hideKeyboard() {
+    view?.let { KeyboardUtils.hideKeyboard(view) }
+  }
 
-    /* trans_date_value.text = data.date
-     description_value.text = data.format
-     amount_value.text = amountWithCurrency
-     code_disclaimer.text = getString(R.string.card_verification_code_enter_body, amountWithCurrency)*/
+  override fun lockRotation() {
+    activityView.lockRotation()
+  }
+
+  override fun unlockRotation() {
+    activityView.unlockRotation()
   }
 
   override fun getMaybeLaterClicks() = RxView.clicks(maybe_later)
 
   override fun getConfirmClicks(): Observable<String> = RxView.clicks(confirm)
       .map { code.text.toString() }
+
+  override fun getTryAgainClicks() = RxView.clicks(try_again)
+
+  override fun getChangeCardClicks() = RxView.clicks(change_card_button)
+
+  override fun getSupportClicks(): Observable<Any> {
+    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+  }
+
+  private fun convertToDate(ts: Long): String {
+    val cal = Calendar.getInstance(Locale.ENGLISH)
+        .apply { timeInMillis = ts }
+    return DateFormat.format("dd/MM/yyyy", cal.time)
+        .toString()
+  }
 
   override fun onDestroyView() {
     presenter.stop()

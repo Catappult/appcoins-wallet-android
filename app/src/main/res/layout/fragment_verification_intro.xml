@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/MaterialAppTheme"
     >
 
   <ScrollView
@@ -11,13 +12,11 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:fillViewport="true"
-      android:theme="@style/MaterialAppTheme"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/MaterialAppTheme"
         >
 
       <TextView
@@ -100,7 +99,7 @@
           app:layout_constraintVertical_bias="0"
           />
 
-      <Button
+      <com.google.android.material.button.MaterialButton
           android:id="@+id/cancel"
           style="@style/VerifyWallet.Cancel.Button"
           android:layout_width="wrap_content"

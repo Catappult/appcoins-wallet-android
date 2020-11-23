@@ -8,4 +8,6 @@ interface WalletVerificationActivityView {
 
   fun unlockRotation()
 
+  fun getCurrentFragment(): String
+
 }

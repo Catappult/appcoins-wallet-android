@@ -43,6 +43,11 @@ class WalletVerificationIntroInteractor(
 
   fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
     return adyenPaymentInteractor.getAuthorisedTransaction(uid)
+        //TODO DEBUG CODE
+        .map {
+          PaymentModel("AUTHORISED", null, null, null, null, null, "RANDOM_UID", null,
+              null, TransactionResponse.Status.COMPLETED, null, null)
+        }
   }
 
   private fun mapToVerificationIntroModel(infoModel: VerificationInfoModel,

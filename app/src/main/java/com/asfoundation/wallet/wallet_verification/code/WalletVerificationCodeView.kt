@@ -8,6 +8,12 @@ interface WalletVerificationCodeView {
 
   fun hideLoading()
 
+  fun hideKeyboard()
+
+  fun lockRotation()
+
+  fun unlockRotation()
+
   fun showSuccess()
 
   fun showGenericError()
@@ -16,10 +22,14 @@ interface WalletVerificationCodeView {
 
   fun showSpecificError(stringRes: Int)
 
-  fun updateUi()
-
   fun getMaybeLaterClicks(): Observable<Any>
 
+  fun getChangeCardClicks(): Observable<Any>
+
   fun getConfirmClicks(): Observable<String>
+
+  fun getTryAgainClicks(): Observable<Any>
+
+  fun getSupportClicks(): Observable<Any>
 
 }
