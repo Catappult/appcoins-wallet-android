@@ -13,7 +13,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.support.SupportRepository;
+import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,7 +22,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
-  private final SupportRepository supportRepository;
+  private final SupportInteractor supportInteractor;
   private final TransactionDetailRouter transactionDetailRouter;
 
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
@@ -32,10 +32,10 @@ public class TransactionDetailViewModel extends BaseViewModel {
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,
-      SupportRepository supportRepository, TransactionDetailRouter transactionDetailRouter) {
+      SupportInteractor supportInteractor, TransactionDetailRouter transactionDetailRouter) {
     this.externalBrowserRouter = externalBrowserRouter;
     this.disposables = compositeDisposable;
-    this.supportRepository = supportRepository;
+    this.supportInteractor = supportInteractor;
     this.transactionDetailRouter = transactionDetailRouter;
     disposables.add(findDefaultNetworkInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
@@ -53,7 +53,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   public void showSupportScreen() {
-    supportRepository.displayChatScreen();
+    supportInteractor.displayChatScreen();
   }
 
   public void showDetails(Context context, Transaction transaction) {

@@ -5,11 +5,11 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 
 class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                         private val supportRepository: SupportRepository,
+                         private val supportInteractor: SupportInteractor,
                          private val walletsInteract: WalletsInteract,
                          private val autoUpdateInteract: AutoUpdateInteract,
                          private val fingerPrintInteractor: FingerPrintInteractor,
@@ -33,7 +33,7 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
         WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL)
   }
 
-  fun displaySupportScreen() = supportRepository.displayChatScreen()
+  fun displaySupportScreen() = supportInteractor.displayChatScreen()
 
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 

@@ -165,6 +165,13 @@ class IabPresenter(private val view: IabView,
         transaction?.type, action)
   }
 
+  private fun sendCarrierBillingConfirmationEvent(action: String) {
+    billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
+        transaction?.amount()
+            .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+        transaction?.type, action)
+  }
+
   private fun sendPaypalUrlEvent(data: Intent) {
     val amountString = transaction?.amount()
         .toString()
@@ -189,7 +196,12 @@ class IabPresenter(private val view: IabView,
   private fun handleWebViewResult(resultCode: Int, data: Intent?) {
     if (resultCode == WebViewActivity.FAIL) {
       if (data?.dataString?.contains("codapayments") != true) {
-        sendPayPalConfirmationEvent("cancel")
+        if (data?.dataString?.contains(
+                BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA) == true) {
+          sendCarrierBillingConfirmationEvent("cancel")
+        } else {
+          sendPayPalConfirmationEvent("cancel")
+        }
       }
       if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
         iabInteract.showSupport()

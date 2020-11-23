@@ -11,6 +11,10 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
+import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
+import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
+import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
+import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
@@ -49,6 +53,7 @@ import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -118,6 +123,24 @@ class RepositoryModule {
         .build()
         .create(AdyenApi::class.java)
     return AdyenPaymentRepository(api, AdyenResponseMapper())
+  }
+
+  @Singleton
+  @Provides
+  fun provideCarrierBillingRepository(
+      @Named("default") client: OkHttpClient): CarrierBillingRepository {
+    val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
+        CarrierErrorResponseTypeAdapter())
+        .create()
+    val retrofit = Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201101/gateways/dimoco/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        .build()
+    val api = retrofit.create(CarrierBillingRepository.CarrierBillingApi::class.java)
+    return CarrierBillingRepository(api, CarrierResponseMapper(retrofit),
+        BuildConfig.APPLICATION_ID)
   }
 
   @Provides

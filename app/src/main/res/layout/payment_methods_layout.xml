@@ -106,17 +106,17 @@
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
             >
 
-          <View
+          <com.asfoundation.wallet.ui.common.SeparatorView
               android:id="@+id/top_separator"
               android:layout_width="match_parent"
-              android:layout_height="1dp"
+              android:layout_height="wrap_content"
               android:layout_marginTop="12dp"
-              android:background="@color/layout_separator_color"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
+              app:line_orientation="horizontal"
+              app:line_type="solid"
               />
-
 
           <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/payment_methods_radio_list"
@@ -221,105 +221,40 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
+        <com.asfoundation.wallet.ui.common.SeparatorView
             android:id="@+id/bottom_separator"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/big_margin"
             android:layout_marginBottom="32dp"
-            android:background="@color/layout_separator_color"
-            app:layout_constraintBottom_toTopOf="@id/bonuses_layout"
+            app:layout_constraintBottom_toTopOf="@id/bonus_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/content_main"
+            app:line_orientation="horizontal"
+            app:line_type="solid"
             tools:visibility="visible"
             />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bonuses_layout"
+        <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
+            android:id="@+id/bonus_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginTop="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
             app:layout_constraintTop_toBottomOf="@+id/content_main"
-            >
-          <include
-              android:id="@+id/bonus_layout"
-              layout="@layout/view_purchase_bonus"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:visibility="invisible"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintVertical_bias="0"
-              app:layout_constraintVertical_chainStyle="packed"
-              />
+            />
 
-          <TextView
-              android:id="@+id/bonus_msg"
-              style="@style/TopUpTextStyle.Small.BonusText"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="@dimen/big_margin"
-              android:layout_marginTop="11dp"
-              android:layout_marginEnd="@dimen/big_margin"
-              android:layout_marginBottom="20dp"
-              android:gravity="center"
-              android:text="@string/gamification_purchase_body"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-              app:layout_constraintVertical_bias="0"
-              app:layout_constraintWidth_default="wrap"
-              />
-
-          <include
-              android:id="@+id/bonus_layout_skeleton"
-              layout="@layout/skeleton_rounded_rectangle"
-              android:layout_width="0dp"
-              android:layout_height="0dp"
-              app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
-              app:layout_constraintEnd_toEndOf="@id/bonus_layout"
-              app:layout_constraintStart_toStartOf="@id/bonus_layout"
-              app:layout_constraintTop_toTopOf="@id/bonus_layout"
-              />
-          <include
-              android:id="@+id/bonus_msg_skeleton"
-              layout="@layout/skeleton_rounded_rectangle"
-              android:layout_width="0dp"
-              android:layout_height="0dp"
-              app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
-              app:layout_constraintEnd_toEndOf="@id/bonus_msg"
-              app:layout_constraintStart_toStartOf="@id/bonus_msg"
-              app:layout_constraintTop_toTopOf="@id/bonus_msg"
-              />
-          <TextView
-              android:id="@+id/no_bonus_msg"
-              style="@style/TopUpTextStyle.Small.BonusText"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="@dimen/big_margin"
-              android:layout_marginTop="11dp"
-              android:layout_marginEnd="@dimen/big_margin"
-              android:layout_marginBottom="20dp"
-              android:gravity="center"
-              android:text="@string/purchase_poa_body"
-              android:visibility="invisible"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
+        <com.asfoundation.wallet.ui.common.SeparatorView
             android:id="@+id/bottom_separator_buttons"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="19dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/layout_separator_color"
-            app:layout_constraintTop_toBottomOf="@id/bonuses_layout"
+            app:layout_constraintTop_toBottomOf="@id/bonus_view"
+            app:line_orientation="horizontal"
+            app:line_type="solid"
             />
 
         <include

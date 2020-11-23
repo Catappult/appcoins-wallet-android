@@ -35,6 +35,9 @@ interface IabView {
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
                        iconUrl: String?, gamificationLevel: Int)
 
+  fun showCarrierBilling(currency: String?, amount: BigDecimal,
+                         bonus: BigDecimal, isPreselected: Boolean)
+
   fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int)
 
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,

@@ -62,7 +62,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                             walletAddress: String,
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
-    return api.getPurchases(packageName, walletAddress, walletSignature, type.name.toLowerCase(Locale.ROOT))
+    return api.getPurchases(packageName, walletAddress, walletSignature,
+        type.name.toLowerCase(Locale.ROOT))
         .map { responseMapper.map(it) }
   }
 
@@ -203,7 +204,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * @param direct, either if it returns non-direct payments (false) (earn appcoins and ask someone to pay) or not
      *
      */
-    @GET("broker/8.20200810/methods")
+    @GET("broker/8.20201101/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null,
                           @Query("price.currency") currency: String? = null,
                           @Query("currency.type") currencyType: String? = null,

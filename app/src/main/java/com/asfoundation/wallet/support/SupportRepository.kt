@@ -11,7 +11,6 @@ import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.intercom.android.sdk.push.IntercomPushClient
-import io.reactivex.Observable
 
 
 class SupportRepository(private val preferences: SupportSharedPreferences, val app: App) {
@@ -20,71 +19,34 @@ class SupportRepository(private val preferences: SupportSharedPreferences, val a
     private const val USER_LEVEL_ATTRIBUTE = "user_level"
   }
 
-  private var currentUser = ""
-  private var currentGamificationLevel = -1
+  private var currentUser: SupportUser = SupportUser()
 
-  fun displayChatScreen() {
-    resetUnreadConversations()
+  fun saveNewUser(walletAddress: String, level: Int) {
+    val userAttributes = UserAttributes.Builder()
+        .withName(walletAddress)
+        // We set level + 1 to help with readability for the support team
+        .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1)
+        .build()
+    val registration: Registration = Registration.create()
+        .withUserId(walletAddress)
+        .withUserAttributes(userAttributes)
+
+    val gpsAvailable = checkGooglePlayServices()
+    if (gpsAvailable) handleFirebaseToken()
+
     Intercom.client()
-        .displayMessenger()
+        .registerIdentifiedUser(registration)
+    currentUser = SupportUser(walletAddress, level)
   }
 
-  @Suppress("DEPRECATION")
-  fun displayConversationListOrChat() {
-    //this method was introduced because if the app is closed intercom returns 0 unread conversations
-    //even if there are more
-    resetUnreadConversations()
-    val handledByIntercom = getUnreadConversations() > 0
-    if (handledByIntercom) {
-      Intercom.client()
-          .displayMessenger()
-    } else {
-      Intercom.client()
-          .displayConversationsList()
-    }
-  }
+  fun getSavedUnreadConversations() = preferences.checkSavedUnreadConversations()
 
-  fun registerUser(level: Int, walletAddress: String) {
-    if (currentUser != walletAddress || currentGamificationLevel != level) {
-      if (currentUser != walletAddress) {
-        Intercom.client()
-            .logout()
-      }
+  fun updateUnreadConversations(unreadConversations: Int) =
+      preferences.updateUnreadConversations(unreadConversations)
 
-      val userAttributes = UserAttributes.Builder()
-          .withName(walletAddress)
-          .withCustomAttribute(USER_LEVEL_ATTRIBUTE,
-              level + 1)//we set level + 1 to help with readability for the support team
-          .build()
-      val registration: Registration = Registration.create()
-          .withUserId(walletAddress)
-          .withUserAttributes(userAttributes)
+  fun resetUnreadConversations() = preferences.resetUnreadConversations()
 
-      val gpsAvailable = checkGooglePlayServices()
-      if (gpsAvailable) handleFirebaseToken()
-
-      Intercom.client()
-          .registerIdentifiedUser(registration)
-      currentUser = walletAddress
-      currentGamificationLevel = level
-    }
-  }
-
-  fun getUnreadConversationCountListener() = Observable.create<Int> {
-    Intercom.client()
-        .addUnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
-  }
-
-  fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
-
-  fun shouldShowNotification() =
-      getUnreadConversations() > preferences.checkSavedUnreadConversations()
-
-  fun updateUnreadConversations() = preferences.updateUnreadConversations(getUnreadConversations())
-
-  private fun resetUnreadConversations() = preferences.resetUnreadConversations()
-
-  private fun getUnreadConversations() = Intercom.client().unreadConversationCount
+  fun getCurrentUser(): SupportUser = currentUser
 
   private fun checkGooglePlayServices(): Boolean {
     val availability = GoogleApiAvailability.getInstance()
@@ -101,5 +63,4 @@ class SupportRepository(private val preferences: SupportSharedPreferences, val a
           }
         })
   }
-
 }

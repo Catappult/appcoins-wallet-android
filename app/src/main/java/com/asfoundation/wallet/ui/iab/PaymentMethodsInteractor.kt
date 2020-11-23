@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.entity.Balance
@@ -10,7 +9,7 @@ import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -19,10 +18,8 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import java.math.BigDecimal
-import java.util.*
 
-class PaymentMethodsInteractor(private val walletService: WalletService,
-                               private val supportRepository: SupportRepository,
+class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
                                private val gamificationInteractor: GamificationInteractor,
                                private val balanceInteractor: BalanceInteractor,
                                private val walletBlockedInteract: WalletBlockedInteract,
@@ -33,13 +30,7 @@ class PaymentMethodsInteractor(private val walletService: WalletService,
 
 
   fun showSupport(gamificationLevel: Int): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable {
-          Completable.fromAction {
-            supportRepository.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportRepository.displayChatScreen()
-          }
-        }
+    return supportInteractor.showSupport(gamificationLevel)
   }
 
   fun getEthBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteractor.getEthBalance()

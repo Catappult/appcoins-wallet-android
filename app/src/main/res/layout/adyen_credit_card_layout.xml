@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
@@ -33,14 +34,14 @@
           android:layout_height="wrap_content"
           />
 
-      <View
+      <com.asfoundation.wallet.ui.common.SeparatorView
           android:id="@+id/line_separator"
           android:layout_width="match_parent"
-          android:layout_height="5dp"
+          android:layout_height="wrap_content"
           android:layout_below="@id/payment_methods_header"
           android:layout_marginBottom="18dp"
-          android:background="@drawable/dashed_line"
-          android:layerType="software"
+          app:line_orientation="horizontal"
+          app:line_type="dashed"
           />
 
       <ScrollView
