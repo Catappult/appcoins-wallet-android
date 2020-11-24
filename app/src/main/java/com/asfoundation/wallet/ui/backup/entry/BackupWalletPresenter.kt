@@ -16,38 +16,48 @@ class BackupWalletPresenter(private val balanceInteractor: BalanceInteractor,
                             private val viewScheduler: Scheduler) {
 
   fun present() {
+    initializeView()
     handleBackupClick()
     handlePasswordTextChange()
-    retrieveStoredBalance()
+    handleOnCheckedChangeListener()
   }
 
   private fun handlePasswordTextChange() {
     disposables.add(view.onPasswordTextChanged()
         .observeOn(viewScheduler)
-        .doOnNext {
-          if (it.empty) view.clearErrors()
-          if (!it.match) view.disableButton()
-          if (it.match && !it.empty) {
+        .doOnNext { passwordFields: PasswordFields ->
+          if (passwordFields.empty) view.clearErrors()
+          if (!passwordFields.match) view.disableButton()
+          if (passwordFields.match && !passwordFields.empty) {
             view.clearErrors()
             view.enableButton()
           }
         }
         .debounce(700, TimeUnit.MILLISECONDS, viewScheduler)
-        .doOnNext { if (!it.match && !it.empty) view.showPasswordError() }
+        .doOnNext { passwordFields -> if (!passwordFields.match && !passwordFields.empty) view.showPasswordError() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleBackupClick() {
     disposables.add(view.getBackupClick()
-        .doOnNext {
+        .doOnNext { passwordStatus: PasswordStatus ->
           view.hideKeyboard()
-          val password = if (it.wantsPassword) it.password else ""
+          val password = if (passwordStatus.wantsPassword) passwordStatus.password else ""
           navigator.showBackupCreationScreen(data.walletAddress, password)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun retrieveStoredBalance() {
+  private fun handleOnCheckedChangeListener() {
+    disposables.add(view.onPasswordCheckedChanged()
+        .doOnNext {
+          if (it) view.showPasswordFields()
+          else view.hidePasswordFields()
+        }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun initializeView() {
     disposables.add(balanceInteractor.getStoredOverallBalance(data.walletAddress)
         .subscribeOn(dbScheduler)
         .observeOn(viewScheduler)
@@ -55,11 +65,6 @@ class BackupWalletPresenter(private val balanceInteractor: BalanceInteractor,
           view.setupUi(data.walletAddress, it.symbol, currencyFormatUtils.formatCurrency(it.amount))
         }
         .subscribe({}, { it.printStackTrace() }))
-  }
-
-  fun onCheckedChanged(checked: Boolean) {
-    if (checked) view.showPasswordFields()
-    else view.hidePasswordFields()
   }
 
   fun stop() = disposables.clear()

@@ -23,4 +23,6 @@ interface BackupWalletFragmentView {
   fun clearErrors()
 
   fun showPasswordError()
+
+  fun onPasswordCheckedChanged(): Observable<Boolean>
 }

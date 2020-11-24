@@ -22,6 +22,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   @Inject
   lateinit var presenter: BackupWalletPresenter
+  private var onPasswordCheckedSubject: PublishSubject<Boolean>? = null
   private var passwordSubject: PublishSubject<PasswordFields>? = null
 
   companion object {
@@ -40,6 +41,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     passwordSubject = PublishSubject.create()
+    onPasswordCheckedSubject = PublishSubject.create()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -66,9 +68,11 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   private fun setToggleListener() {
     backup_password_toggle.setOnCheckedChangeListener { _, isChecked ->
-      presenter.onCheckedChanged(isChecked)
+      onPasswordCheckedSubject?.onNext(isChecked)
     }
   }
+
+  override fun onPasswordCheckedChanged(): Observable<Boolean> = onPasswordCheckedSubject!!
 
   override fun setupUi(walletAddress: String, symbol: String, formattedAmount: String) {
     backup_wallet_address.text = walletAddress
@@ -143,6 +147,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   }
 
   override fun onDestroy() {
+    onPasswordCheckedSubject = null
     passwordSubject = null
     super.onDestroy()
   }
