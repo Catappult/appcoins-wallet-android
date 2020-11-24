@@ -50,6 +50,11 @@ class BackupCreationPresenter(private val view: BackupCreationView,
     handleSystemFileIntentResult()
   }
 
+  fun sendWalletSaveFileCanceledEvent() {
+    walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_BACK,
+        WalletsAnalytics.STATUS_FAIL, WalletsAnalytics.REASON_CANCELED)
+  }
+
   private fun handleSystemFileIntentResult() {
     disposables.add(view.onSystemFileIntentResult()
         .observeOn(networkScheduler)
@@ -153,10 +158,7 @@ class BackupCreationPresenter(private val view: BackupCreationView,
         .doOnNext {
           walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_SAVE)
         }
-        .subscribe({}, {
-          logger.log(
-              TAG, it)
-        }))
+        .subscribe({}, { logger.log(TAG, it) }))
   }
 
   private fun handlePermissionGiven() {

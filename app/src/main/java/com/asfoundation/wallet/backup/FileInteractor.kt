@@ -62,8 +62,7 @@ class FileInteractor(private val context: Context,
                         fileName: String): Completable {
     //mimetype anything so that the file has the .bck extension alone.
     val file = documentFile.createFile("anything", fileName + getDefaultBackupFileExtension())
-        ?: return Completable.error(
-            Throwable("Error creating file"))
+        ?: return Completable.error(Throwable("Error creating file"))
 
     val outputStream = contentResolver.openOutputStream(file.uri)
     try {
