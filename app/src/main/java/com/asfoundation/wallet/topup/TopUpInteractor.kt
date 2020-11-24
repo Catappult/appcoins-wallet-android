@@ -49,10 +49,7 @@ class TopUpInteractor(private val repository: BdsRepository,
         .flatMapCompletable { level ->
           inAppPurchaseInteractor.walletAddress
               .flatMapCompletable { wallet ->
-                Completable.fromAction {
-                  supportInteractor.registerUser(level, wallet.toLowerCase(Locale.ROOT))
-                  supportInteractor.displayChatScreen()
-                }
+                supportInteractor.showSupport(wallet, level)
               }
         }
   }

@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.entity.Balance
@@ -11,7 +10,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -19,12 +18,10 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import java.math.BigDecimal
-import java.util.*
 
-class PaymentMethodsInteractor(private val walletService: WalletService,
-                               private val supportInteractor: SupportInteractor,
+class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
                                private val gamificationInteractor: GamificationInteractor,
-                               private val balanceInteract: BalanceInteract,
+                               private val balanceInteractor: BalanceInteractor,
                                private val walletBlockedInteract: WalletBlockedInteract,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                private val preferencesRepositoryType: PreferencesRepositoryType,
@@ -33,21 +30,15 @@ class PaymentMethodsInteractor(private val walletService: WalletService,
 
 
   fun showSupport(gamificationLevel: Int): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable {
-          Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
-          }
-        }
+    return supportInteractor.showSupport(gamificationLevel)
   }
 
-  fun getEthBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteract.getEthBalance()
+  fun getEthBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteractor.getEthBalance()
 
-  fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteract.getAppcBalance()
+  fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> = balanceInteractor.getAppcBalance()
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> =
-      balanceInteract.getCreditsBalance()
+      balanceInteractor.getCreditsBalance()
 
   fun isBonusActiveAndValid() = gamificationInteractor.isBonusActiveAndValid()
 

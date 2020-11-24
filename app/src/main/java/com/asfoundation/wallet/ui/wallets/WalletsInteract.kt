@@ -7,14 +7,14 @@ import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.balance.BalanceInteract
+import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.sumByBigDecimal
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class WalletsInteract(private val balanceInteract: BalanceInteract,
+class WalletsInteract(private val balanceInteractor: BalanceInteractor,
                       private val fetchWalletsInteract: FetchWalletsInteract,
                       private val walletCreatorInteract: WalletCreatorInteract,
                       private val supportInteractor: SupportInteractor,
@@ -29,7 +29,7 @@ class WalletsInteract(private val balanceInteract: BalanceInteract,
         .flatMapCompletable { list ->
           Observable.fromIterable(list)
               .flatMapCompletable { wallet ->
-                balanceInteract.getTotalBalance(wallet.address)
+                balanceInteractor.getTotalBalance(wallet.address)
                     .firstOrError()
                     .doOnSuccess { fiatValue ->
                       wallets.add(WalletBalance(wallet.address, fiatValue,

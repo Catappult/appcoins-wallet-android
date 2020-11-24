@@ -10,6 +10,7 @@ import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
@@ -24,7 +25,6 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(
@@ -48,13 +48,7 @@ class AdyenPaymentInteractor(
 
 
   fun showSupport(gamificationLevel: Int): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable {
-          Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
-          }
-        }
+    return supportInteractor.showSupport(gamificationLevel)
   }
 
   fun loadPaymentInfo(methods: AdyenPaymentRepository.Methods, value: String,

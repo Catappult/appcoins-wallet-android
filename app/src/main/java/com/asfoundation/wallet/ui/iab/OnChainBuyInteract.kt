@@ -11,7 +11,6 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
-import java.util.*
 
 class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                          private val supportInteractor: SupportInteractor,
@@ -20,13 +19,7 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
                          private val smsValidationInteract: SmsValidationInteract) {
 
   fun showSupport(gamificationLevel: Int): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable {
-          Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
-          }
-        }
+    return supportInteractor.showSupport(gamificationLevel)
   }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()

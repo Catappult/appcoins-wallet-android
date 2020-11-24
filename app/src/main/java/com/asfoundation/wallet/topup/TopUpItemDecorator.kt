@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.asfoundation.wallet.util.convertDpToPx
 
 
 class TopUpItemDecorator(private val size: Int, private val addMargin: Boolean) :
@@ -17,14 +18,10 @@ class TopUpItemDecorator(private val size: Int, private val addMargin: Boolean) 
 
       val screenWidth =
           TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, parent.measuredWidth.toFloat(),
-                  parent.context.resources
-                      .displayMetrics)
-              .toInt()
-
-      val viewWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80f,
               parent.context.resources
                   .displayMetrics)
-          .toInt()
+              .toInt()
+      val viewWidth = 80.convertDpToPx(parent.context.resources)
 
       val spacing = (((screenWidth - viewWidth * spanCount) / (spanCount + 1)) * 0.99).toInt()
 

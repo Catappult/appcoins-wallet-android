@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 class BalanceFragmentPresenter(private val view: BalanceFragmentView,
                                private val activityView: BalanceActivityView?,
-                               private val balanceInteract: BalanceInteract,
+                               private val balanceInteractor: BalanceInteractor,
                                private val walletsEventSender: WalletsEventSender,
                                private val networkScheduler: Scheduler,
                                private val viewScheduler: Scheduler,
@@ -53,7 +53,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     disposables.add(view.getTooltipDismissClick()
         .doOnNext {
           view.dismissTooltip()
-          balanceInteract.saveSeenBackupTooltip()
+          balanceInteractor.saveSeenBackupTooltip()
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -61,10 +61,10 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   private fun handleTooltipBackupClick() {
     disposables.add(view.getTooltipBackupButton()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
+        .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext {
-          balanceInteract.saveSeenBackupTooltip()
+          balanceInteractor.saveSeenBackupTooltip()
           activityView?.navigateToBackupView(it)
           view.dismissTooltip()
         }
@@ -80,7 +80,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleSetupTooltip() {
-    disposables.add(Single.just(balanceInteract.hasSeenBackupTooltip())
+    disposables.add(Single.just(balanceInteractor.hasSeenBackupTooltip())
         .subscribeOn(networkScheduler)
         .filter { !it }
         .observeOn(viewScheduler)
@@ -103,18 +103,18 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleCachedWalletInfoDisplay() {
-    disposables.add(balanceInteract.requestActiveWalletAddress()
+    disposables.add(balanceInteractor.requestActiveWalletAddress()
         .observeOn(viewScheduler)
         .doOnSuccess { handleValidationCache(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleWalletInfoDisplay() {
-    disposables.add(balanceInteract.requestActiveWalletAddress()
+    disposables.add(balanceInteractor.requestActiveWalletAddress()
         .observeOn(viewScheduler)
         .doOnSuccess { view.setWalletAddress(it) }
         .observeOn(networkScheduler)
-        .flatMap { balanceInteract.isWalletValid(it) }
+        .flatMap { balanceInteractor.isWalletValid(it) }
         .observeOn(viewScheduler)
         .doOnSuccess {
           when (it.second) {
@@ -128,7 +128,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun requestBalances() {
-    disposables.add(balanceInteract.requestTokenConversion()
+    disposables.add(balanceInteractor.requestTokenConversion()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext { updateUI(it) }
@@ -171,7 +171,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleCopyClick() {
     disposables.add(view.getCopyClick()
-        .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
+        .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext { view.setAddressToClipBoard(it) }
         .subscribe({}, { it.printStackTrace() }))
@@ -188,7 +188,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   private fun handleBackupClick() {
     disposables.add(view.getBackupClick()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .flatMapSingle { balanceInteract.requestActiveWalletAddress() }
+        .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext { activityView?.navigateToBackupView(it) }
         .doOnNext {
@@ -203,12 +203,12 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleValidationCache(address: String) {
-    if (balanceInteract.isWalletValidated(address)) displayWalletVerifiedStatus()
+    if (balanceInteractor.isWalletValidated(address)) displayWalletVerifiedStatus()
     else displayWalletUnverifiedStatus()
   }
 
   private fun handleNoNetwork(address: String) {
-    if (balanceInteract.isWalletValidated(address)) displayWalletVerifiedStatus()
+    if (balanceInteractor.isWalletValidated(address)) displayWalletVerifiedStatus()
     else displayNoNetworkStatus()
   }
 
@@ -230,7 +230,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   fun saveSeenToolTip() {
-    balanceInteract.saveSeenBackupTooltip()
+    balanceInteractor.saveSeenBackupTooltip()
   }
 
   fun stop() = disposables.clear()

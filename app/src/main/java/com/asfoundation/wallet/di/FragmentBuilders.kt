@@ -9,6 +9,10 @@ import com.asfoundation.wallet.promotions.PromotionsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
 import com.asfoundation.wallet.referrals.ReferralsFragment
+import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
+import com.asfoundation.wallet.restore.intro.RestoreWalletModule
+import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
+import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
 import com.asfoundation.wallet.topup.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.subscriptions.SubscriptionCancelFragment
 import com.asfoundation.wallet.subscriptions.SubscriptionCancelSuccessFragment
@@ -26,10 +30,16 @@ import com.asfoundation.wallet.ui.backup.BackupCreationFragment
 import com.asfoundation.wallet.ui.backup.BackupSuccessFragment
 import com.asfoundation.wallet.ui.backup.BackupWalletFragment
 import com.asfoundation.wallet.ui.balance.BalanceFragment
-import com.asfoundation.wallet.ui.balance.RestoreWalletFragment
-import com.asfoundation.wallet.ui.balance.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeModule
+import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentModule
+import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
+import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyModule
+import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
+import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
@@ -159,11 +169,11 @@ abstract class FragmentBuilders {
   abstract fun bindWalletRemoveConfirmationFragment(): WalletRemoveConfirmationFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [RestoreWalletModule::class])
   abstract fun bindRestoreWalletFragment(): RestoreWalletFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [RestoreWalletPasswordModule::class])
   abstract fun bindRestoreWalletPasswordFragment(): RestoreWalletPasswordFragment
 
   @FragmentScope
@@ -205,6 +215,22 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindAuthenticationErrorFragment(): AuthenticationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [CarrierVerifyModule::class])
+  abstract fun bindCarrierVerifyFragment(): CarrierVerifyFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [CarrierFeeModule::class])
+  abstract fun bindCarrierFeeFragment(): CarrierFeeFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [CarrierPaymentModule::class])
+  abstract fun bindCarrierPaymentStatusFragment(): CarrierPaymentFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [IabErrorModule::class])
+  abstract fun bindIabErrorFragment(): IabErrorFragment
 
   @FragmentScope
   @ContributesAndroidInjector()

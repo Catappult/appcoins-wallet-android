@@ -1,30 +1,49 @@
 package com.asfoundation.wallet.support
 
-import com.asfoundation.wallet.App
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.iid.InstanceIdResult
+import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.gamification.Gamification
 import io.intercom.android.sdk.Intercom
-import io.intercom.android.sdk.UserAttributes
-import io.intercom.android.sdk.identity.Registration
-import io.intercom.android.sdk.push.IntercomPushClient
+import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Scheduler
+import java.util.*
 
+class SupportInteractor(private val supportRepository: SupportRepository,
+                        private val walletService: WalletService,
+                        private val gamificationRepository: Gamification,
+                        private val viewScheduler: Scheduler,
+                        private val ioScheduler: Scheduler) {
 
-class SupportInteractor(private val preferences: SupportSharedPreferences, val app: App) {
-
-  companion object {
-    private const val USER_LEVEL_ATTRIBUTE = "user_level"
+  fun showSupport(): Completable {
+    return walletService.getWalletAddress()
+        .flatMapCompletable { address ->
+          gamificationRepository.getUserStats(address)
+              .observeOn(viewScheduler)
+              .flatMapCompletable { gamificationStats ->
+                showSupport(address, gamificationStats.level)
+              }
+        }
+        .subscribeOn(ioScheduler)
   }
 
-  private var currentUser = ""
-  private var currentGamificationLevel = -1
+  fun showSupport(gamificationLevel: Int): Completable {
+    return walletService.getWalletAddress()
+        .observeOn(viewScheduler)
+        .flatMapCompletable { address ->
+          showSupport(address, gamificationLevel)
+        }
+        .subscribeOn(ioScheduler)
+  }
+
+  fun showSupport(walletAddress: String, gamificationLevel: Int): Completable {
+    return Completable.fromAction {
+      registerUser(gamificationLevel, walletAddress.toLowerCase(Locale.ROOT))
+      displayChatScreen()
+    }
+  }
 
   fun displayChatScreen() {
-    resetUnreadConversations()
+    supportRepository.resetUnreadConversations()
     Intercom.client()
         .displayMessenger()
   }
@@ -33,7 +52,7 @@ class SupportInteractor(private val preferences: SupportSharedPreferences, val a
   fun displayConversationListOrChat() {
     //this method was introduced because if the app is closed intercom returns 0 unread conversations
     //even if there are more
-    resetUnreadConversations()
+    supportRepository.resetUnreadConversations()
     val handledByIntercom = getUnreadConversations() > 0
     if (handledByIntercom) {
       Intercom.client()
@@ -45,61 +64,28 @@ class SupportInteractor(private val preferences: SupportSharedPreferences, val a
   }
 
   fun registerUser(level: Int, walletAddress: String) {
-    if (currentUser != walletAddress || currentGamificationLevel != level) {
-      if (currentUser != walletAddress) {
+    val currentUser = supportRepository.getCurrentUser()
+    if (currentUser.userAddress != walletAddress || currentUser.gamificationLevel != level) {
+      if (currentUser.userAddress != walletAddress) {
         Intercom.client()
             .logout()
       }
-
-      val userAttributes = UserAttributes.Builder()
-          .withName(walletAddress)
-          .withCustomAttribute(USER_LEVEL_ATTRIBUTE,
-              level + 1)//we set level + 1 to help with readability for the support team
-          .build()
-      val registration: Registration = Registration.create()
-          .withUserId(walletAddress)
-          .withUserAttributes(userAttributes)
-
-      val gpsAvailable = checkGooglePlayServices()
-      if (gpsAvailable) handleFirebaseToken()
-
-      Intercom.client()
-          .registerIdentifiedUser(registration)
-      currentUser = walletAddress
-      currentGamificationLevel = level
+      supportRepository.saveNewUser(walletAddress, level)
     }
   }
 
-  fun getUnreadConversationCountListener() = Observable.create<Int> {
+  fun hasNewUnreadConversations() =
+      getUnreadConversations() > supportRepository.getSavedUnreadConversations()
+
+  fun updateUnreadConversations() =
+      supportRepository.updateUnreadConversations(Intercom.client().unreadConversationCount)
+
+  fun getUnreadConversationCountEvents() = Observable.create<Int> {
     Intercom.client()
         .addUnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
   }
 
   fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
 
-  fun shouldShowNotification() =
-      getUnreadConversations() > preferences.checkSavedUnreadConversations()
-
-  fun updateUnreadConversations() = preferences.updateUnreadConversations(getUnreadConversations())
-
-  private fun resetUnreadConversations() = preferences.resetUnreadConversations()
-
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
-
-  private fun checkGooglePlayServices(): Boolean {
-    val availability = GoogleApiAvailability.getInstance()
-    return availability.isGooglePlayServicesAvailable(app) == ConnectionResult.SUCCESS
-  }
-
-  private fun handleFirebaseToken() {
-    FirebaseInstanceId.getInstance()
-        .instanceId
-        .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
-          override fun onComplete(task: Task<InstanceIdResult?>) {
-            if (!task.isSuccessful) return
-            IntercomPushClient().sendTokenToIntercom(app, task.result?.token!!)
-          }
-        })
-  }
-
 }

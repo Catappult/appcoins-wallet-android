@@ -6,7 +6,6 @@ import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Single
-import java.util.*
 
 class AppcoinsRewardsBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                  private val supportInteractor: SupportInteractor,
@@ -22,13 +21,7 @@ class AppcoinsRewardsBuyInteract(private val inAppPurchaseInteractor: InAppPurch
           .onErrorReturn { true }
 
   fun showSupport(gamificationLevel: Int): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable {
-          Completable.fromAction {
-            supportInteractor.registerUser(gamificationLevel, it.toLowerCase(Locale.ROOT))
-            supportInteractor.displayChatScreen()
-          }
-        }
+    return supportInteractor.showSupport(gamificationLevel)
   }
 
   fun removeAsyncLocalPayment() = inAppPurchaseInteractor.removeAsyncLocalPayment()

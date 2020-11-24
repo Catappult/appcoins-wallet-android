@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
-import com.asfoundation.wallet.permissions.AndroidAppDataProvider
 import com.asfoundation.wallet.permissions.PermissionsInteractor
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Completable
@@ -34,7 +34,7 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var presenter: PermissionsListPresenter
   private lateinit var adapter: PermissionsListAdapter
-  private lateinit var appInfoProvider: AndroidAppDataProvider
+  private lateinit var appInfoProvider: ApplicationInfoProvider
   private lateinit var permissionClick: BehaviorRelay<ApplicationPermissionViewData>
   private var toolbarManager: ToolbarManager? = null
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
             Schedulers.io(), CompositeDisposable())
     permissionClick = BehaviorRelay.create()
     adapter = PermissionsListAdapter(mutableListOf(), permissionClick)
-    appInfoProvider = AndroidAppDataProvider(context!!)
+    appInfoProvider = ApplicationInfoProvider(context!!)
   }
 
   override fun getPermissionClick(): Observable<PermissionsListView.ApplicationPermissionToggle> {
@@ -86,7 +86,7 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   private fun map(permissions: List<ApplicationPermission>): List<ApplicationPermissionViewData> {
     return permissions.map {
       val appInfo = appInfoProvider.getAppInfo(it.packageName)
-      ApplicationPermissionViewData(it.packageName, appInfo.appName.toString(),
+      ApplicationPermissionViewData(it.packageName, appInfo.appName,
           it.permissions.contains(PermissionName.WALLET_ADDRESS), appInfo.icon, it.apkSignature)
     }
   }

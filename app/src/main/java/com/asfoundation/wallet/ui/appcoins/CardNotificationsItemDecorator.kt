@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.asfoundation.wallet.util.convertDpToPx
 import kotlin.math.max
 
 
@@ -35,15 +36,9 @@ class CardNotificationsItemDecorator : RecyclerView.ItemDecoration() {
       outRect.right = 16
       outRect.left = 16
 
-      val maxWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400f,
-          parent.context.resources
-              .displayMetrics)
-          .toInt()
+      val maxWidth = 400.convertDpToPx(parent.context.resources)
 
-      val margins = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32f,
-          parent.context.resources
-              .displayMetrics)
-          .toInt()
+      val margins = 32.convertDpToPx(parent.context.resources)
 
       val screenWidth =
           TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, parent.measuredWidth.toFloat(),

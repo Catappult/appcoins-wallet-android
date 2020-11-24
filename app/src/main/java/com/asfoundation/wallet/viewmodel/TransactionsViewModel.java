@@ -141,7 +141,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void handleUnreadConversationCount() {
-    disposables.add(supportInteractor.getUnreadConversationCountListener()
+    disposables.add(supportInteractor.getUnreadConversationCountEvents()
         .subscribeOn(AndroidSchedulers.mainThread())
         .doOnNext(this::updateIntercomAnimation)
         .subscribe());

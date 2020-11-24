@@ -10,8 +10,13 @@ import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
+import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
+import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
+import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
+import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.App
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
@@ -33,6 +38,8 @@ import com.asfoundation.wallet.repository.OffChainTransactionsRepository.Transac
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.subscriptions.SubscriptionRepository
 import com.asfoundation.wallet.subscriptions.SubscriptionService
+import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
@@ -48,6 +55,7 @@ import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -119,6 +127,24 @@ class RepositoryModule {
         .build()
         .create(AdyenApi::class.java)
     return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi, AdyenResponseMapper())
+  }
+
+  @Singleton
+  @Provides
+  fun provideCarrierBillingRepository(
+      @Named("default") client: OkHttpClient): CarrierBillingRepository {
+    val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
+        CarrierErrorResponseTypeAdapter())
+        .create()
+    val retrofit = Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201101/gateways/dimoco/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        .build()
+    val api = retrofit.create(CarrierBillingRepository.CarrierBillingApi::class.java)
+    return CarrierBillingRepository(api, CarrierResponseMapper(retrofit),
+        BuildConfig.APPLICATION_ID)
   }
 
   @Provides
@@ -234,6 +260,12 @@ class RepositoryModule {
   @Provides
   fun providesDeepLinkRepository(api: DeepLinkApi): InAppDeepLinkRepository {
     return LocalPaymentsLinkRepository(api)
+  }
+
+  @Singleton
+  @Provides
+  fun provideSupportRepository(preferences: SupportSharedPreferences, app: App): SupportRepository {
+    return SupportRepository(preferences, app)
   }
 
   @Provides

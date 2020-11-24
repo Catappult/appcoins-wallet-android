@@ -25,6 +25,7 @@ import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
+import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
@@ -184,6 +185,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
                 bonus, isPreselected, gamificationLevel, getSkuDescription(), isSubscription,
                 frequency, "10/12/20"))
+        .commit()
+  }
+
+  override fun showCarrierBilling(currency: String?, amount: BigDecimal,
+                                  bonus: BigDecimal, isPreselected: Boolean) {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container,
+            CarrierVerifyFragment.newInstance(isPreselected, transaction!!.domain, getOrigin(isBds),
+                transaction!!.type, intent.dataString, currency, amount, transaction!!.amount(),
+                bonus, getSkuDescription(), transaction!!.skuId))
+        .addToBackStack(CarrierVerifyFragment.BACKSTACK_NAME)
         .commit()
   }
 

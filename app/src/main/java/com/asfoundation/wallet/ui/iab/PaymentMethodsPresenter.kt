@@ -120,12 +120,15 @@ class PaymentMethodsPresenter(
                   LOCAL_PAYMENTS -> view.showLocalPayment(
                       selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                       selectedPaymentMethod.label, cachedGamificationLevel)
+                  CARRIER_BILLING -> view.showCarrierBilling(
+                      cachedFiatValue!!, false)
                   else -> return@doOnNext
                 }
               }
             }
           }
         }
+        .retry()
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -136,8 +139,8 @@ class PaymentMethodsPresenter(
           if (cachedPaymentNavigationData == null) close()
           else if (!it) {
             hasStartedAuth = false
-            if (cachedPaymentNavigationData!!.isPreselected && paymentMethodsMapper.map(
-                    cachedPaymentNavigationData!!.paymentId) == SelectedPaymentMethod.CREDIT_CARD) {
+            if (cachedPaymentNavigationData!!.isPreselected &&
+                hasPaymentOwnPreselectedView(cachedPaymentNavigationData!!.paymentId)) {
               close()
             }
           } else {
@@ -145,6 +148,12 @@ class PaymentMethodsPresenter(
           }
         }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun hasPaymentOwnPreselectedView(paymentId: String): Boolean {
+    val paymentMethod = paymentMethodsMapper.map(paymentId)
+    return paymentMethod == CREDIT_CARD ||
+        paymentMethod == CARRIER_BILLING
   }
 
   private fun handleWalletBlockStatus(selectedPaymentMethod: PaymentMethod) {
@@ -198,6 +207,9 @@ class PaymentMethodsPresenter(
       LOCAL_PAYMENTS -> {
         view.showLocalPayment(paymentNavigationData.paymentId, paymentNavigationData.paymentIconUrl,
             paymentNavigationData.paymentLabel, cachedGamificationLevel)
+      }
+      CARRIER_BILLING -> {
+        view.showCarrierBilling(cachedFiatValue!!, paymentNavigationData.isPreselected)
       }
       else -> {
         view.showError(R.string.unknown_error)
@@ -335,6 +347,7 @@ class PaymentMethodsPresenter(
             paymentMethodsData.frequency)
       } else {
         when (paymentMethod.id) {
+          PaymentMethodId.CARRIER_BILLING.id,
           PaymentMethodId.CREDIT_CARD.id -> {
             analytics.sendPurchaseDetailsEvent(paymentMethodsData.appPackage, transaction.skuId,
                 transaction.amount()
@@ -345,9 +358,14 @@ class PaymentMethodsPresenter(
                 hasStartedAuth = true
               }
             } else {
-              view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
-                  paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency,
-                  paymentMethodsData.subscription)
+              if (paymentMethod.id == PaymentMethodId.CREDIT_CARD.id) {
+                view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
+                    paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency,
+                    paymentMethodsData.subscription)
+              } else if (paymentMethod.id == PaymentMethodId.CARRIER_BILLING.id) {
+                view.showCarrierBilling(fiatValue, true)
+              }
+
             }
           }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,

@@ -49,15 +49,16 @@
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
 
-      <View
+      <com.asfoundation.wallet.ui.common.SeparatorView
           android:id="@+id/top_separator"
           android:layout_width="match_parent"
-          android:layout_height="1dp"
+          android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/big_margin"
-          android:background="@color/layout_separator_color"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          app:line_orientation="horizontal"
+          app:line_type="solid"
           />
 
       <include
@@ -173,15 +174,16 @@
 
       </ScrollView>
 
-      <View
+      <com.asfoundation.wallet.ui.common.SeparatorView
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"
-          android:layout_height="1dp"
+          android:layout_height="wrap_content"
           android:layout_marginTop="227dp"
-          android:background="@color/layout_separator_color"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:line_orientation="horizontal"
+          app:line_type="solid"
           />
 
       <androidx.constraintlayout.widget.Guideline
