@@ -439,7 +439,7 @@
   <string name="password">Password</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No,thanks</string>
+  <string name="no_thanks_button">No, thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">Confirm</string>
@@ -539,7 +539,7 @@
   <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
 
 
   <!--Billing address in purchase flow-->
