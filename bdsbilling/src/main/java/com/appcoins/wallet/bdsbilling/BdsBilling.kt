@@ -1,6 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
@@ -88,8 +89,4 @@ class BdsBilling(private val repository: BillingRepository,
 
   private fun map(it: Boolean) =
       if (it) Billing.BillingSupportType.SUPPORTED else Billing.BillingSupportType.MERCHANT_NOT_FOUND
-
-  private fun isManagedType(billingSupportedType: BillingSupportedType): Boolean {
-    return billingSupportedType == BillingSupportedType.INAPP || billingSupportedType == BillingSupportedType.INAPP_SUBSCRIPTION
-  }
 }

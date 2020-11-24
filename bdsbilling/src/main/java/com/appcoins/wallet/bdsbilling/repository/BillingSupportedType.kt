@@ -39,6 +39,11 @@ enum class BillingSupportedType {
       }
     }
 
+    @JvmStatic
+    fun isManagedType(type: BillingSupportedType): Boolean {
+      return type == INAPP || type == INAPP_SUBSCRIPTION
+    }
+
     fun mapToProductType(type: BillingSupportedType): BillingSupportedType {
       return when (type) {
         INAPP_UNMANAGED -> INAPP
@@ -49,5 +54,4 @@ enum class BillingSupportedType {
       }
     }
   }
-
 }

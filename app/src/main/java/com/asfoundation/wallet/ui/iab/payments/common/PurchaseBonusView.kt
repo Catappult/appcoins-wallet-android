@@ -46,6 +46,10 @@ class PurchaseBonusView : FrameLayout {
     bonus_value.text = valueText
   }
 
+  fun setPurchaseBonusHeaderValue(valueText: Int) {
+    bonus_value.text = context.getString(valueText)
+  }
+
   fun hidePurchaseBonusHeader() {
     showHeader = false
     bonus_layout.visibility = View.GONE

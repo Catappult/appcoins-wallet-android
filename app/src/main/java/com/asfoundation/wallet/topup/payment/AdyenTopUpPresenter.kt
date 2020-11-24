@@ -10,10 +10,7 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.common.response.TransactionStatus
-import com.appcoins.wallet.billing.adyen.PaymentModel.Status.COMPLETED
-import com.appcoins.wallet.billing.adyen.PaymentModel.Status.PENDING_USER_PAYMENT
-import com.appcoins.wallet.billing.adyen.TransactionResponse.Status.*
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel

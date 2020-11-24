@@ -13,12 +13,12 @@ class CarrierResponseMapper(private val retrofit: Retrofit) {
 
   fun mapPayment(response: CarrierCreateTransactionResponse): CarrierPaymentModel {
     return CarrierPaymentModel(response.uid, null, null, response.url, response.fee,
-        response.carrier, response.status, NoError)
+        response.carrier, null, response.status, NoError)
   }
 
   fun mapPayment(response: TransactionResponse): CarrierPaymentModel {
     return CarrierPaymentModel(response.uid, response.hash, response.orderReference, null, null,
-        null, response.status, NoError)
+        null, response.metadata?.purchaseUid, response.status, NoError)
   }
 
   fun mapPaymentError(throwable: Throwable): CarrierPaymentModel {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
@@ -104,10 +105,6 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun saveAsyncLocalPayment(paymentMethod: String) {
     inAppPurchaseInteractor.saveAsyncLocalPayment(paymentMethod)
-  }
-
-  private fun isManagedType(type: BillingSupportedType): Boolean {
-    return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION
   }
 
   fun showSupport(gamificationLevel: Int): Completable {

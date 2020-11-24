@@ -8,7 +8,6 @@ import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
-import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
@@ -63,16 +62,16 @@ class AdyenResponseMapper {
 
   private fun map(status: TransactionStatus): PaymentModel.Status {
     return when (status) {
-      PENDING -> PENDING
-      PENDING_SERVICE_AUTHORIZATION -> PENDING_SERVICE_AUTHORIZATION
-      SETTLED -> SETTLED
-      PROCESSING -> PROCESSING
-      COMPLETED -> COMPLETED
-      PENDING_USER_PAYMENT -> PENDING_USER_PAYMENT
-      INVALID_TRANSACTION -> INVALID_TRANSACTION
-      FAILED -> FAILED
-      CANCELED -> CANCELED
-      FRAUD -> FRAUD
+      TransactionStatus.PENDING -> PENDING
+      TransactionStatus.PENDING_SERVICE_AUTHORIZATION -> PENDING_SERVICE_AUTHORIZATION
+      TransactionStatus.SETTLED -> SETTLED
+      TransactionStatus.PROCESSING -> PROCESSING
+      TransactionStatus.COMPLETED -> COMPLETED
+      TransactionStatus.PENDING_USER_PAYMENT -> PENDING_USER_PAYMENT
+      TransactionStatus.INVALID_TRANSACTION -> INVALID_TRANSACTION
+      TransactionStatus.FAILED -> FAILED
+      TransactionStatus.CANCELED -> CANCELED
+      TransactionStatus.FRAUD -> FRAUD
     }
   }
 

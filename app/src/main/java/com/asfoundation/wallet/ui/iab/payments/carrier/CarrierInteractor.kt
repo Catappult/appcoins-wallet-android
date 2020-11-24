@@ -4,6 +4,8 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
@@ -77,15 +79,18 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
           status == TransactionStatus.INVALID_TRANSACTION
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
+                                purchaseUid: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler)
+    val billingType = BillingSupportedType.valueOfInsensitive(type)
+    return if (isManagedType(billingType) && sku != null) {
+      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
           .map { billingMessagesMapper.mapPurchase(it, orderReference) }
           .map { bundle -> addPreselected(bundle) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
           .map { bundle -> addPreselected(bundle) }
+
     }
   }
 
@@ -112,10 +117,6 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
             .subscribeOn(ioScheduler), Function3 { addressModel, storeAddress, oemAddress ->
       WalletAddresses(addressModel.address, addressModel.signedAddress, storeAddress, oemAddress)
     })
-  }
-
-  private fun isInApp(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true)
   }
 
   private fun observeTransactionUpdates(uid: String, walletAddress: String,

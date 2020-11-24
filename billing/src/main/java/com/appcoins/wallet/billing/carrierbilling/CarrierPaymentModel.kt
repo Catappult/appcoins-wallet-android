@@ -12,9 +12,10 @@ data class CarrierPaymentModel(
     val paymentUrl: String?,
     val fee: TransactionFee?,
     val carrier: TransactionCarrier?,
+    val purchaseUid: String?,
     val status: TransactionStatus, val error: CarrierError
 ) {
-  constructor(error: CarrierError) : this("", "", null, null, null, null,
+  constructor(error: CarrierError) : this("", "", null, null, null, null, null,
       TransactionStatus.FAILED, error)
 
 }
