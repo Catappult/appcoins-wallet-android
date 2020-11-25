@@ -2,7 +2,10 @@ package com.asfoundation.wallet.wallet_verification.intro
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
+import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.support.SupportRepository
 import io.reactivex.Completable
@@ -43,11 +46,6 @@ class WalletVerificationIntroInteractor(
 
   fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
     return adyenPaymentInteractor.getAuthorisedTransaction(uid)
-        //TODO DEBUG CODE
-        .map {
-          PaymentModel("AUTHORISED", null, null, null, null, null, "RANDOM_UID", null,
-              null, TransactionResponse.Status.COMPLETED, null, null)
-        }
   }
 
   private fun mapToVerificationIntroModel(infoModel: VerificationInfoModel,
@@ -60,13 +58,16 @@ class WalletVerificationIntroInteractor(
   }
 
   private fun getVerificationInfo(): Single<VerificationInfoModel> {
-    return adyenPaymentRepository.getVerificationInfo()
-        .map { mapToVerificationInfoModel(it) }
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMap {
+          adyenPaymentRepository.getVerificationInfo(it.address, it.signedAddress)
+              .map { info -> mapToVerificationInfoModel(info) }
+        }
   }
 
   private fun mapToVerificationInfoModel(
       response: VerificationInfoResponse): VerificationInfoModel {
-    return VerificationInfoModel(response.currency, response.sign, response.value,
+    return VerificationInfoModel(response.currency, response.symbol, response.value,
         response.digits, response.format, response.period)
   }
 

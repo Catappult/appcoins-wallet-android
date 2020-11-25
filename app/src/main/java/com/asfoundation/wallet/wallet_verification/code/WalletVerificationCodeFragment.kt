@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallet_verification.code
 
+import android.animation.Animator
 import android.content.Context
 import android.os.Bundle
 import android.text.InputFilter
@@ -39,7 +40,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
   companion object {
 
     internal const val CURRENCY_KEY = "currency"
-    internal const val SIGN_KEY = "sign"
+    internal const val SYMBOL_KEY = "symbol"
     internal const val AMOUNT_KEY = "amount"
     internal const val DIGITS_KEY = "digits"
     internal const val FORMAT_KEY = "format"
@@ -47,12 +48,12 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     internal const val DATE_KEY = "date"
 
     @JvmStatic
-    fun newInstance(currency: String, sign: String, value: String, digits: Int, format: String,
+    fun newInstance(currency: String, symbol: String, value: String, digits: Int, format: String,
                     period: String, date: Long): WalletVerificationCodeFragment {
       return WalletVerificationCodeFragment().apply {
         arguments = Bundle().apply {
           putString(CURRENCY_KEY, currency)
-          putString(SIGN_KEY, sign)
+          putString(SYMBOL_KEY, symbol)
           putString(AMOUNT_KEY, value)
           putString(FORMAT_KEY, format)
           putString(PERIOD_KEY, period)
@@ -85,8 +86,8 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
   fun setupUi() {
     val amount = formatter.formatCurrency(data.amount, WalletCurrency.FIAT)
-    val amountWithCurrency = "${data.sign} $amount"
-    val amountWithCurrencyAndSign = "${data.sign} -$amount"
+    val amountWithCurrency = "${data.symbol} $amount"
+    val amountWithCurrencyAndSign = "${data.symbol} -$amount"
 
     val date = convertToDate(data.date)
     val duration = Duration.parse(data.period)
@@ -115,6 +116,13 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     layout_example.arrow_desc.text = period
     code_title.text = codeTitle
     code_disclaimer.text = codeDisclaimer
+
+    success_animation.addAnimatorListener(object : Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) = Unit
+      override fun onAnimationEnd(animation: Animator?) = presenter.onAnimationEnd()
+      override fun onAnimationCancel(animation: Animator?) = Unit
+      override fun onAnimationStart(animation: Animator?) = Unit
+    })
   }
 
   override fun showLoading() {
@@ -130,7 +138,13 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
   }
 
   override fun showSuccess() {
-    TODO("Not yet implemented")
+    no_network.visibility = View.GONE
+    fragment_adyen_error?.visibility = View.GONE
+    content_container.visibility = View.GONE
+    progress_bar.visibility = View.GONE
+
+    success_animation.visibility = View.VISIBLE
+    success_message.visibility = View.VISIBLE
   }
 
   override fun showGenericError() {

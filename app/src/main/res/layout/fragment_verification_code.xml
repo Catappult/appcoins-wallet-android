@@ -142,33 +142,6 @@
           app:layout_constraintVertical_bias="0"
           />
 
-      <com.airbnb.lottie.LottieAnimationView
-          android:id="@+id/success_animation"
-          android:layout_width="wrap_content"
-          android:layout_height="120dp"
-          android:layout_margin="@dimen/big_margin"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:lottie_enableMergePathsForKitKatAndAbove="true"
-          app:lottie_loop="false"
-          app:lottie_rawRes="@raw/success_animation"
-          />
-
-      <TextView
-          android:id="@+id/validation_done"
-          style="@style/VerifyWallet.Success"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/verification_settings_verified_title"
-          android:visibility="gone"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/success_animation"
-          />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>
@@ -208,6 +181,33 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/success_animation"
+      android:layout_width="wrap_content"
+      android:layout_height="120dp"
+      android:layout_margin="@dimen/big_margin"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/success_animation"
+      />
+
+  <TextView
+      android:id="@+id/success_message"
+      style="@style/VerifyWallet.Success"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/verification_settings_verified_title"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/success_animation"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

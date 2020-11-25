@@ -50,7 +50,10 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
               view.lockRotation()
               view.showLoading()
             }
-            .subscribe({}, { it.printStackTrace() })
+            .subscribe({}, {
+              logger.log(TAG, it)
+              view.showGenericError()
+            })
     )
   }
 
@@ -151,7 +154,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
   private fun handleSuccessTransaction(verificationInfoModel: VerificationInfoModel): Completable {
     val ts = System.currentTimeMillis()
     return Completable.fromAction {
-      navigator.navigateToCodeView(verificationInfoModel.currency, verificationInfoModel.sign,
+      navigator.navigateToCodeView(verificationInfoModel.currency, verificationInfoModel.symbol,
           verificationInfoModel.value, verificationInfoModel.digits, verificationInfoModel.format,
           verificationInfoModel.period, ts)
     }

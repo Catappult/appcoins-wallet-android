@@ -6,11 +6,11 @@ import com.asfoundation.wallet.wallet_verification.code.WalletVerificationCodeFr
 
 class WalletVerificationIntroNavigator(private val fragmentManager: FragmentManager) {
 
-  fun navigateToCodeView(currency: String, sign: String, value: String, digits: Int,
+  fun navigateToCodeView(currency: String, symbol: String, value: String, digits: Int,
                          format: String, period: String, ts: Long) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            WalletVerificationCodeFragment.newInstance(currency, sign, value, digits, format,
+            WalletVerificationCodeFragment.newInstance(currency, symbol, value, digits, format,
                 period, ts))
         .addToBackStack(WalletVerificationCodeFragment::class.java.simpleName)
         .commit()

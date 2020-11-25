@@ -21,6 +21,7 @@ class WalletVerificationCodePresenter(private val view: WalletVerificationCodeVi
   private fun handleAnotherCardClicks() {
     disposable.add(
         view.getChangeCardClicks()
+            .doOnNext { navigator.navigateToInitialWalletVerification() }
             .subscribe()
     )
   }
@@ -55,6 +56,8 @@ class WalletVerificationCodePresenter(private val view: WalletVerificationCodeVi
   private fun handleCodeConfirmationStatus(codeResult: VerificationCodeResult) {
 
   }
+
+  fun onAnimationEnd() = navigator.finish()
 
   fun stop() = disposable.clear()
 }

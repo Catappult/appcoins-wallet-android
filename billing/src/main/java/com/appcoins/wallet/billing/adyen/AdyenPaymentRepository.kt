@@ -42,18 +42,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                               walletSignature: String): Single<PaymentModel> {
     return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        //.map { adyenResponseMapper.map(it) }
-        //TODO DEBUG CODE
-        .map {
-          PaymentModel("AUTHORISED", null, null, null, null, null, "RANDOM_UID", null,
-              null, TransactionResponse.Status.COMPLETED, null, null)
-        }
-        .onErrorReturn {
-          //TODO DEBUG CODE
-          PaymentModel("AUTHORISED", null, null, null, null, null, "RANDOM_UID", null,
-              null, TransactionResponse.Status.COMPLETED, null, null)
-        }
-    //.onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+        .map { adyenResponseMapper.map(it) }
+        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
   fun validateCode(code: String, walletAddress: String,
@@ -79,11 +69,9 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         .onErrorReturn { false }
   }
 
-  fun getVerificationInfo(): Single<VerificationInfoResponse> {
-    return adyenApi.getVerificationInfo()
-        .onErrorReturn {
-          VerificationInfoResponse("EUR", "€", "1.00", 4, "APPC*{{code}}CODE", "P2D")
-        }
+  fun getVerificationInfo(walletAddress: String,
+                          signedWalletAddress: String): Single<VerificationInfoResponse> {
+    return adyenApi.getVerificationInfo(walletAddress, signedWalletAddress)
   }
 
   fun getTransaction(uid: String, walletAddress: String,
@@ -134,8 +122,10 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     @POST("disable-recurring")
     fun disablePayments(@Body wallet: DisableWallet): Completable
 
-    @POST("verification/info")
-    fun getVerificationInfo(): Single<VerificationInfoResponse>
+    @GET("verification/info")
+    fun getVerificationInfo(@Query("wallet.address") walletAddress: String,
+                            @Query("wallet.signature")
+                            walletSignature: String): Single<VerificationInfoResponse>
 
     @POST("verification/generate")
     fun makeVerificationPayment(@Query("wallet.address") walletAddress: String,
