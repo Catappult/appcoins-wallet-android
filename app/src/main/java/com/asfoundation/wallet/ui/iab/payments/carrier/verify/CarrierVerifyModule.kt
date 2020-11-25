@@ -33,7 +33,7 @@ class CarrierVerifyModule {
           getString(CarrierVerifyFragment.CURRENCY_KEY)!!,
           getSerializable(CarrierVerifyFragment.FIAT_AMOUNT_KEY) as BigDecimal,
           getSerializable(CarrierVerifyFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierVerifyFragment.BONUS_AMOUNT_KEY) as BigDecimal,
+          getSerializable(CarrierVerifyFragment.BONUS_AMOUNT_KEY) as BigDecimal?,
           getString(CarrierVerifyFragment.SKU_DESCRIPTION)!!,
           getString(CarrierVerifyFragment.SKU_ID))
     }

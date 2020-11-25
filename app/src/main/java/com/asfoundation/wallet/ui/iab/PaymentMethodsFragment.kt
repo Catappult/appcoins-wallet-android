@@ -360,7 +360,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) {
-    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue!!, isPreselected)
+    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
   }
 
   override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue) {
