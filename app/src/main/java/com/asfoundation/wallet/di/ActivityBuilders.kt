@@ -7,7 +7,8 @@ import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivityModule
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.*
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity
+import com.asfoundation.wallet.ui.backup.BackupActivity
+import com.asfoundation.wallet.ui.backup.BackupActivityModule
 import com.asfoundation.wallet.ui.balance.QrCodeActivity
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
@@ -112,8 +113,8 @@ abstract class ActivityBuilders {
   internal abstract fun bindRestoreWalletActivity(): RestoreWalletActivity
 
   @ActivityScope
-  @ContributesAndroidInjector
-  internal abstract fun bindWalletBackupActivity(): WalletBackupActivity
+  @ContributesAndroidInjector(modules = [BackupActivityModule::class])
+  internal abstract fun bindWalletBackupActivity(): BackupActivity
 
   @ActivityScope
   @ContributesAndroidInjector

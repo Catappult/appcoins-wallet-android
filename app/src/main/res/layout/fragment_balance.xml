@@ -207,7 +207,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
                 android:maxLines="1"
-                android:textColor="@color/black"
+                android:textColor="@color/fakeBlack"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toStartOf="@id/copy_address"
                 app:layout_constraintStart_toStartOf="@id/wallet_icon"

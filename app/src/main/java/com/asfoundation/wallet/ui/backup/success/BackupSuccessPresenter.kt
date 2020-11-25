@@ -1,9 +1,8 @@
-package com.asfoundation.wallet.ui.backup
+package com.asfoundation.wallet.ui.backup.success
 
 import io.reactivex.disposables.CompositeDisposable
 
 class BackupSuccessPresenter(private val view: BackupSuccessFragmentView,
-                             private val activityView: BackupActivityView,
                              private val disposables: CompositeDisposable) {
 
   fun present() {
@@ -12,7 +11,7 @@ class BackupSuccessPresenter(private val view: BackupSuccessFragmentView,
 
   private fun handleCloseBtnClick() {
     disposables.add(view.getCloseButtonClick()
-        .doOnNext { activityView.closeScreen() }
+        .doOnNext { view.closeScreen() }
         .subscribe())
   }
 

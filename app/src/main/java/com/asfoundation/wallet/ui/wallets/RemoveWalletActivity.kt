@@ -10,7 +10,7 @@ import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity.Companion.newIntent
+import com.asfoundation.wallet.ui.backup.BackupActivity.Companion.newIntent
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
