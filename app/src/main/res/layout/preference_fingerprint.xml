@@ -47,7 +47,7 @@
         android:checked="true"
         android:clickable="false"
         android:focusable="false"
-        android:thumb="@drawable/round_thumb"
+        android:thumb="@drawable/round_thumb_grey"
         android:track="@drawable/round_track"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
