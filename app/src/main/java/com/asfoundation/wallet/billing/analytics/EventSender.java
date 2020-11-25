@@ -8,6 +8,9 @@ public interface EventSender {
   void sendPaymentMethodDetailsEvent(String packageName, String skuDetails, String value,
       String purchaseDetails, String transactionType);
 
+  void sendPaymentMethodDetailsActionEvent(String packageName, String skuDetails, String value,
+      String purchaseDetails, String transactionType, String action);
+
   void sendPaymentEvent(String packageName, String skuDetails, String value, String purchaseDetails,
       String transactionType);
 

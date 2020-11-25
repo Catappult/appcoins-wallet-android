@@ -62,8 +62,7 @@ class FileInteractor(private val context: Context,
                         fileName: String): Completable {
     //mimetype anything so that the file has the .bck extension alone.
     val file = documentFile.createFile("anything", fileName + getDefaultBackupFileExtension())
-        ?: return Completable.error(
-            Throwable("Error creating file"))
+        ?: return Completable.error(Throwable("Error creating file"))
 
     val outputStream = contentResolver.openOutputStream(file.uri)
     try {
@@ -94,10 +93,6 @@ class FileInteractor(private val context: Context,
     return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) Environment.getExternalStoragePublicDirectory(
         Environment.DIRECTORY_DOWNLOADS)
     else null
-  }
-
-  fun getTemporaryPath(): File? {
-    return context.externalCacheDir
   }
 
   fun getUriFromFile(file: File): Uri {

@@ -71,6 +71,7 @@ import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils.Companion.create
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -531,4 +532,12 @@ internal class AppModule {
       transactionsDatabase: TransactionsDatabase): TransactionLinkIdDao =
       transactionsDatabase.transactionLinkIdDao()
 
+
+  @Singleton
+  @Provides
+  fun providesApplicationInfoLoader(context: Context) = ApplicationInfoProvider(context)
+
+  @Singleton
+  @Provides
+  fun providesStringProvider(context: Context): StringProvider = StringProvider(context.resources)
 }

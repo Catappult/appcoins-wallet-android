@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.wallets
 
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.interact.SetDefaultWalletInteractor
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import io.reactivex.Completable
@@ -10,7 +10,7 @@ import io.reactivex.Single
 
 class WalletDetailsInteractor(private val balanceInteractor: BalanceInteractor,
                               private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
-                              private val supportRepository: SupportRepository,
+                              private val supportInteractor: SupportInteractor,
                               private val gamificationRepository: Gamification) {
 
   fun getBalanceModel(address: String): Single<BalanceScreenModel> =
@@ -21,7 +21,7 @@ class WalletDetailsInteractor(private val balanceInteractor: BalanceInteractor,
         .andThen(gamificationRepository.getUserStats(address))
         .flatMap {
           gamificationRepository.getUserStats(address)
-              .doOnSuccess { supportRepository.registerUser(it.level, address) }
+              .doOnSuccess { supportInteractor.registerUser(it.level, address) }
         }
         .ignoreElement()
   }

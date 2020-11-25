@@ -17,7 +17,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.navigator.ActivityNavigator
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity.Companion.newIntent
+import com.asfoundation.wallet.ui.backup.BackupActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.wallets.RemoveWalletActivity
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import io.reactivex.subjects.PublishSubject
