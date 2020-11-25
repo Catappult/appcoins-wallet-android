@@ -20,9 +20,12 @@ import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
 import com.asfoundation.wallet.ui.AuthenticationErrorFragment
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment
-import com.asfoundation.wallet.ui.backup.BackupCreationFragment
-import com.asfoundation.wallet.ui.backup.BackupSuccessFragment
-import com.asfoundation.wallet.ui.backup.BackupWalletFragment
+import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment
+import com.asfoundation.wallet.ui.backup.creation.BackupCreationModule
+import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment
+import com.asfoundation.wallet.ui.backup.entry.BackupWalletModule
+import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
+import com.asfoundation.wallet.ui.backup.success.BackupSuccessModule
 import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
@@ -176,15 +179,15 @@ abstract class FragmentBuilders {
   abstract fun bindRestoreWalletPasswordFragment(): RestoreWalletPasswordFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [BackupWalletModule::class])
   abstract fun bindBackupWalletFragment(): BackupWalletFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [BackupCreationModule::class])
   abstract fun bindBackupCreationFragment(): BackupCreationFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [BackupSuccessModule::class])
   abstract fun bindBackupSuccessFragment(): BackupSuccessFragment
 
   @FragmentScope

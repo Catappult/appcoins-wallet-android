@@ -7,7 +7,7 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsActivity
 import com.asfoundation.wallet.router.*
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity
+import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 
 class TransactionViewNavigator(private val sendRouter: SendRouter,
@@ -43,7 +43,7 @@ class TransactionViewNavigator(private val sendRouter: SendRouter,
   }
 
   fun navigateToBackup(context: Context, walletAddress: String) {
-    val intent = WalletBackupActivity.newIntent(context, walletAddress)
+    val intent = BackupActivity.newIntent(context, walletAddress)
         .apply {
           flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }

@@ -435,7 +435,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun changeMainValueColor(isValid: Boolean) {
     if (isValid) {
-      main_value.setTextColor(ContextCompat.getColor(context!!, R.color.black))
+      main_value.setTextColor(ContextCompat.getColor(context!!, R.color.fakeBlack))
     } else {
       main_value.setTextColor(ContextCompat.getColor(context!!, R.color.color_grey_9e))
     }

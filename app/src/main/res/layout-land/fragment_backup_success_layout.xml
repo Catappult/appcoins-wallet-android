@@ -115,7 +115,7 @@
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/close_btn"
-        style="@style/MaterialButtonStyle.Backup"
+        style="@style/MaterialButtonStyle.Backup.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

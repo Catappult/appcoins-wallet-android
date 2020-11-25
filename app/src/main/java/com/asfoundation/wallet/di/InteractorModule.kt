@@ -460,8 +460,8 @@ class InteractorModule {
 
   @Provides
   fun provideExportWalletInteract(walletRepository: WalletRepositoryType,
-                                  passwordStore: PasswordStore): ExportWalletInteract {
-    return ExportWalletInteract(walletRepository, passwordStore)
+                                  passwordStore: PasswordStore): ExportWalletInteractor {
+    return ExportWalletInteractor(walletRepository, passwordStore)
   }
 
   @Provides

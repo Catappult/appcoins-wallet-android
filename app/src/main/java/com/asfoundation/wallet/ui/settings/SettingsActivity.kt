@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
+import com.asfoundation.wallet.ui.backup.BackupActivity
+import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
@@ -71,7 +72,7 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
   override fun androidInjector() = androidInjector
 
   override fun navigateToBackup(address: String) {
-    startActivity(WalletBackupActivity.newIntent(this, address))
+    startActivity(BackupActivity.newIntent(this, address))
     supportFragmentManager.popBackStack()
   }
 
