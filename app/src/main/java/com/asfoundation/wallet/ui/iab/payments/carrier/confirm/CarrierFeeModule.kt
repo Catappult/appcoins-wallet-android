@@ -30,7 +30,7 @@ class CarrierFeeModule {
           getString(CarrierFeeFragment.CURRENCY_KEY)!!,
           getSerializable(CarrierFeeFragment.FIAT_AMOUNT_KEY) as BigDecimal,
           getSerializable(CarrierFeeFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierFeeFragment.BONUS_AMOUNT_KEY) as BigDecimal,
+          getSerializable(CarrierFeeFragment.BONUS_AMOUNT_KEY) as BigDecimal?,
           getSerializable(CarrierFeeFragment.FEE_FIAT_AMOUNT) as BigDecimal,
           getString(CarrierFeeFragment.CARRIER_NAME)!!,
           getString(CarrierFeeFragment.CARRIER_IMAGE)!!)

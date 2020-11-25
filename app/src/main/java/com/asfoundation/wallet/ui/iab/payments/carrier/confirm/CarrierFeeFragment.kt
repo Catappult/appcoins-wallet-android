@@ -17,6 +17,7 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.getStringSpanned
+import com.asfoundation.wallet.util.withNoLayoutTransition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -69,14 +70,11 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
     buy_button.isEnabled = false
   }
 
-  override fun initializeView(appName: String, appIcon: Drawable,
-                              currency: String, fiatAmount: BigDecimal,
+  override fun initializeView(currency: String, fiatAmount: BigDecimal,
                               appcAmount: BigDecimal, skuDescription: String,
-                              bonusAmount: BigDecimal?, carrierName: String, carrierImage: String,
-                              carrierFeeFiat: BigDecimal) {
+                              bonusAmount: BigDecimal?, carrierName: String,
+                              carrierImage: String, carrierFeeFiat: BigDecimal) {
     buy_button.isEnabled = true
-    payment_methods_header.setTitle(appName)
-    payment_methods_header.setIcon(appIcon)
     payment_methods_header.setDescription(skuDescription)
     payment_methods_header.hidePrice(
         resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
@@ -102,13 +100,20 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
         .load(carrierImage)
         .into(carrier_image)
 
-    if (bonusAmount != null) {
-      purchase_bonus.visibility = View.VISIBLE
-      purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
-      purchase_bonus.hideSkeleton()
-    } else {
-      purchase_bonus.visibility = View.GONE
+    purchase_bonus.withNoLayoutTransition {
+      if (bonusAmount != null) {
+        purchase_bonus.visibility = View.VISIBLE
+        purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+        purchase_bonus.hideSkeleton()
+      } else {
+        purchase_bonus.visibility = View.GONE
+      }
     }
+  }
+
+  override fun setAppDetails(appName: String, icon: Drawable) {
+    payment_methods_header.setTitle(appName)
+    payment_methods_header.setIcon(icon)
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {

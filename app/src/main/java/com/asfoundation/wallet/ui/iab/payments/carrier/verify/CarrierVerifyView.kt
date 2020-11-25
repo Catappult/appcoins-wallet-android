@@ -6,8 +6,7 @@ import java.math.BigDecimal
 
 interface CarrierVerifyView {
 
-  fun initializeView(appName: String, icon: Drawable,
-                     currency: String, fiatAmount: BigDecimal,
+  fun initializeView(currency: String, fiatAmount: BigDecimal,
                      appcAmount: BigDecimal, skuDescription: String,
                      bonusAmount: BigDecimal?, preselected: Boolean)
 
@@ -30,4 +29,6 @@ interface CarrierVerifyView {
   fun lockRotation()
 
   fun unlockRotation()
+
+  fun setAppDetails(appName: String, icon: Drawable)
 }

@@ -20,6 +20,7 @@ public class BillingAnalytics implements EventSender {
   public static final String RAKAM_PAYMENT_CONCLUSION = "wallet_payment_conclusion";
   public static final String RAKAM_PAYMENT_START = "wallet_payment_start";
   public static final String RAKAM_PAYPAL_URL = "wallet_payment_conclusion_paypal";
+  public static final String RAKAM_PAYMENT_METHOD_DETAILS = "wallet_payment_method_details";
   private static final String WALLET = "WALLET";
   private static final String EVENT_PACKAGE_NAME = "package_name";
   private static final String EVENT_SKU = "sku";
@@ -64,27 +65,29 @@ public class BillingAnalytics implements EventSender {
   @Override
   public void sendPaymentMethodDetailsEvent(String packageName, String skuDetails, String value,
       String purchaseDetails, String transactionType) {
-    sendPaymentMethodDetailsActionEvent(packageName, skuDetails, value, purchaseDetails,
-        transactionType, null);
-  }
-
-  @Override public void sendPaymentMethodDetailsActionEvent(String packageName, String skuDetails,
-      String value, String purchaseDetails, String transactionType, String action) {
     Map<String, Object> eventData = new HashMap<>();
     Map<String, Object> purchaseData = new HashMap<>();
 
     purchaseData.put(EVENT_PACKAGE_NAME, packageName);
     purchaseData.put(EVENT_SKU, skuDetails);
     purchaseData.put(EVENT_VALUE, value);
-    if (action != null) {
-      purchaseData.put(EVENT_ACTION, action);
-    }
 
     eventData.put(EVENT_PURCHASE, purchaseData);
     eventData.put(EVENT_PAYMENT_METHOD, purchaseDetails);
     eventData.put(EVENT_TRANSACTION_TYPE, transactionType);
 
     analytics.logEvent(eventData, PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
+  }
+
+  @Override
+  public void sendActionPaymentMethodDetailsActionEvent(String packageName, String skuDetails,
+      String value, String purchaseDetails, String transactionType, String action) {
+    Map<String, Object> eventData =
+        createBaseRakamEventMap(packageName, skuDetails, value, purchaseDetails, transactionType,
+            action);
+
+    analytics.logEvent(eventData, RAKAM_PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK,
+        WALLET);
   }
 
   @Override public void sendPaymentEvent(String packageName, String skuDetails, String value,

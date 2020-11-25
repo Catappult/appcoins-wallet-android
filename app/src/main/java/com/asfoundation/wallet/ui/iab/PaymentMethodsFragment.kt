@@ -375,7 +375,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) {
-    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue!!, isPreselected)
+    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
   }
 
   override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
@@ -499,6 +499,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun removeBonus() {
+    bonusMessageValue = ""
+    bonusValue = null
     bonus_view.visibility = View.GONE
     bottom_separator?.visibility = View.GONE
     bonus_view.hideSkeleton()
