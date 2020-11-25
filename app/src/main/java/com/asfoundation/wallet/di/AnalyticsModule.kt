@@ -73,6 +73,7 @@ class AnalyticsModule {
       BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
       BillingAnalytics.RAKAM_PAYMENT_START,
       BillingAnalytics.RAKAM_PAYPAL_URL,
+      BillingAnalytics.RAKAM_PAYMENT_METHOD_DETAILS,
       TopUpAnalytics.WALLET_TOP_UP_START,
       TopUpAnalytics.WALLET_TOP_UP_SELECTION,
       TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
