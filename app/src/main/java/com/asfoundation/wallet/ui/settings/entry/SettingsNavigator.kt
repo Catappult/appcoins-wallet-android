@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.asfoundation.wallet.ui.backup.WalletBackupActivity
+import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 
@@ -23,7 +23,7 @@ class SettingsNavigator(private val fragmentManager: FragmentManager,
   }
 
   fun navigateToBackup(walletAddress: String) {
-    activity.startActivity(WalletBackupActivity.newIntent(activity, walletAddress))
+    activity.startActivity(BackupActivity.newIntent(activity, walletAddress))
   }
 
   fun showWalletsBottomSheet(walletModel: WalletsModel) {
