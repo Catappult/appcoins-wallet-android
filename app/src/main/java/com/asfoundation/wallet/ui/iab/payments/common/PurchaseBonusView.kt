@@ -46,10 +46,6 @@ class PurchaseBonusView : FrameLayout {
     bonus_value.text = valueText
   }
 
-  fun setPurchaseBonusHeaderValue(valueText: Int) {
-    bonus_value.text = context.getString(valueText)
-  }
-
   fun hidePurchaseBonusHeader() {
     showHeader = false
     bonus_layout.visibility = View.GONE
@@ -60,8 +56,9 @@ class PurchaseBonusView : FrameLayout {
     bonus_layout.visibility = View.VISIBLE
   }
 
-  fun setPurchaseBonusDescription(description: String) {
-    bonus_msg.visibility = View.GONE
+  fun setPurchaseBonusDescription(description: Int) {
+    bonus_msg.visibility = View.VISIBLE
+    bonus_msg.text = context.getString(description)
   }
 
   fun showSkeleton() {

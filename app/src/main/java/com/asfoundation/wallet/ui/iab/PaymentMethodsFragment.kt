@@ -492,7 +492,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showBonus(@StringRes bonusText: Int) {
     bonus_view.visibility = View.VISIBLE
-    bonus_view.setPurchaseBonusHeaderValue(bonusText)
+    bonus_view.showPurchaseBonusHeader()
+    bonus_view.setPurchaseBonusDescription(bonusText)
     bottom_separator?.visibility = View.VISIBLE
     bonus_view.hideSkeleton()
   }
@@ -511,7 +512,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun replaceBonus() {
     bonus_view.visibility = View.INVISIBLE
-    bonus_view.setPurchaseBonusDescription(getString(R.string.purchase_poa_body))
+    bonus_view.setPurchaseBonusDescription(R.string.purchase_poa_body)
     bonus_view.hidePurchaseBonusHeader()
     bonus_view.hideSkeleton()
   }
