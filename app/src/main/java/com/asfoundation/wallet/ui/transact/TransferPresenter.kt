@@ -104,7 +104,10 @@ class TransferPresenter(private val view: TransferFragmentView,
           shouldBlockTransfer(data.currency)
               .flatMapCompletable {
                 if (it) {
-                  Completable.fromAction { view.showWalletBlocked() }
+                  Completable.fromAction {
+                    view.hideLoading()
+                    view.showWalletBlocked()
+                  }
                       .subscribeOn(viewScheduler)
                 } else {
                   makeTransaction(data)
