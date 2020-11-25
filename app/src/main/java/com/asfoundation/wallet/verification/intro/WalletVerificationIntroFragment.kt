@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification.intro
+package com.asfoundation.wallet.verification.intro
 
 import android.content.Context
 import android.os.Bundle
@@ -20,7 +20,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.wallet_verification.WalletVerificationActivityView
+import com.asfoundation.wallet.verification.WalletVerificationActivityView
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment

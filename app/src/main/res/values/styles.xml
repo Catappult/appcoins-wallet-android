@@ -713,6 +713,25 @@
     <item name="android:drawablePadding">8dp</item>
   </style>
 
+  <style name="BalanceVerifyWalletChip.CodeRequested" />
+
+  <style name="BalanceVerifyWalletChip.CodeRequested.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="BalanceVerifyWalletChip.CodeRequested.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">#1d1d1d</item>
+    <item name="android:textSize">10sp</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+  </style>
+
   <style name="Promotions.CardView" parent="Widget.MaterialComponents.CardView">
     <item name="cardBackgroundColor">@color/white</item>
     <item name="cardCornerRadius">12dp</item>

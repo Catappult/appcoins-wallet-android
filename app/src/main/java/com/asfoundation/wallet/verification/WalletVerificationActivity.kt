@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification
+package com.asfoundation.wallet.verification
 
 import android.content.Context
 import android.content.Intent

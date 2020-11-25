@@ -80,14 +80,14 @@ class AdyenResponseMapper {
 
   fun mapVerificationPaymentModelError(throwable: Throwable): VerificationPaymentModel {
     throwable.printStackTrace()
-    val codeAndMessage = getErrorCodeAndMessageFromThrowable(throwable)
+    val codeAndMessage = throwable.getErrorCodeAndMessage()
     return VerificationPaymentModel(
         Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
   }
 
   fun mapVerificationCodeError(throwable: Throwable): VerificationCodeResult {
     throwable.printStackTrace()
-    val codeAndMessage = getErrorCodeAndMessageFromThrowable(throwable)
+    val codeAndMessage = throwable.getErrorCodeAndMessage()
     return VerificationCodeResult(false,
         Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
   }

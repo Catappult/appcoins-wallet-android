@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification
+package com.asfoundation.wallet.verification
 
 import io.reactivex.Single
 import retrofit2.http.GET

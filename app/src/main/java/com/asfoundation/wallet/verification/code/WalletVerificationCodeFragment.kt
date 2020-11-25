@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification.code
+package com.asfoundation.wallet.verification.code
 
 import android.animation.Animator
 import android.content.Context
@@ -13,7 +13,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Duration
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.wallet_verification.WalletVerificationActivityView
+import com.asfoundation.wallet.verification.WalletVerificationActivityView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -39,6 +39,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
   companion object {
 
+    internal const val LOADED_KEY = "loaded"
     internal const val CURRENCY_KEY = "currency"
     internal const val SYMBOL_KEY = "symbol"
     internal const val AMOUNT_KEY = "amount"
@@ -52,6 +53,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
                     period: String, date: Long): WalletVerificationCodeFragment {
       return WalletVerificationCodeFragment().apply {
         arguments = Bundle().apply {
+          putBoolean(LOADED_KEY, true)
           putString(CURRENCY_KEY, currency)
           putString(SYMBOL_KEY, symbol)
           putString(AMOUNT_KEY, value)
@@ -59,6 +61,15 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
           putString(PERIOD_KEY, period)
           putLong(DATE_KEY, date)
           putInt(DIGITS_KEY, digits)
+        }
+      }
+    }
+
+    @JvmStatic
+    fun newInstance(): WalletVerificationCodeFragment {
+      return WalletVerificationCodeFragment().apply {
+        arguments = Bundle().apply {
+          putBoolean(LOADED_KEY, false)
         }
       }
     }
@@ -81,16 +92,17 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setupUi()
+    if (data.loaded) setupUi()
+    else presenter.loadInfo()
   }
 
   fun setupUi() {
-    val amount = formatter.formatCurrency(data.amount, WalletCurrency.FIAT)
+    val amount = formatter.formatCurrency(data.amount!!, WalletCurrency.FIAT)
     val amountWithCurrency = "${data.symbol} $amount"
     val amountWithCurrencyAndSign = "${data.symbol} -$amount"
 
-    val date = convertToDate(data.date)
-    val duration = Duration.parse(data.period)
+    val date = convertToDate(data.date!!)
+    val duration = Duration.parse(data.period!!)
 
     val periodInDays = duration.toDays()
     val periodInHours = duration.toHours()
@@ -107,8 +119,8 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
           periodInHours.toInt(), amountWithCurrency, periodInHours.toString())
     }
 
-    code.setEms(data.digits)
-    code.filters = arrayOf(InputFilter.LengthFilter(data.digits))
+    code.setEms(data.digits!!)
+    code.filters = arrayOf(InputFilter.LengthFilter(data.digits!!))
 
     layout_example.trans_date_value.text = date
     layout_example.description_value.text = data.format
@@ -123,6 +135,11 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
       override fun onAnimationCancel(animation: Animator?) = Unit
       override fun onAnimationStart(animation: Animator?) = Unit
     })
+  }
+
+  override fun updateUi(verificationCodeData: VerificationCodeData) {
+    data = verificationCodeData
+    setupUi()
   }
 
   override fun showLoading() {

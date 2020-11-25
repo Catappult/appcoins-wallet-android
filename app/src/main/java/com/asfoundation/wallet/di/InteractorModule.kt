@@ -69,6 +69,7 @@ import com.asfoundation.wallet.ui.transact.TransferInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
+import com.asfoundation.wallet.verification.WalletVerificationRepository
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import dagger.Module
@@ -307,9 +308,10 @@ class InteractorModule {
   fun provideBalanceInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                              balanceRepository: BalanceRepository,
                              preferencesRepositoryType: PreferencesRepositoryType,
-                             smsValidationInteract: SmsValidationInteract) =
+                             smsValidationInteract: SmsValidationInteract,
+                             walletVerificationRepository: WalletVerificationRepository) =
       BalanceInteractor(findDefaultWalletInteract, balanceRepository,
-          preferencesRepositoryType, smsValidationInteract)
+          preferencesRepositoryType, smsValidationInteract, walletVerificationRepository)
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,

@@ -1,7 +1,8 @@
-package com.asfoundation.wallet.wallet_verification.code
+package com.asfoundation.wallet.verification.code
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
+import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -10,12 +11,39 @@ class WalletVerificationCodePresenter(private val view: WalletVerificationCodeVi
                                       private val viewScheduler: Scheduler,
                                       private val ioScheduler: Scheduler,
                                       private val interactor: WalletVerificationCodeInteractor,
-                                      private val navigator: WalletVerificationCodeNavigator) {
+                                      private val navigator: WalletVerificationCodeNavigator,
+                                      private val logger: Logger) {
+
+  companion object {
+
+    private val TAG = WalletVerificationCodePresenter::class.java.name
+  }
 
   fun present(savedInstanceState: Bundle?) {
     handleConfirmClicks()
     handleLaterClicks()
     handleAnotherCardClicks()
+  }
+
+  fun loadInfo() {
+    disposable.add(
+        interactor.loadVerificationIntroModel()
+            .subscribeOn(ioScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              view.updateUi(it)
+              view.hideLoading()
+              view.unlockRotation()
+            }
+            .doOnSubscribe {
+              view.lockRotation()
+              view.showLoading()
+            }
+            .subscribe({}, {
+              logger.log(TAG, it)
+              view.showGenericError()
+            })
+    )
   }
 
   private fun handleAnotherCardClicks() {

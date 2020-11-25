@@ -1,11 +1,11 @@
-package com.asfoundation.wallet.wallet_verification.intro
+package com.asfoundation.wallet.verification.intro
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,10 +36,10 @@ class WalletVerificationIntroModule {
       adyenPaymentRepository: AdyenPaymentRepository,
       adyenPaymentInteractor: AdyenPaymentInteractor,
       walletService: WalletService,
-      supportRepository: SupportRepository
+      supportInteractor: SupportInteractor
   ): WalletVerificationIntroInteractor {
     return WalletVerificationIntroInteractor(adyenPaymentRepository, adyenPaymentInteractor,
-        walletService, supportRepository)
+        walletService, supportInteractor)
   }
 
 }

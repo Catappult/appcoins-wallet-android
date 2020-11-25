@@ -1,8 +1,8 @@
-package com.asfoundation.wallet.wallet_verification.intro
+package com.asfoundation.wallet.verification.intro
 
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.wallet_verification.code.WalletVerificationCodeFragment
+import com.asfoundation.wallet.verification.code.WalletVerificationCodeFragment
 
 class WalletVerificationIntroNavigator(private val fragmentManager: FragmentManager) {
 

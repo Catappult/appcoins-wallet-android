@@ -5,7 +5,6 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -42,6 +41,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleTooltipBackupClick()
     handleTooltipLaterClick()
     handleVerifyWalletClick()
+    handleInsertCodeClick()
     handleCachedWalletInfoDisplay()
   }
 
@@ -102,6 +102,13 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
+  private fun handleInsertCodeClick() {
+    disposables.add(view.getInsertCodeClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.openWalletVerificationScreen() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
   private fun handleCachedWalletInfoDisplay() {
     disposables.add(balanceInteractor.requestActiveWalletAddress()
         .observeOn(viewScheduler)
@@ -117,11 +124,12 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .flatMap { balanceInteractor.isWalletValid(it) }
         .observeOn(viewScheduler)
         .doOnSuccess {
-          when (it.second) {
-            WalletValidationStatus.SUCCESS -> displayWalletVerifiedStatus()
-            WalletValidationStatus.GENERIC_ERROR -> displayWalletUnverifiedStatus()
-            WalletValidationStatus.NO_NETWORK -> handleNoNetwork(it.first)
-            else -> handleValidationCache(it.first)
+          when (it.status) {
+            BalanceWalletValidationStatus.VERIFIED -> displayWalletVerifiedStatus()
+            BalanceWalletValidationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
+            BalanceWalletValidationStatus.NO_NETWORK -> handleNoNetwork(it.address)
+            BalanceWalletValidationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
+            else -> handleValidationCache(it.address)
           }
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -215,17 +223,27 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   private fun displayWalletVerifiedStatus() {
     view.showVerifiedWalletChip()
     view.hideUnverifiedWalletChip()
+    view.hideRequestedCodeWalletChip()
   }
 
   private fun displayWalletUnverifiedStatus() {
     view.showUnverifiedWalletChip()
     view.hideVerifiedWalletChip()
+    view.hideRequestedCodeWalletChip()
+    view.enableVerifyWalletButton()
+  }
+
+  private fun displayWalletCodeRequestedStatus() {
+    view.hideUnverifiedWalletChip()
+    view.hideVerifiedWalletChip()
+    view.showRequestedCodeWalletChip()
     view.enableVerifyWalletButton()
   }
 
   private fun displayNoNetworkStatus() {
     view.showUnverifiedWalletChip()
     view.hideVerifiedWalletChip()
+    view.hideRequestedCodeWalletChip()
     view.disableVerifyWalletButton()
   }
 

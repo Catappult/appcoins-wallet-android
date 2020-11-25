@@ -46,16 +46,16 @@ import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
+import com.asfoundation.wallet.verification.code.WalletVerificationCodeFragment
+import com.asfoundation.wallet.verification.code.WalletVerificationCodeModule
+import com.asfoundation.wallet.verification.intro.WalletVerificationIntroFragment
+import com.asfoundation.wallet.verification.intro.WalletVerificationIntroModule
 import com.asfoundation.wallet.wallet_validation.dialog.CodeValidationDialogFragment
 import com.asfoundation.wallet.wallet_validation.dialog.PhoneValidationDialogFragment
 import com.asfoundation.wallet.wallet_validation.dialog.ValidationLoadingDialogFragment
 import com.asfoundation.wallet.wallet_validation.dialog.ValidationSuccessDialogFragment
 import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment
 import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment
-import com.asfoundation.wallet.wallet_verification.code.WalletVerificationCodeFragment
-import com.asfoundation.wallet.wallet_verification.code.WalletVerificationCodeModule
-import com.asfoundation.wallet.wallet_verification.intro.WalletVerificationIntroFragment
-import com.asfoundation.wallet.wallet_verification.intro.WalletVerificationIntroModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

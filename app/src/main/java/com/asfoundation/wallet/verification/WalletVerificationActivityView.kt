@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification
+package com.asfoundation.wallet.verification
 
 interface WalletVerificationActivityView {
 

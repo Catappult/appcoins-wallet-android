@@ -19,9 +19,9 @@ import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
+import com.asfoundation.wallet.verification.WalletVerificationActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
-import com.asfoundation.wallet.wallet_verification.WalletVerificationActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
@@ -36,7 +36,8 @@ import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.bottom_sheet_fragment_container
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
-import kotlinx.android.synthetic.main.unverified_layout.*
+import kotlinx.android.synthetic.main.layout_code_requested.*
+import kotlinx.android.synthetic.main.layout_unverified.*
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -230,6 +231,8 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun getVerifyWalletClick() = RxView.clicks(verify_wallet_button)
 
+  override fun getInsertCodeClick() = RxView.clicks(insert_code_button)
+
   override fun getCopyClick() = RxView.clicks(copy_address)
 
   override fun getQrCodeClick() = RxView.clicks(wallet_qr_code)
@@ -307,6 +310,14 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun hideUnverifiedWalletChip() {
     unverified_wallet_layout.visibility = View.GONE
+  }
+
+  override fun showRequestedCodeWalletChip() {
+    code_requested_layout.visibility = View.VISIBLE
+  }
+
+  override fun hideRequestedCodeWalletChip() {
+    code_requested_layout.visibility = View.GONE
   }
 
   override fun disableVerifyWalletButton() {

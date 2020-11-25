@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification.intro
+package com.asfoundation.wallet.verification.intro
 
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper

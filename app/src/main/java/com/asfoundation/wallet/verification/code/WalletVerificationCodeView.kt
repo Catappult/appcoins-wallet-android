@@ -1,8 +1,10 @@
-package com.asfoundation.wallet.wallet_verification.code
+package com.asfoundation.wallet.verification.code
 
 import io.reactivex.Observable
 
 interface WalletVerificationCodeView {
+
+  fun updateUi(verificationCodeData: VerificationCodeData)
 
   fun showLoading()
 

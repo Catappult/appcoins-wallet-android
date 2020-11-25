@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification.intro
+package com.asfoundation.wallet.verification.intro
 
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 

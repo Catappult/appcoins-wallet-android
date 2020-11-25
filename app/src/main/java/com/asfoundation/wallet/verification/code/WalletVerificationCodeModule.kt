@@ -1,9 +1,11 @@
-package com.asfoundation.wallet.wallet_verification.code
+package com.asfoundation.wallet.verification.code
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.asfoundation.wallet.logging.Logger
 import dagger.Module
 import dagger.Provides
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -13,10 +15,11 @@ class WalletVerificationCodeModule {
   @Provides
   fun providesWalletVerificationCodePresenter(fragment: WalletVerificationCodeFragment,
                                               walletVerificationCodeInteractor: WalletVerificationCodeInteractor,
-                                              walletVerificationCodeNavigator: WalletVerificationCodeNavigator): WalletVerificationCodePresenter {
+                                              walletVerificationCodeNavigator: WalletVerificationCodeNavigator,
+                                              logger: Logger): WalletVerificationCodePresenter {
     return WalletVerificationCodePresenter(fragment as WalletVerificationCodeView,
-        CompositeDisposable(), Schedulers.io(), Schedulers.computation(),
-        walletVerificationCodeInteractor, walletVerificationCodeNavigator)
+        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
+        walletVerificationCodeInteractor, walletVerificationCodeNavigator, logger)
   }
 
   @Provides
@@ -35,12 +38,13 @@ class WalletVerificationCodeModule {
   fun providesVerificationCodeData(fragment: WalletVerificationCodeFragment): VerificationCodeData {
     fragment.arguments!!.apply {
       return VerificationCodeData(
+          getBoolean(WalletVerificationCodeFragment.LOADED_KEY),
           getLong(WalletVerificationCodeFragment.DATE_KEY),
-          getString(WalletVerificationCodeFragment.FORMAT_KEY)!!,
-          getString(WalletVerificationCodeFragment.AMOUNT_KEY)!!,
-          getString(WalletVerificationCodeFragment.CURRENCY_KEY)!!,
-          getString(WalletVerificationCodeFragment.SYMBOL_KEY)!!,
-          getString(WalletVerificationCodeFragment.PERIOD_KEY)!!,
+          getString(WalletVerificationCodeFragment.FORMAT_KEY),
+          getString(WalletVerificationCodeFragment.AMOUNT_KEY),
+          getString(WalletVerificationCodeFragment.CURRENCY_KEY),
+          getString(WalletVerificationCodeFragment.SYMBOL_KEY),
+          getString(WalletVerificationCodeFragment.PERIOD_KEY),
           getInt(WalletVerificationCodeFragment.DIGITS_KEY)
       )
     }

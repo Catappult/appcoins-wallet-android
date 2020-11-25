@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification.code
+package com.asfoundation.wallet.verification.code
 
 import androidx.fragment.app.FragmentManager
 

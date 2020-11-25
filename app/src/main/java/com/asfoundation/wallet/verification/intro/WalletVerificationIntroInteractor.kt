@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_verification.intro
+package com.asfoundation.wallet.verification.intro
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
@@ -7,7 +7,7 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -16,7 +16,7 @@ class WalletVerificationIntroInteractor(
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val adyenPaymentInteractor: AdyenPaymentInteractor,
     private val walletService: WalletService,
-    private val supportRepository: SupportRepository
+    private val supportInteractor: SupportInteractor
 ) {
 
   companion object {
@@ -73,7 +73,7 @@ class WalletVerificationIntroInteractor(
 
   fun showSupport(): Completable {
     return Completable.fromAction {
-      supportRepository.displayChatScreen()
+      supportInteractor.displayChatScreen()
     }
 
   }

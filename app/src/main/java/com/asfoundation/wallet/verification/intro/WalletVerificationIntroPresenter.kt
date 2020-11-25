@@ -1,8 +1,8 @@
-package com.asfoundation.wallet.wallet_verification.intro
+package com.asfoundation.wallet.verification.intro
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.TransactionResponse
+import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.logging.Logger
@@ -118,7 +118,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
             .observeOn(viewScheduler)
             .flatMapCompletable {
               when {
-                it.status == TransactionResponse.Status.COMPLETED -> {
+                it.status == TransactionStatus.COMPLETED -> {
                   Completable.complete()
                       .observeOn(viewScheduler)
                       .andThen(handleSuccessTransaction(verificationInfoModel))
@@ -144,7 +144,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
       paymentModel.error.hasError -> Completable.fromAction {
         handleErrors(paymentModel.error)
       }
-      paymentModel.status == TransactionResponse.Status.CANCELED -> Completable.fromAction { view.cancel() }
+      paymentModel.status == TransactionStatus.CANCELED -> Completable.fromAction { view.cancel() }
       else -> Completable.fromAction {
         view.showGenericError()
       }
@@ -160,8 +160,8 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
     }
   }
 
-  private fun isPaymentFailed(status: TransactionResponse.Status): Boolean {
-    return status == TransactionResponse.Status.FAILED || status == TransactionResponse.Status.CANCELED || status == TransactionResponse.Status.INVALID_TRANSACTION
+  private fun isPaymentFailed(status: TransactionStatus): Boolean {
+    return status == TransactionStatus.FAILED || status == TransactionStatus.CANCELED || status == TransactionStatus.INVALID_TRANSACTION
   }
 
   private fun handleErrors(error: Error) {

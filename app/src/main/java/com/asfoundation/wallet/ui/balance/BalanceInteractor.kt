@@ -10,10 +10,13 @@ import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APP
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.verification.WalletVerificationRepository
+import com.asfoundation.wallet.verification.WalletVerificationStatus
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.annotations.Nullable
+import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
@@ -21,7 +24,8 @@ class BalanceInteractor(
     private val walletInteract: FindDefaultWalletInteract,
     private val balanceRepository: BalanceRepository,
     private val preferencesRepositoryType: PreferencesRepositoryType,
-    private val smsValidationInteract: SmsValidationInteract) {
+    private val smsValidationInteract: SmsValidationInteract,
+    private val walletVerificationRepository: WalletVerificationRepository) {
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
     return walletInteract.find()
@@ -105,10 +109,29 @@ class BalanceInteractor(
     )
   }
 
-  fun isWalletValid(address: String): Single<Pair<String, WalletValidationStatus>> {
-    return smsValidationInteract.getValidationStatus(address)
-        .map { Pair(address, it) }
+  fun isWalletValid(address: String): Single<BalanceWalletValidationModel> {
+    return Single.zip(
+        smsValidationInteract.getValidationStatus(address),
+        walletVerificationRepository.getVerificationStatus(address),
+        BiFunction { validationStatus, verificationStatus ->
+          mapToBalanceWalletValidationModel(address, validationStatus, verificationStatus)
+        }
+    )
   }
+
+  private fun mapToBalanceWalletValidationModel(address: String,
+                                                validationStatus: WalletValidationStatus,
+                                                verificationStatus: WalletVerificationStatus): BalanceWalletValidationModel {
+    val status = when {
+      verificationStatus == WalletVerificationStatus.CODE_REQUESTED -> BalanceWalletValidationStatus.CODE_REQUESTED
+      verificationStatus == WalletVerificationStatus.VERIFIED -> BalanceWalletValidationStatus.VERIFIED
+      validationStatus == WalletValidationStatus.SUCCESS -> BalanceWalletValidationStatus.VERIFIED
+      else -> BalanceWalletValidationStatus.UNVERIFIED
+    }
+
+    return BalanceWalletValidationModel(address, status)
+  }
+
 
   fun isWalletValidated(address: String) = preferencesRepositoryType.isWalletValidated(address)
 
