@@ -474,6 +474,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun removeBonus() {
+    bonusMessageValue = ""
+    bonusValue = null
     bonus_view.visibility = View.GONE
     bottom_separator?.visibility = View.GONE
     bonus_view.hideSkeleton()
