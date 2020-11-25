@@ -186,8 +186,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showCarrierBilling(currency: String?, amount: BigDecimal,
-                                  bonus: BigDecimal, isPreselected: Boolean) {
+  override fun showCarrierBilling(currency: String?, amount: BigDecimal, bonus: BigDecimal?,
+                                  isPreselected: Boolean) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             CarrierVerifyFragment.newInstance(isPreselected, transaction!!.domain, getOrigin(isBds),
