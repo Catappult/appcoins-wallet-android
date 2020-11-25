@@ -10,6 +10,7 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRepository {
+
   override fun getWallet(packageName: String): Single<String> {
     return remoteRepository.getWallet(packageName)
         .map { it.data.address }
@@ -89,13 +90,14 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
                                 walletSignature: String,
                                 type: BillingSupportedType?): Single<Boolean> {
     return when (type) {
-      null -> remoteRepository.consumePurchaseSubs(packageName, purchaseToken, walletAddress,
+      null -> remoteRepository.acknowledgePurchase(packageName, purchaseToken, walletAddress,
           walletSignature)
           .onErrorResumeNext {
+            //TODO Remove this when MS completes migration to product
             remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
                 walletSignature)
           }
-      BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.consumePurchaseSubs(packageName,
+      BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.acknowledgePurchase(packageName,
           purchaseToken, walletAddress, walletSignature)
       else -> remoteRepository.consumePurchase(packageName, purchaseToken,
           walletAddress, walletSignature)

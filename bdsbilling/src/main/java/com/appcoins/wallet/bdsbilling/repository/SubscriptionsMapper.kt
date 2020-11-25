@@ -25,7 +25,7 @@ class SubscriptionsMapper {
   fun map(packageName: String,
           subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
     return Purchase(subscriptionPurchaseResponse.uid,
-        RemoteProduct(subscriptionPurchaseResponse.sku), subscriptionPurchaseResponse.status.name,
+        RemoteProduct(subscriptionPurchaseResponse.sku),
         mapPurchaseState(subscriptionPurchaseResponse.state),
         subscriptionPurchaseResponse.autoRenewing,
         Package(packageName), Signature(subscriptionPurchaseResponse.verification.signature,

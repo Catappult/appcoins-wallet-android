@@ -666,20 +666,22 @@ class PaymentMethodsPresenter(
 
   private fun hasRequestedSkuPurchase(purchases: List<Purchase>, sku: String?): Boolean {
     for (purchase in purchases) {
-      if (purchase.product.name == sku && (purchase.state == null || purchase.state != State.CONSUMED)) {
-        return true
-      }
+      if (isRequestedSkuPurchase(purchase, sku)) return true
+
     }
     return false
   }
 
   private fun getRequestedSkuPurchase(purchases: List<Purchase>, sku: String?): Purchase? {
     for (purchase in purchases) {
-      if (purchase.product.name == sku && (purchase.state == null || purchase.state != State.CONSUMED)) {
-        return purchase
-      }
+      if (isRequestedSkuPurchase(purchase, sku)) return purchase
     }
     return null
+  }
+
+  private fun isRequestedSkuPurchase(purchase: Purchase, sku: String?): Boolean {
+    return purchase.product.name == sku &&
+        purchase.state != State.CONSUMED && purchase.state != State.ACKNOWLEDGED
   }
 
   private fun showAuthenticationActivity(paymentMethod: PaymentMethod, isPreselected: Boolean) {
