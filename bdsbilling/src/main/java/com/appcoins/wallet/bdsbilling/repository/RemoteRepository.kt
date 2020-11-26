@@ -144,12 +144,12 @@ class RemoteRepository(private val inAppApi: BdsApi,
         paymentProof)
   }
 
-  internal fun getPaymentMethods(transactionType: String?,
-                                 value: String?,
+  internal fun getPaymentMethods(value: String?,
                                  currency: String?,
                                  currencyType: String?,
-                                 direct: Boolean? = null): Single<List<PaymentMethodEntity>> {
-    return inAppApi.getPaymentMethods(transactionType, value, currency, currencyType, direct)
+                                 direct: Boolean? = null,
+                                 transactionType: String?): Single<List<PaymentMethodEntity>> {
+    return inAppApi.getPaymentMethods(value, currency, currencyType, direct, transactionType)
         .map { responseMapper.map(it) }
   }
 

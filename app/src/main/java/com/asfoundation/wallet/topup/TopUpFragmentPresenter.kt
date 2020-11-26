@@ -366,7 +366,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           paymentMethod.paymentType, mapTopUpPaymentData(topUpData, gamificationLevel))
       PaymentType.LOCAL_PAYMENTS ->
         activity?.navigateToLocalPayment(paymentMethod.paymentId, paymentMethod.icon,
-            paymentMethod.label, mapTopUpPaymentData(topUpData, gamificationLevel))
+            paymentMethod.label, paymentMethod.async,
+            mapTopUpPaymentData(topUpData, gamificationLevel))
     }
   }
 

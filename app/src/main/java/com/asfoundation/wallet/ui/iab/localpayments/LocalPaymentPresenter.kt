@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab
+package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -10,6 +10,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -18,38 +19,25 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import retrofit2.HttpException
-import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 
 class LocalPaymentPresenter(private val view: LocalPaymentView,
-                            private val originalAmount: String?,
-                            private val currency: String?,
-                            private val domain: String,
-                            private val skuId: String?,
-                            private val paymentId: String,
-                            private val developerAddress: String,
+                            private val data: LocalPaymentData,
                             private val localPaymentInteractor: LocalPaymentInteractor,
-                            private val navigator: FragmentNavigator,
-                            private val type: String,
-                            private val amount: BigDecimal,
+                            private val navigator: LocalPaymentNavigator,
                             private val analytics: LocalPaymentAnalytics,
-                            private val savedInstance: Bundle?,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
                             private val disposables: CompositeDisposable,
-                            private val callbackUrl: String?,
-                            private val orderReference: String?,
-                            private val payload: String?,
                             private val context: Context?,
-                            private val paymentMethodIconUrl: String?,
-                            private val gamificationLevel: Int,
                             private val logger: Logger) {
 
   private var waitingResult: Boolean = false
 
-  fun present() {
-    if (savedInstance != null) {
+  fun present(savedInstance: Bundle?) {
+    view.setupUi(data.bonus)
+    savedInstance?.let {
       waitingResult = savedInstance.getBoolean(WAITING_RESULT)
     }
     onViewCreatedRequestLink()
@@ -75,13 +63,14 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         )
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .subscribe({ view.showPendingUserPayment(it.first, it.second) }, { showError(it) }))
+            .subscribe({ view.showPendingUserPayment(data.label, it.first, it.second) },
+                { showError(it) }))
   }
 
   private fun getPaymentMethodIcon() = Single.fromCallable {
     GlideApp.with(context!!)
         .asBitmap()
-        .load(paymentMethodIconUrl)
+        .load(data.paymentMethodIconUrl)
         .override(getWidth(), getHeight())
         .centerCrop()
         .submit()
@@ -90,22 +79,21 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun getApplicationIcon() = Single.fromCallable {
     val applicationIcon =
-        (context!!.packageManager.getApplicationIcon(domain) as BitmapDrawable).bitmap
+        (context!!.packageManager.getApplicationIcon(data.packageName) as BitmapDrawable).bitmap
 
     Bitmap.createScaledBitmap(applicationIcon, appIconWidth, appIconHeight, true)
   }
 
   private fun onViewCreatedRequestLink() {
     disposables.add(
-        localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency, paymentId,
-            developerAddress, callbackUrl, orderReference, payload)
+        localPaymentInteractor.getPaymentLink(data.packageName, data.skuId, data.originalAmount,
+            data.currency, data.paymentId, data.developerAddress, data.callbackUrl,
+            data.orderReference, data.payload)
             .filter { !waitingResult }
             .observeOn(viewScheduler)
             .doOnSuccess {
-              analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), type,
-                  paymentId)
-              analytics.sendPaymentConfirmationEvent(domain, skuId, amount.toString(), type,
-                  paymentId)
+              analytics.sendNavigationToUrlEvents(data.packageName, data.skuId,
+                  data.amount.toString(), data.type, data.paymentId)
               navigator.navigateToUriForResult(it)
               waitingResult = true
             }
@@ -119,7 +107,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         .doOnNext { view.showProcessingLoading() }
         .doOnNext { view.lockRotation() }
         .flatMap {
-          localPaymentInteractor.getTransaction(it)
+          localPaymentInteractor.getTransaction(it, data.async)
               .subscribeOn(networkScheduler)
         }
         .observeOn(viewScheduler)
@@ -141,29 +129,28 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handleFraudFlow() {
-    disposables.add(
-        localPaymentInteractor.isWalletBlocked()
-            .subscribeOn(networkScheduler)
-            .observeOn(networkScheduler)
-            .flatMap { blocked ->
-              if (blocked) {
-                localPaymentInteractor.isWalletVerified()
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      if (it) view.showError(R.string.purchase_error_wallet_block_code_403)
-                      else view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
-                    }
-              } else {
-                Single.just(true)
-                    .observeOn(viewScheduler)
-                    .doOnSuccess { view.showError(R.string.purchase_error_wallet_block_code_403) }
-              }
-            }
-            .observeOn(viewScheduler)
-            .subscribe({}, {
-              logger.log(TAG, it)
-              view.showError(R.string.purchase_error_wallet_block_code_403)
-            })
+    disposables.add(localPaymentInteractor.isWalletBlocked()
+        .subscribeOn(networkScheduler)
+        .observeOn(networkScheduler)
+        .flatMap { blocked ->
+          if (blocked) {
+            localPaymentInteractor.isWalletVerified()
+                .observeOn(viewScheduler)
+                .doOnSuccess {
+                  if (it) view.showError(R.string.purchase_error_wallet_block_code_403)
+                  else view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
+                }
+          } else {
+            Single.just(true)
+                .observeOn(viewScheduler)
+                .doOnSuccess { view.showError(R.string.purchase_error_wallet_block_code_403) }
+          }
+        }
+        .observeOn(viewScheduler)
+        .subscribe({}, {
+          logger.log(TAG, it)
+          view.showError(R.string.purchase_error_wallet_block_code_403)
+        })
     )
   }
 
@@ -175,11 +162,13 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         view.showError()
       }
           .subscribeOn(viewScheduler)
-      localPaymentInteractor.isAsync(transaction.type) ->
+      data.async ->
+        //Although this should no longer happen at the moment in Iab, since it doesn't consume much process time
+        //I decided to leave this here in case the API wants to change the logic and return them to Iab in the future.
         handleAsyncTransactionStatus(transaction)
             .andThen(Completable.fromAction {
-              localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
-              localPaymentInteractor.saveAsyncLocalPayment(paymentId)
+              localPaymentInteractor.savePreSelectedPaymentMethod(data.paymentId)
+              localPaymentInteractor.saveAsyncLocalPayment(data.paymentId)
               preparePendingUserPayment()
             })
       transaction.status == Status.COMPLETED -> handleSyncCompletedStatus(transaction)
@@ -193,38 +182,43 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           transaction.status == Status.INVALID_TRANSACTION
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
-    return localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
-        transaction.metadata?.purchaseUid, transaction.orderReference, transaction.hash,
-        networkScheduler)
+    return localPaymentInteractor.getCompletePurchaseBundle(data.type, data.packageName, data.skuId,
+        transaction.metadata?.purchaseUid, transaction.orderReference, transaction.hash, networkScheduler)
         .doOnSuccess {
-          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
-          analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
-              paymentId)
-          analytics.sendRevenueEvent(disposables, amount)
+          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.amount,
+              data.type, data.paymentId)
+          handleRevenueEvent()
         }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .flatMapCompletable {
           Completable.fromAction { view.showCompletedPayment() }
               .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-              .andThen(Completable.fromAction { view.popView(it) })
+              .andThen(Completable.fromAction { view.popView(it, data.paymentId) })
         }
+  }
+
+  private fun handleRevenueEvent() {
+    disposables.add(localPaymentInteractor.convertToFiat(data.amount.toDouble(),
+        FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+        .subscribeOn(networkScheduler)
+        .doOnSuccess { fiatValue -> analytics.sendRevenueEvent(fiatValue.amount.toString()) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleAsyncTransactionStatus(transaction: Transaction): Completable {
     return when (transaction.status) {
       Status.PENDING_USER_PAYMENT -> {
         Completable.fromAction {
-          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
-          analytics.sendPaymentPendingEvent(domain, skuId, amount.toString(), type, paymentId)
+          analytics.sendPendingPaymentEvents(data.packageName, data.skuId, data.amount.toString(),
+              data.type, data.paymentId)
         }
       }
       Status.COMPLETED -> {
         Completable.fromAction {
-          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
-          analytics.sendPaymentConclusionEvent(domain, skuId, amount.toString(), type,
-              paymentId)
-          analytics.sendRevenueEvent(disposables, amount)
+          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.amount,
+              data.type, data.paymentId)
+          handleRevenueEvent()
         }
       }
       else -> Completable.complete()
@@ -234,7 +228,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun handleSupportClicks() {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .flatMapCompletable { localPaymentInteractor.showSupport(gamificationLevel) }
+        .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel) }
         .subscribe({}, { it.printStackTrace() })
     )
   }

@@ -104,13 +104,13 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     }
   }
 
-  override fun getPaymentMethods(transactionType: String?,
-                                 value: String?,
+  override fun getPaymentMethods(value: String?,
                                  currency: String?,
                                  currencyType: String?,
-                                 direct: Boolean?): Single<List<PaymentMethodEntity>> {
-    return remoteRepository.getPaymentMethods(transactionType, value, currency, currencyType,
-        direct)
+                                 direct: Boolean?,
+                                 transactionType: String?): Single<List<PaymentMethodEntity>> {
+    return remoteRepository.getPaymentMethods(value, currency, currencyType,
+        direct, transactionType)
         .onErrorReturn {
           it.printStackTrace()
           ArrayList()

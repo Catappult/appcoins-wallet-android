@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup.payment
+package com.asfoundation.wallet.topup.adyen
 
 import android.content.Context
 import android.content.Intent
@@ -94,7 +94,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
-  private lateinit var navigator: PaymentFragmentNavigator
+  private lateinit var navigator: TopUpNavigator
   private lateinit var presenter: AdyenTopUpPresenter
 
   private var adyenCardImageLayout: RoundCornerImageView? = null
@@ -128,7 +128,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     check(
         context is TopUpActivityView) { "Payment Auth fragment must be attached to TopUp activity" }
     topUpView = context
-    navigator = PaymentFragmentNavigator((activity as UriNavigator?)!!, topUpView)
+    navigator = TopUpNavigator(requireFragmentManager(), (activity as UriNavigator?)!!, topUpView)
 
   }
 
@@ -282,10 +282,6 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun retrieveBillingAddressData() = billingAddressModel
-
-  override fun navigateToPaymentSelection() {
-    topUpView.navigateBack()
-  }
 
   override fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String) {
     topUpView.unlockRotation()
