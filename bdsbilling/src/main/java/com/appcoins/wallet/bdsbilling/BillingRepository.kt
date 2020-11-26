@@ -39,7 +39,7 @@ interface BillingRepository {
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable
 
-  fun getPaymentMethods(transactionType: String? = null, value: String? = null,
+  fun getPaymentMethods(value: String? = null,
                         currency: String? = null,
                         currencyType: String? = null,
                         direct: Boolean? = null,

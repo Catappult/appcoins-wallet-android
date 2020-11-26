@@ -64,14 +64,16 @@ interface BdsApi {
    * @param currency, currency of purchase
    * @param type, filter for appc and credits payment, use fiat if you don't want appc and credits
    * @param direct, either if it returns non-direct payments (false) (earn appcoins and ask someone to pay) or not
+   * @param transaction.type, INAPP, INAPP_UNMANAGED or TOPUP. This is used to filter async payments in INAPP and INAPP_UNMANAGED,
+   * if null no filter is applied by transactionType
    *
    */
   @GET("broker/8.20201101/methods")
-  fun getPaymentMethods(@Query("transaction.type") transactionType: String? = null,
-                        @Query("price.value") value: String? = null,
+  fun getPaymentMethods(@Query("price.value") value: String? = null,
                         @Query("price.currency") currency: String? = null,
                         @Query("currency.type") type: String? = null,
-                        @Query("direct") direct: Boolean? = null
+                        @Query("direct") direct: Boolean? = null,
+                        @Query("transaction.type") transactionType: String? = null
   ): Single<GetMethodsResponse>
 
   @FormUrlEncoded
