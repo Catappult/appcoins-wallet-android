@@ -64,14 +64,14 @@ interface SubscriptionBillingApi {
                   @Query("wallet.signature")
                   walletSignature: String): Single<SubscriptionPurchaseResponse>
 
-  @POST("{domain}/inapp/subscription/purchases/{uid}/consume")
+  @POST("{domain}/inapp/purchases/{uid}/consume")
   fun consumePurchase(@Path("domain") domain: String,
                       @Path("uid") uid: String,
                       @Query("wallet.address") walletAddress: String,
                       @Query("wallet.signature") walletSignature: String,
                       @Query("payload") payload: String? = null): Completable
 
-  @POST("{domain}/inapp/subscription/purchases/{uid}/acknowledge")
+  @POST("{domain}/inapp/purchases/{uid}/acknowledge")
   fun acknowledgePurchase(@Path("domain") domain: String,
                           @Path("uid") uid: String,
                           @Query("wallet.address") walletAddress: String,
