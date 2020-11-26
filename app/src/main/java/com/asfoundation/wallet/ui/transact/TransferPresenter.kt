@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.transact
 
+import android.content.Intent
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository.Status
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.transact.TransferFragmentView.Currency
 import com.asfoundation.wallet.ui.transact.TransferFragmentView.TransferData
@@ -9,7 +9,8 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
-import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.vision.barcode.Barcode
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -22,15 +23,13 @@ class TransferPresenter(private val view: TransferFragmentView,
                         private val disposables: CompositeDisposable,
                         private val onResumeDisposables: CompositeDisposable,
                         private val interactor: TransferInteractor,
+                        private val navigator: TransferNavigator,
                         private val ioScheduler: Scheduler,
                         private val viewScheduler: Scheduler,
-                        private val walletInteract: FindDefaultWalletInteract,
-                        private val walletBlockedInteract: WalletBlockedInteract,
-                        private val packageName: String,
+                        private val data: TransferFragmentData,
                         private val formatter: CurrencyFormatUtils) {
 
   fun onResume() {
-    handleQrCodeResult()
     handleCurrencyChange()
   }
 
@@ -64,12 +63,10 @@ class TransferPresenter(private val view: TransferFragmentView,
     }
   }
 
-  private fun handleQrCodeResult() {
-    onResumeDisposables.add(view.getQrCodeResult()
-        .observeOn(ioScheduler)
-        .map { QRUri.parse(it.displayValue) }
+  private fun handleQrCodeResult(barcode: Barcode) {
+    onResumeDisposables.add(Single.fromCallable { QRUri.parse(barcode.displayValue) }
         .observeOn(viewScheduler)
-        .doOnNext { handleQRUri(it) }
+        .doOnSuccess { handleQRUri(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -83,13 +80,13 @@ class TransferPresenter(private val view: TransferFragmentView,
 
   private fun handleQrCodeButtonClick() {
     disposables.add(view.getQrCodeButtonClick()
-        .doOnNext { view.showQrCodeScreen() }
+        .doOnNext { navigator.showQrCodeScreen() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun shouldBlockTransfer(currency: Currency): Single<Boolean> {
     return if (currency == Currency.APPC_C) {
-      walletBlockedInteract.isWalletBlocked()
+      interactor.isWalletBlocked()
     } else {
       Single.just(false)
     }
@@ -97,7 +94,10 @@ class TransferPresenter(private val view: TransferFragmentView,
 
   private fun handleButtonClick() {
     disposables.add(view.getSendClick()
-        .doOnNext { view.showLoading() }
+        .doOnNext {
+          navigator.hideKeyboard()
+          navigator.showLoading()
+        }
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
         .flatMapCompletable { data ->
@@ -105,8 +105,8 @@ class TransferPresenter(private val view: TransferFragmentView,
               .flatMapCompletable {
                 if (it) {
                   Completable.fromAction {
-                    view.hideLoading()
-                    view.showWalletBlocked()
+                    navigator.hideLoading()
+                    navigator.showWalletBlocked()
                   }
                       .subscribeOn(viewScheduler)
                 } else {
@@ -116,7 +116,7 @@ class TransferPresenter(private val view: TransferFragmentView,
                         handleTransferResult(data.currency, status, data.walletAddress,
                             data.amount)
                       }
-                      .andThen { view.hideLoading() }
+                      .andThen { navigator.hideLoading() }
                 }
               }
         }
@@ -126,7 +126,7 @@ class TransferPresenter(private val view: TransferFragmentView,
   }
 
   private fun handleError(throwable: Throwable) {
-    view.hideLoading()
+    navigator.hideLoading()
     if (throwable.isNoNetworkException()) {
       view.showNoNetworkError()
     } else {
@@ -161,22 +161,38 @@ class TransferPresenter(private val view: TransferFragmentView,
   private fun handleSuccess(currency: Currency, walletAddress: String,
                             amount: BigDecimal): Completable {
     return when (currency) {
-      Currency.APPC_C -> view.openAppcCreditsConfirmationView(walletAddress, amount, currency)
-      Currency.APPC -> walletInteract.find()
-          .flatMapCompletable { view.openAppcConfirmationView(it.address, walletAddress, amount) }
-      Currency.ETH -> walletInteract.find()
-          .flatMapCompletable { view.openEthConfirmationView(it.address, walletAddress, amount) }
+      Currency.APPC_C -> navigator.openAppcCreditsConfirmationView(walletAddress, amount, currency)
+      Currency.APPC -> interactor.find()
+          .flatMapCompletable {
+            navigator.openAppcConfirmationView(it.address, walletAddress, amount)
+          }
+      Currency.ETH -> interactor.find()
+          .flatMapCompletable {
+            navigator.openEthConfirmationView(it.address, walletAddress, amount)
+          }
     }
   }
 
   private fun handleCreditsTransfer(walletAddress: String,
                                     amount: BigDecimal): Single<Status> {
     return Single.zip(Single.timer(1, TimeUnit.SECONDS),
-        interactor.transferCredits(walletAddress, amount, packageName),
+        interactor.transferCredits(walletAddress, amount, data.packageName),
         BiFunction { _: Long, status: Status -> status })
   }
 
   fun clearOnPause() = onResumeDisposables.clear()
+
+  fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode == TransferNavigator.TRANSACTION_CONFIRMATION_REQUEST_CODE) {
+      navigator.navigateBack()
+    } else if (resultCode == CommonStatusCodes.SUCCESS && requestCode == TransferNavigator.BARCODE_READER_REQUEST_CODE) {
+      data?.let {
+        val barcode = it.getParcelableExtra<Barcode>(BarcodeCaptureActivity.BarcodeObject)
+        println(barcode)
+        barcode?.let { mBarcode -> handleQrCodeResult(mBarcode) }
+      }
+    }
+  }
 
   fun stop() = disposables.clear()
 }
