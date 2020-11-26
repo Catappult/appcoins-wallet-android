@@ -10,7 +10,6 @@ import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
@@ -114,23 +113,21 @@ class AdyenPaymentInteractor(
     return inAppPurchaseInteractor.convertToFiat(amount, currency)
   }
 
-  fun mapCancellation(): Bundle {
-    return billingMessagesMapper.mapCancellation()
-  }
+  fun mapCancellation(): Bundle = billingMessagesMapper.mapCancellation()
 
-  fun removePreSelectedPaymentMethod() {
-    inAppPurchaseInteractor.removePreSelectedPaymentMethod()
-  }
+  fun removePreSelectedPaymentMethod() = inAppPurchaseInteractor.removePreSelectedPaymentMethod()
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 purchaseUid: String?, orderReference: String?, hash: String?,
-                                scheduler: Scheduler): Single<Bundle> {
+                                scheduler: Scheduler): Single<PurchaseBundleModel> {
     val billingType = BillingSupportedType.valueOfInsensitive(type)
     return if (isManagedTransaction(billingType) && sku != null) {
       billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
+          .map {
+            PurchaseBundleModel(billingMessagesMapper.mapPurchase(it, orderReference), it.renewal)
+          }
     } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
+      Single.just(PurchaseBundleModel(billingMessagesMapper.successBundle(hash)))
     }
   }
 

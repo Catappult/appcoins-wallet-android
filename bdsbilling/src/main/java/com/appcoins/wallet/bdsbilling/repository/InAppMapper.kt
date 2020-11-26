@@ -18,7 +18,7 @@ class InAppMapper(private val serializer: ExternalBillingSerializer) {
     val signatureEntity = inAppPurchaseResponse.signature
     val signatureMessage = serializer.serializeSignatureData(inAppPurchaseResponse)
     return Purchase(inAppPurchaseResponse.uid, RemoteProduct(inAppPurchaseResponse.product.name),
-        State.PENDING, false, Package(packageName),
+        State.PENDING, false, null, Package(packageName),
         Signature(signatureEntity.value, signatureMessage))
   }
 

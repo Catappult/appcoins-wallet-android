@@ -184,7 +184,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
                 bonus, isPreselected, gamificationLevel, getSkuDescription(), isSubscription,
-                frequency, "10/12/20"))
+                frequency))
         .commit()
   }
 

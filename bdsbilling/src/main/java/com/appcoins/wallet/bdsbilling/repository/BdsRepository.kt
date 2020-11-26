@@ -90,14 +90,14 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
                                 walletSignature: String,
                                 type: BillingSupportedType?): Single<Boolean> {
     return when (type) {
-      null -> remoteRepository.acknowledgePurchase(packageName, purchaseToken, walletAddress,
+      null -> remoteRepository.consumePurchaseSubs(packageName, purchaseToken, walletAddress,
           walletSignature)
           .onErrorResumeNext {
             //TODO Remove this when MS completes migration to product
             remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
                 walletSignature)
           }
-      BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.acknowledgePurchase(packageName,
+      BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.consumePurchaseSubs(packageName,
           purchaseToken, walletAddress, walletSignature)
       else -> remoteRepository.consumePurchase(packageName, purchaseToken,
           walletAddress, walletSignature)

@@ -27,7 +27,7 @@ interface AdyenPaymentView {
 
   fun close(bundle: Bundle?)
 
-  fun showSuccess()
+  fun showSuccess(renewal: String?)
 
   fun showGenericError()
 

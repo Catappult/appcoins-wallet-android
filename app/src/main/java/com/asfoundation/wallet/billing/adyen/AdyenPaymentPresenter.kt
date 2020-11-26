@@ -10,7 +10,6 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2C
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
@@ -300,11 +299,11 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         && priceCurrency != null
   }
 
-  private fun handleSuccessTransaction(bundle: Bundle): Completable {
-    return Completable.fromAction { view.showSuccess() }
+  private fun handleSuccessTransaction(purchaseBundleModel: PurchaseBundleModel): Completable {
+    return Completable.fromAction { view.showSuccess(purchaseBundleModel.renewal) }
         .andThen(Completable.timer(view.getAnimationDuration(),
             TimeUnit.MILLISECONDS))
-        .andThen(Completable.fromAction { navigator.popView(bundle) })
+        .andThen(Completable.fromAction { navigator.popView(purchaseBundleModel.bundle) })
   }
 
   private fun retrieveFailedReason(uid: String): Completable {
@@ -545,7 +544,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun createBundle(hash: String?, orderReference: String?,
-                           purchaseUid: String?): Single<Bundle> {
+                           purchaseUid: String?): Single<PurchaseBundleModel> {
     return transactionBuilder.flatMap {
       adyenPaymentInteractor.getCompletePurchaseBundle(transactionType, domain, it.skuId,
           purchaseUid, orderReference, hash, networkScheduler)
@@ -553,7 +552,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .map { mapPaymentMethodId(it) }
   }
 
-  private fun mapPaymentMethodId(bundle: Bundle): Bundle {
+  private fun mapPaymentMethodId(purchaseBundleModel: PurchaseBundleModel): PurchaseBundleModel {
+    val bundle = purchaseBundleModel.bundle
     if (paymentType == PaymentType.CARD.name) {
       bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
           PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id)
@@ -561,7 +561,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
           PaymentMethodsView.PaymentMethodId.PAYPAL.id)
     }
-    return bundle
+    return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
   }
 
   private fun handleBuyAnalytics(transactionBuilder: TransactionBuilder) {
