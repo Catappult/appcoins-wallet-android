@@ -22,10 +22,11 @@
     <ImageView
         android:id="@+id/carrier_image"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="31dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:adjustViewBounds="true"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toTopOf="@+id/fee_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
