@@ -43,8 +43,8 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
+import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.mapToSubFrequency
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -68,6 +68,8 @@ import kotlinx.android.synthetic.main.support_error_layout.view.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
@@ -269,7 +271,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         .mergeWith(iabView.backButtonPress())
   }
 
-  override fun showSuccess(renewal: String?) {
+  override fun showSuccess(renewal: Date?) {
     iab_activity_transaction_completed.visibility = VISIBLE
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     if (isSubscription && renewal != null) {
@@ -371,7 +373,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showProductPrice(amount: String, currencyCode: String) {
     var fiatText = "$amount $currencyCode"
     if (isSubscription && frequency != null) {
-      frequency?.mapToSubFrequency(context, amount, currency)
+      val period = Period.parse(frequency!!)
+      period?.mapToSubFrequency(context!!, amount, currencyCode)
           ?.let { fiatText = it }
       appc_price.text = "~${appc_price.text}"
     }
@@ -591,11 +594,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     showBonus()
   }
 
-  private fun setBonusMessage(nextPaymentDate: String) {
-    if (isSubscription) {
-      val nextPaymentText = getString(R.string.subscriptions_details_next_payment_title)
-      next_payment_date.text = "$nextPaymentText $nextPaymentDate"
-    }
+  private fun setBonusMessage(nextPaymentDate: Date) {
+    val df2 = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val formattedDate = df2.format(nextPaymentDate)
+    val nextPaymentText = getString(R.string.subscriptions_details_next_payment_title)
+    next_payment_date.text = "$nextPaymentText $formattedDate"
   }
 
   private fun handleBuyButtonText() {
