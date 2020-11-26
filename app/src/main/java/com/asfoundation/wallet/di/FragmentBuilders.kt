@@ -13,11 +13,12 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.restore.intro.RestoreWalletModule
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
-import com.asfoundation.wallet.topup.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
-import com.asfoundation.wallet.topup.payment.AdyenTopUpFragment
+import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
+import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
+import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentModule
 import com.asfoundation.wallet.ui.AuthenticationErrorFragment
 import com.asfoundation.wallet.ui.SettingsFragment
 import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment
@@ -31,6 +32,8 @@ import com.asfoundation.wallet.ui.backup.success.BackupSuccessModule
 import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentModule
 import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeModule
 import com.asfoundation.wallet.ui.iab.payments.carrier.status.CarrierPaymentFragment
@@ -97,7 +100,7 @@ abstract class FragmentBuilders {
   @ContributesAndroidInjector
   abstract fun bindSharePaymentLinkFragment(): SharePaymentLinkFragment
 
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [LocalPaymentModule::class])
   abstract fun bindLocalPaymentFragment(): LocalPaymentFragment
 
   @ContributesAndroidInjector
@@ -200,7 +203,7 @@ abstract class FragmentBuilders {
   abstract fun bindGamificationFragment(): GamificationFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [LocalTopUpPaymentModule::class])
   abstract fun bindLocalTopUpPaymentFragment(): LocalTopUpPaymentFragment
 
   @FragmentScope

@@ -241,7 +241,8 @@ public class InAppPurchaseInteractor {
 
   Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
       String transactionValue, String currency) {
-    return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency)
+    return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency,
+        transaction.getType())
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
@@ -452,12 +453,12 @@ public class InAppPurchaseInteractor {
           .equals(availablePaymentMethod.getId())) {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), paymentMethodFee, true, null);
+            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null);
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethodFee, false, null);
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null);
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {

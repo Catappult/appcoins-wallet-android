@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab
+package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +12,8 @@ import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -72,13 +74,13 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
         .map { it.url ?: "" }
   }
 
-  fun getTransaction(uri: Uri): Observable<Transaction> =
+  fun getTransaction(uri: Uri, async: Boolean): Observable<Transaction> =
       inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
-          .filter { isEndingState(it.status, it.type) }
+          .filter { isEndingState(it.status, async) }
           .distinctUntilChanged { transaction -> transaction.status }
 
-  private fun isEndingState(status: Transaction.Status, type: String) =
-      (status == PENDING_USER_PAYMENT && type == "TOPUP") ||
+  private fun isEndingState(status: Transaction.Status, async: Boolean) =
+      (status == PENDING_USER_PAYMENT && async) ||
           status == COMPLETED ||
           status == FAILED ||
           status == CANCELED ||
@@ -108,7 +110,14 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     return supportInteractor.showSupport(gamificationLevel)
   }
 
-  private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
+  fun topUpBundle(priceAmount: String, priceCurrency: String, bonus: String,
+                  fiatCurrencySymbol: String): Bundle {
+    return billingMessagesMapper.topUpBundle(priceAmount, priceCurrency, bonus, fiatCurrencySymbol)
+  }
 
-  fun isAsync(type: String) = type == "TOPUP"
+  fun convertToFiat(appcAmount: Double, toCurrency: String): Single<FiatValue> {
+    return inAppPurchaseInteractor.convertToFiat(appcAmount, toCurrency)
+  }
+
+  private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
 }

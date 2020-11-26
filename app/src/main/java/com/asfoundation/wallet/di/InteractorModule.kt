@@ -63,6 +63,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator
 import com.asfoundation.wallet.ui.transact.TransferInteractor
