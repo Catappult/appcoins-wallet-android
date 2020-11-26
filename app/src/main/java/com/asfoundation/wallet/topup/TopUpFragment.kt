@@ -540,7 +540,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
         PaymentType.CARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
         else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,
-            data.iconUrl)
+            data.iconUrl, data.async)
       }
     } else {
       null

@@ -12,7 +12,7 @@ interface TopUpActivityView {
 
   fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData)
 
-  fun navigateToLocalPayment(paymentId: String, icon: String, label: String,
+  fun navigateToLocalPayment(paymentId: String, icon: String, label: String, async: Boolean,
                              topUpData: TopUpPaymentData)
 
   fun navigateToBillingAddress(topUpData: TopUpPaymentData, fiatAmount: String,
@@ -24,8 +24,6 @@ interface TopUpActivityView {
   fun finishActivity(data: Bundle)
 
   fun showBackupNotification(walletAddress: String)
-
-  fun navigateBack()
 
   fun close(navigateToTransactions: Boolean = true)
 

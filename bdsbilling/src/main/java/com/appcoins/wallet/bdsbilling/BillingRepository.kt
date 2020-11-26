@@ -42,7 +42,8 @@ interface BillingRepository {
   fun getPaymentMethods(transactionType: String? = null, value: String? = null,
                         currency: String? = null,
                         currencyType: String? = null,
-                        direct: Boolean? = null): Single<List<PaymentMethodEntity>>
+                        direct: Boolean? = null,
+                        transactionType: String? = null): Single<List<PaymentMethodEntity>>
 
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction>

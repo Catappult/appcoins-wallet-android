@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup.payment
+package com.asfoundation.wallet.topup.adyen
 
 import android.os.Bundle
 import androidx.annotation.StringRes
@@ -105,7 +105,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .delay(1, TimeUnit.SECONDS)
         .doOnNext {
           if (waitingResult) {
-            view.navigateToPaymentSelection()
+            navigator.navigateBack()
           } else {
             loadPaymentMethodInfo(savedInstanceState, true)
           }
@@ -128,7 +128,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .observeOn(viewScheduler)
         .doOnNext {
           if (paymentType == PaymentType.CARD.name) hideSpecificError()
-          else view.navigateToPaymentSelection()
+          else navigator.navigateBack()
         }
         .subscribeOn(viewScheduler)
         .subscribe({}, { it.printStackTrace() })
@@ -398,7 +398,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     disposables.add(view.onAdyen3DSError()
         .observeOn(viewScheduler)
         .doOnNext {
-          if (it == CHALLENGE_CANCELED) view.navigateToPaymentSelection()
+          if (it == CHALLENGE_CANCELED) navigator.navigateBack()
           else handleSpecificError(R.string.unknown_error, logMessage = it)
         }
         .subscribe({}, { it.printStackTrace() }))

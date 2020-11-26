@@ -82,9 +82,10 @@ class BdsBilling(private val repository: BillingRepository,
         }
   }
 
-  override fun getPaymentMethods(transactionType: String?, value: String,
-                                 currency: String): Single<List<PaymentMethodEntity>> {
-    return repository.getPaymentMethods(transactionType, value, currency)
+  override fun getPaymentMethods(value: String,
+                                 currency: String,
+                                 transactionType: String): Single<List<PaymentMethodEntity>> {
+    return repository.getPaymentMethods(value, currency, transactionType = transactionType)
   }
 
   private fun map(it: Boolean) =

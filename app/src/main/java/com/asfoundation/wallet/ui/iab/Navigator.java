@@ -13,4 +13,6 @@ public interface Navigator {
   void navigateToUriForResult(String redirectUrl);
 
   Observable<Uri> uriResults();
+
+  void navigateBack();
 }
