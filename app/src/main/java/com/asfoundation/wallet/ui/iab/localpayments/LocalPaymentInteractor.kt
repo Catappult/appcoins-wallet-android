@@ -12,6 +12,7 @@ import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
@@ -112,6 +113,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   fun topUpBundle(priceAmount: String, priceCurrency: String, bonus: String,
                   fiatCurrencySymbol: String): Bundle {
     return billingMessagesMapper.topUpBundle(priceAmount, priceCurrency, bonus, fiatCurrencySymbol)
+  }
+
+  fun convertToFiat(appcAmount: Double, toCurrency: String): Single<FiatValue> {
+    return inAppPurchaseInteractor.convertToFiat(appcAmount, toCurrency)
   }
 
   private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)

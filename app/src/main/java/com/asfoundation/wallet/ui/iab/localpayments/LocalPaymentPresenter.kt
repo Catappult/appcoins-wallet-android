@@ -10,6 +10,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -185,7 +186,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         transaction.orderReference, transaction.hash, networkScheduler)
         .doOnSuccess {
           analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.amount,
-              data.type, data.paymentId, disposables)
+              data.type, data.paymentId)
+          handleRevenueEvent()
         }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -194,6 +196,14 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
               .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
               .andThen(Completable.fromAction { view.popView(it, data.paymentId) })
         }
+  }
+
+  private fun handleRevenueEvent() {
+    disposables.add(localPaymentInteractor.convertToFiat(data.amount.toDouble(),
+        FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+        .subscribeOn(networkScheduler)
+        .doOnSuccess { fiatValue -> analytics.sendRevenueEvent(fiatValue.amount.toString()) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleAsyncTransactionStatus(transaction: Transaction): Completable {
@@ -207,7 +217,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       Status.COMPLETED -> {
         Completable.fromAction {
           analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.amount,
-              data.type, data.paymentId, disposables)
+              data.type, data.paymentId)
+          handleRevenueEvent()
         }
       }
       else -> Completable.complete()
