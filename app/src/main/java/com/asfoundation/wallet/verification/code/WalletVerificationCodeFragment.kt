@@ -47,6 +47,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     internal const val FORMAT_KEY = "format"
     internal const val PERIOD_KEY = "period"
     internal const val DATE_KEY = "date"
+    private const val CODE_KEY = "code"
 
     @JvmStatic
     fun newInstance(currency: String, symbol: String, value: String, digits: Int, format: String,
@@ -92,11 +93,18 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (data.loaded) setupUi()
-    else presenter.loadInfo()
+    if (data.loaded) setupUi(savedInstanceState)
+    else presenter.loadInfo(savedInstanceState)
   }
 
-  fun setupUi() {
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.apply {
+      putString(CODE_KEY, code.text.toString())
+    }
+  }
+
+  fun setupUi(savedInstance: Bundle?) {
     val amount = formatter.formatCurrency(data.amount!!, WalletCurrency.FIAT)
     val amountWithCurrency = "${data.symbol} $amount"
     val amountWithCurrencyAndSign = "${data.symbol} -$amount"
@@ -122,6 +130,10 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     code.setEms(data.digits!!)
     code.filters = arrayOf(InputFilter.LengthFilter(data.digits!!))
 
+    savedInstance?.let {
+      code.setText(it.getString(CODE_KEY, ""))
+    }
+
     layout_example.trans_date_value.text = date
     layout_example.description_value.text = data.format
     layout_example.amount_value.text = amountWithCurrencyAndSign
@@ -137,9 +149,9 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     })
   }
 
-  override fun updateUi(verificationCodeData: VerificationCodeData) {
+  override fun updateUi(verificationCodeData: VerificationCodeData, savedInstanceState: Bundle?) {
     data = verificationCodeData
-    setupUi()
+    setupUi(savedInstanceState)
   }
 
   override fun showLoading() {

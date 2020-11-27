@@ -25,13 +25,13 @@ class WalletVerificationCodePresenter(private val view: WalletVerificationCodeVi
     handleAnotherCardClicks()
   }
 
-  fun loadInfo() {
+  fun loadInfo(savedInstance: Bundle?) {
     disposable.add(
         interactor.loadVerificationIntroModel()
             .subscribeOn(ioScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              view.updateUi(it)
+              view.updateUi(it, savedInstance)
               view.hideLoading()
               view.unlockRotation()
             }
