@@ -18,7 +18,8 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
                                        private val viewScheduler: Scheduler,
                                        private val ioScheduler: Scheduler,
                                        private val interactor: WalletVerificationIntroInteractor,
-                                       private val adyenErrorCodeMapper: AdyenErrorCodeMapper) {
+                                       private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+                                       private val data: VerificationIntroData) {
 
   companion object {
 
@@ -29,6 +30,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
     loadModel(savedInstanceState)
     handleCancelClicks()
     handleForgetCardClick()
+    handleRetryClick(savedInstanceState)
     handleTryAgainClicks()
     handleSupportClicks()
   }
@@ -65,6 +67,15 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
     )
   }
 
+  private fun handleRetryClick(savedInstanceState: Bundle?) {
+    disposable.add(view.retryClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showLoading() }
+        .delay(1, TimeUnit.SECONDS)
+        .doOnNext { loadModel(savedInstanceState) }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
   private fun handleTryAgainClicks() {
     disposable.add(view.getTryAgainClicks()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
@@ -98,7 +109,8 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
             }
             .observeOn(ioScheduler)
             .flatMapSingle { adyenCard ->
-              interactor.makePayment(adyenCard.cardPaymentMethod, adyenCard.shouldStoreCard, "")
+              interactor.makePayment(adyenCard.cardPaymentMethod, adyenCard.shouldStoreCard,
+                  data.returnUrl)
             }
             .observeOn(viewScheduler)
             .flatMapCompletable { handlePaymentResult(it, verificationInfoModel) }

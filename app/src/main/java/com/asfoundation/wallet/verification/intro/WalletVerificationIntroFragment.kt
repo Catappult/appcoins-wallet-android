@@ -29,6 +29,7 @@ import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.error_top_up_layout.*
 import kotlinx.android.synthetic.main.error_top_up_layout.view.*
 import kotlinx.android.synthetic.main.fragment_verification_intro.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import javax.inject.Inject
 
@@ -88,6 +89,18 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
     super.onViewCreated(view, savedInstanceState)
     setupUi()
     presenter.present(savedInstanceState)
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    if (this::adyenCardNumberLayout.isInitialized) {
+      outState.apply {
+        putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
+        putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
+        putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
+        putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch.isChecked)
+      }
+    }
   }
 
   private fun setupUi() {
@@ -236,6 +249,8 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
   override fun forgetCardClick(): Observable<Any> = RxView.clicks(change_card_button)
 
   override fun getTryAgainClicks() = RxView.clicks(try_again)
+
+  override fun retryClick() = RxView.clicks(retry_button)
 
   override fun getSupportClicks(): Observable<Any> {
     return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))

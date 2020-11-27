@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.verification.intro
 
+import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
@@ -25,10 +26,11 @@ class WalletVerificationIntroModule {
   fun providesWalletVerificationIntroPresenter(fragment: WalletVerificationIntroFragment,
                                                navigator: WalletVerificationIntroNavigator,
                                                logger: Logger,
-                                               interactor: WalletVerificationIntroInteractor): WalletVerificationIntroPresenter {
+                                               interactor: WalletVerificationIntroInteractor,
+                                               data: VerificationIntroData): WalletVerificationIntroPresenter {
     return WalletVerificationIntroPresenter(fragment as WalletVerificationIntroView,
         CompositeDisposable(), navigator, logger, AndroidSchedulers.mainThread(),
-        Schedulers.io(), interactor, AdyenErrorCodeMapper())
+        Schedulers.io(), interactor, AdyenErrorCodeMapper(), data)
   }
 
   @Provides
@@ -40,6 +42,12 @@ class WalletVerificationIntroModule {
   ): WalletVerificationIntroInteractor {
     return WalletVerificationIntroInteractor(adyenPaymentRepository, adyenPaymentInteractor,
         walletService, supportInteractor)
+  }
+
+  @Provides
+  fun providesVerificationIntroData(
+      fragment: WalletVerificationIntroFragment): VerificationIntroData {
+    return VerificationIntroData(RedirectComponent.getReturnUrl(fragment.context!!))
   }
 
 }

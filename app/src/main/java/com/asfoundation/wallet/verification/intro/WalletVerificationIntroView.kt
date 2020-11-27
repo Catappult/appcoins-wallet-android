@@ -9,6 +9,8 @@ interface WalletVerificationIntroView {
 
   fun getCancelClicks(): Observable<Any>
 
+  fun retryClick(): Observable<Any>
+
   fun getSubmitClicks(): Observable<Any>
 
   fun getTryAgainClicks(): Observable<Any>
