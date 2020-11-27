@@ -15,7 +15,7 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
     private const val METHOD = "onebip"
   }
 
-  private val RETURN_URL = "http://${packageName}/return/carrier_billing"
+  private val RETURN_URL = "https://${packageName}/return/carrier_billing"
 
   fun makePayment(walletAddress: String, walletSignature: String,
                   phoneNumber: String, packageName: String, origin: String?, sku: String?,

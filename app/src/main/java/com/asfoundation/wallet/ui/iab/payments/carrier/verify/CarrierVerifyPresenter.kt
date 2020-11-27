@@ -86,9 +86,10 @@ class CarrierVerifyPresenter(
                 completable = handleError(paymentModel)
               } else {
                 if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
-                  completable = Completable.fromAction {
-                    safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
-                      fee.cost?.let { cost ->
+                  completable = handleUnknownFeeOrCarrier()
+                  safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
+                    fee.cost?.let { cost ->
+                      completable = Completable.fromAction {
                         navigator.navigateToFee(paymentModel.uid, data.domain,
                             data.transactionData, data.transactionType, paymentModel.paymentUrl!!,
                             data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
@@ -104,6 +105,13 @@ class CarrierVerifyPresenter(
             .retry()
             .subscribe({}, { handleException(it) })
     )
+  }
+
+  private fun handleUnknownFeeOrCarrier(): Completable {
+    return Completable.fromAction {
+      logger.log(CarrierVerifyFragment.TAG, "Unknown fee or carrier")
+      navigator.navigateToError(stringProvider.getString(R.string.activity_iab_error_message))
+    }
   }
 
   private fun handleException(throwable: Throwable) {

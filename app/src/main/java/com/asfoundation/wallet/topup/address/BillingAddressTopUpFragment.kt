@@ -11,12 +11,14 @@ import android.widget.ArrayAdapter
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.address.BillingAddressTextWatcher
-import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_CANCEL_CODE
+import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_SUCCESS_CODE
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
+import com.asfoundation.wallet.topup.adyen.TopUpNavigator
+import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -60,12 +62,14 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
   lateinit var formatter: CurrencyFormatUtils
 
   private lateinit var topUpView: TopUpActivityView
+  private lateinit var navigator: Navigator
   private lateinit var presenter: BillingAddressTopUpPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        BillingAddressTopUpPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
+        BillingAddressTopUpPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread(),
+            navigator)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -107,18 +111,9 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
   }
 
   override fun finishSuccess(billingAddressModel: BillingAddressModel) {
-    val intent = Intent().apply {
-      putExtra(BILLING_ADDRESS_MODEL, billingAddressModel)
-    }
+    val intent = Intent().apply { putExtra(BILLING_ADDRESS_MODEL, billingAddressModel) }
     targetFragment?.onActivityResult(BILLING_ADDRESS_REQUEST_CODE, BILLING_ADDRESS_SUCCESS_CODE,
         intent)
-    topUpView.navigateBack()
-  }
-
-  override fun cancel() {
-    targetFragment?.onActivityResult(BILLING_ADDRESS_REQUEST_CODE, BILLING_ADDRESS_CANCEL_CODE,
-        null)
-    topUpView.navigateBack()
   }
 
   override fun submitClicks(): Observable<BillingAddressModel> {
@@ -177,6 +172,7 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
     check(
         context is TopUpActivityView) { "billing address fragment must be attached to TopUp activity" }
     topUpView = context
+    navigator = TopUpNavigator(requireFragmentManager(), (activity as UriNavigator?)!!, topUpView)
   }
 
   private fun showBonus() {

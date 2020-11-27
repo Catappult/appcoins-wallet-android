@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab
+package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -11,7 +11,8 @@ interface LocalPaymentView {
 
   fun hideLoading()
 
-  fun showPendingUserPayment(paymentMethodIcon: Bitmap, applicationIcon: Bitmap)
+  fun showPendingUserPayment(paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
+                             applicationIcon: Bitmap)
 
   fun showCompletedPayment()
 
@@ -27,7 +28,7 @@ interface LocalPaymentView {
 
   fun getAnimationDuration(): Long
 
-  fun popView(bundle: Bundle)
+  fun popView(bundle: Bundle, paymentId: String)
 
   fun lockRotation()
 
@@ -36,6 +37,8 @@ interface LocalPaymentView {
   fun getSupportIconClicks(): Observable<Any>
 
   fun showWalletValidation(@StringRes error: Int)
+
+  fun setupUi(bonus: String?)
 
   enum class ViewState {
     NONE, COMPLETED, PENDING_USER_PAYMENT, ERROR, LOADING

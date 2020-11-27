@@ -10,14 +10,12 @@ import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.LocalPaymentAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
 import com.facebook.appevents.AppEventsLogger
 import dagger.Module
 import dagger.Provides
-import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import java.util.concurrent.CopyOnWriteArrayList
 import javax.inject.Named
@@ -27,9 +25,8 @@ import javax.inject.Singleton
 class AnalyticsModule {
 
   @Provides
-  fun provideLocalPaymentAnalytics(billingAnalytics: BillingAnalytics,
-                                   inAppPurchaseInteractor: InAppPurchaseInteractor): LocalPaymentAnalytics {
-    return LocalPaymentAnalytics(billingAnalytics, inAppPurchaseInteractor, Schedulers.io())
+  fun provideLocalPaymentAnalytics(billingAnalytics: BillingAnalytics): LocalPaymentAnalytics {
+    return LocalPaymentAnalytics(billingAnalytics)
   }
 
   @Singleton

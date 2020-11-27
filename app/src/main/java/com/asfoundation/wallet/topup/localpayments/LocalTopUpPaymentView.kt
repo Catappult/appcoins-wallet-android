@@ -1,10 +1,11 @@
-package com.asfoundation.wallet.topup
+package com.asfoundation.wallet.topup.localpayments
 
 import android.graphics.Bitmap
 import io.reactivex.Observable
 
 interface LocalTopUpPaymentView {
-  fun showValues(value: String, currency: String, appcValue: String)
+  fun showValues(value: String, currency: String, appcValue: String,
+                 selectedCurrencyType: String)
 
   fun showError()
 
@@ -20,13 +21,14 @@ interface LocalTopUpPaymentView {
 
   fun showProcessingLoading()
 
-  fun showPendingUserPayment(paymentMethodIcon: Bitmap)
-
-  fun navigateToPaymentSelection()
+  fun showPendingUserPayment(paymentMethodIcon: Bitmap,
+                             paymentLabel: String)
 
   fun showNetworkError()
 
   fun showRetryAnimation()
+
+  fun close()
 }
 
 enum class ViewState {
