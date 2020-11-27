@@ -1,10 +1,6 @@
 package com.asfoundation.wallet.ui.transact
 
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
@@ -19,10 +15,10 @@ import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import io.reactivex.Completable
 import java.math.BigDecimal
 
-class TransferNavigator(private val fragmentManager: FragmentManager,
-                        private val fragment: TransferFragment,
-                        private val activity: FragmentActivity,
-                        private val defaultTokenProvider: DefaultTokenProvider) {
+class TransferFragmentNavigator(private val fragmentManager: FragmentManager,
+                                private val fragment: TransferFragment,
+                                private val activity: FragmentActivity,
+                                private val defaultTokenProvider: DefaultTokenProvider) {
 
   companion object {
     const val TRANSACTION_CONFIRMATION_REQUEST_CODE = 12344
@@ -80,14 +76,6 @@ class TransferNavigator(private val fragmentManager: FragmentManager,
 
   fun navigateBack() = activity.onBackPressed()
 
-  fun hideKeyboard() {
-    val inputMethodManager =
-        activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    var view = activity.currentFocus
-    if (view == null) view = View(activity)
-    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-  }
-
   fun showWalletBlocked() {
     fragment.startActivityForResult(WalletBlockedActivity.newIntent(activity),
         IabActivity.BLOCKED_WARNING_REQUEST_CODE)
@@ -99,7 +87,6 @@ class TransferNavigator(private val fragmentManager: FragmentManager,
   }
 
   fun showLoading() {
-    lockOrientation()
     fragmentManager.beginTransaction()
         .add(android.R.id.content, LoadingFragment.newInstance(), LoadingFragment::class.java.name)
         .commit()
@@ -112,14 +99,5 @@ class TransferNavigator(private val fragmentManager: FragmentManager,
           .remove(fragment)
           .commit()
     }
-    unlockOrientation()
-  }
-
-  private fun lockOrientation() {
-    activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
-  }
-
-  private fun unlockOrientation() {
-    activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 }

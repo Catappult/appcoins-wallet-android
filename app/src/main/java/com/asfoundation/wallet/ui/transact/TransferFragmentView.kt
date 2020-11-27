@@ -30,6 +30,12 @@ interface TransferFragmentView {
 
   fun showNoNetworkError()
 
+  fun hideKeyboard()
+
+  fun lockOrientation()
+
+  fun unlockOrientation()
+
   data class TransferData(val walletAddress: String, val currency: Currency,
                           val amount: BigDecimal) : Serializable
 

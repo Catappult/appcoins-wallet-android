@@ -19,15 +19,15 @@ import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-class TransferPresenter(private val view: TransferFragmentView,
-                        private val disposables: CompositeDisposable,
-                        private val onResumeDisposables: CompositeDisposable,
-                        private val interactor: TransferInteractor,
-                        private val navigator: TransferNavigator,
-                        private val ioScheduler: Scheduler,
-                        private val viewScheduler: Scheduler,
-                        private val data: TransferFragmentData,
-                        private val formatter: CurrencyFormatUtils) {
+class TransferFragmentPresenter(private val view: TransferFragmentView,
+                                private val disposables: CompositeDisposable,
+                                private val onResumeDisposables: CompositeDisposable,
+                                private val interactor: TransferInteractor,
+                                private val navigator: TransferFragmentNavigator,
+                                private val ioScheduler: Scheduler,
+                                private val viewScheduler: Scheduler,
+                                private val data: TransferFragmentData,
+                                private val formatter: CurrencyFormatUtils) {
 
   fun onResume() {
     handleCurrencyChange()
@@ -95,7 +95,8 @@ class TransferPresenter(private val view: TransferFragmentView,
   private fun handleButtonClick() {
     disposables.add(view.getSendClick()
         .doOnNext {
-          navigator.hideKeyboard()
+          view.hideKeyboard()
+          view.lockOrientation()
           navigator.showLoading()
         }
         .subscribeOn(viewScheduler)
@@ -106,6 +107,7 @@ class TransferPresenter(private val view: TransferFragmentView,
                 if (it) {
                   Completable.fromAction {
                     navigator.hideLoading()
+                    view.unlockOrientation()
                     navigator.showWalletBlocked()
                   }
                       .subscribeOn(viewScheduler)
@@ -116,7 +118,10 @@ class TransferPresenter(private val view: TransferFragmentView,
                         handleTransferResult(data.currency, status, data.walletAddress,
                             data.amount)
                       }
-                      .andThen { navigator.hideLoading() }
+                      .andThen {
+                        navigator.hideLoading()
+                        view.unlockOrientation()
+                      }
                 }
               }
         }
@@ -127,6 +132,7 @@ class TransferPresenter(private val view: TransferFragmentView,
 
   private fun handleError(throwable: Throwable) {
     navigator.hideLoading()
+    view.unlockOrientation()
     if (throwable.isNoNetworkException()) {
       view.showNoNetworkError()
     } else {
@@ -183,9 +189,9 @@ class TransferPresenter(private val view: TransferFragmentView,
   fun clearOnPause() = onResumeDisposables.clear()
 
   fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == TransferNavigator.TRANSACTION_CONFIRMATION_REQUEST_CODE) {
+    if (requestCode == TransferFragmentNavigator.TRANSACTION_CONFIRMATION_REQUEST_CODE) {
       navigator.navigateBack()
-    } else if (resultCode == CommonStatusCodes.SUCCESS && requestCode == TransferNavigator.BARCODE_READER_REQUEST_CODE) {
+    } else if (resultCode == CommonStatusCodes.SUCCESS && requestCode == TransferFragmentNavigator.BARCODE_READER_REQUEST_CODE) {
       data?.let {
         val barcode = it.getParcelableExtra<Barcode>(BarcodeCaptureActivity.BarcodeObject)
         println(barcode)

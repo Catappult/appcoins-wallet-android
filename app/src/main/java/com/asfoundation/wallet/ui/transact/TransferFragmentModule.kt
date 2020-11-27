@@ -19,10 +19,10 @@ class TransferFragmentModule {
   fun providesTransferPresenter(transferFragment: TransferFragment,
                                 interactor: TransferInteractor,
                                 data: TransferFragmentData,
-                                navigator: TransferNavigator,
-                                currencyFormatUtils: CurrencyFormatUtils): TransferPresenter {
-    return TransferPresenter(transferFragment as TransferFragmentView, CompositeDisposable(),
-        CompositeDisposable(), interactor, navigator, Schedulers.io(),
+                                navigator: TransferFragmentNavigator,
+                                currencyFormatUtils: CurrencyFormatUtils): TransferFragmentPresenter {
+    return TransferFragmentPresenter(transferFragment as TransferFragmentView,
+        CompositeDisposable(), CompositeDisposable(), interactor, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), data, currencyFormatUtils)
   }
 
@@ -41,8 +41,8 @@ class TransferFragmentModule {
 
   @Provides
   fun providesTransferNavigator(transferFragment: TransferFragment,
-                                defaultTokenProvider: DefaultTokenProvider): TransferNavigator {
-    return TransferNavigator(transferFragment.requireFragmentManager(), transferFragment,
+                                defaultTokenProvider: DefaultTokenProvider): TransferFragmentNavigator {
+    return TransferFragmentNavigator(transferFragment.requireFragmentManager(), transferFragment,
         transferFragment.activity!!, defaultTokenProvider)
   }
 }
