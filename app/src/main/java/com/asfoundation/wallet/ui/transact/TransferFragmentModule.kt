@@ -16,11 +16,11 @@ import io.reactivex.schedulers.Schedulers
 class TransferFragmentModule {
 
   @Provides
-  fun providesTransferPresenter(transferFragment: TransferFragment,
-                                interactor: TransferInteractor,
-                                data: TransferFragmentData,
-                                navigator: TransferFragmentNavigator,
-                                currencyFormatUtils: CurrencyFormatUtils): TransferFragmentPresenter {
+  fun providesTransferFragmentPresenter(transferFragment: TransferFragment,
+                                        interactor: TransferInteractor,
+                                        data: TransferFragmentData,
+                                        navigator: TransferFragmentNavigator,
+                                        currencyFormatUtils: CurrencyFormatUtils): TransferFragmentPresenter {
     return TransferFragmentPresenter(transferFragment as TransferFragmentView,
         CompositeDisposable(), CompositeDisposable(), interactor, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), data, currencyFormatUtils)
@@ -40,8 +40,8 @@ class TransferFragmentModule {
           walletBlockedInteract)
 
   @Provides
-  fun providesTransferNavigator(transferFragment: TransferFragment,
-                                defaultTokenProvider: DefaultTokenProvider): TransferFragmentNavigator {
+  fun providesTransferFragmentNavigator(transferFragment: TransferFragment,
+                                        defaultTokenProvider: DefaultTokenProvider): TransferFragmentNavigator {
     return TransferFragmentNavigator(transferFragment.requireFragmentManager(), transferFragment,
         transferFragment.activity!!, defaultTokenProvider)
   }
