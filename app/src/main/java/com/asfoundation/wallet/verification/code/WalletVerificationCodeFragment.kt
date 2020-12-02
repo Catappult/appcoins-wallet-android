@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.error_top_up_layout.*
 import kotlinx.android.synthetic.main.error_top_up_layout.view.*
 import kotlinx.android.synthetic.main.fragment_verification_code.*
 import kotlinx.android.synthetic.main.layout_verify_example.view.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.util.*
 import javax.inject.Inject
 
@@ -221,6 +222,8 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
   override fun getSupportClicks(): Observable<Any> {
     return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
   }
+
+  override fun retryClick() = RxView.clicks(retry_button)
 
   private fun convertToDate(ts: Long): String {
     val cal = Calendar.getInstance(Locale.ENGLISH)

@@ -5,6 +5,7 @@ import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class WalletVerificationCodePresenter(private val view: WalletVerificationCodeView,
                                       private val disposable: CompositeDisposable,
@@ -19,10 +20,23 @@ class WalletVerificationCodePresenter(private val view: WalletVerificationCodeVi
     private val TAG = WalletVerificationCodePresenter::class.java.name
   }
 
-  fun present(savedInstanceState: Bundle?) {
+  fun present() {
     handleConfirmClicks()
     handleLaterClicks()
+    handleRetryClick()
     handleAnotherCardClicks()
+  }
+
+  private fun handleRetryClick() {
+    disposable.add(view.retryClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showLoading() }
+        .delay(1, TimeUnit.SECONDS)
+        .doOnNext {
+          view.hideLoading()
+          view.unlockRotation()
+        }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun loadInfo(savedInstance: Bundle?) {

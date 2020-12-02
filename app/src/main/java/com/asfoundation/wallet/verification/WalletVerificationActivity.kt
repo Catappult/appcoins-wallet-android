@@ -50,6 +50,10 @@ class WalletVerificationActivity : BaseActivity(), WalletVerificationActivityVie
     finish()
   }
 
+  override fun complete() {
+    finish()
+  }
+
   override fun lockRotation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }

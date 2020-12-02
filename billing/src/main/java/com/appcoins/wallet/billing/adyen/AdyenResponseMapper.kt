@@ -9,10 +9,13 @@ import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
+import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
+import com.google.gson.Gson
 import org.json.JSONObject
+import retrofit2.HttpException
 
-class AdyenResponseMapper {
+class AdyenResponseMapper(private val gson: Gson) {
 
   fun map(response: PaymentMethodsResponse,
           method: AdyenPaymentRepository.Methods): PaymentInfoModel {
@@ -78,11 +81,25 @@ class AdyenResponseMapper {
         Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
   }
 
+  fun mapVerificationPaymentModeSuccess(): VerificationPaymentModel {
+    return VerificationPaymentModel(true, null, null)
+  }
+
   fun mapVerificationPaymentModelError(throwable: Throwable): VerificationPaymentModel {
+    //TODO improve
     throwable.printStackTrace()
-    val codeAndMessage = throwable.getErrorCodeAndMessage()
-    return VerificationPaymentModel(
-        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
+    if (throwable is HttpException) {
+      val body = throwable.getMessage()
+      val verificationTransactionResponse =
+          gson.fromJson(body, VerificationTransactionResponse::class.java)
+      return VerificationPaymentModel(false, verificationTransactionResponse.data?.refusalReason,
+          verificationTransactionResponse.data?.refusalReasonCode?.toInt())
+    } else {
+      val codeAndMessage = throwable.getErrorCodeAndMessage()
+      return VerificationPaymentModel(false, null, null,
+          Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
+              codeAndMessage.second))
+    }
   }
 
   fun mapVerificationCodeError(throwable: Throwable): VerificationCodeResult {

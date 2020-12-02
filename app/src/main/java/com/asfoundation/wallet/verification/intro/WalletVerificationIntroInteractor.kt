@@ -2,10 +2,7 @@ package com.asfoundation.wallet.verification.intro
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
+import com.appcoins.wallet.billing.adyen.*
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Completable
@@ -36,7 +33,7 @@ class WalletVerificationIntroInteractor(
   }
 
   fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                  returnUrl: String): Single<PaymentModel> {
+                  returnUrl: String): Single<VerificationPaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap {
           adyenPaymentRepository.makeVerificationPayment(adyenPaymentMethod, shouldStoreMethod,

@@ -35,4 +35,6 @@ interface WalletVerificationCodeView {
 
   fun getSupportClicks(): Observable<Any>
 
+  fun retryClick(): Observable<Any>
+
 }

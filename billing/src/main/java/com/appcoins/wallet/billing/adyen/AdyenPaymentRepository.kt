@@ -40,17 +40,17 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                               returnUrl: String, walletAddress: String,
-                              walletSignature: String): Single<PaymentModel> {
+                              walletSignature: String): Single<VerificationPaymentModel> {
     return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        .map { adyenResponseMapper.map(it) }
-        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+        .toSingle { adyenResponseMapper.mapVerificationPaymentModeSuccess() }
+        .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
   }
 
   fun validateCode(code: String, walletAddress: String,
                    walletSignature: String): Single<VerificationCodeResult> {
     return adyenApi.validateCode(walletAddress, walletSignature, code)
-        .map { VerificationCodeResult(true) }
+        .toSingle { VerificationCodeResult(true) }
         .onErrorReturn { adyenResponseMapper.mapVerificationCodeError(it) }
   }
 
@@ -132,12 +132,12 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     fun makeVerificationPayment(@Query("wallet.address") walletAddress: String,
                                 @Query("wallet.signature") walletSignature: String,
                                 @Body
-                                verificationPayment: VerificationPayment): Single<AdyenTransactionResponse>
+                                verificationPayment: VerificationPayment): Completable
 
-    @POST("verification/generate")
+    @POST("verification/validate")
     fun validateCode(@Query("wallet.address") walletAddress: String,
                      @Query("wallet.signature") walletSignature: String,
-                     @Body code: String): Single<VerificationCodeResponse>
+                     @Body code: String): Completable
   }
 
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,

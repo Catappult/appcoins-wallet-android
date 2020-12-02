@@ -20,7 +20,7 @@ class WalletVerificationActivityModule {
   @Provides
   fun providesWalletVerificationActivityNavigator(
       activity: WalletVerificationActivity): WalletVerificationActivityNavigator {
-    return WalletVerificationActivityNavigator(activity, activity.supportFragmentManager)
+    return WalletVerificationActivityNavigator(activity.supportFragmentManager)
   }
 
   @Provides

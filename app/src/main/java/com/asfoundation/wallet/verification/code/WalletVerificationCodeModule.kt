@@ -3,6 +3,7 @@ package com.asfoundation.wallet.verification.code
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.verification.WalletVerificationActivityView
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,7 +32,8 @@ class WalletVerificationCodeModule {
   @Provides
   fun providesWalletVerificationCodeNavigator(
       fragment: WalletVerificationCodeFragment): WalletVerificationCodeNavigator {
-    return WalletVerificationCodeNavigator(fragment.requireFragmentManager())
+    return WalletVerificationCodeNavigator(fragment.requireFragmentManager(),
+        fragment.activity as WalletVerificationActivityView)
   }
 
   @Provides

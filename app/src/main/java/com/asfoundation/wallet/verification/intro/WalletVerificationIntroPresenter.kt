@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.intro
 
 import android.os.Bundle
-import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
@@ -121,29 +121,13 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
     )
   }
 
-  private fun handlePaymentResult(paymentModel: PaymentModel,
+  private fun handlePaymentResult(paymentModel: VerificationPaymentModel,
                                   verificationInfoModel: VerificationInfoModel): Completable {
     return when {
-      paymentModel.resultCode.equals("AUTHORISED", true) -> {
-        interactor.getAuthorisedTransaction(paymentModel.uid)
-            .subscribeOn(ioScheduler)
+      paymentModel.success -> {
+        Completable.complete()
             .observeOn(viewScheduler)
-            .flatMapCompletable {
-              when {
-                it.status == TransactionStatus.COMPLETED -> {
-                  Completable.complete()
-                      .observeOn(viewScheduler)
-                      .andThen(handleSuccessTransaction(verificationInfoModel))
-                }
-                isPaymentFailed(it.status) -> {
-                  Completable.fromAction { handleErrors(it.error) }
-                      .subscribeOn(viewScheduler)
-                }
-                else -> {
-                  Completable.fromAction { handleErrors(it.error) }
-                }
-              }
-            }
+            .andThen(handleSuccessTransaction(verificationInfoModel))
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
         paymentModel.refusalCode?.let { code ->
@@ -156,7 +140,6 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
       paymentModel.error.hasError -> Completable.fromAction {
         handleErrors(paymentModel.error)
       }
-      paymentModel.status == TransactionStatus.CANCELED -> Completable.fromAction { view.cancel() }
       else -> Completable.fromAction {
         view.showGenericError()
       }
@@ -201,6 +184,7 @@ class WalletVerificationIntroPresenter(private val view: WalletVerificationIntro
                     it.paymentInfoModel.isStored, false, null)
               }
         }
+        .observeOn(viewScheduler)
         .subscribe({}, {
           logger.log(TAG, it)
           view.showGenericError()

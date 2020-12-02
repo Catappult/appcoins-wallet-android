@@ -4,6 +4,8 @@ interface WalletVerificationActivityView {
 
   fun cancel()
 
+  fun complete()
+
   fun lockRotation()
 
   fun unlockRotation()
