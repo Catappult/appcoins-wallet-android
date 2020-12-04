@@ -21,7 +21,6 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
 import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
@@ -271,18 +270,6 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
       walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
     } else {
       activityView?.navigateToTransactions()
-    }
-  }
-
-  override fun openWalletValidationScreen() {
-    context?.let {
-      val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
-          navigateToTransactionsOnSuccess = false, navigateToTransactionsOnCancel = false,
-          showToolbar = true, previousContext = "settings")
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-          }
-      startActivity(intent)
     }
   }
 

@@ -136,7 +136,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
             if (walletStatus.verified) {
               navigator.navigateToError(R.string.purchase_error_wallet_block_code_403)
             } else {
-              navigator.navigateToWalletValidation(R.string.purchase_error_wallet_block_code_403)
+              navigator.navigateToVerification()
             }
           } else {
             navigator.navigateToError(R.string.purchase_error_wallet_block_code_403)

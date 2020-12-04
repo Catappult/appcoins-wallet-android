@@ -239,8 +239,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     iabView.lockRotation();
   }
 
-  @Override public void showWalletValidation(@StringRes int error) {
-    iabView.showWalletValidation(error);
+  @Override public void showVerification() {
+    iabView.showVerification();
   }
 
   @Override public void onAttach(Context context) {

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -131,7 +130,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     iabView.finish(bundle)
   }
 
-  override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
+  override fun showVerification() = iabView.showVerification()
 
   override fun showTransactionCompleted() {
     loading_view.visibility = View.GONE

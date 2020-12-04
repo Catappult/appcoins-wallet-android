@@ -59,8 +59,6 @@ interface BalanceFragmentView {
 
   fun getInsertCodeClick(): Observable<Any>
 
-  fun openWalletValidationScreen()
-
   fun openWalletVerificationScreen()
 
   fun showVerifiedWalletChip()

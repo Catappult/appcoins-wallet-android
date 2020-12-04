@@ -22,8 +22,8 @@ import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.transactions.PerkBonusService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
+import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
@@ -60,7 +60,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     fun newIntent(context: Context) = Intent(context, TopUpActivity::class.java)
 
     const val WEB_VIEW_REQUEST_CODE = 1234
-    const val WALLET_VALIDATION_REQUEST_CODE = 1235
     const val BILLING_ADDRESS_REQUEST_CODE = 1236
     const val BILLING_ADDRESS_SUCCESS_CODE = 1000
     const val ERROR_MESSAGE = "error_message"
@@ -99,13 +98,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     fragment_container.visibility = View.VISIBLE
   }
 
-  override fun showWalletValidation(@StringRes error: Int) {
+  override fun showVerification() {
     fragment_container.visibility = View.GONE
-    val intent = WalletValidationActivity.newIntent(this, error)
+    val intent = VerificationActivity.newIntent(this)
         .apply {
           intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
-    startActivityForResult(intent, WALLET_VALIDATION_REQUEST_CODE)
+    startActivity(intent)
+    finish()
   }
 
   override fun showError(@StringRes error: Int) {

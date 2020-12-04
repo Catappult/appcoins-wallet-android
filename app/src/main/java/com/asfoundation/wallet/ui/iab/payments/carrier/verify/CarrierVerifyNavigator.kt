@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
-import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabActivity
@@ -38,6 +37,5 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
 
   fun finishActivityWithError() = iabActivity.finishWithError()
 
-  fun navigateToWalletValidation(@StringRes messageStringRes: Int) =
-      iabActivity.showWalletValidation(messageStringRes)
+  fun navigateToVerification() = iabActivity.showVerification()
 }

@@ -138,7 +138,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                 .observeOn(viewScheduler)
                 .doOnSuccess {
                   if (it) view.showError(R.string.purchase_error_wallet_block_code_403)
-                  else view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
+                  else view.showVerification()
                 }
           } else {
             Single.just(true)

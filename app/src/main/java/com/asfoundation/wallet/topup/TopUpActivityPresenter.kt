@@ -2,11 +2,8 @@ package com.asfoundation.wallet.topup
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.annotation.StringRes
 import com.asf.wallet.R
-import com.asfoundation.wallet.topup.TopUpActivity.Companion.WALLET_VALIDATION_REQUEST_CODE
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
-import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -54,12 +51,6 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
           view.cancelPayment()
         }
       }
-    } else if (requestCode == WALLET_VALIDATION_REQUEST_CODE) {
-      var errorMessage = data?.getIntExtra(IabActivity.ERROR_MESSAGE, 0)
-      if (errorMessage == null || errorMessage == 0) {
-        errorMessage = R.string.unknown_error
-      }
-      handleWalletBlockedCheck(errorMessage)
     }
   }
 
@@ -69,20 +60,6 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
         .observeOn(viewScheduler)
         .doOnComplete { view.cancelPayment() }
         .subscribe({}, { it.printStackTrace() }))
-  }
-
-  private fun handleWalletBlockedCheck(@StringRes error: Int) {
-    disposables.add(
-        topUpInteractor.isWalletBlocked()
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess {
-              view.popBackStack()
-              if (it) view.showError(error)
-              else view.showTopUpScreen()
-            }
-            .subscribe({}, { handleError(it) })
-    )
   }
 
   private fun handleError(throwable: Throwable) {

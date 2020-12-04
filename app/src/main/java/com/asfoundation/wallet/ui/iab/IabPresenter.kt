@@ -3,8 +3,6 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.annotation.StringRes
-import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -63,18 +61,6 @@ class IabPresenter(private val view: IabView,
     )
   }
 
-  private fun handleWalletBlockedCheck(@StringRes error: Int) {
-    disposable.add(iabInteract.isWalletBlocked()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          if (it) view.showError(error)
-          else view.showPaymentMethodsView()
-        }
-        .subscribe({}, { handleError(it) })
-    )
-  }
-
   private fun handleError(throwable: Throwable) {
     logger.log(TAG, throwable)
     view.finishWithError()
@@ -107,7 +93,7 @@ class IabPresenter(private val view: IabView,
     )
   }
 
-  fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
+  private fun handlePurchaseStartAnalytics(transaction: TransactionBuilder?) {
     disposable.add(Completable.fromAction {
       if (firstImpression) {
         if (iabInteract.hasPreSelectedPaymentMethod()) {
@@ -188,7 +174,6 @@ class IabPresenter(private val view: IabView,
   fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     when (requestCode) {
       IabActivity.WEB_VIEW_REQUEST_CODE -> handleWebViewResult(resultCode, data)
-      IabActivity.WALLET_VALIDATION_REQUEST_CODE -> handleWalletValidationResult(data)
       IabActivity.AUTHENTICATION_REQUEST_CODE -> handleAuthenticationResult(resultCode)
     }
   }
@@ -217,14 +202,6 @@ class IabPresenter(private val view: IabView,
       }
       view.successWebViewResult(data!!.data)
     }
-  }
-
-  private fun handleWalletValidationResult(data: Intent?) {
-    var errorMessage = data?.getIntExtra(IabActivity.ERROR_MESSAGE, 0)
-    if (errorMessage == null || errorMessage == 0) {
-      errorMessage = R.string.unknown_error
-    }
-    handleWalletBlockedCheck(errorMessage)
   }
 
   private fun handleAuthenticationResult(resultCode: Int) {

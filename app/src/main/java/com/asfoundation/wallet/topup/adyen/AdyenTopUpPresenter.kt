@@ -381,7 +381,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) handleSpecificError(error)
-                      else view.showWalletValidation(error)
+                      else view.showVerification()
                     }
               } else {
                 Single.just(true)
