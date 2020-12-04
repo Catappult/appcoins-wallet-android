@@ -15,8 +15,8 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity
 import com.asfoundation.wallet.ui.onboarding.OnboardingModule
-import com.asfoundation.wallet.verification.WalletVerificationActivity
-import com.asfoundation.wallet.verification.WalletVerificationActivityModule
+import com.asfoundation.wallet.verification.VerificationActivity
+import com.asfoundation.wallet.verification.VerificationActivityModule
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
@@ -129,7 +129,7 @@ abstract class ActivityBuilders {
   internal abstract fun bindAuthenticationPromptActivity(): AuthenticationPromptActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [WalletVerificationActivityModule::class])
-  internal abstract fun bindWalletVerificationActivity(): WalletVerificationActivity
+  @ContributesAndroidInjector(modules = [VerificationActivityModule::class])
+  internal abstract fun bindVerificationActivity(): VerificationActivity
 
 }

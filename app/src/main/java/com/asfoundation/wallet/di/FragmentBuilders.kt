@@ -50,10 +50,10 @@ import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
-import com.asfoundation.wallet.verification.code.WalletVerificationCodeFragment
-import com.asfoundation.wallet.verification.code.WalletVerificationCodeModule
-import com.asfoundation.wallet.verification.intro.WalletVerificationIntroFragment
-import com.asfoundation.wallet.verification.intro.WalletVerificationIntroModule
+import com.asfoundation.wallet.verification.code.VerificationCodeFragment
+import com.asfoundation.wallet.verification.code.VerificationCodeModule
+import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
+import com.asfoundation.wallet.verification.intro.VerificationIntroModule
 import com.asfoundation.wallet.wallet_validation.dialog.CodeValidationDialogFragment
 import com.asfoundation.wallet.wallet_validation.dialog.PhoneValidationDialogFragment
 import com.asfoundation.wallet.wallet_validation.dialog.ValidationLoadingDialogFragment
@@ -240,10 +240,10 @@ abstract class FragmentBuilders {
   abstract fun bindIabErrorFragment(): IabErrorFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(modules = [WalletVerificationIntroModule::class])
-  abstract fun bindWalletVerificationIntroFragment(): WalletVerificationIntroFragment
+  @ContributesAndroidInjector(modules = [VerificationIntroModule::class])
+  abstract fun bindVerificationIntroFragment(): VerificationIntroFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(modules = [WalletVerificationCodeModule::class])
-  abstract fun bindWalletVerificationCodeFragment(): WalletVerificationCodeFragment
+  @ContributesAndroidInjector(modules = [VerificationCodeModule::class])
+  abstract fun bindVerificationCodeFragment(): VerificationCodeFragment
 }

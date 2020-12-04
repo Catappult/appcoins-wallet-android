@@ -2,22 +2,22 @@ package com.asfoundation.wallet.verification
 
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.verification.code.WalletVerificationCodeFragment
-import com.asfoundation.wallet.verification.intro.WalletVerificationIntroFragment
+import com.asfoundation.wallet.verification.code.VerificationCodeFragment
+import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 
-class WalletVerificationActivityNavigator(private val fragmentManager: FragmentManager) {
+class VerificationActivityNavigator(private val fragmentManager: FragmentManager) {
 
   fun navigateToWalletVerificationIntro() {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            WalletVerificationIntroFragment.newInstance())
+            VerificationIntroFragment.newInstance())
         .commit()
   }
 
   fun navigateToWalletVerificationCode() {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            WalletVerificationCodeFragment.newInstance())
+            VerificationCodeFragment.newInstance())
         .commit()
   }
 

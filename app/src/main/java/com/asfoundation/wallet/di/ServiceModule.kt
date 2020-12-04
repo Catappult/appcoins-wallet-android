@@ -41,7 +41,7 @@ import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.DeviceInfo
-import com.asfoundation.wallet.verification.WalletVerificationApi
+import com.asfoundation.wallet.verification.VerificationApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -548,7 +548,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideWalletVerificationApi(@Named("default") client: OkHttpClient,
-                                   gson: Gson): WalletVerificationApi {
+                                   gson: Gson): VerificationApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -556,7 +556,7 @@ class ServiceModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(WalletVerificationApi::class.java)
+        .create(VerificationApi::class.java)
   }
 
 }

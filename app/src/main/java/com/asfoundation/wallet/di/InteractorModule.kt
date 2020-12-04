@@ -62,13 +62,13 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
-import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
+import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
-import com.asfoundation.wallet.verification.WalletVerificationRepository
+import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import dagger.Module
@@ -301,9 +301,9 @@ class InteractorModule {
                              balanceRepository: BalanceRepository,
                              preferencesRepositoryType: PreferencesRepositoryType,
                              smsValidationInteract: SmsValidationInteract,
-                             walletVerificationRepository: WalletVerificationRepository) =
+                             verificationRepository: VerificationRepository) =
       BalanceInteractor(findDefaultWalletInteract, balanceRepository,
-          preferencesRepositoryType, smsValidationInteract, walletVerificationRepository)
+          preferencesRepositoryType, smsValidationInteract, verificationRepository)
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,

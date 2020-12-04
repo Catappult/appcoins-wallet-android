@@ -1,5 +1,5 @@
 package com.asfoundation.wallet.verification
 
-enum class WalletVerificationStatus {
+enum class VerificationStatus {
   VERIFIED, UNVERIFIED, CODE_REQUESTED
 }

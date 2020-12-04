@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.verification
 
-interface WalletVerificationActivityView {
+interface VerificationActivityView {
 
   fun cancel()
 

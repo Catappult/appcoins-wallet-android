@@ -7,17 +7,17 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class WalletVerificationCodePresenter(private val view: WalletVerificationCodeView,
-                                      private val disposable: CompositeDisposable,
-                                      private val viewScheduler: Scheduler,
-                                      private val ioScheduler: Scheduler,
-                                      private val interactor: WalletVerificationCodeInteractor,
-                                      private val navigator: WalletVerificationCodeNavigator,
-                                      private val logger: Logger) {
+class VerificationCodePresenter(private val view: VerificationCodeView,
+                                private val disposable: CompositeDisposable,
+                                private val viewScheduler: Scheduler,
+                                private val ioScheduler: Scheduler,
+                                private val interactor: VerificationCodeInteractor,
+                                private val navigator: VerificationCodeNavigator,
+                                private val logger: Logger) {
 
   companion object {
 
-    private val TAG = WalletVerificationCodePresenter::class.java.name
+    private val TAG = VerificationCodePresenter::class.java.name
   }
 
   fun present() {

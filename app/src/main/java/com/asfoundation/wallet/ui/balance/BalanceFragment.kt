@@ -19,7 +19,7 @@ import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
-import com.asfoundation.wallet.verification.WalletVerificationActivity
+import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.appbar.AppBarLayout
@@ -288,7 +288,7 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun openWalletVerificationScreen() {
     context?.let {
-      val intent = WalletVerificationActivity.newIntent(it)
+      val intent = VerificationActivity.newIntent(it)
           .apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
           }

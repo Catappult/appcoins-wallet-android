@@ -13,7 +13,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Duration
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.verification.WalletVerificationActivityView
+import com.asfoundation.wallet.verification.VerificationActivityView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -25,10 +25,10 @@ import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.util.*
 import javax.inject.Inject
 
-class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeView {
+class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
   @Inject
-  lateinit var presenter: WalletVerificationCodePresenter
+  lateinit var presenter: VerificationCodePresenter
 
   @Inject
   lateinit var data: VerificationCodeData
@@ -36,7 +36,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  private lateinit var activityView: WalletVerificationActivityView
+  private lateinit var activityView: VerificationActivityView
 
   companion object {
 
@@ -52,8 +52,8 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
 
     @JvmStatic
     fun newInstance(currency: String, symbol: String, value: String, digits: Int, format: String,
-                    period: String, date: Long): WalletVerificationCodeFragment {
-      return WalletVerificationCodeFragment().apply {
+                    period: String, date: Long): VerificationCodeFragment {
+      return VerificationCodeFragment().apply {
         arguments = Bundle().apply {
           putBoolean(LOADED_KEY, true)
           putString(CURRENCY_KEY, currency)
@@ -68,8 +68,8 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
     }
 
     @JvmStatic
-    fun newInstance(): WalletVerificationCodeFragment {
-      return WalletVerificationCodeFragment().apply {
+    fun newInstance(): VerificationCodeFragment {
+      return VerificationCodeFragment().apply {
         arguments = Bundle().apply {
           putBoolean(LOADED_KEY, false)
         }
@@ -80,7 +80,7 @@ class WalletVerificationCodeFragment : DaggerFragment(), WalletVerificationCodeV
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
-    require(context is WalletVerificationActivityView) {
+    require(context is VerificationActivityView) {
       throw IllegalStateException(
           "Wallet Verification Code must be attached to Wallet Verification Activity")
     }

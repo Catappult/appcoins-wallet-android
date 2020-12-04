@@ -12,16 +12,16 @@ import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 
-class WalletVerificationActivity : BaseActivity(), WalletVerificationActivityView {
+class VerificationActivity : BaseActivity(), VerificationActivityView {
 
   companion object {
 
     @JvmStatic
-    fun newIntent(context: Context) = Intent(context, WalletVerificationActivity::class.java)
+    fun newIntent(context: Context) = Intent(context, VerificationActivity::class.java)
   }
 
   @Inject
-  lateinit var presenter: WalletVerificationActivityPresenter
+  lateinit var presenter: VerificationActivityPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)

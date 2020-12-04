@@ -4,10 +4,10 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface WalletVerificationApi {
+interface VerificationApi {
 
   @GET("user_verified")
-  fun isValid(@Query("address") wallet: String): Single<WalletVerificationResponse>
+  fun isValid(@Query("address") wallet: String): Single<VerificationResponse>
 
 
 }

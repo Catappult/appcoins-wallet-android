@@ -14,21 +14,21 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 @Module
-class WalletVerificationIntroModule {
+class VerificationIntroModule {
 
   @Provides
   fun providesWalletVerificationIntroNavigator(
-      fragment: WalletVerificationIntroFragment): WalletVerificationIntroNavigator {
-    return WalletVerificationIntroNavigator(fragment.requireFragmentManager())
+      fragment: VerificationIntroFragment): VerificationIntroNavigator {
+    return VerificationIntroNavigator(fragment.requireFragmentManager())
   }
 
   @Provides
-  fun providesWalletVerificationIntroPresenter(fragment: WalletVerificationIntroFragment,
-                                               navigator: WalletVerificationIntroNavigator,
+  fun providesWalletVerificationIntroPresenter(fragment: VerificationIntroFragment,
+                                               navigator: VerificationIntroNavigator,
                                                logger: Logger,
-                                               interactor: WalletVerificationIntroInteractor,
-                                               data: VerificationIntroData): WalletVerificationIntroPresenter {
-    return WalletVerificationIntroPresenter(fragment as WalletVerificationIntroView,
+                                               interactor: VerificationIntroInteractor,
+                                               data: VerificationIntroData): VerificationIntroPresenter {
+    return VerificationIntroPresenter(fragment as VerificationIntroView,
         CompositeDisposable(), navigator, logger, AndroidSchedulers.mainThread(),
         Schedulers.io(), interactor, AdyenErrorCodeMapper(), data)
   }
@@ -39,14 +39,14 @@ class WalletVerificationIntroModule {
       adyenPaymentInteractor: AdyenPaymentInteractor,
       walletService: WalletService,
       supportInteractor: SupportInteractor
-  ): WalletVerificationIntroInteractor {
-    return WalletVerificationIntroInteractor(adyenPaymentRepository, adyenPaymentInteractor,
+  ): VerificationIntroInteractor {
+    return VerificationIntroInteractor(adyenPaymentRepository, adyenPaymentInteractor,
         walletService, supportInteractor)
   }
 
   @Provides
   fun providesVerificationIntroData(
-      fragment: WalletVerificationIntroFragment): VerificationIntroData {
+      fragment: VerificationIntroFragment): VerificationIntroData {
     return VerificationIntroData(RedirectComponent.getReturnUrl(fragment.context!!))
   }
 

@@ -11,19 +11,19 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class WalletVerificationIntroPresenter(private val view: WalletVerificationIntroView,
-                                       private val disposable: CompositeDisposable,
-                                       private val navigator: WalletVerificationIntroNavigator,
-                                       private val logger: Logger,
-                                       private val viewScheduler: Scheduler,
-                                       private val ioScheduler: Scheduler,
-                                       private val interactor: WalletVerificationIntroInteractor,
-                                       private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
-                                       private val data: VerificationIntroData) {
+class VerificationIntroPresenter(private val view: VerificationIntroView,
+                                 private val disposable: CompositeDisposable,
+                                 private val navigator: VerificationIntroNavigator,
+                                 private val logger: Logger,
+                                 private val viewScheduler: Scheduler,
+                                 private val ioScheduler: Scheduler,
+                                 private val interactor: VerificationIntroInteractor,
+                                 private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+                                 private val data: VerificationIntroData) {
 
   companion object {
 
-    private val TAG = WalletVerificationIntroPresenter::class.java.name
+    private val TAG = VerificationIntroPresenter::class.java.name
   }
 
   fun present(savedInstanceState: Bundle?) {

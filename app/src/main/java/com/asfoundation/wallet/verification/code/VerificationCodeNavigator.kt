@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.verification.code
 
 import androidx.fragment.app.FragmentManager
-import com.asfoundation.wallet.verification.WalletVerificationActivityView
+import com.asfoundation.wallet.verification.VerificationActivityView
 
-class WalletVerificationCodeNavigator(private val fragmentManager: FragmentManager,
-                                      private val activityView: WalletVerificationActivityView) {
+class VerificationCodeNavigator(private val fragmentManager: FragmentManager,
+                                private val activityView: VerificationActivityView) {
 
   fun navigateToInitialWalletVerification() {
     fragmentManager.popBackStack()

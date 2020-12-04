@@ -3,7 +3,7 @@ package com.asfoundation.wallet.verification.code
 import android.os.Bundle
 import io.reactivex.Observable
 
-interface WalletVerificationCodeView {
+interface VerificationCodeView {
 
   fun updateUi(verificationCodeData: VerificationCodeData, savedInstance: Bundle?)
 

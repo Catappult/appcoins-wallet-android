@@ -253,7 +253,7 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating" />
 
     <activity
-        android:name="com.asfoundation.wallet.verification.WalletVerificationActivity"
+        android:name="com.asfoundation.wallet.verification.VerificationActivity"
         android:label="Verify Wallet"
         android:windowSoftInputMode="stateHidden" />
 

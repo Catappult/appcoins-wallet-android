@@ -5,7 +5,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
 
-interface WalletVerificationIntroView {
+interface VerificationIntroView {
 
   fun getCancelClicks(): Observable<Any>
 

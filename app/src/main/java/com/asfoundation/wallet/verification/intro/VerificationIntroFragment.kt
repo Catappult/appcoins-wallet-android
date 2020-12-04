@@ -20,7 +20,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.verification.WalletVerificationActivityView
+import com.asfoundation.wallet.verification.VerificationActivityView
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import javax.inject.Inject
 
-class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntroView {
+class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
 
   companion object {
     private const val CARD_NUMBER_KEY = "card_number"
@@ -42,11 +42,11 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
     private const val SAVE_DETAILS_KEY = "save_details"
 
     @JvmStatic
-    fun newInstance() = WalletVerificationIntroFragment()
+    fun newInstance() = VerificationIntroFragment()
   }
 
   @Inject
-  lateinit var presenter: WalletVerificationIntroPresenter
+  lateinit var presenter: VerificationIntroPresenter
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -54,7 +54,7 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
   @Inject
   lateinit var adyenEnvironment: Environment
 
-  private lateinit var activityView: WalletVerificationActivityView
+  private lateinit var activityView: VerificationActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
@@ -68,7 +68,7 @@ class WalletVerificationIntroFragment : DaggerFragment(), WalletVerificationIntr
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
-    require(context is WalletVerificationActivityView) {
+    require(context is VerificationActivityView) {
       throw IllegalStateException(
           "Wallet Verification Intro must be attached to Wallet Verification Activity")
     }

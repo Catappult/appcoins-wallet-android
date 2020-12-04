@@ -9,7 +9,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class WalletVerificationIntroInteractor(
+class VerificationIntroInteractor(
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val adyenPaymentInteractor: AdyenPaymentInteractor,
     private val walletService: WalletService,

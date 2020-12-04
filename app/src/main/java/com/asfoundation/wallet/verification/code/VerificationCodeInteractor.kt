@@ -6,7 +6,7 @@ import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import io.reactivex.Single
 
-class WalletVerificationCodeInteractor(
+class VerificationCodeInteractor(
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val walletService: WalletService
 ) {

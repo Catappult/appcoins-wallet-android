@@ -4,9 +4,9 @@ import android.os.Bundle
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class WalletVerificationActivityPresenter(
-    private val navigator: WalletVerificationActivityNavigator,
-    private val interactor: WalletVerificationActivityInteractor,
+class VerificationActivityPresenter(
+    private val navigator: VerificationActivityNavigator,
+    private val interactor: VerificationActivityInteractor,
     private val viewScheduler: Scheduler,
     private val ioScheduler: Scheduler,
     private val disposable: CompositeDisposable
@@ -27,11 +27,11 @@ class WalletVerificationActivityPresenter(
     )
   }
 
-  private fun onVerificationStatusSuccess(walletVerificationStatus: WalletVerificationStatus) {
-    when (walletVerificationStatus) {
-      WalletVerificationStatus.UNVERIFIED -> navigator.navigateToWalletVerificationIntro()
-      WalletVerificationStatus.CODE_REQUESTED -> navigator.navigateToWalletVerificationCode()
-      WalletVerificationStatus.VERIFIED -> navigator.finish()
+  private fun onVerificationStatusSuccess(verificationStatus: VerificationStatus) {
+    when (verificationStatus) {
+      VerificationStatus.UNVERIFIED -> navigator.navigateToWalletVerificationIntro()
+      VerificationStatus.CODE_REQUESTED -> navigator.navigateToWalletVerificationCode()
+      VerificationStatus.VERIFIED -> navigator.finish()
     }
   }
 
