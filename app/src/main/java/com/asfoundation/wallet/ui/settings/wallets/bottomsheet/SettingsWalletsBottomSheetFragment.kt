@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsView
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletsAdapter
@@ -16,7 +15,6 @@ import com.asfoundation.wallet.ui.wallets.WalletsViewType
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.settings_wallet_bottom_sheet_layout.*
 import javax.inject.Inject
@@ -27,14 +25,14 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   lateinit var currencyFormatter: CurrencyFormatUtils
 
   @Inject
-  lateinit var walletsEventSender: WalletsEventSender
-  private lateinit var presenter: SettingsWalletsBottomSheetPresenter
+  lateinit var presenter: SettingsWalletsBottomSheetPresenter
+
   private lateinit var adapter: WalletsAdapter
   private var uiEventListener: PublishSubject<String>? = null
 
   companion object {
 
-    private const val WALLET_MODEL_KEY = "wallet_model"
+    const val WALLET_MODEL_KEY = "wallet_model"
 
     @JvmStatic
     fun newInstance(walletsModel: WalletsModel): SettingsWalletsBottomSheetFragment {
@@ -49,8 +47,6 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     uiEventListener = PublishSubject.create()
-    presenter = SettingsWalletsBottomSheetPresenter(this, CompositeDisposable(), walletsEventSender,
-        walletsModel)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -80,11 +76,6 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
 
   override fun walletCardClicked() = uiEventListener!!
 
-  override fun navigateToBackup(address: String) {
-    val parent = provideParentFragment()
-    parent?.navigateToBackup(address)
-  }
-
   private fun provideParentFragment(): SettingsWalletsView? {
     if (parentFragment !is SettingsWalletsView) {
       return null
@@ -95,13 +86,5 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   override fun onDestroyView() {
     super.onDestroyView()
     presenter.stop()
-  }
-
-  private val walletsModel: WalletsModel by lazy {
-    if (arguments!!.containsKey(WALLET_MODEL_KEY)) {
-      arguments!!.getSerializable(WALLET_MODEL_KEY) as WalletsModel
-    } else {
-      throw IllegalArgumentException("WalletsModel not available")
-    }
   }
 }

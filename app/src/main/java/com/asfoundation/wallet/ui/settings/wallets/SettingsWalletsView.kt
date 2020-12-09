@@ -6,7 +6,5 @@ interface SettingsWalletsView {
 
   fun showBottomSheet()
 
-  fun navigateToBackup(address: String)
-
   fun outsideOfBottomSheetClick(): Observable<Any>
 }

@@ -42,7 +42,10 @@ import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.ui.settings.entry.SettingsModule
+import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
+import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsModule
 import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
+import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetModule
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
 import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
@@ -195,7 +198,11 @@ abstract class FragmentBuilders {
   abstract fun bindSettingsFragment(): SettingsFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [SettingsWalletsModule::class])
+  abstract fun bindSettingsWalletsFragment(): SettingsWalletsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [SettingsWalletsBottomSheetModule::class])
   abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment
 
   @FragmentScope
