@@ -10,7 +10,7 @@ class BillingAddressNavigator(private val fragment: BillingAddressFragment,
     val intent = Intent().apply {
       putExtra(BillingAddressFragment.BILLING_ADDRESS_MODEL, billingAddressModel)
     }
-    fragment.onActivityResult(IabActivity.BILLING_ADDRESS_REQUEST_CODE,
+    fragment.targetFragment?.onActivityResult(IabActivity.BILLING_ADDRESS_REQUEST_CODE,
         IabActivity.BILLING_ADDRESS_SUCCESS_CODE, intent)
     iabActivity.navigateBack()
   }
