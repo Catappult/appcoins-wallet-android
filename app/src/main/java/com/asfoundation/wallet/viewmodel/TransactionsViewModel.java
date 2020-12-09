@@ -501,7 +501,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void onPromotionsShown() {
-    transactionViewInteract.setFirstTimeOnTransactionActivity();
+    transactionViewInteract.setHasBeenInTransactionActivity();
     showPromotionTooltip.postValue(false);
   }
 

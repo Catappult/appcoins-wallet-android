@@ -19,7 +19,7 @@ interface PreferencesRepositoryType {
 
   fun hasBeenInTransactionActivity(): Boolean
 
-  fun setFirstTimeOnTransactionActivity()
+  fun setHasBeenInTransactionActivity()
 
   fun getPoaNotificationSeenTime(): Long
 

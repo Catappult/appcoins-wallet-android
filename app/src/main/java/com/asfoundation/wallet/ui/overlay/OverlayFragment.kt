@@ -122,8 +122,7 @@ class OverlayFragment : DaggerFragment(), OverlayView {
     fun newInstance(highlightedBottomNavigationItem: Int): Fragment {
       val fragment = OverlayFragment()
       val bundle = Bundle()
-      bundle.putInt(
-          ITEM_KEY, highlightedBottomNavigationItem)
+      bundle.putInt(ITEM_KEY, highlightedBottomNavigationItem)
       fragment.arguments = bundle
       return fragment
     }

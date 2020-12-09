@@ -37,6 +37,10 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
                               private val fingerprintInteractor: FingerprintInteractor,
                               private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
+  private companion object {
+    private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
+  }
+
   val levels: Single<Levels>
     get() = gamificationInteractor.getLevels()
 
@@ -85,11 +89,11 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   fun hasBeenInTransactionActivity(): Single<Boolean> =
       Single.just(preferencesRepositoryType.hasBeenInTransactionActivity())
 
-  fun setFirstTimeOnTransactionActivity() =
-      preferencesRepositoryType.setFirstTimeOnTransactionActivity()
+  fun setHasBeenInTransactionActivity() =
+      preferencesRepositoryType.setHasBeenInTransactionActivity()
 
   fun increaseTimesOnHome() {
-    if (preferencesRepositoryType.getNumberOfTimesOnHome() < 4) {
+    if (preferencesRepositoryType.getNumberOfTimesOnHome() <= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
       preferencesRepositoryType.increaseTimesOnHome()
     }
   }
@@ -105,7 +109,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
         if (numberOfTimesInHome > 1) {
           shouldShow = true
         }
-      } else if (numberOfTimesInHome >= 3) {
+      } else if (numberOfTimesInHome >= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
         shouldShow = true
       }
     }

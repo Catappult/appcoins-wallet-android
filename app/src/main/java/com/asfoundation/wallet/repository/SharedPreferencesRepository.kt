@@ -64,7 +64,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     return pref.getBoolean(HAS_BEEN_IN_TRANSACTION_ACTIVITY, false)
   }
 
-  override fun setFirstTimeOnTransactionActivity() {
+  override fun setHasBeenInTransactionActivity() {
     pref.edit()
         .putBoolean(HAS_BEEN_IN_TRANSACTION_ACTIVITY, true)
         .apply()
