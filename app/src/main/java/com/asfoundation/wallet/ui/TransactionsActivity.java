@@ -66,6 +66,7 @@ import static com.asfoundation.wallet.support.SupportNotificationProperties.SUPP
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
+  private static String FROM_APP_OPENING_FLAG = "app_opening_flag";
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject CurrencyFormatUtils formatter;
@@ -91,9 +92,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return new Intent(context, TransactionsActivity.class);
   }
 
-  public static Intent newIntent(Context context, boolean supportNotificationClicked) {
+  public static Intent newIntent(Context context, boolean supportNotificationClicked,
+      boolean fromAppOpening) {
     Intent intent = new Intent(context, TransactionsActivity.class);
     intent.putExtra(SUPPORT_NOTIFICATION_CLICK, supportNotificationClicked);
+    intent.putExtra(FROM_APP_OPENING_FLAG, fromAppOpening);
     return intent;
   }
 
@@ -188,7 +191,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
 
     if (savedInstanceState == null) {
-      viewModel.increaseTimesInHome();
+      boolean fromAppOpening = getIntent().getBooleanExtra(FROM_APP_OPENING_FLAG, false);
+      if (fromAppOpening) viewModel.increaseTimesInHome();
       boolean supportNotificationClick =
           getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
       if (supportNotificationClick) {

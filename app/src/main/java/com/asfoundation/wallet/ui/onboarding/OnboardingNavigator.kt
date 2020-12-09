@@ -24,7 +24,7 @@ class OnboardingNavigator(private val activity: AppCompatActivity,
   }
 
   fun navigateToTransactions() {
-    transactionsRouter.open(activity, true)
+    transactionsRouter.navigateFromAppOpening(activity)
     activity.finish()
   }
 }

@@ -27,7 +27,7 @@
       android:networkSecurityConfig="@xml/network_security_config"
       >
     <activity
-        android:name="com.asfoundation.wallet.ui.SplashActivity"
+        android:name="com.asfoundation.wallet.ui.splash.SplashActivity"
         android:theme="@style/SplashTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
