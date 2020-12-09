@@ -207,7 +207,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * if null no filter is applied by transactionType
      *
      */
-    @GET("broker/8.20200810/methods")
+    @GET("broker/8.20201101/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null,
                           @Query("price.currency") currency: String? = null,
                           @Query("currency.type") currencyType: String? = null,
