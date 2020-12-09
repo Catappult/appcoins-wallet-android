@@ -70,7 +70,7 @@
       app:layout_constraintStart_toEndOf="@id/step_one"
       app:layout_constraintTop_toBottomOf="@id/top_up_in_progress_animation"
       app:layout_constraintVertical_chainStyle="packed"
-      tools:text="@string/async_steps_topup_2"
+      tools:text="@string/async_steps_1_no_notification"
       tools:visibility="visible"
       />
 

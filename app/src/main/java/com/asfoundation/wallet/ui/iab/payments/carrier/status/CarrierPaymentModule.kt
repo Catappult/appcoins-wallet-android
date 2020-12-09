@@ -31,7 +31,7 @@ class CarrierPaymentModule {
           getString(CarrierPaymentFragment.PAYMENT_URL)!!,
           getString(CarrierPaymentFragment.CURRENCY_KEY)!!,
           getSerializable(CarrierPaymentFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierPaymentFragment.BONUS_AMOUNT_KEY) as BigDecimal)
+          getSerializable(CarrierPaymentFragment.BONUS_AMOUNT_KEY) as BigDecimal?)
     }
   }
 

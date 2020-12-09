@@ -40,12 +40,13 @@ class CarrierVerifyPresenter(
   }
 
   private fun initializeView() {
+    view.initializeView(data.currency, data.fiatAmount, data.appcAmount, data.skuDescription,
+        data.bonusAmount, data.preselected)
     disposables.add(
         appInfoProvider.getApplicationInfo(data.domain)
             .observeOn(viewScheduler)
             .doOnSuccess { ai ->
-              view.initializeView(ai.appName, ai.icon, data.currency, data.fiatAmount,
-                  data.appcAmount, data.skuDescription, data.bonusAmount, data.preselected)
+              view.setAppDetails(ai.appName, ai.icon)
             }
             .subscribe({}, { e -> e.printStackTrace() })
     )
@@ -68,7 +69,7 @@ class CarrierVerifyPresenter(
             .doOnNext {
               view.lockRotation()
               view.setLoading()
-              billingAnalytics.sendPaymentMethodDetailsActionEvent(data.domain,
+              billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain,
                   data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
                   data.transactionType,
                   "next")
@@ -85,9 +86,10 @@ class CarrierVerifyPresenter(
                 completable = handleError(paymentModel)
               } else {
                 if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
-                  completable = Completable.fromAction {
-                    safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
-                      fee.cost?.let { cost ->
+                  completable = handleUnknownFeeOrCarrier()
+                  safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
+                    fee.cost?.let { cost ->
+                      completable = Completable.fromAction {
                         navigator.navigateToFee(paymentModel.uid, data.domain,
                             data.transactionData, data.transactionType, paymentModel.paymentUrl!!,
                             data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
@@ -103,6 +105,13 @@ class CarrierVerifyPresenter(
             .retry()
             .subscribe({}, { handleException(it) })
     )
+  }
+
+  private fun handleUnknownFeeOrCarrier(): Completable {
+    return Completable.fromAction {
+      logger.log(CarrierVerifyFragment.TAG, "Unknown fee or carrier")
+      navigator.navigateToError(stringProvider.getString(R.string.activity_iab_error_message))
+    }
   }
 
   private fun handleException(throwable: Throwable) {
@@ -189,12 +198,12 @@ class CarrierVerifyPresenter(
         view.backEvent()
             .doOnNext {
               if (data.preselected) {
-                billingAnalytics.sendPaymentMethodDetailsActionEvent(data.domain, data.skuId,
+                billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain, data.skuId,
                     data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
                     data.transactionType, "cancel")
                 navigator.finishActivityWithError()
               } else {
-                billingAnalytics.sendPaymentMethodDetailsActionEvent(data.domain, data.skuId,
+                billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain, data.skuId,
                     data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
                     data.transactionType,
                     "back")
@@ -210,7 +219,7 @@ class CarrierVerifyPresenter(
     disposables.add(
         view.otherPaymentMethodsEvent()
             .doOnNext {
-              billingAnalytics.sendPaymentMethodDetailsActionEvent(data.domain,
+              billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain,
                   data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
                   data.transactionType,
                   "other_payments")

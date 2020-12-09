@@ -82,7 +82,8 @@ public class BdsInAppPurchaseInteractor {
     return billing.getWallet(packageName);
   }
 
-  public Single<List<PaymentMethodEntity>> getPaymentMethods(String value, String currency) {
-    return billing.getPaymentMethods(value, currency);
+  public Single<List<PaymentMethodEntity>> getPaymentMethods(String value, String currency,
+      String transactionType) {
+    return billing.getPaymentMethods(value, currency, transactionType);
   }
 }

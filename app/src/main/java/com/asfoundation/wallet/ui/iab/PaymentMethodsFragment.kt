@@ -360,7 +360,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) {
-    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue!!, isPreselected)
+    iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
   }
 
   override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue) {
@@ -414,7 +414,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
-                                gamificationLevel: Int) {
+                                async: Boolean, gamificationLevel: Int) {
     val isOneStep: Boolean = transactionBuilder!!.type
         .equals("INAPP_UNMANAGED", ignoreCase = true)
     iabView.showLocalPayment(transactionBuilder!!.domain, transactionBuilder!!.skuId,
@@ -422,7 +422,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         if (isOneStep) transactionBuilder!!.originalOneStepCurrency else null, bonusMessageValue,
         selectedPaymentMethod, transactionBuilder!!.toAddress(), transactionBuilder!!.type,
         transactionBuilder!!.amount(), transactionBuilder!!.callbackUrl,
-        transactionBuilder!!.orderReference, transactionBuilder!!.payload, iconUrl, label,
+        transactionBuilder!!.orderReference, transactionBuilder!!.payload, iconUrl, label, async,
         gamificationLevel)
   }
 
@@ -474,6 +474,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun removeBonus() {
+    bonusMessageValue = ""
+    bonusValue = null
     bonus_view.visibility = View.GONE
     bottom_separator?.visibility = View.GONE
     bonus_view.hideSkeleton()

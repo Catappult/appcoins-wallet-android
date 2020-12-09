@@ -98,8 +98,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   internal fun getPaymentMethods(value: String?,
                                  currency: String?,
                                  currencyType: String?,
-                                 direct: Boolean? = null): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(value, currency, currencyType, direct)
+                                 direct: Boolean? = null,
+                                 transactionType: String?): Single<List<PaymentMethodEntity>> {
+    return api.getPaymentMethods(value, currency, currencyType, direct, transactionType)
         .map { responseMapper.map(it) }
   }
 
@@ -202,13 +203,16 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * @param currency, currency of purchase
      * @param currencyType, filter for appc and credits payment, use fiat if you don't want appc and credits
      * @param direct, either if it returns non-direct payments (false) (earn appcoins and ask someone to pay) or not
+     * @param transaction.type, INAPP, INAPP_UNMANAGED or TOPUP. This is used to filter async payments in INAPP and INAPP_UNMANAGED,
+     * if null no filter is applied by transactionType
      *
      */
-    @GET("broker/8.20201101/methods")
+    @GET("broker/8.20200810/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null,
                           @Query("price.currency") currency: String? = null,
                           @Query("currency.type") currencyType: String? = null,
-                          @Query("direct") direct: Boolean? = null): Single<GetMethodsResponse>
+                          @Query("direct") direct: Boolean? = null,
+                          @Query("transaction.type") type: String?): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20200810/gateways/{gateway}/transactions/{uid}")

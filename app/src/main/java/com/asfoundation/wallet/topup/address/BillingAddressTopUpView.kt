@@ -12,7 +12,4 @@ interface BillingAddressTopUpView {
   fun hideLoading()
 
   fun finishSuccess(billingAddressModel: BillingAddressModel)
-
-  fun cancel()
-
 }

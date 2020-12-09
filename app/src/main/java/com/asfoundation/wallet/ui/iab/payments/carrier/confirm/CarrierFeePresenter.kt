@@ -20,13 +20,13 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
   }
 
   private fun initializeView() {
+    view.initializeView(data.currency, data.fiatAmount, data.appcAmount, data.skuDescription,
+        data.bonusAmount, data.carrierName, data.carrierImage, data.feeFiatAmount)
     disposables.add(
         appInfoProvider.getApplicationInfo(data.domain)
             .observeOn(viewScheduler)
             .doOnSuccess { ai ->
-              view.initializeView(ai.appName, ai.icon, data.currency, data.fiatAmount,
-                  data.appcAmount, data.skuDescription, data.bonusAmount, data.carrierName,
-                  data.carrierImage, data.feeFiatAmount)
+              view.setAppDetails(ai.appName, ai.icon)
             }
             .subscribe({}, { e -> e.printStackTrace() })
     )
@@ -36,7 +36,7 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
     disposables.add(
         view.nextClickEvent()
             .doOnNext {
-              sendPaymentConfirmationEvent("buy")
+              sendPaymentConfirmationEvent("next")
               navigator.navigateToPayment(data.domain, data.transactionData, data.transactionType,
                   data.skuId, data.paymentUrl, data.appcAmount, data.currency, data.bonusAmount)
             }
