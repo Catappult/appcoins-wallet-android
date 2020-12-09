@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -40,8 +39,8 @@ class SubscriptionsMapper {
   private fun mapRenewalDate(renewal: String?): Date? {
     return if (renewal == null) null
     else {
-      val df1: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
-      df1.parse(renewal)
+      val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+      dateFormat.parse(renewal)
     }
   }
 
