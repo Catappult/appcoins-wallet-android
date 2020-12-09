@@ -64,6 +64,7 @@ class AnalyticsModule {
   @Provides
   @Named("rakam_event_list")
   fun provideRakamEventList() = listOf(
+      LaunchAnalytics.FIRST_LAUNCH,
       BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
@@ -71,11 +72,13 @@ class AnalyticsModule {
       BillingAnalytics.RAKAM_PAYMENT_START,
       BillingAnalytics.RAKAM_PAYPAL_URL,
       BillingAnalytics.RAKAM_PAYMENT_METHOD_DETAILS,
+      BillingAnalytics.RAKAM_PAYMENT_BILLING,
       TopUpAnalytics.WALLET_TOP_UP_START,
       TopUpAnalytics.WALLET_TOP_UP_SELECTION,
       TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
       TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
       TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
+      TopUpAnalytics.RAKAM_TOP_UP_BILLING,
       PoaAnalytics.RAKAM_POA_EVENT,
       WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION,
       WalletValidationAnalytics.WALLET_CODE_VERIFICATION,
@@ -164,8 +167,8 @@ class AnalyticsModule {
   @Singleton
   @Provides
   fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
-                                 logger: Logger): RakamAnalytics {
-    return RakamAnalytics(context, idsRepository, logger)
+                                 logger: Logger, launchAnalytics: LaunchAnalytics): RakamAnalytics {
+    return RakamAnalytics(context, idsRepository, logger, launchAnalytics)
   }
 
   @Singleton
@@ -174,6 +177,10 @@ class AnalyticsModule {
                                 idsRepository: IdsRepository): AmplitudeAnalytics {
     return AmplitudeAnalytics(context, idsRepository)
   }
+
+  @Singleton
+  @Provides
+  fun provideLaunchAnalytics(analyticsManager: AnalyticsManager) = LaunchAnalytics(analyticsManager)
 
   @Singleton
   @Provides
