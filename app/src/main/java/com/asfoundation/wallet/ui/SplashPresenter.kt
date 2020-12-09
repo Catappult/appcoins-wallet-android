@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui
 
 import android.os.Bundle
-import com.asfoundation.wallet.fingerprint.FingerprintPreferenceRepositoryContract
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 class SplashPresenter(
     private val view: SplashView,
-    private val fingerprintPreferences: FingerprintPreferenceRepositoryContract,
+    private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
     private val viewScheduler: Scheduler,
     private val ioScheduler: Scheduler,
     private val disposables: CompositeDisposable,

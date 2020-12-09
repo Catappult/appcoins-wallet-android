@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.ui.settings.entry
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.fingerprint.FingerprintPreferenceRepositoryContract
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.FingerPrintInteractor
+import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import dagger.Module
 import dagger.Provides
@@ -38,13 +38,13 @@ class SettingsModule {
                                  supportInteractor: SupportInteractor,
                                  walletsInteract: WalletsInteract,
                                  autoUpdateInteract: AutoUpdateInteract,
-                                 fingerPrintInteractor: FingerPrintInteractor,
+                                 fingerprintInteractor: FingerprintInteractor,
                                  walletsEventSender: WalletsEventSender,
                                  preferencesRepositoryType: PreferencesRepositoryType,
-                                 fingerprintPreferenceRepository: FingerprintPreferenceRepositoryContract): SettingsInteractor {
+                                 fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): SettingsInteractor {
     return SettingsInteractor(findDefaultWalletInteract, supportInteractor, walletsInteract,
-        autoUpdateInteract, fingerPrintInteractor, walletsEventSender, preferencesRepositoryType,
-        fingerprintPreferenceRepository)
+        autoUpdateInteract, fingerprintInteractor, walletsEventSender, preferencesRepositoryType,
+        fingerprintPreferencesRepository)
   }
 
   @Provides

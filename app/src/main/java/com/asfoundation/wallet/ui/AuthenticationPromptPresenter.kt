@@ -10,7 +10,7 @@ import kotlin.math.ceil
 class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
                                     private val viewScheduler: Scheduler,
                                     private val disposables: CompositeDisposable,
-                                    private val fingerprintInteractor: FingerPrintInteractor) {
+                                    private val fingerprintInteractor: FingerprintInteractor) {
 
   private var hasBottomsheetOn = false
 

@@ -2,8 +2,8 @@ package com.asfoundation.wallet.fingerprint
 
 import android.content.SharedPreferences
 
-class FingerprintPreferenceRepository(private val pref: SharedPreferences) :
-    FingerprintPreferenceRepositoryContract {
+class FingerprintPreferencesRepository(private val pref: SharedPreferences) :
+    FingerprintPreferencesRepositoryContract {
 
   private companion object {
     private const val AUTHENTICATION_PERMISSION = "authentication_permission"

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.fingerprint
 
-interface FingerprintPreferenceRepositoryContract {
+interface FingerprintPreferencesRepositoryContract {
 
   fun setAuthenticationPermission(result: Boolean)
 
