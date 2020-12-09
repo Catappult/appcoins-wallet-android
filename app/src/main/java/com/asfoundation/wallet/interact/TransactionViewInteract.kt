@@ -86,11 +86,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 
-  fun hasBeenInTransactionActivity(): Single<Boolean> =
-      Single.just(preferencesRepositoryType.hasBeenInTransactionActivity())
-
-  fun setHasBeenInTransactionActivity() =
-      preferencesRepositoryType.setHasBeenInTransactionActivity()
+  fun hasSeenPromotionTooltip(): Single<Boolean> =
+      Single.just(preferencesRepositoryType.hasSeenPromotionTooltip())
 
   fun increaseTimesOnHome() {
     if (preferencesRepositoryType.getNumberOfTimesOnHome() <= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
@@ -103,13 +100,11 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   fun shouldShowFingerprintTooltip(packageName: String): Single<Boolean> {
     var shouldShow = false
     if (!preferencesRepositoryType.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
-        && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission()) {
-      val numberOfTimesInHome = getNumberOfTimesOnHome()
+        && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
+        preferencesRepositoryType.hasSeenPromotionTooltip()) {
       if (!isFirstInstall(packageName)) {
-        if (numberOfTimesInHome > 1) {
-          shouldShow = true
-        }
-      } else if (numberOfTimesInHome >= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
+        shouldShow = true
+      } else if (getNumberOfTimesOnHome() >= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
         shouldShow = true
       }
     }
@@ -120,10 +115,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   private fun isFirstInstall(packageName: String): Boolean {
     return try {
-      val firstInstallTime: Long = packageManager
-          .getPackageInfo(packageName, 0).firstInstallTime
-      val lastUpdateTime: Long = packageManager
-          .getPackageInfo(packageName, 0).lastUpdateTime
+      val firstInstallTime: Long = packageManager.getPackageInfo(packageName, 0).firstInstallTime
+      val lastUpdateTime: Long = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
       firstInstallTime == lastUpdateTime
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()

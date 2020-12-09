@@ -13,7 +13,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
 
     //String was kept the same for legacy purposes
-    private const val HAS_BEEN_IN_TRANSACTION_ACTIVITY = "first_time_on_transaction_activity"
+    private const val HAS_SEEN_PROMOTION_TOOLTIP = "first_time_on_transaction_activity"
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
@@ -60,13 +60,13 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
         .apply()
   }
 
-  override fun hasBeenInTransactionActivity(): Boolean {
-    return pref.getBoolean(HAS_BEEN_IN_TRANSACTION_ACTIVITY, false)
+  override fun hasSeenPromotionTooltip(): Boolean {
+    return pref.getBoolean(HAS_SEEN_PROMOTION_TOOLTIP, false)
   }
 
-  override fun setHasBeenInTransactionActivity() {
+  override fun setHasSeenPromotionTooltip() {
     pref.edit()
-        .putBoolean(HAS_BEEN_IN_TRANSACTION_ACTIVITY, true)
+        .putBoolean(HAS_SEEN_PROMOTION_TOOLTIP, true)
         .apply()
   }
 

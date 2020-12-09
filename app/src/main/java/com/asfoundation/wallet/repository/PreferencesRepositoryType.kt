@@ -17,9 +17,9 @@ interface PreferencesRepositoryType {
 
   fun setCurrentWalletAddress(address: String)
 
-  fun hasBeenInTransactionActivity(): Boolean
+  fun hasSeenPromotionTooltip(): Boolean
 
-  fun setHasBeenInTransactionActivity()
+  fun setHasSeenPromotionTooltip()
 
   fun getPoaNotificationSeenTime(): Long
 

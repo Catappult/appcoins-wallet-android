@@ -155,8 +155,12 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void handlePromotionTooltipVisibility() {
-    disposables.add(transactionViewInteract.hasBeenInTransactionActivity()
-        .doOnSuccess(hasBeen -> showPromotionTooltip.postValue(!hasBeen))
+    disposables.add(transactionViewInteract.hasSeenPromotionTooltip()
+        .doOnSuccess(hasBeen -> {
+          Boolean shouldShowCachedValue = showPromotionTooltip.getValue();
+          boolean shouldShow = !hasBeen && (shouldShowCachedValue == null || shouldShowCachedValue);
+          showPromotionTooltip.postValue(shouldShow);
+        })
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
@@ -496,12 +500,11 @@ public class TransactionsViewModel extends BaseViewModel {
     transactionViewInteract.setSeenFingerprintTooltip();
   }
 
-  public void onFingerprintDismissed(){
+  public void onFingerprintDismissed() {
     transactionViewInteract.setSeenFingerprintTooltip();
   }
 
   public void onPromotionsShown() {
-    transactionViewInteract.setHasBeenInTransactionActivity();
     showPromotionTooltip.postValue(false);
   }
 
