@@ -39,6 +39,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
+import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
@@ -92,6 +93,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
+import kotlin.collections.HashMap
 
 
 @Module
@@ -128,6 +130,20 @@ internal class AppModule {
         .connectTimeout(45, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
         .writeTimeout(60, TimeUnit.SECONDS)
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  @Named("low-timer")
+  fun provideLowTimerOkHttpClient(context: Context,
+                                  preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+    return OkHttpClient.Builder()
+        .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+        .addInterceptor(LogInterceptor())
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(20, TimeUnit.SECONDS)
+        .writeTimeout(20, TimeUnit.SECONDS)
         .build()
   }
 
@@ -540,4 +556,32 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesStringProvider(context: Context): StringProvider = StringProvider(context.resources)
+
+  @Singleton
+  @Provides
+  @Named("ab-test-local-cache")
+  fun providesAbTestLocalCache(): HashMap<String, ExperimentModel> {
+    return HashMap()
+  }
+
+  @Singleton
+  @Provides
+  fun providesAbTestCacheValidator(@Named("ab-test-local-cache")
+                                   localCache: HashMap<String, ExperimentModel>): ABTestCacheValidator {
+    return ABTestCacheValidator(localCache)
+  }
+
+  @Singleton
+  @Provides
+  fun providesAbTestDatabase(context: Context): ABTestDatabase {
+    return Room.databaseBuilder(context, ABTestDatabase::class.java, "abtest_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providesRoomExperimentPersistence(abTestDatabase: ABTestDatabase): RoomExperimentPersistence {
+    return RoomExperimentPersistence(abTestDatabase.experimentDao(), RoomExperimentMapper(),
+        Schedulers.io())
+  }
 }

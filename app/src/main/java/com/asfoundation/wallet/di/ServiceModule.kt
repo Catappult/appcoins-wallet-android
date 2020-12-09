@@ -18,6 +18,7 @@ import com.aptoide.apk.injector.extractor.domain.IExtract
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.AirdropService
+import com.asfoundation.wallet.abtesting.ABTestApiProvider
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.AnalyticsAPI
 import com.asfoundation.wallet.apps.Applications
@@ -544,4 +545,11 @@ class ServiceModule {
         .create(BdsApiSecondary::class.java)
   }
 
+  @Singleton
+  @Provides
+  fun providesABTestApiProvider(
+      @Named("low-timer") okHttpClient: OkHttpClient, gson: Gson): ABTestApiProvider {
+    return ABTestApiProvider(okHttpClient, GsonConverterFactory.create(gson),
+        RxJava2CallAdapterFactory.create())
+  }
 }

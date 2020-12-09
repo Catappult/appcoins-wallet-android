@@ -18,6 +18,7 @@ import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseT
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
+import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.partners.InstallerService
@@ -262,5 +263,17 @@ class RepositoryModule {
   @Provides
   fun provideSupportRepository(preferences: SupportSharedPreferences, app: App): SupportRepository {
     return SupportRepository(preferences, app)
+  }
+
+  @Singleton
+  @Provides
+  fun providesABTestRepository(abTestApiProvider: ABTestApiProvider,
+                               idsRepository: IdsRepository,
+                               @Named("ab-test-local-cache")
+                               localCache: HashMap<String, ExperimentModel>,
+                               persistence: RoomExperimentPersistence,
+                               cacheValidator: ABTestCacheValidator): ABTestRepository {
+    return ABTestCenterRepository(abTestApiProvider, idsRepository, localCache, persistence,
+        cacheValidator, Schedulers.io())
   }
 }
