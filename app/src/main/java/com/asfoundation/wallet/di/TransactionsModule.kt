@@ -27,18 +27,15 @@ internal class TransactionsModule {
   }
 
   @Provides
-  fun provideTransactionsViewNavigator(settingsRouter: SettingsRouter, sendRouter: SendRouter,
+  fun provideTransactionsViewNavigator(sendRouter: SendRouter,
                                        transactionDetailRouter: TransactionDetailRouter,
                                        myAddressRouter: MyAddressRouter,
                                        balanceRouter: BalanceRouter,
                                        externalBrowserRouter: ExternalBrowserRouter,
                                        topUpRouter: TopUpRouter): TransactionViewNavigator {
-    return TransactionViewNavigator(settingsRouter, sendRouter, transactionDetailRouter,
+    return TransactionViewNavigator(sendRouter, transactionDetailRouter,
         myAddressRouter, balanceRouter, externalBrowserRouter, topUpRouter)
   }
-
-  @Provides
-  fun provideSettingsRouter() = SettingsRouter()
 
   @Provides
   fun provideSendRouter() = SendRouter()

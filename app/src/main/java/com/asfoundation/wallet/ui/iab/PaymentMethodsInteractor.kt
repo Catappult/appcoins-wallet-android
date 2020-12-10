@@ -7,8 +7,8 @@ import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -24,7 +24,7 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
                                private val balanceInteractor: BalanceInteractor,
                                private val walletBlockedInteract: WalletBlockedInteract,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                               private val preferencesRepositoryType: PreferencesRepositoryType,
+                               private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                private val billing: Billing,
                                private val bdsPendingTransactionService: BdsPendingTransactionService) {
 
@@ -85,7 +85,7 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
 
   fun getLastUsedPaymentMethod(): String = inAppPurchaseInteractor.lastUsedPaymentMethod
 
-  fun hasAuthenticationPermission() = preferencesRepositoryType.hasAuthenticationPermission()
+  fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
 
   fun checkTransactionStateFromTransactionId(uid: String): Observable<PendingTransaction> =
       bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)

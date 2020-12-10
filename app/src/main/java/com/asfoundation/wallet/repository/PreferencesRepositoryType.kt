@@ -17,9 +17,9 @@ interface PreferencesRepositoryType {
 
   fun setCurrentWalletAddress(address: String)
 
-  fun isFirstTimeOnTransactionActivity(): Boolean
+  fun hasSeenPromotionTooltip(): Boolean
 
-  fun setFirstTimeOnTransactionActivity()
+  fun setHasSeenPromotionTooltip()
 
   fun getPoaNotificationSeenTime(): Long
 
@@ -91,12 +91,11 @@ interface PreferencesRepositoryType {
 
   fun setGamificationDisclaimerShown()
 
-  fun setAuthenticationPermission(result: Boolean)
+  fun hasBeenInSettings(): Boolean
 
-  fun hasAuthenticationPermission(): Boolean
+  fun setBeenInSettings()
 
-  fun setAuthenticationErrorTime(timer: Long)
+  fun increaseTimesOnHome()
 
-  fun getAuthenticationErrorTime(): Long
-
+  fun getNumberOfTimesOnHome(): Int
 }

@@ -20,8 +20,6 @@ import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentModule
 import com.asfoundation.wallet.ui.AuthenticationErrorFragment
-import com.asfoundation.wallet.ui.SettingsFragment
-import com.asfoundation.wallet.ui.SettingsWalletsBottomSheetFragment
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationModule
@@ -43,6 +41,14 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyModul
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.ui.overlay.OverlayFragment
+import com.asfoundation.wallet.ui.overlay.OverlayModule
+import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
+import com.asfoundation.wallet.ui.settings.entry.SettingsModule
+import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
+import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsModule
+import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
+import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetModule
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
 import com.asfoundation.wallet.ui.transact.TransferFragmentModule
@@ -192,11 +198,15 @@ abstract class FragmentBuilders {
   abstract fun bindBackupSuccessFragment(): BackupSuccessFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [SettingsModule::class])
   abstract fun bindSettingsFragment(): SettingsFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [SettingsWalletsModule::class])
+  abstract fun bindSettingsWalletsFragment(): SettingsWalletsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [SettingsWalletsBottomSheetModule::class])
   abstract fun bindSettingsBottomSheetFragment(): SettingsWalletsBottomSheetFragment
 
   @FragmentScope
@@ -234,4 +244,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [IabErrorModule::class])
   abstract fun bindIabErrorFragment(): IabErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [OverlayModule::class])
+  abstract fun bindOverlayFragment(): OverlayFragment
 }

@@ -39,7 +39,7 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
   }
 
   private fun navigateToIntercomScreen(context: Context) {
-    val transactionsIntent = TransactionsActivity.newIntent(context, true)
+    val transactionsIntent = TransactionsActivity.newIntent(context, true, false)
         .apply {
           addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
           addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)

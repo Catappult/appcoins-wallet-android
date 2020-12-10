@@ -9,6 +9,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.util.TransferParser
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
