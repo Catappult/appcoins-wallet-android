@@ -4,9 +4,8 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 
-class WalletBlockedInteract(
-    private val findDefaultWalletInteract: FindDefaultWalletInteract,
-    private val walletStatusRepository: WalletStatusRepository
+class WalletBlockedInteract(private val findDefaultWalletInteract: FindDefaultWalletInteract,
+                            private val walletStatusRepository: WalletStatusRepository
 ) {
 
   fun isWalletBlocked(): Single<Boolean> {

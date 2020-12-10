@@ -66,8 +66,6 @@ import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
-import com.asfoundation.wallet.ui.transact.TransactionDataValidator
-import com.asfoundation.wallet.ui.transact.TransferInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
@@ -216,13 +214,6 @@ class InteractorModule {
   @Provides
   fun provideFindDefaultNetworkInteract(networkInfo: NetworkInfo) =
       FindDefaultNetworkInteract(networkInfo, AndroidSchedulers.mainThread())
-
-  @Singleton
-  @Provides
-  fun provideTransferInteractor(rewardsManager: RewardsManager,
-                                balance: GetDefaultWalletBalanceInteract,
-                                findWallet: FindDefaultWalletInteract) =
-      TransferInteractor(rewardsManager, TransactionDataValidator(), balance, findWallet)
 
   @Singleton
   @Provides

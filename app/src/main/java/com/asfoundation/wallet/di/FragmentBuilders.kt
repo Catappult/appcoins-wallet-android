@@ -49,6 +49,7 @@ import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment
 import com.asfoundation.wallet.ui.transact.TransferFragment
+import com.asfoundation.wallet.ui.transact.TransferFragmentModule
 import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
@@ -89,7 +90,7 @@ abstract class FragmentBuilders {
   @ContributesAndroidInjector
   abstract fun bindPermissionsListFragment(): PermissionsListFragment
 
-  @ContributesAndroidInjector(modules = [ConfirmationModule::class])
+  @ContributesAndroidInjector(modules = [TransferFragmentModule::class])
   abstract fun bindTransactFragment(): TransferFragment
 
   @ContributesAndroidInjector
