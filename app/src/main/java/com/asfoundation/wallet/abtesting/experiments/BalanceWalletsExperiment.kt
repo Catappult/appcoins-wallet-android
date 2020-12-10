@@ -4,11 +4,11 @@ import com.asfoundation.wallet.abtesting.ABTestInteractor
 import io.reactivex.Single
 
 class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
-    WasabiExperiment() {
+    RakamExperiment() {
 
   private companion object {
-    private const val EXPERIMENT_ID = "WAL-78-Balance-vs-Wallets"
-    private val experimentValues = listOf("Balance", "Wallets")
+    private const val EXPERIMENT_ID = "WAL-78-Balance-vs-MyWallets-test"
+    private val experimentValues = listOf("Balance", "MyWallets")
   }
 
   private var assignment: String? = null
@@ -19,12 +19,12 @@ class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
     }
     return abTestInteractor.getExperiment(EXPERIMENT_ID, type)
         .flatMap { experiment ->
-          var experimentAssignment: String? = "Balance"
-          if (!experiment.experimentOver && experiment.partOfExperiment) {
+          var experimentAssignment = "Balance"
+          if (!experiment.experimentOver && experiment.partOfExperiment && experiment.assignment != null) {
             experimentAssignment = experiment.assignment
           }
           if (experimentValues.contains(experimentAssignment)) assignment = experimentAssignment
-          Single.just(assignment)
+          Single.just(experimentAssignment)
         }
   }
 }

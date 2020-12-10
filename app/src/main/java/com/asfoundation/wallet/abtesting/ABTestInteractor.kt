@@ -12,22 +12,15 @@ class ABTestInteractor(private val abTestRepository: ABTestRepository) {
         .firstOrError()
   }
 
+  //This method may be used, but it is encouraged to use Rakam log instead
   fun recordImpression(identifier: String,
                        type: BaseExperiment.ExperimentType): Observable<Boolean> {
     return abTestRepository.recordImpression(identifier, type)
   }
 
+  //This method may be used, but it is encouraged to use Rakam log instead
   fun recordAction(identifier: String,
                    type: BaseExperiment.ExperimentType): Observable<Boolean> {
     return abTestRepository.recordAction(identifier, type)
-  }
-
-  fun recordAction(identifier: String, position: Int,
-                   type: BaseExperiment.ExperimentType): Observable<Boolean> {
-    return abTestRepository.recordAction(identifier, position, type)
-  }
-
-  fun getExperimentId(id: String): Observable<String> {
-    return abTestRepository.getExperimentId(id)
   }
 }

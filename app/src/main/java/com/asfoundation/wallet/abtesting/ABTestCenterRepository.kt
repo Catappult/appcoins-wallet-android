@@ -80,17 +80,10 @@ class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
     }
   }
 
-  override fun recordAction(identifier: String, position: Int,
-                            type: BaseExperiment.ExperimentType): Observable<Boolean> {
-    return recordAction(identifier, type)
-  }
-
-  override fun cacheExperiment(experiment: ExperimentModel, experimentName: String): Completable {
+  private fun cacheExperiment(experiment: ExperimentModel, experimentName: String): Completable {
     return Completable.fromAction { localCache[experimentName] = experiment }
         .andThen(persistence.save(experimentName, experiment.experiment))
   }
-
-  override fun getExperimentId(id: String): Observable<String> = Observable.just(id)
 
   private fun getExperimentFromApi(identifier: String,
                                    type: BaseExperiment.ExperimentType): Observable<ExperimentModel> {
