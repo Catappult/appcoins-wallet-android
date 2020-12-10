@@ -84,14 +84,12 @@ android {
       buildConfigField 'String', 'BDS_BASE_HOST', project.BDS_BASE_HOST_PROD
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST
       buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST
-      buildConfigField 'String', 'LEGACY_CATAPPULT_BASE_HOST',
-          project.LEGACY_CATAPPULT_BASE_HOST_PROD
       buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
-      buildConfigField 'String', 'CATAPPULT_HOST', project.CATAPPULT_HOST_PROD
+      buildConfigField 'String', 'CATAPPULT_HOST', project.CATAPPULT_BASE_HOST_PROD
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_SECOND_PAYMENT_HOST}"
     }
@@ -106,8 +104,6 @@ android {
       buildConfigField 'String', 'BACKEND_HOST', project.BACKEND_HOST_DEV
       buildConfigField 'String', 'BDS_BASE_HOST', project.BDS_BASE_HOST_DEV
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
-      buildConfigField 'String', 'LEGACY_CATAPPULT_BASE_HOST',
-          project.LEGACY_CATAPPULT_BASE_HOST_DEV
       buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME_DEV
       buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST_DEV
       buildConfigField 'String', 'SECOND_PAYMENT_HOST', project.PAYMENT_HOST_DEV
@@ -115,7 +111,7 @@ android {
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
-      buildConfigField 'String', 'CATAPPULT_HOST', project.CATAPPULT_HOST_DEV
+      buildConfigField 'String', 'CATAPPULT_HOST', project.CATAPPULT_BASE_HOST_DEV
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
