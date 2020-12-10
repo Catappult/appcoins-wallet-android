@@ -24,15 +24,13 @@
         >
       <TextView
           android:id="@+id/dialog_message"
+          style="@style/TooltipTextStyle"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="14dp"
           android:layout_marginTop="16dp"
           android:layout_marginEnd="12dp"
-          android:fontFamily="sans-serif"
           android:text="@string/backup_tooltip_body"
-          android:textColor="@color/fakeBlack"
-          android:textSize="14sp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
@@ -47,35 +45,22 @@
           >
         <Button
             android:id="@+id/tooltip_later_button"
-            style="?android:attr/borderlessButtonStyle"
+            style="@style/TooltipButtonStyle.Negative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp"
-            android:backgroundTint="@color/white"
-            android:maxWidth="126dp"
-            android:minWidth="80dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
             android:text="@string/backup_tooltip_later_button"
-            android:textColor="@color/btn_cancel_text"
-            android:textSize="14sp"
             />
         <Button
             android:id="@+id/tooltip_backup_button"
-            style="?android:attr/borderlessButtonStyle"
+            style="@style/TooltipButtonStyle.Positive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:backgroundTint="@color/white"
-            android:maxWidth="160dp"
-            android:minWidth="80dp"
-            android:paddingStart="2dp"
-            android:paddingEnd="2dp"
             android:text="@string/backup_tooltip_backup_button"
-            android:textColor="@color/text_button_color"
-            android:textSize="14sp"
             />
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -84,7 +69,7 @@
       android:id="@+id/arrow_up_tip"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
+      android:layout_marginEnd="15dp"
       android:elevation="1dp"
       android:src="@drawable/ic_tooltip_arrow_up"
       app:layout_constraintBottom_toTopOf="@id/backup_tooltip"
@@ -92,8 +77,8 @@
       app:layout_constraintTop_toTopOf="parent"
       />
   <ImageView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="26dp"
+      android:layout_height="26dp"
       android:layout_marginBottom="10dp"
       android:src="@drawable/ic_backup_white"
       app:layout_constraintBottom_toTopOf="@id/arrow_up_tip"

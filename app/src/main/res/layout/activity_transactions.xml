@@ -7,7 +7,7 @@
     android:background="@color/activity_background_color"
     >
 
-  <include layout="@layout/layout_collapsing_app_bar"/>
+  <include layout="@layout/layout_collapsing_app_bar" />
 
   <ImageView
       android:id="@+id/toolbar_layout_logo"
@@ -67,5 +67,13 @@
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-
+  <FrameLayout
+      android:id="@+id/faded_background"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/faded_background_color"
+      android:clickable="true"
+      android:focusable="true"
+      android:visibility="gone"
+      />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

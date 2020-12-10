@@ -1,20 +1,23 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.ui.settings.entry
 
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 
 class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalletInteract,
                          private val supportInteractor: SupportInteractor,
                          private val walletsInteract: WalletsInteract,
                          private val autoUpdateInteract: AutoUpdateInteract,
-                         private val fingerPrintInteractor: FingerPrintInteractor,
+                         private val fingerprintInteractor: FingerprintInteractor,
                          private val walletsEventSender: WalletsEventSender,
-                         private val preferencesRepositoryType: PreferencesRepositoryType) {
+                         private val preferenceRepository: PreferencesRepositoryType,
+                         private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
   private var fingerPrintAvailability: Int = -1
 
@@ -38,14 +41,16 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 
   fun retrieveFingerPrintAvailability(): Int {
-    fingerPrintAvailability = fingerPrintInteractor.getDeviceCompatibility()
+    fingerPrintAvailability = fingerprintInteractor.getDeviceCompatibility()
     return fingerPrintAvailability
   }
 
   fun retrievePreviousFingerPrintAvailability() = fingerPrintAvailability
 
   fun changeAuthorizationPermission(value: Boolean) =
-      preferencesRepositoryType.setAuthenticationPermission(value)
+      fingerprintPreferences.setAuthenticationPermission(value)
 
-  fun hasAuthenticationPermission() = preferencesRepositoryType.hasAuthenticationPermission()
+  fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
+
+  fun setHasBeenInSettings() = preferenceRepository.setBeenInSettings()
 }

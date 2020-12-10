@@ -4,11 +4,11 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.FEATURE_FINGERPRINT
 import android.os.Build
 import androidx.biometric.BiometricManager
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 
-class FingerPrintInteractor(private val biometricManager: BiometricManager,
+class FingerprintInteractor(private val biometricManager: BiometricManager,
                             private val packageManager: PackageManager,
-                            private val preferencesRepositoryType: PreferencesRepositoryType) {
+                            private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
   fun getDeviceCompatibility(): Int {
     val biometricCompatibility = biometricManager.canAuthenticate()
@@ -20,12 +20,12 @@ class FingerPrintInteractor(private val biometricManager: BiometricManager,
   }
 
   fun setAuthenticationPermission(value: Boolean) =
-      preferencesRepositoryType.setAuthenticationPermission(value)
+      fingerprintPreferences.setAuthenticationPermission(value)
 
-  fun getAuthenticationErrorTime() = preferencesRepositoryType.getAuthenticationErrorTime()
+  fun getAuthenticationErrorTime() = fingerprintPreferences.getAuthenticationErrorTime()
 
   fun setAuthenticationErrorTime(currentTime: Long) =
-      preferencesRepositoryType.setAuthenticationErrorTime(currentTime)
+      fingerprintPreferences.setAuthenticationErrorTime(currentTime)
 
   private fun hasBiometrics(biometricCompatibility: Int): Boolean {
     return (biometricCompatibility == BiometricManager.BIOMETRIC_SUCCESS || biometricCompatibility == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED)
