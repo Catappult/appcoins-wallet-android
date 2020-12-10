@@ -410,7 +410,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideDeepLinkApi(@Named("default") client: OkHttpClient, gson: Gson): DeepLinkApi {
-    val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
+    val baseUrl = BuildConfig.CATAPPULT_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -423,7 +423,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun providesTopUpValuesApi(@Named("default") client: OkHttpClient, gson: Gson): TopUpValuesApi {
-    val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
+    val baseUrl = BuildConfig.CATAPPULT_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -436,7 +436,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideBdsShareLinkApi(@Named("default") client: OkHttpClient, gson: Gson): BdsShareLinkApi {
-    val baseUrl = BuildConfig.LEGACY_CATAPPULT_BASE_HOST
+    val baseUrl = BuildConfig.CATAPPULT_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
