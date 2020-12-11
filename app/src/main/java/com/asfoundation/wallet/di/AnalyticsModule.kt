@@ -87,7 +87,9 @@ class AnalyticsModule {
       WalletsAnalytics.WALLET_SAVE_FILE,
       WalletsAnalytics.WALLET_IMPORT_RESTORE,
       WalletsAnalytics.WALLET_PASSWORD_RESTORE,
-      PageViewAnalytics.WALLET_PAGE_VIEW
+      PageViewAnalytics.WALLET_PAGE_VIEW,
+      BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_PARTICIPATING_EVENT,
+      BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_CONVERSION_EVENT
   )
 
   @Singleton

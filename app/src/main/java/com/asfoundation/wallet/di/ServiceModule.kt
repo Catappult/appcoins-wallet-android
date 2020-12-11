@@ -306,6 +306,19 @@ class ServiceModule {
         OemIdExtractorV2(context, extractor))
   }
 
+  @Singleton
+  @Provides
+  fun provideAutoUpdateApi(@Named("low-timer") client: OkHttpClient, gson: Gson): AutoUpdateApi {
+    val baseUrl = BuildConfig.BACKEND_HOST
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AutoUpdateApi::class.java)
+  }
+
   @Provides
   fun provideAutoUpdateService(autoUpdateApi: AutoUpdateApi) =
       AutoUpdateService(autoUpdateApi)

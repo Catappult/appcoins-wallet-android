@@ -10,7 +10,7 @@ class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
 
   companion object {
     internal const val NO_EXPERIMENT = "Default"
-    private const val EXPERIMENT_ID = "WAL-78-Balance-vs-MyWallets-test"
+    private const val EXPERIMENT_ID = "WAL-78-Balance-vs-MyWallets"
     private val experimentValues = listOf("Balance", "MyWallets")
   }
 

@@ -58,7 +58,6 @@ import com.asfoundation.wallet.poa.*
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
 import com.asfoundation.wallet.router.GasSettingsRouter
-import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
@@ -449,19 +448,6 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providePackageManager(context: Context): PackageManager = context.packageManager
-
-  @Singleton
-  @Provides
-  fun provideAutoUpdateApi(@Named("default") client: OkHttpClient, gson: Gson): AutoUpdateApi {
-    val baseUrl = BuildConfig.BACKEND_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(AutoUpdateApi::class.java)
-  }
 
   @Provides
   @Named("local_version_code")
