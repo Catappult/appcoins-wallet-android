@@ -29,8 +29,8 @@ class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
         }
   }
 
-  override fun mapConfiguration(config: String): Int {
-    return when (config) {
+  override fun mapConfiguration(assignment: String): Int {
+    return when (assignment) {
       "Balance" -> R.string.balance_title
       "MyWallets" -> R.string.wallets_title //TODO change for My Wallets string
       else -> R.string.balance_title

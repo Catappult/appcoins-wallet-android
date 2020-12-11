@@ -17,6 +17,6 @@ data class Experiment(val requestTime: Long, val assignment: String?, val payloa
 
   private companion object {
     private const val TWENTY_FOUR_HOURS: Long = 86400000
-    const val MAX_CACHE_TIME_IN_MILLIS = TWENTY_FOUR_HOURS * 30
+    const val MAX_CACHE_TIME_IN_MILLIS = TWENTY_FOUR_HOURS
   }
 }

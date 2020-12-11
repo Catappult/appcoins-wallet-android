@@ -131,4 +131,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   private fun hasFingerprint(): Boolean {
     return fingerprintInteractor.getDeviceCompatibility() == BiometricManager.BIOMETRIC_SUCCESS
   }
+
+  fun mapConfiguration(assignment: String): Int =
+      balanceWalletsExperiment.mapConfiguration(assignment)
 }

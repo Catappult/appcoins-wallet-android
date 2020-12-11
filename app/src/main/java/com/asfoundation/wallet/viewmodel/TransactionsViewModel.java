@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Pair;
+import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
@@ -70,7 +71,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final CurrencyFormatUtils formatter;
   private final Scheduler viewScheduler;
   private final Scheduler networkScheduler;
-  private MutableLiveData<String> experimentAssignment = new MutableLiveData<>();
+  private MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private CompositeDisposable disposables;
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
@@ -128,7 +129,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return showPromotionTooltip;
   }
 
-  public MutableLiveData<String> balanceWalletsExperimentAssignment() {
+  public MutableLiveData<Integer> balanceWalletsExperimentAssignment() {
     return experimentAssignment;
   }
 
@@ -173,7 +174,11 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(transactionViewInteract.getBalanceWalletsExperiment()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess(string -> experimentAssignment.postValue(string))
+        .doOnSuccess(assignment -> {
+          @StringRes int bottomNavigationItemName =
+              transactionViewInteract.mapConfiguration(assignment);
+          experimentAssignment.postValue(bottomNavigationItemName);
+        })
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
