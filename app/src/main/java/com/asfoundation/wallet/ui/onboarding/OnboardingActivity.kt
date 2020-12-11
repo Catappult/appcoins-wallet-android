@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.animation.Animator
+import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
@@ -14,6 +16,7 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
@@ -32,7 +35,11 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   private var paymentMethodsIcons: ArrayList<String> = ArrayList()
 
   companion object {
-    fun newInstance() = OnboardingActivity()
+    fun newInstance(context: Context, fromSupportNotification: Boolean = false): Intent {
+      val intent = Intent(context, OnboardingActivity::class.java)
+      intent.putExtra(SUPPORT_NOTIFICATION_CLICK, fromSupportNotification)
+      return intent
+    }
 
     private const val TERMS_CONDITIONS_URL = "https://catappult.io/appcoins-wallet/terms-conditions"
     private const val PRIVACY_POLICY_URL = "https://catappult.io/appcoins-wallet/privacy-policy"
