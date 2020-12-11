@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.abtesting.experiments
 
+import com.asf.wallet.R
 import com.asfoundation.wallet.abtesting.ABTestInteractor
 import io.reactivex.Single
 
@@ -26,5 +27,13 @@ class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
           if (experimentValues.contains(experimentAssignment)) assignment = experimentAssignment
           Single.just(experimentAssignment)
         }
+  }
+
+  override fun mapConfiguration(config: String): Int {
+    return when (config) {
+      "Balance" -> R.string.balance_title
+      "MyWallets" -> R.string.wallets_title //TODO change for My Wallets string
+      else -> R.string.balance_title
+    }
   }
 }

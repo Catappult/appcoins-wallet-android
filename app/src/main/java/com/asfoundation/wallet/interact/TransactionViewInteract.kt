@@ -5,6 +5,7 @@ import android.hardware.biometrics.BiometricManager
 import android.util.Pair
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
+import com.asfoundation.wallet.abtesting.experiments.BalanceWalletsExperiment
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
@@ -35,7 +36,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
                               private val preferencesRepositoryType: PreferencesRepositoryType,
                               private val packageManager: PackageManager,
                               private val fingerprintInteractor: FingerprintInteractor,
-                              private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+                              private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
+                              private val balanceWalletsExperiment: BalanceWalletsExperiment) {
 
   private companion object {
     private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
@@ -94,6 +96,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
       preferencesRepositoryType.increaseTimesOnHome()
     }
   }
+
+  fun getBalanceWalletsExperiment(): Single<String> = balanceWalletsExperiment.getConfiguration()
 
   private fun getNumberOfTimesOnHome(): Int = preferencesRepositoryType.getNumberOfTimesOnHome()
 

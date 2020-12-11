@@ -188,6 +188,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
         .observe(this, this::showPromotionsOverlay);
+    viewModel.balanceWalletsExperimentAssignment()
+        .observe(this, this::changeBottomNavigationName);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
 
     if (savedInstanceState == null) {
@@ -207,6 +209,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       viewModel.showSettings(this);
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  private void changeBottomNavigationName(String name) {
+    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+    bottomNavigationView.getMenu()
+        .getItem(3)
+        .setTitle(name);
   }
 
   @Override public void onBackPressed() {
