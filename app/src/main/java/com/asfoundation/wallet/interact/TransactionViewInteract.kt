@@ -5,7 +5,7 @@ import android.hardware.biometrics.BiometricManager
 import android.util.Pair
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
-import com.asfoundation.wallet.abtesting.experiments.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet

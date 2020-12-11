@@ -40,7 +40,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
-import com.asfoundation.wallet.abtesting.experiments.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo

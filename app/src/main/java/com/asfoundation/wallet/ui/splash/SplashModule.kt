@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.splash
 
-import com.asfoundation.wallet.abtesting.experiments.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType

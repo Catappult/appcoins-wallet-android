@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di
 
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsAnalytics
 import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
@@ -155,7 +156,9 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun providesTransactionsAnalytics(analytics: AnalyticsManager) = TransactionsAnalytics(analytics)
+  fun providesTransactionsAnalytics(analytics: AnalyticsManager,
+                                    balanceWalletsAnalytics: BalanceWalletsAnalytics) =
+      TransactionsAnalytics(analytics, balanceWalletsAnalytics)
 
   @Singleton
   @Provides
@@ -189,5 +192,11 @@ class AnalyticsModule {
                                      rakamAnalytics: RakamAnalytics,
                                      amplitudeAnalytics: AmplitudeAnalytics): PaymentMethodsAnalytics {
     return PaymentMethodsAnalytics(billingAnalytics, rakamAnalytics, amplitudeAnalytics)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBalanceWalletsAnalytics(analytics: AnalyticsManager): BalanceWalletsAnalytics {
+    return BalanceWalletsAnalytics(analytics)
   }
 }

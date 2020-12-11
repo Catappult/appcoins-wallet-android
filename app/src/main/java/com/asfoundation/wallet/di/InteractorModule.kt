@@ -25,7 +25,7 @@ import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
 import com.asfoundation.wallet.abtesting.ABTestInteractor
 import com.asfoundation.wallet.abtesting.ABTestRepository
-import com.asfoundation.wallet.abtesting.experiments.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.backup.BackupInteract

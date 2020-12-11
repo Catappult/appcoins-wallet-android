@@ -177,6 +177,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .doOnSuccess(assignment -> {
           @StringRes int bottomNavigationItemName =
               transactionViewInteract.mapConfiguration(assignment);
+          analytics.sendAbTestImpressionEvent(assignment);
           experimentAssignment.postValue(bottomNavigationItemName);
         })
         .subscribe(__ -> {
@@ -401,6 +402,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTokens(Context context) {
+    analytics.sendAbTestConversionEvent();
     transactionViewNavigator.openTokensView(context);
   }
 

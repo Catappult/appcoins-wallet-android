@@ -1,13 +1,15 @@
-package com.asfoundation.wallet.abtesting.experiments
+package com.asfoundation.wallet.abtesting.experiments.balancewallets
 
 import com.asf.wallet.R
 import com.asfoundation.wallet.abtesting.ABTestInteractor
+import com.asfoundation.wallet.abtesting.experiments.RakamExperiment
 import io.reactivex.Single
 
 class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
     RakamExperiment() {
 
-  private companion object {
+  companion object {
+    internal const val NO_EXPERIMENT = "Default"
     private const val EXPERIMENT_ID = "WAL-78-Balance-vs-MyWallets-test"
     private val experimentValues = listOf("Balance", "MyWallets")
   }
@@ -20,7 +22,7 @@ class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
     }
     return abTestInteractor.getExperiment(EXPERIMENT_ID, type)
         .flatMap { experiment ->
-          var experimentAssignment = "Balance"
+          var experimentAssignment = NO_EXPERIMENT
           if (!experiment.experimentOver && experiment.partOfExperiment && experiment.assignment != null) {
             experimentAssignment = experiment.assignment
           }
