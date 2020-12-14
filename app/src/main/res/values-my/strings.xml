@@ -758,7 +758,7 @@
   <string name="carrier_billing_fees_disclaimer">ေနာက္ထပ္ အခေၾကးေငြမ်ား ရွိႏိုင္ပါသည္</string>
   <string name="carrier_billing_insert_phone_body">သင့္ဖုန္းနံပါတ္ကို ထည့္ေပးပါ</string>
   <string name="carrier_billing_phone_field">သင့္ဖုန္းနံပါတ္...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged.</string>
+  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
   <string name="carrier_billing_purchase_info_body">%2$s တြင္ %1$s။</string>
   <string name="carrier_billing_phone_confirmation_body">သင့္ဖုန္းနံပါတ္မွာ %s ျဖစ္ပါသည္။</string>
   <string name="carrier_billing_enter_pin_body">SMS မွတဆင့္ရရွိေသာ PIN ကို ထည့္ေပးပါ။</string>
