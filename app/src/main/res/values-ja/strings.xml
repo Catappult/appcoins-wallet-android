@@ -842,7 +842,6 @@
   <string name="card_verification_code_example_description">Description</string>
   <string name="card_verification_code_example_amount">量</string>
   <string name="card_verification_code_example_code">Unique code</string>
-  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
   <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
