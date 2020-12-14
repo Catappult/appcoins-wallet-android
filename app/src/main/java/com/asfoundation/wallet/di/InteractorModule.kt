@@ -91,8 +91,9 @@ class InteractorModule {
   @Singleton
   @Provides
   fun providesLaunchInteractor(launchAnalytics: LaunchAnalytics,
-                               sharedPreferences: SharedPreferences): LaunchInteractor {
-    return LaunchInteractor(launchAnalytics, sharedPreferences)
+                               sharedPreferences: SharedPreferences,
+                               packageManager: PackageManager): LaunchInteractor {
+    return LaunchInteractor(launchAnalytics, sharedPreferences, packageManager)
   }
 
   @Provides
