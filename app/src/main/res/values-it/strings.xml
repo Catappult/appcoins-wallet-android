@@ -117,7 +117,7 @@
   <string name="intro_3_body">Processa tutti i tuoi acquisti in-app con il tuo metodo di pagamento preferito.</string>
   <string name="intro_4_title">Sicuro e privato</string>
   <string name="intro_4_body">Le tue chiavi private non lasceranno mai il tuo dispositivo, rendendo le AppCoins sicure in ogni momento.</string>
-  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
+  <string name="intro_4_body_2">Tutte le tue transazioni sono sempre sicure grazie alla nostra tecnologia d\'avanguardia.</string>
   <string name="intro_5_title">Ricevi AppCoins Credits gratis!</string>
   <string name="intro_5_body">Riceverai AppCoins Credits gratuitamente provando app e giochi.</string>
   <string name="intro_creating_wallet_short">Stiamo configurando il tuo wallet&#8230;</string>
@@ -225,21 +225,21 @@
   <string name="transaction_status_success">Successo</string>
   <string name="transaction_status_pending">In sospeso</string>
   <string name="transaction_status_failed">Non riuscito</string>
-  <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_status_reverted">Stornata</string>
   <string name="transaction_type_iab">Acquisto in-App</string>
   <string name="transaction_type_poa">Premio</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Trasferisci</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_voucher">e-Voucher</string>
-  <string name="transaction_type_voucher_title">Voucher for %s</string>
+  <string name="transaction_type_voucher_title">Voucher per %s</string>
   <string name="transaction_type_reverted_bonus_title">Bonus eliminato</string>
   <string name="transaction_type_reverted_bonus_body">Il bonus che hai ricevuto su %s è stato eliminato. Contatta il servizio clienti per maggiori informazioni.</string>
   <string name="transaction_type_reverted_topup_title">Rimborso ricarica</string>
   <string name="transaction_type_reverted_topup_body">La ricarica che hai effettuato su %s è stata rimborsata. Contatta il servizio clienti per maggiori informazioni.</string>
   <string name="transaction_type_reverted_purchase_title">Rimborso acquisto</string>
   <string name="transaction_type_reverted_purchase_body">L\'acquisto che hai effettuato su %s è stato rimborsato. Contatta il servizio clienti per maggiori informazioni.</string>
-  <string name="transaction_reverted_view_original_header">Original Transaction</string>
+  <string name="transaction_reverted_view_original_header">Transazione originale</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -408,11 +408,11 @@
   <string name="common_or">O</string>
   <string name="share_via">Condividi tramite:</string>
   <string name="password">Password</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="turn_on_button">Turn on</string>
+  <string name="repeat_password">Ripeti password</string>
+  <string name="turn_on_button">Attiva</string>
   <string name="no_thanks_button">No,thanks</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="remind_later_button">Ricordamelo dopo</string>
+  <string name="get_code_button">Ottieni un codice</string>
   <string name="confirm_button">Conferma</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
@@ -427,7 +427,7 @@
   <string name="title_redeem">Riscatta il codice</string>
   <string name="settings_item_support">Contatta l\'assistenza clienti</string>
   <string name="settings_subheader_support">Supporto</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">Chi siamo</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In corso&#8230;</string>
   <string name="local_payments_inprogress_body">Una volta completato il pagamento riceverai gli AppCoins Credits nel tuo wallet. A quel punto per completare l\'acquisto dovrai solo tornare al gioco!</string>
@@ -461,8 +461,8 @@
   <string name="verification_error_time_expired">Ops, la sessione è scaduta. Ritenta!</string>
   <string name="verification_error_attempts_reached">Hai superato il numero di tentativi permessi. Attendi prima di ritentare.</string>
   <string name="verified_tag">Verificato</string>
-  <string name="unferified_tag">Unverified wallet</string>
-  <string name="verification_wallets_verify_button">Verify</string>
+  <string name="unferified_tag">Wallet non verificato</string>
+  <string name="verification_wallets_verify_button">Verifica</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Sembra che questo acquisto sia già stato processato. Attendi il completamento della transazione o contatta il nostro servizio clienti.</string>
   <string name="purchase_more_payment_methods_button">ALTRI METODI DI PAGAMENTO</string>
@@ -493,8 +493,8 @@
   <string name="purchase_card_error_wrong_CVV">Il tuo codice CVV/CVC sembra errato. Ritenta.</string>
   <string name="purchase_wallet_error_contact_us">Qualcosa è andato storto con il tuo wallet, contattaci.</string>
   <string name="purchase_carrier_error">Il tuo numero di telefono non è compatibile con questo metodo di pagamento.</string>
-  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
-  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
+  <string name="purchase_carrier_error_minimum">Il tuo operatore non permette pagamenti inferiori a %s.</string>
+  <string name="purchase_carrier_error_maximum">Il tuo operatore non permette pagamenti superiori a %s.</string>
   <string name="purchase_error_fraud_code_20">Stiamo riscontrando problemi con questo acquisto. Contattaci.</string>
   <string name="purchase_error_wallet_block_code_403">Si è verificato un problema con il tuo wallet. Contattaci.</string>
   <string name="purchase_card_error_CVV">CVV/CVC errato</string>
@@ -559,8 +559,8 @@
   <string name="promotions_tab_poa_title">GIOCA &amp; GUADAGNA</string>
   <string name="promotions_empty_promotions_body">Al momento non ci sono promozioni disponibili. Torna più tardi!</string>
   <string name="promotions_empty_poa_body">Al momento non ci sono app con premi disponibili. Torna più tardi!</string>
-  <string name="promotions_perks_button">Perks</string>
-  <string name="promotions_vouhers_button">Vouchers</string>
+  <string name="promotions_perks_button">Extra</string>
+  <string name="promotions_vouhers_button">Voucher</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Effettua l\'aggiornamento per ricevere premi</string>
   <string name="update_wallet_poa_notification_body">Aggiorna l\'AppCoins Wallet per ricevere questo premio.</string>
@@ -611,11 +611,11 @@
   <string name="backup_notification_title">Fai un backup del tuo wallet!</string>
   <string name="backup_notification_body">Proteggi i tuoi fondi e assicurati di poter sempre accedere al tuo wallet.</string>
   <string name="backup_choose_wallet_title">Scegli un wallet per il backup</string>
-  <string name="backup_additional_security_title">Additional Security (optional)</string>
-  <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
-  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
-  <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
+  <string name="backup_additional_security_title">Ulteriore sicurezza (facoltativo)</string>
+  <string name="backup_additional_security_body">Scegli una password</string>
+  <string name="backup_additional_security_disclaimer_title">Conserva la tua password al sicuro.</string>
+  <string name="backup_additional_security_disclaimer_body">Non è possibile recuperare la password.</string>
+  <string name="backup_additional_security_password_not_march">Le password non corrispondono.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallet</string>
   <string name="wallets_total_balance_title">Saldo totale in %s</string>
@@ -766,7 +766,7 @@
   <string name="carrier_billing_code_field">Il tuo codice...</string>
   <string name="carrier_billing_code_resend_button">REINVIA CODICE</string>
   <string name="carrier_billing_submit_button">INVIA</string>
-  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
+  <string name="carrier_billing_number_not_supported">Il tuo numero non è compatibile con questo metodo di pagamento.</string>
   <string name="carrier_billing_terms_disclaimer">Premendo \'Invia\' confermi di accettare i nostri Termini e condizioni e l\'Informativa sulla privacy.</string>
   <string name="carrier_billing_help_1">Serve aiuto?</string>
   <string name="carrier_billing_help_2_button">Contatta l\'assistenza clienti</string>
@@ -787,7 +787,7 @@
   <string name="manage_cards_select_title">Seleziona carta di pagamento</string>
   <string name="manage_cards_remember">Ricorda carta</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_title">Ricevi un bonus fino al %s%% su ogni acquisto</string>
   <string name="perks_gamif_subtitle">Più spendi sulle tue app preferite, maggiore sarà il bonus!</string>
   <string name="perks_title">Promozioni</string>
   <string name="perks_body">Resta sintonizzato! Abbiamo in serbo delle promozioni speciali per te.</string>
@@ -819,53 +819,52 @@
   <string name="fingerprint_failed_body">Ritenta fra %s secondi.</string>
   <string name="fingerprint_authentication_required_title">Autenticazione necessaria!</string>
   <string name="fingerprint_authentication_required_body">Usa il dito o la password per continuare.</string>
-  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
+  <string name="fingerprint_popup_body">Autenticazione con impronta digitale disponibile!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Invia log all\'assistenza clienti</string>
   <string name="send_logs_sending">Invio di...&#8230;</string>
   <string name="send_logs_send">Invio riuscito!</string>
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
-  <string name="rate_us_no">Not really</string>
-  <string name="rate_us_yes">Yes!</string>
-  <string name="rate_us_improve_title">What can we improve?</string>
-  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
-  <string name="rate_us_improve_field__empty_error">Please write something</string>
-  <string name="rate_us_possitive_thanks_title">Thank you!</string>
-  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
-  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <string name="rate_us_question_title">Ti piace l\'AppCoins Wallet?</string>
+  <string name="rate_us_no">Non molto</string>
+  <string name="rate_us_yes">Sì!</string>
+  <string name="rate_us_improve_title">Cosa possiamo migliorare?</string>
+  <string name="rate_us_improve_field">Facci sapere cosa non va e lo miglioreremo.</string>
+  <string name="rate_us_improve_field__empty_error">Scrivi qualcosa</string>
+  <string name="rate_us_possitive_thanks_title">Grazie!</string>
+  <string name="rate_us_possitive_thanks_body">Siamo contenti che ti piaccia l\'app. Puoi aiutarci dando una valutazione all\'app store?</string>
+  <string name="rate_us_possitive_rate_button">VALUTA IL WALLET APPCOINS</string>
+  <string name="rate_us_possitive_done_title">Grazie del commento!</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
-  <string name="card_verification_code_title">Check the code in the transaction details</string>
+  <string name="card_verification_body">Usa la tua carta di credito/debito per verificare il tuo wallet.</string>
+  <string name="card_verification_charde_disclaimer">Prenderemo un pagamento di %s dalla tua carta e lo rimborseremo quando confermerai il codice.</string>
+  <string name="card_verification_code_title">Controlla il codice nei dati della transazione</string>
   <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
-  <string name="card_verification_code_example_title">Example of Transaction Summary</string>
-  <string name="card_verification_code_example_date">Trans. Date</string>
-  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_code_example_title">Esempio di sommario della transazione</string>
+  <string name="card_verification_code_example_date">Data trans.</string>
+  <string name="card_verification_code_example_description">Descrizione</string>
   <string name="card_verification_code_example_amount">Quantità</string>
   <string name="card_verification_code_example_code">Unique code</string>
-  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
   <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
-    <item quantity="one">%1$s will be refunded within %2$s hour after you confirm the code.</item>
-    <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
+    <item quantity="one">L\'importo di %1$s sarà rimborsato entro %2$s ora dalla conferma del codice.</item>
+    <item quantity="other">L\'importo di %1$s sarà rimborsato entro %2$s ore dalla conferma del codice.</item>
   </plurals>
   <plurals name="card_verification_code_enter_days_body">
-    <item quantity="one">%1$s will be refunded within %2$s day after you confirm the code.</item>
-    <item quantity="other">%1$s will be refunded within %2$s days after you confirm the code.</item>
+    <item quantity="one">L\'importo di %1$s sarà rimborsato entro %2$s giorno dalla conferma del codice.</item>
+    <item quantity="other">L\'importo di %1$s sarà rimborsato entro %2$s giorni dalla conferma del codice.</item>
   </plurals>
-  <string name="card_verification_code_other_card_button">Try with another card</string>
-  <string name="card_verification_code_wrong_error">Wrong code</string>
-  <string name="card_verification_wallets_one_step_title">One more step to validate</string>
-  <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
-  <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <string name="card_verification_code_other_card_button">Prova con un\'altra carta</string>
+  <string name="card_verification_code_wrong_error">Codice errato</string>
+  <string name="card_verification_wallets_one_step_title">Un ultimo passaggio per la convalida</string>
+  <string name="card_verification_wallets_one_step_body">Inserisci il codice che appare nei dati della transazione.</string>
+  <string name="card_verification_wallets_insert_bode_button">Inserisci il codice</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
-  <string name="voucher_buy_header">Voucher for %s</string>
-  <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
-  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
-  <string name="voucher_code_title">Voucher Code</string>
-  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
-  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
+  <string name="voucher_card_body">Acquista questo voucher e ottieni un bonus fino a %s%%.</string>
+  <string name="voucher_buy_header">Voucher per %s</string>
+  <string name="voucher_buy_no_game_title">Non hai %s?</string>
+  <string name="voucher_buy_no_game_install_button">SCARICA ADESSO</string>
+  <string name="voucher_code_title">Codice voucher</string>
+  <string name="voucher_instructions_body">Vai su %s e usa il codice per riscattare il voucher.</string>
+  <string name="voucher_instructions_transactions">Puoi sempre trovare il codice nell\'archivio delle transazioni.</string>
 </resources>

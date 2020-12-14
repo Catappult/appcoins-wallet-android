@@ -27,7 +27,7 @@
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission_title">相机权限</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
-  <string name="no_camera_available">No camera available!</string>
+  <string name="no_camera_available">摄像头不可用！</string>
   <string name="ok">确定</string>
   <string name="barcode_error_format">无效条形码格式：%s</string>
   <string name="title_delete_account">确实要删除此钱包？</string>
@@ -117,7 +117,7 @@
   <string name="intro_3_body">使用你最喜爱的付款方式处理所有应用内购买。</string>
   <string name="intro_4_title">安全私密</string>
   <string name="intro_4_body">你的私钥永远不会离开你的设备，因此你的AppCoins始终安全。</string>
-  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
+  <string name="intro_4_body_2">得益于最新技术，您的所有交易都始终安全。</string>
   <string name="intro_5_title">获取免费AppCoins积金！</string>
   <string name="intro_5_body">你可以通过试用应用和试玩游戏来赢取免费AppCoins积金。</string>
   <string name="intro_creating_wallet_short">正在为你设置钱包&#8230;</string>
@@ -225,21 +225,21 @@
   <string name="transaction_status_success">成功</string>
   <string name="transaction_status_pending">待处理</string>
   <string name="transaction_status_failed">失败</string>
-  <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_status_reverted">已还原</string>
   <string name="transaction_type_iab">应用内购买</string>
   <string name="transaction_type_poa">奖励</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">转移</string>
   <string name="transaction_type_bonus">奖励</string>
-  <string name="transaction_type_voucher">e-Voucher</string>
-  <string name="transaction_type_voucher_title">Voucher for %s</string>
-  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
-  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
-  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
-  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_reverted_view_original_header">Original Transaction</string>
+  <string name="transaction_type_voucher">电子优惠券</string>
+  <string name="transaction_type_voucher_title">%s优惠券</string>
+  <string name="transaction_type_reverted_bonus_title">已还原奖金</string>
+  <string name="transaction_type_reverted_bonus_body">您于%s收到的奖金已还原。请联系支持团队以了解更多信息。</string>
+  <string name="transaction_type_reverted_topup_title">充值退款</string>
+  <string name="transaction_type_reverted_topup_body">您于%s进行的充值已还原。请联系支持团队以了解更多信息。</string>
+  <string name="transaction_type_reverted_purchase_title">购买退款</string>
+  <string name="transaction_type_reverted_purchase_body">您于%s进行的购买已还原。请联系支持团队以了解更多信息。</string>
+  <string name="transaction_reverted_view_original_header">原始交易</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">采用以太网技术</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -408,11 +408,11 @@
   <string name="common_or">或</string>
   <string name="share_via">分享方式：</string>
   <string name="password">密码</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="turn_on_button">Turn on</string>
+  <string name="repeat_password">重复密码</string>
+  <string name="turn_on_button">开启</string>
   <string name="no_thanks_button">No,thanks</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="remind_later_button">稍后提醒我</string>
+  <string name="get_code_button">获取代码</string>
   <string name="confirm_button">确认</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
@@ -427,7 +427,7 @@
   <string name="title_redeem">兑换码</string>
   <string name="settings_item_support">联系支持团队</string>
   <string name="settings_subheader_support">支持</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">关于我们</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">正在进行中&#8230;</string>
   <string name="local_payments_inprogress_body">完成付款后，你将在钱包中收到AppCoins积金。然后回到游戏进行购买！</string>
@@ -461,8 +461,8 @@
   <string name="verification_error_time_expired">糟糕，您的时间已到。请重新开始！</string>
   <string name="verification_error_attempts_reached">您似乎已达到尝试次数限制。请稍后重试。</string>
   <string name="verified_tag">已验证</string>
-  <string name="unferified_tag">Unverified wallet</string>
-  <string name="verification_wallets_verify_button">Verify</string>
+  <string name="unferified_tag">钱包未验证</string>
+  <string name="verification_wallets_verify_button">验证</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
   <string name="purchase_more_payment_methods_button">其他付款方式</string>
@@ -493,20 +493,20 @@
   <string name="purchase_card_error_wrong_CVV">你的CVV/CVC代码似乎有误。请重试。</string>
   <string name="purchase_wallet_error_contact_us">糟糕，您的钱包出现问题。请与我们联系。</string>
   <string name="purchase_carrier_error">您的电话号码似乎与此付款方式不兼容。</string>
-  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
-  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
-  <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_carrier_error_minimum">您的运营商不支持低于%s的付款。</string>
+  <string name="purchase_carrier_error_maximum">您的运营商不支持超过%s的付款。</string>
+  <string name="purchase_error_fraud_code_20">糟糕，此购买发生问题。请与我们联系。</string>
+  <string name="purchase_error_wallet_block_code_403">您的钱包似乎出现了问题。请与我们联系。</string>
   <string name="purchase_card_error_CVV">CVV/CVC错误</string>
   <string name="error_contac_us_body">如果问题仍然存在，请与我们联系。</string>
   <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
   <!--Billing address in purchase flow-->
-  <string name="purchase_address_title">Billing address</string>
-  <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
-  <string name="purchase_address_city_field">City</string>
-  <string name="purchase_address_post_code_field">Zip/Post code</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_title">帐单地址</string>
+  <string name="purchase_address_address_field">地址</string>
+  <string name="purchase_address_apartment_field">公寓楼层&#8230;</string>
+  <string name="purchase_address_city_field">城市</string>
+  <string name="purchase_address_post_code_field">邮政编码</string>
+  <string name="purchase_address_state_field">州/省</string>
   <!--Async Payments-->
   <string name="async_steps_title">后续步骤</string>
   <string name="async_steps_1">使用%s完成付款。钱包中收到AppCoins积金后，你会获得通知。</string>
@@ -559,8 +559,8 @@
   <string name="promotions_tab_poa_title">播放&amp;赚钱</string>
   <string name="promotions_empty_promotions_body">目前没有可用促销。请稍后再来！</string>
   <string name="promotions_empty_poa_body">目前没有提供奖励的应用。请稍后再来！</string>
-  <string name="promotions_perks_button">Perks</string>
-  <string name="promotions_vouhers_button">Vouchers</string>
+  <string name="promotions_perks_button">津贴</string>
+  <string name="promotions_vouhers_button"> 优惠券</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">更新以获取奖励</string>
   <string name="update_wallet_poa_notification_body">请更新AppCoins Wallet以获取此奖励。</string>
@@ -598,7 +598,7 @@
   <string name="import_wallet_title">恢复钱包</string>
   <string name="import_wallet_body">将你的钱包备份粘贴在下方。</string>
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
-  <string name="import_wallet_from_file_title">Or recover from file</string>
+  <string name="import_wallet_from_file_title">或者从文件恢复</string>
   <string name="import_wallet_file_button">从文件恢复</string>
   <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
@@ -611,11 +611,11 @@
   <string name="backup_notification_title">备份您的钱包！</string>
   <string name="backup_notification_body">确保资金安全，确保您随时均可访问钱包。</string>
   <string name="backup_choose_wallet_title">选择要备份的钱包</string>
-  <string name="backup_additional_security_title">Additional Security (optional)</string>
-  <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
-  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
-  <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
+  <string name="backup_additional_security_title">额外安全性（可选）</string>
+  <string name="backup_additional_security_body">选择密码</string>
+  <string name="backup_additional_security_disclaimer_title">请确保您的密码安全。</string>
+  <string name="backup_additional_security_disclaimer_body">密码不可恢复。</string>
+  <string name="backup_additional_security_password_not_march">密码不匹配。</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
@@ -765,7 +765,7 @@
   <string name="carrier_billing_code_field">您的代码...</string>
   <string name="carrier_billing_code_resend_button">重新发送代码</string>
   <string name="carrier_billing_submit_button">提交</string>
-  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
+  <string name="carrier_billing_number_not_supported">您的号码似乎与此付款方式不兼容。</string>
   <string name="carrier_billing_terms_disclaimer">点击“提交”即表示，您确认接受条款与条件以及隐私政策。</string>
   <string name="carrier_billing_help_1">需要帮助？</string>
   <string name="carrier_billing_help_2_button">联系支持人员</string>
@@ -786,80 +786,79 @@
   <string name="manage_cards_select_title">选择支付卡</string>
   <string name="manage_cards_remember">记住卡信息</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_title">每次购买可享高达%s%%的奖励</string>
   <string name="perks_gamif_subtitle">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="perks_title">促销</string>
   <string name="perks_body">敬请关注！我们为您推出了特别促销。</string>
   <plurals name="promotion_ends">
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="other">促销%s天后结束。</item>
   </plurals>
   <string name="perks_end_in_date">促销将在%s结束。</string>
   <plurals name="promotion_ends_hours">
-    <item quantity="other">The promotion ends in %s hours.</item>
+    <item quantity="other">促销%s小时后结束。</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
-    <item quantity="other">The promotion ends in %s minutes.</item>
+    <item quantity="other">促销%s分钟后结束。</item>
   </plurals>
-  <string name="perks_end_today">The promotion ends today.</string>
+  <string name="perks_end_today">促销今天结束。</string>
   <string name="perks_available_soon">促销即将推出</string>
   <string name="perks_next_level_reward">达到下一关可获取%s AppCoins积金！</string>
   <string name="perks_notification">你刚刚收到了%s AppCoins积金奖励</string>
   <string name="perks_level_up_on_this_purchase">通过此次消费来升级</string>
   <string name="perks_level_up_amount_left">您还要%1$s %2$s升到下一级！</string>
-  <string name="perks_level_up_level_tag">Lv %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_level_up_level_tag">%s级</string>
+  <string name="perks_bonus_purchase_flow">%1$s奖励：%2$s 的AppCoins积金</string>
+  <string name="perks_purchases_disclaimer_body">除AppCoins积金以外，通过任何购买方式进行的所有应用内购买和充值都将可以提升奖金等级并获得奖励。</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
-  <string name="fingerprint_failed_title">Authentication failed!</string>
-  <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
-  <string name="fingerprint_authentication_required_title">Authentication required!</string>
-  <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
-  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
+  <string name="fingerprint_settings">指纹锁</string>
+  <string name="fingerprint_failed_title">身份验证失败！</string>
+  <string name="fingerprint_failed_body">请在%s秒后重试。</string>
+  <string name="fingerprint_authentication_required_title">需要身份验证！</string>
+  <string name="fingerprint_authentication_required_body">请使用指纹或密码以继续。</string>
+  <string name="fingerprint_popup_body">现已推出指纹身份验证！</string>
   <!--Send Logs to Support-->
-  <string name="send_logs_settings">Send logs to Support Team</string>
-  <string name="send_logs_sending">Sending&#8230;</string>
-  <string name="send_logs_send">Sent!</string>
+  <string name="send_logs_settings">将日志发送给支持团队</string>
+  <string name="send_logs_sending">正在发送&#8230;</string>
+  <string name="send_logs_send">已发送！</string>
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
-  <string name="rate_us_no">Not really</string>
-  <string name="rate_us_yes">Yes!</string>
-  <string name="rate_us_improve_title">What can we improve?</string>
-  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
-  <string name="rate_us_improve_field__empty_error">Please write something</string>
-  <string name="rate_us_possitive_thanks_title">Thank you!</string>
-  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
-  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <string name="rate_us_question_title">喜欢AppCoins Wallet吗？</string>
+  <string name="rate_us_no">不太喜欢</string>
+  <string name="rate_us_yes">喜欢！</string>
+  <string name="rate_us_improve_title">我们可以改进什么？</string>
+  <string name="rate_us_improve_field">请告诉我们哪里出了问题，我们将予以解决。</string>
+  <string name="rate_us_improve_field__empty_error">请输入内容</string>
+  <string name="rate_us_possitive_thanks_title">谢谢！</string>
+  <string name="rate_us_possitive_thanks_body">很高兴您喜欢我们的应用。您能帮忙在应用商店上给我们评分吗？</string>
+  <string name="rate_us_possitive_rate_button">给APPCOINS WALLET评分</string>
+  <string name="rate_us_possitive_done_title">感谢您的反馈！</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
-  <string name="card_verification_code_title">Check the code in the transaction details</string>
+  <string name="card_verification_body">使用您的信用卡/借记卡验证钱包。</string>
+  <string name="card_verification_charde_disclaimer">我们将向您的银行卡收取%s的费用，一旦您确认代码，我们将立即退款给您。</string>
+  <string name="card_verification_code_title">在交易详细信息中查看代码</string>
   <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
-  <string name="card_verification_code_example_title">Example of Transaction Summary</string>
-  <string name="card_verification_code_example_date">Trans. Date</string>
-  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_code_example_title">交易摘要示例</string>
+  <string name="card_verification_code_example_date">交易日期</string>
+  <string name="card_verification_code_example_description">说明</string>
   <string name="card_verification_code_example_amount">金额</string>
   <string name="card_verification_code_example_code">Unique code</string>
-  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
   <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
-    <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
+    <item quantity="other">%1$s将在您确认代码后%2$s小时内退款。</item>
   </plurals>
   <plurals name="card_verification_code_enter_days_body">
-    <item quantity="other">%1$s will be refunded within %2$s days after you confirm the code.</item>
+    <item quantity="other">%1$s将在您确认代码后%2$s天内退款。</item>
   </plurals>
-  <string name="card_verification_code_other_card_button">Try with another card</string>
-  <string name="card_verification_code_wrong_error">Wrong code</string>
-  <string name="card_verification_wallets_one_step_title">One more step to validate</string>
-  <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
-  <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <string name="card_verification_code_other_card_button">使用另一张卡尝试</string>
+  <string name="card_verification_code_wrong_error">代码错误</string>
+  <string name="card_verification_wallets_one_step_title">验证还差一步</string>
+  <string name="card_verification_wallets_one_step_body">输入交易详细信息中出现的代码。</string>
+  <string name="card_verification_wallets_insert_bode_button">输入代码</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
-  <string name="voucher_buy_header">Voucher for %s</string>
-  <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
-  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
-  <string name="voucher_code_title">Voucher Code</string>
-  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
-  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
+  <string name="voucher_card_body">购买此优惠券即可获得高达%s%%的奖励。</string>
+  <string name="voucher_buy_header">%s优惠券</string>
+  <string name="voucher_buy_no_game_title">您没有%s吗？</string>
+  <string name="voucher_buy_no_game_install_button">立即下载</string>
+  <string name="voucher_code_title">优惠券代码</string>
+  <string name="voucher_instructions_body">转到%s并使用代码兑换优惠券。</string>
+  <string name="voucher_instructions_transactions">您始终可以在交易历史记录中找到优惠券代码。</string>
 </resources>

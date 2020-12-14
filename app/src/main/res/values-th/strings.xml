@@ -27,7 +27,7 @@
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
-  <string name="no_camera_available">No camera available!</string>
+  <string name="no_camera_available">ไม่มีกล้อง!</string>
   <string name="ok">ตกลง</string>
   <string name="barcode_error_format">รูปแบบบาร์โค้ดไม่ถูกต้อง: %s</string>
   <string name="title_delete_account">คุณมั่นใจว่าต้องการลบกระเป๋าสตางค์นี้</string>
@@ -117,7 +117,7 @@
   <string name="intro_3_body">ดำเนินการการซื้อของในแอปทั้งหมดโดยใช้วิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
   <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
-  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
+  <string name="intro_4_body_2">ธุรกรรมทั้งหมดของคุณปลอดภัยด้วยเทคโนโลยีล่าสุด</string>
   <string name="intro_5_title">รับเครดิต AppCoins ฟรี!</string>
   <string name="intro_5_body">คุณจะได้รับเครดิต AppCoins ฟรีโดยการทดลองแอปและเกมส์</string>
   <string name="intro_creating_wallet_short">ตั้งค่ากระเป๋าสตางค์ของคุณสำหรับคุณ &#8230;</string>
@@ -225,21 +225,21 @@
   <string name="transaction_status_success">สำเร็จ</string>
   <string name="transaction_status_pending">ค้างอยู่</string>
   <string name="transaction_status_failed">ล้มเหลว</string>
-  <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_status_reverted">เปลี่ยนกลับ</string>
   <string name="transaction_type_iab">ซื้อใน App</string>
   <string name="transaction_type_poa">รางวัล</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
-  <string name="transaction_type_voucher">e-Voucher</string>
-  <string name="transaction_type_voucher_title">Voucher for %s</string>
+  <string name="transaction_type_voucher">เวาเชอร์อิเล็กทรอนิกส์</string>
+  <string name="transaction_type_voucher_title">บัตรกำนัลสำหรับ %s</string>
   <string name="transaction_type_reverted_bonus_title">โบนัสเงินคืน</string>
   <string name="transaction_type_reverted_bonus_body">โบนัสที่คุณได้รับเมื่อ %s ถูกเปลี่ยนกลับ ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
   <string name="transaction_type_reverted_topup_title">เติมเงินคืน</string>
   <string name="transaction_type_reverted_topup_body">การเติมเงินที่คุณทำใน %s ถูกเปลี่ยนกลับ ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
   <string name="transaction_type_reverted_purchase_title">การขอคืนเงิน</string>
   <string name="transaction_type_reverted_purchase_body">การซื้อที่คุณทำใน %s ถูกเปลี่ยนกลับแล้ว ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
-  <string name="transaction_reverted_view_original_header">Original Transaction</string>
+  <string name="transaction_reverted_view_original_header">ธุรกรรมต้นฉบับ</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">สนับสนุนโดยเอธิเรียม</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -408,11 +408,11 @@
   <string name="common_or">หรือ</string>
   <string name="share_via">แชร์ไปยัง:</string>
   <string name="password">รหัสผ่าน</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="turn_on_button">Turn on</string>
+  <string name="repeat_password">รหัสผ่านซ้ำ</string>
+  <string name="turn_on_button">เปิด</string>
   <string name="no_thanks_button">No,thanks</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="remind_later_button">เตือนฉันภายหลัง</string>
+  <string name="get_code_button">รับรหัส</string>
   <string name="confirm_button">ยืนยัน</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
@@ -427,7 +427,7 @@
   <string name="title_redeem">แลกใช้รหัส</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ดำเนินการ&#8230;</string>
   <string name="local_payments_inprogress_body">เมื่อคุณชำระเงินเสร็จ คุณจะได้รับเครดิต AppCoins ในกระเป๋าสตางค์ของคุณ หลังจากนั้นกลับไปที่เกมเพื่อซื้อ!</string>
@@ -461,8 +461,8 @@
   <string name="verification_error_time_expired">อุ๊ปส์ หมดเวลาแล้ว เริ่มอีกครั้ง!</string>
   <string name="verification_error_attempts_reached">ดูเหมือนว่าคุณเกินจำนวนทีจำกัดแล้ว โปรดรอซักครู่และลองอีกครั้ง</string>
   <string name="verified_tag">ยืนยัน</string>
-  <string name="unferified_tag">Unverified wallet</string>
-  <string name="verification_wallets_verify_button">Verify</string>
+  <string name="unferified_tag">กระเป๋าเงินที่ไม่ได้รับการยืนยัน</string>
+  <string name="verification_wallets_verify_button">ยืนยัน</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
   <string name="purchase_more_payment_methods_button">วิธีการชำระเงินอื่น</string>
@@ -493,8 +493,8 @@
   <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
   <string name="purchase_wallet_error_contact_us">อุ๊ปส์ มีบางอย่างไม่ปกติกับวอลเล็ตของคุณ โปรดติดต่อเรา</string>
   <string name="purchase_carrier_error">ดูเหมือนว่าหมายเลขโทรศัพท์ใช้ไม่ได้สำหรับการชำระเงินนี้</string>
-  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
-  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
+  <string name="purchase_carrier_error_minimum">ผู้ให้บริการของคุณไม่รองรับการชำระเงินที่น้อยกว่า %s</string>
+  <string name="purchase_carrier_error_maximum">ผู้ให้บริการของคุณไม่รองรับการชำระเงินที่มากกว่า %s</string>
   <string name="purchase_error_fraud_code_20">อุ๊ปส์ พวกเรากำลังมีปัญหากับการซื้อนี้ โปรดติดต่อเรา</string>
   <string name="purchase_error_wallet_block_code_403">มันดูเหมือนว่ามีสิ่งผิกปกติกับกระเป๋าสตางค์ของคุณ โปรดติดต่อเรา</string>
   <string name="purchase_card_error_CVV">CVV/CVC ไม่ถูกต้อง</string>
@@ -559,8 +559,8 @@
   <string name="promotions_tab_poa_title">เล่น &amp; รับ</string>
   <string name="promotions_empty_promotions_body">ไม่มีโปรโมชันที่ใช้ได้ในขณะนี้ โปรดกลับมาภายหลัง!</string>
   <string name="promotions_empty_poa_body">ในขณะนี้ไม่มีแอปที่มีรางวัล โปรดกลับมาในภายหลัง!</string>
-  <string name="promotions_perks_button">Perks</string>
-  <string name="promotions_vouhers_button">Vouchers</string>
+  <string name="promotions_perks_button">สิทธิประโยชน์</string>
+  <string name="promotions_vouhers_button">เวาเชอร์</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">อัพเดตเพื่อรับรางวัล</string>
   <string name="update_wallet_poa_notification_body">โปรดอัปเดต AppCoins Wallet เพื่อรับรางวัลนี้</string>
@@ -611,11 +611,11 @@
   <string name="backup_notification_title">สำรองกระเป๋าสตางค์!</string>
   <string name="backup_notification_body">เก็บเงินของคุณอย่างปลอดภัยและแน่ใจว่าสามารุเข้าถึงกระเป๋าสตางค์</string>
   <string name="backup_choose_wallet_title">เลือกสำรองกระเป๋าสตางค์</string>
-  <string name="backup_additional_security_title">Additional Security (optional)</string>
-  <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
-  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
-  <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
+  <string name="backup_additional_security_title">ความปลอดภัยเพิ่มเติม (ตัวเลือก)</string>
+  <string name="backup_additional_security_body">เลือกรหัสผ่าน</string>
+  <string name="backup_additional_security_disclaimer_title">โปรดเก็บรักษารหัสผ่านของคุณให้ปลอดภัย</string>
+  <string name="backup_additional_security_disclaimer_body">ไม่มีการกู้คืนรหัสผ่าน</string>
+  <string name="backup_additional_security_password_not_march">รหัสผ่านไม่เหมือนกัน</string>
   <!--Wallets Management-->
   <string name="wallets_title">กระเป๋าสตางค์</string>
   <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>
@@ -765,7 +765,7 @@
   <string name="carrier_billing_code_field">รหัสของคุณ...</string>
   <string name="carrier_billing_code_resend_button">ส่งรหัสอีกคร้ัง</string>
   <string name="carrier_billing_submit_button">ส่ง</string>
-  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
+  <string name="carrier_billing_number_not_supported">ดูเหมือนว่าหมายเลขโทรศัพท์ใช้ไม่ได้สำหรับการชำระเงินนี้</string>
   <string name="carrier_billing_terms_disclaimer">กดส่ง คุณยืนยันว่าคุณยอมรับข้อกำหนดและเงื่อนไขและนโยบายความเป็นส่วนตัว</string>
   <string name="carrier_billing_help_1">ต้องการความช่วนเหลือ?</string>
   <string name="carrier_billing_help_2_button">ติดต่อฝ่ายสนับสนุน</string>
@@ -786,7 +786,7 @@
   <string name="manage_cards_select_title">เลือกบัตรของคุณ</string>
   <string name="manage_cards_remember">จดจำบัตร</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_title">โบนัสสูงสุด %s%% ในทุกการซื้อ</string>
   <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>
   <string name="perks_title">โปรโมชั่น</string>
   <string name="perks_body">คอยติดตาม! พวกเรามีโปรโมชั่นพิเศษสำหรับคุณ</string>
@@ -815,51 +815,50 @@
   <string name="fingerprint_failed_body">โปรดลองอีกครั้งใน %s วินาที</string>
   <string name="fingerprint_authentication_required_title">จำเป็นต้องรับรองความถูกต้อง!</string>
   <string name="fingerprint_authentication_required_body">โปรดใช้นิ้วของคุณหรือรหัสผ่านเพื่อดำเนินการต่อ</string>
-  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
+  <string name="fingerprint_popup_body">การตรวจสอบลายนิ้วมือพร้อมใช้งานแล้ว!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">ส่งบันทึกไปยังทีมสนับสนุน</string>
   <string name="send_logs_sending">กำลังส่ง&#8230;</string>
   <string name="send_logs_send">ส่งแล้ว!</string>
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
-  <string name="rate_us_no">Not really</string>
-  <string name="rate_us_yes">Yes!</string>
-  <string name="rate_us_improve_title">What can we improve?</string>
-  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
-  <string name="rate_us_improve_field__empty_error">Please write something</string>
-  <string name="rate_us_possitive_thanks_title">Thank you!</string>
-  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
-  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <string name="rate_us_question_title">เพลิดเพลินกับ AppCoins Wallet หรือไม่</string>
+  <string name="rate_us_no">ไม่เลย</string>
+  <string name="rate_us_yes">ใช่!</string>
+  <string name="rate_us_improve_title">สิ่งที่เราสามารถปรับปรุงได้คืออะไร</string>
+  <string name="rate_us_improve_field">แจ้งให้เราทราบว่าเกิดอะไรขึ้นแล้วเราจะแก้ไข</string>
+  <string name="rate_us_improve_field__empty_error">กรุณาเขียนบางสิ่งบางอย่าง</string>
+  <string name="rate_us_possitive_thanks_title">ขอบคุณ!</string>
+  <string name="rate_us_possitive_thanks_body">เราดีใจที่คุณชอบแอปของเรา คุณสามารถช่วยเราโดยการให้คะแนนเราบน App Store ได้หรือไม่</string>
+  <string name="rate_us_possitive_rate_button">ให้คะแนนกระเป๋าเงิน APPCOINS</string>
+  <string name="rate_us_possitive_done_title">ขอบคุณสำหรับคำติชม!</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
-  <string name="card_verification_code_title">Check the code in the transaction details</string>
+  <string name="card_verification_body">ใช้บัตรเครดิต / เดบิตเพื่อยืนยันกระเป๋าเงินของคุณ</string>
+  <string name="card_verification_charde_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณและเราจะคืนเงินให้ เมื่อคุณยืนยันรหัส</string>
+  <string name="card_verification_code_title">ตรวจสอบรหัสรายละเอียดธุรกรรม</string>
   <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
-  <string name="card_verification_code_example_title">Example of Transaction Summary</string>
-  <string name="card_verification_code_example_date">Trans. Date</string>
-  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_code_example_title">ตัวอย่างสรุปธุรกรรม</string>
+  <string name="card_verification_code_example_date">วันที่โอน</string>
+  <string name="card_verification_code_example_description">รายละเอียด</string>
   <string name="card_verification_code_example_amount">ยอดเงิน</string>
   <string name="card_verification_code_example_code">Unique code</string>
-  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
   <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
-    <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
+    <item quantity="other">%1$s จะได้รับคืนภายใน %2$s ชั่วโมงหลังจากที่คุณยืนยันรหัส</item>
   </plurals>
   <plurals name="card_verification_code_enter_days_body">
-    <item quantity="other">%1$s will be refunded within %2$s days after you confirm the code.</item>
+    <item quantity="other">%1$s จะได้รับคืนภายใน %2$s วันหลังจากที่คุณยืนยันรหัส</item>
   </plurals>
-  <string name="card_verification_code_other_card_button">Try with another card</string>
-  <string name="card_verification_code_wrong_error">Wrong code</string>
-  <string name="card_verification_wallets_one_step_title">One more step to validate</string>
-  <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
-  <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <string name="card_verification_code_other_card_button">ลองบัตรใบอื่น</string>
+  <string name="card_verification_code_wrong_error">รหัสไม่ถูกต้อง</string>
+  <string name="card_verification_wallets_one_step_title">ตรวจสอบความถูกต้องอีกหนึ่งขั้นตอน</string>
+  <string name="card_verification_wallets_one_step_body">ใส่รหัสที่ปรากฏในรายละเอียดธุรกรรม</string>
+  <string name="card_verification_wallets_insert_bode_button">ใส่รหัส</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
-  <string name="voucher_buy_header">Voucher for %s</string>
-  <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
-  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
-  <string name="voucher_code_title">Voucher Code</string>
-  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
-  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
+  <string name="voucher_card_body">ซื้อบัตรกำนัลนี้และรับโบนัสสูงสุด %s%%</string>
+  <string name="voucher_buy_header">บัตรกำนัลสำหรับ %s</string>
+  <string name="voucher_buy_no_game_title">คุณไม่มี%sเหรอ</string>
+  <string name="voucher_buy_no_game_install_button">ดาวโหลดตอนนี้</string>
+  <string name="voucher_code_title">รหัสเวาเชอร์</string>
+  <string name="voucher_instructions_body">ไปที่%sและใช้รหัส เพื่อแลกใช้เวาเชอร์ของคุณ</string>
+  <string name="voucher_instructions_transactions">คุณสามารถค้นหารหัสเวาเชอร์ได้ตลอดเวลาในประวัติการทำธุรกรรม</string>
 </resources>

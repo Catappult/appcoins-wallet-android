@@ -861,7 +861,6 @@
   <string name="card_verification_code_example_description">वर्णन</string>
   <string name="card_verification_code_example_amount">रक्कम</string>
   <string name="card_verification_code_example_code">अनोखा कोड</string>
-  <string name="card_verification_code_example_expiry">३ दिवसात कालबाह्य होईल.</string>
   <string name="card_verification_code_enter_title">४ डिजीटसचा कोड घाला</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="one">आपण कोड पुष्टी केल्यानंतर %2$s तासात %1$s परत दिले जातील.</item>
