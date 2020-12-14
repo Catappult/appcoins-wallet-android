@@ -4,6 +4,7 @@ import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.*
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
@@ -201,7 +202,15 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(promotions, maxBonus, userStatus.error)
+    return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), userStatus.error)
+  }
+
+  private fun map(walletOrigin: WalletOrigin): com.asfoundation.wallet.promotions.WalletOrigin {
+    return when (walletOrigin) {
+      WalletOrigin.UNKNOWN -> com.asfoundation.wallet.promotions.WalletOrigin.UNKNOWN
+      WalletOrigin.APTOIDE -> com.asfoundation.wallet.promotions.WalletOrigin.APTOIDE
+      WalletOrigin.PARTNER -> com.asfoundation.wallet.promotions.WalletOrigin.PARTNER
+    }
   }
 
   private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,

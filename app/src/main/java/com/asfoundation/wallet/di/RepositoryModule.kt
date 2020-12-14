@@ -148,9 +148,11 @@ class RepositoryModule {
   @Provides
   fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences,
                                   promotionDao: PromotionDao, levelsDao: LevelsDao,
-                                  levelDao: LevelDao): PromotionsRepository {
+                                  levelDao: LevelDao,
+                                  walletOriginDao: WalletOriginDao): PromotionsRepository {
     return BdsPromotionsRepository(api,
-        SharedPreferencesGamificationLocalData(preferences, promotionDao, levelsDao, levelDao))
+        SharedPreferencesGamificationLocalData(preferences, promotionDao, levelsDao, levelDao,
+            walletOriginDao))
   }
 
   @Singleton

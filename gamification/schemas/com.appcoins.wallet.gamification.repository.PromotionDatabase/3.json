@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2,
-    "identityHash": "14dff9ed6b383dc3435807d72ef74b5c",
+    "version": 3,
+    "identityHash": "17933a80e105f33ac5e6a0045063bc7f",
     "entities": [
       {
         "tableName": "PromotionEntity",
@@ -276,24 +276,24 @@
       },
       {
         "tableName": "WalletOriginEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`walletAddress` TEXT NOT NULL, `walletOrigin` TEXT NOT NULL, PRIMARY KEY(`walletAddress`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`wallet_address` TEXT NOT NULL, `wallet_origin` TEXT NOT NULL, PRIMARY KEY(`wallet_address`))",
         "fields": [
           {
             "fieldPath": "walletAddress",
-            "columnName": "walletAddress",
+            "columnName": "wallet_address",
             "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "walletOrigin",
-            "columnName": "walletOrigin",
+            "columnName": "wallet_origin",
             "affinity": "TEXT",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "walletAddress"
+            "wallet_address"
           ],
           "autoGenerate": false
         },
@@ -304,7 +304,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '14dff9ed6b383dc3435807d72ef74b5c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '17933a80e105f33ac5e6a0045063bc7f')"
     ]
   }
 }

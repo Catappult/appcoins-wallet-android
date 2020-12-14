@@ -2,10 +2,7 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.content.SharedPreferences
 import com.appcoins.wallet.gamification.GamificationScreen
-import com.appcoins.wallet.gamification.repository.GamificationLocalData
-import com.appcoins.wallet.gamification.repository.LevelDao
-import com.appcoins.wallet.gamification.repository.LevelsDao
-import com.appcoins.wallet.gamification.repository.PromotionDao
+import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.*
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
@@ -17,7 +14,8 @@ import java.util.concurrent.TimeUnit
 class SharedPreferencesGamificationLocalData(private val preferences: SharedPreferences,
                                              private val promotionDao: PromotionDao,
                                              private val levelsDao: LevelsDao,
-                                             private val levelDao: LevelDao) :
+                                             private val levelDao: LevelDao,
+                                             private val walletOriginDao: WalletOriginDao) :
     GamificationLocalData {
 
   companion object {
@@ -152,6 +150,15 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
         levels.list.map { LevelEntity(null, it.amount, it.bonus, it.level) }
     return levelsDao.insertLevels(levelsEntity)
         .andThen(levelDao.insertLevels(levelEntityList))
+  }
+
+  override fun insertWalletOrigin(wallet: String, walletOrigin: WalletOrigin): Completable {
+    return walletOriginDao.insertWalletOrigin(WalletOriginEntity(wallet, walletOrigin))
+  }
+
+  override fun retrieveWalletOrigin(wallet: String): Single<WalletOrigin> {
+    return walletOriginDao.getWalletOrigin(wallet)
+        .map { it.walletOrigin }
   }
 
   private fun mapToLevelsResponse(levelEntity: List<LevelEntity>,

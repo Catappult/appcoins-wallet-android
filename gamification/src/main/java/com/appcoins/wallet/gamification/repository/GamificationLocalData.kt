@@ -2,6 +2,7 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -30,4 +31,8 @@ interface GamificationLocalData {
   fun getLevels(): Single<LevelsResponse>
 
   fun insertLevels(levels: LevelsResponse): Completable
+
+  fun insertWalletOrigin(wallet: String, walletOrigin: WalletOrigin): Completable
+
+  fun retrieveWalletOrigin(wallet: String): Single<WalletOrigin>
 }
