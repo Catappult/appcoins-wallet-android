@@ -26,6 +26,7 @@ allprojects {
     maven { url "https://dl.bintray.com/asf/asf" }
     maven { url "https://dl.bintray.com/aptoide/Aptoide" }
     maven { url "https://dl.bintray.com/blockchainds/bds" }
+    maven { url "https://dl.bintray.com/blockchainds/bds-stage" }
     // needed for pincode Lollipin
     maven {
       url "https://github.com/omadahealth/omada-nexus/raw/master/release"
