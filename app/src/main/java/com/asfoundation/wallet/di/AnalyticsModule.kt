@@ -167,8 +167,8 @@ class AnalyticsModule {
   @Singleton
   @Provides
   fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
-                                 logger: Logger, launchAnalytics: LaunchAnalytics): RakamAnalytics {
-    return RakamAnalytics(context, idsRepository, logger, launchAnalytics)
+                                 logger: Logger): RakamAnalytics {
+    return RakamAnalytics(context, idsRepository, logger)
   }
 
   @Singleton

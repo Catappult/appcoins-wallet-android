@@ -20,9 +20,8 @@ import java.net.MalformedURLException
 import java.net.URL
 
 class RakamAnalytics(private val context: Context, private val idsRepository: IdsRepository,
-                     private val logger: Logger,
-                     private val firstLaunchAnalytics: LaunchAnalytics) :
-    AnalyticsSetup {
+                     private val logger: Logger) : AnalyticsSetup {
+
   private val rakamClient = Rakam.getInstance()
 
   companion object {
