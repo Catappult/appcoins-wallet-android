@@ -31,12 +31,12 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
 
   companion object {
 
-    const val BILLING_ADDRESS_MODEL = "billing_address_model"
-    const val PAYMENT_DATA = "data"
-    const val FIAT_AMOUNT_KEY = "fiat_amount"
-    const val FIAT_CURRENCY_KEY = "fiat_currency"
-    const val STORE_CARD_KEY = "store_card"
-    const val IS_STORED_KEY = "is_stored"
+    internal const val BILLING_ADDRESS_MODEL = "billing_address_model"
+    internal const val PAYMENT_DATA = "data"
+    internal const val FIAT_AMOUNT_KEY = "fiat_amount"
+    internal const val FIAT_CURRENCY_KEY = "fiat_currency"
+    internal const val STORE_CARD_KEY = "store_card"
+    internal const val IS_STORED_KEY = "is_stored"
 
     @JvmStatic
     fun newInstance(data: TopUpPaymentData, fiatAmount: String, fiatCurrency: String,
