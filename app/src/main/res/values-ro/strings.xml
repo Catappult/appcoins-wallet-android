@@ -760,7 +760,7 @@
   <string name="carrier_billing_fees_disclaimer">Este posibil să se aplice comisioane suplimentare</string>
   <string name="carrier_billing_insert_phone_body">Te rugăm să introduci numărul tău de telefon</string>
   <string name="carrier_billing_phone_field">Numărul tău de telefon...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged.</string>
+  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
   <string name="carrier_billing_purchase_info_body">%1$s în %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Numărul tău de telefon este %s.</string>
   <string name="carrier_billing_enter_pin_body">Introdu PIN-ul primit prin SMS.</string>
