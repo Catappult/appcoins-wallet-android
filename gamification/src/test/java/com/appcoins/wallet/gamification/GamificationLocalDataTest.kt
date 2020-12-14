@@ -3,6 +3,7 @@ package com.appcoins.wallet.gamification
 import com.appcoins.wallet.gamification.repository.GamificationLocalData
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -11,6 +12,7 @@ class GamificationLocalDataTest : GamificationLocalData {
   var lastShownLevelResponse: Single<Int>? = null
   var seenGenericPromotionResponse: Boolean? = null
   var userStatusResponse: Single<List<PromotionsResponse>>? = null
+  var walletOriginResponse: Single<WalletOrigin>? = null
   var levelsResponse: Single<LevelsResponse>? = null
   private var wallet: String? = null
   private var gamificationLevel: Int? = -1
@@ -74,5 +76,15 @@ class GamificationLocalDataTest : GamificationLocalData {
 
   override fun insertLevels(levels: LevelsResponse): Completable {
     return Completable.complete()
+  }
+
+  override fun insertWalletOrigin(wallet: String, walletOrigin: WalletOrigin): Completable {
+    return Completable.complete()
+  }
+
+  override fun retrieveWalletOrigin(wallet: String): Single<WalletOrigin> {
+    val aux = walletOriginResponse!!
+    walletOriginResponse = null
+    return aux
   }
 }

@@ -41,7 +41,8 @@ class GamificationTest {
             PromotionsResponse.Status.ACTIVE, BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse)))
+        Single.just(UserStatusResponse(
+            listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE))
     val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertValue(
@@ -53,6 +54,7 @@ class GamificationTest {
   fun getUserStatsNoNetworkTest() {
     api.userStatusResponse = Single.error(UnknownHostException())
     local.userStatusResponse = Single.just(emptyList())
+    local.walletOriginResponse = Single.just(WalletOrigin.APTOIDE)
     val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertValue(GamificationStats(GamificationStats.Status.NO_NETWORK))
@@ -111,7 +113,8 @@ class GamificationTest {
             BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse)))
+        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse),
+            WalletOrigin.APTOIDE))
     local.lastShownLevelResponse = Single.just(0)
     val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
@@ -134,7 +137,8 @@ class GamificationTest {
             BigDecimal.ONE)
 
     api.userStatusResponse =
-        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse)))
+        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse),
+            WalletOrigin.APTOIDE))
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
@@ -145,7 +149,7 @@ class GamificationTest {
 
   @Test
   fun hasNewLevelNetworkError() {
-    api.userStatusResponse = Single.just(UserStatusResponse(emptyList(), Status.NO_NETWORK))
+    api.userStatusResponse = Single.just(UserStatusResponse(Status.NO_NETWORK))
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
         .test()
