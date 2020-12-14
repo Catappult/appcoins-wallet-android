@@ -52,7 +52,10 @@ class PromotionsPresenter(private val view: PromotionsView,
           promotionsInteractor.setGamificationDisclaimerShown()
         }
       }
-      else -> view.showNoPromotionsScreen()
+      else -> {
+        if (promotionsModel.walletOrigin == WalletOrigin.UNKNOWN) view.showLockedPromotionsScreen()
+        else view.showNoPromotionsScreen()
+      }
     }
   }
 

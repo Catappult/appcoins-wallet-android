@@ -78,6 +78,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
             .toInt()))
     rv_promotions.visibility = VISIBLE
     rv_promotions.adapter = adapter
+    locked_promotions.visibility = GONE
+    no_promotions.visibility = GONE
   }
 
   override fun showLoading() {
@@ -103,6 +105,14 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     no_network.visibility = GONE
     retry_animation.visibility = GONE
     no_promotions.visibility = VISIBLE
+    locked_promotions.visibility = GONE
+  }
+
+  override fun showLockedPromotionsScreen() {
+    no_network.visibility = GONE
+    retry_animation.visibility = GONE
+    no_promotions.visibility = GONE
+    locked_promotions.visibility = VISIBLE
   }
 
   override fun showRetryAnimation() {

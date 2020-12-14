@@ -37,4 +37,6 @@ interface PromotionsView {
   fun showBottomSheet()
 
   fun getBottomSheetContainerClick(): Observable<Any>
+
+  fun showLockedPromotionsScreen()
 }
