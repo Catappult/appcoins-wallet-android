@@ -8,16 +8,10 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.repository.SharedPreferencesRepository
-import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
-import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
@@ -27,19 +21,9 @@ import javax.inject.Inject
 class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   @Inject
-  lateinit var promotionsInteractor: PromotionsInteractorContract
-
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
-
-  @Inject
-  lateinit var mapper: GamificationMapper
-
-  @Inject
-  lateinit var preferences: SharedPreferencesRepository
+  lateinit var presenter: PromotionsPresenter
 
   private lateinit var activityView: PromotionsActivityView
-  private lateinit var presenter: PromotionsFragmentPresenter
   private lateinit var adapter: PromotionsAdapter
   private lateinit var detailsBottomSheet: BottomSheetBehavior<View>
   private var clickListener: PublishSubject<PromotionClick>? = null
@@ -53,10 +37,6 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     super.onCreate(savedInstanceState)
     clickListener = PublishSubject.create()
     onBackPressedSubject = PublishSubject.create()
-    presenter =
-        PromotionsFragmentPresenter(this, activityView, promotionsInteractor, preferences,
-            CompositeDisposable(),
-            Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
   override fun onAttach(context: Context) {

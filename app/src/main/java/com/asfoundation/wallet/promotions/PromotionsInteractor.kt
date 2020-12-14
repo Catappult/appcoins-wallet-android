@@ -10,6 +10,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
@@ -23,8 +24,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val gamificationInteractor: GamificationInteractor,
                            private val promotionsRepo: PromotionsRepository,
                            private val findWalletInteract: FindDefaultWalletInteract,
-                           private val mapper: GamificationMapper) :
-    PromotionsInteractorContract {
+                           private val preferencesRepositoryType: PreferencesRepositoryType,
+                           private val mapper: GamificationMapper) {
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
@@ -33,7 +34,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
-  override fun retrievePromotions(): Single<PromotionsModel> {
+  fun retrievePromotions(): Single<PromotionsModel> {
     return findWalletInteract.find()
         .flatMap {
           Single.zip(
@@ -50,9 +51,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   }
 
-  override fun hasAnyPromotionUpdate(referralsScreen: ReferralsScreen,
-                                     gamificationScreen: GamificationScreen,
-                                     promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
+  fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
     return findWalletInteract.find()
         .flatMap { wallet ->
           promotionsRepo.getUserStatus(wallet.address)
@@ -75,7 +74,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
         }
   }
 
-  override fun getUnwatchedPromotionNotification(): Single<CardNotification> {
+  fun getUnwatchedPromotionNotification(): Single<CardNotification> {
     return findWalletInteract.find()
         .flatMap { wallet ->
           promotionsRepo.getUserStatus(wallet.address)
@@ -86,6 +85,18 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               }
         }
   }
+
+  fun dismissNotification(id: String): Completable {
+    return Completable.fromAction {
+      promotionsRepo.setSeenGenericPromotion(id, PromotionUpdateScreen.TRANSACTIONS.name)
+    }
+  }
+
+  fun shouldShowGamificationDisclaimer(): Boolean {
+    return preferencesRepositoryType.shouldShowGamificationDisclaimer()
+  }
+
+  fun setGamificationDisclaimerShown() = preferencesRepositoryType.setGamificationDisclaimerShown()
 
   private fun getUnWatchedPromotion(promotionList: List<GenericResponse>): GenericResponse? {
     return promotionList.sortedByDescending { list -> list.priority }
@@ -107,12 +118,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
         EmptyNotification()
       }
     } ?: EmptyNotification()
-  }
-
-  override fun dismissNotification(id: String): Completable {
-    return Completable.fromAction {
-      promotionsRepo.setSeenGenericPromotion(id, PromotionUpdateScreen.TRANSACTIONS.name)
-    }
   }
 
   private fun hasGenericUpdate(promotions: List<GenericResponse>,

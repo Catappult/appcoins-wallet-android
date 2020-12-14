@@ -233,7 +233,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun getWalletId() = pref.getString(WALLET_ID, null)
 
-  override fun showGamificationDisclaimer() = pref.getBoolean(SHOW_GAMIFICATION_DISCLAIMER, true)
+  override fun shouldShowGamificationDisclaimer() = pref.getBoolean(SHOW_GAMIFICATION_DISCLAIMER, true)
 
   override fun setGamificationDisclaimerShown() {
     pref.edit()

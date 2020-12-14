@@ -39,7 +39,6 @@ import com.asfoundation.wallet.interact.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.asfoundation.wallet.promotions.PromotionsInteractor
-import com.asfoundation.wallet.promotions.PromotionsInteractorContract
 import com.asfoundation.wallet.referrals.ReferralInteractor
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
@@ -61,8 +60,8 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
-import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
+import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
@@ -255,9 +254,11 @@ class InteractorModule {
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
-                                  gamificationMapper: GamificationMapper): PromotionsInteractorContract {
+                                  preferencesRepositoryType: PreferencesRepositoryType,
+                                  gamificationMapper: GamificationMapper): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, gamificationMapper)
+        promotionsRepository, findDefaultWalletInteract, preferencesRepositoryType,
+        gamificationMapper)
   }
 
   @Provides
@@ -384,7 +385,7 @@ class InteractorModule {
                                       fetchTransactionsInteract: FetchTransactionsInteract,
                                       gamificationInteractor: GamificationInteractor,
                                       balanceInteractor: BalanceInteractor,
-                                      promotionsInteractorContract: PromotionsInteractorContract,
+                                      promotionsInteractor: PromotionsInteractor,
                                       cardNotificationsInteractor: CardNotificationsInteractor,
                                       autoUpdateInteract: AutoUpdateInteract,
                                       preferencesRepositoryType: PreferencesRepositoryType,
@@ -393,7 +394,7 @@ class InteractorModule {
                                       fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteract {
     return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
-        promotionsInteractorContract, cardNotificationsInteractor, autoUpdateInteract,
+        promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
         fingerprintPreferencesRepository)
   }
@@ -418,9 +419,9 @@ class InteractorModule {
   fun provideCardNotificationInteractor(referralInteractor: ReferralInteractorContract,
                                         autoUpdateInteract: AutoUpdateInteract,
                                         backupInteract: BackupInteractContract,
-                                        promotionsInteractorContract: PromotionsInteractorContract): CardNotificationsInteractor {
+                                        promotionsInteractor: PromotionsInteractor): CardNotificationsInteractor {
     return CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        backupInteract, promotionsInteractorContract)
+        backupInteract, promotionsInteractor, Schedulers.io())
   }
 
   @Singleton
