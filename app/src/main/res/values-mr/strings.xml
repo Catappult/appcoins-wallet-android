@@ -5,6 +5,8 @@
   <string name="title_send_with_token">पाठवा %s</string>
   <string name="title_request">मिळवा</string>
   <string name="title_import">वॉलेट परत मिळवा</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">पासवर्ड</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">आपण पुढच्या पातळीवर पोचलात!</string>
   <string name="gamification_leveled_up_notification_body">अभिनंदन, आता प्रत्येक खरेदीवर आपल्याला %s बोनस मिळेल!</string>
   <string name="gamification_how_max_level_body">अभिनंदन! आपण सर्वोच्च पातळीवर पोचलात 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">पुढच्या पातळीवर पोचण्यासाठी जास्त %s अॅपकॉइन्स खर्च करा.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
   <string name="provide_wallet_body_placeholders">आपला वॉलेट पत्ता %2$s ला पुरविण्यासाठी %1$s ला परवानगी द्या.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">खेळा &amp; कमवा</string>
   <string name="promotions_empty_promotions_body">आत्ता जाहिराती उपलब्ध नाहीत. नंतर परत या!</string>
   <string name="promotions_empty_poa_body">आत्ता बक्षिसासहचे अॅप्स उपलब्ध नाहीत. नंतर परत या!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">लाभ</string>
   <string name="promotions_vouhers_button">व्हाऊचर्स</string>
   <!--Update-->
