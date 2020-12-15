@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Invia %s</string>
   <string name="title_request">Ricevi</string>
   <string name="title_import">Recupera wallet</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Password</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Hai raggiunto il livello successivo!</string>
   <string name="gamification_leveled_up_notification_body">Congratulazioni, d\'ora in poi riceverai un bonus di %s a ogni acquisto!</string>
   <string name="gamification_how_max_level_body">Congratulazioni! Hai raggiunto il livello più alto</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Spendi ancora %s AppCoins per raggiungere il prossimo livello.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Consenti ad AppCoins Wallet di fornire l\'indirizzo del tuo portafoglio a %s.</string>
   <string name="provide_wallet_body_placeholders">Consenti ad %1$s di fornire l\'indirizzo del tuo wallet %2$s.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">GIOCA &amp; GUADAGNA</string>
   <string name="promotions_empty_promotions_body">Al momento non ci sono promozioni disponibili. Torna più tardi!</string>
   <string name="promotions_empty_poa_body">Al momento non ci sono app con premi disponibili. Torna più tardi!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Extra</string>
   <string name="promotions_vouhers_button">Voucher</string>
   <!--Update-->
