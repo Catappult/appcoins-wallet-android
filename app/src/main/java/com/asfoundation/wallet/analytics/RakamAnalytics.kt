@@ -12,16 +12,16 @@ import com.google.android.gms.common.GoogleApiAvailability
 import io.rakam.api.Rakam
 import io.rakam.api.RakamClient
 import io.rakam.api.TrackingOptions
+import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.MalformedURLException
 import java.net.URL
 
 class RakamAnalytics(private val context: Context, private val idsRepository: IdsRepository,
-                     private val logger: Logger) :
-    AnalyticsSetup {
+                     private val logger: Logger) : AnalyticsSetup {
+
   private val rakamClient = Rakam.getInstance()
 
   companion object {
@@ -43,9 +43,8 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
     rakamClient.superProperties = superProperties
   }
 
-
-  fun start() {
-    Single.just(idsRepository.getAndroidId())
+  fun initialize(): Completable {
+    return Single.just(idsRepository.getAndroidId())
         .flatMap { deviceId: String -> startRakam(deviceId) }
         .flatMap { rakamClient: RakamClient ->
           idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID)
@@ -66,8 +65,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                     }
               }
         }
-        .subscribeOn(Schedulers.io())
-        .subscribe()
+        .ignoreElement()
   }
 
   private fun startRakam(deviceId: String): Single<RakamClient> {
