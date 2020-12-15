@@ -5,6 +5,8 @@
   <string name="title_send_with_token">%s ကို ေပးပို႔မည္</string>
   <string name="title_request">ရယူမည္</string>
   <string name="title_import">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">စကားဝွက္</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">ေနာက္အဆင့္သို႔ သင္ေရာက္ရွိပါၿပီ။</string>
   <string name="gamification_leveled_up_notification_body">ဂုဏ္ယူပါသည္။ ယခုအခါတြင္ သင္သည္ ၀ယ္ယူမႈတိုင္းအတြက္ %s ေဘာနပ္စ္ကို ရရွိပါမည္။</string>
   <string name="gamification_how_max_level_body">ဂုဏ္ယူပါသည္။ အျမင့္ဆံုးအဆင့္သို႔ သင္ေရာက္ရွိပါၿပီ 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">ေနာက္အဆင့္သို႔ေရာက္ရန္ AppCoins %s ကို အသံုးျပဳပါ။</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">%s သို႔ သင့္ပိုက္ဆံအိတ္ လိပ္စာကိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို ခြင့္ျပဳပါ။</string>
   <string name="provide_wallet_body_placeholders">သင့္ပိုက္ဆံအိတ္လိပ္စာအား %2$s သို႔ေပးရန္ %1$s ကို ခြင့္ျပဳပါ။</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">ကစားကာ&amp;ရယူပါ</string>
   <string name="promotions_empty_promotions_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရွိေသးပါ။ ေနာက္မွျပန္လာခဲ့ပါ။</string>
   <string name="promotions_empty_poa_body">လက္ရွိတြင္ ဆုမ်ားရရွိနိုင္ေသာ အက္ပ္မ်ား မရွိေသးပါ။ ေနာက္မွျပန္လာခဲ့ပါ။</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">ခံစားခြင့္မ်ား</string>
   <string name="promotions_vouhers_button">ေဘာက္ခ်ာမ်ား</string>
   <!--Update-->
