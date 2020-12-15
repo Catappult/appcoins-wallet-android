@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di
 
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
+import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
@@ -17,6 +18,7 @@ import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
+import com.asfoundation.wallet.topup.address.BillingAddressTopUpModule
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentModule
@@ -220,11 +222,11 @@ abstract class FragmentBuilders {
   abstract fun bindLocalTopUpPaymentFragment(): LocalTopUpPaymentFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [BillingAddressModule::class])
   abstract fun bindBillingAddressFragment(): BillingAddressFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [BillingAddressTopUpModule::class])
   abstract fun bindBillingAddressTopUpFragment(): BillingAddressTopUpFragment
 
   @FragmentScope

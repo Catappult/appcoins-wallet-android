@@ -25,6 +25,8 @@ import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
+import com.asfoundation.wallet.analytics.LaunchAnalytics
+import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
@@ -83,6 +85,14 @@ import javax.inject.Singleton
 
 @Module
 class InteractorModule {
+
+  @Singleton
+  @Provides
+  fun providesLaunchInteractor(launchAnalytics: LaunchAnalytics,
+                               sharedPreferences: SharedPreferences,
+                               packageManager: PackageManager): LaunchInteractor {
+    return LaunchInteractor(launchAnalytics, sharedPreferences, packageManager)
+  }
 
   @Provides
   @Named("APPROVE_SERVICE_ON_CHAIN")
