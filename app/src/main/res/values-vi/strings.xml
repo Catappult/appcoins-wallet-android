@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Gửi %s</string>
   <string name="title_request">Nhận</string>
   <string name="title_import">Khôi phục ví</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Mật khẩu</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Bạn đã đạt đến cấp kế tiếp!</string>
   <string name="gamification_leveled_up_notification_body">Xin chúc mừng, giờ đây bạn sẽ nhận được tiền thưởng %s trên mỗi lần mua!</string>
   <string name="gamification_how_max_level_body">Chúc mừng! Bạn đã đạt đến cấp cao nhất 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Dùng thêm %s AppCoins để đạt đến cấp kế tiếp.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho %s.</string>
   <string name="provide_wallet_body_placeholders">Cho phép %1$s cung cấp địa chỉ ví của bạn cho %2$s.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">TRẢI NGHIỆM &amp; KIẾM TIỀN</string>
   <string name="promotions_empty_promotions_body">Hiện không có chương trình khuyến mãi nào tại thời điểm này. Vui lòng quay lại sau!</string>
   <string name="promotions_empty_poa_body">Hiện không có ứng dụng kèm phần thưởng nào tại thời điểm này. Vui lòng quay lại sau!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Đặc quyền</string>
   <string name="promotions_vouhers_button">Phiếu mua hàng</string>
   <!--Update-->
