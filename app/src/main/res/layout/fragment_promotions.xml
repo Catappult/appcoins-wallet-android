@@ -64,8 +64,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/half_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
   <include
       android:id="@+id/no_promotions"
@@ -73,8 +74,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/half_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <include
@@ -83,8 +85,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/half_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/half_guideline"

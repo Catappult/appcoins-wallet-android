@@ -6,8 +6,6 @@ interface PromotionsView {
 
   fun showNetworkErrorView()
 
-  fun hideNetworkErrorView()
-
   fun retryClick(): Observable<Any>
 
   fun showRetryAnimation()
@@ -19,8 +17,6 @@ interface PromotionsView {
   fun showNoPromotionsScreen()
 
   fun showPromotions(promotionsModel: PromotionsModel)
-
-  fun hidePromotions()
 
   fun getPromotionClicks(): Observable<PromotionClick>
 

@@ -53,6 +53,11 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    adapter = PromotionsAdapter(emptyList(), clickListener!!)
+    rv_promotions.adapter = adapter
+    rv_promotions.addItemDecoration(
+        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
+            .toInt()))
     detailsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
     detailsBottomSheet.addBottomSheetCallback(
         object : BottomSheetBehavior.BottomSheetCallback() {
@@ -63,7 +68,17 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
             bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
           }
         })
-    presenter.present()
+    presenter.present(savedInstanceState)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    presenter.onResume()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    presenter.onSaveInstanceState(outState)
   }
 
   override fun onDestroyView() {
@@ -72,18 +87,16 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   override fun showPromotions(promotionsModel: PromotionsModel) {
-    adapter = PromotionsAdapter(promotionsModel.promotions, clickListener!!)
-    rv_promotions.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
-            .toInt()))
+    adapter.setPromotions(promotionsModel.promotions)
     rv_promotions.visibility = VISIBLE
-    rv_promotions.adapter = adapter
+    no_network.visibility = GONE
     locked_promotions.visibility = GONE
     no_promotions.visibility = GONE
   }
 
   override fun showLoading() {
     promotions_progress_bar.visibility = VISIBLE
+    locked_promotions.visibility = GONE
   }
 
   override fun retryClick() = RxView.clicks(retry_button)
@@ -91,14 +104,11 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun getPromotionClicks() = clickListener!!
 
   override fun showNetworkErrorView() {
+    rv_promotions.visibility = GONE
     no_promotions.visibility = GONE
     no_network.visibility = VISIBLE
     retry_button.visibility = VISIBLE
     retry_animation.visibility = GONE
-  }
-
-  override fun hideNetworkErrorView() {
-    no_network.visibility = GONE
   }
 
   override fun showNoPromotionsScreen() {
@@ -122,10 +132,6 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun hideLoading() {
     promotions_progress_bar.visibility = INVISIBLE
-  }
-
-  override fun hidePromotions() {
-    rv_promotions.visibility = GONE
   }
 
   override fun getHomeBackPressed() = activityView.backPressed()
