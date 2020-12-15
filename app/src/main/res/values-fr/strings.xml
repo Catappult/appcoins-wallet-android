@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Envoyer %s</string>
   <string name="title_request">Recevoir</string>
   <string name="title_import">Récupérer le portefeuille</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Mot de passe</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Vous avez atteint le niveau suivant !</string>
   <string name="gamification_leveled_up_notification_body">Félicitations, vous obtiendrez maintenant %s de bonus sur chaque achat !</string>
   <string name="gamification_how_max_level_body">Félicitations ! Vous avez atteint le plus haut niveau 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Dépensez %s AppCoins de plus pour atteindre le niveau suivant.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Autoriser le portefeuille AppCoins à fournir votre adresse de portefeuille à %s.</string>
   <string name="provide_wallet_body_placeholders">Autoriser %1$s à fournir votre adresse de portefeuille à %2$s.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">JOUEZ &amp; GAGNEZ</string>
   <string name="promotions_empty_promotions_body">Il n\'y a aucune promotion disponible pour le moment. Revenez plus tard !</string>
   <string name="promotions_empty_poa_body">Il n\'y a pas d\'applications avec des récompenses disponibles pour le moment. Revenez plus tard !</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Avantages</string>
   <string name="promotions_vouhers_button">Coupons</string>
   <!--Update-->
