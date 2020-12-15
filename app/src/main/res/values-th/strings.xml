@@ -5,6 +5,8 @@
   <string name="title_send_with_token">ส่ง %s</string>
   <string name="title_request">ได้รับ</string>
   <string name="title_import">กู้คืน Wallet</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">รหัสผ่าน</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">คุณถึงเลเวลถัดไป!</string>
   <string name="gamification_leveled_up_notification_body">ยินดีด้วย คุณจะรับโบนัส %s ในทุกการซื้อขาย!</string>
   <string name="gamification_how_max_level_body">ยินดีด้วย! คุณถึงเลเวลสูงสุดแล้ว!</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">ใช้ %s AppCoins เพื่อถึงระดับถัดไป</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">อนุญาตให้ AppCoins Wallet เพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
   <string name="provide_wallet_body_placeholders">อนุญาตให้ %1$s ที่อยู่กระเป๋าสตางค์ %2$s</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">เล่น &amp; รับ</string>
   <string name="promotions_empty_promotions_body">ไม่มีโปรโมชันที่ใช้ได้ในขณะนี้ โปรดกลับมาภายหลัง!</string>
   <string name="promotions_empty_poa_body">ในขณะนี้ไม่มีแอปที่มีรางวัล โปรดกลับมาในภายหลัง!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">สิทธิประโยชน์</string>
   <string name="promotions_vouhers_button">เวาเชอร์</string>
   <!--Update-->
