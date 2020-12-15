@@ -5,6 +5,8 @@
   <string name="title_send_with_token">%s を送信します。</string>
   <string name="title_request">受信する</string>
   <string name="title_import">Recover Wallet</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">パスワード</string>
   <string name="action_sign_in_short">Create</string>
@@ -335,6 +337,8 @@
   <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
   <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
   <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Spend %s AppCoins more to reach the next level.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins ウォレットアドレスを %s に提供することをを許可します。</string>
   <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
@@ -560,6 +564,8 @@
   <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
   <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
   <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Perks</string>
   <string name="promotions_vouhers_button">Vouchers</string>
   <!--Update-->
