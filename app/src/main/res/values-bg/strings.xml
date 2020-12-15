@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Изпрати %s</string>
   <string name="title_request">Получи</string>
   <string name="title_import">Възстанови портфейла</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Парола</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Достигна следващото ниво!</string>
   <string name="gamification_leveled_up_notification_body">Поздравления, сега ще получаваш %s бонус за всяка покупка!</string>
   <string name="gamification_how_max_level_body">Поздравления! Достигна най-високото ниво 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Похарчи %s AppCoins, за да достигнеш следващото ниво.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Позволи на AppCoins портфейла да предоставите твоя портфейл адрес на %s.</string>
   <string name="provide_wallet_body_placeholders">Позволи на %1$s да предостави твоя портфейл адрес на %2$s.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">ИГРАЙ &amp; СПЕЧЕЛИ</string>
   <string name="promotions_empty_promotions_body">В момента няма налични промоции Върни се по-късно!</string>
   <string name="promotions_empty_poa_body">В момента няма приложения с награди. Върни се по-късно!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Perks</string>
   <string name="promotions_vouhers_button">Vouchers</string>
   <!--Update-->
