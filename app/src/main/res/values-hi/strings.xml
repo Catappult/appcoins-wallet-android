@@ -5,6 +5,8 @@
   <string name="title_send_with_token">%s भेजें</string>
   <string name="title_request">प्राप्त करें</string>
   <string name="title_import">Recover Wallet</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">पासवर्ड</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">आप अगले लेवल पर पहुँच गए हैं!</string>
   <string name="gamification_leveled_up_notification_body">बधाई हो, अब आपको हर खरीद पर %s बोनस मिलेगा!</string>
   <string name="gamification_how_max_level_body">बधाई हो! आप उच्चतम लेवल पर पहुँच चुके हैं 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Spend %s AppCoins more to reach the next level.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins वॉलेट को अपना वॉलेट पता %s को देने की अनुमति दें।</string>
   <string name="provide_wallet_body_placeholders">%1$s को अपना वॉलेट पता %2$s को देने की अनुमति दें।</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">खेलें व कमाएँ</string>
   <string name="promotions_empty_promotions_body">अभी कोई प्रचार उपलब्ध नहीं हैं। कृपया बाद में आएँ!</string>
   <string name="promotions_empty_poa_body">इस समय इनाम के साथ कोई भी ऐप्स उपलब्ध नहीं हैं। कृपया बाद में आएँ!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Perks</string>
   <string name="promotions_vouhers_button">Vouchers</string>
   <!--Update-->
