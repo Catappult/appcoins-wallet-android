@@ -5,6 +5,8 @@
   <string name="title_send_with_token">إرسال %s</string>
   <string name="title_request">استقبال</string>
   <string name="title_import">استعادة المحفظة</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">كلمة المرور</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">لقد وصلت إلى المستوى التالي!</string>
   <string name="gamification_leveled_up_notification_body">مبروك، ستحصل الآن على مكافأة %s على كل عملية شراء!</string>
   <string name="gamification_how_max_level_body">مبروك! لقد وصلت إلى أعلى مستوى 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">أنفق %s AppCoins إضافية لتصل إلى المستوى التالي.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">اسمح لمحفظة AppCoins بإعطاء عنوان محفظتك إلى %s.</string>
   <string name="provide_wallet_body_placeholders">السماح لـ %1$s بتوفير عنوان محفظتك لـ %2$s.</string>
@@ -560,6 +564,8 @@
   <string name="promotions_tab_poa_title">العب &amp; واربح</string>
   <string name="promotions_empty_promotions_body">لا توجد إعلانات في هذه اللحظة. عُد لاحقًا!</string>
   <string name="promotions_empty_poa_body">لا توجد تطبيقات بها جوائز في هذه اللحظة. عُد لاحقًا!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">امتيازات</string>
   <string name="promotions_vouhers_button">قسائم</string>
   <!--Update-->
