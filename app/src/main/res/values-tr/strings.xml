@@ -5,6 +5,8 @@
   <string name="title_send_with_token">%s gönder</string>
   <string name="title_request">Al</string>
   <string name="title_import">Cüzdanı geri yükle</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Şifre</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Bir sonraki seviyeye ulaştınız!</string>
   <string name="gamification_leveled_up_notification_body">Tebrikler, artık her bir satın alma işleminde %s bonus kazanacaksınız!</string>
   <string name="gamification_how_max_level_body">Tebrikler! En üst seviyeye ulaştınız 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Sonraki seviyeye ulaşmak için %s AppCoins daha harcayın.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins Cüzdanın %s\'e cüzdan adresinizi vermesine izin verin.</string>
   <string name="provide_wallet_body_placeholders">%1$s\'ın %2$s\'e cüzdan adresinizi vermesine izin verin.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">OYNAYIN VE KAZANIN</string>
   <string name="promotions_empty_promotions_body">Şu anda kullanılabilir bir promosyon yok. Daha sonra tekrar uğrayın!</string>
   <string name="promotions_empty_poa_body">Şu anda kullanılabilir ödüllü bir uygulama yok. Daha sonra tekrar uğrayın!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Avantajlar</string>
   <string name="promotions_vouhers_button">Kuponlar</string>
   <!--Update-->
