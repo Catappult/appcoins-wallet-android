@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Hantar %s</string>
   <string name="title_request">Terima</string>
   <string name="title_import">Dapatkan Semula Dompet</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Kata laluan</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Anda telah capai tahap seterusnya!</string>
   <string name="gamification_leveled_up_notification_body">Tahniah! Kini anda akan dapat %s bonus bagi setiap pembelian!</string>
   <string name="gamification_how_max_level_body">Tahniah! Anda telah capat tahap tertinggi 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Belanja sebanyak %s AppCoins untuk capai tahap seterusnya.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk berikan alamat dompet anda kepada %s.</string>
   <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk berikan alamat dompet anda kepada %2$s.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">MAIN &amp; DAPAT</string>
   <string name="promotions_empty_promotions_body">Tiada promosi buat masa ini. Semak semula nanti!</string>
   <string name="promotions_empty_poa_body">Tiada aplikasi dengan ganjaran tersedia buat masa ini. Semak semula nanti!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Istimewa</string>
   <string name="promotions_vouhers_button">Baucar</string>
   <!--Update-->
