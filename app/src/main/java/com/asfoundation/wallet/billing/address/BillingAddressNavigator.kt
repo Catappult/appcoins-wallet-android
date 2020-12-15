@@ -16,7 +16,7 @@ class BillingAddressNavigator(private val fragment: BillingAddressFragment,
   }
 
   fun finishWithCancel() {
-    fragment.onActivityResult(IabActivity.BILLING_ADDRESS_REQUEST_CODE,
+    fragment.targetFragment?.onActivityResult(IabActivity.BILLING_ADDRESS_REQUEST_CODE,
         IabActivity.BILLING_ADDRESS_CANCEL_CODE, null)
     iabActivity.navigateBack()
   }
