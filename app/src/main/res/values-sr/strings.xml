@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Pošalji %s</string>
   <string name="title_request">Primite</string>
   <string name="title_import">Oporavite novčanik</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Lozinka</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Dostigli ste sledeći nivo!</string>
   <string name="gamification_leveled_up_notification_body">Čestitamo, od sada ćete dobijati bonus od %s za svaku kupovinu!</string>
   <string name="gamification_how_max_level_body">Čestitamo! Dostigli ste najviši nivo 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Potrošite još %s AppCoins da biste dostigli sledeći nivo.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
   <string name="provide_wallet_body_placeholders">Dozvolite aplikaciji %1$s da adresu vašeg novčanika pošalje aplikaciji %2$s.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">IGRAJTE I ZARADITE</string>
   <string name="promotions_empty_promotions_body">U ovom trenutku nema dostupnih promocija. Vratite se kasnije!</string>
   <string name="promotions_empty_poa_body">U ovom trenutku nema dostupnih aplikacija sa nagradama. Vratite se kasnije!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Perks</string>
   <string name="promotions_vouhers_button">Vouchers</string>
   <!--Update-->
