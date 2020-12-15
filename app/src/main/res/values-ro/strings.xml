@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Trimite %s</string>
   <string name="title_request">Primește</string>
   <string name="title_import">Recuperează Portofel</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Parolă</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Ai atins următorul nivel!</string>
   <string name="gamification_leveled_up_notification_body">Felicitări, acum vei primi un bonus de %s la fiecare cumpărătură!</string>
   <string name="gamification_how_max_level_body">Felicitări! Ai atins cel mai înalt nivel 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Cheltuiește încă %s AppCoins ca să atingi nivelul următor.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite AppCoins Wallet să furnizeze adresa portofelului tău către %s.</string>
   <string name="provide_wallet_body_placeholders">Permite %1$s să furnizeze adresa portofelului tău către %2$s.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">JOACĂ &amp; CÂȘTIGĂ</string>
   <string name="promotions_empty_promotions_body">Nu există promoții în acest moment. Întoarce-te mai târziu!</string>
   <string name="promotions_empty_poa_body">Nu există aplicații cu recompense în acest moment. Întoarce-te mai târziu!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Avantaje</string>
   <string name="promotions_vouhers_button">Vouchere</string>
   <!--Update-->
