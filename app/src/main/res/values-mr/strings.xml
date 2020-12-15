@@ -410,7 +410,7 @@
   <string name="password">पासवर्ड</string>
   <string name="repeat_password">पासवर्ड परत लिहा</string>
   <string name="turn_on_button">चालू करा</string>
-  <string name="no_thanks_button">नको, धन्यवाद</string>
+  <string name="no_thanks_button">No, thanks</string>
   <string name="remind_later_button">नंतर पाहू</string>
   <string name="get_code_button">कोड मिळवा</string>
   <string name="confirm_button">पुष्टी करा</string>
@@ -499,7 +499,7 @@
   <string name="purchase_error_wallet_block_code_403">आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये अस दिसतय. कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_card_error_CVV">चुकीचा सीव्हीव्ही/सीव्हीसी</string>
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
-  <string name="purchase_error_unverified_wallet">आपल वॉलेट सत्यापित केल्यानंतर खरेदी पूर्ण करा.</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
@@ -763,7 +763,7 @@
   <string name="carrier_billing_fees_disclaimer">अतिरिक्त शुल्क लागू होऊ शकते</string>
   <string name="carrier_billing_insert_phone_body">कृपया आपला फोन नंबर घाला</string>
   <string name="carrier_billing_phone_field">आपला फोन नंबर...</string>
-  <string name="carrier_billing_carrier_fees_body">%1$s आपणांस %2$s शुल्क लागू करतील</string>
+  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
   <string name="carrier_billing_purchase_info_body">%1$s मध्ये %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">आपला फोन नंबर आहे %s.</string>
   <string name="carrier_billing_enter_pin_body">एसएमएसद्वारे मिळालेली पिन कृपया इथे घाला.</string>
@@ -855,14 +855,13 @@
   <string name="card_verification_body">आपले वॉलेट सत्यापित करण्यासाठी आपले क्रेडीट/डेबिट कार्ड वापरा.</string>
   <string name="card_verification_charde_disclaimer">आम्ही आपल्या कार्डातुन %s शुल्क घेऊ आणि आपण कोड पुष्टी केल्यानंतर परत देऊ.</string>
   <string name="card_verification_code_title">व्यवहार तपशीलात कोड तपासा</string>
-  <string name="card_verification_code_body">आपल्या कार्डाने पुरविलेल्या व्यवहाराच्या तपशीलात एक अनोखा कोड दिसेल.</string>
+  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
   <string name="card_verification_code_example_title">व्यवहार तपशीलाचे उदाहरण</string>
   <string name="card_verification_code_example_date">व्यवहाराची तारीख</string>
   <string name="card_verification_code_example_description">वर्णन</string>
   <string name="card_verification_code_example_amount">रक्कम</string>
-  <string name="card_verification_code_example_code">अनोखा कोड</string>
-  <string name="card_verification_code_example_expiry">३ दिवसात कालबाह्य होईल.</string>
-  <string name="card_verification_code_enter_title">४ डिजीटसचा कोड घाला</string>
+  <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
+  <string name="card_verification_code_enter_title">Enter the %s digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="one">आपण कोड पुष्टी केल्यानंतर %2$s तासात %1$s परत दिले जातील.</item>
     <item quantity="other">आपण कोड पुष्टी केल्यानंतर %2$s तासात %1$s परत दिले जातील.</item>

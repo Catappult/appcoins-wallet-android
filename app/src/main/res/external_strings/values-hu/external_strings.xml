@@ -44,15 +44,15 @@
   <!-- Error messages -->
   <string name="title_dialog_error">Hiba</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">Hoppá, hiba történt.</string>
+  <string name="purchase_card_error_general_1">Problémát észleltünk a kártyáddal kapcsolatban. Kérjük, próbáld újra vagy vedd fel velünk a kapcsolatot.</string>
+  <string name="purchase_card_error_general_2">A tranzakciót elutasította a bankod. Használj egy másik kártyát vagy vedd fel velünk a kapcsolatot.</string>
+  <string name="purchase_card_error_no_funds">Úgy tűnik, nincs elég pénzed vagy valamilyen limit van a kártyádon. Próbálkozz egy másik kártyával.</string>
+  <string name="purchase_card_error_expired">Úgy tűnik, hogy lejárt a kártyád. Használj egy másikat.</string>
+  <string name="purchase_card_error_invalid_details">Biztos vagy benne, hogy helyes a kártyaszám? Ellenőrizd, majd próbáld újra.</string>
+  <string name="purchase_card_error_not_supported">Ezt a kártyatípust nem támogatjuk. Használj egy másikat.</string>
+  <string name="purchase_card_error_security">Biztos vagy benne, hogy helyes a biztonsági információ? Próbáld újra.</string>
+  <string name="purchase_card_error_wrong_CVV">Úgy tűnik, rossz CVV/CVC kódot adtál meg. Próbáld újra.</string>
+  <string name="purchase_card_error_CVV">Hibás CVV/CVC</string>
+  <string name="error_contac_us_body">Ha a probléma továbbra is fennáll, vedd fe velünk a kapcsolatot.</string>
 </resources>
