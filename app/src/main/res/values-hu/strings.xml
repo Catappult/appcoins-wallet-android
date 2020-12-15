@@ -5,6 +5,8 @@
   <string name="title_send_with_token">%s küldése</string>
   <string name="title_request">Fogadás</string>
   <string name="title_import">Pénztárca helyreállítása</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Jelszó</string>
   <string name="action_sign_in_short">Create</string>
@@ -334,6 +336,8 @@
   <string name="gamification_leveled_up_notification_title">Elérted a következő szintet!</string>
   <string name="gamification_leveled_up_notification_body">Gratula, mostantól %s bónuszt kapsz minden vásárlás után!</string>
   <string name="gamification_how_max_level_body">Gratulálunk! Elérted a legmagasabb szintet 💃</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Költs el még %s AppCoins-t a következő szint eléréséhez.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Engedélyezd az AppCoins Wallet-nek, hogy tárcacímedet megadja a(z) %s számára.</string>
   <string name="provide_wallet_body_placeholders">Engedélyezd %1$s számára, hogy pénztárcacímedet megadja a(z) %2$s számára.</string>
@@ -559,6 +563,8 @@
   <string name="promotions_tab_poa_title">JÁTSSZ &amp; KERESS</string>
   <string name="promotions_empty_promotions_body">Jelenleg nincs elérhető promóció. Gyere vissza később!</string>
   <string name="promotions_empty_poa_body">Jelenleg nincsenek jutalmakat tartalmazó appok. Gyere vissza később!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Előnyök</string>
   <string name="promotions_vouhers_button">Kuponok</string>
   <!--Update-->
