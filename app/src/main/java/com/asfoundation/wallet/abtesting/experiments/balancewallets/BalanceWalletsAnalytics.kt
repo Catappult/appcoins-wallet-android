@@ -10,9 +10,9 @@ class BalanceWalletsAnalytics(private val analyticsManager: AnalyticsManager) {
   companion object {
     private const val WALLET = "WALLET"
     const val WAL_78_BALANCE_VS_MYWALLETS_PARTICIPATING_EVENT =
-        "wallet_wal_78_Balance_vs_MyWallets_participating"
+        "wallet_wal_78_balance_vs_mywallets_participating"
     const val WAL_78_BALANCE_VS_MYWALLETS_CONVERSION_EVENT =
-        "wallet_wal_78_Balance_vs_MyWallets_converting"
+        "wallet_wal_78_balance_vs_mywallets_converting"
   }
 
   fun sendAbTestParticipatingEvent(group: String) {
