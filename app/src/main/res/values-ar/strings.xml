@@ -27,7 +27,7 @@
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
-  <string name="no_camera_available">No camera available!</string>
+  <string name="no_camera_available">الكاميرا غير متوفرة!</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
   <string name="title_delete_account">هل أنت متأكد من أنك تريد حذف هذه المحفظة؟</string>
@@ -117,7 +117,7 @@
   <string name="intro_3_body">قم بكل عمليات الشراء داخل التطبيقات باستخدام وسيلة الدفع المفضلة لديك.</string>
   <string name="intro_4_title">آمن وسرّي</string>
   <string name="intro_4_body">مفاتيحك السرية لن تفارق الجهاز، ما يبقي الأبكوينز الخاصو بك آمنة طوال الوقت.</string>
-  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
+  <string name="intro_4_body_2">ستكون كل تحويلاتك آمنة دومًا بفضل التقنيات الحديثة.</string>
   <string name="intro_5_title">احصل على رصيد AppCoins مجاني!</string>
   <string name="intro_5_body">ستربح رصيد AppCoins مجانيًا عند تجربة التطبيقات والألعاب.</string>
   <string name="intro_creating_wallet_short">ضبط محفظتك من أجلك&#8230;</string>
@@ -225,21 +225,21 @@
   <string name="transaction_status_success">تم بنجاح</string>
   <string name="transaction_status_pending">قيد الانتظار</string>
   <string name="transaction_status_failed">فشل</string>
-  <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_status_reverted">راجعة</string>
   <string name="transaction_type_iab">شراء داخل التطبيق</string>
   <string name="transaction_type_poa">الجوائز</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">تحويل</string>
   <string name="transaction_type_bonus">علاوة</string>
-  <string name="transaction_type_voucher">e-Voucher</string>
-  <string name="transaction_type_voucher_title">Voucher for %s</string>
+  <string name="transaction_type_voucher">قسيمة إلكترونية</string>
+  <string name="transaction_type_voucher_title">القسيمة لـ %s</string>
   <string name="transaction_type_reverted_bonus_title">مكافأة راجعة</string>
   <string name="transaction_type_reverted_bonus_body">المكافأة التي استلمتها على %s رجعت إلى المصدر. يرجى التواصل مع الدعم لمزيد من المعلومات.</string>
   <string name="transaction_type_reverted_topup_title">استرجاع تعبئة الرصيد</string>
   <string name="transaction_type_reverted_topup_body">تعبئة الرصيد التي أجريتها على %s رجعت إلى المصدر. يرجى التواصل مع الدعمل لمزيد من المعلومات.</string>
   <string name="transaction_type_reverted_purchase_title">استرجاع مشتريات</string>
   <string name="transaction_type_reverted_purchase_body">المشتريات التي طلبتها على %s عادت إلى المصدر. يرجى التواصل مع الدعم لمزيد من المعلومات.</string>
-  <string name="transaction_reverted_view_original_header">Original Transaction</string>
+  <string name="transaction_reverted_view_original_header">عملية تحويل أصلية</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">مدعوم من الإيثيريوم</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -408,11 +408,11 @@
   <string name="common_or">أو</string>
   <string name="share_via">مشاركة بواسطة:</string>
   <string name="password">كلمة المرور</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No,thanks</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="repeat_password">أعد كتابة كلمة المرور</string>
+  <string name="turn_on_button">تشغيل</string>
+  <string name="no_thanks_button">لا، شكرًا</string>
+  <string name="remind_later_button">ذكرني لاحقًا</string>
+  <string name="get_code_button">احصل على الرمز</string>
   <string name="confirm_button">تأكيد</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
@@ -427,7 +427,7 @@
   <string name="title_redeem">استرجع قيمة الكود</string>
   <string name="settings_item_support">تواصل مع فريق الدعم</string>
   <string name="settings_subheader_support">الدعم</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">من نحن</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">قيد العمل&#8230;</string>
   <string name="local_payments_inprogress_body">حالما تكمل الدفع ستتلقّى رصيد AppCoins في محفظتك. بعدها تعدود إلى اللعبة لتشتري!</string>
@@ -461,8 +461,8 @@
   <string name="verification_error_time_expired">يييي، انتهى وقتك. ابدأ من جديد!</string>
   <string name="verification_error_attempts_reached">يبدو أنك وصلت الحد المسموح به. يرجى الانتظار والمحاولة مجددًا.</string>
   <string name="verified_tag">مُصدَّق</string>
-  <string name="unferified_tag">Unverified wallet</string>
-  <string name="verification_wallets_verify_button">Verify</string>
+  <string name="unferified_tag">محفظة لم يتم التحقق منها</string>
+  <string name="verification_wallets_verify_button">تحقق</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
   <string name="purchase_more_payment_methods_button">طرق دفع أخرى</string>
@@ -494,13 +494,13 @@
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
   <string name="purchase_wallet_error_contact_us">يييي، هناك خطبٌ ما في محفظتك. يرجى الاتصال بنا.</string>
   <string name="purchase_carrier_error">يبدو أن رقم هاتفك لا يتوافق مع وسيلة الدفع هذه.</string>
-  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
-  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
+  <string name="purchase_carrier_error_minimum">وسيلة الدفع لديك لا تدعم المدفوعات التي تقل عن %s.</string>
+  <string name="purchase_carrier_error_maximum">وسيلة الدفع لديك لا تدعم المدفوعات التي تزيد على %s.</string>
   <string name="purchase_error_fraud_code_20">يييي، نحن نعاني من مشكلة في عملية الشراء هذه. أرجوك تواصل معنا.</string>
   <string name="purchase_error_wallet_block_code_403">يبدو أن هناك مشكلة ما في محفظتك. يرجى التواصل معنا.</string>
   <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -560,8 +560,8 @@
   <string name="promotions_tab_poa_title">العب &amp; واربح</string>
   <string name="promotions_empty_promotions_body">لا توجد إعلانات في هذه اللحظة. عُد لاحقًا!</string>
   <string name="promotions_empty_poa_body">لا توجد تطبيقات بها جوائز في هذه اللحظة. عُد لاحقًا!</string>
-  <string name="promotions_perks_button">Perks</string>
-  <string name="promotions_vouhers_button">Vouchers</string>
+  <string name="promotions_perks_button">امتيازات</string>
+  <string name="promotions_vouhers_button">قسائم</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">تحديث لاستقبال الجوائز</string>
   <string name="update_wallet_poa_notification_body">يرجى تحديث محفظة AppCoins لاستقبال الجوائز.</string>
@@ -612,11 +612,11 @@
   <string name="backup_notification_title">أنشئ نسخًا احتياطًا لمحفظتك!</string>
   <string name="backup_notification_body">احتفظ بأموالك بأمان وتأكد من أنك تستطيع دومًا الدخول إلى محفظتك.</string>
   <string name="backup_choose_wallet_title">اختر محفظة لإنشاء نسخ احتياطي لها</string>
-  <string name="backup_additional_security_title">Additional Security (optional)</string>
-  <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
-  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
-  <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
+  <string name="backup_additional_security_title">أمان إضافي (اختياري)</string>
+  <string name="backup_additional_security_body">اختر كلمة مرور</string>
+  <string name="backup_additional_security_disclaimer_title">يرجى حفظ كلمة المرور في أمان.</string>
+  <string name="backup_additional_security_disclaimer_body">لا يمكن استرجاع كلمة المرور.</string>
+  <string name="backup_additional_security_password_not_march">كلمة المرور غير متطابقة.</string>
   <!--Wallets Management-->
   <string name="wallets_title">المَحافظ</string>
   <string name="wallets_total_balance_title">الرصيد الكلي يساوي %s</string>
@@ -764,14 +764,14 @@
   <string name="carrier_billing_fees_disclaimer">تُطبّق تكاليف إضافية</string>
   <string name="carrier_billing_insert_phone_body">يرجى إدخال رقم الهاتف</string>
   <string name="carrier_billing_phone_field">رقم هاتفك...</string>
-  <string name="carrier_billing_carrier_fees_body">%1$s ستكلف رسوم %2$s</string>
+  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
   <string name="carrier_billing_purchase_info_body">%1$s في %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">رقم هاتفك هو %s.</string>
   <string name="carrier_billing_enter_pin_body">يرجى إدخال الرمز الذي تلقيته في رسالة SMS.</string>
   <string name="carrier_billing_code_field">رمزك هو...</string>
   <string name="carrier_billing_code_resend_button">أعد إرسال الرمز</string>
   <string name="carrier_billing_submit_button">اعتمِد</string>
-  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
+  <string name="carrier_billing_number_not_supported">يبدو أن رقمك غير متوافق مع وسيلة الدفع هذه.</string>
   <string name="carrier_billing_terms_disclaimer">بالضغط على اعتمِد، أنت تُقرّ بأنك تقبل الأحكام والشروط وسياسة الخصوصية.</string>
   <string name="carrier_billing_help_1">تحتاج مساعدة؟</string>
   <string name="carrier_billing_help_2_button">تواصل مع فريق الدعم</string>
@@ -792,7 +792,7 @@
   <string name="manage_cards_select_title">اختر بطاقة دفع</string>
   <string name="manage_cards_remember">تذكر بطاقتي</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_title">احصل على ما يصل إلى %s%% مكافأة في كل عملية شراء</string>
   <string name="perks_gamif_subtitle">كلما أنفقت أكثر في تطبيقاتك المفضلة، كانت المكافأة أكبر!</string>
   <string name="perks_title">ترقيات</string>
   <string name="perks_body">ترقّبوا! لدينا ترقيات خاصة من أجلك.</string>
@@ -836,61 +836,60 @@
   <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
   <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>
   <string name="fingerprint_authentication_required_body">يرجى استخدام بصمة الإصبع أو كلمة المرور للمتابعة.</string>
-  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
+  <string name="fingerprint_popup_body">المصادقة ببصمة الإصبع متاحة الآن!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">أرسل سجل النشاط إلى فريق الدعم</string>
   <string name="send_logs_sending">يتم إرسال&#8230;</string>
   <string name="send_logs_send">أُرسلت!</string>
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
-  <string name="rate_us_no">Not really</string>
-  <string name="rate_us_yes">Yes!</string>
-  <string name="rate_us_improve_title">What can we improve?</string>
-  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
-  <string name="rate_us_improve_field__empty_error">Please write something</string>
-  <string name="rate_us_possitive_thanks_title">Thank you!</string>
-  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
-  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <string name="rate_us_question_title">هل أنت مستمتع بـ AppCoins Wallet؟</string>
+  <string name="rate_us_no">ليس كثيرًا</string>
+  <string name="rate_us_yes">نعم!</string>
+  <string name="rate_us_improve_title">ما الذي يمكننا تحسينه؟</string>
+  <string name="rate_us_improve_field">دعنا نعرف ما الخطأ الذي حدث وسنعمل على حلّه.</string>
+  <string name="rate_us_improve_field__empty_error">يرجى كتابة أي شيء</string>
+  <string name="rate_us_possitive_thanks_title">شكرًا لك!</string>
+  <string name="rate_us_possitive_thanks_body">نحن سعداء بأنك تحب التطبيق. هل يمكنك مساعدتنا بتقييمنا على متجر التطبيقات؟</string>
+  <string name="rate_us_possitive_rate_button">أعط تقييمًا لمحفظة الـ AppCoins</string>
+  <string name="rate_us_possitive_done_title">نشكرك على تقييمك!</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
-  <string name="card_verification_code_title">Check the code in the transaction details</string>
-  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
-  <string name="card_verification_code_example_title">Example of Transaction Summary</string>
-  <string name="card_verification_code_example_date">Trans. Date</string>
-  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_body">استخدم بطاقة الائتمان للتحقق من محفظتك.</string>
+  <string name="card_verification_charde_disclaimer">سنتلقي %s من بطاقتك، وسنعيدها حالما تؤكد لنا الرمز.</string>
+  <string name="card_verification_code_title">تفقد الرمز في تفاصيل حركة الدفع</string>
+  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="card_verification_code_example_title">مثال على ملخص إشعار الدفع</string>
+  <string name="card_verification_code_example_date">تاريخ التحويل</string>
+  <string name="card_verification_code_example_description">الوصف</string>
   <string name="card_verification_code_example_amount">المقدار</string>
-  <string name="card_verification_code_example_code">Unique code</string>
-  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
-  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
+  <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
+  <string name="card_verification_code_enter_title">Enter the %s digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
-    <item quantity="zero">%1$s will be refunded within %2$s hours after you confirm the code.</item>
-    <item quantity="one">%1$s will be refunded within %2$s hour after you confirm the code.</item>
-    <item quantity="two">%1$s will be refunded within %2$s hours after you confirm the code.</item>
-    <item quantity="few">%1$s will be refunded within %2$s hours after you confirm the code.</item>
-    <item quantity="many">%1$s will be refunded within %2$s hours after you confirm the code.</item>
-    <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
+    <item quantity="zero">%1$s سيتم إرجاعه إليك خلال %2$s ساعة بعد تأكيد الرمز.</item>
+    <item quantity="one">%1$s سيتم إرجاعه إليك خلال %2$s ساعتين بعد تأكيد الرمز.</item>
+    <item quantity="two">%1$s سيتم إرجاعه إليك خلال %2$s ساعات بعد تأكيد الرمز.</item>
+    <item quantity="few">%1$s سيتم إرجاعه إليك خلال %2$s ساعات بعد تأكيد الرمز.</item>
+    <item quantity="many">%1$s سيتم إرجاعه إليك خلال %2$s ساعة بعد تأكيد الرمز.</item>
+    <item quantity="other">%1$s سيتم إرجاعه إليك خلال %2$s ساعة بعد تأكيد الرمز.</item>
   </plurals>
   <plurals name="card_verification_code_enter_days_body">
-    <item quantity="zero">%1$s will be refunded within %2$s days after you confirm the code.</item>
-    <item quantity="one">%1$s will be refunded within %2$s day after you confirm the code.</item>
-    <item quantity="two">%1$s will be refunded within %2$s days after you confirm the code.</item>
-    <item quantity="few">%1$s will be refunded within %2$s days after you confirm the code.</item>
-    <item quantity="many">%1$s will be refunded within %2$s days after you confirm the code.</item>
-    <item quantity="other">%1$s will be refunded within %2$s days after you confirm the code.</item>
+    <item quantity="zero">%1$s سيتم إرجاعه إليك خلال %2$s ساعة بعد تأكيد الرمز.</item>
+    <item quantity="one">%1$s سيتم إرجاعه إليك خلال %2$s ساعة بعد تأكيد الرمز.</item>
+    <item quantity="two">%1$s سيتم إرجاعه إليك خلال %2$s ساعتين بعد تأكيد الرمز.</item>
+    <item quantity="few">%1$s سيتم إرجاعه إليك خلال %2$s ساعات بعد تأكيد الرمز.</item>
+    <item quantity="many">%1$s سيتم إرجاعه إليك خلال %2$s ساعة بعد تأكيد الرمز.</item>
+    <item quantity="other">%1$s سيتم إرجاعه إليك خلال %2$s ساعة بعد تأكيد الرمز.</item>
   </plurals>
-  <string name="card_verification_code_other_card_button">Try with another card</string>
-  <string name="card_verification_code_wrong_error">Wrong code</string>
-  <string name="card_verification_wallets_one_step_title">One more step to validate</string>
-  <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
-  <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <string name="card_verification_code_other_card_button">جرب ببطاقة أخرى</string>
+  <string name="card_verification_code_wrong_error">الرمز خاطئ</string>
+  <string name="card_verification_wallets_one_step_title">خطوة واحدة أخرى للتحقق</string>
+  <string name="card_verification_wallets_one_step_body">أدخل الرمز الذي يظهر في تفاصيل حركة الدفع.</string>
+  <string name="card_verification_wallets_insert_bode_button">أدخل الرمز</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
-  <string name="voucher_buy_header">Voucher for %s</string>
-  <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
-  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
-  <string name="voucher_code_title">Voucher Code</string>
-  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
-  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
+  <string name="voucher_card_body">اشترِ هذه القسيمة واحصل على مكافأة تصل إلى %s%%.</string>
+  <string name="voucher_buy_header">القسيمة لـ %s</string>
+  <string name="voucher_buy_no_game_title">أليس لديك %s؟</string>
+  <string name="voucher_buy_no_game_install_button">نزّله الآن</string>
+  <string name="voucher_code_title">رمز القسيمة</string>
+  <string name="voucher_instructions_body">اذهب إلى %s واستخدم الرمز لاسترداد قسيمتك.</string>
+  <string name="voucher_instructions_transactions">يمكنك دائمًا إيجاد رمز القسيمة في سجل التحويلات.</string>
 </resources>
