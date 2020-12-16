@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <!-- TODO change for correct string -->
     <TextView
         android:id="@+id/locked_promotions_message"
         style="@style/LockedPromotionsStyle"
@@ -30,11 +29,10 @@
         android:layout_marginTop="46dp"
         android:layout_marginEnd="26dp"
         android:gravity="center"
-        android:text="@string/referral_dropup_menu_requirements_purchase"
+        android:text="@string/promotions_empty_first_purchase_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/locked_promotions_image"
         />
-
   </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
