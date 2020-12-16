@@ -68,17 +68,12 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
             bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
           }
         })
-    presenter.present(savedInstanceState)
+    presenter.present()
   }
 
   override fun onResume() {
     super.onResume()
     presenter.onResume()
-  }
-
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    presenter.onSaveInstanceState(outState)
   }
 
   override fun onDestroyView() {

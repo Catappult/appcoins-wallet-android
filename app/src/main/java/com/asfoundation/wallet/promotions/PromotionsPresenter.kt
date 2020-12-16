@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.promotions
 
-import android.os.Bundle
 import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
@@ -17,16 +16,11 @@ class PromotionsPresenter(private val view: PromotionsView,
                           private val disposables: CompositeDisposable,
                           private val networkScheduler: Scheduler,
                           private val viewScheduler: Scheduler) {
-
-  companion object {
-    private const val UNKNOWN_USER_KEY = "unknown"
-  }
-
+  
   private var cachedBonus = 0.0
-  private var isUnknownUser = false
+  private var viewState = ViewState.DEFAULT
 
-  fun present(savedInstanceState: Bundle?) {
-    savedInstanceState?.let { isUnknownUser = it.getBoolean(UNKNOWN_USER_KEY, false) }
+  fun present() {
     handlePromotionClicks()
     handleRetryClick()
     handleBottomSheetVisibility()
@@ -34,14 +28,14 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   fun onResume() {
-    retrievePromotions()
+    if (shouldRequestPromotions()) retrievePromotions()
   }
 
   private fun retrievePromotions() {
     disposables.add(promotionsInteractor.retrievePromotions()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSubscribe { if (isUnknownUser) view.showLoading() }
+        .doOnSubscribe { view.showLoading() }
         .doOnSuccess { onPromotions(it) }
         .subscribe({}, { handleError(it) }))
   }
@@ -50,16 +44,16 @@ class PromotionsPresenter(private val view: PromotionsView,
     view.hideLoading()
     when {
       promotionsModel.error == Status.NO_NETWORK -> {
-        isUnknownUser = false
+        viewState = ViewState.NO_NETWORK
         view.showNetworkErrorView()
       }
       promotionsModel.walletOrigin == WalletOrigin.UNKNOWN -> {
-        isUnknownUser = true
+        viewState = ViewState.UNKNOWN
         view.showLockedPromotionsScreen()
       }
       else -> {
-        isUnknownUser = false
         if (promotionsModel.promotions.isNotEmpty()) {
+          viewState = ViewState.PROMOTIONS
           cachedBonus = promotionsModel.maxBonus
           view.showPromotions(promotionsModel)
           if (promotionsInteractor.shouldShowGamificationDisclaimer()) {
@@ -67,6 +61,7 @@ class PromotionsPresenter(private val view: PromotionsView,
             promotionsInteractor.setGamificationDisclaimerShown()
           }
         } else {
+          viewState = ViewState.NO_PROMOTIONS
           view.showNoPromotionsScreen()
         }
       }
@@ -141,7 +136,11 @@ class PromotionsPresenter(private val view: PromotionsView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun onSaveInstanceState(outState: Bundle) {
-    outState.putBoolean(UNKNOWN_USER_KEY, isUnknownUser)
+  private fun shouldRequestPromotions(): Boolean {
+    return viewState == ViewState.DEFAULT || viewState == ViewState.UNKNOWN
+  }
+
+  enum class ViewState {
+    DEFAULT, UNKNOWN, NO_NETWORK, PROMOTIONS, NO_PROMOTIONS
   }
 }

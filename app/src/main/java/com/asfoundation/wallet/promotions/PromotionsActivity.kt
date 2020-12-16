@@ -23,9 +23,11 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     toolbar()
     onBackPressedSubject = PublishSubject.create()
     transactionsRouter = TransactionsRouter()
-    supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container, PromotionsFragment.newInstance())
-        .commit()
+    if (savedInstanceState == null) {
+      supportFragmentManager.beginTransaction()
+          .add(R.id.fragment_container, PromotionsFragment.newInstance())
+          .commit()
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
