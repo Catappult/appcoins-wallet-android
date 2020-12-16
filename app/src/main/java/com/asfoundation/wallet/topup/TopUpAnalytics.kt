@@ -62,6 +62,17 @@ class TopUpAnalytics(private val analyticsManager: AnalyticsManager) {
         WALLET)
   }
 
+  fun sendBillingAddressActionEvent(value: Double,
+                                    paymentMethod: String,
+                                    action: String) {
+    val map = topUpBaseMap(value, paymentMethod)
+
+    map[ACTION] = action
+
+    analyticsManager.logEvent(map, RAKAM_TOP_UP_BILLING, AnalyticsManager.Action.CLICK,
+        WALLET)
+  }
+
   private fun topUpBaseMap(value: Double, paymentMethod: String): HashMap<String, Any> {
     val map = HashMap<String, Any>()
 
@@ -77,6 +88,7 @@ class TopUpAnalytics(private val analyticsManager: AnalyticsManager) {
     const val WALLET_TOP_UP_CONFIRMATION = "wallet_top_up_confirmation"
     const val WALLET_TOP_UP_CONCLUSION = "wallet_top_up_conclusion"
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
+    const val RAKAM_TOP_UP_BILLING = "wallet_top_up_billing"
     private const val VALUE = "value"
     private const val ACTION = "action"
     private const val METHOD = "payment_method"

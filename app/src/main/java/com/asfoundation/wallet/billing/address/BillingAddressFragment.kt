@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.billing.address
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,17 +11,12 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.asf.wallet.R
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_CANCEL_CODE
-import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
-import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_SUCCESS_CODE
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_billing_address.*
 import kotlinx.android.synthetic.main.layout_billing_address.*
@@ -36,23 +30,28 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
   companion object {
 
     const val BILLING_ADDRESS_MODEL = "billing_address_model"
-    private const val SKU_DESCRIPTION = "sku_description"
-    private const val DOMAIN_KEY = "domain"
-    private const val APPC_AMOUNT_KEY = "appc_amount"
-    private const val BONUS_KEY = "bonus"
-    private const val IS_DONATION_KEY = "is_donation"
-    private const val FIAT_AMOUNT_KEY = "fiat_amount"
-    private const val FIAT_CURRENCY_KEY = "fiat_currency"
-    private const val STORE_CARD_KEY = "store_card"
-    private const val IS_STORED_KEY = "is_stored"
+    internal const val SKU_DESCRIPTION = "sku_description"
+    internal const val SKU_ID = "sku_id"
+    internal const val TRANSACTION_TYPE = "transaction_type"
+    internal const val DOMAIN_KEY = "domain"
+    internal const val APPC_AMOUNT_KEY = "appc_amount"
+    internal const val BONUS_KEY = "bonus"
+    internal const val IS_DONATION_KEY = "is_donation"
+    internal const val FIAT_AMOUNT_KEY = "fiat_amount"
+    internal const val FIAT_CURRENCY_KEY = "fiat_currency"
+    internal const val STORE_CARD_KEY = "store_card"
+    internal const val IS_STORED_KEY = "is_stored"
 
     @JvmStatic
-    fun newInstance(skuDescription: String, domain: String, appcAmount: BigDecimal, bonus: String,
-                    fiatAmount: BigDecimal, fiatCurrency: String, isDonation: Boolean,
-                    shouldStoreCard: Boolean, isStored: Boolean): BillingAddressFragment {
+    fun newInstance(skuId: String, skuDescription: String, transactionType: String, domain: String,
+                    appcAmount: BigDecimal, bonus: String, fiatAmount: BigDecimal,
+                    fiatCurrency: String, isDonation: Boolean, shouldStoreCard: Boolean,
+                    isStored: Boolean): BillingAddressFragment {
       return BillingAddressFragment().apply {
         arguments = Bundle().apply {
           putString(SKU_DESCRIPTION, skuDescription)
+          putString(SKU_ID, skuId)
+          putString(TRANSACTION_TYPE, transactionType)
           putString(DOMAIN_KEY, domain)
           putString(BONUS_KEY, bonus)
           putSerializable(APPC_AMOUNT_KEY, appcAmount)
@@ -72,13 +71,10 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
   @Inject
   lateinit var logger: Logger
 
-  private lateinit var iabView: IabView
-  private lateinit var presenter: BillingAddressPresenter
+  @Inject
+  lateinit var presenter: BillingAddressPresenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter = BillingAddressPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
-  }
+  private lateinit var iabView: IabView
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -87,15 +83,17 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setupUi()
     presenter.present()
   }
 
-  private fun setupUi() {
+  override fun initializeView(bonus: String?, isDonation: Boolean, domain: String,
+                              skuDescription: String,
+                              appcAmount: BigDecimal, fiatAmount: BigDecimal,
+                              fiatCurrency: String, isStored: Boolean, shouldStoreCard: Boolean) {
     iabView.unlockRotation()
-    showButtons()
-    setHeaderInformation()
-    showBonus()
+    showButtons(isDonation)
+    setHeaderInformation(isDonation, domain, skuDescription, appcAmount, fiatAmount, fiatCurrency)
+    showBonus(bonus)
     setupFieldsListener()
     setupStateAdapter()
     if (isStored) remember.visibility = GONE
@@ -105,7 +103,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     }
   }
 
-  private fun showButtons() {
+  private fun showButtons(isDonation: Boolean) {
     cancel_button.setText(R.string.back_button)
 
     if (isDonation) buy_button.setText(R.string.action_donate)
@@ -145,21 +143,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
         }
   }
 
-  override fun finishSuccess(billingAddressModel: BillingAddressModel) {
-    val intent = Intent().apply {
-      putExtra(BILLING_ADDRESS_MODEL, billingAddressModel)
-    }
-    targetFragment?.onActivityResult(BILLING_ADDRESS_REQUEST_CODE, BILLING_ADDRESS_SUCCESS_CODE,
-        intent)
-    iabView.navigateBack()
-  }
-
-  override fun cancel() {
-    targetFragment?.onActivityResult(BILLING_ADDRESS_REQUEST_CODE, BILLING_ADDRESS_CANCEL_CODE,
-        null)
-    iabView.navigateBack()
-  }
-
   private fun validateFields(): Boolean {
     var valid = true
     if (address.text.isNullOrEmpty()) {
@@ -197,7 +180,9 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   override fun backClicks() = RxView.clicks(cancel_button)
 
-  private fun setHeaderInformation() {
+  private fun setHeaderInformation(isDonation: Boolean, domain: String, skuDescription: String,
+                                   appcAmount: BigDecimal, fiatAmount: BigDecimal,
+                                   fiatCurrency: String) {
     if (isDonation) {
       app_name.text = getString(R.string.item_donation)
       app_sku_description.text = getString(R.string.item_donation)
@@ -236,8 +221,8 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     return packageManager.getApplicationLabel(packageInfo)
   }
 
-  private fun showBonus() {
-    if (bonus.isNotEmpty()) {
+  private fun showBonus(bonus: String?) {
+    if (bonus?.isNotEmpty() == true) {
       bonus_layout?.visibility = VISIBLE
       bonus_msg?.visibility = VISIBLE
       bonus_value?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
@@ -251,78 +236,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     iabView.enableBack()
     presenter.stop()
     super.onDestroyView()
-  }
-
-  private val skuDescription: String by lazy {
-    if (arguments!!.containsKey(SKU_DESCRIPTION)) {
-      arguments!!.getString(SKU_DESCRIPTION, "")
-    } else {
-      throw IllegalArgumentException("sku description data not found")
-    }
-  }
-
-  private val domain: String by lazy {
-    if (arguments!!.containsKey(DOMAIN_KEY)) {
-      arguments!!.getString(DOMAIN_KEY, "")
-    } else {
-      throw IllegalArgumentException("domain data not found")
-    }
-  }
-
-  private val appcAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(APPC_AMOUNT_KEY)) {
-      arguments!!.getSerializable(APPC_AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("appc amount data not found")
-    }
-  }
-
-  private val bonus: String by lazy {
-    if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY, "")
-    } else {
-      throw IllegalArgumentException("bonus data not found")
-    }
-  }
-
-  private val fiatAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
-      arguments!!.getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("fiat amount data not found")
-    }
-  }
-
-  private val fiatCurrency: String by lazy {
-    if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
-      arguments!!.getString(FIAT_CURRENCY_KEY, "")
-    } else {
-      throw IllegalArgumentException("fiat currency data not found")
-    }
-  }
-
-  private val isDonation: Boolean by lazy {
-    if (arguments!!.containsKey(IS_DONATION_KEY)) {
-      arguments!!.getBoolean(IS_DONATION_KEY)
-    } else {
-      throw IllegalArgumentException("is donation data not found")
-    }
-  }
-
-  private val shouldStoreCard: Boolean by lazy {
-    if (arguments!!.containsKey(STORE_CARD_KEY)) {
-      arguments!!.getBoolean(STORE_CARD_KEY)
-    } else {
-      throw IllegalArgumentException("should store card data not found")
-    }
-  }
-
-  private val isStored: Boolean by lazy {
-    if (arguments!!.containsKey(IS_STORED_KEY)) {
-      arguments!!.getBoolean(IS_STORED_KEY)
-    } else {
-      throw IllegalArgumentException("is stored data not found")
-    }
   }
 
 }

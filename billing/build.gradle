@@ -52,5 +52,5 @@ dependencies {
   implementation "com.fasterxml.jackson.core:jackson-databind:$project.jackson_version"
   implementation "com.madgag.spongycastle:core:$project.spongycastle_version"
   implementation "com.adyen.checkout:redirect:$project.adyen_version"
-  implementation "com.blockchainds:communication:$project.bds_sdk_version"
+  implementation "com.blockchainds:communication:$project.appcoins_sdk_version"
 }
