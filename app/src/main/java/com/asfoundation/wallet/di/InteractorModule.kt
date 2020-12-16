@@ -19,6 +19,7 @@ import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.permissions.Permissions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.Airdrop
@@ -264,11 +265,10 @@ class InteractorModule {
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
-                                  preferencesRepositoryType: PreferencesRepositoryType,
+                                  userStatsLocalData: UserStatsLocalData,
                                   gamificationMapper: GamificationMapper): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, preferencesRepositoryType,
-        gamificationMapper)
+        promotionsRepository, findDefaultWalletInteract, userStatsLocalData, gamificationMapper)
   }
 
   @Provides

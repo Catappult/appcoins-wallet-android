@@ -10,7 +10,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class BdsPromotionsRepository(private val api: GamificationApi,
-                              private val local: GamificationLocalData) : PromotionsRepository {
+                              private val local: UserStatsLocalData) : PromotionsRepository {
 
   private fun getUserStats(wallet: String): Single<UserStatusResponse> {
     return api.getUserStats(wallet, Locale.getDefault().language)

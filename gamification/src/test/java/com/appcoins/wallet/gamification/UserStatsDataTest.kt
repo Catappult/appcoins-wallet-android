@@ -1,16 +1,16 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.gamification.repository.GamificationLocalData
+import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class GamificationLocalDataTest : GamificationLocalData {
+class UserStatsDataTest : UserStatsLocalData {
 
   var lastShownLevelResponse: Single<Int>? = null
-  var seenGenericPromotionResponse: Boolean? = null
+  private var seenGenericPromotionResponse: Boolean? = null
   var userStatusResponse: Single<List<PromotionsResponse>>? = null
   var walletOriginResponse: Single<WalletOrigin>? = null
   var levelsResponse: Single<LevelsResponse>? = null
@@ -50,9 +50,9 @@ class GamificationLocalDataTest : GamificationLocalData {
     }
   }
 
-  override fun deletePromotions(): Completable {
-    return Completable.complete()
-  }
+  override fun getGamificationLevel(): Int = -1
+
+  override fun deletePromotions(): Completable = Completable.complete()
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     val aux = userStatusResponse!!
@@ -64,9 +64,7 @@ class GamificationLocalDataTest : GamificationLocalData {
     return Completable.complete()
   }
 
-  override fun deleteLevels(): Completable {
-    return Completable.complete()
-  }
+  override fun deleteLevels(): Completable = Completable.complete()
 
   override fun getLevels(): Single<LevelsResponse> {
     val aux = levelsResponse!!
@@ -74,9 +72,7 @@ class GamificationLocalDataTest : GamificationLocalData {
     return aux
   }
 
-  override fun insertLevels(levels: LevelsResponse): Completable {
-    return Completable.complete()
-  }
+  override fun insertLevels(levels: LevelsResponse): Completable = Completable.complete()
 
   override fun insertWalletOrigin(wallet: String, walletOrigin: WalletOrigin): Completable {
     return Completable.complete()
@@ -87,4 +83,12 @@ class GamificationLocalDataTest : GamificationLocalData {
     walletOriginResponse = null
     return aux
   }
+
+  override fun shouldShowGamificationDisclaimer(): Boolean = true
+
+  override fun setGamificationDisclaimerShown() = Unit
+
+  override fun setSeenWalletOrigin(wallet: String, walletOrigin: String) = Unit
+
+  override fun getSeenWalletOrigin(wallet: String): String = "APTOIDE"
 }

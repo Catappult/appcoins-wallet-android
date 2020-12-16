@@ -13,7 +13,7 @@ import java.util.*
 class GamificationTest {
   private lateinit var gamification: Gamification
   private val api = GamificationApiTest()
-  private val local = GamificationLocalDataTest()
+  private val local = UserStatsDataTest()
   private val date = Date()
 
   companion object {

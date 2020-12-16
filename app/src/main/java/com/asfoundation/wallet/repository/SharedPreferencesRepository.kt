@@ -18,18 +18,15 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val BACKUP_SEEN_TIME = "backup_seen_time_"
-    private const val PROMOTION_SEEN_TIME = "promotion_seen_time_"
     private const val WALLET_VERIFIED = "wallet_verified_"
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
     private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
     private const val ANDROID_ID = "android_id"
-    private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val KEYSTORE_DIRECTORY = "keystore_directory"
     private const val SEEN_BACKUP_TOOLTIP = "seen_backup_tooltip"
     private const val SEEN_BACKUP_SYSTEM_NOTIFICATION = "seen_backup_system_notification_"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
-    private const val SHOW_GAMIFICATION_DISCLAIMER = "SHOW_GAMIFICATION_DISCLAIMER"
     private const val HAS_BEEN_IN_SETTINGS = "has_been_in_settings"
     private const val NUMBER_OF_TIMES_IN_HOME = "number_of_times_in_home"
   }
@@ -138,20 +135,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     }
   }
 
-  override fun setPromotionNotificationSeenTime(walletAddress: String, currentTimeMillis: Long) {
-    pref.edit()
-        .putLong(PROMOTION_SEEN_TIME + walletAddress, currentTimeMillis)
-        .apply()
-  }
-
-  override fun removePromotionNotificationSeenTime(walletAddress: String): Completable {
-    return Completable.fromAction {
-      pref.edit()
-          .remove(PROMOTION_SEEN_TIME + walletAddress)
-          .apply()
-    }
-  }
-
   override fun isWalletRestoreBackup(walletAddress: String) =
       pref.getBoolean(WALLET_IMPORT_BACKUP + walletAddress, false)
 
@@ -188,8 +171,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
         .putString(ANDROID_ID, androidId)
         .apply()
   }
-
-  override fun getGamificationLevel() = pref.getInt(GAMIFICATION_LEVEL, -1)
 
   override fun saveChosenUri(uri: String) {
     pref.edit()
@@ -232,14 +213,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   }
 
   override fun getWalletId() = pref.getString(WALLET_ID, null)
-
-  override fun shouldShowGamificationDisclaimer() = pref.getBoolean(SHOW_GAMIFICATION_DISCLAIMER, true)
-
-  override fun setGamificationDisclaimerShown() {
-    pref.edit()
-        .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
-        .apply()
-  }
 
   override fun hasBeenInSettings(): Boolean = pref.getBoolean(HAS_BEEN_IN_SETTINGS, false)
 

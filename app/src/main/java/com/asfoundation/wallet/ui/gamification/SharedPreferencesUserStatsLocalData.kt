@@ -11,12 +11,12 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
 
-class SharedPreferencesGamificationLocalData(private val preferences: SharedPreferences,
-                                             private val promotionDao: PromotionDao,
-                                             private val levelsDao: LevelsDao,
-                                             private val levelDao: LevelDao,
-                                             private val walletOriginDao: WalletOriginDao) :
-    GamificationLocalData {
+class SharedPreferencesUserStatsLocalData(private val preferences: SharedPreferences,
+                                          private val promotionDao: PromotionDao,
+                                          private val levelsDao: LevelsDao,
+                                          private val levelDao: LevelDao,
+                                          private val walletOriginDao: WalletOriginDao) :
+    UserStatsLocalData {
 
   companion object {
     private const val SHOWN_LEVEL = "shown_level"
@@ -24,6 +24,8 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     private const val SCREEN = "screen_"
     private const val ID = "id_"
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val SHOW_GAMIFICATION_DISCLAIMER = "SHOW_GAMIFICATION_DISCLAIMER"
+    private const val WALLET_ORIGIN = "wallet_origin"
   }
 
   override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
@@ -54,6 +56,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
     }
   }
 
+  override fun getGamificationLevel() = preferences.getInt(GAMIFICATION_LEVEL, -1)
 
   private fun getKey(wallet: String, screen: String): String {
     return if (screen == GamificationScreen.MY_LEVEL.toString()) {
@@ -152,6 +155,15 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
         .andThen(levelDao.insertLevels(levelEntityList))
   }
 
+  override fun shouldShowGamificationDisclaimer() = preferences.getBoolean(
+      SHOW_GAMIFICATION_DISCLAIMER, true)
+
+  override fun setGamificationDisclaimerShown() {
+    preferences.edit()
+        .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
+        .apply()
+  }
+
   override fun insertWalletOrigin(wallet: String, walletOrigin: WalletOrigin): Completable {
     return walletOriginDao.insertWalletOrigin(WalletOriginEntity(wallet, walletOrigin))
   }
@@ -159,6 +171,16 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
   override fun retrieveWalletOrigin(wallet: String): Single<WalletOrigin> {
     return walletOriginDao.getWalletOrigin(wallet)
         .map { it.walletOrigin }
+  }
+
+  override fun setSeenWalletOrigin(wallet: String, walletOrigin: String) {
+    return preferences.edit()
+        .putString(WALLET_ORIGIN + wallet, walletOrigin)
+        .apply()
+  }
+
+  override fun getSeenWalletOrigin(wallet: String): String {
+    return preferences.getString(WALLET_ORIGIN + wallet, "")!!
   }
 
   private fun mapToLevelsResponse(levelEntity: List<LevelEntity>,

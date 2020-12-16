@@ -61,8 +61,6 @@ interface PreferencesRepositoryType {
 
   fun setAndroidId(androidId: String)
 
-  fun getGamificationLevel(): Int
-
   fun saveChosenUri(uri: String)
 
   fun getChosenUri(): String?
@@ -82,14 +80,6 @@ interface PreferencesRepositoryType {
   fun setWalletId(walletId: String)
 
   fun getWalletId(): String?
-
-  fun setPromotionNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
-
-  fun removePromotionNotificationSeenTime(walletAddress: String): Completable
-
-  fun shouldShowGamificationDisclaimer(): Boolean
-
-  fun setGamificationDisclaimerShown()
 
   fun hasBeenInSettings(): Boolean
 
