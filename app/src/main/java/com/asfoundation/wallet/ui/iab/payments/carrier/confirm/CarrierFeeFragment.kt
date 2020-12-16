@@ -93,8 +93,7 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
       }
     }
     fee_title.text =
-        context?.getStringSpanned(R.string.carrier_billing_carrier_fees_body, carrierName,
-            feeString)
+        context?.getStringSpanned(R.string.carrier_billing_carrier_fees_body, feeString)
 
     GlideApp.with(requireContext())
         .load(carrierImage)
