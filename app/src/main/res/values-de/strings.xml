@@ -6,7 +6,7 @@
   <string name="title_request">Erhalten</string>
   <string name="title_import">Wallet Wiederherstellen</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">Meine Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Passwort</string>
   <string name="action_sign_in_short">Create</string>
@@ -336,7 +336,7 @@
   <string name="gamification_leveled_up_notification_title">Sie haben den nächsten Level erreicht!</string>
   <string name="gamification_leveled_up_notification_body">Gratulation, Sie erhalten bei jedem Einkauf ab jetzt einen Bonus von %s!</string>
   <string name="gamification_how_max_level_body">Gratulation! Sie haben den höchsten Level erreicht 💃</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_title">Fast geschafft!</string>
   <string name="gamification_level_up_notification_body">Geben Sie %s AppCoins aus, um den nächsten Level zu erreichen.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Erlauben Sie dem AppCoinsWallet ihre Wallet Adresse an %s weiterzureichen.</string>
@@ -414,7 +414,7 @@
   <string name="password">Passwort</string>
   <string name="repeat_password">Paswort wiederholen</string>
   <string name="turn_on_button">Einschalten</string>
-  <string name="no_thanks_button">No, thanks</string>
+  <string name="no_thanks_button">Nein, danke</string>
   <string name="remind_later_button">Erinnern Sie mich später daran</string>
   <string name="get_code_button">Einen Code erhalten</string>
   <string name="confirm_button">Bestätigen</string>
@@ -503,7 +503,7 @@
   <string name="purchase_error_wallet_block_code_403">Upps, etwas ist mit dem Wallet nicht in Ordnung, bitte nehmen Sie Kontakt mit uns auf.</string>
   <string name="purchase_card_error_CVV">Falscher CVV/CVC-Code</string>
   <string name="error_contac_us_body">Nehmen Sie Kontakt zu uns auf, falls das Problem weiterbesteht.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Versuchen Sie den Kauf abzuschliessen nach dem Sie ihr Wallet verifiziert haben.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -563,7 +563,7 @@
   <string name="promotions_tab_poa_title">SPIELEN &amp; VERDIENEN</string>
   <string name="promotions_empty_promotions_body">Zur Zeit sind keine Werbeaktionen verfügbar. Versuche es später noch einmal!</string>
   <string name="promotions_empty_poa_body">Zur Zeit sind keine Apps mit Prämien verfügbar. Versuche es später noch einmal!</string>
-  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_first_purchase_body">Tätige deinen ersten Einkauf in einem Spiel oder einer App und schalte die Aktionen frei, die wir für Dich erstellt haben!</string>
   <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Vergütung</string>
   <string name="promotions_vouhers_button">Vouchers</string>
