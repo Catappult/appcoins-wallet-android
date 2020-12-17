@@ -336,7 +336,7 @@
   <string name="gamification_leveled_up_notification_title">Elérted a következő szintet!</string>
   <string name="gamification_leveled_up_notification_body">Gratula, mostantól %s bónuszt kapsz minden vásárlás után!</string>
   <string name="gamification_how_max_level_body">Gratulálunk! Elérted a legmagasabb szintet 💃</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_title">Már majdnem megvan!</string>
   <string name="gamification_level_up_notification_body">Költs el még %s AppCoins-t a következő szint eléréséhez.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Engedélyezd az AppCoins Wallet-nek, hogy tárcacímedet megadja a(z) %s számára.</string>
@@ -563,8 +563,8 @@
   <string name="promotions_tab_poa_title">JÁTSSZ &amp; KERESS</string>
   <string name="promotions_empty_promotions_body">Jelenleg nincs elérhető promóció. Gyere vissza később!</string>
   <string name="promotions_empty_poa_body">Jelenleg nincsenek jutalmakat tartalmazó appok. Gyere vissza később!</string>
-  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
-  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
+  <string name="promotions_empty_first_purchase_body">Végezd el az első vásárlást egy játékban vagy appban és fedezd fel, milyen promóciók várnak rád!</string>
+  <string name="promotions_empty_suggested_games_title">Neked ajánlott játékok</string>
   <string name="promotions_perks_button">Előnyök</string>
   <string name="promotions_vouhers_button">Kuponok</string>
   <!--Update-->
@@ -765,7 +765,7 @@
   <string name="carrier_billing_fees_disclaimer">További költségek léphetnek fel</string>
   <string name="carrier_billing_insert_phone_body">Add meg a telefonszámod</string>
   <string name="carrier_billing_phone_field">A telefonszámod...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">Egy %1$s díjat számolunk fel</string>
   <string name="carrier_billing_purchase_info_body">%1$s a(z) %2$s appban.</string>
   <string name="carrier_billing_phone_confirmation_body">A telefonszámod %s.</string>
   <string name="carrier_billing_enter_pin_body">Add meg az SMS-ben érkezett PIN kódot.</string>
