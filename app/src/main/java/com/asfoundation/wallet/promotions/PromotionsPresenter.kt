@@ -5,7 +5,6 @@ import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFIC
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
 import com.asfoundation.wallet.util.isNoNetworkException
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
@@ -16,7 +15,7 @@ class PromotionsPresenter(private val view: PromotionsView,
                           private val disposables: CompositeDisposable,
                           private val networkScheduler: Scheduler,
                           private val viewScheduler: Scheduler) {
-  
+
   private var cachedBonus = 0.0
   private var viewState = ViewState.DEFAULT
 
@@ -130,7 +129,7 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun handleBackPress() {
-    disposables.add(Observable.merge(view.getBackPressed(), view.getHomeBackPressed())
+    disposables.add(view.getBackPressed()
         .observeOn(viewScheduler)
         .doOnNext { view.handleBackPressed() }
         .subscribe({}, { it.printStackTrace() }))

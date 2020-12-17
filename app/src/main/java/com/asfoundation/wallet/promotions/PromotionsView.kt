@@ -20,8 +20,6 @@ interface PromotionsView {
 
   fun getPromotionClicks(): Observable<PromotionClick>
 
-  fun getHomeBackPressed(): Observable<Any>
-
   fun handleBackPressed()
 
   fun getBottomSheetButtonClick(): Observable<Any>

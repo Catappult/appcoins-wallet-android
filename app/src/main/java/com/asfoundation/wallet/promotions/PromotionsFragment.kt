@@ -1,13 +1,10 @@
 package com.asfoundation.wallet.promotions
 
-import android.content.Context
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.view.View.*
-import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -23,11 +20,12 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   @Inject
   lateinit var presenter: PromotionsPresenter
 
-  private lateinit var activityView: PromotionsActivityView
   private lateinit var adapter: PromotionsAdapter
   private lateinit var detailsBottomSheet: BottomSheetBehavior<View>
+  private lateinit var transactionsRouter: TransactionsRouter
   private var clickListener: PublishSubject<PromotionClick>? = null
   private var onBackPressedSubject: PublishSubject<Any>? = null
+  private var backEnabled = true
 
   companion object {
     fun newInstance() = PromotionsFragment()
@@ -35,15 +33,10 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setHasOptionsMenu(true)
+    transactionsRouter = TransactionsRouter()
     clickListener = PublishSubject.create()
     onBackPressedSubject = PublishSubject.create()
-  }
-
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    require(
-        context is PromotionsActivityView) { PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName }
-    activityView = context
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -129,8 +122,6 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     promotions_progress_bar.visibility = INVISIBLE
   }
 
-  override fun getHomeBackPressed() = activityView.backPressed()
-
   override fun handleBackPressed() {
     // Currently we only call the hide bottom sheet
     // but maybe later additional stuff needs to be handled
@@ -155,15 +146,28 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun getBottomSheetContainerClick() = RxView.clicks(bottomsheet_coordinator_container)
 
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return if (item.itemId == android.R.id.home) {
+      if (backEnabled) {
+        activity?.finish()
+      } else {
+        onBackPressedSubject?.onNext(Unit)
+      }
+      true
+    } else {
+      super.onOptionsItemSelected(item)
+    }
+  }
+
   private fun setBackListener(view: View) {
-    activityView.disableBack()
+    backEnabled = false
     view.apply {
       isFocusableInTouchMode = true
       requestFocus()
       setOnKeyListener { _, keyCode, keyEvent ->
         if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
           if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED)
-            onBackPressedSubject?.onNext("")
+            onBackPressedSubject?.onNext(Unit)
         }
         true
       }
@@ -171,7 +175,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   private fun disableBackListener(view: View) {
-    activityView.enableBack()
+    backEnabled = true
     view.apply {
       isFocusableInTouchMode = false
       setOnKeyListener(null)
