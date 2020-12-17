@@ -6,7 +6,7 @@
   <string name="title_request">Fogadás</string>
   <string name="title_import">Pénztárca helyreállítása</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">Tárcáim</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Jelszó</string>
   <string name="action_sign_in_short">Create</string>
