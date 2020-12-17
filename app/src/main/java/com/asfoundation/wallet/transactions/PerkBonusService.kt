@@ -94,7 +94,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
           .blockingGet()
       // TODO - review this hack: it may not be working every time
       //  If we try doing large top up with several level-ups (and several bonuses), we may not
-      //    be retrieving the correct bonus
+      //    be retrieving the correct bonus because this "4" and "15000" might not be enough
       return if (transactions.isEmpty() && timesCalled < 4) {
         getNewTransactions(address, timesCalled + 1)
       } else {
