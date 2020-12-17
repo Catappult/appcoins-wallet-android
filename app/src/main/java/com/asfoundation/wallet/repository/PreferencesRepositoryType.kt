@@ -41,37 +41,9 @@ interface PreferencesRepositoryType {
 
   fun setUpdateNotificationSeenTime(currentTimeMillis: Long)
 
-  fun getBackupNotificationSeenTime(walletAddress: String): Long
-
-  fun setBackupNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
-
-  fun removeBackupNotificationSeenTime(walletAddress: String): Completable
-
-  fun isWalletRestoreBackup(walletAddress: String): Boolean
-
-  fun setWalletRestoreBackup(walletAddress: String)
-
-  fun removeWalletRestoreBackup(walletAddress: String): Completable
-
-  fun hasShownBackup(walletAddress: String): Boolean
-
-  fun setHasShownBackup(walletAddress: String, hasShown: Boolean)
-
   fun getAndroidId(): String
 
   fun setAndroidId(androidId: String)
-
-  fun saveChosenUri(uri: String)
-
-  fun getChosenUri(): String?
-
-  fun getSeenBackupTooltip(): Boolean
-
-  fun saveSeenBackupTooltip()
-
-  fun hasDismissedBackupSystemNotification(walletAddress: String): Boolean
-
-  fun setDismissedBackupSystemNotification(walletAddress: String)
 
   fun getWalletPurchasesCount(walletAddress: String): Int
 

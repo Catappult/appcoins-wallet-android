@@ -309,9 +309,10 @@ class InteractorModule {
   fun provideBalanceInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                              balanceRepository: BalanceRepository,
                              preferencesRepositoryType: PreferencesRepositoryType,
+                             backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                              smsValidationInteract: SmsValidationInteract) =
       BalanceInteractor(findDefaultWalletInteract, balanceRepository,
-          preferencesRepositoryType, smsValidationInteract)
+          preferencesRepositoryType, backupRestorePreferencesRepository, smsValidationInteract)
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
@@ -325,8 +326,8 @@ class InteractorModule {
   @Singleton
   @Provides
   fun provideFileInteract(context: Context, contentResolver: ContentResolver,
-                          preferencesRepositoryType: PreferencesRepositoryType) =
-      FileInteractor(context, contentResolver, preferencesRepositoryType)
+                          backupRestorePreferencesRepository: BackupRestorePreferencesRepository) =
+      FileInteractor(context, contentResolver, backupRestorePreferencesRepository)
 
   @Provides
   fun providePaymentMethodsInteractor(supportInteractor: SupportInteractor,
@@ -417,12 +418,14 @@ class InteractorModule {
 
   @Provides
   fun provideBackupInteractor(sharedPreferences: PreferencesRepositoryType,
+                              backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                               gamificationInteractor: GamificationInteractor,
                               fetchTransactionsInteract: FetchTransactionsInteract,
                               balanceInteractor: BalanceInteractor,
                               findDefaultWalletInteract: FindDefaultWalletInteract): BackupInteractContract {
-    return BackupInteract(sharedPreferences, fetchTransactionsInteract, balanceInteractor,
-        gamificationInteractor, findDefaultWalletInteract)
+    return BackupInteract(sharedPreferences, backupRestorePreferencesRepository,
+        fetchTransactionsInteract, balanceInteractor, gamificationInteractor,
+        findDefaultWalletInteract)
   }
 
   @Provides
@@ -451,9 +454,10 @@ class InteractorModule {
   @Provides
   fun provideDeleteAccountInteract(accountRepository: WalletRepositoryType, store: PasswordStore,
                                    preferencesRepositoryType: PreferencesRepositoryType,
+                                   backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                                    fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): DeleteWalletInteract {
     return DeleteWalletInteract(accountRepository, store, preferencesRepositoryType,
-        fingerprintPreferencesRepository)
+        backupRestorePreferencesRepository, fingerprintPreferencesRepository)
   }
 
   @Provides
@@ -491,11 +495,11 @@ class InteractorModule {
   @Provides
   fun provideRestoreWalletInteract(
       walletRepository: WalletRepositoryType, passwordStore: PasswordStore,
-      preferencesRepositoryType: PreferencesRepositoryType,
+      backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
       setDefaultWalletInteractor: SetDefaultWalletInteractor,
       fileInteractor: FileInteractor): RestoreWalletInteractor {
     return RestoreWalletInteractor(walletRepository, setDefaultWalletInteractor,
-        passwordStore, preferencesRepositoryType, fileInteractor)
+        passwordStore, backupRestorePreferencesRepository, fileInteractor)
   }
 
   @Provides

@@ -282,4 +282,11 @@ class RepositoryModule {
       preferences: SharedPreferences): FingerprintPreferencesRepositoryContract {
     return FingerprintPreferencesRepository(preferences)
   }
+
+  @Singleton
+  @Provides
+  fun providesBackupRestorePreferencesRepository(
+      sharedPreferences: SharedPreferences): BackupRestorePreferencesRepository {
+    return BackupRestorePreferencesRepository(sharedPreferences)
+  }
 }
