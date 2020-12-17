@@ -272,4 +272,11 @@ class RepositoryModule {
       preferences: SharedPreferences): FingerprintPreferencesRepositoryContract {
     return FingerprintPreferencesRepository(preferences)
   }
+
+  @Singleton
+  @Provides
+  fun providesGasPreferenceRepository(
+      sharedPreferences: SharedPreferences): GasPreferenceRepository {
+    return GasPreferenceRepository(sharedPreferences)
+  }
 }

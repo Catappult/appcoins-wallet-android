@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -28,6 +29,7 @@ import com.asfoundation.wallet.viewmodel.ConfirmationViewModelFactory;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import dagger.android.AndroidInjection;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
@@ -109,18 +111,33 @@ public class ConfirmationActivity extends BaseActivity {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
     valueText.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
+    BigDecimal gasLimitMin = BigDecimal.valueOf(C.GAS_LIMIT_MIN);
+    BigDecimal gasLimitMax = BigDecimal.valueOf(C.GAS_LIMIT_MAX);
+    BigDecimal gasPriceMin = BigDecimal.valueOf(C.GAS_PRICE_MIN);
+    BigInteger networkFeeMax = BigInteger.valueOf(C.NETWORK_FEE_MAX);
     BigDecimal gasPrice = transactionBuilder.gasSettings().gasPrice;
     BigDecimal gasLimit = transactionBuilder.gasSettings().gasLimit;
+    final BigDecimal gasPriceMaxGwei = BalanceUtils.weiToGwei(new BigDecimal(
+        networkFeeMax.divide(gasLimitMax.toBigInteger())
+            .subtract(gasPriceMin.toBigInteger())));
+    final BigDecimal gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin);
+    Pair<BigDecimal, BigDecimal> savedGasPreferences = viewModel.getGasPreferences();
+    if (isSavedLimitInRange(savedGasPreferences.first, gasPriceMinGwei, gasPriceMaxGwei)) {
+      gasPrice = savedGasPreferences.first;
+    } else {
+      gasPrice = BalanceUtils.weiToGwei(gasPrice);
+    }
+    if (isSavedLimitInRange(savedGasPreferences.second, gasLimitMin, gasLimitMax)) {
+      gasLimit = savedGasPreferences.second;
+    }
     String formattedGasPrice = getString(R.string.gas_price_value,
-        currencyFormatUtils.formatTransferCurrency(BalanceUtils.weiToGwei(gasPrice),
-            WalletCurrency.ETHEREUM), GWEI_UNIT);
+        currencyFormatUtils.formatTransferCurrency(gasPrice, WalletCurrency.ETHEREUM), GWEI_UNIT);
     gasPriceText.setText(formattedGasPrice);
     gasLimitText.setText(transactionBuilder.gasSettings().gasLimit.toPlainString());
 
-    String networkFee = currencyFormatUtils.formatTransferCurrency(
-        BalanceUtils.weiToEth(gasPrice.multiply(gasLimit)), WalletCurrency.ETHEREUM)
-        + " "
-        + C.ETH_SYMBOL;
+    String networkFee = currencyFormatUtils.formatTransferCurrency(BalanceUtils.weiToEth(
+        BalanceUtils.gweiToWei(gasPrice)
+            .multiply(gasLimit)), WalletCurrency.ETHEREUM) + " " + C.ETH_SYMBOL;
     networkFeeText.setText(networkFee);
   }
 
@@ -183,6 +200,13 @@ public class ConfirmationActivity extends BaseActivity {
     intent.putExtra("transaction_hash", hash);
     setResult(Activity.RESULT_OK, intent);
     finish();
+  }
+
+  private boolean isSavedLimitInRange(BigDecimal savedValue, BigDecimal minValue,
+      BigDecimal maxValue) {
+    return savedValue != null
+        && savedValue.compareTo(minValue) > 0
+        && savedValue.compareTo(maxValue) < 0;
   }
 
   private void onError(ErrorEnvelope error) {

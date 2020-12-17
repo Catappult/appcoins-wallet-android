@@ -3,17 +3,17 @@ package com.asfoundation.wallet.viewmodel;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
+import com.asfoundation.wallet.ui.GasSettingsInteractor;
 
 public class GasSettingsViewModelFactory implements ViewModelProvider.Factory {
 
-  FindDefaultNetworkInteract findDefaultNetworkInteract;
+  private GasSettingsInteractor gasSettingsInteractor;
 
-  public GasSettingsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract) {
-    this.findDefaultNetworkInteract = findDefaultNetworkInteract;
+  public GasSettingsViewModelFactory(GasSettingsInteractor gasSettingsInteractor) {
+    this.gasSettingsInteractor = gasSettingsInteractor;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-    return (T) new GasSettingsViewModel(findDefaultNetworkInteract);
+    return (T) new GasSettingsViewModel(gasSettingsInteractor);
   }
 }

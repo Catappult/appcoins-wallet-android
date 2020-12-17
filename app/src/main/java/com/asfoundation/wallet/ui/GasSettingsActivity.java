@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
@@ -56,46 +57,74 @@ public class GasSettingsActivity extends BaseActivity {
     viewModel = ViewModelProviders.of(this, viewModelFactory)
         .get(GasSettingsViewModel.class);
 
-    BigInteger gasPrice = new BigInteger(getIntent().getStringExtra(C.EXTRA_GAS_PRICE));
-    BigInteger gasLimit = new BigInteger(getIntent().getStringExtra(C.EXTRA_GAS_LIMIT));
-    BigInteger gasLimitMin = BigInteger.valueOf(C.GAS_LIMIT_MIN);
-    BigInteger gasLimitMax = BigInteger.valueOf(C.GAS_LIMIT_MAX);
-    BigInteger gasPriceMin = BigInteger.valueOf(C.GAS_PRICE_MIN);
+    BigDecimal gasPrice = new BigDecimal(getIntent().getStringExtra(C.EXTRA_GAS_PRICE));
+    BigDecimal gasLimit = new BigDecimal(getIntent().getStringExtra(C.EXTRA_GAS_LIMIT));
+    BigDecimal gasLimitMin = BigDecimal.valueOf(C.GAS_LIMIT_MIN);
+    BigDecimal gasLimitMax = BigDecimal.valueOf(C.GAS_LIMIT_MAX);
+    BigDecimal gasPriceMin = BigDecimal.valueOf(C.GAS_PRICE_MIN);
     BigInteger networkFeeMax = BigInteger.valueOf(C.NETWORK_FEE_MAX);
+    Pair<BigDecimal, BigDecimal> savedGasPreference = viewModel.getGasPreferences();
+    BigDecimal savedGasPrice = savedGasPreference.first;
+    BigDecimal savedLimit = savedGasPreference.second;
 
-    final int gasPriceMinGwei = BalanceUtils.weiToGweiBI(gasPriceMin)
-        .intValue();
-    gasPriceSlider.setMax(BalanceUtils.weiToGweiBI(networkFeeMax.divide(gasLimitMax))
-        .subtract(BigDecimal.valueOf(gasPriceMinGwei))
-        .intValue());
-    int gasPriceProgress = BalanceUtils.weiToGweiBI(gasPrice)
-        .subtract(BigDecimal.valueOf(gasPriceMinGwei))
-        .intValue();
-    gasPriceSlider.setProgress(gasPriceProgress);
-    gasPriceSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-      @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        viewModel.gasPrice()
-            .setValue(BalanceUtils.gweiToWei(BigDecimal.valueOf(progress + gasPriceMinGwei)));
-      }
+    final BigDecimal gasPriceGwei = BalanceUtils.weiToGwei(gasPrice);
+    final BigDecimal gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin);
+    final BigDecimal gasPriceMaxGwei =
+        BalanceUtils.weiToGweiBI(networkFeeMax.divide(gasLimitMax.toBigInteger()))
+            .subtract(gasPriceMinGwei);
 
-      @Override public void onStartTrackingTouch(SeekBar seekBar) {
-      }
+    viewModel.gasPrice()
+        .observe(this, this::onGasPrice);
+    viewModel.gasLimit()
+        .observe(this, this::onGasLimit);
+    viewModel.defaultNetwork()
+        .observe(this, this::onDefaultNetwork);
 
-      @Override public void onStopTrackingTouch(SeekBar seekBar) {
-      }
-    });
+    setPriceValue(savedGasPrice, gasPriceGwei, gasPriceMinGwei, gasPriceMaxGwei);
+    setLimitValue(savedLimit, gasLimit);
 
+    setPriceSlider(gasPriceSlider, gasPriceMinGwei, gasPriceMaxGwei, gasPriceGwei, savedGasPrice);
+    setLimitSlider(gasLimitSlider, gasLimitMax, gasLimitMin, gasLimit, savedLimit);
+  }
+
+  private void setLimitValue(BigDecimal savedGasLimit, BigDecimal gasLimit) {
+    if (savedGasLimit != null) {
+      viewModel.gasLimit()
+          .setValue(savedGasLimit);
+    } else {
+      viewModel.gasLimit()
+          .setValue(gasLimit);
+    }
+  }
+
+  private void setPriceValue(BigDecimal savedGasPrice, BigDecimal gasPriceGwei,
+      BigDecimal gasPriceMinGwei, BigDecimal gasPriceMaxGwei) {
+    if (isSavedLimitInRange(savedGasPrice, gasPriceMinGwei, gasPriceMaxGwei)) {
+      viewModel.gasPrice()
+          .setValue(savedGasPrice);
+    } else {
+      viewModel.gasPrice()
+          .setValue(gasPriceGwei);
+    }
+  }
+
+  private void setLimitSlider(SeekBar gasLimitSlider, BigDecimal gasLimitMax,
+      BigDecimal gasLimitMin, BigDecimal gasLimit, BigDecimal savedGasLimit) {
     gasLimitSlider.setMax(gasLimitMax.subtract(gasLimitMin)
         .intValue());
-    gasLimitSlider.setProgress(gasLimit.subtract(gasLimitMin)
-        .intValue());
+    if (isSavedLimitInRange(savedGasLimit, gasLimitMin, gasLimitMax)) {
+      gasLimitSlider.setProgress(savedGasLimit.intValue());
+    } else {
+      gasLimitSlider.setProgress(gasLimit.subtract(gasLimitMin)
+          .intValue());
+    }
     gasLimitSlider.refreshDrawableState();
     gasLimitSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
       @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         progress = progress / 100;
         progress = progress * 100;
         viewModel.gasLimit()
-            .setValue(BigInteger.valueOf(progress)
+            .setValue(BigDecimal.valueOf(progress)
                 .add(gasLimitMin));
       }
 
@@ -105,26 +134,49 @@ public class GasSettingsActivity extends BaseActivity {
       @Override public void onStopTrackingTouch(SeekBar seekBar) {
       }
     });
+  }
 
-    viewModel.gasPrice()
-        .observe(this, this::onGasPrice);
-    viewModel.gasLimit()
-        .observe(this, this::onGasLimit);
-    viewModel.defaultNetwork()
-        .observe(this, this::onDefaultNetwork);
+  private boolean isSavedLimitInRange(BigDecimal savedValue, BigDecimal minValue,
+      BigDecimal maxValue) {
+    return savedValue != null
+        && savedValue.compareTo(minValue) > 0
+        && savedValue.compareTo(maxValue) < 0;
+  }
 
-    viewModel.gasPrice()
-        .setValue(gasPrice);
-    viewModel.gasLimit()
-        .setValue(gasLimit);
+  private void setPriceSlider(SeekBar gasPriceSlider, BigDecimal gasPriceMinGwei,
+      BigDecimal gasPriceMaxGwei, BigDecimal gasPriceGwei, BigDecimal savedGasPrice) {
+    int gasPriceProgress;
+    gasPriceSlider.setMax(gasPriceMaxGwei.intValue());
+    if (isSavedLimitInRange(savedGasPrice, gasPriceMinGwei, gasPriceMaxGwei)) {
+      gasPriceProgress = savedGasPrice.intValue();
+    } else {
+      gasPriceProgress = gasPriceGwei.subtract(BigDecimal.valueOf(gasPriceMinGwei.intValue()))
+          .intValue();
+    }
+    gasPriceSlider.setProgress(gasPriceProgress);
+    gasPriceSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        viewModel.gasPrice()
+            .setValue(BigDecimal.valueOf(progress + gasPriceMinGwei.intValue()));
+      }
+
+      @Override public void onStartTrackingTouch(SeekBar seekBar) {
+      }
+
+      @Override public void onStopTrackingTouch(SeekBar seekBar) {
+      }
+    });
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_save) {
+      BigDecimal gasPrice = viewModel.gasPrice()
+          .getValue();
+      BigDecimal gasLimit = viewModel.gasLimit()
+          .getValue();
+      viewModel.saveChanges(gasPrice, gasLimit);
       Intent intent = new Intent();
-      intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(new BigDecimal(viewModel.gasPrice()
-          .getValue()), new BigDecimal(viewModel.gasLimit()
-          .getValue())));
+      intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(gasPrice, gasLimit));
       setResult(RESULT_OK, intent);
       finish();
     }
@@ -146,10 +198,9 @@ public class GasSettingsActivity extends BaseActivity {
         getString(R.string.info_gas_limit).replace(C.ETHEREUM_NETWORK_NAME, network.symbol));
   }
 
-  private void onGasPrice(BigInteger price) {
-    BigDecimal priceStr = BalanceUtils.weiToGwei(new BigDecimal(price));
+  private void onGasPrice(BigDecimal price) {
     String formattedPrice =
-        currencyFormatUtils.formatTransferCurrency(priceStr, WalletCurrency.ETHEREUM)
+        currencyFormatUtils.formatTransferCurrency(price, WalletCurrency.ETHEREUM)
             + " "
             + C.GWEI_UNIT;
     gasPriceText.setText(formattedPrice);
@@ -157,14 +208,14 @@ public class GasSettingsActivity extends BaseActivity {
     updateNetworkFee();
   }
 
-  private void onGasLimit(BigInteger limit) {
+  private void onGasLimit(BigDecimal limit) {
     gasLimitText.setText(limit.toString());
 
     updateNetworkFee();
   }
 
   private void updateNetworkFee() {
-    BigDecimal fee = BalanceUtils.weiToEth(viewModel.networkFee());
+    BigDecimal fee = BalanceUtils.gweiToWei(BalanceUtils.weiToEth(viewModel.networkFee()));
     String formattedFee = currencyFormatUtils.formatTransferCurrency(fee, WalletCurrency.ETHEREUM)
         + " "
         + C.ETH_SYMBOL;

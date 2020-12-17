@@ -3,29 +3,24 @@ package com.asfoundation.wallet.viewmodel;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
-import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.logging.Logger;
 import com.asfoundation.wallet.router.GasSettingsRouter;
+import com.asfoundation.wallet.ui.ConfirmationInteractor;
 
 public class ConfirmationViewModelFactory implements ViewModelProvider.Factory {
 
-  private final SendTransactionInteract sendTransactionInteract;
+  private final ConfirmationInteractor confirmationInteractor;
   private final GasSettingsRouter gasSettingsRouter;
-  private final FetchGasSettingsInteract gasSettingsInteract;
   private final Logger logger;
 
-  public ConfirmationViewModelFactory(SendTransactionInteract sendTransactionInteract,
-      GasSettingsRouter gasSettingsRouter, FetchGasSettingsInteract gasSettingsInteract,
-      Logger logger) {
-    this.sendTransactionInteract = sendTransactionInteract;
+  public ConfirmationViewModelFactory(ConfirmationInteractor confirmationInteractor,
+      GasSettingsRouter gasSettingsRouter, Logger logger) {
+    this.confirmationInteractor = confirmationInteractor;
     this.gasSettingsRouter = gasSettingsRouter;
-    this.gasSettingsInteract = gasSettingsInteract;
     this.logger = logger;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-    return (T) new ConfirmationViewModel(sendTransactionInteract, gasSettingsRouter,
-        gasSettingsInteract, logger);
+    return (T) new ConfirmationViewModel(confirmationInteractor, gasSettingsRouter, logger);
   }
 }

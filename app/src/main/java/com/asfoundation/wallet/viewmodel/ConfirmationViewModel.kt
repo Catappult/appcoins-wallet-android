@@ -1,22 +1,23 @@
 package com.asfoundation.wallet.viewmodel
 
 import android.app.Activity
+import android.util.Pair
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.interact.FetchGasSettingsInteract
-import com.asfoundation.wallet.interact.SendTransactionInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.router.GasSettingsRouter
+import com.asfoundation.wallet.ui.ConfirmationInteractor
+import com.asfoundation.wallet.util.BalanceUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import java.math.BigDecimal
 
 class ConfirmationViewModel internal constructor(
-    private val sendTransactionInteract: SendTransactionInteract,
+    private val confirmationInteractor: ConfirmationInteractor,
     private val gasSettingsRouter: GasSettingsRouter,
-    private val gasSettingsInteract: FetchGasSettingsInteract,
     private val logger: Logger) : BaseViewModel() {
 
   private val transactionBuilder = MutableLiveData<TransactionBuilder>()
@@ -28,7 +29,7 @@ class ConfirmationViewModel internal constructor(
   }
 
   fun init(transactionBuilder: TransactionBuilder) {
-    subscription = gasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
+    subscription = confirmationInteractor.fetch(transactionBuilder.shouldSendToken())
         .doOnSuccess { gasSettings: GasSettings? ->
           transactionBuilder.gasSettings(gasSettings)
           this.transactionBuilder.postValue(transactionBuilder)
@@ -75,7 +76,7 @@ class ConfirmationViewModel internal constructor(
 
   fun send() {
     progress.postValue(true)
-    disposable = sendTransactionInteract.send(transactionBuilder.value)
+    disposable = confirmationInteractor.send(transactionBuilder.value)
         .map { hash: String? -> PendingTransaction(hash, false) }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
@@ -86,10 +87,15 @@ class ConfirmationViewModel internal constructor(
 
   fun setGasSettings(gasSettings: GasSettings?) {
     val transactionBuilder = transactionBuilder.value
+    val gasPriceWei = BalanceUtils.gweiToWei(gasSettings?.gasPrice)
+    val newGasSettings = GasSettings(gasPriceWei, gasSettings?.gasLimit)
     transactionBuilder?.let {
-      it.gasSettings(gasSettings)
+      it.gasSettings(newGasSettings)
       this.transactionBuilder.value = it // refresh view
     }
   }
 
+  fun getGasPreferences(): Pair<BigDecimal?, BigDecimal?> {
+    return confirmationInteractor.getGasPreferences()
+  }
 }
