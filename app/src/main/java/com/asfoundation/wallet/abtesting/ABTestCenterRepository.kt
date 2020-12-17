@@ -19,29 +19,11 @@ class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
       if (cacheValidator.isExperimentValid(identifier)) {
         Observable.just(localCache[identifier]!!.experiment)
       } else {
-        getExperimentFromApi(identifier, type!!)
-            .flatMap { experimentToCache ->
-              cacheExperiment(experimentToCache, identifier).andThen(
-                  Observable.just(experimentToCache.experiment))
-            }
+        retrieveFromApiAndCacheExperiment(identifier, type)
       }
-    } else persistence[identifier]
-        .toObservable()
-        .observeOn(ioScheduler)
-        .flatMap { model ->
-          if (!model.hasError && !model.experiment.isExpired()) {
-            if (!localCache.containsKey(identifier)) {
-              localCache[identifier] = model
-            }
-            return@flatMap Observable.just(model.experiment)
-          } else {
-            return@flatMap getExperimentFromApi(identifier, type!!)
-                .flatMap { experimentToCache ->
-                  cacheExperiment(experimentToCache, identifier)
-                      .andThen(Observable.just(experimentToCache.experiment))
-                }
-          }
-        }
+    } else {
+      retrieveExperimentFromDb(identifier, type)
+    }
   }
 
   override fun recordImpression(identifier: String,
@@ -110,5 +92,31 @@ class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
 
   private fun getAndroidId(): Observable<String> {
     return Observable.just(idsRepository.getAndroidId())
+  }
+
+  private fun retrieveExperimentFromDb(identifier: String,
+                                       type: BaseExperiment.ExperimentType?): Observable<Experiment> {
+    return persistence[identifier]
+        .toObservable()
+        .observeOn(ioScheduler)
+        .flatMap { model ->
+          if (!model.hasError && !model.experiment.isExpired()) {
+            if (!localCache.containsKey(identifier)) {
+              localCache[identifier] = model
+            }
+            Observable.just(model.experiment)
+          } else {
+            retrieveFromApiAndCacheExperiment(identifier, type)
+          }
+        }
+  }
+
+  private fun retrieveFromApiAndCacheExperiment(identifier: String,
+                                                type: BaseExperiment.ExperimentType?): Observable<Experiment> {
+    return getExperimentFromApi(identifier, type!!)
+        .flatMap { experimentToCache ->
+          cacheExperiment(experimentToCache, identifier).andThen(
+              Observable.just(experimentToCache.experiment))
+        }
   }
 }
