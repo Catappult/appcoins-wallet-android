@@ -6,7 +6,7 @@
   <string name="title_request">دریافت</string>
   <string name="title_import">بازیابی کیف‌پول</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">کیف‌پول ‌های من</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">رمزعبور</string>
   <string name="action_sign_in_short">Create</string>
@@ -336,7 +336,7 @@
   <string name="gamification_leveled_up_notification_title">به مرحله بعد رسیده‌اید!</string>
   <string name="gamification_leveled_up_notification_body">تبریک، پاداش %s برای هر خرید دریافت خواهید کرد!</string>
   <string name="gamification_how_max_level_body">تبریک! به بالاترین مرحله رسیدید 💃</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_title">بسیار نزدیک!</string>
   <string name="gamification_level_up_notification_body">%s AppCoins بیشتری پرداخت کنید تا به مرحله بعدی برسید.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">به کیف پول AppCoins اجازه دهید که آدرس کیف پول شما را به %s بدهد.</string>
@@ -563,7 +563,7 @@
   <string name="promotions_tab_poa_title">بازی و جایزه</string>
   <string name="promotions_empty_promotions_body">هیچ پیشنهاد تشویقی در حال حاضر موجود نیست. بعدا بازگردید!</string>
   <string name="promotions_empty_poa_body">هیچ اپلیکیشنی با این پاداش در حال حاضر موجود نیست. بعدا بازگردید!</string>
-  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_first_purchase_body">اولین خرید خود را در یک بازی یا اپلیکیشن انجام دهید و پیشنهادهای تشویقی که برای شما در نظر گرفتیم را باز کنید!</string>
   <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">هدیه‌ها</string>
   <string name="promotions_vouhers_button">ووچرها</string>
