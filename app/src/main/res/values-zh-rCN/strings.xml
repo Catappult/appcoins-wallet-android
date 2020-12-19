@@ -6,7 +6,7 @@
   <string name="title_request">接收</string>
   <string name="title_import">恢复钱包</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">我的钱包</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">密码</string>
   <string name="action_sign_in_short">Create</string>
@@ -336,7 +336,7 @@
   <string name="gamification_leveled_up_notification_title">你已达到下一级！</string>
   <string name="gamification_leveled_up_notification_body">恭喜，现在你将在每次购买时获得%s奖金！</string>
   <string name="gamification_how_max_level_body">恭喜！你达到了最高等级💃</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_title">离成功不远了！</string>
   <string name="gamification_level_up_notification_body">再花费 %s AppCoins 可达到下一级。</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">允许AppCoins Wallet向%s提供你的钱包地址。</string>
