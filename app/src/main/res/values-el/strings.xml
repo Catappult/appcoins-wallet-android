@@ -6,7 +6,7 @@
   <string name="title_request">Λήψη</string>
   <string name="title_import">Ανάκτηση Wallet</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">Τα Wallet Μου</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Κωδικός πρόσβασης</string>
   <string name="action_sign_in_short">Create</string>
@@ -563,8 +563,8 @@
   <string name="promotions_tab_poa_title">ΠΑΙΞΤΕ &amp; ΚΕΡΔΙΣΤΕ</string>
   <string name="promotions_empty_promotions_body">Δεν υπάρχουν διαθέσιμες προωθήσεις αυτή τη στιγμή. Δοκιμάστε αργότερα!</string>
   <string name="promotions_empty_poa_body">Δεν υπάρχουν εφαρμογές με αμοιβές αυτή τη στιγμή. Δοκιμάστε αργότερα!</string>
-  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
-  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
+  <string name="promotions_empty_first_purchase_body">Κάντε την πρώτη σας αγορά σε ένα παιχνίδι ή μία εφαρμογή και ξεκλειδώστε τις προωθήσεις που έχουμε για εσάς!</string>
+  <string name="promotions_empty_suggested_games_title">Προτεινόμενα Παιχνίδια</string>
   <string name="promotions_perks_button">Προνόμια</string>
   <string name="promotions_vouhers_button">Voucher</string>
   <!--Update-->
