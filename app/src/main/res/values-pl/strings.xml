@@ -6,7 +6,7 @@
   <string name="title_request">Odbierz</string>
   <string name="title_import">Odzyskaj portfel</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">Portfele</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Hasło</string>
   <string name="action_sign_in_short">Create</string>
@@ -336,7 +336,7 @@
   <string name="gamification_leveled_up_notification_title">Osiągnąłeś następny poziom!</string>
   <string name="gamification_leveled_up_notification_body">Gratulacje, teraz otrzymasz bonus %s przy każdych zakupach!</string>
   <string name="gamification_how_max_level_body">Gratulacje! Osiągnąłeś najwyższy poziom</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_title">Prawie gotowe!</string>
   <string name="gamification_level_up_notification_body">Wydaj jeszcze %s AppCoins, by przejść wyżej.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Pozwól portfelowi AppCoins udostępnić adres Twojego portfela dla %s.</string>
@@ -563,8 +563,8 @@
   <string name="promotions_tab_poa_title">GRAJ&amp; ZARABIAJ</string>
   <string name="promotions_empty_promotions_body">W tym momencie nie ma aktywnych promocji. Sprawdź później!</string>
   <string name="promotions_empty_poa_body">W tym momencie nie ma aplikacji z nagrodami. Sprawdź później!</string>
-  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
-  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
+  <string name="promotions_empty_first_purchase_body">Dokonaj pierwszego zakupu w grze lub aplikacji - odblokuj specjalne promocje!</string>
+  <string name="promotions_empty_suggested_games_title">Sugerowane gry</string>
   <string name="promotions_perks_button">Bonusy</string>
   <string name="promotions_vouhers_button">Vouchery</string>
   <!--Update-->
@@ -767,7 +767,7 @@
   <string name="carrier_billing_fees_disclaimer">Możliwość dodatkowych opłat</string>
   <string name="carrier_billing_insert_phone_body">Wpisz numer telefonu</string>
   <string name="carrier_billing_phone_field">Twój numer telefonu...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">Opłata %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s w %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Twój numer telefonu to%s.</string>
   <string name="carrier_billing_enter_pin_body">Wpisz PIN otrzymany w wiadomości SMS.</string>
