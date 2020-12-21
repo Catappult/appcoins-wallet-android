@@ -6,7 +6,7 @@
   <string name="title_request">استقبال</string>
   <string name="title_import">استعادة المحفظة</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">مَحافظي</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">كلمة المرور</string>
   <string name="action_sign_in_short">Create</string>
@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">ستحصل الآن على مكافأة %s على كل عملية شراء. استمر في الشراء للحصول على المزيد!</string>
   <string name="gamification_leveled_up_notification_title">لقد وصلت إلى المستوى التالي!</string>
   <string name="gamification_leveled_up_notification_body">مبروك، ستحصل الآن على مكافأة %s على كل عملية شراء!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_how_max_level_notification_title">لقد فعلتها!</string>
+  <string name="gamification_how_max_level_body">لقد وصلت أعلى مستوى: %s مكافأة على كل عملية شراء!</string>
+  <string name="gamification_level_up_notification_title">كدت تصل!</string>
   <string name="gamification_level_up_notification_body">أنفق %s AppCoins إضافية لتصل إلى المستوى التالي.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">حصلت على مكافأة إضافية!</string>
+  <string name="gamification_bonus_plus_perk_body">تمتع بـ %1$s مكافأة و %2$s رصيد AppCoins إضافي.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">اسمح لمحفظة AppCoins بإعطاء عنوان محفظتك إلى %s.</string>
   <string name="provide_wallet_body_placeholders">السماح لـ %1$s بتوفير عنوان محفظتك لـ %2$s.</string>
@@ -507,7 +507,7 @@
   <string name="purchase_error_wallet_block_code_403">يبدو أن هناك مشكلة ما في محفظتك. يرجى التواصل معنا.</string>
   <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">حاول أن تنهي عملية الشراء بعد إتمام توثيق محفظتك.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
