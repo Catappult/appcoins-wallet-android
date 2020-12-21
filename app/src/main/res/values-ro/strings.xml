@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">Acum vei primi un bonus de %s la fiecare cumpărătură. Continuă să cumperi ca să câștigi și mai mult!</string>
   <string name="gamification_leveled_up_notification_title">Ai atins următorul nivel!</string>
   <string name="gamification_leveled_up_notification_body">Felicitări, acum vei primi un bonus de %s la fiecare cumpărătură!</string>
-  <string name="gamification_how_max_level_body">Felicitări! Ai atins cel mai înalt nivel 💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Încă puțin!</string>
   <string name="gamification_level_up_notification_body">Cheltuiește încă %s AppCoins ca să atingi nivelul următor.</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite AppCoins Wallet să furnizeze adresa portofelului tău către %s.</string>
   <string name="provide_wallet_body_placeholders">Permite %1$s să furnizeze adresa portofelului tău către %2$s.</string>
