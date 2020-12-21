@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promotions
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -86,4 +87,5 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
   override fun disableBack() {
     backEnabled = false
   }
+
 }

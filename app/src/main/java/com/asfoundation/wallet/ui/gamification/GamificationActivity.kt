@@ -10,7 +10,6 @@ import androidx.appcompat.widget.Toolbar
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -104,7 +103,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     }
   }
 
-  override fun backPressed()= onBackPressedSubject!!
+  override fun backPressed() = onBackPressedSubject!!
 
   override fun enableBack() {
     backEnabled = true
