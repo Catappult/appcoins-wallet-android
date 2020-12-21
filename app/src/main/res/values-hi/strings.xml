@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">अब आपको हर खरीद पर %s बोनस मिलेगा। और भी अधिक कमाने के लिए खरीदते रहें!</string>
   <string name="gamification_leveled_up_notification_title">आप अगले लेवल पर पहुँच गए हैं!</string>
   <string name="gamification_leveled_up_notification_body">बधाई हो, अब आपको हर खरीद पर %s बोनस मिलेगा!</string>
-  <string name="gamification_how_max_level_body">बधाई हो! आप उच्चतम लेवल पर पहुँच चुके हैं 💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Almost there!</string>
   <string name="gamification_level_up_notification_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins वॉलेट को अपना वॉलेट पता %s को देने की अनुमति दें।</string>
   <string name="provide_wallet_body_placeholders">%1$s को अपना वॉलेट पता %2$s को देने की अनुमति दें।</string>
