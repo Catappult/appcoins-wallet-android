@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">Mostantól %s bónuszt kapsz minden vásárlás után. Vásárolj és szerezz minél többet!</string>
   <string name="gamification_leveled_up_notification_title">Elérted a következő szintet!</string>
   <string name="gamification_leveled_up_notification_body">Gratula, mostantól %s bónuszt kapsz minden vásárlás után!</string>
-  <string name="gamification_how_max_level_body">Gratulálunk! Elérted a legmagasabb szintet 💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Már majdnem megvan!</string>
   <string name="gamification_level_up_notification_body">Költs el még %s AppCoins-t a következő szint eléréséhez.</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Engedélyezd az AppCoins Wallet-nek, hogy tárcacímedet megadja a(z) %s számára.</string>
   <string name="provide_wallet_body_placeholders">Engedélyezd %1$s számára, hogy pénztárcacímedet megadja a(z) %2$s számára.</string>
