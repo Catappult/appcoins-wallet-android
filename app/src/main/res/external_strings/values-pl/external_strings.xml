@@ -44,15 +44,15 @@
   <!-- Error messages -->
   <string name="title_dialog_error">Błąd</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">Coś poszło nie tak.</string>
+  <string name="purchase_card_error_general_1">Pojawił się problem z twoją kartą. Spróbuj ponownie lub skontaktuj się z nami.</string>
+  <string name="purchase_card_error_general_2">Transakcja została odrzucona przez twój bank. Spróbuj z inną kartą lub skontaktuj się z nami.</string>
+  <string name="purchase_card_error_no_funds">Wygląda na to, że masz niewystarczająco dużo środków lub limit na karcie. Spróbuj z inną.</string>
+  <string name="purchase_card_error_expired">Czy skończyła się ważność twojej karty? Spróbuj z inną.</string>
+  <string name="purchase_card_error_invalid_details">Czy jesteś pewny, że dane twojej karty są prawidłowe? Spróbuj ponownie.</string>
+  <string name="purchase_card_error_not_supported">Ten typ karty jeszcze nie jest obsługiwany. Spróbuj z inną.</string>
+  <string name="purchase_card_error_security">Czy jesteś pewien, że to poprawne dane? Spróbuj ponownie.</string>
+  <string name="purchase_card_error_wrong_CVV">Twój kod CVV/CVC jest niepoprawny. Spróbuj ponownie.</string>
+  <string name="purchase_card_error_CVV">Nieprawidłowy CVV/CVC</string>
+  <string name="error_contac_us_body">Jeśli problem powróci, skontaktuj się z nami.</string>
 </resources>
