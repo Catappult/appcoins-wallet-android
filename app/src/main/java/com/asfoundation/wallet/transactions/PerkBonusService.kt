@@ -56,36 +56,32 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
       // when there are several perk bonuses associated to the same transaction
       // it can take a bit of time before every transaction is inserted in DB
       Thread.sleep(TRANSACTION_TIME_WAIT_FOR_ALL)
-      val transactions = getNewTransactions(it)
-      handlePerkTransactionNotification(transactions)
-      handleLevelUpNotification(it, transactions)
+      handleNotification(it, getNewTransactions(it))
     }
   }
 
-  private fun handlePerkTransactionNotification(transactions: List<Transaction>) {
-    val bonusTransactionValue = getPerkBonusTransactionValue(transactions)
-    if (bonusTransactionValue.isNotEmpty()) {
-      buildPerkBonusNotification(createPerkBonusNotification(bonusTransactionValue))
-    }
-  }
-
-  private fun handleLevelUpNotification(address: String, transactions: List<Transaction>) {
+  private fun handleNotification(address: String, transactions: List<Transaction>) {
     disposables.add(Single.zip(promotionsRepository.getLastShownLevel(address,
         GamificationScreen.NOTIFICATIONS.toString()).map { if (it < 0) 0 else it },
         promotionsRepository.getGamificationStats(address),
-        Single.just(getLevelUpBonusTransactionValue(transactions)),
+        Single.just(getAllPerksBonusTransactionValue(transactions)),
         Function3 { lastShownLevel: Int, gamificationStats: GamificationStats,
-                    levelUpBonusValue: String ->
+                    bonusTransactionValue: String ->
           if (gamificationStats.status == GamificationStats.Status.OK &&
               lastShownLevel < gamificationStats.level) {
             promotionsRepository.shownLevel(address, gamificationStats.level,
                 GamificationScreen.NOTIFICATIONS.toString())
-            if (levelUpBonusValue.isEmpty()) {
-              buildLevelUpNotification(createLevelUpNotification(gamificationStats))
+            if (bonusTransactionValue.isEmpty()) {
+              buildNotification(createLevelUpNotification(gamificationStats),
+                  NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
             } else {
-              buildLevelUpNotification(
-                  createLevelUpNotification(gamificationStats, levelUpBonusValue))
+              buildNotification(
+                  createLevelUpNotification(gamificationStats, bonusTransactionValue),
+                  NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
             }
+          } else if (bonusTransactionValue.isNotEmpty()) {
+            buildNotification(createPerkBonusNotification(bonusTransactionValue),
+                NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
           }
         }).subscribe())
   }
@@ -108,12 +104,11 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
     return emptyList()
   }
 
-  private fun getPerkBonusTransactionValue(transactions: List<Transaction>): String {
+  private fun getAllPerksBonusTransactionValue(transactions: List<Transaction>): String {
     try {
       var accValue = 0L
       transactions.forEach {
-        if (it.subType == Transaction.SubType.PERK_PROMOTION &&
-            it.perk != Transaction.Perk.GAMIFICATION_LEVEL_UP) {
+        if (it.subType == Transaction.SubType.PERK_PROMOTION) {
           accValue += it.value.toLong()
         }
       }
@@ -124,26 +119,20 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
     return ""
   }
 
-  private fun getLevelUpBonusTransactionValue(transactions: List<Transaction>): String =
-      getScaledValue(transactions.find { it.perk == Transaction.Perk.GAMIFICATION_LEVEL_UP }?.value)
-          ?: ""
-
-  private fun buildPerkBonusNotification(notificationBuilder: NotificationCompat.Builder) =
-      notificationManager.notify(NOTIFICATION_SERVICE_ID_PERK, notificationBuilder.build())
-
-  private fun buildLevelUpNotification(notificationBuilder: NotificationCompat.Builder) =
-      notificationManager.notify(NOTIFICATION_SERVICE_ID_GAMIFICATION, notificationBuilder.build())
+  private fun buildNotification(notificationBuilder: NotificationCompat.Builder,
+                                notficationServiceId: Int) =
+      notificationManager.notify(notficationServiceId, notificationBuilder.build())
 
   private fun createPositiveNotificationIntent(): PendingIntent {
     val intent = TransactionsActivity.newIntent(this)
     return PendingIntent.getActivity(this, 0, intent, 0)
   }
 
-  private fun initializeNotificationBuilder(channelId: String): NotificationCompat.Builder {
+  private fun initializeNotificationBuilder(channelId: String, channelName: String):
+      NotificationCompat.Builder {
     val positiveIntent = createPositiveNotificationIntent()
     val builder: NotificationCompat.Builder
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      val channelName: CharSequence = "Notification channel"
       val importance = NotificationManager.IMPORTANCE_HIGH
       val notificationChannel =
           NotificationChannel(channelId, channelName, importance)
@@ -160,7 +149,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
   }
 
   private fun createPerkBonusNotification(value: String): NotificationCompat.Builder {
-    return initializeNotificationBuilder(PERK_CHANNEL_ID).setContentTitle(
+    return initializeNotificationBuilder(PERK_CHANNEL_ID, PERK_CHANNEL_NAME).setContentTitle(
         getString(R.string.perks_notification, value))
         .setContentText(getString(R.string.support_new_message_button))
   }
@@ -169,8 +158,9 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
       gamificationStats: GamificationStats): NotificationCompat.Builder {
     val reachedLevelInfo: ReachedLevelInfo =
         GamificationMapper(this).mapReachedLevelInfo(gamificationStats.level)
-    val builder = initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID).setContentTitle(
-        reachedLevelInfo.reachedTitle)
+    val builder =
+        initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID, LEVEL_UP_CHANNEL_NAME).setContentTitle(
+            reachedLevelInfo.reachedTitle)
     val planet = reachedLevelInfo.planet?.toBitmap()
     return if (planet != null) builder.setLargeIcon(planet) else builder
   }
@@ -203,13 +193,16 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
   companion object {
     private const val TRANSACTION_GAP_TIME = 15000L
     private const val TRANSACTION_TIME_WAIT_FOR_ALL = 500L
-    private const val NOTIFICATION_SERVICE_ID_PERK = 77796
-    private const val NOTIFICATION_SERVICE_ID_GAMIFICATION = 77797
+    private const val NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP = 77796
+    private const val NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP = 77797
     private const val ADDRESS_KEY = "ADDRESS_KEY"
     private const val PERK_CHANNEL_ID = "notification_channel_perk_bonus"
+    private const val PERK_CHANNEL_NAME = "Promotion Bonuses Notification Channel"
+    private const val LEVEL_UP_CHANNEL_NAME = "Level Up Notification Channel"
     private const val LEVEL_UP_CHANNEL_ID = "notification_channel_gamification_level_up"
     private const val ALMOST_NEXT_LEVEL_CHANNEL_ID =
         "notification_channel_gamification_almost_next_level"
+    private const val ALMOST_NEXT_LEVEL_CHANNEL_NAME = "Almost Next Level Notification Channel"
 
     @JvmStatic
     fun buildService(context: Context, address: String) {
