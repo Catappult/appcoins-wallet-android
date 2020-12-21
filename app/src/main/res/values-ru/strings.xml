@@ -6,7 +6,7 @@
   <string name="title_request">Получить</string>
   <string name="title_import">Восстановить кошелёк</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">Мои кошельки</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Пароль</string>
   <string name="action_sign_in_short">Create</string>
@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">Теперь вы будете получать бонус в %s за каждую покупку. Продолжайте покупать, чтобы заработать ещё больше!</string>
   <string name="gamification_leveled_up_notification_title">Вы достигли следующего уровня!</string>
   <string name="gamification_leveled_up_notification_body">Поздравляем, теперь вы получите бонус в %s на каждую покупку!</string>
-  <string name="gamification_how_max_level_body">Поздравляем! Вы достигли максимального уровня 💃</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_how_max_level_notification_title">Вы смогли!</string>
+  <string name="gamification_how_max_level_body">Вы достигли наивысшего уровня: бонус %s на каждую покупку!</string>
+  <string name="gamification_level_up_notification_title">Уже почти!</string>
   <string name="gamification_level_up_notification_body">Потратьте ещё %s AppCoins, чтобы достичь следующего уровня.</string>
+  <string name="gamification_bonus_plus_perk_title">Вы получили дополнительный бонус!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Разрешите AppCoins Wallet предоставлять %s адрес вашего кошелька.</string>
   <string name="provide_wallet_body_placeholders">Разрешите %1$s предоставить %2$s адрес вашего кошелька.</string>
