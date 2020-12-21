@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">Je krijgt nu bij elke aankoop %s bonus. Blijf kopen om nog meer te verdienen!</string>
   <string name="gamification_leveled_up_notification_title">Je hebt het volgende niveau bereikt!</string>
   <string name="gamification_leveled_up_notification_body">Gefeliciteerd, je krijgt nu bij elke aankoop %s bonus!</string>
-  <string name="gamification_how_max_level_body">Gefeliciteerd! Je hebt het hoogste level bereikt 💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Bijna klaar!</string>
   <string name="gamification_level_up_notification_body">Besteed nog %s AppCoins om het volgende niveau te bereiken.</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan %s door te geven.</string>
   <string name="provide_wallet_body_placeholders">Geef %1$s toestemming om je wallet-adres aan %2$s door te geven.</string>
