@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">你现在可以在每次购买时获得%s奖金。继续购买以赚取更多！</string>
   <string name="gamification_leveled_up_notification_title">你已达到下一级！</string>
   <string name="gamification_leveled_up_notification_body">恭喜，现在你将在每次购买时获得%s奖金！</string>
-  <string name="gamification_how_max_level_body">恭喜！你达到了最高等级💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">离成功不远了！</string>
   <string name="gamification_level_up_notification_body">再花费 %s AppCoins 可达到下一级。</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">允许AppCoins Wallet向%s提供你的钱包地址。</string>
   <string name="provide_wallet_body_placeholders">允许%1$s向%2$s提供你的钱包地址。</string>
