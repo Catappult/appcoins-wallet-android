@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">Her bir satın alma işlemi için %s bonus alacaksınız. Daha da fazla kazanmak için satın almaya devam edin!</string>
   <string name="gamification_leveled_up_notification_title">Bir sonraki seviyeye ulaştınız!</string>
   <string name="gamification_leveled_up_notification_body">Tebrikler, artık her bir satın alma işleminde %s bonus kazanacaksınız!</string>
-  <string name="gamification_how_max_level_body">Tebrikler! En üst seviyeye ulaştınız 💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Neredeyse bitti!</string>
   <string name="gamification_level_up_notification_body">Sonraki seviyeye ulaşmak için %s AppCoins daha harcayın.</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins Cüzdanın %s\'e cüzdan adresinizi vermesine izin verin.</string>
   <string name="provide_wallet_body_placeholders">%1$s\'ın %2$s\'e cüzdan adresinizi vermesine izin verin.</string>
