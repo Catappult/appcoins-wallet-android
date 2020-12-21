@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">Kể từ giờ, bạn sẽ nhận được %s tiền thưởng trên mỗi lần mua. Hãy tiếp tục mua để nhận được nhiều hơn nữa!</string>
   <string name="gamification_leveled_up_notification_title">Bạn đã đạt đến cấp kế tiếp!</string>
   <string name="gamification_leveled_up_notification_body">Xin chúc mừng, giờ đây bạn sẽ nhận được tiền thưởng %s trên mỗi lần mua!</string>
-  <string name="gamification_how_max_level_body">Chúc mừng! Bạn đã đạt đến cấp cao nhất 💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Gần xong rồi!</string>
   <string name="gamification_level_up_notification_body">Dùng thêm %s AppCoins để đạt đến cấp kế tiếp.</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho %s.</string>
   <string name="provide_wallet_body_placeholders">Cho phép %1$s cung cấp địa chỉ ví của bạn cho %2$s.</string>
