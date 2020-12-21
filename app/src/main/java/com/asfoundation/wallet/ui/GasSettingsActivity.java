@@ -63,7 +63,7 @@ public class GasSettingsActivity extends BaseActivity {
     BigDecimal gasLimitMax = BigDecimal.valueOf(C.GAS_LIMIT_MAX);
     BigDecimal gasPriceMin = BigDecimal.valueOf(C.GAS_PRICE_MIN);
     BigInteger networkFeeMax = BigInteger.valueOf(C.NETWORK_FEE_MAX);
-    Pair<BigDecimal, BigDecimal> savedGasPreference = viewModel.getGasPreferences();
+    Pair<BigDecimal, BigDecimal> savedGasPreference = viewModel.getSavedGasPreferences();
     BigDecimal savedGasPrice = savedGasPreference.first;
     BigDecimal savedLimit = savedGasPreference.second;
 

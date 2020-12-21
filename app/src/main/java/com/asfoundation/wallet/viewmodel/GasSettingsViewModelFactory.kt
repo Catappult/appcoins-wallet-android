@@ -1,19 +1,13 @@
-package com.asfoundation.wallet.viewmodel;
+package com.asfoundation.wallet.viewmodel
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import com.asfoundation.wallet.ui.GasSettingsInteractor;
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.asfoundation.wallet.ui.GasSettingsInteractor
 
-public class GasSettingsViewModelFactory implements ViewModelProvider.Factory {
+class GasSettingsViewModelFactory(private val gasSettingsInteractor: GasSettingsInteractor) :
+    ViewModelProvider.Factory {
 
-  private GasSettingsInteractor gasSettingsInteractor;
-
-  public GasSettingsViewModelFactory(GasSettingsInteractor gasSettingsInteractor) {
-    this.gasSettingsInteractor = gasSettingsInteractor;
-  }
-
-  @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-    return (T) new GasSettingsViewModel(gasSettingsInteractor);
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
+    return GasSettingsViewModel(gasSettingsInteractor) as T
   }
 }
