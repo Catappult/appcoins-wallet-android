@@ -199,7 +199,7 @@
   <string name="activity_iab_error_message">Wystąpił błąd, spróbuj ponownie</string>
   <string name="action_try">Wypróbuj</string>
   <string name="activity_transactions_learn_more">Dowiedz się więcej</string>
-  <string name="activity_iab_no_funds_message">Nie wystarczająca ilość ETH i APPC</string>
+  <string name="activity_iab_no_funds_message">Niewystarczająca ilość ETH i APPC</string>
   <string name="activity_iab_no_ethereum_funds_message">Za mało Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Za mało AppCoins</string>
   <string name="activity_iab_wrong_network_message">Nieznany token lub niewłaściwa sieć Ethereum</string>
@@ -260,7 +260,7 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Karta kredytowa/debetowa</string>
   <string name="dialog_expiry_date">Data ważności</string>
-  <string name="activity_airdrop_title">Potwierdź że jesteś człowiekiem aby otrzymać AppCoins</string>
+  <string name="activity_airdrop_title">Potwierdź, że jesteś człowiekiem, aby otrzymać AppCoins</string>
   <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
   <string name="activity_airdrop_hint">Wpisz słowa z obrazka</string>
   <string name="activity_airdrop_submit_btn">Wyślij</string>
