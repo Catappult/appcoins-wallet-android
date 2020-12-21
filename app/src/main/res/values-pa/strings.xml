@@ -335,9 +335,12 @@
   <string name="gamification_leveled_up_body">ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਵੇਗਾ| ਹੋਰ ਕਮਾਉਣ ਲਈ ਖਰੀਦਦੇ ਰਹੋ!</string>
   <string name="gamification_leveled_up_notification_title">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ!</string>
   <string name="gamification_leveled_up_notification_body">ਵਧਾਈਆਂ, ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਮਿਲੇਗਾ!</string>
-  <string name="gamification_how_max_level_body">ਵਧਾਈਆਂ! ਤੁਸੀਂ ਉੱਚ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ 💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">ਲਗਭਗ ਉਥੇ!</string>
   <string name="gamification_level_up_notification_body">ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ %s ਹੋਰ ਐਪਸਿੱਕੇ ਖਰਚ ਕਰੋ|</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
   <string name="provide_wallet_body_placeholders">%1$s ਬਟੂਏ ਨੂੰ %2$s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
