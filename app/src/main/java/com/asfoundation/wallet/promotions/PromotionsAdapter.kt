@@ -7,7 +7,7 @@ import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
 
-class PromotionsAdapter(private val promotions: List<Promotion>,
+class PromotionsAdapter(private var promotions: List<Promotion>,
                         private val clickListener: PublishSubject<PromotionClick>) :
     RecyclerView.Adapter<PromotionsViewHolder>() {
 
@@ -72,6 +72,18 @@ class PromotionsAdapter(private val promotions: List<Promotion>,
     holder.bind(promotions[position])
   }
 
+  fun setPromotions(promotionsList: List<Promotion>) {
+    if (!areTheSame(promotions, promotionsList)) {
+      promotions = promotionsList
+      notifyDataSetChanged()
+    }
+  }
+
+  private fun areTheSame(currentList: List<Promotion>, promotionsList: List<Promotion>): Boolean {
+    if (currentList.size != promotionsList.size) {
+      return false
+    }
+    return promotions.zip(promotionsList)
+        .all { (x, y) -> x.id == y.id }
+  }
 }
-
-
