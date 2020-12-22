@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions
 
+import android.content.ActivityNotFoundException
 import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
@@ -101,7 +102,6 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun mapReferralClick(extras: Map<String, String>?) {
     if (extras != null) {
-
       val link = extras[ReferralViewHolder.KEY_LINK]
       if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
         navigator.navigateToInviteFriends()
@@ -114,7 +114,12 @@ class PromotionsPresenter(private val view: PromotionsView,
   private fun mapPackagePerkClick(extras: Map<String, String>?) {
     if (extras != null && extras[PromotionsViewHolder.DETAILS_URL_EXTRA] != null) {
       val detailsLink = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
-      navigator.openDetailsLink(detailsLink!!)
+      try {
+        navigator.openDetailsLink(detailsLink!!)
+      } catch (exception: ActivityNotFoundException) {
+        exception.printStackTrace()
+        view.showToast()
+      }
     }
   }
 

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions
 import android.os.Bundle
 import android.view.*
 import android.view.View.*
+import android.widget.Toast
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
@@ -145,6 +146,11 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   override fun getBottomSheetContainerClick() = RxView.clicks(bottomsheet_coordinator_container)
+
+  override fun showToast() {
+    Toast.makeText(requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
+        .show()
+  }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return if (item.itemId == android.R.id.home) {

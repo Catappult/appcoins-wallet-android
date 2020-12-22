@@ -33,4 +33,6 @@ interface PromotionsView {
   fun getBottomSheetContainerClick(): Observable<Any>
 
   fun showLockedPromotionsScreen()
+
+  fun showToast()
 }
