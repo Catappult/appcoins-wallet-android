@@ -31,6 +31,8 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.rating.RatingActivity;
+import com.asfoundation.wallet.rating.RatingInteractor;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
@@ -70,6 +72,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject CurrencyFormatUtils formatter;
+  @Inject RatingInteractor ratingInteractor;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
@@ -188,6 +191,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
         .observe(this, this::showPromotionsOverlay);
+    viewModel.shouldShowRateUsDialog()
+        .observe(this, this::navigateToRateUs);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
 
     if (savedInstanceState == null) {
@@ -199,6 +204,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         overridePendingTransition(0, 0);
         viewModel.showSupportScreen(true);
       }
+    }
+  }
+
+  public void navigateToRateUs(Boolean shouldNavigate) {
+    if (shouldNavigate) {
+      Intent intent = RatingActivity.newIntent(this);
+      this.startActivity(intent);
     }
   }
 

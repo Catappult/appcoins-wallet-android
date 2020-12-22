@@ -6,6 +6,14 @@ import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
 import com.asfoundation.wallet.promotions.PromotionsFragment
+import com.asfoundation.wallet.rating.entry.RatingEntryFragment
+import com.asfoundation.wallet.rating.entry.RatingEntryModule
+import com.asfoundation.wallet.rating.finish.RatingFinishFragment
+import com.asfoundation.wallet.rating.finish.RatingFinishModule
+import com.asfoundation.wallet.rating.negative.RatingNegativeFragment
+import com.asfoundation.wallet.rating.negative.RatingNegativeModule
+import com.asfoundation.wallet.rating.positive.RatingPositiveFragment
+import com.asfoundation.wallet.rating.positive.RatingPositiveModule
 import com.asfoundation.wallet.referrals.InviteFriendsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
 import com.asfoundation.wallet.referrals.ReferralsFragment
@@ -248,4 +256,20 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [OverlayModule::class])
   abstract fun bindOverlayFragment(): OverlayFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [RatingEntryModule::class])
+  abstract fun bindRatingEntryFragment(): RatingEntryFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [RatingNegativeModule::class])
+  abstract fun bindRatingSuggestionsFragment(): RatingNegativeFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [RatingPositiveModule::class])
+  abstract fun bindRatingThankYouFragment(): RatingPositiveFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [RatingFinishModule::class])
+  abstract fun bindRatingFinishFragment(): RatingFinishFragment
 }

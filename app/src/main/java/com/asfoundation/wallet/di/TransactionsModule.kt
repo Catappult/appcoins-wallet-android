@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.TransactionViewInteract
 import com.asfoundation.wallet.navigator.TransactionViewNavigator
+import com.asfoundation.wallet.rating.RatingInteractor
 import com.asfoundation.wallet.router.*
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
@@ -21,9 +22,10 @@ internal class TransactionsModule {
                                           transactionViewInteract: TransactionViewInteract,
                                           walletsEventSender: WalletsEventSender,
                                           supportInteractor: SupportInteractor,
+                                          ratingInteractor: RatingInteractor,
                                           formatter: CurrencyFormatUtils): TransactionsViewModelFactory {
     return TransactionsViewModelFactory(applications, analytics, transactionViewNavigator,
-        transactionViewInteract, walletsEventSender, supportInteractor, formatter)
+        transactionViewInteract, walletsEventSender, supportInteractor, ratingInteractor, formatter)
   }
 
   @Provides

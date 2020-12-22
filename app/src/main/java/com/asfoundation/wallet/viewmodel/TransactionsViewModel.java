@@ -19,6 +19,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.promotions.PromotionNotification;
+import com.asfoundation.wallet.rating.RatingInteractor;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.support.SupportInteractor;
@@ -60,6 +61,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showRateUsDialog = new MutableLiveData<>();
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -69,6 +71,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final WalletsEventSender walletsEventSender;
   private final PublishSubject<Context> topUpClicks = PublishSubject.create();
   private final CurrencyFormatUtils formatter;
+  private final RatingInteractor ratingInteractor;
   private CompositeDisposable disposables;
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
@@ -78,7 +81,8 @@ public class TransactionsViewModel extends BaseViewModel {
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
       TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor,
-      WalletsEventSender walletsEventSender, CurrencyFormatUtils formatter) {
+      WalletsEventSender walletsEventSender, CurrencyFormatUtils formatter,
+      RatingInteractor ratingInteractor) {
     this.applications = applications;
     this.analytics = analytics;
     this.transactionViewNavigator = transactionViewNavigator;
@@ -86,6 +90,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.supportInteractor = supportInteractor;
     this.walletsEventSender = walletsEventSender;
     this.formatter = formatter;
+    this.ratingInteractor = ratingInteractor;
     this.disposables = new CompositeDisposable();
   }
 
@@ -123,6 +128,10 @@ public class TransactionsViewModel extends BaseViewModel {
     return showPromotionTooltip;
   }
 
+  public LiveData<Boolean> shouldShowRateUsDialog() {
+    return showRateUsDialog;
+  }
+
   public void prepare() {
     if (disposables.isDisposed()) {
       disposables = new CompositeDisposable();
@@ -145,6 +154,14 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(wallet -> {
         }, this::onError));
     handleTopUpClicks();
+    handleRateUsDialogVisibility();
+  }
+
+  private void handleRateUsDialogVisibility() {
+    disposables.add(ratingInteractor.shouldOpenRatingDialog()
+        .doOnSuccess(showRateUsDialog::postValue)
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
   }
 
   public void handleFingerprintTooltipVisibility(String packageName) {
@@ -338,6 +355,7 @@ public class TransactionsViewModel extends BaseViewModel {
           .size() > 0 && last != null && last) {
         progress.postValue(true);
       }
+      ratingInteractor.saveTransactionsNumber(transactionsModel.getTransactions());
     });
   }
 

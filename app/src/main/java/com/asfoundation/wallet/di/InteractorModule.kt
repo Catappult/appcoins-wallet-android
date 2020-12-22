@@ -40,6 +40,8 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.PromotionsInteractorContract
+import com.asfoundation.wallet.rating.RatingInteractor
+import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.referrals.ReferralInteractor
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
@@ -61,8 +63,8 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
-import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
+import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
@@ -526,6 +528,15 @@ class InteractorModule {
                                 gamificationRepository: Gamification): SupportInteractor {
     return SupportInteractor(supportRepository, walletService, gamificationRepository,
         AndroidSchedulers.mainThread(), Schedulers.io())
+  }
+
+  @Singleton
+  @Provides
+  fun providesRatingInteractor(ratingRepository: RatingRepository,
+                               gamificationInteractor: GamificationInteractor,
+                               walletService: WalletService): RatingInteractor {
+    return RatingInteractor(ratingRepository, gamificationInteractor, walletService,
+        Schedulers.io())
   }
 
 }

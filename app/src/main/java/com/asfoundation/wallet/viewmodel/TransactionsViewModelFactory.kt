@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.TransactionViewInteract
 import com.asfoundation.wallet.navigator.TransactionViewNavigator
+import com.asfoundation.wallet.rating.RatingInteractor
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.AppcoinsApps
@@ -16,11 +17,13 @@ class TransactionsViewModelFactory(private val applications: AppcoinsApps,
                                    private val transactionViewInteract: TransactionViewInteract,
                                    private val walletsEventSender: WalletsEventSender,
                                    private val supportInteractor: SupportInteractor,
+                                   private val ratingInteractor: RatingInteractor,
                                    private val formatter: CurrencyFormatUtils) :
     ViewModelProvider.Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
     return TransactionsViewModel(applications, analytics, transactionViewNavigator,
-        transactionViewInteract, supportInteractor, walletsEventSender, formatter) as T
+        transactionViewInteract, supportInteractor, walletsEventSender, formatter,
+        ratingInteractor) as T
   }
 }
