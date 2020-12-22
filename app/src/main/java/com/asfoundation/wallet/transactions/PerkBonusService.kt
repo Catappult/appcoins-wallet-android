@@ -70,9 +70,10 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
         Function4 { lastShownLevel: Int, gamificationStats: GamificationStats,
                     allLevels: Levels, bonusTransactionValue: String ->
           val maxBonus = allLevels.list.last().bonus
+          val currentLevel = gamificationStats.level
           if (gamificationStats.status == GamificationStats.Status.OK &&
-              lastShownLevel < gamificationStats.level) {
-            promotionsRepository.shownLevel(address, gamificationStats.level,
+              lastShownLevel < currentLevel) {
+            promotionsRepository.shownLevel(address, currentLevel,
                 GamificationScreen.NOTIFICATIONS.toString())
             if (bonusTransactionValue.isEmpty()) {
               buildNotification(createLevelUpNotification(gamificationStats, maxBonus),
@@ -86,7 +87,24 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
             buildNotification(createPerkBonusNotification(bonusTransactionValue),
                 NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
           }
-        }).subscribe({},{it.printStackTrace()}))
+          // TODO only do this if max level hasn't been reached and
+          //  hasn't sent almost there notification for current level
+          val almostNextLevelPercent = GamificationMapper(this)
+              .mapAlmostNextLevelUpPercentage(gamificationStats.level)
+          val currLevelStartAmount = allLevels.list[currentLevel].amount
+          val totalAppCoinsAmountThisLevel = gamificationStats.nextLevelAmount!!.minus(
+              currLevelStartAmount)
+          val currentAppCoinsAmountThisLevel = gamificationStats.totalSpend.minus(
+              currLevelStartAmount)
+          if (totalAppCoinsAmountThisLevel > BigDecimal.ZERO &&
+              currentAppCoinsAmountThisLevel > BigDecimal.ZERO &&
+              (currentAppCoinsAmountThisLevel.toDouble() / totalAppCoinsAmountThisLevel.toDouble()
+                  * 100.0).toInt() > almostNextLevelPercent) {
+            buildNotification(createAlmostNextLevelNotification(formatter.formatGamificationValues(
+                totalAppCoinsAmountThisLevel.minus(currentAppCoinsAmountThisLevel)),maxBonus),
+                NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP)
+          }
+        }).subscribe({}, { it.printStackTrace() }))
   }
 
   private fun getNewTransactions(address: String, timesCalled: Int = 0): List<Transaction> {
@@ -177,6 +195,14 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
       NotificationCompat.Builder = initializeBaseLevelUpNotification(gamificationStats, maxBonus)
       .setContentText(getString(R.string.gamification_leveled_up_notification_body,
           levelUpBonusCredits))
+
+  private fun createAlmostNextLevelNotification(appCoinsToSpend: String, maxBonus: Double):
+      NotificationCompat.Builder = initializeNotificationBuilder(ALMOST_NEXT_LEVEL_CHANNEL_ID,
+      ALMOST_NEXT_LEVEL_CHANNEL_NAME,
+      PendingIntent.getActivity(this, 0,
+          GamificationActivity.newIntent(this, maxBonus), 0))
+      .setContentTitle(getString(R.string.gamification_level_up_notification_title))
+      .setContentText(getString(R.string.gamification_level_up_notification_body, appCoinsToSpend))
 
   private fun getScaledValue(valueStr: String?): String? {
     if (valueStr == null) return null

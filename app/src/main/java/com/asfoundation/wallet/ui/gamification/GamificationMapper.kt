@@ -133,6 +133,18 @@ class GamificationMapper(private val context: Context) {
     }
   }
 
+  fun mapAlmostNextLevelUpPercentage(level: Int): Int {
+    return when (level) {
+      0, 1, 2, 3 -> 80
+      4 -> 90
+      5 -> 93
+      6 -> 95
+      7 -> 97
+      8, 9 -> 95
+      else -> 98
+    }
+  }
+
   fun getOvalBackground(levelColor: Int): Drawable? {
     val ovalBackground =
         ResourcesCompat.getDrawable(context.resources, R.drawable.oval_grey_background, null)
