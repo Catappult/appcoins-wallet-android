@@ -12,6 +12,10 @@ class RatingInteractor(private val ratingRepository: RatingRepository,
                        private val walletService: WalletService,
                        private val ioScheduler: Scheduler) {
 
+  companion object {
+    const val MINIMUM_TRANSACTIONS_NR = 5
+  }
+
   fun shouldOpenRatingDialog(): Single<Boolean> {
     val remindMeLaterDate = ratingRepository.getRemindMeLaterDate()
     if (remindMeLaterDate > -1L && remindMeLaterDate <= System.currentTimeMillis()) {
@@ -30,7 +34,7 @@ class RatingInteractor(private val ratingRepository: RatingRepository,
       if ((transaction.type == Transaction.TransactionType.IAP
               || transaction.type == Transaction.TransactionType.TOP_UP)
           && transaction.status == Transaction.TransactionStatus.SUCCESS) {
-        if (++transactionsNumber >= 5) {
+        if (++transactionsNumber >= MINIMUM_TRANSACTIONS_NR) {
           ratingRepository.saveEnoughSuccessfulTransactions()
           break
         }
