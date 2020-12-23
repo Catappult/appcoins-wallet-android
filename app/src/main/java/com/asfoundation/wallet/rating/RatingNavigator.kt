@@ -3,6 +3,7 @@ package com.asfoundation.wallet.rating
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.FragmentManager
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.rating.finish.RatingFinishFragment
 import com.asfoundation.wallet.rating.negative.RatingNegativeFragment
@@ -37,8 +38,7 @@ class RatingNavigator(private val activity: RatingActivity,
 
   fun navigateToRate() {
     activity.startActivity(
-        Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.appcoins.wallet")))
-
+        Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")))
   }
 
   fun closeActivity() = activity.finish()
