@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import java.math.BigDecimal
 import java.util.*
 
@@ -56,4 +57,13 @@ class PromotionConverter {
     return date.time
   }
 
+  @TypeConverter
+  fun convertFromWalletOrigin(walletOrigin: String): WalletOrigin {
+    return WalletOrigin.valueOf(walletOrigin)
+  }
+
+  @TypeConverter
+  fun convertWalletOrigin(walletOrigin: WalletOrigin): String {
+    return walletOrigin.name
+  }
 }

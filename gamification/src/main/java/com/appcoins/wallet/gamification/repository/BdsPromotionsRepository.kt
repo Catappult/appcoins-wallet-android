@@ -2,6 +2,7 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import java.io.IOException
 import java.math.BigDecimal
 import java.net.UnknownHostException
@@ -9,26 +10,32 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class BdsPromotionsRepository(private val api: GamificationApi,
-                              private val local: GamificationLocalData) : PromotionsRepository {
+                              private val local: UserStatsLocalData) : PromotionsRepository {
 
   private fun getUserStats(wallet: String): Single<UserStatusResponse> {
     return api.getUserStats(wallet, Locale.getDefault().language)
         .map { filterByDate(it) }
         .flatMap { userStats ->
           local.deletePromotions()
-              .andThen(local.insertPromotions(userStats.promotions))
+              .andThen(local.insertPromotions(userStats.promotions)
+                  .andThen(local.insertWalletOrigin(wallet, userStats.walletOrigin)))
               .toSingle { userStats }
         }
         .onErrorResumeNext { t ->
-          local.getPromotions()
-              .map { mapErrorToUserStatsModel(it, t) }
+          Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
+              BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
+                Pair(promotions, walletOrigin)
+              })
+              .map { (promotions, walletOrigin) ->
+                mapErrorToUserStatsModel(promotions, walletOrigin, t)
+              }
               .onErrorReturn { mapErrorToUserStatsModel(t) }
         }
   }
 
   private fun filterByDate(userStatusResponse: UserStatusResponse): UserStatusResponse {
     val validPromotions = userStatusResponse.promotions.filter { hasValidDate(it) }
-    return UserStatusResponse(validPromotions)
+    return UserStatusResponse(validPromotions, userStatusResponse.walletOrigin)
   }
 
   private fun hasValidDate(promotionsResponse: PromotionsResponse): Boolean {
@@ -97,24 +104,25 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   private fun mapErrorToUserStatsModel(throwable: Throwable): UserStatusResponse {
     throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
-      UserStatusResponse(emptyList(), Status.NO_NETWORK)
+      UserStatusResponse(Status.NO_NETWORK)
     } else {
-      UserStatusResponse(emptyList(), Status.UNKNOWN_ERROR)
+      UserStatusResponse(Status.UNKNOWN_ERROR)
     }
   }
 
   private fun mapErrorToUserStatsModel(promotions: List<PromotionsResponse>,
+                                       walletOrigin: WalletOrigin,
                                        throwable: Throwable): UserStatusResponse {
     return when {
       promotions.isEmpty() && isNoNetworkException(throwable) -> {
         throwable.printStackTrace()
-        UserStatusResponse(emptyList(), Status.NO_NETWORK)
+        UserStatusResponse(Status.NO_NETWORK)
       }
       promotions.isEmpty() -> {
         throwable.printStackTrace()
-        UserStatusResponse(emptyList(), Status.UNKNOWN_ERROR)
+        UserStatusResponse(Status.UNKNOWN_ERROR)
       }
-      else -> UserStatusResponse(promotions, null)
+      else -> UserStatusResponse(promotions, walletOrigin)
     }
   }
 

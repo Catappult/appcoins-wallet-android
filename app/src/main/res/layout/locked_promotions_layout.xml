@@ -10,37 +10,29 @@
       android:paddingTop="16dp"
       android:paddingBottom="16dp"
       >
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/no_promotions_animation"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+    <ImageView
+        android:id="@+id/locked_promotions_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_locked_promotions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/no_promotions_animation"
         />
 
     <TextView
-        android:id="@+id/no_promotions_message"
+        android:id="@+id/locked_promotions_message"
+        style="@style/LockedPromotionsStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="44dp"
-        android:fontFamily="sans-serif"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="26dp"
         android:gravity="center"
-        android:lineSpacingExtra="4sp"
-        android:text="@string/promotions_empty_promotions_body"
-        android:textColor="@color/gray_alpha_8a"
-        android:textSize="12sp"
+        android:text="@string/promotions_empty_first_purchase_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/no_promotions_animation"
+        app:layout_constraintTop_toBottomOf="@id/locked_promotions_image"
         />
-
   </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -46,7 +46,7 @@ import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
-import com.asfoundation.wallet.ui.gamification.SharedPreferencesGamificationLocalData
+import com.asfoundation.wallet.ui.gamification.SharedPreferencesUserStatsLocalData
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
@@ -146,12 +146,20 @@ class RepositoryModule {
         BuildConfig.APPLICATION_ID)
   }
 
+  @Singleton
   @Provides
-  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences,
-                                  promotionDao: PromotionDao, levelsDao: LevelsDao,
-                                  levelDao: LevelDao): PromotionsRepository {
-    return BdsPromotionsRepository(api,
-        SharedPreferencesGamificationLocalData(preferences, promotionDao, levelsDao, levelDao))
+  fun providesUserStatsLocalData(preferences: SharedPreferences,
+                                 promotionDao: PromotionDao, levelsDao: LevelsDao,
+                                 levelDao: LevelDao,
+                                 walletOriginDao: WalletOriginDao): UserStatsLocalData {
+    return SharedPreferencesUserStatsLocalData(preferences, promotionDao, levelsDao, levelDao,
+        walletOriginDao)
+  }
+
+  @Provides
+  fun providePromotionsRepository(api: GamificationApi,
+                                  userStatsLocalData: UserStatsLocalData): PromotionsRepository {
+    return BdsPromotionsRepository(api, userStatsLocalData)
   }
 
   @Singleton
@@ -217,8 +225,10 @@ class RepositoryModule {
   @Provides
   fun provideIdsRepository(context: Context,
                            sharedPreferencesRepository: SharedPreferencesRepository,
+                           userStatsLocalData: UserStatsLocalData,
                            installerService: InstallerService): IdsRepository {
-    return IdsRepository(context.contentResolver, sharedPreferencesRepository, installerService)
+    return IdsRepository(context.contentResolver, sharedPreferencesRepository, userStatsLocalData,
+        installerService)
   }
 
   @Singleton
@@ -272,6 +282,13 @@ class RepositoryModule {
   fun provideFingerprintPreferenceRepository(
       preferences: SharedPreferences): FingerprintPreferencesRepositoryContract {
     return FingerprintPreferencesRepository(preferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBackupRestorePreferencesRepository(
+      sharedPreferences: SharedPreferences): BackupRestorePreferencesRepository {
+    return BackupRestorePreferencesRepository(sharedPreferences)
   }
 
   @Singleton

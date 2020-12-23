@@ -6,8 +6,8 @@ import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.interact.SetDefaultWalletInteractor
 import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.interact.rx.operator.Operators
+import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PasswordStore
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.util.RestoreError
 import com.asfoundation.wallet.util.RestoreErrorType
@@ -17,7 +17,7 @@ import io.reactivex.Single
 class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType,
                               private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
                               private val passwordStore: PasswordStore,
-                              private val preferencesRepositoryType: PreferencesRepositoryType,
+                              private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                               private val fileInteractor: FileInteractor) {
 
   fun isKeystore(key: String): Boolean = key.contains("{")
@@ -28,7 +28,7 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
           walletRepository.restoreKeystoreToWallet(keystore, password, newPassword)
               .compose(Operators.savePassword(passwordStore, walletRepository, newPassword))
         }
-        .doOnSuccess { preferencesRepositoryType.setWalletRestoreBackup(it.address) }
+        .doOnSuccess { backupRestorePreferencesRepository.setWalletRestoreBackup(it.address) }
         .map { WalletModel(it.address) }
         .onErrorReturn { mapError(keystore, it) }
   }
@@ -40,7 +40,7 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
               .compose(Operators.savePassword(passwordStore, walletRepository, newPassword))
         }
         .map { WalletModel(it.address) }
-        .doOnSuccess { preferencesRepositoryType.setWalletRestoreBackup(it.address) }
+        .doOnSuccess { backupRestorePreferencesRepository.setWalletRestoreBackup(it.address) }
         .onErrorReturn { WalletModel(RestoreError(RestoreErrorType.GENERIC)) }
   }
 
@@ -48,7 +48,7 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
 
   fun getPath(): Uri? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-      preferencesRepositoryType.getChosenUri()
+      backupRestorePreferencesRepository.getChosenUri()
           ?.let { Uri.parse(it) }
     } else {
       fileInteractor.getDownloadPath()

@@ -1,23 +1,15 @@
 package com.asfoundation.wallet.promotions
 
-import android.content.Context
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.view.View.*
-import android.view.ViewGroup
+import android.widget.Toast
 import com.asf.wallet.R
-import com.asfoundation.wallet.repository.SharedPreferencesRepository
-import com.asfoundation.wallet.ui.gamification.GamificationMapper
+import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
-import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
@@ -27,23 +19,14 @@ import javax.inject.Inject
 class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   @Inject
-  lateinit var promotionsInteractor: PromotionsInteractorContract
+  lateinit var presenter: PromotionsPresenter
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
-
-  @Inject
-  lateinit var mapper: GamificationMapper
-
-  @Inject
-  lateinit var preferences: SharedPreferencesRepository
-
-  private lateinit var activityView: PromotionsActivityView
-  private lateinit var presenter: PromotionsFragmentPresenter
   private lateinit var adapter: PromotionsAdapter
   private lateinit var detailsBottomSheet: BottomSheetBehavior<View>
+  private lateinit var transactionsRouter: TransactionsRouter
   private var clickListener: PublishSubject<PromotionClick>? = null
   private var onBackPressedSubject: PublishSubject<Any>? = null
+  private var backEnabled = true
 
   companion object {
     fun newInstance() = PromotionsFragment()
@@ -51,19 +34,10 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setHasOptionsMenu(true)
+    transactionsRouter = TransactionsRouter()
     clickListener = PublishSubject.create()
     onBackPressedSubject = PublishSubject.create()
-    presenter =
-        PromotionsFragmentPresenter(this, activityView, promotionsInteractor, preferences,
-            CompositeDisposable(),
-            Schedulers.io(), AndroidSchedulers.mainThread())
-  }
-
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    require(
-        context is PromotionsActivityView) { PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName }
-    activityView = context
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -73,6 +47,11 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    adapter = PromotionsAdapter(emptyList(), clickListener!!)
+    rv_promotions.adapter = adapter
+    rv_promotions.addItemDecoration(
+        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
+            .toInt()))
     detailsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
     detailsBottomSheet.addBottomSheetCallback(
         object : BottomSheetBehavior.BottomSheetCallback() {
@@ -86,22 +65,27 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     presenter.present()
   }
 
+  override fun onResume() {
+    super.onResume()
+    presenter.onResume()
+  }
+
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
   }
 
   override fun showPromotions(promotionsModel: PromotionsModel) {
-    adapter = PromotionsAdapter(promotionsModel.promotions, clickListener!!)
-    rv_promotions.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
-            .toInt()))
+    adapter.setPromotions(promotionsModel.promotions)
     rv_promotions.visibility = VISIBLE
-    rv_promotions.adapter = adapter
+    no_network.visibility = GONE
+    locked_promotions.visibility = GONE
+    no_promotions.visibility = GONE
   }
 
   override fun showLoading() {
     promotions_progress_bar.visibility = VISIBLE
+    locked_promotions.visibility = GONE
   }
 
   override fun retryClick() = RxView.clicks(retry_button)
@@ -109,20 +93,25 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun getPromotionClicks() = clickListener!!
 
   override fun showNetworkErrorView() {
+    rv_promotions.visibility = GONE
     no_promotions.visibility = GONE
     no_network.visibility = VISIBLE
     retry_button.visibility = VISIBLE
     retry_animation.visibility = GONE
   }
 
-  override fun hideNetworkErrorView() {
-    no_network.visibility = GONE
-  }
-
   override fun showNoPromotionsScreen() {
     no_network.visibility = GONE
     retry_animation.visibility = GONE
     no_promotions.visibility = VISIBLE
+    locked_promotions.visibility = GONE
+  }
+
+  override fun showLockedPromotionsScreen() {
+    no_network.visibility = GONE
+    retry_animation.visibility = GONE
+    no_promotions.visibility = GONE
+    locked_promotions.visibility = VISIBLE
   }
 
   override fun showRetryAnimation() {
@@ -133,12 +122,6 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun hideLoading() {
     promotions_progress_bar.visibility = INVISIBLE
   }
-
-  override fun hidePromotions() {
-    rv_promotions.visibility = GONE
-  }
-
-  override fun getHomeBackPressed() = activityView.backPressed()
 
   override fun handleBackPressed() {
     // Currently we only call the hide bottom sheet
@@ -164,15 +147,33 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun getBottomSheetContainerClick() = RxView.clicks(bottomsheet_coordinator_container)
 
+  override fun showToast() {
+    Toast.makeText(requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
+        .show()
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return if (item.itemId == android.R.id.home) {
+      if (backEnabled) {
+        activity?.finish()
+      } else {
+        onBackPressedSubject?.onNext(Unit)
+      }
+      true
+    } else {
+      super.onOptionsItemSelected(item)
+    }
+  }
+
   private fun setBackListener(view: View) {
-    activityView.disableBack()
+    backEnabled = false
     view.apply {
       isFocusableInTouchMode = true
       requestFocus()
       setOnKeyListener { _, keyCode, keyEvent ->
         if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
           if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED)
-            onBackPressedSubject?.onNext("")
+            onBackPressedSubject?.onNext(Unit)
         }
         true
       }
@@ -180,7 +181,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   private fun disableBackListener(view: View) {
-    activityView.enableBack()
+    backEnabled = true
     view.apply {
       isFocusableInTouchMode = false
       setOnKeyListener(null)
