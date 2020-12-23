@@ -70,8 +70,6 @@ class RatingRepository(private val sharedPreferences: SharedPreferences,
   interface WalletFeedbackApi {
     @POST("tickets.json")
     fun sendFeedback(@Header("Authorization") authorization: String,
-                     @Body feedback: WalletFeedbackBody)
-        : Single<Response<ResponseBody>>
+                     @Body feedback: WalletFeedbackBody): Single<Response<ResponseBody>>
   }
-
 }
