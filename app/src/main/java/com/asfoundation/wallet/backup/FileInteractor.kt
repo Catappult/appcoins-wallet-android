@@ -8,14 +8,14 @@ import android.os.Environment
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.io.*
 
 class FileInteractor(private val context: Context,
                      private val contentResolver: ContentResolver,
-                     private val preferencesRepositoryType: PreferencesRepositoryType) {
+                     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository) {
 
   private var cachedFile: File? = null
 
@@ -100,7 +100,7 @@ class FileInteractor(private val context: Context,
   }
 
   fun saveChosenUri(uri: Uri) {
-    preferencesRepositoryType.saveChosenUri(uri.toString())
+    backupRestorePreferencesRepository.saveChosenUri(uri.toString())
   }
 
   fun readFile(fileUri: Uri?): Single<String> {

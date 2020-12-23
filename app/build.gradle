@@ -19,8 +19,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 174
-    versionName "1.6.4.0"
+    versionCode 177
+    versionName "1.17.0.2"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -212,8 +212,9 @@ dependencies {
   implementation "aptoide-client-v8:aptoide-analytics-core:$project.aptoide_analytics_version"
 
   implementation "com.asfoundation:applications:$project.asf_applications_version"
-  implementation "com.asfoundation:appcoins-contract-proxy:$project.asf_sdk_version"
   implementation "com.asfoundation:ethereumj-android:$project.ethereumj_sdk_version"
+  implementation "com.blockchainds:appcoins-contract-proxy:$project.appcoins_sdk_version"
+  debugImplementation "com.blockchainds:appcoins-contract-proxy:$project.appcoins_sdk_dev_version"
 
   implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
 

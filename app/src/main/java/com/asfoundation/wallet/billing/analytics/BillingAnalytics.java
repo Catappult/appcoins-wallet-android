@@ -21,6 +21,7 @@ public class BillingAnalytics implements EventSender {
   public static final String RAKAM_PAYMENT_START = "wallet_payment_start";
   public static final String RAKAM_PAYPAL_URL = "wallet_payment_conclusion_paypal";
   public static final String RAKAM_PAYMENT_METHOD_DETAILS = "wallet_payment_method_details";
+  public static final String RAKAM_PAYMENT_BILLING = "wallet_payment_billing";
   private static final String WALLET = "WALLET";
   private static final String EVENT_PACKAGE_NAME = "package_name";
   private static final String EVENT_SKU = "sku";
@@ -231,6 +232,15 @@ public class BillingAnalytics implements EventSender {
     }
 
     analytics.logEvent(eventData, RAKAM_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET);
+  }
+
+  public void sendBillingAddressActionEvent(String packageName, String skuDetails, String value,
+      String purchaseDetails, String transactionType, String action) {
+    Map<String, Object> eventData =
+        createBaseRakamEventMap(packageName, skuDetails, value, purchaseDetails, transactionType,
+            action);
+
+    analytics.logEvent(eventData, RAKAM_PAYMENT_BILLING, AnalyticsManager.Action.CLICK, WALLET);
   }
 
   private Map<String, Object> createBaseRakamEventMap(String packageName, String skuDetails,

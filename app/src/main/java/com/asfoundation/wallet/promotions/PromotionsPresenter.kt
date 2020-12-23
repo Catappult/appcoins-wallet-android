@@ -1,44 +1,41 @@
 package com.asfoundation.wallet.promotions
 
+import android.content.ActivityNotFoundException
 import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.isNoNetworkException
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class PromotionsFragmentPresenter(
-    private val view: PromotionsView,
-    private val activityView: PromotionsActivityView,
-    private val promotionsInteractor: PromotionsInteractorContract,
-    private val preferences: PreferencesRepositoryType,
-    private val disposables: CompositeDisposable,
-    private val networkScheduler: Scheduler,
-    private val viewScheduler: Scheduler) {
+class PromotionsPresenter(private val view: PromotionsView,
+                          private val navigator: PromotionsNavigator,
+                          private val promotionsInteractor: PromotionsInteractor,
+                          private val disposables: CompositeDisposable,
+                          private val networkScheduler: Scheduler,
+                          private val viewScheduler: Scheduler) {
 
   private var cachedBonus = 0.0
+  private var viewState = ViewState.DEFAULT
 
   fun present() {
-    retrievePromotions()
     handlePromotionClicks()
     handleRetryClick()
     handleBottomSheetVisibility()
     handleBackPress()
   }
 
+  fun onResume() {
+    if (shouldRequestPromotions()) retrievePromotions()
+  }
+
   private fun retrievePromotions() {
     disposables.add(promotionsInteractor.retrievePromotions()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSubscribe {
-          view.hidePromotions()
-          view.hideNetworkErrorView()
-          view.showLoading()
-        }
+        .doOnSubscribe { view.showLoading() }
         .doOnSuccess { onPromotions(it) }
         .subscribe({}, { handleError(it) }))
   }
@@ -46,16 +43,28 @@ class PromotionsFragmentPresenter(
   private fun onPromotions(promotionsModel: PromotionsModel) {
     view.hideLoading()
     when {
-      promotionsModel.error == Status.NO_NETWORK -> view.showNetworkErrorView()
-      promotionsModel.promotions.isNotEmpty() -> {
-        cachedBonus = promotionsModel.maxBonus
-        view.showPromotions(promotionsModel)
-        if (preferences.showGamificationDisclaimer()) {
-          view.showBottomSheet()
-          preferences.setGamificationDisclaimerShown()
+      promotionsModel.error == Status.NO_NETWORK -> {
+        viewState = ViewState.NO_NETWORK
+        view.showNetworkErrorView()
+      }
+      promotionsModel.walletOrigin == WalletOrigin.UNKNOWN -> {
+        viewState = ViewState.UNKNOWN
+        view.showLockedPromotionsScreen()
+      }
+      else -> {
+        if (promotionsModel.promotions.isNotEmpty()) {
+          viewState = ViewState.PROMOTIONS
+          cachedBonus = promotionsModel.maxBonus
+          view.showPromotions(promotionsModel)
+          if (promotionsInteractor.shouldShowGamificationDisclaimer()) {
+            view.showBottomSheet()
+            promotionsInteractor.setGamificationDisclaimerShown()
+          }
+        } else {
+          viewState = ViewState.NO_PROMOTIONS
+          view.showNoPromotionsScreen()
         }
       }
-      else -> view.showNoPromotionsScreen()
     }
   }
 
@@ -84,7 +93,7 @@ class PromotionsFragmentPresenter(
 
   private fun mapClickType(promotionClick: PromotionClick) {
     when (promotionClick.id) {
-      GAMIFICATION_ID -> activityView.navigateToGamification(cachedBonus)
+      GAMIFICATION_ID -> navigator.navigateToGamification(cachedBonus)
       GAMIFICATION_INFO -> view.showBottomSheet()
       REFERRAL_ID -> mapReferralClick(promotionClick.extras)
       else -> mapPackagePerkClick(promotionClick.extras)
@@ -93,12 +102,11 @@ class PromotionsFragmentPresenter(
 
   private fun mapReferralClick(extras: Map<String, String>?) {
     if (extras != null) {
-
       val link = extras[ReferralViewHolder.KEY_LINK]
       if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
-        activityView.navigateToInviteFriends()
+        navigator.navigateToInviteFriends()
       } else if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_SHARE && link != null) {
-        activityView.handleShare(link)
+        navigator.handleShare(link)
       }
     }
   }
@@ -106,7 +114,12 @@ class PromotionsFragmentPresenter(
   private fun mapPackagePerkClick(extras: Map<String, String>?) {
     if (extras != null && extras[PromotionsViewHolder.DETAILS_URL_EXTRA] != null) {
       val detailsLink = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
-      activityView.openDetailsLink(detailsLink!!)
+      try {
+        navigator.openDetailsLink(detailsLink!!)
+      } catch (exception: ActivityNotFoundException) {
+        exception.printStackTrace()
+        view.showToast()
+      }
     }
   }
 
@@ -121,9 +134,17 @@ class PromotionsFragmentPresenter(
   }
 
   private fun handleBackPress() {
-    disposables.add(Observable.merge(view.getBackPressed(), view.getHomeBackPressed())
+    disposables.add(view.getBackPressed()
         .observeOn(viewScheduler)
         .doOnNext { view.handleBackPressed() }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun shouldRequestPromotions(): Boolean {
+    return viewState == ViewState.DEFAULT || viewState == ViewState.UNKNOWN
+  }
+
+  enum class ViewState {
+    DEFAULT, UNKNOWN, NO_NETWORK, PROMOTIONS, NO_PROMOTIONS
   }
 }
