@@ -276,13 +276,13 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesABTestRepository(abTestApiProvider: ABTestApiProvider,
+  fun providesABTestRepository(abTestApi: ABTestApi,
                                idsRepository: IdsRepository,
                                @Named("ab-test-local-cache")
                                localCache: HashMap<String, ExperimentModel>,
                                persistence: RoomExperimentPersistence,
                                cacheValidator: ABTestCacheValidator): ABTestRepository {
-    return ABTestCenterRepository(abTestApiProvider, idsRepository, localCache, persistence,
+    return ABTestCenterRepository(abTestApi, idsRepository, localCache, persistence,
         cacheValidator, Schedulers.io())
   }
 }

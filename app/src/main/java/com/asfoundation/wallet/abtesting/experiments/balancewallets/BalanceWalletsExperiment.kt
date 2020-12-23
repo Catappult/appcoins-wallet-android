@@ -20,7 +20,7 @@ class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
     if (assignment != null) {
       return Single.just(assignment)
     }
-    return abTestInteractor.getExperiment(EXPERIMENT_ID, type)
+    return abTestInteractor.getExperiment(EXPERIMENT_ID)
         .flatMap { experiment ->
           var experimentAssignment = NO_EXPERIMENT
           if (!experiment.experimentOver && experiment.partOfExperiment && experiment.assignment != null) {

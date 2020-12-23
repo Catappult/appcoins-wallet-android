@@ -5,24 +5,27 @@ import com.asfoundation.wallet.identification.IdsRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
-class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
+class ABTestCenterRepository(private val api: ABTestApi,
                              private val idsRepository: IdsRepository,
                              private val localCache: HashMap<String, ExperimentModel>,
                              private val persistence: RoomExperimentPersistence,
                              private val cacheValidator: ABTestCacheValidator,
                              private val ioScheduler: Scheduler) : ABTestRepository {
 
-  override fun getExperiment(identifier: String,
-                             type: BaseExperiment.ExperimentType?): Observable<Experiment> {
+  override fun getExperiment(identifier: String): Observable<Experiment> {
     return if (localCache.containsKey(identifier)) {
       if (cacheValidator.isExperimentValid(identifier)) {
         Observable.just(localCache[identifier]!!.experiment)
       } else {
-        retrieveFromApiAndCacheExperiment(identifier, type)
+        retrieveFromApiAndCacheExperiment(identifier)
       }
     } else {
-      retrieveExperimentFromDb(identifier, type)
+      retrieveExperimentFromDb(identifier)
     }
   }
 
@@ -31,8 +34,7 @@ class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
     return if (cacheValidator.isCacheValid(identifier)) {
       return getAndroidId()
           .flatMap { id ->
-            apiProvider.getApi(type)
-                .recordImpression(identifier, id, ABTestRequestBody(IMPRESSION.name))
+            api.recordImpression(identifier, id, ABTestRequestBody(IMPRESSION.name))
                 .toObservable<Boolean>()
                 .map { true }
                 .doOnError { it.printStackTrace() }
@@ -46,11 +48,10 @@ class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
   override fun recordAction(identifier: String,
                             type: BaseExperiment.ExperimentType): Observable<Boolean> {
     return if (cacheValidator.isCacheValid(identifier)) {
-      getExperiment(identifier, null)
+      getExperiment(identifier)
           .flatMap {
             getAndroidId().flatMap { id ->
-              apiProvider.getApi(type)
-                  .recordAction(identifier, id, ABTestRequestBody(it.assignment))
+              api.recordAction(identifier, id, ABTestRequestBody(it.assignment))
                   .toObservable<Boolean>()
                   .map { true }
                   .doOnError { it.printStackTrace() }
@@ -67,12 +68,10 @@ class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
         .andThen(persistence.save(experimentName, experiment.experiment))
   }
 
-  private fun getExperimentFromApi(identifier: String,
-                                   type: BaseExperiment.ExperimentType): Observable<ExperimentModel> {
+  private fun getExperimentFromApi(identifier: String): Observable<ExperimentModel> {
     return getAndroidId()
         .flatMap {
-          apiProvider.getApi(type)
-              .getExperiment(identifier, it)
+          api.getExperiment(identifier, it)
               .subscribeOn(ioScheduler)
         }
         .map { mapToExperimentModel(it) }
@@ -94,8 +93,7 @@ class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
     return Observable.just(idsRepository.getAndroidId())
   }
 
-  private fun retrieveExperimentFromDb(identifier: String,
-                                       type: BaseExperiment.ExperimentType?): Observable<Experiment> {
+  private fun retrieveExperimentFromDb(identifier: String): Observable<Experiment> {
     return persistence[identifier]
         .toObservable()
         .observeOn(ioScheduler)
@@ -106,17 +104,33 @@ class ABTestCenterRepository(private val apiProvider: ABTestApiProvider,
             }
             Observable.just(model.experiment)
           } else {
-            retrieveFromApiAndCacheExperiment(identifier, type)
+            retrieveFromApiAndCacheExperiment(identifier)
           }
         }
   }
 
-  private fun retrieveFromApiAndCacheExperiment(identifier: String,
-                                                type: BaseExperiment.ExperimentType?): Observable<Experiment> {
-    return getExperimentFromApi(identifier, type!!)
+  private fun retrieveFromApiAndCacheExperiment(identifier: String): Observable<Experiment> {
+    return getExperimentFromApi(identifier)
         .flatMap { experimentToCache ->
           cacheExperiment(experimentToCache, identifier).andThen(
               Observable.just(experimentToCache.experiment))
         }
   }
+}
+
+interface ABTestApi {
+  @GET("assignments/applications/Android/experiments/{experimentName}/users/{aptoideId}")
+  fun getExperiment(@Path(value = "experimentName") experimentName: String,
+                    @Path(value = "aptoideId")
+                    aptoideId: String): Observable<ABTestImpressionResponse>
+
+  @POST("events/applications/Android/experiments/{experimentName}/users/{aptoideId}")
+  fun recordImpression(@Path(value = "experimentName") experimentName: String,
+                       @Path(value = "aptoideId") aptoideId: String,
+                       @Body body: ABTestRequestBody): Completable
+
+  @POST("events/applications/Android/experiments/{experimentName}/users/{aptoideId}")
+  fun recordAction(@Path(value = "experimentName") experimentName: String,
+                   @Path(value = "aptoideId") aptoideId: String,
+                   @Body body: ABTestRequestBody): Completable
 }

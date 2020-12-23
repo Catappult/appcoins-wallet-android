@@ -35,7 +35,9 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   private var paymentMethodsIcons: ArrayList<String> = ArrayList()
 
   companion object {
-    fun newInstance(context: Context, fromSupportNotification: Boolean = false): Intent {
+
+    @JvmStatic
+    fun newIntent(context: Context, fromSupportNotification: Boolean = false): Intent {
       val intent = Intent(context, OnboardingActivity::class.java)
       intent.putExtra(SUPPORT_NOTIFICATION_CLICK, fromSupportNotification)
       return intent

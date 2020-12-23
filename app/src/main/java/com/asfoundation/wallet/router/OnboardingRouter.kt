@@ -8,7 +8,7 @@ class OnboardingRouter {
 
   fun open(context: Context, isClearStack: Boolean,
            fromSupportNotification: Boolean = false) {
-    val intent = OnboardingActivity.newInstance(context, fromSupportNotification)
+    val intent = OnboardingActivity.newIntent(context, fromSupportNotification)
     if (isClearStack) {
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
     }

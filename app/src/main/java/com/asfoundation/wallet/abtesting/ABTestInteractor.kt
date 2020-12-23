@@ -6,9 +6,8 @@ import io.reactivex.Single
 
 class ABTestInteractor(private val abTestRepository: ABTestRepository) {
 
-  fun getExperiment(identifier: String,
-                    type: BaseExperiment.ExperimentType): Single<Experiment> {
-    return abTestRepository.getExperiment(identifier, type)
+  fun getExperiment(identifier: String): Single<Experiment> {
+    return abTestRepository.getExperiment(identifier)
         .firstOrError()
   }
 

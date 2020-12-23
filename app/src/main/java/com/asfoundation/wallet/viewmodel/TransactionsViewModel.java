@@ -60,6 +60,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
+  private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -71,7 +72,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final CurrencyFormatUtils formatter;
   private final Scheduler viewScheduler;
   private final Scheduler networkScheduler;
-  private MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private CompositeDisposable disposables;
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;

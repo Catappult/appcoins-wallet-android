@@ -18,7 +18,7 @@ import com.aptoide.apk.injector.extractor.domain.IExtract
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.AirdropService
-import com.asfoundation.wallet.abtesting.ABTestApiProvider
+import com.asfoundation.wallet.abtesting.ABTestApi
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.AnalyticsAPI
 import com.asfoundation.wallet.apps.Applications
@@ -560,9 +560,14 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun providesABTestApiProvider(
-      @Named("low-timer") okHttpClient: OkHttpClient, gson: Gson): ABTestApiProvider {
-    return ABTestApiProvider(okHttpClient, GsonConverterFactory.create(gson),
-        RxJava2CallAdapterFactory.create())
+  fun providesABTestApi(@Named("low-timer") client: OkHttpClient, gson: Gson): ABTestApi {
+    val baseUrl = BuildConfig.APTOIDE_WEB_SERVICES_AB_TEST_HOST
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(ABTestApi::class.java)
   }
 }

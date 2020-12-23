@@ -33,13 +33,12 @@ class SplashPresenter(private val interactor: SplashInteractor,
                 .subscribeOn(ioScheduler),
             interactor.retrieveExperiment()
                 .subscribeOn(ioScheduler),
-            BiFunction { autoUpdateModel: AutoUpdateModel, config: String ->
-              Pair(autoUpdateModel, config)
+            BiFunction { autoUpdateModel: AutoUpdateModel, _: String ->
+              autoUpdateModel
             })
             .observeOn(viewScheduler)
-            .doOnSuccess { (autoUpdateModel, _) ->
-              if (interactor.isHardUpdateRequired(autoUpdateModel.blackList,
-                      autoUpdateModel.updateVersionCode, autoUpdateModel.updateMinSdk)) {
+            .doOnSuccess { (updateVersionCode, updateMinSdk, blackList) ->
+              if (interactor.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)) {
                 navigator.navigateToAutoUpdate()
               } else {
                 if (interactor.hasAuthenticationPermission()) {
