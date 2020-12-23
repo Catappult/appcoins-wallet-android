@@ -24,8 +24,11 @@ class RatingActivity : BaseActivity() {
   }
 
   override fun onBackPressed() {
-    onBackPressedSubject.onNext(Unit)
-    super.onBackPressed()
+    if (backEnabled) {
+      super.onBackPressed()
+    } else {
+      onBackPressedSubject.onNext(Unit)
+    }
   }
 
   fun disableBack() {

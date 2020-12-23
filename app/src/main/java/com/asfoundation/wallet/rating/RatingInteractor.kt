@@ -14,32 +14,28 @@ class RatingInteractor(private val ratingRepository: RatingRepository,
 
   fun shouldOpenRatingDialog(): Single<Boolean> {
     val remindMeLaterDate = ratingRepository.getRemindMeLaterDate()
-    if (remindMeLaterDate > -1F && remindMeLaterDate <= System.currentTimeMillis()) {
+    if (remindMeLaterDate > -1L && remindMeLaterDate <= System.currentTimeMillis()) {
       return Single.just(true)
     }
     if (!ratingRepository.hasSeenDialog()) {
       return gamificationInteractor.getUserStats()
-          .map { stats ->
-            if (stats.level >= 6) {
-              true
-            } else {
-              ratingRepository.getSuccessfulTransactions() >= 5
-            }
-          }
+          .map { stats -> stats.level >= 6 || ratingRepository.hasEnoughSuccessfulTransactions() }
     }
     return Single.just(false)
   }
 
-  fun saveTransactionsNumber(transactions: List<Transaction>) {
-    var transactionsNumber = 0L
+  fun updateTransactionsNumber(transactions: List<Transaction>) {
+    var transactionsNumber = 0
     for (transaction in transactions) {
       if ((transaction.type == Transaction.TransactionType.IAP
               || transaction.type == Transaction.TransactionType.TOP_UP)
           && transaction.status == Transaction.TransactionStatus.SUCCESS) {
-        transactionsNumber++
+        if (++transactionsNumber >= 5) {
+          ratingRepository.saveEnoughSuccessfulTransactions()
+          break
+        }
       }
     }
-    ratingRepository.saveSuccessfulTransactions(transactionsNumber)
   }
 
   fun sendUserFeedback(feedbackText: String): Completable {

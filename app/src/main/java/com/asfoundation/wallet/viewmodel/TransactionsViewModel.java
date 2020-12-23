@@ -355,7 +355,7 @@ public class TransactionsViewModel extends BaseViewModel {
           .size() > 0 && last != null && last) {
         progress.postValue(true);
       }
-      ratingInteractor.saveTransactionsNumber(transactionsModel.getTransactions());
+      ratingInteractor.updateTransactionsNumber(transactionsModel.getTransactions());
     });
   }
 
