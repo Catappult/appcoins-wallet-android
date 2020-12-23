@@ -4,6 +4,8 @@ import io.reactivex.Observable
 
 interface RatingPositiveView {
   fun rateAppClickEvent(): Observable<Any>
+
   fun remindMeLaterClickEvent(): Observable<Any>
+
   fun noClickEvent(): Observable<Any>
 }
