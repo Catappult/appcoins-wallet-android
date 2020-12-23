@@ -31,11 +31,15 @@ class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
         }
   }
 
-  override fun mapConfiguration(assignment: String): Int {
+  override fun mapConfiguration(assignment: String?): Int {
     return when (assignment) {
       "Balance" -> R.string.balance_title
       "MyWallets" -> R.string.bottom_navigation_my_wallets
       else -> R.string.balance_title
     }
+  }
+
+  override fun getCachedAssignment(): Int {
+    return mapConfiguration(assignment)
   }
 }

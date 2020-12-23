@@ -134,4 +134,6 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
 
   fun mapConfiguration(assignment: String): Int =
       balanceWalletsExperiment.mapConfiguration(assignment)
+
+  fun getCachedExperiment() = balanceWalletsExperiment.getCachedAssignment()
 }

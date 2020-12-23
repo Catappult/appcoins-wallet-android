@@ -403,7 +403,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showTokens(Context context) {
     analytics.sendAbTestConversionEvent();
-    transactionViewNavigator.openTokensView(context);
+    transactionViewNavigator.openTokensView(context, transactionViewInteract.getCachedExperiment());
   }
 
   public void pause() {
