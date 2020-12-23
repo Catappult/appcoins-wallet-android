@@ -17,13 +17,13 @@ class UpdateRequiredActivity : BaseActivity(), UpdateRequiredView {
   private lateinit var presenter: UpdateRequiredPresenter
 
   @Inject
-  lateinit var autoUpdateInteract: AutoUpdateInteract
+  lateinit var interactor: AutoUpdateInteract
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     AndroidInjection.inject(this)
     setContentView(R.layout.update_required_main_layout)
-    presenter = UpdateRequiredPresenter(this, CompositeDisposable(), autoUpdateInteract)
+    presenter = UpdateRequiredPresenter(this, CompositeDisposable(), interactor)
     presenter.present()
   }
 
