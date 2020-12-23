@@ -31,7 +31,7 @@ class RatingNegativePresenter(private val view: RatingNegativeView,
             .doOnNext { view.setLoading() }
             .observeOn(ioScheduler)
             .doOnNext { analytics.sendNegativeActionEvent("submit") }
-            .filter { feedbackText -> !feedbackText.isBlank() }
+            .filter { feedbackText -> feedbackText.isNotBlank() }
             .flatMap { feedbackText ->
               interactor.sendUserFeedback(feedbackText)
                   .doOnComplete { navigator.navigateToFinish() }
