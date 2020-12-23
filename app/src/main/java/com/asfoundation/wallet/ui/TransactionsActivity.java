@@ -32,7 +32,6 @@ import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.rating.RatingActivity;
-import com.asfoundation.wallet.rating.RatingInteractor;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
@@ -72,7 +71,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject CurrencyFormatUtils formatter;
-  @Inject RatingInteractor ratingInteractor;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
