@@ -49,15 +49,9 @@ class RatingInteractor(private val ratingRepository: RatingRepository,
         .subscribeOn(ioScheduler)
   }
 
-  fun isNotFirstTime(): Boolean {
-    return ratingRepository.isNotFirstTime()
-  }
+  fun isNotFirstTime(): Boolean = ratingRepository.isNotFirstTime()
 
-  fun setRemindMeLater() {
-    ratingRepository.setRemindMeLater()
-  }
+  fun setRemindMeLater() = ratingRepository.setRemindMeLater()
 
-  fun setImpression() {
-    ratingRepository.setImpression()
-  }
+  fun setImpression() = ratingRepository.setImpression()
 }

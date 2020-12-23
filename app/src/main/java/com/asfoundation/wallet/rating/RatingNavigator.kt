@@ -13,13 +13,9 @@ import io.reactivex.Observable
 class RatingNavigator(private val activity: RatingActivity,
                       private val fragmentManager: FragmentManager) {
 
-  fun disableActivityBack() {
-    activity.disableBack()
-  }
+  fun disableActivityBack() = activity.disableBack()
 
-  fun enableActivityBack() {
-    activity.enableBack()
-  }
+  fun enableActivityBack() = activity.enableBack()
 
   fun onBackPressed(): Observable<Any> {
     return activity.onBackPressedSubject
@@ -45,9 +41,7 @@ class RatingNavigator(private val activity: RatingActivity,
 
   }
 
-  fun closeActivity() {
-    activity.finish()
-  }
+  fun closeActivity() = activity.finish()
 
   fun navigateToFinish() {
     fragmentManager.beginTransaction()
