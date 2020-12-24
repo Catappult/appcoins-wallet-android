@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
@@ -63,9 +62,9 @@ public class GasSettingsActivity extends BaseActivity {
     BigDecimal gasLimitMax = BigDecimal.valueOf(C.GAS_LIMIT_MAX);
     BigDecimal gasPriceMin = BigDecimal.valueOf(C.GAS_PRICE_MIN);
     BigInteger networkFeeMax = BigInteger.valueOf(C.NETWORK_FEE_MAX);
-    Pair<BigDecimal, BigDecimal> savedGasPreference = viewModel.getSavedGasPreferences();
-    BigDecimal savedGasPrice = savedGasPreference.first;
-    BigDecimal savedLimit = savedGasPreference.second;
+    GasSettings savedGasPreference = viewModel.getSavedGasPreferences();
+    BigDecimal savedGasPrice = savedGasPreference.gasPrice;
+    BigDecimal savedLimit = savedGasPreference.gasLimit;
 
     final BigDecimal gasPriceGwei = BalanceUtils.weiToGwei(gasPrice);
     final BigDecimal gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin);

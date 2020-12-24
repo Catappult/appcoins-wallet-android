@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.viewmodel
 
-import android.util.Pair
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ui.GasSettingsInteractor
 import java.math.BigDecimal
@@ -20,11 +20,11 @@ class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInterac
   }
 
   fun prepare() {
-    disposable = gasSettingsInteractor.find()
+    disposable.add(gasSettingsInteractor.findDefaultNetwork()
         .subscribe(
             { networkInfo: NetworkInfo ->
               onDefaultNetwork(networkInfo)
-            }) { throwable: Throwable? -> onError(throwable) }
+            }) { throwable: Throwable? -> onError(throwable) })
   }
 
   fun gasPrice(): MutableLiveData<BigDecimal> = gasPrice
@@ -33,9 +33,7 @@ class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInterac
 
   fun defaultNetwork(): LiveData<NetworkInfo> = defaultNetwork
 
-  private fun onDefaultNetwork(networkInfo: NetworkInfo) {
-    defaultNetwork.value = networkInfo
-  }
+  private fun onDefaultNetwork(networkInfo: NetworkInfo) = defaultNetwork.postValue(networkInfo)
 
   fun networkFee(): BigDecimal {
     return gasPrice.value!!
@@ -48,9 +46,7 @@ class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInterac
     }
   }
 
-  fun getSavedGasPreferences(): Pair<BigDecimal?, BigDecimal?> {
-    return gasSettingsInteractor.getSavedGasPreferences()
-  }
+  fun getSavedGasPreferences(): GasSettings = gasSettingsInteractor.getSavedGasPreferences()
 
   companion object {
     const val SET_GAS_SETTINGS = 1

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.viewmodel
 
 import android.app.Activity
-import android.util.Pair
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.asfoundation.wallet.entity.GasSettings
@@ -13,7 +12,6 @@ import com.asfoundation.wallet.ui.TransferConfirmationInteractor
 import com.asfoundation.wallet.util.BalanceUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import java.math.BigDecimal
 
 class TransferConfirmationViewModel internal constructor(
     private val transferConfirmationInteractor: TransferConfirmationInteractor,
@@ -29,12 +27,13 @@ class TransferConfirmationViewModel internal constructor(
   }
 
   fun init(transactionBuilder: TransactionBuilder) {
-    subscription = transferConfirmationInteractor.fetch(transactionBuilder.shouldSendToken())
-        .doOnSuccess { gasSettings: GasSettings? ->
-          transactionBuilder.gasSettings(gasSettings)
-          this.transactionBuilder.postValue(transactionBuilder)
-        }
-        .subscribe({}, { throwable: Throwable -> onError(throwable) })
+    subscription =
+        transferConfirmationInteractor.fetchGasSettings(transactionBuilder.shouldSendToken())
+            .doOnSuccess { gasSettings: GasSettings? ->
+              transactionBuilder.gasSettings(gasSettings)
+              this.transactionBuilder.postValue(transactionBuilder)
+            }
+            .subscribe({}, { throwable: Throwable -> onError(throwable) })
   }
 
   override fun onCleared() {
@@ -76,13 +75,13 @@ class TransferConfirmationViewModel internal constructor(
 
   fun send() {
     progress.postValue(true)
-    disposable = transferConfirmationInteractor.send(transactionBuilder.value)
+    disposable.add(transferConfirmationInteractor.send(transactionBuilder.value)
         .map { hash: String? -> PendingTransaction(hash, false) }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
             { pendingTransaction: PendingTransaction ->
               onCreateTransaction(pendingTransaction)
-            }) { throwable: Throwable -> onError(throwable) }
+            }) { throwable: Throwable -> onError(throwable) })
   }
 
   fun setGasSettings(gasSettings: GasSettings?) {
@@ -95,7 +94,5 @@ class TransferConfirmationViewModel internal constructor(
     }
   }
 
-  fun getGasPreferences(): Pair<BigDecimal?, BigDecimal?> {
-    return transferConfirmationInteractor.getGasPreferences()
-  }
+  fun getGasPreferences(): GasSettings = transferConfirmationInteractor.getGasPreferences()
 }

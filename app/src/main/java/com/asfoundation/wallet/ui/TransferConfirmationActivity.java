@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -19,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
+import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.BalanceUtils;
@@ -121,14 +121,14 @@ public class TransferConfirmationActivity extends BaseActivity {
         networkFeeMax.divide(gasLimitMax.toBigInteger())
             .subtract(gasPriceMin.toBigInteger())));
     final BigDecimal gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin);
-    Pair<BigDecimal, BigDecimal> savedGasPreferences = viewModel.getGasPreferences();
-    if (isSavedLimitInRange(savedGasPreferences.first, gasPriceMinGwei, gasPriceMaxGwei)) {
-      gasPrice = savedGasPreferences.first;
+    GasSettings savedGasPreferences = viewModel.getGasPreferences();
+    if (isSavedLimitInRange(savedGasPreferences.gasPrice, gasPriceMinGwei, gasPriceMaxGwei)) {
+      gasPrice = savedGasPreferences.gasPrice;
     } else {
       gasPrice = BalanceUtils.weiToGwei(gasPrice);
     }
-    if (isSavedLimitInRange(savedGasPreferences.second, gasLimitMin, gasLimitMax)) {
-      gasLimit = savedGasPreferences.second;
+    if (isSavedLimitInRange(savedGasPreferences.gasLimit, gasLimitMin, gasLimitMax)) {
+      gasLimit = savedGasPreferences.gasLimit;
     }
     String formattedGasPrice = getString(R.string.gas_price_value,
         currencyFormatUtils.formatTransferCurrency(gasPrice, WalletCurrency.ETHEREUM), GWEI_UNIT);

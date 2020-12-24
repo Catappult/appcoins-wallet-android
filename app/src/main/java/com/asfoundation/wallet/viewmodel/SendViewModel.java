@@ -61,8 +61,8 @@ public class SendViewModel extends BaseViewModel {
       disposables.add(fetchGasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
           .subscribe(this::onGasSettings, this::onError));
 
-      disposable = findDefaultWalletInteract.find()
-          .subscribe(this::onDefaultWallet, this::onError);
+      disposables.add(findDefaultWalletInteract.find()
+          .subscribe(this::onDefaultWallet, this::onError));
     } else {
       disposables.add(transferParser.parse(data.toString())
           .flatMapObservable(transaction -> {

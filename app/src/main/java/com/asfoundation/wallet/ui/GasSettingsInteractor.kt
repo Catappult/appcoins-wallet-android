@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui
 
-import android.util.Pair
+import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract
 import com.asfoundation.wallet.repository.GasPreferenceRepository
@@ -10,7 +10,7 @@ import java.math.BigDecimal
 class GasSettingsInteractor(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
                             private val gasPreferencesRepository: GasPreferenceRepository) {
 
-  fun find(): Single<NetworkInfo> = findDefaultNetworkInteract.find()
+  fun findDefaultNetwork(): Single<NetworkInfo> = findDefaultNetworkInteract.find()
 
   fun saveGasPreferences(price: BigDecimal, limit: BigDecimal) {
     val savedGasPrice = gasPreferencesRepository.getSavedGasPrice()
@@ -23,8 +23,8 @@ class GasSettingsInteractor(private val findDefaultNetworkInteract: FindDefaultN
     }
   }
 
-  fun getSavedGasPreferences(): Pair<BigDecimal?, BigDecimal?> {
-    return Pair(gasPreferencesRepository.getSavedGasPrice(),
+  fun getSavedGasPreferences(): GasSettings {
+    return GasSettings(gasPreferencesRepository.getSavedGasPrice(),
         gasPreferencesRepository.getSavedGasLimit())
   }
 }
