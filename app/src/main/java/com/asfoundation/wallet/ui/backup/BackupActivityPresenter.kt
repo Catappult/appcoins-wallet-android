@@ -3,8 +3,10 @@ package com.asfoundation.wallet.ui.backup
 import android.content.Context
 import android.content.Intent
 import androidx.documentfile.provider.DocumentFile
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment
 
 class BackupActivityPresenter(private val view: BackupActivityView,
                               private val data: BackupActivityData,
@@ -26,6 +28,13 @@ class BackupActivityPresenter(private val view: BackupActivityView,
         }
       }
       view.onDocumentFile(systemFileIntentResult)
+    }
+  }
+
+  fun sendWalletSaveFileEvent(currentFragment: String) {
+    if (currentFragment == BackupCreationFragment::class.java.simpleName) {
+      eventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_BACK,
+          WalletsAnalytics.STATUS_FAIL, WalletsAnalytics.REASON_CANCELED)
     }
   }
 }

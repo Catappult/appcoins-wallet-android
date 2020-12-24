@@ -25,26 +25,26 @@
       android:id="@+id/bottomsheet_coordinator_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:layout_constraintTop_toTopOf="parent"
+      android:background="@color/bottom_sheet_translucent_background"
+      android:clickable="true"
+      android:elevation="2dp"
+      android:focusable="true"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      android:background="@color/bottom_sheet_translucent_background"
-      android:elevation="2dp"
-      android:visibility="gone"
-      android:clickable="true"
-      android:focusable="true"
+      app:layout_constraintTop_toTopOf="parent"
       >
 
-  <include
-      android:id="@+id/bottom_sheet_fragment_container"
-      layout="@layout/gamification_info_bottom_sheet"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_sheet_small_height"
-      app:behavior_hideable="true"
-      app:behavior_peekHeight="0dp"
-      app:layout_behavior="@string/bottom_sheet_behavior"
-      />
+    <include
+        android:id="@+id/bottom_sheet_fragment_container"
+        layout="@layout/gamification_info_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_sheet_small_height"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        />
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -64,8 +64,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/half_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
   <include
       android:id="@+id/no_promotions"
@@ -73,10 +74,21 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/half_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
+  <include
+      android:id="@+id/locked_promotions"
+      layout="@layout/locked_promotions_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/half_guideline"
       android:layout_width="wrap_content"

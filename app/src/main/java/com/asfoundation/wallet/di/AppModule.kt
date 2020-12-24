@@ -25,7 +25,9 @@ import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionDatabase
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_1_2
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_2_3
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.WalletOriginDao
 import com.appcoins.wallet.permissions.Permissions
 import com.aptoide.apk.injector.extractor.data.Extractor
 import com.aptoide.apk.injector.extractor.data.ExtractorV1
@@ -353,6 +355,7 @@ internal class AppModule {
   fun providesPromotionDatabase(context: Context): PromotionDatabase {
     return Room.databaseBuilder(context, PromotionDatabase::class.java, "promotion_database")
         .addMigrations(MIGRATION_1_2)
+        .addMigrations(MIGRATION_2_3)
         .build()
   }
 
@@ -370,6 +373,12 @@ internal class AppModule {
   @Provides
   fun providesLevelDao(promotionDatabase: PromotionDatabase) =
       promotionDatabase.levelDao()
+
+  @Singleton
+  @Provides
+  fun providesWalletOriginDao(promotionDatabase: PromotionDatabase): WalletOriginDao {
+    return promotionDatabase.walletOriginDao()
+  }
 
   @Provides
   fun providesObjectMapper(): ObjectMapper {

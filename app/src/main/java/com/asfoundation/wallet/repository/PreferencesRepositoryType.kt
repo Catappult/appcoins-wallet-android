@@ -17,9 +17,9 @@ interface PreferencesRepositoryType {
 
   fun setCurrentWalletAddress(address: String)
 
-  fun isFirstTimeOnTransactionActivity(): Boolean
+  fun hasSeenPromotionTooltip(): Boolean
 
-  fun setFirstTimeOnTransactionActivity()
+  fun setHasSeenPromotionTooltip()
 
   fun getPoaNotificationSeenTime(): Long
 
@@ -41,39 +41,9 @@ interface PreferencesRepositoryType {
 
   fun setUpdateNotificationSeenTime(currentTimeMillis: Long)
 
-  fun getBackupNotificationSeenTime(walletAddress: String): Long
-
-  fun setBackupNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
-
-  fun removeBackupNotificationSeenTime(walletAddress: String): Completable
-
-  fun isWalletRestoreBackup(walletAddress: String): Boolean
-
-  fun setWalletRestoreBackup(walletAddress: String)
-
-  fun removeWalletRestoreBackup(walletAddress: String): Completable
-
-  fun hasShownBackup(walletAddress: String): Boolean
-
-  fun setHasShownBackup(walletAddress: String, hasShown: Boolean)
-
   fun getAndroidId(): String
 
   fun setAndroidId(androidId: String)
-
-  fun getGamificationLevel(): Int
-
-  fun saveChosenUri(uri: String)
-
-  fun getChosenUri(): String?
-
-  fun getSeenBackupTooltip(): Boolean
-
-  fun saveSeenBackupTooltip()
-
-  fun hasDismissedBackupSystemNotification(walletAddress: String): Boolean
-
-  fun setDismissedBackupSystemNotification(walletAddress: String)
 
   fun getWalletPurchasesCount(walletAddress: String): Int
 
@@ -83,20 +53,11 @@ interface PreferencesRepositoryType {
 
   fun getWalletId(): String?
 
-  fun setPromotionNotificationSeenTime(walletAddress: String, currentTimeMillis: Long)
+  fun hasBeenInSettings(): Boolean
 
-  fun removePromotionNotificationSeenTime(walletAddress: String): Completable
+  fun setBeenInSettings()
 
-  fun showGamificationDisclaimer(): Boolean
+  fun increaseTimesOnHome()
 
-  fun setGamificationDisclaimerShown()
-
-  fun setAuthenticationPermission(result: Boolean)
-
-  fun hasAuthenticationPermission(): Boolean
-
-  fun setAuthenticationErrorTime(timer: Long)
-
-  fun getAuthenticationErrorTime(): Long
-
+  fun getNumberOfTimesOnHome(): Int
 }

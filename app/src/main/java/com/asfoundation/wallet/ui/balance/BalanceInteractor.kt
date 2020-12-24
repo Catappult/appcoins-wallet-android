@@ -4,6 +4,7 @@ import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
@@ -21,6 +22,7 @@ class BalanceInteractor(
     private val walletInteract: FindDefaultWalletInteract,
     private val balanceRepository: BalanceRepository,
     private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
     private val smsValidationInteract: SmsValidationInteract) {
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
@@ -112,9 +114,9 @@ class BalanceInteractor(
 
   fun isWalletValidated(address: String) = preferencesRepositoryType.isWalletValidated(address)
 
-  fun hasSeenBackupTooltip() = preferencesRepositoryType.getSeenBackupTooltip()
+  fun hasSeenBackupTooltip() = backupRestorePreferencesRepository.getSeenBackupTooltip()
 
-  fun saveSeenBackupTooltip() = preferencesRepositoryType.saveSeenBackupTooltip()
+  fun saveSeenBackupTooltip() = backupRestorePreferencesRepository.saveSeenBackupTooltip()
 
   private fun mapOverallBalance(creditsBalance: Pair<Balance, FiatValue>,
                                 appcBalance: Pair<Balance, FiatValue>,

@@ -27,7 +27,7 @@
   <string name="low_storage_error">Ruang penyimpanan tidak cukup</string>
   <string name="no_camera_permission_title">Izin Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet membutuhkan izin untuk mengakses kamera Anda guna memindai kode QR.</string>
-  <string name="no_camera_available">No camera available!</string>
+  <string name="no_camera_available">Kamera tidak tersedia!</string>
   <string name="ok">Oke</string>
   <string name="barcode_error_format">Format barcode tidak valid: %s</string>
   <string name="title_delete_account">Anda yakin ingin menghapus dompet ini?</string>
@@ -117,7 +117,7 @@
   <string name="intro_3_body">Proses semua pembelian in-app Anda dengan metode pembayaran favorit.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
   <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
-  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
+  <string name="intro_4_body_2">Semua transaksi yang Anda lakukan selalu aman berkat teknologi terkini.</string>
   <string name="intro_5_title">Dapatkan Kredit AppCoins Gratis!</string>
   <string name="intro_5_body">Anda akan mendapatkan Kredit AppCoins gratis dengan mencoba aplikasi dan permainan.</string>
   <string name="intro_creating_wallet_short">Menyiapkan dompet untuk Anda&#8230;</string>
@@ -225,21 +225,21 @@
   <string name="transaction_status_success">Berhasil</string>
   <string name="transaction_status_pending">Ditangguhkan</string>
   <string name="transaction_status_failed">Gagal</string>
-  <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_status_reverted">Dikembalikan</string>
   <string name="transaction_type_iab">Pembelian In-App</string>
   <string name="transaction_type_poa">Hadiah</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_voucher">e-Voucher</string>
-  <string name="transaction_type_voucher_title">Voucher for %s</string>
+  <string name="transaction_type_voucher_title">Voucher untuk %s</string>
   <string name="transaction_type_reverted_bonus_title">Bonus yang Dikembalikan</string>
   <string name="transaction_type_reverted_bonus_body">Bonus yang Anda terima pada %s sudah dikembalikan. Hubungi Tim Dukungan untuk informasi lebih lanjut.</string>
   <string name="transaction_type_reverted_topup_title">Pengembalian Dana Top-Up</string>
   <string name="transaction_type_reverted_topup_body">Top-up yang Anda lakukan pada %s sudah dikembalikan. Hubungi Tim Dukungan untuk informasi lebih lanjut.</string>
   <string name="transaction_type_reverted_purchase_title">Pengembalian Dana Pembelian</string>
   <string name="transaction_type_reverted_purchase_body">Pembelian yang Anda lakukan pada %s sudah dikembalikan. Hubungi Tim Dukungan untuk informasi lebih lanjut.</string>
-  <string name="transaction_reverted_view_original_header">Original Transaction</string>
+  <string name="transaction_reverted_view_original_header">Transaksi Semula</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Diberdayakan oleh Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -408,11 +408,11 @@
   <string name="common_or">ATAU</string>
   <string name="share_via">Bagikan melalui:</string>
   <string name="password">Kata Sandi</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No,thanks</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="repeat_password">Ulangi kata sandi</string>
+  <string name="turn_on_button">Aktifkan</string>
+  <string name="no_thanks_button">Tidak, terima kasih</string>
+  <string name="remind_later_button">Ingatkan saya nanti</string>
+  <string name="get_code_button">Dapatkan kode</string>
   <string name="confirm_button">Konfirmasi</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
@@ -427,7 +427,7 @@
   <string name="title_redeem">Dapatkan Kode</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
   <string name="settings_subheader_support">Dukungan</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">Tentang Kami</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Sedang diproses&#8230;</string>
   <string name="local_payments_inprogress_body">Setelah pembayaran selesai, Anda akan menerima Kredit AppCoin di dompet Anda. Kemudian, kembalilah ke permainan untuk melakukan pembelian!</string>
@@ -461,8 +461,8 @@
   <string name="verification_error_time_expired">Ups, waktu Anda sudah habis. Mulai lagi!</string>
   <string name="verification_error_attempts_reached">Sepertinya Anda sudah mencapai batas percobaan. Harap tunggu untuk mencoba lagi.</string>
   <string name="verified_tag">Terverifikasi</string>
-  <string name="unferified_tag">Unverified wallet</string>
-  <string name="verification_wallets_verify_button">Verify</string>
+  <string name="unferified_tag">Dompet belum diverifikasi</string>
+  <string name="verification_wallets_verify_button">Verifikasi</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Sepertinya pembelian ini sedang diproses. Harap tunggu sampai transaksinya selesai atau hubungi Tim Dukungan kami.</string>
   <string name="purchase_more_payment_methods_button">METODE PEMBAYARAN LAINNYA</string>
@@ -493,13 +493,13 @@
   <string name="purchase_card_error_wrong_CVV">Kode CVV/CVC Anda sepertinya salah. Silakan coba lagi.</string>
   <string name="purchase_wallet_error_contact_us">Ups, ada masalah dengan dompet Anda. Silakan hubungi kami.</string>
   <string name="purchase_carrier_error">Sepertinya nomor telepon Anda tidak kompatibel dengan metode pembayaran ini.</string>
-  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
-  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
+  <string name="purchase_carrier_error_minimum">Operator Anda tidak mendukung pembayaran kurang dari %s.</string>
+  <string name="purchase_carrier_error_maximum">Operator Anda tidak mendukung pembayaran lebih dari %s.</string>
   <string name="purchase_error_fraud_code_20">Ups, terjadi masalah terkait pembelian ini. Silakan hubungi kami.</string>
   <string name="purchase_error_wallet_block_code_403">Sepertinya ada masalah dengan dompet Anda. Silakan hubungi kami.</string>
   <string name="purchase_card_error_CVV">CVV/CVC salah</string>
   <string name="error_contac_us_body">Kalau masalah tetap ada, silakan hubungi kami.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Coba selesaikan pembelian setelah memverifikasi dompet Anda.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -559,8 +559,8 @@
   <string name="promotions_tab_poa_title">MAIN &amp; BERPENGHASILAN</string>
   <string name="promotions_empty_promotions_body">Saat ini tidak tersedia promosi. Kembali lagi nanti!</string>
   <string name="promotions_empty_poa_body">Saat ini tidak tersedia aplikasi yang dilengkapi hadiah. Kembali lagi nanti!</string>
-  <string name="promotions_perks_button">Perks</string>
-  <string name="promotions_vouhers_button">Vouchers</string>
+  <string name="promotions_perks_button">Bonus</string>
+  <string name="promotions_vouhers_button">Voucher</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Perbarui untuk menerima hadiah</string>
   <string name="update_wallet_poa_notification_body">Harap perbarui Dompet AppCoins untuk menerima hadiah ini.</string>
@@ -611,11 +611,11 @@
   <string name="backup_notification_title">Buat cadangan dompet!</string>
   <string name="backup_notification_body">Jaga keamanan dana Anda dan pastikan agar Anda selalu bisa mengakses dompet Anda.</string>
   <string name="backup_choose_wallet_title">Pilih dompet untuk dicadangkan</string>
-  <string name="backup_additional_security_title">Additional Security (optional)</string>
-  <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
-  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
-  <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
+  <string name="backup_additional_security_title">Keamanan Tambahan (opsional)</string>
+  <string name="backup_additional_security_body">Pilih kata sandi</string>
+  <string name="backup_additional_security_disclaimer_title">Harap jaga keamanan kata sandi Anda.</string>
+  <string name="backup_additional_security_disclaimer_body">Tidak ada pemulihan kata sandi.</string>
+  <string name="backup_additional_security_password_not_march">Kata sandi tidak cocok.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Total saldo dalam %s</string>
@@ -758,14 +758,14 @@
   <string name="carrier_billing_fees_disclaimer">Mungkin akan dikenakan biaya tambahan</string>
   <string name="carrier_billing_insert_phone_body">Silakan masukkan nomor telepon Anda</string>
   <string name="carrier_billing_phone_field">Nomor telepon Anda...</string>
-  <string name="carrier_billing_carrier_fees_body">%1$s akan mengenakan biaya %2$s</string>
+  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
   <string name="carrier_billing_purchase_info_body">%1$s di %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Nomor telepon Anda adalah %s.</string>
   <string name="carrier_billing_enter_pin_body">Silakan masukkan PIN yang diterima lewat SMS.</string>
   <string name="carrier_billing_code_field">Kode Anda...</string>
   <string name="carrier_billing_code_resend_button">KIRIM ULANG KODE</string>
   <string name="carrier_billing_submit_button">KIRIM</string>
-  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
+  <string name="carrier_billing_number_not_supported">Sepertinya nomor Anda tidak kompatibel dengan metode pembayaran ini.</string>
   <string name="carrier_billing_terms_disclaimer">Dengan mengetuk Kirim, Anda mengonfirmasi bahwa Anda menyetujui Syarat dan Ketentuan serta Kebijakan Privasi.</string>
   <string name="carrier_billing_help_1">Perlu bantuan?</string>
   <string name="carrier_billing_help_2_button">Hubungi Dukungan</string>
@@ -786,7 +786,7 @@
   <string name="manage_cards_select_title">Pilih kartu pembayaran</string>
   <string name="manage_cards_remember">Ingat kartu</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_title">Dapatkan hingga %s%% Bonus di setiap pembelian</string>
   <string name="perks_gamif_subtitle">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar bonusnya!</string>
   <string name="perks_title">Promosi</string>
   <string name="perks_body">Jangan kemana-mana! Kami punya promosi khusus untuk Anda.</string>
@@ -815,51 +815,50 @@
   <string name="fingerprint_failed_body">Silakan coba lagi dalam %s detik.</string>
   <string name="fingerprint_authentication_required_title">Diperlukan otentikasi!</string>
   <string name="fingerprint_authentication_required_body">Silakan gunakan jari atau kata sandi Anda untuk melanjutkan.</string>
-  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
+  <string name="fingerprint_popup_body">Autentikasi sidik jari sekarang tersedia!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Kirim log ke Tim Dukungan</string>
   <string name="send_logs_sending">Mengirim&#8230;</string>
   <string name="send_logs_send">Terkirim!</string>
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
-  <string name="rate_us_no">Not really</string>
-  <string name="rate_us_yes">Yes!</string>
-  <string name="rate_us_improve_title">What can we improve?</string>
-  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
-  <string name="rate_us_improve_field__empty_error">Please write something</string>
-  <string name="rate_us_possitive_thanks_title">Thank you!</string>
-  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
-  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <string name="rate_us_question_title">Menyukai Dompet AppCoins?</string>
+  <string name="rate_us_no">Kurang suka</string>
+  <string name="rate_us_yes">Ya!</string>
+  <string name="rate_us_improve_title">Apa yang bisa kami tingkatkan?</string>
+  <string name="rate_us_improve_field">Sampaikan kepada kami kekurangan yang ada, nanti akan kami perbaiki.</string>
+  <string name="rate_us_improve_field__empty_error">Silakan tulis sesuatu</string>
+  <string name="rate_us_possitive_thanks_title">Terima kasih!</string>
+  <string name="rate_us_possitive_thanks_body">Kami senang Anda menyukai aplikasi kami. Bisakah Anda membantu kami dengan memberi nilai untuk kami di toko aplikasi?</string>
+  <string name="rate_us_possitive_rate_button">BERI NILAI UNTUK DOMPET APPCOINS</string>
+  <string name="rate_us_possitive_done_title">Terima kasih atas umpan balik Anda!</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
-  <string name="card_verification_code_title">Check the code in the transaction details</string>
-  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
-  <string name="card_verification_code_example_title">Example of Transaction Summary</string>
-  <string name="card_verification_code_example_date">Trans. Date</string>
-  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_body">Gunakan kartu kredit/debit Anda untuk memverifikasi dompet Anda.</string>
+  <string name="card_verification_charde_disclaimer">Kami akan membebankan %s ke kartu Anda, dan kami akan mengembalikannya setelah Anda mengkonfirmasi kodenya.</string>
+  <string name="card_verification_code_title">Periksa kode di rincian transaksi</string>
+  <string name="card_verification_code_body">Kode unik akan muncul pada ringkasan transaksi yang diberikan oleh penerbit kartu Anda.</string>
+  <string name="card_verification_code_example_title">Contoh Ringkasan Transaksi</string>
+  <string name="card_verification_code_example_date">Tanggal Trans.</string>
+  <string name="card_verification_code_example_description">Deskripsi</string>
   <string name="card_verification_code_example_amount">Jumlah</string>
-  <string name="card_verification_code_example_code">Unique code</string>
-  <string name="card_verification_code_example_expiry">Expires in 3 days.</string>
-  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
+  <string name="card_verification_code_example_code">Kode unik.\nBerakhir %s hari lagi.</string>
+  <string name="card_verification_code_enter_title">Masukkan kode %s digit</string>
   <plurals name="card_verification_code_enter_hours_body">
-    <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
+    <item quantity="other">%1$s akan dikembalikan dalam %2$s jam setelah Anda mengkonfirmasi kode.</item>
   </plurals>
   <plurals name="card_verification_code_enter_days_body">
-    <item quantity="other">%1$s will be refunded within %2$s days after you confirm the code.</item>
+    <item quantity="other">%1$s akan dikembalikan dalam %2$s hari setelah Anda mengkonfirmasi kode.</item>
   </plurals>
-  <string name="card_verification_code_other_card_button">Try with another card</string>
-  <string name="card_verification_code_wrong_error">Wrong code</string>
-  <string name="card_verification_wallets_one_step_title">One more step to validate</string>
-  <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
-  <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <string name="card_verification_code_other_card_button">Coba dengan kartu lain</string>
+  <string name="card_verification_code_wrong_error">Kode salah</string>
+  <string name="card_verification_wallets_one_step_title">Satu langkah lagi untuk memvalidasi</string>
+  <string name="card_verification_wallets_one_step_body">Masukkan kode yang muncul dalam rincian transaksi.</string>
+  <string name="card_verification_wallets_insert_bode_button">Masukkan kode</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
-  <string name="voucher_buy_header">Voucher for %s</string>
-  <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
-  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
-  <string name="voucher_code_title">Voucher Code</string>
-  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
-  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
+  <string name="voucher_card_body">Beli voucher ini dan dapatkan bonus sampai %s%%.</string>
+  <string name="voucher_buy_header">Voucher untuk %s</string>
+  <string name="voucher_buy_no_game_title">Apakah Anda tidak punya %s?</string>
+  <string name="voucher_buy_no_game_install_button">UNDUH SEKARANG</string>
+  <string name="voucher_code_title">Kode Voucher</string>
+  <string name="voucher_instructions_body">Masuk ke %s dan gunakan kode untuk menukarkan voucher Anda.</string>
+  <string name="voucher_instructions_transactions">Anda bisa menemukan kode voucher dalam riwayat transaksi.</string>
 </resources>

@@ -58,6 +58,8 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -117,11 +119,16 @@ public class TransactionsViewModel extends BaseViewModel {
     return defaultWalletBalance;
   }
 
+  public MutableLiveData<Boolean> shouldShowPromotionsTooltip() {
+    return showPromotionTooltip;
+  }
+
   public void prepare() {
     if (disposables.isDisposed()) {
       disposables = new CompositeDisposable();
     }
     progress.postValue(true);
+    handlePromotionTooltipVisibility();
     disposables.add(transactionViewInteract.findNetwork()
         .subscribe(this::onDefaultNetwork, this::onError));
     disposables.add(transactionViewInteract.hasPromotionUpdate()
@@ -138,6 +145,24 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(wallet -> {
         }, this::onError));
     handleTopUpClicks();
+  }
+
+  public void handleFingerprintTooltipVisibility(String packageName) {
+    disposables.add(transactionViewInteract.shouldShowFingerprintTooltip(packageName)
+        .doOnSuccess(showFingerprintTooltip::postValue)
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
+  }
+
+  private void handlePromotionTooltipVisibility() {
+    disposables.add(transactionViewInteract.hasSeenPromotionTooltip()
+        .doOnSuccess(hasBeen -> {
+          Boolean shouldShowCachedValue = showPromotionTooltip.getValue();
+          boolean shouldShow = !hasBeen && (shouldShowCachedValue == null || shouldShowCachedValue);
+          showPromotionTooltip.postValue(shouldShow);
+        })
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
   }
 
   public void handleUnreadConversationCount() {
@@ -325,7 +350,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showSettings(Context context) {
-    transactionViewNavigator.openSettings(context);
+    transactionViewNavigator.openSettings(context, false);
   }
 
   public void showSend(Context context) {
@@ -460,5 +485,30 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void clearShareApp() {
     shareApp.setValue(null);
+  }
+
+  public MutableLiveData<Boolean> shouldShowFingerprintTooltip() {
+    return showFingerprintTooltip;
+  }
+
+  public void increaseTimesInHome() {
+    transactionViewInteract.increaseTimesOnHome();
+  }
+
+  public void onTurnFingerprintOnClick(Context context) {
+    transactionViewNavigator.openSettings(context, true);
+    transactionViewInteract.setSeenFingerprintTooltip();
+  }
+
+  public void onFingerprintDismissed() {
+    transactionViewInteract.setSeenFingerprintTooltip();
+  }
+
+  public void onPromotionsShown() {
+    showPromotionTooltip.postValue(false);
+  }
+
+  public void onFingerprintTooltipShown() {
+    showFingerprintTooltip.postValue(false);
   }
 }

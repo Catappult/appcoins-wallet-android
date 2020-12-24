@@ -18,27 +18,29 @@ import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.permissions.Permissions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
+import com.asfoundation.wallet.analytics.LaunchAnalytics
+import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.asfoundation.wallet.promotions.PromotionsInteractor
-import com.asfoundation.wallet.promotions.PromotionsInteractorContract
 import com.asfoundation.wallet.referrals.ReferralInteractor
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
@@ -53,8 +55,7 @@ import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.topup.TopUpInteractor
 import com.asfoundation.wallet.topup.TopUpLimitValues
 import com.asfoundation.wallet.topup.TopUpValuesService
-import com.asfoundation.wallet.ui.FingerPrintInteractor
-import com.asfoundation.wallet.ui.SettingsInteractor
+import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
@@ -63,8 +64,8 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
-import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
+import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
@@ -86,6 +87,14 @@ import javax.inject.Singleton
 
 @Module
 class InteractorModule {
+
+  @Singleton
+  @Provides
+  fun providesLaunchInteractor(launchAnalytics: LaunchAnalytics,
+                               sharedPreferences: SharedPreferences,
+                               packageManager: PackageManager): LaunchInteractor {
+    return LaunchInteractor(launchAnalytics, sharedPreferences, packageManager)
+  }
 
   @Provides
   @Named("APPROVE_SERVICE_ON_CHAIN")
@@ -256,9 +265,10 @@ class InteractorModule {
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
-                                  gamificationMapper: GamificationMapper): PromotionsInteractorContract {
+                                  userStatsLocalData: UserStatsLocalData,
+                                  gamificationMapper: GamificationMapper): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, gamificationMapper)
+        promotionsRepository, findDefaultWalletInteract, userStatsLocalData, gamificationMapper)
   }
 
   @Provides
@@ -299,9 +309,10 @@ class InteractorModule {
   fun provideBalanceInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
                              balanceRepository: BalanceRepository,
                              preferencesRepositoryType: PreferencesRepositoryType,
+                             backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                              smsValidationInteract: SmsValidationInteract) =
       BalanceInteractor(findDefaultWalletInteract, balanceRepository,
-          preferencesRepositoryType, smsValidationInteract)
+          preferencesRepositoryType, backupRestorePreferencesRepository, smsValidationInteract)
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
@@ -315,8 +326,8 @@ class InteractorModule {
   @Singleton
   @Provides
   fun provideFileInteract(context: Context, contentResolver: ContentResolver,
-                          preferencesRepositoryType: PreferencesRepositoryType) =
-      FileInteractor(context, contentResolver, preferencesRepositoryType)
+                          backupRestorePreferencesRepository: BackupRestorePreferencesRepository) =
+      FileInteractor(context, contentResolver, backupRestorePreferencesRepository)
 
   @Provides
   fun providePaymentMethodsInteractor(supportInteractor: SupportInteractor,
@@ -324,11 +335,11 @@ class InteractorModule {
                                       balanceInteractor: BalanceInteractor,
                                       walletBlockedInteract: WalletBlockedInteract,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                      preferencesRepositoryType: PreferencesRepositoryType,
+                                      fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                       billing: Billing,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(supportInteractor, gamificationInteractor, balanceInteractor,
-        walletBlockedInteract, inAppPurchaseInteractor, preferencesRepositoryType, billing,
+        walletBlockedInteract, inAppPurchaseInteractor, fingerprintPreferences, billing,
         bdsPendingTransactionService)
   }
 
@@ -337,9 +348,9 @@ class InteractorModule {
                                       walletBlockedInteract: WalletBlockedInteract,
                                       supportInteractor: SupportInteractor,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                      preferencesRepositoryType: PreferencesRepositoryType): MergedAppcoinsInteractor {
+                                      fingerprintPreferences: FingerprintPreferencesRepositoryContract): MergedAppcoinsInteractor {
     return MergedAppcoinsInteractor(balanceInteractor, walletBlockedInteract, supportInteractor,
-        inAppPurchaseInteractor, preferencesRepositoryType)
+        inAppPurchaseInteractor, fingerprintPreferences)
   }
 
   @Provides
@@ -385,12 +396,18 @@ class InteractorModule {
                                       fetchTransactionsInteract: FetchTransactionsInteract,
                                       gamificationInteractor: GamificationInteractor,
                                       balanceInteractor: BalanceInteractor,
-                                      promotionsInteractorContract: PromotionsInteractorContract,
+                                      promotionsInteractor: PromotionsInteractor,
                                       cardNotificationsInteractor: CardNotificationsInteractor,
-                                      autoUpdateInteract: AutoUpdateInteract): TransactionViewInteract {
+                                      autoUpdateInteract: AutoUpdateInteract,
+                                      preferencesRepositoryType: PreferencesRepositoryType,
+                                      packageManager: PackageManager,
+                                      fingerprintInteractor: FingerprintInteractor,
+                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteract {
     return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
-        promotionsInteractorContract, cardNotificationsInteractor, autoUpdateInteract)
+        promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract,
+        preferencesRepositoryType, packageManager, fingerprintInteractor,
+        fingerprintPreferencesRepository)
   }
 
   @Provides
@@ -401,21 +418,23 @@ class InteractorModule {
 
   @Provides
   fun provideBackupInteractor(sharedPreferences: PreferencesRepositoryType,
+                              backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                               gamificationInteractor: GamificationInteractor,
                               fetchTransactionsInteract: FetchTransactionsInteract,
                               balanceInteractor: BalanceInteractor,
                               findDefaultWalletInteract: FindDefaultWalletInteract): BackupInteractContract {
-    return BackupInteract(sharedPreferences, fetchTransactionsInteract, balanceInteractor,
-        gamificationInteractor, findDefaultWalletInteract)
+    return BackupInteract(sharedPreferences, backupRestorePreferencesRepository,
+        fetchTransactionsInteract, balanceInteractor, gamificationInteractor,
+        findDefaultWalletInteract)
   }
 
   @Provides
   fun provideCardNotificationInteractor(referralInteractor: ReferralInteractorContract,
                                         autoUpdateInteract: AutoUpdateInteract,
                                         backupInteract: BackupInteractContract,
-                                        promotionsInteractorContract: PromotionsInteractorContract): CardNotificationsInteractor {
+                                        promotionsInteractor: PromotionsInteractor): CardNotificationsInteractor {
     return CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        backupInteract, promotionsInteractorContract)
+        backupInteract, promotionsInteractor, Schedulers.io())
   }
 
   @Singleton
@@ -434,8 +453,11 @@ class InteractorModule {
 
   @Provides
   fun provideDeleteAccountInteract(accountRepository: WalletRepositoryType, store: PasswordStore,
-                                   preferencesRepositoryType: PreferencesRepositoryType): DeleteWalletInteract {
-    return DeleteWalletInteract(accountRepository, store, preferencesRepositoryType)
+                                   preferencesRepositoryType: PreferencesRepositoryType,
+                                   backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+                                   fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): DeleteWalletInteract {
+    return DeleteWalletInteract(accountRepository, store, preferencesRepositoryType,
+        backupRestorePreferencesRepository, fingerprintPreferencesRepository)
   }
 
   @Provides
@@ -473,23 +495,11 @@ class InteractorModule {
   @Provides
   fun provideRestoreWalletInteract(
       walletRepository: WalletRepositoryType, passwordStore: PasswordStore,
-      preferencesRepositoryType: PreferencesRepositoryType,
+      backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
       setDefaultWalletInteractor: SetDefaultWalletInteractor,
       fileInteractor: FileInteractor): RestoreWalletInteractor {
     return RestoreWalletInteractor(walletRepository, setDefaultWalletInteractor,
-        passwordStore, preferencesRepositoryType, fileInteractor)
-  }
-
-  @Provides
-  fun providesSettingsInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
-                               supportInteractor: SupportInteractor,
-                               walletsInteract: WalletsInteract,
-                               autoUpdateInteract: AutoUpdateInteract,
-                               fingerPrintInteractor: FingerPrintInteractor,
-                               walletsEventSender: WalletsEventSender,
-                               preferencesRepositoryType: PreferencesRepositoryType): SettingsInteractor {
-    return SettingsInteractor(findDefaultWalletInteract, supportInteractor, walletsInteract,
-        autoUpdateInteract, fingerPrintInteractor, walletsEventSender, preferencesRepositoryType)
+        passwordStore, backupRestorePreferencesRepository, fileInteractor)
   }
 
   @Provides
@@ -505,8 +515,8 @@ class InteractorModule {
   @Provides
   fun provideFingerprintInteract(biometricManager: BiometricManager,
                                  packageManager: PackageManager,
-                                 preferencesRepositoryType: PreferencesRepositoryType): FingerPrintInteractor {
-    return FingerPrintInteractor(biometricManager, packageManager, preferencesRepositoryType)
+                                 fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): FingerprintInteractor {
+    return FingerprintInteractor(biometricManager, packageManager, fingerprintPreferencesRepository)
   }
 
   @Singleton
