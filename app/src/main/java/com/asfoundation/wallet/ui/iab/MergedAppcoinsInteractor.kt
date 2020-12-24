@@ -4,8 +4,8 @@ import android.util.Pair
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -17,7 +17,7 @@ class MergedAppcoinsInteractor(private val balanceInteractor: BalanceInteractor,
                                private val walletBlockedInteract: WalletBlockedInteract,
                                private val supportInteractor: SupportInteractor,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                               private val preferencesRepositoryType: PreferencesRepositoryType) {
+                               private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return supportInteractor.showSupport(gamificationLevel)
@@ -52,5 +52,5 @@ class MergedAppcoinsInteractor(private val balanceInteractor: BalanceInteractor,
     }
   }
 
-  fun hasAuthenticationPermission() = preferencesRepositoryType.hasAuthenticationPermission()
+  fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
 }

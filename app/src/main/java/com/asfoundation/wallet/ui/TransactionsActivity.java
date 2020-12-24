@@ -5,12 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,9 +32,10 @@ import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.referrals.CardNotification;
-import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
+import com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem;
+import com.asfoundation.wallet.ui.overlay.OverlayFragment;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
@@ -61,9 +66,9 @@ import static com.asfoundation.wallet.support.SupportNotificationProperties.SUPP
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
+  private static String FROM_APP_OPENING_FLAG = "app_opening_flag";
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
-  @Inject PreferencesRepositoryType preferencesRepositoryType;
   @Inject CurrencyFormatUtils formatter;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
@@ -79,14 +84,19 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private View badge;
   private int paddingDp;
   private boolean showScroll = false;
+  private View tooltip;
+  private PopupWindow popup;
+  private View fadedBackground;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
   }
 
-  public static Intent newIntent(Context context, boolean supportNotificationClicked) {
+  public static Intent newIntent(Context context, boolean supportNotificationClicked,
+      boolean fromAppOpening) {
     Intent intent = new Intent(context, TransactionsActivity.class);
     intent.putExtra(SUPPORT_NOTIFICATION_CLICK, supportNotificationClicked);
+    intent.putExtra(FROM_APP_OPENING_FLAG, fromAppOpening);
     return intent;
   }
 
@@ -100,10 +110,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     enableDisplayHomeAsUp();
 
     disposables = new CompositeDisposable();
-
     balanceSkeleton = findViewById(R.id.balance_skeleton);
     balanceSkeleton.setVisibility(View.VISIBLE);
     emptyClickableView = findViewById(R.id.empty_clickable_view);
+    tooltip = getLayoutInflater().inflate(R.layout.fingerprint_tooltip, null);
     emptyClickableView.setVisibility(View.VISIBLE);
     balanceSkeleton.playAnimation();
     subtitleView = findViewById(R.id.toolbar_subtitle);
@@ -176,10 +186,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::updateSupportIcon);
     viewModel.shareApp()
         .observe(this, this::shareApp);
+    viewModel.shouldShowPromotionsTooltip()
+        .observe(this, this::showPromotionsOverlay);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
-    handlePromotionsOverlayVisibility();
 
     if (savedInstanceState == null) {
+      boolean fromAppOpening = getIntent().getBooleanExtra(FROM_APP_OPENING_FLAG, false);
+      if (fromAppOpening) viewModel.increaseTimesInHome();
       boolean supportNotificationClick =
           getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
       if (supportNotificationClick) {
@@ -196,6 +209,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return super.onOptionsItemSelected(item);
   }
 
+  @Override public void onBackPressed() {
+    if (popup != null && popup.isShowing() && fadedBackground != null) {
+      dismissPopup();
+    } else {
+      super.onBackPressed();
+    }
+  }
+
   private void shareApp(String url) {
     if (url != null) {
       viewModel.clearShareApp();
@@ -204,13 +225,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .setType("text/plain")
           .setChooserTitle(R.string.share_via)
           .startChooser();
-    }
-  }
-
-  private void handlePromotionsOverlayVisibility() {
-    if (!preferencesRepositoryType.isFirstTimeOnTransactionActivity()) {
-      showPromotionsOverlay();
-      preferencesRepositoryType.setFirstTimeOnTransactionActivity();
     }
   }
 
@@ -307,6 +321,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
     supportActionView = menu.findItem(R.id.action_support);
     viewModel.handleUnreadConversationCount();
+    viewModel.shouldShowFingerprintTooltip()
+        .observe(this, this::showFingerprintTooltip);
+    viewModel.handleFingerprintTooltipVisibility(getPackageName());
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -426,6 +443,39 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     super.onDestroy();
   }
 
+  private void setTooltip() {
+    View settingsView = findViewById(R.id.action_settings);
+    if (settingsView != null) {
+      popup = new PopupWindow(tooltip);
+      popup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+      popup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+      int yOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35f,
+          getResources().getDisplayMetrics());
+      fadedBackground = findViewById(R.id.faded_background);
+      fadedBackground.setVisibility(View.VISIBLE);
+      popup.showAsDropDown(settingsView, 0, yOffset * -1);
+      setTooltipListeners();
+      viewModel.onFingerprintTooltipShown();
+    }
+  }
+
+  private void setTooltipListeners() {
+    tooltip.findViewById(R.id.tooltip_later_button)
+        .setOnClickListener(v -> dismissPopup());
+    Context context = this;
+    tooltip.findViewById(R.id.tooltip_turn_on_button)
+        .setOnClickListener(v -> {
+          dismissPopup();
+          viewModel.onTurnFingerprintOnClick(context);
+        });
+  }
+
+  private void dismissPopup() {
+    viewModel.onFingerprintDismissed();
+    fadedBackground.setVisibility(View.GONE);
+    popup.dismiss();
+  }
+
   private void onBalanceChanged(GlobalBalance globalBalance) {
     if (globalBalance.getFiatValue()
         .length() > 0 && !globalBalance.getFiatSymbol()
@@ -494,13 +544,23 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.navigateToPromotions(this);
   }
 
-  public void showPromotionsOverlay() {
-    getSupportFragmentManager().beginTransaction()
-        .setCustomAnimations(R.anim.fragment_fade_in_animation, R.anim.fragment_fade_out_animation,
-            R.anim.fragment_fade_in_animation, R.anim.fragment_fade_out_animation)
-        .add(R.id.container, OverlayFragment.newInstance(0))
-        .addToBackStack(OverlayFragment.class.getName())
-        .commit();
+  private void showPromotionsOverlay(Boolean shouldShow) {
+    if (shouldShow) {
+      getSupportFragmentManager().beginTransaction()
+          .setCustomAnimations(R.anim.fragment_fade_in_animation,
+              R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
+              R.anim.fragment_fade_out_animation)
+          .add(R.id.container,
+              OverlayFragment.newInstance(BottomNavigationItem.PROMOTIONS.getPosition()))
+          .addToBackStack(OverlayFragment.class.getName())
+          .commit();
+      viewModel.onPromotionsShown();
+    }
+  }
+
+  private void showFingerprintTooltip(Boolean shouldShow) {
+    //Handler is needed otherwise the view returned by findViewById(R.id.action_settings) is null
+    if (shouldShow) new Handler().post(this::setTooltip);
   }
 
   private void dismissNotification(CardNotification cardNotification) {

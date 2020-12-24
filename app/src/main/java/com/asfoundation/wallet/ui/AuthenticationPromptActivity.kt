@@ -16,7 +16,7 @@ import javax.inject.Inject
 class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
   @Inject
-  lateinit var fingerprintInteractor: FingerPrintInteractor
+  lateinit var fingerprintInteractor: FingerprintInteractor
 
   private lateinit var presenter: AuthenticationPromptPresenter
 
