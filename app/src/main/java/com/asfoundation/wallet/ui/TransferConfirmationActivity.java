@@ -24,9 +24,9 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.WalletCurrency;
-import com.asfoundation.wallet.viewmodel.ConfirmationViewModel;
-import com.asfoundation.wallet.viewmodel.ConfirmationViewModelFactory;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
+import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
+import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
 import dagger.android.AndroidInjection;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -36,13 +36,13 @@ import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
 import static com.asfoundation.wallet.C.GWEI_UNIT;
 
-public class ConfirmationActivity extends BaseActivity {
-  private static final String TAG = ConfirmationActivity.class.getSimpleName();
+public class TransferConfirmationActivity extends BaseActivity {
+  private static final String TAG = TransferConfirmationActivity.class.getSimpleName();
 
   AlertDialog dialog;
-  @Inject ConfirmationViewModelFactory confirmationViewModelFactory;
+  @Inject TransferConfirmationViewModelFactory transferConfirmationViewModelFactory;
   CurrencyFormatUtils currencyFormatUtils;
-  ConfirmationViewModel viewModel;
+  TransferConfirmationViewModel viewModel;
   private TextView fromAddressText;
   private TextView toAddressText;
   private TextView valueText;
@@ -66,8 +66,8 @@ public class ConfirmationActivity extends BaseActivity {
     networkFeeText = findViewById(R.id.text_network_fee);
     findViewById(R.id.send_button).setOnClickListener(view -> onSend());
 
-    viewModel = ViewModelProviders.of(this, confirmationViewModelFactory)
-        .get(ConfirmationViewModel.class);
+    viewModel = ViewModelProviders.of(this, transferConfirmationViewModelFactory)
+        .get(TransferConfirmationViewModel.class);
     viewModel.transactionBuilder()
         .observe(this, this::onTransactionBuilder);
     viewModel.transactionHash()
@@ -87,7 +87,7 @@ public class ConfirmationActivity extends BaseActivity {
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_edit) {
-      viewModel.openGasSettings(ConfirmationActivity.this);
+      viewModel.openGasSettings(TransferConfirmationActivity.this);
     }
     return super.onOptionsItemSelected(item);
   }

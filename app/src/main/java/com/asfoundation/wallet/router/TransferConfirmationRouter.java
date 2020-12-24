@@ -4,24 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.ActivityResultSharer;
-import com.asfoundation.wallet.ui.ConfirmationActivity;
+import com.asfoundation.wallet.ui.TransferConfirmationActivity;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import org.jetbrains.annotations.Nullable;
 
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
 
-public class ConfirmationRouter implements ActivityResultSharer.ActivityResultListener {
+public class TransferConfirmationRouter implements ActivityResultSharer.ActivityResultListener {
 
   public static final int TRANSACTION_CONFIRMATION_REQUEST_CODE = 12344;
   private final PublishSubject<Result> result;
 
-  public ConfirmationRouter(PublishSubject<Result> result) {
+  public TransferConfirmationRouter(PublishSubject<Result> result) {
     this.result = result;
   }
 
   public void open(Activity activity, TransactionBuilder transactionBuilder) {
-    Intent intent = new Intent(activity, ConfirmationActivity.class);
+    Intent intent = new Intent(activity, TransferConfirmationActivity.class);
     intent.putExtra(EXTRA_TRANSACTION_BUILDER, transactionBuilder);
     activity.startActivityForResult(intent, TRANSACTION_CONFIRMATION_REQUEST_CODE);
   }

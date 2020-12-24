@@ -9,14 +9,14 @@ import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.router.GasSettingsRouter
-import com.asfoundation.wallet.ui.ConfirmationInteractor
+import com.asfoundation.wallet.ui.TransferConfirmationInteractor
 import com.asfoundation.wallet.util.BalanceUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
 
-class ConfirmationViewModel internal constructor(
-    private val confirmationInteractor: ConfirmationInteractor,
+class TransferConfirmationViewModel internal constructor(
+    private val transferConfirmationInteractor: TransferConfirmationInteractor,
     private val gasSettingsRouter: GasSettingsRouter,
     private val logger: Logger) : BaseViewModel() {
 
@@ -25,11 +25,11 @@ class ConfirmationViewModel internal constructor(
   private var subscription: Disposable? = null
 
   companion object {
-    private val TAG = ConfirmationViewModel::class.java.simpleName
+    private val TAG = TransferConfirmationViewModel::class.java.simpleName
   }
 
   fun init(transactionBuilder: TransactionBuilder) {
-    subscription = confirmationInteractor.fetch(transactionBuilder.shouldSendToken())
+    subscription = transferConfirmationInteractor.fetch(transactionBuilder.shouldSendToken())
         .doOnSuccess { gasSettings: GasSettings? ->
           transactionBuilder.gasSettings(gasSettings)
           this.transactionBuilder.postValue(transactionBuilder)
@@ -76,7 +76,7 @@ class ConfirmationViewModel internal constructor(
 
   fun send() {
     progress.postValue(true)
-    disposable = confirmationInteractor.send(transactionBuilder.value)
+    disposable = transferConfirmationInteractor.send(transactionBuilder.value)
         .map { hash: String? -> PendingTransaction(hash, false) }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
@@ -96,6 +96,6 @@ class ConfirmationViewModel internal constructor(
   }
 
   fun getGasPreferences(): Pair<BigDecimal?, BigDecimal?> {
-    return confirmationInteractor.getGasPreferences()
+    return transferConfirmationInteractor.getGasPreferences()
   }
 }

@@ -9,9 +9,9 @@ import com.asfoundation.wallet.repository.GasPreferenceRepository
 import io.reactivex.Single
 import java.math.BigDecimal
 
-class ConfirmationInteractor(private val sendTransactionInteract: SendTransactionInteract,
-                             private val fetchGasSettingsInteract: FetchGasSettingsInteract,
-                             private val gasPreferencesRepository: GasPreferenceRepository) {
+class TransferConfirmationInteractor(private val sendTransactionInteract: SendTransactionInteract,
+                                     private val fetchGasSettingsInteract: FetchGasSettingsInteract,
+                                     private val gasPreferencesRepository: GasPreferenceRepository) {
 
   fun fetch(shouldSendToken: Boolean): Single<GasSettings> {
     return fetchGasSettingsInteract.fetch(shouldSendToken)

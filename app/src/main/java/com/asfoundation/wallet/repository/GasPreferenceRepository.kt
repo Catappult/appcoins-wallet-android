@@ -24,13 +24,13 @@ class GasPreferenceRepository(private val pref: SharedPreferences) {
 
   fun getSavedGasPrice(): BigDecimal? {
     val price = pref.getLong(GAS_PRICE, -1)
-    return if (price == (-1).toLong()) null
+    return if (price == -1L) null
     else BigDecimal(price)
   }
 
   fun getSavedGasLimit(): BigDecimal? {
     val limit = pref.getLong(GAS_LIMIT, -1)
-    return if (limit == (-1).toLong()) null
+    return if (limit == -1L) null
     else BigDecimal(limit)
   }
 }
