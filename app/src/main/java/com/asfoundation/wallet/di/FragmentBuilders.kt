@@ -7,6 +7,7 @@ import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
 import com.asfoundation.wallet.promotions.PromotionsFragment
+import com.asfoundation.wallet.promotions.PromotionsModule
 import com.asfoundation.wallet.referrals.InviteFriendsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
 import com.asfoundation.wallet.referrals.ReferralsFragment
@@ -137,7 +138,8 @@ abstract class FragmentBuilders {
   @ContributesAndroidInjector
   abstract fun bindCodeValidationFragment(): CodeValidationFragment
 
-  @ContributesAndroidInjector
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [PromotionsModule::class])
   abstract fun bindPromotionsFragment(): PromotionsFragment
 
   @ContributesAndroidInjector

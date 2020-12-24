@@ -5,6 +5,7 @@ import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.FetchTransactionsInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
+import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit
 
 class BackupInteract(
     private val sharedPreferencesRepository: PreferencesRepositoryType,
+    private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
     private val fetchTransactionsInteract: FetchTransactionsInteract,
     private val balanceInteractor: BalanceInteractor,
     private val gamificationInteractor: GamificationInteractor,
@@ -36,7 +38,7 @@ class BackupInteract(
         .flatMap { wallet ->
           getBackupThreshold(wallet.address)
               .doOnSuccess {
-                if (it) sharedPreferencesRepository.setHasShownBackup(wallet.address, it)
+                if (it) backupRestorePreferencesRepository.setHasShownBackup(wallet.address, it)
               }
               .map { shouldShow ->
                 BackupNotification(
@@ -53,15 +55,16 @@ class BackupInteract(
     return findDefaultWalletInteract.find()
         .flatMapCompletable {
           Completable.fromAction {
-            sharedPreferencesRepository.setBackupNotificationSeenTime(it.address,
+            backupRestorePreferencesRepository.setBackupNotificationSeenTime(it.address,
                 System.currentTimeMillis())
           }
         }
   }
 
   private fun getBackupThreshold(walletAddress: String): Single<Boolean> {
-    val walletRestoreBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
-    val previouslyShownBackup = sharedPreferencesRepository.hasShownBackup(walletAddress)
+    val walletRestoreBackup =
+        backupRestorePreferencesRepository.isWalletRestoreBackup(walletAddress)
+    val previouslyShownBackup = backupRestorePreferencesRepository.hasShownBackup(walletAddress)
     return if (walletRestoreBackup) {
       Single.just(false)
     } else {
@@ -100,7 +103,8 @@ class BackupInteract(
 
   private fun meetsLastDismissConditions(walletAddress: String): Single<Boolean> {
     return Single.create {
-      val savedTime = sharedPreferencesRepository.getBackupNotificationSeenTime(walletAddress)
+      val savedTime =
+          backupRestorePreferencesRepository.getBackupNotificationSeenTime(walletAddress)
       val currentTime = System.currentTimeMillis()
       val result = currentTime >= savedTime + TimeUnit.DAYS.toMillis(DISMISS_PERIOD)
       it.onSuccess(result)
@@ -108,10 +112,10 @@ class BackupInteract(
   }
 
   override fun shouldShowSystemNotification(walletAddress: String): Boolean {
-    val hasRestoredBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
+    val hasRestoredBackup = backupRestorePreferencesRepository.isWalletRestoreBackup(walletAddress)
     val count = sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
     return if (hasRestoredBackup.not() && count > 0 && count % PURCHASE_NOTIFICATION_THRESHOLD == 0) {
-      sharedPreferencesRepository.hasDismissedBackupSystemNotification(walletAddress)
+      backupRestorePreferencesRepository.hasDismissedBackupSystemNotification(walletAddress)
           .not()
     } else {
       false
@@ -119,7 +123,7 @@ class BackupInteract(
   }
 
   override fun updateWalletPurchasesCount(walletAddress: String): Completable {
-    val hasRestoredBackup = sharedPreferencesRepository.isWalletRestoreBackup(walletAddress)
+    val hasRestoredBackup = backupRestorePreferencesRepository.isWalletRestoreBackup(walletAddress)
     return if (hasRestoredBackup.not()) {
       Single.just(sharedPreferencesRepository.getWalletPurchasesCount(walletAddress))
           .map { it + 1 }
@@ -132,7 +136,7 @@ class BackupInteract(
   }
 
   override fun saveDismissSystemNotification(walletAddress: String) {
-    sharedPreferencesRepository.setDismissedBackupSystemNotification(walletAddress)
+    backupRestorePreferencesRepository.setDismissedBackupSystemNotification(walletAddress)
   }
 
 }

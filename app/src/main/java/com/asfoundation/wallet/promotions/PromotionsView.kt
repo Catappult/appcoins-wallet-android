@@ -6,8 +6,6 @@ interface PromotionsView {
 
   fun showNetworkErrorView()
 
-  fun hideNetworkErrorView()
-
   fun retryClick(): Observable<Any>
 
   fun showRetryAnimation()
@@ -20,11 +18,7 @@ interface PromotionsView {
 
   fun showPromotions(promotionsModel: PromotionsModel)
 
-  fun hidePromotions()
-
   fun getPromotionClicks(): Observable<PromotionClick>
-
-  fun getHomeBackPressed(): Observable<Any>
 
   fun handleBackPressed()
 
@@ -37,4 +31,8 @@ interface PromotionsView {
   fun showBottomSheet()
 
   fun getBottomSheetContainerClick(): Observable<Any>
+
+  fun showLockedPromotionsScreen()
+
+  fun showToast()
 }

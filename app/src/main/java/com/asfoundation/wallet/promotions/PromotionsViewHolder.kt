@@ -214,6 +214,12 @@ class GamificationViewHolder(itemView: View,
                              private val clickListener: PublishSubject<PromotionClick>) :
     PromotionsViewHolder(itemView) {
 
+  init {
+    itemView.linked_perks.addItemDecoration(
+        MarginItemDecoration(itemView.resources.getDimension(R.dimen.promotions_item_margin)
+            .toInt()))
+  }
+
   private var mapper = GamificationMapper(itemView.context)
 
   override fun bind(promotion: Promotion) {
@@ -250,9 +256,6 @@ class GamificationViewHolder(itemView: View,
     } else {
       itemView.linked_perks.visibility = View.VISIBLE
       val adapter = PromotionsGamificationAdapter(links)
-      itemView.linked_perks.addItemDecoration(
-          MarginItemDecoration(itemView.resources.getDimension(R.dimen.promotions_item_margin)
-              .toInt()))
       itemView.linked_perks.adapter = adapter
     }
   }
