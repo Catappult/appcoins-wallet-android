@@ -115,29 +115,22 @@ public class TransferConfirmationActivity extends BaseActivity {
     BigDecimal gasLimitMax = BigDecimal.valueOf(C.GAS_LIMIT_MAX);
     BigDecimal gasPriceMin = BigDecimal.valueOf(C.GAS_PRICE_MIN);
     BigInteger networkFeeMax = BigInteger.valueOf(C.NETWORK_FEE_MAX);
-    BigDecimal gasPrice = transactionBuilder.gasSettings().gasPrice;
-    BigDecimal gasLimit = transactionBuilder.gasSettings().gasLimit;
-    final BigDecimal gasPriceMaxGwei = BalanceUtils.weiToGwei(new BigDecimal(
-        networkFeeMax.divide(gasLimitMax.toBigInteger())
-            .subtract(gasPriceMin.toBigInteger())));
-    final BigDecimal gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin);
-    GasSettings savedGasPreferences = viewModel.getGasPreferences();
-    if (isSavedLimitInRange(savedGasPreferences.gasPrice, gasPriceMinGwei, gasPriceMaxGwei)) {
-      gasPrice = savedGasPreferences.gasPrice;
-    } else {
-      gasPrice = BalanceUtils.weiToGwei(gasPrice);
-    }
-    if (isSavedLimitInRange(savedGasPreferences.gasLimit, gasLimitMin, gasLimitMax)) {
-      gasLimit = savedGasPreferences.gasLimit;
-    }
+    final BigDecimal gasPriceMaxGwei =
+        viewModel.getMaxGasPriceGwei(networkFeeMax, gasLimitMax, gasPriceMin);
+    final BigDecimal gasPriceMinGwei = viewModel.getMinGasPriceGwei(gasPriceMin);
+    final GasSettings gasSettings =
+        viewModel.retrieveGasSettings(transactionBuilder.gasSettings().gasPrice, gasPriceMinGwei,
+            gasPriceMaxGwei, gasLimitMin, gasLimitMax, transactionBuilder.gasSettings().gasLimit);
+
     String formattedGasPrice = getString(R.string.gas_price_value,
-        currencyFormatUtils.formatTransferCurrency(gasPrice, WalletCurrency.ETHEREUM), GWEI_UNIT);
+        currencyFormatUtils.formatTransferCurrency(gasSettings.gasPrice, WalletCurrency.ETHEREUM),
+        GWEI_UNIT);
     gasPriceText.setText(formattedGasPrice);
     gasLimitText.setText(transactionBuilder.gasSettings().gasLimit.toPlainString());
 
     String networkFee = currencyFormatUtils.formatTransferCurrency(BalanceUtils.weiToEth(
-        BalanceUtils.gweiToWei(gasPrice)
-            .multiply(gasLimit)), WalletCurrency.ETHEREUM) + " " + C.ETH_SYMBOL;
+        BalanceUtils.gweiToWei(gasSettings.gasPrice)
+            .multiply(gasSettings.gasLimit)), WalletCurrency.ETHEREUM) + " " + C.ETH_SYMBOL;
     networkFeeText.setText(networkFee);
   }
 
@@ -200,13 +193,6 @@ public class TransferConfirmationActivity extends BaseActivity {
     intent.putExtra("transaction_hash", hash);
     setResult(Activity.RESULT_OK, intent);
     finish();
-  }
-
-  private boolean isSavedLimitInRange(BigDecimal savedValue, BigDecimal minValue,
-      BigDecimal maxValue) {
-    return savedValue != null
-        && savedValue.compareTo(minValue) > 0
-        && savedValue.compareTo(maxValue) < 0;
   }
 
   private void onError(ErrorEnvelope error) {

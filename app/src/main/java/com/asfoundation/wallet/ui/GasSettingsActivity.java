@@ -12,6 +12,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.ui.transact.GasPriceLimitsGwei;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.WalletCurrency;
@@ -66,11 +67,8 @@ public class GasSettingsActivity extends BaseActivity {
     BigDecimal savedGasPrice = savedGasPreference.gasPrice;
     BigDecimal savedLimit = savedGasPreference.gasLimit;
 
-    final BigDecimal gasPriceGwei = BalanceUtils.weiToGwei(gasPrice);
-    final BigDecimal gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin);
-    final BigDecimal gasPriceMaxGwei =
-        BalanceUtils.weiToGweiBI(networkFeeMax.divide(gasLimitMax.toBigInteger()))
-            .subtract(gasPriceMinGwei);
+    final GasPriceLimitsGwei gasPriceLimitsGwei =
+        viewModel.getGasPriceLimitsGwei(gasPrice, gasPriceMin, gasLimitMax, networkFeeMax);
 
     viewModel.gasPrice()
         .observe(this, this::onGasPrice);
@@ -79,10 +77,10 @@ public class GasSettingsActivity extends BaseActivity {
     viewModel.defaultNetwork()
         .observe(this, this::onDefaultNetwork);
 
-    setPriceValue(savedGasPrice, gasPriceGwei, gasPriceMinGwei, gasPriceMaxGwei);
+    setPriceValue(savedGasPrice, gasPriceLimitsGwei);
     setLimitValue(savedLimit, gasLimit);
 
-    setPriceSlider(gasPriceSlider, gasPriceMinGwei, gasPriceMaxGwei, gasPriceGwei, savedGasPrice);
+    setPriceSlider(gasPriceSlider, gasPriceLimitsGwei, savedGasPrice);
     setLimitSlider(gasLimitSlider, gasLimitMax, gasLimitMin, gasLimit, savedLimit);
   }
 
@@ -96,14 +94,14 @@ public class GasSettingsActivity extends BaseActivity {
     }
   }
 
-  private void setPriceValue(BigDecimal savedGasPrice, BigDecimal gasPriceGwei,
-      BigDecimal gasPriceMinGwei, BigDecimal gasPriceMaxGwei) {
-    if (isSavedLimitInRange(savedGasPrice, gasPriceMinGwei, gasPriceMaxGwei)) {
+  private void setPriceValue(BigDecimal savedGasPrice, GasPriceLimitsGwei gasPriceLimitsGwei) {
+    if (isSavedLimitInRange(savedGasPrice, gasPriceLimitsGwei.getMin(),
+        gasPriceLimitsGwei.getMax())) {
       viewModel.gasPrice()
           .setValue(savedGasPrice);
     } else {
       viewModel.gasPrice()
-          .setValue(gasPriceGwei);
+          .setValue(gasPriceLimitsGwei.getPrice());
     }
   }
 
@@ -142,14 +140,17 @@ public class GasSettingsActivity extends BaseActivity {
         && savedValue.compareTo(maxValue) < 0;
   }
 
-  private void setPriceSlider(SeekBar gasPriceSlider, BigDecimal gasPriceMinGwei,
-      BigDecimal gasPriceMaxGwei, BigDecimal gasPriceGwei, BigDecimal savedGasPrice) {
+  private void setPriceSlider(SeekBar gasPriceSlider, GasPriceLimitsGwei gasPriceLimitsGwei,
+      BigDecimal savedGasPrice) {
     int gasPriceProgress;
+    BigDecimal gasPriceMaxGwei = gasPriceLimitsGwei.getMax();
+    BigDecimal gasPriceMinGwei = gasPriceLimitsGwei.getMin();
     gasPriceSlider.setMax(gasPriceMaxGwei.intValue());
     if (isSavedLimitInRange(savedGasPrice, gasPriceMinGwei, gasPriceMaxGwei)) {
       gasPriceProgress = savedGasPrice.intValue();
     } else {
-      gasPriceProgress = gasPriceGwei.subtract(BigDecimal.valueOf(gasPriceMinGwei.intValue()))
+      gasPriceProgress = gasPriceLimitsGwei.getPrice()
+          .subtract(BigDecimal.valueOf(gasPriceMinGwei.intValue()))
           .intValue();
     }
     gasPriceSlider.setProgress(gasPriceProgress);

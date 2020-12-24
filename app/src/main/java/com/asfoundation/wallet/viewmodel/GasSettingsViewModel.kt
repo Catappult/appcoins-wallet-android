@@ -5,7 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ui.GasSettingsInteractor
+import com.asfoundation.wallet.ui.transact.GasPriceLimitsGwei
+import com.asfoundation.wallet.util.BalanceUtils
 import java.math.BigDecimal
+import java.math.BigInteger
 
 class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInteractor) :
     BaseViewModel() {
@@ -47,6 +50,16 @@ class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInterac
   }
 
   fun getSavedGasPreferences(): GasSettings = gasSettingsInteractor.getSavedGasPreferences()
+
+  fun getGasPriceLimitsGwei(gasPrice: BigDecimal, gasPriceMin: BigDecimal,
+                            gasLimitMax: BigDecimal,
+                            networkFeeMax: BigInteger): GasPriceLimitsGwei {
+    val gasPriceGwei = BalanceUtils.weiToGwei(gasPrice)
+    val gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin)
+    val gasPriceMaxGwei = BalanceUtils.weiToGweiBI(networkFeeMax.divide(gasLimitMax.toBigInteger()))
+        .subtract(gasPriceMinGwei)
+    return GasPriceLimitsGwei(gasPriceGwei, gasPriceMinGwei, gasPriceMaxGwei)
+  }
 
   companion object {
     const val SET_GAS_SETTINGS = 1
