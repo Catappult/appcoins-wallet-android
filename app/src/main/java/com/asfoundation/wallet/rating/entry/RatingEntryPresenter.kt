@@ -29,6 +29,7 @@ class RatingEntryPresenter(private val view: RatingEntryView,
             .doOnNext { analytics.sendWelcomeActionEvent("impression") }
             .observeOn(viewScheduler)
             .doOnNext {
+              interactor.setRemindMeLater()
               navigator.enableActivityBack()
               navigator.closeActivity()
             }
