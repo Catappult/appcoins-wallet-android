@@ -6,7 +6,7 @@
   <string name="title_request">Recevoir</string>
   <string name="title_import">Récupérer le portefeuille</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">Mes Portefeuilles</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Mot de passe</string>
   <string name="action_sign_in_short">Create</string>
@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">Vous obtiendrez maintenant un bonus de %s sur chaque achat. Continuez d\'acheter pour gagner encore plus !</string>
   <string name="gamification_leveled_up_notification_title">Vous avez atteint le niveau suivant !</string>
   <string name="gamification_leveled_up_notification_body">Félicitations, vous obtiendrez maintenant %s de bonus sur chaque achat !</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_how_max_level_notification_title">Vous l\'avez fait !</string>
+  <string name="gamification_how_max_level_body">Vous avez atteint le niveau le plus élevé : %s de Bonus sur chaque achat !</string>
+  <string name="gamification_level_up_notification_title">Ca y est presque !</string>
   <string name="gamification_level_up_notification_body">Dépensez %s AppCoins de plus pour atteindre le niveau suivant.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">Vous avez un bonus supplémentaire !</string>
+  <string name="gamification_bonus_plus_perk_body">Profitez d\'un bonus de %1$s et de %2$s AppCoins Credits supplémentaires.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Autoriser le portefeuille AppCoins à fournir votre adresse de portefeuille à %s.</string>
   <string name="provide_wallet_body_placeholders">Autoriser %1$s à fournir votre adresse de portefeuille à %2$s.</string>
@@ -417,7 +417,7 @@
   <string name="password">Mot de passe</string>
   <string name="repeat_password">Répéter le mot de passe</string>
   <string name="turn_on_button">Autoriser</string>
-  <string name="no_thanks_button">No, thanks</string>
+  <string name="no_thanks_button">Non, merci</string>
   <string name="remind_later_button">Rappelez-moi plus tard</string>
   <string name="get_code_button">Obtenir un code</string>
   <string name="confirm_button">Confirmer</string>
