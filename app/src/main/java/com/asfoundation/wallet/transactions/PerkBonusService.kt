@@ -101,7 +101,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
               (currentAppCoinsAmountThisLevel.toDouble() / totalAppCoinsAmountThisLevel.toDouble()
                   * 100.0).toInt() > almostNextLevelPercent) {
             buildNotification(createAlmostNextLevelNotification(formatter.formatGamificationValues(
-                totalAppCoinsAmountThisLevel.minus(currentAppCoinsAmountThisLevel)),maxBonus),
+                totalAppCoinsAmountThisLevel.minus(currentAppCoinsAmountThisLevel)), maxBonus),
                 NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP)
           }
         }).subscribe({}, { it.printStackTrace() }))
@@ -141,8 +141,8 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
   }
 
   private fun buildNotification(notificationBuilder: NotificationCompat.Builder,
-                                notficationServiceId: Int) =
-      notificationManager.notify(notficationServiceId, notificationBuilder.build())
+                                notificationServiceId: Int) =
+      notificationManager.notify(notificationServiceId, notificationBuilder.build())
 
   private fun initializeNotificationBuilder(channelId: String, channelName: String,
                                             intent: PendingIntent):
@@ -172,10 +172,10 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
         .setContentText(getString(R.string.support_new_message_button))
   }
 
-  private fun initializeBaseLevelUpNotification(gamificationStats: GamificationStats,
+  private fun initializeBaseLevelUpNotification(stats: GamificationStats,
                                                 maxBonus: Double): NotificationCompat.Builder {
     val reachedLevelInfo: ReachedLevelInfo =
-        GamificationMapper(this).mapReachedLevelInfo(gamificationStats.level)
+        GamificationMapper(this).mapReachedLevelInfo(stats.level)
     val builder =
         initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID, LEVEL_UP_CHANNEL_NAME,
             PendingIntent.getActivity(this, 0,
@@ -185,24 +185,29 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
     return if (planet != null) builder.setLargeIcon(planet) else builder
   }
 
-  private fun createLevelUpNotification(gamificationStats: GamificationStats, maxBonus: Double):
-      NotificationCompat.Builder = initializeBaseLevelUpNotification(gamificationStats, maxBonus)
-      .setContentText(getString(R.string.gamification_leveled_up_notification_body,
-          gamificationStats.bonus.toString()))
+  private fun createLevelUpNotification(stats: GamificationStats, maxBonus: Double):
+      NotificationCompat.Builder {
+    return initializeBaseLevelUpNotification(stats, maxBonus)
+        .setContentText(getString(R.string.gamification_leveled_up_notification_body,
+            stats.bonus.toString()))
+  }
 
-  private fun createLevelUpNotification(gamificationStats: GamificationStats, maxBonus: Double,
-                                        levelUpBonusCredits: String):
-      NotificationCompat.Builder = initializeBaseLevelUpNotification(gamificationStats, maxBonus)
-      .setContentText(getString(R.string.gamification_leveled_up_notification_body,
-          levelUpBonusCredits))
+  private fun createLevelUpNotification(stats: GamificationStats, maxBonus: Double,
+                                        levelUpBonusCredits: String): NotificationCompat.Builder {
+    return initializeBaseLevelUpNotification(stats, maxBonus)
+        .setContentText(getString(R.string.gamification_leveled_up_notification_body,
+            levelUpBonusCredits))
+  }
 
   private fun createAlmostNextLevelNotification(appCoinsToSpend: String, maxBonus: Double):
-      NotificationCompat.Builder = initializeNotificationBuilder(ALMOST_NEXT_LEVEL_CHANNEL_ID,
-      ALMOST_NEXT_LEVEL_CHANNEL_NAME,
-      PendingIntent.getActivity(this, 0,
-          GamificationActivity.newIntent(this, maxBonus), 0))
-      .setContentTitle(getString(R.string.gamification_level_up_notification_title))
-      .setContentText(getString(R.string.gamification_level_up_notification_body, appCoinsToSpend))
+      NotificationCompat.Builder {
+    return initializeNotificationBuilder(ALMOST_NEXT_LEVEL_CHANNEL_ID,
+        ALMOST_NEXT_LEVEL_CHANNEL_NAME, PendingIntent.getActivity(this, 0,
+        GamificationActivity.newIntent(this, maxBonus), 0))
+        .setContentTitle(getString(R.string.gamification_level_up_notification_title))
+        .setContentText(
+            getString(R.string.gamification_level_up_notification_body, appCoinsToSpend))
+  }
 
   private fun getScaledValue(valueStr: String?): String? {
     if (valueStr == null) return null
