@@ -24,6 +24,9 @@ import com.appcoins.wallet.permissions.Permissions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
+import com.asfoundation.wallet.abtesting.ABTestInteractor
+import com.asfoundation.wallet.abtesting.ABTestRepository
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.LaunchAnalytics
@@ -402,12 +405,13 @@ class InteractorModule {
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
-                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteract {
+                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
+                                      balanceWalletsExperiment: BalanceWalletsExperiment): TransactionViewInteract {
     return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
         promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
-        fingerprintPreferencesRepository)
+        fingerprintPreferencesRepository, balanceWalletsExperiment)
   }
 
   @Provides
@@ -543,4 +547,9 @@ class InteractorModule {
         AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
+  @Singleton
+  @Provides
+  fun providesABTestInteractor(abTestRepository: ABTestRepository): ABTestInteractor {
+    return ABTestInteractor(abTestRepository)
+  }
 }
