@@ -18,7 +18,7 @@ class GasSettingsInteractor(private val findDefaultNetworkInteract: FindDefaultN
     if (savedGasPrice != price) {
       gasPreferencesRepository.saveGasPrice(price)
     }
-    if (savedGasLimit != savedGasLimit) {
+    if (savedGasLimit != limit) {
       gasPreferencesRepository.saveGasLimit(limit)
     }
   }

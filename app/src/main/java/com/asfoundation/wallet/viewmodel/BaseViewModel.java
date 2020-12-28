@@ -13,7 +13,7 @@ public class BaseViewModel extends ViewModel {
 
   protected final MutableLiveData<ErrorEnvelope> error = new MutableLiveData<>();
   protected final MutableLiveData<Boolean> progress = new MutableLiveData<>();
-  protected CompositeDisposable disposable;
+  protected CompositeDisposable disposable = new CompositeDisposable();
 
   @Override protected void onCleared() {
     cancel();

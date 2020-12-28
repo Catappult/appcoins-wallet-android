@@ -126,7 +126,7 @@ public class TransferConfirmationActivity extends BaseActivity {
         currencyFormatUtils.formatTransferCurrency(gasSettings.gasPrice, WalletCurrency.ETHEREUM),
         GWEI_UNIT);
     gasPriceText.setText(formattedGasPrice);
-    gasLimitText.setText(transactionBuilder.gasSettings().gasLimit.toPlainString());
+    gasLimitText.setText(gasSettings.gasLimit.toPlainString());
 
     String networkFee = currencyFormatUtils.formatTransferCurrency(BalanceUtils.weiToEth(
         BalanceUtils.gweiToWei(gasSettings.gasPrice)
