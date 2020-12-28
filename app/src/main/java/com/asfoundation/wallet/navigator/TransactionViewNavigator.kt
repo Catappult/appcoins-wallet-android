@@ -8,6 +8,7 @@ import com.asfoundation.wallet.promotions.PromotionsActivity
 import com.asfoundation.wallet.router.*
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.backup.BackupActivity
+import com.asfoundation.wallet.ui.balance.BalanceActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 
 class TransactionViewNavigator(private val sendRouter: SendRouter,
@@ -28,7 +29,8 @@ class TransactionViewNavigator(private val sendRouter: SendRouter,
 
   fun openMyAddressView(context: Context, value: Wallet?) = myAddressRouter.open(context, value)
 
-  fun openTokensView(context: Context) = balanceRouter.open(context)
+  fun openTokensView(context: Context, title: Int?) =
+      context.startActivity(BalanceActivity.newIntent(context, title))
 
   fun navigateToBrowser(context: Context, uri: Uri) = externalBrowserRouter.open(context, uri)
 

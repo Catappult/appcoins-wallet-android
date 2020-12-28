@@ -18,6 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -35,7 +36,6 @@ import com.asfoundation.wallet.rating.RatingActivity;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
-import com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem;
 import com.asfoundation.wallet.ui.overlay.OverlayFragment;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
@@ -64,6 +64,8 @@ import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 import static com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK;
+import static com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem.BALANCE;
+import static com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem.PROMOTIONS;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
@@ -189,6 +191,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
         .observe(this, this::showPromotionsOverlay);
+    viewModel.balanceWalletsExperimentAssignment()
+        .observe(this, this::changeBottomNavigationName);
     viewModel.shouldShowRateUsDialog()
         .observe(this, this::navigateToRateUs);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
@@ -219,6 +223,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return super.onOptionsItemSelected(item);
   }
 
+  private void changeBottomNavigationName(@StringRes Integer name) {
+    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+    bottomNavigationView.getMenu()
+        .getItem(BALANCE.getPosition())
+        .setTitle(getString(name));
+  }
+
   @Override public void onBackPressed() {
     if (popup != null && popup.isShowing() && fadedBackground != null) {
       dismissPopup();
@@ -242,8 +253,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     BottomNavigationMenuView bottomNavigationMenuView =
         (BottomNavigationMenuView) ((BottomNavigationView) findViewById(
             R.id.bottom_navigation)).getChildAt(0);
-    int promotionsIconIndex = 0;
-    View promotionsIcon = bottomNavigationMenuView.getChildAt(promotionsIconIndex);
+    View promotionsIcon = bottomNavigationMenuView.getChildAt(PROMOTIONS.getPosition());
     BottomNavigationItemView itemView = (BottomNavigationItemView) promotionsIcon;
     badge = LayoutInflater.from(this)
         .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
@@ -560,8 +570,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .setCustomAnimations(R.anim.fragment_fade_in_animation,
               R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
               R.anim.fragment_fade_out_animation)
-          .add(R.id.container,
-              OverlayFragment.newInstance(BottomNavigationItem.PROMOTIONS.getPosition()))
+          .add(R.id.container, OverlayFragment.newInstance(PROMOTIONS.getPosition()))
           .addToBackStack(OverlayFragment.class.getName())
           .commit();
       viewModel.onPromotionsShown();

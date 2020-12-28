@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.hardware.biometrics.BiometricManager
 import android.util.Pair
 import com.appcoins.wallet.gamification.repository.Levels
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
@@ -23,19 +24,20 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 
-class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
-                                private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                                private val fetchTransactionsInteract: FetchTransactionsInteract,
-                                private val gamificationInteractor: GamificationInteractor,
-                                private val balanceInteractor: BalanceInteractor,
-                                private val promotionsInteractor: PromotionsInteractor,
-                                private val cardNotificationsInteractor: CardNotificationsInteractor,
-                                private val autoUpdateInteract: AutoUpdateInteract,
-                                private val ratingInteractor: RatingInteractor,
-                                private val preferencesRepositoryType: PreferencesRepositoryType,
-                                private val packageManager: PackageManager,
-                                private val fingerprintInteractor: FingerprintInteractor,
-                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
+                              private val findDefaultWalletInteract: FindDefaultWalletInteract,
+                              private val fetchTransactionsInteract: FetchTransactionsInteract,
+                              private val gamificationInteractor: GamificationInteractor,
+                              private val balanceInteractor: BalanceInteractor,
+                              private val promotionsInteractor: PromotionsInteractor,
+                              private val cardNotificationsInteractor: CardNotificationsInteractor,
+                              private val autoUpdateInteract: AutoUpdateInteract,
+                              private val ratingInteractor: RatingInteractor,
+                              private val preferencesRepositoryType: PreferencesRepositoryType,
+                              private val packageManager: PackageManager,
+                              private val fingerprintInteractor: FingerprintInteractor,
+                              private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
+                              private val balanceWalletsExperiment: BalanceWalletsExperiment) {
 
   private companion object {
     private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
@@ -99,6 +101,8 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
     }
   }
 
+  fun getBalanceWalletsExperiment(): Single<String> = balanceWalletsExperiment.getConfiguration()
+
   private fun getNumberOfTimesOnHome(): Int = preferencesRepositoryType.getNumberOfTimesOnHome()
 
   fun shouldShowFingerprintTooltip(packageName: String): Single<Boolean> {
@@ -132,4 +136,8 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
     return fingerprintInteractor.getDeviceCompatibility() == BiometricManager.BIOMETRIC_SUCCESS
   }
 
+  fun mapConfiguration(assignment: String): Int =
+      balanceWalletsExperiment.mapConfiguration(assignment)
+
+  fun getCachedExperiment() = balanceWalletsExperiment.getCachedAssignment()
 }

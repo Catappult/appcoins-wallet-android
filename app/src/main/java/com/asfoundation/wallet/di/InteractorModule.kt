@@ -24,6 +24,9 @@ import com.appcoins.wallet.permissions.Permissions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
+import com.asfoundation.wallet.abtesting.ABTestInteractor
+import com.asfoundation.wallet.abtesting.ABTestRepository
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.LaunchAnalytics
@@ -405,12 +408,13 @@ class InteractorModule {
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
-                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteractor {
+                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
+                                      balanceWalletsExperiment: BalanceWalletsExperiment): TransactionViewInteractor {
     return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
-        fetchTransactionsInteract, gamificationInteractor, balanceInteractor, promotionsInteractor,
-        cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
+        fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
+        promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
-        fingerprintPreferencesRepository)
+        fingerprintPreferencesRepository, balanceWalletsExperiment)
   }
 
   @Provides
@@ -548,11 +552,16 @@ class InteractorModule {
 
   @Singleton
   @Provides
+  fun providesABTestInteractor(abTestRepository: ABTestRepository): ABTestInteractor {
+    return ABTestInteractor(abTestRepository)
+  }
+
+  @Singleton
+  @Provides
   fun providesRatingInteractor(ratingRepository: RatingRepository,
                                gamificationInteractor: GamificationInteractor,
                                walletService: WalletService): RatingInteractor {
     return RatingInteractor(ratingRepository, gamificationInteractor, walletService,
         Schedulers.io())
   }
-
 }
