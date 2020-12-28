@@ -19,8 +19,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 174
-    versionName "1.6.4.0"
+    versionCode 177
+    versionName "1.17.0.2"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -56,6 +56,8 @@ android {
         project.TRANSACTION_DETAILS_HOST_ROPSTEN
     buildConfigField 'String', 'RAKAM_BASE_HOST', project.RAKAM_BASE_HOST
     buildConfigField 'String', 'RAKAM_API_KEY', project.RAKAM_API_KEY
+    buildConfigField "String", "APTOIDE_WEB_SERVICES_AB_TEST_HOST",
+        project.APTOIDE_WEB_SERVICES_AB_TEST_HOST
     resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
     buildConfigField 'String', 'INFURA_API_KEY_MAIN', project.INFURA_API_KEY_MAIN
     buildConfigField 'String', 'INFURA_API_KEY_ROPSTEN', project.INFURA_API_KEY_ROPSTEN

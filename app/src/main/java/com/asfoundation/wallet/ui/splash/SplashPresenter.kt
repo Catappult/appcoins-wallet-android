@@ -3,8 +3,11 @@ package com.asfoundation.wallet.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
+import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 
 
 class SplashPresenter(private val interactor: SplashInteractor,
@@ -20,25 +23,33 @@ class SplashPresenter(private val interactor: SplashInteractor,
       hasStartedAuth = it.getBoolean(HAS_STARTED_AUTH)
     }
     if (!hasStartedAuth) handleNavigation()
+
   }
 
   private fun handleNavigation() {
-    disposables.add(interactor.getAutoUpdateModel()
-        .subscribeOn(ioScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess { (updateVersionCode, updateMinSdk, blackList) ->
-          if (interactor.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)) {
-            navigator.navigateToAutoUpdate()
-          } else {
-            if (interactor.hasAuthenticationPermission()) {
-              navigator.showAuthenticationActivity()
-              hasStartedAuth = true
-            } else {
-              navigator.firstScreenNavigation(interactor.shouldShowOnboarding())
+    disposables.add(
+        Single.zip(
+            interactor.getAutoUpdateModel()
+                .subscribeOn(ioScheduler),
+            interactor.retrieveExperiment()
+                .subscribeOn(ioScheduler),
+            BiFunction { autoUpdateModel: AutoUpdateModel, _: String ->
+              autoUpdateModel
+            })
+            .observeOn(viewScheduler)
+            .doOnSuccess { (updateVersionCode, updateMinSdk, blackList) ->
+              if (interactor.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)) {
+                navigator.navigateToAutoUpdate()
+              } else {
+                if (interactor.hasAuthenticationPermission()) {
+                  navigator.showAuthenticationActivity()
+                  hasStartedAuth = true
+                } else {
+                  navigator.firstScreenNavigation(interactor.shouldShowOnboarding())
+                }
+              }
             }
-          }
-        }
-        .subscribe({}, { it.printStackTrace() }))
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() = disposables.clear()

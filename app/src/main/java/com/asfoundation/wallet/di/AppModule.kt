@@ -27,7 +27,9 @@ import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionDatabase
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_1_2
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_2_3
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.WalletOriginDao
 import com.appcoins.wallet.permissions.Permissions
 import com.aptoide.apk.injector.extractor.data.Extractor
 import com.aptoide.apk.injector.extractor.data.ExtractorV1
@@ -39,6 +41,8 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
+import com.asfoundation.wallet.abtesting.*
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
@@ -56,7 +60,6 @@ import com.asfoundation.wallet.poa.*
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
 import com.asfoundation.wallet.router.GasSettingsRouter
-import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
@@ -92,6 +95,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
+import kotlin.collections.HashMap
 
 
 @Module
@@ -128,6 +132,20 @@ internal class AppModule {
         .connectTimeout(45, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
         .writeTimeout(60, TimeUnit.SECONDS)
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  @Named("low-timer")
+  fun provideLowTimerOkHttpClient(context: Context,
+                                  preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+    return OkHttpClient.Builder()
+        .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+        .addInterceptor(LogInterceptor())
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(20, TimeUnit.SECONDS)
+        .writeTimeout(20, TimeUnit.SECONDS)
         .build()
   }
 
@@ -354,6 +372,7 @@ internal class AppModule {
   fun providesPromotionDatabase(context: Context): PromotionDatabase {
     return Room.databaseBuilder(context, PromotionDatabase::class.java, "promotion_database")
         .addMigrations(MIGRATION_1_2)
+        .addMigrations(MIGRATION_2_3)
         .build()
   }
 
@@ -371,6 +390,12 @@ internal class AppModule {
   @Provides
   fun providesLevelDao(promotionDatabase: PromotionDatabase) =
       promotionDatabase.levelDao()
+
+  @Singleton
+  @Provides
+  fun providesWalletOriginDao(promotionDatabase: PromotionDatabase): WalletOriginDao {
+    return promotionDatabase.walletOriginDao()
+  }
 
   @Provides
   fun providesObjectMapper(): ObjectMapper {
@@ -432,19 +457,6 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providePackageManager(context: Context): PackageManager = context.packageManager
-
-  @Singleton
-  @Provides
-  fun provideAutoUpdateApi(@Named("default") client: OkHttpClient, gson: Gson): AutoUpdateApi {
-    val baseUrl = BuildConfig.BACKEND_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(AutoUpdateApi::class.java)
-  }
 
   @Provides
   @Named("local_version_code")
@@ -540,4 +552,39 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesStringProvider(context: Context): StringProvider = StringProvider(context.resources)
+
+  @Singleton
+  @Provides
+  @Named("ab-test-local-cache")
+  fun providesAbTestLocalCache(): HashMap<String, ExperimentModel> {
+    return HashMap()
+  }
+
+  @Singleton
+  @Provides
+  fun providesAbTestCacheValidator(@Named("ab-test-local-cache")
+                                   localCache: HashMap<String, ExperimentModel>): ABTestCacheValidator {
+    return ABTestCacheValidator(localCache)
+  }
+
+  @Singleton
+  @Provides
+  fun providesAbTestDatabase(context: Context): ABTestDatabase {
+    return Room.databaseBuilder(context, ABTestDatabase::class.java, "abtest_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providesRoomExperimentPersistence(abTestDatabase: ABTestDatabase): RoomExperimentPersistence {
+    return RoomExperimentPersistence(abTestDatabase.experimentDao(), RoomExperimentMapper(),
+        Schedulers.io())
+  }
+
+  @Singleton
+  @Provides
+  fun providesBalanceWalletsExperiment(
+      abTestInteractor: ABTestInteractor): BalanceWalletsExperiment {
+    return BalanceWalletsExperiment(abTestInteractor)
+  }
 }
