@@ -208,7 +208,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   public void navigateToRateUs(Boolean shouldNavigate) {
     if (shouldNavigate) {
       Intent intent = RatingActivity.newIntent(this);
-      this.startActivity(intent);
+      this.startActivityForResult(intent, 0);
     }
   }
 
