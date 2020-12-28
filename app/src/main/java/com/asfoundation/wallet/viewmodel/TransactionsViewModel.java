@@ -417,7 +417,8 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showTokens(Context context) {
     analytics.sendAbTestConversionEvent();
-    transactionViewNavigator.openTokensView(context, transactionViewInteractor.getCachedExperiment());
+    transactionViewNavigator.openTokensView(context,
+        transactionViewInteractor.getCachedExperiment());
   }
 
   public void pause() {

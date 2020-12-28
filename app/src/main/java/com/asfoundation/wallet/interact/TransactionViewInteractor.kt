@@ -24,20 +24,20 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 
-class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
-                              private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                              private val fetchTransactionsInteract: FetchTransactionsInteract,
-                              private val gamificationInteractor: GamificationInteractor,
-                              private val balanceInteractor: BalanceInteractor,
-                              private val promotionsInteractor: PromotionsInteractor,
-                              private val cardNotificationsInteractor: CardNotificationsInteractor,
-                              private val autoUpdateInteract: AutoUpdateInteract,
-                              private val ratingInteractor: RatingInteractor,
-                              private val preferencesRepositoryType: PreferencesRepositoryType,
-                              private val packageManager: PackageManager,
-                              private val fingerprintInteractor: FingerprintInteractor,
-                              private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
-                              private val balanceWalletsExperiment: BalanceWalletsExperiment) {
+class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
+                                private val findDefaultWalletInteract: FindDefaultWalletInteract,
+                                private val fetchTransactionsInteract: FetchTransactionsInteract,
+                                private val gamificationInteractor: GamificationInteractor,
+                                private val balanceInteractor: BalanceInteractor,
+                                private val promotionsInteractor: PromotionsInteractor,
+                                private val cardNotificationsInteractor: CardNotificationsInteractor,
+                                private val autoUpdateInteract: AutoUpdateInteract,
+                                private val ratingInteractor: RatingInteractor,
+                                private val preferencesRepositoryType: PreferencesRepositoryType,
+                                private val packageManager: PackageManager,
+                                private val fingerprintInteractor: FingerprintInteractor,
+                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
+                                private val balanceWalletsExperiment: BalanceWalletsExperiment) {
 
   private companion object {
     private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
