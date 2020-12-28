@@ -10,6 +10,7 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractor
+import com.asfoundation.wallet.rating.RatingInteractor
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.transactions.Transaction
@@ -22,18 +23,19 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 
-class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
-                              private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                              private val fetchTransactionsInteract: FetchTransactionsInteract,
-                              private val gamificationInteractor: GamificationInteractor,
-                              private val balanceInteractor: BalanceInteractor,
-                              private val promotionsInteractor: PromotionsInteractor,
-                              private val cardNotificationsInteractor: CardNotificationsInteractor,
-                              private val autoUpdateInteract: AutoUpdateInteract,
-                              private val preferencesRepositoryType: PreferencesRepositoryType,
-                              private val packageManager: PackageManager,
-                              private val fingerprintInteractor: FingerprintInteractor,
-                              private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
+                                private val findDefaultWalletInteract: FindDefaultWalletInteract,
+                                private val fetchTransactionsInteract: FetchTransactionsInteract,
+                                private val gamificationInteractor: GamificationInteractor,
+                                private val balanceInteractor: BalanceInteractor,
+                                private val promotionsInteractor: PromotionsInteractor,
+                                private val cardNotificationsInteractor: CardNotificationsInteractor,
+                                private val autoUpdateInteract: AutoUpdateInteract,
+                                private val ratingInteractor: RatingInteractor,
+                                private val preferencesRepositoryType: PreferencesRepositoryType,
+                                private val packageManager: PackageManager,
+                                private val fingerprintInteractor: FingerprintInteractor,
+                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
   private companion object {
     private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
@@ -57,6 +59,11 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   val userLevel: Single<Int>
     get() = gamificationInteractor.getUserStats()
         .map { it.level }
+
+  fun shouldOpenRatingDialog(): Single<Boolean> = ratingInteractor.shouldOpenRatingDialog()
+
+  fun updateTransactionsNumber(transactionList: List<Transaction>) =
+      ratingInteractor.updateTransactionsNumber(transactionList)
 
   fun findNetwork(): Single<NetworkInfo> {
     return findDefaultNetworkInteract.find()
@@ -124,4 +131,5 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   private fun hasFingerprint(): Boolean {
     return fingerprintInteractor.getDeviceCompatibility() == BiometricManager.BIOMETRIC_SUCCESS
   }
+
 }

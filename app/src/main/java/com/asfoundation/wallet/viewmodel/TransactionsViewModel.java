@@ -16,10 +16,9 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.TransactionViewInteract;
+import com.asfoundation.wallet.interact.TransactionViewInteractor;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.promotions.PromotionNotification;
-import com.asfoundation.wallet.rating.RatingInteractor;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.support.SupportInteractor;
@@ -65,13 +64,12 @@ public class TransactionsViewModel extends BaseViewModel {
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
-  private final TransactionViewInteract transactionViewInteract;
+  private final TransactionViewInteractor transactionViewInteractor;
   private final SupportInteractor supportInteractor;
   private final Handler handler = new Handler();
   private final WalletsEventSender walletsEventSender;
   private final PublishSubject<Context> topUpClicks = PublishSubject.create();
   private final CurrencyFormatUtils formatter;
-  private final RatingInteractor ratingInteractor;
   private CompositeDisposable disposables;
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
@@ -80,17 +78,15 @@ public class TransactionsViewModel extends BaseViewModel {
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
-      TransactionViewInteract transactionViewInteract, SupportInteractor supportInteractor,
-      WalletsEventSender walletsEventSender, CurrencyFormatUtils formatter,
-      RatingInteractor ratingInteractor) {
+      TransactionViewInteractor transactionViewInteractor, SupportInteractor supportInteractor,
+      WalletsEventSender walletsEventSender, CurrencyFormatUtils formatter) {
     this.applications = applications;
     this.analytics = analytics;
     this.transactionViewNavigator = transactionViewNavigator;
-    this.transactionViewInteract = transactionViewInteract;
+    this.transactionViewInteractor = transactionViewInteractor;
     this.supportInteractor = supportInteractor;
     this.walletsEventSender = walletsEventSender;
     this.formatter = formatter;
-    this.ratingInteractor = ratingInteractor;
     this.disposables = new CompositeDisposable();
   }
 
@@ -138,14 +134,14 @@ public class TransactionsViewModel extends BaseViewModel {
     }
     progress.postValue(true);
     handlePromotionTooltipVisibility();
-    disposables.add(transactionViewInteract.findNetwork()
+    disposables.add(transactionViewInteractor.findNetwork()
         .subscribe(this::onDefaultNetwork, this::onError));
-    disposables.add(transactionViewInteract.hasPromotionUpdate()
+    disposables.add(transactionViewInteractor.hasPromotionUpdate()
         .subscribeOn(Schedulers.io())
         .subscribe(showNotification::postValue, this::onError));
-    disposables.add(transactionViewInteract.getUserLevel()
+    disposables.add(transactionViewInteractor.getUserLevel()
         .subscribeOn(Schedulers.io())
-        .flatMap(userLevel -> transactionViewInteract.findWallet()
+        .flatMap(userLevel -> transactionViewInteractor.findWallet()
             .subscribeOn(Schedulers.io())
             .map(wallet -> {
               registerSupportUser(userLevel, wallet.address);
@@ -158,21 +154,21 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void handleRateUsDialogVisibility() {
-    disposables.add(ratingInteractor.shouldOpenRatingDialog()
+    disposables.add(transactionViewInteractor.shouldOpenRatingDialog()
         .doOnSuccess(showRateUsDialog::postValue)
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
 
   public void handleFingerprintTooltipVisibility(String packageName) {
-    disposables.add(transactionViewInteract.shouldShowFingerprintTooltip(packageName)
+    disposables.add(transactionViewInteractor.shouldShowFingerprintTooltip(packageName)
         .doOnSuccess(showFingerprintTooltip::postValue)
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
 
   private void handlePromotionTooltipVisibility() {
-    disposables.add(transactionViewInteract.hasSeenPromotionTooltip()
+    disposables.add(transactionViewInteractor.hasSeenPromotionTooltip()
         .doOnSuccess(hasBeen -> {
           Boolean shouldShowCachedValue = showPromotionTooltip.getValue();
           boolean shouldShow = !hasBeen && (shouldShowCachedValue == null || shouldShowCachedValue);
@@ -205,7 +201,7 @@ public class TransactionsViewModel extends BaseViewModel {
       return Completable.fromAction(
           () -> fetchTransactionsError.postValue(fetchTransactionsError.getValue()));
     }
-    return transactionViewInteract.getLevels()
+    return transactionViewInteractor.getLevels()
         .subscribeOn(Schedulers.io())
         .flatMap(levels -> {
           if (levels.getStatus()
@@ -230,8 +226,8 @@ public class TransactionsViewModel extends BaseViewModel {
     }
 
     fetchTransactionsDisposable =
-        transactionViewInteract.fetchTransactions(defaultWallet.getValue())
-            .flatMapSingle(transactions -> transactionViewInteract.getCardNotifications()
+        transactionViewInteractor.fetchTransactions(defaultWallet.getValue())
+            .flatMapSingle(transactions -> transactionViewInteractor.getCardNotifications()
                 .subscribeOn(Schedulers.io())
                 .onErrorReturnItem(Collections.emptyList())
                 .flatMap(notifications -> applications.getApps()
@@ -246,7 +242,7 @@ public class TransactionsViewModel extends BaseViewModel {
                     .andThen(Completable.fromAction(this::onTransactionsFetchCompleted)))
             .onErrorResumeNext(throwable -> publishMaxBonus())
             .observeOn(AndroidSchedulers.mainThread())
-            .doAfterTerminate(transactionViewInteract::stopTransactionFetch)
+            .doAfterTerminate(transactionViewInteractor::stopTransactionFetch)
             .subscribe(() -> {
             }, this::onError);
     disposables.add(fetchTransactionsDisposable);
@@ -285,15 +281,15 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private Observable<Pair<Balance, FiatValue>> getAppcBalance() {
-    return transactionViewInteract.getAppcBalance();
+    return transactionViewInteractor.getAppcBalance();
   }
 
   private Observable<Pair<Balance, FiatValue>> getEthereumBalance() {
-    return transactionViewInteract.getEthereumBalance();
+    return transactionViewInteractor.getEthereumBalance();
   }
 
   private Observable<Pair<Balance, FiatValue>> getCreditsBalance() {
-    return transactionViewInteract.getCreditsBalance();
+    return transactionViewInteractor.getCreditsBalance();
   }
 
   private boolean shouldShow(Pair<Balance, FiatValue> balance, Double threshold) {
@@ -333,7 +329,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
     defaultNetwork.postValue(networkInfo);
-    disposables.add(transactionViewInteract.findWallet()
+    disposables.add(transactionViewInteractor.findWallet()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onDefaultWallet, this::onError));
   }
@@ -355,7 +351,7 @@ public class TransactionsViewModel extends BaseViewModel {
           .size() > 0 && last != null && last) {
         progress.postValue(true);
       }
-      ratingInteractor.updateTransactionsNumber(transactionsModel.getTransactions());
+      transactionViewInteractor.updateTransactionsNumber(transactionsModel.getTransactions());
     });
   }
 
@@ -455,7 +451,7 @@ public class TransactionsViewModel extends BaseViewModel {
         break;
       case UPDATE:
         transactionViewNavigator.openIntent(context,
-            transactionViewInteract.retrieveUpdateIntent());
+            transactionViewInteractor.retrieveUpdateIntent());
         dismissNotification(cardNotification);
         break;
       case BACKUP:
@@ -478,7 +474,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void dismissNotification(CardNotification cardNotification) {
-    disposables.add(transactionViewInteract.dismissNotification(cardNotification)
+    disposables.add(transactionViewInteractor.dismissNotification(cardNotification)
         .subscribeOn(AndroidSchedulers.mainThread())
         .subscribe(() -> dismissNotification.postValue(cardNotification), this::onError));
   }
@@ -510,16 +506,16 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void increaseTimesInHome() {
-    transactionViewInteract.increaseTimesOnHome();
+    transactionViewInteractor.increaseTimesOnHome();
   }
 
   public void onTurnFingerprintOnClick(Context context) {
     transactionViewNavigator.openSettings(context, true);
-    transactionViewInteract.setSeenFingerprintTooltip();
+    transactionViewInteractor.setSeenFingerprintTooltip();
   }
 
   public void onFingerprintDismissed() {
-    transactionViewInteract.setSeenFingerprintTooltip();
+    transactionViewInteractor.setSeenFingerprintTooltip();
   }
 
   public void onPromotionsShown() {

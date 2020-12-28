@@ -401,13 +401,14 @@ class InteractorModule {
                                       promotionsInteractor: PromotionsInteractor,
                                       cardNotificationsInteractor: CardNotificationsInteractor,
                                       autoUpdateInteract: AutoUpdateInteract,
+                                      ratingInteractor: RatingInteractor,
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
-                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteract {
-    return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
-        fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
-        promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract,
+                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteractor {
+    return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
+        fetchTransactionsInteract, gamificationInteractor, balanceInteractor, promotionsInteractor,
+        cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
         fingerprintPreferencesRepository)
   }

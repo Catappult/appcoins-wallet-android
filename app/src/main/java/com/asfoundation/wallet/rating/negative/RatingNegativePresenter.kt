@@ -26,9 +26,10 @@ class RatingNegativePresenter(private val view: RatingNegativeView,
             .doOnNext { feedbackText ->
               if (feedbackText.isBlank()) {
                 view.showEmptySuggestionsError()
+              } else {
+                view.setLoading()
               }
             }
-            .doOnNext { view.setLoading() }
             .observeOn(ioScheduler)
             .doOnNext { analytics.sendNegativeActionEvent("submit") }
             .filter { feedbackText -> feedbackText.isNotBlank() }
