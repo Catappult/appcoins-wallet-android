@@ -69,21 +69,23 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
             GamificationScreen.NOTIFICATIONS_ALMOST_NEXT_LEVEL.toString()),
         promotionsRepository.getGamificationStats(address), promotionsRepository.getLevels(address),
         Single.just(getAllPerksBonusTransactionValue(getNewTransactions(address))),
-        Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, gamificationStats: GamificationStats,
+        Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
                     allLevels: Levels, bonusTransactionValue: String ->
           val maxBonus = allLevels.list.last().bonus
           val maxLevel = allLevels.list.last().level
-          val currentLevel = gamificationStats.level
-          if (gamificationStats.status == GamificationStats.Status.OK &&
+          val currentLevel = stats.level
+          if (stats.status == GamificationStats.Status.OK &&
               lastShownLevel < currentLevel) {
             promotionsRepository.shownLevel(address, currentLevel,
                 GamificationScreen.NOTIFICATIONS_LEVEL_UP.toString())
             if (bonusTransactionValue.isEmpty()) {
-              buildNotification(createLevelUpNotification(gamificationStats, maxBonus,
-                  ""), NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
+              buildNotification(createLevelUpNotification(stats, maxBonus,
+                  currentLevel == maxLevel,""),
+                  NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
             } else {
               buildNotification(
-                  createLevelUpNotification(gamificationStats, maxBonus, bonusTransactionValue),
+                  createLevelUpNotification(stats, maxBonus,
+                      currentLevel == maxLevel, bonusTransactionValue),
                   NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
             }
           } else if (bonusTransactionValue.isNotEmpty()) {
@@ -94,11 +96,11 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
             // the current level being shown is the value to be stored regarding if the notification
             // for almost reaching next level (current level + 1) has been shown or not
             val almostNextLevelPercent = GamificationMapper(this)
-                .mapAlmostNextLevelUpPercentage(gamificationStats.level)
+                .mapAlmostNextLevelUpPercentage(stats.level)
             val currLevelStartAmount = allLevels.list[currentLevel].amount
-            val totalAppCoinsAmountThisLevel = gamificationStats.nextLevelAmount!!.minus(
+            val totalAppCoinsAmountThisLevel = stats.nextLevelAmount!!.minus(
                 currLevelStartAmount)
-            val currentAppCoinsAmountThisLevel = gamificationStats.totalSpend.minus(
+            val currentAppCoinsAmountThisLevel = stats.totalSpend.minus(
                 currLevelStartAmount)
             if (totalAppCoinsAmountThisLevel > BigDecimal.ZERO &&
                 currentAppCoinsAmountThisLevel > BigDecimal.ZERO &&
@@ -181,20 +183,21 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
   }
 
   private fun createLevelUpNotification(stats: GamificationStats, maxBonus: Double,
-                                        levelUpBonusCredits: String):
+                                        maxLevelReached: Boolean, levelUpBonusCredits: String):
       NotificationCompat.Builder {
-    val reachedLevelInfo: ReachedLevelInfo =
-        GamificationMapper(this).mapReachedLevelInfo(stats.level)
+    val reachedLevelInfo: ReachedLevelInfo = if (maxLevelReached)
+      GamificationMapper(this).mapNotificationMaxLevelReached()
+    else GamificationMapper(this).mapReachedLevelInfo(stats.level)
     val builder =
         initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID, LEVEL_UP_CHANNEL_NAME,
             PendingIntent.getActivity(this, 0,
                 GamificationActivity.newIntent(this, maxBonus), 0))
             .setContentTitle(reachedLevelInfo.reachedTitle)
-    val planetBitmap = reachedLevelInfo.planet?.toBitmap()
-    if (planetBitmap != null) {
-      builder.setLargeIcon(planetBitmap)
+    val levelBitmap = reachedLevelInfo.planet?.toBitmap()
+    if (levelBitmap != null) {
+      builder.setLargeIcon(levelBitmap)
     }
-    val contentMessage: String = if (levelUpBonusCredits.isEmpty()) {
+    val contentMessage: String = if (levelUpBonusCredits.isEmpty() || maxLevelReached) {
       getString(R.string.gamification_leveled_up_notification_body,
           stats.bonus.toString())
     } else {

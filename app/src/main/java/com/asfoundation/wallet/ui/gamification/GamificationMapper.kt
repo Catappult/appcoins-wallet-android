@@ -145,6 +145,15 @@ class GamificationMapper(private val context: Context) {
     }
   }
 
+  fun mapNotificationMaxLevelReached(): ReachedLevelInfo {
+    // NOTE - this is specific to the notification for reaching max level, since what should be
+    // displayed in notification for max level is different than what is shown on promotions screen
+    // TODO - change placeholder strings
+    return ReachedLevelInfo(getDrawable(R.drawable.gamification_end_reached),
+        getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_neptune),
+        getString(R.string.gamif_distance_neptune))
+  }
+
   fun getOvalBackground(levelColor: Int): Drawable? {
     val ovalBackground =
         ResourcesCompat.getDrawable(context.resources, R.drawable.oval_grey_background, null)
