@@ -30,7 +30,7 @@ import java.math.RoundingMode
 import javax.inject.Inject
 import kotlin.math.pow
 
-class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) {
+class PerkBonusAndGamificationService : IntentService(PerkBonusAndGamificationService::class.java.simpleName) {
 
   @Inject
   lateinit var transactionRepository: TransactionRepositoryType
@@ -248,7 +248,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
 
     @JvmStatic
     fun buildService(context: Context, address: String) {
-      Intent(context, PerkBonusService::class.java).also { intent ->
+      Intent(context, PerkBonusAndGamificationService::class.java).also { intent ->
         intent.putExtra(ADDRESS_KEY, address)
         context.startService(intent)
       }

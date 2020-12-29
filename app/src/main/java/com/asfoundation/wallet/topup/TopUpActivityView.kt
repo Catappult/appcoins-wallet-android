@@ -49,5 +49,5 @@ interface TopUpActivityView {
 
   fun popBackStack()
 
-  fun launchPerkBonusService(address: String)
+  fun launchPerkBonusAndGamificationService(address: String)
 }

@@ -81,7 +81,7 @@ interface IabView {
 
   fun errorDismisses(): Observable<Any>
 
-  fun launchPerkBonusService(address: String)
+  fun launchPerkBonusAndGamificationService(address: String)
 
   fun showAuthenticationActivity()
 
