@@ -15,6 +15,7 @@ class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInterac
 
   private val gasPrice = MutableLiveData<BigDecimal>()
   private val gasLimit = MutableLiveData<BigDecimal>()
+  private val savedGasSettings = MutableLiveData<GasSettings>()
   private val defaultNetwork = MutableLiveData<NetworkInfo>()
 
   init {
@@ -28,6 +29,7 @@ class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInterac
             { networkInfo: NetworkInfo ->
               onDefaultNetwork(networkInfo)
             }) { throwable: Throwable? -> onError(throwable) })
+    savedGasSettings.postValue(gasSettingsInteractor.getSavedGasPreferences())
   }
 
   fun gasPrice(): MutableLiveData<BigDecimal> = gasPrice
@@ -51,14 +53,18 @@ class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInterac
 
   fun getSavedGasPreferences(): GasSettings = gasSettingsInteractor.getSavedGasPreferences()
 
-  fun getGasPriceLimitsGwei(gasPrice: BigDecimal, gasPriceMin: BigDecimal,
-                            gasLimitMax: BigDecimal,
-                            networkFeeMax: BigInteger): GasPriceLimitsGwei {
+  fun convertPriceLimitsToGwei(gasPrice: BigDecimal, gasPriceMin: BigDecimal,
+                               gasLimitMax: BigDecimal,
+                               networkFeeMax: BigInteger): GasPriceLimitsGwei {
     val gasPriceGwei = BalanceUtils.weiToGwei(gasPrice)
     val gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin)
     val gasPriceMaxGwei = BalanceUtils.weiToGweiBI(networkFeeMax.divide(gasLimitMax.toBigInteger()))
         .subtract(gasPriceMinGwei)
     return GasPriceLimitsGwei(gasPriceGwei, gasPriceMinGwei, gasPriceMaxGwei)
+  }
+
+  fun savedGasPreferences(): MutableLiveData<GasSettings> {
+    return savedGasSettings
   }
 
   companion object {

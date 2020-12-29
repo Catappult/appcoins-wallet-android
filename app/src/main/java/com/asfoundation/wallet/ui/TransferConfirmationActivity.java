@@ -115,12 +115,9 @@ public class TransferConfirmationActivity extends BaseActivity {
     BigDecimal gasLimitMax = BigDecimal.valueOf(C.GAS_LIMIT_MAX);
     BigDecimal gasPriceMin = BigDecimal.valueOf(C.GAS_PRICE_MIN);
     BigInteger networkFeeMax = BigInteger.valueOf(C.NETWORK_FEE_MAX);
-    final BigDecimal gasPriceMaxGwei =
-        viewModel.getMaxGasPriceGwei(networkFeeMax, gasLimitMax, gasPriceMin);
-    final BigDecimal gasPriceMinGwei = viewModel.getMinGasPriceGwei(gasPriceMin);
     final GasSettings gasSettings =
-        viewModel.retrieveGasSettings(transactionBuilder.gasSettings().gasPrice, gasPriceMinGwei,
-            gasPriceMaxGwei, gasLimitMin, gasLimitMax, transactionBuilder.gasSettings().gasLimit);
+        viewModel.handleSavedGasSettings(transactionBuilder.gasSettings().gasPrice, gasLimitMin,
+            networkFeeMax, gasPriceMin, gasLimitMax, transactionBuilder.gasSettings().gasLimit);
 
     String formattedGasPrice = getString(R.string.gas_price_value,
         currencyFormatUtils.formatTransferCurrency(gasSettings.gasPrice, WalletCurrency.ETHEREUM),

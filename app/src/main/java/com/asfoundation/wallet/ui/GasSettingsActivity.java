@@ -33,6 +33,8 @@ public class GasSettingsActivity extends BaseActivity {
   private TextView networkFeeText;
   private TextView gasPriceInfoText;
   private TextView gasLimitInfoText;
+  private SeekBar gasLimitSlider;
+  private SeekBar gasPriceSlider;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -43,8 +45,8 @@ public class GasSettingsActivity extends BaseActivity {
     toolbar();
 
     currencyFormatUtils = CurrencyFormatUtils.Companion.create();
-    SeekBar gasPriceSlider = findViewById(R.id.gas_price_slider);
-    SeekBar gasLimitSlider = findViewById(R.id.gas_limit_slider);
+    gasPriceSlider = findViewById(R.id.gas_price_slider);
+    gasLimitSlider = findViewById(R.id.gas_limit_slider);
     gasPriceText = findViewById(R.id.gas_price_text);
     gasLimitText = findViewById(R.id.gas_limit_text);
     networkFeeText = findViewById(R.id.text_network_fee);
@@ -57,6 +59,32 @@ public class GasSettingsActivity extends BaseActivity {
     viewModel = ViewModelProviders.of(this, viewModelFactory)
         .get(GasSettingsViewModel.class);
 
+    viewModel.gasPrice()
+        .observe(this, this::onGasPrice);
+    viewModel.gasLimit()
+        .observe(this, this::onGasLimit);
+    viewModel.defaultNetwork()
+        .observe(this, this::onDefaultNetwork);
+    viewModel.savedGasPreferences()
+        .observe(this, this::onSavedGasSettings);
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_save) {
+      BigDecimal gasPrice = viewModel.gasPrice()
+          .getValue();
+      BigDecimal gasLimit = viewModel.gasLimit()
+          .getValue();
+      viewModel.saveChanges(gasPrice, gasLimit);
+      Intent intent = new Intent();
+      intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(gasPrice, gasLimit));
+      setResult(RESULT_OK, intent);
+      finish();
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  private void onSavedGasSettings(GasSettings gasSettings) {
     BigDecimal gasPrice = new BigDecimal(getIntent().getStringExtra(C.EXTRA_GAS_PRICE));
     BigDecimal gasLimit = new BigDecimal(getIntent().getStringExtra(C.EXTRA_GAS_LIMIT));
     BigDecimal gasLimitMin = BigDecimal.valueOf(C.GAS_LIMIT_MIN);
@@ -68,20 +96,12 @@ public class GasSettingsActivity extends BaseActivity {
     BigDecimal savedLimit = savedGasPreference.gasLimit;
 
     final GasPriceLimitsGwei gasPriceLimitsGwei =
-        viewModel.getGasPriceLimitsGwei(gasPrice, gasPriceMin, gasLimitMax, networkFeeMax);
-
-    viewModel.gasPrice()
-        .observe(this, this::onGasPrice);
-    viewModel.gasLimit()
-        .observe(this, this::onGasLimit);
-    viewModel.defaultNetwork()
-        .observe(this, this::onDefaultNetwork);
-
+        viewModel.convertPriceLimitsToGwei(gasPrice, gasPriceMin, gasLimitMax, networkFeeMax);
     setPriceValue(savedGasPrice, gasPriceLimitsGwei);
     setLimitValue(savedLimit, gasLimit);
 
-    setPriceSlider(gasPriceSlider, gasPriceLimitsGwei, savedGasPrice);
-    setLimitSlider(gasLimitSlider, gasLimitMax, gasLimitMin, gasLimit, savedLimit);
+    setPriceSlider(gasPriceLimitsGwei, savedGasPrice);
+    setLimitSlider(gasLimitMax, gasLimitMin, gasLimit, savedLimit);
   }
 
   private void setLimitValue(BigDecimal savedGasLimit, BigDecimal gasLimit) {
@@ -105,8 +125,8 @@ public class GasSettingsActivity extends BaseActivity {
     }
   }
 
-  private void setLimitSlider(SeekBar gasLimitSlider, BigDecimal gasLimitMax,
-      BigDecimal gasLimitMin, BigDecimal gasLimit, BigDecimal savedGasLimit) {
+  private void setLimitSlider(BigDecimal gasLimitMax, BigDecimal gasLimitMin, BigDecimal gasLimit,
+      BigDecimal savedGasLimit) {
     gasLimitSlider.setMax(gasLimitMax.subtract(gasLimitMin)
         .intValue());
     if (isSavedLimitInRange(savedGasLimit, gasLimitMin, gasLimitMax)) {
@@ -140,8 +160,7 @@ public class GasSettingsActivity extends BaseActivity {
         && savedValue.compareTo(maxValue) < 0;
   }
 
-  private void setPriceSlider(SeekBar gasPriceSlider, GasPriceLimitsGwei gasPriceLimitsGwei,
-      BigDecimal savedGasPrice) {
+  private void setPriceSlider(GasPriceLimitsGwei gasPriceLimitsGwei, BigDecimal savedGasPrice) {
     int gasPriceProgress;
     BigDecimal gasPriceMaxGwei = gasPriceLimitsGwei.getMax();
     BigDecimal gasPriceMinGwei = gasPriceLimitsGwei.getMin();
@@ -166,21 +185,6 @@ public class GasSettingsActivity extends BaseActivity {
       @Override public void onStopTrackingTouch(SeekBar seekBar) {
       }
     });
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_save) {
-      BigDecimal gasPrice = viewModel.gasPrice()
-          .getValue();
-      BigDecimal gasLimit = viewModel.gasLimit()
-          .getValue();
-      viewModel.saveChanges(gasPrice, gasLimit);
-      Intent intent = new Intent();
-      intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(gasPrice, gasLimit));
-      setResult(RESULT_OK, intent);
-      finish();
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   @Override public void onResume() {

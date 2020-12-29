@@ -98,17 +98,21 @@ class TransferConfirmationViewModel internal constructor(
 
   private fun getGasPreferences(): GasSettings = transferConfirmationInteractor.getGasPreferences()
 
-  fun getMaxGasPriceGwei(networkFeeMax: BigInteger, gasLimitMax: BigDecimal,
-                         gasPriceMin: BigDecimal): BigDecimal {
+  private fun getMaxGasPriceGwei(networkFeeMax: BigInteger, gasLimitMax: BigDecimal,
+                                 gasPriceMin: BigDecimal): BigDecimal {
     return BalanceUtils.weiToGwei(BigDecimal(networkFeeMax.divide(gasLimitMax.toBigInteger())
         .subtract(gasPriceMin.toBigInteger())))
   }
 
-  fun getMinGasPriceGwei(gasPriceMin: BigDecimal): BigDecimal = BalanceUtils.weiToGwei(gasPriceMin)
+  private fun getMinGasPriceGwei(gasPriceMin: BigDecimal): BigDecimal =
+      BalanceUtils.weiToGwei(gasPriceMin)
 
-  fun retrieveGasSettings(gasPrice: BigDecimal, gasPriceMinGwei: BigDecimal,
-                          gasPriceMaxGwei: BigDecimal, gasLimitMin: BigDecimal,
-                          gasLimitMax: BigDecimal, gasLimit: BigDecimal): GasSettings {
+  fun handleSavedGasSettings(gasPrice: BigDecimal, gasLimitMin: BigDecimal,
+                             networkFeeMax: BigInteger,
+                             gasPriceMinWei: BigDecimal, gasLimitMax: BigDecimal,
+                             gasLimit: BigDecimal): GasSettings {
+    val gasPriceMaxGwei = getMaxGasPriceGwei(networkFeeMax, gasLimitMax, gasPriceMinWei)
+    val gasPriceMinGwei = getMinGasPriceGwei(gasPriceMinWei)
     val savedGasPreferences = getGasPreferences()
     val displayedGasPrice =
         if (isSavedLimitInRange(savedGasPreferences.gasPrice, gasPriceMinGwei, gasPriceMaxGwei)) {
