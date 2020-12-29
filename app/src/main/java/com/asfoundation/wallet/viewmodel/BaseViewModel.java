@@ -7,13 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class BaseViewModel extends ViewModel {
 
   protected final MutableLiveData<ErrorEnvelope> error = new MutableLiveData<>();
   protected final MutableLiveData<Boolean> progress = new MutableLiveData<>();
-  protected Disposable disposable;
+  protected CompositeDisposable disposable = new CompositeDisposable();
 
   @Override protected void onCleared() {
     cancel();
