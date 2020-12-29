@@ -64,7 +64,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
 
   private fun handleNotifications(address: String) {
     disposable = Single.zip(promotionsRepository.getLastShownLevel(address,
-        GamificationScreen.NOTIFICATIONS_LEVEL_UP.toString()).map { if(it<0) 0 else it },
+        GamificationScreen.NOTIFICATIONS_LEVEL_UP.toString()).map { if (it < 0) 0 else it },
         promotionsRepository.getLastShownLevel(address,
             GamificationScreen.NOTIFICATIONS_ALMOST_NEXT_LEVEL.toString()),
         promotionsRepository.getGamificationStats(address), promotionsRepository.getLevels(address),
@@ -203,6 +203,7 @@ class PerkBonusService : IntentService(PerkBonusService::class.java.simpleName) 
           levelUpBonusCredits)
     }
     return builder.setContentText(contentMessage)
+        .setStyle(NotificationCompat.BigTextStyle().bigText(contentMessage))
   }
 
   private fun createAlmostNextLevelNotification(appCoinsToSpend: String, maxBonus: Double):
