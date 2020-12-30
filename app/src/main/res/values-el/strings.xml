@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Προτεινόμενα Παιχνίδια</string>
   <string name="promotions_perks_button">Προνόμια</string>
   <string name="promotions_vouhers_button">Voucher</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Ενημερώστε για να λάβετε αμοιβές</string>
   <string name="update_wallet_poa_notification_body">Παρακαλούμε ενημερώστε το AppCoins Wallet για να λάβετε αυτήν την αμοιβή.</string>
@@ -876,4 +877,6 @@
   <string name="voucher_code_title">Κωδικός Voucher</string>
   <string name="voucher_instructions_body">Μεταβείτε στο %s και χρησιμοποιήστε τον κωδικό για να εξαργυρώσετε το voucher σας.</string>
   <string name="voucher_instructions_transactions">Ο κωδικός voucher είναι πάντα διαθέσιμος στο ιστορικό συναλλαγών.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
