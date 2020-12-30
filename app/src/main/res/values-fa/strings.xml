@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">بازی‌های پیشنهادی</string>
   <string name="promotions_perks_button">هدیه‌ها</string>
   <string name="promotions_vouhers_button">ووچرها</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">بروزرسانی کنید و پاداش دریافت کنید</string>
   <string name="update_wallet_poa_notification_body">لطفا AppCoins Wallet را بروزرسانی کنید تا این پاداش را دریافت کنید.</string>
@@ -876,4 +877,6 @@
   <string name="voucher_code_title">کد ووچر</string>
   <string name="voucher_instructions_body">به %s بروید و کد را برای آزادکردن ووچر خود استفاده کنید.</string>
   <string name="voucher_instructions_transactions">همیشه می‌توانید کد ووچر را در تاریخچه تراکنش‌ها پیدا کنید.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
