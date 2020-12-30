@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Cadangan Permainan</string>
   <string name="promotions_perks_button">Istimewa</string>
   <string name="promotions_vouhers_button">Baucar</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Kemas kini untuk terima ganjaran</string>
   <string name="update_wallet_poa_notification_body">Sila kemas kini Dompet AppCoins untuk terima ganjaran ini.</string>
@@ -870,4 +871,6 @@
   <string name="voucher_code_title">Kod Baucar</string>
   <string name="voucher_instructions_body">Pergi ke %s dan gunakan kod untuk menebus baucar anda.</string>
   <string name="voucher_instructions_transactions">Anda boleh lihat kod baucar dalam sejarah transaksi.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
