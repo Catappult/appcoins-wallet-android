@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">推荐游戏</string>
   <string name="promotions_perks_button">津贴</string>
   <string name="promotions_vouhers_button"> 优惠券</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">更新以获取奖励</string>
   <string name="update_wallet_poa_notification_body">请更新AppCoins Wallet以获取此奖励。</string>
@@ -870,4 +871,6 @@
   <string name="voucher_code_title">优惠券代码</string>
   <string name="voucher_instructions_body">转到%s并使用代码兑换优惠券。</string>
   <string name="voucher_instructions_transactions">您始终可以在交易历史记录中找到优惠券代码。</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
