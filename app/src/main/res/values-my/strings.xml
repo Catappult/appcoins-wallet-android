@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">ၫႊန္းထားေသာဂိမ္းမ်ား</string>
   <string name="promotions_perks_button">ခံစားခြင့္မ်ား</string>
   <string name="promotions_vouhers_button">ေဘာက္ခ်ာမ်ား</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ဆုမ်ားကိုရရွိရန္ အပ္ဒိတ္လုပ္ပါ</string>
   <string name="update_wallet_poa_notification_body">ဤဆုကိုရရွိရန္ AppCoins Wallet ကို အပ္ဒိတ္လုပ္ေပးပါ။</string>
@@ -870,4 +871,6 @@
   <string name="voucher_code_title">ေဘာက္ခ်ာကုဒ္</string>
   <string name="voucher_instructions_body">သင့္ေဘာက္ခ်ာကို လဲလွယ္ရန္ %s သို႔သြားကာ ကုဒ္ကိုအသံုးျပဳပါ။</string>
   <string name="voucher_instructions_transactions">ေငြလႊဲေျပာင္းမႈ ရာဇဝင္တြင္ ေဘာက္ခ်ာကုဒ္ကို အၿမဲတမ္းေတြ႕ႏိုင္ပါသည္။</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
