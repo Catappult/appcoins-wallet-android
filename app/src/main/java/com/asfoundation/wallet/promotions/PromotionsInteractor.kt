@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.promotions
 
-import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
@@ -67,7 +67,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                     referralInteractor.hasReferralUpdate(wallet.address, referral,
                         ReferralsScreen.PROMOTIONS),
                     gamificationInteractor.hasNewLevel(wallet.address, gamification,
-                        GamificationScreen.PROMOTIONS),
+                        GamificationContext.SCREEN_PROMOTIONS),
                     hasGenericUpdate(generic, promotionUpdateScreen),
                     hasNewWalletOrigin(wallet.address, it.walletOrigin),
                     Function4 { hasReferralUpdate: Boolean, hasNewLevel: Boolean,
@@ -142,7 +142,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     promotions.forEach {
       when (it) {
         is GamificationItem -> {
-          promotionsRepo.shownLevel(wallet, it.level, GamificationScreen.PROMOTIONS.name)
+          promotionsRepo.shownLevel(wallet, it.level, GamificationContext.SCREEN_PROMOTIONS.name)
           it.links.forEach { gamificationLinkItem ->
             promotionsRepo.setSeenGenericPromotion(
                 getPromotionIdKey(gamificationLinkItem.id, gamificationLinkItem.startDate,

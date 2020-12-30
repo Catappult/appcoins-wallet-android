@@ -8,7 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
@@ -68,9 +68,9 @@ class PerkBonusAndGamificationService : IntentService(
 
   private fun handleNotifications(address: String) {
     disposable = Single.zip(promotionsRepository.getLastShownLevel(address,
-        GamificationScreen.NOTIFICATIONS_LEVEL_UP.toString()).map { if (it < 0) 0 else it },
+        GamificationContext.NOTIFICATIONS_LEVEL_UP.toString()).map { if (it < 0) 0 else it },
         promotionsRepository.getLastShownLevel(address,
-            GamificationScreen.NOTIFICATIONS_ALMOST_NEXT_LEVEL.toString()),
+            GamificationContext.NOTIFICATIONS_ALMOST_NEXT_LEVEL.toString()),
         promotionsRepository.getGamificationStats(address), promotionsRepository.getLevels(address),
         Single.just(getAllPerksBonusTransactionValue(getNewTransactions(address))),
         Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
@@ -81,7 +81,7 @@ class PerkBonusAndGamificationService : IntentService(
           if (stats.status == GamificationStats.Status.OK &&
               lastShownLevel < currentLevel) {
             promotionsRepository.shownLevel(address, currentLevel,
-                GamificationScreen.NOTIFICATIONS_LEVEL_UP.toString())
+                GamificationContext.NOTIFICATIONS_LEVEL_UP.toString())
             if (bonusTransactionValue.isEmpty()) {
               buildNotification(createLevelUpNotification(stats, maxBonus,
                   currentLevel == maxLevel,""),
@@ -111,7 +111,7 @@ class PerkBonusAndGamificationService : IntentService(
                 (currentAppCoinsAmountThisLevel.toDouble() / totalAppCoinsAmountThisLevel.toDouble()
                     * 100.0).toInt() > almostNextLevelPercent) {
               promotionsRepository.shownLevel(address, currentLevel,
-                  GamificationScreen.NOTIFICATIONS_ALMOST_NEXT_LEVEL.toString())
+                  GamificationContext.NOTIFICATIONS_ALMOST_NEXT_LEVEL.toString())
               buildNotification(createAlmostNextLevelNotification(
                   formatter.formatGamificationValues(totalAppCoinsAmountThisLevel
                       .minus(currentAppCoinsAmountThisLevel)), maxBonus),

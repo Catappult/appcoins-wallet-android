@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.gamification
 
 import com.appcoins.wallet.gamification.Gamification
-import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.gamification.repository.GamificationStats
@@ -74,17 +74,17 @@ class GamificationInteractor(
 
   fun hasNewLevel(walletAddress: String,
                   gamificationResponse: GamificationResponse?,
-                  screen: GamificationScreen): Single<Boolean> {
+                  gamificationContext: GamificationContext): Single<Boolean> {
     return if (gamificationResponse == null || gamificationResponse.status != PromotionsResponse.Status.ACTIVE) {
       Single.just(false)
     } else {
-      gamification.hasNewLevel(walletAddress, screen.toString())
+      gamification.hasNewLevel(walletAddress, gamificationContext.toString())
     }
   }
 
-  fun levelShown(level: Int, screen: GamificationScreen): Completable {
+  fun levelShown(level: Int, gamificationContext: GamificationContext): Completable {
     return defaultWallet.find()
-        .flatMapCompletable { gamification.levelShown(it.address, level, screen.toString()) }
+        .flatMapCompletable { gamification.levelShown(it.address, level, gamificationContext.toString()) }
   }
 
   fun getAppcToLocalFiat(value: String, scale: Int): Observable<FiatValue> {
