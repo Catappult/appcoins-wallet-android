@@ -134,12 +134,16 @@ class GamificationMapper(private val context: Context) {
   }
 
   fun mapAlmostNextLevelUpPercentage(level: Int): Int {
+    // 29/Dec/2020 - These percentages were obtained considering reasonable values for which
+    // the user may need to make a few purchases / topups only to reach the next level
+    // with the actual value in AppCoins the user needs to spend doubling around every level (a bit
+    // less than double for later levels)
     return when (level) {
       0, 1, 2, 3 -> 80
       4 -> 90
       5 -> 93
       6 -> 95
-      7 -> 97
+      7 -> 96
       8, 9 -> 95
       else -> 98
     }

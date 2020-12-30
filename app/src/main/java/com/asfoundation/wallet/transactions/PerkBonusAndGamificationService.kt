@@ -30,7 +30,8 @@ import java.math.RoundingMode
 import javax.inject.Inject
 import kotlin.math.pow
 
-class PerkBonusAndGamificationService : IntentService(PerkBonusAndGamificationService::class.java.simpleName) {
+class PerkBonusAndGamificationService : IntentService(
+    PerkBonusAndGamificationService::class.java.simpleName) {
 
   @Inject
   lateinit var transactionRepository: TransactionRepositoryType
@@ -40,6 +41,9 @@ class PerkBonusAndGamificationService : IntentService(PerkBonusAndGamificationSe
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var gamificationMapper: GamificationMapper
 
   private lateinit var disposable: Disposable
 
@@ -95,7 +99,7 @@ class PerkBonusAndGamificationService : IntentService(PerkBonusAndGamificationSe
           if (currentLevel in (almostNextLevelLastShown + 1) until maxLevel) {
             // the current level being shown is the value to be stored regarding if the notification
             // for almost reaching next level (current level + 1) has been shown or not
-            val almostNextLevelPercent = GamificationMapper(this)
+            val almostNextLevelPercent = gamificationMapper
                 .mapAlmostNextLevelUpPercentage(stats.level)
             val currLevelStartAmount = allLevels.list[currentLevel].amount
             val totalAppCoinsAmountThisLevel = stats.nextLevelAmount!!.minus(
@@ -186,8 +190,8 @@ class PerkBonusAndGamificationService : IntentService(PerkBonusAndGamificationSe
                                         maxLevelReached: Boolean, levelUpBonusCredits: String):
       NotificationCompat.Builder {
     val reachedLevelInfo: ReachedLevelInfo = if (maxLevelReached)
-      GamificationMapper(this).mapNotificationMaxLevelReached()
-    else GamificationMapper(this).mapReachedLevelInfo(stats.level)
+      gamificationMapper.mapNotificationMaxLevelReached()
+    else gamificationMapper.mapReachedLevelInfo(stats.level)
     val builder =
         initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID, LEVEL_UP_CHANNEL_NAME,
             PendingIntent.getActivity(this, 0,
