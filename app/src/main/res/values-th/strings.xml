@@ -572,6 +572,7 @@
   <string name="promotions_empty_suggested_games_title">เกมส์ที่แนะนำ</string>
   <string name="promotions_perks_button">สิทธิประโยชน์</string>
   <string name="promotions_vouhers_button">เวาเชอร์</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">อัพเดตเพื่อรับรางวัล</string>
   <string name="update_wallet_poa_notification_body">โปรดอัปเดต AppCoins Wallet เพื่อรับรางวัลนี้</string>
@@ -872,4 +873,6 @@
   <string name="voucher_code_title">รหัสเวาเชอร์</string>
   <string name="voucher_instructions_body">ไปที่%sและใช้รหัส เพื่อแลกใช้เวาเชอร์ของคุณ</string>
   <string name="voucher_instructions_transactions">คุณสามารถค้นหารหัสเวาเชอร์ได้ตลอดเวลาในประวัติการทำธุรกรรม</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
