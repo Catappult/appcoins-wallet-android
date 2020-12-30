@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Neked ajánlott játékok</string>
   <string name="promotions_perks_button">Előnyök</string>
   <string name="promotions_vouhers_button">Kuponok</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">A jutalom megszerzéséhez frissítés szükséges</string>
   <string name="update_wallet_poa_notification_body">Kérünk, a jutalom megszerzéséhez frissítsd az AppCoins Walletot.</string>
@@ -876,4 +877,6 @@
   <string name="voucher_code_title">Utalványkód</string>
   <string name="voucher_instructions_body">Menj a(z) %s oldalra és váltsd be az utalványt.</string>
   <string name="voucher_instructions_transactions">Az utalvány kódot mindig megtalálhatod a tranzakció előzményekben.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
