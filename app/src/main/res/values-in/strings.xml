@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Game yang Disarankan</string>
   <string name="promotions_perks_button">Bonus</string>
   <string name="promotions_vouhers_button">Voucher</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Perbarui untuk menerima hadiah</string>
   <string name="update_wallet_poa_notification_body">Harap perbarui Dompet AppCoins untuk menerima hadiah ini.</string>
@@ -870,4 +871,6 @@
   <string name="voucher_code_title">Kode Voucher</string>
   <string name="voucher_instructions_body">Masuk ke %s dan gunakan kode untuk menukarkan voucher Anda.</string>
   <string name="voucher_instructions_transactions">Anda bisa menemukan kode voucher dalam riwayat transaksi.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
