@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">शिफारशीत खेळ</string>
   <string name="promotions_perks_button">लाभ</string>
   <string name="promotions_vouhers_button">व्हाऊचर्स</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">बक्षिसे मिळविण्यासाठी अद्यतन करा</string>
   <string name="update_wallet_poa_notification_body">हे बक्षिस मिळविण्यासाठी कृपया अॅपकॉइन्स वॉलेट अद्यतन करा.</string>
@@ -892,4 +893,6 @@
   <string name="voucher_code_title">व्हाऊचर कोड</string>
   <string name="voucher_instructions_body">%s जा आणि व्हाऊचर रिडीम करण्यासाठी कोड वापरा.</string>
   <string name="voucher_instructions_transactions">व्यवहार इतिहासात आपल्याला व्हाऊचर कोड नेहमीच सापडेल.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
