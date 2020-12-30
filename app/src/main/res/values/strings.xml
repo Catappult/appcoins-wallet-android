@@ -964,7 +964,8 @@
   <string name="voucher_empty">No vouchers available at the moment.</string>
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 
-
+<!--Top of the tops-->
+  <string name="topsoftops_appcoins_body">With bonuses in all purchases!</string>
 
 
 
