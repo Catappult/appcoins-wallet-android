@@ -571,6 +571,7 @@
   <string name="promotions_empty_suggested_games_title">ألعاب مقترحة</string>
   <string name="promotions_perks_button">امتيازات</string>
   <string name="promotions_vouhers_button">قسائم</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">تحديث لاستقبال الجوائز</string>
   <string name="update_wallet_poa_notification_body">يرجى تحديث محفظة AppCoins لاستقبال الجوائز.</string>
@@ -901,4 +902,6 @@
   <string name="voucher_code_title">رمز القسيمة</string>
   <string name="voucher_instructions_body">اذهب إلى %s واستخدم الرمز لاسترداد قسيمتك.</string>
   <string name="voucher_instructions_transactions">يمكنك دائمًا إيجاد رمز القسيمة في سجل التحويلات.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
