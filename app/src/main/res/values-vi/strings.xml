@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Trò chơi đề xuất</string>
   <string name="promotions_perks_button">Đặc quyền</string>
   <string name="promotions_vouhers_button">Phiếu mua hàng</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Cập nhật để được nhận phần thưởng</string>
   <string name="update_wallet_poa_notification_body">Vui lòng cập nhật Ví AppCoins để được nhận phần thưởng này.</string>
@@ -870,4 +871,6 @@
   <string name="voucher_code_title">Mã phiếu mua hàng</string>
   <string name="voucher_instructions_body">Truy cập %s và sử dụng mã để đổi phiếu mua hàng của bạn.</string>
   <string name="voucher_instructions_transactions">Bạn luôn có thể tìm thấy mã phiếu mua hàng trong lịch sử giao dịch.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
