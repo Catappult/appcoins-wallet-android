@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">ਸੁਝਾਈਆਂ ਗਈਆਂ ਗੇਮਾਂ</string>
   <string name="promotions_perks_button">ਸੁਵਿਧਾਵਾਂ</string>
   <string name="promotions_vouhers_button">ਵਾਊਚਰ</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਪਡੇਟ ਕਰੋ</string>
   <string name="update_wallet_poa_notification_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਅਪਡੇਟ ਕਰੋ|</string>
@@ -876,4 +877,6 @@
   <string name="voucher_code_title">ਵਾਊਚਰ ਕੋਡ</string>
   <string name="voucher_instructions_body">%s ਤੇ ਜਾਓ ਅਤੇ ਆਪਣੇ ਵਾਊਚਰ ਨੂੰ ਵਰਤਣ ਲਈ ਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
   <string name="voucher_instructions_transactions">ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਸੌਦੇ ਦੇ ਇਤਿਹਾਸ ਵਿੱਚ ਵਾਊਚਰ ਕੋਡ ਨੂੰ ਲੱਭ ਸਕਦੇ ਹੋ|</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
