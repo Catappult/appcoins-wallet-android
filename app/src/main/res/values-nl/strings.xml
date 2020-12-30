@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Aanbevolen games</string>
   <string name="promotions_perks_button">Voordelen</string>
   <string name="promotions_vouhers_button">Vouchers</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Werk bij om beloningen te ontvangen</string>
   <string name="update_wallet_poa_notification_body">Werk de AppCoins Wallet bij om deze beloning te ontvangen.</string>
@@ -876,4 +877,6 @@
   <string name="voucher_code_title">Vouchercode</string>
   <string name="voucher_instructions_body">Ga naar %s en gebruik de code om je voucher in te wisselen.</string>
   <string name="voucher_instructions_transactions">Je kunt de vouchercode altijd in de transactiegeschiedenis terugvinden.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
