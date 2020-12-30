@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Önerilen Oyunlar</string>
   <string name="promotions_perks_button">Avantajlar</string>
   <string name="promotions_vouhers_button">Kuponlar</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Ödül almak için güncelleyin</string>
   <string name="update_wallet_poa_notification_body">Bu ödülü almak için lütfen AppCoins Wallet\'ı güncelleyin.</string>
@@ -876,4 +877,6 @@
   <string name="voucher_code_title">Kupon Kodu</string>
   <string name="voucher_instructions_body">%s adresine gidin ve kuponunuzu kullanmak için kodu kullanın.</string>
   <string name="voucher_instructions_transactions">Kupon kodunuza dilediğiniz zaman işlem geçmişinden ulaşabilirsiniz.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
