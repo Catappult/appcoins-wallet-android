@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Jocuri recomandate</string>
   <string name="promotions_perks_button">Avantaje</string>
   <string name="promotions_vouhers_button">Vouchere</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Actualizează pentru a primi recompense</string>
   <string name="update_wallet_poa_notification_body">Actualizează AppCoins Wallet pentru a primi această recompensă.</string>
@@ -882,4 +883,6 @@
   <string name="voucher_code_title">Cod voucher</string>
   <string name="voucher_instructions_body">Du-te la %s și folosește codul pentru a-ți revendica voucherul.</string>
   <string name="voucher_instructions_transactions">Vei găsi codul voucherului în istoricul tranzacțiilor.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
