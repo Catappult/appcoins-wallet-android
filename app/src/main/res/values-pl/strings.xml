@@ -570,6 +570,7 @@
   <string name="promotions_empty_suggested_games_title">Sugerowane gry</string>
   <string name="promotions_perks_button">Bonusy</string>
   <string name="promotions_vouhers_button">Vouchery</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Zaktualizuj aby otrzymywać nagrody</string>
   <string name="update_wallet_poa_notification_body">Zaktualizuj portfel AppCoins aby otrzymać tą nagrodę.</string>
@@ -888,4 +889,6 @@
   <string name="voucher_code_title">Kod vouchera</string>
   <string name="voucher_instructions_body">Wejdź na %s i użyj kodu, by zrealizować voucher.</string>
   <string name="voucher_instructions_transactions">Kod vouchera znajdziesz w historii transakcji.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
