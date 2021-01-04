@@ -72,26 +72,20 @@ class PerkBonusAndGamificationService : IntentService(
         promotionsRepository.getLastShownLevel(address,
             GamificationContext.NOTIFICATIONS_ALMOST_NEXT_LEVEL.toString()),
         promotionsRepository.getGamificationStats(address), promotionsRepository.getLevels(address),
-        Single.just(getAllPerksBonusTransactionValue(getNewTransactions(address))),
+        Single.just(getAllPerkBonusTransactionValues(getNewTransactions(address))),
         Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
                     allLevels: Levels, bonusTransactionValue: String ->
-          val maxBonus = allLevels.list.last().bonus
-          val maxLevel = allLevels.list.last().level
+          val maxBonus = allLevels.list.maxBy { level -> level.bonus }!!.bonus
+          val maxLevel = allLevels.list.maxBy { level -> level.level }!!.level
           val currentLevel = stats.level
           if (stats.status == GamificationStats.Status.OK &&
               lastShownLevel < currentLevel) {
             promotionsRepository.shownLevel(address, currentLevel,
                 GamificationContext.NOTIFICATIONS_LEVEL_UP.toString())
-            if (bonusTransactionValue.isEmpty()) {
-              buildNotification(createLevelUpNotification(stats, maxBonus,
-                  currentLevel == maxLevel,""),
-                  NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
-            } else {
-              buildNotification(
-                  createLevelUpNotification(stats, maxBonus,
-                      currentLevel == maxLevel, bonusTransactionValue),
-                  NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
-            }
+            buildNotification(
+                createLevelUpNotification(stats, maxBonus,
+                    currentLevel == maxLevel, bonusTransactionValue),
+                NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
           } else if (bonusTransactionValue.isNotEmpty()) {
             buildNotification(createPerkBonusNotification(bonusTransactionValue),
                 NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
@@ -139,7 +133,7 @@ class PerkBonusAndGamificationService : IntentService(
     return emptyList()
   }
 
-  private fun getAllPerksBonusTransactionValue(transactions: List<Transaction>): String {
+  private fun getAllPerkBonusTransactionValues(transactions: List<Transaction>): String {
     try {
       var accValue = BigDecimal.ZERO
       transactions.forEach {
