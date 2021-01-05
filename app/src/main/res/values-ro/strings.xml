@@ -849,6 +849,8 @@
   <string name="rate_us_possitive_thanks_body">Ne pare bine că îți place aplicația noastră. Ne poți ajuta cu o evaluare în App Store?</string>
   <string name="rate_us_possitive_rate_button">EVALUEAZĂ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Îți mulțumim pentru părerea ta!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Folosește cardul tău de credit/debit pentru a-ți verifica portofelul.</string>
   <string name="card_verification_charde_disclaimer">Vom debita %s de pe cardul tău și vom rambursa suma imediat ce confirmi codul.</string>
