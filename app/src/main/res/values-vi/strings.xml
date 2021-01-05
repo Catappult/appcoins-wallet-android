@@ -841,6 +841,8 @@
   <string name="rate_us_possitive_thanks_body">Chúng tôi rất vui vì bạn thích ứng dụng này. Bạn có thể giúp chúng tôi bằng cách xếp hạng chúng tôi trên cửa hàng ứng dụng không?</string>
   <string name="rate_us_possitive_rate_button">XẾP HẠNG VÍ APPCOINS</string>
   <string name="rate_us_possitive_done_title">Cảm ơn phản hồi của bạn!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Sử dụng thẻ tín dụng / thẻ ghi nợ của bạn để xác minh ví của mình.</string>
   <string name="card_verification_charde_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và tiền sẽ được hoàn lại ngay khi bạn xác nhận mã.</string>
