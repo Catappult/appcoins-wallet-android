@@ -861,6 +861,8 @@
   <string name="rate_us_possitive_thanks_body">आपल्याला आमचे अॅप आवडले ह्याचा आम्हाला आनंद आहे. आम्हाला अॅप स्टोरवर रेटिंग देऊन मदत कराल का?</string>
   <string name="rate_us_possitive_rate_button">अॅपकॉइन्स वॉलेटला रेट करा</string>
   <string name="rate_us_possitive_done_title">आपल्या अभिप्रायाबद्दल धन्यवाद!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">आपले वॉलेट सत्यापित करण्यासाठी आपले क्रेडीट/डेबिट कार्ड वापरा.</string>
   <string name="card_verification_charde_disclaimer">आम्ही आपल्या कार्डातुन %s शुल्क घेऊ आणि आपण कोड पुष्टी केल्यानंतर परत देऊ.</string>
