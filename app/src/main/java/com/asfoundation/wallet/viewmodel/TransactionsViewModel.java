@@ -32,11 +32,13 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.SingleLiveEvent;
 import com.asfoundation.wallet.util.WalletCurrency;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
@@ -61,7 +63,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> showRateUsDialog = new MutableLiveData<>();
+  private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -192,7 +194,8 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void handleRateUsDialogVisibility() {
     disposables.add(transactionViewInteractor.shouldOpenRatingDialog()
-        .doOnSuccess(showRateUsDialog::postValue)
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess(showRateUsDialog::setValue)
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }

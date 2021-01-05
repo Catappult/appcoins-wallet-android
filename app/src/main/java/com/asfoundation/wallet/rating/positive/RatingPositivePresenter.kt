@@ -22,6 +22,7 @@ class RatingPositivePresenter(private val view: RatingPositiveView,
   }
 
   private fun initializeView() {
+    interactor.setImpression()
     view.initializeView(interactor.isNotFirstTime())
   }
 

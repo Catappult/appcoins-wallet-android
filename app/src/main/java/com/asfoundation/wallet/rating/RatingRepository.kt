@@ -51,6 +51,9 @@ class RatingRepository(private val sharedPreferences: SharedPreferences,
     sharedPreferences.edit()
         .putBoolean(IMPRESSION_KEY, true)
         .apply()
+    sharedPreferences.edit()
+        .putLong(REMIND_ME_LATER_TIME_KEY, -1L)
+        .apply()
   }
 
   fun setRemindMeLater() {

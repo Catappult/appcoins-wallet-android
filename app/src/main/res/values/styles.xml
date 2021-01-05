@@ -275,6 +275,10 @@
     <item name="android:textStyle">normal</item>
   </style>
 
+  <style name="CancelBorderlessHighlightButtonStyle" parent="CancelBorderlessButtonStyle">
+    <item name="android:textColor">@color/text_button_color</item>
+  </style>
+
   <style name="ListButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
     <item name="android:background">@drawable/borderless_list_button_background</item>
     <item name="android:textAllCaps">true</item>
