@@ -845,6 +845,8 @@
   <string name="rate_us_possitive_thanks_body">Estamos contentes por gostares da nossa app. Podes ajudar-nos, classificando-nos na loja de apps?</string>
   <string name="rate_us_possitive_rate_button">AVALIA A APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Obrigado pela tua opinião!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Usa o teu cartão de crédito/débito para verificar a tua wallet.</string>
   <string name="card_verification_charde_disclaimer">Vamos cobrar %s no teu cartão, e devolvemos assim que confirmares o código.</string>
