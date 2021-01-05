@@ -845,6 +845,8 @@
   <string name="rate_us_possitive_thanks_body">Uygulamamızı beğenmenize sevindik. App Store\'da değerlendirerek bize yardımcı olabilir misiniz?</string>
   <string name="rate_us_possitive_rate_button">APPCOINS WALLET\'I DEĞERLENDİR</string>
   <string name="rate_us_possitive_done_title">Geri bildiriminiz için teşekkürler!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Cüzdanınızı doğrulamak için kredi/banka kartınızı kullanın.</string>
   <string name="card_verification_charde_disclaimer">Kartınızdan %s alınır ve kodu doğruladığımızda iade edilir.</string>
