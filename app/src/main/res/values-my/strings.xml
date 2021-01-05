@@ -841,6 +841,8 @@
   <string name="rate_us_possitive_thanks_body">ကၽြႏ္ုပ္တို႔၏အက္ပ္ကို သင္ႏွစ္သက္ျခင္းအတြက္ ဂုဏ္ယူပါသည္။ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးျခင္းျဖင့္ ကူညီေပးႏိုင္မလား။</string>
   <string name="rate_us_possitive_rate_button">APPCOINS WALLET ကို အဆင့္သတ္မွတ္မည္</string>
   <string name="rate_us_possitive_done_title">သင့္ေျဖၾကားမႈအတြက္ ေက်းဇူးတင္ပါသည္။</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳရန္ သင့္ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ကို အသံုးျပဳပါ။</string>
   <string name="card_verification_charde_disclaimer">သင့္ကဒ္တြင္ %s ကို ကၽြႏ္ုပ္တို႔ေကာက္ခံကာ ကုဒ္ကိုအတည္ျပဳၿပီးသည္ႏွင့္ ျပန္အမ္းေပးပါမည္။</string>
