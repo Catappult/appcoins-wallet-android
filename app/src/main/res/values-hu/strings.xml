@@ -845,6 +845,8 @@
   <string name="rate_us_possitive_thanks_body">Örölünk, hogy tetszik neked az appunk. Megtennék, hogy az alkalmazáboltban is értékelsz minket?</string>
   <string name="rate_us_possitive_rate_button">AZ APPCOINS WALLET ÉRTÉKELÉSE</string>
   <string name="rate_us_possitive_done_title">Köszönjük a visszajelzést!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Használd a hitelkártyád/bankkártyád a tárca hitelesítéséhez.</string>
   <string name="card_verification_charde_disclaimer">%s összeget vonunk le a kártyádról, majd visszafizetjük miután megerősíted a kódot.</string>
