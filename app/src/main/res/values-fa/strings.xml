@@ -845,6 +845,8 @@
   <string name="rate_us_possitive_thanks_body">خوشحالیم که اپلیکیشن ما را دوست دارید. آیا می‌توانید با رتبه بندی ما در فروشگاه اپلیکیشن به ما کمک کنید؟</string>
   <string name="rate_us_possitive_rate_button">رتبه‌بندی APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">از بازخورد شما متشکریم!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">برای تایید کیف پول خود از کارت اعتباری خود استفاده کنید.</string>
   <string name="card_verification_charde_disclaimer">ما %s را در کارت شما شارژ خواهیم کرد و پس از تایید کد توسط شما آن را باز می‌گردانیم.</string>
