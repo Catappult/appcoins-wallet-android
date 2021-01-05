@@ -841,6 +841,8 @@
   <string name="rate_us_possitive_thanks_body">Kami berbesar hati anda suka dengan aplikasi kami. Boleh bantu kami dengan beri rating di gedung aplikasi?</string>
   <string name="rate_us_possitive_rate_button">NILAI DOMPET APPCOINS</string>
   <string name="rate_us_possitive_done_title">Terima kasih atas maklum balas anda!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Gunakan kad debit/kredit untuk sahkan dompet anda.</string>
   <string name="card_verification_charde_disclaimer">Kami akan mengenakan bayaran %s pada kad anda, dan kami akan kembalikannya setelah anda sahkan kod.</string>
