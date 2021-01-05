@@ -843,6 +843,8 @@
   <string name="rate_us_possitive_thanks_body">เราดีใจที่คุณชอบแอปของเรา คุณสามารถช่วยเราโดยการให้คะแนนเราบน App Store ได้หรือไม่</string>
   <string name="rate_us_possitive_rate_button">ให้คะแนนกระเป๋าเงิน APPCOINS</string>
   <string name="rate_us_possitive_done_title">ขอบคุณสำหรับคำติชม!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">ใช้บัตรเครดิต / เดบิตเพื่อยืนยันกระเป๋าเงินของคุณ</string>
   <string name="card_verification_charde_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณและเราจะคืนเงินให้ เมื่อคุณยืนยันรหัส</string>
