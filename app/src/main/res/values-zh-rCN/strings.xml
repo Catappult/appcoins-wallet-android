@@ -841,6 +841,8 @@
   <string name="rate_us_possitive_thanks_body">很高兴您喜欢我们的应用。您能帮忙在应用商店上给我们评分吗？</string>
   <string name="rate_us_possitive_rate_button">给APPCOINS WALLET评分</string>
   <string name="rate_us_possitive_done_title">感谢您的反馈！</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">使用您的信用卡/借记卡验证钱包。</string>
   <string name="card_verification_charde_disclaimer">我们将向您的银行卡收取%s的费用，一旦您确认代码，我们将立即退款给您。</string>
