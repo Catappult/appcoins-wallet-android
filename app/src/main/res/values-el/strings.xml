@@ -845,6 +845,8 @@
   <string name="rate_us_possitive_thanks_body">Χαιρόμαστε που σας αρέσει η εφαρμογή μας. Μπορείτε να μας βοηθήσετε παρέχοντας μία αξιολόγηση στο store εφαρμογών;</string>
   <string name="rate_us_possitive_rate_button">ΑΞΙΟΛΟΓΗΣΤΕ ΤΟ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Ευχαριστούμε για την ανατροφοδότηση!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Χρησιμοποιήστε τη χρεωστική/πιστωτική σας κάρτα για να πιστοποιήσετε το wallet σας.</string>
   <string name="card_verification_charde_disclaimer">Η κάρτα σας θα χρεωθεί κατά %s, τα οποία θα επιστραφούν όταν επιβεβαιώσετε τον κωδικό.</string>
