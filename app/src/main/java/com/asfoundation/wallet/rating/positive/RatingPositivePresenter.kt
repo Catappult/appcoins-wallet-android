@@ -15,9 +15,14 @@ class RatingPositivePresenter(private val view: RatingPositiveView,
                               private val ioScheduler: Scheduler) {
 
   fun present() {
+    initializeView()
     handleRateAppClick()
     handleRemindMeLaterClick()
     handleNoClick()
+  }
+
+  private fun initializeView() {
+    view.initializeView(interactor.isNotFirstTime())
   }
 
   private fun handleRateAppClick() {

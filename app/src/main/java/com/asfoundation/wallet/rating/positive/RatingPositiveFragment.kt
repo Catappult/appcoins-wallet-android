@@ -23,14 +23,20 @@ class RatingPositiveFragment : DaggerFragment(), RatingPositiveView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setAndRunAnimation()
     presenter.present()
   }
 
-  private fun setAndRunAnimation() {
-    animation.setMinFrame(97)
-    animation.setMaxFrame(196)
-    animation.playAnimation()
+  override fun initializeView(isNotFirstTime: Boolean) {
+    if (isNotFirstTime) {
+      title.setText(R.string.rate_us_back_title)
+      description.setText(R.string.rate_us_back_body)
+      animation.setMinFrame(196)
+      animation.setMaxFrame(196)
+    } else {
+      animation.setMinFrame(97)
+      animation.setMaxFrame(196)
+      animation.playAnimation()
+    }
   }
 
   override fun rateAppClickEvent(): Observable<Any> {

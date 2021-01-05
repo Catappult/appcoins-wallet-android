@@ -8,4 +8,6 @@ interface RatingPositiveView {
   fun remindMeLaterClickEvent(): Observable<Any>
 
   fun noClickEvent(): Observable<Any>
+
+  fun initializeView(isNotFirstTime: Boolean)
 }
