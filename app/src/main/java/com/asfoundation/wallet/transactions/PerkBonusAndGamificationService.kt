@@ -58,9 +58,9 @@ class PerkBonusAndGamificationService : IntentService(
     val address = intent?.getStringExtra(ADDRESS_KEY)
     address?.let {
       notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-      // this sleep is to wait for all transactions (including perk bonuses) to be registered
-      // when there are several perk bonuses associated to the same transaction
-      // it can take a bit of time before every transaction is inserted in DB
+      // this sleep is to wait for all transactions (including perk bonuses) to be registered.
+      // When there are several bonuses associated to the same transaction
+      // it can take a bit of time before every one of them to be inserted in DB
       Thread.sleep(TRANSACTION_TIME_WAIT_FOR_ALL)
       handleNotifications(it)
     }
@@ -75,7 +75,8 @@ class PerkBonusAndGamificationService : IntentService(
         Single.just(getNewTransactions(address)),
         Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
                     allLevels: Levels, transactions: List<Transaction> ->
-          if (stats.status != GamificationStats.Status.OK && !stats.isActive)
+          if (stats.status != GamificationStats.Status.OK && !stats.isActive &&
+              transactions.isNotEmpty())
             return@Function5
           val maxBonus = allLevels.list.maxBy { level -> level.bonus }!!.bonus
           val maxLevel = allLevels.list.maxBy { level -> level.level }!!.level
@@ -220,13 +221,20 @@ class PerkBonusAndGamificationService : IntentService(
     if (levelBitmap != null) {
       builder.setLargeIcon(levelBitmap)
     }
-    val contentMessage: String = if (levelUpBonusCredits.isEmpty() || maxLevelReached) {
-      getString(R.string.gamification_leveled_up_notification_body,
-          stats.bonus.toString())
-    } else {
-      // TODO change this content message once the proper string exists
-      getString(R.string.gamification_leveled_up_notification_body,
-          levelUpBonusCredits)
+    val contentMessage: String = when {
+      maxLevelReached -> {
+        // TODO - make sure this string is properly formatted once the translations for it
+        //  (with %s in them) have been put
+        getString(R.string.gamification_how_max_level_body, stats.bonus.toString() + "%")
+      }
+      levelUpBonusCredits.isEmpty() -> {
+        getString(R.string.gamification_leveled_up_notification_body,
+            stats.bonus.toString() + "%")
+      }
+      else -> {
+        getString(R.string.gamification_bonus_plus_perk_body,
+            stats.bonus.toString() + "%", levelUpBonusCredits)
+      }
     }
     return builder.setContentText(contentMessage)
         .setStyle(NotificationCompat.BigTextStyle().bigText(contentMessage))

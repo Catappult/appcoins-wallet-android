@@ -150,11 +150,13 @@ class GamificationMapper(private val context: Context) {
   }
 
   fun mapNotificationMaxLevelReached(): ReachedLevelInfo {
-    // NOTE - this is specific to the notification for reaching max level, since what should be
+    // 29/Dec/2020 - this is specific to notification for reaching max level, since what should be
     // displayed in notification for max level is different than what is shown on promotions screen
-    // TODO - change placeholder strings
+    // Eventually once the gamification / promotions screen is changed to include a refactor of
+    //  the maximum level, this method may be rethought
+    // -> The distance string is a placeholder since it is not used for notification
     return ReachedLevelInfo(getDrawable(R.drawable.gamification_end_reached),
-        getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_neptune),
+        getString(R.string.gamification_how_max_level_notification_title),
         getString(R.string.gamif_distance_neptune))
   }
 
