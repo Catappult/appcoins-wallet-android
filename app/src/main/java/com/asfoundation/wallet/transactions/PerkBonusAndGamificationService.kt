@@ -225,7 +225,7 @@ class PerkBonusAndGamificationService : IntentService(
       maxLevelReached -> {
         // TODO - make sure this string is properly formatted once the translations for it
         //  (with %s in them) have been put
-        getString(R.string.gamification_how_max_level_body, stats.bonus.toString() + "%")
+        getString(R.string.gamification_how_max_level_body, "$maxBonus%")
       }
       levelUpBonusCredits.isEmpty() -> {
         getString(R.string.gamification_leveled_up_notification_body,
