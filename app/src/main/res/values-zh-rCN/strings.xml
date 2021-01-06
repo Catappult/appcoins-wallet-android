@@ -839,7 +839,7 @@
   <string name="rate_us_improve_field__empty_error">请输入内容</string>
   <string name="rate_us_possitive_thanks_title">谢谢！</string>
   <string name="rate_us_possitive_thanks_body">很高兴您喜欢我们的应用。您能帮忙在应用商店上给我们评分吗？</string>
-  <string name="rate_us_possitive_rate_button">给APPCOINS WALLET评分</string>
+  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">感谢您的反馈！</string>
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
