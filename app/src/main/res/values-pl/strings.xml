@@ -851,7 +851,7 @@
   <string name="rate_us_improve_field__empty_error">Napisz coś</string>
   <string name="rate_us_possitive_thanks_title">Dziękujemy!</string>
   <string name="rate_us_possitive_thanks_body">Fajnie, że podoba ci się nasza aplikacja. Może ocenisz ją w app storze?</string>
-  <string name="rate_us_possitive_rate_button">OCEŃ THE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Dziękujemy za opinię!</string>
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
