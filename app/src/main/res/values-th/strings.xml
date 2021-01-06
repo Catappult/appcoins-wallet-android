@@ -841,7 +841,7 @@
   <string name="rate_us_improve_field__empty_error">กรุณาเขียนบางสิ่งบางอย่าง</string>
   <string name="rate_us_possitive_thanks_title">ขอบคุณ!</string>
   <string name="rate_us_possitive_thanks_body">เราดีใจที่คุณชอบแอปของเรา คุณสามารถช่วยเราโดยการให้คะแนนเราบน App Store ได้หรือไม่</string>
-  <string name="rate_us_possitive_rate_button">ให้คะแนนกระเป๋าเงิน APPCOINS</string>
+  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">ขอบคุณสำหรับคำติชม!</string>
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
