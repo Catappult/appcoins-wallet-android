@@ -28,9 +28,7 @@
         android:layout_height="wrap_content"
         android:gravity="top"
         android:hint="@string/rate_us_improve_field"
-        android:imeOptions="flagNoFullscreen|flagNoExtractUi"
         android:inputType="textMultiLine"
-
         />
   </ScrollView>
 
