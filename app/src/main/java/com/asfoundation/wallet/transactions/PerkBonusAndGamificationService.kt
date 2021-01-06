@@ -72,19 +72,22 @@ class PerkBonusAndGamificationService : IntentService(
         promotionsRepository.getLastShownLevel(address,
             GamificationContext.NOTIFICATIONS_ALMOST_NEXT_LEVEL.toString()),
         promotionsRepository.getGamificationStats(address), promotionsRepository.getLevels(address),
-        Single.just(getAllPerkBonusTransactionValues(getNewTransactions(address))),
+        Single.just(getNewTransactions(address)),
         Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
-                    allLevels: Levels, bonusTransactionValue: String ->
+                    allLevels: Levels, transactions: List<Transaction> ->
+          if (stats.status != GamificationStats.Status.OK && !stats.isActive)
+            return@Function5
           val maxBonus = allLevels.list.maxBy { level -> level.bonus }!!.bonus
           val maxLevel = allLevels.list.maxBy { level -> level.level }!!.level
           val currentLevel = stats.level
-          if (stats.status == GamificationStats.Status.OK &&
-              lastShownLevel < currentLevel) {
+          val bonusTransactionValue = getAllPerkBonusTransactionValues(transactions)
+          val currLevelStartAmount = allLevels.list[currentLevel].amount
+          if (lastShownLevel < currentLevel && hasPurchaseResultedInLevelUp(transactions,
+                  stats.totalSpend.minus(currLevelStartAmount))) {
             promotionsRepository.shownLevel(address, currentLevel,
                 GamificationContext.NOTIFICATIONS_LEVEL_UP.toString())
-            buildNotification(
-                createLevelUpNotification(stats, maxBonus,
-                    currentLevel == maxLevel, bonusTransactionValue),
+            buildNotification(createLevelUpNotification(stats, maxBonus,
+                currentLevel == maxLevel, bonusTransactionValue),
                 NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
           } else if (bonusTransactionValue.isNotEmpty()) {
             buildNotification(createPerkBonusNotification(bonusTransactionValue),
@@ -95,7 +98,6 @@ class PerkBonusAndGamificationService : IntentService(
             // for almost reaching next level (current level + 1) has been shown or not
             val almostNextLevelPercent = gamificationMapper
                 .mapAlmostNextLevelUpPercentage(stats.level)
-            val currLevelStartAmount = allLevels.list[currentLevel].amount
             val totalAppCoinsAmountThisLevel = stats.nextLevelAmount!!.minus(
                 currLevelStartAmount)
             val currentAppCoinsAmountThisLevel = stats.totalSpend.minus(
@@ -146,6 +148,29 @@ class PerkBonusAndGamificationService : IntentService(
       e.printStackTrace()
     }
     return ""
+  }
+
+  private fun hasPurchaseResultedInLevelUp(transactions: List<Transaction>,
+                                           currentLevelAmount: BigDecimal): Boolean {
+    // this method is used for the cases where there is no information in shared preferences
+    //  about the last level where the level up notification has been shown
+    // As such, one will compare the actual purchase values that weren't made with APPC-C
+    //  (the ones that resulted in bonus) and check if it was above the APPC spent of current level
+    try {
+      val isThereBonus = transactions.any { it.type == Transaction.TransactionType.BONUS }
+      val purchaseValue = transactions.find {
+        it.type == Transaction.TransactionType.TOP_UP
+            || it.type == Transaction.TransactionType.IAP_OFFCHAIN
+      }?.value ?: ""
+      if (purchaseValue.isEmpty() || !isThereBonus) {
+        return false
+      }
+      val cmpValue = BigDecimal(purchaseValue)
+      return !(cmpValue <= BigDecimal.ZERO || removeEtherDecimals(cmpValue) < currentLevelAmount)
+    } catch (e: Exception) {
+      e.printStackTrace()
+    }
+    return false
   }
 
   private fun buildNotification(notificationBuilder: NotificationCompat.Builder,
@@ -220,11 +245,13 @@ class PerkBonusAndGamificationService : IntentService(
   private fun getScaledValue(valueStr: String?): String? {
     if (valueStr == null) return null
     var value = BigDecimal(valueStr)
-    value = value.divide(BigDecimal(10.0.pow(C.ETHER_DECIMALS.toDouble())), 2,
-        RoundingMode.FLOOR)
+    value = removeEtherDecimals(value)
     if (value <= BigDecimal.ZERO) return null
     return formatter.formatGamificationValues(value)
   }
+
+  private fun removeEtherDecimals(value: BigDecimal) = value.divide(BigDecimal(10.0.pow(
+      C.ETHER_DECIMALS.toDouble())), 2, RoundingMode.FLOOR)
 
   override fun onDestroy() {
     super.onDestroy()
