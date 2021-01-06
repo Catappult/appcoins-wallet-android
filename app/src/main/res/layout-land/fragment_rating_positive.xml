@@ -53,7 +53,7 @@
       style="@style/CancelBorderlessHighlightButtonStyle"
       android:layout_width="155dp"
       android:layout_height="wrap_content"
-      android:text="Rate AppCoins Wallet"
+      android:text="@string/rate_us_possitive_rate_button"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/remind_me_later_button"

@@ -63,7 +63,7 @@
   <Button
       android:id="@+id/rate_app_button"
       style="@style/ListButtonStyle.Highlight"
-      android:text="Rate AppCoins Wallet"
+      android:text="@string/rate_us_possitive_rate_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/separator1"
       />
