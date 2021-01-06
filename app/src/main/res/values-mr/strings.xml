@@ -859,7 +859,7 @@
   <string name="rate_us_improve_field__empty_error">कृपया काहीतरी लिहा</string>
   <string name="rate_us_possitive_thanks_title">धन्यवाद!</string>
   <string name="rate_us_possitive_thanks_body">आपल्याला आमचे अॅप आवडले ह्याचा आम्हाला आनंद आहे. आम्हाला अॅप स्टोरवर रेटिंग देऊन मदत कराल का?</string>
-  <string name="rate_us_possitive_rate_button">अॅपकॉइन्स वॉलेटला रेट करा</string>
+  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">आपल्या अभिप्रायाबद्दल धन्यवाद!</string>
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
