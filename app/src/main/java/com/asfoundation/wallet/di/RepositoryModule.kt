@@ -302,4 +302,11 @@ class RepositoryModule {
     return ABTestCenterRepository(abTestApi, idsRepository, localCache, persistence,
         cacheValidator, Schedulers.io())
   }
+
+  @Singleton
+  @Provides
+  fun providesGasPreferenceRepository(
+      sharedPreferences: SharedPreferences): GasPreferenceRepository {
+    return GasPreferenceRepository(sharedPreferences)
+  }
 }
