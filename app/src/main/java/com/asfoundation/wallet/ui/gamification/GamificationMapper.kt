@@ -134,7 +134,7 @@ class GamificationMapper(private val context: Context) {
   }
 
   fun mapAlmostNextLevelUpPercentage(level: Int): Int {
-    // 29/Dec/2020 - These percentages were obtained considering reasonable values for which
+    // NOTE - These percentages were obtained considering reasonable values for which
     // the user may need to make a few purchases / topups only to reach the next level
     // with the actual value in AppCoins the user needs to spend doubling around every level (a bit
     // less than double for later levels)
@@ -150,7 +150,7 @@ class GamificationMapper(private val context: Context) {
   }
 
   fun mapNotificationMaxLevelReached(): ReachedLevelInfo {
-    // 29/Dec/2020 - this is specific to notification for reaching max level, since what should be
+    // NOTE - this is specific to notification for reaching max level, since what should be
     // displayed in notification for max level is different than what is shown on promotions screen
     // Eventually once the gamification / promotions screen is changed to include a refactor of
     //  the maximum level, this method may be rethought
