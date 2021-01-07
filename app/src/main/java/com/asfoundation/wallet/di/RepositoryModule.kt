@@ -136,7 +136,7 @@ class RepositoryModule {
         CarrierErrorResponseTypeAdapter())
         .create()
     val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201101/gateways/dimoco/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201228/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))

@@ -29,14 +29,27 @@ class CarrierVerifyPresenter(
     private val stringProvider: StringProvider,
     private val formatter: CurrencyFormatUtils,
     private val logger: Logger,
+    private val networkScheduler: Scheduler,
     private val viewScheduler: Scheduler) {
 
   fun present() {
     initializeView()
+    handleAvailableCountryList()
     handleBackButton()
     handleNextButton()
     handleOtherPaymentsButton()
     handlePhoneNumberChange()
+  }
+
+  private fun handleAvailableCountryList() {
+    disposables.add(interactor.retrieveAvailableCountries()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it.shouldFilter) view.filterCountries(it.countryList, it.countryListString)
+          view.showPhoneNumberLayout()
+        }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun initializeView() {
