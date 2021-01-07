@@ -587,4 +587,10 @@ internal class AppModule {
       abTestInteractor: ABTestInteractor): BalanceWalletsExperiment {
     return BalanceWalletsExperiment(abTestInteractor)
   }
+
+  @Singleton
+  @Provides
+  fun providesSecureSharedPreferences(context: Context): SecureSharedPreferences {
+    return SecureSharedPreferences(context)
+  }
 }

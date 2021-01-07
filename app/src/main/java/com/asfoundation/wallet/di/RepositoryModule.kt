@@ -21,6 +21,7 @@ import com.asfoundation.wallet.App
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository
@@ -308,5 +309,12 @@ class RepositoryModule {
   fun providesGasPreferenceRepository(
       sharedPreferences: SharedPreferences): GasPreferenceRepository {
     return GasPreferenceRepository(sharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBillingAddressRepository(
+      secureSharedPreferences: SecureSharedPreferences): BillingAddressRepository {
+    return BillingAddressRepository(secureSharedPreferences)
   }
 }

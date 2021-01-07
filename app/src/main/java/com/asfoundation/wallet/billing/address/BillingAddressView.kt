@@ -5,9 +5,12 @@ import java.math.BigDecimal
 
 interface BillingAddressView {
 
-  fun initializeView(bonus: String?, isDonation: Boolean, domain: String, skuDescription: String,
-                     appcAmount: BigDecimal, fiatAmount: BigDecimal, fiatCurrency: String,
-                     isStored: Boolean, shouldStoreCard: Boolean)
+  fun initializeView(bonus: String?, isDonation: Boolean, domain: String,
+                     skuDescription: String,
+                     appcAmount: BigDecimal, fiatAmount: BigDecimal,
+                     fiatCurrency: String,
+                     isStored: Boolean, shouldStoreCard: Boolean,
+                     savedBillingAddress: BillingAddressModel?)
 
   fun backClicks(): Observable<Any>
 

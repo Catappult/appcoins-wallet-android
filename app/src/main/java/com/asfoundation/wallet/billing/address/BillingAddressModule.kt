@@ -20,9 +20,10 @@ class BillingAddressModule {
   fun providesBillingAddressPresenter(fragment: BillingAddressFragment,
                                       navigator: BillingAddressNavigator,
                                       data: BillingAddressData,
+                                      billingAddressRepository: BillingAddressRepository,
                                       billingAnalytics: BillingAnalytics): BillingAddressPresenter {
-    return BillingAddressPresenter(fragment, data, navigator, billingAnalytics,
-        CompositeDisposable(), AndroidSchedulers.mainThread())
+    return BillingAddressPresenter(fragment, data, navigator, billingAddressRepository,
+        billingAnalytics, CompositeDisposable(), AndroidSchedulers.mainThread())
   }
 
   @Provides
