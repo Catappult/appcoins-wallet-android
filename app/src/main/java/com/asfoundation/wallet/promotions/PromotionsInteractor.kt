@@ -142,7 +142,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     promotions.forEach {
       when (it) {
         is GamificationItem -> {
-          promotionsRepo.shownLevel(wallet, it.level, GamificationContext.SCREEN_PROMOTIONS.name)
+          promotionsRepo.shownLevel(wallet, it.level, GamificationContext.SCREEN_PROMOTIONS)
           it.links.forEach { gamificationLinkItem ->
             promotionsRepo.setSeenGenericPromotion(
                 getPromotionIdKey(gamificationLinkItem.id, gamificationLinkItem.startDate,

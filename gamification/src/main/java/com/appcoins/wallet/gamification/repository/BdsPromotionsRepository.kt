@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -45,12 +46,12 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     } else true
   }
 
-  override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
-    return local.getLastShownLevel(wallet, screen)
+  override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int> {
+    return local.getLastShownLevel(wallet, gamificationContext)
   }
 
-  override fun shownLevel(wallet: String, level: Int, screen: String) {
-    return local.saveShownLevel(wallet, level, screen)
+  override fun shownLevel(wallet: String, level: Int, gamificationContext: GamificationContext) {
+    return local.saveShownLevel(wallet, level, gamificationContext)
   }
 
   override fun getSeenGenericPromotion(id: String, screen: String): Boolean {

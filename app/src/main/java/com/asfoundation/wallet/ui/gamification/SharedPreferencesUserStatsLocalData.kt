@@ -28,13 +28,15 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
     private const val WALLET_ORIGIN = "wallet_origin"
   }
 
-  override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
-    return Single.fromCallable { preferences.getInt(getKey(wallet, screen), -1) }
+  override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext):
+      Single<Int> {
+    return Single.fromCallable { preferences.getInt(getKey(wallet, gamificationContext.toString()),
+        -1) }
   }
 
-  override fun saveShownLevel(wallet: String, level: Int, screen: String) {
+  override fun saveShownLevel(wallet: String, level: Int, gamificationContext: GamificationContext) {
     return preferences.edit()
-        .putInt(getKey(wallet, screen), level)
+        .putInt(getKey(wallet, gamificationContext.toString()), level)
         .apply()
   }
 

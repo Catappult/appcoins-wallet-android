@@ -78,13 +78,13 @@ class GamificationInteractor(
     return if (gamificationResponse == null || gamificationResponse.status != PromotionsResponse.Status.ACTIVE) {
       Single.just(false)
     } else {
-      gamification.hasNewLevel(walletAddress, gamificationContext.toString())
+      gamification.hasNewLevel(walletAddress, gamificationContext)
     }
   }
 
   fun levelShown(level: Int, gamificationContext: GamificationContext): Completable {
     return defaultWallet.find()
-        .flatMapCompletable { gamification.levelShown(it.address, level, gamificationContext.toString()) }
+        .flatMapCompletable { gamification.levelShown(it.address, level, gamificationContext) }
   }
 
   fun getAppcToLocalFiat(value: String, scale: Int): Observable<FiatValue> {
