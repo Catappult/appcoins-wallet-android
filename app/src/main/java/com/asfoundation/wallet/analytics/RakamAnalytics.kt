@@ -21,6 +21,7 @@ import org.json.JSONObject
 import java.net.MalformedURLException
 import java.net.URL
 
+
 class RakamAnalytics(private val context: Context, private val idsRepository: IdsRepository,
                      private val promotionsRepository: PromotionsRepository,
                      private val logger: Logger) : AnalyticsSetup {
@@ -39,6 +40,17 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
     val superProperties = rakamClient.superProperties ?: JSONObject()
     try {
       superProperties.put("user_level", level)
+    } catch (e: JSONException) {
+      e.printStackTrace()
+    }
+
+    rakamClient.superProperties = superProperties
+  }
+
+  override fun setWalletOrigin(origin: WalletOrigin) {
+    val superProperties = rakamClient.superProperties ?: JSONObject()
+    try {
+      superProperties.put("wallet_origin", origin)
     } catch (e: JSONException) {
       e.printStackTrace()
     }
