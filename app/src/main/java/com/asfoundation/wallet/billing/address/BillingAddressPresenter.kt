@@ -30,9 +30,15 @@ class BillingAddressPresenter(
         view.submitClicks()
             .subscribeOn(viewScheduler)
             .doOnNext { billingAddressModel ->
-              billingAddressRepository.saveBillingAddress(billingAddressModel)
+              val billingModel =
+                  BillingAddressModel(billingAddressModel.address, billingAddressModel.city,
+                      billingAddressModel.zipcode, billingAddressModel.state,
+                      billingAddressModel.country, billingAddressModel.number, data.shouldStoreCard)
+              if (data.shouldStoreCard) {
+                billingAddressRepository.saveBillingAddress(billingModel)
+              }
               sendActionEventAnalytics(if (data.isDonation) "donate" else "buy")
-              navigator.finishWithSuccess(billingAddressModel)
+              navigator.finishWithSuccess(billingModel)
             }
             .subscribe({}, { it.printStackTrace() })
     )

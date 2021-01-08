@@ -29,6 +29,14 @@ class SecureSharedPreferences(private val context: Context) {
         .apply()
   }
 
+  fun remove(vararg keys: String) {
+    sharedPreferences.edit()
+        .apply {
+          keys.forEach { key -> remove(key) }
+        }
+        .apply()
+  }
+
   /**
    * Saves list of strings denoted as pairs of <Key, Value>
    */

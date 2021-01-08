@@ -100,12 +100,6 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     savedBillingAddress?.let { setupSavedBillingAddress(savedBillingAddress) }
     setupFieldsListener()
     setupStateAdapter()
-    if (isStored) {
-      remember.visibility = GONE
-    } else {
-      remember.visibility = VISIBLE
-      remember.isChecked = shouldStoreCard
-    }
   }
 
   private fun setupSavedBillingAddress(savedBillingAddress: BillingAddressModel) {
@@ -152,7 +146,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
               state.text.toString(),
               country.text.toString(),
               number.text.toString(),
-              remember.isChecked
+              false
           )
         }
   }

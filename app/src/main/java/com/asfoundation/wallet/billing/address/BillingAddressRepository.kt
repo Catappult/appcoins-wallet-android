@@ -21,6 +21,15 @@ class BillingAddressRepository(private val secureSharedPreferences: SecureShared
     )
   }
 
+  fun forgetBillingAddress() {
+    secureSharedPreferences.remove("${BILLING_ADDRESS_PREFIX}.address",
+        "${BILLING_ADDRESS_PREFIX}.city",
+        "${BILLING_ADDRESS_PREFIX}.zipcode",
+        "${BILLING_ADDRESS_PREFIX}.state",
+        "${BILLING_ADDRESS_PREFIX}.country",
+        "${BILLING_ADDRESS_PREFIX}.number")
+  }
+
   /**
    * Retrieves a saved billing address. Note that this does not store whether the card should be
    * saved or not, this field will always be returned as false.
