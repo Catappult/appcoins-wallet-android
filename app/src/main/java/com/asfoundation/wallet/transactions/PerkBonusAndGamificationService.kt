@@ -82,39 +82,57 @@ class PerkBonusAndGamificationService :
           val currentLevel = stats.level
           val bonusTransactionValue = getAllPerkBonusTransactionValues(transactions)
           val currentLevelStartAmount = allLevels.list[currentLevel].amount
-          if (lastShownLevel < currentLevel && hasPurchaseResultedInLevelUp(transactions,
-                  stats.totalSpend.minus(currentLevelStartAmount))) {
-            promotionsRepository.shownLevel(address, currentLevel,
-                GamificationContext.NOTIFICATIONS_LEVEL_UP)
-            buildNotification(createLevelUpNotification(stats, maxBonus,
-                currentLevel == maxLevel, bonusTransactionValue),
-                NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
-          } else if (bonusTransactionValue.isNotEmpty()) {
-            buildNotification(createPerkBonusNotification(bonusTransactionValue),
-                NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
-          }
-          if (currentLevel in (almostNextLevelLastShown + 1) until maxLevel) {
-            // the current level being shown is the value to be stored regarding if the notification
-            // for almost reaching next level (current level + 1) has been shown or not
-            val almostNextLevelPercent = gamificationMapper
-                .mapAlmostNextLevelUpPercentage(stats.level)
-            val totalAppCoinsAmountThisLevel = stats.nextLevelAmount!!.minus(
-                currentLevelStartAmount)
-            val currentAppCoinsAmountThisLevel = stats.totalSpend.minus(
-                currentLevelStartAmount)
-            if (totalAppCoinsAmountThisLevel > BigDecimal.ZERO &&
-                currentAppCoinsAmountThisLevel > BigDecimal.ZERO &&
-                (currentAppCoinsAmountThisLevel.toDouble() / totalAppCoinsAmountThisLevel.toDouble()
-                    * 100.0).toInt() > almostNextLevelPercent) {
-              promotionsRepository.shownLevel(address, currentLevel,
-                  GamificationContext.NOTIFICATIONS_ALMOST_NEXT_LEVEL)
-              buildNotification(createAlmostNextLevelNotification(
-                  formatter.formatGamificationValues(totalAppCoinsAmountThisLevel
-                      .minus(currentAppCoinsAmountThisLevel)), maxBonus),
-                  NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP)
-            }
-          }
+          handlePerkAndLevelUpNotification(address, lastShownLevel, currentLevel, transactions,
+              stats, currentLevelStartAmount, maxBonus, maxLevel, bonusTransactionValue)
+          handleAlmostNextLevelNotification(address, almostNextLevelLastShown, currentLevel, stats,
+              currentLevelStartAmount, maxBonus, maxLevel)
         }).doOnError { e -> e.printStackTrace() }.subscribeOn(Schedulers.io())
+  }
+
+  private fun handlePerkAndLevelUpNotification(address: String, lastShownLevel: Int,
+                                               currentLevel: Int, transactions: List<Transaction>,
+                                               stats: GamificationStats,
+                                               currentLevelStartAmount: BigDecimal,
+                                               maxBonus: Double, maxLevel: Int,
+                                               bonusTransactionValue: String) {
+    if (lastShownLevel < currentLevel && hasPurchaseResultedInLevelUp(transactions,
+            stats.totalSpend.minus(currentLevelStartAmount))) {
+      promotionsRepository.shownLevel(address, currentLevel,
+          GamificationContext.NOTIFICATIONS_LEVEL_UP)
+      buildNotification(createLevelUpNotification(stats, maxBonus,
+          currentLevel == maxLevel, bonusTransactionValue),
+          NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
+    } else if (bonusTransactionValue.isNotEmpty()) {
+      buildNotification(createPerkBonusNotification(bonusTransactionValue),
+          NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
+    }
+  }
+
+  private fun handleAlmostNextLevelNotification(address: String, almostNextLevelLastShown: Int,
+                                                currentLevel: Int, stats: GamificationStats,
+                                                currentLevelStartAmount: BigDecimal,
+                                                maxBonus: Double, maxLevel: Int) {
+    if (currentLevel in (almostNextLevelLastShown + 1) until maxLevel) {
+      // the current level being shown is the value to be stored regarding if the notification
+      // for almost reaching next level (current level + 1) has been shown or not
+      val almostNextLevelPercent = gamificationMapper
+          .mapAlmostNextLevelUpPercentage(stats.level)
+      val totalAppCoinsAmountThisLevel = stats.nextLevelAmount!!.minus(
+          currentLevelStartAmount)
+      val currentAppCoinsAmountThisLevel = stats.totalSpend.minus(
+          currentLevelStartAmount)
+      if (totalAppCoinsAmountThisLevel > BigDecimal.ZERO &&
+          currentAppCoinsAmountThisLevel > BigDecimal.ZERO &&
+          (currentAppCoinsAmountThisLevel.toDouble() / totalAppCoinsAmountThisLevel.toDouble()
+              * 100.0).toInt() > almostNextLevelPercent) {
+        promotionsRepository.shownLevel(address, currentLevel,
+            GamificationContext.NOTIFICATIONS_ALMOST_NEXT_LEVEL)
+        buildNotification(createAlmostNextLevelNotification(
+            formatter.formatGamificationValues(totalAppCoinsAmountThisLevel
+                .minus(currentAppCoinsAmountThisLevel)), maxBonus),
+            NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP)
+      }
+    }
   }
 
   private fun getLastShownLevelUp(address: String): Single<Int> {
@@ -253,10 +271,6 @@ class PerkBonusAndGamificationService :
     value = removeEtherDecimals(value)
     if (value <= BigDecimal.ZERO) return null
     return formatter.formatGamificationValues(value)
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
   }
 
   private fun removeEtherDecimals(value: BigDecimal) = value.divide(BigDecimal(10.0.pow(
