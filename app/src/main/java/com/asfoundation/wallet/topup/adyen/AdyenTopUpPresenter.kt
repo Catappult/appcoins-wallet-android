@@ -235,6 +235,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               amount, currency)
               .observeOn(viewScheduler)
               .doOnSuccess {
+                adyenPaymentInteractor.forgetBillingAddress()
                 view.hideLoading()
                 if (it.error.hasError) {
                   if (it.error.isNetworkError) view.showNetworkError()
