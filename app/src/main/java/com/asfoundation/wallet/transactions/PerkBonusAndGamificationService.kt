@@ -23,8 +23,8 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.toBitmap
 import dagger.android.AndroidInjection
 import io.reactivex.Single
-import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Function5
+import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
@@ -45,9 +45,8 @@ class PerkBonusAndGamificationService :
   @Inject
   lateinit var gamificationMapper: GamificationMapper
 
-  private lateinit var disposable: Disposable
-
   private lateinit var notificationManager: NotificationManager
+
 
   override fun onCreate() {
     super.onCreate()
@@ -62,17 +61,18 @@ class PerkBonusAndGamificationService :
       // When there are several bonuses associated to the same transaction
       // it can take a bit of time before every one of them to be inserted in DB
       Thread.sleep(TRANSACTION_TIME_WAIT_FOR_ALL_IN_MILLIS)
-      handleNotifications(it)
+      // blocking so that service does not call onDestroy beforehand
+      handleNotifications(it).blockingGet()
     }
   }
 
-  private fun handleNotifications(address: String) {
-    disposable = Single.zip(getLastShownLevelUp(address),
+  private fun handleNotifications(address: String): Single<Unit> {
+    return Single.zip(getLastShownLevelUp(address),
         promotionsRepository.getLastShownLevel(address,
             GamificationContext.NOTIFICATIONS_ALMOST_NEXT_LEVEL),
         promotionsRepository.getGamificationStats(address),
         promotionsRepository.getLevels(address),
-        Single.just(getNewTransactions(address)),
+        getNewTransactions(address),
         Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
                     allLevels: Levels, transactions: List<Transaction> ->
           if (isCaseInvalidForNotifications(stats, transactions))
@@ -114,36 +114,32 @@ class PerkBonusAndGamificationService :
                   NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP)
             }
           }
-        }).subscribe({}, { it.printStackTrace() })
+        }).doOnError { e -> e.printStackTrace() }.subscribeOn(Schedulers.io())
   }
 
   private fun getLastShownLevelUp(address: String): Single<Int> {
     return promotionsRepository.getLastShownLevel(address,
-        GamificationContext.NOTIFICATIONS_LEVEL_UP).map { if (it < 0) 0 else it }
+        GamificationContext.NOTIFICATIONS_LEVEL_UP)
+        .map { if (it < 0) 0 else it }
   }
 
   private fun isCaseInvalidForNotifications(stats: GamificationStats,
                                             transactions: List<Transaction>): Boolean {
-    return stats.status != GamificationStats.Status.OK && !stats.isActive &&
-        transactions.isNotEmpty()
+    return stats.status != GamificationStats.Status.OK || !stats.isActive ||
+        transactions.isEmpty()
   }
 
-  private fun getNewTransactions(address: String, timesCalled: Int = 0): List<Transaction> {
-    try {
-      val transactions = transactionRepository.fetchNewTransactions(address).blockingGet()
-      return if (transactions.isEmpty() && timesCalled < 4) {
-        getNewTransactions(address, timesCalled + 1)
-      } else {
-        val lastTransactionTime = transactions[0].processedTime
-        //To avoid older transactions that may have not yet been inserted in DB we give a small gap
-        val transactionGap = lastTransactionTime - TRANSACTION_GAP_TIME_IN_MILLIS
-        transactions.takeWhile { it.processedTime >= transactionGap }
-        return transactions
-      }
-    } catch (exception: Exception) {
-      exception.printStackTrace()
-    }
-    return emptyList()
+  private fun getNewTransactions(address: String): Single<List<Transaction>> {
+    return transactionRepository.fetchNewTransactions(address)
+        .map { //To avoid older transactions that may have not yet been inserted in DB we give a
+          // small gap
+          val transactionGap = it[0].processedTime - TRANSACTION_GAP_TIME_IN_MILLIS
+          it.takeWhile { transaction -> transaction.processedTime >= transactionGap }
+          it
+        }
+        .doOnError { e -> e.printStackTrace() }
+        .retry(4)
+        .onErrorReturn { emptyList() }
   }
 
   private fun getAllPerkBonusTransactionValues(transactions: List<Transaction>): String {
@@ -259,15 +255,12 @@ class PerkBonusAndGamificationService :
     return formatter.formatGamificationValues(value)
   }
 
-  private fun removeEtherDecimals(value: BigDecimal) = value.divide(BigDecimal(10.0.pow(
-      C.ETHER_DECIMALS.toDouble())), 2, RoundingMode.FLOOR)
-
   override fun onDestroy() {
     super.onDestroy()
-    if (!disposable.isDisposed) {
-      disposable.dispose()
-    }
   }
+
+  private fun removeEtherDecimals(value: BigDecimal) = value.divide(BigDecimal(10.0.pow(
+      C.ETHER_DECIMALS.toDouble())), 2, RoundingMode.FLOOR)
 
   companion object {
     private const val TRANSACTION_GAP_TIME_IN_MILLIS = 15000L
