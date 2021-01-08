@@ -31,6 +31,7 @@ import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.LaunchAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
+import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
@@ -268,10 +269,12 @@ class InteractorModule {
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
+                                  rakamAnalytics: RakamAnalytics,
                                   userStatsLocalData: UserStatsLocalData,
                                   gamificationMapper: GamificationMapper): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, userStatsLocalData, gamificationMapper)
+        promotionsRepository, findDefaultWalletInteract, userStatsLocalData, rakamAnalytics,
+        gamificationMapper)
   }
 
   @Provides

@@ -7,6 +7,7 @@ import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.gamification.repository.entity.*
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
@@ -26,6 +27,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val promotionsRepo: PromotionsRepository,
                            private val findWalletInteract: FindDefaultWalletInteract,
                            private val userStatsPreferencesRepository: UserStatsLocalData,
+                           private val analyticsSetup: AnalyticsSetup,
                            private val mapper: GamificationMapper) {
 
   companion object {
@@ -42,6 +44,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               gamificationInteractor.getLevels(),
               promotionsRepo.getUserStatus(it.address),
               BiFunction { level: Levels, userStatsResponse: UserStatusResponse ->
+                analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
                 mapToPromotionsModel(userStatsResponse, level)
               })
               .doOnSuccess { model ->
