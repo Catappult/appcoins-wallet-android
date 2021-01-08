@@ -46,7 +46,9 @@ class CarrierVerifyPresenter(
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          if (it.shouldFilter) view.filterCountries(it.countryList, it.countryListString)
+          if (it.shouldFilter()) {
+            view.filterCountries(it.countryList, it.convertListToString())
+          }
           view.showPhoneNumberLayout()
         }
         .subscribe({}, { it.printStackTrace() }))

@@ -154,16 +154,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
           .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
 
-  fun retrieveAvailableCountries(): Single<AvailableCountryListViewModel> {
+  fun retrieveAvailableCountries(): Single<AvailableCountryListModel> {
     return repository.retrieveAvailableCountryList()
-        .map {
-          if (!it.hasError && it.countryList.isNotEmpty()) {
-            val countryListString =
-                it.countryList.joinToString(",") { country -> country.toLowerCase(Locale.ROOT) }
-            AvailableCountryListViewModel(it.countryList, countryListString, true)
-          } else {
-            AvailableCountryListViewModel(false)
-          }
-        }
   }
 }
