@@ -844,7 +844,7 @@
   <string name="rate_us_possitive_rate_button">APPCOINS WALLET ကို အဆင့္သတ္မွတ္မည္</string>
   <string name="rate_us_possitive_done_title">သင့္ေျဖၾကားမႈအတြက္ ေက်းဇူးတင္ပါသည္။</string>
   <string name="rate_us_back_title">ကၽြႏ္ုပ္တို႔ကို ကူညီလိုပါသလား။</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">AppCoins Wallet ကို ပိုမိုေကာင္းမြန္ေအာင္ ကၽြႏ္ုပ္တို႔ျပဳလုပ္ႏိုင္ေစရန္ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးပါ။</string>
   <!--Card verification-->
   <string name="card_verification_body">သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳရန္ သင့္ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ကို အသံုးျပဳပါ။</string>
   <string name="card_verification_charde_disclaimer">သင့္ကဒ္တြင္ %s ကို ကၽြႏ္ုပ္တို႔ေကာက္ခံကာ ကုဒ္ကိုအတည္ျပဳၿပီးသည္ႏွင့္ ျပန္အမ္းေပးပါမည္။</string>
@@ -875,6 +875,6 @@
   <string name="voucher_code_title">ေဘာက္ခ်ာကုဒ္</string>
   <string name="voucher_instructions_body">သင့္ေဘာက္ခ်ာကို လဲလွယ္ရန္ %s သို႔သြားကာ ကုဒ္ကိုအသံုးျပဳပါ။</string>
   <string name="voucher_instructions_transactions">ေငြလႊဲေျပာင္းမႈ ရာဇဝင္တြင္ ေဘာက္ခ်ာကုဒ္ကို အၿမဲတမ္းေတြ႕ႏိုင္ပါသည္။</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">လက္ရွိတြင္ မည္သည့္ေဘာက္ခ်ာမွ် မရရွိႏိုင္ပါ။</string>
+  <string name="voucher_tooltip">ယခုအခါ ဂိမ္းမ်ားအတြက္ ေဘာက္ခ်ာမ်ားကို သင္ဝယ္ယူႏိုင္ပါၿပီ။</string>
 </resources>
