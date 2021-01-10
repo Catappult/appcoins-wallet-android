@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਵੇਗਾ| ਹੋਰ ਕਮਾਉਣ ਲਈ ਖਰੀਦਦੇ ਰਹੋ!</string>
   <string name="gamification_leveled_up_notification_title">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ!</string>
   <string name="gamification_leveled_up_notification_body">ਵਧਾਈਆਂ, ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਮਿਲੇਗਾ!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_how_max_level_notification_title">ਤੁਸੀ ਕਰ ਦਿੱਤਾ!</string>
+  <string name="gamification_how_max_level_body">ਤੁਸੀਂ ਸੱਭ ਤੋਂ ਉੱਚੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ: ਹਰ ਖਰੀਦ ਤੇ %s ਬੋਨਸ!</string>
   <string name="gamification_level_up_notification_title">ਲਗਭਗ ਉਥੇ!</string>
   <string name="gamification_level_up_notification_body">ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ %s ਹੋਰ ਐਪਸਿੱਕੇ ਖਰਚ ਕਰੋ|</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">ਤੁਹਾਨੂੰ ਵਾਧੂ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
+  <string name="gamification_bonus_plus_perk_body">%1$s ਬੋਨਸ ਅਤੇ %2$s ਵਾਧੂ ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟ ਦਾ ਆਨੰਦ ਲਓ|</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
   <string name="provide_wallet_body_placeholders">%1$s ਬਟੂਏ ਨੂੰ %2$s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
@@ -507,8 +507,8 @@
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_error_unverified_wallet">ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਤੋਂ ਬਾਅਦ ਖਰੀਦ ਪੂਰੀ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_method">ਓਹੋ&#8230; ਕੁੱਝ ਗਲਤ ਚੱਲ ਰਿਹਾ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਵਖਰੀ ਭੁਗਤਾਨ ਵਿਧੀ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_error_try_other_amount">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਰੀਚਾਰਜ ਰਕਮ ਸਹੀ ਹੈ? ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">ਸੁਝਾਈਆਂ ਗਈਆਂ ਗੇਮਾਂ</string>
   <string name="promotions_perks_button">ਸੁਵਿਧਾਵਾਂ</string>
   <string name="promotions_vouhers_button">ਵਾਊਚਰ</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">ਸਾਡੀਆਂ ਆਫਰਾਂ ਦੇ ਨਾਲ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਪਡੇਟ ਕਰੋ</string>
   <string name="update_wallet_poa_notification_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਅਪਡੇਟ ਕਰੋ|</string>
@@ -845,10 +845,10 @@
   <string name="rate_us_improve_field__empty_error">ਕਿਰਪਾ ਕਰਕੇ ਕੁੱਝ ਲਿਖੋ|</string>
   <string name="rate_us_possitive_thanks_title">ਤੁਹਾਡਾ ਧੰਨਵਾਦ!</string>
   <string name="rate_us_possitive_thanks_body">ਅਸੀਂ ਖੁਸ਼ ਹਾਂ ਕਿ ਤੁਹਾਨੂੰ ਸਾਡੀ ਐਪ ਪਸੰਦ ਹੈ| ਕੀ ਤੁਸੀਂ ਐਪ ਸਟੋਰ ਤੇ ਰੇਟਿੰਗ ਦੇ ਕੇ ਸਾਡੀ ਮਦਦ ਕਰ ਸਕਦੇ ਹੋ?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ</string>
   <string name="rate_us_possitive_done_title">ਤੁਹਾਡੀ ਸੁਝਾਅ ਲਈ ਧੰਨਵਾਦ!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">ਸਾਡੀ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+  <string name="rate_us_back_body">ਐਪ ਸਟੋਰ ਤੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ ਤਾਂ ਜੋ ਅਸੀਂ ਇਸ ਵਿੱਚ ਸੁਧਾਰ ਕਰ ਸਕੀਏ|</string>
   <!--Card verification-->
   <string name="card_verification_body">ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਲਈ ਆਪਣੇ ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
   <string name="card_verification_charde_disclaimer">ਅਸੀਂ ਤੁਹਾਡੇ ਕਾਰਡ ਤੋਂ %s ਵਸੂਲ ਕਰਾਂਗੇ ਅਤੇ ਜਦੋਂ ਤੁਸੀਂ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹੋ ਤਾਂ ਅਸੀਂ ਇਸਨੂੰ ਵਾਪਸ ਕਰ ਦੇਵਾਂਗੇ|</string>
@@ -881,6 +881,6 @@
   <string name="voucher_code_title">ਵਾਊਚਰ ਕੋਡ</string>
   <string name="voucher_instructions_body">%s ਤੇ ਜਾਓ ਅਤੇ ਆਪਣੇ ਵਾਊਚਰ ਨੂੰ ਵਰਤਣ ਲਈ ਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
   <string name="voucher_instructions_transactions">ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਸੌਦੇ ਦੇ ਇਤਿਹਾਸ ਵਿੱਚ ਵਾਊਚਰ ਕੋਡ ਨੂੰ ਲੱਭ ਸਕਦੇ ਹੋ|</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">ਇਸ ਸਮੇਂ ਕੋਈ ਵਾਊਚਰ ਉਪਲਬਧ ਨਹੀਂ ਹਨ|</string>
+  <string name="voucher_tooltip">ਤੁਸੀਂ ਹੁਣ ਗੇਮਾਂ ਲਈ ਵਊਚਰ ਖਰੀਦ ਸਕਦੇ ਹੋ!</string>
 </resources>
