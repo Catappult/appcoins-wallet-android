@@ -335,7 +335,7 @@
   <string name="gamification_leveled_up_body">D\'ora in poi riceverai un bonus di %s a ogni acquisto. Continua a effettuare acquisti per guadagnare ancora di più!</string>
   <string name="gamification_leveled_up_notification_title">Hai raggiunto il livello successivo!</string>
   <string name="gamification_leveled_up_notification_body">Congratulazioni, d\'ora in poi riceverai un bonus di %s a ogni acquisto!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_notification_title">Ce l\'hai fatta!</string>
   <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
   <string name="gamification_level_up_notification_title">Ci siamo quasi!</string>
   <string name="gamification_level_up_notification_body">Spendi ancora %s AppCoins per raggiungere il prossimo livello.</string>
