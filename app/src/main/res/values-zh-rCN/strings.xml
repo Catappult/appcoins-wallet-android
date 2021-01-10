@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">你现在可以在每次购买时获得%s奖金。继续购买以赚取更多！</string>
   <string name="gamification_leveled_up_notification_title">你已达到下一级！</string>
   <string name="gamification_leveled_up_notification_body">恭喜，现在你将在每次购买时获得%s奖金！</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_how_max_level_notification_title">您成功了！</string>
+  <string name="gamification_how_max_level_body">您已达到最高等级：每次购买均可获得%s的奖励！</string>
   <string name="gamification_level_up_notification_title">离成功不远了！</string>
   <string name="gamification_level_up_notification_body">再花费 %s AppCoins 可达到下一级。</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">您获得了额外奖励！</string>
+  <string name="gamification_bonus_plus_perk_body">额外享受%1$s的奖励和%2$s的AppCoins积金。</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">允许AppCoins Wallet向%s提供你的钱包地址。</string>
   <string name="provide_wallet_body_placeholders">允许%1$s向%2$s提供你的钱包地址。</string>
@@ -507,7 +507,7 @@
   <string name="purchase_card_error_CVV">CVV/CVC错误</string>
   <string name="error_contac_us_body">如果问题仍然存在，请与我们联系。</string>
   <string name="purchase_error_unverified_wallet">请在验证钱包后再尝试完成购买。</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
+  <string name="purchase_error_try_other_method">糟糕&#8230;出错了！请尝试使用其他付款方式或者与我们联系。</string>
   <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
@@ -841,10 +841,10 @@
   <string name="rate_us_improve_field__empty_error">请输入内容</string>
   <string name="rate_us_possitive_thanks_title">谢谢！</string>
   <string name="rate_us_possitive_thanks_body">很高兴您喜欢我们的应用。您能帮忙在应用商店上给我们评分吗？</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">给APPCOINS WALLET评分</string>
   <string name="rate_us_possitive_done_title">感谢您的反馈！</string>
   <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">在应用商店上给AppCoins Wallet评分，以便我们对其进行改进。</string>
   <!--Card verification-->
   <string name="card_verification_body">使用您的信用卡/借记卡验证钱包。</string>
   <string name="card_verification_charde_disclaimer">我们将向您的银行卡收取%s的费用，一旦您确认代码，我们将立即退款给您。</string>
