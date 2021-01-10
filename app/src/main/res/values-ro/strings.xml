@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">Acum vei primi un bonus de %s la fiecare cumpărătură. Continuă să cumperi ca să câștigi și mai mult!</string>
   <string name="gamification_leveled_up_notification_title">Ai atins următorul nivel!</string>
   <string name="gamification_leveled_up_notification_body">Felicitări, acum vei primi un bonus de %s la fiecare cumpărătură!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_how_max_level_notification_title">Ai reușit!</string>
+  <string name="gamification_how_max_level_body">Ai atins cel mai înalt nivel: %s Bonus la fiecare achiziție!</string>
   <string name="gamification_level_up_notification_title">Încă puțin!</string>
   <string name="gamification_level_up_notification_body">Cheltuiește încă %s AppCoins ca să atingi nivelul următor.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">Ai primit un bonus suplimentar!</string>
+  <string name="gamification_bonus_plus_perk_body">Bucură-te de %1$s bonus și %2$s AppCoins Credits în plus.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite AppCoins Wallet să furnizeze adresa portofelului tău către %s.</string>
   <string name="provide_wallet_body_placeholders">Permite %1$s să furnizeze adresa portofelului tău către %2$s.</string>
@@ -507,8 +507,8 @@
   <string name="purchase_card_error_CVV">CVV/CVC greșit</string>
   <string name="error_contac_us_body">Dacă problema continuă, te rugăm să ne contactezi.</string>
   <string name="purchase_error_unverified_wallet">Încearcă să finalizezi achiziția după verificarea portofelului tău.</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_method">Ups&#8230; Ceva nu merge cum trebuie! Te rugăm să încerci o o metodă de plată diferită sau să ne contactezi.</string>
+  <string name="purchase_error_try_other_amount">Ești sigur că suma pe care vrei să o depui este corectă? Încearcă cu o altă sumă sau contactează-ne!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">Jocuri recomandate</string>
   <string name="promotions_perks_button">Avantaje</string>
   <string name="promotions_vouhers_button">Vouchere</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">Câștigă AppCoins Credits gratuite cu promoțiile noastre!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Actualizează pentru a primi recompense</string>
   <string name="update_wallet_poa_notification_body">Actualizează AppCoins Wallet pentru a primi această recompensă.</string>
@@ -849,10 +849,10 @@
   <string name="rate_us_improve_field__empty_error">Te rugăm să scrii ceva</string>
   <string name="rate_us_possitive_thanks_title">Îți mulțumim!</string>
   <string name="rate_us_possitive_thanks_body">Ne pare bine că îți place aplicația noastră. Ne poți ajuta cu o evaluare în App Store?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">EVALUEAZĂ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Îți mulțumim pentru părerea ta!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">Vrei să ne dai o mână de ajutor?</string>
+  <string name="rate_us_back_body">Evaluează AppCoins Wallet în App Store pentru a ne ajuta să îl îmbunătățim.</string>
   <!--Card verification-->
   <string name="card_verification_body">Folosește cardul tău de credit/debit pentru a-ți verifica portofelul.</string>
   <string name="card_verification_charde_disclaimer">Vom debita %s de pe cardul tău și vom rambursa suma imediat ce confirmi codul.</string>
@@ -887,6 +887,6 @@
   <string name="voucher_code_title">Cod voucher</string>
   <string name="voucher_instructions_body">Du-te la %s și folosește codul pentru a-ți revendica voucherul.</string>
   <string name="voucher_instructions_transactions">Vei găsi codul voucherului în istoricul tranzacțiilor.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">Fără vouchere disponibile în prezent.</string>
+  <string name="voucher_tooltip">Acum poți cumpăra vouchere pentru jocuri!</string>
 </resources>
