@@ -75,12 +75,18 @@ class PerkBonusAndGamificationService :
         getNewTransactions(address),
         Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
                     allLevels: List<Levels.Level>, transactions: List<Transaction> ->
-          if (isCaseInvalidForNotifications(stats, transactions, allLevels))
+          val bonusTransactionValue = getAllPerkBonusTransactionValues(transactions)
+          if (isCaseInvalidForNotifications(stats, transactions, allLevels)) {
+            //might be because user is partner (no gamification) - check if there is perk bonus
+            if (bonusTransactionValue.isNotEmpty()) {
+              buildNotification(createPerkBonusNotification(bonusTransactionValue),
+                  NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
+            }
             return@Function5
+          }
           val maxBonus = allLevels.maxBy { level -> level.bonus }!!.bonus
           val maxLevel = allLevels.maxBy { level -> level.level }!!.level
           val currentLevel = stats.level
-          val bonusTransactionValue = getAllPerkBonusTransactionValues(transactions)
           val currentLevelStartAmount = allLevels[currentLevel].amount
           handlePerkAndLevelUpNotification(address, lastShownLevel, currentLevel, transactions,
               stats, currentLevelStartAmount, maxBonus, maxLevel, bonusTransactionValue)
@@ -168,6 +174,8 @@ class PerkBonusAndGamificationService :
   }
 
   private fun getAllPerkBonusTransactionValues(transactions: List<Transaction>): String {
+    if (transactions.isEmpty())
+      return ""
     var appcValue = BigDecimal.ZERO
     transactions.forEach {
       if (it.subType == Transaction.SubType.PERK_PROMOTION) {
