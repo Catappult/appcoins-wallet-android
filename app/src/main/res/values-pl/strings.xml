@@ -507,8 +507,8 @@
   <string name="purchase_card_error_CVV">Nieprawidłowy CVV/CVC</string>
   <string name="error_contac_us_body">Jeśli problem powróci, skontaktuj się z nami.</string>
   <string name="purchase_error_unverified_wallet">Spróbuj dokończyć zakup po sprawdzeniu portfela.</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_method">Uups&#8230; Coś jest na rzeczy! Spróbuj z inną metodą płatności lub skontaktuj się z nami.</string>
+  <string name="purchase_error_try_other_amount">Czy na pewno wartość doładowania się zgadza? Spróbuj z inną lub skontaktuj się z nami!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">Sugerowane gry</string>
   <string name="promotions_perks_button">Bonusy</string>
   <string name="promotions_vouhers_button">Vouchery</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">Otrzymaj Kredyty AppCoins w naszych promocjach!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Zaktualizuj aby otrzymywać nagrody</string>
   <string name="update_wallet_poa_notification_body">Zaktualizuj portfel AppCoins aby otrzymać tą nagrodę.</string>
@@ -853,9 +853,9 @@
   <string name="rate_us_improve_field__empty_error">Napisz coś</string>
   <string name="rate_us_possitive_thanks_title">Dziękujemy!</string>
   <string name="rate_us_possitive_thanks_body">Fajnie, że podoba ci się nasza aplikacja. Może ocenisz ją w app storze?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">OCEŃ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Dziękujemy za opinię!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_title">Pomożesz nam?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Sprawdź portfel za pomocą karty kredytowej/debetowej.</string>
