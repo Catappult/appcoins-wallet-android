@@ -237,10 +237,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun getTryAgainClicks() = RxView.clicks(try_again)
 
-  override fun setFinishingPurchase(value: Boolean) {
-    isFinishingPurchase = value
-  }
-
   override fun cancelPayment() {
     if (supportFragmentManager.backStackEntryCount != 0) {
       supportFragmentManager.popBackStackImmediate()

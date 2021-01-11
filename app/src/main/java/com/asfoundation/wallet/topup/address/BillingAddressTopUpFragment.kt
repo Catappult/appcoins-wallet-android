@@ -68,7 +68,6 @@ class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    topUpView.setFinishingPurchase(false)
     presenter.present()
   }
 

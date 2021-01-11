@@ -65,6 +65,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   private var cachedPaymentData: String? = null
   private var retrievedAmount = amount
   private var retrievedCurrency = currency
+  private var finishingPurchase = false
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -319,6 +320,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       }
       paymentModel.error.hasError -> Completable.fromAction {
         if (isBillingAddressError(paymentModel.error)) {
+          finishingPurchase = false
           view.navigateToBillingAddress(retrievedAmount, retrievedCurrency)
         } else {
           handleErrors(paymentModel, appcValue.toDouble())
@@ -523,6 +525,10 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         handleSpecificError(R.string.unknown_error)
       }
     }
+  }
+
+  fun setFinishingPurchase(newState: Boolean) {
+    finishingPurchase = newState
   }
 
   companion object {

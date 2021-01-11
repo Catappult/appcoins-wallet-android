@@ -37,8 +37,6 @@ interface TopUpActivityView {
 
   fun cancelPayment()
 
-  fun setFinishingPurchase(value: Boolean)
-
   fun showError(@StringRes error: Int)
 
   fun getSupportClicks(): Observable<Any>
