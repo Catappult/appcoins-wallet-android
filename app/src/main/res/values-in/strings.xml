@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">Sekarang Anda akan mendapatkan bonus %s di setiap pembelian. Teruslah membeli agar bonus yang didapatkan lebih banyak lagi!</string>
   <string name="gamification_leveled_up_notification_title">Anda sudah mencapai tingkat berikutnya!</string>
   <string name="gamification_leveled_up_notification_body">Selamat, Anda sekarang akan mendapatkan bonus %s di setiap pembelian!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_how_max_level_notification_title">Anda Berhasil!</string>
+  <string name="gamification_how_max_level_body">Anda sudah mencapai level tertinggi: %s Bonus di setiap pembelian!</string>
   <string name="gamification_level_up_notification_title">Hampir sampai!</string>
   <string name="gamification_level_up_notification_body">Habiskan %s AppCoins lagi untuk mencapai level berikutnya.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">Anda mendapat bonus ekstra!</string>
+  <string name="gamification_bonus_plus_perk_body">Nikmati %1$s bonus dan %2$s Kredit AppCoins tambahan.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menginformasikan alamat dompet Anda ke %s.</string>
   <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk menginformasikan alamat dompet Anda ke %2$s.</string>
@@ -507,8 +507,8 @@
   <string name="purchase_card_error_CVV">CVV/CVC salah</string>
   <string name="error_contac_us_body">Kalau masalah tetap ada, silakan hubungi kami.</string>
   <string name="purchase_error_unverified_wallet">Coba selesaikan pembelian setelah memverifikasi dompet Anda.</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_method">Ups&#8230; Sedang terjadi sesuatu! Harap coba dengan metode pembayaran lain atau hubungi kami.</string>
+  <string name="purchase_error_try_other_amount">Apakah Anda yakin jumlah top-up Anda sudah benar? Silakan coba metode yang lain atau hubungi kami!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">Game yang Disarankan</string>
   <string name="promotions_perks_button">Bonus</string>
   <string name="promotions_vouhers_button">Voucher</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">Dapatkan Kredit AppCoins gratis dengan promosi kami!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Perbarui untuk menerima hadiah</string>
   <string name="update_wallet_poa_notification_body">Harap perbarui Dompet AppCoins untuk menerima hadiah ini.</string>
@@ -841,10 +841,10 @@
   <string name="rate_us_improve_field__empty_error">Silakan tulis sesuatu</string>
   <string name="rate_us_possitive_thanks_title">Terima kasih!</string>
   <string name="rate_us_possitive_thanks_body">Kami senang Anda menyukai aplikasi kami. Bisakah Anda membantu kami dengan memberi nilai untuk kami di toko aplikasi?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">BERI NILAI UNTUK DOMPET APPCOINS</string>
   <string name="rate_us_possitive_done_title">Terima kasih atas umpan balik Anda!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">Ingin membantu kami?</string>
+  <string name="rate_us_back_body">Beri nilai Dompet AppCoins di toko aplikasi agar kami bisa meningkatkannya.</string>
   <!--Card verification-->
   <string name="card_verification_body">Gunakan kartu kredit/debit Anda untuk memverifikasi dompet Anda.</string>
   <string name="card_verification_charde_disclaimer">Kami akan membebankan %s ke kartu Anda, dan kami akan mengembalikannya setelah Anda mengkonfirmasi kodenya.</string>
@@ -875,6 +875,6 @@
   <string name="voucher_code_title">Kode Voucher</string>
   <string name="voucher_instructions_body">Masuk ke %s dan gunakan kode untuk menukarkan voucher Anda.</string>
   <string name="voucher_instructions_transactions">Anda bisa menemukan kode voucher dalam riwayat transaksi.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">Tidak tersedia voucher saat ini.</string>
+  <string name="voucher_tooltip">Sekarang Anda bisa membeli voucher untuk game!</string>
 </resources>
