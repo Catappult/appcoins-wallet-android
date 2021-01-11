@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">Her bir satın alma işlemi için %s bonus alacaksınız. Daha da fazla kazanmak için satın almaya devam edin!</string>
   <string name="gamification_leveled_up_notification_title">Bir sonraki seviyeye ulaştınız!</string>
   <string name="gamification_leveled_up_notification_body">Tebrikler, artık her bir satın alma işleminde %s bonus kazanacaksınız!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_how_max_level_notification_title">Başardınız!</string>
+  <string name="gamification_how_max_level_body">En yüksek seviyeye ulaştınız: Her satın alma işleminde %s Bonus!</string>
   <string name="gamification_level_up_notification_title">Neredeyse bitti!</string>
   <string name="gamification_level_up_notification_body">Sonraki seviyeye ulaşmak için %s AppCoins daha harcayın.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">Ekstra bonus kazandınız!</string>
+  <string name="gamification_bonus_plus_perk_body">Ekstra %1$s bonus ve %2$s AppCoins Credits\'in keyfini çıkarın.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins Cüzdanın %s\'e cüzdan adresinizi vermesine izin verin.</string>
   <string name="provide_wallet_body_placeholders">%1$s\'ın %2$s\'e cüzdan adresinizi vermesine izin verin.</string>
@@ -507,8 +507,8 @@
   <string name="purchase_card_error_CVV">Yanlış CVV/CVC</string>
   <string name="error_contac_us_body">Sorun devam ederse lütfen bizimle iletişime geçin.</string>
   <string name="purchase_error_unverified_wallet">Cüzdanınızı doğruladıktan sonra satın alma işlemini tamamlamayı deneyin.</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_method">Hay aksi&#8230; Bir şeyler oluyor! Lütfen farklı bir ödeme yöntemi deneyin veya bizimle iletişime geçin.</string>
+  <string name="purchase_error_try_other_amount">Yükleme miktarınızın doğru olduğundan emin misiniz? Lütfen farklı bir miktarla deneyin veya bizimle iletişime geçin!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">Önerilen Oyunlar</string>
   <string name="promotions_perks_button">Avantajlar</string>
   <string name="promotions_vouhers_button">Kuponlar</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">Promosyonlarımızla ücretsiz AppCoins Credits kazanın!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Ödül almak için güncelleyin</string>
   <string name="update_wallet_poa_notification_body">Bu ödülü almak için lütfen AppCoins Wallet\'ı güncelleyin.</string>
@@ -845,7 +845,7 @@
   <string name="rate_us_improve_field__empty_error">Lütfen bir şeyler yazın</string>
   <string name="rate_us_possitive_thanks_title">Teşekkürler!</string>
   <string name="rate_us_possitive_thanks_body">Uygulamamızı beğenmenize sevindik. App Store\'da değerlendirerek bize yardımcı olabilir misiniz?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">APPCOINS WALLET\'I DEĞERLENDİRİN</string>
   <string name="rate_us_possitive_done_title">Geri bildiriminiz için teşekkürler!</string>
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
