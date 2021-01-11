@@ -287,6 +287,9 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     topUpView.unlockRotation()
     topUpView.navigateToBillingAddress(data, fiatAmount, fiatCurrency, this,
         adyenSaveDetailsSwitch?.isChecked ?: true, isStored)
+    // To allow back behaviour when address input is needed
+    hideLoading()
+    button.isEnabled = true
   }
 
   override fun finishCardConfiguration(
@@ -392,7 +395,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun cancelPayment() = topUpView.cancelPayment()
 
-  override fun setFinishingPurchase() = topUpView.setFinishingPurchase()
+  override fun setFinishingPurchase() = topUpView.setFinishingPurchase(true)
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {

@@ -237,8 +237,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun getTryAgainClicks() = RxView.clicks(try_again)
 
-  override fun setFinishingPurchase() {
-    isFinishingPurchase = true
+  override fun setFinishingPurchase(value: Boolean) {
+    isFinishingPurchase = value
   }
 
   override fun cancelPayment() {
