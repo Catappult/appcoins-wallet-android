@@ -856,7 +856,7 @@
   <string name="rate_us_possitive_rate_button">OCEŃ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Dziękujemy za opinię!</string>
   <string name="rate_us_back_title">Pomożesz nam?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_body">Oceń AppCoins Wallet, żebyśmy wiedzieli co w nim ulepszyć.</string>
   <!--Card verification-->
   <string name="card_verification_body">Sprawdź portfel za pomocą karty kredytowej/debetowej.</string>
   <string name="card_verification_charde_disclaimer">Obciążymy twoją kartę %s i zwrócimy tę kwotę, jak tylko potwierdzisz kod.</string>
@@ -893,6 +893,6 @@
   <string name="voucher_code_title">Kod vouchera</string>
   <string name="voucher_instructions_body">Wejdź na %s i użyj kodu, by zrealizować voucher.</string>
   <string name="voucher_instructions_transactions">Kod vouchera znajdziesz w historii transakcji.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">Teraz nie ma tu żadnych voucherów.</string>
+  <string name="voucher_tooltip">Teraz możesz kupić vouchery na gry!</string>
 </resources>
