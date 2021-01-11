@@ -847,8 +847,8 @@
   <string name="rate_us_possitive_thanks_body">Uygulamamızı beğenmenize sevindik. App Store\'da değerlendirerek bize yardımcı olabilir misiniz?</string>
   <string name="rate_us_possitive_rate_button">APPCOINS WALLET\'I DEĞERLENDİRİN</string>
   <string name="rate_us_possitive_done_title">Geri bildiriminiz için teşekkürler!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">Bize yardımcı olmak ister misiniz?</string>
+  <string name="rate_us_back_body">AppCoins Wallet\'ı iyileştirebilmemiz için uygulama mağazasında değerlendirin.</string>
   <!--Card verification-->
   <string name="card_verification_body">Cüzdanınızı doğrulamak için kredi/banka kartınızı kullanın.</string>
   <string name="card_verification_charde_disclaimer">Kartınızdan %s alınır ve kodu doğruladığımızda iade edilir.</string>
@@ -881,6 +881,6 @@
   <string name="voucher_code_title">Kupon Kodu</string>
   <string name="voucher_instructions_body">%s adresine gidin ve kuponunuzu kullanmak için kodu kullanın.</string>
   <string name="voucher_instructions_transactions">Kupon kodunuza dilediğiniz zaman işlem geçmişinden ulaşabilirsiniz.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">Şu anda uygun kupon yok.</string>
+  <string name="voucher_tooltip">Artık oyunlar için kupon satın alabilirsiniz!</string>
 </resources>
