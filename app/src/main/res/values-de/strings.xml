@@ -336,11 +336,11 @@
   <string name="gamification_leveled_up_notification_title">Sie haben den nächsten Level erreicht!</string>
   <string name="gamification_leveled_up_notification_body">Gratulation, Sie erhalten bei jedem Einkauf ab jetzt einen Bonus von %s!</string>
   <string name="gamification_how_max_level_notification_title">Sie haben es geschafft!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_how_max_level_body">Sie haben das höchste Level erreicht: %s Bonus für jeden Einkauf!</string>
   <string name="gamification_level_up_notification_title">Fast geschafft!</string>
   <string name="gamification_level_up_notification_body">Geben Sie %s AppCoins aus, um den nächsten Level zu erreichen.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">Sie erhalten einen Extra-Bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Freuen Sie sich über einen Bonus von %1$s und zusätzlichen %2$s AppCoins Credits.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Erlauben Sie dem AppCoinsWallet ihre Wallet Adresse an %s weiterzureichen.</string>
   <string name="provide_wallet_body_placeholders">Erlauben Sie %1$s ihre Wallet-Adresse für %2$s zur Verfügung zu stellen.</string>
@@ -507,8 +507,8 @@
   <string name="purchase_card_error_CVV">Falscher CVV/CVC-Code</string>
   <string name="error_contac_us_body">Nehmen Sie Kontakt zu uns auf, falls das Problem weiterbesteht.</string>
   <string name="purchase_error_unverified_wallet">Versuchen Sie den Kauf abzuschliessen nach dem Sie ihr Wallet verifiziert haben.</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_method">Upps&#8230; Etwas ist schief gelaufen! Bitte versuchen Sie eine andere Bezahlmethode oder nehmen Sie Kontakt zu uns auf.</string>
+  <string name="purchase_error_try_other_amount">Sind Sie sicher das ihr Einzahlungsbetrag korrekt ist? Bitte probieren Sie einen anderen Betrag oder nehmen Sie Kontakt zu uns auf!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">Vorgeschlagene Spiele</string>
   <string name="promotions_perks_button">Vergütung</string>
   <string name="promotions_vouhers_button">Vouchers</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">Verdienen Sie gratis AppCoins Credits mit unseren Werbeaktionen!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Aktualisieren und Prämien erhalten</string>
   <string name="update_wallet_poa_notification_body">Bitte aktualisieren Sie das AppCoins Wallet, um diese Prämie zu erhalten.</string>
@@ -845,10 +845,10 @@
   <string name="rate_us_improve_field__empty_error">Bitte schreiben Sie etwas</string>
   <string name="rate_us_possitive_thanks_title">Vielen Dank!</string>
   <string name="rate_us_possitive_thanks_body">Wir freuen uns, dass Ihnen die App gefällt; würden Sie uns helfen und eine Bewertung im App-Store abgeben?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">DAS APPCOINS WALLET BEWERTEN</string>
   <string name="rate_us_possitive_done_title">Vielen Dank für Ihr Feedback!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">Wollen Sie uns helfen?</string>
+  <string name="rate_us_back_body">Bewerten Sie AppCoins Wallet im App-Store damit wir es verbessern können.</string>
   <!--Card verification-->
   <string name="card_verification_body">Verwenden Sie ihre Kredit-/Debitkarte um ihr Wallet zu verifizieren.</string>
   <string name="card_verification_charde_disclaimer">Wir belasten ihre Karte mit %s und erstatten Ihnen diesen Betrag wieder wenn Sie den Code bestätigen.</string>
@@ -881,6 +881,6 @@
   <string name="voucher_code_title">Voucher Code</string>
   <string name="voucher_instructions_body">Gehen Sie zu %s und nutzen Sie den Code um ihren Voucher einzulösen.</string>
   <string name="voucher_instructions_transactions">Sie können den Voucher-Code stets in der Transaktions-Historie finden.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">Zur Zeit sind keine Gutscheine verfügbar.</string>
+  <string name="voucher_tooltip">Sie können jetzt Gutscheine für die Spiele kaufen!</string>
 </resources>
