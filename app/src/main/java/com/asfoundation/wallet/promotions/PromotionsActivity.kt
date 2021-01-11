@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.promotions
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import com.asf.wallet.R
@@ -22,5 +24,12 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     //Let Fragment handle the click
     return false
+  }
+
+  companion object {
+    @JvmStatic
+    fun newIntent(context: Context): Intent {
+      return Intent(context, PromotionsActivity::class.java)
+    }
   }
 }
