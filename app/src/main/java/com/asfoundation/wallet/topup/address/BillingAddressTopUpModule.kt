@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup.address
 
+import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
@@ -29,9 +30,10 @@ class BillingAddressTopUpModule {
   fun providesBillingAddressTopUpPresenter(fragment: BillingAddressTopUpFragment,
                                            data: BillingAddressTopUpData,
                                            navigator: BillingAddressTopUpNavigator,
+                                           billingAddressRepository: BillingAddressRepository,
                                            topUpAnalytics: TopUpAnalytics): BillingAddressTopUpPresenter {
     return BillingAddressTopUpPresenter(fragment, data, CompositeDisposable(),
-        AndroidSchedulers.mainThread(), navigator, topUpAnalytics)
+        AndroidSchedulers.mainThread(), navigator, billingAddressRepository, topUpAnalytics)
   }
 
   @Provides

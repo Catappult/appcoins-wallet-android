@@ -132,16 +132,4 @@
 
   </com.google.android.material.textfield.TextInputLayout>
 
-  <com.google.android.material.switchmaterial.SwitchMaterial
-      android:id="@+id/remember"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:backgroundTint="@color/billing_switch_color"
-      android:text="@string/dialog_credit_card_remember"
-      android:textSize="14sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/country_layout"
-      />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

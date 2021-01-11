@@ -8,6 +8,7 @@ class BillingAddressPresenter(
     private val view: BillingAddressView,
     private val data: BillingAddressData,
     private val navigator: BillingAddressNavigator,
+    private val billingAddressRepository: BillingAddressRepository,
     private val billingAnalytics: BillingAnalytics,
     private val disposables: CompositeDisposable,
     private val viewScheduler: Scheduler) {
@@ -20,7 +21,8 @@ class BillingAddressPresenter(
 
   private fun initializeView() {
     view.initializeView(data.bonus, data.isDonation, data.domain, data.skuDescription,
-        data.appcAmount, data.fiatAmount, data.fiatCurrency, data.isStored, data.shouldStoreCard)
+        data.appcAmount, data.fiatAmount, data.fiatCurrency, data.isStored, data.shouldStoreCard,
+        billingAddressRepository.retrieveBillingAddress())
   }
 
   private fun handleSubmitClicks() {
@@ -28,8 +30,15 @@ class BillingAddressPresenter(
         view.submitClicks()
             .subscribeOn(viewScheduler)
             .doOnNext { billingAddressModel ->
+              val billingModel =
+                  BillingAddressModel(billingAddressModel.address, billingAddressModel.city,
+                      billingAddressModel.zipcode, billingAddressModel.state,
+                      billingAddressModel.country, billingAddressModel.number, data.shouldStoreCard)
+              if (data.shouldStoreCard) {
+                billingAddressRepository.saveBillingAddress(billingModel)
+              }
               sendActionEventAnalytics(if (data.isDonation) "donate" else "buy")
-              navigator.finishWithSuccess(billingAddressModel)
+              navigator.finishWithSuccess(billingModel)
             }
             .subscribe({}, { it.printStackTrace() })
     )
