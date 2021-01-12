@@ -71,7 +71,8 @@ class PerkBonusAndGamificationService :
     return Single.zip(getLastShownLevelUp(address),
         promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_ALMOST_NEXT_LEVEL),
         promotionsRepository.getGamificationStats(address),
-        promotionsRepository.getLevels(address).map { it.list },
+        promotionsRepository.getLevels(address)
+            .map { it.list },
         getNewTransactions(address),
         Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
                     allLevels: List<Levels.Level>, transactions: List<Transaction> ->
@@ -87,7 +88,8 @@ class PerkBonusAndGamificationService :
               stats, currentLevelStartAmount, maxLevel, bonusTransactionValue)
           handleAlmostNextLevelNotification(address, almostNextLevelLastShown, currentLevel, stats,
               currentLevelStartAmount, maxLevel)
-        }).doOnError { it.printStackTrace() }
+        })
+        .doOnError { it.printStackTrace() }
         .subscribeOn(Schedulers.io())
   }
 
@@ -274,7 +276,8 @@ class PerkBonusAndGamificationService :
       }
     }
     return builder.setContentText(contentMessage)
-        .setStyle(NotificationCompat.BigTextStyle().bigText(contentMessage))
+        .setStyle(NotificationCompat.BigTextStyle()
+            .bigText(contentMessage))
   }
 
   private fun createAlmostNextLevelNotification(appCoinsToSpend: String):

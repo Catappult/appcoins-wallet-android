@@ -46,7 +46,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     } else true
   }
 
-  override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int> {
+  override fun getLastShownLevel(wallet: String,
+                                 gamificationContext: GamificationContext): Single<Int> {
     return local.getLastShownLevel(wallet, gamificationContext)
   }
 

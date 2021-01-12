@@ -30,11 +30,13 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
 
   override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext):
       Single<Int> {
-    return Single.fromCallable { preferences.getInt(getKey(wallet, gamificationContext.toString()),
-        -1) }
+    return Single.fromCallable {
+      preferences.getInt(getKey(wallet, gamificationContext.toString()), -1)
+    }
   }
 
-  override fun saveShownLevel(wallet: String, level: Int, gamificationContext: GamificationContext) {
+  override fun saveShownLevel(wallet: String, level: Int,
+                              gamificationContext: GamificationContext) {
     return preferences.edit()
         .putInt(getKey(wallet, gamificationContext.toString()), level)
         .apply()
