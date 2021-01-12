@@ -322,7 +322,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesRatingRepository(sharedPreferences: SharedPreferences,
-                               walletFeedbackApi: RatingRepository.WalletFeedbackApi): RatingRepository {
-    return RatingRepository(sharedPreferences, walletFeedbackApi)
+                               walletFeedbackApi: RatingRepository.WalletFeedbackApi,
+                               logger: Logger): RatingRepository {
+    return RatingRepository(sharedPreferences, walletFeedbackApi, logger)
   }
 }

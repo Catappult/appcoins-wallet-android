@@ -2,6 +2,7 @@ package com.asfoundation.wallet.rating
 
 import android.content.SharedPreferences
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.rating.network.WalletFeedbackBody
 import io.reactivex.Single
 import okhttp3.ResponseBody
@@ -11,7 +12,8 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 class RatingRepository(private val sharedPreferences: SharedPreferences,
-                       private val walletFeedbackApi: WalletFeedbackApi) {
+                       private val walletFeedbackApi: WalletFeedbackApi,
+                       private val logger: Logger) {
 
   companion object {
     const val REMIND_ME_LATER_TIME_KEY = "first_time_rating"
@@ -67,7 +69,10 @@ class RatingRepository(private val sharedPreferences: SharedPreferences,
         WalletFeedbackBody.Comment(feedbackText)))
     return walletFeedbackApi.sendFeedback("Basic ${BuildConfig.FEEDBACK_ZENDESK_API_KEY}", body)
         .map { response -> response.code() == 200 || response.code() == 204 }
-        .onErrorReturn { false }
+        .onErrorReturn { e ->
+          logger.log("RatingRepository", e)
+          false
+        }
   }
 
   interface WalletFeedbackApi {
