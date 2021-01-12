@@ -32,7 +32,8 @@ class RatingInteractor(private val ratingRepository: RatingRepository,
     var transactionsNumber = 0
     for (transaction in transactions) {
       if ((transaction.type == Transaction.TransactionType.IAP
-              || transaction.type == Transaction.TransactionType.TOP_UP)
+              || transaction.type == Transaction.TransactionType.TOP_UP
+              || transaction.type == Transaction.TransactionType.IAP_OFFCHAIN)
           && transaction.status == Transaction.TransactionStatus.SUCCESS) {
         if (++transactionsNumber >= MINIMUM_TRANSACTIONS_NR) {
           ratingRepository.saveEnoughSuccessfulTransactions()
