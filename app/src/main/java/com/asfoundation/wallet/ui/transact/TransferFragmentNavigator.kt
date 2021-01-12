@@ -8,7 +8,7 @@ import com.asfoundation.wallet.C
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.ui.ConfirmationActivity
+import com.asfoundation.wallet.ui.TransferConfirmationActivity
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
@@ -68,7 +68,7 @@ class TransferFragmentNavigator(private val fragmentManager: FragmentManager,
   }
 
   private fun openConfirmation(transactionBuilder: TransactionBuilder) {
-    val intent = Intent(fragment.context, ConfirmationActivity::class.java).apply {
+    val intent = Intent(fragment.context, TransferConfirmationActivity::class.java).apply {
       putExtra(C.EXTRA_TRANSACTION_BUILDER, transactionBuilder)
     }
     fragment.startActivityForResult(intent, TRANSACTION_CONFIRMATION_REQUEST_CODE)

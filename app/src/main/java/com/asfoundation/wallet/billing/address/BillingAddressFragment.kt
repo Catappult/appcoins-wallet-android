@@ -86,21 +86,29 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
     presenter.present()
   }
 
-  override fun initializeView(bonus: String?, isDonation: Boolean, domain: String,
+  override fun initializeView(bonus: String?, isDonation: Boolean,
+                              domain: String,
                               skuDescription: String,
                               appcAmount: BigDecimal, fiatAmount: BigDecimal,
-                              fiatCurrency: String, isStored: Boolean, shouldStoreCard: Boolean) {
+                              fiatCurrency: String, isStored: Boolean,
+                              shouldStoreCard: Boolean,
+                              savedBillingAddress: BillingAddressModel?) {
     iabView.unlockRotation()
     showButtons(isDonation)
     setHeaderInformation(isDonation, domain, skuDescription, appcAmount, fiatAmount, fiatCurrency)
     showBonus(bonus)
+    savedBillingAddress?.let { setupSavedBillingAddress(savedBillingAddress) }
     setupFieldsListener()
     setupStateAdapter()
-    if (isStored) remember.visibility = GONE
-    else {
-      remember.visibility = VISIBLE
-      remember.isChecked = shouldStoreCard
-    }
+  }
+
+  private fun setupSavedBillingAddress(savedBillingAddress: BillingAddressModel) {
+    address.setText(savedBillingAddress.address)
+    city.setText(savedBillingAddress.city)
+    zipcode.setText(savedBillingAddress.zipcode)
+    state.setText(savedBillingAddress.state)
+    country.setText(savedBillingAddress.country)
+    number.setText(savedBillingAddress.number)
   }
 
   private fun showButtons(isDonation: Boolean) {
@@ -138,7 +146,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
               state.text.toString(),
               country.text.toString(),
               number.text.toString(),
-              remember.isChecked
+              false
           )
         }
   }

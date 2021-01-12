@@ -19,8 +19,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 177
-    versionName "1.17.0.2"
+    versionCode 178
+    versionName "1.18.0.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -245,6 +245,8 @@ dependencies {
   implementation "com.amplitude:android-sdk:$project.amplitude_version"
 
   implementation "androidx.biometric:biometric:$project.biometrics_version"
+
+  implementation "androidx.security:security-crypto:$project.securitycrypto_version"
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di
 
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsAnalytics
 import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
@@ -177,8 +178,9 @@ class AnalyticsModule {
   @Singleton
   @Provides
   fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
+                                 promotionsRepository: PromotionsRepository,
                                  logger: Logger): RakamAnalytics {
-    return RakamAnalytics(context, idsRepository, logger)
+    return RakamAnalytics(context, idsRepository, promotionsRepository, logger)
   }
 
   @Singleton

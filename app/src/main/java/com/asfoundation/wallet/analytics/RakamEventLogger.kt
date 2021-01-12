@@ -15,6 +15,7 @@ class RakamEventLogger : EventLogger {
     const val ENTRY_POINT = "entry_point"
     const val USER_LEVEL = "user_level"
     const val HAS_GMS = "has_gms"
+    const val WALLET_ORIGIN = "wallet_origin"
     private const val TAG = "RakamEventLogger"
   }
 
