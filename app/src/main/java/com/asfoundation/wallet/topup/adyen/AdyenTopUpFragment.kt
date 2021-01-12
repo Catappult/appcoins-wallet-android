@@ -395,7 +395,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun cancelPayment() = topUpView.cancelPayment()
 
-  override fun setFinishingPurchase(newState: Boolean) = topUpView.setFinishingPurchase(true)
+  override fun setFinishingPurchase(newState: Boolean) = topUpView.setFinishingPurchase(newState)
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {
