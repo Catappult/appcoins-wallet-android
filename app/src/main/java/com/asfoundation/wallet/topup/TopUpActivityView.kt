@@ -37,7 +37,7 @@ interface TopUpActivityView {
 
   fun cancelPayment()
 
-  fun setFinishingPurchase()
+  fun setFinishingPurchase(value: Boolean)
 
   fun showError(@StringRes error: Int)
 
