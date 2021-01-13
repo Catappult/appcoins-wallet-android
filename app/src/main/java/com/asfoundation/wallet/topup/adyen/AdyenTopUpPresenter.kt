@@ -313,7 +313,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
-            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
+            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
             else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
@@ -372,7 +372,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
   }
 
-  private fun handleFraudFlow(@StringRes error: Int) {
+  private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
     disposables.add(
         adyenPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
@@ -386,9 +386,17 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                       else view.showWalletValidation(error)
                     }
               } else {
-                Single.just(true)
+                Single.just(fraudCheckIds)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { handleSpecificError(error) }
+                    .doOnSuccess {
+                      val fraudError = when {
+                        //TODO replace for correct string
+                        it.contains(63) -> R.string.card_verification_code_wrong_error
+                        it.contains(73) -> R.string.cancel_button
+                        else -> error
+                      }
+                      handleSpecificError(fraudError)
+                    }
               }
             }
             .observeOn(viewScheduler)
@@ -515,7 +523,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             paymentModel.error.code.toString(),
             buildRefusalReason(paymentModel.status, paymentModel.error.message))
         val resId = servicesErrorMapper.mapError(paymentModel.error.code!!)
-        if (paymentModel.error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId)
+        if (paymentModel.error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
       else -> {

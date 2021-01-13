@@ -11,6 +11,7 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2F
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
+import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
@@ -266,7 +267,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
-            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
+            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
             else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
@@ -321,7 +322,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
   }
 
-  private fun handleFraudFlow(@StringRes error: Int) {
+  private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
     disposables.add(
         adyenPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
@@ -335,9 +336,17 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       else view.showWalletValidation(error)
                     }
               } else {
-                Single.just(true)
+                Single.just(fraudCheckIds)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { view.showSpecificError(error) }
+                    .doOnSuccess {
+                      val fraudError = when {
+                        //TODO replace for correct string
+                        it.contains(63) -> R.string.card_verification_code_wrong_error
+                        it.contains(73) -> R.string.cancel_button
+                        else -> error
+                      }
+                      view.showSpecificError(fraudError)
+                    }
               }
             }
             .observeOn(viewScheduler)
@@ -639,7 +648,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       error.isNetworkError -> view.showNetworkError()
       error.code != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.code!!)
-        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId)
+        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
       else -> view.showGenericError()
