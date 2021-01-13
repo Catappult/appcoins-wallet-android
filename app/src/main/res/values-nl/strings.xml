@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">Je krijgt nu bij elke aankoop %s bonus. Blijf kopen om nog meer te verdienen!</string>
   <string name="gamification_leveled_up_notification_title">Je hebt het volgende niveau bereikt!</string>
   <string name="gamification_leveled_up_notification_body">Gefeliciteerd, je krijgt nu bij elke aankoop %s bonus!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_how_max_level_notification_title">Je hebt het gehaald!</string>
+  <string name="gamification_how_max_level_body">Je hebt het hoogste niveau bereikt: %s bonus bij elke aankoop!</string>
   <string name="gamification_level_up_notification_title">Bijna klaar!</string>
   <string name="gamification_level_up_notification_body">Besteed nog %s AppCoins om het volgende niveau te bereiken.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">Je hebt een extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Geniet van %1$s bonus en %2$s extra AppCoins Credits.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan %s door te geven.</string>
   <string name="provide_wallet_body_placeholders">Geef %1$s toestemming om je wallet-adres aan %2$s door te geven.</string>
@@ -507,8 +507,8 @@
   <string name="purchase_card_error_CVV">Onjuiste CVV/CVC</string>
   <string name="error_contac_us_body">Neem contact met ons op als het probleem zich blijft voordoen.</string>
   <string name="purchase_error_unverified_wallet">Probeer de aankoop te voltooien nadat je je wallet hebt geverifieerd.</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_method">Oeps&#8230; Er gaat iets fout! Probeer het met een andere betaalmethode of neem contact met ons op.</string>
+  <string name="purchase_error_try_other_amount">Weet je zeker dat je bedrag om op te waarderen klopt? Probeer een ander bedrag of neem contact met ons op!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">Aanbevolen games</string>
   <string name="promotions_perks_button">Voordelen</string>
   <string name="promotions_vouhers_button">Vouchers</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">Verdien gratis AppCoins Credits met onze acties!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Werk bij om beloningen te ontvangen</string>
   <string name="update_wallet_poa_notification_body">Werk de AppCoins Wallet bij om deze beloning te ontvangen.</string>
@@ -845,10 +845,10 @@
   <string name="rate_us_improve_field__empty_error">Schrijf een bericht</string>
   <string name="rate_us_possitive_thanks_title">Bedankt!</string>
   <string name="rate_us_possitive_thanks_body">We zijn blij dat je van onze app geniet. Wil je ons helpen door ons in de App Store te beoordelen?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">APPCOINS WALLET BEOORDELEN</string>
   <string name="rate_us_possitive_done_title">Bedankt voor je feedback!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">Wil je ons helpen?</string>
+  <string name="rate_us_back_body">Beoordeel de AppCoins Wallet in de App Store zodat we de wallet kunnen verbeteren.</string>
   <!--Card verification-->
   <string name="card_verification_body">Gebruik je creditcard/bankpas om je wallet te verifiëren.</string>
   <string name="card_verification_charde_disclaimer">We zullen via je kaart %s in rekening brengen en het bedrag terugstorten als je de code hebt bevestigd.</string>
@@ -881,6 +881,6 @@
   <string name="voucher_code_title">Vouchercode</string>
   <string name="voucher_instructions_body">Ga naar %s en gebruik de code om je voucher in te wisselen.</string>
   <string name="voucher_instructions_transactions">Je kunt de vouchercode altijd in de transactiegeschiedenis terugvinden.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">Er zijn momenteel geen vouchers beschikbaar.</string>
+  <string name="voucher_tooltip">Je kunt nu vouchers voor games kopen!</string>
 </resources>
