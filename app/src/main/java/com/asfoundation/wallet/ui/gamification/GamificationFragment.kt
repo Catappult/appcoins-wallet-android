@@ -2,12 +2,9 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
@@ -17,7 +14,6 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -86,7 +82,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
           override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
 
           override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = GONE
+            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = View.GONE
             bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
           }
         })
@@ -159,7 +155,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
       disableBackListener(bottomsheet_coordinator_container)
     } else {
       detailsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-      bottomsheet_coordinator_container.visibility = VISIBLE
+      bottomsheet_coordinator_container.visibility = View.VISIBLE
       bottomsheet_coordinator_container.background.alpha = 255
       setBackListener(bottomsheet_coordinator_container)
     }
