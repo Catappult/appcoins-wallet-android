@@ -27,17 +27,16 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
-class AdyenPaymentInteractor(
-    private val adyenPaymentRepository: AdyenPaymentRepository,
-    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-    private val billingMessagesMapper: BillingMessagesMapper,
-    private val partnerAddressService: AddressService,
-    private val billing: Billing,
-    private val walletService: WalletService,
-    private val supportInteractor: SupportInteractor,
-    private val walletBlockedInteract: WalletBlockedInteract,
-    private val smsValidationInteract: SmsValidationInteract,
-    private val billingAddressRepository: BillingAddressRepository
+class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRepository,
+                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                             private val billingMessagesMapper: BillingMessagesMapper,
+                             private val partnerAddressService: AddressService,
+                             private val billing: Billing,
+                             private val walletService: WalletService,
+                             private val supportInteractor: SupportInteractor,
+                             private val walletBlockedInteract: WalletBlockedInteract,
+                             private val smsValidationInteract: SmsValidationInteract,
+                             private val billingAddressRepository: BillingAddressRepository
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
@@ -187,8 +186,10 @@ class AdyenPaymentInteractor(
     return type.equals("INAPP", ignoreCase = true)
   }
 
-  private companion object {
+  companion object {
     private const val MAX_NUMBER_OF_TRIES = 5
     private const val REQUEST_INTERVAL_IN_SECONDS: Long = 2
+    const val HIGH_AMOUNT_CHECK_ID = 63
+    const val PAYMENT_METHOD_CHECK_ID = 73
   }
 }

@@ -16,6 +16,8 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.HIGH_AMOUNT_CHECK_ID
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -341,8 +343,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                     .doOnSuccess {
                       val fraudError = when {
                         //TODO replace for correct string
-                        it.contains(63) -> R.string.card_verification_code_wrong_error
-                        it.contains(73) -> R.string.cancel_button
+                        it.contains(HIGH_AMOUNT_CHECK_ID) -> {
+                          R.string.card_verification_code_wrong_error
+                        }
+                        it.contains(PAYMENT_METHOD_CHECK_ID) -> R.string.cancel_button
                         else -> error
                       }
                       view.showSpecificError(fraudError)
