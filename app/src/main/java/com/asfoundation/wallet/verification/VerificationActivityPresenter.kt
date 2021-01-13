@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification
 
 import android.os.Bundle
+import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 

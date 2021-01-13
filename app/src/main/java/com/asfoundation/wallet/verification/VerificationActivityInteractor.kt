@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification
 
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Single
 
 class VerificationActivityInteractor(
@@ -9,8 +10,11 @@ class VerificationActivityInteractor(
 ) {
 
   fun getVerificationStatus(): Single<VerificationStatus> {
-    return walletService.getWalletAddress()
-        .flatMap { verificationRepository.getVerificationStatus(it) }
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMap { addressModel ->
+          verificationRepository.getVerificationStatus(addressModel.address,
+              addressModel.signedAddress)
+        }
         .onErrorReturn { VerificationStatus.UNVERIFIED }
   }
 

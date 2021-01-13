@@ -1,17 +1,18 @@
 package com.asfoundation.wallet.ui.balance
 
 import android.util.Pair
+import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Balance
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.verification.VerificationRepository
-import com.asfoundation.wallet.verification.VerificationStatus
+import com.asfoundation.wallet.verification.network.VerificationStatus
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -21,41 +22,41 @@ import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
 class BalanceInteractor(
-    private val walletInteract: FindDefaultWalletInteract,
+    private val accountWalletService: AccountWalletService,
     private val balanceRepository: BalanceRepository,
     private val preferencesRepositoryType: PreferencesRepositoryType,
     private val smsValidationInteract: SmsValidationInteract,
     private val verificationRepository: VerificationRepository) {
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find()
+    return accountWalletService.find()
         .flatMapObservable { balanceRepository.getAppcBalance(it.address) }
   }
 
   fun getEthBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find()
+    return accountWalletService.find()
         .flatMapObservable { balanceRepository.getEthBalance(it.address) }
   }
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find()
+    return accountWalletService.find()
         .flatMapObservable { balanceRepository.getCreditsBalance(it.address) }
   }
 
   private fun getStoredAppcBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+    return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
         .flatMap { balanceRepository.getStoredAppcBalance(it) }
   }
 
   private fun getStoredEthBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+    return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
         .flatMap { balanceRepository.getStoredEthBalance(it) }
   }
 
   private fun getStoredCreditsBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+    return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
         .flatMap { balanceRepository.getStoredCreditsBalance(it) }
   }
@@ -83,8 +84,13 @@ class BalanceInteractor(
   }
 
   fun requestActiveWalletAddress(): Single<String> {
-    return walletInteract.find()
+    return accountWalletService.find()
         .map { it.address }
+  }
+
+  fun getSignedCurrentWalletAddress(): Single<WalletAddressModel> {
+    return accountWalletService.getAndSignCurrentWalletAddress()
+
   }
 
   fun getStoredOverallBalance(@Nullable walletAddress: String? = null): Single<FiatValue> {
@@ -109,10 +115,10 @@ class BalanceInteractor(
     )
   }
 
-  fun isWalletValid(address: String): Single<BalanceWalletValidationModel> {
+  fun isWalletValid(address: String, signedAddress: String): Single<BalanceWalletValidationModel> {
     return Single.zip(
         smsValidationInteract.getValidationStatus(address),
-        verificationRepository.getVerificationStatus(address),
+        verificationRepository.getVerificationStatus(address, signedAddress),
         BiFunction { validationStatus, verificationStatus ->
           mapToBalanceWalletValidationModel(address, validationStatus, verificationStatus)
         }

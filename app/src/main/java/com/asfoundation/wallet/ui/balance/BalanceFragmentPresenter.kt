@@ -117,11 +117,11 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleWalletInfoDisplay() {
-    disposables.add(balanceInteractor.requestActiveWalletAddress()
+    disposables.add(balanceInteractor.getSignedCurrentWalletAddress()
         .observeOn(viewScheduler)
-        .doOnSuccess { view.setWalletAddress(it) }
+        .doOnSuccess { view.setWalletAddress(it.address) }
         .observeOn(networkScheduler)
-        .flatMap { balanceInteractor.isWalletValid(it) }
+        .flatMap { balanceInteractor.isWalletValid(it.address, it.signedAddress) }
         .observeOn(viewScheduler)
         .doOnSuccess {
           when (it.status) {

@@ -48,8 +48,9 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
-import com.asfoundation.wallet.verification.VerificationApi
 import com.asfoundation.wallet.verification.VerificationRepository
+import com.asfoundation.wallet.verification.network.ValidationApi
+import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -269,7 +270,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideWalletVerificationRepository(
-      verificationApi: VerificationApi): VerificationRepository {
-    return VerificationRepository(verificationApi)
+      verificationApi: VerificationApi,
+      validationApi: ValidationApi): VerificationRepository {
+    return VerificationRepository(verificationApi, validationApi)
   }
 }

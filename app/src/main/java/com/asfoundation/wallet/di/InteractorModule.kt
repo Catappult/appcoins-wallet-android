@@ -45,6 +45,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
+import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
@@ -297,12 +298,12 @@ class InteractorModule {
 
   @Singleton
   @Provides
-  fun provideBalanceInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
+  fun provideBalanceInteract(walletService: WalletService,
                              balanceRepository: BalanceRepository,
                              preferencesRepositoryType: PreferencesRepositoryType,
                              smsValidationInteract: SmsValidationInteract,
                              verificationRepository: VerificationRepository) =
-      BalanceInteractor(findDefaultWalletInteract, balanceRepository,
+      BalanceInteractor(walletService as AccountWalletService, balanceRepository,
           preferencesRepositoryType, smsValidationInteract, verificationRepository)
 
   @Provides
