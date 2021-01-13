@@ -153,7 +153,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       adyenPaymentInteractor.makePayment(paymentMethodInfo, false, false, emptyList(), returnUrl,
           priceAmount.toString(), priceCurrency, it.orderReference,
           mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
-          it.skuId, it.callbackUrl, it.type, it.toAddress())
+          it.skuId, it.callbackUrl, it.type, it.toAddress(), it.referrerUrl)
     }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -202,7 +202,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                     shouldStore, adyenCard.hasCvc, adyenCard.supportedShopperInteractions,
                     returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
                     mapPaymentToService(paymentType).transactionType, origin, domain,
-                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
+                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(), it.referrerUrl,
                     mapToAdyenBillingAddress(billingAddressModel))
               }
         }
