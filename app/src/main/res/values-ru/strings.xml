@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">Предлагаемые игры</string>
   <string name="promotions_perks_button">Бонусы</string>
   <string name="promotions_vouhers_button">Купоны</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">Получите бесплатные AppCoins Credits с помощью наших акций!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Обновите, чтобы получить награды</string>
   <string name="update_wallet_poa_notification_body">Пожалуйста, обновите AppCoins Wallet, чтобы получить эту награду.</string>
@@ -853,10 +853,10 @@
   <string name="rate_us_improve_field__empty_error">Пожалуйста, напишите что-нибудь</string>
   <string name="rate_us_possitive_thanks_title">Спасибо!</string>
   <string name="rate_us_possitive_thanks_body">Мы рады, что вам нравится наше приложение. Поможете нам, оценив наше приложение в магазине?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">ОЦЕНИТЬ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Спасибо за ваш отзыв!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">Хотите помочь нам?</string>
+  <string name="rate_us_back_body">Оцените AppCoins Wallet в магазине приложений, чтобы мы могли его улучшить.</string>
   <!--Card verification-->
   <string name="card_verification_body">Используйте свою кредитную/дебетовую карту, чтобы подтвердить свой кошелек.</string>
   <string name="card_verification_charde_disclaimer">Мы спишем %s с вашей карты и вернём, как только вы подтвердите код.</string>
@@ -893,6 +893,6 @@
   <string name="voucher_code_title">Код из купона</string>
   <string name="voucher_instructions_body">Перейдите на %s и используйте код, чтобы погасить ваш купон.</string>
   <string name="voucher_instructions_transactions">Вы всегда можете найти код купона в истории ваших транзакций.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">На данный момент купонов нет.</string>
+  <string name="voucher_tooltip">Теперь вы можете купить купоны для игр!</string>
 </resources>
