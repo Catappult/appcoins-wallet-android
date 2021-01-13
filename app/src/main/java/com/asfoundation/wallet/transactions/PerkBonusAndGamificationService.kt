@@ -30,6 +30,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
 import kotlin.math.pow
+import kotlin.math.round
 
 class PerkBonusAndGamificationService :
     IntentService(PerkBonusAndGamificationService::class.java.simpleName) {
@@ -259,20 +260,21 @@ class PerkBonusAndGamificationService :
     if (levelBitmap != null) {
       builder.setLargeIcon(levelBitmap)
     }
+    val bonusPercentage = if (stats.bonus == round(stats.bonus)) {
+      stats.bonus.toInt()
+          .toString() + "%"
+    } else {
+      stats.bonus.toString() + "%"
+    }
     val contentMessage = when {
       maxLevelReached -> {
-        // TODO - make sure this string is properly formatted once the translations for it
-        //  (with %s in them) have been put
-        getString(R.string.gamification_how_max_level_body,
-            stats.bonus.toString() + "%")
+        getString(R.string.gamification_how_max_level_body, bonusPercentage)
       }
       levelUpBonusCredits.isEmpty() -> {
-        getString(R.string.gamification_leveled_up_notification_body,
-            stats.bonus.toString() + "%")
+        getString(R.string.gamification_leveled_up_notification_body, bonusPercentage)
       }
       else -> {
-        getString(R.string.gamification_bonus_plus_perk_body,
-            stats.bonus.toString() + "%", levelUpBonusCredits)
+        getString(R.string.gamification_bonus_plus_perk_body, bonusPercentage, levelUpBonusCredits)
       }
     }
     return builder.setContentText(contentMessage)
