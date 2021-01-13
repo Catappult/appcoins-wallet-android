@@ -28,9 +28,9 @@ import io.reactivex.functions.Function5
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.math.pow
-import kotlin.math.round
 
 class PerkBonusAndGamificationService :
     IntentService(PerkBonusAndGamificationService::class.java.simpleName) {
@@ -48,7 +48,6 @@ class PerkBonusAndGamificationService :
   lateinit var gamificationMapper: GamificationMapper
 
   private lateinit var notificationManager: NotificationManager
-
 
   override fun onCreate() {
     super.onCreate()
@@ -260,12 +259,7 @@ class PerkBonusAndGamificationService :
     if (levelBitmap != null) {
       builder.setLargeIcon(levelBitmap)
     }
-    val bonusPercentage = if (stats.bonus == round(stats.bonus)) {
-      stats.bonus.toInt()
-          .toString() + "%"
-    } else {
-      stats.bonus.toString() + "%"
-    }
+    val bonusPercentage = DecimalFormat("##.#").format(stats.bonus) + "%"
     val contentMessage = when {
       maxLevelReached -> {
         getString(R.string.gamification_how_max_level_body, bonusPercentage)
