@@ -37,7 +37,7 @@ interface TopUpActivityView {
 
   fun cancelPayment()
 
-  fun setFinishingPurchase()
+  fun setFinishingPurchase(value: Boolean)
 
   fun showError(@StringRes error: Int)
 
@@ -49,5 +49,5 @@ interface TopUpActivityView {
 
   fun popBackStack()
 
-  fun launchPerkBonusService(address: String)
+  fun launchPerkBonusAndGamificationService(address: String)
 }

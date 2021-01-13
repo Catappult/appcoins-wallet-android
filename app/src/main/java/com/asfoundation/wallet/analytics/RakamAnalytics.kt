@@ -3,6 +3,8 @@ package com.asfoundation.wallet.analytics
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
@@ -12,16 +14,18 @@ import com.google.android.gms.common.GoogleApiAvailability
 import io.rakam.api.Rakam
 import io.rakam.api.RakamClient
 import io.rakam.api.TrackingOptions
+import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.MalformedURLException
 import java.net.URL
 
+
 class RakamAnalytics(private val context: Context, private val idsRepository: IdsRepository,
-                     private val logger: Logger) :
-    AnalyticsSetup {
+                     private val promotionsRepository: PromotionsRepository,
+                     private val logger: Logger) : AnalyticsSetup {
+
   private val rakamClient = Rakam.getInstance()
 
   companion object {
@@ -43,9 +47,19 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
     rakamClient.superProperties = superProperties
   }
 
+  override fun setWalletOrigin(origin: WalletOrigin) {
+    val superProperties = rakamClient.superProperties ?: JSONObject()
+    try {
+      superProperties.put("wallet_origin", origin)
+    } catch (e: JSONException) {
+      e.printStackTrace()
+    }
 
-  fun start() {
-    Single.just(idsRepository.getAndroidId())
+    rakamClient.superProperties = superProperties
+  }
+
+  fun initialize(): Completable {
+    return Single.just(idsRepository.getAndroidId())
         .flatMap { deviceId: String -> startRakam(deviceId) }
         .flatMap { rakamClient: RakamClient ->
           idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID)
@@ -55,19 +69,24 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                       Single.just(hasGms())
                           .flatMap { hasGms: Boolean ->
                             Single.just(idsRepository.getActiveWalletAddress())
-                                .doOnSuccess { walletAddress: String ->
-                                  setRakamSuperProperties(rakamClient, installerPackage, level,
-                                      walletAddress, hasGms)
-                                  if (!BuildConfig.DEBUG) {
-                                    logger.addReceiver(RakamReceiver())
-                                  }
+                                .flatMap { walletAddress ->
+                                  promotionsRepository.getUserStatus(walletAddress)
+                                      .map { userStatus -> userStatus.walletOrigin }
+                                      .doOnSuccess { walletOrigin ->
+                                        setRakamSuperProperties(rakamClient, installerPackage,
+                                            level,
+                                            walletAddress, hasGms, walletOrigin)
+                                        if (!BuildConfig.DEBUG) {
+                                          logger.addReceiver(RakamReceiver())
+                                        }
+                                      }
+
                                 }
                           }
                     }
               }
         }
-        .subscribeOn(Schedulers.io())
-        .subscribe()
+        .ignoreElement()
   }
 
   private fun startRakam(deviceId: String): Single<RakamClient> {
@@ -91,7 +110,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
 
   private fun setRakamSuperProperties(instance: RakamClient, installerPackage: String,
                                       userLevel: Int,
-                                      userId: String, hasGms: Boolean) {
+                                      userId: String, hasGms: Boolean, walletOrigin: WalletOrigin) {
     val superProperties = instance.superProperties ?: JSONObject()
     try {
       superProperties.put(RakamEventLogger.APTOIDE_PACKAGE,
@@ -101,6 +120,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
           if (installerPackage.isEmpty()) "other" else installerPackage)
       superProperties.put(RakamEventLogger.USER_LEVEL, userLevel)
       superProperties.put(RakamEventLogger.HAS_GMS, hasGms)
+      superProperties.put(RakamEventLogger.WALLET_ORIGIN, walletOrigin)
     } catch (e: JSONException) {
       e.printStackTrace()
     }

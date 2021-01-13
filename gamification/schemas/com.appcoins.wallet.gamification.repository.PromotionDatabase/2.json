@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "d9ed2e89fb48a49f0d217d8fc8251dda",
+    "identityHash": "14dff9ed6b383dc3435807d72ef74b5c",
     "entities": [
       {
         "tableName": "PromotionEntity",
@@ -273,12 +273,38 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "WalletOriginEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`walletAddress` TEXT NOT NULL, `walletOrigin` TEXT NOT NULL, PRIMARY KEY(`walletAddress`))",
+        "fields": [
+          {
+            "fieldPath": "walletAddress",
+            "columnName": "walletAddress",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "walletOrigin",
+            "columnName": "walletOrigin",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "walletAddress"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd9ed2e89fb48a49f0d217d8fc8251dda')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '14dff9ed6b383dc3435807d72ef74b5c')"
     ]
   }
 }

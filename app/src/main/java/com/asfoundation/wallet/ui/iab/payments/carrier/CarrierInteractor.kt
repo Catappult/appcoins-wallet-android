@@ -5,10 +5,7 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
-import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
-import com.appcoins.wallet.billing.carrierbilling.GenericError
-import com.appcoins.wallet.billing.carrierbilling.NoError
+import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -25,6 +22,7 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class CarrierInteractor(private val repository: CarrierBillingRepository,
@@ -155,4 +153,8 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
       walletService.getWalletAddress()
           .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
+
+  fun retrieveAvailableCountries(): Single<AvailableCountryListModel> {
+    return repository.retrieveAvailableCountryList()
+  }
 }

@@ -4,6 +4,7 @@ import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.TokenValue
@@ -25,6 +26,7 @@ class BalanceInteractor(
     private val accountWalletService: AccountWalletService,
     private val balanceRepository: BalanceRepository,
     private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
     private val smsValidationInteract: SmsValidationInteract,
     private val verificationRepository: VerificationRepository) {
 
@@ -141,9 +143,9 @@ class BalanceInteractor(
 
   fun isWalletValidated(address: String) = preferencesRepositoryType.isWalletValidated(address)
 
-  fun hasSeenBackupTooltip() = preferencesRepositoryType.getSeenBackupTooltip()
+  fun hasSeenBackupTooltip() = backupRestorePreferencesRepository.getSeenBackupTooltip()
 
-  fun saveSeenBackupTooltip() = preferencesRepositoryType.saveSeenBackupTooltip()
+  fun saveSeenBackupTooltip() = backupRestorePreferencesRepository.saveSeenBackupTooltip()
 
   private fun mapOverallBalance(creditsBalance: Pair<Balance, FiatValue>,
                                 appcBalance: Pair<Balance, FiatValue>,

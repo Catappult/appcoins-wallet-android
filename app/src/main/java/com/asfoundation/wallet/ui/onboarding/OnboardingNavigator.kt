@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
+import com.asfoundation.wallet.support.SupportNotificationProperties
 
 class OnboardingNavigator(private val activity: AppCompatActivity,
                           private val transactionsRouter: TransactionsRouter) {
@@ -24,7 +25,10 @@ class OnboardingNavigator(private val activity: AppCompatActivity,
   }
 
   fun navigateToTransactions() {
-    transactionsRouter.open(activity, true)
+    val fromSupportNotification =
+        activity.intent.getBooleanExtra(SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
+            false)
+    transactionsRouter.navigateFromSplash(activity, fromSupportNotification)
     activity.finish()
   }
 }

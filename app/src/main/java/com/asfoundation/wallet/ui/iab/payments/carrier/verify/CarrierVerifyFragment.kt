@@ -115,6 +115,20 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     payment_methods_header.setIcon(icon)
   }
 
+  override fun filterCountries(countryList: List<String>, countryListString: String) {
+    country_code_picker.setCustomMasterCountries(countryListString)
+    if (!countryList.contains(
+            country_code_picker.selectedCountryNameCode.toLowerCase(Locale.ROOT))) {
+      country_code_picker.setCountryForNameCode(countryList[0])
+      country_code_picker.holder.requestLayout()
+    }
+  }
+
+  override fun showPhoneNumberLayout() {
+    phone_number_skeleton.visibility = View.GONE
+    phone_number_layout.visibility = View.VISIBLE
+  }
+
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
     return if (currencyCode.equals("APPC", ignoreCase = true))
       currencyCode

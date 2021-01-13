@@ -72,7 +72,7 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          view.launchPerkBonusService(it)
+          view.launchPerkBonusAndGamificationService(it)
           view.finishActivity(bundle)
         }
         .doOnError { view.finishActivity(bundle) }

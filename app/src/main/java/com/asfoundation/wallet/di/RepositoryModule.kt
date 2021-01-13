@@ -18,8 +18,10 @@ import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseT
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
+import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository
@@ -28,6 +30,8 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
+import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
@@ -43,7 +47,7 @@ import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
-import com.asfoundation.wallet.ui.gamification.SharedPreferencesGamificationLocalData
+import com.asfoundation.wallet.ui.gamification.SharedPreferencesUserStatsLocalData
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
@@ -136,7 +140,7 @@ class RepositoryModule {
         CarrierErrorResponseTypeAdapter())
         .create()
     val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201101/gateways/dimoco/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201228/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
@@ -146,12 +150,20 @@ class RepositoryModule {
         BuildConfig.APPLICATION_ID)
   }
 
+  @Singleton
   @Provides
-  fun providePromotionsRepository(api: GamificationApi, preferences: SharedPreferences,
-                                  promotionDao: PromotionDao, levelsDao: LevelsDao,
-                                  levelDao: LevelDao): PromotionsRepository {
-    return BdsPromotionsRepository(api,
-        SharedPreferencesGamificationLocalData(preferences, promotionDao, levelsDao, levelDao))
+  fun providesUserStatsLocalData(preferences: SharedPreferences,
+                                 promotionDao: PromotionDao, levelsDao: LevelsDao,
+                                 levelDao: LevelDao,
+                                 walletOriginDao: WalletOriginDao): UserStatsLocalData {
+    return SharedPreferencesUserStatsLocalData(preferences, promotionDao, levelsDao, levelDao,
+        walletOriginDao)
+  }
+
+  @Provides
+  fun providePromotionsRepository(api: GamificationApi,
+                                  userStatsLocalData: UserStatsLocalData): PromotionsRepository {
+    return BdsPromotionsRepository(api, userStatsLocalData)
   }
 
   @Singleton
@@ -217,8 +229,10 @@ class RepositoryModule {
   @Provides
   fun provideIdsRepository(context: Context,
                            sharedPreferencesRepository: SharedPreferencesRepository,
+                           userStatsLocalData: UserStatsLocalData,
                            installerService: InstallerService): IdsRepository {
-    return IdsRepository(context.contentResolver, sharedPreferencesRepository, installerService)
+    return IdsRepository(context.contentResolver, sharedPreferencesRepository, userStatsLocalData,
+        installerService)
   }
 
   @Singleton
@@ -265,6 +279,46 @@ class RepositoryModule {
   @Provides
   fun provideSupportRepository(preferences: SupportSharedPreferences, app: App): SupportRepository {
     return SupportRepository(preferences, app)
+  }
+
+  @Singleton
+  @Provides
+  fun provideFingerprintPreferenceRepository(
+      preferences: SharedPreferences): FingerprintPreferencesRepositoryContract {
+    return FingerprintPreferencesRepository(preferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBackupRestorePreferencesRepository(
+      sharedPreferences: SharedPreferences): BackupRestorePreferencesRepository {
+    return BackupRestorePreferencesRepository(sharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesABTestRepository(abTestApi: ABTestApi,
+                               idsRepository: IdsRepository,
+                               @Named("ab-test-local-cache")
+                               localCache: HashMap<String, ExperimentModel>,
+                               persistence: RoomExperimentPersistence,
+                               cacheValidator: ABTestCacheValidator): ABTestRepository {
+    return ABTestCenterRepository(abTestApi, idsRepository, localCache, persistence,
+        cacheValidator, Schedulers.io())
+  }
+
+  @Singleton
+  @Provides
+  fun providesGasPreferenceRepository(
+      sharedPreferences: SharedPreferences): GasPreferenceRepository {
+    return GasPreferenceRepository(sharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBillingAddressRepository(
+      secureSharedPreferences: SecureSharedPreferences): BillingAddressRepository {
+    return BillingAddressRepository(secureSharedPreferences)
   }
 
   @Singleton

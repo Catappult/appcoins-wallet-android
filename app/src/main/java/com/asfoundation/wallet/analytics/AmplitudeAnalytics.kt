@@ -5,6 +5,7 @@ import android.content.Context
 import com.amplitude.api.Amplitude
 import com.amplitude.api.Identify
 import com.amplitude.api.TrackingOptions
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
 import com.google.android.gms.common.ConnectionResult
@@ -30,6 +31,10 @@ class AmplitudeAnalytics(private val context: Context, private val idsRepository
         .append(AmplitudeEventLogger.HAS_GMS, hasGms())
 
     amplitudeClient.identify(identify)
+  }
+
+  override fun setWalletOrigin(origin: WalletOrigin) {
+    // Not used
   }
 
   @SuppressLint("CheckResult")

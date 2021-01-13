@@ -1,10 +1,13 @@
 package com.asfoundation.wallet.promotions
 
-import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.gamification.repository.entity.*
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
@@ -16,15 +19,16 @@ import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import io.reactivex.functions.Function3
+import io.reactivex.functions.Function4
 import java.util.concurrent.TimeUnit
 
 class PromotionsInteractor(private val referralInteractor: ReferralInteractorContract,
                            private val gamificationInteractor: GamificationInteractor,
                            private val promotionsRepo: PromotionsRepository,
                            private val findWalletInteract: FindDefaultWalletInteract,
-                           private val mapper: GamificationMapper) :
-    PromotionsInteractorContract {
+                           private val userStatsPreferencesRepository: UserStatsLocalData,
+                           private val analyticsSetup: AnalyticsSetup,
+                           private val mapper: GamificationMapper) {
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
@@ -33,26 +37,26 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
-  override fun retrievePromotions(): Single<PromotionsModel> {
+  fun retrievePromotions(): Single<PromotionsModel> {
     return findWalletInteract.find()
         .flatMap {
           Single.zip(
               gamificationInteractor.getLevels(),
               promotionsRepo.getUserStatus(it.address),
               BiFunction { level: Levels, userStatsResponse: UserStatusResponse ->
+                analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
                 mapToPromotionsModel(userStatsResponse, level)
               })
               .doOnSuccess { model ->
-                setSeenGenericPromotion(model.promotions, it.address,
-                    PromotionUpdateScreen.PROMOTIONS)
+                userStatsPreferencesRepository.setSeenWalletOrigin(it.address,
+                    model.walletOrigin.name)
+                setSeenGenericPromotion(model.promotions, it.address)
               }
         }
 
   }
 
-  override fun hasAnyPromotionUpdate(referralsScreen: ReferralsScreen,
-                                     gamificationScreen: GamificationScreen,
-                                     promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
+  fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
     return findWalletInteract.find()
         .flatMap { wallet ->
           promotionsRepo.getUserStatus(wallet.address)
@@ -66,16 +70,18 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                     referralInteractor.hasReferralUpdate(wallet.address, referral,
                         ReferralsScreen.PROMOTIONS),
                     gamificationInteractor.hasNewLevel(wallet.address, gamification,
-                        GamificationScreen.PROMOTIONS),
+                        GamificationContext.SCREEN_PROMOTIONS),
                     hasGenericUpdate(generic, promotionUpdateScreen),
-                    Function3 { hasReferralUpdate: Boolean, hasNewLevel: Boolean, hasGenericUpdate: Boolean ->
-                      hasReferralUpdate || hasNewLevel || hasGenericUpdate
+                    hasNewWalletOrigin(wallet.address, it.walletOrigin),
+                    Function4 { hasReferralUpdate: Boolean, hasNewLevel: Boolean,
+                                hasGenericUpdate: Boolean, hasNewWalletOrigin: Boolean ->
+                      hasReferralUpdate || hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
                     })
               }
         }
   }
 
-  override fun getUnwatchedPromotionNotification(): Single<CardNotification> {
+  fun getUnwatchedPromotionNotification(): Single<CardNotification> {
     return findWalletInteract.find()
         .flatMap { wallet ->
           promotionsRepo.getUserStatus(wallet.address)
@@ -86,6 +92,19 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               }
         }
   }
+
+  fun dismissNotification(id: String): Completable {
+    return Completable.fromAction {
+      promotionsRepo.setSeenGenericPromotion(id, PromotionUpdateScreen.TRANSACTIONS.name)
+    }
+  }
+
+  fun shouldShowGamificationDisclaimer(): Boolean {
+    return userStatsPreferencesRepository.shouldShowGamificationDisclaimer()
+  }
+
+  fun setGamificationDisclaimerShown() =
+      userStatsPreferencesRepository.setGamificationDisclaimerShown()
 
   private fun getUnWatchedPromotion(promotionList: List<GenericResponse>): GenericResponse? {
     return promotionList.sortedByDescending { list -> list.priority }
@@ -109,12 +128,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     } ?: EmptyNotification()
   }
 
-  override fun dismissNotification(id: String): Completable {
-    return Completable.fromAction {
-      promotionsRepo.setSeenGenericPromotion(id, PromotionUpdateScreen.TRANSACTIONS.name)
-    }
-  }
-
   private fun hasGenericUpdate(promotions: List<GenericResponse>,
                                screen: PromotionUpdateScreen): Single<Boolean> {
     return Single.create {
@@ -128,20 +141,20 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     }
   }
 
-  private fun setSeenGenericPromotion(promotions: List<Promotion>, wallet: String,
-                                      screen: PromotionUpdateScreen) {
+  private fun setSeenGenericPromotion(promotions: List<Promotion>, wallet: String) {
     promotions.forEach {
       when (it) {
         is GamificationItem -> {
-          promotionsRepo.shownLevel(wallet, it.level, GamificationScreen.PROMOTIONS.name)
+          promotionsRepo.shownLevel(wallet, it.level, GamificationContext.SCREEN_PROMOTIONS)
           it.links.forEach { gamificationLinkItem ->
             promotionsRepo.setSeenGenericPromotion(
                 getPromotionIdKey(gamificationLinkItem.id, gamificationLinkItem.startDate,
-                    gamificationLinkItem.endDate), screen.name)
+                    gamificationLinkItem.endDate), PromotionUpdateScreen.PROMOTIONS.name)
           }
         }
         is PerkPromotion -> promotionsRepo.setSeenGenericPromotion(
-            getPromotionIdKey(it.id, it.startDate, it.endDate), screen.name)
+            getPromotionIdKey(it.id, it.startDate, it.endDate),
+            PromotionUpdateScreen.PROMOTIONS.name)
       }
     }
   }
@@ -196,7 +209,15 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(promotions, maxBonus, userStatus.error)
+    return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), userStatus.error)
+  }
+
+  private fun map(walletOrigin: WalletOrigin): com.asfoundation.wallet.promotions.WalletOrigin {
+    return when (walletOrigin) {
+      WalletOrigin.UNKNOWN -> com.asfoundation.wallet.promotions.WalletOrigin.UNKNOWN
+      WalletOrigin.APTOIDE -> com.asfoundation.wallet.promotions.WalletOrigin.APTOIDE
+      WalletOrigin.PARTNER -> com.asfoundation.wallet.promotions.WalletOrigin.PARTNER
+    }
   }
 
   private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,
@@ -248,6 +269,11 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun isFuturePromotion(genericResponse: GenericResponse): Boolean {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
     return genericResponse.startDate ?: 0 > currentTime
+  }
+
+  private fun hasNewWalletOrigin(address: String, walletOrigin: WalletOrigin): Single<Boolean> {
+    return Single.just(
+        userStatsPreferencesRepository.getSeenWalletOrigin(address) != walletOrigin.name)
   }
 
   private fun getPromotionIdKey(id: String, startDate: Long?, endDate: Long): String {

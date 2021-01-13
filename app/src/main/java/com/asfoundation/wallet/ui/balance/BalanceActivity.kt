@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.balance
 
 import android.animation.Animator
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -137,6 +138,7 @@ class BalanceActivity : ActivityNavigator(), BalanceActivityView {
 
   override fun setupToolbar() {
     toolbar()
+    setTitle(getString(intent.extras?.getInt(TITLE_KEY) ?: R.string.balance_title))
   }
 
   override fun enableBack() {
@@ -165,5 +167,14 @@ class BalanceActivity : ActivityNavigator(), BalanceActivityView {
 
   companion object {
     private const val REQUEST_CODE = 123
+    private const val TITLE_KEY = "title"
+
+    @JvmStatic
+    fun newIntent(context: Context, title: Int?): Intent {
+      return Intent(context, BalanceActivity::class.java).apply {
+        putExtra(TITLE_KEY, title)
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }
+    }
   }
 }

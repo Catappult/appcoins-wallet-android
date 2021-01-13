@@ -18,6 +18,7 @@ import com.aptoide.apk.injector.extractor.domain.IExtract
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.AirdropService
+import com.asfoundation.wallet.abtesting.ABTestApi
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.AnalyticsAPI
 import com.asfoundation.wallet.apps.Applications
@@ -307,6 +308,19 @@ class ServiceModule {
         OemIdExtractorV2(context, extractor))
   }
 
+  @Singleton
+  @Provides
+  fun provideAutoUpdateApi(@Named("low-timer") client: OkHttpClient, gson: Gson): AutoUpdateApi {
+    val baseUrl = BuildConfig.BACKEND_HOST
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AutoUpdateApi::class.java)
+  }
+
   @Provides
   fun provideAutoUpdateService(autoUpdateApi: AutoUpdateApi) =
       AutoUpdateService(autoUpdateApi)
@@ -546,6 +560,18 @@ class ServiceModule {
         .create(BdsApiSecondary::class.java)
   }
 
+  @Singleton
+  @Provides
+  fun providesABTestApi(@Named("low-timer") client: OkHttpClient, gson: Gson): ABTestApi {
+    val baseUrl = BuildConfig.APTOIDE_WEB_SERVICES_AB_TEST_HOST
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(ABTestApi::class.java)
+  }
   @Singleton
   @Provides
   fun provideWalletVerificationApi(@Named("default") client: OkHttpClient,

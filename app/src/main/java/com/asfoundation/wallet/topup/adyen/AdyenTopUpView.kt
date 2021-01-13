@@ -24,7 +24,7 @@ interface AdyenTopUpView {
 
   fun cancelPayment()
 
-  fun setFinishingPurchase()
+  fun setFinishingPurchase(newState: Boolean)
 
   fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean, forget: Boolean,
                               savedInstanceState: Bundle?)

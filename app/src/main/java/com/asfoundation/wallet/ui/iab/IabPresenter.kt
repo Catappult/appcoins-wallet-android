@@ -71,7 +71,7 @@ class IabPresenter(private val view: IabView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          view.launchPerkBonusService(it)
+          view.launchPerkBonusAndGamificationService(it)
           view.finishActivity(bundle)
         }
         .doOnError { view.finishActivity(bundle) }

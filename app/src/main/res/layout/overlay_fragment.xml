@@ -26,15 +26,13 @@
         >
       <TextView
           android:id="@+id/dialog_message"
+          style="@style/TooltipTextStyle"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="14dp"
           android:layout_marginTop="10dp"
           android:layout_marginEnd="12dp"
-          android:fontFamily="sans-serif"
           android:text="@string/bottom_navigation_promotions_detailed"
-          android:textColor="#212121"
-          android:textSize="14sp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
@@ -49,33 +47,19 @@
           >
         <Button
             android:id="@+id/dismiss_button"
-            style="?android:attr/borderlessButtonStyle"
+            style="@style/TooltipButtonStyle.Negative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:backgroundTint="@color/white"
-            android:maxWidth="126dp"
-            android:minWidth="80dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
             android:text="@string/dismiss_button"
-            android:textColor="@color/btn_cancel_text"
-            android:textSize="14sp"
             />
         <Button
             android:id="@+id/discover_button"
-            style="?android:attr/borderlessButtonStyle"
+            style="@style/TooltipButtonStyle.Positive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:backgroundTint="@color/white"
-            android:maxWidth="126dp"
-            android:minWidth="80dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
             android:text="@string/discover_button"
-            android:textColor="@color/text_button_color"
-            android:textSize="14sp"
             />
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
