@@ -21,7 +21,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivity
-import com.asfoundation.wallet.transactions.PerkBonusService
+import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -304,8 +304,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun errorDismisses() = RxView.clicks(error_dismiss)
 
-  override fun launchPerkBonusService(address: String) {
-    PerkBonusService.buildService(this, address)
+  override fun launchPerkBonusAndGamificationService(address: String) {
+    PerkBonusAndGamificationService.buildService(this, address)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {

@@ -31,4 +31,8 @@ interface CarrierVerifyView {
   fun unlockRotation()
 
   fun setAppDetails(appName: String, icon: Drawable)
+
+  fun filterCountries(countryList: List<String>, countryListString: String)
+
+  fun showPhoneNumberLayout()
 }

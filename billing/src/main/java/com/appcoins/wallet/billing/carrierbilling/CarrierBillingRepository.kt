@@ -36,17 +36,26 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
         .onErrorReturn { e -> mapper.mapPaymentError(e) }
   }
 
+  fun retrieveAvailableCountryList(): Single<AvailableCountryListModel> {
+    return api.getAvailableCountryList()
+        .map { mapper.mapList(it) }
+        .onErrorReturn { AvailableCountryListModel() }
+  }
+
   interface CarrierBillingApi {
-    @POST("transactions")
+    @POST("gateways/dimoco/transactions")
     fun makePayment(@Query("wallet.address") walletAddress: String,
                     @Query("wallet.signature") walletSignature: String,
                     @Body carrierTransactionBody: CarrierTransactionBody)
         : Single<CarrierCreateTransactionResponse>
 
-    @GET("transactions/{uid}")
+    @GET("gateways/dimoco/transactions/{uid}")
     fun getPayment(@Path("uid") uid: String,
                    @Query("wallet.address") walletAddress: String,
                    @Query("wallet.signature")
                    walletSignature: String): Observable<TransactionResponse>
+
+    @GET("dimoco/countries")
+    fun getAvailableCountryList(): Single<List<String>>
   }
 }

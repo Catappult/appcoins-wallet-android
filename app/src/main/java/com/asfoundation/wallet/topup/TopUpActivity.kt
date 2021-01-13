@@ -19,7 +19,7 @@ import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
-import com.asfoundation.wallet.transactions.PerkBonusService
+import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -179,8 +179,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     }
   }
 
-  override fun launchPerkBonusService(address: String) {
-    PerkBonusService.buildService(this, address)
+  override fun launchPerkBonusAndGamificationService(address: String) {
+    PerkBonusAndGamificationService.buildService(this, address)
   }
 
   override fun finishActivity(data: Bundle) {
@@ -237,8 +237,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun getTryAgainClicks() = RxView.clicks(try_again)
 
-  override fun setFinishingPurchase() {
-    isFinishingPurchase = true
+  override fun setFinishingPurchase(newState: Boolean) {
+    isFinishingPurchase = newState
   }
 
   override fun cancelPayment() {

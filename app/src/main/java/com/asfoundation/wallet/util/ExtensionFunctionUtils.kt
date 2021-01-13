@@ -140,6 +140,11 @@ inline fun <T : Any> guardLet(vararg elements: T?, closure: () -> Nothing): List
 }
 
 /**
+ * List by default can only destructure up to 5 components, this lets it go up to 6.
+ */
+operator fun <T> List<T>.component6() = get(5)
+
+/**
  * Executes block function with no layout transition animations. Note that it assumes that there is
  * no LayoutTransition.CHANGING, which is the case by default in "animateLayoutChanges".
  *

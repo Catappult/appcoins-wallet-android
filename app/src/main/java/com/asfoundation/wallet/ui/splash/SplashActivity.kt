@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.splash
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -37,6 +38,13 @@ class SplashActivity : BaseActivity(), SplashView {
   companion object {
     fun newIntent(context: Context?): Intent {
       return Intent(context, SplashActivity::class.java)
+    }
+
+    @JvmStatic
+    fun newIntent(context: Context, fromSupportNotification: Boolean): Intent {
+      val intent = Intent(context, SplashActivity::class.java)
+      intent.putExtra(SUPPORT_NOTIFICATION_CLICK, fromSupportNotification)
+      return intent
     }
   }
 }

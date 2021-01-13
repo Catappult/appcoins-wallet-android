@@ -23,13 +23,18 @@ import com.appcoins.wallet.permissions.Permissions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
+import com.asfoundation.wallet.abtesting.ABTestInteractor
+import com.asfoundation.wallet.abtesting.ABTestRepository
+import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.LaunchAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
+import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
+import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
@@ -243,10 +248,12 @@ class InteractorModule {
                                     walletService: WalletService,
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
-                                    smsValidationInteract: SmsValidationInteract): AdyenPaymentInteractor {
+                                    smsValidationInteract: SmsValidationInteract,
+                                    billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor, walletBlockedInteract, smsValidationInteract)
+        walletService, supportInteractor, walletBlockedInteract, smsValidationInteract,
+        billingAddressRepository)
   }
 
   @Provides
@@ -265,10 +272,12 @@ class InteractorModule {
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
+                                  rakamAnalytics: RakamAnalytics,
                                   userStatsLocalData: UserStatsLocalData,
                                   gamificationMapper: GamificationMapper): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, userStatsLocalData, gamificationMapper)
+        promotionsRepository, findDefaultWalletInteract, userStatsLocalData, rakamAnalytics,
+        gamificationMapper)
   }
 
   @Provides
@@ -402,12 +411,13 @@ class InteractorModule {
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
-                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteract {
+                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
+                                      balanceWalletsExperiment: BalanceWalletsExperiment): TransactionViewInteract {
     return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
         promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
-        fingerprintPreferencesRepository)
+        fingerprintPreferencesRepository, balanceWalletsExperiment)
   }
 
   @Provides
@@ -543,6 +553,11 @@ class InteractorModule {
         AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
+  @Singleton
+  @Provides
+  fun providesABTestInteractor(abTestRepository: ABTestRepository): ABTestInteractor {
+    return ABTestInteractor(abTestRepository)
+  }
   @Provides
   fun provideSubscriptionInteract(subscriptionRepository: SubscriptionRepository,
                                   localCurrencyConversionService: LocalCurrencyConversionService): SubscriptionInteract {

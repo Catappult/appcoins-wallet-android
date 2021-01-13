@@ -189,7 +189,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .doOnNext {
           view.showLoading()
           view.lockRotation()
-          view.setFinishingPurchase()
+          view.setFinishingPurchase(true)
         }
         .observeOn(networkScheduler)
         .flatMapSingle {
@@ -235,6 +235,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
               amount, currency)
               .observeOn(viewScheduler)
               .doOnSuccess {
+                adyenPaymentInteractor.forgetBillingAddress()
                 view.hideLoading()
                 if (it.error.hasError) {
                   if (it.error.isNetworkError) view.showNetworkError()
@@ -268,7 +269,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .doOnNext {
           view.lockRotation()
           view.hideKeyboard()
-          view.setFinishingPurchase()
+          view.setFinishingPurchase(true)
         }
         .throttleLast(2, TimeUnit.SECONDS)
         .observeOn(networkScheduler)
@@ -319,6 +320,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       }
       paymentModel.error.hasError -> Completable.fromAction {
         if (isBillingAddressError(paymentModel.error)) {
+          view.setFinishingPurchase(false)
           view.navigateToBillingAddress(retrievedAmount, retrievedCurrency)
         } else {
           handleErrors(paymentModel, appcValue.toDouble())

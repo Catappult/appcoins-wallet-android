@@ -79,4 +79,8 @@ class CarrierResponseMapper(private val retrofit: Retrofit) {
     }
     return null
   }
+
+  fun mapList(countryList: List<String>): AvailableCountryListModel {
+    return AvailableCountryListModel(countryList)
+  }
 }

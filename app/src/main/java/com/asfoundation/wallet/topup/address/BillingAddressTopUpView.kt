@@ -14,6 +14,8 @@ interface BillingAddressTopUpView {
 
   fun finishSuccess(billingAddressModel: BillingAddressModel)
 
-  fun initializeView(data: TopUpPaymentData, fiatAmount: String, fiatCurrency: String,
-                     shouldStoreCard: Boolean, isStored: Boolean)
+  fun initializeView(data: TopUpPaymentData,
+                     fiatAmount: String, fiatCurrency: String,
+                     shouldStoreCard: Boolean, isStored: Boolean,
+                     savedBillingAddress: BillingAddressModel?)
 }

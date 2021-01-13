@@ -101,6 +101,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               amount.toString(), currency)
               .observeOn(viewScheduler)
               .doOnSuccess {
+                adyenPaymentInteractor.forgetBillingAddress()
                 view.hideLoadingAndShowView()
                 if (it.error.hasError) {
                   if (it.error.isNetworkError) view.showNetworkError()

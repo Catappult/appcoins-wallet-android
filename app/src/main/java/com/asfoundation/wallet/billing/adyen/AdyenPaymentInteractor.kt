@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
+import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
@@ -36,8 +37,11 @@ class AdyenPaymentInteractor(
     private val walletService: WalletService,
     private val supportInteractor: SupportInteractor,
     private val walletBlockedInteract: WalletBlockedInteract,
-    private val smsValidationInteract: SmsValidationInteract
+    private val smsValidationInteract: SmsValidationInteract,
+    private val billingAddressRepository: BillingAddressRepository
 ) {
+
+  fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 

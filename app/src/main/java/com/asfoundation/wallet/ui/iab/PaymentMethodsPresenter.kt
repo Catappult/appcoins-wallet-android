@@ -226,9 +226,9 @@ class PaymentMethodsPresenter(
   }
 
   private fun waitForUi(skuId: String?, type: BillingSupportedType): Completable {
-    return Completable.mergeArray(checkProcessing(skuId, type),
-        checkAndConsumePrevious(skuId, type),
-        isSetupCompleted())
+    return Completable.mergeArray(checkProcessing(skuId).subscribeOn(networkThread),
+        checkAndConsumePrevious(skuId, type).subscribeOn(networkThread),
+        isSetupCompleted().subscribeOn(networkThread))
   }
 
   private fun checkProcessing(skuId: String?, type: BillingSupportedType): Completable {
