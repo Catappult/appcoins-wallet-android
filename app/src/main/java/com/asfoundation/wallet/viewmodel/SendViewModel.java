@@ -12,9 +12,9 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.router.ConfirmationRouter;
 import com.asfoundation.wallet.router.Result;
 import com.asfoundation.wallet.router.TransactionsRouter;
+import com.asfoundation.wallet.router.TransferConfirmationRouter;
 import com.asfoundation.wallet.util.QRUri;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -31,18 +31,19 @@ public class SendViewModel extends BaseViewModel {
   private final MutableLiveData<Result> transactionSucceed = new MutableLiveData<>();
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchGasSettingsInteract fetchGasSettingsInteract;
-  private final ConfirmationRouter confirmationRouter;
+  private final TransferConfirmationRouter transferConfirmationRouter;
   private final TransferParser transferParser;
   private final CompositeDisposable disposables;
   private final TransactionsRouter transactionsRouter;
   private TransactionBuilder transactionBuilder;
 
   SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
-      FetchGasSettingsInteract fetchGasSettingsInteract, ConfirmationRouter confirmationRouter,
-      TransferParser transferParser, TransactionsRouter transactionsRouter) {
+      FetchGasSettingsInteract fetchGasSettingsInteract,
+      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
+      TransactionsRouter transactionsRouter) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
-    this.confirmationRouter = confirmationRouter;
+    this.transferConfirmationRouter = transferConfirmationRouter;
     this.transferParser = transferParser;
     this.transactionsRouter = transactionsRouter;
     disposables = new CompositeDisposable();
@@ -60,8 +61,8 @@ public class SendViewModel extends BaseViewModel {
       disposables.add(fetchGasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
           .subscribe(this::onGasSettings, this::onError));
 
-      disposable = findDefaultWalletInteract.find()
-          .subscribe(this::onDefaultWallet, this::onError);
+      disposables.add(findDefaultWalletInteract.find()
+          .subscribe(this::onDefaultWallet, this::onError));
     } else {
       disposables.add(transferParser.parse(data.toString())
           .flatMapObservable(transaction -> {
@@ -73,7 +74,7 @@ public class SendViewModel extends BaseViewModel {
                 .doOnSuccess(this::onGasSettings)
                 .flatMap(gasSettings -> findDefaultWalletInteract.find()
                     .doOnSuccess(this::onDefaultWallet))
-                .flatMapObservable(wallet -> confirmationRouter.getTransactionResult()
+                .flatMapObservable(wallet -> transferConfirmationRouter.getTransactionResult()
                     .doOnNext(transactionSucceed::postValue));
           })
           .subscribe(wallet -> {
@@ -134,7 +135,7 @@ public class SendViewModel extends BaseViewModel {
   }
 
   public void openConfirmation(Activity activity) {
-    confirmationRouter.open(activity, transactionBuilder);
+    transferConfirmationRouter.open(activity, transactionBuilder);
   }
 
   private void onGasSettings(GasSettings gasSettings) {
@@ -146,7 +147,7 @@ public class SendViewModel extends BaseViewModel {
   }
 
   public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-    return confirmationRouter.onActivityResult(requestCode, resultCode, data);
+    return transferConfirmationRouter.onActivityResult(requestCode, resultCode, data);
   }
 
   public void showTransactions(Context context) {

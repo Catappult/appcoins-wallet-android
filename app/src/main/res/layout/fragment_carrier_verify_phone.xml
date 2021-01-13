@@ -62,6 +62,17 @@
       app:layout_constraintTop_toBottomOf="@+id/title"
       />
 
+  <include
+      android:id="@+id/phone_number_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/phone_number_layout"
+      app:layout_constraintEnd_toEndOf="@id/phone_number_layout"
+      app:layout_constraintStart_toStartOf="@id/phone_number_layout"
+      app:layout_constraintTop_toTopOf="@id/phone_number_layout"
+      />
+
   <LinearLayout
       android:id="@+id/phone_number_layout"
       android:layout_width="0dp"
@@ -71,6 +82,7 @@
       android:orientation="horizontal"
       android:paddingTop="4dp"
       android:paddingBottom="4dp"
+      android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="@id/payment_methods_header"
       app:layout_constraintStart_toStartOf="@id/payment_methods_header"
       app:layout_constraintTop_toBottomOf="@+id/disclaimer"
@@ -83,7 +95,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="5dp"
         app:ccpDialog_background="@drawable/ccp_background"
-        app:ccpDialog_textColor="#000000"
+        app:ccpDialog_textColor="@color/black"
         app:ccp_arrowColor="@color/black_87_alpha"
         app:ccp_arrowSize="16dp"
         app:ccp_autoDetectCountry="true"

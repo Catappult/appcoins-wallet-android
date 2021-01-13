@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.promotions
 
-import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.gamification.repository.entity.*
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
@@ -26,6 +27,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val promotionsRepo: PromotionsRepository,
                            private val findWalletInteract: FindDefaultWalletInteract,
                            private val userStatsPreferencesRepository: UserStatsLocalData,
+                           private val analyticsSetup: AnalyticsSetup,
                            private val mapper: GamificationMapper) {
 
   companion object {
@@ -42,6 +44,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               gamificationInteractor.getLevels(),
               promotionsRepo.getUserStatus(it.address),
               BiFunction { level: Levels, userStatsResponse: UserStatusResponse ->
+                analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
                 mapToPromotionsModel(userStatsResponse, level)
               })
               .doOnSuccess { model ->
@@ -67,7 +70,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                     referralInteractor.hasReferralUpdate(wallet.address, referral,
                         ReferralsScreen.PROMOTIONS),
                     gamificationInteractor.hasNewLevel(wallet.address, gamification,
-                        GamificationScreen.PROMOTIONS),
+                        GamificationContext.SCREEN_PROMOTIONS),
                     hasGenericUpdate(generic, promotionUpdateScreen),
                     hasNewWalletOrigin(wallet.address, it.walletOrigin),
                     Function4 { hasReferralUpdate: Boolean, hasNewLevel: Boolean,
@@ -142,7 +145,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     promotions.forEach {
       when (it) {
         is GamificationItem -> {
-          promotionsRepo.shownLevel(wallet, it.level, GamificationScreen.PROMOTIONS.name)
+          promotionsRepo.shownLevel(wallet, it.level, GamificationContext.SCREEN_PROMOTIONS)
           it.links.forEach { gamificationLinkItem ->
             promotionsRepo.setSeenGenericPromotion(
                 getPromotionIdKey(gamificationLinkItem.id, gamificationLinkItem.startDate,

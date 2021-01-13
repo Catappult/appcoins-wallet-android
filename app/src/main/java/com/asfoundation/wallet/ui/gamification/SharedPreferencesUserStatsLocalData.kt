@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.gamification
 
 import android.content.SharedPreferences
-import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.*
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
@@ -28,13 +28,17 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
     private const val WALLET_ORIGIN = "wallet_origin"
   }
 
-  override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
-    return Single.fromCallable { preferences.getInt(getKey(wallet, screen), -1) }
+  override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext):
+      Single<Int> {
+    return Single.fromCallable {
+      preferences.getInt(getKey(wallet, gamificationContext.toString()), -1)
+    }
   }
 
-  override fun saveShownLevel(wallet: String, level: Int, screen: String) {
+  override fun saveShownLevel(wallet: String, level: Int,
+                              gamificationContext: GamificationContext) {
     return preferences.edit()
-        .putInt(getKey(wallet, screen), level)
+        .putInt(getKey(wallet, gamificationContext.toString()), level)
         .apply()
   }
 
@@ -59,7 +63,7 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
   override fun getGamificationLevel() = preferences.getInt(GAMIFICATION_LEVEL, -1)
 
   private fun getKey(wallet: String, screen: String): String {
-    return if (screen == GamificationScreen.MY_LEVEL.toString()) {
+    return if (screen == GamificationContext.SCREEN_MY_LEVEL.toString()) {
       SHOWN_LEVEL + wallet
     } else {
       SHOWN_LEVEL + wallet + SCREEN + screen

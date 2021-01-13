@@ -15,7 +15,6 @@ class Gamification(private val repository: PromotionsRepository) {
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
     const val REFERRAL_ID = "REFERRAL"
-    const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
   fun getUserStats(wallet: String): Single<GamificationStats> {
@@ -70,15 +69,18 @@ class Gamification(private val repository: PromotionsRepository) {
     return repository.getForecastBonus(wallet, packageName, amount)
   }
 
-  fun hasNewLevel(wallet: String, screen: String): Single<Boolean> {
-    return Single.zip(repository.getLastShownLevel(wallet, screen), getUserStats(wallet),
+  fun hasNewLevel(wallet: String, gamificationContext: GamificationContext): Single<Boolean> {
+    return Single.zip(repository.getLastShownLevel(wallet, gamificationContext),
+        getUserStats(wallet),
         BiFunction { lastShownLevel: Int, gamificationStats: GamificationStats ->
-          gamificationStats.status == GamificationStats.Status.OK && lastShownLevel < gamificationStats.level
+          gamificationStats.status == GamificationStats.Status.OK &&
+              lastShownLevel < gamificationStats.level
         })
   }
 
-  fun levelShown(wallet: String, level: Int, screen: String): Completable {
-    return Completable.fromAction { repository.shownLevel(wallet, level, screen) }
+  fun levelShown(wallet: String, level: Int, gamificationContext: GamificationContext):
+      Completable {
+    return Completable.fromAction { repository.shownLevel(wallet, level, gamificationContext) }
   }
 
 }

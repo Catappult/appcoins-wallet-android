@@ -107,7 +107,7 @@
         android:name="com.asfoundation.wallet.ui.SendActivity"
         android:label="@string/title_activity_send" />
     <activity
-        android:name="com.asfoundation.wallet.ui.ConfirmationActivity"
+        android:name="com.asfoundation.wallet.ui.TransferConfirmationActivity"
         android:label="@string/title_activity_confirmation" />
     <activity
         android:name="com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity"
@@ -284,7 +284,7 @@
     </service>
 
     <service
-        android:name="com.asfoundation.wallet.transactions.PerkBonusService"
+        android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"
         android:exported="false" />
 
     <receiver

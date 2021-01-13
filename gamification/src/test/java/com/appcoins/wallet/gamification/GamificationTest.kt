@@ -116,7 +116,7 @@ class GamificationTest {
         Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse),
             WalletOrigin.APTOIDE))
     local.lastShownLevelResponse = Single.just(0)
-    val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
+    val test = gamification.hasNewLevel(WALLET, GamificationContext.SCREEN_MY_LEVEL)
         .test()
     test.assertValue(false)
         .assertNoErrors()
@@ -140,7 +140,7 @@ class GamificationTest {
         Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse),
             WalletOrigin.APTOIDE))
     local.lastShownLevelResponse = Single.just(-1)
-    val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
+    val test = gamification.hasNewLevel(WALLET, GamificationContext.SCREEN_MY_LEVEL)
         .test()
     test.assertValue(true)
         .assertNoErrors()
@@ -151,7 +151,7 @@ class GamificationTest {
   fun hasNewLevelNetworkError() {
     api.userStatusResponse = Single.just(UserStatusResponse(Status.NO_NETWORK))
     local.lastShownLevelResponse = Single.just(-1)
-    val test = gamification.hasNewLevel(WALLET, GamificationScreen.MY_LEVEL.toString())
+    val test = gamification.hasNewLevel(WALLET, GamificationContext.SCREEN_MY_LEVEL)
         .test()
     test.assertValue(false)
         .assertNoErrors()
@@ -161,7 +161,7 @@ class GamificationTest {
   @Test
   fun levelShown() {
     val shownLevel = 1
-    val test = gamification.levelShown(WALLET, shownLevel, GamificationScreen.MY_LEVEL.toString())
+    val test = gamification.levelShown(WALLET, shownLevel, GamificationContext.SCREEN_MY_LEVEL)
         .test()
     test.assertNoErrors()
         .assertComplete()

@@ -61,8 +61,8 @@ abstract class ActivityBuilders {
   internal abstract fun bindPermissionsActivity(): PermissionsActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [ConfirmationModule::class])
-  internal abstract fun bindConfirmationModule(): ConfirmationActivity
+  @ContributesAndroidInjector(modules = [TransferConfirmationModule::class])
+  internal abstract fun bindTransferConfirmationModule(): TransferConfirmationActivity
 
   @ActivityScope
   @ContributesAndroidInjector

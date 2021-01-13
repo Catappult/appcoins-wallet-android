@@ -17,8 +17,10 @@ import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseT
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
+import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository
@@ -138,7 +140,7 @@ class RepositoryModule {
         CarrierErrorResponseTypeAdapter())
         .create()
     val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201101/gateways/dimoco/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201228/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
@@ -291,6 +293,32 @@ class RepositoryModule {
   fun providesBackupRestorePreferencesRepository(
       sharedPreferences: SharedPreferences): BackupRestorePreferencesRepository {
     return BackupRestorePreferencesRepository(sharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesABTestRepository(abTestApi: ABTestApi,
+                               idsRepository: IdsRepository,
+                               @Named("ab-test-local-cache")
+                               localCache: HashMap<String, ExperimentModel>,
+                               persistence: RoomExperimentPersistence,
+                               cacheValidator: ABTestCacheValidator): ABTestRepository {
+    return ABTestCenterRepository(abTestApi, idsRepository, localCache, persistence,
+        cacheValidator, Schedulers.io())
+  }
+
+  @Singleton
+  @Provides
+  fun providesGasPreferenceRepository(
+      sharedPreferences: SharedPreferences): GasPreferenceRepository {
+    return GasPreferenceRepository(sharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBillingAddressRepository(
+      secureSharedPreferences: SecureSharedPreferences): BillingAddressRepository {
+    return BillingAddressRepository(secureSharedPreferences)
   }
 
   @Provides

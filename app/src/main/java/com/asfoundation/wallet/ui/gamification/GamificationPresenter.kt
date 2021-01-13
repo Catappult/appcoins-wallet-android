@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.gamification
 
 import android.os.Bundle
-import com.appcoins.wallet.gamification.GamificationScreen
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.LevelModel
 import com.appcoins.wallet.gamification.LevelModel.LevelType
 import com.appcoins.wallet.gamification.repository.GamificationStats
@@ -57,7 +57,7 @@ class GamificationPresenter(private val view: GamificationView,
         .observeOn(viewScheduler)
         .doOnSuccess { displayInformation(it, sendEvent) }
         .flatMapCompletable {
-          gamification.levelShown(it.currentLevel, GamificationScreen.MY_LEVEL)
+          gamification.levelShown(it.currentLevel, GamificationContext.SCREEN_MY_LEVEL)
         }
         .subscribe({}, { handleError(it) }))
   }
@@ -132,7 +132,8 @@ class GamificationPresenter(private val view: GamificationView,
   fun stop() = disposables.clear()
 
   private fun handleBottomSheetVisibility() {
-    disposables.add(view.getBottomSheetButtonClick().mergeWith(view.getBottomSheetContainerClick())
+    disposables.add(view.getBottomSheetButtonClick()
+        .mergeWith(view.getBottomSheetContainerClick())
         .observeOn(viewScheduler)
         .doOnNext { view.updateBottomSheetVisibility() }
         .subscribe({}, { handleError(it) }))

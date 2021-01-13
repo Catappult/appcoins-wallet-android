@@ -67,11 +67,11 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   public void loadSubscriptionDetails(String transactionId) {
-    disposable = subscriptionRepository.getSubscriptionByTrxId(transactionId)
+    disposables.add(subscriptionRepository.getSubscriptionByTrxId(transactionId)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .subscribe(subscriptionDetails::postValue, t -> {
-        });
+        }));
   }
 
   public void showSupportScreen() {
