@@ -137,6 +137,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 walletAddress: String, signature: String, packageName: String,
                                 amount: String, currency: String, productName: String?,
                                 localPaymentBody: LocalPaymentBody = LocalPaymentBody()): Single<Transaction> {
+    // TODO We should not do this verification by using the payment gateway
     return if (gateway == "myappcoins") {
       api.createTransaction(null, packageName, amount, currency, productName,
           type, walletAddress, null, null, null, null, null, null, null, null, walletAddress,

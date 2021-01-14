@@ -16,7 +16,9 @@ class LocalPaymentsLinkRepository(private var api: DeepLinkApi) : InAppDeepLinkR
                            developerWalletAddress: String?,
                            storeWalletAddress: String?, oemWalletAddress: String?,
                            callbackUrl: String?, orderReference: String?,
-                           payload: String?): Single<String> {
+                           payload: String?, referrerUrl: String?): Single<String> {
+    // TODO update will be done later. The referrerUrl was removed from the call itself because the
+    //  service does not support it
     return api.getDeepLink(userWalletAddress, signature,
         DeepLinkData(domain, skuId, null, originalAmount,
             originalCurrency, paymentMethod, developerWalletAddress, callbackUrl, payload,
@@ -34,11 +36,16 @@ class LocalPaymentsLinkRepository(private var api: DeepLinkApi) : InAppDeepLinkR
 
 data class DeepLinkData(@SerializedName("package") var packageName: String,
                         var sku: String?,
-                        var message: String?, @SerializedName("price.value")
-                        var amount: String?, @SerializedName("price.currency")
-                        var currency: String?, var method: String,
+                        var message: String?,
+                        @SerializedName("price.value")
+                        var amount: String?,
+                        @SerializedName("price.currency")
+                        var currency: String?,
+                        var method: String,
                         @SerializedName("wallets.developer") var developerWalletAddress: String?,
                         @SerializedName("callback_url") var callback: String?,
-                        var metadata: String?, var reference: String?,
+                        var metadata: String?,
+                        var reference: String?,
                         @SerializedName("wallets.store") var storeWalletAddress: String?,
                         @SerializedName("wallets.oem") var oemWalletAddress: String?)
+

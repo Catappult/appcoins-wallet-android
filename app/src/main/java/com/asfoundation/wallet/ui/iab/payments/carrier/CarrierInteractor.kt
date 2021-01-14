@@ -48,7 +48,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
           repository.makePayment(pair.first.address, pair.first.signedAddress, phoneNumber,
               packageName, origin, pair.second.skuId, pair.second.orderReference, transactionType,
               currency, value, pair.second.toAddress(), pair.first.oemAddress,
-              pair.first.storeAddress, pair.first.address)
+              pair.first.storeAddress, pair.first.address, pair.second.referrerUrl)
         }
         .doOnError { logger.log("CarrierInteractor", it) }
   }

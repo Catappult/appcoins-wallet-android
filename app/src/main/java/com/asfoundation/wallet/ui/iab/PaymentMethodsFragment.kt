@@ -423,7 +423,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         selectedPaymentMethod, transactionBuilder!!.toAddress(), transactionBuilder!!.type,
         transactionBuilder!!.amount(), transactionBuilder!!.callbackUrl,
         transactionBuilder!!.orderReference, transactionBuilder!!.payload, iconUrl, label, async,
-        gamificationLevel)
+        transactionBuilder!!.referrerUrl, gamificationLevel)
   }
 
   override fun setBonus(bonus: BigDecimal, currency: String) {

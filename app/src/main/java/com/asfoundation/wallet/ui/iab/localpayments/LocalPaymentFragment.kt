@@ -306,6 +306,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     const val PAYMENT_METHOD_URL = "payment_method_url"
     const val PAYMENT_METHOD_LABEL = "payment_method_label"
     const val ASYNC = "async"
+    const val REFERRER_URL = "referrer_url"
     const val GAMIFICATION_LEVEL = "gamification_level"
     private const val ANIMATION_STEP_ONE_START_FRAME = 0
     private const val ANIMATION_STEP_TWO_START_FRAME = 80
@@ -319,7 +320,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
                     bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                     type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
                     payload: String?, paymentMethodIconUrl: String, paymentMethodLabel: String,
-                    async: Boolean, gamificationLevel: Int): LocalPaymentFragment {
+                    async: Boolean, referralUrl: String?, gamificationLevel: Int): LocalPaymentFragment {
       return LocalPaymentFragment()
           .apply {
             arguments = Bundle().apply {
@@ -338,6 +339,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
               putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
               putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
               putBoolean(ASYNC, async)
+              putString(REFERRER_URL, referralUrl)
               putInt(GAMIFICATION_LEVEL, gamificationLevel)
             }
           }
