@@ -265,14 +265,18 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
-        sendPaymentErrorEvent(paymentModel.refusalCode, paymentModel.refusalReason)
+        var refusalReason = paymentModel.refusalReason
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
-            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
+            FRAUD -> {
+              handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
+              paymentModel.fraudResultIds.forEach { refusalReason += "+$it" }
+            }
             else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
+        sendPaymentErrorEvent(paymentModel.refusalCode, refusalReason)
       }
       paymentModel.error.hasError -> Completable.fromAction {
         if (isBillingAddressError(paymentModel.error, priceAmount, priceCurrency)) {
