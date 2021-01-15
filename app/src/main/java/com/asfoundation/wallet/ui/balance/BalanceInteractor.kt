@@ -16,6 +16,7 @@ import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.network.VerificationStatus
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.annotations.Nullable
 import io.reactivex.functions.BiFunction
@@ -28,38 +29,45 @@ class BalanceInteractor(
     private val preferencesRepositoryType: PreferencesRepositoryType,
     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
     private val smsValidationInteract: SmsValidationInteract,
-    private val verificationRepository: VerificationRepository) {
+    private val verificationRepository: VerificationRepository,
+    private val networkScheduler: Scheduler) {
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
     return accountWalletService.find()
+        .subscribeOn(networkScheduler)
         .flatMapObservable { balanceRepository.getAppcBalance(it.address) }
   }
 
   fun getEthBalance(): Observable<Pair<Balance, FiatValue>> {
     return accountWalletService.find()
+        .subscribeOn(networkScheduler)
         .flatMapObservable { balanceRepository.getEthBalance(it.address) }
   }
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
     return accountWalletService.find()
+        .subscribeOn(networkScheduler)
         .flatMapObservable { balanceRepository.getCreditsBalance(it.address) }
   }
 
   private fun getStoredAppcBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
     return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
+        .subscribeOn(networkScheduler)
         .flatMap { balanceRepository.getStoredAppcBalance(it) }
   }
 
   private fun getStoredEthBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
     return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
+        .subscribeOn(networkScheduler)
         .flatMap { balanceRepository.getStoredEthBalance(it) }
   }
 
   private fun getStoredCreditsBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
     return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
+        .subscribeOn(networkScheduler)
         .flatMap { balanceRepository.getStoredCreditsBalance(it) }
   }
 
@@ -87,6 +95,7 @@ class BalanceInteractor(
 
   fun requestActiveWalletAddress(): Single<String> {
     return accountWalletService.find()
+        .subscribeOn(networkScheduler)
         .map { it.address }
   }
 

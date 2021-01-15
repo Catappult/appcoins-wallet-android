@@ -324,7 +324,8 @@ class InteractorModule {
                              smsValidationInteract: SmsValidationInteract,
                              verificationRepository: VerificationRepository) =
       BalanceInteractor(walletService as AccountWalletService, balanceRepository,
-          preferencesRepositoryType, backupRestorePreferencesRepository, smsValidationInteract, verificationRepository)
+          preferencesRepositoryType, backupRestorePreferencesRepository, smsValidationInteract,
+          verificationRepository, Schedulers.io())
 
   @Provides
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
