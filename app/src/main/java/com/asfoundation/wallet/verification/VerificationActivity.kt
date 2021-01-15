@@ -15,7 +15,6 @@ import javax.inject.Inject
 class VerificationActivity : BaseActivity(), VerificationActivityView {
 
   companion object {
-
     @JvmStatic
     fun newIntent(context: Context) = Intent(context, VerificationActivity::class.java)
   }
@@ -31,7 +30,6 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
     presenter.present(savedInstanceState)
   }
 
-
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
       super.onBackPressed()
@@ -46,13 +44,9 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
     else RestoreWalletFragment::class.java.simpleName
   }
 
-  override fun cancel() {
-    finish()
-  }
+  override fun cancel() = finish()
 
-  override fun complete() {
-    finish()
-  }
+  override fun complete() = finish()
 
   override fun lockRotation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED

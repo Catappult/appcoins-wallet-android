@@ -99,10 +99,8 @@ class BalanceInteractor(
         .map { it.address }
   }
 
-  fun getSignedCurrentWalletAddress(): Single<WalletAddressModel> {
-    return accountWalletService.getAndSignCurrentWalletAddress()
-
-  }
+  fun getSignedCurrentWalletAddress(): Single<WalletAddressModel> =
+      accountWalletService.getAndSignCurrentWalletAddress()
 
   fun getStoredOverallBalance(@Nullable walletAddress: String? = null): Single<FiatValue> {
     return Single.zip(

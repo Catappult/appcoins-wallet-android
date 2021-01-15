@@ -17,5 +17,4 @@ class VerificationActivityInteractor(
         }
         .onErrorReturn { VerificationStatus.UNVERIFIED }
   }
-
 }

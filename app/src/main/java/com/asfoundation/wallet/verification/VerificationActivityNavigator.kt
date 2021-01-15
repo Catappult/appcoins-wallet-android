@@ -1,11 +1,13 @@
 package com.asfoundation.wallet.verification
 
+import android.app.Activity
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.verification.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 
-class VerificationActivityNavigator(private val fragmentManager: FragmentManager) {
+class VerificationActivityNavigator(private val activity: Activity,
+                                    private val fragmentManager: FragmentManager) {
 
   fun navigateToWalletVerificationIntro() {
     fragmentManager.beginTransaction()
@@ -22,7 +24,6 @@ class VerificationActivityNavigator(private val fragmentManager: FragmentManager
   }
 
   fun finish() {
-
+    activity.finish()
   }
-
 }
