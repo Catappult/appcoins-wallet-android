@@ -13,7 +13,6 @@ class VerificationActivityPresenter(
     private val disposable: CompositeDisposable
 ) {
 
-
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) handleVerificationStatus()
   }
@@ -24,7 +23,7 @@ class VerificationActivityPresenter(
             .subscribeOn(ioScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { onVerificationStatusSuccess(it) }
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -35,6 +34,4 @@ class VerificationActivityPresenter(
       VerificationStatus.VERIFIED -> navigator.finish()
     }
   }
-
-
 }
