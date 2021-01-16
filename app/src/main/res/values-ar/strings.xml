@@ -906,6 +906,6 @@
   <string name="voucher_code_title">رمز القسيمة</string>
   <string name="voucher_instructions_body">اذهب إلى %s واستخدم الرمز لاسترداد قسيمتك.</string>
   <string name="voucher_instructions_transactions">يمكنك دائمًا إيجاد رمز القسيمة في سجل التحويلات.</string>
-  <string name="voucher_empty">لا يتوفر لدينا بطاقات تسوق حاليًّا.</string>
+  <string name="voucher_empty">لا يتوفر لدينا قسائم تسوق حاليًّا.</string>
   <string name="voucher_tooltip">يمكنك الآن شراء القسائم للألعاب!</string>
 </resources>
