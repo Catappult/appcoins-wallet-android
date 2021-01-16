@@ -573,7 +573,7 @@
   <string name="promotions_empty_suggested_games_title">ألعاب مقترحة</string>
   <string name="promotions_perks_button">امتيازات</string>
   <string name="promotions_vouhers_button">قسائم</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">اربح رصيد AppCoins مع ترقياتنا!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">تحديث لاستقبال الجوائز</string>
   <string name="update_wallet_poa_notification_body">يرجى تحديث محفظة AppCoins لاستقبال الجوائز.</string>
@@ -862,10 +862,10 @@
   <string name="rate_us_improve_field__empty_error">يرجى كتابة أي شيء</string>
   <string name="rate_us_possitive_thanks_title">شكرًا لك!</string>
   <string name="rate_us_possitive_thanks_body">نحن سعداء بأنك تحب التطبيق. هل يمكنك مساعدتنا بتقييمنا على متجر التطبيقات؟</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">تقييم محفظة AppCoins</string>
   <string name="rate_us_possitive_done_title">نشكرك على تقييمك!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">تريد مساعدتنا؟</string>
+  <string name="rate_us_back_body">أضف تقيمك لمحفظة AppCoins على متجر التطبيقات لنعمل على تحسينه.</string>
   <!--Card verification-->
   <string name="card_verification_body">استخدم بطاقة الائتمان للتحقق من محفظتك.</string>
   <string name="card_verification_charde_disclaimer">سنتلقي %s من بطاقتك، وسنعيدها حالما تؤكد لنا الرمز.</string>
@@ -906,6 +906,6 @@
   <string name="voucher_code_title">رمز القسيمة</string>
   <string name="voucher_instructions_body">اذهب إلى %s واستخدم الرمز لاسترداد قسيمتك.</string>
   <string name="voucher_instructions_transactions">يمكنك دائمًا إيجاد رمز القسيمة في سجل التحويلات.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">لا يتوفر لدينا بطاقات تسوق حاليًّا.</string>
+  <string name="voucher_tooltip">يمكنك الآن شراء القسائم للألعاب!</string>
 </resources>
