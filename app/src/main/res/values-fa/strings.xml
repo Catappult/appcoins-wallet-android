@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">%s پاداش برای هر خرید دریافت خواهید کرد. به خرید ادامه دهید تا پاداش بیشتری کسب کنید!</string>
   <string name="gamification_leveled_up_notification_title">به مرحله بعد رسیده‌اید!</string>
   <string name="gamification_leveled_up_notification_body">تبریک، پاداش %s برای هر خرید دریافت خواهید کرد!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_how_max_level_notification_title">موفق شدید!</string>
+  <string name="gamification_how_max_level_body">به بالاترین مرحله رسیدید: %s پاداش در هر خرید!</string>
   <string name="gamification_level_up_notification_title">بسیار نزدیک!</string>
   <string name="gamification_level_up_notification_body">%s AppCoins بیشتری پرداخت کنید تا به مرحله بعدی برسید.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">یک پاداش اضافی گرفتید!</string>
+  <string name="gamification_bonus_plus_perk_body">از %1$s پاداش و %2$s AppCoins Credits اضافی لذت ببرید.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">به کیف پول AppCoins اجازه دهید که آدرس کیف پول شما را به %s بدهد.</string>
   <string name="provide_wallet_body_placeholders">به %1$s اجازه دهید که آدرس کیف پول شما را به %2$s بدهد.</string>
@@ -507,8 +507,8 @@
   <string name="purchase_card_error_CVV">CVV/CVC اشتباه</string>
   <string name="error_contac_us_body">اگر مشکل ادامه داشت لطفا با ما تماس بگیرید.</string>
   <string name="purchase_error_unverified_wallet">سعی کنید خرید خود را پس از تایید کیف پول تکمیل کنید.</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_method">اوه&#8230; مشکلی پیش آمده‌است! لطفا روش دیگری برای پرداخت امتحان کنید یا با ما تماس بگیرید.</string>
+  <string name="purchase_error_try_other_amount">آیا مطمئن هستید که مبلغ افزایشی شما صحیح است؟ لطفا روش دیگری را امتحان کنید یا با ما تماس بگیرید!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
@@ -572,7 +572,7 @@
   <string name="promotions_empty_suggested_games_title">بازی‌های پیشنهادی</string>
   <string name="promotions_perks_button">هدیه‌ها</string>
   <string name="promotions_vouhers_button">ووچرها</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">با پیشنهادهای تشویقی ما AppCoins Credits رایگان دریافت کنید!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">بروزرسانی کنید و پاداش دریافت کنید</string>
   <string name="update_wallet_poa_notification_body">لطفا AppCoins Wallet را بروزرسانی کنید تا این پاداش را دریافت کنید.</string>
@@ -845,10 +845,10 @@
   <string name="rate_us_improve_field__empty_error">لطفا چیزی بنویسید</string>
   <string name="rate_us_possitive_thanks_title">تشکر!</string>
   <string name="rate_us_possitive_thanks_body">خوشحالیم که اپلیکیشن ما را دوست دارید. آیا می‌توانید با رتبه بندی ما در فروشگاه اپلیکیشن به ما کمک کنید؟</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">رتبه‌بندی APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">از بازخورد شما متشکریم!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_back_title">آیا می‌خواهید به ما کمک کنید؟</string>
+  <string name="rate_us_back_body">AppCoins Wallet را در فروشگاه اپلیکیشن رتبه بندی کنید تا بتوانیم آن را بهتر کنیم.</string>
   <!--Card verification-->
   <string name="card_verification_body">برای تایید کیف پول خود از کارت اعتباری خود استفاده کنید.</string>
   <string name="card_verification_charde_disclaimer">ما %s را در کارت شما شارژ خواهیم کرد و پس از تایید کد توسط شما آن را باز می‌گردانیم.</string>
@@ -881,6 +881,6 @@
   <string name="voucher_code_title">کد ووچر</string>
   <string name="voucher_instructions_body">به %s بروید و کد را برای آزادکردن ووچر خود استفاده کنید.</string>
   <string name="voucher_instructions_transactions">همیشه می‌توانید کد ووچر را در تاریخچه تراکنش‌ها پیدا کنید.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty">هیچ ووچری در حال حاضر موجود نیست.</string>
+  <string name="voucher_tooltip">اکنون می‌توانید برای بازی‌ها ووچر بخرید!</string>
 </resources>
