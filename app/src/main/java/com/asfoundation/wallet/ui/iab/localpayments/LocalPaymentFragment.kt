@@ -303,6 +303,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     const val CALLBACK_URL = "CALLBACK_URL"
     const val ORDER_REFERENCE = "ORDER_REFERENCE"
     const val PAYLOAD = "PAYLOAD"
+    const val ORIGIN = "ORIGIN"
     const val PAYMENT_METHOD_URL = "payment_method_url"
     const val PAYMENT_METHOD_LABEL = "payment_method_label"
     const val ASYNC = "async"
@@ -319,8 +320,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     fun newInstance(domain: String, skudId: String?, originalAmount: String?, currency: String?,
                     bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                     type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
-                    payload: String?, paymentMethodIconUrl: String, paymentMethodLabel: String,
-                    async: Boolean, referralUrl: String?, gamificationLevel: Int): LocalPaymentFragment {
+                    payload: String?, origin: String?, paymentMethodIconUrl: String,
+                    paymentMethodLabel: String,
+                    async: Boolean, referralUrl: String?,
+                    gamificationLevel: Int): LocalPaymentFragment {
       return LocalPaymentFragment()
           .apply {
             arguments = Bundle().apply {
@@ -336,6 +339,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
               putString(CALLBACK_URL, callbackUrl)
               putString(ORDER_REFERENCE, orderReference)
               putString(PAYLOAD, payload)
+              putString(ORIGIN, origin)
               putString(PAYMENT_METHOD_URL, paymentMethodIconUrl)
               putString(PAYMENT_METHOD_LABEL, paymentMethodLabel)
               putBoolean(ASYNC, async)

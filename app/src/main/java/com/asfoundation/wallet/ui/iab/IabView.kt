@@ -43,7 +43,8 @@ interface IabView {
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
                        bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                        type: String, amount: BigDecimal, callbackUrl: String?,
-                       orderReference: String?, payload: String?, paymentMethodIconUrl: String,
+                       orderReference: String?, payload: String?, origin: String?,
+                       paymentMethodIconUrl: String,
                        paymentMethodLabel: String, async: Boolean, referralUrl: String?,
                        gamificationLevel: Int)
 

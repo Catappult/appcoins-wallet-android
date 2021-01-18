@@ -414,16 +414,18 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
-                                async: Boolean, gamificationLevel: Int) {
+                                async: Boolean, fiatAmount: String, fiatCurrency: String,
+                                gamificationLevel: Int) {
     val isOneStep: Boolean = transactionBuilder!!.type
         .equals("INAPP_UNMANAGED", ignoreCase = true)
     iabView.showLocalPayment(transactionBuilder!!.domain, transactionBuilder!!.skuId,
-        if (isOneStep) transactionBuilder!!.originalOneStepValue else null,
-        if (isOneStep) transactionBuilder!!.originalOneStepCurrency else null, bonusMessageValue,
-        selectedPaymentMethod, transactionBuilder!!.toAddress(), transactionBuilder!!.type,
-        transactionBuilder!!.amount(), transactionBuilder!!.callbackUrl,
-        transactionBuilder!!.orderReference, transactionBuilder!!.payload, iconUrl, label, async,
-        transactionBuilder!!.referrerUrl, gamificationLevel)
+        if (isOneStep) transactionBuilder!!.originalOneStepValue else fiatAmount,
+        if (isOneStep) transactionBuilder!!.originalOneStepCurrency else fiatCurrency,
+        bonusMessageValue, selectedPaymentMethod, transactionBuilder!!.toAddress(),
+        transactionBuilder!!.type, transactionBuilder!!.amount(), transactionBuilder!!.callbackUrl,
+        transactionBuilder!!.orderReference, transactionBuilder!!.payload,
+        transactionBuilder!!.origin, iconUrl, label, async, transactionBuilder!!.referrerUrl,
+        gamificationLevel)
   }
 
   override fun setBonus(bonus: BigDecimal, currency: String) {

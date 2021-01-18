@@ -121,13 +121,19 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         null).ignoreElement()
   }
 
-  fun createLocalPaymentTopUpTransaction(paymentId: String, packageName: String, price: String,
-                                         currency: String, productName: String,
-                                         walletAddress: String,
-                                         walletSignature: String): Single<Transaction> {
-    return createTransaction(walletAddress, null, null, null, null, null, null, null, null, null,
-        "TOPUP", "myappcoins", walletAddress, walletSignature, packageName, price, currency,
-        null, LocalPaymentBody(price, currency, packageName, "TOPUP", paymentId, productName))
+  fun createLocalPaymentTransaction(paymentId: String, packageName: String, price: String?,
+                                    currency: String?, productName: String?, type: String,
+                                    origin: String?, walletsDeveloper: String?,
+                                    walletsStore: String?, walletsOem: String?,
+                                    developerPayload: String?, callback: String?,
+                                    orderReference: String?, referrerUrl: String?,
+                                    walletAddress: String,
+                                    walletSignature: String): Single<Transaction> {
+    return createTransaction(walletAddress, walletsDeveloper, walletsStore, walletsOem, null,
+        developerPayload, callback, orderReference, referrerUrl, origin, type, "myappcoins",
+        walletAddress, walletSignature, packageName, price, currency, productName,
+        LocalPaymentBody(price, currency, packageName, type, paymentId, productName,
+            walletsDeveloper))
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
@@ -135,16 +141,16 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 callback: String?, orderReference: String?, referrerUrl: String?,
                                 origin: String?, type: String, gateway: String,
                                 walletAddress: String, signature: String, packageName: String,
-                                amount: String, currency: String, productName: String?,
-                                localPaymentBody: LocalPaymentBody = LocalPaymentBody()): Single<Transaction> {
-    // TODO We should not do this verification by using the payment gateway
-    return if (gateway == "myappcoins") {
-      api.createTransaction(null, packageName, amount, currency, productName,
-          type, walletAddress, null, null, null, null, null, null, null, null, walletAddress,
-          signature, localPaymentBody)
+                                amount: String?, currency: String?,
+                                productName: String?,
+                                localPaymentBody: LocalPaymentBody? = null): Single<Transaction> {
+    return if (localPaymentBody != null) {
+      api.createTransaction(origin, packageName, amount, currency, productName, type,
+          userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload, callback,
+          orderReference, referrerUrl, walletAddress, signature, localPaymentBody)
     } else {
       api.createTransaction(gateway, origin, packageName, amount,
-          currency, productName, type, userWallet, developerWallet, storeWallet, oemWallet, token,
+          currency!!, productName, type, userWallet, developerWallet, storeWallet, oemWallet, token,
           developerPayload, callback, orderReference, referrerUrl, walletAddress, signature)
     }
   }
@@ -277,7 +283,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     fun createTransaction(@Query("origin") origin: String?,
                           @Query("domain") domain: String,
                           @Query("price.value") priceValue: String?,
-                          @Query("price.currency") priceCurrency: String,
+                          @Query("price.currency") priceCurrency: String?,
                           @Query("product") product: String?,
                           @Query("type") type: String,
                           @Query("wallets.user") userWallet: String?,
@@ -296,10 +302,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   data class Consumed(val status: String = "CONSUMED")
 
-  data class LocalPaymentBody(@SerializedName("price.value") val price: String,
-                              @SerializedName("price.currency") val currency: String,
+  data class LocalPaymentBody(@SerializedName("price.value") val price: String?,
+                              @SerializedName("price.currency") val currency: String?,
                               val domain: String, val type: String, val method: String,
-                              val product: String) {
-    constructor() : this("", "", "", "", "", "")
-  }
+                              val product: String?,
+                              @SerializedName("wallets.developer") val developerWallet: String?)
 }

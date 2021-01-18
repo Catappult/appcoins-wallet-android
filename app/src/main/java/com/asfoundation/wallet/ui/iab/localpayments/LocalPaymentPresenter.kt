@@ -86,14 +86,15 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun onViewCreatedRequestLink() {
     disposables.add(
-        localPaymentInteractor.getPaymentLink(data.packageName, data.skuId, data.originalAmount,
-            data.currency, data.paymentId, data.developerAddress, data.callbackUrl,
-            data.orderReference, data.payload, data.referrerUrl)
+        localPaymentInteractor.getPaymentLink(data.packageName, data.fiatAmount,
+            data.currency, data.paymentId, data.skuId, data.type, data.origin,
+            data.developerAddress, data.payload, data.callbackUrl, data.orderReference,
+            data.referrerUrl)
             .filter { !waitingResult }
             .observeOn(viewScheduler)
             .doOnSuccess {
               analytics.sendNavigationToUrlEvents(data.packageName, data.skuId,
-                  data.amount.toString(), data.type, data.paymentId)
+                  data.appcAmount.toString(), data.type, data.paymentId)
               navigator.navigateToUriForResult(it)
               waitingResult = true
             }
@@ -185,7 +186,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     return localPaymentInteractor.getCompletePurchaseBundle(data.type, data.packageName, data.skuId,
         transaction.orderReference, transaction.hash, networkScheduler)
         .doOnSuccess {
-          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.amount,
+          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.appcAmount,
               data.type, data.paymentId)
           handleRevenueEvent()
         }
@@ -199,7 +200,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handleRevenueEvent() {
-    disposables.add(localPaymentInteractor.convertToFiat(data.amount.toDouble(),
+    disposables.add(localPaymentInteractor.convertToFiat(data.appcAmount.toDouble(),
         FacebookEventLogger.EVENT_REVENUE_CURRENCY)
         .subscribeOn(networkScheduler)
         .doOnSuccess { fiatValue -> analytics.sendRevenueEvent(fiatValue.amount.toString()) }
@@ -210,13 +211,14 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     return when (transaction.status) {
       Status.PENDING_USER_PAYMENT -> {
         Completable.fromAction {
-          analytics.sendPendingPaymentEvents(data.packageName, data.skuId, data.amount.toString(),
+          analytics.sendPendingPaymentEvents(data.packageName, data.skuId,
+              data.appcAmount.toString(),
               data.type, data.paymentId)
         }
       }
       Status.COMPLETED -> {
         Completable.fromAction {
-          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.amount,
+          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.appcAmount,
               data.type, data.paymentId)
           handleRevenueEvent()
         }

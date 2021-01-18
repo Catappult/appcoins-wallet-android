@@ -39,36 +39,37 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
           .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
 
-  fun getPaymentLink(domain: String, skuId: String?, originalAmount: String?,
-                     originalCurrency: String?, paymentMethod: String, developerAddress: String,
+  fun getPaymentLink(packageName: String, fiatAmount: String?, fiatCurrency: String?,
+                     paymentMethod: String, productName: String?, type: String, origin: String?,
+                     walletDeveloper: String?, developerPayload: String?,
                      callbackUrl: String?, orderReference: String?,
-                     payload: String?, referrerUrl: String?): Single<String> {
-
+                     referrerUrl: String?): Single<String> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
           Single.zip(
-              partnerAddressService.getStoreAddressForPackage(domain),
-              partnerAddressService.getOemAddressForPackage(domain),
+              partnerAddressService.getStoreAddressForPackage(packageName),
+              partnerAddressService.getOemAddressForPackage(packageName),
               BiFunction { storeAddress: String, oemAddress: String ->
-                DeepLinkInformation(storeAddress, oemAddress)
+                Pair(storeAddress, oemAddress)
               })
               .flatMap {
-                deepLinkRepository.getDeepLink(domain, skuId, walletAddressModel.address,
-                    walletAddressModel.signedAddress, originalAmount, originalCurrency,
-                    paymentMethod, developerAddress, it.storeAddress, it.oemAddress, callbackUrl,
-                    orderReference, payload, referrerUrl)
+                remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
+                    fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper, it.first,
+                    it.second, developerPayload, callbackUrl, orderReference, referrerUrl,
+                    walletAddressModel.address, walletAddressModel.signedAddress)
               }
+              .map { it.url ?: "" }
         }
   }
 
   fun getTopUpPaymentLink(packageName: String, fiatAmount: String,
                           fiatCurrency: String, paymentMethod: String,
                           productName: String): Single<String> {
-
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
-          remoteRepository.createLocalPaymentTopUpTransaction(paymentMethod, packageName,
-              fiatAmount, fiatCurrency, productName, walletAddressModel.address,
+          remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
+              fiatAmount, fiatCurrency, productName, "TOPUP", null, null, null, null, null,
+              null, null, null, walletAddressModel.address,
               walletAddressModel.signedAddress)
         }
         .map { it.url ?: "" }
