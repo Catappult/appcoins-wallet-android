@@ -22,7 +22,6 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
     } else if (item.status == Status.EXPIRED) {
       view.setExpiredDetails(item)
     }
-    view.showDetails()
   }
 
   private fun handleCancelClicks() {

@@ -219,8 +219,7 @@
         android:label="@string/promotions_title" />
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
-        android:label="Subscriptions"
-        android:screenOrientation="portrait"/>
+        android:label="@string/subscriptions_title"/>
 
     <activity
         android:name="com.asfoundation.wallet.referrals.InviteFriendsActivity"

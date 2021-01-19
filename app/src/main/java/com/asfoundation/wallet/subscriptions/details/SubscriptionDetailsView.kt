@@ -10,6 +10,4 @@ interface SubscriptionDetailsView {
   fun setActiveDetails(subscriptionItem: SubscriptionItem)
 
   fun setExpiredDetails(subscriptionItem: SubscriptionItem)
-
-  fun showDetails()
 }

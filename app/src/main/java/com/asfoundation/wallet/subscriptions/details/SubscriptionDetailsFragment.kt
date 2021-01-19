@@ -124,14 +124,9 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
         subscriptionItem.paymentMethod
   }
 
-  override fun showDetails() {
-    loading_animation.visibility = View.GONE
-    main_layout.visibility = View.VISIBLE
-  }
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    getActivity()?.title = getString(R.string.subscriptions_title)
+    activity?.title = getString(R.string.subscriptions_title)
   }
 
   override fun onDestroyView() {

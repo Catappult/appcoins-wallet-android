@@ -4,23 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     >
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/loading_animation"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      app:layout_constraintDimensionRatio="H, 3:4"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHeight_max="0dp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/subscription_details_skeleton"
-      app:lottie_scale="1"
-      />
 
   <ScrollView
       android:id="@+id/main_layout"
