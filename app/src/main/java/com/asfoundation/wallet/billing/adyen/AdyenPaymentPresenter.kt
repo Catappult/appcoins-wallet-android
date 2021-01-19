@@ -265,18 +265,18 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
-        var refusalReason = paymentModel.refusalReason
+        var riskRules = ""
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
             FRAUD -> {
               handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
-              paymentModel.fraudResultIds.forEach { refusalReason += "+$it" }
+              paymentModel.fraudResultIds.forEach { riskRules += "+$it" }
             }
             else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
-        sendPaymentErrorEvent(paymentModel.refusalCode, refusalReason)
+        sendPaymentErrorEvent(paymentModel.refusalCode, paymentModel.refusalReason, riskRules)
       }
       paymentModel.error.hasError -> Completable.fromAction {
         if (isBillingAddressError(paymentModel.error, priceAmount, priceCurrency)) {
@@ -525,14 +525,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?) {
+  private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?,
+                                    riskRules: String? = "") {
     disposables.add(transactionBuilder
         .observeOn(networkScheduler)
         .doOnSuccess { transaction ->
           analytics.sendPaymentErrorWithDetailsEvent(domain, transaction.skuId,
               transaction.amount()
                   .toString(), mapPaymentToAnalytics(paymentType), transaction.type,
-              refusalCode.toString(), refusalReason)
+              refusalCode.toString(), refusalReason, riskRules)
         }
         .subscribe({}, { it.printStackTrace() }))
   }

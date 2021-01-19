@@ -310,19 +310,19 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
-        var refusalReason = paymentModel.refusalReason
+        var riskRules = ""
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
             FRAUD -> {
               handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
-              paymentModel.fraudResultIds.forEach { refusalReason += "+$it" }
+              paymentModel.fraudResultIds.forEach { riskRules += "+$it" }
             }
             else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
         topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-            paymentModel.refusalCode.toString(), refusalReason ?: "")
+            paymentModel.refusalCode.toString(), paymentModel.refusalReason.toString(), riskRules)
       }
       paymentModel.error.hasError -> Completable.fromAction {
         if (isBillingAddressError(paymentModel.error)) {
