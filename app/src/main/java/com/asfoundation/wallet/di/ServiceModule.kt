@@ -571,7 +571,7 @@ class ServiceModule {
   @Provides
   fun provideSubscriptionBillingService(@Named("blockchain") client: OkHttpClient,
                                         gson: Gson): SubscriptionBillingApi {
-    val baseUrl = BuildConfig.CATAPPULT_HOST + "/product/8.20200701/applications/"
+    val baseUrl = BuildConfig.CATAPPULT_NEO_HOST + "/product/8.20200701/applications/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
