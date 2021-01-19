@@ -9,7 +9,6 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -21,8 +20,7 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 
-class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
-                             private val walletService: WalletService,
+class LocalPaymentInteractor(private val walletService: WalletService,
                              private val partnerAddressService: AddressService,
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
@@ -58,7 +56,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                     it.second, developerPayload, callbackUrl, orderReference, referrerUrl,
                     walletAddressModel.address, walletAddressModel.signedAddress)
               }
-              .map { it.url ?: "" }
+              .map { it.url }
         }
   }
 
@@ -72,7 +70,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
               null, null, null, walletAddressModel.address,
               walletAddressModel.signedAddress)
         }
-        .map { it.url ?: "" }
+        .map { it.url }
   }
 
   fun getTransaction(uri: Uri, async: Boolean): Observable<Transaction> =
@@ -119,6 +117,4 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   fun convertToFiat(appcAmount: Double, toCurrency: String): Single<FiatValue> {
     return inAppPurchaseInteractor.convertToFiat(appcAmount, toCurrency)
   }
-
-  private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
 }
