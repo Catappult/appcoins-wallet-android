@@ -175,6 +175,10 @@
       </intent-filter>
     </activity>
     <activity
+        android:name="com.asfoundation.wallet.rating.RatingActivity"
+        android:launchMode="singleInstance"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow" />
+    <activity
         android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
         android:label="@string/title_airdrop"
         android:screenOrientation="portrait" />
