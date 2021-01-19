@@ -92,6 +92,7 @@ android {
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
       buildConfigField 'String', 'CATAPPULT_HOST', project.CATAPPULT_BASE_HOST_PROD
+      buildConfigField 'String', 'CATAPPULT_NEO_HOST', project.CATAPPULT_NEO_BASE_HOST_PROD
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_SECOND_PAYMENT_HOST}"
     }
@@ -114,6 +115,7 @@ android {
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
       buildConfigField 'String', 'CATAPPULT_HOST', project.CATAPPULT_BASE_HOST_DEV
+      buildConfigField 'String', 'CATAPPULT_NEO_HOST', project.CATAPPULT_NEO_BASE_HOST_DEV
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
