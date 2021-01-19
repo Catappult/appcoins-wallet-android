@@ -2,7 +2,7 @@ package com.asfoundation.wallet.di
 
 import com.asfoundation.wallet.advertise.AdvertisingService
 import com.asfoundation.wallet.advertise.WalletPoAService
-import com.asfoundation.wallet.transactions.PerkBonusService
+import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -13,7 +13,7 @@ abstract class ServiceBuilders {
   abstract fun bindWalletPoAService(): WalletPoAService
 
   @ContributesAndroidInjector
-  abstract fun bindPerkBonusService(): PerkBonusService
+  abstract fun bindPerkBonusAndGamificationService(): PerkBonusAndGamificationService
 
   @ActivityScope
   @ContributesAndroidInjector

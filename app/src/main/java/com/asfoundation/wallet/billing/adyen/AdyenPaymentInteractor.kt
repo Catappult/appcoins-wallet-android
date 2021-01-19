@@ -65,6 +65,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                   paymentType: String, origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
                   developerWallet: String?,
+                  referrerUrl: String?,
                   billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { address ->
@@ -79,7 +80,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                     supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
                     address.address, origin, packageName, metadata, sku, callbackUrl,
                     transactionType, developerWallet, it.first, it.second, address.address,
-                    address.signedAddress, billingAddress)
+                    address.signedAddress, billingAddress, referrerUrl)
               }
         }
   }
@@ -94,7 +95,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
           adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
               supportedShopperInteraction, returnUrl, value, currency, null, paymentType,
               it.address, null, packageName, null, null, null, transactionType, null, null, null,
-              null, it.signedAddress, billingAddress)
+              null, it.signedAddress, billingAddress, null)
         }
   }
 

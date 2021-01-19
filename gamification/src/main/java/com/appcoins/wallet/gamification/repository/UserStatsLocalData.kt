@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
+import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
@@ -10,9 +11,10 @@ interface UserStatsLocalData {
   /**
    * @return -1 if never showed any level
    */
-  fun getLastShownLevel(wallet: String, screen: String): Single<Int>
 
-  fun saveShownLevel(wallet: String, level: Int, screen: String)
+  fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int>
+
+  fun saveShownLevel(wallet: String, level: Int, gamificationContext: GamificationContext)
 
   fun setGamificationLevel(gamificationLevel: Int): Completable
 

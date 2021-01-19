@@ -279,7 +279,7 @@
     </service>
 
     <service
-        android:name="com.asfoundation.wallet.transactions.PerkBonusService"
+        android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"
         android:exported="false" />
 
     <receiver
