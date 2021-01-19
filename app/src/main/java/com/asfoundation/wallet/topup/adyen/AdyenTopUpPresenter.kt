@@ -310,13 +310,14 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
-        var riskRules = ""
+        var riskRules: String? = null
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
             FRAUD -> {
               handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
-              paymentModel.fraudResultIds.forEach { riskRules += "+$it" }
+              riskRules = paymentModel.fraudResultIds.sorted()
+                  .joinToString(separator = "-")
             }
             else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }

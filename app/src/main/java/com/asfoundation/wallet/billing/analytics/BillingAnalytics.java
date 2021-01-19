@@ -160,15 +160,28 @@ public class BillingAnalytics implements EventSender {
 
   @Override
   public void sendPaymentErrorWithDetailsEvent(String packageName, String skuDetails, String value,
-      String purchaseDetails, String transactionType, String errorCode, String errorDetails,
-      String riskRules) {
+      String purchaseDetails, String transactionType, String errorCode, String errorDetails) {
     Map<String, Object> eventData =
         createConclusionRakamEventMap(packageName, skuDetails, value, purchaseDetails,
             transactionType, EVENT_FAIL);
 
     eventData.put(EVENT_ERROR_CODE, errorCode);
     eventData.put(EVENT_ERROR_DETAILS, errorDetails);
-    if (!riskRules.equals("")) eventData.put(EVENT_RISK_RULES, riskRules);
+
+    analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET);
+  }
+
+  @Override
+  public void sendPaymentErrorWithDetailsAndRiskEvent(String packageName, String skuDetails,
+      String value, String purchaseDetails, String transactionType, String errorCode,
+      String errorDetails, String riskRules) {
+    Map<String, Object> eventData =
+        createConclusionRakamEventMap(packageName, skuDetails, value, purchaseDetails,
+            transactionType, EVENT_FAIL);
+
+    eventData.put(EVENT_ERROR_CODE, errorCode);
+    eventData.put(EVENT_ERROR_DETAILS, errorDetails);
+    if (riskRules != null) eventData.put(EVENT_RISK_RULES, riskRules);
 
     analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET);
   }

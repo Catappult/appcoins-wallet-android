@@ -51,13 +51,13 @@ class TopUpAnalytics(private val analyticsManager: AnalyticsManager) {
   }
 
   fun sendErrorEvent(value: Double, paymentMethod: String, status: String,
-                     errorCode: String, errorDetails: String, errorRiskRules: String = "") {
+                     errorCode: String, errorDetails: String, errorRiskRules: String? = null) {
     val map = topUpBaseMap(value, paymentMethod)
 
     map[STATUS] = status
     map[ERROR_CODE] = errorCode
     map[ERROR_DETAILS] = errorDetails
-    if (errorRiskRules.isNotBlank()) map[ERROR_CODE_RISK_RULE] = errorRiskRules
+    if (errorRiskRules != null) map[ERROR_CODE_RISK_RULE] = errorRiskRules
 
     analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
         WALLET)

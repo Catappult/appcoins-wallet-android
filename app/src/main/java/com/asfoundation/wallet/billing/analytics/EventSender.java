@@ -29,6 +29,9 @@ public interface EventSender {
       String purchaseDetails, String transactionType, String errorCode);
 
   void sendPaymentErrorWithDetailsEvent(String packageName, String skuDetails, String value,
+      String purchaseDetails, String transactionType, String errorCode, String errorDetails);
+
+  void sendPaymentErrorWithDetailsAndRiskEvent(String packageName, String skuDetails, String value,
       String purchaseDetails, String transactionType, String errorCode, String errorDetails,
       String riskRules);
 
