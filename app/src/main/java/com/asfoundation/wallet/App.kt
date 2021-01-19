@@ -5,9 +5,9 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.BuildConfig

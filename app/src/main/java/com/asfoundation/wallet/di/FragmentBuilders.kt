@@ -15,10 +15,14 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.restore.intro.RestoreWalletModule
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
-import com.asfoundation.wallet.subscriptions.SubscriptionCancelFragment
-import com.asfoundation.wallet.subscriptions.SubscriptionCancelSuccessFragment
-import com.asfoundation.wallet.subscriptions.SubscriptionDetailsFragment
-import com.asfoundation.wallet.subscriptions.SubscriptionListFragment
+import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelFragment
+import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelModule
+import com.asfoundation.wallet.subscriptions.cancelsuccess.SubscriptionCancelSuccessFragment
+import com.asfoundation.wallet.subscriptions.cancelsuccess.SubscriptionCancelSuccessModule
+import com.asfoundation.wallet.subscriptions.details.SubscriptionDetailsFragment
+import com.asfoundation.wallet.subscriptions.details.SubscriptionDetailsModule
+import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
+import com.asfoundation.wallet.subscriptions.list.SubscriptionListModule
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
@@ -258,18 +262,18 @@ abstract class FragmentBuilders {
   abstract fun bindOverlayFragment(): OverlayFragment
 
   @FragmentScope
-  @ContributesAndroidInjector()
+  @ContributesAndroidInjector(modules = [SubscriptionListModule::class])
   abstract fun bindSubscriptionListFragment(): SubscriptionListFragment
 
   @FragmentScope
-  @ContributesAndroidInjector()
+  @ContributesAndroidInjector(modules = [SubscriptionDetailsModule::class])
   abstract fun bindSubscriptionDetailsFragment(): SubscriptionDetailsFragment
 
   @FragmentScope
-  @ContributesAndroidInjector()
+  @ContributesAndroidInjector(modules = [SubscriptionCancelModule::class])
   abstract fun bindSubscriptionCancelFragment(): SubscriptionCancelFragment
 
   @FragmentScope
-  @ContributesAndroidInjector()
+  @ContributesAndroidInjector(modules = [SubscriptionCancelSuccessModule::class])
   abstract fun bindSubscriptionCancelSuccessFragment(): SubscriptionCancelSuccessFragment
 }

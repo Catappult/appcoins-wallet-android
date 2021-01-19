@@ -104,7 +104,7 @@ data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int
     }
   }
 
-  fun mapToSubFrequency(context: Context, price: String, currency: String): String? {
+  fun mapToSubFrequency(context: Context, price: String, currency: String): String {
     return when {
       years == 1 -> context.getString(R.string.subscriptions_per_year, price, currency)
       years > 1 -> "$price $currency every $years years" //TODO
@@ -114,7 +114,7 @@ data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int
       weeks > 1 -> "$price $currency every $weeks weeks" //TODO
       days == 1 -> context.getString(R.string.subscriptions_per_day, price, currency)
       days > 1 -> "$price $currency every $days days" //TODO
-      else -> null //TODO
+      else -> context.getString(R.string.value_fiat, price, currency)
     }
   }
 }

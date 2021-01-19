@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.subscriptions
+package com.asfoundation.wallet.subscriptions.cancel
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,38 +9,30 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.subscriptions.SubscriptionItem
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_subscription_cancel.*
 import kotlinx.android.synthetic.main.fragment_subscription_cancel.loading_animation
 import kotlinx.android.synthetic.main.fragment_subscription_cancel.no_network_retry_only_layout
 import kotlinx.android.synthetic.main.fragment_subscription_list.*
 import kotlinx.android.synthetic.main.layout_subscription_info.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
-import java.math.RoundingMode
 import javax.inject.Inject
 
 class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
 
   @Inject
-  lateinit var subscriptionInteract: SubscriptionInteract
+  lateinit var currencyFormatUtils: CurrencyFormatUtils
 
-  private lateinit var presenter: SubscriptionCancelPresenter
-  private lateinit var activity: SubscriptionView
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter =
-        SubscriptionCancelPresenter(this, subscriptionInteract, CompositeDisposable(),
-            Schedulers.io(), AndroidSchedulers.mainThread())
-  }
+  @Inject
+  lateinit var presenter: SubscriptionCancelPresenter
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -49,8 +41,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    presenter.present(packageName)
+    presenter.present()
   }
 
   override fun getBackClicks() = RxView.clicks(back_button)
@@ -70,11 +61,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     error.visibility = View.VISIBLE
   }
 
-  override fun showCancelSuccess() = activity.showCancelSuccess()
-
-  override fun navigateBack() = activity.navigateBack()
-
-  override fun showSubscriptionDetails(subscriptionDetails: ActiveSubscriptionDetails) {
+  override fun showSubscriptionDetails(subscriptionItem: SubscriptionItem) {
     no_network_retry_only_layout.visibility = View.GONE
     error.visibility = View.GONE
     loading_animation.visibility = View.GONE
@@ -95,8 +82,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
       }
 
       override fun getSize(cb: SizeReadyCallback) {
-        cb.onSizeReady(Target.SIZE_ORIGINAL,
-            Target.SIZE_ORIGINAL)
+        cb.onSizeReady(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
       }
 
       override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
@@ -117,17 +103,17 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     context?.let {
       GlideApp.with(it)
           .asBitmap()
-          .load(subscriptionDetails.iconUrl)
+          .load(subscriptionItem.appIcon)
           .into(target)
     }
 
-    app_name.text = subscriptionDetails.appName
+    app_name.text = subscriptionItem.appName
 
-    total_value.text = String.format("%s / %s",
-        subscriptionDetails.symbol + subscriptionDetails.amount.setScale(FIAT_SCALE,
-            RoundingMode.FLOOR), subscriptionDetails.recurrence)
+    val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
+    total_value.text = subscriptionItem.period?.mapToSubFrequency(requireContext(), formattedAmount,
+        subscriptionItem.currency)
     total_value_appc.text = String.format("~%s / APPC",
-        subscriptionDetails.appcValue.setScale(FIAT_SCALE, RoundingMode.FLOOR))
+        currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
   }
 
   override fun showNoNetworkError() {
@@ -149,9 +135,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    require(
-        context is SubscriptionView) { SubscriptionCancelFragment::class.java.simpleName + " needs to be attached to a " + SubscriptionActivity::class.java.simpleName }
-    activity = context
+    activity?.title = getString(R.string.subscriptions_title)
   }
 
   override fun onDestroyView() {
@@ -159,28 +143,17 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     super.onDestroyView()
   }
 
-  private val packageName: String by lazy {
-    if (arguments!!.containsKey(PACKAGE_NAME)) {
-      arguments!!.getSerializable(PACKAGE_NAME) as String
-    } else {
-      throw IllegalArgumentException("package name not found")
-    }
-  }
-
   companion object {
 
-    private const val FIAT_SCALE = 2
-    private const val PACKAGE_NAME = "package_name"
+    const val SUBSCRIPTION_ITEM = "subscription_item"
 
-    fun newInstance(packageName: String): SubscriptionCancelFragment {
+    fun newInstance(subscriptionItem: SubscriptionItem): SubscriptionCancelFragment {
       return SubscriptionCancelFragment()
           .apply {
             arguments = Bundle().apply {
-              putString(PACKAGE_NAME, packageName)
+              putSerializable(SUBSCRIPTION_ITEM, subscriptionItem)
             }
           }
     }
-
   }
-
 }

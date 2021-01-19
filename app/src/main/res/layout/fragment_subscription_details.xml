@@ -6,24 +6,6 @@
     android:layout_height="match_parent"
     >
 
-  <include
-      android:id="@+id/no_network_retry_only_layout"
-      layout="@layout/no_network_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
-      />
-
-  <include
-      android:id="@+id/generic_error_retry_only_layout"
-      layout="@layout/generic_error_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
-      />
-
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/loading_animation"
       android:layout_width="0dp"

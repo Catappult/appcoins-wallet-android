@@ -1,5 +1,9 @@
-package com.appcoins.wallet.bdsbilling
+package com.appcoins.wallet.bdsbilling.subscriptions
 
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
@@ -89,4 +93,17 @@ interface SubscriptionBillingApi {
                          @Path("uid") uid: String,
                          @Query("wallet.address") walletAddress: String,
                          @Query("wallet.signature") walletSignature: String): Completable
+
+  /**
+   * Retrieves all subscriptions for a given user
+   * @param subStatus Filter based on the subStatus of the subscription
+   * @param applicationName Filter based on the package name
+   * @param limit Limit for the max number of subscriptions to be returned
+   */
+  @GET("inapp/subscription/purchases")
+  fun getUserSubscriptions(@Query("wallet.address") walletAddress: String,
+                           @Query("wallet.signature") walletSignature: String,
+                           @Query("substatus") subStatus: List<String>?,
+                           @Query("application.name") applicationName: List<String>?,
+                           @Query("limit") limit: Int?): Single<UserSubscriptionsListResponse>
 }

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.subscriptions
+package com.asfoundation.wallet.subscriptions.cancelsuccess
 
 import android.content.Context
 import android.os.Bundle
@@ -7,24 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.subscriptions.SubscriptionView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_subscription_cancel_success.*
+import javax.inject.Inject
 
 class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSuccessView {
 
-  private lateinit var presenter: SubscriptionCancelSuccessPresenter
+  @Inject
+  lateinit var presenter: SubscriptionCancelSuccessPresenter
   private lateinit var activity: SubscriptionView
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter =
-        SubscriptionCancelSuccessPresenter(this, CompositeDisposable(),
-            AndroidSchedulers.mainThread())
-  }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -50,19 +44,11 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
     }
   }
 
-  override fun getContinueClicks(): Observable<Any> {
-    return RxView.clicks(continue_button)
-  }
-
-  override fun navigateBack() {
-    activity.endCancelSubscription()
-  }
+  override fun getContinueClicks(): Observable<Any> = RxView.clicks(continue_button)
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    require(
-        context is SubscriptionView) { SubscriptionCancelSuccessFragment::class.java.simpleName + " needs to be attached to a " + SubscriptionActivity::class.java.simpleName }
-    activity = context
+    getActivity()?.title = getString(R.string.subscriptions_title)
   }
 
   override fun onDestroyView() {
@@ -75,7 +61,5 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
     fun newInstance(): SubscriptionCancelSuccessFragment {
       return SubscriptionCancelSuccessFragment()
     }
-
   }
-
 }

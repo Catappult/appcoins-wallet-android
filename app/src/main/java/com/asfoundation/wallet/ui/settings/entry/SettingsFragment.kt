@@ -16,9 +16,8 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
-import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
+import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
@@ -113,7 +112,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   private fun openSubscriptionsScreen(): Boolean {
     context?.let {
-      val intent = SubscriptionActivity.newIntent(it, SubscriptionActivity.ACTION_LIST)
+      val intent = SubscriptionActivity.newIntent(it)
           .apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
           }

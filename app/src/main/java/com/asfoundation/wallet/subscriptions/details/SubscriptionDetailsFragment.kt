@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.subscriptions
+package com.asfoundation.wallet.subscriptions.details
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -11,22 +11,19 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.subscriptions.SubscriptionItem
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_subscription_details.*
-import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
 import kotlinx.android.synthetic.main.layout_active_subscription_content.*
 import kotlinx.android.synthetic.main.layout_expired_subscription_content.*
 import kotlinx.android.synthetic.main.layout_expired_subscription_content.view.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
-import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -34,17 +31,10 @@ import javax.inject.Inject
 class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
   @Inject
-  lateinit var subscriptionInteract: SubscriptionInteract
+  lateinit var currencyFormatUtils: CurrencyFormatUtils
 
-  private lateinit var presenter: SubscriptionDetailsPresenter
-  private lateinit var activity: SubscriptionView
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    presenter =
-        SubscriptionDetailsPresenter(subscriptionInteract, CompositeDisposable(), Schedulers.io(),
-            AndroidSchedulers.mainThread(), this)
-  }
+  @Inject
+  lateinit var presenter: SubscriptionDetailsPresenter
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -54,14 +44,12 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    presenter.present(packageName)
+    presenter.present()
   }
 
   override fun getCancelClicks() = RxView.clicks(cancel_subscription)
 
-  override fun cancelSubscription() = activity.showCancelSubscription(packageName)
-
-  override fun setActiveDetails(subscriptionDetails: ActiveSubscriptionDetails) {
+  override fun setActiveDetails(subscriptionItem: SubscriptionItem) {
     layout_expired_subscription_content.visibility = View.GONE
     cancel_subscription.visibility = View.VISIBLE
     layout_active_subscription_content.visibility = View.VISIBLE
@@ -69,36 +57,31 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
       status.setTextColor(ContextCompat.getColor(it, R.color.green))
       GlideApp.with(it)
           .asBitmap()
-          .load(subscriptionDetails.iconUrl)
+          .load(subscriptionItem.appIcon)
           .into(target)
       GlideApp.with(it)
-          .asBitmap()
-          .load(subscriptionDetails.iconUrl)
-          .into(target)
-      GlideApp.with(it)
-          .load(subscriptionDetails.paymentMethodUrl)
+          .load(subscriptionItem.paymentIcon)
           .into(layout_active_subscription_content.payment_method_icon)
     }
 
-    app_name.text = subscriptionDetails.appName
+    app_name.text = subscriptionItem.appName
     status.text = getString(R.string.subscriptions_active_title)
-    total_value.text = String.format("%s / %s",
-        subscriptionDetails.symbol + subscriptionDetails.amount.setScale(FIAT_SCALE,
-            RoundingMode.FLOOR), subscriptionDetails.recurrence)
-
+    val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
+    total_value.text = subscriptionItem.period?.mapToSubFrequency(requireContext(), formattedAmount,
+        subscriptionItem.currency)
     total_value_appc.text = String.format("~%s / APPC",
-        subscriptionDetails.appcValue.setScale(FIAT_SCALE, RoundingMode.FLOOR))
+        currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
 
-    layout_active_subscription_content.payment_method_value.text = subscriptionDetails.paymentMethod
+    layout_active_subscription_content.payment_method_value.text = subscriptionItem.paymentMethod
 
-    if (subscriptionDetails.expiresOn != null) {
-      setExpireOnDetails(subscriptionDetails)
-    } else if (subscriptionDetails.nextPayment != null) {
-      next_payment_value.text = getDateString(subscriptionDetails.nextPayment)
+    if (subscriptionItem.expire != null) {
+      setExpireOnDetails(subscriptionItem)
+    } else if (subscriptionItem.renewal != null) {
+      next_payment_value.text = getDateString(subscriptionItem.renewal)
     }
   }
 
-  private fun setExpireOnDetails(subscriptionDetails: ActiveSubscriptionDetails) {
+  private fun setExpireOnDetails(subscriptionItem: SubscriptionItem) {
     expires_on.visibility = View.VISIBLE
     cancel_subscription.visibility = View.GONE
     next_payment_value.text = getString(R.string.subscriptions_canceled_body)
@@ -106,14 +89,16 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
     val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
 
-    expires_on.text = getString(R.string.subscriptions_details_cancelled_body,
-        dateFormat.format(subscriptionDetails.expiresOn))
+    expires_on.text = subscriptionItem.expire?.let {
+      getString(R.string.subscriptions_details_cancelled_body,
+          dateFormat.format(it))
+    }
 
     info.visibility = View.GONE
     info_text.visibility = View.GONE
   }
 
-  override fun setExpiredDetails(subscriptionDetails: ExpiredSubscriptionDetails) {
+  override fun setExpiredDetails(subscriptionItem: SubscriptionItem) {
     layout_active_subscription_content.visibility = View.GONE
     layout_expired_subscription_content.visibility = View.VISIBLE
     info.visibility = View.GONE
@@ -123,88 +108,35 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
       status.setTextColor(ContextCompat.getColor(it, R.color.red))
       GlideApp.with(it)
           .asBitmap()
-          .load(subscriptionDetails.iconUrl)
+          .load(subscriptionItem.appIcon)
           .into(target)
       GlideApp.with(it)
-          .load(subscriptionDetails.paymentMethodUrl)
+          .load(subscriptionItem.paymentIcon)
           .into(layout_expired_subscription_content.payment_method_icon)
     }
 
-    app_name.text = subscriptionDetails.appName
+    app_name.text = subscriptionItem.appName
     status.text = getString(R.string.subscriptions_expired_title)
 
-    last_bill_value.text = getDateString(subscriptionDetails.lastBill)
-    start_date_value.text = getDateString(subscriptionDetails.startDate)
+    last_bill_value.text = subscriptionItem.ended?.let { getDateString(it) }
+    start_date_value.text = subscriptionItem.started?.let { getDateString(it) }
     layout_expired_subscription_content.payment_method_value.text =
-        subscriptionDetails.paymentMethod
-  }
-
-  override fun showNoNetworkError() {
-    main_layout.visibility = View.GONE
-    retry_animation.visibility = View.GONE
-    retry_button.visibility = View.VISIBLE
-    generic_retry_animation.visibility = View.GONE
-    generic_error_retry_only_layout.visibility = View.GONE
-    loading_animation.visibility = View.GONE
-    no_network_retry_only_layout.visibility = View.VISIBLE
-  }
-
-  override fun showGenericError() {
-    main_layout.visibility = View.GONE
-    retry_animation.visibility = View.GONE
-    generic_retry_animation.visibility = View.GONE
-    generic_retry_button.visibility = View.VISIBLE
-    loading_animation.visibility = View.GONE
-    no_network_retry_only_layout.visibility = View.GONE
-    generic_error_retry_only_layout.visibility = View.VISIBLE
+        subscriptionItem.paymentMethod
   }
 
   override fun showDetails() {
     loading_animation.visibility = View.GONE
-    generic_error_retry_only_layout.visibility = View.GONE
-    no_network_retry_only_layout.visibility = View.GONE
     main_layout.visibility = View.VISIBLE
-  }
-
-  override fun showLoading() {
-    main_layout.visibility = View.GONE
-    generic_error_retry_only_layout.visibility = View.GONE
-    no_network_retry_only_layout.visibility = View.GONE
-    loading_animation.visibility = View.VISIBLE
-  }
-
-  override fun getRetryGenericClicks() = RxView.clicks(generic_retry_button)
-
-  override fun getRetryNetworkClicks() = RxView.clicks(retry_button)
-
-  override fun showNoNetworkRetryAnimation() {
-    retry_button.visibility = View.INVISIBLE
-    retry_animation.visibility = View.VISIBLE
-  }
-
-  override fun showGenericRetryAnimation() {
-    generic_retry_button.visibility = View.INVISIBLE
-    generic_retry_animation.visibility = View.VISIBLE
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    require(
-        context is SubscriptionView) { SubscriptionDetailsFragment::class.java.simpleName + " needs to be attached to a " + SubscriptionActivity::class.java.simpleName }
-    activity = context
+    getActivity()?.title = getString(R.string.subscriptions_title)
   }
 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-  }
-
-  private val packageName: String by lazy {
-    if (arguments!!.containsKey(PACKAGE_NAME)) {
-      arguments!!.getSerializable(PACKAGE_NAME) as String
-    } else {
-      throw IllegalArgumentException("package name not found")
-    }
   }
 
   private fun getDateString(date: Date): String {
@@ -249,14 +181,15 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
   companion object {
 
-    private const val FIAT_SCALE = 2
-    private const val PACKAGE_NAME = "package_name"
+    const val SUBSCRIPTION_ITEM = "subscription_item"
 
-    fun newInstance(appName: String): SubscriptionDetailsFragment {
+    fun newInstance(subscriptionItem: SubscriptionItem): SubscriptionDetailsFragment {
       return SubscriptionDetailsFragment()
-          .apply { arguments = Bundle().apply { putString(PACKAGE_NAME, appName) } }
+          .apply {
+            arguments = Bundle().apply {
+              putSerializable(SUBSCRIPTION_ITEM, subscriptionItem)
+            }
+          }
     }
-
   }
-
 }

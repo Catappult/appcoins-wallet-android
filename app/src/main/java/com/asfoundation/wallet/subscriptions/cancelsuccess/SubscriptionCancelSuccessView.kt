@@ -1,10 +1,8 @@
-package com.asfoundation.wallet.subscriptions
+package com.asfoundation.wallet.subscriptions.cancelsuccess
 
 import io.reactivex.Observable
 
 interface SubscriptionCancelSuccessView {
 
-  fun navigateBack()
   fun getContinueClicks(): Observable<Any>
-
 }

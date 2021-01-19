@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.appcoins.wallet.bdsbilling.BdsApi
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
@@ -33,15 +34,14 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.*
-import com.asfoundation.wallet.subscriptions.SubscriptionRepository
-import com.asfoundation.wallet.subscriptions.SubscriptionService
+import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
+import com.asfoundation.wallet.subscriptions.UserSubscriptionsMapper
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -322,8 +322,9 @@ class RepositoryModule {
   }
 
   @Provides
-  fun provideSubscriptionRepository(subscriptionService: SubscriptionService,
-                                    findDefaultWalletInteract: FindDefaultWalletInteract): SubscriptionRepository {
-    return SubscriptionRepository(subscriptionService, findDefaultWalletInteract)
+  fun provideSubscriptionRepository(subscriptionBillingApi: SubscriptionBillingApi,
+                                    accountWalletService: WalletService): UserSubscriptionRepository {
+    return UserSubscriptionRepository(subscriptionBillingApi, accountWalletService,
+        UserSubscriptionsMapper())
   }
 }

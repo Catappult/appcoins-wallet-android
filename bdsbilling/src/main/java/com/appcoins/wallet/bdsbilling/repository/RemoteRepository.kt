@@ -1,10 +1,10 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.BdsApi
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -180,13 +180,17 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   fun activateSubscription(packageName: String, uid: String, walletAddress: String,
-                           walletSignature: String): Completable {
+                           walletSignature: String): Single<Boolean> {
     return subsApi.activateSubscription(packageName, uid, walletAddress, walletSignature)
+        .toSingle { true }
+        .onErrorReturn { false }
   }
 
   fun cancelSubscription(packageName: String, uid: String, walletAddress: String,
-                         walletSignature: String): Completable {
+                         walletSignature: String): Single<Boolean> {
     return subsApi.cancelSubscription(packageName, uid, walletAddress, walletSignature)
+        .toSingle { true }
+        .onErrorReturn { false }
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,

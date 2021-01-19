@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.subscriptions
+package com.asfoundation.wallet.subscriptions.list
 
 import android.content.Context
 import android.os.Bundle
@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.asf.wallet.R
+import com.asfoundation.wallet.subscriptions.SubscriptionAdapter
+import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_subscription_list.*
 import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
@@ -22,22 +21,19 @@ import javax.inject.Inject
 class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
 
   @Inject
-  lateinit var subscriptionInteract: SubscriptionInteract
-
-  private lateinit var presenter: SubscriptionListPresenter
-  private lateinit var activity: SubscriptionView
+  lateinit var presenter: SubscriptionListPresenter
   private lateinit var activeAdapter: SubscriptionAdapter
   private lateinit var expiredAdapter: SubscriptionAdapter
-  private var clickSubject: PublishSubject<String>? = null
+  private var clickSubject: PublishSubject<SubscriptionItem>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     clickSubject = PublishSubject.create()
+  }
 
-    presenter =
-        SubscriptionListPresenter(this, subscriptionInteract, CompositeDisposable(),
-            Schedulers.io(),
-            AndroidSchedulers.mainThread())
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    activity?.title = getString(R.string.subscriptions_title)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -59,19 +55,14 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     presenter.present()
   }
 
+  override fun subscriptionClicks(): Observable<SubscriptionItem> = clickSubject!!
 
-  override fun subscriptionClicks(): Observable<String> = clickSubject!!
-
-  override fun showSubscriptionDetails(packageName: String) {
-    activity.showSubscriptionDetails(packageName)
+  override fun onActiveSubscriptions(subscriptionModels: List<SubscriptionItem>) {
+    activeAdapter.submitList(subscriptionModels)
   }
 
-  override fun onActiveSubscriptions(subscriptions: List<SubscriptionItem>) {
-    activeAdapter.submitList(subscriptions)
-  }
-
-  override fun onExpiredSubscriptions(subscriptions: List<SubscriptionItem>) {
-    expiredAdapter.submitList(subscriptions)
+  override fun onExpiredSubscriptions(subscriptionModels: List<SubscriptionItem>) {
+    expiredAdapter.submitList(subscriptionModels)
   }
 
   override fun showNoNetworkError() {
@@ -132,13 +123,6 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   override fun showGenericRetryAnimation() {
     generic_retry_button.visibility = View.INVISIBLE
     generic_retry_animation.visibility = View.VISIBLE
-  }
-
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    require(
-        context is SubscriptionView) { SubscriptionListFragment::class.java.simpleName + " needs to be attached to a " + SubscriptionActivity::class.java.simpleName }
-    activity = context
   }
 
   override fun onDestroyView() {

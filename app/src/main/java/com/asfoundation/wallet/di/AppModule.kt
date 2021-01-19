@@ -20,6 +20,7 @@ import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
