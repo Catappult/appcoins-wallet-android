@@ -101,7 +101,8 @@ interface SubscriptionBillingApi {
    * @param limit Limit for the max number of subscriptions to be returned
    */
   @GET("inapp/subscription/purchases")
-  fun getUserSubscriptions(@Query("wallet.address") walletAddress: String,
+  fun getUserSubscriptions(@Header("cache-control: max-age=300")
+                           @Query("wallet.address") walletAddress: String,
                            @Query("wallet.signature") walletSignature: String,
                            @Query("substatus") subStatus: List<String>?,
                            @Query("application.name") applicationName: List<String>?,

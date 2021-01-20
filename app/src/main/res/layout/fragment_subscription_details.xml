@@ -33,6 +33,7 @@
           android:contentDescription="@string/empty"
           android:lineSpacingExtra="0.25sp"
           android:scaleType="centerInside"
+          android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"

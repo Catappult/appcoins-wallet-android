@@ -142,26 +142,25 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
   private val target = object : Target<Bitmap> {
 
     override fun onLoadStarted(placeholder: Drawable?) {
-      app_icon.visibility = View.GONE
+      app_icon.visibility = View.INVISIBLE
       app_icon_animation.visibility = View.VISIBLE
       app_icon_animation.playAnimation()
     }
 
     override fun onLoadFailed(errorDrawable: Drawable?) {
-      app_icon.visibility = View.GONE
+      app_icon.visibility = View.INVISIBLE
       app_icon_animation.visibility = View.VISIBLE
       app_icon_animation.repeatCount = 1
       app_icon_animation.playAnimation()
     }
 
     override fun getSize(cb: SizeReadyCallback) {
-      cb.onSizeReady(Target.SIZE_ORIGINAL,
-          Target.SIZE_ORIGINAL)
+      cb.onSizeReady(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
     }
 
     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
       app_icon.visibility = View.VISIBLE
-      app_icon_animation.visibility = View.GONE
+      app_icon_animation.visibility = View.INVISIBLE
       app_icon.setImageBitmap(resource)
     }
 

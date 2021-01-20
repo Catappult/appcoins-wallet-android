@@ -32,20 +32,15 @@
       app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
       />
 
-  <com.airbnb.lottie.LottieAnimationView
+  <include
       android:id="@+id/loading_animation"
+      layout="@layout/subs_list_skeleton"
       android:layout_width="0dp"
-      android:layout_height="0dp"
-      app:layout_constraintDimensionRatio="H, 3:4"
+      android:layout_height="wrap_content"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHeight_max="0dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/subscription_list_skeleton"
-      app:lottie_scale="1"
+      tools:visibility="invisible"
       />
 
   <ScrollView
@@ -64,7 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-      <!-- TODO -->
       <TextView
           android:id="@+id/active_title"
           style="@style/SettingsTextStyle"
@@ -73,11 +67,10 @@
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="24dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:text="Active Subscriptions"
+          android:text="@string/subscriptions_active_title"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:text="Active Subscriptions"
           />
 
       <androidx.cardview.widget.CardView
@@ -100,7 +93,6 @@
 
       </androidx.cardview.widget.CardView>
 
-      <!-- TODO -->
       <TextView
           android:id="@+id/expired_title"
           style="@style/SettingsTextStyle"
@@ -109,11 +101,10 @@
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="16dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:text="Expired Subscriptions"
+          android:text="@string/subscriptions_expired_title"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/cvActive"
-          tools:text="Expired Subscriptions"
           />
 
       <androidx.cardview.widget.CardView
