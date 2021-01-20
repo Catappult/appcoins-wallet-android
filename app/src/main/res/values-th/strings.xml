@@ -866,9 +866,14 @@
   </plurals>
   <string name="card_verification_code_other_card_button">ลองบัตรใบอื่น</string>
   <string name="card_verification_code_wrong_error">รหัสไม่ถูกต้อง</string>
+  <plurals name="card_verification_attempts_left">
+    <item quantity="other">%s attempts left.</item>
+  </plurals>
   <string name="card_verification_wallets_one_step_title">ตรวจสอบความถูกต้องอีกหนึ่งขั้นตอน</string>
   <string name="card_verification_wallets_one_step_body">ใส่รหัสที่ปรากฏในรายละเอียดธุรกรรม</string>
   <string name="card_verification_wallets_insert_bode_button">ใส่รหัส</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code %1$s times so %2$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">ซื้อบัตรกำนัลนี้และรับโบนัสสูงสุด %s%%</string>
   <string name="voucher_buy_header">บัตรกำนัลสำหรับ %s</string>
