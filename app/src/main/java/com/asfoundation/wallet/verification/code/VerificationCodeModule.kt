@@ -15,10 +15,11 @@ class VerificationCodeModule {
 
   @Provides
   fun providesWalletVerificationCodePresenter(fragment: VerificationCodeFragment,
+                                              data: VerificationCodeData,
                                               verificationCodeInteractor: VerificationCodeInteractor,
                                               verificationCodeNavigator: VerificationCodeNavigator,
                                               logger: Logger): VerificationCodePresenter {
-    return VerificationCodePresenter(fragment as VerificationCodeView,
+    return VerificationCodePresenter(fragment as VerificationCodeView, data,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
         verificationCodeInteractor, verificationCodeNavigator, logger)
   }
@@ -51,5 +52,4 @@ class VerificationCodeModule {
       )
     }
   }
-
 }

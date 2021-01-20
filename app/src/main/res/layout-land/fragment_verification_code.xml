@@ -84,6 +84,18 @@
           />
 
       <TextView
+          android:id="@+id/wrong_code_error"
+          style="@style/VerifyWallet.CodeError"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:text="@string/card_verification_code_wrong_error"
+          android:visibility="gone"
+          app:layout_constraintLeft_toLeftOf="@id/code"
+          app:layout_constraintTop_toBottomOf="@id/code"
+          />
+
+      <TextView
           android:id="@+id/code_disclaimer"
           style="@style/VerifyWallet.Subtitle"
           android:layout_width="0dp"
@@ -102,9 +114,9 @@
           style="@style/VerifyWallet.ChangeCard.Button"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginTop="20dp"
           android:text="@string/card_verification_code_other_card_button"
-          android:visibility="gone"
+          android:visibility="visible"
           app:layout_constraintStart_toStartOf="@+id/code"
           app:layout_constraintTop_toBottomOf="@+id/code_disclaimer"
           tools:visibility="visible"
@@ -130,6 +142,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="24dp"
+          android:enabled="false"
           android:text="@string/confirm_button"
           app:layout_constraintBaseline_toBaselineOf="@id/maybe_later"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -160,20 +173,20 @@
           app:layout_constraintGuide_percent="0.5"
           />
 
+      <ProgressBar
+          android:id="@+id/progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          app:layout_constraintBottom_toTopOf="@+id/bottom_separator"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/layout_example"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>
-
-  <ProgressBar
-      android:id="@+id/progress_bar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:indeterminateDrawable="@drawable/gradient_progress"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
 
   <include
       android:id="@+id/no_network"
@@ -182,7 +195,7 @@
       android:layout_height="0dp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/content_container"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />

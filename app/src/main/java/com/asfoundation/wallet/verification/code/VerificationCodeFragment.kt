@@ -3,7 +3,9 @@ package com.asfoundation.wallet.verification.code
 import android.animation.Animator
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputFilter
+import android.text.TextWatcher
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
@@ -29,9 +31,6 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
   @Inject
   lateinit var presenter: VerificationCodePresenter
-
-  @Inject
-  lateinit var data: VerificationCodeData
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -94,8 +93,7 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (data.loaded) setupUi(savedInstanceState)
-    else presenter.loadInfo(savedInstanceState)
+    presenter.present(savedInstanceState)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -105,7 +103,8 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
     }
   }
 
-  fun setupUi(savedInstance: Bundle?) {
+
+  override fun setupUi(data: VerificationCodeData, savedInstance: Bundle?) {
     val amount = formatter.formatCurrency(data.amount!!, WalletCurrency.FIAT)
     val amountWithCurrency = "${data.symbol} $amount"
     val amountWithCurrencyAndSign = "${data.symbol} -$amount"
@@ -148,23 +147,55 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
       override fun onAnimationCancel(animation: Animator?) = Unit
       override fun onAnimationStart(animation: Animator?) = Unit
     })
+    code.addTextChangedListener(object : TextWatcher {
+      override fun afterTextChanged(s: Editable?) = Unit
+      override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+      override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        hideWrongCodeError()
+        confirm.isEnabled = s?.length == data.digits
+      }
+    })
+  }
+
+  override fun showWrongCodeError() {
+    code_title.visibility = View.VISIBLE
+    code.visibility = View.VISIBLE
+    code_disclaimer.visibility = View.VISIBLE
+    wrong_code_error.visibility = View.VISIBLE
+
+    code.setBackgroundResource(R.drawable.background_edittext_error)
+  }
+
+  fun hideWrongCodeError() {
+    wrong_code_error.visibility = View.GONE
+    code.setBackgroundResource(R.drawable.background_edittext)
   }
 
   override fun updateUi(verificationCodeData: VerificationCodeData, savedInstanceState: Bundle?) {
-    data = verificationCodeData
-    setupUi(savedInstanceState)
+    setupUi(verificationCodeData, savedInstanceState)
   }
 
   override fun showLoading() {
-    no_network.visibility = View.GONE
-    fragment_adyen_error?.visibility = View.GONE
-    content_container.visibility = View.GONE
+    code_title.visibility = View.INVISIBLE
+    code.visibility = View.INVISIBLE
+    wrong_code_error.visibility = View.INVISIBLE
+    code_disclaimer.visibility = View.INVISIBLE
+    change_card_button.visibility = View.INVISIBLE
     progress_bar.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
+    code_title.visibility = View.VISIBLE
+    code.visibility = View.VISIBLE
+    code_disclaimer.visibility = View.VISIBLE
+    change_card_button.visibility = View.VISIBLE
     progress_bar.visibility = View.GONE
+  }
+
+  override fun showVerificationCode() {
     content_container.visibility = View.VISIBLE
+    fragment_adyen_error?.visibility = View.GONE
+    no_network.visibility = View.GONE
   }
 
   override fun showSuccess() {
@@ -236,5 +267,4 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
     presenter.stop()
     super.onDestroyView()
   }
-
 }

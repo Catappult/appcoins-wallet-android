@@ -3,9 +3,7 @@ package com.asfoundation.wallet.ui.balance
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Balance
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
@@ -13,22 +11,20 @@ import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APP
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.verification.VerificationRepository
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.network.VerificationStatus
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.annotations.Nullable
-import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
 class BalanceInteractor(
     private val accountWalletService: AccountWalletService,
     private val balanceRepository: BalanceRepository,
-    private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val walletVerificationInteractor: WalletVerificationInteractor,
     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-    private val smsValidationInteract: SmsValidationInteract,
     private val verificationRepository: VerificationRepository,
     private val networkScheduler: Scheduler) {
 
@@ -125,30 +121,24 @@ class BalanceInteractor(
   }
 
   fun isWalletValid(address: String, signedAddress: String): Single<BalanceWalletValidationModel> {
-    return Single.zip(
-        smsValidationInteract.getValidationStatus(address),
-        verificationRepository.getVerificationStatus(address, signedAddress),
-        BiFunction { validationStatus, verificationStatus ->
-          mapToBalanceWalletValidationModel(address, validationStatus, verificationStatus)
-        }
-    )
+    return verificationRepository.getVerificationStatus(address, signedAddress)
+        .map { status -> mapToBalanceWalletValidationModel(address, status) }
+
   }
 
   private fun mapToBalanceWalletValidationModel(address: String,
-                                                validationStatus: WalletValidationStatus,
                                                 verificationStatus: VerificationStatus): BalanceWalletValidationModel {
     val status = when {
       verificationStatus == VerificationStatus.CODE_REQUESTED -> BalanceWalletValidationStatus.CODE_REQUESTED
       verificationStatus == VerificationStatus.VERIFIED -> BalanceWalletValidationStatus.VERIFIED
-      validationStatus == WalletValidationStatus.SUCCESS -> BalanceWalletValidationStatus.VERIFIED
       else -> BalanceWalletValidationStatus.UNVERIFIED
     }
-
     return BalanceWalletValidationModel(address, status)
   }
 
 
-  fun isWalletValidated(address: String) = preferencesRepositoryType.isWalletValidated(address)
+  fun getCachedVerificationStatus(address: String) =
+      walletVerificationInteractor.getCachedVerificationStatus(address)
 
   fun hasSeenBackupTooltip() = backupRestorePreferencesRepository.getSeenBackupTooltip()
 

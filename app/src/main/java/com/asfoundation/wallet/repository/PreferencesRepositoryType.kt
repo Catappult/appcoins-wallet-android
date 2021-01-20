@@ -27,12 +27,6 @@ interface PreferencesRepositoryType {
 
   fun setPoaNotificationSeenTime(currentTimeInMillis: Long)
 
-  fun setWalletValidationStatus(walletAddress: String, validated: Boolean)
-
-  fun isWalletValidated(walletAddress: String): Boolean
-
-  fun removeWalletValidationStatus(walletAddress: String): Completable
-
   fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
 
   fun getAutoUpdateCardDismissedVersion(): Single<Int>

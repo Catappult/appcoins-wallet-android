@@ -21,8 +21,6 @@ import com.asfoundation.wallet.ui.splash.SplashModule
 import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.verification.VerificationActivityModule
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
-import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -94,18 +92,10 @@ abstract class ActivityBuilders {
 
   @ActivityScope
   @ContributesAndroidInjector
-  internal abstract fun bindWalletValidationDialogActivity(): WalletValidationDialogActivity
-
-  @ActivityScope
-  @ContributesAndroidInjector
   internal abstract fun bindUpdateRequiredActivity(): UpdateRequiredActivity
 
   @ContributesAndroidInjector
   internal abstract fun bindTokenDetailsFragment(): TokenDetailsActivity
-
-  @ActivityScope
-  @ContributesAndroidInjector
-  internal abstract fun bindWalletValidationActivity(): WalletValidationActivity
 
   @ActivityScope
   @ContributesAndroidInjector

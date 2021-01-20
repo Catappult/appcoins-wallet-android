@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -11,13 +11,13 @@ class AppcoinsRewardsBuyInteract(private val inAppPurchaseInteractor: InAppPurch
                                  private val supportInteractor: SupportInteractor,
                                  private val walletService: WalletService,
                                  private val walletBlockedInteract: WalletBlockedInteract,
-                                 private val smsValidationInteract: SmsValidationInteract) {
+                                 private val walletVerificationInteractor: WalletVerificationInteractor) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-      walletService.getWalletAddress()
-          .flatMap { smsValidationInteract.isValidated(it) }
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
           .onErrorReturn { true }
 
   fun showSupport(gamificationLevel: Int): Completable {

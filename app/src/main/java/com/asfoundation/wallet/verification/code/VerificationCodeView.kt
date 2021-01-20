@@ -37,4 +37,9 @@ interface VerificationCodeView {
 
   fun retryClick(): Observable<Any>
 
+  fun setupUi(data: VerificationCodeData, savedInstanceState: Bundle?)
+
+  fun showWrongCodeError()
+
+  fun showVerificationCode()
 }

@@ -896,6 +896,13 @@
     <item name="android:lineSpacingExtra">4sp</item>
   </style>
 
+  <style name="VerifyWallet.CodeError" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/colorPrimaryDark</item>
+    <item name="android:textSize">10sp</item>
+    <item name="android:gravity">start</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+  </style>
+
   <style name="VerifyWallet.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:background">@color/verify_wallet_description_background</item>
     <item name="android:textColor">@color/verify_wallet_description</item>
@@ -911,6 +918,7 @@
     <item name="android:lineSpacingExtra">2sp</item>
     <item name="android:letterSpacing">0.09</item>
     <item name="android:textStyle">normal</item>
+    <item name="android:paddingStart">0dp</item>
   </style>
 
   <style name="VerifyWallet.Code.EditText" parent="@style/Widget.AppCompat.EditText">

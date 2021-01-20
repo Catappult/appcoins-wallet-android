@@ -63,12 +63,6 @@ import com.asfoundation.wallet.verification.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.code.VerificationCodeModule
 import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 import com.asfoundation.wallet.verification.intro.VerificationIntroModule
-import com.asfoundation.wallet.wallet_validation.dialog.CodeValidationDialogFragment
-import com.asfoundation.wallet.wallet_validation.dialog.PhoneValidationDialogFragment
-import com.asfoundation.wallet.wallet_validation.dialog.ValidationLoadingDialogFragment
-import com.asfoundation.wallet.wallet_validation.dialog.ValidationSuccessDialogFragment
-import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment
-import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -120,27 +114,8 @@ abstract class FragmentBuilders {
   @ContributesAndroidInjector
   abstract fun bindMergedAppcoinsFragment(): MergedAppcoinsFragment
 
-
-  @ContributesAndroidInjector
-  abstract fun bindPoaPhoneValidationFragment(): PhoneValidationDialogFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindPoaCodeValidationFragment(): CodeValidationDialogFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindPoaValidationLoadingFragment(): ValidationLoadingDialogFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindPoaValidationSuccessFragment(): ValidationSuccessDialogFragment
-
   @ContributesAndroidInjector
   abstract fun bindBalanceFragment(): BalanceFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindPhoneValidationFragment(): PhoneValidationFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindCodeValidationFragment(): CodeValidationFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [PromotionsModule::class])

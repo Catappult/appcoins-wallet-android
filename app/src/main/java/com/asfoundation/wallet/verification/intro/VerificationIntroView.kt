@@ -3,7 +3,6 @@ package com.asfoundation.wallet.verification.intro
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import io.reactivex.Observable
-import io.reactivex.subjects.ReplaySubject
 
 interface VerificationIntroView {
 
@@ -27,7 +26,7 @@ interface VerificationIntroView {
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, isStored: Boolean,
       forget: Boolean, savedInstance: Bundle?)
 
-  fun retrievePaymentData(): ReplaySubject<AdyenCardWrapper>
+  fun retrievePaymentData(): Observable<AdyenCardWrapper>
 
   fun showLoading()
 

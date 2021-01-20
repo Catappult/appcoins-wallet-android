@@ -86,6 +86,18 @@
           />
 
       <TextView
+          android:id="@+id/wrong_code_error"
+          style="@style/VerifyWallet.CodeError"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:text="@string/card_verification_code_wrong_error"
+          android:visibility="gone"
+          app:layout_constraintLeft_toLeftOf="@id/code"
+          app:layout_constraintTop_toBottomOf="@id/code"
+          />
+
+      <TextView
           android:id="@+id/code_disclaimer"
           style="@style/VerifyWallet.Subtitle"
           android:layout_width="0dp"
@@ -104,11 +116,11 @@
           style="@style/VerifyWallet.ChangeCard.Button"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginTop="20dp"
           android:text="@string/card_verification_code_other_card_button"
-          android:visibility="gone"
+          android:visibility="visible"
           app:layout_constraintStart_toStartOf="@+id/code"
-          app:layout_constraintTop_toBottomOf="@+id/code_disclaimer"
+          app:layout_constraintTop_toBottomOf="@+id/code"
           tools:visibility="visible"
           />
 
@@ -118,6 +130,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="24dp"
+          android:enabled="false"
           android:text="@string/confirm_button"
           app:layout_constraintBaseline_toBaselineOf="@id/maybe_later"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -131,7 +144,7 @@
           style="@style/VerifyWallet.Cancel.Button"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="56dp"
+          android:layout_marginTop="20dp"
           android:layout_marginEnd="@dimen/normal_margin"
           android:text="@string/backup_tooltip_later_button"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -142,22 +155,22 @@
           app:layout_constraintVertical_bias="0"
           />
 
+      <ProgressBar
+          android:id="@+id/progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@+id/maybe_later"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/layout_example"
+          tools:visibility="visible"
+          />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>
-
-  <ProgressBar
-      android:id="@+id/progress_bar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:indeterminateDrawable="@drawable/gradient_progress"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:visibility="visible"
-      />
 
   <include
       android:id="@+id/no_network"

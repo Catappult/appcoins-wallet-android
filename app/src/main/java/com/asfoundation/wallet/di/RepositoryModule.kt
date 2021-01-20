@@ -35,7 +35,6 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
-import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
@@ -256,14 +255,6 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideSmsValidationRepository(
-      smsValidationApi: SmsValidationApi, gson: Gson,
-      logger: Logger): SmsValidationRepositoryType {
-    return SmsValidationRepository(smsValidationApi, gson, logger)
-  }
-
-  @Singleton
-  @Provides
   fun provideWalletStatusRepository(
       walletStatusApi: WalletStatusApi): WalletStatusRepository {
     return WalletStatusRepository(walletStatusApi)
@@ -323,9 +314,9 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideWalletVerificationRepository(
-      verificationApi: VerificationApi,
-      validationApi: ValidationApi): VerificationRepository {
-    return VerificationRepository(verificationApi, validationApi)
+  fun provideWalletVerificationRepository(verificationApi: VerificationApi,
+                                          validationApi: ValidationApi,
+                                          sharedPreferences: SharedPreferences): VerificationRepository {
+    return VerificationRepository(verificationApi, validationApi, sharedPreferences)
   }
 }

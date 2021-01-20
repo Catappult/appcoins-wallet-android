@@ -104,9 +104,17 @@ class AdyenResponseMapper(private val gson: Gson) {
 
   fun mapVerificationCodeError(throwable: Throwable): VerificationCodeResult {
     throwable.printStackTrace()
-    val codeAndMessage = throwable.getErrorCodeAndMessage()
-    return VerificationCodeResult(false,
-        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
+    if (throwable is HttpException) {
+      val body = throwable.getMessage()
+      val verificationTransactionResponse =
+          gson.fromJson(body, VerificationErrorResponse::class.java)
+      val isCodeError = verificationTransactionResponse.code == "Body.Invalid"
+      return VerificationCodeResult(false, isCodeError, Error(hasError = true,
+          isNetworkError = true, code = throwable.code(), message = body))
+    }
+    return VerificationCodeResult(success = false, isCodeError = false,
+        error = Error(hasError = true, isNetworkError = false, code = null,
+            message = throwable.message))
   }
 
   private fun findPaymentMethod(paymentMethods: List<PaymentMethod>?,

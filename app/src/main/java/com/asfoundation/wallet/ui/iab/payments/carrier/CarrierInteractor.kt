@@ -9,20 +9,19 @@ import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class CarrierInteractor(private val repository: CarrierBillingRepository,
@@ -30,7 +29,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                         private val partnerAddressService: AddressService,
                         private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                         private val walletBlockedInteract: WalletBlockedInteract,
-                        private val smsValidationInteract: SmsValidationInteract,
+                        private val walletVerificationInteractor: WalletVerificationInteractor,
                         private val billing: Billing,
                         private val billingMessagesMapper: BillingMessagesMapper,
                         private val logger: Logger,
@@ -150,8 +149,8 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
   }
 
   private fun isWalletVerified(): Single<Boolean> =
-      walletService.getWalletAddress()
-          .flatMap { smsValidationInteract.isValidated(it) }
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
           .onErrorReturn { true }
 
   fun retrieveAvailableCountries(): Single<AvailableCountryListModel> {

@@ -5,6 +5,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -129,7 +130,6 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
             BalanceWalletValidationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
             BalanceWalletValidationStatus.NO_NETWORK -> handleNoNetwork(it.address)
             BalanceWalletValidationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
-            else -> handleValidationCache(it.address)
           }
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -211,13 +211,21 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleValidationCache(address: String) {
-    if (balanceInteractor.isWalletValidated(address)) displayWalletVerifiedStatus()
-    else displayWalletUnverifiedStatus()
+    when (balanceInteractor.getCachedVerificationStatus(address)) {
+      VerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
+      VerificationStatus.VERIFIED -> displayWalletVerifiedStatus()
+      VerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
+      else -> displayWalletUnverifiedStatus()
+    }
   }
 
   private fun handleNoNetwork(address: String) {
-    if (balanceInteractor.isWalletValidated(address)) displayWalletVerifiedStatus()
-    else displayNoNetworkStatus()
+    when (balanceInteractor.getCachedVerificationStatus(address)) {
+      VerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
+      VerificationStatus.VERIFIED -> displayWalletVerifiedStatus()
+      VerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
+      else -> displayNoNetworkStatus()
+    }
   }
 
   private fun displayWalletVerifiedStatus() {

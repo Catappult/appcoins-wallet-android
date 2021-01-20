@@ -3,11 +3,12 @@ package com.asfoundation.wallet.verification.code
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.asfoundation.wallet.logging.Logger
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.util.concurrent.TimeUnit
 
 class VerificationCodePresenter(private val view: VerificationCodeView,
+                                private val data: VerificationCodeData,
                                 private val disposable: CompositeDisposable,
                                 private val viewScheduler: Scheduler,
                                 private val ioScheduler: Scheduler,
@@ -16,24 +17,27 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                                 private val logger: Logger) {
 
   companion object {
-
     private val TAG = VerificationCodePresenter::class.java.name
   }
 
-  fun present() {
+  fun present(savedInstanceState: Bundle?) {
+    initializeView(savedInstanceState)
     handleConfirmClicks()
     handleLaterClicks()
     handleRetryClick()
     handleAnotherCardClicks()
   }
 
+  private fun initializeView(savedInstanceState: Bundle?) {
+    if (data.loaded) view.setupUi(data, savedInstanceState)
+    else loadInfo(savedInstanceState)
+  }
+
   private fun handleRetryClick() {
-    disposable.add(view.retryClick()
+    disposable.add(Observable.merge(view.retryClick(), view.getTryAgainClicks())
         .observeOn(viewScheduler)
-        .doOnNext { view.showLoading() }
-        .delay(1, TimeUnit.SECONDS)
         .doOnNext {
-          view.hideLoading()
+          view.showVerificationCode()
           view.unlockRotation()
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -96,7 +100,18 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   }
 
   private fun handleCodeConfirmationStatus(codeResult: VerificationCodeResult) {
-
+    if (codeResult.success && !codeResult.error.hasError) {
+      view.showSuccess()
+    } else {
+      if (codeResult.error.hasError && codeResult.isCodeError) {
+        view.hideLoading()
+        view.showWrongCodeError()
+      } else {
+        logger.log("VerificationCodePresenter",
+            "${codeResult.error.code}: ${codeResult.error.message}")
+        view.showGenericError()
+      }
+    }
   }
 
   fun onAnimationEnd() = navigator.finish()

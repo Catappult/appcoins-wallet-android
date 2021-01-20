@@ -25,7 +25,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.subjects.ReplaySubject
+import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.error_top_up_layout.*
 import kotlinx.android.synthetic.main.error_top_up_layout.view.*
 import kotlinx.android.synthetic.main.fragment_verification_intro.*
@@ -63,7 +63,7 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
   private lateinit var adyenSaveDetailsSwitch: SwitchCompat
 
   private var isStored = false
-  private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
+  private var paymentDataSubject: BehaviorSubject<AdyenCardWrapper> = BehaviorSubject.create()
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -73,11 +73,6 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
           "Wallet Verification Intro must be attached to Wallet Verification Activity")
     }
     activityView = context
-  }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    paymentDataSubject = ReplaySubject.createWithSize(1)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -197,7 +192,7 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
           val supportedShopperInteractions =
               if (paymentMethodEntity is StoredPaymentMethod) paymentMethodEntity.supportedShopperInteractions else emptyList()
-          paymentDataSubject?.onNext(
+          paymentDataSubject.onNext(
               AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch.isChecked, hasCvc,
                   supportedShopperInteractions))
         }
@@ -302,7 +297,7 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
     adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
   }
 
-  override fun retrievePaymentData() = paymentDataSubject!!
+  override fun retrievePaymentData() = paymentDataSubject
 
   override fun hideKeyboard() {
     view?.let { KeyboardUtils.hideKeyboard(view) }
@@ -321,7 +316,6 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
   }
 
   override fun onDestroyView() {
-    paymentDataSubject = null
     presenter.stop()
     super.onDestroyView()
   }
