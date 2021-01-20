@@ -67,6 +67,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   private fun handleAnotherCardClicks() {
     disposable.add(
         view.getChangeCardClicks()
+            .observeOn(viewScheduler)
             .doOnNext { navigator.navigateToInitialWalletVerification() }
             .subscribe()
     )

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.verification.code
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.verification.VerificationActivityNavigator
 import com.asfoundation.wallet.verification.VerificationActivityView
 import dagger.Module
 import dagger.Provides
@@ -31,10 +32,17 @@ class VerificationCodeModule {
   }
 
   @Provides
-  fun providesWalletVerificationCodeNavigator(
-      fragment: VerificationCodeFragment): VerificationCodeNavigator {
+  fun providesWalletVerificationCodeNavigator(fragment: VerificationCodeFragment,
+                                              activityNavigator: VerificationActivityNavigator): VerificationCodeNavigator {
     return VerificationCodeNavigator(fragment.requireFragmentManager(),
-        fragment.activity as VerificationActivityView)
+        fragment.activity as VerificationActivityView, activityNavigator)
+  }
+
+  @Provides
+  fun providesWalletVerificationActivityNavigator(
+      fragment: VerificationCodeFragment): VerificationActivityNavigator {
+    return VerificationActivityNavigator(fragment.requireActivity(),
+        fragment.requireActivity().supportFragmentManager)
   }
 
   @Provides
