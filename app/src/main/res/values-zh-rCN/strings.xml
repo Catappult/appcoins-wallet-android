@@ -864,13 +864,10 @@
   </plurals>
   <string name="card_verification_code_other_card_button">使用另一张卡尝试</string>
   <string name="card_verification_code_wrong_error">代码错误</string>
-  <plurals name="card_verification_attempts_left">
-    <item quantity="other">%s attempts left.</item>
-  </plurals>
   <string name="card_verification_wallets_one_step_title">验证还差一步</string>
   <string name="card_verification_wallets_one_step_body">输入交易详细信息中出现的代码。</string>
   <string name="card_verification_wallets_insert_bode_button">输入代码</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code %1$s times so %2$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">购买此优惠券即可获得高达%s%%的奖励。</string>
