@@ -2,7 +2,6 @@ package com.asfoundation.wallet.verification.intro
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.logging.Logger
@@ -153,10 +152,6 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
           verificationInfoModel.value, verificationInfoModel.digits, verificationInfoModel.format,
           verificationInfoModel.period, ts)
     }
-  }
-
-  private fun isPaymentFailed(status: TransactionStatus): Boolean {
-    return status == TransactionStatus.FAILED || status == TransactionStatus.CANCELED || status == TransactionStatus.INVALID_TRANSACTION
   }
 
   private fun handleErrors(error: Error) {

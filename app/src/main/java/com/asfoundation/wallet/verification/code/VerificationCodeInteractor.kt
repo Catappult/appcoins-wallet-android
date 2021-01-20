@@ -4,18 +4,17 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import io.reactivex.Single
 
 class VerificationCodeInteractor(
+    private val walletVerificationInteractor: WalletVerificationInteractor,
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val walletService: WalletService
 ) {
 
   fun confirmCode(code: String): Single<VerificationCodeResult> {
-    return walletService.getAndSignCurrentWalletAddress()
-        .flatMap {
-          adyenPaymentRepository.validateCode(code, it.address, it.signedAddress)
-        }
+    return walletVerificationInteractor.confirmVerificationCode(code)
   }
 
   fun loadVerificationIntroModel(): Single<VerificationCodeData> {

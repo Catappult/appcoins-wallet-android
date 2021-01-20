@@ -5,6 +5,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.verification.VerificationActivityNavigator
 import com.asfoundation.wallet.verification.VerificationActivityView
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,9 +27,12 @@ class VerificationCodeModule {
   }
 
   @Provides
-  fun provideWalletVerificationCodeInteractor(adyenPaymentRepository: AdyenPaymentRepository,
-                                              walletService: WalletService): VerificationCodeInteractor {
-    return VerificationCodeInteractor(adyenPaymentRepository, walletService)
+  fun provideWalletVerificationCodeInteractor(
+      walletVerificationInteractor: WalletVerificationInteractor,
+      adyenPaymentRepository: AdyenPaymentRepository,
+      walletService: WalletService): VerificationCodeInteractor {
+    return VerificationCodeInteractor(walletVerificationInteractor, adyenPaymentRepository,
+        walletService)
   }
 
   @Provides

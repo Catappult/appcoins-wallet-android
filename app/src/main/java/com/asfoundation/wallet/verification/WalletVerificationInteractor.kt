@@ -3,6 +3,7 @@ package com.asfoundation.wallet.verification
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Completable
@@ -12,24 +13,13 @@ class WalletVerificationInteractor(private val verificationRepository: Verificat
                                    private val adyenPaymentRepository: AdyenPaymentRepository,
                                    private val walletService: WalletService) {
 
-  fun isCurrentWalletVerified(): Single<Boolean> {
-    return getCurrentWalletVerificationStatus()
-        .map { status -> status == VerificationStatus.VERIFIED }
-  }
-
   fun isVerified(address: String, signature: String): Single<Boolean> {
     return getVerificationStatus(address, signature)
         .map { status -> status == VerificationStatus.VERIFIED }
   }
 
-  fun getCurrentWalletVerificationStatus(): Single<VerificationStatus> {
-    return walletService.getAndSignCurrentWalletAddress()
-        .flatMap { walletAddressModel ->
-          getVerificationStatus(walletAddressModel.address, walletAddressModel.signedAddress)
-        }
-  }
-
-  fun getVerificationStatus(address: String, signature: String): Single<VerificationStatus> {
+  private fun getVerificationStatus(address: String,
+                                    signature: String): Single<VerificationStatus> {
     return verificationRepository.getVerificationStatus(address, signature)
   }
 
@@ -41,8 +31,8 @@ class WalletVerificationInteractor(private val verificationRepository: Verificat
     return verificationRepository.removeCachedWalletValidationStatus(address)
   }
 
-  fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                              returnUrl: String): Single<VerificationPaymentModel> {
+  internal fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                                       returnUrl: String): Single<VerificationPaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { addressModel ->
           adyenPaymentRepository.makeVerificationPayment(adyenPaymentMethod, shouldStoreMethod,
@@ -54,6 +44,19 @@ class WalletVerificationInteractor(private val verificationRepository: Verificat
                 }
               }
         }
+  }
 
+  internal fun confirmVerificationCode(code: String): Single<VerificationCodeResult> {
+    return walletService.getAndSignCurrentWalletAddress()
+        .flatMap { addressModel ->
+          adyenPaymentRepository.validateCode(code, addressModel.address,
+              addressModel.signedAddress)
+              .doOnSuccess { result ->
+                if (result.success) {
+                  verificationRepository.saveVerificationStatus(addressModel.address,
+                      VerificationStatus.VERIFIED)
+                }
+              }
+        }
   }
 }
