@@ -864,13 +864,10 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Thử với một thẻ khác</string>
   <string name="card_verification_code_wrong_error">Sai mã</string>
-  <plurals name="card_verification_attempts_left">
-    <item quantity="other">%s attempts left.</item>
-  </plurals>
   <string name="card_verification_wallets_one_step_title">Một bước nữa để xác thực</string>
   <string name="card_verification_wallets_one_step_body">Chèn mã hiển thị trong chi tiết giao dịch.</string>
   <string name="card_verification_wallets_insert_bode_button">Nhập mã</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code %1$s times so %2$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">Mua phiếu mua hàng này và nhận đến %s%% tiền thưởng.</string>
