@@ -206,6 +206,7 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
     success_animation.visibility = View.VISIBLE
     success_message.visibility = View.VISIBLE
+    success_animation.playAnimation()
   }
 
   override fun showGenericError() {
