@@ -876,9 +876,16 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Încearcă cu un alt card</string>
   <string name="card_verification_code_wrong_error">Cod greșit</string>
+  <plurals name="card_verification_attempts_left">
+    <item quantity="one">%s attempt left.</item>
+    <item quantity="few">%s attempts left.</item>
+    <item quantity="other">%s attempts left.</item>
+  </plurals>
   <string name="card_verification_wallets_one_step_title">Încă un pas pentru validare</string>
   <string name="card_verification_wallets_one_step_body">Introdu codul care apare în detaliile tranzacției.</string>
   <string name="card_verification_wallets_insert_bode_button">Introdu cod</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code %1$s times so %2$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">Cumpără acest voucher și vei primi un bonus de până la %s%%.</string>
   <string name="voucher_buy_header">Voucher pentru %s</string>
