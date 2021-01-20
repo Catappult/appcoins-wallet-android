@@ -870,9 +870,15 @@
   </plurals>
   <string name="card_verification_code_other_card_button">با یک کارت دیگر امتحان کنید</string>
   <string name="card_verification_code_wrong_error">کد اشتباه</string>
+  <plurals name="card_verification_attempts_left">
+    <item quantity="one">%s attempt left.</item>
+    <item quantity="other">%s attempts left.</item>
+  </plurals>
   <string name="card_verification_wallets_one_step_title">یک قدم دیگر تا تایید</string>
   <string name="card_verification_wallets_one_step_body">کدی را که در جزییات تراکنش است را وارد کنید.</string>
   <string name="card_verification_wallets_insert_bode_button">وارد کردن کد</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code %1$s times so %2$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">این ووچر را بخرید و تا %s%% پاداش بگیرید.</string>
   <string name="voucher_buy_header">ووچر برای %s</string>
