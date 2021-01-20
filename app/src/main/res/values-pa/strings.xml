@@ -870,14 +870,10 @@
   </plurals>
   <string name="card_verification_code_other_card_button">ਕਿਸੇ ਹੋਰ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
   <string name="card_verification_code_wrong_error">ਗਲਤ ਕੋਡ</string>
-  <plurals name="card_verification_attempts_left">
-    <item quantity="one">%s attempt left.</item>
-    <item quantity="other">%s attempts left.</item>
-  </plurals>
   <string name="card_verification_wallets_one_step_title">ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਲਈ ਇੱਕ ਹੋਰ ਕਦਮ</string>
   <string name="card_verification_wallets_one_step_body">ਲੈਣ-ਦੇਣ ਦੇ ਵੇਰਵਿਆਂ ਵਿੱਚ ਦਿਸ ਰਿਹਾ ਕੋਡ ਭਰੋ|</string>
   <string name="card_verification_wallets_insert_bode_button">ਕੋਡ ਭਰੋ</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code %1$s times so %2$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">ਇਸ ਵਾਊਚਰ ਨੂੰ ਖਰੀਦੋ ਅਤੇ %s %% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
