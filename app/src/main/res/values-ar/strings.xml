@@ -895,9 +895,19 @@
   </plurals>
   <string name="card_verification_code_other_card_button">جرب ببطاقة أخرى</string>
   <string name="card_verification_code_wrong_error">الرمز خاطئ</string>
+  <plurals name="card_verification_attempts_left">
+    <item quantity="zero">%s attempts left.</item>
+    <item quantity="one">%s attempt left.</item>
+    <item quantity="two">%s attempts left.</item>
+    <item quantity="few">%s attempts left.</item>
+    <item quantity="many">%s attempts left.</item>
+    <item quantity="other">%s attempts left.</item>
+  </plurals>
   <string name="card_verification_wallets_one_step_title">خطوة واحدة أخرى للتحقق</string>
   <string name="card_verification_wallets_one_step_body">أدخل الرمز الذي يظهر في تفاصيل حركة الدفع.</string>
   <string name="card_verification_wallets_insert_bode_button">أدخل الرمز</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code %1$s times so %2$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">اشترِ هذه القسيمة واحصل على مكافأة تصل إلى %s%%.</string>
   <string name="voucher_buy_header">القسيمة لـ %s</string>
