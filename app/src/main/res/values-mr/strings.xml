@@ -886,9 +886,15 @@
   </plurals>
   <string name="card_verification_code_other_card_button">दुसर कार्ड वापरुन पहा</string>
   <string name="card_verification_code_wrong_error">कोड चूकीचा आहे</string>
+  <plurals name="card_verification_attempts_left">
+    <item quantity="one">%s attempt left.</item>
+    <item quantity="other">%s attempts left.</item>
+  </plurals>
   <string name="card_verification_wallets_one_step_title">सत्पापन पूर्ण होण्यास फक्त एक चरण बाकी आहे</string>
   <string name="card_verification_wallets_one_step_body">व्यवहार तपशीलात दिसणारा कोड घाला.</string>
   <string name="card_verification_wallets_insert_bode_button">कोड घाला</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code %1$s times so %2$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">हे व्हाऊचर खरेदी करा आणि %s%% पर्यंत बोनस मिळवा.</string>
   <string name="voucher_buy_header">%s साठी व्हाऊचर</string>
