@@ -704,7 +704,7 @@
   <string name="subscriptions_canceled_body">İptal edildi</string>
   <string name="subscriptions_details_disclaimer">AppCoins cinsinden değeri, kur farklılıkları nedeniyle sonraki ödeme için farklılık gösterebilir.</string>
   <string name="subscriptions_details_button">AYRINTILAR</string>
-  <string name="subscriptions_manage_button">ABONELİĞİ YÖNETİN</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ABONELİĞİ İPTAL EDİN</string>
   <string name="subscriptions_cancel_title">Aboneliği İptal Edin</string>
   <string name="subscriptions_cancel_body">Bu aboneliği iptal etmek istediğinizden emin misiniz?</string>
@@ -714,10 +714,14 @@
   <string name="subscriptions_cancel_confirmation_body">Bu abonelik için artık sizden ücret alınmayacak. Paketi %s tarihine kadar kullanabilirsiniz.</string>
   <string name="subscriptions_category_title">Abonelik</string>
   <string name="subscriptions_bonus_body">Her bir ödeme için bu bonusu alacaksınız.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/gün</string>
-  <string name="subscriptions_per_week">%1$s%2$s/hafta</string>
-  <string name="subscriptions_per_month">%1$s%2$s/ay</string>
-  <string name="subscriptions_per_year">%1$s%2$s/yıl</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">%%%s oranına varan Bonus!</string>
   <string name="gamif_bonus_received">Alınan bonus</string>
