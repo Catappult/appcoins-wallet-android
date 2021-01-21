@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di
 
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity
+import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
@@ -130,6 +131,10 @@ abstract class ActivityBuilders {
   @ActivityScope
   @ContributesAndroidInjector
   internal abstract fun bindAuthenticationPromptActivity(): AuthenticationPromptActivity
+
+  @ActivityScope
+  @ContributesAndroidInjector
+  abstract fun bindRatingActivity(): RatingActivity
 
   @ActivityScope
   @ContributesAndroidInjector()

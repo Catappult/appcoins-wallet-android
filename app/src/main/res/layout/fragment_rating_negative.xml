@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Rating.DialogCardStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:paddingTop="25dp"
+    android:paddingBottom="25dp"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/animation"
+      android:layout_width="102dp"
+      android:layout_height="102dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/rateus_feedback_animation"
+      />
+
+  <TextView
+      android:id="@+id/title"
+      style="@style/Rating.Title"
+      android:layout_width="192dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="60dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="60dp"
+      android:gravity="center"
+      android:text="@string/rate_us_improve_title"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/animation"
+      />
+
+  <com.asfoundation.wallet.rating.common.MultilineInputText
+      android:id="@+id/feedback_input_text"
+      android:layout_width="0dp"
+      android:layout_height="146dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="18dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHeight_default="spread"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/title"
+      />
+
+  <ProgressBar
+      android:id="@+id/progress_bar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:indeterminateDrawable="@drawable/gradient_progress"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@+id/feedback_input_text"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/feedback_input_text"
+      />
+
+  <Button
+      android:id="@+id/submit_button"
+      style="@style/CancelBorderlessButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_height"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="22dp"
+      android:layout_marginEnd="10dp"
+      android:maxWidth="150dp"
+      android:minWidth="80dp"
+      android:text="@string/submit_button"
+      android:textColor="@color/dialog_buy_value_text"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/feedback_input_text"
+      />
+
+  <Button
+      android:id="@+id/no_button"
+      style="@style/CancelBorderlessButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_height"
+      android:layout_gravity="center_vertical"
+      android:maxWidth="150dp"
+      android:minWidth="80dp"
+      android:text="@string/no_thanks_button"
+      android:textColor="@color/dialog_buy_value_text"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toStartOf="@+id/submit_button"
+      app:layout_constraintTop_toTopOf="@+id/submit_button"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -547,6 +547,8 @@
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
+  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
 
 
   <!--Billing address in purchase flow-->
@@ -763,7 +765,7 @@
   <string name="subscriptions_canceled_body">Canceled</string>
   <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>
   <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTION</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
@@ -773,12 +775,15 @@
   <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
   <string name="subscriptions_category_title">Subscription</string>
   <string name="subscriptions_bonus_body">You\'ll receive this bonus on each payment.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/day</string>
-  <string name="subscriptions_per_week">%1$s%2$s/week</string>
-  <string name="subscriptions_per_month">%1$s%2$s/month</string>
-  <string name="subscriptions_per_year">%1$s%2$s/year</string>
-  <!--To remove, just for debug -->
-  <string name="subscriptions_every_x_month">%1$s%2$s/every %3$s month</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
+  
 
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
@@ -951,6 +956,9 @@
   <string name="card_verification_wallets_one_step_title">One more step to validate</string>
   <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
   <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+
 
   <!--Vouchers-->
   <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
