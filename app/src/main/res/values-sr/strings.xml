@@ -705,7 +705,7 @@
   <string name="subscriptions_canceled_body">Otkazano</string>
   <string name="subscriptions_details_disclaimer">Vrednost sledeće uplate u AppCoins mogla bi da se razlikuje zbog kursa.</string>
   <string name="subscriptions_details_button">DETALJI</string>
-  <string name="subscriptions_manage_button">UPRAVLJANJE PRETPLATOM</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">OTKAŽI PRETPLATU</string>
   <string name="subscriptions_cancel_title">Otkaži pretplatu</string>
   <string name="subscriptions_cancel_body">Da li ste sigurni da želite da otkažete ovu pretplatu?</string>
@@ -715,10 +715,14 @@
   <string name="subscriptions_cancel_confirmation_body">Više vam se neće naplaćivati ova pretplata, a možete da je koristite do dana %s.</string>
   <string name="subscriptions_category_title">Pretplata</string>
   <string name="subscriptions_bonus_body">Dobićete ovaj bonus za svaku uplatu.</string>
-  <string name="subscriptions_per_day">%1$s%2$s dnevno</string>
-  <string name="subscriptions_per_week">%1$s%2$s nedeljno</string>
-  <string name="subscriptions_per_month">%1$s%2$s mesečno</string>
-  <string name="subscriptions_per_year">%1$s%2$s godišnje</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Do %s%% bonusa!</string>
   <string name="gamif_bonus_received">bounsa je dobijeno</string>
