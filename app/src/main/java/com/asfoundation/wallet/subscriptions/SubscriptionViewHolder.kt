@@ -14,25 +14,13 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
     RecyclerView.ViewHolder(itemView) {
 
   fun bind(item: SubscriptionItem, clickCallback: PublishSubject<SubscriptionItem>?) {
-    val formattedAmount = currencyFormatUtils.formatCurrency(item.fiatAmount)
     itemView.apply {
       app_name.text = item.appName
 
-      if (item.expire == null) {
-        expires_on.visibility = View.GONE
-        recurrence_value.visibility = View.VISIBLE
-
-        recurrence_value.text =
-            item.period?.mapToSubFrequency(context,
-                context.getString(R.string.value_fiat, formattedAmount, item.fiatSymbol))
+      if ((item.status == Status.CANCELED || item.status == Status.PAUSED) && item.expire != null) {
+        showToExpireInfo(this, item)
       } else {
-        recurrence_value.visibility = View.GONE
-        expires_on.visibility = View.VISIBLE
-
-        val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
-
-        expires_on.text = context.getString(R.string.subscriptions_expiration_body,
-            dateFormat.format(item.expire))
+        showPriceInfo(this, item)
       }
 
       more_button.setOnClickListener { clickCallback?.onNext(item) }
@@ -43,5 +31,24 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
         .load(item.appIcon)
         .error(R.drawable.ic_transaction_peer)
         .into(itemView.app_icon)
+  }
+
+  private fun showPriceInfo(view: View, item: SubscriptionItem) {
+    val formattedAmount = currencyFormatUtils.formatCurrency(item.fiatAmount)
+    view.expires_on.visibility = View.GONE
+    view.recurrence_value.visibility = View.VISIBLE
+
+    view.recurrence_value.text =
+        item.period?.mapToSubFrequency(view.context,
+            view.context.getString(R.string.value_fiat, formattedAmount, item.fiatSymbol))
+  }
+
+  private fun showToExpireInfo(view: View, item: SubscriptionItem) {
+    view.recurrence_value.visibility = View.GONE
+    view.expires_on.visibility = View.VISIBLE
+
+    val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
+    view.expires_on.text = view.context.getString(R.string.subscriptions_expiration_body,
+        dateFormat.format(item.expire!!))
   }
 }

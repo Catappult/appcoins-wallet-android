@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -74,11 +75,16 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
     layout_active_subscription_content.payment_method_value.text = subscriptionItem.paymentMethod
 
-    if (subscriptionItem.expire != null) {
+    if (shouldShowExpireOn(subscriptionItem)) {
       setExpireOnDetails(subscriptionItem)
     } else if (subscriptionItem.renewal != null) {
       next_payment_value.text = getDateString(subscriptionItem.renewal)
     }
+  }
+
+  private fun shouldShowExpireOn(subscriptionItem: SubscriptionItem): Boolean {
+    return (subscriptionItem.status == Status.CANCELED || subscriptionItem.status == Status.PAUSED)
+        && subscriptionItem.expire != null
   }
 
   private fun setExpireOnDetails(subscriptionItem: SubscriptionItem) {
