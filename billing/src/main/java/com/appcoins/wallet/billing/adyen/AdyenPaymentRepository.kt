@@ -86,15 +86,15 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
           .map {
             TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
                 billingAddress, callbackUrl, metadata, paymentType, origin, reference,
-                developerWallet, storeWallet, oemWallet, userWallet, it, referrerUrl)
+                developerWallet, storeWallet, oemWallet, userWallet, referrerUrl, it)
           }
           .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
     } else {
       adyenApi.makePayment(walletAddress, walletSignature,
           Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
               billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku,
-              reference, transactionType, currency,
-              value, developerWallet, storeWallet, oemWallet, userWallet, referrerUrl))
+              reference, transactionType, currency, value, developerWallet, storeWallet, oemWallet,
+              userWallet, referrerUrl))
     }
   }
 

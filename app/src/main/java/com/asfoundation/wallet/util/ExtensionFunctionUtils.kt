@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.util
 
 import android.animation.LayoutTransition
-import android.content.res.Resources
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
@@ -86,21 +86,21 @@ fun HttpException.getMessage(): String {
   return if (message.isNullOrBlank()) message() else message
 }
 
-fun String.mapToSubFrequency(context: Context?, price: String,
-                             currency: String): String? {
+fun String.mapToSubFrequency(context: Context?, price: String, currency: String): String? {
   if (context != null && this.length == 3) {
+    val priceAndCurrency = context.getString(R.string.value_crypto, price, currency)
     val numberOfTimes = this[1].toString()
     val frequency = this[2].toString()
     if (numberOfTimes == "1") {
       return when (frequency) {
-        "D" -> context.getString(R.string.subscriptions_per_day, price, currency)
-        "W" -> context.getString(R.string.subscriptions_per_week, price, currency)
-        "M" -> context.getString(R.string.subscriptions_per_month, price, currency)
-        "Y" -> context.getString(R.string.subscriptions_per_year, price, currency)
+        "D" -> context.getString(R.string.subscriptions_per_day, priceAndCurrency)
+        "W" -> context.getString(R.string.subscriptions_per_week, priceAndCurrency)
+        "M" -> context.getString(R.string.subscriptions_per_month, priceAndCurrency)
+        "Y" -> context.getString(R.string.subscriptions_per_year, priceAndCurrency)
         else -> null
       }
     } else {
-      context.getString(R.string.subscriptions_every_x_month, price, currency, numberOfTimes)
+      context.getString(R.string.subscriptions_per_several_month, priceAndCurrency, numberOfTimes)
     }
   }
   return null
