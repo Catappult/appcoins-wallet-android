@@ -703,7 +703,7 @@
   <string name="subscriptions_canceled_body">ပယ္ဖ်က္လိုက္ပါသည္</string>
   <string name="subscriptions_details_disclaimer">ေငြလဲႏႈန္းေၾကာင့္ ေနာက္ထပ္ေငြေပးေခ်မႈအတြက္ AppCoins တန္ဖိုးသည္ ကြဲျပားျခင္းရွိႏိုင္ပါသည္။</string>
   <string name="subscriptions_details_button">အေသးစိတ္မ်ား</string>
-  <string name="subscriptions_manage_button">ပံုမွန္၀ယ္ယူမႈကို စီမံမည္</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
   <string name="subscriptions_cancel_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
   <string name="subscriptions_cancel_body">ဤပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုပါသလား။</string>
@@ -713,10 +713,14 @@
   <string name="subscriptions_cancel_confirmation_body">ဤပံုမွန္၀ယ္ယူမႈအတြက္ သင့္အားေငြေကာက္ခံေတာ့မည္ မဟုတ္ဘဲ %s အထိ သင္အသံုးျပဳနိုင္ပါသည္။</string>
   <string name="subscriptions_category_title">ပံုမွန္၀ယ္ယူမႈ</string>
   <string name="subscriptions_bonus_body">ေငြေပးေခ်မႈ တစ္ခုစီတြင္ ဤေဘာနပ္စ္ကို သင္ရရွိပါမည္။</string>
-  <string name="subscriptions_per_day">တစ္ေန႔လွ်င္ %1$s%2$s</string>
-  <string name="subscriptions_per_week">တစ္ပတ္လွ်င္ %1$s%2$s</string>
-  <string name="subscriptions_per_month">တစ္လလွ်င္ %1$s%2$s</string>
-  <string name="subscriptions_per_year">တစ္ႏွစ္လွ်င္ %1$s%2$s</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">%s%% အထိ ေဘာနပ္စ္။</string>
   <string name="gamif_bonus_received">ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ</string>
