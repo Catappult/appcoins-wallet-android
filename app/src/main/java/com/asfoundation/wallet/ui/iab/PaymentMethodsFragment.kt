@@ -447,7 +447,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         selectedPaymentMethod, transactionBuilder!!.toAddress(), transactionBuilder!!.type,
         transactionBuilder!!.amount(), transactionBuilder!!.callbackUrl,
         transactionBuilder!!.orderReference, transactionBuilder!!.payload, iconUrl, label, async,
-        gamificationLevel)
+        transactionBuilder!!.referrerUrl, gamificationLevel)
   }
 
   override fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int) {

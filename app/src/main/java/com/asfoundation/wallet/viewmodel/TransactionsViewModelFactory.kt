@@ -3,7 +3,7 @@ package com.asfoundation.wallet.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.TransactionViewInteract
+import com.asfoundation.wallet.interact.TransactionViewInteractor
 import com.asfoundation.wallet.navigator.TransactionViewNavigator
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 class TransactionsViewModelFactory(private val applications: AppcoinsApps,
                                    private val analytics: TransactionsAnalytics,
                                    private val transactionViewNavigator: TransactionViewNavigator,
-                                   private val transactionViewInteract: TransactionViewInteract,
+                                   private val transactionViewInteractor: TransactionViewInteractor,
                                    private val walletsEventSender: WalletsEventSender,
                                    private val supportInteractor: SupportInteractor,
                                    private val formatter: CurrencyFormatUtils) :
@@ -23,7 +23,7 @@ class TransactionsViewModelFactory(private val applications: AppcoinsApps,
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
     return TransactionsViewModel(applications, analytics, transactionViewNavigator,
-        transactionViewInteract, supportInteractor, walletsEventSender, formatter,
+        transactionViewInteractor, supportInteractor, walletsEventSender, formatter,
         AndroidSchedulers.mainThread(), Schedulers.io()) as T
   }
 }

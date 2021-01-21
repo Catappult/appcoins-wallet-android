@@ -213,12 +213,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                 developerAddress: String, type: String, amount: BigDecimal,
                                 callbackUrl: String?, orderReference: String?, payload: String?,
                                 paymentMethodIconUrl: String, paymentMethodLabel: String,
-                                async: Boolean, gamificationLevel: Int) {
+                                async: Boolean, referralUrl: String?, gamificationLevel: Int) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload, paymentMethodIconUrl, paymentMethodLabel, async, gamificationLevel))
+                payload, paymentMethodIconUrl, paymentMethodLabel, async, referralUrl,
+                gamificationLevel))
         .commit()
   }
 

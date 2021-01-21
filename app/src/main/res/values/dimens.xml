@@ -30,6 +30,7 @@
   <dimen name="transaction_img_size_inside">50dp</dimen>
 
   <dimen name="button_height">36dp</dimen>
+  <dimen name="button_list_height">70dp</dimen>
   <dimen name="payment_methods_width">340dp</dimen>
   <dimen name="payment_methods_width_landscape">544dp</dimen>
 

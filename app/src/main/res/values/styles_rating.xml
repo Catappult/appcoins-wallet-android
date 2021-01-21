@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Rating" />
+
+  <style name="Rating.DialogCardStyle">
+    <item name="android:layout_width">@dimen/payment_methods_width</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_gravity">center</item>
+    <item name="android:animateLayoutChanges">true</item>
+    <item name="android:background">@drawable/background_card_white</item>
+  </style>
+
+  <style name="Rating.Title">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">19sp</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+
+  <style name="Rating.ActionButton" parent="@style/CancelBorderlessButtonStyle">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">@dimen/button_height</item>
+    <item name="android:layout_gravity">center_vertical</item>
+    <item name="android:maxWidth">150dp</item>
+    <item name="android:minWidth">80dp</item>
+    <item name="android:textColor">@color/dialog_buy_value_text</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
+</resources>
