@@ -28,6 +28,6 @@ interface InAppDeepLinkRepository {
                   paymentMethod: String, developerWalletAddress: String?,
                   storeWalletAddress: String?, oemWalletAddress: String?,
                   callbackUrl: String?, orderReference: String?,
-                  payload: String?): Single<String>
+                  payload: String?, referrerUrl: String?): Single<String>
 
 }

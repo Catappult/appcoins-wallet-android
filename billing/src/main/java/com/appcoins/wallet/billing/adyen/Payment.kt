@@ -22,4 +22,5 @@ data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: Mod
                    @SerializedName("wallets.developer") val developer: String?,
                    @SerializedName("wallets.store") val store: String?,
                    @SerializedName("wallets.oem") val oem: String?,
-                   @SerializedName("wallets.user") val user: String?)
+                   @SerializedName("wallets.user") val user: String?,
+                   @SerializedName("referrerUrl") val referrerUrl: String?)

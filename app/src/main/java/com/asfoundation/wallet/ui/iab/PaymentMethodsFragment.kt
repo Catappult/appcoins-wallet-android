@@ -188,7 +188,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription && frequency != null) {
       val period = Period.parse(frequency)
-      period?.mapToSubFrequency(context!!, fiatAmount, currency)
+      period?.mapToSubCurrencyFrequency(context!!, fiatPrice)
           ?.let { fiatPrice = it }
       appcPrice = "~$appcPrice"
     }
@@ -447,7 +447,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         selectedPaymentMethod, transactionBuilder!!.toAddress(), transactionBuilder!!.type,
         transactionBuilder!!.amount(), transactionBuilder!!.callbackUrl,
         transactionBuilder!!.orderReference, transactionBuilder!!.payload, iconUrl, label, async,
-        gamificationLevel)
+        transactionBuilder!!.referrerUrl, gamificationLevel)
   }
 
   override fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int) {

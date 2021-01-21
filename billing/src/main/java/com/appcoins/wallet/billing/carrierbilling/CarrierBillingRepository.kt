@@ -21,10 +21,11 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
                   phoneNumber: String, packageName: String, origin: String?, sku: String?,
                   reference: String?, transactionType: String, currency: String,
                   value: String, developerWallet: String?, oemWallet: String?, storeWallet: String?,
-                  userWallet: String?): Single<CarrierPaymentModel> {
+                  userWallet: String?, referrerUrl: String?): Single<CarrierPaymentModel> {
     return api.makePayment(walletAddress, walletSignature,
         CarrierTransactionBody(phoneNumber, RETURN_URL, METHOD, packageName, origin, sku, reference,
-            transactionType, currency, value, developerWallet, oemWallet, storeWallet, userWallet))
+            transactionType, currency, value, developerWallet, oemWallet, storeWallet, userWallet,
+            referrerUrl))
         .map { response -> mapper.mapPayment(response) }
         .onErrorReturn { e -> mapper.mapPaymentError(e) }
   }

@@ -31,14 +31,15 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                   callbackUrl: String?, transactionType: String, developerWallet: String?,
                   storeWallet: String?, oemWallet: String?, userWallet: String?,
                   walletSignature: String,
-                  billingAddress: AdyenBillingAddress?): Single<PaymentModel> {
+                  billingAddress: AdyenBillingAddress?,
+                  referrerUrl: String?): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
     return makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
         callbackUrl, packageName, metadata, paymentType, origin, sku, reference, transactionType,
         currency, value, developerWallet, storeWallet, oemWallet, userWallet, walletAddress,
-        walletSignature, billingAddress)
+        walletSignature, billingAddress, referrerUrl)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -78,22 +79,23 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                           oemWallet: String?, userWallet: String?,
                           walletAddress: String,
                           walletSignature: String,
-                          billingAddress: AdyenBillingAddress?): Single<AdyenTransactionResponse> {
+                          billingAddress: AdyenBillingAddress?,
+                          referrerUrl: String?): Single<AdyenTransactionResponse> {
     return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
       subscriptionsApi.getSkuSubscriptionToken(packageName!!, sku!!, currency, walletAddress,
           walletSignature)
           .map {
             TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
                 billingAddress, callbackUrl, metadata, paymentType, origin, reference,
-                developerWallet, storeWallet, oemWallet, userWallet, it)
+                developerWallet, storeWallet, oemWallet, userWallet, referrerUrl, it)
           }
           .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
     } else {
       adyenApi.makePayment(walletAddress, walletSignature,
           Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
               billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku,
-              reference, transactionType, currency,
-              value, developerWallet, storeWallet, oemWallet, userWallet))
+              reference, transactionType, currency, value, developerWallet, storeWallet, oemWallet,
+              userWallet, referrerUrl))
     }
   }
 

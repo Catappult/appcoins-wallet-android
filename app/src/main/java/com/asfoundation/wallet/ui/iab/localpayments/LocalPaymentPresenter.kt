@@ -88,7 +88,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     disposables.add(
         localPaymentInteractor.getPaymentLink(data.packageName, data.skuId, data.originalAmount,
             data.currency, data.paymentId, data.developerAddress, data.callbackUrl,
-            data.orderReference, data.payload)
+            data.orderReference, data.payload, data.referrerUrl)
             .filter { !waitingResult }
             .observeOn(viewScheduler)
             .doOnSuccess {

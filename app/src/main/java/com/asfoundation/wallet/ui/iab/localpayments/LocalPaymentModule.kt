@@ -41,6 +41,7 @@ class LocalPaymentModule {
           getString(LocalPaymentFragment.PAYMENT_METHOD_URL),
           getString(LocalPaymentFragment.PAYMENT_METHOD_LABEL),
           getBoolean(LocalPaymentFragment.ASYNC),
+          getString(LocalPaymentFragment.REFERRER_URL),
           getInt(LocalPaymentFragment.GAMIFICATION_LEVEL))
     }
   }

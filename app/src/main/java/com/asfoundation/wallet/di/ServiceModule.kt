@@ -28,6 +28,7 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.poa.*
+import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
@@ -566,6 +567,20 @@ class ServiceModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(ABTestApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesWalletFeedbackApi(@Named("default") client: OkHttpClient,
+                                gson: Gson): RatingRepository.WalletFeedbackApi {
+    val baseUrl = BuildConfig.FEEDBACK_ZENDESK_BASE_HOST
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(RatingRepository.WalletFeedbackApi::class.java)
   }
 
   @Provides
