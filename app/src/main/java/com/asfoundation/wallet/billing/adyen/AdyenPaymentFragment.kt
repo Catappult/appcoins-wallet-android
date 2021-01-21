@@ -374,7 +374,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     var fiatText = "$amount $currencyCode"
     if (isSubscription && frequency != null) {
       val period = Period.parse(frequency!!)
-      period?.mapToSubFrequency(context!!, amount, currencyCode)
+      period?.mapToSubCurrencyFrequency(context!!, fiatText)
           ?.let { fiatText = it }
       appc_price.text = "~${appc_price.text}"
     }

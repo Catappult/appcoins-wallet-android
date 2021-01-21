@@ -188,7 +188,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription && frequency != null) {
       val period = Period.parse(frequency)
-      period?.mapToSubFrequency(context!!, fiatAmount, currency)
+      period?.mapToSubCurrencyFrequency(context!!, fiatPrice)
           ?.let { fiatPrice = it }
       appcPrice = "~$appcPrice"
     }
