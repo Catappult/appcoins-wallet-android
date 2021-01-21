@@ -704,7 +704,7 @@
   <string name="subscriptions_canceled_body">Storniert</string>
   <string name="subscriptions_details_disclaimer">Die Menge der AppCoins kann sich wegen der Veränderung des Wechselkurses verändern.</string>
   <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">ABONNEMENT VERWALTEN</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ABONNEMENT KÜNDIGEN</string>
   <string name="subscriptions_cancel_title">Abonnement kündigen</string>
   <string name="subscriptions_cancel_body">Sind Sie sicher, dass Sie dieses Abonnement kündigen wollen?</string>
@@ -714,10 +714,14 @@
   <string name="subscriptions_cancel_confirmation_body">Sie müssen für dieses Abonnement nichts mehr bezahlen, sie können es noch bis %s nutzen.</string>
   <string name="subscriptions_category_title">Abonnement</string>
   <string name="subscriptions_bonus_body">Sie werden diesen Bonus für jede Bezahlung erhalten.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/Tag</string>
-  <string name="subscriptions_per_week">%1$s%2$s/Woche</string>
-  <string name="subscriptions_per_month">%1$s%2$s/Monat</string>
-  <string name="subscriptions_per_year">%1$s%2$s/Jahr</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Bis zu %s%% Bonus!</string>
   <string name="gamif_bonus_received">Prämie erhalten</string>
