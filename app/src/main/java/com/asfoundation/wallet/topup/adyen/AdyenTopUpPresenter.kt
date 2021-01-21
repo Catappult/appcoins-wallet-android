@@ -18,6 +18,8 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.HIGH_AMOUNT_CHECK_ID
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
@@ -308,15 +310,20 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
-        topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
-            paymentModel.refusalCode.toString(), paymentModel.refusalReason ?: "")
+        var riskRules: String? = null
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
-            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
+            FRAUD -> {
+              handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
+              riskRules = paymentModel.fraudResultIds.sorted()
+                  .joinToString(separator = "-")
+            }
             else -> handleSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
+        topUpAnalytics.sendErrorEvent(appcValue.toDouble(), paymentType, "error",
+            paymentModel.refusalCode.toString(), paymentModel.refusalReason.toString(), riskRules)
       }
       paymentModel.error.hasError -> Completable.fromAction {
         if (isBillingAddressError(paymentModel.error)) {
@@ -372,7 +379,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     }
   }
 
-  private fun handleFraudFlow(@StringRes error: Int) {
+  private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
     disposables.add(
         adyenPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
@@ -386,9 +393,20 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                       else view.showWalletValidation(error)
                     }
               } else {
-                Single.just(true)
+                Single.just(fraudCheckIds)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { handleSpecificError(error) }
+                    .doOnSuccess {
+                      val fraudError = when {
+                        it.contains(HIGH_AMOUNT_CHECK_ID) -> {
+                          R.string.purchase_error_try_other_amount
+                        }
+                        it.contains(PAYMENT_METHOD_CHECK_ID) -> {
+                          R.string.purchase_error_try_other_method
+                        }
+                        else -> error
+                      }
+                      handleSpecificError(fraudError)
+                    }
               }
             }
             .observeOn(viewScheduler)
@@ -515,7 +533,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             paymentModel.error.code.toString(),
             buildRefusalReason(paymentModel.status, paymentModel.error.message))
         val resId = servicesErrorMapper.mapError(paymentModel.error.code!!)
-        if (paymentModel.error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId)
+        if (paymentModel.error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
       else -> {

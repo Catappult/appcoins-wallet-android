@@ -36,10 +36,16 @@ class AdyenResponseMapper {
     var jsonAction: JSONObject? = null
     var redirectUrl: String? = null
     var action: Action? = null
+    var fraudResultsId: List<Int> = emptyList()
 
-    if (adyenResponse?.action != null) {
-      actionType = adyenResponse.action.get("type")?.asString
-      jsonAction = JSONObject(adyenResponse.action.toString())
+    if (adyenResponse != null) {
+      if (adyenResponse.fraudResult != null) {
+        fraudResultsId = adyenResponse.fraudResult.results.map { it.fraudCheckResult.checkId }
+      }
+      if (adyenResponse.action != null) {
+        actionType = adyenResponse.action.get("type")?.asString
+        jsonAction = JSONObject(adyenResponse.action.toString())
+      }
     }
 
     if (actionType != null && jsonAction != null) {
@@ -53,15 +59,13 @@ class AdyenResponseMapper {
       }
     }
     return PaymentModel(adyenResponse?.resultCode, adyenResponse?.refusalReason,
-        adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl,
-        action?.paymentData, response.uid, response.hash, response.orderReference,
-        response.status, response.metadata?.errorMessage, response.metadata?.errorCode)
+        adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl, action?.paymentData,
+        response.uid, response.hash, response.orderReference, fraudResultsId, response.status,
+        response.metadata?.errorMessage, response.metadata?.errorCode)
   }
 
   fun map(response: TransactionResponse): PaymentModel {
-    return PaymentModel("", null, null, null, "", "", response.uid, response.hash,
-        response.orderReference, response.status, response.metadata?.errorMessage,
-        response.metadata?.errorCode)
+    return PaymentModel(response)
   }
 
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
