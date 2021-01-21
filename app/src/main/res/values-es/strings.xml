@@ -6,7 +6,7 @@
   <string name="title_request">Recibir Tokens</string>
   <string name="title_import">Recuperar Wallet</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">Mis Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Contraseña</string>
   <string name="action_sign_in_short">Create</string>
@@ -29,7 +29,7 @@
   <string name="low_storage_error">No hay suficiente espacio de almacenamiento</string>
   <string name="no_camera_permission_title">Acceso a la cámara</string>
   <string name="no_camera_permission">AppCoins BDS Wallet necesita permiso para acceder a la cámara para poder escanear códigos QR.</string>
-  <string name="no_camera_available">No camera available!</string>
+  <string name="no_camera_available">¡No hay cámara disponible!</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código no válido: %s</string>
   <string name="title_delete_account">¿Estás seguro de que quieres eliminar esta wallet?</string>
@@ -119,7 +119,7 @@
   <string name="intro_3_body">Procesa todas tus compras in-app con tu método de pago preferido.</string>
   <string name="intro_4_title">Seguro y Privado</string>
   <string name="intro_4_body">Tus private keys no abandonan tu dispositivo, por lo que tus APPC siempre están seguras.</string>
-  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
+  <string name="intro_4_body_2">Todas tus transacciones están siempre seguras gracias a la última tecnología.</string>
   <string name="intro_5_title">¡Obtén AppCoins Credits Gratis!</string>
   <string name="intro_5_body">Ganarás AppCoins Credits gratis por probar apps y juegos.</string>
   <string name="intro_creating_wallet_short">Configurando la wallet&#8230;</string>
@@ -227,7 +227,7 @@
   <string name="transaction_status_success">Completada</string>
   <string name="transaction_status_pending">Transacción pendiente</string>
   <string name="transaction_status_failed">Error</string>
-  <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_status_reverted">Revertida</string>
   <string name="transaction_type_iab">Compra in-app</string>
   <string name="transaction_type_poa">Recompensa</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -235,13 +235,13 @@
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher for %s</string>
-  <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
-  <string name="transaction_type_reverted_bonus_body">The Bonus you received on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_type_reverted_topup_title">Top-up Refund</string>
-  <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
-  <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
-  <string name="transaction_reverted_view_original_header">Original Transaction</string>
+  <string name="transaction_type_reverted_bonus_title">Bonus revertido</string>
+  <string name="transaction_type_reverted_bonus_body">El bonus que recibiste el %s ha sido revertido. Ponte en contacto con nosotros para más información.</string>
+  <string name="transaction_type_reverted_topup_title">Recarga revertida</string>
+  <string name="transaction_type_reverted_topup_body">La recarga que hiciste el %s ha sido revertida. Ponte en contacto con nosotros para más información.</string>
+  <string name="transaction_type_reverted_purchase_title">Devolución de compra</string>
+  <string name="transaction_type_reverted_purchase_body">La compra que hiciste el %s ha sido revertida. Ponte en contacto con nosotros para más información.</string>
+  <string name="transaction_reverted_view_original_header">Transacción original</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -335,12 +335,12 @@
   <string name="gamification_leveled_up_body">Ahora recibirás un bonus del %s en cada compra. ¡Sigue comprando para ganar todavía más!</string>
   <string name="gamification_leveled_up_notification_title">¡Has alcanzado el siguiente nivel!</string>
   <string name="gamification_leveled_up_notification_body">¡Enhorabuena, ahora recibirás un bonus del %s en cada compra!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_how_max_level_notification_title">¡Lo lograste!</string>
+  <string name="gamification_how_max_level_body">Has alcanzado el nivel máximo: ¡un bonus de %s en todas las compras!</string>
+  <string name="gamification_level_up_notification_title">¡Ya casi estás!</string>
   <string name="gamification_level_up_notification_body">Gasta %s AppCoins más para alcanzar el siguiente nivel.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">¡Tienes un bonus extra!</string>
+  <string name="gamification_bonus_plus_perk_body">Disfruta de un bonus de %1$s y %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite que la AppCoins Wallet proporcione tu wallet address a %s.</string>
   <string name="provide_wallet_body_placeholders">Permitir a %1$s proporcionar tu wallet address a %2$s.</string>
@@ -415,11 +415,11 @@
   <string name="common_or">O</string>
   <string name="share_via">Compartir a través de:</string>
   <string name="password">Contraseña</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No, thanks</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="repeat_password">Repite la contraseña</string>
+  <string name="turn_on_button">Activar</string>
+  <string name="no_thanks_button">No, gracias</string>
+  <string name="remind_later_button">Más tarde</string>
+  <string name="get_code_button">Obtener código</string>
   <string name="confirm_button">Confirmar</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
@@ -434,7 +434,7 @@
   <string name="title_redeem">Usar código promocional</string>
   <string name="settings_item_support">Contacta con nosotros</string>
   <string name="settings_subheader_support">Apoyo</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">Sobre nosotros</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Procesando&#8230;</string>
   <string name="local_payments_inprogress_body">Una vez completes el pago recibirás las AppCoins Credits en tu wallet. ¡Después deberás volver al juego para hacer la compra!</string>
@@ -468,8 +468,8 @@
   <string name="verification_error_time_expired">Ups, tu tiempo disponible ha pasado. ¡Comienza de nuevo!</string>
   <string name="verification_error_attempts_reached">Parace que ya has llegado al límite de intentos. Espera para intentarlo de nuevo.</string>
   <string name="verified_tag">Verificada</string>
-  <string name="unferified_tag">Unverified wallet</string>
-  <string name="verification_wallets_verify_button">Verify</string>
+  <string name="unferified_tag">Wallet sin verificar</string>
+  <string name="verification_wallets_verify_button">Verificar</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Parece que la compra ya está en proceso. Por favor, espera hasta que se complete la transacción o ponte en contacto con nuestro Equipo de Atención al Cliente.</string>
   <string name="purchase_more_payment_methods_button">OTROS MÉTODOS DE PAGO</string>
@@ -500,22 +500,22 @@
   <string name="purchase_card_error_wrong_CVV">El CVV/CVC no es correcto. Prueba de nuevo.</string>
   <string name="purchase_wallet_error_contact_us">Oops, algo no está bien con tu wallet. Ponte en contact con nosotros.</string>
   <string name="purchase_carrier_error">Parece que tu número de teléfono no es compatible con este método de pago.</string>
-  <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
-  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
+  <string name="purchase_carrier_error_minimum">Tu operadora no acepta pagos de menos de %s.</string>
+  <string name="purchase_carrier_error_maximum">Tu operadora no acepta pagos de más de %s.</string>
   <string name="purchase_error_fraud_code_20">Oops, estamos teniendo problemas con esta compra. Ponte en contacto con nosotros.</string>
   <string name="purchase_error_wallet_block_code_403">Algo no está bien con tu wallet. Ponte en contacto con nosotros.</string>
   <string name="purchase_card_error_CVV">CVV/CVC no válido</string>
   <string name="error_contac_us_body">Si el problema continúa, contáctanos:</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
-  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_unverified_wallet">Intenta completar la compra después de verificar tu wallet.</string>
+  <string name="purchase_error_try_other_method">Ups&#8230; ¡Algo no funciona! Inténtalo con otro método de pago o ponte en contacto con nosotros.</string>
+  <string name="purchase_error_try_other_amount">¿Estás seguro de que la cantidad de la recarga es correcta? Prueba de nuevo con otra cantidad o contáctanos.</string>
   <!--Billing address in purchase flow-->
-  <string name="purchase_address_title">Billing address</string>
-  <string name="purchase_address_address_field">Address</string>
-  <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
-  <string name="purchase_address_city_field">City</string>
-  <string name="purchase_address_post_code_field">Zip/Post code</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_title">Dirección</string>
+  <string name="purchase_address_address_field">Dirección</string>
+  <string name="purchase_address_apartment_field">Apartamento, piso&#8230;</string>
+  <string name="purchase_address_city_field">Ciudad</string>
+  <string name="purchase_address_post_code_field">Código postal</string>
+  <string name="purchase_address_state_field">Estado/provincia</string>
   <!--Async Payments-->
   <string name="async_steps_title">Próximos pasos</string>
   <string name="async_steps_1">Completa el pago con %s. Te notificaremos cuando recibas las AppCoins Credits en tu wallet.</string>
@@ -568,8 +568,8 @@
   <string name="promotions_tab_poa_title">JUEGA &amp; GANA</string>
   <string name="promotions_empty_promotions_body">No hay promociones disponibles en estos momentos. ¡Vuelve luego!</string>
   <string name="promotions_empty_poa_body">No hay apps con recompensas disponibles en estos momentos. ¡Vuelve más tarde!</string>
-  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
-  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
+  <string name="promotions_empty_first_purchase_body">¡Haz tu primera compra en un juego o app y desbloquea todas las promociones que tenemos para ti!</string>
+  <string name="promotions_empty_suggested_games_title">Juegos recomendados</string>
   <string name="promotions_perks_button">Perks</string>
   <string name="promotions_vouhers_button">Vouchers</string>
   <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
