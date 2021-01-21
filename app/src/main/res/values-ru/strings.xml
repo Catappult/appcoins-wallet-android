@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Отправить %s</string>
   <string name="title_request">Получить</string>
   <string name="title_import">Восстановить кошелёк</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">Мои кошельки</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Пароль</string>
   <string name="action_sign_in_short">Create</string>
@@ -333,7 +335,12 @@
   <string name="gamification_leveled_up_body">Теперь вы будете получать бонус в %s за каждую покупку. Продолжайте покупать, чтобы заработать ещё больше!</string>
   <string name="gamification_leveled_up_notification_title">Вы достигли следующего уровня!</string>
   <string name="gamification_leveled_up_notification_body">Поздравляем, теперь вы получите бонус в %s на каждую покупку!</string>
-  <string name="gamification_how_max_level_body">Поздравляем! Вы достигли максимального уровня 💃</string>
+  <string name="gamification_how_max_level_notification_title">Вы смогли!</string>
+  <string name="gamification_how_max_level_body">Вы достигли наивысшего уровня: бонус %s на каждую покупку!</string>
+  <string name="gamification_level_up_notification_title">Уже почти!</string>
+  <string name="gamification_level_up_notification_body">Потратьте ещё %s AppCoins, чтобы достичь следующего уровня.</string>
+  <string name="gamification_bonus_plus_perk_title">Вы получили дополнительный бонус!</string>
+  <string name="gamification_bonus_plus_perk_body">Наслаждайтесь бонусом в %1$s и дополнительными %2$s AppCoins Credits.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Разрешите AppCoins Wallet предоставлять %s адрес вашего кошелька.</string>
   <string name="provide_wallet_body_placeholders">Разрешите %1$s предоставить %2$s адрес вашего кошелька.</string>
@@ -500,6 +507,8 @@
   <string name="purchase_card_error_CVV">Неверный CVV/CVC</string>
   <string name="error_contac_us_body">Если проблема не исчезнет – пожалуйста, свяжитесь с нами.</string>
   <string name="purchase_error_unverified_wallet">Попытайтесь завершить покупку после подтверждения вашего кошелька.</string>
+  <string name="purchase_error_try_other_method">Ой&#8230; Что-то случилось! Пожалуйста, попробуйте другой метод оплаты, или свяжитесь с нами.</string>
+  <string name="purchase_error_try_other_amount">Вы уверены, что введённая сумма пополнения верна? Пожалуйста, попробуйте другую сумму или свяжитесь с нами!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
@@ -559,8 +568,11 @@
   <string name="promotions_tab_poa_title">СЫГРАЙ И ЗАРАБОТАЙ</string>
   <string name="promotions_empty_promotions_body">На текущий момент нет доступных акций. Возвращайтесь позже!</string>
   <string name="promotions_empty_poa_body">На текущий момент нет приложений с наградами. Возвращайтесь позже!</string>
+  <string name="promotions_empty_first_purchase_body">Сделайте свою первую покупку в игре или приложении и откройте для себя специальные акции!</string>
+  <string name="promotions_empty_suggested_games_title">Предлагаемые игры</string>
   <string name="promotions_perks_button">Бонусы</string>
   <string name="promotions_vouhers_button">Купоны</string>
+  <string name="promotions_tooltip">Получите бесплатные AppCoins Credits с помощью наших акций!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Обновите, чтобы получить награды</string>
   <string name="update_wallet_poa_notification_body">Пожалуйста, обновите AppCoins Wallet, чтобы получить эту награду.</string>
@@ -694,7 +706,7 @@
   <string name="subscriptions_canceled_body">Отменена</string>
   <string name="subscriptions_details_disclaimer">Стоимость в AppCoins может измениться для следующего платежа из-за курса обмена.</string>
   <string name="subscriptions_details_button">ПОДРОБНОСТИ</string>
-  <string name="subscriptions_manage_button">УПРАВЛЯТЬ ПОДПИСКОЙ</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ОТМЕНИТЬ ПОДПИСКУ</string>
   <string name="subscriptions_cancel_title">Отменить подписку</string>
   <string name="subscriptions_cancel_body">Вы уверены, что хотите отменить подписку?</string>
@@ -704,10 +716,14 @@
   <string name="subscriptions_cancel_confirmation_body">С вас больше не будут списываться средства за эту подписку, и вы ещё можете использовать её до %s.</string>
   <string name="subscriptions_category_title">Подписка</string>
   <string name="subscriptions_bonus_body">Такой бонус вы получите за каждую покупку.</string>
-  <string name="subscriptions_per_day">%1$s%2$s в день</string>
-  <string name="subscriptions_per_week">%1$s%2$s в неделю</string>
-  <string name="subscriptions_per_month">%1$s%2$s в месяц</string>
-  <string name="subscriptions_per_year">%1$s%2$s в год</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Получите бонус до %s%%!</string>
   <string name="gamif_bonus_received">Бонус получен</string>
@@ -761,7 +777,7 @@
   <string name="carrier_billing_fees_disclaimer">Возможны дополнительные комиссии</string>
   <string name="carrier_billing_insert_phone_body">Пожалуйста, введите свой номер телефона</string>
   <string name="carrier_billing_phone_field">Ваш номер телефона...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">Будет списана плата в %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s в %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Ваш номер телефона: %s.</string>
   <string name="carrier_billing_enter_pin_body">Пожалуйста, введите PIN, полученный в SMS.</string>
@@ -843,6 +859,8 @@
   <string name="rate_us_possitive_thanks_body">Мы рады, что вам нравится наше приложение. Поможете нам, оценив наше приложение в магазине?</string>
   <string name="rate_us_possitive_rate_button">ОЦЕНИТЬ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Спасибо за ваш отзыв!</string>
+  <string name="rate_us_back_title">Хотите помочь нам?</string>
+  <string name="rate_us_back_body">Оцените AppCoins Wallet в магазине приложений, чтобы мы могли его улучшить.</string>
   <!--Card verification-->
   <string name="card_verification_body">Используйте свою кредитную/дебетовую карту, чтобы подтвердить свой кошелек.</string>
   <string name="card_verification_charde_disclaimer">Мы спишем %s с вашей карты и вернём, как только вы подтвердите код.</string>
@@ -871,6 +889,8 @@
   <string name="card_verification_wallets_one_step_title">Последний шаг для подтверждения</string>
   <string name="card_verification_wallets_one_step_body">Вставьте код, который появляется в деталях транзакции.</string>
   <string name="card_verification_wallets_insert_bode_button">Вставьте код</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">Приобретите купон и получите бонус до %s%%.</string>
   <string name="voucher_buy_header">Купон для %s</string>
@@ -879,4 +899,6 @@
   <string name="voucher_code_title">Код из купона</string>
   <string name="voucher_instructions_body">Перейдите на %s и используйте код, чтобы погасить ваш купон.</string>
   <string name="voucher_instructions_transactions">Вы всегда можете найти код купона в истории ваших транзакций.</string>
+  <string name="voucher_empty">На данный момент купонов нет.</string>
+  <string name="voucher_tooltip">Теперь вы можете купить купоны для игр!</string>
 </resources>
