@@ -709,7 +709,7 @@
   <string name="subscriptions_canceled_body">ملغية</string>
   <string name="subscriptions_details_disclaimer">قد تتغير القيمة في AppCoins للدفعة المقبلة بناء على سعر الصرف.</string>
   <string name="subscriptions_details_button">التفاصيل</string>
-  <string name="subscriptions_manage_button">إدارة الاشتراك</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">إلغاء الاشتراك</string>
   <string name="subscriptions_cancel_title">إلغاء الاشتراك</string>
   <string name="subscriptions_cancel_body">هل أنت متأكد أنك تريد إلغاء الاشتراك؟</string>
@@ -719,10 +719,14 @@
   <string name="subscriptions_cancel_confirmation_body">لن تتكلف مزيدًا من الدفعات بعد الآن لهذا الاشتراك، ويمكنك استخدامه حتى %s.</string>
   <string name="subscriptions_category_title">الاشتراك</string>
   <string name="subscriptions_bonus_body">ستتلقى هذه المكافأة على كل عملية شراء.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/يوم</string>
-  <string name="subscriptions_per_week">%1$s%2$s/أسبوع</string>
-  <string name="subscriptions_per_month">%1$s%2$s/شهر</string>
-  <string name="subscriptions_per_year">%1$s%2$s/سنة</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">مكافأة حتى %s%%!</string>
   <string name="gamif_bonus_received">تلقيت المكافأة</string>
