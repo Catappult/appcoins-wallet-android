@@ -703,7 +703,7 @@
   <string name="subscriptions_canceled_body">Đã hủy</string>
   <string name="subscriptions_details_disclaimer">Giá trị bằng AppCoin có thể thay đổi cho lần thanh toán tiếp theo tùy thuộc vào tỷ giá hối đoái.</string>
   <string name="subscriptions_details_button">CHI TIẾT</string>
-  <string name="subscriptions_manage_button">QUẢN LÝ GÓI ĐĂNG KÝ</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">HỦY GÓI ĐĂNG KÝ</string>
   <string name="subscriptions_cancel_title">Hủy gói đăng ký</string>
   <string name="subscriptions_cancel_body">Bạn có chắc chắn muốn hủy gói đăng ký này?</string>
@@ -713,10 +713,14 @@
   <string name="subscriptions_cancel_confirmation_body">Bạn sẽ không bị tính phí cho gói đăng ký này nữa và có thể sử dụng nó cho đến %s.</string>
   <string name="subscriptions_category_title">Gói đăng ký</string>
   <string name="subscriptions_bonus_body">Bạn sẽ được nhận tiền thưởng trên mỗi lượt thanh toán.</string>
-  <string name="subscriptions_per_day">%1$s %2$s/ngày</string>
-  <string name="subscriptions_per_week">%1$s %2$s/tuần</string>
-  <string name="subscriptions_per_month">%1$s %2$s/tháng</string>
-  <string name="subscriptions_per_year">%1$s %2$s/năm</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Nhận đến %s%% tiền thưởng!</string>
   <string name="gamif_bonus_received">Tiền thưởng đã nhận</string>
