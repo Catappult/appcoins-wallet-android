@@ -704,7 +704,7 @@
   <string name="subscriptions_canceled_body">Geannuleerd</string>
   <string name="subscriptions_details_disclaimer">Vanwege de wisselkoers kan de waarde in AppCoins voor de volgende betaling variëren.</string>
   <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">ABONNEMENT BEHEREN</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ABONNEMENT ANNULEREN</string>
   <string name="subscriptions_cancel_title">Abonnement annuleren</string>
   <string name="subscriptions_cancel_body">Weet je zeker dat je dit abonnement wilt annuleren?</string>
@@ -714,10 +714,14 @@
   <string name="subscriptions_cancel_confirmation_body">Er worden geen kosten meer in rekening gebracht voor dit abonnement en je kunt het abonnement gebruiken tot %s.</string>
   <string name="subscriptions_category_title">Abonnement</string>
   <string name="subscriptions_bonus_body">Je krijgt deze bonus bij elke betaling.</string>
-  <string name="subscriptions_per_day">%1$s%2$s per dag</string>
-  <string name="subscriptions_per_week">%1$s%2$s per week</string>
-  <string name="subscriptions_per_month">%1$s%2$s per maand</string>
-  <string name="subscriptions_per_year">%1$s%2$s per jaar</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Tot %s%% bonus!</string>
   <string name="gamif_bonus_received">Bonus ontvangen</string>
