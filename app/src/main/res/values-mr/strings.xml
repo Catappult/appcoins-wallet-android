@@ -708,7 +708,7 @@
   <string name="subscriptions_canceled_body">रद्द केले</string>
   <string name="subscriptions_details_disclaimer">विनिमय दरामुळे अॅपकॉइन्सचे मूल्य पुढच्या पेमेंटसाठी बदलु शकते.</string>
   <string name="subscriptions_details_button">तपशील</string>
-  <string name="subscriptions_manage_button">सदस्यत्वांचे व्यवस्थापन करा</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">सदस्यत्व रद्द करा</string>
   <string name="subscriptions_cancel_title">सदस्यत्व रद्द करा</string>
   <string name="subscriptions_cancel_body">हे सदस्यत्व नक्की रद्द करायचे आहे का?</string>
@@ -718,10 +718,14 @@
   <string name="subscriptions_cancel_confirmation_body">ह्या सदस्यत्वासाठी आपल्याला काहीही शुल्क लागू होणार नाही आणि आपण ह्याचा वापर %s पर्यंत करु शकता.</string>
   <string name="subscriptions_category_title">सदस्यत्व</string>
   <string name="subscriptions_bonus_body">प्रत्येक पेमेंटवर आपल्याला हा बोनस मिळेल.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/प्रति दिवशी</string>
-  <string name="subscriptions_per_week">%1$s%2$s/प्रति अठवडा</string>
-  <string name="subscriptions_per_month">%1$s%2$s/प्रति महिना</string>
-  <string name="subscriptions_per_year">%1$s%2$s/प्रति वर्ष</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">%s%% पर्यंतचा बोनस मिळवा!</string>
   <string name="gamif_bonus_received">बोनस मिळाला</string>
