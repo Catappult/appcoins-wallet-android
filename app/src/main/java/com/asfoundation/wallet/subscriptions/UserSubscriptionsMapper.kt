@@ -3,7 +3,7 @@ package com.asfoundation.wallet.subscriptions
 import com.appcoins.wallet.bdsbilling.SubscriptionSubStatus
 import com.appcoins.wallet.bdsbilling.subscriptions.UserSubscriptionsListResponse
 import com.asfoundation.wallet.util.Period
-import com.asfoundation.wallet.util.isNoNetworkException
+import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,11 +35,22 @@ class UserSubscriptionsMapper {
   }
 
   fun mapError(throwable: Throwable): UserSubscriptionListModel {
-    var error = Error.UNKNOWN
-    if (throwable.isNoNetworkException()) {
-      error = Error.NO_NETWORK
-    }
-    return UserSubscriptionListModel(error)
+    return UserSubscriptionListModel(listOf(
+        SubscriptionItem(
+            "name", mapPeriod("P1M"), Status.ACTIVE,
+            mapDate("2021-01-05T21:33:35.997618Z"), mapDate("2021-01-05T21:33:35.997618Z"), null,
+            null, "nam2e", "title",
+            "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
+            BigDecimal(1), "€", "EUR", "CC",
+            "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
+            BigDecimal(2), "APPC", "uid"), SubscriptionItem(
+        "name2", mapPeriod("P1M"), Status.EXPIRED,
+        null, null, mapDate("2021-01-05T21:33:35.997618Z"), mapDate("2021-01-05T21:33:35.997618Z"),
+        "nam2e2", "title",
+        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
+        BigDecimal(1), "€", "EUR", "CC",
+        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
+        BigDecimal(2), "APPC", "uid")))
   }
 
   private fun mapPeriod(period: String): Period? {

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.subscriptions.list
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,11 +30,6 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     clickSubject = PublishSubject.create()
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    activity?.title = getString(R.string.subscriptions_title)
-  }
-
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_subscription_list, container, false)
@@ -44,6 +38,7 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    activity?.title = getString(R.string.subscriptions_settings_title)
     activeAdapter = SubscriptionAdapter(clickSubject)
     expiredAdapter = SubscriptionAdapter(clickSubject)
 

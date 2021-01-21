@@ -58,24 +58,25 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
   override fun showCancelError() {
     no_network_retry_only_layout.visibility = View.GONE
     loading_animation.visibility = View.GONE
+    layout_content.visibility = View.VISIBLE
     error.visibility = View.VISIBLE
   }
 
   override fun showSubscriptionDetails(subscriptionItem: SubscriptionItem) {
     no_network_retry_only_layout.visibility = View.GONE
     error.visibility = View.GONE
-    loading_animation.visibility = View.GONE
+    loading_animation.visibility = View.INVISIBLE
     layout_content.visibility = View.VISIBLE
 
     val target = object : Target<Bitmap> {
 
       override fun onLoadStarted(placeholder: Drawable?) {
-        app_icon.visibility = View.GONE
+        app_icon.visibility = View.INVISIBLE
         app_icon_animation.visibility = View.VISIBLE
       }
 
       override fun onLoadFailed(errorDrawable: Drawable?) {
-        app_icon.visibility = View.GONE
+        app_icon.visibility = View.INVISIBLE
         app_icon_animation.visibility = View.VISIBLE
         app_icon_animation.repeatCount = 1
         app_icon_animation.playAnimation()
@@ -87,7 +88,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
 
       override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
         app_icon.visibility = View.VISIBLE
-        app_icon_animation.visibility = View.GONE
+        app_icon_animation.visibility = View.INVISIBLE
         app_icon.setImageBitmap(resource)
       }
 

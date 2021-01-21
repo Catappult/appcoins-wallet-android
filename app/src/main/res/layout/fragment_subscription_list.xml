@@ -77,7 +77,7 @@
           android:id="@+id/cvActive"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
+          android:layout_marginTop="12dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/active_title"
@@ -90,7 +90,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/subscription_item"
             />
-
       </androidx.cardview.widget.CardView>
 
       <TextView
