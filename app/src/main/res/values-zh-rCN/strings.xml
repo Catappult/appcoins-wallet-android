@@ -703,7 +703,7 @@
   <string name="subscriptions_canceled_body">已取消</string>
   <string name="subscriptions_details_disclaimer">AppCoins下次付款的价值可能因汇率而有所不同。</string>
   <string name="subscriptions_details_button">详情</string>
-  <string name="subscriptions_manage_button">管理订购</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">取消订购</string>
   <string name="subscriptions_cancel_title">取消订购</string>
   <string name="subscriptions_cancel_body">是否确定要取消此订购？</string>
@@ -713,10 +713,14 @@
   <string name="subscriptions_cancel_confirmation_body">你不会再为此订购付款，你可以用到%s。</string>
   <string name="subscriptions_category_title">订购</string>
   <string name="subscriptions_bonus_body">每支付一次都会收到此奖励。</string>
-  <string name="subscriptions_per_day">%1$s%2$s/天</string>
-  <string name="subscriptions_per_week">%1$s%2$s/周</string>
-  <string name="subscriptions_per_month">%1$s%2$s/月</string>
-  <string name="subscriptions_per_year">%1$s%2$s/年</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">高达 %s%% 的奖金！</string>
   <string name="gamif_bonus_received">已收到的奖金</string>
