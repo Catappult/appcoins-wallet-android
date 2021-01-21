@@ -704,7 +704,7 @@
   <string name="subscriptions_canceled_body">Lemondva</string>
   <string name="subscriptions_details_disclaimer">Az AppCoins értéke változhat a következő fizetésnél az átváltási árfolyam miatt.</string>
   <string name="subscriptions_details_button">RÉSZLETEK</string>
-  <string name="subscriptions_manage_button">FELIRATKOZÁSOK KEZELÉSE</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">FELIRATKOZÁS LEMONDÁSA</string>
   <string name="subscriptions_cancel_title">Feliratkozás lemondása</string>
   <string name="subscriptions_cancel_body">Biztos vagy benne, hogy lemondod a feliratkozást?</string>
@@ -714,10 +714,14 @@
   <string name="subscriptions_cancel_confirmation_body">Már nem kell többet fizetned ezért a feliratkozásért. Eddig használhatod: %s.</string>
   <string name="subscriptions_category_title">Feliratkozás</string>
   <string name="subscriptions_bonus_body">Ezt a bónusz minden fizetésnél megkapod.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/naponta</string>
-  <string name="subscriptions_per_week">%1$s%2$s/hetente</string>
-  <string name="subscriptions_per_month">%1$s%2$s/havonta</string>
-  <string name="subscriptions_per_year">%1$s%2$s/évente</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Akár %s%% bónusz!</string>
   <string name="gamif_bonus_received">Bónusz érkezett</string>
