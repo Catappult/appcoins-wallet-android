@@ -704,7 +704,7 @@
   <string name="subscriptions_canceled_body">لغو شده‌</string>
   <string name="subscriptions_details_disclaimer">ارزش در AppCoins ممکن است با توجه به نرخ تبدیل برای پرداخت بعدی شما تغییر کند.</string>
   <string name="subscriptions_details_button">جزییات</string>
-  <string name="subscriptions_manage_button">مدیریت آبونمان</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">لغو آبونمان</string>
   <string name="subscriptions_cancel_title">لغو آبونمان</string>
   <string name="subscriptions_cancel_body">آیا مطمئن هستید که می‌خواهید این آبونمان را لغو کنید؟</string>
@@ -714,10 +714,14 @@
   <string name="subscriptions_cancel_confirmation_body">دیگر برای این آبونمان پرداختی نخواهید داشت، تا %s می‌توانید آن را استفاده کنید.</string>
   <string name="subscriptions_category_title">آبونمان</string>
   <string name="subscriptions_bonus_body">این پاداش را روی همه پرداخت‌ها دریافت خواهید کرد.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/روز</string>
-  <string name="subscriptions_per_week">%1$s%2$s/هفته</string>
-  <string name="subscriptions_per_month">%1$s%2$s/ماه</string>
-  <string name="subscriptions_per_year">%1$s%2$s/سال</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">تا %s%% پاداش!</string>
   <string name="gamif_bonus_received">پاداش دریافت شد</string>
