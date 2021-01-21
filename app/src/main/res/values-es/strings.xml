@@ -570,7 +570,7 @@
   <string name="promotions_empty_poa_body">No hay apps con recompensas disponibles en estos momentos. ¡Vuelve más tarde!</string>
   <string name="promotions_empty_first_purchase_body">¡Haz tu primera compra en un juego o app y desbloquea todas las promociones que tenemos para ti!</string>
   <string name="promotions_empty_suggested_games_title">Juegos recomendados</string>
-  <string name="promotions_perks_button">Perks</string>
+  <string name="promotions_perks_button">Extra</string>
   <string name="promotions_vouhers_button">Vouchers</string>
   <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
