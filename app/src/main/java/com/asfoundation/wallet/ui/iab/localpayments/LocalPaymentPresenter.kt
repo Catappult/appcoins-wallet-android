@@ -212,8 +212,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       Status.PENDING_USER_PAYMENT -> {
         Completable.fromAction {
           analytics.sendPendingPaymentEvents(data.packageName, data.skuId,
-              data.appcAmount.toString(),
-              data.type, data.paymentId)
+              data.appcAmount.toString(), data.type, data.paymentId)
         }
       }
       Status.COMPLETED -> {

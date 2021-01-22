@@ -251,8 +251,6 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * @param referrerUrl url to validate the transaction
      * @param walletAddress address of the user wallet
      * @param walletSignature signature obtained after signing the wallet
-     * @param localPaymentBody body needed if using this endpoint for local payments on topup
-     * complete the purchase
      */
     @FormUrlEncoded
     @POST("broker/8.20200810/gateways/{gateway}/transactions")
@@ -278,6 +276,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     /**
      * Overload of createTransaction to receive Body, since only myappcoins receive Body.
      * This is the recommendation from Retrofit when there's a possibility of not having an empty body
+     * Check createTransaction above for documentation
+     * @param localPaymentBody body needed for local payment transactions
      */
     @POST("broker/8.20200810/gateways/myappcoins/transactions")
     fun createTransaction(@Query("origin") origin: String?,
