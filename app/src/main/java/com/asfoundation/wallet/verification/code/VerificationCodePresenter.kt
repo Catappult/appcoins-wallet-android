@@ -118,8 +118,6 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
     if (codeResult.success && !codeResult.error.hasError) {
       view.showSuccess()
     } else {
-      logger.log("VerificationCodePresenter",
-          "${codeResult.error.code}: ${codeResult.error.message}")
       when (codeResult.errorType) {
         VerificationCodeResult.ErrorType.WRONG_CODE -> {
           view.showWrongCodeError()

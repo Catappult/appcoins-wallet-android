@@ -258,7 +258,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.verification.VerificationActivity"
-        android:label="Verify Wallet"
+        android:label="@string/verification_settings_unverified_title"
         android:windowSoftInputMode="stateHidden" />
 
     <service
