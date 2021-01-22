@@ -105,8 +105,8 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
   override fun setupUi(data: VerificationCodeData, savedInstance: Bundle?) {
     val amount = formatter.formatCurrency(data.amount!!, WalletCurrency.FIAT)
-    val amountWithCurrency = "${data.symbol} $amount"
-    val amountWithCurrencyAndSign = "${data.symbol} -$amount"
+    val amountWithCurrency = "${data.symbol}$amount"
+    val amountWithCurrencyAndSign = "${data.symbol}-$amount"
 
     val date = convertToDate(data.date!!)
     val duration = Duration.parse(data.period!!)
