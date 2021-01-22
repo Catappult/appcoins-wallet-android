@@ -3,6 +3,7 @@ package com.asfoundation.wallet.verification.code
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.verification.VerificationAnalytics
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -13,7 +14,8 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                                 private val ioScheduler: Scheduler,
                                 private val interactor: VerificationCodeInteractor,
                                 private val navigator: VerificationCodeNavigator,
-                                private val logger: Logger) {
+                                private val logger: Logger,
+                                private val analytics: VerificationAnalytics) {
 
   companion object {
     private val TAG = VerificationCodePresenter::class.java.name
@@ -68,7 +70,10 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
     disposable.add(
         view.getChangeCardClicks()
             .observeOn(viewScheduler)
-            .doOnNext { navigator.navigateToInitialWalletVerification() }
+            .doOnNext {
+              analytics.sendConfirmEvent("try_with_another_card")
+              navigator.navigateToInitialWalletVerification()
+            }
             .subscribe()
     )
   }
@@ -76,7 +81,10 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   private fun handleLaterClicks() {
     disposable.add(
         view.getMaybeLaterClicks()
-            .doOnNext { navigator.cancel() }
+            .doOnNext {
+              analytics.sendConfirmEvent("maybe_later")
+              navigator.cancel()
+            }
             .subscribe()
     )
   }
@@ -85,6 +93,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
     disposable.add(
         view.getConfirmClicks()
             .doOnNext {
+              analytics.sendConfirmEvent("confirm")
               view.hideKeyboard()
               view.lockRotation()
               view.showLoading()
@@ -94,7 +103,11 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
               interactor.confirmCode(it)
                   .observeOn(viewScheduler)
                   .doOnSuccess { view.unlockRotation() }
-                  .doOnSuccess { result -> handleCodeConfirmationStatus(result) }
+                  .doOnSuccess { result ->
+                    handleCodeConfirmationStatus(result)
+                    analytics.sendConclusionEvent(result.success,
+                        result.error.code?.toString(), result.error.message)
+                  }
             }
             .subscribe()
     )

@@ -14,6 +14,7 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
+import com.asfoundation.wallet.verification.VerificationAnalytics
 import com.facebook.appevents.AppEventsLogger
 import dagger.Module
 import dagger.Provides
@@ -89,7 +90,12 @@ class AnalyticsModule {
       WalletsAnalytics.WALLET_PASSWORD_RESTORE,
       PageViewAnalytics.WALLET_PAGE_VIEW,
       BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_PARTICIPATING_EVENT,
-      BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_CONVERSION_EVENT
+      BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_CONVERSION_EVENT,
+      VerificationAnalytics.START_EVENT,
+      VerificationAnalytics.INSERT_CARD_EVENT,
+      VerificationAnalytics.REQUEST_CONCLUSION_EVENT,
+      VerificationAnalytics.CONFIRM_EVENT,
+      VerificationAnalytics.CONCLUSION_EVENT
   )
 
   @Singleton
@@ -197,5 +203,11 @@ class AnalyticsModule {
   @Provides
   fun providesBalanceWalletsAnalytics(analytics: AnalyticsManager): BalanceWalletsAnalytics {
     return BalanceWalletsAnalytics(analytics)
+  }
+
+  @Singleton
+  @Provides
+  fun providesVerificationAnalytics(analytics: AnalyticsManager): VerificationAnalytics {
+    return VerificationAnalytics(analytics)
   }
 }

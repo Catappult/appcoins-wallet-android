@@ -5,6 +5,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.verification.VerificationActivityNavigator
 import com.asfoundation.wallet.verification.VerificationActivityView
+import com.asfoundation.wallet.verification.VerificationAnalytics
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import dagger.Module
 import dagger.Provides
@@ -20,10 +21,11 @@ class VerificationCodeModule {
                                               data: VerificationCodeData,
                                               verificationCodeInteractor: VerificationCodeInteractor,
                                               verificationCodeNavigator: VerificationCodeNavigator,
-                                              logger: Logger): VerificationCodePresenter {
+                                              logger: Logger,
+                                              analytics: VerificationAnalytics): VerificationCodePresenter {
     return VerificationCodePresenter(fragment as VerificationCodeView, data,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
-        verificationCodeInteractor, verificationCodeNavigator, logger)
+        verificationCodeInteractor, verificationCodeNavigator, logger, analytics)
   }
 
   @Provides

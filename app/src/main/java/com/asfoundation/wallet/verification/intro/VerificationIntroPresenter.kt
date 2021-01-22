@@ -5,6 +5,7 @@ import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.verification.VerificationAnalytics
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -18,10 +19,10 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
                                  private val ioScheduler: Scheduler,
                                  private val interactor: VerificationIntroInteractor,
                                  private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
-                                 private val data: VerificationIntroData) {
+                                 private val data: VerificationIntroData,
+                                 private val analytics: VerificationAnalytics) {
 
   companion object {
-
     private val TAG = VerificationIntroPresenter::class.java.name
   }
 
@@ -61,7 +62,10 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
   private fun handleCancelClicks() {
     disposable.add(
         view.getCancelClicks()
-            .doOnNext { view.cancel() }
+            .doOnNext {
+              analytics.sendInsertCardEvent("cancel")
+              view.cancel()
+            }
             .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -96,6 +100,9 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
   private fun handleSubmitClicks(verificationInfoModel: VerificationInfoModel) {
     disposable.add(
         view.getSubmitClicks()
+            .doOnNext {
+              analytics.sendInsertCardEvent("get_code")
+            }
             .flatMapSingle {
               view.retrievePaymentData()
                   .firstOrError()
@@ -112,7 +119,11 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
                   data.returnUrl)
             }
             .observeOn(viewScheduler)
-            .flatMapCompletable { handlePaymentResult(it, verificationInfoModel) }
+            .flatMapCompletable {
+              analytics.sendRequestConclusionEvent(it.success, it.refusalCode?.toString(),
+                  it.refusalReason)
+              handlePaymentResult(it, verificationInfoModel)
+            }
             .subscribe({}, {
               logger.log(TAG, it)
               view.showGenericError()
@@ -164,7 +175,10 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
   private fun handleForgetCardClick() {
     disposable.add(view.forgetCardClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.showLoading() }
+        .doOnNext {
+          view.showLoading()
+          analytics.sendInsertCardEvent("change_card")
+        }
         .observeOn(ioScheduler)
         .flatMapSingle { interactor.disablePayments() }
         .observeOn(viewScheduler)

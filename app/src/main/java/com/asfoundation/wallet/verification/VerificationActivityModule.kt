@@ -13,9 +13,11 @@ class VerificationActivityModule {
   @Provides
   fun providesWalletVerificationActivityPresenter(activity: VerificationActivity,
                                                   navigator: VerificationActivityNavigator,
-                                                  interactor: VerificationActivityInteractor): VerificationActivityPresenter {
+                                                  interactor: VerificationActivityInteractor,
+                                                  analytics: VerificationAnalytics): VerificationActivityPresenter {
     return VerificationActivityPresenter(activity as VerificationActivityView, navigator,
-        interactor, AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
+        interactor, AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(),
+        analytics)
   }
 
   @Provides

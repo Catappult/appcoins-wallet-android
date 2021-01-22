@@ -12,7 +12,8 @@ class VerificationActivityPresenter(
     private val interactor: VerificationActivityInteractor,
     private val viewScheduler: Scheduler,
     private val ioScheduler: Scheduler,
-    private val disposable: CompositeDisposable
+    private val disposable: CompositeDisposable,
+    private val analytics: VerificationAnalytics
 ) {
 
   fun present(savedInstanceState: Bundle?) {
@@ -46,8 +47,14 @@ class VerificationActivityPresenter(
 
   private fun onVerificationStatusSuccess(verificationStatus: VerificationStatus) {
     when (verificationStatus) {
-      VerificationStatus.UNVERIFIED -> navigator.navigateToWalletVerificationIntro()
-      VerificationStatus.CODE_REQUESTED -> navigator.navigateToWalletVerificationCode()
+      VerificationStatus.UNVERIFIED -> {
+        analytics.sendStartEvent("verify")
+        navigator.navigateToWalletVerificationIntro()
+      }
+      VerificationStatus.CODE_REQUESTED -> {
+        analytics.sendStartEvent("insert_code")
+        navigator.navigateToWalletVerificationCode()
+      }
       VerificationStatus.VERIFIED -> navigator.finish()
     }
   }
