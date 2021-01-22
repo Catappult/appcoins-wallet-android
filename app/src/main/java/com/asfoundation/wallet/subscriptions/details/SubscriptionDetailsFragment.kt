@@ -8,7 +8,7 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.Status
@@ -37,6 +37,11 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
   @Inject
   lateinit var presenter: SubscriptionDetailsPresenter
 
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    activity?.title = getString(R.string.subscriptions_title)
+  }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_subscription_details, container, false)
@@ -51,47 +56,61 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
   override fun getCancelClicks() = RxView.clicks(cancel_subscription)
 
   override fun setActiveDetails(subscriptionItem: SubscriptionItem) {
-    layout_expired_subscription_content.visibility = View.GONE
-    cancel_subscription.visibility = View.VISIBLE
-    layout_active_subscription_content.visibility = View.VISIBLE
-    context?.let {
-      status.setTextColor(ContextCompat.getColor(it, R.color.green))
-      GlideApp.with(it)
-          .asBitmap()
-          .load(subscriptionItem.appIcon)
-          .into(target)
-      GlideApp.with(it)
-          .load(subscriptionItem.paymentIcon)
-          .into(layout_active_subscription_content.payment_method_icon)
-    }
-
     app_name.text = subscriptionItem.appName
+
+    layout_expired_subscription_content.visibility = View.GONE
+    layout_active_subscription_content.visibility = View.VISIBLE
+
     status.text = getString(R.string.subscriptions_active_title)
+    layout_active_subscription_content.payment_method_value.text = subscriptionItem.paymentMethod
+    status.setTextColor(ResourcesCompat.getColor(resources, R.color.green, null))
+
+    context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
+    setBillingInfo(subscriptionItem)
+
+    if (isCanceled(subscriptionItem)) {
+      setCanceledInfo(subscriptionItem)
+    } else {
+      cancel_subscription.visibility = View.VISIBLE
+      if (subscriptionItem.renewal != null) {
+        next_payment_value.text = getDateString(subscriptionItem.renewal)
+      }
+    }
+  }
+
+  private fun setBillingInfo(subscriptionItem: SubscriptionItem) {
     val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
     total_value.text = subscriptionItem.period?.mapToSubFrequency(requireContext(),
         getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
     total_value_appc.text = String.format("~%s / APPC",
         currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
 
-    layout_active_subscription_content.payment_method_value.text = subscriptionItem.paymentMethod
-
-    if (shouldShowExpireOn(subscriptionItem)) {
-      setExpireOnDetails(subscriptionItem)
-    } else if (subscriptionItem.renewal != null) {
-      next_payment_value.text = getDateString(subscriptionItem.renewal)
-    }
   }
 
-  private fun shouldShowExpireOn(subscriptionItem: SubscriptionItem): Boolean {
-    return (subscriptionItem.status == Status.CANCELED || subscriptionItem.status == Status.PAUSED)
-        && subscriptionItem.expire != null
+  override fun setExpiredDetails(subscriptionItem: SubscriptionItem) {
+    app_name.text = subscriptionItem.appName
+
+    layout_active_subscription_content.visibility = View.GONE
+    layout_expired_subscription_content.visibility = View.VISIBLE
+    info.visibility = View.GONE
+    info_text.visibility = View.GONE
+    cancel_subscription.visibility = View.GONE
+
+    status.setTextColor(ResourcesCompat.getColor(resources, R.color.red, null))
+    status.text = getString(R.string.subscriptions_expired_title)
+    context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
+
+    last_bill_value.text = subscriptionItem.ended?.let { getDateString(it) }
+    start_date_value.text = subscriptionItem.started?.let { getDateString(it) }
+    layout_expired_subscription_content.payment_method_value.text =
+        subscriptionItem.paymentMethod
   }
 
-  private fun setExpireOnDetails(subscriptionItem: SubscriptionItem) {
+  private fun setCanceledInfo(subscriptionItem: SubscriptionItem) {
     expires_on.visibility = View.VISIBLE
     cancel_subscription.visibility = View.GONE
     next_payment_value.text = getString(R.string.subscriptions_canceled_body)
-    next_payment_value.setTextColor(resources.getColor(R.color.red))
+    next_payment_value.setTextColor(ResourcesCompat.getColor(resources, R.color.red, null))
 
     val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
 
@@ -104,37 +123,6 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     info_text.visibility = View.GONE
   }
 
-  override fun setExpiredDetails(subscriptionItem: SubscriptionItem) {
-    layout_active_subscription_content.visibility = View.GONE
-    layout_expired_subscription_content.visibility = View.VISIBLE
-    info.visibility = View.GONE
-    info_text.visibility = View.GONE
-    cancel_subscription.visibility = View.GONE
-    context?.let {
-      status.setTextColor(ContextCompat.getColor(it, R.color.red))
-      GlideApp.with(it)
-          .asBitmap()
-          .load(subscriptionItem.appIcon)
-          .into(target)
-      GlideApp.with(it)
-          .load(subscriptionItem.paymentIcon)
-          .into(layout_expired_subscription_content.payment_method_icon)
-    }
-
-    app_name.text = subscriptionItem.appName
-    status.text = getString(R.string.subscriptions_expired_title)
-
-    last_bill_value.text = subscriptionItem.ended?.let { getDateString(it) }
-    start_date_value.text = subscriptionItem.started?.let { getDateString(it) }
-    layout_expired_subscription_content.payment_method_value.text =
-        subscriptionItem.paymentMethod
-  }
-
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    activity?.title = getString(R.string.subscriptions_title)
-  }
-
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
@@ -143,6 +131,20 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
   private fun getDateString(date: Date): String {
     return DateFormat.format("dd MMM yyyy", date)
         .toString()
+  }
+
+  private fun loadImages(context: Context, appIcon: String, paymentIcon: String) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(appIcon)
+        .into(target)
+    GlideApp.with(context)
+        .load(paymentIcon)
+        .into(layout_active_subscription_content.payment_method_icon)
+  }
+
+  private fun isCanceled(subscriptionItem: SubscriptionItem): Boolean {
+    return (subscriptionItem.status == Status.CANCELED) && subscriptionItem.expire != null
   }
 
   private val target = object : Target<Bitmap> {

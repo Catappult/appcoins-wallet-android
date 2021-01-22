@@ -1,23 +1,23 @@
 package com.asfoundation.wallet.subscriptions.cancel
 
+import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class SubscriptionCancelPresenter(
-    private val view: SubscriptionCancelView,
-    private val subscriptionInteractor: UserSubscriptionsInteractor,
-    private val data: SubscriptionCancelData,
-    private val navigator: SubscriptionCancelNavigator,
-    private val disposables: CompositeDisposable,
-    private val networkScheduler: Scheduler,
-    private val viewScheduler: Scheduler
+class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
+                                  private val subscriptionInteractor: UserSubscriptionsInteractor,
+                                  private val data: SubscriptionCancelData,
+                                  private val navigator: SubscriptionCancelNavigator,
+                                  private val disposables: CompositeDisposable,
+                                  private val networkScheduler: Scheduler,
+                                  private val viewScheduler: Scheduler
 ) {
 
   fun present() {
-    if (data.subscriptionItem.isActiveSubscription()) {
+    if (canCancelSubscription(data.subscriptionItem.status)) {
       view.showSubscriptionDetails(data.subscriptionItem)
     } else {
       view.showCancelError()
@@ -25,6 +25,10 @@ class SubscriptionCancelPresenter(
     handleCancelClicks()
     handleBackClicks()
     handleNoNetworkRetryClicks()
+  }
+
+  private fun canCancelSubscription(status: Status): Boolean {
+    return status == Status.ACTIVE || status == Status.PAUSED
   }
 
   private fun onError(throwable: Throwable) {

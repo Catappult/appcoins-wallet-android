@@ -130,7 +130,5 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     fun newInstance(): SubscriptionListFragment {
       return SubscriptionListFragment()
     }
-
   }
-
 }
