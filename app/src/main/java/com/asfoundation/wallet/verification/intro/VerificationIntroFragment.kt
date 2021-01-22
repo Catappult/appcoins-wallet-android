@@ -130,6 +130,7 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
     adyenCardNumberLayout.minimumHeight = height
     adyenExpiryDateLayout.minimumHeight = height
     adyenSecurityCodeLayout.minimumHeight = height
+    adyenCardNumberLayout.errorIconDrawable = null
   }
 
   private fun setupCardConfiguration() {

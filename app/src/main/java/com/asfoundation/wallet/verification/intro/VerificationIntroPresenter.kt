@@ -187,13 +187,13 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         .observeOn(ioScheduler)
         .flatMapSingle {
           interactor.loadVerificationIntroModel()
+              .observeOn(viewScheduler)
               .doOnSuccess {
                 view.updateUi(it)
                 view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!,
                     it.paymentInfoModel.isStored, false, null)
               }
         }
-        .observeOn(viewScheduler)
         .subscribe({}, {
           logger.log(TAG, it)
           view.showGenericError()
