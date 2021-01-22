@@ -42,7 +42,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!,
-                  it.paymentInfoModel.isStored, false, savedInstanceState)
+                  it.paymentInfoModel.isStored, savedInstanceState)
               view.updateUi(it)
               view.hideLoading()
               view.unlockRotation()
@@ -190,8 +190,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
               .observeOn(viewScheduler)
               .doOnSuccess {
                 view.updateUi(it)
-                view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!,
-                    it.paymentInfoModel.isStored, false, null)
+                view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!, false, null)
               }
         }
         .subscribe({}, {

@@ -24,7 +24,7 @@ interface VerificationIntroView {
 
   fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, isStored: Boolean,
-      forget: Boolean, savedInstance: Bundle?)
+      savedInstance: Bundle?)
 
   fun retrievePaymentData(): Observable<AdyenCardWrapper>
 

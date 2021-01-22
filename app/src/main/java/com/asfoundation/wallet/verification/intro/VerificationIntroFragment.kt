@@ -147,12 +147,12 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
     val amount = formatter.formatCurrency(verificationIntroModel.verificationInfoModel.value,
         WalletCurrency.FIAT)
     description.text = getString(R.string.card_verification_charde_disclaimer,
-        "${verificationIntroModel.verificationInfoModel.symbol} $amount")
+        "${verificationIntroModel.verificationInfoModel.symbol}$amount")
   }
 
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      isStored: Boolean, forget: Boolean, savedInstance: Bundle?) {
+      isStored: Boolean, savedInstance: Bundle?) {
     this.isStored = isStored
 
     handleLayoutVisibility(isStored)
@@ -173,7 +173,6 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
       adyenCardImageLayout.visibility = View.VISIBLE
       change_card_button.visibility = View.GONE
     }
-
   }
 
   private fun prepareCardComponent(
