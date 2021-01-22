@@ -11,10 +11,11 @@ import io.reactivex.schedulers.Schedulers
 class VerificationActivityModule {
 
   @Provides
-  fun providesWalletVerificationActivityPresenter(navigator: VerificationActivityNavigator,
+  fun providesWalletVerificationActivityPresenter(activity: VerificationActivity,
+                                                  navigator: VerificationActivityNavigator,
                                                   interactor: VerificationActivityInteractor): VerificationActivityPresenter {
-    return VerificationActivityPresenter(navigator, interactor,
-        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
+    return VerificationActivityPresenter(activity as VerificationActivityView, navigator,
+        interactor, AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
   }
 
   @Provides

@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.verification
 
+import io.reactivex.Observable
+
 interface VerificationActivityView {
 
   fun cancel()
@@ -12,4 +14,5 @@ interface VerificationActivityView {
 
   fun getCurrentFragment(): String
 
+  fun getToolbarBackPressEvents(): Observable<String>
 }

@@ -61,6 +61,8 @@ import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.verification.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.code.VerificationCodeModule
+import com.asfoundation.wallet.verification.error.VerificationErrorFragment
+import com.asfoundation.wallet.verification.error.VerificationErrorModule
 import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 import com.asfoundation.wallet.verification.intro.VerificationIntroModule
 import dagger.Module
@@ -239,4 +241,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerificationCodeModule::class])
   abstract fun bindVerificationCodeFragment(): VerificationCodeFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [VerificationErrorModule::class])
+  abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
 }

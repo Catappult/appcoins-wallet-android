@@ -20,7 +20,6 @@ import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.error_top_up_layout.*
-import kotlinx.android.synthetic.main.error_top_up_layout.view.*
 import kotlinx.android.synthetic.main.fragment_verification_code.*
 import kotlinx.android.synthetic.main.layout_verify_example.view.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
@@ -99,7 +98,7 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.apply {
-      putString(CODE_KEY, code.text.toString())
+      putString(CODE_KEY, if (code != null) code.text.toString() else "")
     }
   }
 
@@ -194,13 +193,11 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
   override fun showVerificationCode() {
     content_container.visibility = View.VISIBLE
-    fragment_adyen_error?.visibility = View.GONE
     no_network.visibility = View.GONE
   }
 
   override fun showSuccess() {
     no_network.visibility = View.GONE
-    fragment_adyen_error?.visibility = View.GONE
     content_container.visibility = View.GONE
     progress_bar.visibility = View.GONE
 
@@ -209,25 +206,11 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
     success_animation.playAnimation()
   }
 
-  override fun showGenericError() {
-    showSpecificError(R.string.unknown_error)
-  }
-
   override fun showNetworkError() {
     unlockRotation()
     progress_bar.visibility = View.GONE
     content_container.visibility = View.GONE
     no_network.visibility = View.VISIBLE
-  }
-
-  override fun showSpecificError(stringRes: Int) {
-    unlockRotation()
-    progress_bar.visibility = View.GONE
-    content_container.visibility = View.GONE
-
-    val message = getString(stringRes)
-    fragment_adyen_error?.error_message?.text = message
-    fragment_adyen_error?.visibility = View.VISIBLE
   }
 
   override fun hideKeyboard() {
@@ -246,8 +229,6 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
   override fun getConfirmClicks(): Observable<String> = RxView.clicks(confirm)
       .map { code.text.toString() }
-
-  override fun getTryAgainClicks() = RxView.clicks(try_again)
 
   override fun getChangeCardClicks() = RxView.clicks(change_card_button)
 

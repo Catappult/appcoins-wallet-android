@@ -9,6 +9,8 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 
@@ -22,6 +24,8 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
   @Inject
   lateinit var presenter: VerificationActivityPresenter
 
+  val toolbarBackPressSubject = PublishSubject.create<String>()
+
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
@@ -32,7 +36,8 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      super.onBackPressed()
+      toolbarBackPressSubject.onNext(
+          supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: "")
       return true
     }
     return super.onOptionsItemSelected(item)
@@ -54,5 +59,9 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
 
   override fun unlockRotation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+  }
+
+  override fun getToolbarBackPressEvents(): Observable<String> {
+    return toolbarBackPressSubject
   }
 }

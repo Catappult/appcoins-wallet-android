@@ -108,11 +108,16 @@ class AdyenResponseMapper(private val gson: Gson) {
       val body = throwable.getMessage()
       val verificationTransactionResponse =
           gson.fromJson(body, VerificationErrorResponse::class.java)
-      val isCodeError = verificationTransactionResponse.code == "Body.Invalid"
-      return VerificationCodeResult(false, isCodeError, Error(hasError = true,
+      var errorType = VerificationCodeResult.ErrorType.OTHER
+      when (verificationTransactionResponse.code) {
+        "Body.Invalid" -> errorType = VerificationCodeResult.ErrorType.WRONG_CODE
+        "Request.TooMany" -> errorType = VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS
+      }
+      return VerificationCodeResult(false, errorType, Error(hasError = true,
           isNetworkError = true, code = throwable.code(), message = body))
     }
-    return VerificationCodeResult(success = false, isCodeError = false,
+    return VerificationCodeResult(success = false,
+        errorType = VerificationCodeResult.ErrorType.OTHER,
         error = Error(hasError = true, isNetworkError = false, code = null,
             message = throwable.message))
   }

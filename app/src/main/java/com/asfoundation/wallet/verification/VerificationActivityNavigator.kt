@@ -26,4 +26,15 @@ class VerificationActivityNavigator(private val activity: Activity,
   fun finish() {
     activity.finish()
   }
+
+  fun backPress() {
+    activity.onBackPressed()
+  }
+
+  fun navigateToWalletVerificationIntroNoStack() {
+    for (i in 0 until fragmentManager.backStackEntryCount) {
+      fragmentManager.popBackStack()
+    }
+    navigateToWalletVerificationIntro()
+  }
 }

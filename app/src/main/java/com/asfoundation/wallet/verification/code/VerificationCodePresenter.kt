@@ -3,7 +3,6 @@ package com.asfoundation.wallet.verification.code
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.asfoundation.wallet.logging.Logger
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
@@ -34,7 +33,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   }
 
   private fun handleRetryClick() {
-    disposable.add(Observable.merge(view.retryClick(), view.getTryAgainClicks())
+    disposable.add(view.retryClick()
         .observeOn(viewScheduler)
         .doOnNext {
           view.showVerificationCode()
@@ -59,7 +58,8 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
             }
             .subscribe({}, {
               logger.log(TAG, it)
-              view.showGenericError()
+              navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, data.amount,
+                  data.symbol)
             })
     )
   }
@@ -101,16 +101,20 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   }
 
   private fun handleCodeConfirmationStatus(codeResult: VerificationCodeResult) {
+    view.hideLoading()
     if (codeResult.success && !codeResult.error.hasError) {
       view.showSuccess()
     } else {
-      if (codeResult.error.hasError && codeResult.isCodeError) {
-        view.hideLoading()
-        view.showWrongCodeError()
-      } else {
-        logger.log("VerificationCodePresenter",
-            "${codeResult.error.code}: ${codeResult.error.message}")
-        view.showGenericError()
+      logger.log("VerificationCodePresenter",
+          "${codeResult.error.code}: ${codeResult.error.message}")
+      when (codeResult.errorType) {
+        VerificationCodeResult.ErrorType.WRONG_CODE -> {
+          view.showWrongCodeError()
+        }
+        else -> {
+          val errorCode = codeResult.errorType ?: VerificationCodeResult.ErrorType.OTHER
+          navigator.navigateToError(errorCode, data.amount, data.symbol)
+        }
       }
     }
   }
