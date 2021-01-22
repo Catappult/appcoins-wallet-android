@@ -54,10 +54,12 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
 
   override fun onActiveSubscriptions(subscriptionModels: List<SubscriptionItem>) {
     activeAdapter.submitList(subscriptionModels)
+    if (subscriptionModels.isEmpty()) active_title.visibility = View.GONE
   }
 
   override fun onExpiredSubscriptions(subscriptionModels: List<SubscriptionItem>) {
     expiredAdapter.submitList(subscriptionModels)
+    if (subscriptionModels.isEmpty()) expired_title.visibility = View.GONE
   }
 
   override fun showNoNetworkError() {

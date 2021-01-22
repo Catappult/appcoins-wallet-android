@@ -6,6 +6,6 @@ data class OrderResponse(val gateway: String, val reference: String, val value: 
                          val label: String, val currency: String, val symbol: String,
                          val created: String, val method: MethodResponse, val appc: AppcPrice)
 
-data class MethodResponse(val title: String, val icon: String)
+data class MethodResponse(val name: String, val title: String, val logo: String)
 
 data class AppcPrice(val value: BigDecimal, val label: String)

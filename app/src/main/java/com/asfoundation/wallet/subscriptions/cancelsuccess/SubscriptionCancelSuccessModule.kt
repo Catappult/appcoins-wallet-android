@@ -19,7 +19,6 @@ class SubscriptionCancelSuccessModule {
   @Provides
   fun providesSubscriptionCancelSuccessNavigator(
       fragment: SubscriptionCancelSuccessFragment): SubscriptionCancelSuccessNavigator {
-    return SubscriptionCancelSuccessNavigator(fragment.requireFragmentManager(),
-        fragment.activity!!)
+    return SubscriptionCancelSuccessNavigator(fragment.requireFragmentManager())
   }
 }

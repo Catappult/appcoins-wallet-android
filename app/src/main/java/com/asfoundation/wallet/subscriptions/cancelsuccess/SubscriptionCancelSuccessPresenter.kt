@@ -16,10 +16,12 @@ class SubscriptionCancelSuccessPresenter(private val view: SubscriptionCancelSuc
   private fun handleContinueCLicks() {
     disposables.add(view.getContinueClicks()
         .observeOn(viewScheduler)
-        .doOnNext { navigator.navigateBack() }
+        .doOnNext { navigator.navigateToSubscriptionList() }
         .subscribe({}, { it.printStackTrace() })
     )
   }
+
+  fun navigateToListSubscriptions() = navigator.navigateToSubscriptionList()
 
   fun stop() = disposables.clear()
 }

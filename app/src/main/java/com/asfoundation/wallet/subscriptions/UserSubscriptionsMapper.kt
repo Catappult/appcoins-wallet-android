@@ -3,7 +3,7 @@ package com.asfoundation.wallet.subscriptions
 import com.appcoins.wallet.bdsbilling.SubscriptionSubStatus
 import com.appcoins.wallet.bdsbilling.subscriptions.UserSubscriptionsListResponse
 import com.asfoundation.wallet.util.Period
-import java.math.BigDecimal
+import com.asfoundation.wallet.util.isNoNetworkException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,7 +18,7 @@ class UserSubscriptionsMapper {
           SubscriptionItem(it.title, mapPeriod(it.period), mapStatus(it.subStatus),
               mapDate(it.started), mapDate(it.renewal), mapDate(it.expire), mapDate(it.ended),
               application.name, application.title, application.icon, order.value, order.symbol,
-              order.currency, order.method.title, order.method.icon, order.appc.value,
+              order.currency, order.method.title, order.method.logo, order.appc.value,
               order.appc.label, it.uid)
         })
   }
@@ -35,71 +35,11 @@ class UserSubscriptionsMapper {
   }
 
   fun mapError(throwable: Throwable): UserSubscriptionListModel {
-    return UserSubscriptionListModel(listOf(
-        SubscriptionItem("name", mapPeriod("P1M"), Status.CANCELED,
-            mapDate("2021-01-05T21:33:35.997618Z"), mapDate("2021-01-05T21:33:35.997618Z"),
-            mapDate("2021-01-05T21:33:35.997618Z"),
-            null, "nam2e", "title",
-            "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-            BigDecimal(1), "€", "EUR", "CC",
-            "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-            BigDecimal(2), "APPC", "uid"), SubscriptionItem(
-        "name2", mapPeriod("P1M"), Status.EXPIRED,
-        mapDate("2021-01-05T21:33:35.997618Z"), null, mapDate("2021-01-05T21:33:35.997618Z"),
-        mapDate("2021-01-05T21:33:35.997618Z"),
-        "nam2e2", "title",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(1), "€", "EUR", "CC",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(2), "APPC", "uid"), SubscriptionItem(
-        "name2", mapPeriod("P1M"), Status.EXPIRED,
-        mapDate("2021-01-05T21:33:35.997618Z"), null, mapDate("2021-01-05T21:33:35.997618Z"),
-        mapDate("2021-01-05T21:33:35.997618Z"),
-        "nam2e2", "title",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(1), "€", "EUR", "CC",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(2), "APPC", "uid"), SubscriptionItem(
-        "name2", mapPeriod("P1M"), Status.EXPIRED,
-        mapDate("2021-01-05T21:33:35.997618Z"), null, mapDate("2021-01-05T21:33:35.997618Z"),
-        mapDate("2021-01-05T21:33:35.997618Z"),
-        "nam2e2", "title",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(1), "€", "EUR", "CC",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(2), "APPC", "uid"), SubscriptionItem(
-        "name2", mapPeriod("P1M"), Status.EXPIRED,
-        mapDate("2021-01-05T21:33:35.997618Z"), null, mapDate("2021-01-05T21:33:35.997618Z"),
-        mapDate("2021-01-05T21:33:35.997618Z"),
-        "nam2e2", "title",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(1), "€", "EUR", "CC",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(2), "APPC", "uid"), SubscriptionItem(
-        "name2", mapPeriod("P1M"), Status.EXPIRED,
-        mapDate("2021-01-05T21:33:35.997618Z"), null, mapDate("2021-01-05T21:33:35.997618Z"),
-        mapDate("2021-01-05T21:33:35.997618Z"),
-        "nam2e2", "titlelast3",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(1), "€", "EUR", "CC",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(2), "APPC", "uid"), SubscriptionItem(
-        "name2", mapPeriod("P1M"), Status.EXPIRED,
-        mapDate("2021-01-05T21:33:35.997618Z"), null, mapDate("2021-01-05T21:33:35.997618Z"),
-        mapDate("2021-01-05T21:33:35.997618Z"),
-        "nam2e2", "titlelast2",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(1), "€", "EUR", "CC",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(2), "APPC", "uid"), SubscriptionItem(
-        "name2", mapPeriod("P1M"), Status.EXPIRED,
-        mapDate("2021-01-05T21:33:35.997618Z"), null, mapDate("2021-01-05T21:33:35.997618Z"),
-        mapDate("2021-01-05T21:33:35.997618Z"),
-        "nam2e2", "titlelast",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(1), "€", "EUR", "CC",
-        "https://cdn6.aptoide.com/imgs/0/2/b/02b57118b06b81958ab1baf4788ce09d_logo.png",
-        BigDecimal(2), "APPC", "uid")))
+    var error = Error.UNKNOWN
+    if (throwable.isNoNetworkException()) {
+      error = Error.NO_NETWORK
+    }
+    return UserSubscriptionListModel(error)
   }
 
   private fun mapPeriod(period: String): Period? {

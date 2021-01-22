@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.subscriptions.SubscriptionView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -18,7 +17,6 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
 
   @Inject
   lateinit var presenter: SubscriptionCancelSuccessPresenter
-  private lateinit var activity: SubscriptionView
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -37,7 +35,7 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
       requestFocus()
       setOnKeyListener { _, keyCode, keyEvent ->
         if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-          activity.endCancelSubscription()
+          presenter.navigateToListSubscriptions()
         }
         true
       }
@@ -48,7 +46,7 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    getActivity()?.title = getString(R.string.subscriptions_title)
+    activity?.title = getString(R.string.subscriptions_title)
   }
 
   override fun onDestroyView() {

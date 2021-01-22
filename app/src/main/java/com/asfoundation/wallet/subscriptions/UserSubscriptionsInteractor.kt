@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.subscriptions
 
+import com.appcoins.wallet.bdsbilling.SubscriptionSubStatus
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import io.reactivex.Single
@@ -11,20 +12,24 @@ class UserSubscriptionsInteractor(private val walletService: WalletService,
 
   fun loadSubscriptions(): Single<SubscriptionModel> {
     return Single.zip(
-        userSubscriptionRepository.getUserSubscriptions(
-            userSubscriptionRepository.getActiveSubStatus()),
-        userSubscriptionRepository.getUserSubscriptions(
-            userSubscriptionRepository.getExpiredSubStatus(), limit = 6),
+        userSubscriptionRepository.getUserSubscriptions(),
+        userSubscriptionRepository.getUserSubscriptions(SubscriptionSubStatus.EXPIRED.name,
+            limit = 6),
         BiFunction { active, expired ->
           if (active.error != null && expired.error != null) {
             SubscriptionModel(true, active.error)
           } else if (active.userSubscriptionItems.isEmpty() && expired.userSubscriptionItems.isEmpty()) {
             SubscriptionModel(true, null)
           } else {
-            SubscriptionModel(active.userSubscriptionItems, expired.userSubscriptionItems)
+            SubscriptionModel(filterActive(active.userSubscriptionItems),
+                expired.userSubscriptionItems)
           }
         }
     )
+  }
+
+  private fun filterActive(userSubscriptionItems: List<SubscriptionItem>): List<SubscriptionItem> {
+    return userSubscriptionItems.filter { it.isActiveSubscription() }
   }
 
   fun cancelSubscription(packageName: String, uid: String): Single<Boolean> {

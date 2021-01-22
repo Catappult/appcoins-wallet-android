@@ -9,7 +9,7 @@ import com.asfoundation.wallet.subscriptions.cancelsuccess.SubscriptionCancelSuc
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 import com.asfoundation.wallet.ui.BaseActivity
 
-class SubscriptionActivity : BaseActivity(), SubscriptionView {
+class SubscriptionActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -20,14 +20,15 @@ class SubscriptionActivity : BaseActivity(), SubscriptionView {
     if (savedInstanceState == null) showSubscriptionList()
   }
 
-  override fun showSubscriptionList() {
+  private fun showSubscriptionList() {
+
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionListFragment.newInstance())
         .addToBackStack(SubscriptionListFragment::class.java.simpleName)
         .commit()
   }
 
-  override fun endCancelSubscription() = close(true)
+  private fun endCancelSubscription() = close(true)
 
   override fun onBackPressed() = close()
 
