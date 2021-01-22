@@ -47,6 +47,8 @@ import com.asfoundation.wallet.interact.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.asfoundation.wallet.promotions.PromotionsInteractor
+import com.asfoundation.wallet.rating.RatingInteractor
+import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.referrals.ReferralInteractor
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
@@ -406,14 +408,15 @@ class InteractorModule {
                                       promotionsInteractor: PromotionsInteractor,
                                       cardNotificationsInteractor: CardNotificationsInteractor,
                                       autoUpdateInteract: AutoUpdateInteract,
+                                      ratingInteractor: RatingInteractor,
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
                                       fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
-                                      balanceWalletsExperiment: BalanceWalletsExperiment): TransactionViewInteract {
-    return TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
+                                      balanceWalletsExperiment: BalanceWalletsExperiment): TransactionViewInteractor {
+    return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
-        promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract,
+        promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
         fingerprintPreferencesRepository, balanceWalletsExperiment)
   }
@@ -555,6 +558,15 @@ class InteractorModule {
   @Provides
   fun providesABTestInteractor(abTestRepository: ABTestRepository): ABTestInteractor {
     return ABTestInteractor(abTestRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesRatingInteractor(ratingRepository: RatingRepository,
+                               gamificationInteractor: GamificationInteractor,
+                               walletService: WalletService): RatingInteractor {
+    return RatingInteractor(ratingRepository, gamificationInteractor, walletService,
+        Schedulers.io())
   }
 
   @Singleton

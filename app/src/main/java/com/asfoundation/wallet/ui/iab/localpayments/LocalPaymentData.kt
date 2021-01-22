@@ -9,4 +9,5 @@ data class LocalPaymentData(val packageName: String, val skuId: String?,
                             val amount: BigDecimal, val callbackUrl: String?,
                             val orderReference: String?, val payload: String?,
                             val paymentMethodIconUrl: String?, val label: String?,
-                            val async: Boolean, val gamificationLevel: Int)
+                            val async: Boolean, val referrerUrl: String?,
+                            val gamificationLevel: Int)

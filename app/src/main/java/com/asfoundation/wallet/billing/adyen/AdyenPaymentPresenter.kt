@@ -11,10 +11,13 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2F
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
+import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.HIGH_AMOUNT_CHECK_ID
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -154,7 +157,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       adyenPaymentInteractor.makePayment(paymentMethodInfo, false, false, emptyList(), returnUrl,
           priceAmount.toString(), priceCurrency, it.orderReference,
           mapPaymentToService(paymentType).transactionType, origin, domain, it.payload,
-          it.skuId, it.callbackUrl, it.type, it.toAddress())
+          it.skuId, it.callbackUrl, it.type, it.toAddress(), it.referrerUrl)
     }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -203,7 +206,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                     shouldStore, adyenCard.hasCvc, adyenCard.supportedShopperInteractions,
                     returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
                     mapPaymentToService(paymentType).transactionType, origin, domain,
-                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
+                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(), it.referrerUrl,
                     mapToAdyenBillingAddress(billingAddressModel))
               }
         }
@@ -262,14 +265,19 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
-        sendPaymentErrorEvent(paymentModel.refusalCode, paymentModel.refusalReason)
+        var riskRules: String? = null
         paymentModel.refusalCode?.let { code ->
           when (code) {
             CVC_DECLINED -> view.showCvvError()
-            FRAUD -> handleFraudFlow(adyenErrorCodeMapper.map(code))
+            FRAUD -> {
+              handleFraudFlow(adyenErrorCodeMapper.map(code), paymentModel.fraudResultIds)
+              riskRules = paymentModel.fraudResultIds.sorted()
+                  .joinToString(separator = "-")
+            }
             else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
           }
         }
+        sendPaymentErrorEvent(paymentModel.refusalCode, paymentModel.refusalReason, riskRules)
       }
       paymentModel.error.hasError -> Completable.fromAction {
         if (isBillingAddressError(paymentModel.error, priceAmount, priceCurrency)) {
@@ -321,7 +329,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
   }
 
-  private fun handleFraudFlow(@StringRes error: Int) {
+  private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
     disposables.add(
         adyenPaymentInteractor.isWalletBlocked()
             .subscribeOn(networkScheduler)
@@ -335,9 +343,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       else view.showVerification()
                     }
               } else {
-                Single.just(true)
+                Single.just(fraudCheckIds)
                     .observeOn(viewScheduler)
-                    .doOnSuccess { view.showSpecificError(error) }
+                    .doOnSuccess {
+                      val fraudError = when {
+                        it.contains(HIGH_AMOUNT_CHECK_ID) -> {
+                          R.string.purchase_error_try_other_amount
+                        }
+                        it.contains(PAYMENT_METHOD_CHECK_ID) -> {
+                          R.string.purchase_error_try_other_method
+                        }
+                        else -> error
+                      }
+                      view.showSpecificError(fraudError)
+                    }
               }
             }
             .observeOn(viewScheduler)
@@ -508,14 +527,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?) {
+  private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?,
+                                    riskRules: String? = null) {
     disposables.add(transactionBuilder
         .observeOn(networkScheduler)
         .doOnSuccess { transaction ->
-          analytics.sendPaymentErrorWithDetailsEvent(domain, transaction.skuId,
+          analytics.sendPaymentErrorWithDetailsAndRiskEvent(domain, transaction.skuId,
               transaction.amount()
                   .toString(), mapPaymentToAnalytics(paymentType), transaction.type,
-              refusalCode.toString(), refusalReason)
+              refusalCode.toString(), refusalReason, riskRules)
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -639,7 +659,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       error.isNetworkError -> view.showNetworkError()
       error.code != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.code!!)
-        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId)
+        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
       else -> view.showGenericError()

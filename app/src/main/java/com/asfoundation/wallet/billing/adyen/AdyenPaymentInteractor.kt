@@ -27,17 +27,16 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
-class AdyenPaymentInteractor(
-    private val adyenPaymentRepository: AdyenPaymentRepository,
-    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-    private val billingMessagesMapper: BillingMessagesMapper,
-    private val partnerAddressService: AddressService,
-    private val billing: Billing,
-    private val walletService: WalletService,
-    private val supportInteractor: SupportInteractor,
-    private val walletBlockedInteract: WalletBlockedInteract,
-    private val walletVerificationInteractor: WalletVerificationInteractor,
-    private val billingAddressRepository: BillingAddressRepository
+class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRepository,
+                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                             private val billingMessagesMapper: BillingMessagesMapper,
+                             private val partnerAddressService: AddressService,
+                             private val billing: Billing,
+                             private val walletService: WalletService,
+                             private val supportInteractor: SupportInteractor,
+                             private val walletBlockedInteract: WalletBlockedInteract,
+                             private val walletVerificationInteractor: WalletVerificationInteractor,
+                             private val billingAddressRepository: BillingAddressRepository
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
@@ -66,6 +65,7 @@ class AdyenPaymentInteractor(
                   paymentType: String, origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
                   developerWallet: String?,
+                  referrerUrl: String?,
                   billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { address ->
@@ -80,7 +80,7 @@ class AdyenPaymentInteractor(
                     supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
                     address.address, origin, packageName, metadata, sku, callbackUrl,
                     transactionType, developerWallet, it.first, it.second, address.address,
-                    address.signedAddress, billingAddress)
+                    address.signedAddress, billingAddress, referrerUrl)
               }
         }
   }
@@ -95,7 +95,7 @@ class AdyenPaymentInteractor(
           adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
               supportedShopperInteraction, returnUrl, value, currency, null, paymentType,
               it.address, null, packageName, null, null, null, transactionType, null, null, null,
-              null, it.signedAddress, billingAddress)
+              null, it.signedAddress, billingAddress, null)
         }
   }
 
@@ -187,8 +187,10 @@ class AdyenPaymentInteractor(
     return type.equals("INAPP", ignoreCase = true)
   }
 
-  private companion object {
+  companion object {
     private const val MAX_NUMBER_OF_TRIES = 5
     private const val REQUEST_INTERVAL_IN_SECONDS: Long = 2
+    const val HIGH_AMOUNT_CHECK_ID = 63
+    const val PAYMENT_METHOD_CHECK_ID = 73
   }
 }

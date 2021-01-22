@@ -10,6 +10,7 @@ import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.billing.analytics.*
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -91,6 +92,10 @@ class AnalyticsModule {
       PageViewAnalytics.WALLET_PAGE_VIEW,
       BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_PARTICIPATING_EVENT,
       BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_CONVERSION_EVENT,
+      RatingAnalytics.WALLET_RATING_WELCOME_EVENT,
+      RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
+      RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT,
+      RatingAnalytics.WALLET_RATING_FINISH_EVENT,
       VerificationAnalytics.START_EVENT,
       VerificationAnalytics.INSERT_CARD_EVENT,
       VerificationAnalytics.REQUEST_CONCLUSION_EVENT,
@@ -204,6 +209,11 @@ class AnalyticsModule {
   fun providesBalanceWalletsAnalytics(analytics: AnalyticsManager): BalanceWalletsAnalytics {
     return BalanceWalletsAnalytics(analytics)
   }
+
+  @Singleton
+  @Provides
+  fun providesRatingAnalytics(analyticsManager: AnalyticsManager) =
+      RatingAnalytics(analyticsManager)
 
   @Singleton
   @Provides

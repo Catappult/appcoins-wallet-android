@@ -36,6 +36,7 @@ import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
+import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.*
@@ -310,6 +311,14 @@ class RepositoryModule {
   fun providesBillingAddressRepository(
       secureSharedPreferences: SecureSharedPreferences): BillingAddressRepository {
     return BillingAddressRepository(secureSharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesRatingRepository(sharedPreferences: SharedPreferences,
+                               walletFeedbackApi: RatingRepository.WalletFeedbackApi,
+                               logger: Logger): RatingRepository {
+    return RatingRepository(sharedPreferences, walletFeedbackApi, logger)
   }
 
   @Singleton
