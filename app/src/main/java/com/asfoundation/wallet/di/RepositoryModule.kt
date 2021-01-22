@@ -35,6 +35,7 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
