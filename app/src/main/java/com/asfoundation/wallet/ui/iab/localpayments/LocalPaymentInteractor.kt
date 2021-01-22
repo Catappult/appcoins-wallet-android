@@ -13,6 +13,7 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.util.StoreOemAddresses
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -48,13 +49,13 @@ class LocalPaymentInteractor(private val walletService: WalletService,
               partnerAddressService.getStoreAddressForPackage(packageName),
               partnerAddressService.getOemAddressForPackage(packageName),
               BiFunction { storeAddress: String, oemAddress: String ->
-                Pair(storeAddress, oemAddress)
+                StoreOemAddresses(storeAddress, oemAddress)
               })
               .flatMap {
                 remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
-                    fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper, it.first,
-                    it.second, developerPayload, callbackUrl, orderReference, referrerUrl,
-                    walletAddressModel.address, walletAddressModel.signedAddress)
+                    fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper,
+                    it.storeAddress, it.oemAddress, developerPayload, callbackUrl, orderReference,
+                    referrerUrl, walletAddressModel.address, walletAddressModel.signedAddress)
               }
               .map { it.url }
         }
@@ -66,9 +67,9 @@ class LocalPaymentInteractor(private val walletService: WalletService,
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
           remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
-              fiatAmount, fiatCurrency, productName, "TOPUP", null, null, null, null, null,
-              null, null, null, walletAddressModel.address,
-              walletAddressModel.signedAddress)
+              fiatAmount, fiatCurrency, productName, TOP_UP_TRANSACTION_TYPE,
+              null, null, null, null, null, null, null, null,
+              walletAddressModel.address, walletAddressModel.signedAddress)
         }
         .map { it.url }
   }
@@ -95,7 +96,7 @@ class LocalPaymentInteractor(private val walletService: WalletService,
         Single.just(billingMessagesMapper.successBundle(hash))
       }
 
-  private fun isInApp(type: String) = type.equals("INAPP", ignoreCase = true)
+  private fun isInApp(type: String) = type.equals(INAPP_TRANSACTION_TYPE, ignoreCase = true)
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(paymentMethod)
@@ -116,5 +117,10 @@ class LocalPaymentInteractor(private val walletService: WalletService,
 
   fun convertToFiat(appcAmount: Double, toCurrency: String): Single<FiatValue> {
     return inAppPurchaseInteractor.convertToFiat(appcAmount, toCurrency)
+  }
+
+  private companion object {
+    private const val TOP_UP_TRANSACTION_TYPE = "TOPUP"
+    private const val INAPP_TRANSACTION_TYPE = "INAPP"
   }
 }
