@@ -122,6 +122,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
             .flatMapCompletable {
               analytics.sendRequestConclusionEvent(it.success, it.refusalCode?.toString(),
                   it.refusalReason)
+              view.unlockRotation()
               handlePaymentResult(it, verificationInfoModel)
             }
             .subscribe({}, {

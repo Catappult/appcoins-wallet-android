@@ -103,21 +103,22 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
   }
 
 
-  override fun setupUi(data: VerificationCodeData, savedInstance: Bundle?) {
-    val amount = formatter.formatCurrency(data.amount!!, WalletCurrency.FIAT)
-    val amountWithCurrency = "${data.symbol}$amount"
-    val amountWithCurrencyAndSign = "${data.symbol}-$amount"
+  override fun setupUi(currency: String, symbol: String, amount: String, digits: Int,
+                       format: String, period: String, date: Long, savedInstance: Bundle?) {
+    val amountFormat = formatter.formatCurrency(amount, WalletCurrency.FIAT)
+    val amountWithCurrency = "${symbol}$amountFormat"
+    val amountWithCurrencyAndSign = "${symbol}-$amountFormat"
 
-    val date = convertToDate(data.date!!)
-    val duration = Duration.parse(data.period!!)
+    val dateFormat = convertToDate(date)
+    val duration = Duration.parse(period)
 
     val periodInDays = duration.toDays()
     val periodInHours = duration.toHours()
 
-    val period = String.format(getString(R.string.card_verification_code_example_code),
+    val periodFormat = String.format(getString(R.string.card_verification_code_example_code),
         periodInDays.toString())
     val codeTitle = String.format(getString(R.string.card_verification_code_enter_title),
-        data.digits.toString())
+        digits.toString())
     val codeDisclaimer = if (periodInDays > 0) {
       resources.getQuantityString(R.plurals.card_verification_code_enter_days_body,
           periodInDays.toInt(), amountWithCurrency, periodInDays.toString())
@@ -126,17 +127,19 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
           periodInHours.toInt(), amountWithCurrency, periodInHours.toString())
     }
 
-    code.setEms(data.digits!!)
-    code.filters = arrayOf(InputFilter.LengthFilter(data.digits!!))
+    code.setEms(digits)
+    code.filters = arrayOf(InputFilter.LengthFilter(digits))
 
     savedInstance?.let {
-      code.setText(it.getString(CODE_KEY, ""))
+      val codeString = it.getString(CODE_KEY, "")
+      code.setText(codeString)
+      confirm.isEnabled = codeString?.length == digits
     }
 
-    layout_example.trans_date_value.text = date
-    layout_example.description_value.text = data.format
+    layout_example.trans_date_value.text = dateFormat
+    layout_example.description_value.text = format
     layout_example.amount_value.text = amountWithCurrencyAndSign
-    layout_example.arrow_desc.text = period
+    layout_example.arrow_desc.text = periodFormat
     code_title.text = codeTitle
     code_disclaimer.text = codeDisclaimer
 
@@ -151,7 +154,7 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
       override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
       override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         hideWrongCodeError()
-        confirm.isEnabled = s?.length == data.digits
+        confirm.isEnabled = s?.length == digits
       }
     })
   }
@@ -168,10 +171,6 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
   fun hideWrongCodeError() {
     wrong_code_error.visibility = View.GONE
     code.setBackgroundResource(R.drawable.background_edittext)
-  }
-
-  override fun updateUi(verificationCodeData: VerificationCodeData, savedInstanceState: Bundle?) {
-    setupUi(verificationCodeData, savedInstanceState)
   }
 
   override fun showLoading() {

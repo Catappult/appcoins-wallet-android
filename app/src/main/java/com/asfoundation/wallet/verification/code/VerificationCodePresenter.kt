@@ -8,7 +8,7 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class VerificationCodePresenter(private val view: VerificationCodeView,
-                                private val data: VerificationCodeData,
+                                private var data: VerificationCodeData,
                                 private val disposable: CompositeDisposable,
                                 private val viewScheduler: Scheduler,
                                 private val ioScheduler: Scheduler,
@@ -30,8 +30,12 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   }
 
   private fun initializeView(savedInstanceState: Bundle?) {
-    if (data.loaded) view.setupUi(data, savedInstanceState)
-    else loadInfo(savedInstanceState)
+    if (data.loaded) {
+      view.setupUi(data.currency!!, data.symbol!!, data.amount!!, data.digits!!, data.format!!,
+          data.period!!, data.date!!, savedInstanceState)
+    } else {
+      loadInfo(savedInstanceState)
+    }
   }
 
   private fun handleRetryClick() {
@@ -49,10 +53,18 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
         interactor.loadVerificationIntroModel()
             .subscribeOn(ioScheduler)
             .observeOn(viewScheduler)
-            .doOnSuccess {
-              view.updateUi(it, savedInstance)
+            .doOnSuccess { model ->
               view.hideLoading()
               view.unlockRotation()
+              if (model.error.hasError) {
+                navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, null, null)
+              } else {
+                view.setupUi(model.currency!!, model.symbol!!, model.amount!!, model.digits!!,
+                    model.format!!,
+                    model.period!!, model.date!!, savedInstance)
+                data = VerificationCodeData(true, model.date, model.format, model.amount,
+                    model.currency, model.symbol, model.period, model.digits)
+              }
             }
             .doOnSubscribe {
               view.lockRotation()

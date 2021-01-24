@@ -5,7 +5,8 @@ import io.reactivex.Observable
 
 interface VerificationCodeView {
 
-  fun updateUi(verificationCodeData: VerificationCodeData, savedInstance: Bundle?)
+  fun setupUi(currency: String, symbol: String, amount: String, digits: Int, format: String,
+              period: String, date: Long, savedInstance: Bundle?)
 
   fun showLoading()
 
@@ -30,8 +31,6 @@ interface VerificationCodeView {
   fun getSupportClicks(): Observable<Any>
 
   fun retryClick(): Observable<Any>
-
-  fun setupUi(data: VerificationCodeData, savedInstanceState: Bundle?)
 
   fun showWrongCodeError()
 
