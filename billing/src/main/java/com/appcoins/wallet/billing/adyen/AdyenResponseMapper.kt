@@ -90,7 +90,6 @@ class AdyenResponseMapper(private val gson: Gson) {
   }
 
   fun mapVerificationPaymentModelError(throwable: Throwable): VerificationPaymentModel {
-    //TODO improve
     throwable.printStackTrace()
     if (throwable is HttpException) {
       val body = throwable.getMessage()
