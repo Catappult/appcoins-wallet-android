@@ -23,13 +23,9 @@ class VerificationActivityNavigator(private val activity: Activity,
         .commit()
   }
 
-  fun finish() {
-    activity.finish()
-  }
+  fun finish() = activity.finish()
 
-  fun backPress() {
-    activity.onBackPressed()
-  }
+  fun backPress() = activity.onBackPressed()
 
   fun navigateToWalletVerificationIntroNoStack() {
     for (i in 0 until fragmentManager.backStackEntryCount) {

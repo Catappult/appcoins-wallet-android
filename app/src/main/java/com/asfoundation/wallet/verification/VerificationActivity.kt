@@ -24,7 +24,7 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
   @Inject
   lateinit var presenter: VerificationActivityPresenter
 
-  val toolbarBackPressSubject = PublishSubject.create<String>()
+  private val toolbarBackPressSubject = PublishSubject.create<String>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
