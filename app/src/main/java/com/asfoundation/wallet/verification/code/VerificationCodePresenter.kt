@@ -86,7 +86,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
               analytics.sendConfirmEvent("try_with_another_card")
               navigator.navigateToInitialWalletVerification()
             }
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -97,7 +97,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
               analytics.sendConfirmEvent("maybe_later")
               navigator.cancel()
             }
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -121,7 +121,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                         result.error.code?.toString(), result.error.message)
                   }
             }
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 

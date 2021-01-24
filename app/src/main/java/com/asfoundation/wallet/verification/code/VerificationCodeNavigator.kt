@@ -18,13 +18,9 @@ class VerificationCodeNavigator(private val fragmentManager: FragmentManager,
     activityNavigator.navigateToWalletVerificationIntro()
   }
 
-  fun cancel() {
-    activityView.cancel()
-  }
+  fun cancel() = activityView.cancel()
 
-  fun finish() {
-    activityView.complete()
-  }
+  fun finish() = activityView.complete()
 
   fun navigateToError(errorType: VerificationCodeResult.ErrorType, amount: String?,
                       symbol: String?) {

@@ -303,21 +303,14 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
     view?.let { KeyboardUtils.hideKeyboard(view) }
   }
 
-  override fun lockRotation() {
-    activityView.lockRotation()
-  }
+  override fun lockRotation() = activityView.lockRotation()
 
-  override fun unlockRotation() {
-    activityView.unlockRotation()
-  }
+  override fun unlockRotation() = activityView.unlockRotation()
 
-  override fun cancel() {
-    activityView.cancel()
-  }
+  override fun cancel() = activityView.cancel()
 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
   }
-
 }
