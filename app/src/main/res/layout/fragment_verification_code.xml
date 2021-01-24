@@ -118,7 +118,6 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="20dp"
           android:text="@string/card_verification_code_other_card_button"
-          android:visibility="visible"
           app:layout_constraintStart_toStartOf="@+id/code"
           app:layout_constraintTop_toBottomOf="@+id/code"
           tools:visibility="visible"

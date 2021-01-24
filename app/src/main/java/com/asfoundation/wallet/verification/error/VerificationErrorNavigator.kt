@@ -15,11 +15,7 @@ class VerificationErrorNavigator(private val fragmentManager: FragmentManager,
     activityNavigator.navigateToWalletVerificationIntro()
   }
 
-  fun navigateToCodeWalletVerification() {
-    fragmentManager.popBackStack()
-  }
+  fun navigateToCodeWalletVerification() = fragmentManager.popBackStack()
 
-  fun cancel() {
-    activityView.cancel()
-  }
+  fun cancel() = activityView.cancel()
 }

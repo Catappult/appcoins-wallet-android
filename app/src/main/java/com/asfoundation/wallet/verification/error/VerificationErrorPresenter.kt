@@ -25,17 +25,15 @@ class VerificationErrorPresenter(private val view: VerificationErrorView,
                 navigator.navigateToCodeWalletVerification()
               }
             }
-            .subscribe()
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun handleMaybeLaterClicks() {
     disposable.add(
         view.getMaybeLaterClicks()
-            .doOnNext {
-              navigator.cancel()
-            }
-            .subscribe()
+            .doOnNext { navigator.cancel() }
+            .subscribe({}, { it.printStackTrace() })
     )
   }
 

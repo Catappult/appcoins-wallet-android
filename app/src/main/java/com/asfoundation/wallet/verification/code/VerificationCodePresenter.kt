@@ -48,7 +48,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun loadInfo(savedInstance: Bundle?) {
+  private fun loadInfo(savedInstance: Bundle?) {
     disposable.add(
         interactor.loadVerificationIntroModel()
             .subscribeOn(ioScheduler)

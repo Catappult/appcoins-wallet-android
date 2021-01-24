@@ -1044,4 +1044,31 @@
     <item name="android:textStyle">normal</item>
     <item name="android:lineSpacingExtra">7sp</item>
   </style>
+
+  <style name="VerifyWallet.Error" />
+
+  <style name="VerifyWallet.Error.Title1">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:letterSpacing">0.03</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+    <item name="android:textAlignment">center</item>
+    <item name="android:textColor">@color/btn_light_enabled_color</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="VerifyWallet.Error.Title2">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:letterSpacing">0.03</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+    <item name="android:textAlignment">center</item>
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="VerifyWallet.Error.Message" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textAlignment">center</item>
+    <item name="android:textSize">16sp</item>
+  </style>
 </resources>

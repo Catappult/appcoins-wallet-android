@@ -98,7 +98,7 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.apply {
-      putString(CODE_KEY, if (code != null) code.text.toString() else "")
+      putString(CODE_KEY, code?.let { code.text.toString() } ?: "")
     }
   }
 
