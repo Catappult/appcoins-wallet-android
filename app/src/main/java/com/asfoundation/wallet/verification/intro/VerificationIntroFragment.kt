@@ -152,11 +152,11 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
 
   override fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      isStored: Boolean, savedInstance: Bundle?) {
+      isStored: Boolean, forget: Boolean, savedInstance: Bundle?) {
     this.isStored = isStored
 
     handleLayoutVisibility(isStored)
-    prepareCardComponent(paymentMethod, isStored, savedInstance)
+    prepareCardComponent(paymentMethod, forget, savedInstance)
     setStoredPaymentInformation(isStored)
   }
 

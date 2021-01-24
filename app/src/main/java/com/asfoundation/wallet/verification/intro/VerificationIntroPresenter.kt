@@ -42,15 +42,13 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!,
-                  it.paymentInfoModel.isStored, savedInstanceState)
+                  it.paymentInfoModel.isStored, false, savedInstanceState)
               view.updateUi(it)
-              view.hideLoading()
-              view.unlockRotation()
+              hideLoading()
               handleSubmitClicks(it.verificationInfoModel)
             }
             .doOnSubscribe {
-              view.lockRotation()
-              view.showLoading()
+              showLoading()
             }
             .subscribe({}, {
               logger.log(TAG, it)
@@ -73,7 +71,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
   private fun handleRetryClick(savedInstanceState: Bundle?) {
     disposable.add(view.retryClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.showLoading() }
+        .doOnNext { showLoading() }
         .delay(1, TimeUnit.SECONDS)
         .doOnNext { loadModel(savedInstanceState) }
         .subscribe({}, { it.printStackTrace() }))
@@ -109,9 +107,8 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
             }
             .observeOn(viewScheduler)
             .doOnNext {
-              view.showLoading()
+              showLoading()
               view.hideKeyboard()
-              view.lockRotation()
             }
             .observeOn(ioScheduler)
             .flatMapSingle { adyenCard ->
@@ -122,11 +119,12 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
             .flatMapCompletable {
               analytics.sendRequestConclusionEvent(it.success, it.refusalCode?.toString(),
                   it.refusalReason)
-              view.unlockRotation()
+              hideLoading()
               handlePaymentResult(it, verificationInfoModel)
             }
             .subscribe({}, {
               logger.log(TAG, it)
+              hideLoading()
               view.showGenericError()
             })
     )
@@ -177,27 +175,45 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
     disposable.add(view.forgetCardClick()
         .observeOn(viewScheduler)
         .doOnNext {
-          view.showLoading()
+          showLoading()
           analytics.sendInsertCardEvent("change_card")
         }
         .observeOn(ioScheduler)
         .flatMapSingle { interactor.disablePayments() }
         .observeOn(viewScheduler)
-        .doOnNext { success -> if (!success) view.showGenericError() }
+        .doOnNext { success ->
+          if (!success) {
+            hideLoading()
+            view.showGenericError()
+          }
+        }
         .filter { it }
         .observeOn(ioScheduler)
         .flatMapSingle {
           interactor.loadVerificationIntroModel()
               .observeOn(viewScheduler)
               .doOnSuccess {
+                hideLoading()
                 view.updateUi(it)
-                view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!, false, null)
+                view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!,
+                    isStored = false, forget = true, savedInstance = null)
               }
         }
         .subscribe({}, {
           logger.log(TAG, it)
+          hideLoading()
           view.showGenericError()
         }))
+  }
+
+  private fun showLoading() {
+    view.lockRotation()
+    view.showLoading()
+  }
+
+  private fun hideLoading() {
+    view.unlockRotation()
+    view.hideLoading()
   }
 
   fun stop() = disposable.clear()
