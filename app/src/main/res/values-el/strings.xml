@@ -691,7 +691,7 @@
   <string name="subscriptions_settings_title">Διαχείριση εγγραφών</string>
   <string name="subscriptions_title">Εγγραφές</string>
   <string name="subscriptions_active_title">Ενεργές</string>
-  <string name="subscriptions_expired_title">Ανενεργές</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Δεν υπάρχουν ακόμη εγγραφές</string>
   <string name="subscriptions_empty_body">Εγγραφείτε σε υπηρεσίες των αγαπημένων σας εφαρμογών και παιχνιδιών και θα αναλάβουμε εμείς τις περιοδικές πληρωμές.</string>
   <string name="subscriptions_details_billing_title">Χρέωση:</string>
