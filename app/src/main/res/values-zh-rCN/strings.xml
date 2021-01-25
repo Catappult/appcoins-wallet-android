@@ -690,7 +690,7 @@
   <string name="subscriptions_settings_title">管理订购</string>
   <string name="subscriptions_title">订购</string>
   <string name="subscriptions_active_title">激活</string>
-  <string name="subscriptions_expired_title">未激活</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">尚无订购</string>
   <string name="subscriptions_empty_body">订购最喜欢的应用和游戏的服务，我们将处理定期付款。</string>
   <string name="subscriptions_details_billing_title">支付：</string>
