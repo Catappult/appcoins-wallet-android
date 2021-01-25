@@ -693,7 +693,7 @@
   <string name="subscriptions_settings_title">Zarządzaj subskrypcjami</string>
   <string name="subscriptions_title">Subskrypcje</string>
   <string name="subscriptions_active_title">Aktywne</string>
-  <string name="subscriptions_expired_title">Nieaktywne</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Brak subskrypcji</string>
   <string name="subscriptions_empty_body">Subskrybuj usługi w ulubionych aplikacjach i grach, a my zajmiemy się cyklicznymi opłatami.</string>
   <string name="subscriptions_details_billing_title">Rachunki:</string>
