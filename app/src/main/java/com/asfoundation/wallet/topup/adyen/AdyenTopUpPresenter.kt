@@ -397,11 +397,11 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       val fraudError = when {
-                        it.contains(HIGH_AMOUNT_CHECK_ID) -> {
-                          R.string.purchase_error_try_other_amount
-                        }
                         it.contains(PAYMENT_METHOD_CHECK_ID) -> {
                           R.string.purchase_error_try_other_method
+                        }
+                        it.contains(HIGH_AMOUNT_CHECK_ID) -> {
+                          R.string.purchase_error_try_other_amount
                         }
                         else -> error
                       }
