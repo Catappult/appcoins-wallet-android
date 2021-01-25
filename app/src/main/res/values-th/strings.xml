@@ -692,7 +692,7 @@
   <string name="subscriptions_settings_title">จัดการการสมัครสมาชิก</string>
   <string name="subscriptions_title">สมัครสมาชิก</string>
   <string name="subscriptions_active_title">ใช้งาน</string>
-  <string name="subscriptions_expired_title">ไม่ใช้งาน</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">ยังไม่มีการสมัครสมาชิก</string>
   <string name="subscriptions_empty_body">สมัครบริการแอปและเกมส์ที่คุณชื่นชอบและเราจะจัดการระยะเวลาการชำระเงินให้</string>
   <string name="subscriptions_details_billing_title">การเรียกเก็บเงิน:</string>
