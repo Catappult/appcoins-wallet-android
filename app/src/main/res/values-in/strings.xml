@@ -690,7 +690,7 @@
   <string name="subscriptions_settings_title">Kelola langganan</string>
   <string name="subscriptions_title">Langganan</string>
   <string name="subscriptions_active_title">Aktif</string>
-  <string name="subscriptions_expired_title">Tidak aktif</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Belum Berlangganan</string>
   <string name="subscriptions_empty_body">Berlangganan layanan di aplikasi dan game favorit Anda, nanti kami akan menangani pembayaran berkala.</string>
   <string name="subscriptions_details_billing_title">Tagihan:</string>
