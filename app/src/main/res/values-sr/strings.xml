@@ -692,7 +692,7 @@
   <string name="subscriptions_settings_title">Upravljanje pretplatama</string>
   <string name="subscriptions_title">Pretplate</string>
   <string name="subscriptions_active_title">Aktivne</string>
-  <string name="subscriptions_expired_title">Neaktivne</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Još nema pretplata</string>
   <string name="subscriptions_empty_body">Pretplatite se na usluge u svojim omiljenim aplikacijama i igrama, a mi ćemo obraditi periodična plaćanja.</string>
   <string name="subscriptions_details_billing_title">Naplata:</string>
