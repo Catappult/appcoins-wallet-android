@@ -86,20 +86,27 @@ class AdyenResponseMapper(private val gson: Gson) {
   }
 
   fun mapVerificationPaymentModeSuccess(): VerificationPaymentModel {
-    return VerificationPaymentModel(true, null, null)
+    return VerificationPaymentModel(true, null, null, null)
   }
 
   fun mapVerificationPaymentModelError(throwable: Throwable): VerificationPaymentModel {
     throwable.printStackTrace()
-    if (throwable is HttpException) {
+    return if (throwable is HttpException) {
       val body = throwable.getMessage()
       val verificationTransactionResponse =
           gson.fromJson(body, VerificationTransactionResponse::class.java)
-      return VerificationPaymentModel(false, verificationTransactionResponse.data?.refusalReason,
-          verificationTransactionResponse.data?.refusalReasonCode?.toInt())
+      var errorType = VerificationPaymentModel.ErrorType.OTHER
+      when (verificationTransactionResponse.code) {
+        "Request.Invalid" -> errorType = VerificationPaymentModel.ErrorType.INVALID_REQUEST
+        "Request.TooMany" -> errorType = VerificationPaymentModel.ErrorType.TOO_MANY_ATTEMPTS
+      }
+      VerificationPaymentModel(false, errorType,
+          verificationTransactionResponse.data?.refusalReason,
+          verificationTransactionResponse.data?.refusalReasonCode?.toInt(), Error(hasError = true,
+          isNetworkError = false))
     } else {
       val codeAndMessage = throwable.getErrorCodeAndMessage()
-      return VerificationPaymentModel(false, null, null,
+      VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER, null, null,
           Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
               codeAndMessage.second))
     }

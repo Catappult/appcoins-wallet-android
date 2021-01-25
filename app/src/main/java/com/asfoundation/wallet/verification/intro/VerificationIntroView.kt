@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification.intro
 
 import android.os.Bundle
+import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import io.reactivex.Observable
 
@@ -38,7 +39,7 @@ interface VerificationIntroView {
 
   fun unlockRotation()
 
-  fun showGenericError()
+  fun showError(errorType: ErrorType? = ErrorType.OTHER)
 
   fun showNetworkError()
 

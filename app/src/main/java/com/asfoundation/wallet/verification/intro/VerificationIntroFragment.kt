@@ -14,6 +14,7 @@ import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
+import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
@@ -263,8 +264,12 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
     content_container.visibility = View.VISIBLE
   }
 
-  override fun showGenericError() {
-    showSpecificError(R.string.unknown_error)
+  override fun showError(errorType: VerificationPaymentModel.ErrorType?) {
+    if (errorType == VerificationPaymentModel.ErrorType.TOO_MANY_ATTEMPTS) {
+      showSpecificError(R.string.verification_error_attempts_reached)
+    } else {
+      showSpecificError(R.string.unknown_error)
+    }
   }
 
   override fun showNetworkError() {

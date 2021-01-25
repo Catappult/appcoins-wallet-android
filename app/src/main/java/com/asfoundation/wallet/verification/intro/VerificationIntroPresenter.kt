@@ -2,6 +2,7 @@ package com.asfoundation.wallet.verification.intro
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
+import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.logging.Logger
@@ -47,12 +48,10 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
               hideLoading()
               handleSubmitClicks(it.verificationInfoModel)
             }
-            .doOnSubscribe {
-              showLoading()
-            }
+            .doOnSubscribe { showLoading() }
             .subscribe({}, {
               logger.log(TAG, it)
-              view.showGenericError()
+              view.showError()
             })
     )
   }
@@ -119,13 +118,12 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
             .flatMapCompletable {
               analytics.sendRequestConclusionEvent(it.success, it.refusalCode?.toString(),
                   it.refusalReason)
-              hideLoading()
-              handlePaymentResult(it, verificationInfoModel)
+              handlePaymentResult(it, verificationInfoModel).andThen { hideLoading() }
             }
             .subscribe({}, {
               logger.log(TAG, it)
               hideLoading()
-              view.showGenericError()
+              view.showError()
             })
     )
   }
@@ -147,10 +145,10 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         }
       }
       paymentModel.error.hasError -> Completable.fromAction {
-        handleErrors(paymentModel.error)
+        handleErrors(paymentModel.error, paymentModel.errorType)
       }
       else -> Completable.fromAction {
-        view.showGenericError()
+        view.showError()
       }
     }
   }
@@ -164,10 +162,10 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
     }
   }
 
-  private fun handleErrors(error: Error) {
+  private fun handleErrors(error: Error, errorType: ErrorType?) {
     when {
       error.isNetworkError -> view.showNetworkError()
-      else -> view.showGenericError()
+      else -> view.showError(errorType)
     }
   }
 
@@ -184,7 +182,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         .doOnNext { success ->
           if (!success) {
             hideLoading()
-            view.showGenericError()
+            view.showError()
           }
         }
         .filter { it }
@@ -202,7 +200,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         .subscribe({}, {
           logger.log(TAG, it)
           hideLoading()
-          view.showGenericError()
+          view.showError()
         }))
   }
 
