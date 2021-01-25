@@ -691,7 +691,7 @@
   <string name="subscriptions_settings_title">مدیریت آبونمان‌ها</string>
   <string name="subscriptions_title">آبونمان‌ها</string>
   <string name="subscriptions_active_title">فعال</string>
-  <string name="subscriptions_expired_title">غیرفعال</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">هنوز آبونمانی موجود نیست</string>
   <string name="subscriptions_empty_body">برای سرویس‌ها در اپلیکیشن‌ها و بازی‌های مورد علاقه خود آبونمان شوید و پرداخت‌های دوره‌ای را ما مدیریت می‌کنیم.</string>
   <string name="subscriptions_details_billing_title">پرداخت:</string>
