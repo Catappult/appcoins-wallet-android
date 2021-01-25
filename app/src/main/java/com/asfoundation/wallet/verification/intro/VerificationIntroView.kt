@@ -47,4 +47,5 @@ interface VerificationIntroView {
 
   fun showCvvError()
 
+  fun showGenericError()
 }

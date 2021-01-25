@@ -89,6 +89,7 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
+    presenter.onSavedInstance(outState)
     if (this::adyenCardNumberLayout.isInitialized) {
       outState.apply {
         putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
@@ -271,6 +272,8 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
       showSpecificError(R.string.unknown_error)
     }
   }
+
+  override fun showGenericError() = showSpecificError(R.string.unknown_error)
 
   override fun showNetworkError() {
     unlockRotation()

@@ -3,13 +3,14 @@ package com.asfoundation.wallet.verification.intro
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
-import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.verification.VerificationAnalytics
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.io.Serializable
 import java.util.concurrent.TimeUnit
 
 class VerificationIntroPresenter(private val view: VerificationIntroView,
@@ -23,17 +24,35 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
                                  private val data: VerificationIntroData,
                                  private val analytics: VerificationAnalytics) {
 
+  private var currentError: ErrorState? = null
+
   companion object {
+    private const val CURRENT_ERROR_KEY = "current_error"
     private val TAG = VerificationIntroPresenter::class.java.name
   }
 
   fun present(savedInstanceState: Bundle?) {
-    loadModel(savedInstanceState)
+    handleViewState(savedInstanceState)
     handleCancelClicks()
     handleForgetCardClick()
     handleRetryClick(savedInstanceState)
     handleTryAgainClicks()
     handleSupportClicks()
+  }
+
+  private fun handleViewState(savedInstanceState: Bundle?) {
+    savedInstanceState?.let {
+      currentError = savedInstanceState.get(CURRENT_ERROR_KEY) as ErrorState?
+    }
+    if (currentError == null) loadModel(savedInstanceState)
+    else {
+      when {
+        currentError?.noNetworkError == true -> view.showNetworkError()
+        currentError?.errorType != null -> view.showError(currentError!!.errorType)
+        currentError?.errorString != null -> view.showSpecificError(currentError!!.errorString!!)
+        else -> loadModel(savedInstanceState)
+      }
+    }
   }
 
   private fun loadModel(savedInstanceState: Bundle?, forgetPrevious: Boolean = false) {
@@ -51,7 +70,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
             .doOnSubscribe { showLoading() }
             .subscribe({}, {
               logger.log(TAG, it)
-              view.showError()
+              handleErrors(it.isNoNetworkException())
             })
     )
   }
@@ -118,12 +137,12 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
             .flatMapCompletable {
               analytics.sendRequestConclusionEvent(it.success, it.refusalCode?.toString(),
                   it.refusalReason)
-              handlePaymentResult(it, verificationInfoModel).andThen { hideLoading() }
+              handlePaymentResult(it, verificationInfoModel)
             }
             .subscribe({}, {
               logger.log(TAG, it)
               hideLoading()
-              view.showError()
+              handleErrors()
             })
     )
   }
@@ -135,20 +154,23 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         Completable.complete()
             .observeOn(viewScheduler)
             .andThen(handleSuccessTransaction(verificationInfoModel))
+            .andThen { hideLoading() }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
         paymentModel.refusalCode?.let { code ->
           when (code) {
             AdyenErrorCodeMapper.CVC_DECLINED -> view.showCvvError()
-            else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
+            else -> {
+              handleErrors(errorString = adyenErrorCodeMapper.map(code))
+            }
           }
         }
       }
       paymentModel.error.hasError -> Completable.fromAction {
-        handleErrors(paymentModel.error, paymentModel.errorType)
+        handleErrors(paymentModel.error.isNetworkError, paymentModel.errorType)
       }
       else -> Completable.fromAction {
-        view.showError()
+        handleErrors()
       }
     }
   }
@@ -162,10 +184,14 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
     }
   }
 
-  private fun handleErrors(error: Error, errorType: ErrorType?) {
+  private fun handleErrors(noNetworkError: Boolean = false, errorType: ErrorType? = null,
+                           errorString: Int? = null) {
+    currentError = ErrorState(noNetworkError, errorType, errorString)
     when {
-      error.isNetworkError -> view.showNetworkError()
-      else -> view.showError(errorType)
+      noNetworkError -> view.showNetworkError()
+      errorType != null -> view.showError(errorType)
+      errorString != null -> view.showSpecificError(errorString)
+      else -> view.showGenericError()
     }
   }
 
@@ -182,7 +208,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         .doOnNext { success ->
           if (!success) {
             hideLoading()
-            view.showError()
+            handleErrors()
           }
         }
         .filter { it }
@@ -200,7 +226,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         .subscribe({}, {
           logger.log(TAG, it)
           hideLoading()
-          view.showError()
+          handleErrors(it.isNoNetworkException())
         }))
   }
 
@@ -214,5 +240,12 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
     view.hideLoading()
   }
 
+  fun onSavedInstance(outState: Bundle) {
+    outState.putSerializable(CURRENT_ERROR_KEY, currentError)
+  }
+
   fun stop() = disposable.clear()
 }
+
+data class ErrorState(val noNetworkError: Boolean, val errorType: ErrorType?,
+                      val errorString: Int?) : Serializable
