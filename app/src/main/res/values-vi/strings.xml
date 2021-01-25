@@ -690,7 +690,7 @@
   <string name="subscriptions_settings_title">Quản lý các gói đăng ký</string>
   <string name="subscriptions_title">Gói đăng ký</string>
   <string name="subscriptions_active_title">Hoạt động</string>
-  <string name="subscriptions_expired_title">Vô hiệu</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Chưa có gói đăng ký nào</string>
   <string name="subscriptions_empty_body">Đăng ký dịch vụ trong các ứng dụng cũng như trò chơi yêu thích của bạn và chúng tôi sẽ xử lý các khoản thanh toán định kỳ.</string>
   <string name="subscriptions_details_billing_title">Thanh toán:</string>
