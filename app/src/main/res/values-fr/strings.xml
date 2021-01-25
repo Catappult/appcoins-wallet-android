@@ -691,7 +691,7 @@
   <string name="subscriptions_settings_title">Gérer les abonnements</string>
   <string name="subscriptions_title">Abonnements</string>
   <string name="subscriptions_active_title">Actif</string>
-  <string name="subscriptions_expired_title">Inactif</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Pas encore d\'abonnements</string>
   <string name="subscriptions_empty_body">Abonnez-vous aux services de vos applications et jeux préférés et nous nous occuperons des paiements périodiques.</string>
   <string name="subscriptions_details_billing_title">Facturation :</string>
