@@ -692,7 +692,7 @@
   <string name="subscriptions_settings_title">Manage subscriptions</string>
   <string name="subscriptions_title">Subscriptions</string>
   <string name="subscriptions_active_title">Active</string>
-  <string name="subscriptions_expired_title">Inactive</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">No Subscriptions Yet</string>
   <string name="subscriptions_empty_body">Subscribe to services in your favorite apps and games and we\'ll deal with periodic payments.</string>
   <string name="subscriptions_details_billing_title">Billing:</string>
