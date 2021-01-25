@@ -691,7 +691,7 @@
   <string name="subscriptions_settings_title">Abonnementen beheren</string>
   <string name="subscriptions_title">Abonnementen</string>
   <string name="subscriptions_active_title">Actief</string>
-  <string name="subscriptions_expired_title">Inactief</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Nog geen abonnementen</string>
   <string name="subscriptions_empty_body">Abonneer je op services in je favoriete apps en games, dan zorgen wij voor de periodieke betalingen.</string>
   <string name="subscriptions_details_billing_title">Facturatie:</string>
