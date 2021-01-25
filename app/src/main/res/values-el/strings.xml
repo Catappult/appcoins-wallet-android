@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Αποστολή %s</string>
   <string name="title_request">Λήψη</string>
   <string name="title_import">Ανάκτηση Wallet</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">Τα Wallet Μου</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Κωδικός πρόσβασης</string>
   <string name="action_sign_in_short">Create</string>
@@ -333,7 +335,12 @@
   <string name="gamification_leveled_up_body">Τώρα θα λαμβάνετε bonus %s σε κάθε αγορά. Συνεχίστε τις αγορές για να κερδίσετε ακόμη περισσότερα!</string>
   <string name="gamification_leveled_up_notification_title">Φτάσατε στο επόμενο επίπεδο!</string>
   <string name="gamification_leveled_up_notification_body">Συγχαρητήρια! Τώρα θα λαμβάνετε bonus %s σε κάθε αγορά!</string>
-  <string name="gamification_how_max_level_body">Συγχαρητήρια! Έχετε φτάσει στο υψηλότερο επίπεδο 💃</string>
+  <string name="gamification_how_max_level_notification_title">Τα καταφέρατε!</string>
+  <string name="gamification_how_max_level_body">Έχετε φτάσει στο υψηλότερο επίπεδο: %s Bonus σε κάθε αγορά!</string>
+  <string name="gamification_level_up_notification_title">Λίγο ακόμα!</string>
+  <string name="gamification_level_up_notification_body">Ξοδέψτε %s ακόμη AppCoins για να φτάσετε στο επόμενο επίπεδο.</string>
+  <string name="gamification_bonus_plus_perk_title">Έχετε επιπρόσθετο bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Απολαύστε bonus %1$s και %2$s AppCoins Credits επιπλέον.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Επιτρέψτε στο AppCoins Wallet να παρέχει τη διεύθυνση wallet σας στο %s.</string>
   <string name="provide_wallet_body_placeholders">Επιτρέψτε στο %1$s να παρέχει τη διεύθυνση wallet σας στο %2$s.</string>
@@ -500,6 +507,8 @@
   <string name="purchase_card_error_CVV">Εσφαλμένο CVV/CVC</string>
   <string name="error_contac_us_body">Εάν το πρόβλημα επιμένει, παρακαλούμε επικοινωνήστε μαζί μας.</string>
   <string name="purchase_error_unverified_wallet">Προσπαθήστε να ολοκληρώσετε την αγορά αφού πιστοποιήσετε το wallet σας.</string>
+  <string name="purchase_error_try_other_method">Ωχ&#8230; Κάτι συμβαίνει! Παρακαλούμε δοκιμάστε μία διαφορετική μέθοδο πληρωμής ή επικοινωνήστε μαζί μας.</string>
+  <string name="purchase_error_try_other_amount">Είστε σίγουροι ότι το ποσό φόρτισης είναι σωστό; Παρακαλούμε δοκιμάστε με ένα διαφορετικό ή επικοινωνήστε μαζί μας!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
@@ -559,8 +568,11 @@
   <string name="promotions_tab_poa_title">ΠΑΙΞΤΕ &amp; ΚΕΡΔΙΣΤΕ</string>
   <string name="promotions_empty_promotions_body">Δεν υπάρχουν διαθέσιμες προωθήσεις αυτή τη στιγμή. Δοκιμάστε αργότερα!</string>
   <string name="promotions_empty_poa_body">Δεν υπάρχουν εφαρμογές με αμοιβές αυτή τη στιγμή. Δοκιμάστε αργότερα!</string>
+  <string name="promotions_empty_first_purchase_body">Κάντε την πρώτη σας αγορά σε ένα παιχνίδι ή μία εφαρμογή και ξεκλειδώστε τις προωθήσεις που έχουμε για εσάς!</string>
+  <string name="promotions_empty_suggested_games_title">Προτεινόμενα Παιχνίδια</string>
   <string name="promotions_perks_button">Προνόμια</string>
   <string name="promotions_vouhers_button">Voucher</string>
+  <string name="promotions_tooltip">Κερδίστε δωρεάν AppCoins Credits με τις προωθήσεις μας!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Ενημερώστε για να λάβετε αμοιβές</string>
   <string name="update_wallet_poa_notification_body">Παρακαλούμε ενημερώστε το AppCoins Wallet για να λάβετε αυτήν την αμοιβή.</string>
@@ -692,7 +704,7 @@
   <string name="subscriptions_canceled_body">Ακυρώθηκε</string>
   <string name="subscriptions_details_disclaimer">Η αξία σε AppCoins ενδέχεται να διαφέρει σε επόμενη πληρωμή λόγω της συναλλαγματικής ισοτιμίας.</string>
   <string name="subscriptions_details_button">ΛΕΠΤΟΜΕΡΕΙΕΣ</string>
-  <string name="subscriptions_manage_button">ΔΙΑΧΕΙΡΙΣΗ ΕΓΓΡΑΦΗΣ</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ΑΚΥΡΩΣΗ ΕΓΓΡΑΦΗΣ</string>
   <string name="subscriptions_cancel_title">Ακύρωση Εγγραφής</string>
   <string name="subscriptions_cancel_body">Είστε σίγουροι ότι θέλετε να ακυρώσετε αυτή την εγγραφή;</string>
@@ -702,10 +714,14 @@
   <string name="subscriptions_cancel_confirmation_body">Δε θα χρεωθείτε εκ νέου για αυτή την εγγραφή και μπορείτε να τη χρησιμοποιήσετε έως %s.</string>
   <string name="subscriptions_category_title">Εγγραφή</string>
   <string name="subscriptions_bonus_body">Θα λαμβάνετε αυτό το bonus σε κάθε πληρωμή.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/ημέρα</string>
-  <string name="subscriptions_per_week">%1$s%2$s/εβδομάδα</string>
-  <string name="subscriptions_per_month">%1$s%2$s/μήνα</string>
-  <string name="subscriptions_per_year">%1$s%2$s/έτος</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Bonus έως %s%%!</string>
   <string name="gamif_bonus_received">Bonus που ελήφθη</string>
@@ -759,7 +775,7 @@
   <string name="carrier_billing_fees_disclaimer">Ενδέχεται να ισχύουν επιπλέον χρεώσεις</string>
   <string name="carrier_billing_insert_phone_body">Παρακαλούμε, εισαγάγετε τον αριθμό του τηλεφώνου σας</string>
   <string name="carrier_billing_phone_field">Ο αριθμός του τηλεφώνου σας...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">Θα επιβληθεί τέλος %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s για %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Ο αριθμός του τηλεφώνου σας είναι %s.</string>
   <string name="carrier_billing_enter_pin_body">Παρακαλούμε, εισαγάγετε το PIN που ελήφθη μέσω SMS.</string>
@@ -835,6 +851,8 @@
   <string name="rate_us_possitive_thanks_body">Χαιρόμαστε που σας αρέσει η εφαρμογή μας. Μπορείτε να μας βοηθήσετε παρέχοντας μία αξιολόγηση στο store εφαρμογών;</string>
   <string name="rate_us_possitive_rate_button">ΑΞΙΟΛΟΓΗΣΤΕ ΤΟ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Ευχαριστούμε για την ανατροφοδότηση!</string>
+  <string name="rate_us_back_title">Θέλετε να μας βοηθήσετε;</string>
+  <string name="rate_us_back_body">Αξιολογήστε το AppCoins Wallet στο store εφαρμογών, ώστε να το βελτιώσουμε.</string>
   <!--Card verification-->
   <string name="card_verification_body">Χρησιμοποιήστε τη χρεωστική/πιστωτική σας κάρτα για να πιστοποιήσετε το wallet σας.</string>
   <string name="card_verification_charde_disclaimer">Η κάρτα σας θα χρεωθεί κατά %s, τα οποία θα επιστραφούν όταν επιβεβαιώσετε τον κωδικό.</string>
@@ -859,6 +877,8 @@
   <string name="card_verification_wallets_one_step_title">Ένα ακόμη βήμα για επικύρωση</string>
   <string name="card_verification_wallets_one_step_body">Εισαγάγετε τον κωδικό που εμφανίζεται στις λεπτομέρειες συναλλαγής.</string>
   <string name="card_verification_wallets_insert_bode_button">Εισαγάγετε τον κωδικό</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">Αγοράστε αυτό το voucher και λάβετε bonus έως %s%%.</string>
   <string name="voucher_buy_header">Voucher για %s</string>
@@ -867,4 +887,6 @@
   <string name="voucher_code_title">Κωδικός Voucher</string>
   <string name="voucher_instructions_body">Μεταβείτε στο %s και χρησιμοποιήστε τον κωδικό για να εξαργυρώσετε το voucher σας.</string>
   <string name="voucher_instructions_transactions">Ο κωδικός voucher είναι πάντα διαθέσιμος στο ιστορικό συναλλαγών.</string>
+  <string name="voucher_empty">Δεν υπάρχουν διαθέσιμα voucher αυτή τη στιγμή.</string>
+  <string name="voucher_tooltip">Τώρα μπορείτε να αγοράσετε voucher για παιχνίδια!</string>
 </resources>
