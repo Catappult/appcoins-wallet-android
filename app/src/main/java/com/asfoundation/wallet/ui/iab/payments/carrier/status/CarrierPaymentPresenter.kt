@@ -31,6 +31,8 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun initializeView() {
     view.initializeView(data.bonusAmount, data.currency)
+    // TODO - remove this; we just have it here because we cannot go to the end of dimoco view
+    carrierInteractor.savePhoneNumber(data.phoneNumber)
     navigator.navigateToPaymentWebView(data.paymentUrl)
   }
 
@@ -72,6 +74,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun handleCompletedStatus(payment: CarrierPaymentModel): Completable {
     return sendPaymentSuccessEvents()
+        .andThen { carrierInteractor.savePhoneNumber(data.phoneNumber) }
         .observeOn(viewScheduler)
         .andThen(Completable.fromAction { view.showFinishedTransaction() }
             .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))

@@ -14,10 +14,6 @@ class SecureCarrierBillingLocalData(
     secureSharedPreferences.saveString("${CARRIER_BILLING_PREFIX}.phone", phoneNumber)
   }
 
-  override fun forgetPhoneNumber() {
-    secureSharedPreferences.remove("${CARRIER_BILLING_PREFIX}.phone")
-  }
-
   override fun retrievePhoneNumber(): String? {
     return secureSharedPreferences.getString("${CARRIER_BILLING_PREFIX}.phone", null)
   }

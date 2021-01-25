@@ -89,7 +89,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
     }
   }
 
-  private fun addPreselected(bundle: Bundle): Bundle? {
+  private fun addPreselected(bundle: Bundle): Bundle {
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.CARRIER_BILLING.id)
     return bundle
@@ -161,8 +161,6 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
   }
 
   fun savePhoneNumber(phoneNumber: String) = repository.savePhoneNumber(phoneNumber)
-
-  fun forgetPhoneNumber() = repository.forgetPhoneNumber()
 
   fun retrievePhoneNumber() = repository.retrievePhoneNumber()
 }

@@ -46,8 +46,6 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
 
   fun savePhoneNumber(phoneNumber: String) = local.savePhoneNumber(phoneNumber)
 
-  fun forgetPhoneNumber() = local.forgetPhoneNumber()
-
   fun retrievePhoneNumber() = local.retrievePhoneNumber()
 
   interface CarrierBillingApi {

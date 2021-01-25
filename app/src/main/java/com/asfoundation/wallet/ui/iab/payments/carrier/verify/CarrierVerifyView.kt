@@ -6,9 +6,8 @@ import java.math.BigDecimal
 
 interface CarrierVerifyView {
 
-  fun initializeView(currency: String, fiatAmount: BigDecimal,
-                     appcAmount: BigDecimal, skuDescription: String,
-                     bonusAmount: BigDecimal?, preselected: Boolean)
+  fun initializeView(currency: String, fiatAmount: BigDecimal, appcAmount: BigDecimal,
+                     skuDescription: String, bonusAmount: BigDecimal?, preselected: Boolean)
 
   fun backEvent(): Observable<Any>
 
@@ -34,5 +33,5 @@ interface CarrierVerifyView {
 
   fun filterCountries(countryList: List<String>, countryListString: String)
 
-  fun showPhoneNumberLayout()
+  fun showPhoneNumberLayout(phoneNumber: String?)
 }

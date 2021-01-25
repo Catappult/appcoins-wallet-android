@@ -124,7 +124,10 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     }
   }
 
-  override fun showPhoneNumberLayout() {
+  override fun showPhoneNumberLayout(phoneNumber: String?) {
+    phoneNumber?.let {
+      country_code_picker.fullNumber = it
+    }
     phone_number_skeleton.visibility = View.GONE
     phone_number_layout.visibility = View.VISIBLE
   }

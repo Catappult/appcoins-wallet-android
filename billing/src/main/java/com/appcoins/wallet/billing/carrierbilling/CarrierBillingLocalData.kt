@@ -4,8 +4,6 @@ interface CarrierBillingLocalData {
 
   fun savePhoneNumber(phoneNumber: String)
 
-  fun forgetPhoneNumber()
-
   fun retrievePhoneNumber(): String?
 
 }
