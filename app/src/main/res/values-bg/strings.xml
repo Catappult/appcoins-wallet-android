@@ -691,7 +691,7 @@
   <string name="subscriptions_settings_title">Управлявай абонаменти</string>
   <string name="subscriptions_title">Абонаменти</string>
   <string name="subscriptions_active_title">Активни</string>
-  <string name="subscriptions_expired_title">Неактивни</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Няма абонаменти все още</string>
   <string name="subscriptions_empty_body">Абонирай се за услуги в любимите си приложения и игри и ние ще се занимаваме с периодичните плащания.</string>
   <string name="subscriptions_details_billing_title">Плащане:</string>
