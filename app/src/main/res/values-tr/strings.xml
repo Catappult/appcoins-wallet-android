@@ -691,7 +691,7 @@
   <string name="subscriptions_settings_title">Abonelikleri yönetin</string>
   <string name="subscriptions_title">Abonelikler</string>
   <string name="subscriptions_active_title">Aktif</string>
-  <string name="subscriptions_expired_title">Devre dışı</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Henüz Abonelik Yok</string>
   <string name="subscriptions_empty_body">En sevdiğiniz uygulama ve oyunlardaki hizmetlere abone olun ve periyodik ödemelerle biz ilgilenelim.</string>
   <string name="subscriptions_details_billing_title">Faturalandırma:</string>
