@@ -690,7 +690,7 @@
   <string name="subscriptions_settings_title">Urus langganan</string>
   <string name="subscriptions_title">Langganan</string>
   <string name="subscriptions_active_title">Aktif</string>
-  <string name="subscriptions_expired_title">Tidak Aktif</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Tiada Langganan Semasa</string>
   <string name="subscriptions_empty_body">Langgan perkhidmatan dalam aplikasi dan permainan kegemaran anda dan biar kami uruskan pembayaran berkala.</string>
   <string name="subscriptions_details_billing_title">Pembilan:</string>
