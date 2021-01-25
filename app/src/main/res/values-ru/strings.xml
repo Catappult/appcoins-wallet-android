@@ -693,7 +693,7 @@
   <string name="subscriptions_settings_title">Управление подписками</string>
   <string name="subscriptions_title">Подписки</string>
   <string name="subscriptions_active_title">Активные</string>
-  <string name="subscriptions_expired_title">Неактивные</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Пока нет подписок</string>
   <string name="subscriptions_empty_body">Подпишисывайтесь на сервисы ваших любимых приложений и игр, а мы разберёмся с периодическими платежами.</string>
   <string name="subscriptions_details_billing_title">Оплата:</string>
