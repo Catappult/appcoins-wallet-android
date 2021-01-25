@@ -7,7 +7,7 @@ import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 class SubscriptionCancelSuccessNavigator(private val fragmentManager: FragmentManager) {
 
   fun navigateToSubscriptionList() {
-    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    for (i in 0 until fragmentManager.backStackEntryCount) fragmentManager.popBackStack()
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubscriptionListFragment.newInstance())
         .addToBackStack(SubscriptionListFragment::class.java.simpleName)
