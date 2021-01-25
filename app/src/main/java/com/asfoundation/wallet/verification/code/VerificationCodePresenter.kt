@@ -33,6 +33,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
     if (data.loaded) {
       view.setupUi(data.currency!!, data.symbol!!, data.amount!!, data.digits!!, data.format!!,
           data.period!!, data.date!!, savedInstanceState)
+      hideLoading()
     } else {
       loadInfo(savedInstanceState)
     }
@@ -54,22 +55,17 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
             .subscribeOn(ioScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { model ->
-              view.hideLoading()
-              view.unlockRotation()
+              hideLoading()
               if (model.error.hasError) {
                 navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, null, null)
               } else {
                 view.setupUi(model.currency!!, model.symbol!!, model.amount!!, model.digits!!,
                     model.format!!,
                     model.period!!, model.date!!, savedInstance)
-                data = VerificationCodeData(true, model.date, model.format, model.amount,
-                    model.currency, model.symbol, model.period, model.digits)
+                data = data.copy(loaded = true)
               }
             }
-            .doOnSubscribe {
-              view.lockRotation()
-              view.showLoading()
-            }
+            .doOnSubscribe { showLoading() }
             .subscribe({}, {
               logger.log(TAG, it)
               navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, data.amount,
@@ -107,8 +103,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
             .doOnNext {
               analytics.sendConfirmEvent("confirm")
               view.hideKeyboard()
-              view.lockRotation()
-              view.showLoading()
+              showLoading()
             }
             .observeOn(ioScheduler)
             .flatMapSingle {
@@ -140,6 +135,16 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
         }
       }
     }
+  }
+
+  private fun hideLoading() {
+    view.hideLoading()
+    view.unlockRotation()
+  }
+
+  private fun showLoading() {
+    view.lockRotation()
+    view.showLoading()
   }
 
   fun onAnimationEnd() = navigator.finish()

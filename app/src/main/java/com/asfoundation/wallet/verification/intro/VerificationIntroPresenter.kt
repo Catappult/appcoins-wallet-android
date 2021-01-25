@@ -35,14 +35,14 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
     handleSupportClicks()
   }
 
-  private fun loadModel(savedInstanceState: Bundle?) {
+  private fun loadModel(savedInstanceState: Bundle?, forgetPrevious: Boolean = false) {
     disposable.add(
         interactor.loadVerificationIntroModel()
             .subscribeOn(ioScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
               view.finishCardConfiguration(it.paymentInfoModel.paymentMethodInfo!!,
-                  it.paymentInfoModel.isStored, false, savedInstanceState)
+                  it.paymentInfoModel.isStored, forgetPrevious, savedInstanceState)
               view.updateUi(it)
               hideLoading()
               handleSubmitClicks(it.verificationInfoModel)
@@ -73,14 +73,14 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         .observeOn(viewScheduler)
         .doOnNext { showLoading() }
         .delay(1, TimeUnit.SECONDS)
-        .doOnNext { loadModel(savedInstanceState) }
+        .doOnNext { loadModel(savedInstanceState, true) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleTryAgainClicks() {
     disposable.add(view.getTryAgainClicks()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .doOnNext { loadModel(null) }
+        .doOnNext { loadModel(null, true) }
         .observeOn(viewScheduler)
         .subscribe({}, { it.printStackTrace() })
     )

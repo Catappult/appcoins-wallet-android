@@ -8,6 +8,8 @@ import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.verification.code.VerificationCodeFragment
+import com.asfoundation.wallet.verification.error.VerificationErrorFragment
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -32,6 +34,17 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
     setContentView(R.layout.activity_wallet_verification)
     toolbar()
     presenter.present(savedInstanceState)
+  }
+
+  override fun onBackPressed() {
+    val fragmentName =
+        supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: ""
+    if (fragmentName == VerificationErrorFragment::class.java.name ||
+        fragmentName == VerificationCodeFragment::class.java.name) {
+      toolbarBackPressSubject.onNext(fragmentName)
+    } else {
+      super.onBackPressed()
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

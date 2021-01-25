@@ -15,5 +15,4 @@ class VerificationIntroNavigator(private val fragmentManager: FragmentManager) {
         .addToBackStack(null)
         .commit()
   }
-
 }

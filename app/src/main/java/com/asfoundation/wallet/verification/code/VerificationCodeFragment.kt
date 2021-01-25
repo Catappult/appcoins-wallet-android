@@ -97,9 +97,7 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.apply {
-      putString(CODE_KEY, code?.let { code.text.toString() } ?: "")
-    }
+    outState.apply { putString(CODE_KEY, code?.let { code.text.toString() } ?: "") }
   }
 
 
@@ -183,6 +181,7 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
   }
 
   override fun hideLoading() {
+    content_container.visibility = View.VISIBLE
     code_title.visibility = View.VISIBLE
     code.visibility = View.VISIBLE
     code_disclaimer.visibility = View.VISIBLE

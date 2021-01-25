@@ -54,8 +54,7 @@ class VerificationCodeModule {
   @Provides
   fun providesVerificationCodeData(fragment: VerificationCodeFragment): VerificationCodeData {
     fragment.arguments!!.apply {
-      return VerificationCodeData(
-          getBoolean(VerificationCodeFragment.LOADED_KEY),
+      return VerificationCodeData(getBoolean(VerificationCodeFragment.LOADED_KEY),
           getLong(VerificationCodeFragment.DATE_KEY),
           getString(VerificationCodeFragment.FORMAT_KEY),
           getString(VerificationCodeFragment.AMOUNT_KEY),

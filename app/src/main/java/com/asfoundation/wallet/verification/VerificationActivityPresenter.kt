@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification
 
 import android.os.Bundle
+import com.asfoundation.wallet.verification.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Scheduler
@@ -25,7 +26,8 @@ class VerificationActivityPresenter(
     disposable.add(
         view.getToolbarBackPressEvents()
             .doOnNext { fragmentName ->
-              if (fragmentName == VerificationErrorFragment::class.java.name) {
+              if (fragmentName == VerificationErrorFragment::class.java.name ||
+                  fragmentName == VerificationCodeFragment::class.java.name) {
                 navigator.navigateToWalletVerificationIntroNoStack()
               } else {
                 navigator.backPress()
