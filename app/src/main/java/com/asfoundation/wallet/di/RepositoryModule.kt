@@ -11,6 +11,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
+import com.appcoins.wallet.billing.carrierbilling.CarrierBillingLocalData
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
@@ -22,6 +23,7 @@ import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
+import com.asfoundation.wallet.billing.carrier.SecureCarrierBillingLocalData
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository
@@ -132,8 +134,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideCarrierBillingRepository(
-      @Named("default") client: OkHttpClient): CarrierBillingRepository {
+  fun provideCarrierBillingRepository(@Named("default") client: OkHttpClient,
+      local: CarrierBillingLocalData): CarrierBillingRepository {
     val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
         CarrierErrorResponseTypeAdapter())
         .create()
@@ -144,7 +146,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .build()
     val api = retrofit.create(CarrierBillingRepository.CarrierBillingApi::class.java)
-    return CarrierBillingRepository(api, CarrierResponseMapper(retrofit),
+    return CarrierBillingRepository(api, local, CarrierResponseMapper(retrofit),
         BuildConfig.APPLICATION_ID)
   }
 
@@ -325,5 +327,12 @@ class RepositoryModule {
                                walletFeedbackApi: RatingRepository.WalletFeedbackApi,
                                logger: Logger): RatingRepository {
     return RatingRepository(sharedPreferences, walletFeedbackApi, logger)
+  }
+
+  @Singleton
+  @Provides
+  fun providesCarrierBillingLocalData(
+      secureSharedPreferences: SecureSharedPreferences): CarrierBillingLocalData {
+    return SecureCarrierBillingLocalData(secureSharedPreferences)
   }
 }
