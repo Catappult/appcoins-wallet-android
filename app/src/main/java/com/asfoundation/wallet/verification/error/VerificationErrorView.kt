@@ -9,4 +9,6 @@ interface VerificationErrorView {
   fun getMaybeLaterClicks(): Observable<Any>
 
   fun getTryAgainClicks(): Observable<Any>
+
+  fun getTryAgainAttemptsClicks(): Observable<Any>
 }

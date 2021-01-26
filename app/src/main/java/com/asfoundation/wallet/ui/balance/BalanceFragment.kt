@@ -315,6 +315,14 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     verify_wallet_button.isEnabled = true
   }
 
+  override fun enableInsertCodeButton() {
+    insert_code_button.isEnabled = true
+  }
+
+  override fun disableInserCodeButton() {
+    insert_code_button.isEnabled = false
+  }
+
   override fun showCreatingAnimation() {
     showingAnimation = true
     activityView?.showCreatingAnimation()

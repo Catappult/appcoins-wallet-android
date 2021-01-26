@@ -149,6 +149,20 @@
       />
 
   <Button
+      android:id="@+id/try_again_attempts"
+      style="@style/ButtonStyle.Alternative"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/button_height"
+      android:layout_marginStart="32dp"
+      android:layout_marginEnd="32dp"
+      android:layout_marginBottom="76dp"
+      android:text="@string/try_again"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layout_support_logo"
+      app:layout_constraintVertical_bias="1"
+      />
+
+  <Button
       android:id="@+id/maybe_later"
       style="@style/MaterialButtonStyle.Light"
       android:layout_width="match_parent"
@@ -157,9 +171,16 @@
       android:layout_marginTop="12dp"
       android:layout_marginEnd="32dp"
       android:text="@string/backup_tooltip_later_button"
-      android:visibility="gone"
-      app:layout_constraintTop_toBottomOf="@+id/try_again"
+      app:layout_constraintTop_toBottomOf="@+id/try_again_attempts"
       app:layout_constraintVertical_bias="1"
+      />
+
+  <androidx.constraintlayout.widget.Group
+      android:id="@+id/attempts_group"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="invisible"
+      app:constraint_referenced_ids="maybe_later,try_again_attempts"
       />
 
   <androidx.constraintlayout.widget.Guideline

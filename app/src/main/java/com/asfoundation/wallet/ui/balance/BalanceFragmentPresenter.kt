@@ -128,8 +128,10 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
           when (it.status) {
             BalanceWalletValidationStatus.VERIFIED -> displayWalletVerifiedStatus()
             BalanceWalletValidationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
-            BalanceWalletValidationStatus.NO_NETWORK -> handleNoNetwork(it.address)
             BalanceWalletValidationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
+            BalanceWalletValidationStatus.NO_NETWORK, BalanceWalletValidationStatus.ERROR -> {
+              handleNoNetwork(it.address)
+            }
           }
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -212,19 +214,19 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleValidationCache(address: String) {
     when (balanceInteractor.getCachedVerificationStatus(address)) {
-      VerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
       VerificationStatus.VERIFIED -> displayWalletVerifiedStatus()
-      VerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
-      else -> displayWalletUnverifiedStatus()
+      VerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
+      VerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus(true)
+      else -> displayWalletUnverifiedStatus(true)
     }
   }
 
   private fun handleNoNetwork(address: String) {
     when (balanceInteractor.getCachedVerificationStatus(address)) {
-      VerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
       VerificationStatus.VERIFIED -> displayWalletVerifiedStatus()
-      VerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
-      else -> displayNoNetworkStatus()
+      VerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus(true)
+      VerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus(true)
+      else -> displayWalletUnverifiedStatus(true)
     }
   }
 
@@ -234,25 +236,18 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     view.hideRequestedCodeWalletChip()
   }
 
-  private fun displayWalletUnverifiedStatus() {
+  private fun displayWalletUnverifiedStatus(disabled: Boolean = false) {
     view.showUnverifiedWalletChip()
     view.hideVerifiedWalletChip()
     view.hideRequestedCodeWalletChip()
-    view.enableVerifyWalletButton()
+    if (disabled) view.disableVerifyWalletButton() else view.enableVerifyWalletButton()
   }
 
-  private fun displayWalletCodeRequestedStatus() {
+  private fun displayWalletCodeRequestedStatus(disabled: Boolean = false) {
     view.hideUnverifiedWalletChip()
     view.hideVerifiedWalletChip()
     view.showRequestedCodeWalletChip()
-    view.enableVerifyWalletButton()
-  }
-
-  private fun displayNoNetworkStatus() {
-    view.showUnverifiedWalletChip()
-    view.hideVerifiedWalletChip()
-    view.hideRequestedCodeWalletChip()
-    view.disableVerifyWalletButton()
+    if (disabled) view.disableInserCodeButton() else view.enableInsertCodeButton()
   }
 
   fun saveSeenToolTip() {

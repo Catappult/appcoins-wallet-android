@@ -43,7 +43,8 @@ class VerificationErrorFragment : DaggerFragment(), VerificationErrorView {
 
         error_message_2.visibility = View.VISIBLE
         error_title_2.visibility = View.VISIBLE
-        maybe_later.visibility = View.VISIBLE
+        try_again.visibility = View.GONE
+        attempts_group.visibility = View.VISIBLE
 
         val amountWithCurrency =
             "$symbol${formatter.formatCurrency(amount, WalletCurrency.FIAT)}"
@@ -60,7 +61,8 @@ class VerificationErrorFragment : DaggerFragment(), VerificationErrorView {
 
         error_message_2.visibility = View.GONE
         error_title_2.visibility = View.GONE
-        maybe_later.visibility = View.GONE
+        try_again.visibility = View.VISIBLE
+        attempts_group.visibility = View.GONE
       }
     }
   }
@@ -68,6 +70,8 @@ class VerificationErrorFragment : DaggerFragment(), VerificationErrorView {
   override fun getMaybeLaterClicks() = RxView.clicks(maybe_later)
 
   override fun getTryAgainClicks() = RxView.clicks(try_again)
+
+  override fun getTryAgainAttemptsClicks() = RxView.clicks(try_again_attempts)
 
   override fun onDestroyView() {
     presenter.stop()

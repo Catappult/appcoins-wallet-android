@@ -76,4 +76,8 @@ interface BalanceFragmentView {
   fun disableVerifyWalletButton()
 
   fun enableVerifyWalletButton()
+
+  fun disableInserCodeButton()
+
+  fun enableInsertCodeButton()
 }

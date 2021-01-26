@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification
 
 import android.content.SharedPreferences
+import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.verification.network.ValidationApi
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStatus
@@ -32,7 +33,10 @@ class VerificationRepository(private val verificationApi: VerificationApi,
           }
         }
         .doOnSuccess { status -> saveVerificationStatus(walletAddress, status) }
-        .onErrorReturn { VerificationStatus.UNVERIFIED }
+        .onErrorReturn {
+          if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
+          else VerificationStatus.ERROR
+        }
   }
 
   fun saveVerificationStatus(walletAddress: String, status: VerificationStatus) {

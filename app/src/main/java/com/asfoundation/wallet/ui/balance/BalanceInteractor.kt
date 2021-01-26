@@ -128,9 +128,11 @@ class BalanceInteractor(
 
   private fun mapToBalanceWalletValidationModel(address: String,
                                                 verificationStatus: VerificationStatus): BalanceWalletValidationModel {
-    val status = when {
-      verificationStatus == VerificationStatus.CODE_REQUESTED -> BalanceWalletValidationStatus.CODE_REQUESTED
-      verificationStatus == VerificationStatus.VERIFIED -> BalanceWalletValidationStatus.VERIFIED
+    val status = when (verificationStatus) {
+      VerificationStatus.CODE_REQUESTED -> BalanceWalletValidationStatus.CODE_REQUESTED
+      VerificationStatus.VERIFIED -> BalanceWalletValidationStatus.VERIFIED
+      VerificationStatus.NO_NETWORK -> BalanceWalletValidationStatus.NO_NETWORK
+      VerificationStatus.ERROR -> BalanceWalletValidationStatus.ERROR
       else -> BalanceWalletValidationStatus.UNVERIFIED
     }
     return BalanceWalletValidationModel(address, status)

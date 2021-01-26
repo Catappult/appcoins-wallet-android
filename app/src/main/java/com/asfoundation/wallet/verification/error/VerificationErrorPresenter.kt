@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification.error
 
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 
 class VerificationErrorPresenter(private val view: VerificationErrorView,
@@ -17,7 +18,7 @@ class VerificationErrorPresenter(private val view: VerificationErrorView,
 
   private fun handleTryAgainClicks() {
     disposable.add(
-        view.getTryAgainClicks()
+        Observable.merge(view.getTryAgainClicks(), view.getTryAgainAttemptsClicks())
             .doOnNext {
               if (data.errorType == VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS) {
                 navigator.navigateToInitialWalletVerification()

@@ -158,30 +158,68 @@
       app:layout_constraintStart_toEndOf="@id/end_guideline"
       app:layout_constraintTop_toTopOf="@+id/layout_support_logo"
       />
+  <Button
+      android:id="@+id/try_again_attempts"
+      style="@style/MaterialButtonStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="64dp"
+      android:text="@string/try_again"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/mid_guideline"
+      app:layout_constraintTop_toTopOf="@id/maybe_later"
+      />
 
   <Button
       android:id="@+id/maybe_later"
       style="@style/MaterialButtonStyle.Light"
       android:layout_width="0dp"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginStart="23dp"
-      android:layout_marginEnd="8dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="68dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="23dp"
       android:text="@string/backup_tooltip_later_button"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/try_again"
-      app:layout_constraintEnd_toEndOf="@id/start_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+      app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/try_again"
-      app:layout_constraintVertical_bias="1"
-      tools:visibility="visible"
       />
 
+  <View
+      android:id="@+id/separator"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginBottom="23dp"
+      android:background="@color/list_separator_color"
+      app:layout_constraintBottom_toTopOf="@id/try_again_attempts"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <androidx.constraintlayout.widget.Group
+      android:id="@+id/attempts_group"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="invisible"
+      app:constraint_referenced_ids="maybe_later,try_again_attempts, separator"
+      tools:visibility="visible"
+      />
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/guideline_top"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
+      android:visibility="gone"
       app:layout_constraintGuide_percent="0.1"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/mid_guideline"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.5"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
