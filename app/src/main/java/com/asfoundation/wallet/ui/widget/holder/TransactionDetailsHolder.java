@@ -26,7 +26,6 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
     implements OnClickListener {
 
   private static final int DEFAULT_SCALE = 8;
-  public static final int VIEW_TYPE = 1007;
   /** Tag used to obtain wallet address in used */
   private static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
   /** The transaction operation item view */
@@ -83,11 +82,9 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
   private String formatFee() {
     int decimals = BuildConfig.DEBUG ? BuildConfig.ROPSTEN_DEFAULT_TOKEN_DECIMALS
         : BuildConfig.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS;
-    long longFee = Long.parseLong(operation.getFee());
-    double doubleFee = longFee / Math.pow(10, decimals);
 
-    return BigDecimal.valueOf(doubleFee)
-        .setScale(DEFAULT_SCALE, RoundingMode.HALF_UP)
+    return new BigDecimal(operation.getFee()).divide(BigDecimal.valueOf(Math.pow(10.0, decimals)),
+        DEFAULT_SCALE, RoundingMode.HALF_UP)
         .toPlainString();
   }
 
