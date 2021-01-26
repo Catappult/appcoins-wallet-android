@@ -82,8 +82,10 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
 
     val fiat =
         "${formatter.formatCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)} $currency"
-    val appc = "${formatter.formatCurrency(appcAmount,
-        WalletCurrency.APPCOINS)} ${WalletCurrency.APPCOINS.symbol}"
+    val appc = "${
+      formatter.formatCurrency(appcAmount,
+          WalletCurrency.APPCOINS)
+    } ${WalletCurrency.APPCOINS.symbol}"
     fiat_price_text.text = fiat
     appc_price_text.text = appc
 
