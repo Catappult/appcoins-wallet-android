@@ -60,9 +60,9 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                 navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, null, null)
               } else {
                 view.setupUi(model.currency!!, model.symbol!!, model.amount!!, model.digits!!,
-                    model.format!!,
-                    model.period!!, model.date!!, savedInstance)
-                data = data.copy(loaded = true)
+                    model.format!!, model.period!!, model.date!!, savedInstance)
+                data = VerificationCodeData(true, model.date, model.format, model.amount,
+                    model.currency, model.symbol, model.period, model.digits)
               }
             }
             .doOnSubscribe { showLoading() }

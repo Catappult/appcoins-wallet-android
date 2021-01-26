@@ -57,7 +57,7 @@ class VerificationActivityPresenter(
         analytics.sendStartEvent("insert_code")
         navigator.navigateToWalletVerificationCode()
       }
-      VerificationStatus.VERIFIED -> navigator.finish()
+      else -> navigator.finish()
     }
   }
 }
