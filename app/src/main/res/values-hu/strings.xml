@@ -26,6 +26,7 @@
   <string name="credits">Információ</string>
   <string name="label_new">Új</string>
   <string name="got_it_button">ÉRTEM</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission_title">Engedély kamera használatára</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
@@ -774,6 +775,7 @@
   <string name="carrier_billing_payment_method_title">Mobilszámlázás</string>
   <string name="carrier_billing_fees_disclaimer">További költségek léphetnek fel</string>
   <string name="carrier_billing_insert_phone_body">Add meg a telefonszámod</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">A telefonszámod...</string>
   <string name="carrier_billing_carrier_fees_body">Egy %1$s díjat számolunk fel</string>
   <string name="carrier_billing_purchase_info_body">%1$s a(z) %2$s appban.</string>
