@@ -50,7 +50,7 @@ class CarrierVerifyPresenter(
           if (it.shouldFilter()) {
             view.filterCountries(it.countryList, it.convertListToString())
           }
-          view.setSavedPhoneNumber(interactor.retrievePhoneNumber())
+          view.setSavedPhoneNumberVisibility(interactor.retrievePhoneNumber())
           view.showPhoneNumberLayout()
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -75,7 +75,8 @@ class CarrierVerifyPresenter(
             .observeOn(viewScheduler)
             .doOnNext { _ ->
               interactor.forgetPhoneNumber()
-              view.setSavedPhoneNumber(null)
+              view.setSavedPhoneNumberVisibility(null, true)
+              view.focusOnPhoneNumber()
             }
             .subscribe({}, { e -> e.printStackTrace() })
     )
