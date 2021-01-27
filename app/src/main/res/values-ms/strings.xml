@@ -26,6 +26,7 @@
   <string name="credits">Kredit</string>
   <string name="label_new">Baharu</string>
   <string name="got_it_button">FAHAM</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
   <string name="no_camera_permission_title">Kebenaran Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet memerlukan kebenaran untuk mengakses kamera anda untuk mengimbas kod QR.</string>
@@ -773,6 +774,7 @@
   <string name="carrier_billing_payment_method_title">Caj syarikat telekomunikasi</string>
   <string name="carrier_billing_fees_disclaimer">Bayaran tambahan mungkin dikenakan</string>
   <string name="carrier_billing_insert_phone_body">Sila masukkan nombor telefon anda</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Nombor telefon anda...</string>
   <string name="carrier_billing_carrier_fees_body">Yuran %1$s akan dikenakan</string>
   <string name="carrier_billing_purchase_info_body">%1$s dalam %2$s.</string>
