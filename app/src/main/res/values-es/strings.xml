@@ -26,6 +26,7 @@
   <string name="credits">Acerca de nosotros</string>
   <string name="label_new">Nuevo</string>
   <string name="got_it_button">OK</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">No hay suficiente espacio de almacenamiento</string>
   <string name="no_camera_permission_title">Acceso a la cámara</string>
   <string name="no_camera_permission">AppCoins BDS Wallet necesita permiso para acceder a la cámara para poder escanear códigos QR.</string>
@@ -774,6 +775,7 @@
   <string name="carrier_billing_payment_method_title">Pagar con la operadora</string>
   <string name="carrier_billing_fees_disclaimer">Puede que se apliquen tasas adicionales</string>
   <string name="carrier_billing_insert_phone_body">Introduce tu número de teléfono</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Tu número de teléfono...</string>
   <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
   <string name="carrier_billing_purchase_info_body">%1$s en %2$s.</string>
