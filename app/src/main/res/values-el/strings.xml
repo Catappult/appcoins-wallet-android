@@ -26,6 +26,7 @@
   <string name="credits">Σχετικά με εμάς</string>
   <string name="label_new">Νέο</string>
   <string name="got_it_button">ΤΟ ΚΑΤΑΛΑΒΑ</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Ο αποθηκευτικός χώρος δεν είναι επαρκής</string>
   <string name="no_camera_permission_title">Δικαίωμα Κάμερας</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
@@ -774,6 +775,7 @@
   <string name="carrier_billing_payment_method_title">Χρέωση μέσω παρόχου</string>
   <string name="carrier_billing_fees_disclaimer">Ενδέχεται να ισχύουν επιπλέον χρεώσεις</string>
   <string name="carrier_billing_insert_phone_body">Παρακαλούμε, εισαγάγετε τον αριθμό του τηλεφώνου σας</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Ο αριθμός του τηλεφώνου σας...</string>
   <string name="carrier_billing_carrier_fees_body">Θα επιβληθεί τέλος %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s για %2$s.</string>
