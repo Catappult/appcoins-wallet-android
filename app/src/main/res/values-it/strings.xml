@@ -26,6 +26,7 @@
   <string name="credits">Credits</string>
   <string name="label_new">Novità</string>
   <string name="got_it_button">HO CAPITO</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Spazio di archiviazione non sufficiente</string>
   <string name="no_camera_permission_title">Autorizzazione fotocamera</string>
   <string name="no_camera_permission">L\'AppCoins BDS Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
@@ -691,7 +692,7 @@
   <string name="subscriptions_settings_title">Gestisci gli abbonamenti</string>
   <string name="subscriptions_title">Abbonamenti</string>
   <string name="subscriptions_active_title">Attivi</string>
-  <string name="subscriptions_expired_title">Inattivi</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Nessun abbonamento</string>
   <string name="subscriptions_empty_body">Abbonati ai servizi delle tue app e dei tuoi giochi preferiti e penseremo noi ai pagamenti periodici.</string>
   <string name="subscriptions_details_billing_title">Costo:</string>
@@ -774,6 +775,7 @@
   <string name="carrier_billing_payment_method_title">Paga con l\'operatore</string>
   <string name="carrier_billing_fees_disclaimer">Possono essere applicati dei costi aggiuntivi</string>
   <string name="carrier_billing_insert_phone_body">Inserisci il tuo numero di telefono</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Il tuo numero di telefono...</string>
   <string name="carrier_billing_carrier_fees_body">Verrà addebitato un importo di %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s in %2$s.</string>
