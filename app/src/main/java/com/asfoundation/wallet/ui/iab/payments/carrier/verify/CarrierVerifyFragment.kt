@@ -135,8 +135,7 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     if (putVisible) {
       saved_phone_number_confirmed.visibility = View.VISIBLE
       change_phone_number_button.visibility = View.VISIBLE
-      // todo change this to strings.xml string
-      title.text = "Continue with previously used number"
+      title.text = getString(R.string.carrier_billing_insert_phone_previously_used)
     } else {
       saved_phone_number_confirmed.visibility = View.GONE
       change_phone_number_button.visibility = View.GONE
