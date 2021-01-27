@@ -26,6 +26,7 @@
   <string name="credits">اعتبارات</string>
   <string name="label_new">جدید</string>
   <string name="got_it_button">متوجه شدم</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
@@ -774,6 +775,7 @@
   <string name="carrier_billing_payment_method_title">پرداخت از طریق سرویس مخابراتی</string>
   <string name="carrier_billing_fees_disclaimer">ممکن است هزینه‌های جانبی وارد شود</string>
   <string name="carrier_billing_insert_phone_body">لطفا شماره تلفن خود را وارد کنید</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">شماره تلفن شما...</string>
   <string name="carrier_billing_carrier_fees_body">هزینه %1$s محاسبه خواهد شد</string>
   <string name="carrier_billing_purchase_info_body">%1$s در %2$s.</string>
