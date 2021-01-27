@@ -113,23 +113,54 @@
         app:line_type="solid"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/PaymentMethods.Carrier.PhoneNumberLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         >
-      <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/phone_number"
-          style="@style/PaymentMethods.Carrier.PhoneNumberEditText"
+
+      <com.google.android.material.textfield.TextInputLayout
+          style="@style/PaymentMethods.Carrier.PhoneNumberLayout"
           android:layout_width="match_parent"
-          android:layout_height="48dp"
-          android:hint="@string/carrier_billing_phone_field"
-          tools:text="912345678"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phone_number"
+            style="@style/PaymentMethods.Carrier.PhoneNumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/carrier_billing_phone_field"
+            tools:text="912345678"
+            />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <ImageView
+          android:id="@+id/saved_phone_number_confirmed"
+          android:layout_width="14dp"
+          android:layout_height="14dp"
+          android:layout_alignParentEnd="true"
+          android:layout_centerVertical="true"
+          android:layout_marginEnd="10dp"
+          android:src="@drawable/ic_check_mark"
+          android:visibility="gone"
           />
-    </com.google.android.material.textfield.TextInputLayout>
+
+    </RelativeLayout>
 
   </LinearLayout>
+
+  <Button
+      android:id="@+id/change_phone_number_button"
+      style="@style/ChangeButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_height"
+      android:layout_gravity="end"
+      android:text="CHANGE"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
+      app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+      />
+  <!-- TODO this text is hardcoded, change to strings.xml -->
 
   <TextView
       android:id="@+id/field_error_text"
@@ -142,7 +173,7 @@
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
       app:layout_constraintStart_toStartOf="@+id/phone_number_layout"
-      app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+      app:layout_constraintTop_toBottomOf="@+id/change_phone_number_button"
       />
   <TextView
       android:id="@+id/other_payments_button"
