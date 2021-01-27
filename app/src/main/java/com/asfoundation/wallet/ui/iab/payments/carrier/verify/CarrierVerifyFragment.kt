@@ -42,8 +42,6 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(IS_PHONE_ERROR_VISIBLE_KEY, field_error_text?.visibility == View.VISIBLE)
-    outState.putBoolean(IS_PHONE_NUMBER_SAVED_KEY,
-        change_phone_number_button.visibility == View.VISIBLE)
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -53,8 +51,6 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     } else {
       removePhoneNumberFieldError()
     }
-    setSavedPhoneNumberViewsVisibility(
-        savedInstanceState?.getBoolean(IS_PHONE_NUMBER_SAVED_KEY, false) == true)
   }
 
   override fun onDestroyView() {
@@ -227,7 +223,6 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     const val BACKSTACK_NAME = "carrier_entry_point"
 
     private const val IS_PHONE_ERROR_VISIBLE_KEY = "IS_PHONE_ERROR_VISIBLE"
-    private const val IS_PHONE_NUMBER_SAVED_KEY = "IS_PHONE_NUMBER_SAVED"
 
     internal const val PRE_SELECTED_KEY = "pre_selected"
     internal const val TRANSACTION_TYPE_KEY = "type"

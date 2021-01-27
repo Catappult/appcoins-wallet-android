@@ -162,5 +162,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
 
   fun savePhoneNumber(phoneNumber: String) = repository.savePhoneNumber(phoneNumber)
 
+  fun forgetPhoneNumber() = repository.forgetPhoneNumber()
+
   fun retrievePhoneNumber() = repository.retrievePhoneNumber()
 }

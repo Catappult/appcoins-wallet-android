@@ -23,7 +23,7 @@ import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
-import com.asfoundation.wallet.billing.carrier.SecureCarrierBillingLocalData
+import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingLocalData
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository

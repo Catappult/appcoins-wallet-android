@@ -74,6 +74,7 @@ class CarrierVerifyPresenter(
         view.changeButtonClick()
             .observeOn(viewScheduler)
             .doOnNext { _ ->
+              interactor.forgetPhoneNumber()
               view.setSavedPhoneNumber(null)
             }
             .subscribe({}, { e -> e.printStackTrace() })
