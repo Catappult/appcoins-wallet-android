@@ -121,7 +121,6 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   }
 
   private fun handleCodeConfirmationStatus(codeResult: VerificationCodeResult) {
-    view.hideLoading()
     if (codeResult.success && !codeResult.error.hasError) {
       view.showSuccess()
     } else {
@@ -135,6 +134,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
         }
       }
     }
+    view.hideLoading()
   }
 
   private fun hideLoading() {

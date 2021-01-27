@@ -186,6 +186,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
 
   private fun handleErrors(noNetworkError: Boolean = false, errorType: ErrorType? = null,
                            errorString: Int? = null) {
+    hideLoading()
     currentError = ErrorState(noNetworkError, errorType, errorString)
     when {
       noNetworkError -> view.showNetworkError()
