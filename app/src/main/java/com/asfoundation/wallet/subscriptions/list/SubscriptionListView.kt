@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.subscriptions.list
 
+import android.view.View
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import io.reactivex.Observable
 
@@ -29,5 +30,5 @@ interface SubscriptionListView {
 
   fun getRetryGenericClicks(): Observable<Any>
 
-  fun subscriptionClicks(): Observable<SubscriptionItem>
+  fun subscriptionClicks(): Observable<Pair<SubscriptionItem, View>>
 }

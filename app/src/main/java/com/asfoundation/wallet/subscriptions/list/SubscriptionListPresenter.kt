@@ -37,7 +37,7 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
   private fun handleItemClicks() {
     disposables.add(view.subscriptionClicks()
         .observeOn(viewScheduler)
-        .doOnNext { navigator.showSubscriptionDetails(it) }
+        .doOnNext { navigator.showSubscriptionDetails(it.first, it.second) }
         .subscribe({}, { it.printStackTrace() }))
   }
 

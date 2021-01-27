@@ -15,6 +15,7 @@
       android:layout_height="40dp"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/big_margin"
+      android:transitionName="app_icon_transition"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:src="@drawable/ic_transaction_peer"

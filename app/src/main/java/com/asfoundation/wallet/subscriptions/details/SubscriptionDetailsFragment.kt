@@ -15,7 +15,9 @@ import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
@@ -54,6 +56,10 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
   }
 
   override fun getCancelClicks() = RxView.clicks(cancel_subscription)
+
+  override fun retrieveSharedElement(): View {
+    return app_icon
+  }
 
   override fun setActiveDetails(subscriptionItem: SubscriptionItem) {
     app_name.text = subscriptionItem.appName
@@ -137,6 +143,8 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     GlideApp.with(context)
         .asBitmap()
         .load(appIcon)
+        .apply { RequestOptions().dontTransform() }
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .into(target)
     GlideApp.with(context)
         .load(paymentIcon)
@@ -156,6 +164,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     }
 
     override fun onLoadFailed(errorDrawable: Drawable?) {
+      startPostponedEnterTransition()
       app_icon.visibility = View.INVISIBLE
       app_icon_animation.visibility = View.VISIBLE
       app_icon_animation.repeatCount = 1
@@ -167,6 +176,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     }
 
     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+      startPostponedEnterTransition()
       app_icon.visibility = View.VISIBLE
       app_icon_animation.visibility = View.INVISIBLE
       app_icon.setImageBitmap(resource)

@@ -23,7 +23,7 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   lateinit var presenter: SubscriptionListPresenter
   private lateinit var activeAdapter: SubscriptionAdapter
   private lateinit var expiredAdapter: SubscriptionAdapter
-  private var clickSubject: PublishSubject<SubscriptionItem>? = null
+  private var clickSubject: PublishSubject<Pair<SubscriptionItem, View>>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -50,16 +50,18 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     presenter.present()
   }
 
-  override fun subscriptionClicks(): Observable<SubscriptionItem> = clickSubject!!
+  override fun subscriptionClicks(): Observable<Pair<SubscriptionItem, View>> = clickSubject!!
 
   override fun onActiveSubscriptions(subscriptionModels: List<SubscriptionItem>) {
     activeAdapter.submitList(subscriptionModels)
     if (subscriptionModels.isEmpty()) active_title.visibility = View.GONE
+    else active_title.visibility = View.VISIBLE
   }
 
   override fun onExpiredSubscriptions(subscriptionModels: List<SubscriptionItem>) {
     expiredAdapter.submitList(subscriptionModels)
     if (subscriptionModels.isEmpty()) expired_title.visibility = View.GONE
+    else expired_title.visibility = View.VISIBLE
   }
 
   override fun showNoNetworkError() {

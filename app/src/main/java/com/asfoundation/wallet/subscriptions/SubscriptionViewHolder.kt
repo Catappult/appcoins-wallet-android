@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.subscription_item.view.*
 import java.text.SimpleDateFormat
@@ -13,7 +14,7 @@ import java.util.*
 class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: CurrencyFormatUtils) :
     RecyclerView.ViewHolder(itemView) {
 
-  fun bind(item: SubscriptionItem, clickCallback: PublishSubject<SubscriptionItem>?) {
+  fun bind(item: SubscriptionItem, clickCallback: PublishSubject<Pair<SubscriptionItem, View>>?) {
     itemView.apply {
       app_name.text = item.appName
 
@@ -22,13 +23,13 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
       } else {
         showPriceInfo(this, item)
       }
-
-      more_button.setOnClickListener { clickCallback?.onNext(item) }
-      item_parent.setOnClickListener { clickCallback?.onNext(item) }
+      more_button.setOnClickListener { clickCallback?.onNext(Pair(item, app_icon)) }
+      item_parent.setOnClickListener { clickCallback?.onNext(Pair(item, app_icon)) }
     }
 
     GlideApp.with(itemView.context)
         .load(item.appIcon)
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .error(R.drawable.ic_transaction_peer)
         .into(itemView.app_icon)
   }

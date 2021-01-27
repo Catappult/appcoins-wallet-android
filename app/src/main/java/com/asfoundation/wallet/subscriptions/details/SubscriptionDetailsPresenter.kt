@@ -28,7 +28,9 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
     disposables.add(
         view.getCancelClicks()
             .observeOn(viewScheduler)
-            .doOnNext { navigator.showCancelSubscription(data.subscriptionItem) }
+            .doOnNext {
+              navigator.showCancelSubscription(data.subscriptionItem, view.retrieveSharedElement())
+            }
             .subscribe({}, { it.printStackTrace() }))
   }
 

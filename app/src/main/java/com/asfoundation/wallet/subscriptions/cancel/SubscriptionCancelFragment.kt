@@ -12,7 +12,9 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
@@ -88,6 +90,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
       }
 
       override fun onLoadFailed(errorDrawable: Drawable?) {
+        startPostponedEnterTransition()
         app_icon.visibility = View.INVISIBLE
         app_icon_animation.visibility = View.VISIBLE
         app_icon_animation.repeatCount = 1
@@ -99,6 +102,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
       }
 
       override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+        startPostponedEnterTransition()
         app_icon.visibility = View.VISIBLE
         app_icon_animation.visibility = View.INVISIBLE
         app_icon.setImageBitmap(resource)
@@ -117,6 +121,8 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
       GlideApp.with(it)
           .asBitmap()
           .load(appIcon)
+          .apply { RequestOptions().dontTransform() }
+          .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
           .into(target)
     }
   }

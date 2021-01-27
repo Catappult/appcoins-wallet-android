@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.subscriptions
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,7 +9,8 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 
-class SubscriptionAdapter(private var clickListener: PublishSubject<SubscriptionItem>?) :
+class SubscriptionAdapter(
+    private var clickListener: PublishSubject<Pair<SubscriptionItem, View>>?) :
     ListAdapter<SubscriptionItem, SubscriptionViewHolder>(
         object : DiffUtil.ItemCallback<SubscriptionItem>() {
           override fun areItemsTheSame(oldItem: SubscriptionItem, newItem: SubscriptionItem) =
