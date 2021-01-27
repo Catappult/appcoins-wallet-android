@@ -26,6 +26,7 @@
   <string name="credits">Thông tin</string>
   <string name="label_new">Mới</string>
   <string name="got_it_button">TÔI HIỂU</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
@@ -773,6 +774,7 @@
   <string name="carrier_billing_payment_method_title">Thanh toán thông qua tài khoản điện thoại</string>
   <string name="carrier_billing_fees_disclaimer">Phí bổ sung có thể được áp dụng</string>
   <string name="carrier_billing_insert_phone_body">Vui lòng nhập số điện thoại của bạn</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Số điện thoại của bạn...</string>
   <string name="carrier_billing_carrier_fees_body">Một khoản phí %1$s sẽ được tính</string>
   <string name="carrier_billing_purchase_info_body">%1$s trong %2$s.</string>
