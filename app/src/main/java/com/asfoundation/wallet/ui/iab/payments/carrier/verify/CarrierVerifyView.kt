@@ -33,5 +33,10 @@ interface CarrierVerifyView {
 
   fun filterCountries(countryList: List<String>, countryListString: String)
 
-  fun showPhoneNumberLayout(phoneNumber: String?)
+  fun showPhoneNumberLayout()
+
+  fun setSavedPhoneNumber(phoneNumber: String?)
+
+  fun changeButtonClick(): Observable<Any>
+
 }

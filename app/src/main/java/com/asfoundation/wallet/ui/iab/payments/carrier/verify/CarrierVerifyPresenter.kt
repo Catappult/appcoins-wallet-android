@@ -39,6 +39,7 @@ class CarrierVerifyPresenter(
     handleNextButton()
     handleOtherPaymentsButton()
     handlePhoneNumberChange()
+    handleChangeButtonClick()
   }
 
   private fun handleAvailableCountryList() {
@@ -49,7 +50,8 @@ class CarrierVerifyPresenter(
           if (it.shouldFilter()) {
             view.filterCountries(it.countryList, it.convertListToString())
           }
-          view.showPhoneNumberLayout(interactor.retrievePhoneNumber())
+          view.setSavedPhoneNumber(interactor.retrievePhoneNumber())
+          view.showPhoneNumberLayout()
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -62,6 +64,17 @@ class CarrierVerifyPresenter(
             .observeOn(viewScheduler)
             .doOnSuccess { ai ->
               view.setAppDetails(ai.appName, ai.icon)
+            }
+            .subscribe({}, { e -> e.printStackTrace() })
+    )
+  }
+
+  private fun handleChangeButtonClick() {
+    disposables.add(
+        view.changeButtonClick()
+            .observeOn(viewScheduler)
+            .doOnNext { _ ->
+              view.setSavedPhoneNumber(null)
             }
             .subscribe({}, { e -> e.printStackTrace() })
     )
