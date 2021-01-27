@@ -5,6 +5,8 @@
   <string name="title_send_with_token">%s ကို ေပးပို႔မည္</string>
   <string name="title_request">ရယူမည္</string>
   <string name="title_import">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">ကၽြႏ္ုပ္၏ ပိုက္ဆံအိတ္မ်ား</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">စကားဝွက္</string>
   <string name="action_sign_in_short">Create</string>
@@ -333,7 +335,12 @@
   <string name="gamification_leveled_up_body">သင္သည္ ယခုအခါ ၀ယ္ယူမႈတိုင္းအတြက္ %s ေဘာနပ္စ္ကို ရရွိပါမည္။ ပိုမိုရရွိရန္ ဆက္၀ယ္လိုက္ပါ။</string>
   <string name="gamification_leveled_up_notification_title">ေနာက္အဆင့္သို႔ သင္ေရာက္ရွိပါၿပီ။</string>
   <string name="gamification_leveled_up_notification_body">ဂုဏ္ယူပါသည္။ ယခုအခါတြင္ သင္သည္ ၀ယ္ယူမႈတိုင္းအတြက္ %s ေဘာနပ္စ္ကို ရရွိပါမည္။</string>
-  <string name="gamification_how_max_level_body">ဂုဏ္ယူပါသည္။ အျမင့္ဆံုးအဆင့္သို႔ သင္ေရာက္ရွိပါၿပီ 💃</string>
+  <string name="gamification_how_max_level_notification_title">သင္လုပ္လိုက္ႏိုင္ပါၿပီ။</string>
+  <string name="gamification_how_max_level_body">အျမင့္ဆံုးအဆင့္သို႔ သင္ေရာက္သြားပါၿပီ - ဝယ္ယူမႈတိုင္းအတြက္ %s ေဘာနပ္စ္။</string>
+  <string name="gamification_level_up_notification_title">ရကာနီးပါၿပီ။</string>
+  <string name="gamification_level_up_notification_body">ေနာက္အဆင့္သို႔ေရာက္ရန္ AppCoins %s ကို အသံုးျပဳပါ။</string>
+  <string name="gamification_bonus_plus_perk_title">အပိုေဘာနပ္စ္ကို သင္ရရွိလိုက္ပါသည္။</string>
+  <string name="gamification_bonus_plus_perk_body">%1$s ေဘာနပ္စ္ႏွင့္ %2$s AppCoins Credits အပိုကို ရယူလိုက္ပါ။</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">%s သို႔ သင့္ပိုက္ဆံအိတ္ လိပ္စာကိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို ခြင့္ျပဳပါ။</string>
   <string name="provide_wallet_body_placeholders">သင့္ပိုက္ဆံအိတ္လိပ္စာအား %2$s သို႔ေပးရန္ %1$s ကို ခြင့္ျပဳပါ။</string>
@@ -410,7 +417,7 @@
   <string name="password">စကားဝွက္</string>
   <string name="repeat_password">စကားဝွက္ကို ျပန္ထည့္ပါ</string>
   <string name="turn_on_button">ဖြင့္မည္</string>
-  <string name="no_thanks_button">No, thanks</string>
+  <string name="no_thanks_button">ေတာ္ၿပီ။ ေက်းဇူးပါ</string>
   <string name="remind_later_button">ေနာက္မွသတိေပးပါ</string>
   <string name="get_code_button">ကုဒ္ရယူမည္</string>
   <string name="confirm_button">အတည္ျပဳမည္</string>
@@ -499,7 +506,9 @@
   <string name="purchase_error_wallet_block_code_403">သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပံုရပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_card_error_CVV">CVV/CVC မွားေနပါသည္</string>
   <string name="error_contac_us_body">ျပႆနာဆက္ရွိေနပါက ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳၿပီးေနာက္ ဝယ္ယူမႈကို ၿပီးေအာင္လုပ္ၾကည့္ပါ။</string>
+  <string name="purchase_error_try_other_method">အိုး&#8230; တစ္ခုခု ျဖစ္ေနပါသည္။ အျခားေငြေပးေခ်ရန္ နည္းလမ္းတစ္ခုျဖင့္ စမ္းၾကည့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
+  <string name="purchase_error_try_other_amount">သင္ေငြျဖည့္သည့္ပမာဏ မွန္ကန္ေၾကာင္း ေသခ်ာပါသလား။ အျခားတစ္ခုျဖင့္ စမ္းၾကည့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -559,8 +568,11 @@
   <string name="promotions_tab_poa_title">ကစားကာ&amp;ရယူပါ</string>
   <string name="promotions_empty_promotions_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရွိေသးပါ။ ေနာက္မွျပန္လာခဲ့ပါ။</string>
   <string name="promotions_empty_poa_body">လက္ရွိတြင္ ဆုမ်ားရရွိနိုင္ေသာ အက္ပ္မ်ား မရွိေသးပါ။ ေနာက္မွျပန္လာခဲ့ပါ။</string>
+  <string name="promotions_empty_first_purchase_body">ဂိမ္း သို႔မဟုတ္ အက္ပ္တစ္ခုတြင္ သင့္ပထမဆံုး ဝယ္ယူမႈကို ျပဳလုပ္ကာ ကၽြႏ္ုပ္တို႔ထံမွ သင့္အတြက္ ပ႐ိုမိုးရွင္းမ်ားကို ရယူလိုက္ပါ။</string>
+  <string name="promotions_empty_suggested_games_title">ၫႊန္းထားေသာဂိမ္းမ်ား</string>
   <string name="promotions_perks_button">ခံစားခြင့္မ်ား</string>
   <string name="promotions_vouhers_button">ေဘာက္ခ်ာမ်ား</string>
+  <string name="promotions_tooltip">ကၽြႏ္ုပ္တို႔၏ ပ႐ိုမိုးရွင္းမ်ားျဖင့္ အခမဲ့ AppCoins Credits ကို ရယူလိုက္ပါ။</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ဆုမ်ားကိုရရွိရန္ အပ္ဒိတ္လုပ္ပါ</string>
   <string name="update_wallet_poa_notification_body">ဤဆုကိုရရွိရန္ AppCoins Wallet ကို အပ္ဒိတ္လုပ္ေပးပါ။</string>
@@ -691,7 +703,7 @@
   <string name="subscriptions_canceled_body">ပယ္ဖ်က္လိုက္ပါသည္</string>
   <string name="subscriptions_details_disclaimer">ေငြလဲႏႈန္းေၾကာင့္ ေနာက္ထပ္ေငြေပးေခ်မႈအတြက္ AppCoins တန္ဖိုးသည္ ကြဲျပားျခင္းရွိႏိုင္ပါသည္။</string>
   <string name="subscriptions_details_button">အေသးစိတ္မ်ား</string>
-  <string name="subscriptions_manage_button">ပံုမွန္၀ယ္ယူမႈကို စီမံမည္</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
   <string name="subscriptions_cancel_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
   <string name="subscriptions_cancel_body">ဤပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုပါသလား။</string>
@@ -701,10 +713,14 @@
   <string name="subscriptions_cancel_confirmation_body">ဤပံုမွန္၀ယ္ယူမႈအတြက္ သင့္အားေငြေကာက္ခံေတာ့မည္ မဟုတ္ဘဲ %s အထိ သင္အသံုးျပဳနိုင္ပါသည္။</string>
   <string name="subscriptions_category_title">ပံုမွန္၀ယ္ယူမႈ</string>
   <string name="subscriptions_bonus_body">ေငြေပးေခ်မႈ တစ္ခုစီတြင္ ဤေဘာနပ္စ္ကို သင္ရရွိပါမည္။</string>
-  <string name="subscriptions_per_day">တစ္ေန႔လွ်င္ %1$s%2$s</string>
-  <string name="subscriptions_per_week">တစ္ပတ္လွ်င္ %1$s%2$s</string>
-  <string name="subscriptions_per_month">တစ္လလွ်င္ %1$s%2$s</string>
-  <string name="subscriptions_per_year">တစ္ႏွစ္လွ်င္ %1$s%2$s</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">%s%% အထိ ေဘာနပ္စ္။</string>
   <string name="gamif_bonus_received">ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ</string>
@@ -758,7 +774,7 @@
   <string name="carrier_billing_fees_disclaimer">ေနာက္ထပ္ အခေၾကးေငြမ်ား ရွိႏိုင္ပါသည္</string>
   <string name="carrier_billing_insert_phone_body">သင့္ဖုန္းနံပါတ္ကို ထည့္ေပးပါ</string>
   <string name="carrier_billing_phone_field">သင့္ဖုန္းနံပါတ္...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">အခေၾကးေငြ %1$s ေကာက္ခံပါမည္</string>
   <string name="carrier_billing_purchase_info_body">%2$s တြင္ %1$s။</string>
   <string name="carrier_billing_phone_confirmation_body">သင့္ဖုန္းနံပါတ္မွာ %s ျဖစ္ပါသည္။</string>
   <string name="carrier_billing_enter_pin_body">SMS မွတဆင့္ရရွိေသာ PIN ကို ထည့္ေပးပါ။</string>
@@ -831,17 +847,19 @@
   <string name="rate_us_possitive_thanks_body">ကၽြႏ္ုပ္တို႔၏အက္ပ္ကို သင္ႏွစ္သက္ျခင္းအတြက္ ဂုဏ္ယူပါသည္။ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးျခင္းျဖင့္ ကူညီေပးႏိုင္မလား။</string>
   <string name="rate_us_possitive_rate_button">APPCOINS WALLET ကို အဆင့္သတ္မွတ္မည္</string>
   <string name="rate_us_possitive_done_title">သင့္ေျဖၾကားမႈအတြက္ ေက်းဇူးတင္ပါသည္။</string>
+  <string name="rate_us_back_title">ကၽြႏ္ုပ္တို႔ကို ကူညီလိုပါသလား။</string>
+  <string name="rate_us_back_body">AppCoins Wallet ကို ပိုမိုေကာင္းမြန္ေအာင္ ကၽြႏ္ုပ္တို႔ျပဳလုပ္ႏိုင္ေစရန္ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးပါ။</string>
   <!--Card verification-->
   <string name="card_verification_body">သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳရန္ သင့္ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ကို အသံုးျပဳပါ။</string>
   <string name="card_verification_charde_disclaimer">သင့္ကဒ္တြင္ %s ကို ကၽြႏ္ုပ္တို႔ေကာက္ခံကာ ကုဒ္ကိုအတည္ျပဳၿပီးသည္ႏွင့္ ျပန္အမ္းေပးပါမည္။</string>
   <string name="card_verification_code_title">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားပါ ကုဒ္ကို စစ္ေဆးပါ</string>
-  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="card_verification_code_body">သင့္ကဒ္ကိုထုတ္ေပးသူကေပးေသာ ေငြလႊဲေျပာင္းမႈ အက်ဥ္းခ်ဳပ္တြင္ သီးျခားကုဒ္တစ္ခု ေတြ႕ရပါမည္။</string>
   <string name="card_verification_code_example_title">ေငြလႊဲေျပာင္းမႈ အက်ဥ္းခ်ဳပ္ ဥပမာ</string>
   <string name="card_verification_code_example_date">လႊဲသည့္ေန႔စြဲ</string>
   <string name="card_verification_code_example_description">ေဖာ္ျပခ်က္</string>
   <string name="card_verification_code_example_amount">ပမာဏ</string>
-  <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
-  <string name="card_verification_code_enter_title">Enter the %s digits code</string>
+  <string name="card_verification_code_example_code">သီးျခားကုဒ္။\n%s ရက္ျပည့္လွ်င္ သက္တမ္းကုန္သည္။</string>
+  <string name="card_verification_code_enter_title">ဂဏန္း %s လံုးပါကုဒ္ကိုထည့္ပါ</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="other">ကုဒ္ကို သင္အတည္ျပဳၿပီးေနာက္ %2$s နာရီအတြင္း %1$s ကို ျပန္အမ္းေပးပါမည္။</item>
   </plurals>
@@ -853,6 +871,8 @@
   <string name="card_verification_wallets_one_step_title">အတည္ျပဳရန္ ေနာက္ထပ္တစ္ဆင့္</string>
   <string name="card_verification_wallets_one_step_body">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားတြင္ ျမင္ရေသာကုဒ္ကိုထည့္ပါ။</string>
   <string name="card_verification_wallets_insert_bode_button">ကုဒ္ကိုထည့္ပါ</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">ဤေဘာက္ခ်ာကိုဝယ္ကာ %s%% အထိ ေဘာနပ္စ္ရယူလိုက္ပါ။</string>
   <string name="voucher_buy_header">%s အတြက္ ေဘာက္ခ်ာ</string>
@@ -861,4 +881,6 @@
   <string name="voucher_code_title">ေဘာက္ခ်ာကုဒ္</string>
   <string name="voucher_instructions_body">သင့္ေဘာက္ခ်ာကို လဲလွယ္ရန္ %s သို႔သြားကာ ကုဒ္ကိုအသံုးျပဳပါ။</string>
   <string name="voucher_instructions_transactions">ေငြလႊဲေျပာင္းမႈ ရာဇဝင္တြင္ ေဘာက္ခ်ာကုဒ္ကို အၿမဲတမ္းေတြ႕ႏိုင္ပါသည္။</string>
+  <string name="voucher_empty">လက္ရွိတြင္ မည္သည့္ေဘာက္ခ်ာမွ် မရရွိႏိုင္ပါ။</string>
+  <string name="voucher_tooltip">ယခုအခါ ဂိမ္းမ်ားအတြက္ ေဘာက္ခ်ာမ်ားကို သင္ဝယ္ယူႏိုင္ပါၿပီ။</string>
 </resources>
