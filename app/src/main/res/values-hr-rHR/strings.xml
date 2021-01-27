@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Pošalji %s</string>
   <string name="title_request">Primanje</string>
   <string name="title_import">Recover Wallet</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">My Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Lozinka</string>
   <string name="action_sign_in_short">Create</string>
@@ -333,7 +335,12 @@
   <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
   <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
   <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_notification_title">You Made It!</string>
+  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
+  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_level_up_notification_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
@@ -500,6 +507,8 @@
   <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
+  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>
@@ -559,8 +568,11 @@
   <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
   <string name="promotions_empty_promotions_body">There are no available promotions at the moment. Come back later!</string>
   <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
+  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_suggested_games_title">Suggested Games</string>
   <string name="promotions_perks_button">Perks</string>
   <string name="promotions_vouhers_button">Vouchers</string>
+  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Update to receive rewards</string>
   <string name="update_wallet_poa_notification_body">Please update the AppCoins Wallet to receive this reward.</string>
@@ -693,7 +705,7 @@
   <string name="subscriptions_canceled_body">Canceled</string>
   <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>
   <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTION</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
@@ -703,10 +715,14 @@
   <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
   <string name="subscriptions_category_title">Subscription</string>
   <string name="subscriptions_bonus_body">You\'ll receive this bonus on each payment.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/day</string>
-  <string name="subscriptions_per_week">%1$s%2$s/week</string>
-  <string name="subscriptions_per_month">%1$s%2$s/month</string>
-  <string name="subscriptions_per_year">%1$s%2$s/year</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
   <string name="gamif_bonus_received">Bonus received</string>
@@ -837,8 +853,10 @@
   <string name="rate_us_improve_field__empty_error">Please write something</string>
   <string name="rate_us_possitive_thanks_title">Thank you!</string>
   <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE THE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <string name="rate_us_back_title">Wanna help us?</string>
+  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code.</string>
@@ -865,6 +883,8 @@
   <string name="card_verification_wallets_one_step_title">One more step to validate</string>
   <string name="card_verification_wallets_one_step_body">Insert the code that appears in the transaction details.</string>
   <string name="card_verification_wallets_insert_bode_button">Insert code</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
   <string name="voucher_buy_header">Voucher for %s</string>
@@ -873,4 +893,6 @@
   <string name="voucher_code_title">Voucher Code</string>
   <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
   <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
+  <string name="voucher_empty">No vouchers available at the moment.</string>
+  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 </resources>
