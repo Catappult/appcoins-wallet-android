@@ -26,6 +26,7 @@
   <string name="credits">ਕ੍ਰੈਡਿਟ</string>
   <string name="label_new">ਨਵਾਂ</string>
   <string name="got_it_button">ਠੀਕ ਹੈ!</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission_title">ਕੈਮਰਾ ਅਧਿਕਾਰ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
@@ -774,6 +775,7 @@
   <string name="carrier_billing_payment_method_title">ਕੈਰੀਅਰ ਬਿਲਿੰਗ</string>
   <string name="carrier_billing_fees_disclaimer">ਵਾਧੂ ਫੀਸ ਲਾਗੂ ਹੋ ਸਕਦੀ ਹੈ</string>
   <string name="carrier_billing_insert_phone_body">ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਪਾਓ</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ...</string>
   <string name="carrier_billing_carrier_fees_body">ਇੱਕ %1$s ਫੀਸ ਲਗਾਈ ਜਾਵੇਗੀ</string>
   <string name="carrier_billing_purchase_info_body">%2$s ਵਿੱਚ %1$s|</string>
