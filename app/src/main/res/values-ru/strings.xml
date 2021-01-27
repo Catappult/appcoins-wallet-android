@@ -26,6 +26,7 @@
   <string name="credits">Информация</string>
   <string name="label_new">Новое</string>
   <string name="got_it_button">ЯСНО</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
   <string name="no_camera_permission_title">Разрешение использовать камеру</string>
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
@@ -776,6 +777,7 @@
   <string name="carrier_billing_payment_method_title">Оплата через провайдера связи</string>
   <string name="carrier_billing_fees_disclaimer">Возможны дополнительные комиссии</string>
   <string name="carrier_billing_insert_phone_body">Пожалуйста, введите свой номер телефона</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Ваш номер телефона...</string>
   <string name="carrier_billing_carrier_fees_body">Будет списана плата в %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s в %2$s.</string>
