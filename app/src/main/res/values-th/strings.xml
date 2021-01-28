@@ -26,6 +26,7 @@
   <string name="credits">เครดิต</string>
   <string name="label_new">ใหม่</string>
   <string name="got_it_button">เข้าใจล่ะ</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
@@ -692,7 +693,7 @@
   <string name="subscriptions_settings_title">จัดการการสมัครสมาชิก</string>
   <string name="subscriptions_title">สมัครสมาชิก</string>
   <string name="subscriptions_active_title">ใช้งาน</string>
-  <string name="subscriptions_expired_title">ไม่ใช้งาน</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">ยังไม่มีการสมัครสมาชิก</string>
   <string name="subscriptions_empty_body">สมัครบริการแอปและเกมส์ที่คุณชื่นชอบและเราจะจัดการระยะเวลาการชำระเงินให้</string>
   <string name="subscriptions_details_billing_title">การเรียกเก็บเงิน:</string>
@@ -775,6 +776,7 @@
   <string name="carrier_billing_payment_method_title">การชำระสินค้า</string>
   <string name="carrier_billing_fees_disclaimer">อาจมีค่าใช้จ่ายเพิ่มเติม</string>
   <string name="carrier_billing_insert_phone_body">โปรดใส่เบอร์โทรศัพท์ของคุณ</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">เบอร์โทรศัพท์ของคุณ...</string>
   <string name="carrier_billing_carrier_fees_body">จะมีการเรียกเก็บค่าธรรมเนียม %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$sใน%2$s</string>

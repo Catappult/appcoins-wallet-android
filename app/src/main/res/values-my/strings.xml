@@ -26,6 +26,7 @@
   <string name="credits">ခရက္ဒစ္မ်ား</string>
   <string name="label_new">အသစ္</string>
   <string name="got_it_button">ရပါၿပီ</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
   <string name="no_camera_permission_title">ကင္မရာ ခြင့္ျပဳခ်က္</string>
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
@@ -690,7 +691,7 @@
   <string name="subscriptions_settings_title">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
   <string name="subscriptions_title">ပံုမွန္၀ယ္ယူမႈမ်ား</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
-  <string name="subscriptions_expired_title">မ၀ယ္ထားေသာ</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">ပံုမွန္၀ယ္ယူမႈမ်ား မရွိေသးပါ</string>
   <string name="subscriptions_empty_body">သင့့္စိတ္ႀကိဳက္အက္ပ္မ်ားနွင့္ ဂိမ္မ်ားတြင္ ၀န္ေဆာင္မႈမ်ားကို ပံုမွန္၀ယ္ယူလိုက္ပါ။ ကာလအလိုက္ ေငြေပးေခ်မႈမ်ားကို ကၽြႏ္ုပ္တို႔ လုပ္ေဆာင္ေပးပါမည္။</string>
   <string name="subscriptions_details_billing_title">က်သင့္ေငြေကာက္ခံျခင္း -</string>
@@ -773,6 +774,7 @@
   <string name="carrier_billing_payment_method_title">ဖုန္း၀န္ေဆာင္မႈေပးသူ ေငြေကာက္ခံျခင္း</string>
   <string name="carrier_billing_fees_disclaimer">ေနာက္ထပ္ အခေၾကးေငြမ်ား ရွိႏိုင္ပါသည္</string>
   <string name="carrier_billing_insert_phone_body">သင့္ဖုန္းနံပါတ္ကို ထည့္ေပးပါ</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">သင့္ဖုန္းနံပါတ္...</string>
   <string name="carrier_billing_carrier_fees_body">အခေၾကးေငြ %1$s ေကာက္ခံပါမည္</string>
   <string name="carrier_billing_purchase_info_body">%2$s တြင္ %1$s။</string>

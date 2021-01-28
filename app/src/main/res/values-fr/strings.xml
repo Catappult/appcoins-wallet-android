@@ -26,6 +26,7 @@
   <string name="credits">Crédits</string>
   <string name="label_new">Nouveau</string>
   <string name="got_it_button">COMPRIS</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
   <string name="no_camera_permission_title">Autorisation de la caméra</string>
   <string name="no_camera_permission">AppCoins BDS Wallet nécessite l\'autorisation pour accéder à votre caméra pour scanner les codes QR.</string>
@@ -691,7 +692,7 @@
   <string name="subscriptions_settings_title">Gérer les abonnements</string>
   <string name="subscriptions_title">Abonnements</string>
   <string name="subscriptions_active_title">Actif</string>
-  <string name="subscriptions_expired_title">Inactif</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Pas encore d\'abonnements</string>
   <string name="subscriptions_empty_body">Abonnez-vous aux services de vos applications et jeux préférés et nous nous occuperons des paiements périodiques.</string>
   <string name="subscriptions_details_billing_title">Facturation :</string>
@@ -774,6 +775,7 @@
   <string name="carrier_billing_payment_method_title">Facturation par l\'opérateur</string>
   <string name="carrier_billing_fees_disclaimer">Des frais supplémentaires peuvent s\'appliquer</string>
   <string name="carrier_billing_insert_phone_body">Veuillez saisir votre numéro de téléphone</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Votre numéro de téléphone...</string>
   <string name="carrier_billing_carrier_fees_body">Des frais de %1$s seront facturés</string>
   <string name="carrier_billing_purchase_info_body">%1$s en %2$s.</string>
