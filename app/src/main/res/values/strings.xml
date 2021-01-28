@@ -784,7 +784,7 @@
   <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
   <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
   <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
-  
+
 
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
