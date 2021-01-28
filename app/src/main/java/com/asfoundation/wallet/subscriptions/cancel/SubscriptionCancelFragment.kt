@@ -103,9 +103,9 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
 
       override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
         startPostponedEnterTransition()
-        app_icon.visibility = View.VISIBLE
+        app_icon?.visibility = View.VISIBLE
         app_icon_animation.visibility = View.INVISIBLE
-        app_icon.setImageBitmap(resource)
+        app_icon?.setImageBitmap(resource)
       }
 
       override fun getRequest(): Request? = null

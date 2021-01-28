@@ -35,6 +35,7 @@ import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService.CampaignApi
 import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi
+import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
@@ -584,9 +585,9 @@ class ServiceModule {
   }
 
   @Provides
-  fun provideSubscriptionBillingService(@Named("blockchain") client: OkHttpClient,
-                                        gson: Gson): SubscriptionBillingApi {
-    val baseUrl = BuildConfig.CATAPPULT_NEO_HOST + "/product/8.20200701/"
+  fun providesSubscriptionBillingApi(@Named("blockchain") client: OkHttpClient,
+                                     gson: Gson): SubscriptionBillingApi {
+    val baseUrl = BuildConfig.CATAPPULT_NEO_HOST + "/product/8.20200701/applications/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -594,5 +595,18 @@ class ServiceModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SubscriptionBillingApi::class.java)
+  }
+
+  @Provides
+  fun providesUserSubscriptionApi(@Named("default") client: OkHttpClient,
+                                  gson: Gson): UserSubscriptionApi {
+    val baseUrl = BuildConfig.CATAPPULT_NEO_HOST + "/product/8.20200701/application/"
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(UserSubscriptionApi::class.java)
   }
 }

@@ -41,6 +41,7 @@ import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.*
+import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsMapper
 import com.asfoundation.wallet.support.SupportRepository
@@ -331,9 +332,9 @@ class RepositoryModule {
   }
 
   @Provides
-  fun provideSubscriptionRepository(subscriptionBillingApi: SubscriptionBillingApi,
+  fun provideSubscriptionRepository(userSubscriptionApi: UserSubscriptionApi,
                                     accountWalletService: WalletService): UserSubscriptionRepository {
-    return UserSubscriptionRepository(subscriptionBillingApi, accountWalletService,
+    return UserSubscriptionRepository(userSubscriptionApi, accountWalletService,
         UserSubscriptionsMapper())
   }
 }

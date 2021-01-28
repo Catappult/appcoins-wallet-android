@@ -1,10 +1,9 @@
 package com.asfoundation.wallet.subscriptions
 
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import io.reactivex.Single
 
-class UserSubscriptionRepository(private val subscriptionApi: SubscriptionBillingApi,
+class UserSubscriptionRepository(private val subscriptionApi: UserSubscriptionApi,
                                  private val accountWalletService: WalletService,
                                  private val subscriptionsMapper: UserSubscriptionsMapper) {
 

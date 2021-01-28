@@ -10,7 +10,7 @@ import retrofit2.http.*
 
 interface SubscriptionBillingApi {
 
-  @GET("applications/{domain}/inapp")
+  @GET("{domain}/inapp")
   fun getPackage(@Path("domain") packageName: String): Single<Boolean>
 
   /**
@@ -20,7 +20,7 @@ interface SubscriptionBillingApi {
    * @param limit (optionnal) The limit on the maximum number of items to return per page, up to 100.
    * @param currency (optionnal) The preferred currency to return prices in, as an ISO 4217 alphabetic code.
    */
-  @GET("applications/{domain}/inapp/subscriptions")
+  @GET("{domain}/inapp/subscriptions")
   fun getSubscriptions(@Header("Accept-Language") language: String,
                        @Path("domain") domain: String,
                        @Query("skus") skus: List<String>?,
@@ -32,7 +32,7 @@ interface SubscriptionBillingApi {
    * @param domain PackageName of the app from which we are requesting the sku
    * @param sku the product of the subscription
    */
-  @GET("applications/{domain}/inapp/subscriptions/{sku}")
+  @GET("{domain}/inapp/subscriptions/{sku}")
   fun getSkuSubscription(@Header("Accept-Language") language: String,
                          @Path("domain") domain: String,
                          @Path("sku") sku: String): Single<SubscriptionResponse>
@@ -43,7 +43,7 @@ interface SubscriptionBillingApi {
    * @param sku the product of the subscription
    * @param currency The preferred currency to generate the in-app subscription token with, as an ISO 4217 alphabetic code.
    */
-  @GET("applications/{domain}/inapp/subscriptions/{sku}/token")
+  @GET("{domain}/inapp/subscriptions/{sku}/token")
   fun getSkuSubscriptionToken(@Path("domain") domain: String,
                               @Path("sku") sku: String,
                               @Query("currency") currency: String?,
@@ -55,55 +55,42 @@ interface SubscriptionBillingApi {
    * @param domain PackageName of the app from which we are requesting the sku
    * @param limit (optional) Limit of purchases to be returned per page (default 100, max 100)
    */
-  @GET("applications/{domain}/inapp/subscription/purchases")
+  @GET("{domain}/inapp/subscription/purchases")
   fun getPurchases(@Path("domain") domain: String,
                    @Query("wallet.address") walletAddress: String,
                    @Query("wallet.signature") walletSignature: String,
                    @Query("limit") limit: Long? = null): Single<SubscriptionPurchaseListResponse>
 
-  @GET("applications/{domain}/inapp/subscription/purchases/{uid}")
+  @GET("{domain}/inapp/subscription/purchases/{uid}")
   fun getPurchase(@Path("domain") domain: String,
                   @Path("uid") uid: String,
                   @Query("wallet.address") walletAddress: String,
                   @Query("wallet.signature")
                   walletSignature: String): Single<SubscriptionPurchaseResponse>
 
-  @POST("applications/{domain}/inapp/purchases/{uid}/consume")
+  @POST("{domain}/inapp/purchases/{uid}/consume")
   fun consumePurchase(@Path("domain") domain: String,
                       @Path("uid") uid: String,
                       @Query("wallet.address") walletAddress: String,
                       @Query("wallet.signature") walletSignature: String,
                       @Query("payload") payload: String? = null): Completable
 
-  @POST("applications/{domain}/inapp/purchases/{uid}/acknowledge")
+  @POST("{domain}/inapp/purchases/{uid}/acknowledge")
   fun acknowledgePurchase(@Path("domain") domain: String,
                           @Path("uid") uid: String,
                           @Query("wallet.address") walletAddress: String,
                           @Query("wallet.signature") walletSignature: String,
                           @Query("payload") payload: String? = null): Completable
 
-  @POST("applications/{domain}/inapp/subscription/purchases/{uid}/activate")
+  @POST("{domain}/inapp/subscription/purchases/{uid}/activate")
   fun activateSubscription(@Path("domain") domain: String,
                            @Path("uid") uid: String,
                            @Query("wallet.address") walletAddress: String,
                            @Query("wallet.signature") walletSignature: String): Completable
 
-  @POST("applications/{domain}/inapp/subscription/purchases/{uid}/cancel")
+  @POST("{domain}/inapp/subscription/purchases/{uid}/cancel")
   fun cancelSubscription(@Path("domain") domain: String,
                          @Path("uid") uid: String,
                          @Query("wallet.address") walletAddress: String,
                          @Query("wallet.signature") walletSignature: String): Completable
-
-  /**
-   * Retrieves all subscriptions for a given user
-   * @param subStatus Filter based on the subStatus of the subscription
-   * @param applicationName Filter based on the package name
-   * @param limit Limit for the max number of subscriptions to be returned
-   */
-  @GET("application/inapp/subscription/purchases")
-  fun getUserSubscriptions(@Query("wallet.address") walletAddress: String,
-                           @Query("wallet.signature") walletSignature: String,
-                           @Query("substatus") subStatus: String?,
-                           @Query("application.name") applicationName: String?,
-                           @Query("limit") limit: Int?): Single<UserSubscriptionsListResponse>
 }
