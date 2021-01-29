@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier
 
-import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepositoryContract
+import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.asfoundation.wallet.repository.SecureSharedPreferences
 
-class CarrierBillingPreferencesRepository(
+class SecureCarrierBillingPreferencesRepository(
     private val secureSharedPreferences: SecureSharedPreferences) :
-    CarrierBillingPreferencesRepositoryContract {
+    CarrierBillingPreferencesRepository {
 
   companion object {
     private const val PHONE_NUMBER_KEY = "carrier_billing.phone"

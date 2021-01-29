@@ -8,7 +8,7 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 class CarrierBillingRepository(private val api: CarrierBillingApi,
-                               private val preferences: CarrierBillingPreferencesRepositoryContract,
+                               private val preferences: CarrierBillingPreferencesRepository,
                                private val mapper: CarrierResponseMapper,
                                packageName: String) {
 
