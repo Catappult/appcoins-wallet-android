@@ -35,7 +35,9 @@ interface CarrierVerifyView {
 
   fun showPhoneNumberLayout()
 
-  fun setSavedPhoneNumberVisibility(phoneNumber: String?, resetText: Boolean = false)
+  fun showSavedPhoneNumber(phoneNumber: String)
+
+  fun hideSavedPhoneNumber(clearText: Boolean = false)
 
   fun changeButtonClick(): Observable<Any>
 

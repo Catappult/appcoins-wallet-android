@@ -1,6 +1,6 @@
 package com.appcoins.wallet.billing.carrierbilling
 
-interface CarrierBillingLocalData {
+interface CarrierBillingPreferencesRepositoryContract {
 
   fun savePhoneNumber(phoneNumber: String)
 

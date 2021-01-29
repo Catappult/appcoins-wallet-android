@@ -124,22 +124,20 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     }
   }
 
-  override fun setSavedPhoneNumberVisibility(phoneNumber: String?, resetText: Boolean) {
-    if (phoneNumber != null) {
-      country_code_picker.fullNumber = phoneNumber
-      saved_phone_number_confirmed.visibility = View.VISIBLE
-      change_phone_number_button.visibility = View.VISIBLE
-      title.text = getString(R.string.carrier_billing_insert_phone_previously_used)
-      setPhoneNumberViewsEditable(false)
-    } else {
-      if (resetText) {
-        phone_number.setText("")
-      }
-      title.text = getString(R.string.carrier_billing_insert_phone_body)
-      saved_phone_number_confirmed.visibility = View.GONE
-      change_phone_number_button.visibility = View.GONE
-      setPhoneNumberViewsEditable(true)
-    }
+  override fun showSavedPhoneNumber(phoneNumber: String) {
+    country_code_picker.fullNumber = phoneNumber
+    saved_phone_number_confirmed.visibility = View.VISIBLE
+    change_phone_number_button.visibility = View.VISIBLE
+    title.text = getString(R.string.carrier_billing_insert_phone_previously_used)
+    setPhoneNumberViewsEditable(false)
+  }
+
+  override fun hideSavedPhoneNumber(clearText: Boolean) {
+    if (clearText) phone_number.setText("")
+    title.text = getString(R.string.carrier_billing_insert_phone_body)
+    saved_phone_number_confirmed.visibility = View.GONE
+    change_phone_number_button.visibility = View.GONE
+    setPhoneNumberViewsEditable(true)
   }
 
   private fun setPhoneNumberViewsEditable(editable: Boolean) {
@@ -189,7 +187,7 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     title.visibility = View.INVISIBLE
     disclaimer.visibility = View.INVISIBLE
     phone_number_layout.visibility = View.INVISIBLE
-    if(change_phone_number_button.visibility == View.VISIBLE) {
+    if (change_phone_number_button.visibility == View.VISIBLE) {
       change_phone_number_button.visibility = View.INVISIBLE
     }
     progress_bar.visibility = View.VISIBLE
@@ -204,7 +202,7 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     title.visibility = View.VISIBLE
     disclaimer.visibility = View.VISIBLE
     phone_number_layout.visibility = View.VISIBLE
-    if(change_phone_number_button.visibility == View.INVISIBLE) {
+    if (change_phone_number_button.visibility == View.INVISIBLE) {
       change_phone_number_button.visibility = View.VISIBLE
     }
     progress_bar.visibility = View.INVISIBLE
