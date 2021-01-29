@@ -13,7 +13,6 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.util.StoreOemAddresses
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -123,4 +122,6 @@ class LocalPaymentInteractor(private val walletService: WalletService,
     private const val TOP_UP_TRANSACTION_TYPE = "TOPUP"
     private const val INAPP_TRANSACTION_TYPE = "INAPP"
   }
+
+  data class StoreOemAddresses(val storeAddress: String, val oemAddress: String)
 }
