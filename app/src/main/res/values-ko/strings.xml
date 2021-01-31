@@ -631,16 +631,16 @@
   <string name="backup_additional_security_password_not_march">비밀번호가 일치하지 않습니다.</string>
   <!--Wallets Management-->
   <string name="wallets_title">지갑</string>
-  <string name="wallets_total_balance_title">Total balance in %s</string>
-  <string name="wallets_active_wallet_title">Active Wallet</string>
+  <string name="wallets_total_balance_title">%s의 총 잔액</string>
+  <string name="wallets_active_wallet_title">지갑 활성화</string>
   <plurals name="wallets_bottom_wallets_title">
     <item quantity="other">지갑</item>
   </plurals>
-  <string name="wallets_bottom_accumulated_value_title">Total value</string>
-  <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
-  <string name="wallets_imported_body">Wallet successfuly recovered</string>
+  <string name="wallets_bottom_accumulated_value_title">총 금액</string>
+  <string name="wallets_address_copied_body">클립보드에 지갑 주소가 복사되었습니다</string>
+  <string name="wallets_imported_body">지갑이 성공적으로 복구되었습니다</string>
   <string name="wallets_2nd_view_balance_title">잔액:</string>
-  <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
+  <string name="wallets_2nd_view_other_wallets_title">다른 지갑</string>
   <string name="wallets_2nd_view_import_button">지갑 복구</string>
   <string name="wallets_2nd_view_create_button">CREATE NEW</string>
   <string name="wallet_view_copy_button">COPY</string>
@@ -784,41 +784,41 @@
   <string name="carrier_billing_code_resend_button">코드 재전송</string>
   <string name="carrier_billing_submit_button">제출</string>
   <string name="carrier_billing_number_not_supported">귀하의 번호가 이 지불 방식과 호환되지 않습니다.</string>
-  <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
+  <string name="carrier_billing_terms_disclaimer">제출을 함으로써, 이용 약관과 개인 정보 보호 정책에 동의하는 것입니다.</string>
   <string name="carrier_billing_help_1">Need help?</string>
-  <string name="carrier_billing_help_2_button">Contact Support</string>
+  <string name="carrier_billing_help_2_button">지원 팀으로 연락하기</string>
   <string name="carrier_billing_terms_button">이용약관</string>
   <string name="carrier_billing_privacy_button">개인정보 보호정책</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
-  <string name="manage_cards_settings_manage_title">Manage cards</string>
-  <string name="manage_cards_view_title">Manage cards</string>
-  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
-  <string name="manage_cards_add_title">Add new card</string>
-  <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
-  <string name="manage_cards_remove_no">NO, CANCEL</string>
-  <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
-  <string name="manage_cards_card_ending_body">Card ending in %s</string>
-  <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
-  <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
-  <string name="manage_cards_select_title">Select payment card</string>
-  <string name="manage_cards_remember">Remember card</string>
+  <string name="manage_cards_settings_add_title">신용/직불 카드 추가</string>
+  <string name="manage_cards_settings_manage_title">카드 관리</string>
+  <string name="manage_cards_view_title">카드 관리</string>
+  <string name="manage_cards_view_manage_subtitle">지불 카드 관리</string>
+  <string name="manage_cards_add_title">신규 카드 추가</string>
+  <string name="manage_cards_remove_confirmation">이 카드를 삭제하시겠습니까?</string>
+  <string name="manage_cards_remove_no">아니오, 취소</string>
+  <string name="manage_cards_remove_yes">네, 제거 합니다</string>
+  <string name="manage_cards_card_ending_body">%s에 카드가 만료됩니다</string>
+  <string name="manage_cards_error_details">카드 상세 정보가 올바른가요? 확인하시고 다시 시도해 주세요!</string>
+  <string name="manage_cards_error_card_problem">카드에 문제가 있는 것 같습니다. 다른 카드로 시도해보세요.</string>
+  <string name="manage_cards_select_title">지불 카드를 선택하세요</string>
+  <string name="manage_cards_remember">카드 기억하기</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
+  <string name="perks_gamif_title">모든 구매 시마다 최대 %s%% 보너스</string>
+  <string name="perks_gamif_subtitle">좋아하는 앱을 더 많이 사용하면 할수록 더 큰 보너스를 받게 됩니다!</string>
   <string name="perks_title">프로모션</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
+  <string name="perks_body">기대해 주세요! 당신을 위한 특별 프로모션을 준비하고 있습니다.</string>
   <plurals name="promotion_ends">
-    <item quantity="other">The promotion ends in %s days.</item>
+    <item quantity="other">프로모션은 %s일 안에 끝납니다.</item>
   </plurals>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <string name="perks_end_in_date">프로모션은 %s 에 끝납니다.</string>
   <plurals name="promotion_ends_hours">
-    <item quantity="other">The promotion ends in %s hours.</item>
+    <item quantity="other">프로모션은 %s 시간내에 끝납니다.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
-    <item quantity="other">The promotion ends in %s minutes.</item>
+    <item quantity="other">프로모션은 %s 분내에 끝납니다.</item>
   </plurals>
-  <string name="perks_end_today">The promotion ends today.</string>
+  <string name="perks_end_today">프로모션은 오늘 끝납니다.</string>
   <string name="perks_available_soon">곧 프로모션이 진행됩니다</string>
   <string name="perks_next_level_reward">%s AppCoins 크레디트를 받기 위한 다음 단계에 도달했습니다!</string>
   <string name="perks_notification">보너스로 방금 %s AppCoins 크레디트를 받았습니다</string>
