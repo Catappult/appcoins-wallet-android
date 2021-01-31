@@ -697,9 +697,9 @@
   <string name="subscriptions_details_billing_title">빌링:</string>
   <string name="subscriptions_details_next_payment_title">다음 지불:</string>
   <string name="subscriptions_details_payment_method_title">지불 방법:</string>
-  <string name="subscriptions_details_last_bill">Last bill:</string>
-  <string name="subscriptions_details_start_date_title">Start date:</string>
-  <string name="subscriptions_details_cancelled_body">Cancelled - It expires on %s</string>
+  <string name="subscriptions_details_last_bill">최근 청구:</string>
+  <string name="subscriptions_details_start_date_title">시작 일자:</string>
+  <string name="subscriptions_details_cancelled_body">취소됨 - %s에 만료됩니다</string>
   <string name="subscriptions_expiration_body">%s에 만료됩니다</string>
   <string name="subscriptions_canceled_body">취소됨</string>
   <string name="subscriptions_details_disclaimer">환율로 인하여 다음 구매 시 AppCoins의 가치는 달라질 수 있습니다.</string>
@@ -785,7 +785,7 @@
   <string name="carrier_billing_submit_button">제출</string>
   <string name="carrier_billing_number_not_supported">귀하의 번호가 이 지불 방식과 호환되지 않습니다.</string>
   <string name="carrier_billing_terms_disclaimer">제출을 함으로써, 이용 약관과 개인 정보 보호 정책에 동의하는 것입니다.</string>
-  <string name="carrier_billing_help_1">Need help?</string>
+  <string name="carrier_billing_help_1">도움이 필요하신가요?</string>
   <string name="carrier_billing_help_2_button">지원 팀으로 연락하기</string>
   <string name="carrier_billing_terms_button">이용약관</string>
   <string name="carrier_billing_privacy_button">개인정보 보호정책</string>
@@ -879,10 +879,10 @@
   <string name="voucher_card_body">이 바우처를 구매하여 최대 %% 보너스를 받으세요.</string>
   <string name="voucher_buy_header">%s 바우처</string>
   <string name="voucher_buy_no_game_title">%s 이(가) 없나요?</string>
-  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
-  <string name="voucher_code_title">Voucher Code</string>
-  <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
-  <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
-  <string name="voucher_empty">No vouchers available at the moment.</string>
-  <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_buy_no_game_install_button">지금 다운로드</string>
+  <string name="voucher_code_title">바우처 코드</string>
+  <string name="voucher_instructions_body">%s로 가서 이 코드를 사용하여 바우처를 리딤 하세요.</string>
+  <string name="voucher_instructions_transactions">거래 이력에서 언제든지 바우처 코드를 확인할 수 있습니다.</string>
+  <string name="voucher_empty">현재 바우처를 사용할 수 없습니다.</string>
+  <string name="voucher_tooltip">게임을 위해 바우처를 구매할 수 있습니다!</string>
 </resources>
