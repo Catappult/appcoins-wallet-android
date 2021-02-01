@@ -121,13 +121,19 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         null).ignoreElement()
   }
 
-  fun createLocalPaymentTopUpTransaction(paymentId: String, packageName: String, price: String,
-                                         currency: String, productName: String,
-                                         walletAddress: String,
-                                         walletSignature: String): Single<Transaction> {
-    return createTransaction(walletAddress, null, null, null, null, null, null, null, null, null,
-        "TOPUP", "myappcoins", walletAddress, walletSignature, packageName, price, currency,
-        null, LocalPaymentBody(price, currency, packageName, "TOPUP", paymentId, productName))
+  fun createLocalPaymentTransaction(paymentId: String, packageName: String, price: String?,
+                                    currency: String?, productName: String?, type: String,
+                                    origin: String?, walletsDeveloper: String?,
+                                    walletsStore: String?, walletsOem: String?,
+                                    developerPayload: String?, callback: String?,
+                                    orderReference: String?, referrerUrl: String?,
+                                    walletAddress: String,
+                                    walletSignature: String): Single<Transaction> {
+    return api.createTransaction(origin, packageName, price, currency, productName, type,
+        walletAddress, walletsDeveloper, walletsStore, walletsOem, null, developerPayload, callback,
+        orderReference, referrerUrl, walletAddress, walletSignature,
+        LocalPaymentBody(price, currency, packageName, type, paymentId, productName,
+            walletsDeveloper))
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
@@ -135,18 +141,11 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 callback: String?, orderReference: String?, referrerUrl: String?,
                                 origin: String?, type: String, gateway: String,
                                 walletAddress: String, signature: String, packageName: String,
-                                amount: String, currency: String, productName: String?,
-                                localPaymentBody: LocalPaymentBody = LocalPaymentBody()): Single<Transaction> {
-    // TODO We should not do this verification by using the payment gateway
-    return if (gateway == "myappcoins") {
-      api.createTransaction(null, packageName, amount, currency, productName,
-          type, walletAddress, null, null, null, null, null, null, null, null, walletAddress,
-          signature, localPaymentBody)
-    } else {
-      api.createTransaction(gateway, origin, packageName, amount,
-          currency, productName, type, userWallet, developerWallet, storeWallet, oemWallet, token,
-          developerPayload, callback, orderReference, referrerUrl, walletAddress, signature)
-    }
+                                amount: String?, currency: String,
+                                productName: String?): Single<Transaction> {
+    return api.createTransaction(gateway, origin, packageName, amount, currency, productName,
+        type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
+        callback, orderReference, referrerUrl, walletAddress, signature)
   }
 
   interface BdsApi {
@@ -245,8 +244,6 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * @param referrerUrl url to validate the transaction
      * @param walletAddress address of the user wallet
      * @param walletSignature signature obtained after signing the wallet
-     * @param localPaymentBody body needed if using this endpoint for local payments on topup
-     * complete the purchase
      */
     @FormUrlEncoded
     @POST("broker/8.20200810/gateways/{gateway}/transactions")
@@ -272,12 +269,14 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     /**
      * Overload of createTransaction to receive Body, since only myappcoins receive Body.
      * This is the recommendation from Retrofit when there's a possibility of not having an empty body
+     * Check createTransaction above for documentation
+     * @param localPaymentBody body needed for local payment transactions
      */
     @POST("broker/8.20200810/gateways/myappcoins/transactions")
     fun createTransaction(@Query("origin") origin: String?,
                           @Query("domain") domain: String,
                           @Query("price.value") priceValue: String?,
-                          @Query("price.currency") priceCurrency: String,
+                          @Query("price.currency") priceCurrency: String?,
                           @Query("product") product: String?,
                           @Query("type") type: String,
                           @Query("wallets.user") userWallet: String?,
@@ -296,10 +295,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   data class Consumed(val status: String = "CONSUMED")
 
-  data class LocalPaymentBody(@SerializedName("price.value") val price: String,
-                              @SerializedName("price.currency") val currency: String,
+  data class LocalPaymentBody(@SerializedName("price.value") val price: String?,
+                              @SerializedName("price.currency") val currency: String?,
                               val domain: String, val type: String, val method: String,
-                              val product: String) {
-    constructor() : this("", "", "", "", "", "")
-  }
+                              val product: String?,
+                              @SerializedName("wallets.developer") val developerWallet: String?)
 }

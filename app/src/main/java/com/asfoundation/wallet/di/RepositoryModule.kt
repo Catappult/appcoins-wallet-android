@@ -24,9 +24,6 @@ import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
-import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
-import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository
-import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository.DeepLinkApi
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
@@ -268,12 +265,6 @@ class RepositoryModule {
   fun provideWalletStatusRepository(
       walletStatusApi: WalletStatusApi): WalletStatusRepository {
     return WalletStatusRepository(walletStatusApi)
-  }
-
-  @Singleton
-  @Provides
-  fun providesDeepLinkRepository(api: DeepLinkApi): InAppDeepLinkRepository {
-    return LocalPaymentsLinkRepository(api)
   }
 
   @Singleton
