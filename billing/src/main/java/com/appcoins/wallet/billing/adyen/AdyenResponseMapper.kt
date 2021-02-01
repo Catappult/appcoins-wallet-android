@@ -63,12 +63,12 @@ class AdyenResponseMapper {
     }
     return PaymentModel(adyenResponse?.resultCode, adyenResponse?.refusalReason,
         adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl, action?.paymentData,
-        response.uid, response.hash, response.orderReference, fraudResultsId, response.status,
-        response.metadata?.errorMessage, response.metadata?.errorCode)
+        response.uid, null, response.hash, response.orderReference, fraudResultsId,
+        map(response.status), response.metadata?.errorMessage, response.metadata?.errorCode)
   }
 
   fun map(response: TransactionResponse): PaymentModel {
-    return PaymentModel(response)
+    return PaymentModel(response, map(response.status))
   }
 
   private fun map(status: TransactionStatus): PaymentModel.Status {
@@ -87,9 +87,8 @@ class AdyenResponseMapper {
   }
 
   fun map(response: Transaction): PaymentModel {
-    return PaymentModel("", null, null, null, "", "",
-        response.uid, response.metadata?.purchaseUid,
-        response.hash, response.orderReference, map(response.status))
+    return PaymentModel("", null, null, null, "", "", response.uid, response.metadata?.purchaseUid,
+        response.hash, response.orderReference, emptyList(), map(response.status))
   }
 
   private fun map(status: Transaction.Status): PaymentModel.Status {

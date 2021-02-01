@@ -2,7 +2,6 @@ package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.base.model.payments.response.Action
 import com.appcoins.wallet.billing.common.response.TransactionResponse
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 
 data class PaymentModel(val resultCode: String?, val refusalReason: String?, val refusalCode: Int?,
@@ -13,11 +12,11 @@ data class PaymentModel(val resultCode: String?, val refusalReason: String?, val
                         val errorMessage: String? = null, val errorCode: Int? = null,
                         val error: Error = Error()) {
 
-  constructor(error: Error) : this("", null, null, null, "", "", "", null, "", "",
+  constructor(error: Error) : this("", null, null, null, "", "", "", null, "", "", emptyList(),
       Status.FAILED, null, null, error)
 
-  constructor(response: TransactionResponse) : this("", null, null, null, "", "",
-      response.uid, response.hash, response.orderReference, emptyList(), response.status,
+  constructor(response: TransactionResponse, status: Status) : this("", null, null, null, "", "",
+      response.uid, null, response.hash, response.orderReference, emptyList(), status,
       response.metadata?.errorMessage, response.metadata?.errorCode)
 
   enum class Status {
