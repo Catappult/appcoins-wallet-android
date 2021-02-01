@@ -132,12 +132,14 @@ interface BdsApi {
   /**
    * Overload of createTransaction to receive Body, since only myappcoins receive Body.
    * This is the recommendation from Retrofit when there's a possibility of not having an empty body
+   * Check createTransaction above for documentation
+   * @param localPaymentBody body needed for local payment transactions
    */
   @POST("broker/8.20200810/gateways/myappcoins/transactions")
   fun createTransaction(@Query("origin") origin: String?,
                         @Query("domain") domain: String,
                         @Query("price.value") priceValue: String?,
-                        @Query("price.currency") priceCurrency: String,
+                        @Query("price.currency") priceCurrency: String?,
                         @Query("product") product: String?,
                         @Query("type") type: String,
                         @Query("wallets.user") userWallet: String?,

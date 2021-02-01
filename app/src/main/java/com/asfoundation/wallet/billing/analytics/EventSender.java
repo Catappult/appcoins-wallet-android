@@ -31,6 +31,10 @@ public interface EventSender {
   void sendPaymentErrorWithDetailsEvent(String packageName, String skuDetails, String value,
       String purchaseDetails, String transactionType, String errorCode, String errorDetails);
 
+  void sendPaymentErrorWithDetailsAndRiskEvent(String packageName, String skuDetails, String value,
+      String purchaseDetails, String transactionType, String errorCode, String errorDetails,
+      String riskRules);
+
   void sendPaymentSuccessEvent(String packageName, String skuDetails, String value,
       String purchaseDetails, String transactionType);
 

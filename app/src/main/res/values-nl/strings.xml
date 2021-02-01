@@ -5,6 +5,8 @@
   <string name="title_send_with_token">%s verzenden</string>
   <string name="title_request">Ontvangen</string>
   <string name="title_import">Wallet herstellen</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">Mijn wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Wachtwoord</string>
   <string name="action_sign_in_short">Create</string>
@@ -24,6 +26,7 @@
   <string name="credits">Credits</string>
   <string name="label_new">Nieuw</string>
   <string name="got_it_button">BEGREPEN</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission_title">Toestemming voor camera</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
@@ -333,7 +336,12 @@
   <string name="gamification_leveled_up_body">Je krijgt nu bij elke aankoop %s bonus. Blijf kopen om nog meer te verdienen!</string>
   <string name="gamification_leveled_up_notification_title">Je hebt het volgende niveau bereikt!</string>
   <string name="gamification_leveled_up_notification_body">Gefeliciteerd, je krijgt nu bij elke aankoop %s bonus!</string>
-  <string name="gamification_how_max_level_body">Gefeliciteerd! Je hebt het hoogste level bereikt 💃</string>
+  <string name="gamification_how_max_level_notification_title">Je hebt het gehaald!</string>
+  <string name="gamification_how_max_level_body">Je hebt het hoogste niveau bereikt: %s bonus bij elke aankoop!</string>
+  <string name="gamification_level_up_notification_title">Bijna klaar!</string>
+  <string name="gamification_level_up_notification_body">Besteed nog %s AppCoins om het volgende niveau te bereiken.</string>
+  <string name="gamification_bonus_plus_perk_title">Je hebt een extra bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Geniet van %1$s bonus en %2$s extra AppCoins Credits.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan %s door te geven.</string>
   <string name="provide_wallet_body_placeholders">Geef %1$s toestemming om je wallet-adres aan %2$s door te geven.</string>
@@ -410,7 +418,7 @@
   <string name="password">Wachtwoord</string>
   <string name="repeat_password">Wachtwoord herhalen</string>
   <string name="turn_on_button">Inschakelen</string>
-  <string name="no_thanks_button">No, thanks</string>
+  <string name="no_thanks_button">Nee, bedankt</string>
   <string name="remind_later_button">Herinner me later</string>
   <string name="get_code_button">Code aanvragen</string>
   <string name="confirm_button">Bevestigen</string>
@@ -499,7 +507,9 @@
   <string name="purchase_error_wallet_block_code_403">Er is iets mis met je wallet. Neem contact met ons op.</string>
   <string name="purchase_card_error_CVV">Onjuiste CVV/CVC</string>
   <string name="error_contac_us_body">Neem contact met ons op als het probleem zich blijft voordoen.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Probeer de aankoop te voltooien nadat je je wallet hebt geverifieerd.</string>
+  <string name="purchase_error_try_other_method">Oeps&#8230; Er gaat iets fout! Probeer het met een andere betaalmethode of neem contact met ons op.</string>
+  <string name="purchase_error_try_other_amount">Weet je zeker dat je bedrag om op te waarderen klopt? Probeer een ander bedrag of neem contact met ons op!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -559,8 +569,11 @@
   <string name="promotions_tab_poa_title">SPEEL &amp; VERDIEN</string>
   <string name="promotions_empty_promotions_body">Er zijn momenteel geen acties beschikbaar. Kom later terug!</string>
   <string name="promotions_empty_poa_body">Er zijn momenteel geen apps met beloningen beschikbaar. Kom later terug!</string>
+  <string name="promotions_empty_first_purchase_body">Doe je eerste aankoop in een game of app en ontgrendel de acties die we voor je hebben!</string>
+  <string name="promotions_empty_suggested_games_title">Aanbevolen games</string>
   <string name="promotions_perks_button">Voordelen</string>
   <string name="promotions_vouhers_button">Vouchers</string>
+  <string name="promotions_tooltip">Verdien gratis AppCoins Credits met onze acties!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Werk bij om beloningen te ontvangen</string>
   <string name="update_wallet_poa_notification_body">Werk de AppCoins Wallet bij om deze beloning te ontvangen.</string>
@@ -679,7 +692,7 @@
   <string name="subscriptions_settings_title">Abonnementen beheren</string>
   <string name="subscriptions_title">Abonnementen</string>
   <string name="subscriptions_active_title">Actief</string>
-  <string name="subscriptions_expired_title">Inactief</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Nog geen abonnementen</string>
   <string name="subscriptions_empty_body">Abonneer je op services in je favoriete apps en games, dan zorgen wij voor de periodieke betalingen.</string>
   <string name="subscriptions_details_billing_title">Facturatie:</string>
@@ -692,7 +705,7 @@
   <string name="subscriptions_canceled_body">Geannuleerd</string>
   <string name="subscriptions_details_disclaimer">Vanwege de wisselkoers kan de waarde in AppCoins voor de volgende betaling variëren.</string>
   <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">ABONNEMENT BEHEREN</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ABONNEMENT ANNULEREN</string>
   <string name="subscriptions_cancel_title">Abonnement annuleren</string>
   <string name="subscriptions_cancel_body">Weet je zeker dat je dit abonnement wilt annuleren?</string>
@@ -702,10 +715,14 @@
   <string name="subscriptions_cancel_confirmation_body">Er worden geen kosten meer in rekening gebracht voor dit abonnement en je kunt het abonnement gebruiken tot %s.</string>
   <string name="subscriptions_category_title">Abonnement</string>
   <string name="subscriptions_bonus_body">Je krijgt deze bonus bij elke betaling.</string>
-  <string name="subscriptions_per_day">%1$s%2$s per dag</string>
-  <string name="subscriptions_per_week">%1$s%2$s per week</string>
-  <string name="subscriptions_per_month">%1$s%2$s per maand</string>
-  <string name="subscriptions_per_year">%1$s%2$s per jaar</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Tot %s%% bonus!</string>
   <string name="gamif_bonus_received">Bonus ontvangen</string>
@@ -758,8 +775,9 @@
   <string name="carrier_billing_payment_method_title">Facturering via provider</string>
   <string name="carrier_billing_fees_disclaimer">Er kunnen extra kosten van toepassing zijn</string>
   <string name="carrier_billing_insert_phone_body">Voer je telefoonnummer in</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Je telefoonnummer...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">Er wordt een bedrag van %1$s in rekening gebracht</string>
   <string name="carrier_billing_purchase_info_body">%1$s voor %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Je telefoonnummer is %s.</string>
   <string name="carrier_billing_enter_pin_body">Voer de pincode in die je via sms hebt ontvangen.</string>
@@ -833,13 +851,15 @@
   <string name="rate_us_improve_field__empty_error">Schrijf een bericht</string>
   <string name="rate_us_possitive_thanks_title">Bedankt!</string>
   <string name="rate_us_possitive_thanks_body">We zijn blij dat je van onze app geniet. Wil je ons helpen door ons in de App Store te beoordelen?</string>
-  <string name="rate_us_possitive_rate_button">BEOORDEL DE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">APPCOINS WALLET BEOORDELEN</string>
   <string name="rate_us_possitive_done_title">Bedankt voor je feedback!</string>
+  <string name="rate_us_back_title">Wil je ons helpen?</string>
+  <string name="rate_us_back_body">Beoordeel de AppCoins Wallet in de App Store zodat we de wallet kunnen verbeteren.</string>
   <!--Card verification-->
   <string name="card_verification_body">Gebruik je creditcard/bankpas om je wallet te verifiëren.</string>
   <string name="card_verification_charde_disclaimer">We zullen via je kaart %s in rekening brengen en het bedrag terugstorten als je de code hebt bevestigd.</string>
   <string name="card_verification_code_title">Controleer de code via de transactiegegevens</string>
-  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="card_verification_code_body">Het transactieoverzicht dat wordt verstrekt door de uitgever van je kaart bevat een unieke code.</string>
   <string name="card_verification_code_example_title">Voorbeeld van een transactieoverzicht</string>
   <string name="card_verification_code_example_date">Transactiedatum</string>
   <string name="card_verification_code_example_description">Omschrijving</string>
@@ -859,6 +879,8 @@
   <string name="card_verification_wallets_one_step_title">Nog één stap om te valideren</string>
   <string name="card_verification_wallets_one_step_body">Voer de code in die in de transactiegegevens wordt getoond.</string>
   <string name="card_verification_wallets_insert_bode_button">Code invoeren</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">Koop deze voucher en ontvang tot %s%% bonus.</string>
   <string name="voucher_buy_header">Voucher voor %s</string>
@@ -867,4 +889,6 @@
   <string name="voucher_code_title">Vouchercode</string>
   <string name="voucher_instructions_body">Ga naar %s en gebruik de code om je voucher in te wisselen.</string>
   <string name="voucher_instructions_transactions">Je kunt de vouchercode altijd in de transactiegeschiedenis terugvinden.</string>
+  <string name="voucher_empty">Er zijn momenteel geen vouchers beschikbaar.</string>
+  <string name="voucher_tooltip">Je kunt nu vouchers voor games kopen!</string>
 </resources>
