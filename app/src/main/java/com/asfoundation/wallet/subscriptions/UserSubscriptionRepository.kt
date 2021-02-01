@@ -2,6 +2,7 @@ package com.asfoundation.wallet.subscriptions
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import io.reactivex.Single
+import java.util.*
 
 class UserSubscriptionRepository(private val subscriptionApi: UserSubscriptionApi,
                                  private val accountWalletService: WalletService,
@@ -12,7 +13,8 @@ class UserSubscriptionRepository(private val subscriptionApi: UserSubscriptionAp
                            limit: Int? = null): Single<UserSubscriptionListModel> {
     return accountWalletService.getAndSignCurrentWalletAddress()
         .flatMap {
-          subscriptionApi.getUserSubscriptions(it.address, it.signedAddress, subStatus,
+          subscriptionApi.getUserSubscriptions(Locale.getDefault()
+              .toLanguageTag(), it.address, it.signedAddress, subStatus,
               applicationName, limit)
         }
         .map { subscriptionsMapper.mapSubscriptionList(it) }

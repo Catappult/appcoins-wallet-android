@@ -3,7 +3,7 @@ package com.asfoundation.wallet.subscriptions
 import com.appcoins.wallet.bdsbilling.subscriptions.UserSubscriptionsListResponse
 import io.reactivex.Single
 import retrofit2.http.GET
-import retrofit2.http.Headers
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface UserSubscriptionApi {
@@ -15,8 +15,8 @@ interface UserSubscriptionApi {
    * @param limit Limit for the max number of subscriptions to be returned
    */
   @GET("inapp/subscription/purchases")
-  @Headers("Cache-Control: public, max-stale=120")
-  fun getUserSubscriptions(@Query("wallet.address") walletAddress: String,
+  fun getUserSubscriptions(@Header("Accept-Language") language: String,
+                           @Query("wallet.address") walletAddress: String,
                            @Query("wallet.signature") walletSignature: String,
                            @Query("substatus") subStatus: String?,
                            @Query("application.name") applicationName: String?,
