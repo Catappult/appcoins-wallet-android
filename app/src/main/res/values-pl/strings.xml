@@ -5,6 +5,8 @@
   <string name="title_send_with_token">Wyślij %s</string>
   <string name="title_request">Odbierz</string>
   <string name="title_import">Odzyskaj portfel</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">Portfele</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Hasło</string>
   <string name="action_sign_in_short">Create</string>
@@ -24,6 +26,7 @@
   <string name="credits">Kredyty</string>
   <string name="label_new">Nowość</string>
   <string name="got_it_button">OK</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
   <string name="no_camera_permission_title">Zezwolenie na używanie aparatu</string>
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
@@ -197,7 +200,7 @@
   <string name="activity_iab_error_message">Wystąpił błąd, spróbuj ponownie</string>
   <string name="action_try">Wypróbuj</string>
   <string name="activity_transactions_learn_more">Dowiedz się więcej</string>
-  <string name="activity_iab_no_funds_message">Nie wystarczająca ilość ETH i APPC</string>
+  <string name="activity_iab_no_funds_message">Niewystarczająca ilość ETH i APPC</string>
   <string name="activity_iab_no_ethereum_funds_message">Za mało Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Za mało AppCoins</string>
   <string name="activity_iab_wrong_network_message">Nieznany token lub niewłaściwa sieć Ethereum</string>
@@ -258,7 +261,7 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Karta kredytowa/debetowa</string>
   <string name="dialog_expiry_date">Data ważności</string>
-  <string name="activity_airdrop_title">Potwierdź że jesteś człowiekiem aby otrzymać AppCoins</string>
+  <string name="activity_airdrop_title">Potwierdź, że jesteś człowiekiem, aby otrzymać AppCoins</string>
   <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
   <string name="activity_airdrop_hint">Wpisz słowa z obrazka</string>
   <string name="activity_airdrop_submit_btn">Wyślij</string>
@@ -333,7 +336,12 @@
   <string name="gamification_leveled_up_body">Teraz będziesz otrzymywać bonus %s przy każdym zakupie. Kupuj więcej aby zarabiać!</string>
   <string name="gamification_leveled_up_notification_title">Osiągnąłeś następny poziom!</string>
   <string name="gamification_leveled_up_notification_body">Gratulacje, teraz otrzymasz bonus %s przy każdych zakupach!</string>
-  <string name="gamification_how_max_level_body">Gratulacje! Osiągnąłeś najwyższy poziom</string>
+  <string name="gamification_how_max_level_notification_title">Udało ci się!</string>
+  <string name="gamification_how_max_level_body">Jesteś na najwyższym poziomie! %s bonusu przy każdym zakupie!</string>
+  <string name="gamification_level_up_notification_title">Prawie gotowe!</string>
+  <string name="gamification_level_up_notification_body">Wydaj jeszcze %s AppCoins, by przejść wyżej.</string>
+  <string name="gamification_bonus_plus_perk_title">Masz dodatkowy bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Ciesz się %1$s bonusu i %2$s AppCoins Credits.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Pozwól portfelowi AppCoins udostępnić adres Twojego portfela dla %s.</string>
   <string name="provide_wallet_body_placeholders">Pozwól %1$s udostępnić adres Twojego portfela %2$s.</string>
@@ -500,6 +508,8 @@
   <string name="purchase_card_error_CVV">Nieprawidłowy CVV/CVC</string>
   <string name="error_contac_us_body">Jeśli problem powróci, skontaktuj się z nami.</string>
   <string name="purchase_error_unverified_wallet">Spróbuj dokończyć zakup po sprawdzeniu portfela.</string>
+  <string name="purchase_error_try_other_method">Uups&#8230; Coś jest na rzeczy! Spróbuj z inną metodą płatności lub skontaktuj się z nami.</string>
+  <string name="purchase_error_try_other_amount">Czy na pewno wartość doładowania się zgadza? Spróbuj z inną lub skontaktuj się z nami!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -559,8 +569,11 @@
   <string name="promotions_tab_poa_title">GRAJ&amp; ZARABIAJ</string>
   <string name="promotions_empty_promotions_body">W tym momencie nie ma aktywnych promocji. Sprawdź później!</string>
   <string name="promotions_empty_poa_body">W tym momencie nie ma aplikacji z nagrodami. Sprawdź później!</string>
+  <string name="promotions_empty_first_purchase_body">Dokonaj pierwszego zakupu w grze lub aplikacji - odblokuj specjalne promocje!</string>
+  <string name="promotions_empty_suggested_games_title">Sugerowane gry</string>
   <string name="promotions_perks_button">Bonusy</string>
   <string name="promotions_vouhers_button">Vouchery</string>
+  <string name="promotions_tooltip">Otrzymaj Kredyty AppCoins w naszych promocjach!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Zaktualizuj aby otrzymywać nagrody</string>
   <string name="update_wallet_poa_notification_body">Zaktualizuj portfel AppCoins aby otrzymać tą nagrodę.</string>
@@ -681,7 +694,7 @@
   <string name="subscriptions_settings_title">Zarządzaj subskrypcjami</string>
   <string name="subscriptions_title">Subskrypcje</string>
   <string name="subscriptions_active_title">Aktywne</string>
-  <string name="subscriptions_expired_title">Nieaktywne</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Brak subskrypcji</string>
   <string name="subscriptions_empty_body">Subskrybuj usługi w ulubionych aplikacjach i grach, a my zajmiemy się cyklicznymi opłatami.</string>
   <string name="subscriptions_details_billing_title">Rachunki:</string>
@@ -694,7 +707,7 @@
   <string name="subscriptions_canceled_body">Anulowano</string>
   <string name="subscriptions_details_disclaimer">Wartość w AppCoins różnić się od poprzedniej ze względu na kurs walut.</string>
   <string name="subscriptions_details_button">SZCZEGÓŁY</string>
-  <string name="subscriptions_manage_button">ZARZĄDZAJ SUBSKRYPCJĄ</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ANULUJ SUBSKRYPCJĘ</string>
   <string name="subscriptions_cancel_title">Rezygnuj z subskrypcji</string>
   <string name="subscriptions_cancel_body">Na pewno chcesz zrezygnować z subskrypcji?</string>
@@ -704,10 +717,14 @@
   <string name="subscriptions_cancel_confirmation_body">Za tę subskrypcję nie będzie już naliczana opłata i można z niej korzystać do %s.</string>
   <string name="subscriptions_category_title">Subskrypcja</string>
   <string name="subscriptions_bonus_body">Otrzymasz ten bonus przy każdej płatności.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/dzień</string>
-  <string name="subscriptions_per_week">%1$s%2$s/tydzień</string>
-  <string name="subscriptions_per_month">%1$s%2$s/miesiąc</string>
-  <string name="subscriptions_per_year">%1$s%2$s/rok</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Nawet %s%% Bonusu!</string>
   <string name="gamif_bonus_received">Bonus Otrzymany</string>
@@ -760,8 +777,9 @@
   <string name="carrier_billing_payment_method_title">Rachunek operatora</string>
   <string name="carrier_billing_fees_disclaimer">Możliwość dodatkowych opłat</string>
   <string name="carrier_billing_insert_phone_body">Wpisz numer telefonu</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Twój numer telefonu...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">Opłata %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s w %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Twój numer telefonu to%s.</string>
   <string name="carrier_billing_enter_pin_body">Wpisz PIN otrzymany w wiadomości SMS.</string>
@@ -841,8 +859,10 @@
   <string name="rate_us_improve_field__empty_error">Napisz coś</string>
   <string name="rate_us_possitive_thanks_title">Dziękujemy!</string>
   <string name="rate_us_possitive_thanks_body">Fajnie, że podoba ci się nasza aplikacja. Może ocenisz ją w app storze?</string>
-  <string name="rate_us_possitive_rate_button">OCEŃ THE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">OCEŃ APPCOINS WALLET</string>
   <string name="rate_us_possitive_done_title">Dziękujemy za opinię!</string>
+  <string name="rate_us_back_title">Pomożesz nam?</string>
+  <string name="rate_us_back_body">Oceń AppCoins Wallet, żebyśmy wiedzieli co w nim ulepszyć.</string>
   <!--Card verification-->
   <string name="card_verification_body">Sprawdź portfel za pomocą karty kredytowej/debetowej.</string>
   <string name="card_verification_charde_disclaimer">Obciążymy twoją kartę %s i zwrócimy tę kwotę, jak tylko potwierdzisz kod.</string>
@@ -871,6 +891,8 @@
   <string name="card_verification_wallets_one_step_title">Ostatni krok walidacji</string>
   <string name="card_verification_wallets_one_step_body">Wpisz kod widoczny w szczegółach transakcji.</string>
   <string name="card_verification_wallets_insert_bode_button">Wpisz kod</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">Kup ten voucher i zdobądź nawet %s%% bonusu.</string>
   <string name="voucher_buy_header">Voucher na %s</string>
@@ -879,4 +901,6 @@
   <string name="voucher_code_title">Kod vouchera</string>
   <string name="voucher_instructions_body">Wejdź na %s i użyj kodu, by zrealizować voucher.</string>
   <string name="voucher_instructions_transactions">Kod vouchera znajdziesz w historii transakcji.</string>
+  <string name="voucher_empty">Teraz nie ma tu żadnych voucherów.</string>
+  <string name="voucher_tooltip">Teraz możesz kupić vouchery na gry!</string>
 </resources>

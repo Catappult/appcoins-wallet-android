@@ -124,9 +124,40 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     }
   }
 
+  override fun showSavedPhoneNumber(phoneNumber: String) {
+    country_code_picker.fullNumber = phoneNumber
+    saved_phone_number_confirmed.visibility = View.VISIBLE
+    change_phone_number_button.visibility = View.VISIBLE
+    title.text = getString(R.string.carrier_billing_insert_phone_previously_used)
+    setPhoneNumberViewsEditable(false)
+  }
+
+  override fun hideSavedPhoneNumber(clearText: Boolean) {
+    if (clearText) phone_number.setText("")
+    title.text = getString(R.string.carrier_billing_insert_phone_body)
+    saved_phone_number_confirmed.visibility = View.GONE
+    change_phone_number_button.visibility = View.GONE
+    setPhoneNumberViewsEditable(true)
+  }
+
+  private fun setPhoneNumberViewsEditable(editable: Boolean) {
+    country_code_picker.setCcpClickable(editable)
+    phone_number.isFocusable = editable
+    phone_number.isClickable = editable
+  }
+
   override fun showPhoneNumberLayout() {
     phone_number_skeleton.visibility = View.GONE
     phone_number_layout.visibility = View.VISIBLE
+  }
+
+  override fun changeButtonClick(): Observable<Any> {
+    return RxView.clicks(change_phone_number_button)
+  }
+
+  override fun focusOnPhoneNumber() {
+    phone_number.isFocusableInTouchMode = true
+    phone_number.requestFocus()
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -156,6 +187,9 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     title.visibility = View.INVISIBLE
     disclaimer.visibility = View.INVISIBLE
     phone_number_layout.visibility = View.INVISIBLE
+    if (change_phone_number_button.visibility == View.VISIBLE) {
+      change_phone_number_button.visibility = View.INVISIBLE
+    }
     progress_bar.visibility = View.VISIBLE
     removePhoneNumberFieldError()
     buy_button.isEnabled = false
@@ -168,6 +202,9 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     title.visibility = View.VISIBLE
     disclaimer.visibility = View.VISIBLE
     phone_number_layout.visibility = View.VISIBLE
+    if (change_phone_number_button.visibility == View.INVISIBLE) {
+      change_phone_number_button.visibility = View.VISIBLE
+    }
     progress_bar.visibility = View.INVISIBLE
   }
 

@@ -119,6 +119,7 @@ class PaymentMethodsPresenter(
                   LOCAL_PAYMENTS -> view.showLocalPayment(
                       selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                       selectedPaymentMethod.label, selectedPaymentMethod.async,
+                      cachedFiatValue!!.amount.toString(), cachedFiatValue!!.currency,
                       cachedGamificationLevel)
                   CARRIER_BILLING -> view.showCarrierBilling(
                       cachedFiatValue!!, false)
@@ -207,6 +208,7 @@ class PaymentMethodsPresenter(
       LOCAL_PAYMENTS -> {
         view.showLocalPayment(paymentNavigationData.paymentId, paymentNavigationData.paymentIconUrl,
             paymentNavigationData.paymentLabel, paymentNavigationData.async,
+            cachedFiatValue!!.amount.toString(), cachedFiatValue!!.currency,
             cachedGamificationLevel)
       }
       CARRIER_BILLING -> {

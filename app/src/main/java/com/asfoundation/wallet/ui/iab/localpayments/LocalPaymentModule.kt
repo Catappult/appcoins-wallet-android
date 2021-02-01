@@ -38,6 +38,7 @@ class LocalPaymentModule {
           getString(LocalPaymentFragment.CALLBACK_URL),
           getString(LocalPaymentFragment.ORDER_REFERENCE),
           getString(LocalPaymentFragment.PAYLOAD),
+          getString(LocalPaymentFragment.ORIGIN),
           getString(LocalPaymentFragment.PAYMENT_METHOD_URL),
           getString(LocalPaymentFragment.PAYMENT_METHOD_LABEL),
           getBoolean(LocalPaymentFragment.ASYNC),
