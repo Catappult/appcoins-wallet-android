@@ -129,9 +129,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                     orderReference: String?, referrerUrl: String?,
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
-    return createTransaction(walletAddress, walletsDeveloper, walletsStore, walletsOem, null,
-        developerPayload, callback, orderReference, referrerUrl, origin, type, "myappcoins",
-        walletAddress, walletSignature, packageName, price, currency, productName,
+    return api.createTransaction(origin, packageName, price, currency, productName, type,
+        walletAddress, walletsDeveloper, walletsStore, walletsOem, null, developerPayload, callback,
+        orderReference, referrerUrl, walletAddress, walletSignature,
         LocalPaymentBody(price, currency, packageName, type, paymentId, productName,
             walletsDeveloper))
   }
@@ -141,18 +141,11 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 callback: String?, orderReference: String?, referrerUrl: String?,
                                 origin: String?, type: String, gateway: String,
                                 walletAddress: String, signature: String, packageName: String,
-                                amount: String?, currency: String?,
-                                productName: String?,
-                                localPaymentBody: LocalPaymentBody? = null): Single<Transaction> {
-    return if (localPaymentBody != null) {
-      api.createTransaction(origin, packageName, amount, currency, productName, type,
-          userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload, callback,
-          orderReference, referrerUrl, walletAddress, signature, localPaymentBody)
-    } else {
-      api.createTransaction(gateway, origin, packageName, amount,
-          currency!!, productName, type, userWallet, developerWallet, storeWallet, oemWallet, token,
-          developerPayload, callback, orderReference, referrerUrl, walletAddress, signature)
-    }
+                                amount: String?, currency: String,
+                                productName: String?): Single<Transaction> {
+    return api.createTransaction(gateway, origin, packageName, amount, currency, productName,
+        type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
+        callback, orderReference, referrerUrl, walletAddress, signature)
   }
 
   interface BdsApi {
