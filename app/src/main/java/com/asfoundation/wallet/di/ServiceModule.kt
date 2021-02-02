@@ -426,7 +426,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun providesTopUpValuesApi(@Named("default") client: OkHttpClient, gson: Gson): TopUpValuesApi {
-    val baseUrl = BuildConfig.CATAPPULT_BASE_HOST
+    val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -439,7 +439,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideBdsShareLinkApi(@Named("default") client: OkHttpClient, gson: Gson): BdsShareLinkApi {
-    val baseUrl = BuildConfig.CATAPPULT_BASE_HOST
+    val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
