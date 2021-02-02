@@ -136,8 +136,8 @@
         <category android:name="android.intent.category.BROWSABLE" />
 
         <data android:scheme="https" />
+        <data android:host="${legacyPaymentHost}" />
         <data android:host="${paymentHost}" />
-        <data android:host="${secondPaymentHost}" />
         <data android:pathPrefix="/transaction" />
       </intent-filter>
     </activity>
