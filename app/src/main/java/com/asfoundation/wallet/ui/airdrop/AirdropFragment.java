@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -104,7 +105,9 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   }
 
   @Override public void showCaptcha(String captchaUrl) {
-    Log.d(TAG, "showCaptcha() called with: captchaUrl = [" + captchaUrl + "]");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "showCaptcha() called with: captchaUrl = [" + captchaUrl + "]");
+    }
     GlideApp.with(getContext())
         .load(captchaUrl)
         .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -133,18 +136,24 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
         .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     loading.show();
 
-    Log.d(TAG, "showLoading() called");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "showLoading() called");
+    }
   }
 
   @Override public void hideLoading() {
-    Log.d(TAG, "hideLoading() called");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "hideLoading() called");
+    }
     if (loading != null) {
       loading.dismiss();
     }
   }
 
   @Override public void showGenericError() {
-    Log.d(TAG, "showGenericError() called");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "showGenericError() called");
+    }
     genericErrorDialog =
         new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
             .setMessage(R.string.activity_airdrop_generic_error_message)
@@ -155,7 +164,9 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   }
 
   @Override public void showError(String message) {
-    Log.d(TAG, "showError() called with: message = [" + message + "]");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "showError() called with: message = [" + message + "]");
+    }
     errorDialog =
         new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
             .setMessage(message)
@@ -166,7 +177,9 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   }
 
   @Override public void showSuccess() {
-    Log.d(TAG, "showSuccess() called");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "showSuccess() called");
+    }
     AlertDialog successDialog =
         new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
             .setMessage(R.string.activity_airdrop_success_message)

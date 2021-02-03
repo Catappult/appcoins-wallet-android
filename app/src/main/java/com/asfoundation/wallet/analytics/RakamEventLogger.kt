@@ -3,6 +3,7 @@ package com.asfoundation.wallet.analytics
 import android.util.Log
 import cm.aptoide.analytics.AnalyticsManager
 import cm.aptoide.analytics.EventLogger
+import com.asf.wallet.BuildConfig
 import io.rakam.api.Rakam
 import org.json.JSONException
 import org.json.JSONObject
@@ -31,9 +32,10 @@ class RakamEventLogger : EventLogger {
           .logEvent(eventName)
     }
 
-    Log.d(TAG,
-        "log() called with: eventName = [$eventName], data = [$data], action = [$action], context = [$context]")
-
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG,
+          "log() called with: eventName = [$eventName], data = [$data], action = [$action], context = [$context]")
+    }
   }
 
   private fun mapToJsonObject(data: Map<String, Any>): JSONObject {

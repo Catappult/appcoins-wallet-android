@@ -2,6 +2,7 @@ package com.asfoundation.wallet.analytics;
 
 import android.util.Log;
 import cm.aptoide.analytics.AnalyticsManager;
+import cm.aptoide.analytics.AnalyticsManager.Action;
 import cm.aptoide.analytics.EventLogger;
 import com.asf.wallet.BuildConfig;
 import io.reactivex.schedulers.Schedulers;
@@ -17,25 +18,32 @@ public class BackendEventLogger implements EventLogger {
   }
 
   @Override
-  public void log(String eventName, Map<String, Object> data, AnalyticsManager.Action action,
-      String context) {
-    Log.d(TAG, "log() called with: eventName = ["
-        + eventName
-        + "], data = ["
-        + data
-        + "], action = ["
-        + action
-        + "], context = ["
-        + context
-        + "]");
+  public void log(String eventName, Map<String, Object> data, Action action, String context) {
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "log() called with: eventName = ["
+          + eventName
+          + "], data = ["
+          + data
+          + "], action = ["
+          + action
+          + "], context = ["
+          + context
+          + "]");
+    }
 
     api.registerEvent(action, eventName,
         new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
         .subscribeOn(Schedulers.io())
-        .subscribe(() -> Log.d(TAG, "event sent"), Throwable::printStackTrace);
+        .subscribe(() -> {
+          if (BuildConfig.LOGGABLE) {
+            Log.d(TAG, "event sent");
+          }
+        }, Throwable::printStackTrace);
   }
 
   @Override public void setup() {
-    Log.d(AnalyticsManager.class.getSimpleName(), "setup() called");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(AnalyticsManager.class.getSimpleName(), "setup() called");
+    }
   }
 }

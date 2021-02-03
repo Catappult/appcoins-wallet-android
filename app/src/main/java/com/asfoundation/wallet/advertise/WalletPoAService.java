@@ -17,6 +17,7 @@ import android.os.Messenger;
 import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.core.app.NotificationCompat;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
@@ -158,10 +159,12 @@ public class WalletPoAService extends Service {
         // send intent to confirm that we receive the broadcast and we want to finish the handshake
         String appPackageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
         String appServiceName = intent.getStringExtra(PARAM_APP_SERVICE_NAME);
-        Log.d(TAG, "Received broadcast for handshake package name: "
-            + appPackageName
-            + " and service: "
-            + appServiceName);
+        if (BuildConfig.LOGGABLE) {
+          Log.d(TAG, "Received broadcast for handshake package name: "
+              + appPackageName
+              + " and service: "
+              + appServiceName);
+        }
         // send explicit intent
         Intent i = new Intent(ACTION_ACK_BROADCAST);
         i.setComponent(new ComponentName(appPackageName, appServiceName));
@@ -362,7 +365,7 @@ public class WalletPoAService extends Service {
         String.valueOf(poaInformation.getRemainingHours()), minutesRemaining);
   }
 
-  private @IntRange(from = 0, to = 100) int calculateProgress(Proof proof) {
+  @IntRange(from = 0, to = 100) private int calculateProgress(Proof proof) {
     int progress = 0;
     progress += proof.getProofComponentList()
         .size();
@@ -543,27 +546,37 @@ public class WalletPoAService extends Service {
       String packageName = msg.getData()
           .getString("packageName");
       setTimeout(packageName);
-      Log.d(TAG, "handleMessage() called with: msg = [" + msg + "] " + "");
+      if (BuildConfig.LOGGABLE) {
+        Log.d(TAG, "handleMessage() called with: msg = [" + msg + "] " + "");
+      }
       switch (msg.what) {
         case MSG_REGISTER_CAMPAIGN:
-          Log.d(TAG, "MSG_REGISTER_CAMPAIGN");
+          if (BuildConfig.LOGGABLE) {
+            Log.d(TAG, "MSG_REGISTER_CAMPAIGN");
+          }
           proofOfAttentionService.setCampaignId(packageName, msg.getData()
               .getString("campaignId"));
           proofOfAttentionService.setOemAddress(packageName);
           proofOfAttentionService.setStoreAddress(packageName);
           break;
         case MSG_SEND_PROOF:
-          Log.d(TAG, "MSG_SEND_PROOF");
+          if (BuildConfig.LOGGABLE) {
+            Log.d(TAG, "MSG_SEND_PROOF");
+          }
           proofOfAttentionService.registerProof(packageName, msg.getData()
               .getLong("timeStamp"));
           break;
         case MSG_SET_NETWORK:
-          Log.d(TAG, "MSG_SET_NETWORK");
+          if (BuildConfig.LOGGABLE) {
+            Log.d(TAG, "MSG_SET_NETWORK");
+          }
           proofOfAttentionService.setChainId(packageName, msg.getData()
               .getInt("networkId"));
           break;
         case MSG_STOP_PROCESS:
-          Log.d(TAG, "Ignoring MSG_STOP_PROCESS message.");
+          if (BuildConfig.LOGGABLE) {
+            Log.d(TAG, "Ignoring MSG_STOP_PROCESS message.");
+          }
           break;
         default:
           super.handleMessage(msg);

@@ -4,6 +4,7 @@ import android.util.Log
 import cm.aptoide.analytics.AnalyticsManager
 import cm.aptoide.analytics.EventLogger
 import com.amplitude.api.Amplitude
+import com.asf.wallet.BuildConfig
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -30,8 +31,10 @@ class AmplitudeEventLogger : EventLogger {
           .logEvent(eventName)
     }
 
-    Log.d(TAG,
-        "log() called with: eventName = [$eventName], data = [$data], action = [$action], context = [$context]")
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG,
+          "log() called with: eventName = [$eventName], data = [$data], action = [$action], context = [$context]")
+    }
   }
 
   private fun mapToJsonObject(data: Map<String, Any>): JSONObject {

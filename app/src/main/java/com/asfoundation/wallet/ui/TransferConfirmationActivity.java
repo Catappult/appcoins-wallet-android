@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -162,7 +163,9 @@ public class TransferConfirmationActivity extends BaseActivity {
   }
 
   private void onTransaction(PendingTransaction transaction) {
-    Log.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
+    }
     if (!transaction.isPending()) {
       viewModel.progressFinished();
       hideDialog();

@@ -33,6 +33,7 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.StringDef;
+import com.asf.wallet.BuildConfig;
 import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
@@ -320,7 +321,9 @@ public class CameraSource {
           // quickly after stop).
           mProcessingThread.join();
         } catch (InterruptedException e) {
-          Log.d(TAG, "Frame processing thread interrupted on release.");
+          if (BuildConfig.LOGGABLE) {
+            Log.d(TAG, "Frame processing thread interrupted on release.");
+          }
         }
         mProcessingThread = null;
       }
@@ -625,7 +628,9 @@ public class CameraSource {
           .contains(mFocusMode)) {
         parameters.setFocusMode(mFocusMode);
       } else {
-        Log.i(TAG, "Camera focus mode: " + mFocusMode + " is not supported on this device.");
+        if (BuildConfig.LOGGABLE) {
+          Log.i(TAG, "Camera focus mode: " + mFocusMode + " is not supported on this device.");
+        }
       }
     }
 
@@ -637,7 +642,9 @@ public class CameraSource {
           .contains(mFlashMode)) {
         parameters.setFlashMode(mFlashMode);
       } else {
-        Log.i(TAG, "Camera flash mode: " + mFlashMode + " is not supported on this device.");
+        if (BuildConfig.LOGGABLE) {
+          Log.i(TAG, "Camera flash mode: " + mFlashMode + " is not supported on this device.");
+        }
       }
     }
 
@@ -1093,8 +1100,10 @@ public class CameraSource {
         }
 
         if (!mBytesToByteBuffer.containsKey(data)) {
-          Log.d(TAG, "Skipping frame.  Could not find ByteBuffer associated with the image "
-              + "data from the camera.");
+          if (BuildConfig.LOGGABLE) {
+            Log.d(TAG, "Skipping frame.  Could not find ByteBuffer associated with the image "
+                + "data from the camera.");
+          }
           return;
         }
 
@@ -1135,7 +1144,9 @@ public class CameraSource {
               // don't have it yet.
               mLock.wait();
             } catch (InterruptedException e) {
-              Log.d(TAG, "Frame processing loop terminated.", e);
+              if (BuildConfig.LOGGABLE) {
+                Log.d(TAG, "Frame processing loop terminated.", e);
+              }
               return;
             }
           }

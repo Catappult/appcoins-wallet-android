@@ -9,6 +9,9 @@ apply plugin: 'com.google.gms.google-services'
 android {
   buildToolsVersion '29.0.3'
   compileSdkVersion 29
+
+  flavorDimensions "default"
+
   defaultConfig {
 
     def inputFile = new File("appcoins-services.json")
@@ -73,6 +76,15 @@ android {
       storePassword = project.BDS_WALLET_STORE_PASSWORD
       keyAlias = project.BDS_WALLET_KEY_ALIAS
       keyPassword = project.BDS_WALLET_KEY_PASSWORD
+    }
+  }
+
+  productFlavors {
+    loggable {
+      buildConfigField 'boolean', 'LOGGABLE', "true"
+    }
+    nologger {
+      buildConfigField 'boolean', 'LOGGABLE', "false"
     }
   }
 

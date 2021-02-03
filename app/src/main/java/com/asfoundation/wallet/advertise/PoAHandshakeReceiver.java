@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+import com.asf.wallet.BuildConfig;
 
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKAGE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
@@ -18,7 +19,9 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_NETWORK_I
 public class PoAHandshakeReceiver extends BroadcastReceiver {
 
   @Override public void onReceive(Context context, Intent intent) {
-    Log.d("PoAHandshakeReceiver", "Broadcast received");
+    if (BuildConfig.LOGGABLE) {
+      Log.d("PoAHandshakeReceiver", "Broadcast received");
+    }
 
     Intent serviceIntent = new Intent(context, WalletPoAService.class);
     serviceIntent.putExtra(PARAM_APP_PACKAGE_NAME, intent.getStringExtra(PARAM_APP_PACKAGE_NAME));

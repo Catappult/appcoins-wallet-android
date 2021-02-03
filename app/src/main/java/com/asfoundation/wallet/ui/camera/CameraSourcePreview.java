@@ -24,6 +24,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 import androidx.annotation.RequiresPermission;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.ui.barcode.CameraResultListener;
 import com.google.android.gms.common.images.Size;
 import java.io.IOException;
@@ -157,7 +158,9 @@ public class CameraSourcePreview extends ViewGroup {
       return true;
     }
 
-    Log.d(TAG, "isPortraitMode returning false by default");
+    if (BuildConfig.LOGGABLE) {
+      Log.d(TAG, "isPortraitMode returning false by default");
+    }
     return false;
   }
 

@@ -9,6 +9,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import java.io.ByteArrayOutputStream;
@@ -106,10 +107,14 @@ import static com.asfoundation.wallet.entity.ServiceErrorException.USER_NOT_AUTH
     } catch (UserNotAuthenticatedException e) {
       throw new ServiceErrorException(USER_NOT_AUTHENTICATED);
     } catch (ServiceErrorException ex) {
-      Log.d(TAG, "Key store error", ex);
+      if (BuildConfig.LOGGABLE) {
+        Log.d(TAG, "Key store error", ex);
+      }
       throw ex;
     } catch (Exception ex) {
-      Log.d(TAG, "Key store error", ex);
+      if (BuildConfig.LOGGABLE) {
+        Log.d(TAG, "Key store error", ex);
+      }
       throw new ServiceErrorException(KEY_STORE_ERROR);
     }
   }
