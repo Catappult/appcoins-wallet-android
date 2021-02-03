@@ -18,7 +18,7 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_NETWORK_I
 public class PoAHandshakeReceiver extends BroadcastReceiver {
 
   @Override public void onReceive(Context context, Intent intent) {
-    Log.Companion.d("PoAHandshakeReceiver", "Broadcast received");
+    Log.d("PoAHandshakeReceiver", "Broadcast received");
 
     Intent serviceIntent = new Intent(context, WalletPoAService.class);
     serviceIntent.putExtra(PARAM_APP_PACKAGE_NAME, intent.getStringExtra(PARAM_APP_PACKAGE_NAME));

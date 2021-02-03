@@ -104,7 +104,7 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   }
 
   @Override public void showCaptcha(String captchaUrl) {
-    Log.Companion.d(TAG, "showCaptcha() called with: captchaUrl = [" + captchaUrl + "]");
+    Log.d(TAG, "showCaptcha() called with: captchaUrl = [" + captchaUrl + "]");
     GlideApp.with(getContext())
         .load(captchaUrl)
         .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -133,18 +133,18 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
         .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     loading.show();
 
-    Log.Companion.d(TAG, "showLoading() called");
+    Log.d(TAG, "showLoading() called");
   }
 
   @Override public void hideLoading() {
-    Log.Companion.d(TAG, "hideLoading() called");
+    Log.d(TAG, "hideLoading() called");
     if (loading != null) {
       loading.dismiss();
     }
   }
 
   @Override public void showGenericError() {
-    Log.Companion.d(TAG, "showGenericError() called");
+    Log.d(TAG, "showGenericError() called");
     genericErrorDialog =
         new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
             .setMessage(R.string.activity_airdrop_generic_error_message)
@@ -155,7 +155,7 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   }
 
   @Override public void showError(String message) {
-    Log.Companion.d(TAG, "showError() called with: message = [" + message + "]");
+    Log.d(TAG, "showError() called with: message = [" + message + "]");
     errorDialog =
         new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
             .setMessage(message)
@@ -166,7 +166,7 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   }
 
   @Override public void showSuccess() {
-    Log.Companion.d(TAG, "showSuccess() called");
+    Log.d(TAG, "showSuccess() called");
     AlertDialog successDialog =
         new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
             .setMessage(R.string.activity_airdrop_success_message)

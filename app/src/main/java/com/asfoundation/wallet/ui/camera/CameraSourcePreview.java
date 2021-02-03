@@ -157,8 +157,7 @@ public class CameraSourcePreview extends ViewGroup {
       return true;
     }
 
-      com.asfoundation.wallet.util.Log.Companion.d(TAG,
-          "isPortraitMode returning false by default");
+      com.asfoundation.wallet.util.Log.d(TAG, "isPortraitMode returning false by default");
     return false;
   }
 

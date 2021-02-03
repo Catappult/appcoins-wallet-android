@@ -158,7 +158,7 @@ public class WalletPoAService extends Service {
         // send intent to confirm that we receive the broadcast and we want to finish the handshake
         String appPackageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
         String appServiceName = intent.getStringExtra(PARAM_APP_SERVICE_NAME);
-        Log.Companion.d(TAG, "Received broadcast for handshake package name: "
+        Log.d(TAG, "Received broadcast for handshake package name: "
             + appPackageName
             + " and service: "
             + appServiceName);
@@ -543,27 +543,27 @@ public class WalletPoAService extends Service {
       String packageName = msg.getData()
           .getString("packageName");
       setTimeout(packageName);
-      Log.Companion.d(TAG, "handleMessage() called with: msg = [" + msg + "] " + "");
+      Log.d(TAG, "handleMessage() called with: msg = [" + msg + "] " + "");
       switch (msg.what) {
         case MSG_REGISTER_CAMPAIGN:
-          Log.Companion.d(TAG, "MSG_REGISTER_CAMPAIGN");
+          Log.d(TAG, "MSG_REGISTER_CAMPAIGN");
           proofOfAttentionService.setCampaignId(packageName, msg.getData()
               .getString("campaignId"));
           proofOfAttentionService.setOemAddress(packageName);
           proofOfAttentionService.setStoreAddress(packageName);
           break;
         case MSG_SEND_PROOF:
-          Log.Companion.d(TAG, "MSG_SEND_PROOF");
+          Log.d(TAG, "MSG_SEND_PROOF");
           proofOfAttentionService.registerProof(packageName, msg.getData()
               .getLong("timeStamp"));
           break;
         case MSG_SET_NETWORK:
-          Log.Companion.d(TAG, "MSG_SET_NETWORK");
+          Log.d(TAG, "MSG_SET_NETWORK");
           proofOfAttentionService.setChainId(packageName, msg.getData()
               .getInt("networkId"));
           break;
         case MSG_STOP_PROCESS:
-          Log.Companion.d(TAG, "Ignoring MSG_STOP_PROCESS message.");
+          Log.d(TAG, "Ignoring MSG_STOP_PROCESS message.");
           break;
         default:
           super.handleMessage(msg);

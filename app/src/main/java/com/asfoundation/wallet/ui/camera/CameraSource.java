@@ -320,7 +320,7 @@ public class CameraSource {
           // quickly after stop).
           mProcessingThread.join();
         } catch (InterruptedException e) {
-            com.asfoundation.wallet.util.Log.Companion.d(TAG,
+            com.asfoundation.wallet.util.Log.d(TAG,
                 "Frame processing thread interrupted on release.");
         }
         mProcessingThread = null;
@@ -626,7 +626,7 @@ public class CameraSource {
           .contains(mFocusMode)) {
         parameters.setFocusMode(mFocusMode);
       } else {
-        com.asfoundation.wallet.util.Log.Companion.i(TAG,
+        com.asfoundation.wallet.util.Log.i(TAG,
             "Camera focus mode: " + mFocusMode + " is not supported on this device.");
       }
     }
@@ -639,7 +639,7 @@ public class CameraSource {
           .contains(mFlashMode)) {
         parameters.setFlashMode(mFlashMode);
       } else {
-        com.asfoundation.wallet.util.Log.Companion.i(TAG,
+        com.asfoundation.wallet.util.Log.i(TAG,
             "Camera flash mode: " + mFlashMode + " is not supported on this device.");
       }
     }
@@ -1096,7 +1096,7 @@ public class CameraSource {
         }
 
         if (!mBytesToByteBuffer.containsKey(data)) {
-          com.asfoundation.wallet.util.Log.Companion.d(TAG,
+          com.asfoundation.wallet.util.Log.d(TAG,
               "Skipping frame.  Could not find ByteBuffer associated with the image "
                   + "data from the camera.");
           return;
@@ -1139,8 +1139,7 @@ public class CameraSource {
               // don't have it yet.
               mLock.wait();
             } catch (InterruptedException e) {
-              com.asfoundation.wallet.util.Log.Companion.d(TAG, "Frame processing loop terminated.",
-                  e);
+              com.asfoundation.wallet.util.Log.d(TAG, "Frame processing loop terminated.", e);
               return;
             }
           }

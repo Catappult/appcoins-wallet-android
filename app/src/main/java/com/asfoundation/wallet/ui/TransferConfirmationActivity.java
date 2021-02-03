@@ -162,7 +162,7 @@ public class TransferConfirmationActivity extends BaseActivity {
   }
 
   private void onTransaction(PendingTransaction transaction) {
-    Log.Companion.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
+    Log.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
     if (!transaction.isPending()) {
       viewModel.progressFinished();
       hideDialog();

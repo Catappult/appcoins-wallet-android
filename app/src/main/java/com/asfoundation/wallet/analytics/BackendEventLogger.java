@@ -19,7 +19,7 @@ public class BackendEventLogger implements EventLogger {
 
   @Override
   public void log(String eventName, Map<String, Object> data, Action action, String context) {
-    Log.Companion.d(TAG, "log() called with: eventName = ["
+    Log.d(TAG, "log() called with: eventName = ["
         + eventName
         + "], data = ["
         + data
@@ -33,11 +33,11 @@ public class BackendEventLogger implements EventLogger {
         new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
         .subscribeOn(Schedulers.io())
         .subscribe(() -> {
-          Log.Companion.d(TAG, "event sent");
+          Log.d(TAG, "event sent");
         }, Throwable::printStackTrace);
   }
 
   @Override public void setup() {
-    Log.Companion.d(AnalyticsManager.class.getSimpleName(), "setup() called");
+    Log.d(AnalyticsManager.class.getSimpleName(), "setup() called");
   }
 }

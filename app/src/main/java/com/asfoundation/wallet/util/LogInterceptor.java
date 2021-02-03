@@ -123,7 +123,7 @@ public class LogInterceptor implements Interceptor {
       logBuilder.append(
           "<-----------------------------END REQUEST--------------------------------->");
       logBuilder.append("\n\n\n");
-      com.asfoundation.wallet.util.Log.Companion.d(TAG, logBuilder.toString());
+      com.asfoundation.wallet.util.Log.d(TAG, logBuilder.toString());
       return response;
     } catch (Exception exception) {
       logBuilder.append("Failed request url: ")
