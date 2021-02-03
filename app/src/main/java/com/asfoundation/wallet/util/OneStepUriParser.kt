@@ -2,6 +2,8 @@ package com.asfoundation.wallet.util
 
 import android.net.Uri
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.util.Parameters.Companion.HOST
+import com.asfoundation.wallet.util.Parameters.Companion.LEGACY_HOST
 
 class Parameters {
   companion object {
@@ -13,8 +15,8 @@ class Parameters {
     const val CURRENCY = "currency"
     const val CALLBACK_URL = "callback_url"
     const val SCHEME = "https"
+    const val LEGACY_HOST = BuildConfig.LEGACY_PAYMENT_HOST
     const val HOST = BuildConfig.PAYMENT_HOST
-    const val SECOND_HOST = BuildConfig.SECOND_PAYMENT_HOST
     const val PATH = "/transaction"
     const val PAYMENT_TYPE_INAPP_UNMANAGED = "INAPP_UNMANAGED"
     const val NETWORK_ID_ROPSTEN = 3L
@@ -23,7 +25,7 @@ class Parameters {
 }
 
 fun Uri.isOneStepURLString() =
-    scheme == Parameters.SCHEME && (host == Parameters.HOST || host == Parameters.SECOND_HOST)
+    scheme == Parameters.SCHEME && (host == HOST || host == LEGACY_HOST)
         && path.startsWith(Parameters.PATH)
 
 fun parseOneStep(uri: Uri): OneStepUri {
