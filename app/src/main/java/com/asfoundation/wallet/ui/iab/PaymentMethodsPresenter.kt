@@ -225,19 +225,18 @@ class PaymentMethodsPresenter(
   }
 
   private fun checkProcessing(skuId: String?): Completable {
-    return interactor.getSkuTransaction(paymentMethodsData.appPackage, skuId,
+    return interactor.getSkuTransaction(paymentMethodsData.appPackage, skuId, transaction.type,
         networkThread)
         .subscribeOn(networkThread)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
         .observeOn(viewScheduler)
         .doOnSuccess { view.showProcessingLoadingDialog() }
         .doOnSuccess { handleProcessing() }
-        .map { it.uid }
         .observeOn(networkThread)
-        .flatMapCompletable { uid ->
-          interactor.checkTransactionStateFromTransactionId(uid)
+        .flatMapCompletable {
+          interactor.checkTransactionStateFromTransactionId(it.uid)
               .ignoreElements()
-              .andThen(finishProcess(skuId))
+              .andThen(finishProcess(skuId, it.type, it.orderReference, it.hash))
         }
   }
 
@@ -250,16 +249,17 @@ class PaymentMethodsPresenter(
               interactor.resume(paymentMethodsData.uri,
                   AsfInAppPurchaseInteractor.TransactionType.NORMAL,
                   paymentMethodsData.appPackage, transaction.skuId,
-                  paymentMethodsData.developerPayload, paymentMethodsData.isBds)
+                  paymentMethodsData.developerPayload, paymentMethodsData.isBds, transaction.type)
             }
             .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun finishProcess(skuId: String?): Completable {
-    return interactor.getSkuPurchase(paymentMethodsData.appPackage, skuId,
-        networkThread)
+  private fun finishProcess(skuId: String?, type: String, orderReference: String?,
+                            hash: String?): Completable {
+    return interactor.getSkuPurchase(paymentMethodsData.appPackage, skuId, type, orderReference,
+        hash, networkThread)
         .observeOn(viewScheduler)
-        .doOnSuccess { purchase -> finish(purchase, false) }
+        .doOnSuccess { bundle -> view.finish(bundle) }
         .ignoreElement()
   }
 

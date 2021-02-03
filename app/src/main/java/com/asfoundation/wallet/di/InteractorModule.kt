@@ -346,10 +346,11 @@ class InteractorModule {
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                       billing: Billing,
+                                      billingMessagesMapper: BillingMessagesMapper,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(supportInteractor, gamificationInteractor, balanceInteractor,
         walletBlockedInteract, inAppPurchaseInteractor, fingerprintPreferences, billing,
-        bdsPendingTransactionService)
+        billingMessagesMapper, bdsPendingTransactionService)
   }
 
   @Provides

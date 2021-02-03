@@ -81,7 +81,8 @@ public class AsfInAppPurchaseInteractor {
           developerPayload).flatMapCompletable(
           paymentTransaction -> billing.getSkuTransaction(packageName,
               paymentTransaction.getTransactionBuilder()
-                  .getSkuId(), scheduler)
+                  .getSkuId(), paymentTransaction.getTransactionBuilder()
+                  .getType(), scheduler)
               .flatMapCompletable(
                   transaction -> resumePayment(approveKey, paymentTransaction, transaction)));
     }
@@ -310,7 +311,7 @@ public class AsfInAppPurchaseInteractor {
     return Single.defer(() -> {
       if (TransactionData.TransactionType.INAPP.name()
           .equalsIgnoreCase(type)) {
-        return billing.getSkuTransaction(packageName, productName, Schedulers.io());
+        return billing.getSkuTransaction(packageName, productName, type, Schedulers.io());
       } else {
         return Single.just(Transaction.Companion.notFound());
       }
@@ -318,7 +319,7 @@ public class AsfInAppPurchaseInteractor {
   }
 
   Single<Purchase> getCompletedPurchase(String packageName, String productName) {
-    return billing.getSkuTransaction(packageName, productName, Schedulers.io())
+    return billing.getSkuTransaction(packageName, productName, "INAPP", Schedulers.io())
         .map(Transaction::getStatus)
         .flatMap(transactionStatus -> {
           if (transactionStatus.equals(Transaction.Status.COMPLETED)) {
