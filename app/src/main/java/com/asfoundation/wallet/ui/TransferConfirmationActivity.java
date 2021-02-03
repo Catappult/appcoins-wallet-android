@@ -6,7 +6,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -15,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
-import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -24,6 +22,7 @@ import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
@@ -163,9 +162,7 @@ public class TransferConfirmationActivity extends BaseActivity {
   }
 
   private void onTransaction(PendingTransaction transaction) {
-    if (BuildConfig.LOGGABLE) {
-      Log.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
-    }
+    Log.Companion.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
     if (!transaction.isPending()) {
       viewModel.progressFinished();
       hideDialog();

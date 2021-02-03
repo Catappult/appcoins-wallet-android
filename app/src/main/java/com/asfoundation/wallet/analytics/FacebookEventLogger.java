@@ -1,11 +1,10 @@
 package com.asfoundation.wallet.analytics;
 
 import android.os.Bundle;
-import android.util.Log;
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.EventLogger;
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.util.Log;
 import com.facebook.appevents.AppEventsLogger;
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -40,17 +39,15 @@ public class FacebookEventLogger implements EventLogger {
   @Override
   public void log(String eventName, Map<String, Object> data, AnalyticsManager.Action action,
       String context) {
-    if (BuildConfig.LOGGABLE) {
-      Log.d(TAG, "facebook log() called with: eventName = ["
-          + eventName
-          + "], data = ["
-          + data
-          + "], action = ["
-          + action
-          + "], context = ["
-          + context
-          + "]");
-    }
+    Log.Companion.d(TAG, "facebook log() called with: eventName = ["
+        + eventName
+        + "], data = ["
+        + data
+        + "], action = ["
+        + action
+        + "], context = ["
+        + context
+        + "]");
     Bundle bundle = flatten(data);
     if (eventName.equals(BillingAnalytics.REVENUE)) {
       eventLogger.logPurchase(new BigDecimal(bundle.getString("value")),

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.util;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import com.asf.wallet.BuildConfig;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
@@ -124,9 +123,7 @@ public class LogInterceptor implements Interceptor {
       logBuilder.append(
           "<-----------------------------END REQUEST--------------------------------->");
       logBuilder.append("\n\n\n");
-      if (BuildConfig.LOGGABLE) {
-        Log.d(TAG, logBuilder.toString());
-      }
+      com.asfoundation.wallet.util.Log.Companion.d(TAG, logBuilder.toString());
       return response;
     } catch (Exception exception) {
       logBuilder.append("Failed request url: ")

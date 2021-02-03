@@ -34,7 +34,6 @@ import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.camera.CameraSource;
@@ -217,9 +216,8 @@ public final class BarcodeCaptureActivity extends BaseActivity
       @NonNull int[] grantResults) {
     if (requestCode == RC_HANDLE_CAMERA_PERM) {
       if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-        if (BuildConfig.LOGGABLE) {
-          Log.d(TAG, "Camera permission granted - initialize the camera source");
-        }
+          com.asfoundation.wallet.util.Log.Companion.d(TAG,
+              "Camera permission granted - initialize the camera source");
         // we have permission, so create the camerasource
         createCameraSource(AUTO_FOCUS, USE_FLASH);
       } else {
