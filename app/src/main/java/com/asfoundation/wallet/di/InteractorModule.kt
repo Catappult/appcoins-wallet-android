@@ -38,7 +38,6 @@ import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -212,8 +211,7 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideLocalPaymentInteractor(repository: InAppDeepLinkRepository,
-                                    walletService: WalletService,
+  fun provideLocalPaymentInteractor(walletService: WalletService,
                                     partnerAddressService: AddressService,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     billing: Billing, billingMessagesMapper: BillingMessagesMapper,
@@ -221,7 +219,7 @@ class InteractorModule {
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
                                     remoteRepository: RemoteRepository): LocalPaymentInteractor {
-    return LocalPaymentInteractor(repository, walletService, partnerAddressService,
+    return LocalPaymentInteractor(walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
         walletBlockedInteract, walletVerificationInteractor, remoteRepository)
   }

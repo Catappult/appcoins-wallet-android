@@ -5,6 +5,8 @@
   <string name="title_send_with_token">%s küldése</string>
   <string name="title_request">Fogadás</string>
   <string name="title_import">Pénztárca helyreállítása</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">Tárcáim</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Jelszó</string>
   <string name="action_sign_in_short">Create</string>
@@ -24,6 +26,7 @@
   <string name="credits">Információ</string>
   <string name="label_new">Új</string>
   <string name="got_it_button">ÉRTEM</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission_title">Engedély kamera használatára</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
@@ -333,7 +336,12 @@
   <string name="gamification_leveled_up_body">Mostantól %s bónuszt kapsz minden vásárlás után. Vásárolj és szerezz minél többet!</string>
   <string name="gamification_leveled_up_notification_title">Elérted a következő szintet!</string>
   <string name="gamification_leveled_up_notification_body">Gratula, mostantól %s bónuszt kapsz minden vásárlás után!</string>
-  <string name="gamification_how_max_level_body">Gratulálunk! Elérted a legmagasabb szintet 💃</string>
+  <string name="gamification_how_max_level_notification_title">Megcsináltad!</string>
+  <string name="gamification_how_max_level_body">Elérted a legmagasabb szintet: %s bónusz minden vásárlásnál!</string>
+  <string name="gamification_level_up_notification_title">Már majdnem megvan!</string>
+  <string name="gamification_level_up_notification_body">Költs el még %s AppCoins-t a következő szint eléréséhez.</string>
+  <string name="gamification_bonus_plus_perk_title">Extra bónuszt kaptál!</string>
+  <string name="gamification_bonus_plus_perk_body">Élvezd ki a(z) %1s bónuszt és a még %2$s AppCoins kreditet.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Engedélyezd az AppCoins Wallet-nek, hogy tárcacímedet megadja a(z) %s számára.</string>
   <string name="provide_wallet_body_placeholders">Engedélyezd %1$s számára, hogy pénztárcacímedet megadja a(z) %2$s számára.</string>
@@ -500,6 +508,8 @@
   <string name="purchase_card_error_CVV">Hibás CVV/CVC</string>
   <string name="error_contac_us_body">Ha a probléma továbbra is fennáll, vedd fe velünk a kapcsolatot.</string>
   <string name="purchase_error_unverified_wallet">Próbáld meg a tárca hitelesítése után véghezvinni a vásárlást.</string>
+  <string name="purchase_error_try_other_method">Hoppá&#8230; Valami nincs rendben! Kérjük, próbálkozz egy másik fizetési móddal vagy lépj velünk kapcsolatba.</string>
+  <string name="purchase_error_try_other_amount">Biztos vagy benne, hogy helyes a feltöltés összege? Próbálkozz egy másikkal vagy vedd fel velünk kapcsolatot!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -559,8 +569,11 @@
   <string name="promotions_tab_poa_title">JÁTSSZ &amp; KERESS</string>
   <string name="promotions_empty_promotions_body">Jelenleg nincs elérhető promóció. Gyere vissza később!</string>
   <string name="promotions_empty_poa_body">Jelenleg nincsenek jutalmakat tartalmazó appok. Gyere vissza később!</string>
+  <string name="promotions_empty_first_purchase_body">Végezd el az első vásárlást egy játékban vagy appban és fedezd fel, milyen promóciók várnak rád!</string>
+  <string name="promotions_empty_suggested_games_title">Neked ajánlott játékok</string>
   <string name="promotions_perks_button">Előnyök</string>
   <string name="promotions_vouhers_button">Kuponok</string>
+  <string name="promotions_tooltip">Szerezz AppCoins kreditet ingyen a promócióinkkal!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">A jutalom megszerzéséhez frissítés szükséges</string>
   <string name="update_wallet_poa_notification_body">Kérünk, a jutalom megszerzéséhez frissítsd az AppCoins Walletot.</string>
@@ -679,7 +692,7 @@
   <string name="subscriptions_settings_title">Feliratkozások kezelése</string>
   <string name="subscriptions_title">Feliratkozások</string>
   <string name="subscriptions_active_title">Aktív</string>
-  <string name="subscriptions_expired_title">Inaktív</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">Még nincsenek feliratkozások</string>
   <string name="subscriptions_empty_body">Iratkozz fel szolgáltatásokra a kedvenc appjaidban és játékaidban, mi pedig intézzük az időszakos fizetéseket.</string>
   <string name="subscriptions_details_billing_title">Számlázás:</string>
@@ -692,7 +705,7 @@
   <string name="subscriptions_canceled_body">Lemondva</string>
   <string name="subscriptions_details_disclaimer">Az AppCoins értéke változhat a következő fizetésnél az átváltási árfolyam miatt.</string>
   <string name="subscriptions_details_button">RÉSZLETEK</string>
-  <string name="subscriptions_manage_button">FELIRATKOZÁSOK KEZELÉSE</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">FELIRATKOZÁS LEMONDÁSA</string>
   <string name="subscriptions_cancel_title">Feliratkozás lemondása</string>
   <string name="subscriptions_cancel_body">Biztos vagy benne, hogy lemondod a feliratkozást?</string>
@@ -702,10 +715,14 @@
   <string name="subscriptions_cancel_confirmation_body">Már nem kell többet fizetned ezért a feliratkozásért. Eddig használhatod: %s.</string>
   <string name="subscriptions_category_title">Feliratkozás</string>
   <string name="subscriptions_bonus_body">Ezt a bónusz minden fizetésnél megkapod.</string>
-  <string name="subscriptions_per_day">%1$s%2$s/naponta</string>
-  <string name="subscriptions_per_week">%1$s%2$s/hetente</string>
-  <string name="subscriptions_per_month">%1$s%2$s/havonta</string>
-  <string name="subscriptions_per_year">%1$s%2$s/évente</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">Akár %s%% bónusz!</string>
   <string name="gamif_bonus_received">Bónusz érkezett</string>
@@ -758,8 +775,9 @@
   <string name="carrier_billing_payment_method_title">Mobilszámlázás</string>
   <string name="carrier_billing_fees_disclaimer">További költségek léphetnek fel</string>
   <string name="carrier_billing_insert_phone_body">Add meg a telefonszámod</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">A telefonszámod...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">Egy %1$s díjat számolunk fel</string>
   <string name="carrier_billing_purchase_info_body">%1$s a(z) %2$s appban.</string>
   <string name="carrier_billing_phone_confirmation_body">A telefonszámod %s.</string>
   <string name="carrier_billing_enter_pin_body">Add meg az SMS-ben érkezett PIN kódot.</string>
@@ -835,6 +853,8 @@
   <string name="rate_us_possitive_thanks_body">Örölünk, hogy tetszik neked az appunk. Megtennék, hogy az alkalmazáboltban is értékelsz minket?</string>
   <string name="rate_us_possitive_rate_button">AZ APPCOINS WALLET ÉRTÉKELÉSE</string>
   <string name="rate_us_possitive_done_title">Köszönjük a visszajelzést!</string>
+  <string name="rate_us_back_title">Segítenél nekünk?</string>
+  <string name="rate_us_back_body">Értékeld az AppCoins Walletot az alkalmazásboltban, hogy jobbá tehessük azt.</string>
   <!--Card verification-->
   <string name="card_verification_body">Használd a hitelkártyád/bankkártyád a tárca hitelesítéséhez.</string>
   <string name="card_verification_charde_disclaimer">%s összeget vonunk le a kártyádról, majd visszafizetjük miután megerősíted a kódot.</string>
@@ -859,6 +879,8 @@
   <string name="card_verification_wallets_one_step_title">Még egy lépés maradt hátra a hitelesítésből</string>
   <string name="card_verification_wallets_one_step_body">Add meg a tranzakció részletekben megjelenő kódot.</string>
   <string name="card_verification_wallets_insert_bode_button">Kód megadása</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">Vedd meg ezt az utalványt és szerezz %s%% bónuszt.</string>
   <string name="voucher_buy_header">%s utalvány</string>
@@ -867,4 +889,6 @@
   <string name="voucher_code_title">Utalványkód</string>
   <string name="voucher_instructions_body">Menj a(z) %s oldalra és váltsd be az utalványt.</string>
   <string name="voucher_instructions_transactions">Az utalvány kódot mindig megtalálhatod a tranzakció előzményekben.</string>
+  <string name="voucher_empty">Jelenleg nincs elérhető utalvány.</string>
+  <string name="voucher_tooltip">Mostantól utalványokat vásárolhatsz a játékokhoz!</string>
 </resources>

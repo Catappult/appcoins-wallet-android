@@ -17,12 +17,12 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
                     transactionType: String, paymentUrl: String, currency: String,
                     amount: BigDecimal, appcAmount: BigDecimal, bonus: BigDecimal?,
                     skuDescription: String, skuId: String?, feeFiatAmount: BigDecimal,
-                    carrierName: String, carrierImage: String) {
+                    carrierName: String, carrierImage: String, phoneNumber: String) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             CarrierFeeFragment.newInstance(uid, domain, transactionData, transactionType,
                 paymentUrl, currency, amount, appcAmount, bonus, skuDescription, skuId,
-                feeFiatAmount, carrierName, carrierImage))
+                feeFiatAmount, carrierName, carrierImage, phoneNumber))
         .addToBackStack(null)
         .commit()
   }

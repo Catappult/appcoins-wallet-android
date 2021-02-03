@@ -5,6 +5,8 @@
   <string name="title_send_with_token">ਭੇਜੋ %s</string>
   <string name="title_request">ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="title_import">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
+  <!--Bottom navigation-->
+  <string name="bottom_navigation_my_wallets">ਮੇਰੇ ਬਟੂਏ</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">ਪਾਸਵਰਡ</string>
   <string name="action_sign_in_short">Create</string>
@@ -24,6 +26,7 @@
   <string name="credits">ਕ੍ਰੈਡਿਟ</string>
   <string name="label_new">ਨਵਾਂ</string>
   <string name="got_it_button">ਠੀਕ ਹੈ!</string>
+  <string name="change_button">CHANGE</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission_title">ਕੈਮਰਾ ਅਧਿਕਾਰ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
@@ -333,7 +336,12 @@
   <string name="gamification_leveled_up_body">ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਵੇਗਾ| ਹੋਰ ਕਮਾਉਣ ਲਈ ਖਰੀਦਦੇ ਰਹੋ!</string>
   <string name="gamification_leveled_up_notification_title">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ!</string>
   <string name="gamification_leveled_up_notification_body">ਵਧਾਈਆਂ, ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਮਿਲੇਗਾ!</string>
-  <string name="gamification_how_max_level_body">ਵਧਾਈਆਂ! ਤੁਸੀਂ ਉੱਚ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ 💃</string>
+  <string name="gamification_how_max_level_notification_title">ਤੁਸੀ ਕਰ ਦਿੱਤਾ!</string>
+  <string name="gamification_how_max_level_body">ਤੁਸੀਂ ਸੱਭ ਤੋਂ ਉੱਚੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ: ਹਰ ਖਰੀਦ ਤੇ %s ਬੋਨਸ!</string>
+  <string name="gamification_level_up_notification_title">ਲਗਭਗ ਉਥੇ!</string>
+  <string name="gamification_level_up_notification_body">ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ %s ਹੋਰ ਐਪਸਿੱਕੇ ਖਰਚ ਕਰੋ|</string>
+  <string name="gamification_bonus_plus_perk_title">ਤੁਹਾਨੂੰ ਵਾਧੂ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
+  <string name="gamification_bonus_plus_perk_body">%1$s ਬੋਨਸ ਅਤੇ %2$s ਵਾਧੂ ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟ ਦਾ ਆਨੰਦ ਲਓ|</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
   <string name="provide_wallet_body_placeholders">%1$s ਬਟੂਏ ਨੂੰ %2$s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
@@ -410,7 +418,7 @@
   <string name="password">ਪਾਸਵਰਡ</string>
   <string name="repeat_password">ਪਾਸਵਰਡ ਦੁਹਰਾਓ</string>
   <string name="turn_on_button">ਚਾਲੂ ਕਰੋ</string>
-  <string name="no_thanks_button">No, thanks</string>
+  <string name="no_thanks_button">ਨਹੀਂ, ਧੰਨਵਾਦ</string>
   <string name="remind_later_button">ਮੈਨੂੰ ਬਾਅਦ ਵਿੱਚ ਚੇਤੇ ਕਰਵਾਓ</string>
   <string name="get_code_button">ਕੋਡ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="confirm_button">ਪੁਸ਼ਟੀ ਕਰੋ</string>
@@ -499,7 +507,9 @@
   <string name="purchase_error_wallet_block_code_403">ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਲੱਗ ਰਿਹਾ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਤੋਂ ਬਾਅਦ ਖਰੀਦ ਪੂਰੀ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_error_try_other_method">ਓਹੋ&#8230; ਕੁੱਝ ਗਲਤ ਚੱਲ ਰਿਹਾ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਵਖਰੀ ਭੁਗਤਾਨ ਵਿਧੀ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_error_try_other_amount">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਰੀਚਾਰਜ ਰਕਮ ਸਹੀ ਹੈ? ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
@@ -559,8 +569,11 @@
   <string name="promotions_tab_poa_title">ਖੇਲੋ &amp; ਕਮਾਓ</string>
   <string name="promotions_empty_promotions_body">ਇਸ ਸਮੇਂ ਕੋਈ ਵੀ ਆਫਰਾਂ ਉਪਲਬਧ ਨਹੀਂ ਹਨ| ਬਾਅਦ ਵਿਚ ਵਾਪਸ ਆਓ!</string>
   <string name="promotions_empty_poa_body">ਇਸ ਸਮੇਂ ਇੱਥੇ ਕੋਈ ਵੀ ਐਪ ਇਨਾਮ ਲਈ ਉਪਲਬਧ ਨਹੀਂ ਹੈ| ਬਾਅਦ ਵਿਚ ਵਾਪਸ ਆਓ!</string>
+  <string name="promotions_empty_first_purchase_body">ਇੱਕ ਗੇਮ ਜਾਂ ਐਪ ਵਿੱਚ ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰੋ ਅਤੇ ਸਾਨੂੰ ਤੁਹਾਡੇ ਲਈ ਮਿਲੀਆਂ ਆਫਰਾਂ ਨੂੰ ਖੋਲੋ!</string>
+  <string name="promotions_empty_suggested_games_title">ਸੁਝਾਈਆਂ ਗਈਆਂ ਗੇਮਾਂ</string>
   <string name="promotions_perks_button">ਸੁਵਿਧਾਵਾਂ</string>
   <string name="promotions_vouhers_button">ਵਾਊਚਰ</string>
+  <string name="promotions_tooltip">ਸਾਡੀਆਂ ਆਫਰਾਂ ਦੇ ਨਾਲ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ!</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਪਡੇਟ ਕਰੋ</string>
   <string name="update_wallet_poa_notification_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਅਪਡੇਟ ਕਰੋ|</string>
@@ -679,7 +692,7 @@
   <string name="subscriptions_settings_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ</string>
   <string name="subscriptions_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_active_title">ਐਕਟਿਵ</string>
-  <string name="subscriptions_expired_title">ਇਨ ਐਕਟਿਵ</string>
+  <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">ਅਜੇ ਕੋਈ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨਹੀਂ</string>
   <string name="subscriptions_empty_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਦੀਆਂ ਸੇਵਾਵਾਂ ਦੀ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਲਓ ਅਤੇ ਅਸੀਂ ਸਮੇਂ-ਸਮੇਂ ਤੇ ਭੁਗਤਾਨਾਂ ਨਾਲ ਕੰਮ ਕਰਾਂਗੇ|</string>
   <string name="subscriptions_details_billing_title">ਬਿਲਿੰਗ:</string>
@@ -692,7 +705,7 @@
   <string name="subscriptions_canceled_body">ਰੱਦ</string>
   <string name="subscriptions_details_disclaimer">ਐਕਸਚੇਂਜ ਰੇਟ ਕਾਰਨ ਅਗਲੇ ਭੁਗਤਾਨ ਲਈ ਮੁੱਲ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ|</string>
   <string name="subscriptions_details_button">ਵੇਰਵਾ</string>
-  <string name="subscriptions_manage_button">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ</string>
+  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_cancel_title">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_cancel_body">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨੂੰ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
@@ -702,10 +715,14 @@
   <string name="subscriptions_cancel_confirmation_body">ਤੁਹਾਡੇ ਤੋਂ ਹੁਣ ਇਸ ਗਾਹਕੀ ਲਈ ਕੋਈ ਪੈਸਾ ਨਹੀਂ ਲਿੱਤਾ ਜਾਵੇਗਾ, ਅਤੇ ਤੁਸੀਂ ਇਸ ਨੂੰ %s ਤੱਕ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
   <string name="subscriptions_category_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_bonus_body">ਤੁਸੀਂ ਹਰ ਅਦਾਇਗੀ ਤੇ ਇਹ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
-  <string name="subscriptions_per_day">%1$s%2$s/ਦਿਨ</string>
-  <string name="subscriptions_per_week">%1$s%2$s/ਹਫ਼ਤਾ</string>
-  <string name="subscriptions_per_month">%1$s%2$s/ਮਹੀਨਾ</string>
-  <string name="subscriptions_per_year">%1$s%2$s/ਸਾਲ</string>
+  <string name="subscriptions_per_day">%1$s/day</string>
+  <string name="subscriptions_per_week">%1$s/week</string>
+  <string name="subscriptions_per_month">%1$s/month</string>
+  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
+  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
+  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
+  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <!--New Gamification-->
   <string name="gamif_title">%s%% ਤੱਕ ਦਾ ਬੋਨਸ!</string>
   <string name="gamif_bonus_received">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
@@ -758,8 +775,9 @@
   <string name="carrier_billing_payment_method_title">ਕੈਰੀਅਰ ਬਿਲਿੰਗ</string>
   <string name="carrier_billing_fees_disclaimer">ਵਾਧੂ ਫੀਸ ਲਾਗੂ ਹੋ ਸਕਦੀ ਹੈ</string>
   <string name="carrier_billing_insert_phone_body">ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਪਾਓ</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">ਇੱਕ %1$s ਫੀਸ ਲਗਾਈ ਜਾਵੇਗੀ</string>
   <string name="carrier_billing_purchase_info_body">%2$s ਵਿੱਚ %1$s|</string>
   <string name="carrier_billing_phone_confirmation_body">ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ %s ਹੈ|</string>
   <string name="carrier_billing_enter_pin_body">ਕਿਰਪਾ ਕਰਕੇ ਐਸਐਮਐਸ ਦੁਆਰਾ ਪ੍ਰਾਪਤ ਕੀਤਾ ਕੋਡ ਭਰੋ|</string>
@@ -835,11 +853,13 @@
   <string name="rate_us_possitive_thanks_body">ਅਸੀਂ ਖੁਸ਼ ਹਾਂ ਕਿ ਤੁਹਾਨੂੰ ਸਾਡੀ ਐਪ ਪਸੰਦ ਹੈ| ਕੀ ਤੁਸੀਂ ਐਪ ਸਟੋਰ ਤੇ ਰੇਟਿੰਗ ਦੇ ਕੇ ਸਾਡੀ ਮਦਦ ਕਰ ਸਕਦੇ ਹੋ?</string>
   <string name="rate_us_possitive_rate_button">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ</string>
   <string name="rate_us_possitive_done_title">ਤੁਹਾਡੀ ਸੁਝਾਅ ਲਈ ਧੰਨਵਾਦ!</string>
+  <string name="rate_us_back_title">ਸਾਡੀ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+  <string name="rate_us_back_body">ਐਪ ਸਟੋਰ ਤੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ ਤਾਂ ਜੋ ਅਸੀਂ ਇਸ ਵਿੱਚ ਸੁਧਾਰ ਕਰ ਸਕੀਏ|</string>
   <!--Card verification-->
   <string name="card_verification_body">ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਲਈ ਆਪਣੇ ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
   <string name="card_verification_charde_disclaimer">ਅਸੀਂ ਤੁਹਾਡੇ ਕਾਰਡ ਤੋਂ %s ਵਸੂਲ ਕਰਾਂਗੇ ਅਤੇ ਜਦੋਂ ਤੁਸੀਂ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹੋ ਤਾਂ ਅਸੀਂ ਇਸਨੂੰ ਵਾਪਸ ਕਰ ਦੇਵਾਂਗੇ|</string>
   <string name="card_verification_code_title">ਲੈਣਦੇਣ ਦੇ ਵੇਰਵੇਆਂ ਵਿੱਚ ਕੋਡ ਦੀ ਜਾਂਚ ਕਰੋ</string>
-  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="card_verification_code_body">ਤੁਹਾਡੇ ਕਾਰਡ ਦੇ ਜਾਰੀਕਰਤਾ ਦੁਆਰਾ ਪ੍ਰਦਾਨ ਕੀਤੇ ਸੌਦੇ ਦੇ ਸੰਖੇਪ ਵਿੱਚ ਇੱਕ ਵਿਲੱਖਣ ਕੋਡ ਦਿਖਾਈ ਦੇਵੇਗਾ|</string>
   <string name="card_verification_code_example_title">ਲੈਣ-ਦੇਣ ਦੇ ਸੰਖੇਪ ਦੀ ਉਦਾਹਰਣ</string>
   <string name="card_verification_code_example_date">ਲੈਣ-ਦੇਣ ਦੀ ਤਾਰੀਖ਼</string>
   <string name="card_verification_code_example_description">ਵੇਰਵਾ</string>
@@ -859,6 +879,8 @@
   <string name="card_verification_wallets_one_step_title">ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਲਈ ਇੱਕ ਹੋਰ ਕਦਮ</string>
   <string name="card_verification_wallets_one_step_body">ਲੈਣ-ਦੇਣ ਦੇ ਵੇਰਵਿਆਂ ਵਿੱਚ ਦਿਸ ਰਿਹਾ ਕੋਡ ਭਰੋ|</string>
   <string name="card_verification_wallets_insert_bode_button">ਕੋਡ ਭਰੋ</string>
+  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
+  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
   <string name="voucher_card_body">ਇਸ ਵਾਊਚਰ ਨੂੰ ਖਰੀਦੋ ਅਤੇ %s %% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
   <string name="voucher_buy_header">%s ਲਈ ਵਾਊਚਰ</string>
@@ -867,4 +889,6 @@
   <string name="voucher_code_title">ਵਾਊਚਰ ਕੋਡ</string>
   <string name="voucher_instructions_body">%s ਤੇ ਜਾਓ ਅਤੇ ਆਪਣੇ ਵਾਊਚਰ ਨੂੰ ਵਰਤਣ ਲਈ ਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
   <string name="voucher_instructions_transactions">ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਸੌਦੇ ਦੇ ਇਤਿਹਾਸ ਵਿੱਚ ਵਾਊਚਰ ਕੋਡ ਨੂੰ ਲੱਭ ਸਕਦੇ ਹੋ|</string>
+  <string name="voucher_empty">ਇਸ ਸਮੇਂ ਕੋਈ ਵਾਊਚਰ ਉਪਲਬਧ ਨਹੀਂ ਹਨ|</string>
+  <string name="voucher_tooltip">ਤੁਸੀਂ ਹੁਣ ਗੇਮਾਂ ਲਈ ਵਊਚਰ ਖਰੀਦ ਸਕਦੇ ਹੋ!</string>
 </resources>

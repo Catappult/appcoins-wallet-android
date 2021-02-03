@@ -39,6 +39,7 @@ class CarrierVerifyPresenter(
     handleNextButton()
     handleOtherPaymentsButton()
     handlePhoneNumberChange()
+    handleChangeButtonClick()
   }
 
   private fun handleAvailableCountryList() {
@@ -49,6 +50,9 @@ class CarrierVerifyPresenter(
           if (it.shouldFilter()) {
             view.filterCountries(it.countryList, it.convertListToString())
           }
+          val phoneNumber = interactor.retrievePhoneNumber()
+          if(phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
+          else view.hideSavedPhoneNumber()
           view.showPhoneNumberLayout()
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -62,6 +66,19 @@ class CarrierVerifyPresenter(
             .observeOn(viewScheduler)
             .doOnSuccess { ai ->
               view.setAppDetails(ai.appName, ai.icon)
+            }
+            .subscribe({}, { e -> e.printStackTrace() })
+    )
+  }
+
+  private fun handleChangeButtonClick() {
+    disposables.add(
+        view.changeButtonClick()
+            .observeOn(viewScheduler)
+            .doOnNext { _ ->
+              interactor.forgetPhoneNumber()
+              view.hideSavedPhoneNumber(true)
+              view.focusOnPhoneNumber()
             }
             .subscribe({}, { e -> e.printStackTrace() })
     )
@@ -89,33 +106,33 @@ class CarrierVerifyPresenter(
                   data.transactionType,
                   "next")
             }
-            .flatMapSingle { phoneNumber ->
+            .flatMap { phoneNumber ->
               interactor.createPayment(phoneNumber, data.domain, data.origin, data.transactionData,
                   data.transactionType, data.currency, data.fiatAmount.toString())
-            }
-            .observeOn(viewScheduler)
-            .flatMap { paymentModel ->
-              view.unlockRotation()
-              var completable = Completable.complete()
-              if (paymentModel.error !is NoError) {
-                completable = handleError(paymentModel)
-              } else {
-                if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
-                  completable = handleUnknownFeeOrCarrier()
-                  safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
-                    fee.cost?.let { cost ->
-                      completable = Completable.fromAction {
-                        navigator.navigateToFee(paymentModel.uid, data.domain,
-                            data.transactionData, data.transactionType, paymentModel.paymentUrl!!,
-                            data.currency, data.fiatAmount, data.appcAmount, data.bonusAmount,
-                            data.skuDescription, data.skuId, cost.value, carrier.name, carrier.icon)
+                  .observeOn(viewScheduler)
+                  .flatMapObservable { paymentModel ->
+                    view.unlockRotation()
+                    var completable = Completable.complete()
+                    if (paymentModel.error !is NoError) {
+                      completable = handleError(paymentModel)
+                    } else if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
+                      completable = handleUnknownFeeOrCarrier()
+                      safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
+                        fee.cost?.let { cost ->
+                          completable = Completable.fromAction {
+                            navigator.navigateToFee(paymentModel.uid, data.domain,
+                                data.transactionData, data.transactionType,
+                                paymentModel.paymentUrl!!, data.currency, data.fiatAmount,
+                                data.appcAmount, data.bonusAmount, data.skuDescription,
+                                data.skuId, cost.value, carrier.name, carrier.icon, phoneNumber)
+                          }
+                        }
                       }
                     }
+                    return@flatMapObservable completable.andThen(Observable.just(paymentModel))
                   }
-                }
-              }
-              return@flatMap completable.andThen(Observable.just(paymentModel))
             }
+            .observeOn(viewScheduler)
             .doOnError { handleException(it) }
             .retry()
             .subscribe({}, { handleException(it) })
