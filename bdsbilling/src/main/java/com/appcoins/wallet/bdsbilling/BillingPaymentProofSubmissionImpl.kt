@@ -73,7 +73,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
               .flatMap { signedData ->
                 repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
                     productName, packageName, priceValue, developerWallet, storeWallet, origin,
-                    type, oemWallet, developerPayload, callback, orderReference, null)
+                    type, oemWallet, developerPayload, callback, orderReference, referrerUrl)
               }
         }
   }
