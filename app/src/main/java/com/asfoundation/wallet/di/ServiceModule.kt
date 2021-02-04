@@ -42,8 +42,8 @@ import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.DeviceInfo
-import com.asfoundation.wallet.verification.network.ValidationApi
 import com.asfoundation.wallet.verification.network.VerificationApi
+import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -397,21 +397,6 @@ class ServiceModule {
     return Web3jService(web3jProvider)
   }
 
-
-  @Singleton
-  @Provides
-  fun provideSmsValidationApi(@Named("default") client: OkHttpClient,
-                              gson: Gson): SmsValidationApi {
-    val baseUrl = BuildConfig.BACKEND_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(SmsValidationApi::class.java)
-  }
-
   @Singleton
   @Provides
   fun provideWalletStatusApi(@Named("default") client: OkHttpClient, gson: Gson): WalletStatusApi {
@@ -591,7 +576,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideWalletValidationApi(@Named("default") client: OkHttpClient,
-                                 gson: Gson): ValidationApi {
+                                 gson: Gson): VerificationStateApi {
     val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -599,6 +584,6 @@ class ServiceModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(ValidationApi::class.java)
+        .create(VerificationStateApi::class.java)
   }
 }

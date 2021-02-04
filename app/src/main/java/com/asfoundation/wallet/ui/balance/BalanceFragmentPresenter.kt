@@ -126,10 +126,10 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .observeOn(viewScheduler)
         .doOnSuccess {
           when (it.status) {
-            BalanceWalletValidationStatus.VERIFIED -> displayWalletVerifiedStatus()
-            BalanceWalletValidationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
-            BalanceWalletValidationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
-            BalanceWalletValidationStatus.NO_NETWORK, BalanceWalletValidationStatus.ERROR -> {
+            BalanceVerificationStatus.VERIFIED -> displayWalletVerifiedStatus()
+            BalanceVerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
+            BalanceVerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
+            BalanceVerificationStatus.NO_NETWORK, BalanceVerificationStatus.ERROR -> {
               handleNoNetwork(it.address)
             }
           }

@@ -120,22 +120,22 @@ class BalanceInteractor(
     )
   }
 
-  fun isWalletValid(address: String, signedAddress: String): Single<BalanceWalletValidationModel> {
+  fun isWalletValid(address: String, signedAddress: String): Single<BalanceVerificationModel> {
     return verificationRepository.getVerificationStatus(address, signedAddress)
-        .map { status -> mapToBalanceWalletValidationModel(address, status) }
+        .map { status -> mapToBalanceVerificationModel(address, status) }
 
   }
 
-  private fun mapToBalanceWalletValidationModel(address: String,
-                                                verificationStatus: VerificationStatus): BalanceWalletValidationModel {
+  private fun mapToBalanceVerificationModel(address: String,
+                                            verificationStatus: VerificationStatus): BalanceVerificationModel {
     val status = when (verificationStatus) {
-      VerificationStatus.CODE_REQUESTED -> BalanceWalletValidationStatus.CODE_REQUESTED
-      VerificationStatus.VERIFIED -> BalanceWalletValidationStatus.VERIFIED
-      VerificationStatus.NO_NETWORK -> BalanceWalletValidationStatus.NO_NETWORK
-      VerificationStatus.ERROR -> BalanceWalletValidationStatus.ERROR
-      else -> BalanceWalletValidationStatus.UNVERIFIED
+      VerificationStatus.CODE_REQUESTED -> BalanceVerificationStatus.CODE_REQUESTED
+      VerificationStatus.VERIFIED -> BalanceVerificationStatus.VERIFIED
+      VerificationStatus.NO_NETWORK -> BalanceVerificationStatus.NO_NETWORK
+      VerificationStatus.ERROR -> BalanceVerificationStatus.ERROR
+      else -> BalanceVerificationStatus.UNVERIFIED
     }
-    return BalanceWalletValidationModel(address, status)
+    return BalanceVerificationModel(address, status)
   }
 
 

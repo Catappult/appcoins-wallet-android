@@ -2,14 +2,14 @@ package com.asfoundation.wallet.verification
 
 import android.content.SharedPreferences
 import com.asfoundation.wallet.util.isNoNetworkException
-import com.asfoundation.wallet.verification.network.ValidationApi
 import com.asfoundation.wallet.verification.network.VerificationApi
+import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Completable
 import io.reactivex.Single
 
 class VerificationRepository(private val verificationApi: VerificationApi,
-                             private val validationApi: ValidationApi,
+                             private val verificationStateApi: VerificationStateApi,
                              private val sharedPreferences: SharedPreferences) {
 
   companion object {
@@ -23,12 +23,10 @@ class VerificationRepository(private val verificationApi: VerificationApi,
           if (verificationResponse.verified) {
             Single.just(VerificationStatus.VERIFIED)
           } else {
-            validationApi.getValidationState(walletAddress, walletSignature)
-                .map { validationState ->
-                  if (validationState == "ACTIVE")
-                    VerificationStatus.CODE_REQUESTED
-                  else
-                    VerificationStatus.UNVERIFIED
+            verificationStateApi.getVerificationState(walletAddress, walletSignature)
+                .map { verificationState ->
+                  if (verificationState == "ACTIVE") VerificationStatus.CODE_REQUESTED
+                  else VerificationStatus.UNVERIFIED
                 }
           }
         }
