@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Romanian\n"
 "Language: ro_RO\n"
-"PO-Revision-Date: 2020-12-20 17:43\n"
+"PO-Revision-Date: 2021-02-05 11:57\n"
 
 #. Card Title
 #:
@@ -99,6 +99,6 @@ msgstr "Pentru că ai cheltuit {0} {1} în aplicații AppCoins."
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
-msgstr "Primești {0}% în plus la toate cumpărăturile tale, cu excepția AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr ""
 
