@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2021-01-31 12:52\n"
+"PO-Revision-Date: 2021-02-05 11:58\n"
 
 #. Card Title
 #:
@@ -99,6 +99,6 @@ msgstr "AppCoins 앱 내에서 {0}{1} 를 사용하셨기 때문에"
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
-msgstr "AppCoins 크레디트를 제외한, 모든 구매에서 {0}%를 추가로 받습니다."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr ""
 
