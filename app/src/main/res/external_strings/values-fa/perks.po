@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2021-01-16 10:25\n"
+"PO-Revision-Date: 2021-02-05 11:57\n"
 
 #. Card Title
 #:
@@ -99,6 +99,6 @@ msgstr "زیرا شما {0} {1} در اپلیکیشن‌های AppCoins خرج �
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
-msgstr "{0}% اضافی در همه خریدهای خود غیر از AppCoins Credits دریافت کنید."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr ""
 
