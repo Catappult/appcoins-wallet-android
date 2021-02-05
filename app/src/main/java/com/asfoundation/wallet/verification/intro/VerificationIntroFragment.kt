@@ -263,6 +263,7 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
   override fun hideLoading() {
     progress_bar.visibility = View.GONE
     content_container.visibility = View.VISIBLE
+    activityView.hideLoading()
   }
 
   override fun showError(errorType: VerificationPaymentModel.ErrorType?) {

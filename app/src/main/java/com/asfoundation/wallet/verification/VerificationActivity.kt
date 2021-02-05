@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.ui.BaseActivity
@@ -13,6 +14,7 @@ import com.asfoundation.wallet.verification.error.VerificationErrorFragment
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.activity_wallet_verification.*
 import javax.inject.Inject
 
 
@@ -76,5 +78,9 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
 
   override fun getToolbarBackPressEvents(): Observable<String> {
     return toolbarBackPressSubject
+  }
+
+  override fun hideLoading() {
+    progress_bar.visibility = View.GONE
   }
 }

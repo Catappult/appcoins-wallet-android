@@ -187,6 +187,7 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
     code_disclaimer.visibility = View.VISIBLE
     change_card_button.visibility = View.VISIBLE
     progress_bar.visibility = View.GONE
+    activityView.hideLoading()
   }
 
   override fun showVerificationCode() {

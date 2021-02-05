@@ -15,4 +15,6 @@ interface VerificationActivityView {
   fun getCurrentFragment(): String
 
   fun getToolbarBackPressEvents(): Observable<String>
+
+  fun hideLoading()
 }
