@@ -7,18 +7,6 @@
     android:theme="@style/MaterialAppTheme"
     >
 
-  <ProgressBar
-      android:id="@+id/progress_bar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:indeterminateDrawable="@drawable/gradient_progress"
-      android:visibility="visible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
   <ScrollView
       android:id="@+id/content_container"
       android:layout_width="match_parent"
@@ -32,6 +20,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+
+      <ProgressBar
+          android:id="@+id/progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/code_title"
+          app:layout_constraintBottom_toBottomOf="@id/change_card_button"
+          />
 
       <TextView
           android:id="@+id/title"

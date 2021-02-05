@@ -154,7 +154,6 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
         Completable.complete()
             .observeOn(viewScheduler)
             .andThen(handleSuccessTransaction(verificationInfoModel))
-            .andThen { hideLoading() }
       }
       paymentModel.refusalReason != null -> Completable.fromAction {
         paymentModel.refusalCode?.let { code ->
@@ -181,6 +180,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
       navigator.navigateToCodeView(verificationInfoModel.currency, verificationInfoModel.symbol,
           verificationInfoModel.value, verificationInfoModel.digits, verificationInfoModel.format,
           verificationInfoModel.period, ts)
+      hideLoading()
     }
   }
 

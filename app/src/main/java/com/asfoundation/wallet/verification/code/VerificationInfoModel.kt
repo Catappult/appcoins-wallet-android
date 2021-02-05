@@ -9,4 +9,7 @@ data class VerificationInfoModel(val date: Long?,
                                  val symbol: String?,
                                  val period: String?,
                                  val digits: Int?,
-                                 val error: Error = Error())
+                                 val error: Error = Error()) {
+
+  constructor(error: Error) : this(null, null, null, null, null, null, null, error)
+}

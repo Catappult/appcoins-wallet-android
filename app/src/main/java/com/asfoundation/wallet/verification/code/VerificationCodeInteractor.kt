@@ -24,9 +24,7 @@ class VerificationCodeInteractor(
           adyenPaymentRepository.getVerificationInfo(it.address, it.signedAddress)
               .map { info -> mapToVerificationInfoModel(info) }
         }
-        .onErrorReturn {
-          VerificationInfoModel(null, null, null, null, null, null, null, Error(true))
-        }
+        .onErrorReturn { VerificationInfoModel(Error(true)) }
   }
 
   private fun mapToVerificationInfoModel(
