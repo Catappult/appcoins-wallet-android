@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
-import kotlinx.android.synthetic.main.item_promotions_title.view.*
 import kotlinx.android.synthetic.main.perks_content.view.*
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -49,26 +48,8 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
   private fun updateDate(view: TextView, container: LinearLayout, time: Long,
                          @PluralsRes text: Int) {
     container.visibility = View.VISIBLE
-    view.text =
-        itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
+    view.text = itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
-
-}
-
-class TitleViewHolder(itemView: View) : PromotionsViewHolder(itemView) {
-
-  override fun bind(promotion: Promotion) {
-    val titleItem = promotion as TitleItem
-
-    val title = if (titleItem.isGamificationTitle) {
-      val formatter = CurrencyFormatUtils.create()
-      val bonus = formatter.formatGamificationValues(BigDecimal(titleItem.bonus))
-      itemView.context.getString(titleItem.title, bonus)
-    } else itemView.context.getString(titleItem.title)
-    itemView.promotions_title.text = title
-    itemView.promotions_subtitle.setText(titleItem.subtitle)
-  }
-
 }
 
 class ProgressViewHolder(itemView: View,
@@ -226,11 +207,10 @@ class GamificationViewHolder(itemView: View,
     val gamificationItem = promotion as GamificationItem
     val formatter = CurrencyFormatUtils.create()
     val df = DecimalFormat("###.#")
+    val bonus = formatter.formatGamificationValues(BigDecimal(gamificationItem.maxBonus))
 
-    itemView.setOnClickListener {
-      clickListener.onNext(PromotionClick(promotion.id))
-    }
-
+    itemView.gamification_title.text = itemView.context.getString(R.string.perks_gamif_title, bonus)
+    itemView.setOnClickListener { clickListener.onNext(PromotionClick(promotion.id)) }
     itemView.planet.setImageDrawable(gamificationItem.planet)
     itemView.current_level_bonus.background = mapper.getOvalBackground(gamificationItem.levelColor)
     itemView.current_level_bonus.text =

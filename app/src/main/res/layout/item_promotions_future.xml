@@ -11,7 +11,7 @@
     >
 
   <ImageView
-      android:id="@+id/active_icon"
+      android:id="@+id/future_icon"
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:layout_marginStart="@dimen/normal_margin"
@@ -22,7 +22,7 @@
       tools:srcCompat="@drawable/ic_promotions_default"
       />
   <TextView
-      android:id="@+id/active_app_name"
+      android:id="@+id/future_app_name"
       style="@style/Promotions.TextStyle.AppName.Future"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -30,26 +30,26 @@
       android:layout_marginTop="2dp"
       android:layout_marginEnd="@dimen/normal_margin"
       android:text="Trivial Drive Sample"
-      app:layout_constraintEnd_toStartOf="@id/active_container_date"
-      app:layout_constraintStart_toEndOf="@id/active_icon"
-      app:layout_constraintTop_toTopOf="@+id/active_icon"
+      app:layout_constraintEnd_toStartOf="@id/future_container_date"
+      app:layout_constraintStart_toEndOf="@id/future_icon"
+      app:layout_constraintTop_toTopOf="@+id/future_icon"
       />
 
   <TextView
-      android:id="@+id/active_title"
+      android:id="@+id/future_title"
       style="@style/Promotions.TextStyle.Title.Future"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="6dp"
       android:layout_marginEnd="@dimen/normal_margin"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="@id/active_app_name"
-      app:layout_constraintTop_toBottomOf="@+id/active_app_name"
+      app:layout_constraintStart_toStartOf="@id/future_app_name"
+      app:layout_constraintTop_toBottomOf="@+id/future_app_name"
       tools:text="Spend 200 Appcoins in 5 days and earn a bonus of 120 AppCoins Credits"
       />
 
   <LinearLayout
-      android:id="@+id/active_container_date"
+      android:id="@+id/future_container_date"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/big_margin"
@@ -70,7 +70,7 @@
         />
 
     <TextView
-        android:id="@+id/active_expiry_date"
+        android:id="@+id/future_expiry_date"
         style="@style/Promotions.TextStyle.Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

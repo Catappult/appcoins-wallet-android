@@ -54,7 +54,7 @@ class PromotionsPresenter(private val view: PromotionsView,
       else -> {
         if (promotionsModel.promotions.isNotEmpty()) {
           viewState = ViewState.PROMOTIONS
-          cachedBonus = promotionsModel.maxBonus
+          cachedBonus = getMaxBonus(promotionsModel)
           view.showPromotions(promotionsModel)
           if (promotionsInteractor.shouldShowGamificationDisclaimer()) {
             view.showBottomSheet()
@@ -66,6 +66,13 @@ class PromotionsPresenter(private val view: PromotionsView,
         }
       }
     }
+  }
+
+  private fun getMaxBonus(promotionsModel: PromotionsModel): Double {
+    for (promotion in promotionsModel.promotions) {
+      if (promotion is GamificationItem) return promotion.maxBonus
+    }
+    return 0.0
   }
 
   private fun handleError(throwable: Throwable) {

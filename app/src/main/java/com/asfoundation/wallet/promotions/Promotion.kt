@@ -54,6 +54,7 @@ class GamificationItem(
     val title: String,
     val toNextLevelAmount: BigDecimal?,
     var bonus: Double,
+    val maxBonus: Double,
     val links: MutableList<GamificationLinkItem>
 ) : Promotion(id)
 
