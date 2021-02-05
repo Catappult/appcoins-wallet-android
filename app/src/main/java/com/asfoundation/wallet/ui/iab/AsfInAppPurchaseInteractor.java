@@ -319,7 +319,8 @@ public class AsfInAppPurchaseInteractor {
   }
 
   Single<Purchase> getCompletedPurchase(String packageName, String productName) {
-    return billing.getSkuTransaction(packageName, productName, "INAPP", Schedulers.io())
+    return billing.getSkuTransaction(packageName, productName,
+        com.appcoins.wallet.bdsbilling.repository.TransactionType.INAPP.name(), Schedulers.io())
         .map(Transaction::getStatus)
         .flatMap(transactionStatus -> {
           if (transactionStatus.equals(Transaction.Status.COMPLETED)) {
