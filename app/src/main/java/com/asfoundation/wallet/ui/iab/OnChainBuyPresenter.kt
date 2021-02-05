@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -248,7 +247,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                   if (verified) {
                     view.showForbiddenError()
                   } else {
-                    view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
+                    view.showVerification()
                   }
                 }
           } else {

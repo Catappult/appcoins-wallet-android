@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
-import androidx.annotation.StringRes
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -45,5 +44,5 @@ interface OnChainBuyView {
 
   fun lockRotation()
 
-  fun showWalletValidation(@StringRes error: Int)
+  fun showVerification()
 }
