@@ -123,6 +123,12 @@
   <color name="skeleton_light_base_color">#f0f0f0</color>
   <color name="skeleton_higlight_color">#d2d2d2</color>
 
+  <!-- Promotions -->
+
+  <color name="promotions_active_background">#00131f</color>
+  <color name="promotions_future_background">#26a69ead</color>
+  <color name="promotions_future_text_color">#a69ead</color>
+
   <!-- Gamification -->
 
   <color name="gamification_light_green">#96c562</color>

@@ -18,7 +18,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import io.reactivex.functions.Function4
 import java.util.concurrent.TimeUnit
 
@@ -43,9 +43,10 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           Single.zip(
               gamificationInteractor.getLevels(),
               promotionsRepo.getUserStatus(it.address),
-              BiFunction { level: Levels, userStatsResponse: UserStatusResponse ->
+              getMockedVouchers(),
+              Function3 { level: Levels, userStatsResponse: UserStatusResponse, vouchers: List<Voucher> ->
                 analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
-                mapToPromotionsModel(userStatsResponse, level)
+                mapToPromotionsModel(userStatsResponse, vouchers, level)
               })
               .doOnSuccess { model ->
                 userStatsPreferencesRepository.setSeenWalletOrigin(it.address,
@@ -54,6 +55,10 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               }
         }
 
+  }
+
+  private fun getMockedVouchers(): Single<List<Voucher>> {
+    return Single.just(emptyList())
   }
 
   fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
@@ -160,6 +165,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   }
 
   private fun mapToPromotionsModel(userStatus: UserStatusResponse,
+                                   vouchers: List<Voucher>,
                                    levels: Levels): PromotionsModel {
     var gamificationAvailable = false
     var perksAvailable = false
@@ -204,12 +210,13 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           }
         }
 
-    if (perksAvailable) {
+    if (perksAvailable && vouchers.isEmpty()) {
       promotions.add(2,
           TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), userStatus.error)
+    return PromotionsModel(promotions, emptyList(), maxBonus, map(userStatus.walletOrigin),
+        userStatus.error)
   }
 
   private fun map(walletOrigin: WalletOrigin): com.asfoundation.wallet.promotions.WalletOrigin {

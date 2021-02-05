@@ -13,12 +13,12 @@ import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.item_promotions_default.view.*
 import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
 import kotlinx.android.synthetic.main.item_promotions_title.view.*
+import kotlinx.android.synthetic.main.perks_content.view.*
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
@@ -92,9 +92,9 @@ class ProgressViewHolder(itemView: View,
         .load(progressItem.icon)
         .error(R.drawable.ic_promotions_default)
         .circleCrop()
-        .into(itemView.progress_icon)
+        .into(itemView.active_icon)
 
-    itemView.progress_title.text = progressItem.description
+    itemView.active_title.text = progressItem.description
     if (progressItem.objective != null) {
       itemView.progress_current.max = progressItem.objective.toInt()
       itemView.progress_current.progress = progressItem.current.toInt()
@@ -105,7 +105,7 @@ class ProgressViewHolder(itemView: View,
       itemView.progress_current.progress = progressItem.current.toInt()
       itemView.progress_label.text = "${progressItem.current.toInt()}"
     }
-    handleExpiryDate(itemView.progress_expiry_date, itemView.progress_container_date,
+    handleExpiryDate(itemView.active_expiry_date, itemView.active_container_date,
         progressItem.endDate)
   }
 
@@ -132,10 +132,10 @@ class DefaultViewHolder(itemView: View,
         .load(defaultItem.icon)
         .error(R.drawable.ic_promotions_default)
         .circleCrop()
-        .into(itemView.default_icon)
+        .into(itemView.active_icon)
 
-    itemView.default_title.text = defaultItem.description
-    handleExpiryDate(itemView.default_expiry_date, itemView.default_container_date,
+    itemView.active_title.text = defaultItem.description
+    handleExpiryDate(itemView.active_expiry_date, itemView.active_container_date,
         defaultItem.endDate)
   }
 

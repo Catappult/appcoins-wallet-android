@@ -3,27 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="14dp"
-    android:layout_marginEnd="14dp"
-    android:background="@color/promotions_future_background"
-    android:paddingBottom="@dimen/normal_margin"
+    android:layout_height="match_parent"
+    tools:background="@color/promotions_active_background"
     >
-
   <ImageView
       android:id="@+id/active_icon"
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:layout_marginStart="@dimen/normal_margin"
       android:layout_marginTop="10dp"
-      android:alpha="0.55"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:srcCompat="@drawable/ic_promotions_default"
       />
   <TextView
       android:id="@+id/active_app_name"
-      style="@style/Promotions.TextStyle.AppName.Future"
+      style="@style/Promotions.TextStyle.AppName"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/normal_margin"
@@ -37,7 +32,7 @@
 
   <TextView
       android:id="@+id/active_title"
-      style="@style/Promotions.TextStyle.Title.Future"
+      style="@style/Promotions.TextStyle.Title"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="6dp"
@@ -53,7 +48,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/big_margin"
-      android:background="@drawable/promotions_date_future_background"
+      android:background="@drawable/promotions_date_background"
       android:orientation="horizontal"
       android:paddingTop="2dp"
       android:paddingBottom="2dp"
@@ -78,9 +73,8 @@
         android:layout_marginStart="@dimen/small_margin"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="1dp"
-        tools:text="Available soon"
+        tools:text="ends in 2 days"
         />
 
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-

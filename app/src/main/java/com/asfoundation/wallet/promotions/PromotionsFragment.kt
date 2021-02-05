@@ -14,6 +14,8 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
+import okhttp3.internal.toImmutableList
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class PromotionsFragment : BasePageViewFragment(), PromotionsView {
@@ -76,7 +78,11 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   override fun showPromotions(promotionsModel: PromotionsModel) {
-    adapter.setPromotions(promotionsModel.promotions)
+    val mockedPromotions = promotionsModel.promotions.toMutableList()
+    mockedPromotions.add(
+        ProgressItem("1", "This is a description", null, null, 1614556799, BigDecimal(50),
+            BigDecimal(100), null))
+    adapter.setPromotions(mockedPromotions.toImmutableList())
     rv_promotions.visibility = VISIBLE
     no_network.visibility = GONE
     locked_promotions.visibility = GONE
