@@ -27,7 +27,7 @@ abstract class PromotionsAdapter : RecyclerView.Adapter<PromotionsViewHolder>() 
       is ReferralItem -> REFERRAL_VIEW_TYPE
       is ProgressItem -> PROGRESS_VIEW_TYPE
       is FutureItem -> FUTURE_VIEW_TYPE
-      is Voucher -> VOUCHERS_VIEW_TYPE
+      is VoucherItem -> VOUCHERS_VIEW_TYPE
       else -> DEFAULT_VIEW_TYPE
     }
   }

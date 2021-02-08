@@ -15,6 +15,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
+import kotlinx.android.synthetic.main.perks_and_vouchers_layout.*
 import javax.inject.Inject
 
 class PromotionsFragment : BasePageViewFragment(), PromotionsView {
@@ -54,31 +55,6 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     setAdapters()
     createBottomSheet()
     presenter.present()
-  }
-
-  private fun createBottomSheet() {
-    detailsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
-    detailsBottomSheet.addBottomSheetCallback(
-        object : BottomSheetBehavior.BottomSheetCallback() {
-          override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
-
-          override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = GONE
-            bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
-          }
-        })
-  }
-
-  private fun setAdapters() {
-    uniquePromotionsAdapter = UniquePromotionsAdapter(emptyList(), clickListener)
-    perksVouchersPageAdapter = PerksVouchersPageAdapter(emptyList(), clickListener)
-    rv_promotions.adapter = uniquePromotionsAdapter
-    rv_promotions.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
-            .toInt()))
-    vouchers_perks_viewpager.adapter = perksVouchersPageAdapter
-    vouchers_perks_viewpager.registerOnPageChangeCallback(
-        PerksVouchersPageChangeListener(pageChangedSubject))
   }
 
   override fun onResume() {
@@ -216,6 +192,32 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
       super.onOptionsItemSelected(item)
     }
   }
+
+  private fun createBottomSheet() {
+    detailsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    detailsBottomSheet.addBottomSheetCallback(
+        object : BottomSheetBehavior.BottomSheetCallback() {
+          override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
+
+          override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = GONE
+            bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
+          }
+        })
+  }
+
+  private fun setAdapters() {
+    uniquePromotionsAdapter = UniquePromotionsAdapter(emptyList(), clickListener)
+    perksVouchersPageAdapter = PerksVouchersPageAdapter(emptyList(), clickListener)
+    rv_promotions.adapter = uniquePromotionsAdapter
+    rv_promotions.addItemDecoration(
+        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
+            .toInt()))
+    vouchers_perks_viewpager.adapter = perksVouchersPageAdapter
+    vouchers_perks_viewpager.registerOnPageChangeCallback(
+        PerksVouchersPageChangeListener(pageChangedSubject))
+  }
+
 
   private fun setBackListener(view: View) {
     backEnabled = false

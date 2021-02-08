@@ -6,7 +6,7 @@ import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
 
-class VouchersAdapter(vouchers: List<Voucher>,
+class VouchersAdapter(vouchers: List<VoucherItem>,
                       private val clickListener: PublishSubject<PromotionClick>) :
     PromotionsAdapter() {
 

@@ -33,6 +33,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     const val GAMIFICATION_ID = "GAMIFICATION"
     const val GAMIFICATION_INFO = "GAMIFICATION_INFO"
     const val REFERRAL_ID = "REFERRAL"
+    const val VOUCHER_ID = "VOUCHER"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
@@ -43,7 +44,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               gamificationInteractor.getLevels(),
               promotionsRepo.getUserStatus(it.address),
               getMockedVouchers(),
-              Function3 { level: Levels, userStatsResponse: UserStatusResponse, vouchers: List<Voucher> ->
+              Function3 { level: Levels, userStatsResponse: UserStatusResponse, vouchers: VoucherListModel ->
                 analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
                 mapToPromotionsModel(userStatsResponse, vouchers, level)
               })
@@ -56,8 +57,21 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   }
 
-  private fun getMockedVouchers(): Single<List<Voucher>> {
-    return Single.just(emptyList())
+  private fun getMockedVouchers(): Single<VoucherListModel> {
+    return Single.just(VoucherListModel(listOf(
+        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true),
+        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false),
+        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true),
+        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false),
+        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true),
+        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png",
+            true))))
   }
 
   fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
@@ -164,14 +178,16 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   }
 
   private fun mapToPromotionsModel(userStatus: UserStatusResponse,
-                                   vouchers: List<Voucher>,
+                                   vouchersListModel: VoucherListModel,
                                    levels: Levels): PromotionsModel {
     val promotions = mutableListOf<Promotion>()
     val perks = mutableListOf<PerkPromotion>()
+    val maxBonus = getMaxBonus(levels)
+    val vouchers = handleVouchers(vouchersListModel, maxBonus)
     userStatus.promotions.sortedByDescending { it.priority }
         .forEach {
           when (it) {
-            is GamificationResponse -> handleGamificationItem(promotions, levels, it)
+            is GamificationResponse -> handleGamificationItem(promotions, maxBonus, it)
             is ReferralResponse -> handleReferralItem(promotions, it)
             is GenericResponse -> {
               if (isPerk(it.linkedPromotionId)) handlePerkItem(perks, it)
@@ -183,10 +199,19 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
         userStatus.error)
   }
 
-  private fun handleGamificationItem(promotions: MutableList<Promotion>, levels: Levels,
+  private fun handleVouchers(vouchersListModel: VoucherListModel,
+                             maxBonus: Double): List<VoucherItem> {
+    val list = ArrayList<VoucherItem>()
+    vouchersListModel.vouchers.forEach {
+      list.add(VoucherItem(VOUCHER_ID, it.packageName, it.title, it.icon, it.hasAppcoins, maxBonus))
+    }
+    return list
+  }
+
+  private fun handleGamificationItem(promotions: MutableList<Promotion>, maxBonus: Double,
                                      gamificationResponse: GamificationResponse) {
     if (gamificationResponse.status == PromotionsResponse.Status.ACTIVE) {
-      promotions.add(mapToGamificationItem(levels, gamificationResponse))
+      promotions.add(mapToGamificationItem(maxBonus, gamificationResponse))
     }
   }
 
@@ -254,7 +279,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
         genericResponse.startDate, genericResponse.endDate, genericResponse.detailsLink)
   }
 
-  private fun mapToGamificationItem(levels: Levels,
+  private fun mapToGamificationItem(maxBonus: Double,
                                     gamificationResponse: GamificationResponse): GamificationItem {
     val currentLevelInfo = mapper.mapCurrentLevelInfo(gamificationResponse.level)
     val toNextLevelAmount =
@@ -262,7 +287,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
     return GamificationItem(gamificationResponse.id, currentLevelInfo.planet,
         gamificationResponse.level, currentLevelInfo.levelColor, currentLevelInfo.title,
-        toNextLevelAmount, gamificationResponse.bonus, getMaxBonus(levels), mutableListOf())
+        toNextLevelAmount, gamificationResponse.bonus, maxBonus, mutableListOf())
   }
 
   private fun mapToReferralItem(referralResponse: ReferralResponse): ReferralItem {

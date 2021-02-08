@@ -19,7 +19,7 @@ class PerksVouchersViewHolder(itemView: View,
   fun bind(list: List<Promotion>, position: Int) {
     var adapter: PromotionsAdapter? = null
     if (position == VOUCHER_POSITION) {
-      val voucherList = list.filterIsInstance<Voucher>()
+      val voucherList = list.filterIsInstance<VoucherItem>()
       if (voucherList.isEmpty()) setVouchersEmptyState()
       else {
         itemView.vouchers_empty_screen.visibility = View.GONE

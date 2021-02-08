@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.VOUCHER_ID
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -106,6 +107,8 @@ class PromotionsPresenter(private val view: PromotionsView,
       GAMIFICATION_ID -> navigator.navigateToGamification(cachedBonus)
       GAMIFICATION_INFO -> view.showBottomSheet()
       REFERRAL_ID -> mapReferralClick(promotionClick.extras)
+      VOUCHER_ID -> navigator.navigateToVoucherDetails(
+          promotionClick.extras!!.getValue(PromotionsViewHolder.PACKAGE_NAME_EXTRA))
       else -> mapPackagePerkClick(promotionClick.extras)
     }
   }

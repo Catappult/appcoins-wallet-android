@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
+import kotlinx.android.synthetic.main.item_promotions_vouchers.view.*
 import kotlinx.android.synthetic.main.perks_content.view.*
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -26,6 +27,7 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
   companion object {
     const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
+    const val PACKAGE_NAME_EXTRA = "PACKAGE_NAME_EXTRA"
   }
 
   abstract fun bind(promotion: Promotion)
@@ -246,6 +248,30 @@ class VouchersViewHolder(itemView: View,
     PromotionsViewHolder(itemView) {
 
   override fun bind(promotion: Promotion) {
-    val voucher = promotion as Voucher
+    val voucher = promotion as VoucherItem
+    itemView.voucher_app_name.text = voucher.title
+    if (voucher.hasAppcoins) itemView.has_appcoins_view.visibility = View.VISIBLE
+    else itemView.has_appcoins_view.visibility = View.GONE
+
+    if (voucher.maxBonus != 0.0) {
+      itemView.has_bonus_group.visibility = View.VISIBLE
+      val formatter = CurrencyFormatUtils.create()
+      val df = DecimalFormat("###.#")
+      val bonus = formatter.formatGamificationValues(BigDecimal(voucher.maxBonus))
+      itemView.voucher_description.text = itemView.context.getString(R.string.voucher_card_body)
+    } else {
+      itemView.has_bonus_group.visibility = View.GONE
+    }
+    GlideApp.with(itemView.context)
+        .load(voucher.icon)
+        .error(R.drawable.ic_promotions_default)
+        .circleCrop()
+        .into(itemView.voucher_icon)
+
+    itemView.setOnClickListener {
+      //TODO add here more info needed to identify app to move to details fragment
+      val extras = mapOf(Pair(PACKAGE_NAME_EXTRA, voucher.packageName))
+      clickListener.onNext(PromotionClick(voucher.id, extras))
+    }
   }
 }

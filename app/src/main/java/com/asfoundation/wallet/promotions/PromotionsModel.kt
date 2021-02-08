@@ -3,7 +3,7 @@ package com.asfoundation.wallet.promotions
 import com.appcoins.wallet.gamification.repository.entity.Status
 
 data class PromotionsModel(val promotions: List<Promotion>,
-                           val vouchers: List<Voucher>,
+                           val vouchers: List<VoucherItem>,
                            val perks: List<PerkPromotion>,
                            val walletOrigin: WalletOrigin,
                            val error: Status? = null)
