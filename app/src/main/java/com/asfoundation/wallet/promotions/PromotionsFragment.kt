@@ -21,7 +21,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   @Inject
   lateinit var presenter: PromotionsPresenter
 
-  private lateinit var adapter: PromotionsAdapter
+  private lateinit var promotionsAdapter: PromotionsAdapter
   private lateinit var detailsBottomSheet: BottomSheetBehavior<View>
   private lateinit var transactionsRouter: TransactionsRouter
   private var clickListener: PublishSubject<PromotionClick>? = null
@@ -47,8 +47,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    adapter = PromotionsAdapter(emptyList(), clickListener!!)
-    rv_promotions.adapter = adapter
+    promotionsAdapter = PromotionsAdapter(emptyList(), clickListener!!)
+    rv_promotions.adapter = promotionsAdapter
     rv_promotions.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
             .toInt()))
@@ -76,7 +76,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   override fun showPromotions(promotionsModel: PromotionsModel) {
-    adapter.setPromotions(promotionsModel.promotions)
+    promotionsAdapter.setPromotions(promotionsModel.promotions)
     rv_promotions.visibility = VISIBLE
     no_network.visibility = GONE
     locked_promotions.visibility = GONE

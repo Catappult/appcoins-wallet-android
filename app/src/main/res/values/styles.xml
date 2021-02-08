@@ -182,6 +182,15 @@
     <item name="android:textColor">@color/btn_text_enable_color</item>
   </style>
 
+  <style name="ButtonStyle.Dark" parent="ButtonStyle">
+    <item name="android:background">@drawable/button_dark_background</item>
+    <item name="android:textColor">@color/button_dark_text_color</item>
+    <item name="android:letterSpacing">0.04</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
   <style name="ButtonStyle.Alternative.Backup" parent="ButtonStyle.Alternative">
     <item name="android:gravity">center</item>
     <item name="android:minWidth">240dp</item>
@@ -810,6 +819,13 @@
   <style name="Promotions.TextStyle.Links" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">#ffffff</item>
     <item name="android:textSize">11sp</item>
+  </style>
+
+  <style name="NewPromotionText" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textSize">9sp</item>
+    <item name="android:textColor">@color/white</item>
+    <item name="android:letterSpacing">0.04</item>
+    <item name="android:lineSpacingExtra">1sp</item>
   </style>
 
   <style name="TransactionsItem.Title.Special" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
