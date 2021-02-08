@@ -24,10 +24,10 @@
       android:layout_marginStart="@dimen/normal_margin"
       android:layout_marginTop="2dp"
       android:layout_marginEnd="@dimen/normal_margin"
-      android:text="Trivial Drive Sample"
       app:layout_constraintEnd_toStartOf="@id/active_container_date"
       app:layout_constraintStart_toEndOf="@id/active_icon"
       app:layout_constraintTop_toTopOf="@+id/active_icon"
+      tools:text="Trivial Drive Sample"
       />
 
   <TextView

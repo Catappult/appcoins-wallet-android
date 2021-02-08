@@ -183,8 +183,8 @@
   </style>
 
   <style name="ButtonStyle.Dark" parent="ButtonStyle">
-    <item name="android:background">@drawable/button_dark_background</item>
-    <item name="android:textColor">@color/button_dark_text_color</item>
+    <item name="android:background">@drawable/checkbox_dark_background</item>
+    <item name="android:textColor">@color/checkbox_dark_text_color</item>
     <item name="android:letterSpacing">0.04</item>
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">12sp</item>
@@ -826,6 +826,25 @@
     <item name="android:textColor">@color/white</item>
     <item name="android:letterSpacing">0.04</item>
     <item name="android:lineSpacingExtra">1sp</item>
+  </style>
+
+  <style name="VoucherAppcText" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textSize">10sp</item>
+    <item name="android:textColor">@color/white_alpha_60p</item>
+    <item name="android:lineSpacingExtra">1sp</item>
+  </style>
+
+  <style name="VoucherCardBodyText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/white</item>
+    <item name="android:maxLines">2</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="EmptyVoucherText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/navy_blue</item>
+    <item name="android:lineSpacingExtra">5sp</item>
+    <item name="android:gravity">center_horizontal</item>
   </style>
 
   <style name="TransactionsItem.Title.Special" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">

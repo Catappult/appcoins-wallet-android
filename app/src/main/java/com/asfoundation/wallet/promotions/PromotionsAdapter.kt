@@ -1,73 +1,40 @@
 package com.asfoundation.wallet.promotions
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.asf.wallet.R
-import io.reactivex.subjects.PublishSubject
 
+abstract class PromotionsAdapter : RecyclerView.Adapter<PromotionsViewHolder>() {
 
-class PromotionsAdapter(private var promotions: List<Promotion>,
-                        private val clickListener: PublishSubject<PromotionClick>) :
-    RecyclerView.Adapter<PromotionsViewHolder>() {
+  internal var currentList: List<Promotion> = emptyList()
 
   companion object {
-    private const val GAMIFICATION_VIEW_TYPE = 1
-    private const val PROGRESS_VIEW_TYPE = 2
-    private const val DEFAULT_VIEW_TYPE = 3
-    private const val FUTURE_VIEW_TYPE = 4
-    private const val REFERRAL_VIEW_TYPE = 5
+    internal const val GAMIFICATION_VIEW_TYPE = 1
+    internal const val PROGRESS_VIEW_TYPE = 2
+    internal const val DEFAULT_VIEW_TYPE = 3
+    internal const val FUTURE_VIEW_TYPE = 4
+    internal const val REFERRAL_VIEW_TYPE = 5
+    internal const val VOUCHERS_VIEW_TYPE = 6
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PromotionsViewHolder {
-    return when (viewType) {
-      GAMIFICATION_VIEW_TYPE -> {
-        val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_promotions_gamification, parent, false)
-        GamificationViewHolder(layout, clickListener)
-      }
-      PROGRESS_VIEW_TYPE -> {
-        val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_promotions_progress, parent, false)
-        ProgressViewHolder(layout, clickListener)
-      }
-      FUTURE_VIEW_TYPE -> {
-        val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_promotions_future, parent, false)
-        FutureViewHolder(layout, clickListener)
-      }
-      REFERRAL_VIEW_TYPE -> {
-        val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_promotions_referrals, parent, false)
-        ReferralViewHolder(layout, clickListener)
-      }
-      else -> {
-        val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_promotions_default, parent, false)
-        DefaultViewHolder(layout, clickListener)
-      }
-    }
-  }
+  override fun getItemCount() = currentList.size
 
-  override fun getItemCount() = promotions.size
+  override fun onBindViewHolder(holder: PromotionsViewHolder, position: Int) {
+    holder.bind(currentList[position])
+  }
 
   override fun getItemViewType(position: Int): Int {
-    return when (promotions[position]) {
+    return when (currentList[position]) {
       is GamificationItem -> GAMIFICATION_VIEW_TYPE
+      is ReferralItem -> REFERRAL_VIEW_TYPE
       is ProgressItem -> PROGRESS_VIEW_TYPE
       is FutureItem -> FUTURE_VIEW_TYPE
-      is ReferralItem -> REFERRAL_VIEW_TYPE
+      is Voucher -> VOUCHERS_VIEW_TYPE
       else -> DEFAULT_VIEW_TYPE
     }
   }
 
-  override fun onBindViewHolder(holder: PromotionsViewHolder, position: Int) {
-    holder.bind(promotions[position])
-  }
-
   fun setPromotions(promotionsList: List<Promotion>) {
-    if (!areTheSame(promotions, promotionsList)) {
-      promotions = promotionsList
+    if (!areTheSame(currentList, promotionsList)) {
+      currentList = promotionsList
       notifyDataSetChanged()
     }
   }
@@ -76,7 +43,7 @@ class PromotionsAdapter(private var promotions: List<Promotion>,
     if (currentList.size != promotionsList.size) {
       return false
     }
-    return promotions.zip(promotionsList)
+    return currentList.zip(promotionsList)
         .all { (x, y) -> x.id == y.id }
   }
 }

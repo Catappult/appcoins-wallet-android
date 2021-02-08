@@ -25,6 +25,9 @@ class PromotionsPresenter(private val view: PromotionsView,
     handleRetryClick()
     handleBottomSheetVisibility()
     handleBackPress()
+    handleVouchersButtonClick()
+    handlePerksButtonClick()
+    handlePageChanged()
   }
 
   fun onResume() {
@@ -128,6 +131,27 @@ class PromotionsPresenter(private val view: PromotionsView,
         view.showToast()
       }
     }
+  }
+
+  private fun handleVouchersButtonClick() {
+    disposables.add(view.getVouchersRadioButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.checkVouchersRadioButton() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handlePerksButtonClick() {
+    disposables.add(view.getPerksRadioButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.checkPerksRadioButton() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handlePageChanged() {
+    disposables.add(view.pageChangedCallback()
+        .observeOn(viewScheduler)
+        .doOnNext { view.changeButtonState(it) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() = disposables.clear()

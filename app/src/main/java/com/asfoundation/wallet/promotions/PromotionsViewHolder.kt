@@ -240,3 +240,12 @@ class GamificationViewHolder(itemView: View,
     }
   }
 }
+
+class VouchersViewHolder(itemView: View,
+                         private val clickListener: PublishSubject<PromotionClick>) :
+    PromotionsViewHolder(itemView) {
+
+  override fun bind(promotion: Promotion) {
+    val voucher = promotion as Voucher
+  }
+}
