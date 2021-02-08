@@ -22,7 +22,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class CarrierInteractor(private val repository: CarrierBillingRepository,
@@ -42,13 +41,15 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                     value: String): Single<CarrierPaymentModel> {
     return Single.zip(getAddresses(packageName), getTransactionBuilder(transactionData),
         BiFunction { addrs: WalletAddresses, builder: TransactionBuilder ->
-          Pair(addrs, builder)
+          TransactionDataDetails(addrs, builder)
         })
-        .flatMap { pair ->
-          repository.makePayment(pair.first.address, pair.first.signedAddress, phoneNumber,
-              packageName, origin, pair.second.skuId, pair.second.orderReference, transactionType,
-              currency, value, pair.second.toAddress(), pair.first.oemAddress,
-              pair.first.storeAddress, pair.first.address, pair.second.referrerUrl)
+        .flatMap { details ->
+          repository.makePayment(details.addrs.userAddress, details.addrs.signedAddress,
+              phoneNumber, packageName, origin, details.builder.skuId,
+              details.builder.orderReference, transactionType, currency, value,
+              details.builder.toAddress(), details.addrs.oemAddress, details.addrs.storeAddress,
+              details.addrs.userAddress, details.builder.referrerUrl, details.builder.payload,
+              details.builder.callbackUrl)
         }
         .doOnError { logger.log("CarrierInteractor", it) }
   }
@@ -56,7 +57,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
   fun getFinishedPayment(uri: Uri, packageName: String): Single<CarrierPaymentModel> {
     return getAddresses(packageName)
         .flatMapObservable { addresses ->
-          observeTransactionUpdates(getUidFromUri(uri)!!, addresses.address,
+          observeTransactionUpdates(getUidFromUri(uri)!!, addresses.userAddress,
               addresses.signedAddress)
         }
         .firstOrError()
@@ -164,3 +165,5 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
 
   fun retrievePhoneNumber() = repository.retrievePhoneNumber()
 }
+
+data class TransactionDataDetails(val addrs: WalletAddresses, val builder: TransactionBuilder)
