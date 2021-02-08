@@ -23,6 +23,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.preference_fingerprint.*
 import kotlinx.android.synthetic.main.preference_fingerprint_off.*
+import java.util.*
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -139,8 +140,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val redeemPreference = findPreference<Preference>("pref_redeem")
     redeemPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse(
-          BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress),
-          false)
+          BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress +
+              "&lang=" + Locale.getDefault().language), false)
       false
     }
   }
