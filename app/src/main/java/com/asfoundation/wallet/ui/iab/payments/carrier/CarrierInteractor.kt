@@ -17,6 +17,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -159,7 +160,9 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
     return repository.retrieveAvailableCountryList()
   }
 
-  fun savePhoneNumber(phoneNumber: String) = repository.savePhoneNumber(phoneNumber)
+  fun savePhoneNumber(phoneNumber: String): Completable {
+    return Completable.fromAction { repository.savePhoneNumber(phoneNumber) }
+  }
 
   fun forgetPhoneNumber() = repository.forgetPhoneNumber()
 
