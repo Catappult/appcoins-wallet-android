@@ -811,15 +811,26 @@
   <plurals name="promotion_ends">
     <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s ngày.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Chương trình khuyến mãi sẽ kết thúc vào %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s giờ nữa.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s phút nữa.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">Chương trình khuyến mãi sẽ kết thúc trong hôm nay.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Chương trình khuyến mãi sẽ diễn ra sớm thôi</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Đạt cấp kế tiếp để nhận được %s AppCoins Credits!</string>
   <string name="perks_notification">Bạn vừa nhận được số tiền thưởng là %s AppCoins Credits</string>
   <string name="perks_level_up_on_this_purchase">Thăng cấp với giao dịch mua này</string>
