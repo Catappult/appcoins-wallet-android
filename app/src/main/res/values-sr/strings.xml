@@ -815,19 +815,36 @@
     <item quantity="few">Promocija se završava za %s dana.</item>
     <item quantity="other">Promocija se završava za %s dana.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="few">It ends in %s days.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promocija će se završiti %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">Promocija se završava za %s sat.</item>
     <item quantity="few">Promocija se završava za %s sata.</item>
     <item quantity="other">Promocija se završava za %s sati.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="few">It ends in %s hours.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Promocija se završava za %s minut.</item>
     <item quantity="few">Promocija se završava za %s minuta.</item>
     <item quantity="other">Promocija se završava za %s minuta.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="few">It ends in %s minutes.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">Promocija se završava danas.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Promocija će uskoro biti dostupna</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Pređite na sledeći nivo da biste dobili %s AppCoins Credits!</string>
   <string name="perks_notification">Upravo ste dobili %s AppCoins Credits kao bonus</string>
   <string name="perks_level_up_on_this_purchase">Dostignite sledeći nivo pomoću ove kupovine</string>
