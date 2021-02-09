@@ -811,15 +811,26 @@
   <plurals name="promotion_ends">
     <item quantity="other">Promosi tamat dalam masa %s hari.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promosi tamat pada %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">Promosi tamat dalam tempoh %s jam.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">Promosi tamat dalam tempoh %s minit.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">Promosi tamat hari ini.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Promosi akan tiba tak lama lagi</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Capai tahap seterusnya untuk dapat %s Kredit AppCoins!</string>
   <string name="perks_notification">Anda baru saja terima %s Kredit AppCoins sebagai Bonus</string>
   <string name="perks_level_up_on_this_purchase">Naik tahap dengan pembelian ini</string>
