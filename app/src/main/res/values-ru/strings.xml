@@ -817,6 +817,12 @@
     <item quantity="many">Акция завершается через %s дней.</item>
     <item quantity="other">Акция завершается через %s дней.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="few">It ends in %s days.</item>
+    <item quantity="many">It ends in %s days.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Акция заканчивается %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">Акция завершается через %s час.</item>
@@ -824,14 +830,28 @@
     <item quantity="many">Акция завершается через %s часов.</item>
     <item quantity="other">Акция завершается через %s часов.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="few">It ends in %s hours.</item>
+    <item quantity="many">It ends in %s hours.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Акция завершается через %s минуту.</item>
     <item quantity="few">Акция завершается через %s минуты.</item>
     <item quantity="many">Акция завершается через %s минут.</item>
     <item quantity="other">Акция завершается через %s минут.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="few">It ends in %s minutes.</item>
+    <item quantity="many">It ends in %s minutes.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">Акция заканчивается сегодня.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Акция скоро появится</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Достигните следующего уровня и получите %s AppCoins Credits!</string>
   <string name="perks_notification">Вы только что получили бонус в %s AppCoins Credits</string>
   <string name="perks_level_up_on_this_purchase">Повышение уровня с этой покупкой</string>
