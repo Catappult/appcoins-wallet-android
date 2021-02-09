@@ -813,17 +813,31 @@
     <item quantity="one">La promozione scadrà tra %s giorno.</item>
     <item quantity="other">La promozione scadrà tra %s giorni.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">La promozione scadrà il giorno %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">La promozione scadrà tra %s ora.</item>
     <item quantity="other">La promozione scadrà tra %s ore.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">La promozione scadrà tra %s minuto.</item>
     <item quantity="other">La promozione scadrà tra %s minuti.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">La promozione scade oggi.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Promozione disponibile a breve</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Raggiungi il livello successivo per ricevere %s AppCoins Credits!</string>
   <string name="perks_notification">Hai appena ricevuto %s AppCoins Credits di bonus</string>
   <string name="perks_level_up_on_this_purchase">Passa al livello successivo con questo acquisto</string>
