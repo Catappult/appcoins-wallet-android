@@ -811,15 +811,26 @@
   <plurals name="promotion_ends">
     <item quantity="other">프로모션은 %s일 안에 끝납니다.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">프로모션은 %s 에 끝납니다.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">프로모션은 %s 시간내에 끝납니다.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">프로모션은 %s 분내에 끝납니다.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">프로모션은 오늘 끝납니다.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">곧 프로모션이 진행됩니다</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">%s AppCoins 크레디트를 받기 위한 다음 단계에 도달했습니다!</string>
   <string name="perks_notification">보너스로 방금 %s AppCoins 크레디트를 받았습니다</string>
   <string name="perks_level_up_on_this_purchase">이 구매를 통해 레벨 업</string>
