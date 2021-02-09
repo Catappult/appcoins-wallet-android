@@ -822,6 +822,14 @@
     <item quantity="many">تنتهي الترقيات خلال %s يومًا.</item>
     <item quantity="other">تنتهي الترقيات خلال %s يومًا.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="zero">It ends in %s days.</item>
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="two">It ends in %s days.</item>
+    <item quantity="few">It ends in %s days.</item>
+    <item quantity="many">It ends in %s days.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">تنتهي الترقية في %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="zero">ينتهي الإعلان خلال %s ساعة.</item>
@@ -831,6 +839,14 @@
     <item quantity="many">ينتهي الإعلان خلال %s ساعة.</item>
     <item quantity="other">ينتهي الإعلان خلال %s ساعة.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="zero">It ends in %s hours.</item>
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="two">It ends in %s hours.</item>
+    <item quantity="few">It ends in %s hours.</item>
+    <item quantity="many">It ends in %s hours.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="zero">ينتهي الإعلان خلال %s دقيقة.</item>
     <item quantity="one">ينتهي الإعلان خلال دقيقة.</item>
@@ -839,8 +855,18 @@
     <item quantity="many">ينتهي الإعلان خلال %s دقيقة.</item>
     <item quantity="other">ينتهي الإعلان خلال %s دقيقة.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="zero">It ends in %s minutes.</item>
+    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="two">It ends in %s minutes.</item>
+    <item quantity="few">It ends in %s minutes.</item>
+    <item quantity="many">It ends in %s minutes.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">ينتهي الإعلان اليوم.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">ترقيات متوفرة قريبًا</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">إذا وصلت المستوى التالي تحصل على رصيد %s AppCoins!</string>
   <string name="perks_notification">لقد تلقّيت للتوّ رصيد %s AppCoins كمكافأة</string>
   <string name="perks_level_up_on_this_purchase">انتقل للمستوى التالي مع عملية الشراء هذه</string>
