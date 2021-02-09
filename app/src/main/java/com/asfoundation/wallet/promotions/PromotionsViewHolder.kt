@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promotions
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.PluralsRes
@@ -9,9 +10,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.addBottomItemDecoration
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
@@ -47,6 +48,15 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     }
   }
 
+  protected fun loadIcon(icon: String?, into: ImageView) {
+    GlideApp.with(itemView.context)
+        .load(icon)
+        .error(R.drawable.ic_promotions_default)
+        .circleCrop()
+        .into(into)
+
+  }
+
   private fun updateDate(view: TextView, container: LinearLayout, time: Long,
                          @PluralsRes text: Int) {
     container.visibility = View.VISIBLE
@@ -71,27 +81,29 @@ class ProgressViewHolder(itemView: View,
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
-    GlideApp.with(itemView.context)
-        .load(progressItem.icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(itemView.active_icon)
+    loadIcon(progressItem.icon, itemView.active_icon)
 
     itemView.active_title.text = progressItem.description
-    if (progressItem.objective != null) {
-      itemView.progress_current.max = progressItem.objective.toInt()
-      itemView.progress_current.progress = progressItem.current.toInt()
-      val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
-      itemView.progress_label.text = progress
-    } else {
-      itemView.progress_current.max = progressItem.current.toInt()
-      itemView.progress_current.progress = progressItem.current.toInt()
-      itemView.progress_label.text = "${progressItem.current.toInt()}"
-    }
+
+    if (progressItem.objective != null) setProgressWithObjective(progressItem)
+    else setMaxProgress(progressItem)
+
     handleExpiryDate(itemView.active_expiry_date, itemView.active_container_date,
         progressItem.endDate)
   }
 
+  private fun setProgressWithObjective(progressItem: ProgressItem) {
+    itemView.progress_current.max = progressItem.objective!!.toInt()
+    itemView.progress_current.progress = progressItem.current.toInt()
+    val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
+    itemView.progress_label.text = progress
+  }
+
+  private fun setMaxProgress(progressItem: ProgressItem) {
+    itemView.progress_current.max = progressItem.current.toInt()
+    itemView.progress_current.progress = progressItem.current.toInt()
+    itemView.progress_label.text = "${progressItem.current.toInt()}"
+  }
 }
 
 class DefaultViewHolder(itemView: View,
@@ -111,11 +123,7 @@ class DefaultViewHolder(itemView: View,
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
-    GlideApp.with(itemView.context)
-        .load(defaultItem.icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(itemView.active_icon)
+    loadIcon(defaultItem.icon, itemView.active_icon)
 
     itemView.active_title.text = defaultItem.description
     handleExpiryDate(itemView.active_expiry_date, itemView.active_container_date,
@@ -141,11 +149,7 @@ class FutureViewHolder(itemView: View,
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
-    GlideApp.with(itemView.context)
-        .load(futureItem.icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(itemView.future_icon)
+    loadIcon(futureItem.icon, itemView.future_icon)
 
     itemView.future_title.text = futureItem.description
   }
@@ -198,9 +202,8 @@ class GamificationViewHolder(itemView: View,
     PromotionsViewHolder(itemView) {
 
   init {
-    itemView.linked_perks.addItemDecoration(
-        MarginItemDecoration(itemView.resources.getDimension(R.dimen.promotions_item_margin)
-            .toInt()))
+    itemView.linked_perks.addBottomItemDecoration(
+        itemView.resources.getDimension(R.dimen.promotions_item_margin))
   }
 
   private var mapper = GamificationMapper(itemView.context)
@@ -262,11 +265,8 @@ class VouchersViewHolder(itemView: View,
     } else {
       itemView.has_bonus_group.visibility = View.GONE
     }
-    GlideApp.with(itemView.context)
-        .load(voucher.icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(itemView.voucher_icon)
+
+    loadIcon(voucher.icon, itemView.voucher_icon)
 
     itemView.setOnClickListener {
       //TODO add here more info needed to identify app to move to details fragment

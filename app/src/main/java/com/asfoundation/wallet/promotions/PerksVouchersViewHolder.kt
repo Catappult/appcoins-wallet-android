@@ -33,7 +33,10 @@ class PerksVouchersViewHolder(itemView: View,
         adapter = PerksAdapter(perksList, clickSubject)
       }
     }
-    if (adapter != null) itemView.page_recycler.adapter = adapter
+    if (adapter != null) {
+      itemView.page_recycler.visibility = View.VISIBLE
+      itemView.page_recycler.adapter = adapter
+    }
   }
 
   private fun setPerksEmptyState() {

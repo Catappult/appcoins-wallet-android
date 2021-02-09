@@ -6,7 +6,7 @@ import android.view.View.*
 import android.widget.Toast
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
+import com.asfoundation.wallet.util.addBottomItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
@@ -71,6 +71,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     uniquePromotionsAdapter.setPromotions(promotionsModel.promotions)
     if (promotionsModel.vouchers.isNotEmpty() || promotionsModel.perks.isNotEmpty()) {
       perks_vouchers_buttons.visibility = VISIBLE
+    } else {
+      perks_vouchers_buttons.visibility = GONE
     }
     perksVouchersPageAdapter.setItems(listOf(promotionsModel.vouchers, promotionsModel.perks))
     if (promotionsModel.vouchers.isEmpty()) checkPerksRadioButton()
@@ -211,9 +213,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     uniquePromotionsAdapter = UniquePromotionsAdapter(emptyList(), clickListener)
     perksVouchersPageAdapter = PerksVouchersPageAdapter(emptyList(), clickListener)
     rv_promotions.adapter = uniquePromotionsAdapter
-    rv_promotions.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
-            .toInt()))
+    rv_promotions.addBottomItemDecoration(resources.getDimension(R.dimen.promotions_item_margin))
     vouchers_perks_viewpager.adapter = perksVouchersPageAdapter
     vouchers_perks_viewpager.registerOnPageChangeCallback(
         PerksVouchersPageChangeListener(pageChangedSubject))
