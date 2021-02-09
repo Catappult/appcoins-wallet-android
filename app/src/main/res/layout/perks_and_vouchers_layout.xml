@@ -51,14 +51,14 @@
       android:id="@+id/perks_vouchers_buttons"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:constraint_referenced_ids="vouchers_button, perks_button"
+      android:visibility="invisible"
+      app:constraint_referenced_ids="vouchers_button, perks_button,new_item_view"
       tools:visibility="visible"
       />
   <androidx.viewpager2.widget.ViewPager2
       android:id="@+id/vouchers_perks_viewpager"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="0dp"
       android:layout_marginStart="10dp"
       android:layout_marginTop="16dp"
       android:orientation="horizontal"

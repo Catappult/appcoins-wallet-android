@@ -9,9 +9,9 @@
       android:id="@+id/page_recycler"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:nestedScrollingEnabled="false"
       android:orientation="vertical"
       android:overScrollMode="never"
-      android:nestedScrollingEnabled="false"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       app:layout_constraintTop_toTopOf="parent"
       />
@@ -19,9 +19,8 @@
       android:id="@+id/vouchers_empty_screen"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:gravity="center"
       android:paddingBottom="@dimen/big_margin"
-      android:visibility="gone"
+      android:visibility="invisible"
       app:layout_constraintTop_toTopOf="@id/image_guideline"
       tools:visibility="visible"
       >

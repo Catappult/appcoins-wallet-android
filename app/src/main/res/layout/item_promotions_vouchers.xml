@@ -86,8 +86,9 @@
     <View
         android:id="@+id/dashed_separator"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:background="@drawable/dashed_line"
+        android:layerType="software"
         app:layout_constraintTop_toBottomOf="@id/voucher_main_view"
         />
 

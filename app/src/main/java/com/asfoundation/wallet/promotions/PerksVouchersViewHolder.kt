@@ -22,14 +22,14 @@ class PerksVouchersViewHolder(itemView: View,
       val voucherList = list.filterIsInstance<VoucherItem>()
       if (voucherList.isEmpty()) setVouchersEmptyState()
       else {
-        itemView.vouchers_empty_screen.visibility = View.GONE
+        itemView.vouchers_empty_screen.visibility = View.INVISIBLE
         adapter = VouchersAdapter(voucherList, clickSubject)
       }
     } else {
       val perksList = list.filterIsInstance<PerkPromotion>()
       if (perksList.isEmpty()) setPerksEmptyState()
       else {
-        itemView.vouchers_empty_screen.visibility = View.GONE
+        itemView.vouchers_empty_screen.visibility = View.INVISIBLE
         adapter = PerksAdapter(perksList, clickSubject)
       }
     }

@@ -73,7 +73,7 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun hasPromotions(promotionsModel: PromotionsModel): Boolean {
-    return promotionsModel.promotions.isNotEmpty() || promotionsModel.perks.isNotEmpty()
+    return promotionsModel.promotions.isNotEmpty() || promotionsModel.vouchers.isNotEmpty()
         || promotionsModel.perks.isNotEmpty()
   }
 

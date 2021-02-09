@@ -68,18 +68,14 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   override fun showPromotions(promotionsModel: PromotionsModel) {
-    uniquePromotionsAdapter.setPromotions(promotionsModel.promotions)
-    if (promotionsModel.vouchers.isNotEmpty() || promotionsModel.perks.isNotEmpty()) {
-      perks_vouchers_buttons.visibility = VISIBLE
-    } else {
-      perks_vouchers_buttons.visibility = GONE
-    }
     perksVouchersPageAdapter.setItems(listOf(promotionsModel.vouchers, promotionsModel.perks))
-    if (promotionsModel.vouchers.isEmpty()) checkPerksRadioButton()
+    if (promotionsModel.vouchers.isEmpty() && promotionsModel.perks.isNotEmpty()) checkPerksRadioButton()
+    uniquePromotionsAdapter.setPromotions(promotionsModel.promotions)
     rv_promotions.visibility = VISIBLE
     no_network.visibility = GONE
     locked_promotions.visibility = GONE
     no_promotions.visibility = GONE
+    perks_vouchers_buttons.visibility = VISIBLE
   }
 
   override fun showLoading() {
