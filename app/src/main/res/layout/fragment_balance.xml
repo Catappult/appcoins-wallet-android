@@ -271,7 +271,20 @@
 
             <include
                 android:id="@+id/unverified_wallet_layout"
-                layout="@layout/unverified_layout"
+                layout="@layout/layout_unverified"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
+                />
+
+            <include
+                android:id="@+id/code_requested_layout"
+                layout="@layout/layout_code_requested"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

@@ -19,8 +19,8 @@ class CarrierPaymentNavigator(private val fragmentManager: FragmentManager,
 
   fun uriResults(): Observable<Uri> = uriNavigator.uriResults()
 
-  fun navigateToWalletValidation(@StringRes messageStringRes: Int) {
-    iabActivity.showWalletValidation(messageStringRes)
+  fun navigateToVerification() {
+    iabActivity.showVerification()
   }
 
   fun navigateToError(@StringRes messageStringRes: Int) {

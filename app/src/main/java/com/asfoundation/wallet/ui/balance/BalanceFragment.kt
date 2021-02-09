@@ -19,8 +19,8 @@ import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
+import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
@@ -35,7 +35,8 @@ import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.bottom_sheet_fragment_container
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
-import kotlinx.android.synthetic.main.unverified_layout.*
+import kotlinx.android.synthetic.main.layout_code_requested.*
+import kotlinx.android.synthetic.main.layout_unverified.*
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -229,6 +230,8 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun getVerifyWalletClick() = RxView.clicks(verify_wallet_button)
 
+  override fun getInsertCodeClick() = RxView.clicks(insert_code_button)
+
   override fun getCopyClick() = RxView.clicks(copy_address)
 
   override fun getQrCodeClick() = RxView.clicks(wallet_qr_code)
@@ -270,11 +273,9 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     }
   }
 
-  override fun openWalletValidationScreen() {
+  override fun openWalletVerificationScreen() {
     context?.let {
-      val intent = WalletValidationActivity.newIntent(it, hasBeenInvitedFlow = false,
-          navigateToTransactionsOnSuccess = false, navigateToTransactionsOnCancel = false,
-          showToolbar = true, previousContext = "settings")
+      val intent = VerificationActivity.newIntent(it)
           .apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
           }
@@ -298,12 +299,28 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     unverified_wallet_layout.visibility = View.GONE
   }
 
+  override fun showRequestedCodeWalletChip() {
+    code_requested_layout.visibility = View.VISIBLE
+  }
+
+  override fun hideRequestedCodeWalletChip() {
+    code_requested_layout.visibility = View.GONE
+  }
+
   override fun disableVerifyWalletButton() {
     verify_wallet_button.isEnabled = false
   }
 
   override fun enableVerifyWalletButton() {
     verify_wallet_button.isEnabled = true
+  }
+
+  override fun enableInsertCodeButton() {
+    insert_code_button.isEnabled = true
+  }
+
+  override fun disableInserCodeButton() {
+    insert_code_button.isEnabled = false
   }
 
   override fun showCreatingAnimation() {

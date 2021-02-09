@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab
 
-import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Observable
 
@@ -36,5 +35,5 @@ interface AppcoinsRewardsBuyView {
 
   fun lockRotation()
 
-  fun showWalletValidation(@StringRes error: Int)
+  fun showVerification()
 }

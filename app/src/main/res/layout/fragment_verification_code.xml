@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <ScrollView
+      android:id="@+id/content_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+      android:visibility="invisible"
+      tools:visibility="visible"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <ProgressBar
+          android:id="@+id/progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/code_title"
+          app:layout_constraintBottom_toBottomOf="@id/change_card_button"
+          />
+
+      <TextView
+          android:id="@+id/title"
+          style="@style/VerifyWallet.Title"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="27dp"
+          android:layout_marginEnd="24dp"
+          android:text="@string/card_verification_code_title"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <TextView
+          android:id="@+id/subtitle"
+          style="@style/VerifyWallet.Subtitle"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginEnd="24dp"
+          android:text="@string/card_verification_code_body"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title"
+          />
+
+      <include
+          android:id="@+id/layout_example"
+          layout="@layout/layout_verify_example"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="20dp"
+          android:layout_marginTop="@dimen/normal_margin"
+          android:layout_marginEnd="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/subtitle"
+          />
+
+      <TextView
+          android:id="@+id/code_title"
+          style="@style/VerifyWallet.Title"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="27dp"
+          android:layout_marginEnd="24dp"
+          android:text="@string/card_verification_code_enter_title"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/layout_example"
+          app:layout_constraintTop_toBottomOf="@id/layout_example"
+          />
+
+      <EditText
+          android:id="@+id/code"
+          style="@style/VerifyWallet.Code.EditText"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="13dp"
+          android:background="@drawable/background_edittext"
+          app:layout_constraintStart_toStartOf="@id/code_title"
+          app:layout_constraintTop_toBottomOf="@+id/code_title"
+          tools:text="1234"
+          />
+
+      <TextView
+          android:id="@+id/wrong_code_error"
+          style="@style/VerifyWallet.CodeError"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:text="@string/card_verification_code_wrong_error"
+          android:visibility="gone"
+          app:layout_constraintLeft_toLeftOf="@id/code"
+          app:layout_constraintTop_toBottomOf="@id/code"
+          />
+
+      <TextView
+          android:id="@+id/code_disclaimer"
+          style="@style/VerifyWallet.Subtitle"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginEnd="24dp"
+          app:layout_constraintBottom_toBottomOf="@id/code"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/code"
+          app:layout_constraintTop_toTopOf="@id/code"
+          tools:text="%1$s will be refunded within %2$s hour after you confirm the code."
+          />
+
+      <Button
+          android:id="@+id/change_card_button"
+          style="@style/VerifyWallet.ChangeCard.Button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:text="@string/card_verification_code_other_card_button"
+          app:layout_constraintStart_toStartOf="@+id/code"
+          app:layout_constraintTop_toBottomOf="@+id/code"
+          tools:visibility="visible"
+          />
+
+      <Button
+          android:id="@+id/confirm"
+          style="@style/VerifyWallet.Submit.Button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="24dp"
+          android:enabled="false"
+          android:text="@string/confirm_button"
+          app:layout_constraintBaseline_toBaselineOf="@id/maybe_later"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/change_card_button"
+          app:layout_constraintVertical_bias="0"
+          />
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/maybe_later"
+          style="@style/VerifyWallet.Cancel.Button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:layout_marginEnd="@dimen/normal_margin"
+          android:text="@string/backup_tooltip_later_button"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/confirm"
+          app:layout_constraintHorizontal_bias="1"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/change_card_button"
+          app:layout_constraintVertical_bias="0"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </ScrollView>
+
+  <include
+      android:id="@+id/no_network"
+      layout="@layout/no_network_retry_only_layout"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/half_guideline"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/half_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.68"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/success_animation"
+      android:layout_width="wrap_content"
+      android:layout_height="120dp"
+      android:layout_margin="@dimen/big_margin"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/success_animation"
+      />
+
+  <TextView
+      android:id="@+id/success_message"
+      style="@style/VerifyWallet.Success"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/verification_settings_verified_title"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/success_animation"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
