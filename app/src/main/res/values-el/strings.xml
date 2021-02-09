@@ -813,17 +813,31 @@
     <item quantity="one">Η προώθηση τελειώνει σε %s ημέρα.</item>
     <item quantity="other">Η προώθηση τελειώνει σε %s ημέρες.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Η προώθηση τελειώνει στις %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">Η προώθηση τελειώνει σε %s ώρα.</item>
     <item quantity="other">Η προώθηση τελειώνει σε %s ώρες.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Η προώθηση τελειώνει σε %s λεπτό.</item>
     <item quantity="other">Η προώθηση τελειώνει σε %s λεπτά.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">Η προώθηση τελειώνει σήμερα.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Η προώθηση θα είναι διαθέσιμη σύντομα</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Φτάστε στο επόμενο επίπεδο για να λάβετε %s AppCoins Credits!</string>
   <string name="perks_notification">Μόλις λάβατε %s AppCoins Credits ως Bonus</string>
   <string name="perks_level_up_on_this_purchase">Ανεβείτε στο επόμενο επίπεδο με αυτήν την αγορά</string>
