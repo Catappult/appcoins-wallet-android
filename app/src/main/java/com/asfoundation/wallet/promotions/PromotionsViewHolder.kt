@@ -41,9 +41,9 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
     when {
       days > 3 -> container.visibility = View.GONE
-      days in 1..3 -> updateDate(view, container, days, R.plurals.promotion_ends)
-      hours > 0 -> updateDate(view, container, hours, R.plurals.promotion_ends_hours)
-      else -> updateDate(view, container, minutes, R.plurals.promotion_ends_minutes)
+      days in 1..3 -> updateDate(view, container, days, R.plurals.promotion_ends_short)
+      hours > 0 -> updateDate(view, container, hours, R.plurals.promotion_ends_hours_short)
+      else -> updateDate(view, container, minutes, R.plurals.promotion_ends_minutes_short)
     }
   }
 
@@ -256,9 +256,9 @@ class VouchersViewHolder(itemView: View,
     if (voucher.maxBonus != 0.0) {
       itemView.has_bonus_group.visibility = View.VISIBLE
       val formatter = CurrencyFormatUtils.create()
-      val df = DecimalFormat("###.#")
       val bonus = formatter.formatGamificationValues(BigDecimal(voucher.maxBonus))
-      itemView.voucher_description.text = itemView.context.getString(R.string.voucher_card_body)
+      itemView.voucher_description.text =
+          String.format(itemView.context.getString(R.string.voucher_card_body), bonus)
     } else {
       itemView.has_bonus_group.visibility = View.GONE
     }

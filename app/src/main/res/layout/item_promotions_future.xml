@@ -82,9 +82,8 @@
           android:layout_marginStart="@dimen/small_margin"
           android:layout_marginEnd="6dp"
           android:layout_marginBottom="1dp"
-          android:text="Available soon"
+          android:text="@string/perks_available_soon_short"
           />
-      <!-- String missing -->
     </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -41,8 +41,7 @@ class PerksVouchersViewHolder(itemView: View,
         ResourcesCompat.getDrawable(itemView.resources, R.drawable.perks_empty_state_image,
             null))
     itemView.empty_screen_text.text =
-        itemView.context.getString(
-            R.string.promotions_empty_promotions_body) //TODO check if this is the correct string
+        itemView.context.getString(R.string.promotions_empty_promotions_body)
     itemView.vouchers_empty_screen.visibility = View.VISIBLE
   }
 
