@@ -813,15 +813,26 @@
   <plurals name="promotion_ends">
     <item quantity="other">โปรโมชันจะสิ้นสุดใน %s วัน</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">โปรโมชั่นสิ้นสุดวันที่ %s</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">โปรโมชันจะสิ้นสุดใน %s ชั่วโมง</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">โปรโมชันจะสิ้นสุดใน %s นาที</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">โปรโมชันจะสิ้นสุดในวันนี้</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">พบโปรโมชั่นเร็วๆ นี้</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">ถึงเลเวลถัดไปเพื่อรับ %s AppCoins Credits!</string>
   <string name="perks_notification">คุณได้รับ %s AppCoins Credits เป็นโบนัส</string>
   <string name="perks_level_up_on_this_purchase">เลเวลสูงขึ้นด้วยการซื้อนี้</string>
