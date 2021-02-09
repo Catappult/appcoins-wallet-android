@@ -11,6 +11,7 @@
       android:layout_height="match_parent"
       android:orientation="vertical"
       android:overScrollMode="never"
+      android:nestedScrollingEnabled="false"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       app:layout_constraintTop_toTopOf="parent"
       />
