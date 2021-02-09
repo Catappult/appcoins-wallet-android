@@ -843,7 +843,7 @@
     <item quantity="other">Promocja kończy się za %s minut.</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
-    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="one">It ends in %s minute.</item>
     <item quantity="few">It ends in %s minutes.</item>
     <item quantity="many">It ends in %s minutes.</item>
     <item quantity="other">It ends in %s minutes.</item>
