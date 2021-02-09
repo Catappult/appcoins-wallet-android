@@ -831,7 +831,7 @@
     <item quantity="other">پیشنهاد تشویقی در %s دقیقه به پایان می‌رسد.</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
-    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="one">It ends in %s minute.</item>
     <item quantity="other">It ends in %s minutes.</item>
   </plurals>
   <string name="perks_end_today">پیشنهاد تشویقی امروز به پایان می‌رسد.</string>
