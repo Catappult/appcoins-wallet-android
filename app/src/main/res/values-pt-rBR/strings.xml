@@ -813,17 +813,31 @@
     <item quantity="one">A promoção termina em %s dia.</item>
     <item quantity="other">A promoção termina em %s dias.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">A promoção termina em %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">A promoção termina em %s hora.</item>
     <item quantity="other">A promoção termina em %s horas.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">A promoção termina em %s minuto.</item>
     <item quantity="other">A promoção termina em %s minutos.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">A promoção termina hoje.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Promoção disponível em breve</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Alcance o próximo nível para receber %s Créditos AppCoins!</string>
   <string name="perks_notification">Você ganhou %s Créditos AppCoins como Bônus</string>
   <string name="perks_level_up_on_this_purchase">Suba de nível com esta compra</string>
