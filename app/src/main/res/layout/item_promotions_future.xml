@@ -33,10 +33,10 @@
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="@dimen/normal_margin"
-        android:text="Trivial Drive Sample"
         app:layout_constraintEnd_toStartOf="@id/future_container_date"
         app:layout_constraintStart_toEndOf="@id/future_icon"
         app:layout_constraintTop_toTopOf="@+id/future_icon"
+        tools:text="Trivial Drive Sample"
         />
 
     <TextView
@@ -82,9 +82,9 @@
           android:layout_marginStart="@dimen/small_margin"
           android:layout_marginEnd="6dp"
           android:layout_marginBottom="1dp"
-          tools:text="Available soon"
+          android:text="Available soon"
           />
-
+      <!-- String missing -->
     </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

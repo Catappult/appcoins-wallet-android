@@ -73,6 +73,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
       perks_vouchers_buttons.visibility = VISIBLE
     }
     perksVouchersPageAdapter.setItems(listOf(promotionsModel.vouchers, promotionsModel.perks))
+    if (promotionsModel.vouchers.isEmpty()) checkPerksRadioButton()
     rv_promotions.visibility = VISIBLE
     no_network.visibility = GONE
     locked_promotions.visibility = GONE
