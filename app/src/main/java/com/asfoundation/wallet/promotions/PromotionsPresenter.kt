@@ -56,7 +56,7 @@ class PromotionsPresenter(private val view: PromotionsView,
         view.showLockedPromotionsScreen()
       }
       else -> {
-        if (promotionsModel.promotions.isNotEmpty()) {
+        if (hasPromotions(promotionsModel)) {
           viewState = ViewState.PROMOTIONS
           cachedBonus = getMaxBonus(promotionsModel)
           view.showPromotions(promotionsModel)
@@ -70,6 +70,11 @@ class PromotionsPresenter(private val view: PromotionsView,
         }
       }
     }
+  }
+
+  private fun hasPromotions(promotionsModel: PromotionsModel): Boolean {
+    return promotionsModel.promotions.isNotEmpty() || promotionsModel.perks.isNotEmpty()
+        || promotionsModel.perks.isNotEmpty()
   }
 
   private fun getMaxBonus(promotionsModel: PromotionsModel): Double {
