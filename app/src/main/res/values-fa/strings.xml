@@ -813,17 +813,31 @@
     <item quantity="one">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
     <item quantity="other">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">پیشنهاد تشویقی در %s به پایان می‌رسد.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">پیشنهاد تشویقی در %s ساعت به پایان می‌رسد.</item>
     <item quantity="other">پیشنهاد تشویقی در %s ساعت به پایان می‌رسد.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">پیشنهاد تشویقی در %s دقیقه به پایان می‌رسد.</item>
     <item quantity="other">پیشنهاد تشویقی در %s دقیقه به پایان می‌رسد.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">پیشنهاد تشویقی امروز به پایان می‌رسد.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">پیشهاد تشویقی بزودی</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">به مرحله بعدی برسید تا %s AppCoins Credits بدست آورید!</string>
   <string name="perks_notification">همین حالا %s AppCoins Credits به عنوان پاداش دریافت کردید</string>
   <string name="perks_level_up_on_this_purchase">با این خرید پیشرفت کنید</string>
