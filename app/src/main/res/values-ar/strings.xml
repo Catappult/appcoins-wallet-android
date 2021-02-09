@@ -857,7 +857,7 @@
   </plurals>
   <plurals name="promotion_ends_minutes_short">
     <item quantity="zero">It ends in %s minutes.</item>
-    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="one">It ends in %s minute.</item>
     <item quantity="two">It ends in %s minutes.</item>
     <item quantity="few">It ends in %s minutes.</item>
     <item quantity="many">It ends in %s minutes.</item>
