@@ -847,7 +847,7 @@
 %s मिनिटात प्रमोशन संपत आहे.</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
-    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="one">It ends in %s minute.</item>
     <item quantity="other">It ends in %s minutes.</item>
   </plurals>
   <string name="perks_end_today">आज प्रमोशन संपत आहे.</string>
