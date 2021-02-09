@@ -813,17 +813,31 @@
     <item quantity="one">De actie eindigt over %s dag.</item>
     <item quantity="other">De actie eindigt over %s dagen.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">De actie eindigt op %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">De actie eindigt over %s uur.</item>
     <item quantity="other">De actie eindigt over %s uur.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">De actie eindigt over %s minuut.</item>
     <item quantity="other">De actie eindigt over %s minuten.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">Itends in %s minute.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">De actie eindigt vandaag.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Actie binnenkort beschikbaar</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Bereik het volgende niveau om %s AppCoins Credits te ontvangen!</string>
   <string name="perks_notification">Je hebt zojuist een bonus van %s ontvangen</string>
   <string name="perks_level_up_on_this_purchase">Bereik het volgende niveau met deze aankoop</string>
