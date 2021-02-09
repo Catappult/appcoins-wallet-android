@@ -243,6 +243,18 @@
           app:layout_constraintTop_toBottomOf="@id/to_label"
           />
 
+      <com.asfoundation.wallet.ui.balance.evouchers.VoucherDetailView
+          android:id="@+id/voucher_details"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/half_large_margin"
+          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/half_large_margin"
+          android:paddingBottom="40dp"
+          android:visibility="gone"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          />
+
       <TextView
           android:id="@+id/details_label"
           style="@style/TransactionDetailsTextStyle.Dark"
@@ -338,6 +350,14 @@
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           />
 
+      <androidx.constraintlayout.widget.Barrier
+          android:id="@+id/barrier"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:barrierAllowsGoneWidgets="true"
+          app:barrierDirection="bottom"
+          app:constraint_referenced_ids="more_detail, revert_container, close_channel_btn, voucher_details"
+          />
       <ImageView
           android:id="@+id/logo"
           android:layout_width="16dp"
@@ -352,7 +372,7 @@
           app:layout_constraintEnd_toStartOf="@+id/brand"
           app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/close_channel_btn"
+          app:layout_constraintTop_toBottomOf="@+id/barrier"
           app:layout_constraintVertical_bias="1.0"
           />
       <TextView
