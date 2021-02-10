@@ -891,6 +891,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">ซื้อบัตรกำนัลนี้และรับโบนัสสูงสุด %s%%</string>
   <string name="voucher_buy_header">บัตรกำนัลสำหรับ %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">คุณไม่มี%sเหรอ</string>
   <string name="voucher_buy_no_game_install_button">ดาวโหลดตอนนี้</string>
   <string name="voucher_code_title">รหัสเวาเชอร์</string>
