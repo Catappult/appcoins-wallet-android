@@ -1,60 +1,69 @@
 package com.asfoundation.wallet.ui.balance
 
 import android.util.Pair
+import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Balance
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.verification.VerificationRepository
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.annotations.Nullable
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
 class BalanceInteractor(
-    private val walletInteract: FindDefaultWalletInteract,
+    private val accountWalletService: AccountWalletService,
     private val balanceRepository: BalanceRepository,
-    private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val walletVerificationInteractor: WalletVerificationInteractor,
     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-    private val smsValidationInteract: SmsValidationInteract) {
+    private val verificationRepository: VerificationRepository,
+    private val networkScheduler: Scheduler) {
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find()
+    return accountWalletService.find()
+        .subscribeOn(networkScheduler)
         .flatMapObservable { balanceRepository.getAppcBalance(it.address) }
   }
 
   fun getEthBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find()
+    return accountWalletService.find()
+        .subscribeOn(networkScheduler)
         .flatMapObservable { balanceRepository.getEthBalance(it.address) }
   }
 
   fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
-    return walletInteract.find()
+    return accountWalletService.find()
+        .subscribeOn(networkScheduler)
         .flatMapObservable { balanceRepository.getCreditsBalance(it.address) }
   }
 
   private fun getStoredAppcBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+    return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
+        .subscribeOn(networkScheduler)
         .flatMap { balanceRepository.getStoredAppcBalance(it) }
   }
 
   private fun getStoredEthBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+    return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
+        .subscribeOn(networkScheduler)
         .flatMap { balanceRepository.getStoredEthBalance(it) }
   }
 
   private fun getStoredCreditsBalance(walletAddress: String?): Single<Pair<Balance, FiatValue>> {
-    return (walletAddress?.let { Single.just(it) } ?: walletInteract.find()
+    return (walletAddress?.let { Single.just(it) } ?: accountWalletService.find()
         .map { it.address })
+        .subscribeOn(networkScheduler)
         .flatMap { balanceRepository.getStoredCreditsBalance(it) }
   }
 
@@ -81,9 +90,13 @@ class BalanceInteractor(
   }
 
   fun requestActiveWalletAddress(): Single<String> {
-    return walletInteract.find()
+    return accountWalletService.find()
+        .subscribeOn(networkScheduler)
         .map { it.address }
   }
+
+  fun getSignedCurrentWalletAddress(): Single<WalletAddressModel> =
+      accountWalletService.getAndSignCurrentWalletAddress()
 
   fun getStoredOverallBalance(@Nullable walletAddress: String? = null): Single<FiatValue> {
     return Single.zip(
@@ -107,12 +120,27 @@ class BalanceInteractor(
     )
   }
 
-  fun isWalletValid(address: String): Single<Pair<String, WalletValidationStatus>> {
-    return smsValidationInteract.getValidationStatus(address)
-        .map { Pair(address, it) }
+  fun isWalletValid(address: String, signedAddress: String): Single<BalanceVerificationModel> {
+    return verificationRepository.getVerificationStatus(address, signedAddress)
+        .map { status -> mapToBalanceVerificationModel(address, status) }
+
   }
 
-  fun isWalletValidated(address: String) = preferencesRepositoryType.isWalletValidated(address)
+  private fun mapToBalanceVerificationModel(address: String,
+                                            verificationStatus: VerificationStatus): BalanceVerificationModel {
+    val status = when (verificationStatus) {
+      VerificationStatus.CODE_REQUESTED -> BalanceVerificationStatus.CODE_REQUESTED
+      VerificationStatus.VERIFIED -> BalanceVerificationStatus.VERIFIED
+      VerificationStatus.NO_NETWORK -> BalanceVerificationStatus.NO_NETWORK
+      VerificationStatus.ERROR -> BalanceVerificationStatus.ERROR
+      else -> BalanceVerificationStatus.UNVERIFIED
+    }
+    return BalanceVerificationModel(address, status)
+  }
+
+
+  fun getCachedVerificationStatus(address: String) =
+      walletVerificationInteractor.getCachedVerificationStatus(address)
 
   fun hasSeenBackupTooltip() = backupRestorePreferencesRepository.getSeenBackupTooltip()
 

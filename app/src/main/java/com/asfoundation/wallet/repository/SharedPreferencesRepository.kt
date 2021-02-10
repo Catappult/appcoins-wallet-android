@@ -17,7 +17,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
-    private const val WALLET_VERIFIED = "wallet_verified_"
     private const val ANDROID_ID = "android_id"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
@@ -94,23 +93,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   }
 
   override fun getUpdateNotificationSeenTime() = pref.getLong(UPDATE_SEEN_TIME, -1)
-
-  override fun setWalletValidationStatus(walletAddress: String, validated: Boolean) {
-    pref.edit()
-        .putBoolean(WALLET_VERIFIED + walletAddress, validated)
-        .apply()
-  }
-
-  override fun isWalletValidated(walletAddress: String) =
-      pref.getBoolean(WALLET_VERIFIED + walletAddress, false)
-
-  override fun removeWalletValidationStatus(walletAddress: String): Completable {
-    return Completable.fromAction {
-      pref.edit()
-          .remove(WALLET_VERIFIED + walletAddress)
-          .apply()
-    }
-  }
 
   override fun getAndroidId() = pref.getString(ANDROID_ID, "")
       .orEmpty()

@@ -1,0 +1,47 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_dark_grey"
+    >
+
+  <TextView
+      android:id="@+id/chip_text"
+      style="@style/BalanceVerifyWalletChip.Unverified"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/normal_margin"
+      android:text="@string/unferified_tag"
+      app:drawableStartCompat="@drawable/ic_wallet_unverified_chip"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/verify_wallet_button"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <Button
+      android:id="@+id/verify_wallet_button"
+      style="@style/VerifyButtonStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="6dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="6dp"
+      android:text="@string/verification_wallets_verify_button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toStartOf="@id/vertical_guideline"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintWidth_default="wrap"
+      />
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/vertical_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.4"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>
+          

@@ -287,7 +287,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     showSpecificError(R.string.unknown_error)
   }
 
-  override fun showWalletValidation(@StringRes error: Int) = iabView.showWalletValidation(error)
+  override fun showVerification() = iabView.showVerification()
 
   override fun showBillingAddress(value: BigDecimal, currency: String) {
     main_view?.visibility = GONE
