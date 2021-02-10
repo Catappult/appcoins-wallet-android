@@ -130,10 +130,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
     return api.createTransaction(origin, packageName, price, currency, productName, type,
-        walletAddress, walletsDeveloper, walletsStore, walletsOem, null, developerPayload, callback,
-        orderReference, referrerUrl, walletAddress, walletSignature,
-        LocalPaymentBody(price, currency, packageName, type, paymentId, productName,
-            walletsDeveloper))
+        walletAddress, walletsDeveloper, walletsStore, walletsOem, paymentId, developerPayload, callback,
+        orderReference, referrerUrl, walletAddress, walletSignature)
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
@@ -267,30 +265,47 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Query("wallet.signature") walletSignature: String): Single<Transaction>
 
     /**
-     * Overload of createTransaction to receive Body, since only myappcoins receive Body.
-     * This is the recommendation from Retrofit when there's a possibility of not having an empty body
-     * Check createTransaction above for documentation
-     * @param localPaymentBody body needed for local payment transactions
+     * All optional fields should be passed despite possible being null as these are
+     * required by some applications to complete the purchase flow
+     * @see com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
+     * @param origin value from the transaction origin (bds, unity, unknown)
+     * @param domain package name of the application
+     * @param priceValue amount of the transaction. Only needed in one step payments
+     * @param priceCurrency currency of the transaction. Only needed in one step payments
+     * @param product name of the product that is being bought
+     * @param type type of payment being done (inapp, inapp_unmanaged, ...)
+     * @param userWallet address of the user wallet
+     * @param walletsDeveloper Wallet address of the apps developer
+     * @param walletsOem Wallet address of the original equipment manufacturer
+     * @param walletsStore Wallet address of the store responsible for the app's installation
+     * @param method payment method used on the gateway
+     * @param developerPayload Group of details used in some purchases by the application to
+     * complete the purchase
+     * @param callback url used in some purchases by the application to complete the purchase
+     * @param orderReference reference used in some purchases by the application to
+     * @param referrerUrl url to validate the transaction
+     * @param walletAddress address of the user wallet
+     * @param walletSignature signature obtained after signing the wallet
      */
+    @FormUrlEncoded
     @POST("broker/8.20200810/gateways/myappcoins/transactions")
-    fun createTransaction(@Query("origin") origin: String?,
-                          @Query("domain") domain: String,
-                          @Query("price.value") priceValue: String?,
-                          @Query("price.currency") priceCurrency: String?,
-                          @Query("product") product: String?,
-                          @Query("type") type: String,
-                          @Query("wallets.user") userWallet: String?,
-                          @Query("wallets.developer") walletsDeveloper: String?,
-                          @Query("wallets.store") walletsStore: String?,
-                          @Query("wallets.oem") walletsOem: String?,
-                          @Query("token") token: String?,
-                          @Query("metadata") developerPayload: String?,
-                          @Query("callback_url") callback: String?,
-                          @Query("reference") orderReference: String?,
-                          @Query("referrer_url") referrerUrl: String?,
+    fun createTransaction(@Field("origin") origin: String?,
+                          @Field("domain") domain: String,
+                          @Field("price.value") priceValue: String?,
+                          @Field("price.currency") priceCurrency: String?,
+                          @Field("product") product: String?,
+                          @Field("type") type: String,
+                          @Field("wallets.user") userWallet: String?,
+                          @Field("wallets.developer") walletsDeveloper: String?,
+                          @Field("wallets.store") walletsStore: String?,
+                          @Field("wallets.oem") walletsOem: String?,
+                          @Field("method") method: String?,
+                          @Field("metadata") developerPayload: String?,
+                          @Field("callback_url") callback: String?,
+                          @Field("reference") orderReference: String?,
+                          @Field("referrer_url") referrerUrl: String?,
                           @Query("wallet.address") walletAddress: String,
-                          @Query("wallet.signature") walletSignature: String,
-                          @Body localPaymentBody: LocalPaymentBody): Single<Transaction>
+                          @Query("wallet.signature") walletSignature: String): Single<Transaction>
   }
 
   data class Consumed(val status: String = "CONSUMED")
