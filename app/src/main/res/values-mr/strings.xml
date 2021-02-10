@@ -914,6 +914,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">हे व्हाऊचर खरेदी करा आणि %s%% पर्यंत बोनस मिळवा.</string>
   <string name="voucher_buy_header">%s साठी व्हाऊचर</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">आपल्याकडे %s आहेत का?</string>
   <string name="voucher_buy_no_game_install_button">आत्ताच डाऊनलोड करा</string>
   <string name="voucher_code_title">व्हाऊचर कोड</string>
