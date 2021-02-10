@@ -86,6 +86,6 @@ msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
 msgstr ""
 
