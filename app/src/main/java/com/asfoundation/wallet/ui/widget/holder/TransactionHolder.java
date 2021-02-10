@@ -174,8 +174,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
           .equals(Transaction.TransactionType.VOUCHER)) {
         String addressText =
             details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction);
-        // TODO: Voucher should not be hardcoded
-        addressText = "Voucher: " + addressText;
+        addressText = getString(R.string.voucher_buy_short_header) + " " + addressText;
         address.setText(addressText);
       } else {
         address.setText(
