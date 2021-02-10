@@ -217,7 +217,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload, origin, paymentMethodIconUrl, paymentMethodLabel, async, referralUrl,
+                payload, getOrigin(isBds), paymentMethodIconUrl, paymentMethodLabel, async, referralUrl,
                 gamificationLevel))
         .commit()
   }

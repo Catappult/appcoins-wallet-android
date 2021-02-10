@@ -130,10 +130,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
     return api.createTransaction(origin, packageName, price, currency, productName, type,
-        walletAddress, walletsDeveloper, walletsStore, walletsOem, null, developerPayload, callback,
-        orderReference, referrerUrl, walletAddress, walletSignature,
-        LocalPaymentBody(price, currency, packageName, type, paymentId, productName,
-            walletsDeveloper))
+        walletAddress, walletsDeveloper, walletsStore, walletsOem, paymentId, developerPayload, callback,
+        orderReference, referrerUrl, walletAddress, walletSignature)
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
@@ -272,25 +270,25 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * Check createTransaction above for documentation
      * @param localPaymentBody body needed for local payment transactions
      */
+    @FormUrlEncoded
     @POST("broker/8.20200810/gateways/myappcoins/transactions")
-    fun createTransaction(@Query("origin") origin: String?,
-                          @Query("domain") domain: String,
-                          @Query("price.value") priceValue: String?,
-                          @Query("price.currency") priceCurrency: String?,
-                          @Query("product") product: String?,
-                          @Query("type") type: String,
-                          @Query("wallets.user") userWallet: String?,
-                          @Query("wallets.developer") walletsDeveloper: String?,
-                          @Query("wallets.store") walletsStore: String?,
-                          @Query("wallets.oem") walletsOem: String?,
-                          @Query("token") token: String?,
-                          @Query("metadata") developerPayload: String?,
-                          @Query("callback_url") callback: String?,
-                          @Query("reference") orderReference: String?,
-                          @Query("referrer_url") referrerUrl: String?,
+    fun createTransaction(@Field("origin") origin: String?,
+                          @Field("domain") domain: String,
+                          @Field("price.value") priceValue: String?,
+                          @Field("price.currency") priceCurrency: String?,
+                          @Field("product") product: String?,
+                          @Field("type") type: String,
+                          @Field("wallets.user") userWallet: String?,
+                          @Field("wallets.developer") walletsDeveloper: String?,
+                          @Field("wallets.store") walletsStore: String?,
+                          @Field("wallets.oem") walletsOem: String?,
+                          @Field("method") method: String?,
+                          @Field("metadata") developerPayload: String?,
+                          @Field("callback_url") callback: String?,
+                          @Field("reference") orderReference: String?,
+                          @Field("referrer_url") referrerUrl: String?,
                           @Query("wallet.address") walletAddress: String,
-                          @Query("wallet.signature") walletSignature: String,
-                          @Body localPaymentBody: LocalPaymentBody): Single<Transaction>
+                          @Query("wallet.signature") walletSignature: String): Single<Transaction>
   }
 
   data class Consumed(val status: String = "CONSUMED")
