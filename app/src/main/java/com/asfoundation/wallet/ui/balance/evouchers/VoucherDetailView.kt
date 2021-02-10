@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.method.LinkMovementMethod
 import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.widget.FrameLayout
@@ -43,6 +44,7 @@ class VoucherDetailView : FrameLayout {
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
     redeem_instructions.text =
         context?.getStringSpanned(R.string.voucher_instructions_body, spannableString)
+    redeem_instructions.movementMethod = LinkMovementMethod.getInstance()
   }
 
 }

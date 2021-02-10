@@ -256,7 +256,9 @@ public class TransactionDetailActivity extends BaseActivity {
               .getVoucher();
           if (voucher != null) {
             voucherDetails.setCode(voucher.getCode());
-            voucherDetails.setRedeemWebsite(voucher.getRedeem(), voucher.getRedeem());
+            String redeemText = voucher.getRedeem()
+                .replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)", "");
+            voucherDetails.setRedeemWebsite(redeemText, voucher.getRedeem());
           }
         }
         break;
