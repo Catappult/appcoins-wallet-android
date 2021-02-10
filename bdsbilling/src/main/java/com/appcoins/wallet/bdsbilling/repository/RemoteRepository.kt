@@ -273,10 +273,11 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * @param priceValue amount of the transaction. Only needed in one step payments
      * @param priceCurrency currency of the transaction. Only needed in one step payments
      * @param product name of the product that is being bought
-     * @param type name of the payment method being used
+     * @param type type of payment being done (inapp, inapp_unmanaged, ...)
      * @param userWallet address of the user wallet
      * @param walletsDeveloper Wallet address of the apps developer
      * @param walletsOem Wallet address of the original equipment manufacturer
+     * @param walletsStore Wallet address of the store responsible for the app's installation
      * @param method payment method used on the gateway
      * @param developerPayload Group of details used in some purchases by the application to
      * complete the purchase
