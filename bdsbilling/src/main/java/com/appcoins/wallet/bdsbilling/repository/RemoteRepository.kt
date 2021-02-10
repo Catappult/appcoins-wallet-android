@@ -265,10 +265,26 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Query("wallet.signature") walletSignature: String): Single<Transaction>
 
     /**
-     * Overload of createTransaction to receive Body, since only myappcoins receive Body.
-     * This is the recommendation from Retrofit when there's a possibility of not having an empty body
-     * Check createTransaction above for documentation
-     * @param localPaymentBody body needed for local payment transactions
+     * All optional fields should be passed despite possible being null as these are
+     * required by some applications to complete the purchase flow
+     * @see com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
+     * @param origin value from the transaction origin (bds, unity, unknown)
+     * @param domain package name of the application
+     * @param priceValue amount of the transaction. Only needed in one step payments
+     * @param priceCurrency currency of the transaction. Only needed in one step payments
+     * @param product name of the product that is being bought
+     * @param type name of the payment method being used
+     * @param userWallet address of the user wallet
+     * @param walletsDeveloper Wallet address of the apps developer
+     * @param walletsOem Wallet address of the original equipment manufacturer
+     * @param method payment method used on the gateway
+     * @param developerPayload Group of details used in some purchases by the application to
+     * complete the purchase
+     * @param callback url used in some purchases by the application to complete the purchase
+     * @param orderReference reference used in some purchases by the application to
+     * @param referrerUrl url to validate the transaction
+     * @param walletAddress address of the user wallet
+     * @param walletSignature signature obtained after signing the wallet
      */
     @FormUrlEncoded
     @POST("broker/8.20200810/gateways/myappcoins/transactions")
