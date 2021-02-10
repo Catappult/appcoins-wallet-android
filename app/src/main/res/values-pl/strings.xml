@@ -916,6 +916,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Kup ten voucher i zdobądź nawet %s%% bonusu.</string>
   <string name="voucher_buy_header">Voucher na %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Nie masz %s?</string>
   <string name="voucher_buy_no_game_install_button">POBIERZ TERAZ</string>
   <string name="voucher_code_title">Kod vouchera</string>
