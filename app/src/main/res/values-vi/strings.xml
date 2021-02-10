@@ -889,6 +889,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Mua phiếu mua hàng này và nhận đến %s%% tiền thưởng.</string>
   <string name="voucher_buy_header">Phiếu mua hàng dành cho %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Bạn không có %s?</string>
   <string name="voucher_buy_no_game_install_button">TẢI NGAY</string>
   <string name="voucher_code_title">Mã phiếu mua hàng</string>
