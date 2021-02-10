@@ -898,6 +898,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Bu kuponu satın alın ve %%%s oranına varan bonus kazanın.</string>
   <string name="voucher_buy_header">%s kuponu</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">%s uygulaması yüklü değil mi?</string>
   <string name="voucher_buy_no_game_install_button">HEMEN İNDİRİN</string>
   <string name="voucher_code_title">Kupon Kodu</string>
