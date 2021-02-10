@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.asfoundation.wallet.promotions.PromotionsActivity"
+    tools:showIn="@layout/fragment_e_voucher_details"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <ImageView
+        android:id="@+id/app_featured_graphic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/e_voucher_details_image_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/free_fire"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        style="@style/AppCoinsIconStyle"
+        android:layout_width="@dimen/e_voucher_details_appcoins_text_view_width"
+        android:layout_height="@dimen/e_voucher_details_appcoins_text_view_height"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:drawableLeft="@drawable/e_voucher_details_appcoins_textview_drawable"
+        android:drawablePadding="4.3dp"
+        android:text="@string/e_voucher_appcoins_textview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/app_title"
+        style="@style/EVoucher.AppTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="31dp"
+        android:text="Garena Free Fire: BOOYAH Day"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_featured_graphic"
+        />
+    <TextView
+        android:id="@+id/app_bonus"
+        style="@style/EVoucher.AppBonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:text="@string/e_voucher_buy_this_voucher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_title"
+        />
+    <TextView
+        android:id="@+id/app_bonus_part_2"
+        style="@style/EVoucher.AppBonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/e_voucher_buy_this_voucher_part_2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/app_bonus"
+        app:layout_constraintTop_toTopOf="@id/app_bonus"
+        />
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/diamond_buttons_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/e_voucher_details_grid_view_height"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="16dp"
+        android:horizontalSpacing="@dimen/e_voucher_details_grid_view_horizontal_spacing"
+        android:numColumns="3"
+        android:verticalSpacing="@dimen/e_voucher_details_grid_view_vertial_spacing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bonus"
+        tools:context="com.asfoundation.wallet.promotions.voucher.EVoucherDetailsActivity"
+        ></GridView>
+
+    <Button
+        android:id="@+id/cancel_button"
+        style="@style/ButtonStyle.Cancel"
+        android:layout_width="@dimen/e_voucher_details_diamonds_cancel_button_width"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginEnd="32dp"
+        android:text="@string/cancel_button"
+        app:layout_constraintEnd_toStartOf="@id/next_button"
+        app:layout_constraintTop_toTopOf="@id/next_button"
+        />
+
+    <Button
+        android:id="@+id/next_button"
+        style="@style/ButtonStyle.Alternative"
+        android:layout_width="@dimen/e_voucher_details_diamonds_next_button_width"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="30dp"
+        android:enabled="false"
+        android:text="@string/action_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/diamond_buttons_grid_view"
+        />
+
+    <include
+        android:id="@+id/download_app_container"
+        layout="@layout/e_voucher_details_download_app_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/e_voucher_details_download_app_container_height"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/next_button"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="29dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/download_app_container"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -7,6 +7,16 @@
     android:background="@color/white"
     >
 
+  <!-- Remove -->
+  <Button
+      android:id="@+id/e_voucher_details_hook"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="EVoucherDetails"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rv_promotions"
       android:layout_width="match_parent"

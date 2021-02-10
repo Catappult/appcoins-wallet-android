@@ -1,0 +1,97 @@
+package com.asfoundation.wallet.promotions.voucher
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.GridView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.asf.wallet.R
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
+import kotlinx.android.synthetic.main.layout_app_bar.*
+
+class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
+
+  lateinit var nextButton: Button
+  lateinit var cancelButton: Button
+  lateinit var downloadButton: Button
+  lateinit var gridView: GridView
+  lateinit var diamondsButtonsAdapter: DiamondsButtonsAdapter
+  lateinit var appPackageName: String
+  private lateinit var presenter: EVoucherDetailsPresenter
+
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View? {
+    appPackageName = arguments?.getString(PACKAGE_NAME)!!
+
+    return inflater.inflate(R.layout.fragment_e_voucher_details, container, false)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    presenter = EVoucherDetailsPresenter(
+        this,
+        EVoucherDetailsInteractor(),
+        EVoucherDetailsNavigator()
+    )
+    presenter.present()
+  }
+
+  override fun setupUi(title: String) {
+    val appCompatActivity = getActivity() as AppCompatActivity
+    appCompatActivity.toolbar.title = title
+
+    nextButton = requireView().findViewById(R.id.next_button)
+    cancelButton = requireView().findViewById(R.id.cancel_button)
+    downloadButton = requireView().findViewById(R.id.download_app_button)
+    gridView = requireView().findViewById(R.id.diamond_buttons_grid_view)
+    diamondsButtonsAdapter = DiamondsButtonsAdapter(
+        appCompatActivity.applicationContext,
+        presenter.getDiamondModels(),
+        object : DiamondsButtonsAdapter.OnClick {
+          override fun onClick() {
+            nextButton.setEnabled(true)
+          }
+        })
+    gridView.adapter = diamondsButtonsAdapter
+    downloadButton.setOnClickListener {
+      startActivity(
+          Intent(
+              Intent.ACTION_VIEW,
+              Uri.parse("market://details?id=" + appPackageName)
+          )
+      )
+
+    }
+  }
+
+  override fun onNextClicks(): Observable<Any> {
+    return RxView.clicks(nextButton)
+  }
+
+  override fun onCancelClicks(): Observable<Any> {
+    return RxView.clicks(cancelButton)
+  }
+
+  companion object {
+    internal const val PACKAGE_NAME = "packageName"
+
+    @JvmStatic
+    fun newInstance(packageName: String): EVoucherDetailsFragment {
+      val fragment = EVoucherDetailsFragment()
+      fragment.arguments = Bundle().apply {
+        putString(PACKAGE_NAME, packageName)
+      }
+      return fragment
+    }
+  }
+}

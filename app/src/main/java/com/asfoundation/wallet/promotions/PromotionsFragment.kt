@@ -3,8 +3,10 @@ package com.asfoundation.wallet.promotions
 import android.os.Bundle
 import android.view.*
 import android.view.View.*
+import android.widget.Button
 import android.widget.Toast
 import com.asf.wallet.R
+import com.asfoundation.wallet.promotions.voucher.EVoucherDetailsFragment
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -63,6 +65,14 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
           }
         })
     presenter.present()
+    //    Remove
+    requireView().findViewById<Button>(R.id.e_voucher_details_hook)
+        .setOnClickListener {
+          requireActivity().supportFragmentManager.beginTransaction()
+              .replace(R.id.fragment_container,
+                  EVoucherDetailsFragment.newInstance("com.facebook.katana"))
+              .commit()
+        }
   }
 
   override fun onResume() {

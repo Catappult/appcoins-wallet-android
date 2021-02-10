@@ -990,5 +990,12 @@
   <string name="voucher_empty">No vouchers available at the moment.</string>
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
 
+  <!-- E-Voucher Details -->
+  <string name="e_voucher_appcoins_textview" translatable="false">AppCoins</string>
+  <string name="e_voucher_details_dont_you_have_the_game">Don\'t you have the game?</string>
+  <string name="e_voucher_details_Install_game">Install</string>
+  <string name="e_voucher_download_now">Download Now!</string>
+  <string name="e_voucher_buy_this_voucher">Buy this voucher and get</string>
+  <string name="e_voucher_buy_this_voucher_part_2">\ up to 25% bonus.</string>
 
 </resources>

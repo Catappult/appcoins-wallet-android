@@ -153,4 +153,10 @@
   <color name="verify_wallet_example_background">#2Bd6d6d6</color>
   <color name="verify_wallet_example_code_background">#707070</color>
   <color name="verify_wallet_code_background">#afafaf</color>
+
+  <!-- E-Voucher Details -->
+  <color name="fake_black_1">#00223a</color>
+  <color name="fake_black_2">#00131f</color>
+  <color name="fake_black_3">#142735</color>
+  <color name="e_voucher_details_download_background_color">#efefef</color>
 </resources>
