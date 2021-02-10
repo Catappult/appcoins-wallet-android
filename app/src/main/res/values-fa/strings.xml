@@ -898,6 +898,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">این ووچر را بخرید و تا %s%% پاداش بگیرید.</string>
   <string name="voucher_buy_header">ووچر برای %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">آیا %s ندارید؟</string>
   <string name="voucher_buy_no_game_install_button">همین حالا دانلود کنید</string>
   <string name="voucher_code_title">کد ووچر</string>
