@@ -935,6 +935,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">اشترِ هذه القسيمة واحصل على مكافأة تصل إلى %s%%.</string>
   <string name="voucher_buy_header">القسيمة لـ %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">أليس لديك %s؟</string>
   <string name="voucher_buy_no_game_install_button">نزّله الآن</string>
   <string name="voucher_code_title">رمز القسيمة</string>
