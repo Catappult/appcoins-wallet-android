@@ -907,6 +907,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Cumpără acest voucher și vei primi un bonus de până la %s%%.</string>
   <string name="voucher_buy_header">Voucher pentru %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Nu ai %s?</string>
   <string name="voucher_buy_no_game_install_button">DESCARCĂ ACUM</string>
   <string name="voucher_code_title">Cod voucher</string>
