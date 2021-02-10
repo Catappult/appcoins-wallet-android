@@ -889,6 +889,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Beli baucar ini dan dapat bonus sehingga %s%%.</string>
   <string name="voucher_buy_header">Baucar untuk %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Ada %s?</string>
   <string name="voucher_buy_no_game_install_button">MUAT TURUN SEKARANG</string>
   <string name="voucher_code_title">Kod Baucar</string>
