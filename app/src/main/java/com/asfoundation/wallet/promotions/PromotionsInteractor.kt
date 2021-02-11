@@ -162,6 +162,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun mapToPromotionsModel(userStatus: UserStatusResponse,
                                    levels: Levels): PromotionsModel {
     var gamificationAvailable = false
+    var referralAvailable = false
     var perksAvailable = false
     val promotions = mutableListOf<Promotion>()
     var maxBonus = 0.0
@@ -183,8 +184,10 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               }
             }
             is ReferralResponse -> {
-              if (it.status == PromotionsResponse.Status.ACTIVE) {
-                promotions.add(mapToReferralItem(it))
+              referralAvailable = it.status == PromotionsResponse.Status.ACTIVE
+              if (referralAvailable) {
+                val index = if (gamificationAvailable) 2 else 0
+                promotions.add(index, mapToReferralItem(it))
               }
             }
             is GenericResponse -> {
@@ -205,11 +208,20 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
         }
 
     if (perksAvailable) {
-      promotions.add(2,
-          TitleItem(R.string.perks_title, R.string.perks_body, false))
+      val perksIndex = getPerksIndex(gamificationAvailable, referralAvailable)
+      promotions.add(perksIndex, TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
     return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), userStatus.error)
+  }
+
+  private fun getPerksIndex(gamificationAvailable: Boolean, referralAvailable: Boolean): Int {
+    return when {
+      gamificationAvailable && referralAvailable -> 3
+      gamificationAvailable && !referralAvailable -> 2
+      !gamificationAvailable && referralAvailable -> 1
+      else -> 0
+    }
   }
 
   private fun map(walletOrigin: WalletOrigin): com.asfoundation.wallet.promotions.WalletOrigin {
