@@ -13,7 +13,7 @@ import com.asf.wallet.R
 
 class DiamondsButtonsAdapter(
     val context: Context,
-    val buttonModels: List<DiamondsButtonModel>,
+    val buttonModels: List<SkuButtonModel>,
     val onclick: OnClick
 ) :
     BaseAdapter() {

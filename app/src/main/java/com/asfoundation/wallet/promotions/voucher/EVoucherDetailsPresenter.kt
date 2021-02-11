@@ -18,7 +18,7 @@ class EVoucherDetailsPresenter(
         .subscribe({ navigator.navigateBack() }))
   }
 
-  fun getDiamondModels(): List<DiamondsButtonModel> {
+  fun getDiamondModels(): List<SkuButtonModel> {
     return interactor.getDiamondModels()
   }
 }

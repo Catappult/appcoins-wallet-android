@@ -4,15 +4,15 @@ import java.util.*
 
 class EVoucherDetailsInteractor {
 
-  fun getDiamondModels(): List<DiamondsButtonModel> {
-    val diamondsButtonModels: MutableList<DiamondsButtonModel> = LinkedList()
-    diamondsButtonModels.add(DiamondsButtonModel(43, "Diamonds"))
-    diamondsButtonModels.add(DiamondsButtonModel(218, "Diamonds"))
-    diamondsButtonModels.add(DiamondsButtonModel(430, "Diamonds"))
-    diamondsButtonModels.add(DiamondsButtonModel(43, "Diamonds"))
-    diamondsButtonModels.add(DiamondsButtonModel(218, "Diamonds"))
-    diamondsButtonModels.add(DiamondsButtonModel(430, "Diamonds"))
-    return diamondsButtonModels
+  fun getDiamondModels(): List<SkuButtonModel> {
+    val skuButtonModels: MutableList<SkuButtonModel> = LinkedList()
+    skuButtonModels.add(SkuButtonModel(43, "Diamonds"))
+    skuButtonModels.add(SkuButtonModel(218, "Diamonds"))
+    skuButtonModels.add(SkuButtonModel(430, "Diamonds"))
+    skuButtonModels.add(SkuButtonModel(43, "Diamonds"))
+    skuButtonModels.add(SkuButtonModel(218, "Diamonds"))
+    skuButtonModels.add(SkuButtonModel(430, "Diamonds"))
+    return skuButtonModels
   }
 
   fun getTitle(): String {
