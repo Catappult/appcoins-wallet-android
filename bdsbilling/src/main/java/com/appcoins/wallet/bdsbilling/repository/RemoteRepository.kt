@@ -51,9 +51,10 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   internal fun getSkuTransaction(packageName: String,
                                  skuId: String?,
+                                 transactionType: TransactionType,
                                  walletAddress: String,
                                  walletSignature: String): Single<TransactionsResponse> {
-    return api.getSkuTransaction(walletAddress, walletSignature, 0, TransactionType.INAPP, 1,
+    return api.getSkuTransaction(walletAddress, walletSignature, 0, transactionType, 1,
         "latest", false, skuId, packageName)
 
   }
