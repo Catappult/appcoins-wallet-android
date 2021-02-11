@@ -11,7 +11,7 @@ import android.widget.GridView
 import com.asf.wallet.R
 
 
-class DiamondsButtonsAdapter(
+class SkuButtonsAdapter(
     val context: Context,
     val buttonModels: List<SkuButtonModel>,
     val onclick: OnClick

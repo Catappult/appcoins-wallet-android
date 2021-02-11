@@ -21,7 +21,7 @@ class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
   lateinit var cancelButton: Button
   lateinit var downloadButton: Button
   lateinit var gridView: GridView
-  lateinit var diamondsButtonsAdapter: DiamondsButtonsAdapter
+  lateinit var skuButtonsAdapter: SkuButtonsAdapter
   lateinit var appPackageName: String
   private lateinit var presenter: EVoucherDetailsPresenter
 
@@ -54,15 +54,15 @@ class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
     cancelButton = requireView().findViewById(R.id.cancel_button)
     downloadButton = requireView().findViewById(R.id.download_app_button)
     gridView = requireView().findViewById(R.id.diamond_buttons_grid_view)
-    diamondsButtonsAdapter = DiamondsButtonsAdapter(
+    skuButtonsAdapter = SkuButtonsAdapter(
         appCompatActivity.applicationContext,
         presenter.getDiamondModels(),
-        object : DiamondsButtonsAdapter.OnClick {
+        object : SkuButtonsAdapter.OnClick {
           override fun onClick() {
             nextButton.setEnabled(true)
           }
         })
-    gridView.adapter = diamondsButtonsAdapter
+    gridView.adapter = skuButtonsAdapter
     downloadButton.setOnClickListener {
       startActivity(
           Intent(
