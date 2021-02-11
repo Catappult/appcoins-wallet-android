@@ -14,7 +14,7 @@ class PerksVouchersPageAdapter(private var items: List<List<Promotion>>,
 
   override fun onCreateViewHolder(container: ViewGroup, viewType: Int): PerksVouchersViewHolder {
     val view = LayoutInflater.from(container.context)
-        .inflate(R.layout.perk_vouchers_page, container, false)
+        .inflate(R.layout.item_page_perk_vouchers, container, false)
     return PerksVouchersViewHolder(view, clickSubject)
   }
 

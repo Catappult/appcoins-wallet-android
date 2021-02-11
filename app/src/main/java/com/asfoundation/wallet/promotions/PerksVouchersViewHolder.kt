@@ -5,7 +5,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.perk_vouchers_page.view.*
+import kotlinx.android.synthetic.main.item_page_perk_vouchers.view.*
 
 class PerksVouchersViewHolder(itemView: View,
                               private val clickSubject: PublishSubject<PromotionClick>) :
