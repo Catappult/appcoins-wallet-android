@@ -9,14 +9,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.layout_app_bar.*
 import rx.subjects.PublishSubject
+import javax.inject.Inject
 
-class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
+class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   lateinit var nextButton: Button
   lateinit var cancelButton: Button
@@ -24,7 +25,9 @@ class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
   lateinit var gridView: GridView
   lateinit var skuButtonsAdapter: SkuButtonsAdapter
   lateinit var appPackageName: String
-  private lateinit var presenter: EVoucherDetailsPresenter
+
+  @Inject
+  lateinit var presenter: EVoucherDetailsPresenter
 
   override fun onCreateView(
       inflater: LayoutInflater,
@@ -39,11 +42,6 @@ class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    presenter = EVoucherDetailsPresenter(
-        this,
-        EVoucherDetailsInteractor(),
-        EVoucherDetailsNavigator()
-    )
     presenter.present()
   }
 
