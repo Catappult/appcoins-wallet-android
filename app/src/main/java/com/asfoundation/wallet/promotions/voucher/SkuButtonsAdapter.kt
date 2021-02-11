@@ -9,12 +9,13 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.GridView
 import com.asf.wallet.R
+import rx.subjects.PublishSubject
 
 
 class SkuButtonsAdapter(
     val context: Context,
     val buttonModels: List<SkuButtonModel>,
-    val onclick: OnClick
+    val onSkuClick: PublishSubject<Any>
 ) :
     BaseAdapter() {
 
@@ -52,7 +53,7 @@ class SkuButtonsAdapter(
       }
 
       selectedPosition = i
-      onclick.onClick()
+      onSkuClick.onNext(0)
       button.setActivated(true)
     }
     button.text = buttonModels.get(i).amount.toString() + '\n' + buttonModels.get(i).s

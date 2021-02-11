@@ -14,6 +14,7 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.layout_app_bar.*
+import rx.subjects.PublishSubject
 
 class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
 
@@ -49,6 +50,7 @@ class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
   override fun setupUi(title: String) {
     val appCompatActivity = getActivity() as AppCompatActivity
     appCompatActivity.toolbar.title = title
+    val skuButtonClick = PublishSubject.create<Any>()
 
     nextButton = requireView().findViewById(R.id.next_button)
     cancelButton = requireView().findViewById(R.id.cancel_button)
@@ -57,11 +59,7 @@ class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
     skuButtonsAdapter = SkuButtonsAdapter(
         appCompatActivity.applicationContext,
         presenter.getDiamondModels(),
-        object : SkuButtonsAdapter.OnClick {
-          override fun onClick() {
-            nextButton.setEnabled(true)
-          }
-        })
+        skuButtonClick)
     gridView.adapter = skuButtonsAdapter
     downloadButton.setOnClickListener {
       startActivity(
@@ -70,8 +68,8 @@ class EVoucherDetailsFragment : Fragment(), EVoucherDetailsView {
               Uri.parse("market://details?id=" + appPackageName)
           )
       )
-
     }
+    skuButtonClick.subscribe { nextButton.setEnabled(true) }
   }
 
   override fun onNextClicks(): Observable<Any> {
