@@ -56,7 +56,7 @@ class SkuButtonsAdapter(
       onSkuClick.onNext(0)
       button.setActivated(true)
     }
-    button.text = buttonModels.get(i).s
+    button.text = buttonModels.get(i).title
     return button
   }
 
