@@ -95,9 +95,9 @@ data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int
       if (str == null) {
         return 0
       }
-      val `val` = str.toInt()
+      val number = str.toInt()
       return try {
-        multiplyExact(`val`, negate)
+        multiplyExact(number, negate)
       } catch (ex: ArithmeticException) {
         throw Exception("Text cannot be parsed to a Period")
       }

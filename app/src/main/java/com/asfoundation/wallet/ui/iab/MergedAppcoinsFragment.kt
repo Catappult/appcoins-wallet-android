@@ -557,7 +557,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         .plus(" " + WalletCurrency.APPCOINS.symbol)
     var fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
         .plus(" $currency")
-    if (isSubscription && frequency != null) {
+    if (isSubscription) {
       val period = Period.parse(frequency!!)
       period?.mapToSubsCurrencyFrequency(context!!, fiatText)
           ?.let { fiatText = it }

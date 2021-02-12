@@ -186,8 +186,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                frequency: String?, isSubscription: Boolean) {
     var appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     var fiatPrice = "$fiatAmount $currency"
-    if (isSubscription && frequency != null) {
-      val period = Period.parse(frequency)
+    if (isSubscription) {
+      val period = Period.parse(frequency!!)
       period?.mapToSubsCurrencyFrequency(context!!, fiatPrice)
           ?.let { fiatPrice = it }
       appcPrice = "~$appcPrice"
