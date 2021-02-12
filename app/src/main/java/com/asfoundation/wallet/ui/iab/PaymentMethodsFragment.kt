@@ -19,8 +19,8 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.mapToSubFrequency
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
@@ -186,8 +186,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
                                frequency: String?, isSubscription: Boolean) {
     var appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     var fiatPrice = "$fiatAmount $currency"
-    if (isSubscription && frequency != null) {
-      frequency.mapToSubFrequency(context, fiatAmount, currency)
+    if (isSubscription) {
+      val period = Period.parse(frequency!!)
+      period?.mapToSubsCurrencyFrequency(context!!, fiatPrice)
           ?.let { fiatPrice = it }
       appcPrice = "~$appcPrice"
     }

@@ -1,6 +1,9 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.*
+import com.appcoins.wallet.bdsbilling.BdsApi
+import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
+import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
+import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -109,11 +112,17 @@ class RemoteRepository(private val inAppApi: BdsApi,
         .toSingle { true }
   }
 
+  internal fun acknowledgePurchase(packageName: String, purchaseToken: String,
+                                   walletAddress: String,
+                                   walletSignature: String): Single<Boolean> {
+    return subsApi.acknowledgePurchase(packageName, purchaseToken, walletAddress, walletSignature)
+        .toSingle { true }
+  }
+
   internal fun consumePurchaseSubs(packageName: String, purchaseToken: String,
                                    walletAddress: String,
                                    walletSignature: String): Single<Boolean> {
-    return subsApi.updatePurchase(packageName, purchaseToken, walletAddress, walletSignature,
-        PurchaseUpdate(PurchaseState.CONSUMED))
+    return subsApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature)
         .toSingle { true }
   }
 
@@ -174,6 +183,16 @@ class RemoteRepository(private val inAppApi: BdsApi,
         orderReference, referrerUrl, walletAddress, walletSignature,
         LocalPaymentBody(price, currency, packageName, type, paymentId, productName,
             walletsDeveloper))
+  }
+
+  fun activateSubscription(packageName: String, uid: String, walletAddress: String,
+                           walletSignature: String): Completable {
+    return subsApi.activateSubscription(packageName, uid, walletAddress, walletSignature)
+  }
+
+  fun cancelSubscription(packageName: String, uid: String, walletAddress: String,
+                         walletSignature: String): Completable {
+    return subsApi.cancelSubscription(packageName, uid, walletAddress, walletSignature)
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,

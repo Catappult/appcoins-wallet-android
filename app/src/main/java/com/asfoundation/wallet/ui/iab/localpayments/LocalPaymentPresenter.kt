@@ -184,7 +184,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
     return localPaymentInteractor.getCompletePurchaseBundle(data.type, data.packageName, data.skuId,
-        transaction.metadata?.purchaseUid, transaction.orderReference, transaction.hash, networkScheduler)
+        transaction.metadata?.purchaseUid, transaction.orderReference, transaction.hash,
+        networkScheduler)
         .doOnSuccess {
           analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.appcAmount,
               data.type, data.paymentId)
@@ -195,7 +196,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         .flatMapCompletable {
           Completable.fromAction { view.showCompletedPayment() }
               .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-              .andThen(Completable.fromAction { view.popView(it, data.paymentId) })
+              .andThen(Completable.fromAction { view.popView(it.bundle, data.paymentId) })
         }
   }
 

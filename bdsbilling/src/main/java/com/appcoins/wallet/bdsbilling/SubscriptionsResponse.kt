@@ -22,11 +22,13 @@ data class AppcPrice(val value: BigDecimal, val label: String, val micros: Long)
 data class SubscriptionPurchaseListResponse(val items: List<SubscriptionPurchaseResponse>)
 
 /**
+ * @param created The creation timestamp, in UTC using the ISO 8601 format, including microseconds.
+ * @param renewal The renewal timestamp, in UTC using the ISO 8601 format, including microseconds.
+If null, then no renewal has been set yet (when state is PENDING).
  * @param verification The subscription purchase verification object, to be used by the in-app seller to cryptographically verify the subscription purchase, in order to acknowledge and activate it.
  */
 data class SubscriptionPurchaseResponse(val uid: String,
                                         val sku: String,
-                                        val status: Status,
                                         val state: PurchaseState,
                                         @SerializedName("order_uid")
                                         val orderUid: String,
@@ -34,22 +36,10 @@ data class SubscriptionPurchaseResponse(val uid: String,
                                         val autoRenewing: Boolean,
                                         val payload: String?,
                                         val created: String,
+                                        val renewal: String?,
                                         val verification: Verification)
 
 data class Verification(val type: String, val data: String, val signature: String)
-
-/**
- * @param state The state property is only allowed to be updated as follows:
- * from PENDING to ACKNOWLEDGED
- * to CONSUMED
- */
-data class PurchaseUpdate(val state: PurchaseState)
-
-enum class Status {
-  PENDING, //The subscription purchase is pending acknowledgement from the in-app seller.
-  COMPLETED, //The subscription purchase is successfully completed, and may now be activated.
-  CANCELED,//The subscription purchase has been explicitly canceled.
-}
 
 enum class PurchaseState {
   PENDING, //The subscription purchase is pending acknowledgement.

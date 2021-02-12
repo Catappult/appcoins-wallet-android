@@ -2,15 +2,12 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -32,7 +29,6 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billingMessagesMapper: BillingMessagesMapper,
                              private val partnerAddressService: AddressService,
-                             private val billing: Billing,
                              private val walletService: WalletService,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
@@ -118,24 +114,15 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
     return inAppPurchaseInteractor.convertToFiat(amount, currency)
   }
 
-  fun mapCancellation(): Bundle {
-    return billingMessagesMapper.mapCancellation()
-  }
+  fun mapCancellation(): Bundle = billingMessagesMapper.mapCancellation()
 
-  fun removePreSelectedPaymentMethod() {
-    inAppPurchaseInteractor.removePreSelectedPaymentMethod()
-  }
+  fun removePreSelectedPaymentMethod() = inAppPurchaseInteractor.removePreSelectedPaymentMethod()
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 purchaseUid: String?, orderReference: String?, hash: String?,
-                                scheduler: Scheduler): Single<Bundle> {
-    val billingType = BillingSupportedType.valueOfInsensitive(type)
-    return if (isManagedTransaction(billingType) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
-    }
+                                scheduler: Scheduler): Single<PurchaseBundleModel> {
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, merchantName, sku, purchaseUid,
+        orderReference, hash, scheduler)
   }
 
   fun convertToLocalFiat(doubleValue: Double): Single<FiatValue> {
@@ -183,10 +170,6 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
         || status == PaymentModel.Status.CANCELED
         || status == PaymentModel.Status.INVALID_TRANSACTION
         || status == PaymentModel.Status.FRAUD)
-  }
-
-  private fun isManagedTransaction(type: BillingSupportedType): Boolean {
-    return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION
   }
 
   companion object {

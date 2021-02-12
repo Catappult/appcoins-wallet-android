@@ -12,11 +12,13 @@ class InAppMapper(private val serializer: ExternalBillingSerializer) {
     })
   }
 
+  //As of right now any purchase that is returned in the inapp endpoint is not consumed and since
+  // inapp purchase can't be ACKNOWLEDGE, to avoid null checks in the end the state is set as pending
   fun map(packageName: String, inAppPurchaseResponse: InappPurchaseResponse): Purchase {
     val signatureEntity = inAppPurchaseResponse.signature
     val signatureMessage = serializer.serializeSignatureData(inAppPurchaseResponse)
     return Purchase(inAppPurchaseResponse.uid, RemoteProduct(inAppPurchaseResponse.product.name),
-        inAppPurchaseResponse.status, null, false, Package(packageName),
+        State.PENDING, false, null, Package(packageName),
         Signature(signatureEntity.value, signatureMessage))
   }
 

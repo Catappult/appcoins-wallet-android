@@ -8,6 +8,7 @@ import com.asfoundation.wallet.billing.address.BillingAddressModel
 import io.reactivex.Observable
 import io.reactivex.subjects.ReplaySubject
 import java.math.BigDecimal
+import java.util.*
 
 interface AdyenPaymentView {
 
@@ -27,7 +28,7 @@ interface AdyenPaymentView {
 
   fun close(bundle: Bundle?)
 
-  fun showSuccess()
+  fun showSuccess(renewal: Date?)
 
   fun showGenericError()
 

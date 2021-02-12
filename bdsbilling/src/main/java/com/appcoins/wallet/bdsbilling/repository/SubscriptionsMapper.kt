@@ -5,6 +5,9 @@ import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SubscriptionsMapper {
 
@@ -25,11 +28,20 @@ class SubscriptionsMapper {
   fun map(packageName: String,
           subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
     return Purchase(subscriptionPurchaseResponse.uid,
-        RemoteProduct(subscriptionPurchaseResponse.sku), subscriptionPurchaseResponse.status.name,
+        RemoteProduct(subscriptionPurchaseResponse.sku),
         mapPurchaseState(subscriptionPurchaseResponse.state),
         subscriptionPurchaseResponse.autoRenewing,
+        mapRenewalDate(subscriptionPurchaseResponse.renewal),
         Package(packageName), Signature(subscriptionPurchaseResponse.verification.signature,
         subscriptionPurchaseResponse.verification.data))
+  }
+
+  private fun mapRenewalDate(renewal: String?): Date? {
+    return if (renewal == null) null
+    else {
+      val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+      dateFormat.parse(renewal)
+    }
   }
 
   private fun mapPurchaseState(state: PurchaseState): State {

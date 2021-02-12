@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.util
 
 import android.animation.LayoutTransition
-import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -13,7 +12,6 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.asf.wallet.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -84,26 +82,6 @@ fun HttpException.getMessage(): String {
   val message = reader?.readText()
   reader?.close()
   return if (message.isNullOrBlank()) message() else message
-}
-
-fun String.mapToSubFrequency(context: Context?, price: String, currency: String): String? {
-  if (context != null && this.length == 3) {
-    val priceAndCurrency = context.getString(R.string.value_crypto, price, currency)
-    val numberOfTimes = this[1].toString()
-    val frequency = this[2].toString()
-    if (numberOfTimes == "1") {
-      return when (frequency) {
-        "D" -> context.getString(R.string.subscriptions_per_day, priceAndCurrency)
-        "W" -> context.getString(R.string.subscriptions_per_week, priceAndCurrency)
-        "M" -> context.getString(R.string.subscriptions_per_month, priceAndCurrency)
-        "Y" -> context.getString(R.string.subscriptions_per_year, priceAndCurrency)
-        else -> null
-      }
-    } else {
-      context.getString(R.string.subscriptions_per_several_month, priceAndCurrency, numberOfTimes)
-    }
-  }
-  return null
 }
 
 inline fun <T> Iterable<T>.sumByBigDecimal(selector: (T) -> BigDecimal): BigDecimal {

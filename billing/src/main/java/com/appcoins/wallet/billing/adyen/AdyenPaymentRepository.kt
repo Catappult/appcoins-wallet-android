@@ -82,7 +82,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                           billingAddress: AdyenBillingAddress?,
                           referrerUrl: String?): Single<AdyenTransactionResponse> {
     return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
-      subscriptionsApi.getSkuSubscriptionToken(packageName!!, sku!!, currency)
+      subscriptionsApi.getSkuSubscriptionToken(packageName!!, sku!!, currency, walletAddress,
+          walletSignature)
           .map {
             TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
                 billingAddress, callbackUrl, metadata, paymentType, origin, reference,
