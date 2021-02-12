@@ -104,7 +104,7 @@ data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int
     }
   }
 
-  fun mapToSubsCurrencyFrequency(context: Context, fiatText: String): String {
+  fun mapToSubsFrequency(context: Context, fiatText: String): String {
     return when {
       years == 1 -> context.getString(R.string.subscriptions_per_year, fiatText)
       years > 1 -> context.getString(R.string.subscriptions_per_several_year, fiatText)
