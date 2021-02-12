@@ -1,4 +1,4 @@
 package com.asfoundation.wallet.promotions.voucher
 
-class EVoucherDetailsData(val packageName: String) {
+class EVoucherDetailsData(val title: String, val packageName: String) {
 }

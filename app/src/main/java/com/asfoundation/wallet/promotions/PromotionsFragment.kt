@@ -70,7 +70,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
         .setOnClickListener {
           requireActivity().supportFragmentManager.beginTransaction()
               .replace(R.id.fragment_container,
-                  EVoucherDetailsFragment.newInstance("com.facebook.katana"))
+                  EVoucherDetailsFragment.newInstance("Voucher for Garena Free Fire: BOOYAH Day",
+                      "com.facebook.katana"))
               .commit()
         }
   }

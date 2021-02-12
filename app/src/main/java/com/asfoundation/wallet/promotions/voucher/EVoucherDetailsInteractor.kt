@@ -21,8 +21,4 @@ class EVoucherDetailsInteractor {
         SkuButtonModel("430_diamonds", "430 Diamonds", Price(0.99, "USD", "$", 24.81)))
     return Single.just(skuButtonModels)
   }
-
-  fun getTitle(): String {
-    return "Voucher for Garena Free Fire: BOOYAH Day"
-  }
 }

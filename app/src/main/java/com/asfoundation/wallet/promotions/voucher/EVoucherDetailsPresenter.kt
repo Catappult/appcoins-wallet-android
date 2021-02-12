@@ -13,7 +13,7 @@ class EVoucherDetailsPresenter(
   private val disposable = CompositeDisposable()
 
   fun present() {
-    view.setupUi(interactor.getTitle(), data.packageName)
+    view.setupUi(data.title, data.packageName)
     disposable.add(view.onNextClicks()
         .subscribe({ navigator.navigateToNextScreen() }))
     disposable.add(view.onCancelClicks()

@@ -109,12 +109,14 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   }
 
   companion object {
+    internal const val TITLE = "title"
     internal const val PACKAGE_NAME = "packageName"
 
     @JvmStatic
-    fun newInstance(packageName: String): EVoucherDetailsFragment {
+    fun newInstance(title: String, packageName: String): EVoucherDetailsFragment {
       val fragment = EVoucherDetailsFragment()
       fragment.arguments = Bundle().apply {
+        putString(TITLE, title)
         putString(PACKAGE_NAME, packageName)
       }
       return fragment

@@ -14,7 +14,8 @@ class EVoucherDetailsModule {
   @Provides
   fun providesEVoucherDetailsData(fragment: EVoucherDetailsFragment): EVoucherDetailsData {
     fragment.arguments!!.apply {
-      return EVoucherDetailsData(getString(EVoucherDetailsFragment.PACKAGE_NAME)!!)
+      return EVoucherDetailsData(getString(EVoucherDetailsFragment.TITLE)!!,
+          getString(EVoucherDetailsFragment.PACKAGE_NAME)!!)
     }
   }
 
