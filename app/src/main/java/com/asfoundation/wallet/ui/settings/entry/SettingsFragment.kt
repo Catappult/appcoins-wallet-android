@@ -218,7 +218,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setSourceCodePreference() {
     val sourceCodePreference = findPreference<Preference>("pref_source_code")
     sourceCodePreference?.setOnPreferenceClickListener {
-      startBrowserActivity(Uri.parse("https://github.com/Aptoide/appcoins-wallet-android"), false)
+      startBrowserActivity(Uri.parse("https://github.com/Catappult/appcoins-wallet-android"), false)
       false
     }
   }

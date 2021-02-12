@@ -2,9 +2,7 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
@@ -27,17 +25,15 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
-class AdyenPaymentInteractor(
-    private val adyenPaymentRepository: AdyenPaymentRepository,
-    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-    private val billingMessagesMapper: BillingMessagesMapper,
-    private val partnerAddressService: AddressService,
-    private val billing: Billing,
-    private val walletService: WalletService,
-    private val supportInteractor: SupportInteractor,
-    private val walletBlockedInteract: WalletBlockedInteract,
-    private val smsValidationInteract: SmsValidationInteract,
-    private val billingAddressRepository: BillingAddressRepository
+class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRepository,
+                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                             private val billingMessagesMapper: BillingMessagesMapper,
+                             private val partnerAddressService: AddressService,
+                             private val walletService: WalletService,
+                             private val supportInteractor: SupportInteractor,
+                             private val walletBlockedInteract: WalletBlockedInteract,
+                             private val smsValidationInteract: SmsValidationInteract,
+                             private val billingAddressRepository: BillingAddressRepository
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
@@ -125,15 +121,8 @@ class AdyenPaymentInteractor(
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 purchaseUid: String?, orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<PurchaseBundleModel> {
-    val billingType = BillingSupportedType.valueOfInsensitive(type)
-    return if (isManagedTransaction(billingType) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
-          .map {
-            PurchaseBundleModel(billingMessagesMapper.mapPurchase(it, orderReference), it.renewal)
-          }
-    } else {
-      Single.just(PurchaseBundleModel(billingMessagesMapper.successBundle(hash)))
-    }
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, merchantName, sku, purchaseUid,
+        orderReference, hash, scheduler)
   }
 
   fun convertToLocalFiat(doubleValue: Double): Single<FiatValue> {
@@ -183,12 +172,10 @@ class AdyenPaymentInteractor(
         || status == PaymentModel.Status.FRAUD)
   }
 
-  private fun isManagedTransaction(type: BillingSupportedType): Boolean {
-    return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION
-  }
-
-  private companion object {
+  companion object {
     private const val MAX_NUMBER_OF_TRIES = 5
     private const val REQUEST_INTERVAL_IN_SECONDS: Long = 2
+    const val HIGH_AMOUNT_CHECK_ID = 63
+    const val PAYMENT_METHOD_CHECK_ID = 73
   }
 }

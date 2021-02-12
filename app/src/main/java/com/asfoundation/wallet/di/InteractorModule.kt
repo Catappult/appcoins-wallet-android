@@ -37,7 +37,6 @@ import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -203,23 +202,24 @@ class InteractorModule {
                                          appcoinsRewards: AppcoinsRewards, billing: Billing,
                                          sharedPreferences: SharedPreferences,
                                          packageManager: PackageManager,
-                                         backupInteract: BackupInteractContract): InAppPurchaseInteractor {
+                                         backupInteract: BackupInteractContract,
+                                         billingMessagesMapper: BillingMessagesMapper): InAppPurchaseInteractor {
     return InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        appcoinsRewards, billing, sharedPreferences, packageManager, backupInteract)
+        appcoinsRewards, billing, sharedPreferences, packageManager, backupInteract,
+        billingMessagesMapper)
   }
 
   @Provides
-  fun provideLocalPaymentInteractor(repository: InAppDeepLinkRepository,
-                                    walletService: WalletService,
+  fun provideLocalPaymentInteractor(walletService: WalletService,
                                     partnerAddressService: AddressService,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                    billing: Billing, billingMessagesMapper: BillingMessagesMapper,
+                                    billingMessagesMapper: BillingMessagesMapper,
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     smsValidationInteract: SmsValidationInteract,
                                     remoteRepository: RemoteRepository): LocalPaymentInteractor {
-    return LocalPaymentInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
+    return LocalPaymentInteractor(walletService, partnerAddressService,
+        inAppPurchaseInteractor, billingMessagesMapper, supportInteractor,
         walletBlockedInteract, smsValidationInteract, remoteRepository)
   }
 
@@ -243,19 +243,17 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideAdyenPaymentInteractor(context: Context,
-                                    adyenPaymentRepository: AdyenPaymentRepository,
+  fun provideAdyenPaymentInteractor(adyenPaymentRepository: AdyenPaymentRepository,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                    partnerAddressService: AddressService, billing: Billing,
+                                    partnerAddressService: AddressService,
                                     walletService: WalletService,
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     smsValidationInteract: SmsValidationInteract,
                                     billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
-        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor, walletBlockedInteract, smsValidationInteract,
-        billingAddressRepository)
+        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, walletService,
+        supportInteractor, walletBlockedInteract, smsValidationInteract, billingAddressRepository)
   }
 
   @Provides
@@ -570,6 +568,7 @@ class InteractorModule {
     return RatingInteractor(ratingRepository, gamificationInteractor, walletService,
         Schedulers.io())
   }
+
   @Provides
   fun provideSubscriptionInteractor(walletService: WalletService,
                                     remoteRepository: RemoteRepository,

@@ -82,8 +82,10 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
 
     val fiat =
         "${formatter.formatCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)} $currency"
-    val appc = "${formatter.formatCurrency(appcAmount,
-        WalletCurrency.APPCOINS)} ${WalletCurrency.APPCOINS.symbol}"
+    val appc = "${
+      formatter.formatCurrency(appcAmount,
+          WalletCurrency.APPCOINS)
+    } ${WalletCurrency.APPCOINS.symbol}"
     fiat_price_text.text = fiat
     appc_price_text.text = appc
 
@@ -145,18 +147,19 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
     internal const val FIAT_AMOUNT_KEY = "fiat_amount"
     internal const val CURRENCY_KEY = "currency"
     internal const val BONUS_AMOUNT_KEY = "bonus_amount"
-    internal const val SKU_DESCRIPTION = "sku_description"
-    internal const val SKU_ID = "sku_id"
-    internal const val FEE_FIAT_AMOUNT = "fee_fiat_amount"
-    internal const val CARRIER_NAME = "carrier_name"
-    internal const val CARRIER_IMAGE = "carrier_image"
+    internal const val SKU_DESCRIPTION_KEY = "sku_description"
+    internal const val SKU_ID_KEY = "sku_id"
+    internal const val FEE_FIAT_AMOUNT_KEY = "fee_fiat_amount"
+    internal const val CARRIER_NAME_KEY = "carrier_name"
+    internal const val CARRIER_IMAGE_KEY = "carrier_image"
+    internal const val PHONE_NUMBER_KEY = "phone_number"
 
     @JvmStatic
     fun newInstance(uid: String, domain: String, transactionData: String, transactionType: String,
                     paymentUrl: String?, currency: String?, amount: BigDecimal,
                     appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
                     skuId: String?, feeFiatAmount: BigDecimal, carrierName: String,
-                    carrierImage: String): CarrierFeeFragment {
+                    carrierImage: String, phoneNumber: String): CarrierFeeFragment {
       val fragment = CarrierFeeFragment()
       fragment.arguments = Bundle().apply {
         putString(UID_KEY, uid)
@@ -168,11 +171,12 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
         putSerializable(FIAT_AMOUNT_KEY, amount)
         putSerializable(APPC_AMOUNT_KEY, appcAmount)
         putSerializable(BONUS_AMOUNT_KEY, bonus)
-        putString(SKU_DESCRIPTION, skuDescription)
-        putString(SKU_ID, skuId)
-        putSerializable(FEE_FIAT_AMOUNT, feeFiatAmount)
-        putString(CARRIER_NAME, carrierName)
-        putString(CARRIER_IMAGE, carrierImage)
+        putString(SKU_DESCRIPTION_KEY, skuDescription)
+        putString(SKU_ID_KEY, skuId)
+        putSerializable(FEE_FIAT_AMOUNT_KEY, feeFiatAmount)
+        putString(CARRIER_NAME_KEY, carrierName)
+        putString(CARRIER_IMAGE_KEY, carrierImage)
+        putString(PHONE_NUMBER_KEY, phoneNumber)
       }
       return fragment
     }

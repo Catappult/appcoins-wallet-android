@@ -295,6 +295,13 @@
     <item name="android:paddingEnd">25dp</item>
   </style>
 
+  <style name="ChangeButtonStyle" parent="ButtonStyle.Light">
+    <item name="android:background">@drawable/borderless_button_background</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:letterSpacing">0</item>
+    <item name="android:fontFamily">@font/roboto_medium</item>
+  </style>
+
   <style name="ListButtonStyle.Highlight">
     <item name="android:textColor">@color/text_button_color</item>
   </style>

@@ -8,6 +8,7 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 class CarrierBillingRepository(private val api: CarrierBillingApi,
+                               private val preferences: CarrierBillingPreferencesRepository,
                                private val mapper: CarrierResponseMapper,
                                packageName: String) {
 
@@ -42,6 +43,12 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
         .map { mapper.mapList(it) }
         .onErrorReturn { AvailableCountryListModel() }
   }
+
+  fun savePhoneNumber(phoneNumber: String) = preferences.savePhoneNumber(phoneNumber)
+
+  fun forgetPhoneNumber() = preferences.forgetPhoneNumber()
+
+  fun retrievePhoneNumber() = preferences.retrievePhoneNumber()
 
   interface CarrierBillingApi {
     @POST("gateways/dimoco/transactions")

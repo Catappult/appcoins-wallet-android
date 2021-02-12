@@ -38,7 +38,8 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
             .doOnNext {
               sendPaymentConfirmationEvent("next")
               navigator.navigateToPayment(data.domain, data.transactionData, data.transactionType,
-                  data.skuId, data.paymentUrl, data.appcAmount, data.currency, data.bonusAmount)
+                  data.skuId, data.paymentUrl, data.appcAmount, data.currency, data.bonusAmount,
+                  data.phoneNumber)
             }
             .retry()
             .subscribe({}, { e -> e.printStackTrace() })

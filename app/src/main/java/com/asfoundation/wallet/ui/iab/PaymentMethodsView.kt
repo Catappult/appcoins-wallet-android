@@ -67,7 +67,8 @@ interface PaymentMethodsView {
   fun getMorePaymentMethodsClicks(): Observable<Any>
 
   fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
-                       async: Boolean, gamificationLevel: Int)
+                       async: Boolean, fiatAmount: String, fiatCurrency: String,
+                       gamificationLevel: Int)
 
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 

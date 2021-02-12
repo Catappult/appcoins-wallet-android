@@ -24,16 +24,17 @@ class CarrierFeeModule {
           getString(CarrierFeeFragment.DOMAIN_KEY)!!,
           getString(CarrierFeeFragment.TRANSACTION_DATA_KEY)!!,
           getString(CarrierFeeFragment.TRANSACTION_TYPE_KEY)!!,
-          getString(CarrierFeeFragment.SKU_DESCRIPTION)!!,
-          getString(CarrierFeeFragment.SKU_ID),
+          getString(CarrierFeeFragment.SKU_DESCRIPTION_KEY)!!,
+          getString(CarrierFeeFragment.SKU_ID_KEY),
           getString(CarrierFeeFragment.PAYMENT_URL_KEY)!!,
           getString(CarrierFeeFragment.CURRENCY_KEY)!!,
           getSerializable(CarrierFeeFragment.FIAT_AMOUNT_KEY) as BigDecimal,
           getSerializable(CarrierFeeFragment.APPC_AMOUNT_KEY) as BigDecimal,
           getSerializable(CarrierFeeFragment.BONUS_AMOUNT_KEY) as BigDecimal?,
-          getSerializable(CarrierFeeFragment.FEE_FIAT_AMOUNT) as BigDecimal,
-          getString(CarrierFeeFragment.CARRIER_NAME)!!,
-          getString(CarrierFeeFragment.CARRIER_IMAGE)!!)
+          getSerializable(CarrierFeeFragment.FEE_FIAT_AMOUNT_KEY) as BigDecimal,
+          getString(CarrierFeeFragment.CARRIER_NAME_KEY)!!,
+          getString(CarrierFeeFragment.CARRIER_IMAGE_KEY)!!,
+          getString(CarrierFeeFragment.PHONE_NUMBER_KEY)!!)
     }
   }
 

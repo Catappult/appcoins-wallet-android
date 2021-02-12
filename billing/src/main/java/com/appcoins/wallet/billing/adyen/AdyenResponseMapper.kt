@@ -8,6 +8,7 @@ import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
+import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
@@ -38,10 +39,16 @@ class AdyenResponseMapper {
     var jsonAction: JSONObject? = null
     var redirectUrl: String? = null
     var action: Action? = null
+    var fraudResultsId: List<Int> = emptyList()
 
-    if (adyenResponse?.action != null) {
-      actionType = adyenResponse.action.get("type")?.asString
-      jsonAction = JSONObject(adyenResponse.action.toString())
+    if (adyenResponse != null) {
+      if (adyenResponse.fraudResult != null) {
+        fraudResultsId = adyenResponse.fraudResult.results.map { it.fraudCheckResult.checkId }
+      }
+      if (adyenResponse.action != null) {
+        actionType = adyenResponse.action.get("type")?.asString
+        jsonAction = JSONObject(adyenResponse.action.toString())
+      }
     }
 
     if (actionType != null && jsonAction != null) {
@@ -55,9 +62,13 @@ class AdyenResponseMapper {
       }
     }
     return PaymentModel(adyenResponse?.resultCode, adyenResponse?.refusalReason,
-        adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl,
-        action?.paymentData, response.uid, null, response.hash, response.orderReference,
+        adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl, action?.paymentData,
+        response.uid, null, response.hash, response.orderReference, fraudResultsId,
         map(response.status), response.metadata?.errorMessage, response.metadata?.errorCode)
+  }
+
+  fun map(response: TransactionResponse): PaymentModel {
+    return PaymentModel(response, map(response.status))
   }
 
   private fun map(status: TransactionStatus): PaymentModel.Status {
@@ -76,9 +87,8 @@ class AdyenResponseMapper {
   }
 
   fun map(response: Transaction): PaymentModel {
-    return PaymentModel("", null, null, null, "", "",
-        response.uid, response.metadata?.purchaseUid,
-        response.hash, response.orderReference, map(response.status))
+    return PaymentModel("", null, null, null, "", "", response.uid, response.metadata?.purchaseUid,
+        response.hash, response.orderReference, emptyList(), map(response.status))
   }
 
   private fun map(status: Transaction.Status): PaymentModel.Status {

@@ -20,7 +20,6 @@ import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.AnalyticsAPI
 import com.asfoundation.wallet.apps.Applications
 import com.asfoundation.wallet.billing.partners.*
-import com.asfoundation.wallet.billing.purchase.LocalPaymentsLinkRepository.DeepLinkApi
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -424,19 +423,6 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideDeepLinkApi(@Named("default") client: OkHttpClient, gson: Gson): DeepLinkApi {
-    val baseUrl = BuildConfig.CATAPPULT_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(DeepLinkApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun providesTopUpValuesApi(@Named("default") client: OkHttpClient, gson: Gson): TopUpValuesApi {
     val baseUrl = BuildConfig.CATAPPULT_HOST
     return Retrofit.Builder()
@@ -587,7 +573,7 @@ class ServiceModule {
   @Provides
   fun providesSubscriptionBillingApi(@Named("blockchain") client: OkHttpClient,
                                      gson: Gson): SubscriptionBillingApi {
-    val baseUrl = BuildConfig.CATAPPULT_NEO_HOST + "/product/8.20200701/applications/"
+    val baseUrl = BuildConfig.CATAPPULT_NEW_HOST + "/product/8.20200701/applications/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -600,7 +586,7 @@ class ServiceModule {
   @Provides
   fun providesUserSubscriptionApi(@Named("default") client: OkHttpClient,
                                   gson: Gson): UserSubscriptionApi {
-    val baseUrl = BuildConfig.CATAPPULT_NEO_HOST + "/product/8.20200701/application/"
+    val baseUrl = BuildConfig.CATAPPULT_NEW_HOST + "/product/8.20200701/application/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)

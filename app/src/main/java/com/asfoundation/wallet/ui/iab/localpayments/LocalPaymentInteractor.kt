@@ -2,16 +2,13 @@ package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.net.Uri
 import android.os.Bundle
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -23,11 +20,9 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 
-class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
-                             private val walletService: WalletService,
+class LocalPaymentInteractor(private val walletService: WalletService,
                              private val partnerAddressService: AddressService,
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                             private val billing: Billing,
                              private val billingMessagesMapper: BillingMessagesMapper,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
@@ -41,39 +36,40 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
           .flatMap { smsValidationInteract.isValidated(it) }
           .onErrorReturn { true }
 
-  fun getPaymentLink(domain: String, skuId: String?, originalAmount: String?,
-                     originalCurrency: String?, paymentMethod: String, developerAddress: String,
+  fun getPaymentLink(packageName: String, fiatAmount: String?, fiatCurrency: String?,
+                     paymentMethod: String, productName: String?, type: String, origin: String?,
+                     walletDeveloper: String?, developerPayload: String?,
                      callbackUrl: String?, orderReference: String?,
-                     payload: String?, referrerUrl: String?): Single<String> {
-
+                     referrerUrl: String?): Single<String> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
           Single.zip(
-              partnerAddressService.getStoreAddressForPackage(domain),
-              partnerAddressService.getOemAddressForPackage(domain),
+              partnerAddressService.getStoreAddressForPackage(packageName),
+              partnerAddressService.getOemAddressForPackage(packageName),
               BiFunction { storeAddress: String, oemAddress: String ->
-                DeepLinkInformation(storeAddress, oemAddress)
+                StoreOemAddresses(storeAddress, oemAddress)
               })
               .flatMap {
-                deepLinkRepository.getDeepLink(domain, skuId, walletAddressModel.address,
-                    walletAddressModel.signedAddress, originalAmount, originalCurrency,
-                    paymentMethod, developerAddress, it.storeAddress, it.oemAddress, callbackUrl,
-                    orderReference, payload, referrerUrl)
+                remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
+                    fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper,
+                    it.storeAddress, it.oemAddress, developerPayload, callbackUrl, orderReference,
+                    referrerUrl, walletAddressModel.address, walletAddressModel.signedAddress)
               }
+              .map { it.url }
         }
   }
 
   fun getTopUpPaymentLink(packageName: String, fiatAmount: String,
                           fiatCurrency: String, paymentMethod: String,
                           productName: String): Single<String> {
-
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
-          remoteRepository.createLocalPaymentTopUpTransaction(paymentMethod, packageName,
-              fiatAmount, fiatCurrency, productName, walletAddressModel.address,
-              walletAddressModel.signedAddress)
+          remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
+              fiatAmount, fiatCurrency, productName, TOP_UP_TRANSACTION_TYPE,
+              null, null, null, null, null, null, null, null,
+              walletAddressModel.address, walletAddressModel.signedAddress)
         }
-        .map { it.url ?: "" }
+        .map { it.url }
   }
 
   fun getTransaction(uri: Uri, async: Boolean): Observable<Transaction> =
@@ -91,14 +87,9 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 purchaseUid: String?,
                                 orderReference: String?, hash: String?,
-                                scheduler: Scheduler): Single<Bundle> {
-    val billingType = BillingSupportedType.valueOfInsensitive(type)
-    return if (isManagedType(billingType) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
-    }
+                                scheduler: Scheduler): Single<PurchaseBundleModel> {
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, merchantName, sku, purchaseUid,
+        orderReference, hash, scheduler)
   }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {
@@ -122,5 +113,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     return inAppPurchaseInteractor.convertToFiat(appcAmount, toCurrency)
   }
 
-  private data class DeepLinkInformation(val storeAddress: String, val oemAddress: String)
+  private companion object {
+    private const val TOP_UP_TRANSACTION_TYPE = "TOPUP"
+    private const val INAPP_TRANSACTION_TYPE = "INAPP"
+  }
+
+  data class StoreOemAddresses(val storeAddress: String, val oemAddress: String)
 }

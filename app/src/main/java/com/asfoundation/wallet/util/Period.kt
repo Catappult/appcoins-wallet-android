@@ -95,16 +95,16 @@ data class Period(val years: Int, val months: Int, val weeks: Int, val days: Int
       if (str == null) {
         return 0
       }
-      val `val` = str.toInt()
+      val number = str.toInt()
       return try {
-        multiplyExact(`val`, negate)
+        multiplyExact(number, negate)
       } catch (ex: ArithmeticException) {
         throw Exception("Text cannot be parsed to a Period")
       }
     }
   }
 
-  fun mapToSubFrequency(context: Context, fiatText: String): String {
+  fun mapToSubsCurrencyFrequency(context: Context, fiatText: String): String {
     return when {
       years == 1 -> context.getString(R.string.subscriptions_per_year, fiatText)
       years > 1 -> context.getString(R.string.subscriptions_per_several_year, fiatText)
