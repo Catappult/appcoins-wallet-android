@@ -12,8 +12,16 @@ class EVoucherDetailsModule {
   }
 
   @Provides
+  fun providesEVoucherDetailsData(fragment: EVoucherDetailsFragment): EVoucherDetailsData {
+    fragment.arguments!!.apply {
+      return EVoucherDetailsData(getString(EVoucherDetailsFragment.PACKAGE_NAME)!!)
+    }
+  }
+
+  @Provides
   fun providesCarrierFeePresenter(fragment: EVoucherDetailsFragment,
-                                  navigator: EVoucherDetailsNavigator): EVoucherDetailsPresenter {
-    return EVoucherDetailsPresenter(fragment, EVoucherDetailsInteractor(), navigator)
+                                  navigator: EVoucherDetailsNavigator,
+                                  data: EVoucherDetailsData): EVoucherDetailsPresenter {
+    return EVoucherDetailsPresenter(fragment, EVoucherDetailsInteractor(), navigator, data)
   }
 }

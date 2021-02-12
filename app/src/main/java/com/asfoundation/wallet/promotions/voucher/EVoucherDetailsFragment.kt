@@ -24,7 +24,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   lateinit var downloadButton: Button
   lateinit var gridView: GridView
   lateinit var skuButtonsAdapter: SkuButtonsAdapter
-  lateinit var appPackageName: String
 
   @Inject
   lateinit var presenter: EVoucherDetailsPresenter
@@ -34,8 +33,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
       container: ViewGroup?,
       savedInstanceState: Bundle?
   ): View? {
-    appPackageName = arguments?.getString(PACKAGE_NAME)!!
-
     return inflater.inflate(R.layout.fragment_e_voucher_details, container, false)
   }
 
@@ -45,7 +42,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
     presenter.present()
   }
 
-  override fun setupUi(title: String) {
+  override fun setupUi(title: String, packageName: String) {
     val appCompatActivity = getActivity() as AppCompatActivity
     appCompatActivity.toolbar.title = title
     val skuButtonClick = PublishSubject.create<Any>()
@@ -63,7 +60,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
       startActivity(
           Intent(
               Intent.ACTION_VIEW,
-              Uri.parse("market://details?id=" + appPackageName)
+              Uri.parse("market://details?id=" + packageName)
           )
       )
     }
