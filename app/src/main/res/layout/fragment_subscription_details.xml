@@ -88,12 +88,18 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/normal_margin"
+          android:background="@drawable/rectangle_outline_red"
+          android:paddingStart="@dimen/half_large_margin"
+          android:paddingTop="4dp"
+          android:paddingEnd="@dimen/half_large_margin"
+          android:paddingBottom="4dp"
           android:textColor="@color/red"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="@id/status"
           app:layout_constraintStart_toStartOf="@id/status"
           app:layout_constraintTop_toBottomOf="@id/status"
           tools:text="Canceled — It expires on 19 Jan"
+          tools:visibility="visible"
           />
 
       <View
@@ -164,7 +170,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bottom_separator"
           app:layout_constraintVertical_bias="1"
-          app:srcCompat="@drawable/ic_info_grey"
+          app:srcCompat="@drawable/ic_info_grey_fill"
           />
 
       <TextView
@@ -195,7 +201,7 @@
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="8dp"
+      android:layout_marginBottom="24dp"
       android:minWidth="64dp"
       android:minHeight="36dp"
       android:orientation="vertical"
