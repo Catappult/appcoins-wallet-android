@@ -2,9 +2,7 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
@@ -31,7 +29,6 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billingMessagesMapper: BillingMessagesMapper,
                              private val partnerAddressService: AddressService,
-                             private val billing: Billing,
                              private val walletService: WalletService,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
@@ -124,15 +121,8 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 purchaseUid: String?, orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<PurchaseBundleModel> {
-    val billingType = BillingSupportedType.valueOfInsensitive(type)
-    return if (isManagedTransaction(billingType) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
-          .map {
-            PurchaseBundleModel(billingMessagesMapper.mapPurchase(it, orderReference), it.renewal)
-          }
-    } else {
-      Single.just(PurchaseBundleModel(billingMessagesMapper.successBundle(hash)))
-    }
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, merchantName, sku, purchaseUid,
+        orderReference, hash, scheduler)
   }
 
   fun convertToLocalFiat(doubleValue: Double): Single<FiatValue> {
@@ -180,10 +170,6 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
         || status == PaymentModel.Status.CANCELED
         || status == PaymentModel.Status.INVALID_TRANSACTION
         || status == PaymentModel.Status.FRAUD)
-  }
-
-  private fun isManagedTransaction(type: BillingSupportedType): Boolean {
-    return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION
   }
 
   companion object {

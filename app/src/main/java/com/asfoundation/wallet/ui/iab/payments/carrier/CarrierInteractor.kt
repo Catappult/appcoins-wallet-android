@@ -1,14 +1,12 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier
 
 import android.net.Uri
-import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.SmsValidationInteract
@@ -79,23 +77,17 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 purchaseUid: String?,
                                 orderReference: String?, hash: String?,
-                                scheduler: Scheduler): Single<Bundle> {
-    val billingType = BillingSupportedType.valueOfInsensitive(type)
-    return if (isManagedType(billingType) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-          .map { bundle -> addPreselected(bundle) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
-          .map { bundle -> addPreselected(bundle) }
-
-    }
+                                scheduler: Scheduler): Single<PurchaseBundleModel> {
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, merchantName, sku, purchaseUid,
+        orderReference, hash, scheduler)
+        .map { bundle -> addPreselected(bundle) }
   }
 
-  private fun addPreselected(bundle: Bundle): Bundle {
+  private fun addPreselected(purchaseBundle: PurchaseBundleModel): PurchaseBundleModel {
+    val bundle = purchaseBundle.bundle
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.CARRIER_BILLING.id)
-    return bundle
+    return PurchaseBundleModel(bundle, purchaseBundle.renewal)
   }
 
   fun removePreSelectedPaymentMethod() {

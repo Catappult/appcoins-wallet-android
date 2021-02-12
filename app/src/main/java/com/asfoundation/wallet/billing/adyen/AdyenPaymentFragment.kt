@@ -374,7 +374,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     var fiatText = "$amount $currencyCode"
     if (isSubscription && frequency != null) {
       val period = Period.parse(frequency!!)
-      period?.mapToSubCurrencyFrequency(context!!, fiatText)
+      period?.mapToSubsCurrencyFrequency(context!!, fiatText)
           ?.let { fiatText = it }
       appc_price.text = "~${appc_price.text}"
     }
@@ -595,8 +595,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private fun setBonusMessage(nextPaymentDate: Date) {
-    val df2 = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-    val formattedDate = df2.format(nextPaymentDate)
+    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val formattedDate = dateFormat.format(nextPaymentDate)
     val nextPaymentText = getString(R.string.subscriptions_details_next_payment_title)
     next_payment_date.text = "$nextPaymentText $formattedDate"
   }

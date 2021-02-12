@@ -559,7 +559,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         .plus(" $currency")
     if (isSubscription && frequency != null) {
       val period = Period.parse(frequency!!)
-      period?.mapToSubCurrencyFrequency(context!!, fiatText)
+      period?.mapToSubsCurrencyFrequency(context!!, fiatText)
           ?.let { fiatText = it }
       appcText = "~$appcText"
     }
