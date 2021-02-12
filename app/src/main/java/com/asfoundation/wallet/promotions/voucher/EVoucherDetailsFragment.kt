@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -22,7 +23,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   lateinit var nextButton: Button
   lateinit var cancelButton: Button
   lateinit var downloadButton: Button
-  lateinit var gridView: GridView
+  lateinit var recyclerView: RecyclerView
   lateinit var skuButtonsAdapter: SkuButtonsAdapter
 
   @Inject
@@ -50,12 +51,14 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
     nextButton = requireView().findViewById(R.id.next_button)
     cancelButton = requireView().findViewById(R.id.cancel_button)
     downloadButton = requireView().findViewById(R.id.download_app_button)
-    gridView = requireView().findViewById(R.id.diamond_buttons_grid_view)
+    recyclerView = requireView().findViewById(R.id.diamond_buttons_recycler_view)
     skuButtonsAdapter = SkuButtonsAdapter(
         appCompatActivity.applicationContext,
         presenter.getDiamondModels(),
         skuButtonClick)
-    gridView.adapter = skuButtonsAdapter
+    recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+    recyclerView.addItemDecoration(MarginItemDecoration(8))
+    recyclerView.adapter = skuButtonsAdapter
     downloadButton.setOnClickListener {
       startActivity(
           Intent(

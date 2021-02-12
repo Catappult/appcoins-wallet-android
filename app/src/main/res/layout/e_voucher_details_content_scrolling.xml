@@ -70,21 +70,20 @@
         app:layout_constraintTop_toTopOf="@id/app_bonus"
         />
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/diamond_buttons_grid_view"
+        android:id="@+id/diamond_buttons_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/e_voucher_details_grid_view_height"
         android:layout_marginStart="16dp"
         android:layout_marginTop="29dp"
         android:layout_marginEnd="16dp"
         android:horizontalSpacing="@dimen/e_voucher_details_grid_view_horizontal_spacing"
-        android:numColumns="3"
         android:verticalSpacing="@dimen/e_voucher_details_grid_view_vertial_spacing"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_bonus"
         tools:context="com.asfoundation.wallet.promotions.voucher.EVoucherDetailsActivity"
-        ></GridView>
+        ></androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/cancel_button"
@@ -107,7 +106,7 @@
         android:enabled="false"
         android:text="@string/action_next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/diamond_buttons_grid_view"
+        app:layout_constraintTop_toBottomOf="@id/diamond_buttons_recycler_view"
         />
 
     <include
