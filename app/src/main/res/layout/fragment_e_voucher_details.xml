@@ -8,16 +8,6 @@
     tools:context="com.asfoundation.wallet.promotions.PromotionsActivity"
     >
 
-  <!--  <androidx.appcompat.widget.Toolbar-->
-  <!--      android:id="@+id/toolbar"-->
-  <!--      android:layout_width="match_parent"-->
-  <!--      android:layout_height="?attr/actionBarSize"-->
-  <!--      app:layout_collapseMode="pin"-->
-  <!--      app:popupTheme="@style/AppTheme.PopupOverlay"-->
-  <!--      app:theme="@style/Theme.EVoucherToolbar"-->
-  <!--      app:titleTextAppearance="@style/EVoucherToolbar.TitleText"-->
-  <!--      />-->
-
   <include layout="@layout/e_voucher_details_content_scrolling" />
 
 </LinearLayout>
