@@ -40,7 +40,7 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
     view.recurrence_value.visibility = View.VISIBLE
 
     view.recurrence_value.text =
-        item.period?.mapToSubFrequency(view.context,
+        item.period?.mapToSubsFrequency(view.context,
             view.context.getString(R.string.value_fiat, formattedAmount, item.fiatSymbol))
   }
 

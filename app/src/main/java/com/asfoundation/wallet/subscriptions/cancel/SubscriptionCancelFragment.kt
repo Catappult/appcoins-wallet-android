@@ -75,7 +75,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     app_name.text = subscriptionItem.appName
 
     val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
-    total_value.text = subscriptionItem.period?.mapToSubFrequency(requireContext(),
+    total_value.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
         getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
     total_value_appc.text = String.format("~%s / APPC",
         currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
