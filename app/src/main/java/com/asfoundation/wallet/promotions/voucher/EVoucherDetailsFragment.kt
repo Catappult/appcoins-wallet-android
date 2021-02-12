@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -28,6 +29,20 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   @Inject
   lateinit var presenter: EVoucherDetailsPresenter
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setHasOptionsMenu(true)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return if (item.itemId == android.R.id.home) {
+      activity?.finish()
+      true
+    } else {
+      super.onOptionsItemSelected(item)
+    }
+  }
 
   override fun onCreateView(
       inflater: LayoutInflater,
