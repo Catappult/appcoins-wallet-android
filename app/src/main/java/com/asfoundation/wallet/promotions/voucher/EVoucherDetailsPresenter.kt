@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions.voucher
 
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
 class EVoucherDetailsPresenter(
@@ -19,7 +20,7 @@ class EVoucherDetailsPresenter(
         .subscribe({ navigator.navigateBack() }))
   }
 
-  fun getDiamondModels(): List<SkuButtonModel> {
+  fun getDiamondModels(): Single<List<SkuButtonModel>> {
     return interactor.getDiamondModels()
   }
 }
