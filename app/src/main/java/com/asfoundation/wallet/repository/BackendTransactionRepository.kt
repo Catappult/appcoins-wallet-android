@@ -50,7 +50,8 @@ class BackendTransactionRepository(
 
     return localRepository.getAllAsFlowable(wallet)
         .flatMap { transactions ->
-          // TODO: Remove - Mocked data used for tests
+          // TODO: Remove everything except getLinkedTransactions()
+          //       Mocked data used for tests by copying an existing IAP transaction
           val mutList = transactions.toMutableList()
           var iapTransaction: TransactionEntity? = null
           for (transaction in transactions) {

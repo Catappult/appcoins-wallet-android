@@ -2,6 +2,7 @@ package com.asfoundation.wallet.transactions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 public class Metadata implements Parcelable {
@@ -39,7 +40,11 @@ public class Metadata implements Parcelable {
 
     Metadata metadata = (Metadata) o;
 
-    return voucher != null ? voucher.equals(metadata.voucher) : metadata.voucher == null;
+    return Objects.equals(voucher, metadata.voucher);
+  }
+
+  @Override public String toString() {
+    return "Metadata{" + "voucher=" + voucher + '}';
   }
 
   @Override public int hashCode() {

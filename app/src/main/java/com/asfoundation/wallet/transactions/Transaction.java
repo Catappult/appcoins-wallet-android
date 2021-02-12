@@ -137,9 +137,7 @@ public class Transaction implements Parcelable {
       linkedTx.toArray(linkedTxArray);
     }
     dest.writeParcelableArray(linkedTxArray, flags);
-    if (metadata != null) {
-      dest.writeParcelable(metadata, flags);
-    }
+    dest.writeParcelable(metadata, flags);
   }
 
   @Override public int hashCode() {

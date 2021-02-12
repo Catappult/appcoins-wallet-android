@@ -59,4 +59,8 @@ public class Voucher implements Parcelable {
   @Override public int describeContents() {
     return 0;
   }
+
+  @Override public String toString() {
+    return "Voucher{" + "code='" + code + '\'' + ", redeem='" + redeem + '\'' + '}';
+  }
 }
