@@ -25,7 +25,7 @@ class VoucherDetailView : FrameLayout {
   }
 
   private fun setupUi() {
-    copy_address.setOnClickListener {
+    copy_code.setOnClickListener {
       val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
       val clip = ClipData.newPlainText("voucher_code", code_text.text)
       clipboard?.setPrimaryClip(clip)

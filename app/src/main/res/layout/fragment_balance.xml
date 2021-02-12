@@ -190,7 +190,7 @@
                 android:textColor="@color/black"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@id/wallet_icon"
-                app:layout_constraintEnd_toStartOf="@id/copy_address"
+                app:layout_constraintEnd_toStartOf="@id/copy_code"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@id/wallet_icon"
@@ -209,14 +209,14 @@
                 android:maxLines="1"
                 android:textColor="@color/fakeBlack"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@id/copy_address"
+                app:layout_constraintEnd_toStartOf="@id/copy_code"
                 app:layout_constraintStart_toStartOf="@id/wallet_icon"
                 app:layout_constraintTop_toBottomOf="@id/wallet_icon"
                 tools:text="0x8Eb48d1368bbc7731ac5c98Eb48d1368bbc7731ac5c9"
                 />
 
             <ImageView
-                android:id="@+id/copy_address"
+                android:id="@+id/copy_code"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_marginEnd="8dp"
