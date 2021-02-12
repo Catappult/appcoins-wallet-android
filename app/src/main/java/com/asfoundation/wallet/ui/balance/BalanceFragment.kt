@@ -232,7 +232,7 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun getInsertCodeClick() = RxView.clicks(insert_code_button)
 
-  override fun getCopyClick() = RxView.clicks(copy_code)
+  override fun getCopyClick() = RxView.clicks(copy_address)
 
   override fun getQrCodeClick() = RxView.clicks(wallet_qr_code)
 
