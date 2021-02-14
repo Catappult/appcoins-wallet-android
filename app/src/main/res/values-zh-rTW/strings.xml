@@ -20,9 +20,9 @@
   <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
   <string name="action_import">Recover</string>
   <string name="copy">Copy to clipboard</string>
-  <string name="close">Close</string>
+  <string name="close">關閉</string>
   <string name="title_activity_settings">Settings</string>
-  <string name="network_label">Network</string>
+  <string name="network_label">網絡</string>
   <string name="credits">Credits</string>
   <string name="label_new">New</string>
   <string name="got_it_button">GOT IT</string>
@@ -41,7 +41,7 @@
   <string name="title_opensource">Open Source Development</string>
   <string name="title_source_code">Source code</string>
   <string name="title_report_bug">Report a bug</string>
-  <string name="title_support">Support</string>
+  <string name="title_support">尋求支援</string>
   <string name="title_permissions">Permissions</string>
   <string name="permissions_title">Permissions</string>
   <string name="permissions_active_wallet_short">Current active wallet</string>
@@ -404,7 +404,7 @@
   <string name="error_missing_field">Mandatory field</string>
   <string name="cancel_button">Cancel</string>
   <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
+  <string name="close_button">關閉</string>
   <string name="back_button">Back</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
@@ -434,7 +434,7 @@
   <!--Settings-->
   <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Contact Support Team</string>
-  <string name="settings_subheader_support">Support</string>
+  <string name="settings_subheader_support">尋求支援</string>
   <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In progress&#8230;</string>
@@ -785,7 +785,7 @@
   <string name="carrier_billing_submit_button">SUBMIT</string>
   <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
-  <string name="carrier_billing_help_1">Need help?</string>
+  <string name="carrier_billing_help_1">需要任何協助嗎？</string>
   <string name="carrier_billing_help_2_button">Contact Support</string>
   <string name="carrier_billing_terms_button">Terms and Conditions</string>
   <string name="carrier_billing_privacy_button">Privacy Policy</string>
