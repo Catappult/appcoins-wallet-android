@@ -11,13 +11,13 @@
   <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
   <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
-  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
+  <string name="iab_pay_as_guest_title">以訪客身份付款</string>
+  <string name="iab_pay_as_guest_credit_card">信用卡</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
-  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
-  <string name="iab_card_number">Card number</string>
-  <string name="iab_card_expiry">MM/YY</string>
+  <string name="iab_switch_to_paypal">使用PayPal付款</string>
+  <string name="iab_switch_to_credit_card">使用信用卡付款</string>
+  <string name="iab_card_number">信用卡卡號</string>
+  <string name="iab_card_expiry">到期日 月/年</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">CHANGE CARD</string>
@@ -31,19 +31,19 @@
   <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
   <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
   <string name="iab_purchase_done_title_long">Purchase completed!</string>
-  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
-  <string name="iab_purchase_support_1">Need help?</string>
-  <string name="iab_purchase_support_2_link">Contact Support.</string>
+  <string name="iab_purchase_change_payment_method_button">更多付款方式</string>
+  <string name="iab_purchase_support_1">需要任何協助嗎？</string>
+  <string name="iab_purchase_support_2_link">聯繫支援</string>
   <!-- SDK - Common -->
-  <string name="next_button">NEXT</string>
+  <string name="next_button">繼續</string>
   <string name="cancel_button">CANCEL</string>
-  <string name="buy_button">BUY</string>
-  <string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
+  <string name="buy_button">購買</string>
+  <string name="iab_wallet_not_installed_popup_close_install">安裝AppCoins Wallet</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">安裝</string>
   <!-- Error messages -->
   <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_error_item_owned">您已擁有此物品！</string>
   <string name="purchase_card_error_title">Oops, something went wrong.</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
   <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
