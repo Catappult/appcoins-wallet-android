@@ -9,9 +9,9 @@ class UserSubscriptionsInteractor(private val walletService: WalletService,
                                   private val remoteRepository: RemoteRepository,
                                   private val userSubscriptionRepository: UserSubscriptionRepository) {
 
-  fun loadSubscriptions(): Observable<SubscriptionModel> {
+  fun loadSubscriptions(freshReload: Boolean): Observable<SubscriptionModel> {
     return walletService.getWalletAddress()
-        .flatMapObservable { userSubscriptionRepository.getUserSubscriptions(it) }
+        .flatMapObservable { userSubscriptionRepository.getUserSubscriptions(it, freshReload) }
   }
 
   fun cancelSubscription(packageName: String, uid: String): Single<Boolean> {

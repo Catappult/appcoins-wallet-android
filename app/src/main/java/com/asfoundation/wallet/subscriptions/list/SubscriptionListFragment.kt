@@ -143,8 +143,15 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
 
   companion object {
 
-    fun newInstance(): SubscriptionListFragment {
+    const val FRESH_RELOAD_KEY = "fresh_reload"
+
+    fun newInstance(freshReload: Boolean = false): SubscriptionListFragment {
       return SubscriptionListFragment()
+          .apply {
+            arguments = Bundle().apply {
+              putBoolean(FRESH_RELOAD_KEY, freshReload)
+            }
+          }
     }
   }
 }

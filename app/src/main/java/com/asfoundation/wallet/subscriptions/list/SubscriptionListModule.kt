@@ -12,10 +12,18 @@ class SubscriptionListModule {
 
   @Provides
   fun providesSubscriptionListPresenter(fragment: SubscriptionListFragment,
+                                        data: SubscriptionListData,
                                         interactor: UserSubscriptionsInteractor,
                                         navigator: SubscriptionListNavigator): SubscriptionListPresenter {
-    return SubscriptionListPresenter(fragment as SubscriptionListView, interactor, navigator,
+    return SubscriptionListPresenter(fragment as SubscriptionListView, data, interactor, navigator,
         CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
+  }
+
+  @Provides
+  fun providesSubcriptionListData(fragment: SubscriptionListFragment): SubscriptionListData {
+    fragment.arguments!!.apply {
+      return SubscriptionListData(getBoolean(SubscriptionListFragment.FRESH_RELOAD_KEY))
+    }
   }
 
   @Provides

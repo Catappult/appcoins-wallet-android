@@ -9,7 +9,7 @@ class SubscriptionCancelSuccessNavigator(private val fragmentManager: FragmentMa
   fun navigateToSubscriptionList() {
     for (i in 0 until fragmentManager.backStackEntryCount) fragmentManager.popBackStack()
     fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, SubscriptionListFragment.newInstance())
+        .replace(R.id.fragment_container, SubscriptionListFragment.newInstance(true))
         .addToBackStack(SubscriptionListFragment::class.java.simpleName)
         .commit()
   }

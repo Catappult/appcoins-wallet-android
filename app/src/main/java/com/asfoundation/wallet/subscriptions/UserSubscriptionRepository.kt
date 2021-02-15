@@ -13,10 +13,15 @@ class UserSubscriptionRepository(private val subscriptionApi: UserSubscriptionAp
                                  private val walletService: WalletService,
                                  private val subscriptionsMapper: UserSubscriptionsMapper) {
 
-  fun getUserSubscriptions(walletAddress: String): Observable<SubscriptionModel> {
-    val dbCall = getDbUserSubscriptions(walletAddress)
+  fun getUserSubscriptions(walletAddress: String,
+                           freshReload: Boolean): Observable<SubscriptionModel> {
     val apiCall = getApiUserSubscriptions(walletAddress)
-    return Observable.concat(dbCall, apiCall)
+    return if (freshReload) apiCall
+    else {
+      val dbCall = getDbUserSubscriptions(walletAddress)
+      Observable.concat(dbCall, apiCall)
+    }
+
   }
 
   private fun getDbUserSubscriptions(walletAddress: String): Observable<SubscriptionModel> {

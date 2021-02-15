@@ -9,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class SubscriptionListPresenter(private val view: SubscriptionListView,
+                                private val data: SubscriptionListData,
                                 private val interactor: UserSubscriptionsInteractor,
                                 private val navigator: SubscriptionListNavigator,
                                 private val disposables: CompositeDisposable,
@@ -23,7 +24,7 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
   }
 
   private fun loadSubscriptions() {
-    disposables.add(interactor.loadSubscriptions()
+    disposables.add(interactor.loadSubscriptions(data.freshReload)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext { onSubscriptions(it) }
