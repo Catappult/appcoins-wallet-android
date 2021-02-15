@@ -41,7 +41,9 @@ import com.asfoundation.wallet.repository.OffChainTransactionsRepository.Transac
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
+import com.asfoundation.wallet.subscriptions.UserSubscriptionsLocalData
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsMapper
+import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -332,10 +334,19 @@ class RepositoryModule {
     return SecureCarrierBillingPreferencesRepository(secureSharedPreferences)
   }
 
+  @Singleton
+  @Provides
+  fun providesUserSubscriptionsLocalData(
+      userSubscriptionsDao: UserSubscriptionsDao): UserSubscriptionsLocalData {
+    return UserSubscriptionsLocalData(userSubscriptionsDao)
+  }
+
+  @Singleton
   @Provides
   fun provideSubscriptionRepository(userSubscriptionApi: UserSubscriptionApi,
-                                    accountWalletService: WalletService): UserSubscriptionRepository {
-    return UserSubscriptionRepository(userSubscriptionApi, accountWalletService,
-        UserSubscriptionsMapper())
+                                    userSubscriptionsLocalData: UserSubscriptionsLocalData,
+                                    walletService: WalletService): UserSubscriptionRepository {
+    return UserSubscriptionRepository(userSubscriptionApi, userSubscriptionsLocalData,
+        walletService, UserSubscriptionsMapper())
   }
 }

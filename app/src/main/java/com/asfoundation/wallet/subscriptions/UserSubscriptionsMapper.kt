@@ -23,6 +23,19 @@ class UserSubscriptionsMapper {
         })
   }
 
+  fun mapToSubscriptionModel(active: UserSubscriptionListModel,
+                             expired: UserSubscriptionListModel,
+                             fromCache: Boolean = false): SubscriptionModel {
+    return if (active.error != null && expired.error != null) {
+      SubscriptionModel(true, fromCache, active.error)
+    } else if (active.userSubscriptionItems.isEmpty() && expired.userSubscriptionItems.isEmpty()) {
+      SubscriptionModel(true, fromCache, null)
+    } else {
+      SubscriptionModel(filterActive(active.userSubscriptionItems),
+          expired.userSubscriptionItems, fromCache = fromCache)
+    }
+  }
+
   private fun mapStatus(subStatus: SubscriptionSubStatus): Status {
     return when (subStatus) {
       SubscriptionSubStatus.ACTIVE -> Status.ACTIVE
@@ -34,12 +47,12 @@ class UserSubscriptionsMapper {
     }
   }
 
-  fun mapError(throwable: Throwable): UserSubscriptionListModel {
+  fun mapError(throwable: Throwable, fromCache: Boolean): SubscriptionModel {
     var error = Error.UNKNOWN
     if (throwable.isNoNetworkException()) {
       error = Error.NO_NETWORK
     }
-    return UserSubscriptionListModel(error)
+    return SubscriptionModel(fromCache, error)
   }
 
   private fun mapPeriod(period: String): Period? {
@@ -52,5 +65,9 @@ class UserSubscriptionsMapper {
       val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
       dateFormat.parse(date)
     }
+  }
+
+  private fun filterActive(userSubscriptionItems: List<SubscriptionItem>): List<SubscriptionItem> {
+    return userSubscriptionItems.filter { it.isActiveSubscription() }
   }
 }

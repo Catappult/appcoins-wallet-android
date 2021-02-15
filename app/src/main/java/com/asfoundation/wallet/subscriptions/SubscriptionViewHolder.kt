@@ -6,6 +6,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.subscription_item.view.*
 import java.text.SimpleDateFormat
@@ -28,7 +29,9 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
     }
 
     GlideApp.with(itemView.context)
+        .asBitmap()
         .load(item.appIcon)
+        .apply { RequestOptions().dontTransform() }
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .error(R.drawable.ic_transaction_peer)
         .into(itemView.app_icon)

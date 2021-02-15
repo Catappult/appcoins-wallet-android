@@ -52,6 +52,10 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
 
   override fun subscriptionClicks(): Observable<Pair<SubscriptionItem, View>> = clickSubject!!
 
+  override fun hasItems(): Boolean {
+    return activeAdapter.itemCount + expiredAdapter.itemCount != 0
+  }
+
   override fun onActiveSubscriptions(subscriptionModels: List<SubscriptionItem>) {
     activeAdapter.submitList(subscriptionModels)
     if (subscriptionModels.isEmpty()) active_title.visibility = View.GONE

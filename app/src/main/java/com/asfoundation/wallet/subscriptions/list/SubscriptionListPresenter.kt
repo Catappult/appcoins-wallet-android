@@ -5,7 +5,6 @@ import com.asfoundation.wallet.subscriptions.SubscriptionModel
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
@@ -24,14 +23,11 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
   }
 
   private fun loadSubscriptions() {
-    disposables.add(
-        Single.fromCallable { view.showLoading() }
-            .subscribeOn(viewScheduler)
-            .observeOn(networkScheduler)
-            .flatMap { interactor.loadSubscriptions() }
-            .observeOn(viewScheduler)
-            .doOnSuccess(this::onSubscriptions)
-            .subscribe({}, { onError(it) }))
+    disposables.add(interactor.loadSubscriptions()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnNext { onSubscriptions(it) }
+        .subscribe({}, { onError(it) }))
   }
 
   private fun handleItemClicks() {
@@ -43,12 +39,12 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
 
   private fun onSubscriptions(subscriptionModel: SubscriptionModel) {
     when {
-      subscriptionModel.isEmpty -> view.showNoSubscriptions()
-      subscriptionModel.error == Error.NO_NETWORK -> view.showNoNetworkError()
+      subscriptionModel.error == Error.NO_NETWORK -> if (!view.hasItems()) view.showNoNetworkError()
+      subscriptionModel.isEmpty && !subscriptionModel.fromCache -> view.showNoSubscriptions()
       else -> {
-        view.showSubscriptions()
         view.onActiveSubscriptions(subscriptionModel.activeSubscriptions)
         view.onExpiredSubscriptions(subscriptionModel.expiredSubscriptions)
+        if (subscriptionModel.isEmpty.not()) view.showSubscriptions()
       }
     }
   }
