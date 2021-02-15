@@ -35,4 +35,16 @@ interface PromotionsView {
   fun showLockedPromotionsScreen()
 
   fun showToast()
+
+  fun getVouchersRadioButtonClick(): Observable<Boolean>
+
+  fun getPerksRadioButtonClick(): Observable<Boolean>
+
+  fun checkVouchersRadioButton()
+
+  fun checkPerksRadioButton()
+
+  fun pageChangedCallback(): Observable<Int>
+
+  fun changeButtonState(position: Int)
 }

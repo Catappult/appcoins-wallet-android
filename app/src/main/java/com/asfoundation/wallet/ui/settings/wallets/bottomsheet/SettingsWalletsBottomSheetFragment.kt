@@ -12,8 +12,8 @@ import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletsAdapter
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.ui.wallets.WalletsViewType
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.addBottomItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.settings_wallet_bottom_sheet_layout.*
@@ -64,9 +64,8 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
     layoutManager.orientation = RecyclerView.VERTICAL
     adapter = WalletsAdapter(context!!, walletsBalance, uiEventListener!!, currencyFormatter,
         WalletsViewType.SETTINGS)
-    bottom_sheet_wallets_cards.addItemDecoration(MarginItemDecoration(
-        resources.getDimension(R.dimen.wallets_card_margin)
-            .toInt()))
+    bottom_sheet_wallets_cards.addBottomItemDecoration(
+        resources.getDimension(R.dimen.wallets_card_margin))
     bottom_sheet_wallets_cards.isNestedScrollingEnabled = false
     bottom_sheet_wallets_cards.layoutManager = layoutManager
     bottom_sheet_wallets_cards.adapter = adapter
