@@ -78,6 +78,7 @@ import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.vouchers.MockedVouchersRepository
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import dagger.Module
@@ -279,8 +280,8 @@ class InteractorModule {
                                   userStatsLocalData: UserStatsLocalData,
                                   gamificationMapper: GamificationMapper): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, userStatsLocalData, rakamAnalytics,
-        gamificationMapper)
+        promotionsRepository, MockedVouchersRepository(), findDefaultWalletInteract,
+        userStatsLocalData, rakamAnalytics, gamificationMapper)
   }
 
   @Provides
