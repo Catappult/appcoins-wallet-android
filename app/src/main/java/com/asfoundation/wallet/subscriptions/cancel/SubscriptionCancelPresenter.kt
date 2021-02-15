@@ -17,6 +17,7 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
 ) {
 
   fun present() {
+    view.setTransitionName(data.transitionName)
     if (canCancelSubscription(data.subscriptionItem.status)) {
       view.showSubscriptionDetails(data.subscriptionItem)
     } else {

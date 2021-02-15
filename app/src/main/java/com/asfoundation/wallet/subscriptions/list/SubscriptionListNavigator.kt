@@ -11,15 +11,17 @@ import com.asfoundation.wallet.util.SharedElementTransition
 class SubscriptionListNavigator(private val fragmentManager: FragmentManager) {
 
   fun showSubscriptionDetails(subscriptionItem: SubscriptionItem, sharedElement: View) {
-    val fragment = SubscriptionDetailsFragment.newInstance(subscriptionItem)
+    val transitionName = ViewCompat.getTransitionName(sharedElement) ?: ""
+    val fragment = SubscriptionDetailsFragment.newInstance(subscriptionItem, transitionName)
         .apply {
           sharedElementEnterTransition = SharedElementTransition()
+          sharedElementReturnTransition = SharedElementTransition()
           postponeEnterTransition()
         }
     fragmentManager.beginTransaction()
         .setReorderingAllowed(true)
         .replace(R.id.fragment_container, fragment)
-        .addSharedElement(sharedElement, ViewCompat.getTransitionName(sharedElement) ?: "")
+        .addSharedElement(sharedElement, transitionName)
         .addToBackStack(SubscriptionDetailsFragment::class.java.simpleName)
         .commit()
   }

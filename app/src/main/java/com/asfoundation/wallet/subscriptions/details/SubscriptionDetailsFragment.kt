@@ -61,6 +61,10 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     return app_icon
   }
 
+  override fun setupTransitionName(transitionName: String) {
+    app_icon.transitionName = transitionName
+  }
+
   override fun setActiveDetails(subscriptionItem: SubscriptionItem) {
     app_name.text = subscriptionItem.appName
 
@@ -193,13 +197,16 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
   companion object {
 
-    const val SUBSCRIPTION_ITEM = "subscription_item"
+    const val SUBSCRIPTION_ITEM_KEY = "subscription_item"
+    const val TRANSITION_NAME_KEY = "transition_name"
 
-    fun newInstance(subscriptionItem: SubscriptionItem): SubscriptionDetailsFragment {
+    fun newInstance(subscriptionItem: SubscriptionItem,
+                    transitionName: String): SubscriptionDetailsFragment {
       return SubscriptionDetailsFragment()
           .apply {
             arguments = Bundle().apply {
-              putSerializable(SUBSCRIPTION_ITEM, subscriptionItem)
+              putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
+              putString(TRANSITION_NAME_KEY, transitionName)
             }
           }
     }

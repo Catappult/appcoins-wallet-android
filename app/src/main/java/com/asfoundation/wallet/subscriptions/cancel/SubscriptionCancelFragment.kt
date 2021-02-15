@@ -36,6 +36,12 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
   @Inject
   lateinit var presenter: SubscriptionCancelPresenter
 
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    activity?.title = getString(R.string.subscriptions_title)
+  }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_subscription_cancel, container, false)
@@ -144,9 +150,8 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     retry_animation.visibility = View.VISIBLE
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    activity?.title = getString(R.string.subscriptions_title)
+  override fun setTransitionName(transitionName: String) {
+    app_icon.transitionName = transitionName
   }
 
   override fun onDestroyView() {
@@ -156,12 +161,17 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
 
   companion object {
 
-    const val SUBSCRIPTION_ITEM = "subscription_item"
+    const val SUBSCRIPTION_ITEM_KEY = "subscription_item"
+    const val TRANSITION_NAME_KEY = "transition_name"
 
-    fun newInstance(subscriptionItem: SubscriptionItem): SubscriptionCancelFragment {
+    fun newInstance(subscriptionItem: SubscriptionItem,
+                    transitionName: String): SubscriptionCancelFragment {
       return SubscriptionCancelFragment()
           .apply {
-            arguments = Bundle().apply { putSerializable(SUBSCRIPTION_ITEM, subscriptionItem) }
+            arguments = Bundle().apply {
+              putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
+              putString(TRANSITION_NAME_KEY, transitionName)
+            }
           }
     }
   }

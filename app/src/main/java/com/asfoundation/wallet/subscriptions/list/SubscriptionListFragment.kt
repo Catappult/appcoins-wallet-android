@@ -38,6 +38,8 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    handleReturnTransition()
+
     activity?.title = getString(R.string.subscriptions_settings_title)
     activeAdapter = SubscriptionAdapter(clickSubject)
     expiredAdapter = SubscriptionAdapter(clickSubject)
@@ -48,6 +50,12 @@ class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
     rvExpiredSubs.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
     presenter.present()
+  }
+
+  private fun handleReturnTransition() {
+    postponeEnterTransition()
+    rvActiveSubs.post { startPostponedEnterTransition() }
+    rvExpiredSubs.post { startPostponedEnterTransition() }
   }
 
   override fun subscriptionClicks(): Observable<Pair<SubscriptionItem, View>> = clickSubject!!

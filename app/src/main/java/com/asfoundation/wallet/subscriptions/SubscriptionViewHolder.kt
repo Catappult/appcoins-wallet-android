@@ -15,9 +15,11 @@ import java.util.*
 class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: CurrencyFormatUtils) :
     RecyclerView.ViewHolder(itemView) {
 
-  fun bind(item: SubscriptionItem, clickCallback: PublishSubject<Pair<SubscriptionItem, View>>?) {
+  fun bind(item: SubscriptionItem, clickCallback: PublishSubject<Pair<SubscriptionItem, View>>?,
+           position: Int) {
     itemView.apply {
       app_name.text = item.appName
+      app_icon.transitionName = "app_name_transition $position"
 
       if ((item.status == Status.CANCELED || item.status == Status.PAUSED) && item.expire != null) {
         showToExpireInfo(this, item)

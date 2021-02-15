@@ -11,7 +11,8 @@ import com.asfoundation.wallet.util.SharedElementTransition
 class SubscriptionDetailsNavigator(private val fragmentManager: FragmentManager) {
 
   fun showCancelSubscription(subscriptionItem: SubscriptionItem, sharedElement: View) {
-    val fragment = SubscriptionCancelFragment.newInstance(subscriptionItem)
+    val transitionName = ViewCompat.getTransitionName(sharedElement) ?: ""
+    val fragment = SubscriptionCancelFragment.newInstance(subscriptionItem, transitionName)
         .apply {
           sharedElementEnterTransition = SharedElementTransition()
           sharedElementReturnTransition = SharedElementTransition()
@@ -20,7 +21,7 @@ class SubscriptionDetailsNavigator(private val fragmentManager: FragmentManager)
     fragmentManager.beginTransaction()
         .setReorderingAllowed(true)
         .replace(R.id.fragment_container, fragment)
-        .addSharedElement(sharedElement, ViewCompat.getTransitionName(sharedElement) ?: "")
+        .addSharedElement(sharedElement, transitionName)
         .addToBackStack(SubscriptionCancelFragment::class.java.simpleName)
         .commit()
   }

@@ -27,6 +27,7 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext { onSubscriptions(it) }
+        .doOnSubscribe { view.showLoading() }
         .subscribe({}, { onError(it) }))
   }
 

@@ -32,7 +32,6 @@
           android:adjustViewBounds="true"
           android:contentDescription="@string/empty"
           android:lineSpacingExtra="0.25sp"
-          android:transitionName="app_icon_transition"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

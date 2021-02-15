@@ -53,7 +53,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/app_icon"
       app:layout_constraintTop_toTopOf="@id/app_icon"
-      tools:text="Cut the Rope 2gnasfigdsnsifdbngoisnoignsiudbgiubsfdiugbiusbgiusbfiugbisbgbsfdiugbisu"
+      tools:text="Cut the Rope 2"
       />
 
   <TextView

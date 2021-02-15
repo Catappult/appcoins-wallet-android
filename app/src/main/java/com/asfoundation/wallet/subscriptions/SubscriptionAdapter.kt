@@ -28,7 +28,7 @@ class SubscriptionAdapter(
   }
 
   override fun onBindViewHolder(holder: SubscriptionViewHolder, position: Int) {
-    holder.bind(getItem(position), clickListener)
+    holder.bind(getItem(position), clickListener, position)
   }
 
 }

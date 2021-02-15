@@ -24,7 +24,8 @@ class SubscriptionCancelModule {
   fun providesSubscriptionCancelData(fragment: SubscriptionCancelFragment): SubscriptionCancelData {
     fragment.arguments!!.apply {
       return SubscriptionCancelData(
-          getSerializable(SubscriptionCancelFragment.SUBSCRIPTION_ITEM) as SubscriptionItem)
+          getSerializable(SubscriptionCancelFragment.SUBSCRIPTION_ITEM_KEY) as SubscriptionItem,
+          getString(SubscriptionCancelFragment.TRANSITION_NAME_KEY, ""))
     }
   }
 

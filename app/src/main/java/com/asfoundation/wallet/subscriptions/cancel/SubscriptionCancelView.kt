@@ -20,4 +20,6 @@ interface SubscriptionCancelView {
   fun showNoNetworkRetryAnimation()
 
   fun getRetryNetworkClicks(): Observable<Any>
+
+  fun setTransitionName(transitionName: String)
 }

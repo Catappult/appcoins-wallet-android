@@ -22,7 +22,8 @@ class SubscriptionDetailsModule {
       fragment: SubscriptionDetailsFragment): SubscriptionDetailsData {
     fragment.arguments!!.apply {
       return SubscriptionDetailsData(
-          getSerializable(SubscriptionDetailsFragment.SUBSCRIPTION_ITEM) as SubscriptionItem)
+          getSerializable(SubscriptionDetailsFragment.SUBSCRIPTION_ITEM_KEY) as SubscriptionItem,
+          getString(SubscriptionDetailsFragment.TRANSITION_NAME_KEY, ""))
     }
   }
 

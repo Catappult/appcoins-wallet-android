@@ -13,4 +13,6 @@ interface SubscriptionDetailsView {
   fun setExpiredDetails(subscriptionItem: SubscriptionItem)
 
   fun retrieveSharedElement(): View
+
+  fun setupTransitionName(transitionName: String)
 }

@@ -11,6 +11,7 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
                                    private val viewScheduler: Scheduler) {
 
   fun present() {
+    view.setupTransitionName(data.transitionName)
     setupUi()
     handleCancelClicks()
   }
