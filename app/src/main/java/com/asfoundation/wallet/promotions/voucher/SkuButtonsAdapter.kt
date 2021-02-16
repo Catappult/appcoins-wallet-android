@@ -29,10 +29,6 @@ class SkuButtonsAdapter(
     inflater = LayoutInflater.from(context)
   }
 
-  interface OnClick {
-    fun onClick()
-  }
-
   override fun onBindViewHolder(holder: SkuButtonsViewHolder, position: Int) {
     holder.bind(position, selectedPosition, buttonModels.get(position), activatedButton, onSkuClick)
   }
