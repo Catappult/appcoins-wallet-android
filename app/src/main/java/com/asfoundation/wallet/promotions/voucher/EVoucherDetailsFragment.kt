@@ -59,7 +59,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
     presenter.present()
   }
 
