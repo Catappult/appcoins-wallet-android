@@ -190,6 +190,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
+    //This method needs to be refactored since it will break if there's no referral response
+    //Not refactoring it at the moment and no unit test will be done for this method since it's
+    // not being used and there's low probability of being used again
     return getUserStats(wallet)
         .flatMap {
           val gamification =

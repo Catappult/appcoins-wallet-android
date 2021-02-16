@@ -20,7 +20,6 @@ import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.vouchers.MockedVouchersRepository
 import io.reactivex.Single
-import io.reactivex.schedulers.TestScheduler
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -69,7 +68,6 @@ class PromotionsInteractorTest {
   private lateinit var genericActiveResponse: GenericResponse
   private lateinit var linkResponse: GenericResponse
   private lateinit var promotions: List<PromotionsResponse>
-  private lateinit var scheduler: TestScheduler
   private lateinit var interactor: PromotionsInteractor
 
   @Before
@@ -90,7 +88,6 @@ class PromotionsInteractorTest {
     promotions =
         listOf(gamificationResponse, genericProgressResponse, genericActiveResponse, linkResponse)
 
-    scheduler = TestScheduler()
     interactor =
         PromotionsInteractor(referralInteractor, gamificationInteractor, promotionsRepository,
             vouchersRepository, findDefaultWalletInteractor, userLocalData, analyticsSetup,
