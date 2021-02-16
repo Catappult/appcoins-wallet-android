@@ -9,4 +9,8 @@ interface EVoucherDetailsView {
   fun onNextClicks(): Observable<Any>
 
   fun onCancelClicks(): Observable<Any>
+
+  fun onSkuButtonClick(): Observable<Int>
+
+  fun setSelectedSku(index: Int)
 }

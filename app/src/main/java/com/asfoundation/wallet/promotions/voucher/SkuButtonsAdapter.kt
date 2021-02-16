@@ -10,19 +10,20 @@ import android.widget.Button
 import android.widget.GridView
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
-import rx.subjects.PublishSubject
+import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.atomic.AtomicReference
 
 
 class SkuButtonsAdapter(
     val context: Context,
     val buttonModels: List<SkuButtonModel>,
-    val onSkuClick: PublishSubject<Any>
+    val onSkuClick: PublishSubject<Int>
 ) :
     RecyclerView.Adapter<SkuButtonsViewHolder>() {
 
   private var inflater: LayoutInflater
   private var activatedButton: AtomicReference<Button?> = AtomicReference()
+  private var selectedPosition: Int = -1
 
   init {
     inflater = LayoutInflater.from(context)
@@ -33,7 +34,7 @@ class SkuButtonsAdapter(
   }
 
   override fun onBindViewHolder(holder: SkuButtonsViewHolder, position: Int) {
-    holder.bind(buttonModels.get(position), activatedButton, onSkuClick)
+    holder.bind(position, selectedPosition, buttonModels.get(position), activatedButton, onSkuClick)
   }
 
   override fun getItemCount(): Int {
@@ -51,15 +52,29 @@ class SkuButtonsAdapter(
 
     return SkuButtonsViewHolder(button)
   }
+
+  fun setSelectedSku(index: Int) {
+    selectedPosition = index
+  }
 }
 
 class SkuButtonsViewHolder(private val button: Button) : RecyclerView.ViewHolder(button) {
-  fun bind(skuButtonModel: SkuButtonModel, activatedButton: AtomicReference<Button?>,
-           onSkuClick: PublishSubject<Any>) {
+
+  fun bind(position: Int, selectedPosition: Int,
+           skuButtonModel: SkuButtonModel,
+           activatedButton: AtomicReference<Button?>,
+           onSkuClick: PublishSubject<Int>
+  ) {
     button.text = skuButtonModel.title
 
+    if (selectedPosition == position) {
+      button.isActivated = true
+    } else {
+      button.isActivated = false
+    }
+
     button.setOnClickListener {
-      if (activatedButton == null) {
+      if (activatedButton.get() == null) {
         activatedButton.set(button)
       } else {
         activatedButton.get()
@@ -67,10 +82,8 @@ class SkuButtonsViewHolder(private val button: Button) : RecyclerView.ViewHolder
         activatedButton.set(button)
       }
 
-      onSkuClick.onNext(0)
-      button.setActivated(true)
+      onSkuClick.onNext(position)
     }
-
   }
 }
 

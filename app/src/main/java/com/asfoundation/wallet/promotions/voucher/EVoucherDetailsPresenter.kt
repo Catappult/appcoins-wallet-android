@@ -18,6 +18,8 @@ class EVoucherDetailsPresenter(
         .subscribe({ navigator.navigateToNextScreen() }))
     disposable.add(view.onCancelClicks()
         .subscribe({ navigator.navigateBack() }))
+    disposable.add(view.onSkuButtonClick()
+        .subscribe({ index -> view.setSelectedSku(index) }))
   }
 
   fun getDiamondModels(): Single<List<SkuButtonModel>> {

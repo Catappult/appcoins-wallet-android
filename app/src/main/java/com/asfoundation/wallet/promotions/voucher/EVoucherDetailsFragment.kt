@@ -18,8 +18,8 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.layout_app_bar.*
-import rx.subjects.PublishSubject
 import javax.inject.Inject
 
 class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
@@ -29,6 +29,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   lateinit var downloadButton: Button
   lateinit var recyclerView: RecyclerView
   lateinit var skuButtonsAdapter: SkuButtonsAdapter
+  val skuButtonClick = PublishSubject.create<Int>()
   val disposables = CompositeDisposable()
 
   @Inject
@@ -65,7 +66,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   override fun setupUi(title: String, packageName: String) {
     val appCompatActivity = getActivity() as AppCompatActivity
     appCompatActivity.toolbar.title = title
-    val skuButtonClick = PublishSubject.create<Any>()
 
     nextButton = requireView().findViewById(R.id.next_button)
     cancelButton = requireView().findViewById(R.id.cancel_button)
@@ -92,7 +92,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
           )
       )
     }
-    skuButtonClick.subscribe { nextButton.setEnabled(true) }
+    disposables.add(skuButtonClick.subscribe { nextButton.setEnabled(true) })
   }
 
   override fun onDestroyView() {
@@ -106,6 +106,15 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   override fun onCancelClicks(): Observable<Any> {
     return RxView.clicks(cancelButton)
+  }
+
+  override fun onSkuButtonClick(): Observable<Int> {
+    return skuButtonClick
+  }
+
+  override fun setSelectedSku(index: Int) {
+    skuButtonsAdapter.setSelectedSku(index)
+    recyclerView.layoutManager?.findViewByPosition(index)?.isActivated = true
   }
 
   companion object {
