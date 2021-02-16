@@ -245,10 +245,13 @@ public class TransactionDetailActivity extends BaseActivity {
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case VOUCHER:
-        button.setVisibility(View.INVISIBLE);
-        findViewById(R.id.details_label).setVisibility(View.INVISIBLE);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        findViewById(R.id.details_label).setVisibility(View.VISIBLE);
         typeStr = R.string.transaction_type_voucher;
         id = getString(R.string.voucher_buy_short_header) + " " + id;
+        to = transaction.getTo();
         typeIcon = R.drawable.ic_transaction_iab;
         VoucherDetailView voucherDetails = findViewById(R.id.voucher_details);
         voucherDetails.setVisibility(View.VISIBLE);
