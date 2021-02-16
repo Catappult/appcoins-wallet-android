@@ -4,7 +4,7 @@
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/background_card_grey"
+    android:background="@drawable/background_card_light_grey"
     android:paddingBottom="16dp"
     >
 

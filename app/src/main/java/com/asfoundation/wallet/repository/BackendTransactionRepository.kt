@@ -49,7 +49,29 @@ class BackendTransactionRepository(
     disposables.add(disposable)
 
     return localRepository.getAllAsFlowable(wallet)
-        .flatMap { transactions -> getLinkedTransactions(wallet, transactions) }
+        .flatMap { transactions ->
+          // TODO: Remove everything except getLinkedTransactions()
+          //       Mocked data used for tests by copying an existing IAP transaction
+          val mutList = transactions.toMutableList()
+          var iapTransaction: TransactionEntity? = null
+          for (transaction in transactions) {
+            if (transaction.type == TransactionEntity.TransactionType.IAP || transaction.type == TransactionEntity.TransactionType.IAP_OFFCHAIN) {
+              iapTransaction = transaction
+              break
+            }
+          }
+          if (iapTransaction != null) {
+            mutList.add(
+                TransactionEntity(iapTransaction.transactionId, iapTransaction.relatedWallet,
+                    iapTransaction.approveTransactionId, iapTransaction.perk,
+                    TransactionEntity.TransactionType.VOUCHER,
+                    iapTransaction.subType, iapTransaction.title, iapTransaction.cardDescription,
+                    1644345915000, iapTransaction.processedTime, iapTransaction.status,
+                    iapTransaction.value, iapTransaction.from, iapTransaction.to,
+                    iapTransaction.details, iapTransaction.currency, iapTransaction.operations))
+          }
+          getLinkedTransactions(wallet, mutList.toList())
+        }
         .toObservable()
         .distinctUntilChanged()
   }

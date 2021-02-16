@@ -107,6 +107,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     int transactionTypeIcon;
     switch (transaction.getType()) {
+      case VOUCHER:
       case IAP:
       case IAP_OFFCHAIN:
         transactionTypeIcon = R.drawable.ic_transaction_iab;
@@ -169,6 +170,12 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       } else if (transaction.getType()
           .equals(Transaction.TransactionType.IAP_REVERT)) {
         address.setText(R.string.transaction_type_reverted_purchase_title);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.VOUCHER)) {
+        String addressText =
+            details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction);
+        addressText = getString(R.string.voucher_buy_short_header) + " " + addressText;
+        address.setText(addressText);
       } else {
         address.setText(
             details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
