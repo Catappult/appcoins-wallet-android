@@ -104,6 +104,7 @@
   <color name="remove_wallet_red">#e44b46</color>
 
   <color name="faded_background_color">#d9000000</color>
+  <color name="faded_54_background_color">#8a000000</color>
 
   <color name="transparent">#00000000</color>
   <color name="pending_payment_text_color">#727272</color>

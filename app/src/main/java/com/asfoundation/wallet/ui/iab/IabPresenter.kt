@@ -43,13 +43,6 @@ class IabPresenter(private val view: IabView,
     handleAutoUpdate()
     handleUserRegistration()
     handleSupportClicks()
-    handleErrorDismisses()
-  }
-
-  private fun handleErrorDismisses() {
-    disposable.add(view.errorDismisses()
-        .doOnNext { view.close(Bundle()) }
-        .subscribe({ }, { view.close(Bundle()) }))
   }
 
   private fun handleSupportClicks() {
@@ -59,11 +52,6 @@ class IabPresenter(private val view: IabView,
         .doOnNext { iabInteract.showSupport() }
         .subscribe({}, { it.printStackTrace() })
     )
-  }
-
-  private fun handleError(throwable: Throwable) {
-    logger.log(TAG, throwable)
-    view.finishWithError()
   }
 
   fun handlePerkNotifications(bundle: Bundle) {

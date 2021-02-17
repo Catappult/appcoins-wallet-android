@@ -66,7 +66,7 @@ import static org.mockito.Mockito.when;
         new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18);
     transactionBuilder =
         new TransactionBuilder("APPC", "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", 3l,
-            "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", BigDecimal.ONE, "sku", 18,
+            "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", null, "", "", BigDecimal.ONE, "sku", 18,
             "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "origin", "type", "packageName",
             "payload", null, REFERRER_URL, null);
     when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
