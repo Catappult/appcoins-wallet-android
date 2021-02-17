@@ -13,6 +13,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
+import java.io.IOException
 import java.math.BigDecimal
 import java.util.*
 
@@ -95,6 +96,13 @@ class PromotionsRepositoryTest {
     val userStats = promotionsRepository.getUserStatus(TEST_WALLET_ADDRESS)
         .blockingGet()
 
+    Mockito.verify(local, Mockito.never())
+        .deletePromotions()
+    Mockito.verify(local, Mockito.never())
+        .insertPromotions(Mockito.anyList())
+    Mockito.verify(local, Mockito.never())
+        .insertWalletOrigin(TEST_WALLET_ADDRESS, testWalletOrigin)
+
     Mockito.verify(local)
         .setGamificationLevel(TEST_GAMIFICATION_LEVEL)
     Assert.assertEquals(userStats.promotions.size, 4)
@@ -119,6 +127,14 @@ class PromotionsRepositoryTest {
 
     Assert.assertEquals(userStats.promotions.size, 0)
     Assert.assertEquals(userStats.error, Status.UNKNOWN_ERROR)
+
+    Mockito.verify(local, Mockito.never())
+        .deletePromotions()
+    Mockito.verify(local, Mockito.never())
+        .insertPromotions(Mockito.anyList())
+    Mockito.verify(local, Mockito.never())
+        .insertWalletOrigin(TEST_WALLET_ADDRESS, testWalletOrigin)
+
     Mockito.verify(local)
         .getPromotions()
     Mockito.verify(local)
@@ -191,6 +207,32 @@ class PromotionsRepositoryTest {
   }
 
   @Test
+  fun getForecastBonusUnknownErrorTest() {
+    Mockito.`when`(
+        api.getForecastBonus(TEST_WALLET_ADDRESS, "packageName", BigDecimal.TEN, "APPC"))
+        .thenReturn(Single.error(Throwable("any")))
+    val testForecastBonus = ForecastBonus(ForecastBonus.Status.UNKNOWN_ERROR, BigDecimal.ZERO, "")
+    val forecastBonus =
+        promotionsRepository.getForecastBonus(TEST_WALLET_ADDRESS, "packageName", BigDecimal.TEN)
+            .blockingGet()
+
+    Assert.assertEquals(forecastBonus, testForecastBonus)
+  }
+
+  @Test
+  fun getForecastBonusNoNetworkErrorTest() {
+    Mockito.`when`(
+        api.getForecastBonus(TEST_WALLET_ADDRESS, "packageName", BigDecimal.TEN, "APPC"))
+        .thenReturn(Single.error(IOException("any")))
+    val testForecastBonus = ForecastBonus(ForecastBonus.Status.NO_NETWORK, BigDecimal.ZERO, "")
+    val forecastBonus =
+        promotionsRepository.getForecastBonus(TEST_WALLET_ADDRESS, "packageName", BigDecimal.TEN)
+            .blockingGet()
+
+    Assert.assertEquals(forecastBonus, testForecastBonus)
+  }
+
+  @Test
   fun getGamificationStatsTest() {
     mockUserStatsCalls()
 
@@ -208,6 +250,44 @@ class PromotionsRepositoryTest {
         .setGamificationLevel(TEST_GAMIFICATION_LEVEL)
     Assert.assertEquals(testGamificationStats, gamificationStats)
     assertUserStatsCalls()
+  }
+
+  @Test
+  fun getGamificationStatsUnknowonErrorTest() {
+    Mockito.`when`(local.getPromotions())
+        .thenReturn(Single.just(emptyList()))
+    Mockito.`when`(local.retrieveWalletOrigin(TEST_WALLET_ADDRESS))
+        .thenReturn(Single.just(testWalletOrigin))
+    Mockito.`when`(api.getUserStats(TEST_WALLET_ADDRESS, Locale.getDefault().language))
+        .thenReturn(Single.error(Throwable("Generic")))
+
+    Mockito.`when`(local.setGamificationLevel(-1))
+        .thenReturn(Completable.complete())
+
+    val testGamificationStats = GamificationStats(GamificationStats.Status.UNKNOWN_ERROR)
+    val gamificationStats = promotionsRepository.getGamificationStats(TEST_WALLET_ADDRESS)
+        .blockingGet()
+
+    Assert.assertEquals(testGamificationStats, gamificationStats)
+  }
+
+  @Test
+  fun getGamificationStatsNoNetworkTest() {
+    Mockito.`when`(local.getPromotions())
+        .thenReturn(Single.just(emptyList()))
+    Mockito.`when`(local.retrieveWalletOrigin(TEST_WALLET_ADDRESS))
+        .thenReturn(Single.just(testWalletOrigin))
+    Mockito.`when`(api.getUserStats(TEST_WALLET_ADDRESS, Locale.getDefault().language))
+        .thenReturn(Single.error(IOException("any")))
+
+    Mockito.`when`(local.setGamificationLevel(-1))
+        .thenReturn(Completable.complete())
+
+    val testGamificationStats = GamificationStats(GamificationStats.Status.NO_NETWORK)
+    val gamificationStats = promotionsRepository.getGamificationStats(TEST_WALLET_ADDRESS)
+        .blockingGet()
+
+    Assert.assertEquals(testGamificationStats, gamificationStats)
   }
 
   @Test
@@ -247,6 +327,10 @@ class PromotionsRepositoryTest {
     val levels = promotionsRepository.getLevels(TEST_WALLET_ADDRESS)
         .blockingGet()
 
+    Mockito.verify(local, Mockito.never())
+        .deleteLevels()
+    Mockito.verify(local, Mockito.never())
+        .insertLevels(response)
     Assert.assertEquals(testLevels, levels)
   }
 
@@ -261,6 +345,10 @@ class PromotionsRepositoryTest {
     val levels = promotionsRepository.getLevels(TEST_WALLET_ADDRESS)
         .blockingGet()
 
+    Mockito.verify(local, Mockito.never())
+        .deleteLevels()
+    Mockito.verify(local, Mockito.never())
+        .insertLevels(LevelsResponse(emptyList(), LevelsResponse.Status.INACTIVE, null))
     Assert.assertEquals(testLevels, levels)
   }
 

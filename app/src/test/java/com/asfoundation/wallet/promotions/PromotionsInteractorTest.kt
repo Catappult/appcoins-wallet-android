@@ -173,17 +173,7 @@ class PromotionsInteractorTest {
 
   @Test
   fun hasAnyPromotionUpdateNegativeTest() {
-    Mockito.`when`(
-        referralInteractor.hasReferralUpdate(TEST_WALLET_ADDRESS, null, ReferralsScreen.PROMOTIONS))
-        .thenReturn(Single.just(false))
-    Mockito.`when`(gamificationInteractor.hasNewLevel(TEST_WALLET_ADDRESS, gamificationResponse,
-        GamificationContext.SCREEN_PROMOTIONS))
-        .thenReturn(Single.just(false))
-    Mockito.`when`(promotionsRepository.getSeenGenericPromotion(Mockito.anyString(),
-        Mockito.anyString()))
-        .thenReturn(true)
-    Mockito.`when`(userLocalData.getSeenWalletOrigin(TEST_WALLET_ADDRESS))
-        .thenReturn(testWalletOrigin.name)
+    mockUpdateTest(false, false, false, false)
     val hasPromotionUpdate = interactor.hasAnyPromotionUpdate(PromotionUpdateScreen.PROMOTIONS)
         .blockingGet()
     Assert.assertFalse(hasPromotionUpdate)
@@ -191,20 +181,38 @@ class PromotionsInteractorTest {
 
   @Test
   fun hasAnyPromotionUpdatePositiveTest() {
-    Mockito.`when`(
-        referralInteractor.hasReferralUpdate(TEST_WALLET_ADDRESS, null, ReferralsScreen.PROMOTIONS))
-        .thenReturn(Single.just(true))
-    Mockito.`when`(gamificationInteractor.hasNewLevel(TEST_WALLET_ADDRESS, gamificationResponse,
-        GamificationContext.SCREEN_PROMOTIONS))
-        .thenReturn(Single.just(true))
-    Mockito.`when`(promotionsRepository.getSeenGenericPromotion(Mockito.anyString(),
-        Mockito.anyString()))
-        .thenReturn(false)
-    Mockito.`when`(userLocalData.getSeenWalletOrigin(TEST_WALLET_ADDRESS))
-        .thenReturn("PARTNER")
+    mockUpdateTest(true, true, true, true)
     val hasPromotionUpdate = interactor.hasAnyPromotionUpdate(PromotionUpdateScreen.PROMOTIONS)
         .blockingGet()
     Assert.assertTrue(hasPromotionUpdate)
+    mockUpdateTest(true, false, false, false)
+    val hasPromotionUpdate2 = interactor.hasAnyPromotionUpdate(PromotionUpdateScreen.PROMOTIONS)
+        .blockingGet()
+    Assert.assertTrue(hasPromotionUpdate2)
+    mockUpdateTest(false, true, false, false)
+    val hasPromotionUpdate3 = interactor.hasAnyPromotionUpdate(PromotionUpdateScreen.PROMOTIONS)
+        .blockingGet()
+    Assert.assertTrue(hasPromotionUpdate3)
+  }
+
+  private fun mockUpdateTest(referralUpdate: Boolean, gamificationUpdate: Boolean,
+                             promotionUpdate: Boolean, walletOriginUpdate: Boolean) {
+    Mockito.`when`(
+        referralInteractor.hasReferralUpdate(TEST_WALLET_ADDRESS, null, ReferralsScreen.PROMOTIONS))
+        .thenReturn(Single.just(referralUpdate))
+    Mockito.`when`(gamificationInteractor.hasNewLevel(TEST_WALLET_ADDRESS, gamificationResponse,
+        GamificationContext.SCREEN_PROMOTIONS))
+        .thenReturn(Single.just(gamificationUpdate))
+    Mockito.`when`(promotionsRepository.getSeenGenericPromotion(Mockito.anyString(),
+        Mockito.anyString()))
+        .thenReturn(!promotionUpdate)
+    if (walletOriginUpdate) {
+      Mockito.`when`(userLocalData.getSeenWalletOrigin(TEST_WALLET_ADDRESS))
+          .thenReturn("PARTNER")
+    } else {
+      Mockito.`when`(userLocalData.getSeenWalletOrigin(TEST_WALLET_ADDRESS))
+          .thenReturn(testWalletOrigin.name)
+    }
   }
 
   @Test
