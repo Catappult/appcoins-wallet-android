@@ -575,7 +575,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     showOverlay(shouldShow, OverlayType.VOUCHERS);
   }
 
-  // todo analyze what changes are needed here (showPromotionsOverlay was something else)
   private void showOverlay(Boolean shouldShow, OverlayType type) {
     if (shouldShow) {
       getSupportFragmentManager().beginTransaction()
