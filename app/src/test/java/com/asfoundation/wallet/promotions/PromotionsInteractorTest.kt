@@ -206,13 +206,13 @@ class PromotionsInteractorTest {
     Mockito.`when`(promotionsRepository.getSeenGenericPromotion(Mockito.anyString(),
         Mockito.anyString()))
         .thenReturn(!promotionUpdate)
-    if (walletOriginUpdate) {
-      Mockito.`when`(userLocalData.getSeenWalletOrigin(TEST_WALLET_ADDRESS))
-          .thenReturn("PARTNER")
+    val testWalletOrigin = if (walletOriginUpdate) {
+      "PARTNER"
     } else {
-      Mockito.`when`(userLocalData.getSeenWalletOrigin(TEST_WALLET_ADDRESS))
-          .thenReturn(testWalletOrigin.name)
+      testWalletOrigin.name
     }
+    Mockito.`when`(userLocalData.getSeenWalletOrigin(TEST_WALLET_ADDRESS))
+        .thenReturn(testWalletOrigin)
   }
 
   @Test
