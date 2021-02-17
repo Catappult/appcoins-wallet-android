@@ -16,6 +16,7 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
+import com.asfoundation.wallet.vouchers.VouchersRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.Function3
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit
 class PromotionsInteractor(private val referralInteractor: ReferralInteractorContract,
                            private val gamificationInteractor: GamificationInteractor,
                            private val promotionsRepo: PromotionsRepository,
+                           private val vouchersRepository: VouchersRepository,
                            private val findWalletInteract: FindDefaultWalletInteract,
                            private val userStatsPreferencesRepository: UserStatsLocalData,
                            private val analyticsSetup: AnalyticsSetup,
@@ -45,7 +47,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           Single.zip(
               gamificationInteractor.getLevels(),
               promotionsRepo.getUserStatus(it.address),
-              getMockedVouchers(),
+              vouchersRepository.getVouchers(),
               Function3 { level: Levels, userStatsResponse: UserStatusResponse, vouchers: VoucherListModel ->
                 analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
                 mapToPromotionsModel(userStatsResponse, vouchers, level)
@@ -57,23 +59,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               }
         }
 
-  }
-
-  private fun getMockedVouchers(): Single<VoucherListModel> {
-    return Single.just(VoucherListModel(listOf(
-        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
-            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true),
-        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
-            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false),
-        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
-            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true),
-        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
-            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false),
-        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
-            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true),
-        Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
-            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png",
-            true))))
   }
 
   fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
@@ -189,6 +174,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     val perks = mutableListOf<PerkPromotion>()
     val maxBonus = getMaxBonus(levels)
     val vouchers = handleVouchers(vouchersListModel, maxBonus)
+
+    //If GamificationLinkItem has priority bigger than GamificationResponse, the perk will not be shown
     userStatus.promotions.sortedByDescending { it.priority }
         .forEach {
           when (it) {
