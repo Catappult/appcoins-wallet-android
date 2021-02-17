@@ -19,6 +19,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.vouchers.MockedVouchersRepository
+import com.asfoundation.wallet.vouchers.VouchersRepository
 import io.reactivex.Single
 import org.junit.Assert
 import org.junit.Before
@@ -36,10 +37,8 @@ class PromotionsInteractorTest {
     private const val TEST_WALLET_ADDRESS = "0x00000"
     private const val TEST_START_DATE: Long = 1000
     private const val TEST_END_DATE: Long = 11111
+    private const val TEST_MAX_BONUS_VALUE: Double = 25.0
   }
-
-  @Mock
-  lateinit var vouchersRepository: MockedVouchersRepository
 
   @Mock
   lateinit var referralInteractor: ReferralInteractorContract
@@ -63,6 +62,8 @@ class PromotionsInteractorTest {
   lateinit var mapper: GamificationMapper
 
   private val testWalletOrigin = WalletOrigin.APTOIDE
+
+  private lateinit var vouchersRepository: VouchersRepository
   private lateinit var gamificationResponse: GamificationResponse
   private lateinit var genericProgressResponse: GenericResponse
   private lateinit var genericActiveResponse: GenericResponse
@@ -72,6 +73,7 @@ class PromotionsInteractorTest {
 
   @Before
   fun setup() {
+    vouchersRepository = MockedVouchersRepository()
     gamificationResponse =
         GamificationResponse(GAMIFICATION_ID, 100, 20.0, BigDecimal.ONE, BigDecimal.ONE, 1,
             BigDecimal.TEN, PromotionsResponse.Status.ACTIVE, false)
@@ -100,20 +102,18 @@ class PromotionsInteractorTest {
 
   @Test
   fun retrievePromotionsTest() {
-    val maxLevel = Levels.Level(BigDecimal.ONE, 25.0, 0)
+    val maxLevel = Levels.Level(BigDecimal.ONE, TEST_MAX_BONUS_VALUE, 0)
     Mockito.`when`(gamificationInteractor.getLevels())
         .thenReturn(Single.just(Levels(Levels.Status.OK, listOf(maxLevel), true)))
     Mockito.`when`(mapper.mapCurrentLevelInfo(1))
         .thenReturn(CurrentLevelInfo(null, 0, "title", "phrase"))
-    Mockito.`when`(vouchersRepository.getMockedVouchers())
-        .thenReturn(Single.just(VoucherListModel(
-            listOf(Voucher("test", "Trivial Drive Sample", "icon", true)))))
 
     val linkItem = GamificationLinkItem("id3", "description", null, TEST_START_DATE, TEST_END_DATE)
     val gamificationItem =
-        GamificationItem(GAMIFICATION_ID, null, 1, 0, "title", BigDecimal(9), 20.0, 25.0,
+        GamificationItem(GAMIFICATION_ID, null, 1, 0, "title", BigDecimal(9), 20.0,
+            TEST_MAX_BONUS_VALUE,
             listOf(linkItem).toMutableList())
-    val voucherItem = VoucherItem(VOUCHER_ID, "test", "Trivial Drive Sample", "icon", true, 25.0)
+    val vouchersItemList = getVouchersItemList()
     val progressItem =
         ProgressItem("id1", "description", null, TEST_START_DATE,
             TEST_END_DATE, BigDecimal(50), BigDecimal(100), "any")
@@ -123,8 +123,8 @@ class PromotionsInteractorTest {
 
     val promotionsModel = interactor.retrievePromotions()
         .blockingGet()
-    val testPromotionsModel = PromotionsModel(listOf(gamificationItem), listOf(voucherItem),
-        listOf(progressItem, defaultItem, linkItem),
+    val testPromotionsModel = PromotionsModel(listOf(gamificationItem), vouchersItemList,
+        listOf(progressItem, defaultItem),
         com.asfoundation.wallet.promotions.WalletOrigin.APTOIDE, null)
 
     Assert.assertEquals(promotionsModel.promotions.size, testPromotionsModel.promotions.size)
@@ -133,9 +133,11 @@ class PromotionsInteractorTest {
         compareGamificationItem(promotion, testPromotionsModel.promotions[index])
       }
     }
+    Assert.assertEquals(promotionsModel.vouchers.size, testPromotionsModel.vouchers.size)
     promotionsModel.vouchers.forEachIndexed { index, voucher ->
       compareVoucherItem(voucher, testPromotionsModel.vouchers[index])
     }
+    Assert.assertEquals(promotionsModel.perks.size, testPromotionsModel.perks.size)
     promotionsModel.perks.forEachIndexed { index, perkPromotion ->
       if (perkPromotion is DefaultItem) {
         compareDefaultItem(perkPromotion, testPromotionsModel.perks[index] as DefaultItem)
@@ -145,6 +147,28 @@ class PromotionsInteractorTest {
     }
     Assert.assertEquals(promotionsModel.walletOrigin, testPromotionsModel.walletOrigin)
     Assert.assertEquals(promotionsModel.error, testPromotionsModel.error)
+  }
+
+  private fun getVouchersItemList(): List<VoucherItem> {
+    return listOf(
+        VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
+            TEST_MAX_BONUS_VALUE),
+        VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false,
+            TEST_MAX_BONUS_VALUE),
+        VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
+            TEST_MAX_BONUS_VALUE),
+        VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false,
+            TEST_MAX_BONUS_VALUE),
+        VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
+            TEST_MAX_BONUS_VALUE),
+        VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
+            TEST_MAX_BONUS_VALUE))
   }
 
   @Test

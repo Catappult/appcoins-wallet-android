@@ -15,7 +15,7 @@ import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import com.asfoundation.wallet.vouchers.MockedVouchersRepository
+import com.asfoundation.wallet.vouchers.VouchersRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.Function3
@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
 class PromotionsInteractor(private val referralInteractor: ReferralInteractorContract,
                            private val gamificationInteractor: GamificationInteractor,
                            private val promotionsRepo: PromotionsRepository,
-                           private val vouchersRepository: MockedVouchersRepository,
+                           private val vouchersRepository: VouchersRepository,
                            private val findWalletInteract: FindDefaultWalletInteract,
                            private val userStatsPreferencesRepository: UserStatsLocalData,
                            private val analyticsSetup: AnalyticsSetup,
@@ -45,7 +45,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           Single.zip(
               gamificationInteractor.getLevels(),
               promotionsRepo.getUserStatus(it.address),
-              vouchersRepository.getMockedVouchers(),
+              vouchersRepository.getVouchers(),
               Function3 { level: Levels, userStatsResponse: UserStatusResponse, vouchers: VoucherListModel ->
                 analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
                 mapToPromotionsModel(userStatsResponse, vouchers, level)
