@@ -277,10 +277,11 @@ class InteractorModule {
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
                                   rakamAnalytics: RakamAnalytics,
                                   userStatsLocalData: UserStatsLocalData,
-                                  gamificationMapper: GamificationMapper): PromotionsInteractor {
+                                  gamificationMapper: GamificationMapper,
+                                  preferencesRepositoryType: PreferencesRepositoryType): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
         promotionsRepository, findDefaultWalletInteract, userStatsLocalData, rakamAnalytics,
-        gamificationMapper)
+        gamificationMapper, preferencesRepositoryType)
   }
 
   @Provides

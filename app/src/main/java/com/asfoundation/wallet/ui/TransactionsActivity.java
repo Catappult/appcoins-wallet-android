@@ -191,7 +191,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.shareApp()
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
-        .observe(this, this::showPromotionsOverlay);
+        .observe(this, this::showAllPromotionsOverlay);
+    viewModel.shouldShowVouchersTooltip()
+        .observe(this, this::showVouchersOverlay);
     viewModel.balanceWalletsExperimentAssignment()
         .observe(this, this::changeBottomNavigationName);
     viewModel.shouldShowRateUsDialog()
@@ -565,17 +567,25 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.navigateToPromotions(this);
   }
 
-  private void showPromotionsOverlay(Boolean shouldShow) {
+  private void showAllPromotionsOverlay(Boolean shouldShow) {
+    showOverlay(shouldShow, OverlayType.ALL_PROMOTIONS);
+  }
+
+  private void showVouchersOverlay(Boolean shouldShow) {
+    showOverlay(shouldShow, OverlayType.VOUCHERS);
+  }
+
+  // todo analyze what changes are needed here (showPromotionsOverlay was something else)
+  private void showOverlay(Boolean shouldShow, OverlayType type) {
     if (shouldShow) {
       getSupportFragmentManager().beginTransaction()
           .setCustomAnimations(R.anim.fragment_fade_in_animation,
               R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
               R.anim.fragment_fade_out_animation)
-          .add(R.id.container,
-              OverlayFragment.newInstance(PROMOTIONS.getPosition(), OverlayType.ALL_PROMOTIONS))
+          .add(R.id.container, OverlayFragment.newInstance(PROMOTIONS.getPosition(), type))
           .addToBackStack(OverlayFragment.class.getName())
           .commit();
-      viewModel.onPromotionsShown();
+      viewModel.onPromotionsShown(type);
     }
   }
 

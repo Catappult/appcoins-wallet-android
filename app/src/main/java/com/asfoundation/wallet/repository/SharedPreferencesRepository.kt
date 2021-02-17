@@ -125,7 +125,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun hasBeenInSettings(): Boolean = pref.getBoolean(HAS_BEEN_IN_SETTINGS, false)
 
-  override fun setBeenInSettings() {
+  override fun setHasBeenInSettings() {
     pref.edit()
         .putBoolean(HAS_BEEN_IN_SETTINGS, true)
         .apply()
@@ -142,7 +142,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   override fun hasBeenInPromotionsScreen(): Boolean =
       pref.getBoolean(HAS_BEEN_IN_PROMOTIONS_SCREEN, false)
 
-  override fun setBeenInPromotionsScreen() {
+  override fun setHasBeenInPromotionsScreen() {
     pref.edit()
         .putBoolean(HAS_BEEN_IN_PROMOTIONS_SCREEN, true)
         .apply()

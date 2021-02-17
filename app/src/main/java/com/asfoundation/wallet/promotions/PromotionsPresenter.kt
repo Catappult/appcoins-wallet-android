@@ -22,6 +22,7 @@ class PromotionsPresenter(private val view: PromotionsView,
   private var viewState = ViewState.DEFAULT
 
   fun present() {
+    promotionsInteractor.setHasBeenInPromotionsScreen()
     handlePromotionClicks()
     handleRetryClick()
     handleBottomSheetVisibility()

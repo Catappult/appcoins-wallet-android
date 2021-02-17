@@ -49,7 +49,7 @@ interface PreferencesRepositoryType {
 
   fun hasBeenInSettings(): Boolean
 
-  fun setBeenInSettings()
+  fun setHasBeenInSettings()
 
   fun increaseTimesOnHome()
 
@@ -57,7 +57,7 @@ interface PreferencesRepositoryType {
 
   fun hasBeenInPromotionsScreen(): Boolean
 
-  fun setBeenInPromotionsScreen()
+  fun setHasBeenInPromotionsScreen()
 
   fun hasSeenVoucherTooltip(): Boolean
 

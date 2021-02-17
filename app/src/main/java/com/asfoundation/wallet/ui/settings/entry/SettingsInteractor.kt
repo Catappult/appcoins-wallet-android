@@ -52,5 +52,5 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
 
   fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
 
-  fun setHasBeenInSettings() = preferenceRepository.setBeenInSettings()
+  fun setHasBeenInSettings() = preferenceRepository.setHasBeenInSettings()
 }

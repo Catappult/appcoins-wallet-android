@@ -41,6 +41,7 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
 
   private companion object {
     private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
+    private const val UPDATE_VOUCHER_NUMBER_OF_TIMES = 2
   }
 
   val levels: Single<Levels>
@@ -96,7 +97,9 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
       Single.just(preferencesRepositoryType.hasSeenPromotionTooltip())
 
   fun increaseTimesOnHome() {
-    if (preferencesRepositoryType.getNumberOfTimesOnHome() <= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
+    val numberOfTimesOnHome = getNumberOfTimesOnHome()
+    if (numberOfTimesOnHome <= UPDATE_FINGERPRINT_NUMBER_OF_TIMES ||
+        numberOfTimesOnHome <= UPDATE_VOUCHER_NUMBER_OF_TIMES) {
       preferencesRepositoryType.increaseTimesOnHome()
     }
   }
@@ -105,11 +108,20 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
 
   private fun getNumberOfTimesOnHome(): Int = preferencesRepositoryType.getNumberOfTimesOnHome()
 
+  fun shouldShowVoucherTooltip(): Single<Boolean> {
+    return Single.just(!preferencesRepositoryType.hasBeenInPromotionsScreen() &&
+        !preferencesRepositoryType.hasSeenVoucherTooltip() &&
+        preferencesRepositoryType.hasSeenPromotionTooltip() &&
+        getNumberOfTimesOnHome() >= UPDATE_VOUCHER_NUMBER_OF_TIMES)
+  }
+
   fun shouldShowFingerprintTooltip(packageName: String): Single<Boolean> {
     var shouldShow = false
-    if (!preferencesRepositoryType.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
+    if (!preferencesRepositoryType.hasBeenInSettings() &&
+        !fingerprintPreferences.hasSeenFingerprintTooltip()
         && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
-        preferencesRepositoryType.hasSeenPromotionTooltip()) {
+        preferencesRepositoryType.hasSeenPromotionTooltip() &&
+        (preferencesRepositoryType.hasSeenVoucherTooltip() || preferencesRepositoryType.hasBeenInPromotionsScreen())) {
       if (!isFirstInstall(packageName)) {
         shouldShow = true
       } else if (getNumberOfTimesOnHome() >= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
