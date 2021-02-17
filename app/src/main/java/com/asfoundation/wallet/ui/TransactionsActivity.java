@@ -37,6 +37,7 @@ import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.overlay.OverlayFragment;
+import com.asfoundation.wallet.ui.overlay.OverlayType;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
@@ -570,7 +571,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .setCustomAnimations(R.anim.fragment_fade_in_animation,
               R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
               R.anim.fragment_fade_out_animation)
-          .add(R.id.container, OverlayFragment.newInstance(PROMOTIONS.getPosition()))
+          .add(R.id.container,
+              OverlayFragment.newInstance(PROMOTIONS.getPosition(), OverlayType.ALL_PROMOTIONS))
           .addToBackStack(OverlayFragment.class.getName())
           .commit();
       viewModel.onPromotionsShown();

@@ -5,4 +5,6 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType
 class OverlayInteractor(private val preferencesRepositoryType: PreferencesRepositoryType) {
 
   fun setHasSeenPromotionTooltip() = preferencesRepositoryType.setHasSeenPromotionTooltip()
+
+  fun setHasSeenVoucherTooltip() = preferencesRepositoryType.setHasSeenVoucherTooltip()
 }
