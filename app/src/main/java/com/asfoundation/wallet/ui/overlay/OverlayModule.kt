@@ -1,12 +1,9 @@
 package com.asfoundation.wallet.ui.overlay
 
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyData
-import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
-import java.math.BigDecimal
 
 @Module
 class OverlayModule {

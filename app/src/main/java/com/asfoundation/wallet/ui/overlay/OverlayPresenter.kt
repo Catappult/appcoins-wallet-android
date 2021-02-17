@@ -37,7 +37,7 @@ class OverlayPresenter(private val view: OverlayView,
   }
 
   private fun setHasSeenTooltip() {
-    when(data.type) {
+    when (data.type) {
       OverlayType.ALL_PROMOTIONS -> interactor.setHasSeenPromotionTooltip()
       OverlayType.VOUCHERS -> interactor.setHasSeenVoucherTooltip()
     }
