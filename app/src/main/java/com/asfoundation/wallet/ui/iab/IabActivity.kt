@@ -177,14 +177,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
+  override fun showAdyenPayment(fiatAmount: BigDecimal, currency: String, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
                                 iconUrl: String?, gamificationLevel: Int) {
+    val transactionData = TransactionPaymentData(fiatAmount, currency, isBds, transaction!!.type,
+        transaction!!.domain, getOrigin(isBds), transaction!!.amount(), transaction!!.skuId,
+        getSkuDescription(), transaction!!.payload, transaction!!.callbackUrl,
+        transaction!!.toAddress(), transaction!!.referrerUrl, transaction!!.orderReference)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
-                getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, getSkuDescription()))
+            AdyenPaymentFragment.newInstance(paymentType, bonus, isPreselected, gamificationLevel,
+                transactionData))
         .commit()
   }
 
@@ -407,21 +410,22 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val AUTHENTICATION_REQUEST_CODE = 33
     const val IS_BDS_EXTRA = "is_bds_extra"
-    const val ERROR_MESSAGE = "error_message"
 
     @JvmStatic
-    fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,
+    fun newIntent(activity: Activity, previousIntent: Intent?, transaction: TransactionBuilder,
                   isBds: Boolean?, developerPayload: String?): Intent {
       return Intent(activity, IabActivity::class.java)
           .apply {
-            data = previousIntent.data
-            if (previousIntent.extras != null) {
-              putExtras(previousIntent.extras!!)
+            if (previousIntent != null) {
+              data = previousIntent.data
+              if (previousIntent.extras != null) {
+                putExtras(previousIntent.extras!!)
+              }
             }
             putExtra(TRANSACTION_EXTRA, transaction)
             putExtra(IS_BDS_EXTRA, isBds)
             putExtra(DEVELOPER_PAYLOAD, developerPayload)
-            putExtra(URI, data!!.toString())
+            putExtra(URI, data?.toString() ?: "")
             putExtra(APP_PACKAGE, transaction.domain)
           }
     }

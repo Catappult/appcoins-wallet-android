@@ -24,18 +24,17 @@ import retrofit2.HttpException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class PaymentMethodsPresenter(
-    private val view: PaymentMethodsView,
-    private val viewScheduler: Scheduler,
-    private val networkThread: Scheduler,
-    private val disposables: CompositeDisposable,
-    private val analytics: PaymentMethodsAnalytics,
-    private val transaction: TransactionBuilder,
-    private val paymentMethodsMapper: PaymentMethodsMapper,
-    private val formatter: CurrencyFormatUtils,
-    private val logger: Logger,
-    private val interactor: PaymentMethodsInteractor,
-    private val paymentMethodsData: PaymentMethodsData) {
+class PaymentMethodsPresenter(private val view: PaymentMethodsView,
+                              private val viewScheduler: Scheduler,
+                              private val networkThread: Scheduler,
+                              private val disposables: CompositeDisposable,
+                              private val analytics: PaymentMethodsAnalytics,
+                              private val transaction: TransactionBuilder,
+                              private val paymentMethodsMapper: PaymentMethodsMapper,
+                              private val formatter: CurrencyFormatUtils,
+                              private val logger: Logger,
+                              private val interactor: PaymentMethodsInteractor,
+                              private val paymentMethodsData: PaymentMethodsData) {
 
   private var cachedGamificationLevel = 0
   private var cachedFiatValue: FiatValue? = null
@@ -276,7 +275,7 @@ class PaymentMethodsPresenter(
 
   private fun setupUi(firstRun: Boolean) {
     disposables.add(
-        interactor.convertToLocalFiat(paymentMethodsData.transactionValue.toDouble())
+        getFiatValue(paymentMethodsData.transactionValue.toDouble(), paymentMethodsData.fiatValue)
             .subscribeOn(networkThread)
             .flatMapCompletable { fiatValue ->
               this.cachedFiatValue = fiatValue
@@ -300,6 +299,14 @@ class PaymentMethodsPresenter(
               if (!firstRun) view.hideLoading()
             }
             .subscribe({ }, { this.showError(it) }))
+  }
+
+  private fun getFiatValue(appcAmount: Double, fiatValue: FiatValue?): Single<FiatValue> {
+    return if (fiatValue != null) {
+      Single.just(fiatValue)
+    } else {
+      interactor.convertToLocalFiat(appcAmount)
+    }
   }
 
   private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {

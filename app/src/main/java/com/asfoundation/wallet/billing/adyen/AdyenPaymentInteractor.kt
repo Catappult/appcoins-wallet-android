@@ -64,8 +64,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                   returnUrl: String, value: String, currency: String, reference: String?,
                   paymentType: String, origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?,
-                  referrerUrl: String?,
+                  developerWallet: String?, referrerUrl: String?,
                   billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { address ->

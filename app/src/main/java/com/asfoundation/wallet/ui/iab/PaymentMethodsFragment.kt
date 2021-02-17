@@ -113,8 +113,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     preSelectedPaymentMethod = BehaviorSubject.create()
     paymentMethodClick = PublishRelay.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
+    val fiatValue = if (transactionBuilder!!.fiatAmount != null) {
+      FiatValue(transactionBuilder!!.fiatAmount, transactionBuilder!!.fiatCurrency,
+          transactionBuilder!!.fiatSymbol)
+    } else null
     val paymentMethodsData = PaymentMethodsData(appPackage, isBds, getDeveloperPayload(), getUri(),
-        getTransactionValue())
+        getTransactionValue(), fiatValue)
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
         paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData)

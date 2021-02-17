@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -155,7 +156,7 @@ abstract class FragmentBuilders {
   abstract fun bindWalletDetailFragment(): WalletDetailsFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [AdyenPaymentModule::class])
   abstract fun bindAdyenPaymentFragment(): AdyenPaymentFragment
 
   @FragmentScope

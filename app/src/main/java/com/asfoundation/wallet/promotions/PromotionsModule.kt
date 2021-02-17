@@ -19,6 +19,6 @@ class PromotionsModule {
 
   @Provides
   fun providesPromotionsNavigator(fragment: PromotionsFragment): PromotionsNavigator {
-    return PromotionsNavigator(fragment)
+    return PromotionsNavigator(fragment, fragment.activity!!)
   }
 }
