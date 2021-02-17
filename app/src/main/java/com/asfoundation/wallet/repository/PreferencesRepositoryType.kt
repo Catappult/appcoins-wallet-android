@@ -54,4 +54,12 @@ interface PreferencesRepositoryType {
   fun increaseTimesOnHome()
 
   fun getNumberOfTimesOnHome(): Int
+
+  fun hasBeenInPromotionsScreen(): Boolean
+
+  fun setBeenInPromotionsScreen()
+
+  fun hasSeenVoucherTooltip(): Boolean
+
+  fun setHasSeenVoucherTooltip()
 }
