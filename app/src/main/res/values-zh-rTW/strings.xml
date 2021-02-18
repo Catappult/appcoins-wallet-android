@@ -29,35 +29,35 @@
   <string name="change_button">更改</string>
   <string name="low_storage_error">儲存空間不足</string>
   <string name="no_camera_permission_title">相機授權</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">AppCoins BDS錢包需要訪問您的相機以掃描QR碼。</string>
   <string name="no_camera_available">沒有可用的相機！</string>
-  <string name="ok">Ok</string>
-  <string name="barcode_error_format">Invalid barcode format: %s</string>
+  <string name="ok">瞭解</string>
+  <string name="barcode_error_format">無效的二維條碼格式：%s</string>
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
-  <string name="telegram">Telegram Group</string>
+  <string name="telegram">Telegram社團</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">社群網站</string>
-  <string name="title_opensource">Open Source Development</string>
-  <string name="title_source_code">Source code</string>
-  <string name="title_report_bug">Report a bug</string>
+  <string name="title_opensource">開源開發</string>
+  <string name="title_source_code">程式源碼</string>
+  <string name="title_report_bug">報告錯誤</string>
   <string name="title_support">尋求支援</string>
   <string name="title_permissions">權限</string>
   <string name="permissions_title">權限</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
-  <string name="error_import">Error importing keystore</string>
-  <string name="message_this_is_your_address">My public Ethereum wallet address</string>
-  <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
-  <string name="message_no_backup">No backup, no Ethereum</string>
-  <string name="error_deleting_account">Error deleting wallet</string>
+  <string name="permissions_active_wallet_short">當前錢包</string>
+  <string name="error_import">加載密鑰庫時出錯</string>
+  <string name="message_this_is_your_address">我的以太坊錢包地址</string>
+  <string name="backup_warning_text">由於只有您可以訪問您的資產，因此需要保存密鑰庫的備份，以防止此應用被刪除而造成損失。\n\n您的錢包永遠不會被保存到雲端儲存或標准設備備份中。</string>
+  <string name="message_no_backup">無備份，無以太坊</string>
+  <string name="error_deleting_account">刪除錢包時錯誤</string>
   <string name="title_privacy_policy">隱私權政策</string>
   <string name="title_terms">使用條款</string>
   <string name="title_version">版本</string>
-  <string name="title_tokens">My Tokens</string>
-  <string name="unlock_screen_title_android">Unlock screen</string>
-  <string name="unlock_screen_prompt_android">Please unlock your Android device to continue.</string>
-  <string name="do_manage_make_backup">Did you successfully make a backup?</string>
-  <string name="yes_continue">Yes, continue</string>
+  <string name="title_tokens">我的代幣</string>
+  <string name="unlock_screen_title_android">解除鎖定螢幕畫面</string>
+  <string name="unlock_screen_prompt_android">請解鎖您的Android裝置以繼續。</string>
+  <string name="do_manage_make_backup">您備份成功了嗎？</string>
+  <string name="yes_continue">是的，繼續</string>
   <string name="yes_done_button">Yes, done</string>
   <string name="no_repeat">No, repeat</string>
   <string name="skip">Skip</string>
@@ -78,7 +78,7 @@
   <string name="action_donate">Donate</string>
   <!-- Titles -->
   <string name="title_my_address">接收</string>
-  <string name="title_my_tokens">My Tokens</string>
+  <string name="title_my_tokens">我的代幣</string>
   <string name="title_activity_send">發送</string>
   <string name="title_activity_confirmation">Confirm</string>
   <string name="title_add_token">Add Custom Token</string>
@@ -96,7 +96,7 @@
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_add_account">添加錢包</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
@@ -149,7 +149,7 @@
   <string name="subtitle_transaction_num">Transaction</string>
   <!-- Actions -->
   <string name="action_more_details">More</string>
-  <string name="action_add_wallet">Add wallet</string>
+  <string name="action_add_wallet">添加錢包</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
