@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">AppCoins Wallet</string>
-  <string name="title_send">Send</string>
-  <string name="title_send_with_token">Send %s</string>
-  <string name="title_request">Receive</string>
-  <string name="title_import">Recover Wallet</string>
+  <string name="title_send">發送</string>
+  <string name="title_send_with_token">發送%s</string>
+  <string name="title_request">接收</string>
+  <string name="title_import">恢復錢包</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">我的錢包</string>
   <!-- Strings relatedwalletount creation -->
-  <string name="prompt_password">Password</string>
+  <string name="prompt_password">密碼</string>
   <string name="action_sign_in_short">Create</string>
   <!-- String related to sending -->
-  <string name="prompt_to">To</string>
-  <string name="action_send">Send</string>
-  <string name="error_field_required">This field is required</string>
+  <string name="prompt_to">至</string>
+  <string name="action_send">發送</string>
+  <string name="error_field_required">欄位為必填</string>
   <string name="action_settings">設定</string>
-  <string name="title_account_list">Wallets</string>
-  <string name="cancel">cancel</string>
-  <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
-  <string name="action_import">Recover</string>
-  <string name="copy">Copy to clipboard</string>
+  <string name="title_account_list">錢包</string>
+  <string name="cancel">取消</string>
+  <string name="confirm_delete_account">請確保您已備份此錢包。</string>
+  <string name="action_import">恢復</string>
+  <string name="copy">複製到剪貼簿</string>
   <string name="close">關閉</string>
   <string name="title_activity_settings">設定</string>
   <string name="network_label">網絡</string>
-  <string name="credits">Credits</string>
-  <string name="label_new">New</string>
-  <string name="got_it_button">GOT IT</string>
-  <string name="change_button">CHANGE</string>
-  <string name="low_storage_error">Not enough storage space</string>
-  <string name="no_camera_permission_title">Camera Permission</string>
+  <string name="credits">程式來源</string>
+  <string name="label_new">新</string>
+  <string name="got_it_button">瞭解</string>
+  <string name="change_button">更改</string>
+  <string name="low_storage_error">儲存空間不足</string>
+  <string name="no_camera_permission_title">相機授權</string>
   <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
-  <string name="no_camera_available">No camera available!</string>
+  <string name="no_camera_available">沒有可用的相機！</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Invalid barcode format: %s</string>
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram Group</string>
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="title_community">Community</string>
+  <string name="title_community">社群網站</string>
   <string name="title_opensource">Open Source Development</string>
   <string name="title_source_code">Source code</string>
   <string name="title_report_bug">Report a bug</string>
   <string name="title_support">尋求支援</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
+  <string name="title_permissions">權限</string>
+  <string name="permissions_title">權限</string>
   <string name="permissions_active_wallet_short">Current active wallet</string>
   <string name="error_import">Error importing keystore</string>
   <string name="message_this_is_your_address">My public Ethereum wallet address</string>
   <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
   <string name="message_no_backup">No backup, no Ethereum</string>
   <string name="error_deleting_account">Error deleting wallet</string>
-  <string name="title_privacy_policy">Privacy Policy</string>
-  <string name="title_terms">Terms and Conditions</string>
-  <string name="title_version">Version</string>
+  <string name="title_privacy_policy">隱私權政策</string>
+  <string name="title_terms">使用條款</string>
+  <string name="title_version">版本</string>
   <string name="title_tokens">My Tokens</string>
   <string name="unlock_screen_title_android">Unlock screen</string>
   <string name="unlock_screen_prompt_android">Please unlock your Android device to continue.</string>
@@ -72,14 +72,14 @@
   <string name="already_have_account">Already have a wallet?</string>
   <string name="action_create_new_account">Create new wallet</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
+  <string name="action_backup_wallet">備份錢包</string>
   <string name="no_tokens">You haven\'t added any custom token yet.</string>
   <string name="title_email">Email us</string>
   <string name="action_donate">Donate</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
+  <string name="title_my_address">接收</string>
   <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
+  <string name="title_activity_send">發送</string>
   <string name="title_activity_confirmation">Confirm</string>
   <string name="title_add_token">Add Custom Token</string>
   <string name="title_airdrop">Airdrop</string>
@@ -130,7 +130,7 @@
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
-  <string name="label_to">To</string>
+  <string name="label_to">至</string>
   <string name="label_gas_limit">Gas Limit</string>
   <string name="label_gas_price">Gas Price</string>
   <string name="label_network_fee">Network Fee</string>
@@ -153,7 +153,7 @@
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
-  <string name="action_wallets">Wallets</string>
+  <string name="action_wallets">錢包</string>
   <string name="action_next">Next</string>
   <string name="action_edit">Edit</string>
   <string name="action_save">Save</string>
@@ -253,7 +253,7 @@
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Category</string>
   <string name="transaction_details_label">Details</string>
-  <string name="transaction_to_label">To</string>
+  <string name="transaction_to_label">至</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
   <string name="dialog_credit_card_number">Card Number</string>
@@ -415,7 +415,7 @@
   <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
-  <string name="password">Password</string>
+  <string name="password">密碼</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
   <string name="no_thanks_button">No, thanks</string>
@@ -425,8 +425,8 @@
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions">使用條款</string>
+  <string name="privacy_policy">隱私權政策</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
@@ -587,9 +587,9 @@
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
   <string name="backup_button">BACKUP</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">備份錢包</string>
   <string name="backup_password_title">Encrypt your wallet (optional)</string>
-  <string name="backup_password">Password</string>
+  <string name="backup_password">密碼</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
@@ -608,7 +608,7 @@
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
   <string name="backup_save_button">SAVE BACKUP</string>
-  <string name="import_wallet_title">Recover Wallet</string>
+  <string name="import_wallet_title">恢復錢包</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
   <string name="import_wallet_from_file_title">Or recover from file</string>
@@ -630,7 +630,7 @@
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <!--Wallets Management-->
-  <string name="wallets_title">Wallets</string>
+  <string name="wallets_title">錢包</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
   <string name="wallets_active_wallet_title">Active Wallet</string>
   <plurals name="wallets_bottom_wallets_title">
@@ -643,7 +643,7 @@
   <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
   <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
   <string name="wallets_2nd_view_create_button">CREATE NEW</string>
-  <string name="wallet_view_copy_button">COPY</string>
+  <string name="wallet_view_copy_button">複製</string>
   <string name="wallet_view_share_button">SHARE</string>
   <string name="wallet_view_total_balance_title">Total Balance</string>
   <string name="wallet_view_remove_button">REMOVE WALLET</string>
@@ -662,8 +662,8 @@
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transfer Funds</string>
-  <string name="transfer_send_tab_title">Send</string>
-  <string name="transfer_receive_tab_title">Receive</string>
+  <string name="transfer_send_tab_title">發送</string>
+  <string name="transfer_receive_tab_title">接收</string>
   <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="transfer_send_recipient_title">Wallet Address</string>
   <string name="transfer_send_token_title">Token:</string>
@@ -787,8 +787,8 @@
   <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
   <string name="carrier_billing_help_1">需要任何協助嗎？</string>
   <string name="carrier_billing_help_2_button">Contact Support</string>
-  <string name="carrier_billing_terms_button">Terms and Conditions</string>
-  <string name="carrier_billing_privacy_button">Privacy Policy</string>
+  <string name="carrier_billing_terms_button">使用條款</string>
+  <string name="carrier_billing_privacy_button">隱私權政策</string>
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Manage cards</string>
