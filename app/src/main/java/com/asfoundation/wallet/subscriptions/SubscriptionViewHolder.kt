@@ -21,7 +21,7 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
       app_name.text = item.appName
       app_icon.transitionName = "app_name_transition $position"
 
-      if ((item.status == Status.CANCELED || item.status == Status.PAUSED) && item.expire != null) {
+      if ((item.status == Status.CANCELED || item.status == Status.PAUSED)) {
         showToExpireInfo(this, item)
       } else {
         showPriceInfo(this, item)
@@ -44,9 +44,10 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
     view.expires_on.visibility = View.GONE
     view.recurrence_value.visibility = View.VISIBLE
 
-    view.recurrence_value.text =
-        item.period?.mapToSubsFrequency(view.context,
-            view.context.getString(R.string.value_fiat, formattedAmount, item.fiatSymbol))
+    item.period?.let {
+      view.recurrence_value.text = it.mapToSubsFrequency(view.context,
+          view.context.getString(R.string.value_fiat, formattedAmount, item.fiatSymbol))
+    }
   }
 
   private fun showToExpireInfo(view: View, item: SubscriptionItem) {
@@ -54,7 +55,10 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
     view.expires_on.visibility = View.VISIBLE
 
     val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
-    view.expires_on.text = view.context.getString(R.string.subscriptions_expiration_body,
-        dateFormat.format(item.expire!!))
+
+    item.expire?.let {
+      view.expires_on.text = view.context.getString(R.string.subscriptions_expiration_body,
+          dateFormat.format(it))
+    }
   }
 }

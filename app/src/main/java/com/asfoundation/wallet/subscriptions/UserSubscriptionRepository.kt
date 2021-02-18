@@ -26,11 +26,9 @@ class UserSubscriptionRepository(private val subscriptionApi: UserSubscriptionAp
 
   private fun getDbUserSubscriptions(walletAddress: String): Observable<SubscriptionModel> {
     return Observable.zip(local.getSubscriptions(walletAddress),
-        local.getSubscriptions(walletAddress, EXPIRED, 6),
+        local.getSubscriptions(walletAddress, EXPIRED, EXPIRED_SUBS_LIMIT),
         BiFunction { active: UserSubscriptionsListResponse, expired: UserSubscriptionsListResponse ->
-          val activeModel = subscriptionsMapper.mapSubscriptionList(active)
-          val expiredModel = subscriptionsMapper.mapSubscriptionList(expired)
-          subscriptionsMapper.mapToSubscriptionModel(activeModel, expiredModel, true)
+          subscriptionsMapper.mapToSubscriptionModel(active, expired, true)
         })
         .onErrorReturn {
           it.printStackTrace()
@@ -44,11 +42,10 @@ class UserSubscriptionRepository(private val subscriptionApi: UserSubscriptionAp
           val languageTag = Locale.getDefault()
               .toLanguageTag()
           Observable.zip(getUserSubscriptionAndSave(languageTag, walletAddress, it),
-              getUserSubscriptionAndSave(languageTag, walletAddress, it, EXPIRED, 6),
+              getUserSubscriptionAndSave(languageTag, walletAddress, it, EXPIRED,
+                  EXPIRED_SUBS_LIMIT),
               BiFunction { active: UserSubscriptionsListResponse, expired: UserSubscriptionsListResponse ->
-                val activeModel = subscriptionsMapper.mapSubscriptionList(active)
-                val expiredModel = subscriptionsMapper.mapSubscriptionList(expired)
-                subscriptionsMapper.mapToSubscriptionModel(activeModel, expiredModel)
+                subscriptionsMapper.mapToSubscriptionModel(active, expired)
               })
         }
         .onErrorReturn {
@@ -64,5 +61,9 @@ class UserSubscriptionRepository(private val subscriptionApi: UserSubscriptionAp
         limit)
         .doOnSuccess { local.insertSubscriptions(it.items, walletAddress) }
         .toObservable()
+  }
+
+  private companion object {
+    private const val EXPIRED_SUBS_LIMIT = 6
   }
 }

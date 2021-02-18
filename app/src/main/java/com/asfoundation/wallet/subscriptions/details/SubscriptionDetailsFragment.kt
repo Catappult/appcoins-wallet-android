@@ -78,13 +78,11 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
     setBillingInfo(subscriptionItem)
 
-    if (isCanceled(subscriptionItem)) {
+    if (subscriptionItem.status == Status.CANCELED) {
       setCanceledInfo(subscriptionItem)
     } else {
       cancel_subscription.visibility = View.VISIBLE
-      if (subscriptionItem.renewal != null) {
-        next_payment_value.text = getDateString(subscriptionItem.renewal)
-      }
+      subscriptionItem.renewal?.let { next_payment_value.text = formatDate(it) }
     }
   }
 
@@ -110,8 +108,8 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     status.text = getString(R.string.subscriptions_expired_title)
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
 
-    last_bill_value.text = subscriptionItem.ended?.let { getDateString(it) }
-    start_date_value.text = subscriptionItem.started?.let { getDateString(it) }
+    subscriptionItem.ended?.let { last_bill_value.text = formatDate(it) }
+    subscriptionItem.started?.let { start_date_value.text = formatDate(it) }
     layout_expired_subscription_content.payment_method_value.text =
         subscriptionItem.paymentMethod
   }
@@ -124,8 +122,8 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
     val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
 
-    expires_on.text = subscriptionItem.expire?.let {
-      getString(R.string.subscriptions_details_cancelled_body,
+    subscriptionItem.expire?.let {
+      expires_on.text = getString(R.string.subscriptions_details_cancelled_body,
           dateFormat.format(it))
     }
 
@@ -138,7 +136,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     super.onDestroyView()
   }
 
-  private fun getDateString(date: Date): String {
+  private fun formatDate(date: Date): String {
     return DateFormat.format("dd MMM yyyy", date)
         .toString()
   }
@@ -153,10 +151,6 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     GlideApp.with(context)
         .load(paymentIcon)
         .into(layout_active_subscription_content.payment_method_icon)
-  }
-
-  private fun isCanceled(subscriptionItem: SubscriptionItem): Boolean {
-    return (subscriptionItem.status == Status.CANCELED) && subscriptionItem.expire != null
   }
 
   private val target = object : Target<Bitmap> {

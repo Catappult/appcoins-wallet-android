@@ -25,15 +25,18 @@ class UserSubscriptionsLocalData(private val userSubscriptionsDao: UserSubscript
   private fun buildGetSubscriptionQuery(walletAddress: String,
                                         subscriptionSubStatus: SubscriptionSubStatus?,
                                         limit: Int?): Single<List<UserSubscriptionEntity>> {
-    return if (subscriptionSubStatus != null && limit != null) {
-      userSubscriptionsDao.getSubscriptionsBySubStatusWithLimit(walletAddress,
-          subscriptionSubStatus, limit)
-    } else if (subscriptionSubStatus != null && limit == null) {
-      userSubscriptionsDao.getSubscriptionsByStatus(walletAddress, subscriptionSubStatus)
-    } else if (subscriptionSubStatus == null && limit != null) {
-      userSubscriptionsDao.getSubscriptionsWithLimit(walletAddress, limit)
-    } else {
-      userSubscriptionsDao.getSubscriptions(walletAddress)
+    return when {
+      subscriptionSubStatus != null && limit != null -> {
+        userSubscriptionsDao.getSubscriptionsBySubStatusWithLimit(walletAddress,
+            subscriptionSubStatus, limit)
+      }
+      subscriptionSubStatus != null && limit == null -> {
+        userSubscriptionsDao.getSubscriptionsByStatus(walletAddress, subscriptionSubStatus)
+      }
+      subscriptionSubStatus == null && limit != null -> {
+        userSubscriptionsDao.getSubscriptionsWithLimit(walletAddress, limit)
+      }
+      else -> userSubscriptionsDao.getSubscriptions(walletAddress)
     }
   }
 

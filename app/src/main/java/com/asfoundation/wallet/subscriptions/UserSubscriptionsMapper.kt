@@ -23,16 +23,20 @@ class UserSubscriptionsMapper {
         })
   }
 
-  fun mapToSubscriptionModel(active: UserSubscriptionListModel,
-                             expired: UserSubscriptionListModel,
+  fun mapToSubscriptionModel(active: UserSubscriptionsListResponse,
+                             expired: UserSubscriptionsListResponse,
                              fromCache: Boolean = false): SubscriptionModel {
-    return if (active.error != null && expired.error != null) {
-      SubscriptionModel(true, fromCache, active.error)
-    } else if (active.userSubscriptionItems.isEmpty() && expired.userSubscriptionItems.isEmpty()) {
-      SubscriptionModel(true, fromCache, null)
-    } else {
-      SubscriptionModel(filterActive(active.userSubscriptionItems),
-          expired.userSubscriptionItems, fromCache = fromCache)
+    val activeModel = mapSubscriptionList(active)
+    val expiredModel = mapSubscriptionList(expired)
+    return when {
+      activeModel.error != null && expiredModel.error != null -> {
+        SubscriptionModel(true, fromCache, activeModel.error)
+      }
+      activeModel.userSubscriptionItems.isEmpty() && expiredModel.userSubscriptionItems.isEmpty() -> {
+        SubscriptionModel(true, fromCache, null)
+      }
+      else -> SubscriptionModel(filterActive(activeModel.userSubscriptionItems),
+          expiredModel.userSubscriptionItems, fromCache = fromCache)
     }
   }
 
