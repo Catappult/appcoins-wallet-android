@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2021-02-18 07:33\n"
+"PO-Revision-Date: 2021-02-18 08:33\n"
 
 #. Card Title
 #:
@@ -55,22 +55,22 @@ msgstr "除了AppCoins點數外，您在{1}中的所有購買還會獲得額外�
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "除了AppCoins點數外，您在{1}中的首次購買還會獲得額外的{0}%獎勵。"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "因為您在{0}進行了首次購買。"
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "除了AppCoins點數外，您在{1}中的當日首購還會獲得額外的{0}%獎勵。"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "因為您在{0}中的當日首購。"
 
 #. Title for bonus receipts.
 #:
@@ -80,7 +80,7 @@ msgstr "+{0} AppCoins點數！"
 #. Card - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "當您在{3}中消費{1} {2}，即可獲得額外的{0} AppCoins點數。"
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -90,15 +90,15 @@ msgstr "因為您在{2}購買了{0} {1} 。"
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "當您在AppCoins的應用程式及遊戲中消費{1} {2}，即可獲得額外的{0} AppCoins點數。"
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "因為您在AppCoins的應用程式及遊戲中花費了{0} {1}。"
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
-msgstr ""
+msgstr "除了AppCoins點數外，您的所有購買還會獲得額外的{0}%獎勵。"
 
