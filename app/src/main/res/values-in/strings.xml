@@ -838,6 +838,8 @@
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">Bonus %1$s: Kredit AppCoins sebesar %2$s</string>
   <string name="perks_purchases_disclaimer_body">Semua pembelian in-app dan top up yang dilakukan dengan metode pembelian selain Kredit AppCoins akan memenuhi syarat untuk meningkatkan level bonus Anda dan menerima hadiah.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Kunci sidik jari</string>
   <string name="fingerprint_failed_title">Otentikasi gagal!</string>
