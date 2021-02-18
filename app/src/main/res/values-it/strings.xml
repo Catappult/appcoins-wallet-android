@@ -845,6 +845,8 @@
   <string name="perks_level_up_level_tag">Liv. %s</string>
   <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s in AppCoins Credits</string>
   <string name="perks_purchases_disclaimer_body">Tutti gli acquisti e le ricariche in-app effettuati con qualsiasi metodo (eccetto gli AppCoins Credits) sono validi per aumentare il tuo livello bonus e ricevere premi.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Blocco impronta digitale</string>
   <string name="fingerprint_failed_title">Autenticazione fallita!</string>
