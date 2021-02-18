@@ -510,6 +510,7 @@
   <string name="purchase_error_unverified_wallet">သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳၿပီးေနာက္ ဝယ္ယူမႈကို ၿပီးေအာင္လုပ္ၾကည့္ပါ။</string>
   <string name="purchase_error_try_other_method">အိုး&#8230; တစ္ခုခု ျဖစ္ေနပါသည္။ အျခားေငြေပးေခ်ရန္ နည္းလမ္းတစ္ခုျဖင့္ စမ္းၾကည့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_error_try_other_amount">သင္ေငြျဖည့္သည့္ပမာဏ မွန္ကန္ေၾကာင္း ေသခ်ာပါသလား။ အျခားတစ္ခုျဖင့္ စမ္းၾကည့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
