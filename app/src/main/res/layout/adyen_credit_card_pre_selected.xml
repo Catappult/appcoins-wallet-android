@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:animateLayoutChanges="true"
     android:theme="@style/AdyenMaterialAppTheme"
     >
   <RelativeLayout
@@ -13,7 +12,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:animateLayoutChanges="true"
       >
     <ProgressBar
         android:id="@+id/fragment_credit_card_authorization_progress_bar"
@@ -53,12 +51,13 @@
             app:layout_constraintTop_toTopOf="parent"
             />
         <ScrollView
-            android:id="@+id/payment_scroll"
+            android:id="@+id/cc_info_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="23dp"
             android:layout_marginEnd="16dp"
+            android:animateLayoutChanges="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
@@ -111,7 +110,7 @@
             android:textColor="@color/text_button_color"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/payment_scroll"
+            app:layout_constraintTop_toBottomOf="@+id/cc_info_view"
             />
 
         <include

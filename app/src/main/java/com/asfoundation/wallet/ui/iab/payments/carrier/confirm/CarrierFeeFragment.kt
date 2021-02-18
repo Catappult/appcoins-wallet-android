@@ -17,7 +17,6 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.getStringSpanned
-import com.asfoundation.wallet.util.withNoLayoutTransition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -83,8 +82,8 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
     val fiat =
         "${formatter.formatCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)} $currency"
     val appc = "${
-      formatter.formatCurrency(appcAmount,
-          WalletCurrency.APPCOINS)
+    formatter.formatCurrency(appcAmount,
+        WalletCurrency.APPCOINS)
     } ${WalletCurrency.APPCOINS.symbol}"
     fiat_price_text.text = fiat
     appc_price_text.text = appc
@@ -101,14 +100,12 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
         .load(carrierImage)
         .into(carrier_image)
 
-    purchase_bonus.withNoLayoutTransition {
-      if (bonusAmount != null) {
-        purchase_bonus.visibility = View.VISIBLE
-        purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
-        purchase_bonus.hideSkeleton()
-      } else {
-        purchase_bonus.visibility = View.GONE
-      }
+    if (bonusAmount != null) {
+      purchase_bonus.visibility = View.VISIBLE
+      purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+      purchase_bonus.hideSkeleton()
+    } else {
+      purchase_bonus.visibility = View.GONE
     }
   }
 

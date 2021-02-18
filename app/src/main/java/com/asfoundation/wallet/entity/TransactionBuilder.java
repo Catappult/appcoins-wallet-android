@@ -468,9 +468,10 @@ public class TransactionBuilder implements Parcelable {
   @NotNull public static TransactionBuilder createVoucherTransaction(@NotNull String sku,
       @NotNull String title, @NotNull BigDecimal fiatAmount, @NotNull String fiatCurrency,
       @NotNull String fiatSymbol, @NotNull BigDecimal appcAmount, @NotNull String packageName) {
-    //TODO change type to "VOUCHER" when api is ready
+    //TODO change type to "VOUCHER" when api is ready. Use enum instead after API implementation
+    // is complete
     return new TransactionBuilder(fiatSymbol, null, null,
         "0x123C2124b7F2C18b502296bA884d9CDe201f1c32", fiatAmount, fiatCurrency, fiatSymbol,
-        appcAmount, sku, 0, "INAPP", null, packageName, null, null, null, null, title);
+        appcAmount, sku, 0, "VOUCHER", null, packageName, null, null, null, null, title);
   }
 }

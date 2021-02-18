@@ -75,8 +75,6 @@ interface IabView {
 
   fun showVerification()
 
-  fun getSupportClicks(): Observable<Any>
-
   fun launchPerkBonusAndGamificationService(address: String)
 
   fun showAuthenticationActivity()

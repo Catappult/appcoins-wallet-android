@@ -5,13 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.util.concurrent.TimeUnit
 
 class IabPresenter(private val view: IabView,
                    private val networkScheduler: Scheduler,
@@ -19,7 +17,6 @@ class IabPresenter(private val view: IabView,
                    private val disposable: CompositeDisposable,
                    private val billingAnalytics: BillingAnalytics,
                    private val iabInteract: IabInteract,
-                   private val logger: Logger,
                    private val transaction: TransactionBuilder?) {
 
   private var firstImpression = true
@@ -42,16 +39,6 @@ class IabPresenter(private val view: IabView,
   fun onResume() {
     handleAutoUpdate()
     handleUserRegistration()
-    handleSupportClicks()
-  }
-
-  private fun handleSupportClicks() {
-    disposable.add(view.getSupportClicks()
-        .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .observeOn(viewScheduler)
-        .doOnNext { iabInteract.showSupport() }
-        .subscribe({}, { it.printStackTrace() })
-    )
   }
 
   fun handlePerkNotifications(bundle: Bundle) {

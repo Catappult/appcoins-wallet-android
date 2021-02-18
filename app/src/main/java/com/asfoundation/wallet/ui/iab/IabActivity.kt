@@ -30,7 +30,6 @@ import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -39,7 +38,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_iab.*
-import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -58,8 +56,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   @Inject
   lateinit var logger: Logger
 
-  private var walletsBottomSheet: BottomSheetBehavior<View>? = null
   private lateinit var presenter: IabPresenter
+  private var walletsBottomSheet: BottomSheetBehavior<View>? = null
+  private var shouldUseBottomSheet = false
   private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
   private var isBds: Boolean = false
@@ -77,16 +76,20 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     results = PublishRelay.create()
     transaction = intent.getParcelableExtra(TRANSACTION_EXTRA)
     authenticationResultSubject = PublishSubject.create()
-    val isVoucherTransaction = transaction!!.type == "VOUCHER"
-    setContentView(getLayoutOf(isVoucherTransaction))
+    shouldUseBottomSheet = shouldUseBottomSheet(transaction!!.type)
+    setContentView(getLayoutOf(shouldUseBottomSheet))
     isBds = intent.getBooleanExtra(IS_BDS_EXTRA, false)
     developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
     uri = intent.getStringExtra(URI)
     isBackEnable = true
-    if (isVoucherTransaction) showBottomSheet()
+    if (shouldUseBottomSheet) showBottomSheet()
     presenter = IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
-        CompositeDisposable(), billingAnalytics, iabInteract, logger, transaction)
+        CompositeDisposable(), billingAnalytics, iabInteract, transaction)
     presenter.present(savedInstanceState)
+  }
+
+  private fun shouldUseBottomSheet(type: String?): Boolean {
+    return type == "VOUCHER"
   }
 
   private fun getLayoutOf(isVoucherTransaction: Boolean): Int {
@@ -212,7 +215,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(paymentType, bonus, isPreselected, gamificationLevel,
-                transactionData))
+                transactionData, shouldUseBottomSheet))
         .commit()
   }
 
@@ -260,7 +263,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getSkuDescription(), isBds, isDonation, developerPayload, uri,
-            intent.dataString))
+            intent.dataString, shouldUseBottomSheet))
         .commit()
   }
 
@@ -317,9 +320,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container, IabUpdateRequiredFragment())
         .commit()
   }
-
-  override fun getSupportClicks(): Observable<Any> =
-      Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
 
   override fun launchPerkBonusAndGamificationService(address: String) {
     PerkBonusAndGamificationService.buildService(this, address)
