@@ -510,6 +510,7 @@
   <string name="purchase_error_unverified_wallet">Попытайтесь завершить покупку после подтверждения вашего кошелька.</string>
   <string name="purchase_error_try_other_method">Ой&#8230; Что-то случилось! Пожалуйста, попробуйте другой метод оплаты, или свяжитесь с нами.</string>
   <string name="purchase_error_try_other_amount">Вы уверены, что введённая сумма пополнения верна? Пожалуйста, попробуйте другую сумму или свяжитесь с нами!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
