@@ -14,6 +14,7 @@ import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFIC
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.VOUCHER_ID
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.gamification.CurrentLevelInfo
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -61,6 +62,9 @@ class PromotionsInteractorTest {
   @Mock
   lateinit var mapper: GamificationMapper
 
+  @Mock
+  lateinit var preferencesRepositoryType: PreferencesRepositoryType
+
   private val testWalletOrigin = WalletOrigin.APTOIDE
 
   private lateinit var vouchersRepository: VouchersRepository
@@ -93,7 +97,7 @@ class PromotionsInteractorTest {
     interactor =
         PromotionsInteractor(referralInteractor, gamificationInteractor, promotionsRepository,
             vouchersRepository, findDefaultWalletInteractor, userLocalData, analyticsSetup,
-            mapper)
+            mapper, preferencesRepositoryType)
     Mockito.`when`(findDefaultWalletInteractor.find())
         .thenReturn(Single.just(Wallet(TEST_WALLET_ADDRESS)))
     Mockito.`when`(promotionsRepository.getUserStatus(TEST_WALLET_ADDRESS))
