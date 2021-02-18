@@ -396,11 +396,16 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                 Single.just(fraudCheckIds)
                     .observeOn(viewScheduler)
                     .doOnSuccess {
+                      val suggestOtherPaymentMethod = it.contains(PAYMENT_METHOD_CHECK_ID)
+                      val suggestOtherAmount = it.contains(HIGH_AMOUNT_CHECK_ID)
                       val fraudError = when {
-                        it.contains(PAYMENT_METHOD_CHECK_ID) -> {
+                        suggestOtherPaymentMethod && suggestOtherAmount -> {
+                          R.string.purchase_error_try_other_amount_or_method
+                        }
+                        suggestOtherPaymentMethod -> {
                           R.string.purchase_error_try_other_method
                         }
-                        it.contains(HIGH_AMOUNT_CHECK_ID) -> {
+                        suggestOtherAmount -> {
                           R.string.purchase_error_try_other_amount
                         }
                         else -> error
