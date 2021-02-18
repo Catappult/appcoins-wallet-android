@@ -510,6 +510,7 @@
   <string name="purchase_error_unverified_wallet">Versuchen Sie den Kauf abzuschliessen nach dem Sie ihr Wallet verifiziert haben.</string>
   <string name="purchase_error_try_other_method">Upps&#8230; Etwas ist schief gelaufen! Bitte versuchen Sie eine andere Bezahlmethode oder nehmen Sie Kontakt zu uns auf.</string>
   <string name="purchase_error_try_other_amount">Sind Sie sicher das ihr Einzahlungsbetrag korrekt ist? Bitte probieren Sie einen anderen Betrag oder nehmen Sie Kontakt zu uns auf!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
