@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
+  <string name="iab_wallet_not_installed_popup_body">要購買此商品，您需要安裝%s。</string>
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">關閉</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">您需要透過AppCoins錢包進行購買。請從Aptoide或Play Store下載應用程式，然後繼續完成購買！</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">瞭解！</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">您需要AppCoins錢包！</string>
+  <string name="poa_wallet_not_installed_notification_body">要獲得獎勵，您需要AppCoins錢包。</string>
   <!-- SDK - Pay as a guest-->
   <string name="iab_pay_as_guest_title">以訪客身份付款</string>
   <string name="iab_pay_as_guest_credit_card">信用卡</string>
@@ -22,7 +22,7 @@
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">CHANGE CARD</string>
   <string name="iab_pay_with_wallet_title">透過AppCoins錢包付款</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
+  <string name="iab_pay_with_wallet_reward_title">獲得高達%s%% 獎勵！</string>
   <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
   <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
   <string name="iab_best_deal">BEST DEAL</string>
