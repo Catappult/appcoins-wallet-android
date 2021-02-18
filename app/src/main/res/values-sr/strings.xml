@@ -852,6 +852,8 @@
   <string name="perks_level_up_level_tag">N.</string>
   <string name="perks_bonus_purchase_flow">%1$s bonusa: %2$s u AppCoins Credits</string>
   <string name="perks_purchases_disclaimer_body">Sve kupovine u aplikacijama i dopune obavljene bilo kojim načinom kupovine osim AppCoins Credits ispunjavaće uslove za povećanje nivoa bonusa i dobijanje nagrada.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Zaključavanje pomoću otiska prsta</string>
   <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
