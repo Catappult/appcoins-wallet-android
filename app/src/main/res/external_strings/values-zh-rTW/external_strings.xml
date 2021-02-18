@@ -36,7 +36,7 @@
   <string name="iab_purchase_support_2_link">聯繫支援</string>
   <!-- SDK - Common -->
   <string name="next_button">繼續</string>
-  <string name="cancel_button">CANCEL</string>
+  <string name="cancel_button">取消</string>
   <string name="buy_button">購買</string>
   <string name="iab_wallet_not_installed_popup_close_install">安裝AppCoins Wallet</string>
   <string name="button_ok">OK</string>
