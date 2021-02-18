@@ -60,8 +60,8 @@
   <string name="yes_continue">是的，繼續</string>
   <string name="yes_done_button">是的，完成</string>
   <string name="no_repeat">不，請再做一次</string>
-  <string name="skip">跳過</string>
-  <string name="skip_with_arrow">跳過 &gt;</string>
+  <string name="skip">略過</string>
+  <string name="skip_with_arrow">略過 &gt;</string>
   <string name="root_title">裝置安全性受損</string>
   <string name="root_body">任何取得Root權限的應用程式都可以訪問AppCoins錢包的鑰匙串並竊取您的錢包！ 立即擦拭此錢包並在安全的設備上恢復。</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -125,8 +125,8 @@
   <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
   <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
   <string name="intro_wallet_created_short">成功創建錢包！</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">跳過</string>
+  <string name="intro_agree_terms_and_conditions_body">點擊略過即代表您瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
+  <string name="intro_skip_button">略過</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
@@ -148,15 +148,15 @@
   <string name="subtitle_gas_fee">手續費</string>
   <string name="subtitle_transaction_num">Transaction</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
+  <string name="action_more_details">更多</string>
   <string name="action_add_wallet">添加錢包</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">錢包</string>
-  <string name="action_next">Next</string>
-  <string name="action_edit">Edit</string>
-  <string name="action_save">Save</string>
+  <string name="action_next">下一步</string>
+  <string name="action_edit">編輯</string>
+  <string name="action_save">儲存</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">Could not generate QR code.</string>
   <string name="error_invalid_address">無效地址</string>
@@ -172,7 +172,7 @@
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
-  <string name="title_dialog_sending">Sending...</string>
+  <string name="title_dialog_sending">傳送中...</string>
   <string name="welcome.erc20.label.title">ERC20 Compatible</string>
   <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
   <string name="scan_qr">Get address from QR Code</string>
@@ -198,7 +198,7 @@
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
   <string name="activity_iab_error_title">錯誤</string>
   <string name="activity_iab_error_message">An error occurred, please try again</string>
-  <string name="action_try">try</string>
+  <string name="action_try">嘗試</string>
   <string name="activity_transactions_learn_more">瞭解更多</string>
   <string name="activity_iab_no_funds_message">沒有足夠的以太幣和APPC</string>
   <string name="activity_iab_no_ethereum_funds_message">沒有足夠的以太幣</string>
@@ -208,14 +208,14 @@
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">更改卡片</string>
   <string name="activity_iab_fees">手續費</string>
   <string name="notification_ongoing_poa">正在處理您的獎勵</string>
   <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
   <string name="notification_poa_limit_reached">You reached your daily rewards limit. ⏰ Come back in %1$sh%2$sm and try again!</string>
   <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
-  <string name="notification_no_network_poa">No network connection</string>
+  <string name="notification_no_network_poa">沒有網路連線</string>
   <string name="notification_error_poa">An error has occurred</string>
   <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
   <string name="notification_cancelled_poa">Reward cancelled</string>
@@ -250,8 +250,8 @@
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
   <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
   <string name="ellipsize">\u0020• • •</string>
-  <string name="transaction_status_label">Status</string>
-  <string name="transaction_category_label">Category</string>
+  <string name="transaction_status_label">狀態</string>
+  <string name="transaction_category_label">類別</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">至</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
@@ -268,7 +268,7 @@
   <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">無線傳送</string>
-  <string name="activity_airdrop_success_message">Airdrop completed</string>
+  <string name="activity_airdrop_success_message">無線傳送完成</string>
   <string name="activity_airdrop_generic_error_message">An error has occurred</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
@@ -281,7 +281,7 @@
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Spend your AppCoins</string>
   <!-- Billing -->
-  <string name="action_skip_backup_wallet">SKIP BACKUP</string>
+  <string name="action_skip_backup_wallet">略過備份</string>
   <string name="item_donation">Donation</string>
   <!-- Gamification -->
   <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
@@ -289,7 +289,7 @@
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_APPCapps_button">應用程式和遊戲</string>
   <string name="gamification_level_header">Congrats, you\'re %s!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">EARNED:</string>
