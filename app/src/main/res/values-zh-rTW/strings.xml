@@ -100,40 +100,40 @@
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
+  <string name="dialog_message">設置密碼以加密您的錢包</string>
   <string name="toast_message_wallet_imported">錢包已恢復</string>
   <string name="toast_message_wallet_exported">備份已創建</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="toast_qr_code_no_address">二維條碼地址無效</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[安全私密]]></string>
+  <string name="intro_title_third_page">簡單易用</string>
+  <string name="intro_message_first_page">歡迎體驗應用程式經濟的革命。</string>
+  <string name="intro_message_second_page">私鑰永遠不會離開您的裝置。</string>
+  <string name="intro_message_third_page">透過APPC處理所有應用程式內購和獎勵。</string>
   <string name="intro_1_title">AppCoins Wallet</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
+  <string name="intro_1_body">為您的應用程式內購而生。</string>
+  <string name="intro_2_title">花費更少，獲得更多</string>
+  <string name="intro_2_body">購買喜愛的應用程式和遊戲中的物品，同時獲得獎勵。</string>
+  <string name="intro_3_title">簡單易用</string>
+  <string name="intro_3_body">透過您喜歡的付款方式處理所有的應用程式內購。</string>
+  <string name="intro_4_title">安全私密</string>
   <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
-  <string name="intro_5_title">Get Free AppCoins Credits!</string>
+  <string name="intro_5_title">獲得免費AppCoins點數！</string>
   <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
   <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_wallet_created_short">成功創建錢包！</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_skip_button">跳過</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
   <string name="label_to">至</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_gas_limit">Gas最大數量</string>
+  <string name="label_gas_price">Gas價格</string>
+  <string name="label_network_fee">網路費</string>
   <string name="button_ok">OK</string>
   <string name="hint_recipient_address">Recipient Address</string>
   <string name="hint_amount">Amount</string>
@@ -141,11 +141,11 @@
   <string name="hint_contract_address">Contract address</string>
   <string name="hint_contract_symbol">Symbol</string>
   <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
+  <string name="button_cancel">取消</string>
   <string name="button_yes">YES</string>
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
+  <string name="subtitle_gas_fee">手續費</string>
   <string name="subtitle_transaction_num">Transaction</string>
   <!-- Actions -->
   <string name="action_more_details">More</string>
@@ -838,6 +838,8 @@
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
   <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Fingerprint lock</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
