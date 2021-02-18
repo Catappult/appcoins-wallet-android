@@ -20,7 +20,7 @@
   <string name="iab_card_expiry">到期日 月/年</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
-  <string name="iab_change_card_button">CHANGE CARD</string>
+  <string name="iab_change_card_button">更改卡片</string>
   <string name="iab_pay_with_wallet_title">透過AppCoins錢包付款</string>
   <string name="iab_pay_with_wallet_reward_title">獲得高達%s%% 獎勵！</string>
   <string name="iab_pay_with_wallet_reward_body">您將在此購買中獲得%s 獎勵。</string>
