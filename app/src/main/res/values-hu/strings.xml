@@ -510,6 +510,7 @@
   <string name="purchase_error_unverified_wallet">Próbáld meg a tárca hitelesítése után véghezvinni a vásárlást.</string>
   <string name="purchase_error_try_other_method">Hoppá&#8230; Valami nincs rendben! Kérjük, próbálkozz egy másik fizetési móddal vagy lépj velünk kapcsolatba.</string>
   <string name="purchase_error_try_other_amount">Biztos vagy benne, hogy helyes a feltöltés összege? Próbálkozz egy másikkal vagy vedd fel velünk kapcsolatot!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
