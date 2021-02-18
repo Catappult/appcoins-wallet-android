@@ -131,13 +131,13 @@
   <!-- Labels -->
   <string name="label_from">From</string>
   <string name="label_to">至</string>
-  <string name="label_gas_limit">Gas最大數量</string>
-  <string name="label_gas_price">Gas價格</string>
+  <string name="label_gas_limit">燃料限制</string>
+  <string name="label_gas_price">燃料價格</string>
   <string name="label_network_fee">網路費</string>
   <string name="button_ok">OK</string>
   <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
+  <string name="hint_amount">數量</string>
+  <string name="hint_amount_with_token">%s 個數</string>
   <string name="hint_contract_address">Contract address</string>
   <string name="hint_contract_symbol">Symbol</string>
   <string name="hint_contract_decimals">Decimals</string>
@@ -159,8 +159,8 @@
   <string name="action_save">Save</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">Could not generate QR code.</string>
-  <string name="error_invalid_address">Invalid address</string>
-  <string name="error_invalid_amount">Invalid amount</string>
+  <string name="error_invalid_address">無效地址</string>
+  <string name="error_invalid_amount">無效數量</string>
   <string name="error_transaction_failed">Transaction error</string>
   <string name="error_must_numeric">It must be a numeric value.</string>
   <string name="transaction_succeeded">Transaction successful</string>
@@ -185,9 +185,9 @@
   <string name="error_already_added">Already added</string>
   <string name="error_export">Failed to export the wallet</string>
   <string name="error_fail_load_tokens">Failed to load tokens list</string>
-  <string name="error_create_wallet">Failed to create a wallet</string>
+  <string name="error_create_wallet">創建錢包失敗</string>
   <string name="token_balance">%1$s%2$s %3$s</string>
-  <string name="action_edit_tokens">Edit tokens</string>
+  <string name="action_edit_tokens">編輯代幣</string>
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
@@ -395,7 +395,7 @@
   <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
   <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_address">無效地址</string>
   <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
   <string name="p2p_send_error_amount_zero">It must be more than zero</string>
   <string name="p2p_send_confirmation_header">Transfer Details</string>
@@ -510,6 +510,7 @@
   <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
   <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
   <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>
@@ -667,7 +668,7 @@
   <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="transfer_send_recipient_title">Wallet Address</string>
   <string name="transfer_send_token_title">Token:</string>
-  <string name="transfer_send_amount_title">Amount</string>
+  <string name="transfer_send_amount_title">數量</string>
   <string name="transfer_send_current_balance_title">Current Balance:</string>
   <string name="transfer_send_button">SEND</string>
   <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
@@ -872,7 +873,7 @@
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
   <string name="card_verification_code_example_date">Trans. Date</string>
   <string name="card_verification_code_example_description">Description</string>
-  <string name="card_verification_code_example_amount">Amount</string>
+  <string name="card_verification_code_example_amount">數量</string>
   <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
   <string name="card_verification_code_enter_title">Enter the %s digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
