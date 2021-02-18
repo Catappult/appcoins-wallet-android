@@ -58,51 +58,51 @@
   <string name="unlock_screen_prompt_android">請解鎖您的Android裝置以繼續。</string>
   <string name="do_manage_make_backup">您備份成功了嗎？</string>
   <string name="yes_continue">是的，繼續</string>
-  <string name="yes_done_button">Yes, done</string>
-  <string name="no_repeat">No, repeat</string>
-  <string name="skip">Skip</string>
-  <string name="skip_with_arrow">Skip &gt;</string>
-  <string name="root_title">DEVICE SECURITY COMPROMISED</string>
-  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="yes_done_button">是的，完成</string>
+  <string name="no_repeat">不，請再做一次</string>
+  <string name="skip">跳過</string>
+  <string name="skip_with_arrow">跳過 &gt;</string>
+  <string name="root_title">裝置安全性受損</string>
+  <string name="root_body">任何取得Root權限的應用程式都可以訪問AppCoins錢包的鑰匙串並竊取您的錢包！ 立即擦拭此錢包並在安全的設備上恢復。</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
-  <string name="buying">Buying %s</string>
-  <string name="action_buy">Buy</string>
+  <string name="buying">正在購買%s</string>
+  <string name="action_buy">購買</string>
   <string name="empty"></string>
-  <string name="try_again">Try again</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
+  <string name="try_again">再試一次</string>
+  <string name="already_have_account">已擁有錢包？</string>
+  <string name="action_create_new_account">創建新錢包</string>
+  <string name="unknown_error">發生錯誤。</string>
   <string name="action_backup_wallet">備份錢包</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="no_tokens">您尚未添加任何自定義代幣。</string>
+  <string name="title_email">發送電郵</string>
+  <string name="action_donate">捐贈</string>
   <!-- Titles -->
   <string name="title_my_address">接收</string>
   <string name="title_my_tokens">我的代幣</string>
   <string name="title_activity_send">發送</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_activity_confirmation">確認</string>
+  <string name="title_add_token">添加自定義代幣</string>
+  <string name="title_airdrop">無線傳送</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">私鑰必須為64個字符長</string>
+  <string name="suggestion_empty_password_available">密碼欄位可以空白。</string>
+  <string name="suggestion_this_is_your_address">我的%s錢包地址</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">私鑰*</string>
+  <string name="hint_keystore">密鑰庫*</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">密鑰庫</string>
+  <string name="tab_private_key">私鑰</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
+  <string name="title_dialog_error">錯誤</string>
+  <string name="title_dialog_handling">處理中…</string>
   <string name="title_dialog_add_account">添加錢包</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was recovered</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
+  <string name="toast_message_wallet_imported">錢包已恢復</string>
+  <string name="toast_message_wallet_exported">備份已創建</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
@@ -196,7 +196,7 @@
   <string name="activity_aib_loading_title">Transaction in progress</string>
   <string name="activity_aib_loading_message">This may take a while…</string>
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
-  <string name="activity_iab_error_title">Error</string>
+  <string name="activity_iab_error_title">錯誤</string>
   <string name="activity_iab_error_message">An error occurred, please try again</string>
   <string name="action_try">try</string>
   <string name="activity_transactions_learn_more">Learn more</string>
@@ -267,7 +267,7 @@
   <string name="activity_airdrop_submit_btn">Submit</string>
   <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
   <string name="activity_airdrop_ok">ok</string>
-  <string name="activity_airdrop_message_title">Airdrop</string>
+  <string name="activity_airdrop_message_title">無線傳送</string>
   <string name="activity_airdrop_success_message">Airdrop completed</string>
   <string name="activity_airdrop_generic_error_message">An error has occurred</string>
   <string name="notification_generic_error">@string/unknown_error</string>
@@ -421,7 +421,7 @@
   <string name="no_thanks_button">No, thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
-  <string name="confirm_button">Confirm</string>
+  <string name="confirm_button">確認</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
