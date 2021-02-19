@@ -10,12 +10,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Korean\n"
 "Language: ko_KR\n"
-"PO-Revision-Date: 2021-02-05 11:58\n"
+"PO-Revision-Date: 2021-02-19 12:27\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "AppCoins 크레디트 획득!"
+
+#. Tooltip - APPC Credis disclaimer.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "{1} 에서 AppCoins 크레디트를 제외한 모든 구매에서 추가 {0}% 보너스를 받으세요."
 
 #. Card - Purchase Promotion.
 #:
@@ -47,10 +52,15 @@ msgstr "다음 단계에 도달하여 {0} AppCoins 크레디트를 받으세요!
 msgid "Because you reached the next level."
 msgstr "다음 단계에 도달했기 때문에."
 
-#. Card - Extra Gamification Bonus.
+#. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr "{1} 에서 AppCoins 크레디트를 제외한 모든 구매에서 추가 {0}% 보너스를 받으세요."
+
+#. Card - Promotions - Extra Gamification Bonus.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
 
 #. Card - First purchase.
 #:
@@ -77,7 +87,7 @@ msgstr "{0} 에서 최초 구매일로 인하여"
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0} AppCoins 크레디트 보너스!"
 
-#. Card - Expendidute per amount Promotion.
+#. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
 msgstr "{3} 에서 {1}{2} 지출할 때 받은 추가 {0} AppCoins 크레티드"
@@ -100,5 +110,10 @@ msgstr "AppCoins 앱 내에서 {0}{1} 를 사용하셨기 때문에"
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr ""
+
+#. Card - Title - Common
+#:
+msgid "New Perk Available"
 msgstr ""
 
