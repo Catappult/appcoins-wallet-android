@@ -509,8 +509,10 @@
   <string name="error_contac_us_body">문제가 계속되면 당사로 연락 주세요.</string>
   <string name="purchase_error_unverified_wallet">지갑을 인증 후에 구매를 완료하세요.</string>
   <string name="purchase_error_try_other_method">이런&#8230; 무언가 잘못되고 있습니다! 다른 지불 방법으로 시도해보시거나 당사로 연락 주세요.</string>
-  <string name="purchase_error_try_other_amount">탑-업 금액이 맞나요? 다른 것으로 시도하시거나 당사로 연락 주세요.</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -838,7 +840,7 @@
   <string name="perks_level_up_amount_left">다음 단계까지 %1$s%2$s 남았습니다!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s 보너스: AppCoins 크레디트로 %2$s</string>
-  <string name="perks_purchases_disclaimer_body">AppCoins 크레디트을 제외한 모든 구매 방법으로 이루어지는 모든 앱 내 구매 및 탑업은 보너스 레벨을 높이고 보상을 받을 수 있는 자격이 주어집니다.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
