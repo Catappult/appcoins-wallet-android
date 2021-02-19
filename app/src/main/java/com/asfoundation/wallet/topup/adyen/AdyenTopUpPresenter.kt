@@ -402,12 +402,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                         suggestOtherPaymentMethod && suggestOtherAmount -> {
                           R.string.purchase_error_try_other_amount_or_method
                         }
-                        suggestOtherPaymentMethod -> {
-                          R.string.purchase_error_try_other_method
-                        }
-                        suggestOtherAmount -> {
-                          R.string.purchase_error_try_other_amount
-                        }
+                        suggestOtherPaymentMethod -> R.string.purchase_error_try_other_method
+                        suggestOtherAmount -> R.string.purchase_error_try_other_amount
                         else -> error
                       }
                       handleSpecificError(fraudError)
