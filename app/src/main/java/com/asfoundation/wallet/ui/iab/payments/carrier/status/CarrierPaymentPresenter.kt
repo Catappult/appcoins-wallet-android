@@ -72,6 +72,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun handleCompletedStatus(payment: CarrierPaymentModel): Completable {
     return sendPaymentSuccessEvents()
+        .andThen { carrierInteractor.savePhoneNumber(data.phoneNumber) }
         .observeOn(viewScheduler)
         .andThen(completePurchase(payment))
   }

@@ -9,9 +9,9 @@ import android.text.method.LinkMovementMethod
 import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import android.widget.Toast
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.getStringSpanned
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.layout_voucher_code_detail.view.*
 
 class VoucherDetailView : FrameLayout {
@@ -29,7 +29,7 @@ class VoucherDetailView : FrameLayout {
       val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
       val clip = ClipData.newPlainText("voucher_code", code_text.text)
       clipboard?.setPrimaryClip(clip)
-      Toast.makeText(context, context.getString(R.string.copy), Toast.LENGTH_SHORT)
+      Snackbar.make(this, context.getString(R.string.copy), Snackbar.LENGTH_LONG)
           .show()
     }
   }
