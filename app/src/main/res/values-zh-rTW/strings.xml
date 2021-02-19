@@ -360,7 +360,7 @@
   <string name="topup_title">儲值</string>
   <string name="topup_amount">%s APPC點數</string>
   <string name="topup_bonus_header">您獲得了一份獎勵金！</string>
-  <string name="topup_bonus_message">%s APPC點數將加值至您的錢包。</string>
+  <string name="topup_bonus_message">%s APPC點數將新增至您的錢包。</string>
   <string name="topup_completed_1">價值%s的APPC點數</string>
   <string name="topup_completed_2_with_bonus">已加值至您的帳戶... 以及一份額外的獎勵！</string>
   <string name="topup_completed_2_without_bonus">已加值至您的帳戶。</string>
@@ -378,17 +378,17 @@
   <string name="balance_appccreditos_body">用於購買應用程式內物品的代幣。從您的錢包儲值APPC點數或透過使用應用程式來免費獲得它。 您也可以在朋友之間轉移它！</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">請人代付</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
-  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
+  <string name="askafriend_generating_link_message">正在生成您的付款連結&#8230;</string>
+  <string name="askafriend_generating_link_error_message">糟糕，出現了一個錯誤。請再試一次！</string>
+  <string name="askafriend_share_body">分享連結，以便他人可以將資金傳送給您！</string>
+  <string name="askafriend_share_add_message_body">添加訊息（可選）</string>
   <string name="askafriend_share_button">分享</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
-  <string name="askafriend_received_title">Transfer Received</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
+  <string name="askafriend_share_popup_title">透過以下方式傳送：</string>
+  <string name="askafriend_received_body">您收到%s AppCoins點數</string>
+  <string name="askafriend_notification_received_title">收到新的轉帳</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s 已新增至您的錢包。</string>
+  <string name="askafriend_received_title">轉帳匯入</string>
+  <string name="askafriend_send_title">轉帳匯出</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">傳送資金</string>
@@ -478,7 +478,7 @@
   <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
   <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
-  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
+  <string name="purchase_appcoins_credits_available_body">免費，閃電般快捷！</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
   <string name="purchase_poa_item">Earn funds by trying apps</string>
@@ -664,16 +664,16 @@
   <string name="remove_wallet_removed_body">Wallet removed!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">轉賬</string>
-  <string name="transfer_title">Transfer Funds</string>
+  <string name="transfer_title">轉帳資金</string>
   <string name="transfer_send_tab_title">發送</string>
   <string name="transfer_receive_tab_title">接收</string>
   <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="transfer_send_recipient_title">Wallet Address</string>
-  <string name="transfer_send_token_title">Token:</string>
+  <string name="transfer_send_recipient_title">錢包地址</string>
+  <string name="transfer_send_token_title">代幣：</string>
   <string name="transfer_send_amount_title">數量</string>
-  <string name="transfer_send_current_balance_title">Current Balance:</string>
-  <string name="transfer_send_button">SEND</string>
-  <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
+  <string name="transfer_send_current_balance_title">當前餘額：</string>
+  <string name="transfer_send_button">發送</string>
+  <string name="transfer_receive_body">分享您的錢包地址以接收資金。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">You\'ve got a new message!</string>
   <string name="support_new_message_button">Tap to open</string>
