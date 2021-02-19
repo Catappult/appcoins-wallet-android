@@ -510,8 +510,10 @@
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
   <string name="purchase_error_unverified_wallet">حاول أن تنهي عملية الشراء بعد إتمام توثيق محفظتك.</string>
   <string name="purchase_error_try_other_method">ييي&#8230; هناك خطبٌ ما! يرجى المحاولة ثانية مع وسيلة دفع مختلفة أو التواصل معنا.</string>
-  <string name="purchase_error_try_other_amount">هل أنت متأكد من أن مبلغ المُضاف صحيح؟ يرجى المحاولة مع واحد آخر أو الاتصال بنا!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -874,7 +876,7 @@
   <string name="perks_level_up_amount_left">أنت على بعد %1$s %2$s عن المستوى التالي!</string>
   <string name="perks_level_up_level_tag">المستوى %s</string>
   <string name="perks_bonus_purchase_flow">%1$s مكافأة: %2$s في رصيد AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">كل عمليات الشراء داخل التطبيق وعمليات تعبئة الرصيد التي أجريتها بأي وسيلة شراء غير رصيد AppCoins ستؤهلك لرفع مستوى مكافآتك وتمكنك من استقبال الجوائز.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
