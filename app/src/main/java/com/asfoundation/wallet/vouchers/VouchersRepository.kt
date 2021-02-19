@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface VouchersRepository {
 
-  fun getVouchers(): Single<VoucherListModel>
+  fun getAppsWithVouchers(): Single<VoucherListModel>
 }
