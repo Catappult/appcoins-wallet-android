@@ -6,6 +6,7 @@ import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.model.payments.response.RedirectAction
 import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
+import com.appcoins.wallet.billing.Voucher
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
@@ -64,7 +65,9 @@ class AdyenResponseMapper(private val gson: Gson) {
     return PaymentModel(adyenResponse?.resultCode, adyenResponse?.refusalReason,
         adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl, action?.paymentData,
         response.uid, response.hash, response.orderReference, fraudResultsId, response.status,
-        response.metadata?.errorMessage, response.metadata?.errorCode)
+        Voucher("12345678", "https://game.com/redeem"), response.metadata?.errorMessage,
+        response.metadata?.errorCode)
+    //TODO Remove mocked voucher for response voucher
   }
 
   fun map(response: TransactionResponse): PaymentModel {

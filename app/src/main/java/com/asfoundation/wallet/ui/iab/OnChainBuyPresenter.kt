@@ -111,12 +111,19 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
     sendPaymentErrorEvent(transaction)
     return when (transaction.status) {
       Payment.Status.COMPLETED -> {
-        view.lockRotation()
-        onChainBuyInteract.getCompletedPurchase(transaction, isBds)
-            .observeOn(viewScheduler)
-            .map { buildBundle(it, transaction.orderReference) }
-            .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
-            .onErrorResumeNext { Completable.fromAction { showError(it) } }
+        transactionBuilder.flatMapCompletable {
+          if (it.type.equals("VOUCHER", ignoreCase = true)) {
+            //TODO Replace with values from API
+            Completable.fromAction { view.navigateToVouchersSuccess("code", "redeem") }
+          } else {
+            view.lockRotation()
+            onChainBuyInteract.getCompletedPurchase(transaction, isBds)
+                .observeOn(viewScheduler)
+                .map { payment -> buildBundle(payment, transaction.orderReference) }
+                .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
+                .onErrorResumeNext { Completable.fromAction { showError(it) } }
+          }
+        }
       }
       Payment.Status.NO_FUNDS -> Completable.fromAction { view.showNoFundsError() }
           .andThen(onChainBuyInteract.remove(transaction.uri))

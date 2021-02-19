@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
+import com.appcoins.wallet.billing.Voucher
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
@@ -21,7 +22,6 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PA
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -40,7 +40,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val data: AdyenPaymentData,
                             private val analytics: AdyenPaymentAnalytics,
                             private val adyenPaymentInteractor: AdyenPaymentInteractor,
-                            private val navigator: Navigator,
+                            private val navigator: AdyenPaymentNavigator,
                             private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
                             private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
                             private val formatter: CurrencyFormatUtils,
@@ -218,15 +218,17 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .flatMapCompletable {
               when {
                 it.status == TransactionStatus.COMPLETED -> {
-                  sendEvent(Event.SUCCESS)
                   createBundle(it.hash, it.orderReference)
                       .doOnSuccess {
+                        sendEvent(Event.SUCCESS)
                         sendEvent(Event.PAYMENT_EVENT)
                         sendRevenueEvent()
                       }
                       .subscribeOn(networkScheduler)
                       .observeOn(viewScheduler)
-                      .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
+                      .flatMapCompletable { bundle ->
+                        handleSuccessTransaction(bundle, paymentModel.voucher)
+                      }
                 }
                 isPaymentFailed(it.status) -> {
                   if (paymentModel.status == TransactionStatus.FAILED && data.paymentType == PaymentType.PAYPAL.name) {
@@ -299,11 +301,18 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         && priceCurrency != null
   }
 
-  private fun handleSuccessTransaction(bundle: Bundle): Completable {
-    return Completable.fromAction { view.showSuccess(data.isPreselected) }
-        .andThen(Completable.timer(view.getAnimationDuration(),
-            TimeUnit.MILLISECONDS))
-        .andThen(Completable.fromAction { navigator.popView(bundle) })
+  private fun handleSuccessTransaction(bundle: Bundle,
+                                       voucher: Voucher?): Completable {
+    return if (voucher != null) {
+      Completable.fromAction {
+        navigator.navigateToVoucherSuccess(data.bonus, voucher.code, voucher.redeem)
+      }
+    } else {
+      Completable.fromAction { view.showSuccess(data.isPreselected) }
+          .andThen(Completable.timer(view.getAnimationDuration(),
+              TimeUnit.MILLISECONDS))
+          .andThen(Completable.fromAction { navigator.popView(bundle) })
+    }
   }
 
   private fun retrieveFailedReason(uid: String): Completable {

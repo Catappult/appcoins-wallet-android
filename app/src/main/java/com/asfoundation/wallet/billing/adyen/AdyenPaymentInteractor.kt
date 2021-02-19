@@ -127,11 +127,13 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
+    return when {
+      isInApp(type) && sku != null -> {
+        billing.getSkuPurchase(merchantName, sku, scheduler)
+            .map { billingMessagesMapper.mapPurchase(it, orderReference) }
+      }
+      type == "VOUCHER" -> Single.just(Bundle())//TODO change for enum
+      else -> Single.just(billingMessagesMapper.successBundle(hash))
     }
   }
 

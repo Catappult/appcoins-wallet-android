@@ -9,7 +9,9 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
+import com.asfoundation.wallet.ui.iab.vouchers.VouchersSuccessFragment
 import io.reactivex.Observable
+import java.math.BigDecimal
 
 class CarrierPaymentNavigator(private val fragmentManager: FragmentManager,
                               private val uriNavigator: UriNavigator,
@@ -32,4 +34,11 @@ class CarrierPaymentNavigator(private val fragmentManager: FragmentManager,
   }
 
   fun finishPayment(bundle: Bundle) = iabActivity.finish(bundle)
+
+  fun navigateToVouchersSuccess(code: String, redeem: String, bonusAmount: BigDecimal?) {
+    val bonus = bonusAmount?.toString() ?: ""
+    fragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, VouchersSuccessFragment.newInstance(code, redeem, bonus))
+        .commit()
+  }
 }

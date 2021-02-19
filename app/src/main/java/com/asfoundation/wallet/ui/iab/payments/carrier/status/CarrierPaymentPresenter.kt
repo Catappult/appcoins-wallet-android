@@ -72,12 +72,21 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun handleCompletedStatus(payment: CarrierPaymentModel): Completable {
     return sendPaymentSuccessEvents()
-        .andThen { carrierInteractor.savePhoneNumber(data.phoneNumber) }
         .observeOn(viewScheduler)
-        .andThen(Completable.fromAction { view.showFinishedTransaction() }
-            .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
-            .andThen(finishPayment(payment))
-        )
+        .andThen(completePurchase(payment))
+  }
+
+  private fun completePurchase(payment: CarrierPaymentModel): Completable {
+    return if (data.transactionType == "VOUCHER") {
+      //TODO Replace with values from API
+      Completable.fromAction {
+        navigator.navigateToVouchersSuccess("code", "redeem", data.bonusAmount)
+      }
+    } else {
+      Completable.fromAction { view.showFinishedTransaction() }
+          .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
+          .andThen(finishPayment(payment))
+    }
   }
 
   private fun isUnauthorizedCode(errorCode: Int?): Boolean {

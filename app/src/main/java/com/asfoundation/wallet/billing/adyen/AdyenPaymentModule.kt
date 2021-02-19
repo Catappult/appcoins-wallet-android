@@ -23,7 +23,7 @@ class AdyenPaymentModule {
                                     data: AdyenPaymentData,
                                     analytics: AdyenPaymentAnalytics,
                                     interactor: AdyenPaymentInteractor,
-                                    navigator: Navigator,
+                                    navigator: AdyenPaymentNavigator,
                                     servicesErrorCodeMapper: ServicesErrorCodeMapper,
                                     currencyFormatUtils: CurrencyFormatUtils,
                                     logger: Logger): AdyenPaymentPresenter {
@@ -42,6 +42,12 @@ class AdyenPaymentModule {
           getInt(AdyenPaymentFragment.GAMIFICATION_LEVEL, 0),
           getSerializable(AdyenPaymentFragment.TRANSACTION_PAYMENT_DATA) as TransactionPaymentData)
     }
+  }
+
+  @Provides
+  fun providesAdyenPaymentNavigator(fragment: AdyenPaymentFragment,
+                                    iabNavigator: Navigator): AdyenPaymentNavigator {
+    return AdyenPaymentNavigator(fragment.requireFragmentManager(), iabNavigator)
   }
 
   @Provides

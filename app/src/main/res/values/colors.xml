@@ -164,4 +164,8 @@
   <color name="verify_wallet_example_background">#2Bd6d6d6</color>
   <color name="verify_wallet_example_code_background">#707070</color>
   <color name="verify_wallet_code_background">#afafaf</color>
+
+  <!-- Vouchers -->
+
+  <color name="vouchers_instructions">#868686</color>
 </resources>

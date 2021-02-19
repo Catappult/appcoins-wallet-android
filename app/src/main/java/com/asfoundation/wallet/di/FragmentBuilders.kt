@@ -53,6 +53,8 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyModul
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.ui.iab.vouchers.VouchersSuccessFragment
+import com.asfoundation.wallet.ui.iab.vouchers.VouchersSuccessModule
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
@@ -270,4 +272,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerificationErrorModule::class])
   abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [VouchersSuccessModule::class])
+  abstract fun bindVouchersSuccessFragment(): VouchersSuccessFragment
 }

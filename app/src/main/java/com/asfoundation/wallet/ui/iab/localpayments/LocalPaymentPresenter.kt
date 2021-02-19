@@ -183,20 +183,27 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           transaction.status == Status.INVALID_TRANSACTION
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
-    return localPaymentInteractor.getCompletePurchaseBundle(data.type, data.packageName, data.skuId,
-        transaction.orderReference, transaction.hash, networkScheduler)
-        .doOnSuccess {
-          analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.appcAmount,
-              data.type, data.paymentId)
-          handleRevenueEvent()
-        }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .flatMapCompletable {
-          Completable.fromAction { view.showCompletedPayment() }
-              .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-              .andThen(Completable.fromAction { view.popView(it, data.paymentId) })
-        }
+    return if (transaction.type == "VOUCHER") {
+      //TODO Replace with values from API
+      Completable.fromAction {
+        navigator.navigateToVouchersSuccess("code", "link", data.bonus ?: "")
+      }
+    } else {
+      localPaymentInteractor.getCompletePurchaseBundle(data.type, data.packageName, data.skuId,
+          transaction.orderReference, transaction.hash, networkScheduler)
+          .doOnSuccess {
+            analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.appcAmount,
+                data.type, data.paymentId)
+            handleRevenueEvent()
+          }
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .flatMapCompletable {
+            Completable.fromAction { view.showCompletedPayment() }
+                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                .andThen(Completable.fromAction { view.popView(it, data.paymentId) })
+          }
+    }
   }
 
   private fun handleRevenueEvent() {
