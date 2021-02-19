@@ -10,12 +10,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2021-02-18 08:33\n"
+"PO-Revision-Date: 2021-02-19 12:29\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "獲得AppCoins點數！"
+
+#. Tooltip - APPC Credis disclaimer.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "除了AppCoins點數外，您在{1}中的所有購買還會獲得額外的{0}%獎勵。"
 
 #. Card - Purchase Promotion.
 #:
@@ -47,10 +52,15 @@ msgstr "達到下一個級別，即可獲得{0} AppCoins點數！"
 msgid "Because you reached the next level."
 msgstr "因為您已達到下一個級別。"
 
-#. Card - Extra Gamification Bonus.
+#. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr "除了AppCoins點數外，您在{1}中的所有購買還會獲得額外的{0}%獎勵。"
+
+#. Card - Promotions - Extra Gamification Bonus.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
 
 #. Card - First purchase.
 #:
@@ -77,7 +87,7 @@ msgstr "因為您在{0}中的當日首購。"
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0} AppCoins點數！"
 
-#. Card - Expendidute per amount Promotion.
+#. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
 msgstr "當您在{3}中消費{1} {2}，即可獲得額外的{0} AppCoins點數。"
@@ -101,4 +111,9 @@ msgstr "因為您在AppCoins的應用程式及遊戲中花費了{0} {1}。"
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
 msgstr "除了AppCoins點數外，您的所有購買還會獲得額外的{0}%獎勵。"
+
+#. Card - Title - Common
+#:
+msgid "New Perk Available"
+msgstr ""
 
