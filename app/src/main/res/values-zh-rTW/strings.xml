@@ -119,11 +119,11 @@
   <string name="intro_3_title">簡單易用</string>
   <string name="intro_3_body">透過您喜歡的付款方式處理所有的應用程式內購。</string>
   <string name="intro_4_title">安全私密</string>
-  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
+  <string name="intro_4_body">您的私人信息永遠不會離開您的裝置，因此您的AppCoins始終是安全的。</string>
+  <string name="intro_4_body_2">得益於最新技術，您的所有交易始終都是安全的。</string>
   <string name="intro_5_title">獲得免費AppCoins點數！</string>
-  <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
-  <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
+  <string name="intro_5_body">嘗試應用程式和遊戲來獲得免費的AppCoins點數。</string>
+  <string name="intro_creating_wallet_short">錢包設定中&#8230;</string>
   <string name="intro_wallet_created_short">成功創建錢包！</string>
   <string name="intro_agree_terms_and_conditions_body">點擊略過即代表您瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="intro_skip_button">略過</string>
