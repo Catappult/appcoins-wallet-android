@@ -509,8 +509,10 @@
   <string name="error_contac_us_body">Se o problema persistir entra em contacto connosco.</string>
   <string name="purchase_error_unverified_wallet">Tenta completar a compra após verificares a tua wallet.</string>
   <string name="purchase_error_try_other_method">Ups&#8230; Algo está a acontecer! Por favor tenta com um método de pagamento diferente ou contacta-nos.</string>
-  <string name="purchase_error_try_other_amount">Tens a certeza de que o teu montante de recarga está correto? Por favor tenta com um diferente ou contacta-nos!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Morada de faturação</string>
   <string name="purchase_address_address_field">Morada</string>
@@ -845,7 +847,7 @@
   <string name="perks_level_up_amount_left">Estás a %1$s %2$s de distância do próximo nível!</string>
   <string name="perks_level_up_level_tag">Nv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s de Bónus: %2$s em AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Todas as compras na app e carregamentos feitos com qualquer método de compra, à parte dos AppCoins Credits, vão servir para aumentar o teu nível de bónus e receberes recompensas.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
