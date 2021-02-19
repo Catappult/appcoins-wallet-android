@@ -84,7 +84,7 @@
   <string name="title_add_token">添加自定義代幣</string>
   <string name="title_airdrop">無線傳送</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">私鑰必須為64個字符長</string>
+  <string name="suggestion_private_key">私鑰必須為64個字元</string>
   <string name="suggestion_empty_password_available">密碼欄位可以空白。</string>
   <string name="suggestion_this_is_your_address">我的%s錢包地址</string>
   <!-- Hints -->
@@ -125,28 +125,28 @@
   <string name="intro_5_body">嘗試應用程式和遊戲來獲得免費的AppCoins點數。</string>
   <string name="intro_creating_wallet_short">錢包設定中&#8230;</string>
   <string name="intro_wallet_created_short">成功創建錢包！</string>
-  <string name="intro_agree_terms_and_conditions_body">點擊略過即代表您瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
+  <string name="intro_agree_terms_and_conditions_body">點選略過即代表您瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="intro_skip_button">略過</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
+  <string name="label_from">發送方</string>
   <string name="label_to">至</string>
   <string name="label_gas_limit">燃料限制</string>
   <string name="label_gas_price">燃料價格</string>
   <string name="label_network_fee">網路費</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
+  <string name="button_ok">好的</string>
+  <string name="hint_recipient_address">接收方地址</string>
   <string name="hint_amount">數量</string>
   <string name="hint_amount_with_token">%s 個數</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
+  <string name="hint_contract_address">聯絡人地址</string>
+  <string name="hint_contract_symbol">符號</string>
+  <string name="hint_contract_decimals">小數位</string>
   <string name="button_cancel">取消</string>
-  <string name="button_yes">YES</string>
+  <string name="button_yes">確認</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
+  <string name="subtitle_from">發送方</string>
   <string name="subtitle_gas_fee">手續費</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_transaction_num">交易</string>
   <!-- Actions -->
   <string name="action_more_details">更多</string>
   <string name="action_add_wallet">添加錢包</string>
@@ -158,27 +158,27 @@
   <string name="action_edit">編輯</string>
   <string name="action_save">儲存</string>
   <!-- Subject -->
-  <string name="error_fail_generate_qr">Could not generate QR code.</string>
+  <string name="error_fail_generate_qr">無法生成二維條碼。</string>
   <string name="error_invalid_address">無效地址</string>
   <string name="error_invalid_amount">無效數量</string>
-  <string name="error_transaction_failed">Transaction error</string>
-  <string name="error_must_numeric">It must be a numeric value.</string>
-  <string name="transaction_succeeded">Transaction successful</string>
-  <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet is not selected</string>
+  <string name="error_transaction_failed">交易發生錯誤</string>
+  <string name="error_must_numeric">它必須是一個數值。</string>
+  <string name="transaction_succeeded">交易成功</string>
+  <string name="NA">不適用</string>
+  <string name="error_wallet_not_selected">無已點選錢包</string>
   <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
-  <string name="no_transactions_yet_main">No transactions yet!</string>
+  <string name="no_transactions_yet_main">無交易紀錄</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
   <string name="title_dialog_sending">傳送中...</string>
-  <string name="welcome.erc20.label.title">ERC20 Compatible</string>
+  <string name="welcome.erc20.label.title">ERC20適用</string>
   <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
-  <string name="scan_qr">Get address from QR Code</string>
+  <string name="scan_qr">從二維碼獲取地址</string>
   <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
-  <string name="title_send_settings">Advanced</string>
+  <string name="title_send_settings">高級選項</string>
   <string name="title_activity_barcode">Barcode Scan</string>
   <string name="error_add_token">Couldn\'t add token.</string>
   <string name="facebook">Facebook</string>
@@ -195,7 +195,7 @@
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaction in progress</string>
   <string name="activity_aib_loading_message">This may take a while…</string>
-  <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
+  <string name="activity_iab_transaction_completed_title">交易完成</string>
   <string name="activity_iab_error_title">錯誤</string>
   <string name="activity_iab_error_message">An error occurred, please try again</string>
   <string name="action_try">嘗試</string>
@@ -216,7 +216,7 @@
   <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">沒有網路連線</string>
-  <string name="notification_error_poa">An error has occurred</string>
+  <string name="notification_error_poa">發生錯誤。</string>
   <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
   <string name="notification_cancelled_poa">Reward cancelled</string>
   <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
@@ -269,7 +269,7 @@
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">無線傳送</string>
   <string name="activity_airdrop_success_message">無線傳送完成</string>
-  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="activity_airdrop_generic_error_message">發生錯誤。</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
