@@ -10,12 +10,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2021-02-05 11:58\n"
+"PO-Revision-Date: 2021-02-19 12:27\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "Verdien AppCoins Credits!"
+
+#. Tooltip - APPC Credis disclaimer.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "Krijg een extra bonus van {0}% voor al je aankopen in {1}, met uitzondering van AppCoins."
 
 #. Card - Purchase Promotion.
 #:
@@ -47,10 +52,15 @@ msgstr "Bereik het volgende niveau en ontvang {0} AppCoins Credits!"
 msgid "Because you reached the next level."
 msgstr "Omdat je het volgende niveau hebt bereikt."
 
-#. Card - Extra Gamification Bonus.
+#. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr "Krijg een extra bonus van {0}% voor al je aankopen in {1}, met uitzondering van AppCoins."
+
+#. Card - Promotions - Extra Gamification Bonus.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
 
 #. Card - First purchase.
 #:
@@ -77,7 +87,7 @@ msgstr "Vanwege je eerste aankoop van de dag in {0}."
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+ bonus van {0} AppCoins Credits!"
 
-#. Card - Expendidute per amount Promotion.
+#. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
 msgstr ""
@@ -100,5 +110,10 @@ msgstr ""
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr ""
+
+#. Card - Title - Common
+#:
+msgid "New Perk Available"
 msgstr ""
 
