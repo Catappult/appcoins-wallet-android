@@ -39,7 +39,7 @@
   <string name="cancel_button">取消</string>
   <string name="buy_button">購買</string>
   <string name="iab_wallet_not_installed_popup_close_install">安裝AppCoins Wallet</string>
-  <string name="button_ok">OK</string>
+  <string name="button_ok">好的</string>
   <string name="install_button">安裝</string>
   <!-- Error messages -->
   <string name="title_dialog_error">錯誤</string>
