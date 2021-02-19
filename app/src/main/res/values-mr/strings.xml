@@ -509,8 +509,10 @@
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_error_unverified_wallet">आपल वॉलेट सत्यापित केल्यानंतर खरेदी पूर्ण करा.</string>
   <string name="purchase_error_try_other_method">अरेरे&#8230; काहीतरी होत आहे! कृपया वेगळी पेमेंट वापरुन पहा किंवा आमच्याशी संपर्क साधा.</string>
-  <string name="purchase_error_try_other_amount">आपली टॉपअप रक्कम बरोबर आहे? वेगळी वापरुन पहा किंवा आमच्याशी संपर्क साधा!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
@@ -861,7 +863,7 @@
   <string name="perks_level_up_amount_left">आपण पुढच्या पातळीपासुन %1$s %2$s दूर आहात!</string>
   <string name="perks_level_up_level_tag">पातळी %s</string>
   <string name="perks_bonus_purchase_flow">%1$s बोनस: %2$s अॅपकॉइन्स क्रेडीटस</string>
-  <string name="perks_purchases_disclaimer_body">अॅपमधील सर्व खरेदी आणि टॉपअपस जे अॅपकॉइन्स क्रेडीतशच्या व्यतिरिक्त कोणत्याही खरेदी पद्धतीने केल्यास आपली बोनस पातळी वाढण्यास पात्र होईल आणि बक्षिसही मिळतील.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
