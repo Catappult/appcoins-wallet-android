@@ -391,13 +391,13 @@
   <string name="askafriend_send_title">Transfer Sent</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
+  <string name="p2p_send_title">傳送資金</string>
   <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s 已發送至以下地址：</string>
+  <string name="p2p_send_current_balance_message">當前餘額：%1$s %2$s</string>
   <string name="p2p_send_error_address">無效地址</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_error_not_enough_funds">資金不足</string>
+  <string name="p2p_send_error_amount_zero">數量需大於0</string>
   <string name="p2p_send_confirmation_header">交易詳情</string>
   <!--Common-->
   <string name="error_general">發生了一個錯誤</string>
