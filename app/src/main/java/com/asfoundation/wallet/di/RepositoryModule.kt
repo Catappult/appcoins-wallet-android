@@ -55,6 +55,8 @@ import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
+import com.asfoundation.wallet.vouchers.MockedVouchersRepository
+import com.asfoundation.wallet.vouchers.VouchersRepository
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -329,5 +331,11 @@ class RepositoryModule {
                                           verificationStateApi: VerificationStateApi,
                                           sharedPreferences: SharedPreferences): VerificationRepository {
     return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesVouchersRepository(): VouchersRepository {
+    return MockedVouchersRepository()
   }
 }
