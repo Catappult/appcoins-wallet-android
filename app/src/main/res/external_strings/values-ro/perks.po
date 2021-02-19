@@ -10,12 +10,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Romanian\n"
 "Language: ro_RO\n"
-"PO-Revision-Date: 2021-02-05 11:57\n"
+"PO-Revision-Date: 2021-02-19 12:27\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "Câștigă AppCoins Credits!"
+
+#. Tooltip - APPC Credis disclaimer.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "Primești un Bonus suplimentar de {0}% la toate cumpărăturile tale, cu excepția AppCoins Credits, în {1}."
 
 #. Card - Purchase Promotion.
 #:
@@ -47,10 +52,15 @@ msgstr "Urcă la nivelul următor și primești {0} AppCoins Credits!"
 msgid "Because you reached the next level."
 msgstr "Pentru că ai ajuns la nivelul următor."
 
-#. Card - Extra Gamification Bonus.
+#. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr "Primești un Bonus suplimentar de {0}% la toate cumpărăturile tale, cu excepția AppCoins Credits, în {1}."
+
+#. Card - Promotions - Extra Gamification Bonus.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
 
 #. Card - First purchase.
 #:
@@ -77,7 +87,7 @@ msgstr "Pentru că ai făcut prima cumpărătură a zilei în {0}."
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0} Bonus AppCoins Credits!"
 
-#. Card - Expendidute per amount Promotion.
+#. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
 msgstr "Primești {0} AppCoins Credits în plus când cheltuiești {1} {2} în {3}."
@@ -100,5 +110,10 @@ msgstr "Pentru că ai cheltuit {0} {1} în aplicații AppCoins."
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr ""
+
+#. Card - Title - Common
+#:
+msgid "New Perk Available"
 msgstr ""
 
