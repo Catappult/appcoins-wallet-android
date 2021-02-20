@@ -26,7 +26,7 @@
   <string name="credits">制作组</string>
   <string name="label_new">新</string>
   <string name="got_it_button">明白了</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">更改</string>
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission_title">相机权限</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
@@ -509,10 +509,10 @@
   <string name="error_contac_us_body">如果问题仍然存在，请与我们联系。</string>
   <string name="purchase_error_unverified_wallet">请在验证钱包后再尝试完成购买。</string>
   <string name="purchase_error_try_other_method">糟糕&#8230;出错了！请尝试使用其他付款方式，或者与我们联系。</string>
-  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
-  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
-  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
+  <string name="purchase_error_try_other_amount">您的充值金额似乎过高！请尝试使用较低充值金额，或者与我们联系！</string>
+  <string name="purchase_error_try_other_amount_or_method">糟糕&#8230;出错了！尝试使用其他付款方式或者充值金额。</string>
+  <string name="purchase_error_try_cheaper_item">费用太高了！请尝试购买价值较低的物品。</string>
+  <string name="purchase_error_try_cheaper_item_or_method">费用太高了！请尝试购买较便宜的物品，或者尝试其他付款方式。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -694,7 +694,7 @@
   <string name="subscriptions_settings_title">管理订购</string>
   <string name="subscriptions_title">订购</string>
   <string name="subscriptions_active_title">激活</string>
-  <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_expired_title">已到期</string>
   <string name="subscriptions_empty_title">尚无订购</string>
   <string name="subscriptions_empty_body">订购最喜欢的应用和游戏的服务，我们将处理定期付款。</string>
   <string name="subscriptions_details_billing_title">支付：</string>
@@ -707,7 +707,7 @@
   <string name="subscriptions_canceled_body">已取消</string>
   <string name="subscriptions_details_disclaimer">AppCoins下次付款的价值可能因汇率而有所不同。</string>
   <string name="subscriptions_details_button">详情</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
+  <string name="subscriptions_manage_button">管理订购</string>
   <string name="subscriptions_cancel_button">取消订购</string>
   <string name="subscriptions_cancel_title">取消订购</string>
   <string name="subscriptions_cancel_body">是否确定要取消此订购？</string>
@@ -717,14 +717,14 @@
   <string name="subscriptions_cancel_confirmation_body">你不会再为此订购付款，你可以用到%s。</string>
   <string name="subscriptions_category_title">订购</string>
   <string name="subscriptions_bonus_body">每支付一次都会收到此奖励。</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
+  <string name="subscriptions_per_day">%1$s/天</string>
+  <string name="subscriptions_per_week">%1$s/周</string>
+  <string name="subscriptions_per_month">%1$s/月</string>
+  <string name="subscriptions_per_year">%1$s/年</string>
+  <string name="subscriptions_per_several_day">%1$s/%2$s天</string>
+  <string name="subscriptions_per_several_week">%1$s/%2$s周</string>
+  <string name="subscriptions_per_several_month">%1$s/%2$s月</string>
+  <string name="subscriptions_per_several_year">%1$s/%2$s年</string>
   <!--New Gamification-->
   <string name="gamif_title">高达 %s%% 的奖金！</string>
   <string name="gamif_bonus_received">已收到的奖金</string>
@@ -777,7 +777,7 @@
   <string name="carrier_billing_payment_method_title">运营商代扣</string>
   <string name="carrier_billing_fees_disclaimer">可能需要支付额外费用</string>
   <string name="carrier_billing_insert_phone_body">请输入您的电话号码</string>
-  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
+  <string name="carrier_billing_insert_phone_previously_used">继续使用先前使用的号码</string>
   <string name="carrier_billing_phone_field">您的电话号码...</string>
   <string name="carrier_billing_carrier_fees_body">我们将收取%1$s的费用</string>
   <string name="carrier_billing_purchase_info_body">%2$s中的%1$s。</string>
@@ -815,34 +815,34 @@
     <item quantity="other">促销%s天后结束。</item>
   </plurals>
   <plurals name="promotion_ends_short">
-    <item quantity="other">It ends in %s days.</item>
+    <item quantity="other">%s 天后结束。</item>
   </plurals>
   <string name="perks_end_in_date">促销将在%s结束。</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">促销%s小时后结束。</item>
   </plurals>
   <plurals name="promotion_ends_hours_short">
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="other">%s 小时后结束。</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">促销%s分钟后结束。</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
-    <item quantity="other">It ends in %s minutes.</item>
+    <item quantity="other">%s 分钟后结束。</item>
   </plurals>
   <string name="perks_end_today">促销今天结束。</string>
-  <string name="perks_end_today_short">It ends today.</string>
+  <string name="perks_end_today_short">今天结束。</string>
   <string name="perks_available_soon">促销即将推出</string>
-  <string name="perks_available_soon_short">Available soon</string>
+  <string name="perks_available_soon_short">即将推出</string>
   <string name="perks_next_level_reward">达到下一关可获取%s AppCoins积金！</string>
   <string name="perks_notification">你刚刚收到了%s AppCoins积金奖励</string>
   <string name="perks_level_up_on_this_purchase">通过此次消费来升级</string>
   <string name="perks_level_up_amount_left">您还要%1$s %2$s升到下一级！</string>
   <string name="perks_level_up_level_tag">%s级</string>
   <string name="perks_bonus_purchase_flow">%1$s奖励：%2$s 的AppCoins积金</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
-  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
-  <string name="perks_empty_body">No promotions available at the moment.</string>
+  <string name="perks_purchases_disclaimer_body">除AppCoins积金以外，通过任何付款方式进行的所有应用内购买和充值都将可以提升等级并获得奖励。</string>
+  <string name="perks_empty_state_first_purchase_body">在AppCoins兼容应用内完成首次购买，即可解锁我们为您准备的促销！</string>
+  <string name="perks_empty_body">目前没有可用的促销。</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">指纹锁</string>
   <string name="fingerprint_failed_title">身份验证失败！</string>
@@ -889,12 +889,12 @@
   <string name="card_verification_wallets_one_step_title">验证还差一步</string>
   <string name="card_verification_wallets_one_step_body">输入交易详细信息中出现的代码。</string>
   <string name="card_verification_wallets_insert_bode_button">输入代码</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
-  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+  <string name="card_verification_no_attempts_title">糟糕，您输入的错误代码次数过多，因此%1$s将退款至您的卡中。</string>
+  <string name="card_verification_no_attempts_body">请重新开始验证过程。</string>
   <!--Vouchers-->
   <string name="voucher_card_body">购买此优惠券即可获得高达%s%%的奖励。</string>
   <string name="voucher_buy_header">%s优惠券</string>
-  <string name="voucher_buy_short_header">Voucher:</string>
+  <string name="voucher_buy_short_header"> 优惠券</string>
   <string name="voucher_buy_no_game_title">您没有%s吗？</string>
   <string name="voucher_buy_no_game_install_button">立即下载</string>
   <string name="voucher_code_title">优惠券代码</string>
