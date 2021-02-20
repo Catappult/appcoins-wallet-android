@@ -480,9 +480,9 @@
   <string name="purchase_no_appcoins_body">You don\'t have enough AppCoins to complete this purchase.</string>
   <string name="purchase_appcoins_credits_available_body">免費，閃電般快捷！</string>
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough AppCoins Credits, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">您從本次購買中獲得了足夠的AppCoins點數。</string>
   <string name="purchase_poa_item">Earn funds by trying apps</string>
-  <string name="purchase_poa_body">Try an app for 2 minutes and earn AppCoins Credits!</string>
+  <string name="purchase_poa_body">試用應用程式兩分鐘，獲取免費的AppCoins點數！</string>
   <string name="purchase_poa_view_title">No Funds, No Worries!</string>
   <string name="purchase_poa_view_body">Try an app for 2 minutes and get a reward in AppCoins Credits to make your purchase!</string>
   <string name="purchase_current_balance_body">當前餘額：</string>
@@ -502,11 +502,11 @@
   <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
   <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
-  <string name="purchase_carrier_error_maximum">Your carrier doesn\'t support payments for more than %s.</string>
+  <string name="purchase_carrier_error_maximum">您的電信代扣不支援超過%s的付款。</string>
   <string name="purchase_error_fraud_code_20">Oops, we\'re having issues with this purchase. Please contact us.</string>
-  <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
+  <string name="purchase_error_wallet_block_code_403">您的錢包可能存在問題，請與我們聯繫。</string>
   <string name="purchase_card_error_CVV">錯誤的CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="error_contac_us_body">如果此問題依然存在，請與我們聯繫。</string>
   <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
   <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
   <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
@@ -519,7 +519,7 @@
   <string name="purchase_address_apartment_field">Apartment, floor&#8230;</string>
   <string name="purchase_address_city_field">城市</string>
   <string name="purchase_address_post_code_field">郵遞區號</string>
-  <string name="purchase_address_state_field">State/Province</string>
+  <string name="purchase_address_state_field">州/省</string>
   <!--Async Payments-->
   <string name="async_steps_title">Next Steps</string>
   <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
@@ -534,7 +534,7 @@
   <string name="referral_onboarding_title">邀請好友！</string>
   <string name="referral_onboarding_body">加入邀請好友計畫，您與朋友均可獲得高達%s！</string>
   <string name="referral_onboarding_body_no_connection">加入邀請好友計畫，您與朋友均可獲得AppCoins點數！</string>
-  <string name="referral_onboarding_redeem_button">I\'ve been invited</string>
+  <string name="referral_onboarding_redeem_button">我被邀請了</string>
   <string name="referral_verification_title">驗證您的錢包</string>
   <string name="referral_verification_body">You need to verify your wallet to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">Your invite was validated!</string>
@@ -553,15 +553,15 @@
   <string name="referral_view_verify_button">驗證錢包</string>
   <string name="referral_view_i_have_been_invited_button">I\'VE BEEN INVITED</string>
   <string name="referral_view_dropup_menu_friends_invited">Friends invited</string>
-  <string name="referral_view_dropup_menu_earned">Earned</string>
+  <string name="referral_view_dropup_menu_earned">已獲得</string>
   <string name="referral_dropup_menu_friends_title_1">Friends Invited</string>
   <string name="referral_dropup_menu_requirements_title">Requirements</string>
   <string name="referral_dropup_menu_requirements_verification">Verify your wallet with a phone number</string>
   <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">每當有朋友滿足兩個條件後，您將獲得價值%1$s的AppCoins點數（最高 %2$s）。</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">促銷</string>
-  <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
+  <string name="bottom_navigation_promotions_detailed">發現如何透過促銷和活動獲得免費AppCoins點數！</string>
   <string name="promotions_title">賺取AppCoins點數</string>
   <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
   <string name="promotions_referral_card_body">分享您的邀請連結，賺取AppCoins點數。</string>
@@ -574,9 +574,9 @@
   <string name="promotions_empty_poa_body">There are no apps with rewards available at the moment. Come back later!</string>
   <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
   <string name="promotions_empty_suggested_games_title">為您推薦</string>
-  <string name="promotions_perks_button">Perks</string>
+  <string name="promotions_perks_button">獎勵</string>
   <string name="promotions_vouhers_button">Vouchers</string>
-  <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
+  <string name="promotions_tooltip">透過促銷活動獲得免費的AppCoins點數！</string>
   <!--Update-->
   <string name="update_wallet_poa_notification_title">Update to receive rewards</string>
   <string name="update_wallet_poa_notification_body">Please update the AppCoins Wallet to receive this reward.</string>
@@ -587,7 +587,7 @@
   <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
   <string name="update_button">更新</string>
   <!--Backup and Import-->
-  <string name="backup_home_notification_title">Backup Your Wallet</string>
+  <string name="backup_home_notification_title">備份您的錢包</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
   <string name="backup_button">備份</string>
   <string name="backup_title">備份錢包</string>
@@ -596,8 +596,8 @@
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
+  <string name="backup_confirmation_yes">是的，完成</string>
+  <string name="backup_confirmation_no">不，存儲至裝置</string>
   <string name="backup_done_title">備份完成！</string>
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_confirmation_no_share_title">備份完成！</string>
@@ -608,18 +608,18 @@
   <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
   <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
   <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
-  <string name="backup_send_via_title">Send backup via:</string>
+  <string name="backup_send_via_title">傳送備份至：</string>
   <string name="backup_send_button">傳送備份</string>
   <string name="backup_save_button">儲存備份</string>
   <string name="import_wallet_title">恢復錢包</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
   <string name="import_wallet_from_file_title">Or recover from file</string>
-  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
-  <string name="import_wallet_button">RECOVER WALLET</string>
+  <string name="import_wallet_file_button">從資料中恢復</string>
+  <string name="import_wallet_button">恢復錢包</string>
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
-  <string name="error_invalid_private_key">Invalid private key</string>
+  <string name="error_invalid_private_key">無效的私鑰</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">MAYBE LATER</string>
@@ -644,7 +644,7 @@
   <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">餘額：</string>
   <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
-  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
+  <string name="wallets_2nd_view_import_button">恢復錢包</string>
   <string name="wallets_2nd_view_create_button">CREATE NEW</string>
   <string name="wallet_view_copy_button">複製</string>
   <string name="wallet_view_share_button">分享</string>
@@ -807,17 +807,17 @@
   <string name="manage_cards_select_title">Select payment card</string>
   <string name="manage_cards_remember">Remember card</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
-  <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
+  <string name="perks_gamif_title">每次購買獲得高達%s%%獎勵金</string>
+  <string name="perks_gamif_subtitle">您在喜愛的應用程式中花費越多，獎勵金越多！</string>
   <string name="perks_title">促銷</string>
-  <string name="perks_body">Stay tuned! We\'ve got special promotions for you.</string>
+  <string name="perks_body">請不要走開，我們為您找到了一個特別優惠！</string>
   <plurals name="promotion_ends">
     <item quantity="other">The promotion ends in %s days.</item>
   </plurals>
   <plurals name="promotion_ends_short">
     <item quantity="other">It ends in %s days.</item>
   </plurals>
-  <string name="perks_end_in_date">The promotion ends on %s.</string>
+  <string name="perks_end_in_date">促銷在%s結束</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">The promotion ends in %s hours.</item>
   </plurals>
@@ -830,19 +830,19 @@
   <plurals name="promotion_ends_minutes_short">
     <item quantity="other">It ends in %s minutes.</item>
   </plurals>
-  <string name="perks_end_today">The promotion ends today.</string>
-  <string name="perks_end_today_short">It ends today.</string>
-  <string name="perks_available_soon">Promotion available soon</string>
-  <string name="perks_available_soon_short">Available soon</string>
-  <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
-  <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
-  <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
-  <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
+  <string name="perks_end_today">該促銷今日到期。</string>
+  <string name="perks_end_today_short">今日到期</string>
+  <string name="perks_available_soon">促銷即將推出</string>
+  <string name="perks_available_soon_short">即將推出</string>
+  <string name="perks_next_level_reward">達到下一個級別，即可獲得%s AppCoins點數！</string>
+  <string name="perks_notification">您收到%s AppCoins點數</string>
+  <string name="perks_level_up_on_this_purchase">本次購買即可升級</string>
+  <string name="perks_level_up_amount_left">您距離下一個等級還有%1$s %2$s！</string>
   <string name="perks_level_up_level_tag">等級 %s</string>
-  <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
-  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
-  <string name="perks_empty_body">No promotions available at the moment.</string>
+  <string name="perks_bonus_purchase_flow">%1$s獎勵金：價值%2$s的AppCoins點數</string>
+  <string name="perks_purchases_disclaimer_body">除了AppCoins點數之外，透過任何付款方式進行的購買和儲值都可以提高您的等級並獲得獎勵。</string>
+  <string name="perks_empty_state_first_purchase_body">在與AppCoins兼容的應用程式中進行首購，即可解鎖我們為您準備的促銷活動！</string>
+  <string name="perks_empty_body">當前沒有促銷活動。</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">指紋鎖</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
