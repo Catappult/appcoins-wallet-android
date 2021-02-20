@@ -45,8 +45,8 @@
   <string name="title_dialog_error">錯誤</string>
   <string name="purchase_error_item_owned">您已擁有此物品！</string>
   <string name="purchase_card_error_title">糟糕，發生了一個錯誤。</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
+  <string name="purchase_card_error_general_1">您的卡片有一些問題，請再試一次或與我們聯繫。</string>
+  <string name="purchase_card_error_general_2">交易遭到銀行拒絕，請使用其他卡片或與我們聯繫。</string>
   <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
   <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
   <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
