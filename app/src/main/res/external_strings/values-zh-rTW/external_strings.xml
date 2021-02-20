@@ -47,12 +47,12 @@
   <string name="purchase_card_error_title">糟糕，發生了一個錯誤。</string>
   <string name="purchase_card_error_general_1">您的卡片有一些問題，請再試一次或與我們聯繫。</string>
   <string name="purchase_card_error_general_2">交易遭到銀行拒絕，請使用其他卡片或與我們聯繫。</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_card_error_no_funds">您可能沒有足夠的資金或卡片已達到限額。 請嘗試其他方式。</string>
+  <string name="purchase_card_error_expired">您的卡片已過期，請嘗試其他卡片。</string>
+  <string name="purchase_card_error_invalid_details">您的卡號可能不正確，請檢查後再試一次。</string>
+  <string name="purchase_card_error_not_supported">暫未支援您的卡片類型，請嘗試其他卡片。</string>
+  <string name="purchase_card_error_security">您的安全碼可能有誤，請再試一次。</string>
+  <string name="purchase_card_error_wrong_CVV">您的CVV/CVC可能有誤，請再試一次。</string>
   <string name="purchase_card_error_CVV">錯誤的CVV/CVC</string>
   <string name="error_contac_us_body">如果此問題依然存在，請與我們聯繫。</string>
 </resources>
