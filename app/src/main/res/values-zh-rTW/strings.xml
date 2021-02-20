@@ -389,10 +389,10 @@
   <string name="askafriend_notification_received_body">%1$s %2$s 已新增至您的錢包。</string>
   <string name="askafriend_received_title">轉帳匯入</string>
   <string name="askafriend_send_title">轉帳匯出</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_share_note_to_friend">我想購買%2$s上的商品，可以給我%1$s AppCoins點數嗎？轉帳連結：%3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">傳送資金</string>
-  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
+  <string name="p2p_send_body">掃描或手動輸入您朋友的錢包地址</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s 已發送至以下地址：</string>
   <string name="p2p_send_current_balance_message">當前餘額：%1$s %2$s</string>
   <string name="p2p_send_error_address">無效地址</string>
@@ -429,7 +429,7 @@
   <string name="privacy_policy">隱私權政策</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
-  <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
+  <string name="home_empty_discover_apps_button">發現暢銷應用程式</string>
   <!--Tokens-->
   <!--Settings-->
   <string name="title_redeem">Redeem Code</string>
@@ -667,7 +667,7 @@
   <string name="transfer_title">轉帳資金</string>
   <string name="transfer_send_tab_title">發送</string>
   <string name="transfer_receive_tab_title">接收</string>
-  <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
+  <string name="transfer_send_body">掃描或手動輸入您朋友的錢包地址</string>
   <string name="transfer_send_recipient_title">錢包地址</string>
   <string name="transfer_send_token_title">代幣：</string>
   <string name="transfer_send_amount_title">數量</string>
