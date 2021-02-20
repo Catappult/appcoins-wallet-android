@@ -534,7 +534,7 @@
   <string name="referral_onboarding_title">邀請好友！</string>
   <string name="referral_onboarding_body">加入邀請好友計畫，您與朋友均可獲得高達%s！</string>
   <string name="referral_onboarding_body_no_connection">加入邀請好友計畫，您與朋友均可獲得AppCoins點數！</string>
-  <string name="referral_onboarding_redeem_button">有人邀請了我</string>
+  <string name="referral_onboarding_redeem_button">我收到了邀請</string>
   <string name="referral_verification_title">驗證您的錢包</string>
   <string name="referral_verification_body">您需要先驗證錢包以參加邀請好友計畫。我們將會透過簡訊 (SMS) 傳送給您一條驗證碼。</string>
   <string name="referral_verification_confirmation_title">您的邀請已通過驗證！</string>
@@ -551,7 +551,7 @@
   <string name="referral_share_sheet_title">分享邀請連結至：</string>
   <string name="referral_view_unverified_body">每邀請一位好友，即可獲得價值%s的AppCoins點數。請先驗證您的錢包。</string>
   <string name="referral_view_verify_button">驗證錢包</string>
-  <string name="referral_view_i_have_been_invited_button">有人邀請了我</string>
+  <string name="referral_view_i_have_been_invited_button">我收到了邀請</string>
   <string name="referral_view_dropup_menu_friends_invited">已邀請好友</string>
   <string name="referral_view_dropup_menu_earned">已獲得</string>
   <string name="referral_dropup_menu_friends_title_1">已邀請好友</string>
