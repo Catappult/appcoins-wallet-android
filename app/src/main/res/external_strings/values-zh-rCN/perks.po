@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2021-02-19 12:27\n"
+"PO-Revision-Date: 2021-02-20 05:25\n"
 
 #. Card Title
 #:
@@ -20,7 +20,7 @@ msgstr "赚取AppCoins积金!"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "在{1}时间里，除AppCoins积分外，所有购买可额外获得{0}%的奖励。"
 
 #. Card - Purchase Promotion.
 #:
@@ -55,32 +55,32 @@ msgstr "因为你已达到下一级。"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "在{1}时间里，除AppCoins积分外，所有购买可额外获得{0}%的奖励。"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "在{1}的所有消费中，额外获取{0}%的奖励。"
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "您在{1}的第一笔消费中，除AppCoins积分外，可额外获取{0}%的奖励"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "由于您在{0}的首次购买。"
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "您在{1}的当天首次购买中，除AppCoins积分外，可额外获取{0}%的奖励"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "由于您在{0}的当天首次购买。"
 
 #. Title for bonus receipts.
 #:
@@ -90,22 +90,22 @@ msgstr "+{0} AppCoins积金奖励！"
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "您在{3}中花费{1} {2}可额外获取{0}AppCoins积分。"
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "由于您在{2}中花费了{0} {1}。"
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "您在AppCoins应用中花费{1} {2}可额外获取{0}AppCoins积分。"
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "由于您在AppCoins应用中花费了{0} {1}。"
 
 #. Card - Extra bonus in all games.
 #:
