@@ -323,7 +323,7 @@
   <string name="gamification_purchase_header_part_1">購買獎勵：</string>
   <string name="gamification_purchase_header_part_2">價值%s的APPC點數</string>
   <string name="gamification_purchase_body">您可以在下次購買時使用獎勵金。</string>
-  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
+  <string name="gamification_purchase_completed_bonus_received_done">完成！</string>
   <string name="gamification_purchase_completed_bonus_received">獲得獎勵金</string>
   <string name="action_level">我的等級</string>
   <string name="gamification_purchase_appccredits_body">最快的付款方式！</string>
@@ -412,51 +412,51 @@
   <string name="discover_button">發現</string>
   <string name="retry_button">重試</string>
   <string name="do_it_later_button">稍後再做</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
-  <string name="common_or">OR</string>
-  <string name="share_via">Share via:</string>
+  <string name="connectoin_error_body">可能您未連接至網路。請檢查您的網絡連線狀態，再試一次。</string>
+  <string name="common_or">或者</string>
+  <string name="share_via">分享至：</string>
   <string name="password">密碼</string>
-  <string name="repeat_password">Repeat password</string>
+  <string name="repeat_password">再次輸入密碼</string>
   <string name="turn_on_button">開啟</string>
-  <string name="no_thanks_button">No, thanks</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="no_thanks_button">不用，謝謝</string>
+  <string name="remind_later_button">稍後再說</string>
+  <string name="get_code_button">獲得代碼</string>
   <string name="confirm_button">確認</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
+  <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
   <string name="terms_and_conditions">使用條款</string>
   <string name="privacy_policy">隱私權政策</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
+  <string name="home_empty_discover_apps_body">最棒的Android應用程式商店等你來探索。</string>
   <string name="home_empty_discover_apps_button">發現暢銷應用程式</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
-  <string name="settings_item_support">Contact Support Team</string>
+  <string name="title_redeem">兌換代碼</string>
+  <string name="settings_item_support">聯繫支援</string>
   <string name="settings_subheader_support">尋求支援</string>
   <string name="settings_subheader_about_us">關於我們</string>
   <!--Local Payments-->
-  <string name="local_payments_inprogress_header">In progress&#8230;</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_header">處理中&#8230;</string>
+  <string name="local_payments_inprogress_body">完成付款後，您會在錢包中收到AppCoins點數。 回到遊戲用它進行購買吧！</string>
   <!--Wallet Verification-->
-  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
-  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
-  <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
+  <string name="verification_notification_verification_needed_title">獎勵已準備就緒，但是需要先驗證您的錢包。</string>
+  <string name="verification_notification_verification_needed_body">為了安全起見，我們需要透過簡訊 (SMS) 驗證碼驗證您的錢包。</string>
+  <string name="verification_insert_phone_title">輸入您的電話號碼</string>
+  <string name="verification_insert_phone_body">驗證錢包以獲得獎勵！我們將向您傳送一條簡訊驗證碼。</string>
+  <string name="verification_insert_phone_field_country">選擇您的國家/地區</string>
   <string name="verification_insert_phone_field_number">電話號碼</string>
-  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
-  <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
-  <string name="verification_insert_phone_field_landline_error">Landline numbers are not supported.</string>
-  <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
+  <string name="verification_insert_phone_field_number_error">無效的電話號碼</string>
+  <string name="verification_insert_phone_field_region_error">您的地區暫未支援。</string>
+  <string name="verification_insert_phone_field_landline_error">不支援座機號碼。</string>
+  <string name="verification_insert_phone_security_disclaimer">僅作為安全驗證使用，我們不會儲存任何個人資料。</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
   <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
-  <string name="verification_insert_code_title">Insert your verification code</string>
-  <string name="verification_insert_code_error">Invalid code</string>
-  <string name="verification_insert_code_resend_button">RESEND CODE</string>
-  <string name="verification_validating_title">Validating your code&#8230;</string>
-  <string name="verification_completed_title">Done!</string>
+  <string name="verification_insert_code_title">輸入驗證碼</string>
+  <string name="verification_insert_code_error">無效代碼</string>
+  <string name="verification_insert_code_resend_button">再次傳送代碼</string>
+  <string name="verification_validating_title">驗證代碼中&#8230;</string>
+  <string name="verification_completed_title">完成！</string>
   <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
   <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
@@ -469,11 +469,11 @@
   <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
   <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
   <string name="verified_tag">已驗證</string>
-  <string name="unferified_tag">Unverified wallet</string>
+  <string name="unferified_tag">未驗證錢包</string>
   <string name="verification_wallets_verify_button">驗證</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
-  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
+  <string name="purchase_more_payment_methods_button">其他付款方式</string>
   <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
   <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
@@ -784,10 +784,10 @@
   <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
   <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
   <string name="carrier_billing_code_field">Your code...</string>
-  <string name="carrier_billing_code_resend_button">RESEND CODE</string>
+  <string name="carrier_billing_code_resend_button">再次傳送代碼</string>
   <string name="carrier_billing_submit_button">SUBMIT</string>
   <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
-  <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
+  <string name="carrier_billing_terms_disclaimer">點選提交即代表您瞭解並同意使用條款以及隱私權政策。</string>
   <string name="carrier_billing_help_1">需要任何協助嗎？</string>
   <string name="carrier_billing_help_2_button">聯繫支援</string>
   <string name="carrier_billing_terms_button">使用條款</string>
