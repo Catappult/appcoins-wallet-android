@@ -54,5 +54,5 @@
   <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
   <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
   <string name="purchase_card_error_CVV">錯誤的CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="error_contac_us_body">如果此問題依然存在，請與我們聯繫。</string>
 </resources>
