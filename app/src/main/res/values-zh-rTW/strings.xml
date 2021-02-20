@@ -526,10 +526,10 @@
   <string name="async_steps_2">返回游戲並使用AppCoins點數作為付款方式進行購買。</string>
   <string name="async_steps_topup_2">使用這些AppCoins點數在您喜歡的遊戲中進行購買！</string>
   <string name="async_steps_1_no_notification">透過%s完成付款。</string>
-  <string name="async_steps_2_no_notification">Once you receive the AppCoins Credits, go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
+  <string name="async_steps_2_no_notification">收到AppCoins點數後，返回游戲並透過AppCoins點數作為付款方式進行購買。</string>
+  <string name="async_steps_2_toptup_no_notification">收到AppCoins點數後，使用它在您喜歡的遊戲中進行購買！</string>
   <string name="async_notification_title">您的AppCoins點數已發放！</string>
-  <string name="async_notification_body">Go back to %s to make the purchase using AppCoins Credits.</string>
+  <string name="async_notification_body">回到%s中使用AppCoins點數進行購買吧！</string>
   <!--Referral Program-->
   <string name="referral_onboarding_title">邀請好友！</string>
   <string name="referral_onboarding_body">加入邀請好友計畫，您與朋友均可獲得高達%s！</string>
@@ -567,12 +567,12 @@
   <string name="promotions_referral_card_body">分享您的邀請連結，賺取AppCoins點數。</string>
   <string name="promotions_gamification_card_title">每次購買獲得高達30%獎勵金</string>
   <string name="promotions_gamification_card_title_variable">每次購買獲得高達%s%% 獎勵金</string>
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_new">新</string>
   <string name="promotions_tab_promotions_title">促銷</string>
-  <string name="promotions_tab_poa_title">PLAY &amp; EARN</string>
+  <string name="promotions_tab_poa_title">邊玩邊賺</string>
   <string name="promotions_empty_promotions_body">當前無促銷活動，請稍後再來！</string>
   <string name="promotions_empty_poa_body">當前無可獲得獎勵的應用程式，請稍後再來！</string>
-  <string name="promotions_empty_first_purchase_body">Make your first purchase in a game or app and unlock the promotions we\'ve got for you!</string>
+  <string name="promotions_empty_first_purchase_body">在遊戲或者應用程式中進行首購，即可解鎖我們為您準備的促銷活動！</string>
   <string name="promotions_empty_suggested_games_title">為您推薦</string>
   <string name="promotions_perks_button">獎勵</string>
   <string name="promotions_vouhers_button">兌換券</string>
