@@ -490,7 +490,7 @@
   <string name="purchase_current_balance_appc_eth_body">價值%s的APPC點數和以太幣.</string>
   <string name="purchase_wallet_blocked_title">Your AppCoins Credits balance is blocked</string>
   <string name="purchase_wallet_blocked_body">Due to an unusual transaction history, your AppCoins Credits balance was blocked. You\'ll still be able to make payments and transaction with other methods except AppCoins Credits.\n\nIf you believe this is a mistake, contact us at:</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_title">糟糕，發生了一個錯誤。</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
   <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
   <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
@@ -593,7 +593,7 @@
   <string name="backup_title">備份錢包</string>
   <string name="backup_password_title">Encrypt your wallet (optional)</string>
   <string name="backup_password">密碼</string>
-  <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
+  <string name="backup_body">我們不會存儲您的私鑰或任何其他訪問方式。 確保錢包的備份（密鑰庫）的安全很重要。</string>
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
   <string name="backup_confirmation_yes">是的，完成</string>
@@ -613,14 +613,14 @@
   <string name="backup_save_button">儲存備份</string>
   <string name="import_wallet_title">恢復錢包</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
-  <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
+  <string name="import_wallet_keystore_private_keys">密鑰庫或私鑰</string>
   <string name="import_wallet_from_file_title">Or recover from file</string>
   <string name="import_wallet_file_button">從資料中恢復</string>
   <string name="import_wallet_button">恢復錢包</string>
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <string name="error_invalid_private_key">無效的私鑰</string>
-  <string name="error_invalid_keystore">Invalid keystore</string>
+  <string name="error_invalid_keystore">無效的密鑰庫</string>
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">MAYBE LATER</string>
   <string name="backup_tooltip_backup_button">備份</string>
