@@ -44,7 +44,7 @@
   <!-- Error messages -->
   <string name="title_dialog_error">錯誤</string>
   <string name="purchase_error_item_owned">您已擁有此物品！</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_title">糟糕，發生了一個錯誤。</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
   <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
   <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
