@@ -33,7 +33,7 @@
   <string name="no_camera_available">沒有可用的相機！</string>
   <string name="ok">瞭解</string>
   <string name="barcode_error_format">無效的二維條碼格式：%s</string>
-  <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
+  <string name="title_delete_account">確認移除此錢包嗎？</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram社團</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -494,7 +494,7 @@
   <string name="purchase_card_error_general_1">您的卡片有一些問題，請再試一次或與我們聯繫。</string>
   <string name="purchase_card_error_general_2">交易遭到銀行拒絕，請使用其他卡片或與我們聯繫。</string>
   <string name="purchase_card_error_no_funds">您可能沒有足夠的資金或卡片已達到限額。 請嘗試其他方式。</string>
-  <string name="purchase_card_error_expired">您的卡片已過期，請嘗試其他卡片。</string>
+  <string name="purchase_card_error_expired">您的卡片已到期，請嘗試其他卡片。</string>
   <string name="purchase_card_error_invalid_details">您的卡號可能不正確，請檢查後再試一次。</string>
   <string name="purchase_card_error_not_supported">暫未支援您的卡片類型，請嘗試其他卡片。</string>
   <string name="purchase_card_error_security">您的安全碼可能有誤，請再試一次。</string>
@@ -521,11 +521,11 @@
   <string name="purchase_address_post_code_field">郵遞區號</string>
   <string name="purchase_address_state_field">州/省</string>
   <!--Async Payments-->
-  <string name="async_steps_title">Next Steps</string>
-  <string name="async_steps_1">Complete your payment with %s. You\'ll be notified once you receive the AppCoins Credits in your wallet.</string>
-  <string name="async_steps_2">Go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
-  <string name="async_steps_topup_2">Use these AppCoins Credits to make purchases in your favorite games!</string>
-  <string name="async_steps_1_no_notification">Complete your payment with %s.</string>
+  <string name="async_steps_title">後續步驟</string>
+  <string name="async_steps_1">透過%s完成付款。當您的錢包收到AppCoins點數，您會收到一條通知。</string>
+  <string name="async_steps_2">返回游戲並使用AppCoins點數作為付款方式進行購買。</string>
+  <string name="async_steps_topup_2">使用這些AppCoins點數在您喜歡的遊戲中進行購買！</string>
+  <string name="async_steps_1_no_notification">透過%s完成付款。</string>
   <string name="async_steps_2_no_notification">Once you receive the AppCoins Credits, go back to the game and make the purchase using AppCoins Credits as a payment method.</string>
   <string name="async_steps_2_toptup_no_notification">Once you receive the AppCoins Credits, use them to make purchases in your favorite games!</string>
   <string name="async_notification_title">您的AppCoins點數已發放！</string>
@@ -640,8 +640,8 @@
     <item quantity="other">錢包</item>
   </plurals>
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
-  <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
-  <string name="wallets_imported_body">Wallet successfuly recovered</string>
+  <string name="wallets_address_copied_body">錢包地址已複製到剪貼簿</string>
+  <string name="wallets_imported_body">錢包已成功恢復</string>
   <string name="wallets_2nd_view_balance_title">餘額：</string>
   <string name="wallets_2nd_view_other_wallets_title">其他錢包</string>
   <string name="wallets_2nd_view_import_button">恢復錢包</string>
@@ -658,10 +658,10 @@
   <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
   <string name="remove_wallet_backup_button">備份錢包</string>
   <string name="remove_wallet_no_backup_button">移除錢包</string>
-  <string name="remove_wallet_confirm_body">Are you sure you want to remove this wallet?</string>
-  <string name="remove_wallet_no_button">NO, GO BACK</string>
-  <string name="remove_wallet_yes_button">YES, REMOVE WALLET</string>
-  <string name="remove_wallet_removed_body">Wallet removed!</string>
+  <string name="remove_wallet_confirm_body">確認移除此錢包嗎？</string>
+  <string name="remove_wallet_no_button">不，返回上一步</string>
+  <string name="remove_wallet_yes_button">是的，移除錢包</string>
+  <string name="remove_wallet_removed_body">錢包已移除！</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">轉賬</string>
   <string name="transfer_title">轉帳資金</string>
@@ -676,57 +676,57 @@
   <string name="transfer_receive_body">分享您的錢包地址以接收資金。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_button">輕觸打開</string>
   <!--Pioneers-->
   <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
   <string name="pioneer_gamification_title">You\'re a Pioneer</string>
   <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_title">Check for updates</string>
-  <string name="check_updates_settings_subtitle">Current version %s</string>
-  <string name="check_updates_checking_body">Searching for a new version</string>
-  <string name="check_updates_no_updates_body">You\'re up to date!</string>
+  <string name="check_updates_settings_title">檢查更新</string>
+  <string name="check_updates_settings_subtitle">軟體版本 %s</string>
+  <string name="check_updates_checking_body">搜尋新版本</string>
+  <string name="check_updates_no_updates_body">您已是最新版本。</string>
   <string name="check_updates_updates_available_title">有新版本</string>
-  <string name="check_updates_update_button">UPDATE NOW</string>
+  <string name="check_updates_update_button">現在更新</string>
   <string name="check_updates_settings_available_title">有新版本</string>
   <string name="check_updates_settings_available_subtitle_button">點擊更新</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage subscriptions</string>
-  <string name="subscriptions_title">Subscriptions</string>
-  <string name="subscriptions_active_title">Active</string>
-  <string name="subscriptions_expired_title">Expired</string>
-  <string name="subscriptions_empty_title">No Subscriptions Yet</string>
-  <string name="subscriptions_empty_body">Subscribe to services in your favorite apps and games and we\'ll deal with periodic payments.</string>
+  <string name="subscriptions_settings_title">管理訂閱</string>
+  <string name="subscriptions_title">訂閱</string>
+  <string name="subscriptions_active_title">訂閱項目</string>
+  <string name="subscriptions_expired_title">已到期</string>
+  <string name="subscriptions_empty_title">尚無訂閱內容</string>
+  <string name="subscriptions_empty_body">訂閱您喜歡的應用程式和遊戲內容，系統會根據您的訂閱週期自動收取費用。</string>
   <string name="subscriptions_details_billing_title">帳單金額：</string>
   <string name="subscriptions_details_next_payment_title">下次扣款日期：</string>
   <string name="subscriptions_details_payment_method_title">支付方式：</string>
   <string name="subscriptions_details_last_bill">上次扣款：</string>
   <string name="subscriptions_details_start_date_title">開始日期：</string>
   <string name="subscriptions_details_cancelled_body">已取消，到期日：%s</string>
-  <string name="subscriptions_expiration_body">It expires on %s</string>
-  <string name="subscriptions_canceled_body">Canceled</string>
+  <string name="subscriptions_expiration_body">%s 到期</string>
+  <string name="subscriptions_canceled_body">已取消訂閱</string>
   <string name="subscriptions_details_disclaimer">由於匯率的影響，下次付款時AppCoins數量可能會有所不同。</string>
   <string name="subscriptions_details_button">詳情</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
-  <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
-  <string name="subscriptions_cancel_title">Cancel Subscription</string>
-  <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
-  <string name="subscriptions_cancel_no_button">NO, GO BACK</string>
-  <string name="subscriptions_cancel_yes_button">YES, CANCEL SUBSCRIPTION</string>
-  <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
-  <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
+  <string name="subscriptions_manage_button">管理訂閱</string>
+  <string name="subscriptions_cancel_button">取消訂閱</string>
+  <string name="subscriptions_cancel_title">取消訂閱</string>
+  <string name="subscriptions_cancel_body">確認取消此訂閱內容嗎？</string>
+  <string name="subscriptions_cancel_no_button">不，返回上一步</string>
+  <string name="subscriptions_cancel_yes_button">是的，取消訂閱</string>
+  <string name="subscriptions_cancel_confirmation_title">訂閱已取消！</string>
+  <string name="subscriptions_cancel_confirmation_body">您將不再為此訂閱付費，並且可以在%s之前繼續使用它。</string>
   <string name="subscriptions_category_title">訂閱</string>
-  <string name="subscriptions_bonus_body">You\'ll receive this bonus on each payment.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
+  <string name="subscriptions_bonus_body">您將在每次付款後都獲得此獎勵金。</string>
+  <string name="subscriptions_per_day">%1$s/天</string>
+  <string name="subscriptions_per_week">%1$s/週</string>
+  <string name="subscriptions_per_month">%1$s/月</string>
+  <string name="subscriptions_per_year">%1$s/年</string>
+  <string name="subscriptions_per_several_day">每%2$s天%1$s </string>
+  <string name="subscriptions_per_several_week">每%2$s週%1$s </string>
+  <string name="subscriptions_per_several_month">每%2$s個月%1$s </string>
+  <string name="subscriptions_per_several_year">每%2$s年%1$s </string>
   <!--New Gamification-->
-  <string name="gamif_title">Up to %s%% Bonus!</string>
+  <string name="gamif_title">高達%s%% 獎勵！</string>
   <string name="gamif_bonus_received">已獲得獎勵金</string>
   <string name="gamif_spent">達到下個等級需消耗的數量</string>
   <string name="gamif_show_previous">Show previous achievements</string>
@@ -794,18 +794,18 @@
   <string name="carrier_billing_privacy_button">隱私權政策</string>
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">新增信用卡/簽帳卡</string>
-  <string name="manage_cards_settings_manage_title">Manage cards</string>
-  <string name="manage_cards_view_title">Manage cards</string>
-  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
+  <string name="manage_cards_settings_manage_title">管理卡片</string>
+  <string name="manage_cards_view_title">管理卡片</string>
+  <string name="manage_cards_view_manage_subtitle">管理支付卡片</string>
   <string name="manage_cards_add_title">新增卡片</string>
-  <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
-  <string name="manage_cards_remove_no">NO, CANCEL</string>
-  <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
-  <string name="manage_cards_card_ending_body">Card ending in %s</string>
+  <string name="manage_cards_remove_confirmation">確認移除這張卡片嗎？</string>
+  <string name="manage_cards_remove_no">不，取消</string>
+  <string name="manage_cards_remove_yes">是的，移除</string>
+  <string name="manage_cards_card_ending_body">卡片到期日%s</string>
   <string name="manage_cards_error_details">您的卡片資訊可能有誤，請再試一次！</string>
   <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
-  <string name="manage_cards_select_title">Select payment card</string>
-  <string name="manage_cards_remember">Remember card</string>
+  <string name="manage_cards_select_title">選擇支付卡片</string>
+  <string name="manage_cards_remember">記住此卡片</string>
   <!--Perks-->
   <string name="perks_gamif_title">每次購買獲得高達%s%%獎勵金</string>
   <string name="perks_gamif_subtitle">您在喜愛的應用程式中花費越多，獎勵金越多！</string>
@@ -861,10 +861,10 @@
   <string name="rate_us_improve_title">What can we improve?</string>
   <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
   <string name="rate_us_improve_field__empty_error">Please write something</string>
-  <string name="rate_us_possitive_thanks_title">Thank you!</string>
+  <string name="rate_us_possitive_thanks_title">謝謝！</string>
   <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
   <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
-  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
+  <string name="rate_us_possitive_done_title">感謝回饋！</string>
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
@@ -873,10 +873,10 @@
   <string name="card_verification_code_title">查看交易詳情中的數字。</string>
   <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
-  <string name="card_verification_code_example_date">Trans. Date</string>
+  <string name="card_verification_code_example_date">交易日期</string>
   <string name="card_verification_code_example_description">Description</string>
   <string name="card_verification_code_example_amount">數量</string>
-  <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
+  <string name="card_verification_code_example_code">唯一代碼。\n有效期%s 天。</string>
   <string name="card_verification_code_enter_title">Enter the %s digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
