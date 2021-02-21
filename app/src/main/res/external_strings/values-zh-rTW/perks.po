@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2021-02-19 16:51\n"
+"PO-Revision-Date: 2021-02-21 13:23\n"
 
 #. Card Title
 #:
@@ -95,7 +95,7 @@ msgstr "當您在{3}中消費{1} {2}，即可獲得額外的{0} AppCoins點數�
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr "因為您在{2}購買了{0} {1} 。"
+msgstr "因為您在{2}消費了{0} {1} 。"
 
 #. Card - Expendidure in any game.
 #:
