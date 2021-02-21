@@ -612,7 +612,7 @@
   <string name="backup_send_button">傳送備份</string>
   <string name="backup_save_button">儲存備份</string>
   <string name="import_wallet_title">恢復錢包</string>
-  <string name="import_wallet_body">在下面粘貼您的錢包備份。</string>
+  <string name="import_wallet_body">在下面貼上您的錢包備份。</string>
   <string name="import_wallet_keystore_private_keys">密鑰庫或私鑰</string>
   <string name="import_wallet_from_file_title">或者從資料中恢復</string>
   <string name="import_wallet_file_button">從資料中恢復</string>
@@ -652,7 +652,7 @@
   <string name="wallet_view_remove_button">移除錢包</string>
   <string name="wallet_view_backup_button">備份錢包</string>
   <string name="wallet_view_activate_button">啟用此錢包</string>
-  <string name="wallet_view_active_body">這是您活躍狀態的錢包。</string>
+  <string name="wallet_view_active_body">這是您目前使用中的錢包。</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">移除錢包</string>
   <string name="remove_wallet_body">我們強烈建議您在移除錢包之前先備份它。 除非您有備份，否則將無法再次存取它。</string>
@@ -678,7 +678,7 @@
   <string name="support_new_message_title">您有新訊息！</string>
   <string name="support_new_message_button">輕觸打開</string>
   <!--Pioneers-->
-  <string name="pioneer_bonus_updated_body">獎勵百分比已於%s更新。</string>
+  <string name="pioneer_bonus_updated_body">獎勵比例已於%s更新。</string>
   <string name="pioneer_gamification_title">您是一名先驅者！</string>
   <string name="pioneer_gamification_body">先驅者是獎勵計畫的早期採用者。</string>
   <!--Check for Updates-->
@@ -695,8 +695,8 @@
   <string name="subscriptions_title">訂閱</string>
   <string name="subscriptions_active_title">訂閱項目</string>
   <string name="subscriptions_expired_title">已到期</string>
-  <string name="subscriptions_empty_title">尚無訂閱內容</string>
-  <string name="subscriptions_empty_body">訂閱您喜歡的應用程式和遊戲內容，系統會根據您的訂閱週期自動收取費用。</string>
+  <string name="subscriptions_empty_title">尚無訂閱</string>
+  <string name="subscriptions_empty_body">在您喜歡的應用程式和遊戲中進行訂閱，系統會根據您的訂閱定期收費。</string>
   <string name="subscriptions_details_billing_title">帳單金額：</string>
   <string name="subscriptions_details_next_payment_title">下次扣款日期：</string>
   <string name="subscriptions_details_payment_method_title">付款方式：</string>
@@ -710,7 +710,7 @@
   <string name="subscriptions_manage_button">管理訂閱</string>
   <string name="subscriptions_cancel_button">取消訂閱</string>
   <string name="subscriptions_cancel_title">取消訂閱</string>
-  <string name="subscriptions_cancel_body">確認取消此訂閱內容嗎？</string>
+  <string name="subscriptions_cancel_body">確認取消此訂閱嗎？</string>
   <string name="subscriptions_cancel_no_button">不，返回上一步</string>
   <string name="subscriptions_cancel_yes_button">是的，取消訂閱</string>
   <string name="subscriptions_cancel_confirmation_title">訂閱已取消！</string>
@@ -740,9 +740,9 @@
   <string name="gamif_card_body">再消耗 %s AppCoins 以達到下個等級 。</string>
   <string name="gamif_bonus">%s%%獎勵</string>
   <string name="gamif_placeholder_earth">地球</string>
-  <string name="gamif_quote_earth">“地球是我們所有人的共同點” – Wendell Berry</string>
+  <string name="gamif_quote_earth">「地球是我們所有人的共同點。」 ——溫德爾‧貝瑞</string>
   <string name="gamif_placeholder_moon">月球</string>
-  <string name="gamif_quote_moon">“這是一個人的一小步，卻是人類的一大步。” –尼爾·阿姆斯特朗</string>
+  <string name="gamif_quote_moon">「這是一個人的一小步，卻是人類的一大步。」 ——尼爾·阿姆斯壯</string>
   <string name="gamif_distance_moon">距離地球384,400公里</string>
   <string name="gamif_placeholder_mars">火星</string>
   <string name="gamif_quote_mars">“我比較想死在火星上。只要不是墜毀火星就行了。”—— 伊隆．馬斯克</string>
@@ -754,7 +754,7 @@
   <string name="gamif_quote_jupiter">“一旦發現所有真相，就很容易理解；重點是要發現它們……” ——伽利略·伽利萊</string>
   <string name="gamif_distance_jupiter">距離地球6.331億公里</string>
   <string name="gamif_placeholder_europa">木衛二「歐羅巴」</string>
-  <string name="gamif_quote_europa">“如果你在歐羅巴找到生活，你會怎麼稱呼它？比如，歐洲人嗎？” –尼爾·德格拉斯·泰森</string>
+  <string name="gamif_quote_europa">「如果你在歐羅巴找到生活，你會怎麼稱呼它？比如，歐洲人嗎？”」——奈爾·德·葛拉司·泰森</string>
   <string name="gamif_distance_europa">距離地球6.283億公里</string>
   <string name="gamif_placeholder_saturn">土星</string>
   <string name="gamif_quote_saturn">“我最喜歡的科學理論是土星的環完全由丟失的航空行李組成。” ——馬克·羅素</string>
@@ -766,7 +766,7 @@
   <string name="gamif_quote_uranus">“天王星的衛星似乎有些扭曲。” ——羅伯特·斯塔威爾·鮑爾爵士</string>
   <string name="gamif_distance_uranus">距離地球30.3億公里</string>
   <string name="gamif_placeholder_neptune">海王星</string>
-  <string name="gamif_quote_neptune">“那顆星不在列表上！” ——海因里希·達雷斯特發現了海王星</string>
+  <string name="gamif_quote_neptune">「那顆星不在列表上！」——羅雷爾·路德威·德亞瑞司特發現了海王星</string>
   <string name="gamif_distance_neptune">距離地球44.2億公里</string>
   <string name="gamif_placeholder_planetx">行星%s</string>
   <string name="gamif_quote_planetx">“在某個地方，令人難以置信的事情正在等待人們知道。” ——卡爾·薩根</string>
@@ -846,7 +846,7 @@
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">指紋鎖</string>
   <string name="fingerprint_failed_title">授權失敗</string>
-  <string name="fingerprint_failed_body">請在%s後再試。</string>
+  <string name="fingerprint_failed_body">請在%s秒後再試。</string>
   <string name="fingerprint_authentication_required_title">需要授權</string>
   <string name="fingerprint_authentication_required_body">請透過指紋或密碼以繼續。</string>
   <string name="fingerprint_popup_body">現在可啟用指紋驗證！</string>
@@ -856,17 +856,17 @@
   <string name="send_logs_send">已傳送！</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins錢包好用嗎？</string>
-  <string name="rate_us_no">一般般</string>
+  <string name="rate_us_no">普通</string>
   <string name="rate_us_yes">好用！</string>
   <string name="rate_us_improve_title">請給我們一些改進建議吧！</string>
   <string name="rate_us_improve_field">請告訴我們哪裡出了問題，我們將改進提升您的體驗。</string>
   <string name="rate_us_improve_field__empty_error">請暢所欲言吧</string>
   <string name="rate_us_possitive_thanks_title">謝謝！</string>
-  <string name="rate_us_possitive_thanks_body">很高興您喜歡我們的應用程式。 您可以在應用商店上評分來鼓勵我們嗎？</string>
+  <string name="rate_us_possitive_thanks_body">很高興您喜歡我們的應用程式。 您可以在應用程式商店上評分來鼓勵我們嗎？</string>
   <string name="rate_us_possitive_rate_button">去給APPCOINS錢包評分</string>
   <string name="rate_us_possitive_done_title">感謝回饋！</string>
   <string name="rate_us_back_title">可以幫助我們嗎？</string>
-  <string name="rate_us_back_body">在應用商店上給AppCoins錢包評分，鼓勵我們為您提供更佳體驗。</string>
+  <string name="rate_us_back_body">在應用程式商店上給AppCoins錢包評分，鼓勵我們為您提供更佳體驗。</string>
   <!--Card verification-->
   <string name="card_verification_body">透過信用卡/金融卡驗證您的錢包</string>
   <string name="card_verification_charde_disclaimer">我們會向您的卡片收取%s費用，卡片一經確認，此費用將退回至您的卡片。</string>
