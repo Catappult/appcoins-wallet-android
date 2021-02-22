@@ -6,7 +6,7 @@
   <string name="iab_wallet_not_installed_popup_close_button">關閉</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">您需要透過AppCoins錢包進行購買。請從Aptoide或Play Store下載應用程式，然後繼續完成購買！</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">瞭解！</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">了解!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">您需要AppCoins錢包！</string>
   <string name="poa_wallet_not_installed_notification_body">要獲得獎勵，您需要AppCoins錢包。</string>
@@ -14,8 +14,8 @@
   <string name="iab_pay_as_guest_title">以訪客身份付款</string>
   <string name="iab_pay_as_guest_credit_card">信用卡</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">使用PayPal付款</string>
-  <string name="iab_switch_to_credit_card">使用信用卡付款</string>
+  <string name="iab_switch_to_paypal">透過PayPal付款</string>
+  <string name="iab_switch_to_credit_card">透過信用卡付款</string>
   <string name="iab_card_number">信用卡卡號</string>
   <string name="iab_card_expiry">到期日 月/年</string>
   <string name="iab_card_cvv">CVV</string>
@@ -38,7 +38,7 @@
   <string name="next_button">繼續</string>
   <string name="cancel_button">取消</string>
   <string name="buy_button">購買</string>
-  <string name="iab_wallet_not_installed_popup_close_install">安裝AppCoins Wallet</string>
+  <string name="iab_wallet_not_installed_popup_close_install">安裝AppCoins錢包</string>
   <string name="button_ok">好的</string>
   <string name="install_button">安裝</string>
   <!-- Error messages -->
@@ -48,7 +48,7 @@
   <string name="purchase_card_error_general_1">您的卡片有一些問題，請再試一次或與我們聯繫。</string>
   <string name="purchase_card_error_general_2">交易遭到銀行拒絕，請使用其他卡片或與我們聯繫。</string>
   <string name="purchase_card_error_no_funds">您可能沒有足夠的資金或卡片已達到限額。 請嘗試其他方式。</string>
-  <string name="purchase_card_error_expired">您的卡片已過期，請嘗試其他卡片。</string>
+  <string name="purchase_card_error_expired">您的卡片已到期，請嘗試其他卡片。</string>
   <string name="purchase_card_error_invalid_details">您的卡號可能不正確，請檢查後再試一次。</string>
   <string name="purchase_card_error_not_supported">暫未支援您的卡片類型，請嘗試其他卡片。</string>
   <string name="purchase_card_error_security">您的安全碼可能有誤，請再試一次。</string>
