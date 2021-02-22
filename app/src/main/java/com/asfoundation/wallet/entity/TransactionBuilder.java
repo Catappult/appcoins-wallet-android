@@ -97,11 +97,9 @@ public class TransactionBuilder implements Parcelable {
     shouldSendToken = in.readInt() == 1;
     toAddress = in.readString();
     fromAddress = in.readString();
-    if (fiatAmount != null) {
-      fiatAmount = new BigDecimal(in.readString());
-    } else {
-      in.readString();
-      fiatAmount = null;
+    String inFiatAmount = in.readString();
+    if (inFiatAmount != null) {
+      fiatAmount = new BigDecimal(inFiatAmount);
     }
     fiatCurrency = in.readString();
     fiatSymbol = in.readString();
