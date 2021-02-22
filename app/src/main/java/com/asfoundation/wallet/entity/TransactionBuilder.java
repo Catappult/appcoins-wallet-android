@@ -430,11 +430,7 @@ public class TransactionBuilder implements Parcelable {
     dest.writeInt(shouldSendToken ? 1 : 0);
     dest.writeString(toAddress);
     dest.writeString(fromAddress);
-    if (fiatAmount != null) {
-      dest.writeString(fiatAmount.toString());
-    } else {
-      dest.writeString(null);
-    }
+    dest.writeString(fiatAmount != null ? fiatAmount.toString() : null);
     dest.writeString(fiatCurrency);
     dest.writeString(fiatSymbol);
     dest.writeString(amount.toString());
