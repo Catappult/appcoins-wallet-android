@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-02-22 11:08\n"
+"PO-Revision-Date: 2021-02-22 12:05\n"
 
 #. Card Title
 #:
@@ -105,15 +105,15 @@ msgstr "Recevez {0} Appcoins Credits supplémentaires lorsque vous dépensez {1}
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "Parce que vous avez dépensé {0} {1} dans les applications AppCoins."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
-msgstr ""
+msgstr "Recevez un bonus supplémentaire de {0}% sur tous vos achats, à l'exception des AppCoins Credits."
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "Nouvel avantage disponible"
 
