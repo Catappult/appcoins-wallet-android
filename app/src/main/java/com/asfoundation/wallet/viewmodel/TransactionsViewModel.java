@@ -449,7 +449,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showTopApps(Context context) {
     transactionViewNavigator.navigateToBrowser(context,
-        Uri.parse("https://en.aptoide.com/store/catappult/group/group-10867"));
+        Uri.parse(InviteFriendsActivity.APTOIDE_TOP_APPS_URL));
   }
 
   public MutableLiveData<Boolean> shouldShowPromotionsNotification() {

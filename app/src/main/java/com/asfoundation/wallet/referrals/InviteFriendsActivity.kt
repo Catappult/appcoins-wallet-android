@@ -165,6 +165,6 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   companion object {
-    const val APTOIDE_TOP_APPS_URL = "https://en.aptoide.com/store/bds-store/group/group-10867"
+    const val APTOIDE_TOP_APPS_URL = "https://en.aptoide.com/store/catappult/group/group-10867"
   }
 }
