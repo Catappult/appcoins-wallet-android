@@ -22,7 +22,7 @@ class AdyenPaymentNavigator(private val fragmentManager: FragmentManager,
 
   fun navigateToUriForResult(redirectUrl: String?) = navigator.navigateToUriForResult(redirectUrl)
 
-  fun popViewWithError() = navigator.popViewWithError()
+  fun finishPaymentWithError() = navigator.finishPaymentWithError()
 
-  fun popView(bundle: Bundle) = navigator.popView(bundle)
+  fun finishPayment(bundle: Bundle) = navigator.finishPayment(bundle)
 }

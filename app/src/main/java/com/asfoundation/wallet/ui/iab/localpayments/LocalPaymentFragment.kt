@@ -206,7 +206,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun getAnimationDuration() = complete_payment_view.lottie_transaction_success.duration
 
-  override fun popView(bundle: Bundle, paymentId: String) {
+  override fun finishPayment(bundle: Bundle, paymentId: String) {
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY, paymentId)
     iabView.finish(bundle)
   }

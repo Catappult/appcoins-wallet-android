@@ -201,7 +201,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           .flatMapCompletable {
             Completable.fromAction { view.showCompletedPayment() }
                 .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-                .andThen(Completable.fromAction { view.popView(it, data.paymentId) })
+                .andThen(Completable.fromAction { view.finishPayment(it, data.paymentId) })
           }
     }
   }

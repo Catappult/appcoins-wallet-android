@@ -187,10 +187,10 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun handleErrorDismiss() {
     disposables.add(view.errorDismisses()
         .observeOn(viewScheduler)
-        .doOnNext { navigator.popViewWithError() }
+        .doOnNext { navigator.finishPaymentWithError() }
         .subscribe({}, {
           it.printStackTrace()
-          navigator.popViewWithError()
+          navigator.finishPaymentWithError()
         }))
   }
 

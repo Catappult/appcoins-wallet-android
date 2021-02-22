@@ -12,11 +12,11 @@ class TopUpNavigator(private val fragmentManager: FragmentManager,
                      private val uriNavigator: UriNavigator,
                      private val topUpView: TopUpActivityView) : Navigator {
 
-  override fun popView(bundle: Bundle) {
+  override fun finishPayment(bundle: Bundle) {
     topUpView.finish(bundle)
   }
 
-  override fun popViewWithError() {
+  override fun finishPaymentWithError() {
     topUpView.close(false)
   }
 

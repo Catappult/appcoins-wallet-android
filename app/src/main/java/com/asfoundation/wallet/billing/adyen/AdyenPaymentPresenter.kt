@@ -311,7 +311,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       Completable.fromAction { view.showSuccess(data.isPreselected) }
           .andThen(Completable.timer(view.getAnimationDuration(),
               TimeUnit.MILLISECONDS))
-          .andThen(Completable.fromAction { navigator.popView(bundle) })
+          .andThen(Completable.fromAction { navigator.finishPayment(bundle) })
     }
   }
 
@@ -422,8 +422,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleErrorDismissEvent() {
     disposables.add(view.errorDismisses()
         .observeOn(viewScheduler)
-        .doOnNext { navigator.popViewWithError() }
-        .subscribe({}, { navigator.popViewWithError() }))
+        .doOnNext { navigator.finishPaymentWithError() }
+        .subscribe({}, { navigator.finishPaymentWithError() }))
   }
 
   private fun handleBack() {
