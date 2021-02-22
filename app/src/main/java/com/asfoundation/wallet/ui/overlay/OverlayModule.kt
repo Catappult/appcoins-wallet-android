@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.overlay
 
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -25,7 +25,7 @@ class OverlayModule {
 
   @Provides
   fun providesOverlayInteractor(
-      preferencesRepositoryType: PreferencesRepositoryType): OverlayInteractor {
-    return OverlayInteractor(preferencesRepositoryType)
+      impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType): OverlayInteractor {
+    return OverlayInteractor(impressionPreferencesRepositoryType)
   }
 }

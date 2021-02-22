@@ -280,10 +280,10 @@ class InteractorModule {
                                   rakamAnalytics: RakamAnalytics,
                                   userStatsLocalData: UserStatsLocalData,
                                   gamificationMapper: GamificationMapper,
-                                  preferencesRepositoryType: PreferencesRepositoryType): PromotionsInteractor {
+                                  impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
         promotionsRepository, vouchersRepository, findDefaultWalletInteract, userStatsLocalData,
-        rakamAnalytics, gamificationMapper, preferencesRepositoryType)
+        rakamAnalytics, gamificationMapper, impressionPreferencesRepositoryType)
   }
 
   @Provides
@@ -410,7 +410,7 @@ class InteractorModule {
                                       cardNotificationsInteractor: CardNotificationsInteractor,
                                       autoUpdateInteract: AutoUpdateInteract,
                                       ratingInteractor: RatingInteractor,
-                                      preferencesRepositoryType: PreferencesRepositoryType,
+                                      impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
                                       fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
@@ -418,7 +418,7 @@ class InteractorModule {
     return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
         promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
-        preferencesRepositoryType, packageManager, fingerprintInteractor,
+        impressionPreferencesRepositoryType, packageManager, fingerprintInteractor,
         fingerprintPreferencesRepository, balanceWalletsExperiment)
   }
 

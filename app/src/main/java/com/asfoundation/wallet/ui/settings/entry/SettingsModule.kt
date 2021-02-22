@@ -4,7 +4,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
@@ -40,11 +40,11 @@ class SettingsModule {
                                  autoUpdateInteract: AutoUpdateInteract,
                                  fingerprintInteractor: FingerprintInteractor,
                                  walletsEventSender: WalletsEventSender,
-                                 preferencesRepositoryType: PreferencesRepositoryType,
+                                 impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType,
                                  fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): SettingsInteractor {
     return SettingsInteractor(findDefaultWalletInteract, supportInteractor, walletsInteract,
-        autoUpdateInteract, fingerprintInteractor, walletsEventSender, preferencesRepositoryType,
-        fingerprintPreferencesRepository)
+        autoUpdateInteract, fingerprintInteractor, walletsEventSender,
+        impressionPreferencesRepositoryType, fingerprintPreferencesRepository)
   }
 
   @Provides

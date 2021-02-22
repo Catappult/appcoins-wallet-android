@@ -9,37 +9,12 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
-    private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
-    private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
-
-    //String was kept the same for legacy purposes
-    private const val HAS_SEEN_PROMOTION_TOOLTIP = "first_time_on_transaction_activity"
-    private const val HAS_BEEN_IN_PROMOTIONS_SCREEN = "has_been_in_promotions_screen"
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
     private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val ANDROID_ID = "android_id"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
-    private const val HAS_BEEN_IN_SETTINGS = "has_been_in_settings"
-    private const val NUMBER_OF_TIMES_IN_HOME = "number_of_times_in_home"
-    private const val HAS_SEEN_VOUCHER_TOOLTIP = "has_seen_voucher_tooltip"
-  }
-
-  override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)
-
-  override fun setOnboardingComplete() {
-    pref.edit()
-        .putBoolean(ONBOARDING_COMPLETE_KEY, true)
-        .apply()
-  }
-
-  override fun hasClickedSkipOnboarding() = pref.getBoolean(ONBOARDING_SKIP_CLICKED_KEY, false)
-
-  override fun setOnboardingSkipClicked() {
-    pref.edit()
-        .putBoolean(ONBOARDING_SKIP_CLICKED_KEY, true)
-        .apply()
   }
 
   override fun getCurrentWalletAddress(): String? {
@@ -49,15 +24,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   override fun setCurrentWalletAddress(address: String) {
     pref.edit()
         .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
-        .apply()
-  }
-
-  override fun hasSeenPromotionTooltip(): Boolean =
-      pref.getBoolean(HAS_SEEN_PROMOTION_TOOLTIP, false)
-
-  override fun setHasSeenPromotionTooltip() {
-    pref.edit()
-        .putBoolean(HAS_SEEN_PROMOTION_TOOLTIP, true)
         .apply()
   }
 
@@ -122,37 +88,4 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
   }
 
   override fun getWalletId() = pref.getString(WALLET_ID, null)
-
-  override fun hasBeenInSettings(): Boolean = pref.getBoolean(HAS_BEEN_IN_SETTINGS, false)
-
-  override fun setHasBeenInSettings() {
-    pref.edit()
-        .putBoolean(HAS_BEEN_IN_SETTINGS, true)
-        .apply()
-  }
-
-  override fun increaseTimesOnHome() {
-    pref.edit()
-        .putInt(NUMBER_OF_TIMES_IN_HOME, pref.getInt(NUMBER_OF_TIMES_IN_HOME, 0) + 1)
-        .apply()
-  }
-
-  override fun getNumberOfTimesOnHome(): Int = pref.getInt(NUMBER_OF_TIMES_IN_HOME, 0)
-
-  override fun hasBeenInPromotionsScreen(): Boolean =
-      pref.getBoolean(HAS_BEEN_IN_PROMOTIONS_SCREEN, false)
-
-  override fun setHasBeenInPromotionsScreen() {
-    pref.edit()
-        .putBoolean(HAS_BEEN_IN_PROMOTIONS_SCREEN, true)
-        .apply()
-  }
-
-  override fun hasSeenVoucherTooltip(): Boolean = pref.getBoolean(HAS_SEEN_VOUCHER_TOOLTIP, false)
-
-  override fun setHasSeenVoucherTooltip() {
-    pref.edit()
-        .putBoolean(HAS_SEEN_VOUCHER_TOOLTIP, true)
-        .apply()
-  }
 }

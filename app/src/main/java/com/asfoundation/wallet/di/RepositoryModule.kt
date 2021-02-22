@@ -338,4 +338,11 @@ class RepositoryModule {
   fun providesVouchersRepository(): VouchersRepository {
     return MockedVouchersRepository()
   }
+
+  @Singleton
+  @Provides
+  fun providesImpressionPreferencesRepositoryType(
+      sharedPreferences: SharedPreferences): ImpressionPreferencesRepositoryType {
+    return ImpressionPreferencesRepository(sharedPreferences)
+  }
 }

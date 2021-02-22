@@ -13,7 +13,7 @@ import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.rating.RatingInteractor
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
@@ -33,7 +33,7 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
                                 private val cardNotificationsInteractor: CardNotificationsInteractor,
                                 private val autoUpdateInteract: AutoUpdateInteract,
                                 private val ratingInteractor: RatingInteractor,
-                                private val preferencesRepositoryType: PreferencesRepositoryType,
+                                private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType,
                                 private val packageManager: PackageManager,
                                 private val fingerprintInteractor: FingerprintInteractor,
                                 private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
@@ -94,34 +94,36 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 
   fun hasSeenPromotionTooltip(): Single<Boolean> =
-      Single.just(preferencesRepositoryType.hasSeenPromotionTooltip())
+      Single.just(impressionPreferencesRepositoryType.hasSeenPromotionTooltip())
 
   fun increaseTimesOnHome() {
     val numberOfTimesOnHome = getNumberOfTimesOnHome()
     if (numberOfTimesOnHome <= UPDATE_FINGERPRINT_NUMBER_OF_TIMES ||
         numberOfTimesOnHome <= UPDATE_VOUCHER_NUMBER_OF_TIMES) {
-      preferencesRepositoryType.increaseTimesOnHome()
+      impressionPreferencesRepositoryType.increaseTimesOnHome()
     }
   }
 
   fun getBalanceWalletsExperiment(): Single<String> = balanceWalletsExperiment.getConfiguration()
 
-  private fun getNumberOfTimesOnHome(): Int = preferencesRepositoryType.getNumberOfTimesOnHome()
+  private fun getNumberOfTimesOnHome(): Int =
+      impressionPreferencesRepositoryType.getNumberOfTimesOnHome()
 
   fun shouldShowVoucherTooltip(): Single<Boolean> {
-    return Single.just(!preferencesRepositoryType.hasBeenInPromotionsScreen() &&
-        !preferencesRepositoryType.hasSeenVoucherTooltip() &&
-        preferencesRepositoryType.hasSeenPromotionTooltip() &&
+    return Single.just(!impressionPreferencesRepositoryType.hasBeenInPromotionsScreen() &&
+        !impressionPreferencesRepositoryType.hasSeenVoucherTooltip() &&
+        impressionPreferencesRepositoryType.hasSeenPromotionTooltip() &&
         getNumberOfTimesOnHome() >= UPDATE_VOUCHER_NUMBER_OF_TIMES)
   }
 
   fun shouldShowFingerprintTooltip(packageName: String): Single<Boolean> {
     var shouldShow = false
-    if (!preferencesRepositoryType.hasBeenInSettings() &&
+    if (!impressionPreferencesRepositoryType.hasBeenInSettings() &&
         !fingerprintPreferences.hasSeenFingerprintTooltip()
         && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
-        preferencesRepositoryType.hasSeenPromotionTooltip() &&
-        (preferencesRepositoryType.hasSeenVoucherTooltip() || preferencesRepositoryType.hasBeenInPromotionsScreen())) {
+        impressionPreferencesRepositoryType.hasSeenPromotionTooltip() &&
+        (impressionPreferencesRepositoryType.hasSeenVoucherTooltip() ||
+            impressionPreferencesRepositoryType.hasBeenInPromotionsScreen())) {
       if (!isFirstInstall(packageName)) {
         shouldShow = true
       } else if (getNumberOfTimesOnHome() >= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {

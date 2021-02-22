@@ -5,7 +5,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
@@ -16,7 +16,7 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
                          private val autoUpdateInteract: AutoUpdateInteract,
                          private val fingerprintInteractor: FingerprintInteractor,
                          private val walletsEventSender: WalletsEventSender,
-                         private val preferenceRepository: PreferencesRepositoryType,
+                         private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType,
                          private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
   private var fingerPrintAvailability: Int = -1
@@ -52,5 +52,5 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
 
   fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
 
-  fun setHasBeenInSettings() = preferenceRepository.setHasBeenInSettings()
+  fun setHasBeenInSettings() = impressionPreferencesRepositoryType.setHasBeenInSettings()
 }

@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.overlay
 
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 
-class OverlayInteractor(private val preferencesRepositoryType: PreferencesRepositoryType) {
+class OverlayInteractor(
+    private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType) {
 
-  fun setHasSeenPromotionTooltip() = preferencesRepositoryType.setHasSeenPromotionTooltip()
+  fun setHasSeenPromotionTooltip() =
+      impressionPreferencesRepositoryType.setHasSeenPromotionTooltip()
 
-  fun setHasSeenVoucherTooltip() = preferencesRepositoryType.setHasSeenVoucherTooltip()
+  fun setHasSeenVoucherTooltip() = impressionPreferencesRepositoryType.setHasSeenVoucherTooltip()
 }

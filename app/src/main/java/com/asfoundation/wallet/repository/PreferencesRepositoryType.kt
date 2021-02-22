@@ -5,21 +5,9 @@ import io.reactivex.Single
 
 interface PreferencesRepositoryType {
 
-  fun hasCompletedOnboarding(): Boolean
-
-  fun setOnboardingComplete()
-
-  fun hasClickedSkipOnboarding(): Boolean
-
-  fun setOnboardingSkipClicked()
-
   fun getCurrentWalletAddress(): String?
 
   fun setCurrentWalletAddress(address: String)
-
-  fun hasSeenPromotionTooltip(): Boolean
-
-  fun setHasSeenPromotionTooltip()
 
   fun getPoaNotificationSeenTime(): Long
 
@@ -46,20 +34,4 @@ interface PreferencesRepositoryType {
   fun setWalletId(walletId: String)
 
   fun getWalletId(): String?
-
-  fun hasBeenInSettings(): Boolean
-
-  fun setHasBeenInSettings()
-
-  fun increaseTimesOnHome()
-
-  fun getNumberOfTimesOnHome(): Int
-
-  fun hasBeenInPromotionsScreen(): Boolean
-
-  fun setHasBeenInPromotionsScreen()
-
-  fun hasSeenVoucherTooltip(): Boolean
-
-  fun setHasSeenVoucherTooltip()
 }

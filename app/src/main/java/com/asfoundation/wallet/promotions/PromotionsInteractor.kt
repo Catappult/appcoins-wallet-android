@@ -12,7 +12,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
@@ -31,7 +31,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val userStatsPreferencesRepository: UserStatsLocalData,
                            private val analyticsSetup: AnalyticsSetup,
                            private val mapper: GamificationMapper,
-                           private val preferencesRepositoryType: PreferencesRepositoryType) {
+                           private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType) {
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
@@ -112,7 +112,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
       userStatsPreferencesRepository.setGamificationDisclaimerShown()
 
   fun setHasBeenInPromotionsScreen() =
-      preferencesRepositoryType.setHasBeenInPromotionsScreen()
+      impressionPreferencesRepositoryType.setHasBeenInPromotionsScreen()
 
   private fun getUnWatchedPromotion(promotionList: List<GenericResponse>): GenericResponse? {
     return promotionList.sortedByDescending { list -> list.priority }
