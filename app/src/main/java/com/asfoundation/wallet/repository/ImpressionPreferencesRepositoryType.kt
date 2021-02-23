@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.repository
 
+import io.reactivex.Completable
+import io.reactivex.Single
+
 interface ImpressionPreferencesRepositoryType {
 
   fun hasCompletedOnboarding(): Boolean
@@ -9,6 +12,20 @@ interface ImpressionPreferencesRepositoryType {
   fun hasClickedSkipOnboarding(): Boolean
 
   fun setOnboardingSkipClicked()
+
+  fun getPoaNotificationSeenTime(): Long
+
+  fun setPoaNotificationSeenTime(currentTimeInMillis: Long)
+
+  fun clearPoaNotificationSeenTime()
+
+  fun getAutoUpdateCardDismissedVersion(): Single<Int>
+
+  fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
+
+  fun getUpdateNotificationSeenTime(): Long
+
+  fun setUpdateNotificationSeenTime(currentTimeMillis: Long)
 
   fun hasSeenPromotionTooltip(): Boolean
 

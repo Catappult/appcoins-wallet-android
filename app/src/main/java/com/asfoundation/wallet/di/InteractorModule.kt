@@ -328,10 +328,10 @@ class InteractorModule {
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
                                 @Named("local_version_code")
                                 localVersionCode: Int, packageManager: PackageManager,
-                                sharedPreferences: PreferencesRepositoryType,
+                                impressionPreferences: ImpressionPreferencesRepositoryType,
                                 context: Context) =
       AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
-          packageManager, context.packageName, sharedPreferences)
+          packageManager, context.packageName, impressionPreferences)
 
   @Singleton
   @Provides
@@ -395,9 +395,9 @@ class InteractorModule {
   fun provideCampaignInteract(campaignService: CampaignService, walletService: WalletService,
                               autoUpdateInteract: AutoUpdateInteract,
                               findDefaultWalletInteract: FindDefaultWalletInteract,
-                              sharedPreferences: PreferencesRepositoryType): CampaignInteract {
+                              impressionPreferences: ImpressionPreferencesRepositoryType): CampaignInteract {
     return CampaignInteract(campaignService, walletService, autoUpdateInteract,
-        AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, sharedPreferences)
+        AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, impressionPreferences)
   }
 
   @Provides

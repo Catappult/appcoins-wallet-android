@@ -9,20 +9,6 @@ interface PreferencesRepositoryType {
 
   fun setCurrentWalletAddress(address: String)
 
-  fun getPoaNotificationSeenTime(): Long
-
-  fun clearPoaNotificationSeenTime()
-
-  fun setPoaNotificationSeenTime(currentTimeInMillis: Long)
-
-  fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
-
-  fun getAutoUpdateCardDismissedVersion(): Single<Int>
-
-  fun getUpdateNotificationSeenTime(): Long
-
-  fun setUpdateNotificationSeenTime(currentTimeMillis: Long)
-
   fun getAndroidId(): String
 
   fun setAndroidId(androidId: String)

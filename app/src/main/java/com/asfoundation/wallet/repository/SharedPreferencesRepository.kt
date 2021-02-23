@@ -2,16 +2,18 @@ package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
 import io.reactivex.Completable
-import io.reactivex.Single
 
+/**
+ * Repository that uses Shared Preferences to save some misc. information that doesn't fall in the
+ * categories covered by other repositories that use Shared Preferences.
+ *
+ * @see ImpressionPreferencesRepository
+ */
 class SharedPreferencesRepository(private val pref: SharedPreferences) : PreferencesRepositoryType {
 
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
-    private const val AUTO_UPDATE_VERSION = "auto_update_version"
-    private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
-    private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val ANDROID_ID = "android_id"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
@@ -26,40 +28,6 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
         .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
         .apply()
   }
-
-  override fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable {
-    return Completable.fromCallable {
-      pref.edit()
-          .putInt(AUTO_UPDATE_VERSION, updateVersionCode)
-          .apply()
-    }
-  }
-
-  override fun getAutoUpdateCardDismissedVersion(): Single<Int> {
-    return Single.fromCallable { pref.getInt(AUTO_UPDATE_VERSION, 0) }
-  }
-
-  override fun clearPoaNotificationSeenTime() {
-    pref.edit()
-        .remove(POA_LIMIT_SEEN_TIME)
-        .apply()
-  }
-
-  override fun getPoaNotificationSeenTime() = pref.getLong(POA_LIMIT_SEEN_TIME, -1)
-
-  override fun setPoaNotificationSeenTime(currentTimeInMillis: Long) {
-    pref.edit()
-        .putLong(POA_LIMIT_SEEN_TIME, currentTimeInMillis)
-        .apply()
-  }
-
-  override fun setUpdateNotificationSeenTime(currentTimeMillis: Long) {
-    pref.edit()
-        .putLong(UPDATE_SEEN_TIME, currentTimeMillis)
-        .apply()
-  }
-
-  override fun getUpdateNotificationSeenTime() = pref.getLong(UPDATE_SEEN_TIME, -1)
 
   override fun getAndroidId() = pref.getString(ANDROID_ID, "")
       .orEmpty()

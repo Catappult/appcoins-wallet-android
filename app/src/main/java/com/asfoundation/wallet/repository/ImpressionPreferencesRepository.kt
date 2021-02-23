@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
+import io.reactivex.Completable
+import io.reactivex.Single
 
 /**
  * Repository that includes preferences related to user impressions. Examples of this are:
@@ -15,7 +17,9 @@ class ImpressionPreferencesRepository(private val pref: SharedPreferences) :
 
     private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
     private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
-
+    private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
+    private const val UPDATE_SEEN_TIME = "update_seen_time"
+    private const val AUTO_UPDATE_VERSION = "auto_update_version"
     //String was kept the same for legacy purposes
     private const val HAS_SEEN_PROMOTION_TOOLTIP = "first_time_on_transaction_activity"
     private const val HAS_BEEN_IN_PROMOTIONS_SCREEN = "has_been_in_promotions_screen"
@@ -38,6 +42,40 @@ class ImpressionPreferencesRepository(private val pref: SharedPreferences) :
   override fun setOnboardingSkipClicked() {
     pref.edit()
         .putBoolean(ONBOARDING_SKIP_CLICKED_KEY, true)
+        .apply()
+  }
+
+  override fun getPoaNotificationSeenTime() = pref.getLong(POA_LIMIT_SEEN_TIME, -1)
+
+  override fun setPoaNotificationSeenTime(currentTimeInMillis: Long) {
+    pref.edit()
+        .putLong(POA_LIMIT_SEEN_TIME, currentTimeInMillis)
+        .apply()
+  }
+
+  override fun clearPoaNotificationSeenTime() {
+    pref.edit()
+        .remove(POA_LIMIT_SEEN_TIME)
+        .apply()
+  }
+
+  override fun getAutoUpdateCardDismissedVersion(): Single<Int> {
+    return Single.fromCallable { pref.getInt(AUTO_UPDATE_VERSION, 0) }
+  }
+
+  override fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable {
+    return Completable.fromCallable {
+      pref.edit()
+          .putInt(AUTO_UPDATE_VERSION, updateVersionCode)
+          .apply()
+    }
+  }
+
+  override fun getUpdateNotificationSeenTime() = pref.getLong(UPDATE_SEEN_TIME, -1)
+
+  override fun setUpdateNotificationSeenTime(currentTimeMillis: Long) {
+    pref.edit()
+        .putLong(UPDATE_SEEN_TIME, currentTimeMillis)
         .apply()
   }
 
