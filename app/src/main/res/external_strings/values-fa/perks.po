@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2021-02-19 12:27\n"
+"PO-Revision-Date: 2021-02-22 21:06\n"
 
 #. Card Title
 #:
@@ -60,7 +60,7 @@ msgstr "{0}% پاداش اضافی در همه خریدهای خود غیر از
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "در همه خریدهای خود در {1} یک پاداش {0}% بیشتر دریافت کنید."
 
 #. Card - First purchase.
 #:
@@ -110,10 +110,10 @@ msgstr "زیرا شما {0} {1} در اپلیکیشن‌های AppCoins خرج �
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
-msgstr ""
+msgstr "{0}% پاداش اضافی در همه خریدهای خود غیر از AppCoins Credits دریافت کنید."
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "نسخه جدید موجود است"
 
