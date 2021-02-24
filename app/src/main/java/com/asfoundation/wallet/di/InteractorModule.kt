@@ -54,8 +54,8 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
-import com.asfoundation.wallet.subscriptions.SubscriptionInteract
-import com.asfoundation.wallet.subscriptions.SubscriptionRepository
+import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
+import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.topup.TopUpInteractor
@@ -570,9 +570,10 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideSubscriptionInteract(subscriptionRepository: SubscriptionRepository,
-                                  localCurrencyConversionService: LocalCurrencyConversionService): SubscriptionInteract {
-    return SubscriptionInteract(subscriptionRepository, localCurrencyConversionService)
+  fun provideSubscriptionInteractor(walletService: WalletService,
+                                    remoteRepository: RemoteRepository,
+                                    userSubscriptionRepository: UserSubscriptionRepository): UserSubscriptionsInteractor {
+    return UserSubscriptionsInteractor(walletService, remoteRepository, userSubscriptionRepository)
   }
 
 }

@@ -5,6 +5,7 @@ import com.appcoins.wallet.bdsbilling.repository.Data
 import com.appcoins.wallet.bdsbilling.repository.GetWalletResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

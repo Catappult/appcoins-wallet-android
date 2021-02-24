@@ -4,41 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     >
-
-  <include
-      android:id="@+id/no_network_retry_only_layout"
-      layout="@layout/no_network_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
-      />
-
-  <include
-      android:id="@+id/generic_error_retry_only_layout"
-      layout="@layout/generic_error_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
-      />
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/loading_animation"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      app:layout_constraintDimensionRatio="H, 3:4"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHeight_max="0dp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/subscription_details_skeleton"
-      app:lottie_scale="1"
-      />
 
   <ScrollView
       android:id="@+id/main_layout"
@@ -59,23 +26,24 @@
 
       <ImageView
           android:id="@+id/app_icon"
-          android:layout_width="96dp"
-          android:layout_height="96dp"
+          android:layout_width="@dimen/subscriptions_image_size"
+          android:layout_height="@dimen/subscriptions_image_size"
           android:layout_marginTop="32dp"
           android:adjustViewBounds="true"
           android:contentDescription="@string/empty"
           android:lineSpacingExtra="0.25sp"
-          android:scaleType="centerInside"
+          android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           tools:src="@drawable/ic_transaction_peer"
+          tools:visibility="visible"
           />
 
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/app_icon_animation"
-          android:layout_width="96dp"
-          android:layout_height="96dp"
+          android:layout_width="@dimen/subscriptions_image_size"
+          android:layout_height="@dimen/subscriptions_image_size"
           android:layout_marginTop="32dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -119,12 +87,18 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/normal_margin"
+          android:background="@drawable/rectangle_outline_red"
+          android:paddingStart="@dimen/half_large_margin"
+          android:paddingTop="4dp"
+          android:paddingEnd="@dimen/half_large_margin"
+          android:paddingBottom="4dp"
           android:textColor="@color/red"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="@id/status"
           app:layout_constraintStart_toStartOf="@id/status"
           app:layout_constraintTop_toBottomOf="@id/status"
           tools:text="Canceled — It expires on 19 Jan"
+          tools:visibility="visible"
           />
 
       <View
@@ -195,7 +169,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bottom_separator"
           app:layout_constraintVertical_bias="1"
-          app:srcCompat="@drawable/ic_info_grey"
+          app:srcCompat="@drawable/ic_info_grey_fill"
           />
 
       <TextView
@@ -226,7 +200,7 @@
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="8dp"
+      android:layout_marginBottom="24dp"
       android:minWidth="64dp"
       android:minHeight="36dp"
       android:orientation="vertical"

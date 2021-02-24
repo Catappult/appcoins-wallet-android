@@ -17,7 +17,6 @@ import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
-import com.asfoundation.wallet.transactions.TransactionDetails
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Completable
@@ -77,56 +76,8 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
   }
 
   fun fetchTransactions(wallet: Wallet?): Observable<List<Transaction>> {
-    return wallet?.let { nonNullWallet ->
-      fetchTransactionsInteract.fetch(nonNullWallet.address)
-          .map { addMockedSubscriptions(it, nonNullWallet.address) }
-    } ?: Observable.just(
+    return wallet?.let { fetchTransactionsInteract.fetch(wallet.address) } ?: Observable.just(
         emptyList())
-    //TODO
-  }
-
-  private fun addMockedSubscriptions(transactions: MutableList<Transaction>,
-                                     address: String): List<Transaction> {
-    transactions.add(getActiveMockedTransaction(address))
-    transactions.add(getExpiringMockedTransaction(address))
-    transactions.add(getExpiredMockedTransaction(address))
-    return transactions.toList()
-  }
-
-  private fun getActiveMockedTransaction(address: String): Transaction {
-    return Transaction("0xd6d42df92b55be4b7d24c96c3dc546474ad638ff66cb061f2fd05e9b74e4e6a1",
-        Transaction.TransactionType.SUBS_OFFCHAIN, null, null, null, null, null,
-        System.currentTimeMillis(),
-        System.currentTimeMillis(), Transaction.TransactionStatus.SUCCESS, "10000000000000000000",
-        address, "0x123c2124b7f2c18b502296ba884d9cde201f1c32",
-        TransactionDetails("Real Boxing",
-            TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
-                "http://pool.img.aptoide.com/bds-store/59a7b62a169a832e96dbd7df82d6e3cc_icon.png"),
-            "Subscription"), "APPC", emptyList(), emptyList())
-  }
-
-  private fun getExpiringMockedTransaction(address: String): Transaction {
-    return Transaction("0xca74e82bc850c7dc5afad05387ba314de579b8552269200821e6c39d285e4ff9-2",
-        Transaction.TransactionType.SUBS_OFFCHAIN, null, null, null, null, null,
-        System.currentTimeMillis(),
-        System.currentTimeMillis(), Transaction.TransactionStatus.SUCCESS, "10000000000000000000",
-        address, "0x123c2124b7f2c18b502296ba884d9cde201f1c32",
-        TransactionDetails("Cuties",
-            TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
-                "http://pool.img.aptoide.com/bds-store/d6267357ec641dd583a0ad318fa0741b_icon.png"),
-            "Subscription"), "APPC", emptyList(), emptyList())
-  }
-
-  private fun getExpiredMockedTransaction(address: String): Transaction {
-    return Transaction("0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98",
-        Transaction.TransactionType.SUBS_OFFCHAIN, null, null, null, null, null,
-        System.currentTimeMillis(),
-        System.currentTimeMillis(), Transaction.TransactionStatus.SUCCESS, "12200000000000000000",
-        address, "0x123c2124b7f2c18b502296ba884d9cde201f1c32",
-        TransactionDetails("Creative Destruction",
-            TransactionDetails.Icon(TransactionDetails.Icon.Type.URL,
-                "http://pool.img.aptoide.com/bds-store/fc1a8567262637b89f4f8bd9f0c69559_icon.jpg"),
-            "Subscription"), "APPC", emptyList(), emptyList())
   }
 
   fun stopTransactionFetch() = fetchTransactionsInteract.stop()

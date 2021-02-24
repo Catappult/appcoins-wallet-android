@@ -33,8 +33,6 @@
       android:layout_height="match_parent"
       android:background="@drawable/background_fragment"
       android:fillViewport="true"
-      android:overScrollMode="never"
-      android:paddingBottom="40dp"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -138,62 +136,15 @@
           />
 
       <TextView
-          android:id="@+id/payment_method_label"
-          style="@style/TransactionDetailsTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/half_large_margin"
-          android:layout_marginTop="35dp"
-          android:text="Payment Method"
-          android:visibility="gone"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
-          />
-
-      <LinearLayout
-          android:id="@+id/payment_method"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/half_large_margin"
-          android:orientation="horizontal"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="@id/payment_method_label"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="@id/payment_method_label"
-          >
-
-        <ImageView
-            android:id="@+id/payment_method_icon"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_marginEnd="@dimen/normal_margin"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/empty"
-            android:scaleType="centerInside"
-            tools:src="@drawable/ic_payment_method_paypal"
-            />
-
-        <TextView
-            android:id="@+id/payment_method_value"
-            style="@style/TransactionDetailsTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            tools:text="Paypal"
-            />
-
-      </LinearLayout>
-
-      <TextView
           android:id="@+id/status_label"
           style="@style/TransactionDetailsTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/half_large_margin"
-          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginTop="35dp"
           android:text="@string/transaction_status_label"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/payment_method_label"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
 
       <TextView
@@ -259,7 +210,7 @@
           android:layout_marginStart="@dimen/half_large_margin"
           android:layout_marginTop="@dimen/big_margin"
           android:text="@string/transaction_to_label"
-          android:visibility="visible"
+          android:visibility="gone"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/category_label"
           />
@@ -377,6 +328,8 @@
           android:layout_marginTop="@dimen/big_margin"
           android:layout_marginEnd="@dimen/half_large_margin"
           android:autoLink="web"
+          android:clickable="true"
+          android:focusable="true"
           android:linksClickable="true"
           android:minWidth="64dp"
           android:minHeight="36dp"
@@ -394,16 +347,15 @@
           android:layout_marginStart="@dimen/half_large_margin"
           android:layout_marginTop="@dimen/big_margin"
           android:layout_marginEnd="@dimen/half_large_margin"
-          android:autoLink="web"
           android:clickable="true"
           android:focusable="true"
-          android:linksClickable="true"
           android:minWidth="64dp"
           android:minHeight="36dp"
-          android:text="Manage Subscriptions"
+          android:text="@string/subscriptions_manage_button"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          tools:visibility="visible"
           />
 
       <ImageView
@@ -423,7 +375,6 @@
           app:layout_constraintTop_toBottomOf="@+id/close_channel_btn"
           app:layout_constraintVertical_bias="1.0"
           />
-
       <TextView
           android:id="@+id/brand"
           style="@style/TransactionDetailsTextStyle.Footer"
@@ -440,32 +391,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
-
-
-  <LinearLayout
-      android:id="@+id/cancel__subscription_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
-      android:background="@color/white"
-      android:visibility="gone"
-      >
-
-    <Button
-        android:id="@+id/cancel_subscription_button"
-        style="@style/ButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginTop="@dimen/big_margin"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:layout_marginBottom="24dp"
-        android:maxWidth="126dp"
-        android:minWidth="80dp"
-        android:text="Cancel Subscription"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        />
-
-  </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

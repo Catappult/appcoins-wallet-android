@@ -32,28 +32,24 @@
       app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
       />
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ProgressBar
       android:id="@+id/loading_animation"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      app:layout_constraintDimensionRatio="H, 3:4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:indeterminateDrawable="@drawable/gradient_progress"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHeight_max="0dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/subscription_list_skeleton"
-      app:lottie_scale="1"
       />
 
-  <ScrollView
+  <androidx.core.widget.NestedScrollView
       android:id="@+id/main_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:fillViewport="true"
-      android:nestedScrollingEnabled="false"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +60,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-      <!-- TODO -->
       <TextView
           android:id="@+id/active_title"
           style="@style/SettingsTextStyle"
@@ -73,18 +68,19 @@
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="24dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:text="Active Subscriptions"
+          android:text="@string/subscriptions_active_title"
+          android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:text="Active Subscriptions"
+          tools:visibility="visible"
           />
 
       <androidx.cardview.widget.CardView
           android:id="@+id/cvActive"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
+          android:layout_marginTop="12dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/active_title"
@@ -93,14 +89,13 @@
             android:id="@+id/rvActiveSubs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/subscription_item"
             />
-
       </androidx.cardview.widget.CardView>
 
-      <!-- TODO -->
       <TextView
           android:id="@+id/expired_title"
           style="@style/SettingsTextStyle"
@@ -109,11 +104,12 @@
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="16dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:text="Expired Subscriptions"
+          android:text="@string/subscriptions_expired_title"
+          android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/cvActive"
-          tools:text="Expired Subscriptions"
+          tools:visibility="visible"
           />
 
       <androidx.cardview.widget.CardView
@@ -130,6 +126,7 @@
             android:id="@+id/rvExpiredSubs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/subscription_item"
@@ -138,7 +135,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-  </ScrollView>
+  </androidx.core.widget.NestedScrollView>
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/layout_guideline"

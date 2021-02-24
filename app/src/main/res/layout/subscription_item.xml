@@ -11,10 +11,11 @@
 
   <ImageView
       android:id="@+id/app_icon"
-      android:layout_width="56dp"
-      android:layout_height="56dp"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/big_margin"
+      android:transitionName="app_icon_transition"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:src="@drawable/ic_transaction_peer"
@@ -26,6 +27,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
+      android:layout_marginEnd="8dp"
       android:orientation="vertical"
       app:layout_constraintBottom_toBottomOf="@id/app_icon"
       app:layout_constraintEnd_toStartOf="@+id/more_button"

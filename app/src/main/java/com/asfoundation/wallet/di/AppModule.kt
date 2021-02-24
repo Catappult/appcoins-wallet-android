@@ -20,6 +20,7 @@ import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
@@ -61,6 +62,8 @@ import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
+import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
+import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDatabase
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -394,6 +397,21 @@ internal class AppModule {
   @Provides
   fun providesWalletOriginDao(promotionDatabase: PromotionDatabase): WalletOriginDao {
     return promotionDatabase.walletOriginDao()
+  }
+
+  @Singleton
+  @Provides
+  fun providesUserSubscriptionsDatabase(context: Context): UserSubscriptionsDatabase {
+    return Room.databaseBuilder(context, UserSubscriptionsDatabase::class.java,
+        "user_subscription_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providesUserSubscriptionDao(
+      userSubscriptionsDatabase: UserSubscriptionsDatabase): UserSubscriptionsDao {
+    return userSubscriptionsDatabase.subscriptionsDao()
   }
 
   @Provides

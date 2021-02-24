@@ -5,6 +5,7 @@ import android.os.Build
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.repository.GamificationApi
 import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
@@ -33,8 +34,7 @@ import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService.CampaignApi
 import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi
-import com.asfoundation.wallet.subscriptions.SubscriptionApiMockedImpl
-import com.asfoundation.wallet.subscriptions.SubscriptionService
+import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
@@ -571,20 +571,9 @@ class ServiceModule {
   }
 
   @Provides
-  fun provideSubscriptionService(@Named("default") client: OkHttpClient,
-                                 gson: Gson): SubscriptionService {
-    return SubscriptionApiMockedImpl()
-  }
-
-  @Provides
-  fun provideSubscriptionApiMocked(): SubscriptionApiMockedImpl {
-    return SubscriptionApiMockedImpl()
-  }
-
-  @Provides
-  fun provideSubscriptionBillingService(@Named("blockchain") client: OkHttpClient,
-                                        gson: Gson): SubscriptionBillingApi {
-    val baseUrl = BuildConfig.CATAPPULT_NEW_HOST + "/product/8.20200701/applications/"
+  fun providesSubscriptionBillingApi(@Named("blockchain") client: OkHttpClient,
+                                     gson: Gson): SubscriptionBillingApi {
+    val baseUrl = BuildConfig.CATAPPULT_NEW_HOST + "/productv2/8.20200701/applications/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -592,5 +581,18 @@ class ServiceModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SubscriptionBillingApi::class.java)
+  }
+
+  @Provides
+  fun providesUserSubscriptionApi(@Named("default") client: OkHttpClient,
+                                  gson: Gson): UserSubscriptionApi {
+    val baseUrl = BuildConfig.CATAPPULT_NEW_HOST + "/productv2/8.20200701/application/"
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(UserSubscriptionApi::class.java)
   }
 }

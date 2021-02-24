@@ -34,6 +34,7 @@
       android:visibility="invisible"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      tools:visibility="visible"
       >
     <ImageView
         android:id="@+id/icon"
@@ -41,7 +42,17 @@
         android:layout_height="13dp"
         android:layout_gravity="center"
         android:contentDescription="@string/empty"
+        android:visibility="gone"
         tools:src="@drawable/ic_transaction_poa"
+        />
+    <ImageView
+        android:id="@+id/filled_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:src="@drawable/ic_transaction_subscription"
+        tools:visibility="visible"
         />
   </FrameLayout>
   <TextView

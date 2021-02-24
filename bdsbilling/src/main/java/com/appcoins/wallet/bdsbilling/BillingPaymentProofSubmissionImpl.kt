@@ -2,6 +2,7 @@ package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single

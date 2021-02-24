@@ -4,46 +4,61 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.subscription_item.view.*
-import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SubscriptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: CurrencyFormatUtils) :
+    RecyclerView.ViewHolder(itemView) {
 
-  fun bind(item: SubscriptionItem, clickCallback: PublishSubject<String>?) {
+  fun bind(item: SubscriptionItem, clickCallback: PublishSubject<Pair<SubscriptionItem, View>>?,
+           position: Int) {
     itemView.apply {
       app_name.text = item.appName
+      app_icon.transitionName = "app_name_transition $position"
 
-      if (item.expiresOn == null) {
-        expires_on.visibility = View.GONE
-        recurrence_value.visibility = View.VISIBLE
-
-        recurrence_value.text = String.format("%s / %s",
-            item.symbol + item.amount.setScale(FIAT_SCALE, RoundingMode.FLOOR), item.periodicity)
+      if ((item.status == Status.CANCELED || item.status == Status.PAUSED)) {
+        showToExpireInfo(this, item)
       } else {
-        recurrence_value.visibility = View.GONE
-        expires_on.visibility = View.VISIBLE
-
-        val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
-
-        expires_on.text = context.getString(R.string.subscriptions_expiration_body,
-            dateFormat.format(item.expiresOn))
+        showPriceInfo(this, item)
       }
-
-      more_button.setOnClickListener { clickCallback?.onNext(item.packageName) }
-      item_parent.setOnClickListener { clickCallback?.onNext(item.packageName) }
+      more_button.setOnClickListener { clickCallback?.onNext(Pair(item, app_icon)) }
+      item_parent.setOnClickListener { clickCallback?.onNext(Pair(item, app_icon)) }
     }
 
     GlideApp.with(itemView.context)
-        .load(item.iconUrl)
+        .asBitmap()
+        .load(item.appIcon)
+        .apply { RequestOptions().dontTransform() }
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .error(R.drawable.ic_transaction_peer)
         .into(itemView.app_icon)
   }
 
-  companion object {
-    private const val FIAT_SCALE = 2
+  private fun showPriceInfo(view: View, item: SubscriptionItem) {
+    val formattedAmount = currencyFormatUtils.formatCurrency(item.fiatAmount)
+    view.expires_on.visibility = View.GONE
+    view.recurrence_value.visibility = View.VISIBLE
+
+    item.period?.let {
+      view.recurrence_value.text = it.mapToSubsFrequency(view.context,
+          view.context.getString(R.string.value_fiat, formattedAmount, item.fiatSymbol))
+    }
   }
 
+  private fun showToExpireInfo(view: View, item: SubscriptionItem) {
+    view.recurrence_value.visibility = View.GONE
+    view.expires_on.visibility = View.VISIBLE
+
+    val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
+
+    item.expire?.let {
+      view.expires_on.text = view.context.getString(R.string.subscriptions_expiration_body,
+          dateFormat.format(it))
+    }
+  }
 }

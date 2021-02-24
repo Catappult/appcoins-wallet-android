@@ -20,6 +20,8 @@ import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  *
@@ -139,4 +141,9 @@ inline fun View.withNoLayoutTransition(block: () -> Unit) {
   lt.enableTransitionType(LayoutTransition.CHANGE_APPEARING)
   lt.enableTransitionType(LayoutTransition.DISAPPEARING)
   lt.enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING)
+}
+
+inline fun String.convertToDate(date: String): Date? {
+  val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+  return dateFormat.parse(date)
 }

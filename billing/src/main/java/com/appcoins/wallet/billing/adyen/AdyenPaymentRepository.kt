@@ -2,8 +2,8 @@ package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.BdsApi
-import com.appcoins.wallet.bdsbilling.SubscriptionBillingApi
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName

@@ -1,0 +1,178 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "2a06ef4bf44e0d36ef3887946db4e4e6",
+    "entities": [
+      {
+        "tableName": "UserSubscriptionEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` TEXT NOT NULL, `wallet_address` TEXT NOT NULL, `sku` TEXT NOT NULL, `title` TEXT NOT NULL, `period` TEXT NOT NULL, `sub_status` TEXT NOT NULL, `started` TEXT, `renewal` TEXT, `expire` TEXT, `ended` TEXT, `app_name` TEXT NOT NULL, `app_title` TEXT NOT NULL, `app_icon` TEXT NOT NULL, `gateway` TEXT NOT NULL, `reference` TEXT NOT NULL, `value` TEXT NOT NULL, `label` TEXT NOT NULL, `currency` TEXT NOT NULL, `symbol` TEXT NOT NULL, `created` TEXT NOT NULL, `method_name` TEXT NOT NULL, `method_title` TEXT NOT NULL, `method_logo` TEXT NOT NULL, `appc_value` TEXT NOT NULL, `appc_label` TEXT NOT NULL, PRIMARY KEY(`uid`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "walletAddress",
+            "columnName": "wallet_address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sku",
+            "columnName": "sku",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "period",
+            "columnName": "period",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subStatus",
+            "columnName": "sub_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "started",
+            "columnName": "started",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "renewal",
+            "columnName": "renewal",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "expire",
+            "columnName": "expire",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ended",
+            "columnName": "ended",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "appName",
+            "columnName": "app_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appTitle",
+            "columnName": "app_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appIcon",
+            "columnName": "app_icon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gateway",
+            "columnName": "gateway",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reference",
+            "columnName": "reference",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currency",
+            "columnName": "currency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "symbol",
+            "columnName": "symbol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "methodName",
+            "columnName": "method_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "methodTitle",
+            "columnName": "method_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "methodLogo",
+            "columnName": "method_logo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appcValue",
+            "columnName": "appc_value",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appcLabel",
+            "columnName": "appc_label",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2a06ef4bf44e0d36ef3887946db4e4e6')"
+    ]
+  }
+}
