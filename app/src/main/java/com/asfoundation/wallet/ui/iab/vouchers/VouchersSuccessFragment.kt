@@ -58,6 +58,7 @@ class VouchersSuccessFragment : DaggerFragment(), VouchersSuccessView {
     } else {
       vouchers_lottie_transaction_success.setAnimation(R.raw.success_animation)
     }
+    vouchers_lottie_transaction_success.playAnimation()
   }
 
   private fun setupTransactionCompleteAnimation(bonus: String) {

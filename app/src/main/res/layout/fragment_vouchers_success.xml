@@ -12,8 +12,8 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="16dp"
       android:clipToPadding="false"
-      android:paddingBottom="12dp"
-      app:layout_constraintBottom_toTopOf="@id/vouchers_got_it_button"
+      android:paddingBottom="24dp"
+      app:layout_constraintBottom_toTopOf="@id/bottom_layout"
       app:layout_constraintTop_toTopOf="parent"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,6 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:lottie_autoPlay="true"
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_loop="false"
           app:lottie_rawRes="@raw/success_animation"
@@ -74,19 +73,29 @@
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
-  <Button
-      android:id="@+id/vouchers_got_it_button"
-      style="@style/ButtonStyle.Alternative"
-      android:layout_width="wrap_content"
-      android:layout_height="35dp"
-      android:layout_marginEnd="24dp"
-      android:layout_marginBottom="8dp"
-      android:maxWidth="150dp"
-      android:minWidth="80dp"
-      android:text="@string/got_it_button"
-      android:textColor="@color/white"
-      android:textSize="14sp"
+  <LinearLayout
+      android:id="@+id/bottom_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/white"
+      android:gravity="end"
+      android:orientation="horizontal"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      />
+      >
+    <Button
+        android:id="@+id/vouchers_got_it_button"
+        style="@style/ButtonStyle.Alternative"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:maxWidth="150dp"
+        android:minWidth="80dp"
+        android:text="@string/got_it_button"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        />
+  </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
