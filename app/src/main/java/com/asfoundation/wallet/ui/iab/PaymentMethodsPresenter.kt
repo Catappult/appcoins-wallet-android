@@ -245,7 +245,8 @@ class PaymentMethodsPresenter(
         .flatMapCompletable {
           interactor.checkTransactionStateFromTransactionId(it.uid)
               .ignoreElements()
-              .andThen(finishProcess(skuId, type, it.orderReference, it.hash, it.metadata?.purchaseUid))
+              .andThen(
+                  finishProcess(skuId, it.orderReference, it.hash, it.metadata?.purchaseUid))
         }
   }
 
@@ -263,12 +264,12 @@ class PaymentMethodsPresenter(
             .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun finishProcess(skuId: String?, type: BillingSupportedType, orderReference: String?,
+  private fun finishProcess(skuId: String?, orderReference: String?,
                             hash: String?, purchaseUid: String?): Completable {
-    return interactor.getSkuPurchase(paymentMethodsData.appPackage, skuId, purchaseUid, type, orderReference,
-        hash, networkThread)
+    return interactor.getSkuPurchase(paymentMethodsData.appPackage, skuId, purchaseUid,
+        transaction.type, orderReference, hash, networkThread)
         .observeOn(viewScheduler)
-        .doOnSuccess { bundle -> view.finish(bundle) }
+        .doOnSuccess { bundle -> view.finish(bundle.bundle) }
         .ignoreElement()
   }
 

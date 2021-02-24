@@ -134,7 +134,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                  orderReference: String?,
                                  referrerUrl: String?): Single<Transaction> {
     return createTransaction(null, developerWallet, storeWallet, oemWallet, id, developerPayload,
-        callback, orderReference, referrerUrl, origin, type, gateway, walletAddress,
+        callback, orderReference, null, origin, type, gateway, walletAddress,
         walletSignature, packageName, priceValue.toPlainString(), "APPC", productName)
   }
 

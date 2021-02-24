@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.os.Bundle
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -98,9 +98,20 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
       billing.getSkuTransaction(appPackage, skuId, networkThread, type)
 
   fun getSkuPurchase(appPackage: String, skuId: String?, purchaseUid: String?,
-                     networkThread: Scheduler, type: BillingSupportedType) =
-      billing.getSkuPurchase(appPackage, skuId, purchaseUid, networkThread, type)
+                     type: String, orderReference: String?, hash: String?,
+                     networkThread: Scheduler): Single<PurchaseBundleModel> {
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, appPackage, skuId, purchaseUid,
+        orderReference, hash, networkThread)
+  }
 
   fun getPurchases(appPackage: String, inapp: BillingSupportedType, networkThread: Scheduler) =
       billing.getPurchases(appPackage, inapp, networkThread)
+
+
+  private fun isInApp(type: String) =
+      type.equals(INAPP_TRANSACTION_TYPE, ignoreCase = true)
+
+  private companion object {
+    private const val INAPP_TRANSACTION_TYPE = "INAPP"
+  }
 }

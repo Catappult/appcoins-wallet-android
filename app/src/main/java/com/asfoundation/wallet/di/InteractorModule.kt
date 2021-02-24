@@ -222,7 +222,7 @@ class InteractorModule {
                                     walletVerificationInteractor: WalletVerificationInteractor,
                                     remoteRepository: RemoteRepository): LocalPaymentInteractor {
     return LocalPaymentInteractor(walletService, partnerAddressService,
-        inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
+        inAppPurchaseInteractor, billingMessagesMapper, supportInteractor,
         walletBlockedInteract, walletVerificationInteractor, remoteRepository)
   }
 
@@ -255,8 +255,8 @@ class InteractorModule {
                                     walletVerificationInteractor: WalletVerificationInteractor,
                                     billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
-        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
+        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, walletService,
+        supportInteractor, walletBlockedInteract, walletVerificationInteractor,
         billingAddressRepository)
   }
 

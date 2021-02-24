@@ -584,10 +584,11 @@ class ServiceModule {
         .build()
         .create(VerificationStateApi::class.java)
   }
+
   @Provides
   fun providesSubscriptionBillingApi(@Named("blockchain") client: OkHttpClient,
                                      gson: Gson): SubscriptionBillingApi {
-    val baseUrl = BuildConfig.BASE_HOST + "/productv2/8.20200701/applications/"
+    val baseUrl = BuildConfig.SUBS_BASE_HOST + "/productv2/8.20200701/applications/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -600,7 +601,7 @@ class ServiceModule {
   @Provides
   fun providesUserSubscriptionApi(@Named("default") client: OkHttpClient,
                                   gson: Gson): UserSubscriptionApi {
-    val baseUrl = BuildConfig.BASE_HOST + "/productv2/8.20200701/application/"
+    val baseUrl = BuildConfig.SUBS_BASE_HOST + "/productv2/8.20200701/application/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
