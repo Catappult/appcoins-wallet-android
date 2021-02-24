@@ -25,18 +25,15 @@
       tools:src="@drawable/ic_transaction_peer"
       />
 
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/app_icon_animation"
-      android:layout_width="@dimen/subscriptions_image_size"
-      android:layout_height="@dimen/subscriptions_image_size"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/icon_skeleton"
-      app:lottie_scale="1"
+  <include
+      android:id="@+id/app_icon_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintEnd_toEndOf="@id/app_icon"
+      app:layout_constraintStart_toStartOf="@id/app_icon"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
       />
 
   <TextView

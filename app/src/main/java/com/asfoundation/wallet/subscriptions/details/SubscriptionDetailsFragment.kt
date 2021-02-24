@@ -157,16 +157,13 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
     override fun onLoadStarted(placeholder: Drawable?) {
       app_icon.visibility = View.INVISIBLE
-      app_icon_animation.visibility = View.VISIBLE
-      app_icon_animation.playAnimation()
+      app_icon_skeleton.visibility = View.VISIBLE
     }
 
     override fun onLoadFailed(errorDrawable: Drawable?) {
       startPostponedEnterTransition()
       app_icon.visibility = View.INVISIBLE
-      app_icon_animation.visibility = View.VISIBLE
-      app_icon_animation.repeatCount = 1
-      app_icon_animation.playAnimation()
+      app_icon_skeleton.visibility = View.VISIBLE
     }
 
     override fun getSize(cb: SizeReadyCallback) {
@@ -176,7 +173,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
       startPostponedEnterTransition()
       app_icon.visibility = View.VISIBLE
-      app_icon_animation.visibility = View.INVISIBLE
+      app_icon_skeleton.visibility = View.INVISIBLE
       app_icon.setImageBitmap(resource)
     }
 

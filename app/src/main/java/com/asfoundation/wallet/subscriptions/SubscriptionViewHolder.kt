@@ -1,12 +1,17 @@
 package com.asfoundation.wallet.subscriptions
 
+import android.graphics.Bitmap
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.subscription_item.view.*
 import java.text.SimpleDateFormat
@@ -34,8 +39,8 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
         .asBitmap()
         .load(item.appIcon)
         .apply { RequestOptions().dontTransform() }
+        .listener(SkeletonGlideRequestListener(itemView.app_icon_skeleton))
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-        .error(R.drawable.ic_transaction_peer)
         .into(itemView.app_icon)
   }
 
@@ -60,5 +65,19 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
       view.expires_on.text = view.context.getString(R.string.subscriptions_expiration_body,
           dateFormat.format(it))
     }
+  }
+}
+
+internal class SkeletonGlideRequestListener(private val skeleton: View) : RequestListener<Bitmap> {
+
+  override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?,
+                            isFirstResource: Boolean): Boolean {
+    return true
+  }
+
+  override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?,
+                               dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+    skeleton.visibility = View.GONE
+    return false
   }
 }

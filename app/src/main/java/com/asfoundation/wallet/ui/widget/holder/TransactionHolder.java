@@ -203,13 +203,14 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
           @Override
           public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
               DataSource dataSource, boolean isFirstResource) {
-            if (transaction.getType() != TransactionType.SUBS_OFFCHAIN) {
-              ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
-                  finalTransactionTypeIcon);
-            } else {
+            if (transaction.getType() == TransactionType.SUBS_OFFCHAIN) {
               ImageView filledIcon = typeIcon.findViewById(R.id.filled_icon);
               filledIcon.setImageResource(finalTransactionTypeIcon);
               filledIcon.setVisibility(View.VISIBLE);
+            } else {
+              ImageView icon = typeIcon.findViewById(R.id.icon);
+              icon.setImageResource(finalTransactionTypeIcon);
+              icon.setVisibility(View.VISIBLE);
             }
             return false;
           }

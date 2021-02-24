@@ -21,6 +21,16 @@
       tools:src="@drawable/ic_transaction_peer"
       />
 
+  <include
+      android:id="@+id/app_icon_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintEnd_toEndOf="@id/app_icon"
+      app:layout_constraintStart_toStartOf="@id/app_icon"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
+      />
   <LinearLayout
       android:id="@+id/titleMoney"
       style="@style/SettingsTextStyle"
