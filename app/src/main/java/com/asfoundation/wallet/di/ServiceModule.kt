@@ -40,6 +40,8 @@ import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.DeviceInfo
+import com.asfoundation.wallet.verification.network.VerificationApi
+import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -393,21 +395,6 @@ class ServiceModule {
     return Web3jService(web3jProvider)
   }
 
-
-  @Singleton
-  @Provides
-  fun provideSmsValidationApi(@Named("default") client: OkHttpClient,
-                              gson: Gson): SmsValidationApi {
-    val baseUrl = BuildConfig.BACKEND_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(SmsValidationApi::class.java)
-  }
-
   @Singleton
   @Provides
   fun provideWalletStatusApi(@Named("default") client: OkHttpClient, gson: Gson): WalletStatusApi {
@@ -424,7 +411,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun providesTopUpValuesApi(@Named("default") client: OkHttpClient, gson: Gson): TopUpValuesApi {
-    val baseUrl = BuildConfig.CATAPPULT_HOST
+    val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -437,7 +424,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideBdsShareLinkApi(@Named("default") client: OkHttpClient, gson: Gson): BdsShareLinkApi {
-    val baseUrl = BuildConfig.CATAPPULT_HOST
+    val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -570,10 +557,37 @@ class ServiceModule {
         .create(RatingRepository.WalletFeedbackApi::class.java)
   }
 
+  @Singleton
+  @Provides
+  fun provideWalletVerificationApi(@Named("default") client: OkHttpClient,
+                                   gson: Gson): VerificationApi {
+    val baseUrl = BuildConfig.BACKEND_HOST
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(VerificationApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun provideWalletValidationApi(@Named("default") client: OkHttpClient,
+                                 gson: Gson): VerificationStateApi {
+    val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/"
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(VerificationStateApi::class.java)
+  }
   @Provides
   fun providesSubscriptionBillingApi(@Named("blockchain") client: OkHttpClient,
                                      gson: Gson): SubscriptionBillingApi {
-    val baseUrl = BuildConfig.CATAPPULT_NEW_HOST + "/productv2/8.20200701/applications/"
+    val baseUrl = BuildConfig.BASE_HOST + "/productv2/8.20200701/applications/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -586,7 +600,7 @@ class ServiceModule {
   @Provides
   fun providesUserSubscriptionApi(@Named("default") client: OkHttpClient,
                                   gson: Gson): UserSubscriptionApi {
-    val baseUrl = BuildConfig.CATAPPULT_NEW_HOST + "/productv2/8.20200701/application/"
+    val baseUrl = BuildConfig.BASE_HOST + "/productv2/8.20200701/application/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)

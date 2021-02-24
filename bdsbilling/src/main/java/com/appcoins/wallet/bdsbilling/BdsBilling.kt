@@ -1,6 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
@@ -47,6 +48,14 @@ class BdsBilling(private val repository: BillingRepository,
         .flatMap {
           repository.getSkuTransaction(merchantName, sku, it.address, it.signedAddress, type)
         }
+  }
+
+  private fun mapTransactionType(transactionType: String): TransactionType {
+    return if (transactionType.equals("INAPP_UNMANAGED", true)) {
+      TransactionType.INAPP_UNMANAGED
+    } else {
+      TransactionType.INAPP
+    }
   }
 
   override fun getSkuPurchase(merchantName: String, sku: String?, purchaseUid: String?,

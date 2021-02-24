@@ -11,10 +11,10 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -32,7 +32,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                              private val walletService: WalletService,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
-                             private val smsValidationInteract: SmsValidationInteract,
+                             private val walletVerificationInteractor: WalletVerificationInteractor,
                              private val billingAddressRepository: BillingAddressRepository
 ) {
 
@@ -41,8 +41,8 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-      walletService.getWalletAddress()
-          .flatMap { smsValidationInteract.isValidated(it) }
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
           .onErrorReturn { true }
 
 

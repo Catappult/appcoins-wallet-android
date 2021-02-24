@@ -32,11 +32,8 @@ class AllowanceService(private val web3j: Web3j,
                   function.outputParameters)
 
           if (response.size == 1) {
-            return@map BigDecimal(
-                (response[0] as Uint256).value)
-                .multiply(
-                    BigDecimal(BigInteger.ONE,
-                        tokenInfo.decimals))
+            return@map BigDecimal((response[0] as Uint256).value)
+                .multiply(BigDecimal(BigInteger.ONE, tokenInfo.decimals))
           } else {
             throw IllegalStateException("Failed to execute contract call!")
           }

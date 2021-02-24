@@ -20,9 +20,9 @@ import com.asfoundation.wallet.ui.onboarding.OnboardingModule
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.ui.splash.SplashModule
+import com.asfoundation.wallet.verification.VerificationActivity
+import com.asfoundation.wallet.verification.VerificationActivityModule
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
-import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -94,10 +94,6 @@ abstract class ActivityBuilders {
 
   @ActivityScope
   @ContributesAndroidInjector
-  internal abstract fun bindWalletValidationDialogActivity(): WalletValidationDialogActivity
-
-  @ActivityScope
-  @ContributesAndroidInjector
   internal abstract fun bindUpdateRequiredActivity(): UpdateRequiredActivity
 
   @ContributesAndroidInjector
@@ -105,15 +101,10 @@ abstract class ActivityBuilders {
 
   @ActivityScope
   @ContributesAndroidInjector
-  internal abstract fun bindWalletValidationActivity(): WalletValidationActivity
-
-  @ActivityScope
-  @ContributesAndroidInjector
   internal abstract fun bindWalletBlockedActivity(): WalletBlockedActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(
-      modules = [RestoreWalletActivityModule::class])
+  @ContributesAndroidInjector(modules = [RestoreWalletActivityModule::class])
   internal abstract fun bindRestoreWalletActivity(): RestoreWalletActivity
 
   @ActivityScope
@@ -135,6 +126,10 @@ abstract class ActivityBuilders {
   @ActivityScope
   @ContributesAndroidInjector
   abstract fun bindRatingActivity(): RatingActivity
+
+  @ActivityScope
+  @ContributesAndroidInjector(modules = [VerificationActivityModule::class])
+  internal abstract fun bindVerificationActivity(): VerificationActivity
 
   @ActivityScope
   @ContributesAndroidInjector()

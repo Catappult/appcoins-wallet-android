@@ -28,8 +28,8 @@ import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
@@ -161,11 +161,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
 
-  override fun showWalletValidation(@StringRes error: Int) {
+  override fun showVerification() {
     fragment_container.visibility = View.GONE
-    val intent = WalletValidationDialogActivity.newIntent(this, error)
+    val intent = VerificationActivity.newIntent(this)
         .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
-    startActivityForResult(intent, WALLET_VALIDATION_REQUEST_CODE)
+    startActivity(intent)
+    finishWithError()
   }
 
   override fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String,
@@ -219,7 +220,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload, origin, paymentMethodIconUrl, paymentMethodLabel, async, referralUrl,
+                payload, getOrigin(isBds), paymentMethodIconUrl, paymentMethodLabel, async, referralUrl,
                 gamificationLevel))
         .commit()
   }
@@ -411,7 +412,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val BDS = "BDS"
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
-    const val WALLET_VALIDATION_REQUEST_CODE = 12346
     const val AUTHENTICATION_REQUEST_CODE = 33
     const val IS_BDS_EXTRA = "is_bds_extra"
     const val ERROR_MESSAGE = "error_message"

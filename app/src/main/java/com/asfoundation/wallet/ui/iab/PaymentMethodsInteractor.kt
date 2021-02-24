@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.os.Bundle
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.PendingTransaction
@@ -26,6 +28,7 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                private val billing: Billing,
+                               private val billingMessagesMapper: BillingMessagesMapper,
                                private val bdsPendingTransactionService: BdsPendingTransactionService) {
 
 

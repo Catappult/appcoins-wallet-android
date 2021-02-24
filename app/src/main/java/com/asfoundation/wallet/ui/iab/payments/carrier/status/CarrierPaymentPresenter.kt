@@ -72,12 +72,11 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun handleCompletedStatus(payment: CarrierPaymentModel): Completable {
     return sendPaymentSuccessEvents()
-        .andThen { carrierInteractor.savePhoneNumber(data.phoneNumber) }
+        .andThen(carrierInteractor.savePhoneNumber(data.phoneNumber))
         .observeOn(viewScheduler)
         .andThen(Completable.fromAction { view.showFinishedTransaction() }
             .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
-            .andThen(finishPayment(payment))
-        )
+            .andThen(finishPayment(payment)))
   }
 
   private fun isUnauthorizedCode(errorCode: Int?): Boolean {
@@ -105,7 +104,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?): Completable {
     return Completable.fromAction {
-      val code: String? = if (refusalCode == -1) "ERROR" else refusalCode.toString()
+      val code: String = if (refusalCode == -1) "ERROR" else refusalCode.toString()
       billingAnalytics.sendPaymentErrorWithDetailsEvent(data.domain, data.skuId,
           data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType,
           code, refusalReason)
@@ -137,7 +136,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
             if (walletStatus.verified) {
               navigator.navigateToError(R.string.purchase_error_wallet_block_code_403)
             } else {
-              navigator.navigateToWalletValidation(R.string.purchase_error_wallet_block_code_403)
+              navigator.navigateToVerification()
             }
           } else {
             navigator.navigateToError(R.string.purchase_error_wallet_block_code_403)

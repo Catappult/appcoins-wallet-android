@@ -43,7 +43,7 @@ interface TopUpActivityView {
 
   fun getSupportClicks(): Observable<Any>
 
-  fun showWalletValidation(@StringRes error: Int)
+  fun showVerification()
 
   fun getTryAgainClicks(): Observable<Any>
 

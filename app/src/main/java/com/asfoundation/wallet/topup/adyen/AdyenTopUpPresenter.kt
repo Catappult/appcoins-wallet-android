@@ -390,19 +390,20 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) handleSpecificError(error)
-                      else view.showWalletValidation(error)
+                      else view.showVerification()
                     }
               } else {
                 Single.just(fraudCheckIds)
                     .observeOn(viewScheduler)
                     .doOnSuccess {
+                      val paymentMethodRuleBroken = it.contains(PAYMENT_METHOD_CHECK_ID)
+                      val amountRuleBroken = it.contains(HIGH_AMOUNT_CHECK_ID)
                       val fraudError = when {
-                        it.contains(PAYMENT_METHOD_CHECK_ID) -> {
-                          R.string.purchase_error_try_other_method
+                        paymentMethodRuleBroken && amountRuleBroken -> {
+                          R.string.purchase_error_try_other_amount_or_method
                         }
-                        it.contains(HIGH_AMOUNT_CHECK_ID) -> {
-                          R.string.purchase_error_try_other_amount
-                        }
+                        paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
+                        amountRuleBroken -> R.string.purchase_error_try_other_amount
                         else -> error
                       }
                       handleSpecificError(fraudError)

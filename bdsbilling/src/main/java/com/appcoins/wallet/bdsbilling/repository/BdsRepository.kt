@@ -10,7 +10,6 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRepository {
-
   override fun getWallet(packageName: String): Single<String> {
     return remoteRepository.getWallet(packageName)
         .map { it.data.address }

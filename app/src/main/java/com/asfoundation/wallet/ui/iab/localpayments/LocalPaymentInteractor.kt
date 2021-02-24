@@ -9,10 +9,10 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -26,14 +26,14 @@ class LocalPaymentInteractor(private val walletService: WalletService,
                              private val billingMessagesMapper: BillingMessagesMapper,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
-                             private val smsValidationInteract: SmsValidationInteract,
+                             private val walletVerificationInteractor: WalletVerificationInteractor,
                              private val remoteRepository: RemoteRepository) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-      walletService.getWalletAddress()
-          .flatMap { smsValidationInteract.isValidated(it) }
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
           .onErrorReturn { true }
 
   fun getPaymentLink(packageName: String, fiatAmount: String?, fiatCurrency: String?,

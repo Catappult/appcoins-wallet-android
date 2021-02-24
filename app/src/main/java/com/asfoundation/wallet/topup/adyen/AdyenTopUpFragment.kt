@@ -368,7 +368,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     bonus_msg.visibility = VISIBLE
   }
 
-  override fun showWalletValidation(@StringRes error: Int) = topUpView.showWalletValidation(error)
+  override fun showVerification() = topUpView.showVerification()
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     val scaledBonus = bonus.max(BigDecimal("0.01"))

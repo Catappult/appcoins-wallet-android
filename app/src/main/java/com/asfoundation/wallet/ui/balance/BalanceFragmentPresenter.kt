@@ -5,7 +5,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -42,6 +42,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleTooltipBackupClick()
     handleTooltipLaterClick()
     handleVerifyWalletClick()
+    handleInsertCodeClick()
     handleCachedWalletInfoDisplay()
   }
 
@@ -98,7 +99,14 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   private fun handleVerifyWalletClick() {
     disposables.add(view.getVerifyWalletClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.openWalletValidationScreen() }
+        .doOnNext { view.openWalletVerificationScreen() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleInsertCodeClick() {
+    disposables.add(view.getInsertCodeClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.openWalletVerificationScreen() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -110,18 +118,20 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleWalletInfoDisplay() {
-    disposables.add(balanceInteractor.requestActiveWalletAddress()
+    disposables.add(balanceInteractor.getSignedCurrentWalletAddress()
         .observeOn(viewScheduler)
-        .doOnSuccess { view.setWalletAddress(it) }
+        .doOnSuccess { view.setWalletAddress(it.address) }
         .observeOn(networkScheduler)
-        .flatMap { balanceInteractor.isWalletValid(it) }
+        .flatMap { balanceInteractor.isWalletValid(it.address, it.signedAddress) }
         .observeOn(viewScheduler)
         .doOnSuccess {
-          when (it.second) {
-            WalletValidationStatus.SUCCESS -> displayWalletVerifiedStatus()
-            WalletValidationStatus.GENERIC_ERROR -> displayWalletUnverifiedStatus()
-            WalletValidationStatus.NO_NETWORK -> handleNoNetwork(it.first)
-            else -> handleValidationCache(it.first)
+          when (it.status) {
+            BalanceVerificationStatus.VERIFIED -> displayWalletVerifiedStatus()
+            BalanceVerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
+            BalanceVerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus()
+            BalanceVerificationStatus.NO_NETWORK, BalanceVerificationStatus.ERROR -> {
+              handleNoNetwork(it.address)
+            }
           }
         }
         .subscribe({}, { it.printStackTrace() }))
@@ -203,30 +213,41 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleValidationCache(address: String) {
-    if (balanceInteractor.isWalletValidated(address)) displayWalletVerifiedStatus()
-    else displayWalletUnverifiedStatus()
+    when (balanceInteractor.getCachedVerificationStatus(address)) {
+      VerificationStatus.VERIFIED -> displayWalletVerifiedStatus()
+      VerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus()
+      VerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus(true)
+      else -> displayWalletUnverifiedStatus(true)
+    }
   }
 
   private fun handleNoNetwork(address: String) {
-    if (balanceInteractor.isWalletValidated(address)) displayWalletVerifiedStatus()
-    else displayNoNetworkStatus()
+    when (balanceInteractor.getCachedVerificationStatus(address)) {
+      VerificationStatus.VERIFIED -> displayWalletVerifiedStatus()
+      VerificationStatus.UNVERIFIED -> displayWalletUnverifiedStatus(true)
+      VerificationStatus.CODE_REQUESTED -> displayWalletCodeRequestedStatus(true)
+      else -> displayWalletUnverifiedStatus(true)
+    }
   }
 
   private fun displayWalletVerifiedStatus() {
     view.showVerifiedWalletChip()
     view.hideUnverifiedWalletChip()
+    view.hideRequestedCodeWalletChip()
   }
 
-  private fun displayWalletUnverifiedStatus() {
+  private fun displayWalletUnverifiedStatus(disabled: Boolean = false) {
     view.showUnverifiedWalletChip()
     view.hideVerifiedWalletChip()
-    view.enableVerifyWalletButton()
+    view.hideRequestedCodeWalletChip()
+    if (disabled) view.disableVerifyWalletButton() else view.enableVerifyWalletButton()
   }
 
-  private fun displayNoNetworkStatus() {
-    view.showUnverifiedWalletChip()
+  private fun displayWalletCodeRequestedStatus(disabled: Boolean = false) {
+    view.hideUnverifiedWalletChip()
     view.hideVerifiedWalletChip()
-    view.disableVerifyWalletButton()
+    view.showRequestedCodeWalletChip()
+    if (disabled) view.disableInserCodeButton() else view.enableInsertCodeButton()
   }
 
   fun saveSeenToolTip() {

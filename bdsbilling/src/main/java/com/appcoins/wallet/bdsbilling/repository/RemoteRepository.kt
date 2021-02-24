@@ -179,10 +179,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
     return inAppApi.createTransaction(origin, packageName, price, currency, productName, type,
-        walletAddress, walletsDeveloper, walletsStore, walletsOem, null, developerPayload, callback,
-        orderReference, referrerUrl, walletAddress, walletSignature,
-        LocalPaymentBody(price, currency, packageName, type, paymentId, productName,
-            walletsDeveloper))
+        walletAddress, walletsDeveloper, walletsStore, walletsOem, paymentId, developerPayload, callback,
+        orderReference, referrerUrl, walletAddress, walletSignature)
   }
 
   fun activateSubscription(packageName: String, uid: String, walletAddress: String,

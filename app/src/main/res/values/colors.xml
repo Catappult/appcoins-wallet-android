@@ -143,4 +143,14 @@
 
   <color name="color_inactive">#727272</color>
   <color name="bottom_sheet_translucent_background">#75000000</color>
+
+
+  <!-- Verify Wallet -->
+  <color name="verify_wallet_description">#57aa00</color>
+  <color name="verify_wallet_subtitle">#646464</color>
+  <color name="verify_wallet_description_background">#0F57aa00</color>
+  <color name="verify_wallet_cancel">#707070</color>
+  <color name="verify_wallet_example_background">#2Bd6d6d6</color>
+  <color name="verify_wallet_example_code_background">#707070</color>
+  <color name="verify_wallet_code_background">#afafaf</color>
 </resources>

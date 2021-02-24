@@ -339,7 +339,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) view.showSpecificError(error)
-                      else view.showWalletValidation(error)
+                      else view.showVerification()
                     }
               } else {
                 Single.just(fraudCheckIds)
