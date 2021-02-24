@@ -13,8 +13,8 @@
 
   <ImageView
       android:id="@+id/app_icon"
-      android:layout_width="64dp"
-      android:layout_height="64dp"
+      android:layout_width="@dimen/subscriptions_image_size"
+      android:layout_height="@dimen/subscriptions_image_size"
       android:adjustViewBounds="true"
       android:contentDescription="@string/empty"
       android:lineSpacingExtra="0.25sp"
@@ -27,8 +27,8 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/app_icon_animation"
-      android:layout_width="64dp"
-      android:layout_height="64dp"
+      android:layout_width="@dimen/subscriptions_image_size"
+      android:layout_height="@dimen/subscriptions_image_size"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -41,15 +41,11 @@
 
   <TextView
       android:id="@+id/app_name"
-      style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
+      style="@style/SubscriptionsAppNameText"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_gravity="start"
       android:layout_marginStart="12dp"
-      android:ellipsize="end"
-      android:maxLines="1"
-      android:textColor="@color/black_87_alpha"
-      android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/app_icon"
       app:layout_constraintTop_toTopOf="@id/app_icon"
@@ -58,14 +54,10 @@
 
   <TextView
       android:id="@+id/total_value"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      style="@style/SubscriptionsFiatValueText"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_gravity="start"
-      android:ellipsize="end"
-      android:maxLines="1"
-      android:textColor="@color/black_87_alpha"
-      android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/app_name"
       app:layout_constraintTop_toBottomOf="@id/app_name"
@@ -74,13 +66,10 @@
 
   <TextView
       android:id="@+id/total_value_appc"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      style="@style/SubscriptionsAppcValueText"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_gravity="start"
-      android:fontFamily="sans-serif"
-      android:textColor="@color/dialog_secondary_price"
-      android:textSize="11sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/app_name"
       app:layout_constraintTop_toBottomOf="@id/total_value"
