@@ -4,9 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class UserStatusResponse(val promotions: List<PromotionsResponse>,
                               @SerializedName("wallet_origin") val walletOrigin: WalletOrigin,
-                              val error: Status? = null) {
+                              val error: Status? = null,
+                              val fromCache: Boolean = false) {
 
-  constructor(error: Status) : this(emptyList(), WalletOrigin.UNKNOWN, error)
+  constructor(error: Status) : this(emptyList(), WalletOrigin.UNKNOWN, error, false)
+
+  constructor(error: Status, fromCache: Boolean) : this(emptyList(), WalletOrigin.UNKNOWN, error,
+      fromCache)
 }
 
 enum class WalletOrigin {

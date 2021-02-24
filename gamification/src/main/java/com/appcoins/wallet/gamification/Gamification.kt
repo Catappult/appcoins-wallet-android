@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
@@ -19,6 +20,11 @@ class Gamification(private val repository: PromotionsRepository) {
 
   fun getUserStats(wallet: String): Single<GamificationStats> {
     return repository.getGamificationStats(wallet)
+  }
+
+  // TODO this method will be merged with the above, since all will eventually be DBfirst
+  fun getUserStatsDbFirst(wallet: String): Observable<GamificationStats> {
+    return repository.getGamificationStatsDbFirst(wallet)
   }
 
   fun getLevels(wallet: String): Single<Levels> {

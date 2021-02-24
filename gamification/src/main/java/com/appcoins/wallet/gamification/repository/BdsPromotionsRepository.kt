@@ -2,6 +2,7 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.*
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.io.IOException
@@ -30,7 +31,44 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               .map { (promotions, walletOrigin) ->
                 mapErrorToUserStatsModel(promotions, walletOrigin, t)
               }
-              .onErrorReturn { mapErrorToUserStatsModel(t) }
+              .onErrorReturn { mapErrorToUserStatsModel(t, false) }
+        }
+  }
+
+  // TODO, see if this can be merged with the above one, passing a boolean to decide which
+  //  one to apply
+  private fun getUserStatsDbFirst(wallet: String): Observable<UserStatusResponse> {
+    return Observable.concat(getUserStatsFromDB(wallet), getUserStatsFromAPI(wallet))
+  }
+
+  private fun getUserStatsFromDB(wallet: String): Observable<UserStatusResponse> {
+    // TODO eventually change local. values to observables instead of singles
+    return Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
+        BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
+          Pair(promotions, walletOrigin)
+        })
+        .toObservable()
+        .map { (promotions, walletOrigin) ->
+          UserStatusResponse(promotions, walletOrigin, null, true)
+        }
+        .onErrorReturn {
+          mapErrorToUserStatsModel(it, true)
+        }
+  }
+
+  private fun getUserStatsFromAPI(wallet: String): Observable<UserStatusResponse> {
+    // TODO eventually change api. values to observable instead of single
+    return api.getUserStats(wallet, Locale.getDefault().language)
+        .toObservable()
+        .map { filterByDate(it) }
+        .map { userStats ->
+          local.deletePromotions()
+              .andThen(local.insertPromotions(userStats.promotions)
+                  .andThen(local.insertWalletOrigin(wallet, userStats.walletOrigin)))
+          userStats
+        }
+        .onErrorReturn {
+          mapErrorToUserStatsModel(it, false)
         }
   }
 
@@ -95,20 +133,30 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         }
   }
 
-  private fun map(status: Status): GamificationStats {
+  override fun getGamificationStatsDbFirst(wallet: String): Observable<GamificationStats> {
+    return getUserStatsDbFirst(wallet)
+        .map { mapToGamificationStats(it) }
+        .map {
+          local.setGamificationLevel(it.level)
+          it
+        }
+  }
+
+  private fun map(status: Status, fromCache: Boolean): GamificationStats {
     return if (status == Status.NO_NETWORK) {
-      GamificationStats(GamificationStats.Status.NO_NETWORK)
+      GamificationStats(GamificationStats.Status.NO_NETWORK, fromCache = fromCache)
     } else {
-      GamificationStats(GamificationStats.Status.UNKNOWN_ERROR)
+      GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = fromCache)
     }
   }
 
-  private fun mapErrorToUserStatsModel(throwable: Throwable): UserStatusResponse {
+  private fun mapErrorToUserStatsModel(throwable: Throwable,
+                                       fromCache: Boolean): UserStatusResponse {
     throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
-      UserStatusResponse(Status.NO_NETWORK)
+      UserStatusResponse(Status.NO_NETWORK, fromCache)
     } else {
-      UserStatusResponse(Status.UNKNOWN_ERROR)
+      UserStatusResponse(Status.UNKNOWN_ERROR, fromCache)
     }
   }
 
@@ -130,16 +178,17 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   private fun mapToGamificationStats(response: UserStatusResponse): GamificationStats {
     return if (response.error != null) {
-      map(response.error)
+      map(response.error, response.fromCache)
     } else {
       val gamification =
           response.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
       if (gamification == null) {
-        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR)
+        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = response.fromCache)
       } else {
         GamificationStats(GamificationStats.Status.OK, gamification.level,
             gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
-            gamification.totalEarned, PromotionsResponse.Status.ACTIVE == gamification.status)
+            gamification.totalEarned, PromotionsResponse.Status.ACTIVE == gamification.status,
+            response.fromCache)
       }
     }
   }

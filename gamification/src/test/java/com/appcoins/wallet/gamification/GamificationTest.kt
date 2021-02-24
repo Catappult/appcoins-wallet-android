@@ -39,25 +39,34 @@ class GamificationTest {
         ReferralResponse("REFERRAL", 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
             BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
             PromotionsResponse.Status.ACTIVE, BigDecimal.ONE)
-
+    // TODO fix this test to properly use offline first for everything
+    local.walletOriginResponse = Single.just(WalletOrigin.UNKNOWN)
+    local.userStatusResponse = Single.just(emptyList())
     api.userStatusResponse =
         Single.just(UserStatusResponse(
             listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE))
-    val testObserver = gamification.getUserStats(WALLET)
+    val testObserver = gamification.getUserStatsDbFirst(WALLET)
         .test()
-    testObserver.assertValue(
+    testObserver.assertResult(
+        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = true),
         GamificationStats(GamificationStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE,
-            BigDecimal.ZERO, isActive = true))
+            BigDecimal.ZERO, isActive = true, fromCache = false))
+    testObserver.assertComplete()
   }
 
   @Test
   fun getUserStatsNoNetworkTest() {
-    api.userStatusResponse = Single.error(UnknownHostException())
-    local.userStatusResponse = Single.just(emptyList())
     local.walletOriginResponse = Single.just(WalletOrigin.APTOIDE)
-    val testObserver = gamification.getUserStats(WALLET)
+    local.userStatusResponse = Single.just(listOf(GamificationResponse("GAMIFICATION", 100, 15.0,
+        BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
+        PromotionsResponse.Status.ACTIVE, false)))
+    api.userStatusResponse = Single.error(UnknownHostException())
+    val testObserver = gamification.getUserStatsDbFirst(WALLET)
         .test()
-    testObserver.assertValue(GamificationStats(GamificationStats.Status.NO_NETWORK))
+    testObserver.assertResult(
+        GamificationStats(GamificationStats.Status.OK, 5, BigDecimal(60000.0), 15.0,
+            BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true),
+        GamificationStats(GamificationStats.Status.NO_NETWORK, fromCache = false))
   }
 
   @Test

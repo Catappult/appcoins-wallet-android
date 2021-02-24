@@ -3,12 +3,15 @@ package com.appcoins.wallet.gamification.repository
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
+import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
 
 interface PromotionsRepository {
 
   fun getGamificationStats(wallet: String): Single<GamificationStats>
+
+  fun getGamificationStatsDbFirst(wallet: String): Observable<GamificationStats>
 
   fun getLevels(wallet: String): Single<Levels>
 

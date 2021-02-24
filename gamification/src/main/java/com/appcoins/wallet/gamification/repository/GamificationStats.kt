@@ -7,8 +7,8 @@ data class GamificationStats(val status: Status, val level: Int = -1,
                              val bonus: Double = -1.0,
                              val totalSpend: BigDecimal = BigDecimal.ZERO,
                              val totalEarned: BigDecimal = BigDecimal.ZERO,
-                             val isActive: Boolean = false
-) {
+                             val isActive: Boolean = false,
+                             val fromCache: Boolean = false) {
 
   enum class Status {
     OK, NO_NETWORK, UNKNOWN_ERROR
