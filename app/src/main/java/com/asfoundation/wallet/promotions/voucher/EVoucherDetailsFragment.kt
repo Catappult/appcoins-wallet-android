@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,14 +18,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.e_voucher_details_content_scrolling.*
+import kotlinx.android.synthetic.main.e_voucher_details_download_app_layout.*
 import kotlinx.android.synthetic.main.layout_app_bar.*
 import javax.inject.Inject
 
 class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
-  lateinit var nextButton: Button
-  lateinit var cancelButton: Button
-  lateinit var downloadButton: Button
   lateinit var recyclerView: RecyclerView
   lateinit var skuButtonsAdapter: SkuButtonsAdapter
   val skuButtonClick = PublishSubject.create<Int>()
@@ -66,9 +64,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
     val appCompatActivity = getActivity() as AppCompatActivity
     appCompatActivity.toolbar.title = title
 
-    nextButton = requireView().findViewById(R.id.next_button)
-    cancelButton = requireView().findViewById(R.id.cancel_button)
-    downloadButton = requireView().findViewById(R.id.download_app_button)
     recyclerView = requireView().findViewById(R.id.diamond_buttons_recycler_view)
     disposables.add(presenter.getDiamondModels()
         .subscribeOn(Schedulers.io())
@@ -83,7 +78,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
           recyclerView.adapter = skuButtonsAdapter
         }
         .subscribe())
-    downloadButton.setOnClickListener {
+    download_app_button.setOnClickListener {
       startActivity(
           Intent(
               Intent.ACTION_VIEW,
@@ -91,7 +86,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
           )
       )
     }
-    disposables.add(skuButtonClick.subscribe { nextButton.setEnabled(true) })
+    disposables.add(skuButtonClick.subscribe { next_button.setEnabled(true) })
   }
 
   override fun onDestroyView() {
@@ -100,11 +95,11 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   }
 
   override fun onNextClicks(): Observable<Any> {
-    return RxView.clicks(nextButton)
+    return RxView.clicks(next_button)
   }
 
   override fun onCancelClicks(): Observable<Any> {
-    return RxView.clicks(cancelButton)
+    return RxView.clicks(cancel_button)
   }
 
   override fun onSkuButtonClick(): Observable<Int> {
