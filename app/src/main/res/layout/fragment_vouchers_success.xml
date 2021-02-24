@@ -22,8 +22,8 @@
         >
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/vouchers_lottie_transaction_success"
-          android:layout_width="90dp"
-          android:layout_height="88dp"
+          android:layout_width="173dp"
+          android:layout_height="125dp"
           android:layout_marginTop="40dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
