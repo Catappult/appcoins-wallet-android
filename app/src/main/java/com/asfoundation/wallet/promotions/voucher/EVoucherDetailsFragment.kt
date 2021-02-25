@@ -12,7 +12,6 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.e_voucher_details_content_scrolling.*
 import kotlinx.android.synthetic.main.e_voucher_details_download_app_layout.*
@@ -25,7 +24,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   lateinit var recyclerView: RecyclerView
   lateinit var skuButtonsAdapter: SkuButtonsAdapter
   val skuButtonClick = PublishSubject.create<Int>()
-  val disposables = CompositeDisposable()
 
   @Inject
   lateinit var presenter: EVoucherDetailsPresenter
@@ -70,12 +68,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
     recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
     recyclerView.addItemDecoration(MarginItemDecoration(8))
     recyclerView.adapter = skuButtonsAdapter
-    disposables.add(skuButtonClick.subscribe { next_button.setEnabled(true) })
-  }
-
-  override fun onDestroyView() {
-    disposables.clear()
-    super.onDestroyView()
   }
 
   override fun onNextClicks(): Observable<SkuButtonModel> {
@@ -102,6 +94,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   override fun setSelectedSku(index: Int) {
     skuButtonsAdapter.setSelectedSku(index)
     recyclerView.layoutManager?.findViewByPosition(index)?.isActivated = true
+    next_button.setEnabled(true)
   }
 
   companion object {
