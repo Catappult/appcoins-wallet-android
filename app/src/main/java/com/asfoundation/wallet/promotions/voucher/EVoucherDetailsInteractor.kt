@@ -5,7 +5,7 @@ import java.util.*
 
 class EVoucherDetailsInteractor {
 
-  fun getDiamondModels(): Single<List<SkuButtonModel>> {
+  fun getSkuButtonModels(): Single<List<SkuButtonModel>> {
     val skuButtonModels: MutableList<SkuButtonModel> = LinkedList()
     skuButtonModels.add(
         SkuButtonModel("43_diamonds", "43 Diamonds", Price(0.99, "USD", "$", 24.81)))

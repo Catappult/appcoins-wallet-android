@@ -4,7 +4,7 @@ import io.reactivex.Observable
 
 interface EVoucherDetailsView {
 
-  fun setupUi(title: String, packageName: String)
+  fun setupUi(title: String, packageName: String, skuButtonModels: List<SkuButtonModel>)
 
   fun onNextClicks(): Observable<SkuButtonModel>
 

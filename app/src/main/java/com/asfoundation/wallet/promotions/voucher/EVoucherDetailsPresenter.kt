@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.promotions.voucher
 
-import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class EVoucherDetailsPresenter(
     private val view: EVoucherDetailsView,
@@ -13,7 +14,12 @@ class EVoucherDetailsPresenter(
   private val disposable = CompositeDisposable()
 
   fun present() {
-    view.setupUi(data.title, data.packageName)
+    disposable.add(interactor.getSkuButtonModels()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ skuModels ->
+          view.setupUi(data.title, data.packageName, skuModels)
+        }))
     disposable.add(view.onNextClicks()
         .subscribe({ navigator.navigateToNextScreen() }))
     disposable.add(view.onCancelClicks()
@@ -24,9 +30,5 @@ class EVoucherDetailsPresenter(
         .subscribe({ index -> view.setSelectedSku(index) }))
     disposable.add(view.onDownloadAppButtonClick()
         .subscribe({ any -> navigator.navigateToStore(data.packageName) }))
-  }
-
-  fun getDiamondModels(): Single<List<SkuButtonModel>> {
-    return interactor.getDiamondModels()
   }
 }

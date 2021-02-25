@@ -12,9 +12,7 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.e_voucher_details_content_scrolling.*
 import kotlinx.android.synthetic.main.e_voucher_details_download_app_layout.*
@@ -60,24 +58,18 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
     presenter.present()
   }
 
-  override fun setupUi(title: String, packageName: String) {
+  override fun setupUi(title: String, packageName: String, skuButtonModels: List<SkuButtonModel>) {
     val appCompatActivity = getActivity() as AppCompatActivity
     appCompatActivity.toolbar.title = title
 
     recyclerView = requireView().findViewById(R.id.diamond_buttons_recycler_view)
-    disposables.add(presenter.getDiamondModels()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess {
-          skuButtonsAdapter = SkuButtonsAdapter(
-              appCompatActivity.applicationContext,
-              it,
-              skuButtonClick)
-          recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
-          recyclerView.addItemDecoration(MarginItemDecoration(8))
-          recyclerView.adapter = skuButtonsAdapter
-        }
-        .subscribe())
+    skuButtonsAdapter = SkuButtonsAdapter(
+        appCompatActivity.applicationContext,
+        skuButtonModels,
+        skuButtonClick)
+    recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+    recyclerView.addItemDecoration(MarginItemDecoration(8))
+    recyclerView.adapter = skuButtonsAdapter
     disposables.add(skuButtonClick.subscribe { next_button.setEnabled(true) })
   }
 
