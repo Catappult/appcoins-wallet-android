@@ -6,7 +6,7 @@ interface EVoucherDetailsView {
 
   fun setupUi(title: String, packageName: String)
 
-  fun onNextClicks(): Observable<Any>
+  fun onNextClicks(): Observable<SkuButtonModel>
 
   fun onCancelClicks(): Observable<Any>
 

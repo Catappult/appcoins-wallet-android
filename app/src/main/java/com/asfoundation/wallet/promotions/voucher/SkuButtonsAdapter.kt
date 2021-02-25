@@ -52,6 +52,8 @@ class SkuButtonsAdapter(
   fun setSelectedSku(index: Int) {
     selectedPosition = index
   }
+
+  fun getSelectedSku(): SkuButtonModel = buttonModels.get(selectedPosition)
 }
 
 class SkuButtonsViewHolder(private val button: Button) : RecyclerView.ViewHolder(button) {

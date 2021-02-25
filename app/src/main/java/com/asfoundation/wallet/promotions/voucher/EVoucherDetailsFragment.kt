@@ -84,8 +84,9 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
     super.onDestroyView()
   }
 
-  override fun onNextClicks(): Observable<Any> {
+  override fun onNextClicks(): Observable<SkuButtonModel> {
     return RxView.clicks(next_button)
+        .map { skuButtonsAdapter.getSelectedSku() }
   }
 
   override fun onCancelClicks(): Observable<Any> {
