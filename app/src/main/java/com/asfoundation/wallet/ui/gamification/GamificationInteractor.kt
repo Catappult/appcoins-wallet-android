@@ -35,6 +35,12 @@ class GamificationInteractor(
         .flatMap { gamification.getUserStats(it.address) }
   }
 
+  fun getUserStatsDbFirst(): Observable<GamificationStats> {
+    // TODO - merge this with the above function - all will eventually return Observable
+    return defaultWallet.find()
+        .flatMapObservable { gamification.getUserStatsDbFirst(it.address) }
+  }
+
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
     return defaultWallet.find()
         .flatMap { wallet: Wallet ->

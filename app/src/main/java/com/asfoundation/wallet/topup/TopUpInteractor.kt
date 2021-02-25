@@ -43,7 +43,8 @@ class TopUpInteractor(private val repository: BdsRepository,
       inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
 
   fun showSupport(): Completable {
-    return gamificationInteractor.getUserStats()
+    return gamificationInteractor.getUserStatsDbFirst()
+        .lastOrError()
         .map { it.level }
         .onErrorReturn { 0 }
         .flatMapCompletable { level ->

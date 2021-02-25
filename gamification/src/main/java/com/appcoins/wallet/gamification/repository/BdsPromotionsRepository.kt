@@ -60,8 +60,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     // TODO eventually change api. values to observable instead of single
     return api.getUserStats(wallet, Locale.getDefault().language)
         .toObservable()
-        .map { filterByDate(it) }
-        .map { userStats ->
+        .map {
+          val userStats = filterByDate(it)
           local.deletePromotions()
               .andThen(local.insertPromotions(userStats.promotions)
                   .andThen(local.insertWalletOrigin(wallet, userStats.walletOrigin)))
@@ -135,10 +135,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   override fun getGamificationStatsDbFirst(wallet: String): Observable<GamificationStats> {
     return getUserStatsDbFirst(wallet)
-        .map { mapToGamificationStats(it) }
         .map {
-          local.setGamificationLevel(it.level)
-          it
+          val stats = mapToGamificationStats(it)
+          local.setGamificationLevel(stats.level)
+          stats
         }
   }
 
