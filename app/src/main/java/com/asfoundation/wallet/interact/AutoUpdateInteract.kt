@@ -6,7 +6,7 @@ import android.net.Uri
 import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.AutoUpdateRepository
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Completable
@@ -16,7 +16,7 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
                          private val walletVersionCode: Int, private val deviceSdk: Int,
                          private val packageManager: PackageManager,
                          private val walletPackageName: String,
-                         private val sharedPreferencesRepository: PreferencesRepositoryType) {
+                         private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType) {
 
   fun getAutoUpdateModel(invalidateCache: Boolean = true): Single<AutoUpdateModel> {
     return autoUpdateRepository.loadAutoUpdateModel(invalidateCache)
@@ -55,7 +55,7 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   fun getUnwatchedUpdateNotification(): Single<CardNotification> {
     return getAutoUpdateModel(false)
         .flatMap { updateModel ->
-          sharedPreferencesRepository.getAutoUpdateCardDismissedVersion()
+          impressionPreferencesRepositoryType.getAutoUpdateCardDismissedVersion()
               .map {
                 hasSoftUpdate(updateModel.updateVersionCode,
                     updateModel.updateMinSdk) && updateModel.updateVersionCode != it
@@ -80,19 +80,19 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   }
 
   fun shouldShowNotification(): Boolean {
-    val savedTime = sharedPreferencesRepository.getUpdateNotificationSeenTime()
+    val savedTime = impressionPreferencesRepositoryType.getUpdateNotificationSeenTime()
     val currentTime = System.currentTimeMillis()
     val timeToShowNextNotificationInMillis = 3600000 * 12
     return currentTime >= savedTime + timeToShowNextNotificationInMillis
   }
 
   fun saveSeenUpdateNotification() =
-      sharedPreferencesRepository.setUpdateNotificationSeenTime(System.currentTimeMillis())
+      impressionPreferencesRepositoryType.setUpdateNotificationSeenTime(System.currentTimeMillis())
 
   fun dismissNotification(): Completable {
     return getAutoUpdateModel(false)
         .flatMapCompletable {
-          sharedPreferencesRepository.saveAutoUpdateCardDismiss(it.updateVersionCode)
+          impressionPreferencesRepositoryType.saveAutoUpdateCardDismiss(it.updateVersionCode)
         }
   }
 

@@ -28,6 +28,7 @@ import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.iab.FiatValue;
+import com.asfoundation.wallet.ui.overlay.OverlayType;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
@@ -61,6 +62,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showVoucherTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
@@ -132,6 +134,10 @@ public class TransactionsViewModel extends BaseViewModel {
     return showPromotionTooltip;
   }
 
+  public MutableLiveData<Boolean> shouldShowVouchersTooltip() {
+    return showVoucherTooltip;
+  }
+
   public MutableLiveData<Integer> balanceWalletsExperimentAssignment() {
     return experimentAssignment;
   }
@@ -146,6 +152,7 @@ public class TransactionsViewModel extends BaseViewModel {
     }
     progress.postValue(true);
     handleBalanceWalletsExperiment();
+    handleVoucherTooltipVisibility();
     handlePromotionTooltipVisibility();
     handleFindNetwork();
     handlePromotionUpdateNotification();
@@ -207,11 +214,18 @@ public class TransactionsViewModel extends BaseViewModel {
         }, Throwable::printStackTrace));
   }
 
+  private void handleVoucherTooltipVisibility() {
+    disposables.add(transactionViewInteractor.shouldShowVoucherTooltip()
+        .doOnSuccess(showVoucherTooltip::postValue)
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
+  }
+
   private void handlePromotionTooltipVisibility() {
     disposables.add(transactionViewInteractor.hasSeenPromotionTooltip()
-        .doOnSuccess(hasBeen -> {
+        .doOnSuccess(hasSeen -> {
           Boolean shouldShowCachedValue = showPromotionTooltip.getValue();
-          boolean shouldShow = !hasBeen && (shouldShowCachedValue == null || shouldShowCachedValue);
+          boolean shouldShow = !hasSeen && (shouldShowCachedValue == null || shouldShowCachedValue);
           showPromotionTooltip.postValue(shouldShow);
         })
         .subscribe(__ -> {
@@ -559,8 +573,12 @@ public class TransactionsViewModel extends BaseViewModel {
     transactionViewInteractor.setSeenFingerprintTooltip();
   }
 
-  public void onPromotionsShown() {
-    showPromotionTooltip.postValue(false);
+  public void onPromotionsShown(OverlayType type) {
+    if (type == OverlayType.ALL_PROMOTIONS) {
+      showPromotionTooltip.postValue(false);
+    } else if (type == OverlayType.VOUCHERS) {
+      showVoucherTooltip.postValue(false);
+    }
   }
 
   public void onFingerprintTooltipShown() {

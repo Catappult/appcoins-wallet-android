@@ -6,7 +6,7 @@ import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.ProofSubmissionData
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.repository.WalletNotFoundException
 import com.asfoundation.wallet.service.Campaign
 import com.asfoundation.wallet.service.CampaignService
@@ -19,9 +19,8 @@ class CampaignInteract(private val campaignService: CampaignService,
                        private val autoUpdateInteract: AutoUpdateInteract,
                        private val errorMapper: AdvertisingThrowableCodeMapper,
                        private val defaultWalletInteract: FindDefaultWalletInteract,
-                       private val sharedPreferencesRepository: PreferencesRepositoryType) :
+                       private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType) :
     Advertising {
-
 
   override fun getCampaign(packageName: String, versionCode: Int): Single<CampaignDetails> {
     if (isHardUpdateRequired()) {
@@ -37,18 +36,18 @@ class CampaignInteract(private val campaignService: CampaignService,
    * Checks if the user has seen the Poa notification in the last 12h
    **/
   override fun hasSeenPoaNotificationTimePassed(): Boolean {
-    val savedTime = sharedPreferencesRepository.getPoaNotificationSeenTime()
+    val savedTime = impressionPreferencesRepositoryType.getPoaNotificationSeenTime()
     val currentTime = System.currentTimeMillis()
     val timeToShowNextNotificationInMillis = 3600000 * 12
     return currentTime >= savedTime + timeToShowNextNotificationInMillis
   }
 
   override fun clearSeenPoaNotification() {
-    sharedPreferencesRepository.clearPoaNotificationSeenTime()
+    impressionPreferencesRepositoryType.clearPoaNotificationSeenTime()
   }
 
   override fun saveSeenPoaNotification() {
-    sharedPreferencesRepository.setPoaNotificationSeenTime(System.currentTimeMillis())
+    impressionPreferencesRepositoryType.setPoaNotificationSeenTime(System.currentTimeMillis())
   }
 
   private fun map(campaign: Campaign) =
