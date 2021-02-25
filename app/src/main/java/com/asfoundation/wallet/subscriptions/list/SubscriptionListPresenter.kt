@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.subscriptions.list
 
 import com.asfoundation.wallet.subscriptions.Error
+import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.subscriptions.SubscriptionModel
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -40,13 +41,18 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
   }
 
   private fun onSubscriptions(subscriptionModel: SubscriptionModel) {
+    val activeSubs = filterActive(subscriptionModel.allSubscriptions)
+    val expiredSubs = subscriptionModel.expiredSubscriptions
+    val bothEmpty = activeSubs.isEmpty() && expiredSubs.isEmpty()
     when {
       subscriptionModel.error == Error.NO_NETWORK -> if (!view.hasItems()) view.showNoNetworkError()
-      subscriptionModel.isEmpty && !subscriptionModel.fromCache -> view.showNoSubscriptions()
+      bothEmpty && !subscriptionModel.fromCache -> view.showNoSubscriptions()
       else -> {
-        view.onActiveSubscriptions(subscriptionModel.activeSubscriptions)
-        view.onExpiredSubscriptions(subscriptionModel.expiredSubscriptions)
-        if (subscriptionModel.isEmpty.not()) view.showSubscriptions()
+        if (bothEmpty.not()) {
+          view.onActiveSubscriptions(activeSubs)
+          view.onExpiredSubscriptions(subscriptionModel.expiredSubscriptions)
+          view.showSubscriptions()
+        }
       }
     }
   }
@@ -79,6 +85,10 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
     } else {
       view.showGenericError()
     }
+  }
+
+  private fun filterActive(userSubscriptionItems: List<SubscriptionItem>): List<SubscriptionItem> {
+    return userSubscriptionItems.filter { it.isActiveSubscription() }
   }
 
   fun stop() = disposables.clear()
