@@ -10,6 +10,8 @@ interface EVoucherDetailsView {
 
   fun onCancelClicks(): Observable<Any>
 
+  fun onBackPressed(): Observable<Any>
+
   fun onSkuButtonClick(): Observable<Int>
 
   fun onDownloadAppButtonClick(): Observable<Any>

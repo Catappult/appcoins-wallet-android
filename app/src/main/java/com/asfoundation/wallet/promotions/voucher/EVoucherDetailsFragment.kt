@@ -23,6 +23,7 @@ import javax.inject.Inject
 
 class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
+  private lateinit var onBackPressedSubject: PublishSubject<Any>
   lateinit var recyclerView: RecyclerView
   lateinit var skuButtonsAdapter: SkuButtonsAdapter
   val skuButtonClick = PublishSubject.create<Int>()
@@ -34,11 +35,12 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setHasOptionsMenu(true)
+    onBackPressedSubject = PublishSubject.create()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return if (item.itemId == android.R.id.home) {
-      activity?.finish()
+      onBackPressedSubject.onNext(Unit)
       true
     } else {
       super.onOptionsItemSelected(item)
@@ -91,6 +93,10 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   override fun onCancelClicks(): Observable<Any> {
     return RxView.clicks(cancel_button)
+  }
+
+  override fun onBackPressed(): Observable<Any> {
+    return onBackPressedSubject
   }
 
   override fun onSkuButtonClick(): Observable<Int> {

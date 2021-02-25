@@ -69,6 +69,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     requireView().findViewById<Button>(R.id.e_voucher_details_hook)
         .setOnClickListener {
           requireActivity().supportFragmentManager.beginTransaction()
+              .addToBackStack("tmp")
               .replace(R.id.fragment_container,
                   EVoucherDetailsFragment.newInstance("Voucher for Garena Free Fire: BOOYAH Day",
                       "com.facebook.katana"))
