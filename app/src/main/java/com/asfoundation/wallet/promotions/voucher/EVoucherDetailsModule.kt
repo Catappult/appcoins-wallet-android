@@ -8,7 +8,7 @@ class EVoucherDetailsModule {
 
   @Provides
   fun providesCarrierFeeNavigator(fragment: EVoucherDetailsFragment): EVoucherDetailsNavigator {
-    return EVoucherDetailsNavigator()
+    return EVoucherDetailsNavigator(fragment.requireActivity())
   }
 
   @Provides

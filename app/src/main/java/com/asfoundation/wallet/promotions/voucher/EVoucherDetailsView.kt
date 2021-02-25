@@ -12,5 +12,7 @@ interface EVoucherDetailsView {
 
   fun onSkuButtonClick(): Observable<Int>
 
+  fun onDownloadAppButtonClick(): Observable<Any>
+
   fun setSelectedSku(index: Int)
 }

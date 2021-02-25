@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.promotions.voucher
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -78,14 +76,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
           recyclerView.adapter = skuButtonsAdapter
         }
         .subscribe())
-    download_app_button.setOnClickListener {
-      startActivity(
-          Intent(
-              Intent.ACTION_VIEW,
-              Uri.parse("market://details?id=" + packageName)
-          )
-      )
-    }
     disposables.add(skuButtonClick.subscribe { next_button.setEnabled(true) })
   }
 
@@ -104,6 +94,10 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   override fun onSkuButtonClick(): Observable<Int> {
     return skuButtonClick
+  }
+
+  override fun onDownloadAppButtonClick(): Observable<Any> {
+    return RxView.clicks(download_app_button)
   }
 
   override fun setSelectedSku(index: Int) {
