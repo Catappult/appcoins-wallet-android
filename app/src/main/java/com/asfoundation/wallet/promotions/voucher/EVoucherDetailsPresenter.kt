@@ -31,4 +31,8 @@ class EVoucherDetailsPresenter(
     disposable.add(view.onDownloadAppButtonClick()
         .subscribe({ any -> navigator.navigateToStore(data.packageName) }))
   }
+
+  fun stop() {
+    disposable.clear()
+  }
 }

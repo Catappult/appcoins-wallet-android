@@ -91,6 +91,12 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
     next_button.setEnabled(true)
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+
+    presenter.stop()
+  }
+
   companion object {
     internal const val TITLE = "title"
     internal const val PACKAGE_NAME = "packageName"
