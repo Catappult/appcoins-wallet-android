@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -21,7 +20,6 @@ import javax.inject.Inject
 class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   private lateinit var onBackPressedSubject: PublishSubject<Any>
-  lateinit var recyclerView: RecyclerView
   lateinit var skuButtonsAdapter: SkuButtonsAdapter
   val skuButtonClick = PublishSubject.create<Int>()
 
@@ -57,14 +55,13 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
     val appCompatActivity = getActivity() as AppCompatActivity
     appCompatActivity.toolbar.title = title
 
-    recyclerView = requireView().findViewById(R.id.diamond_buttons_recycler_view)
     skuButtonsAdapter = SkuButtonsAdapter(
         appCompatActivity.applicationContext,
         skuButtonModels,
         skuButtonClick)
-    recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
-    recyclerView.addItemDecoration(MarginItemDecoration(8))
-    recyclerView.adapter = skuButtonsAdapter
+    diamond_buttons_recycler_view.layoutManager = GridLayoutManager(requireContext(), 3)
+    diamond_buttons_recycler_view.addItemDecoration(MarginItemDecoration(8))
+    diamond_buttons_recycler_view.adapter = skuButtonsAdapter
   }
 
   override fun onNextClicks(): Observable<SkuButtonModel> {
@@ -90,7 +87,7 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   override fun setSelectedSku(index: Int) {
     skuButtonsAdapter.setSelectedSku(index)
-    recyclerView.layoutManager?.findViewByPosition(index)?.isActivated = true
+    diamond_buttons_recycler_view.layoutManager?.findViewByPosition(index)?.isActivated = true
     next_button.setEnabled(true)
   }
 
