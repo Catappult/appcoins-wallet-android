@@ -20,8 +20,8 @@ import javax.inject.Inject
 class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   private lateinit var onBackPressedSubject: PublishSubject<Any>
-  lateinit var skuButtonsAdapter: SkuButtonsAdapter
-  val skuButtonClick = PublishSubject.create<Int>()
+  private lateinit var skuButtonsAdapter: SkuButtonsAdapter
+  private val skuButtonClick = PublishSubject.create<Int>()
 
   @Inject
   lateinit var presenter: EVoucherDetailsPresenter
