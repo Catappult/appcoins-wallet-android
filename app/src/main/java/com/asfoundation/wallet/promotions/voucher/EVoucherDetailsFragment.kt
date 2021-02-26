@@ -87,7 +87,6 @@ class EVoucherDetailsFragment : DaggerFragment(), EVoucherDetailsView {
 
   override fun setSelectedSku(index: Int) {
     skuButtonsAdapter.setSelectedSku(index)
-    diamond_buttons_recycler_view.layoutManager?.findViewByPosition(index)?.isActivated = true
     next_button.setEnabled(true)
   }
 

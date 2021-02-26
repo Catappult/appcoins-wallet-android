@@ -50,7 +50,10 @@ class SkuButtonsAdapter(
   }
 
   fun setSelectedSku(index: Int) {
+    val oldSelectedPosition = selectedPosition
     selectedPosition = index
+    notifyItemChanged(oldSelectedPosition)
+    notifyItemChanged(selectedPosition)
   }
 
   fun getSelectedSku(): SkuButtonModel = buttonModels.get(selectedPosition)
