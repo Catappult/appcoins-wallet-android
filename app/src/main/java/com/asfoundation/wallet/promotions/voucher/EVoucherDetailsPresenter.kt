@@ -14,22 +14,45 @@ class EVoucherDetailsPresenter(
   private val disposable = CompositeDisposable()
 
   fun present() {
+    initializeView()
+    handleNextClick()
+    handleCancelClick()
+    handleBackClick()
+    handleSkuButtonClick()
+    handleDownloadAppButtonClick()
+  }
+
+  private fun handleDownloadAppButtonClick() {
+    disposable.add(view.onDownloadAppButtonClick()
+        .subscribe({ any -> navigator.navigateToStore(data.packageName) }))
+  }
+
+  private fun handleSkuButtonClick() {
+    disposable.add(view.onSkuButtonClick()
+        .subscribe({ index -> view.setSelectedSku(index) }))
+  }
+
+  private fun handleBackClick() {
+    disposable.add(view.onBackPressed()
+        .subscribe({ navigator.navigateBack() }))
+  }
+
+  private fun handleCancelClick() {
+    disposable.add(view.onCancelClicks()
+        .subscribe({ navigator.navigateBack() }))
+  }
+
+  private fun handleNextClick() {
+    disposable.add(view.onNextClicks()
+        .subscribe({ navigator.navigateToNextScreen() }))
+  }
+
+  private fun initializeView() {
     disposable.add(interactor.getSkuButtonModels()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ skuModels ->
-          view.setupUi(data.title, data.packageName, skuModels)
-        }))
-    disposable.add(view.onNextClicks()
-        .subscribe({ navigator.navigateToNextScreen() }))
-    disposable.add(view.onCancelClicks()
-        .subscribe({ navigator.navigateBack() }))
-    disposable.add(view.onBackPressed()
-        .subscribe({ navigator.navigateBack() }))
-    disposable.add(view.onSkuButtonClick()
-        .subscribe({ index -> view.setSelectedSku(index) }))
-    disposable.add(view.onDownloadAppButtonClick()
-        .subscribe({ any -> navigator.navigateToStore(data.packageName) }))
+        .doOnSuccess({ skuModels -> view.setupUi(data.title, data.packageName, skuModels) })
+        .subscribe({ skuModels -> }, { t -> t.printStackTrace() }))
   }
 
   fun stop() {
