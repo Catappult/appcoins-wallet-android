@@ -3,7 +3,7 @@ package com.asfoundation.wallet.interact
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.asfoundation.wallet.repository.AutoUpdateRepository
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -23,7 +23,7 @@ class AutoUpdateInteractTest {
   private lateinit var packageManager: PackageManager
 
   @Mock
-  private lateinit var sharePreferences: PreferencesRepositoryType
+  private lateinit var impressionPreferences: ImpressionPreferencesRepositoryType
   private lateinit var autoUpdateInteract: AutoUpdateInteract
 
   companion object {
@@ -36,7 +36,7 @@ class AutoUpdateInteractTest {
   fun setup() {
     autoUpdateInteract =
         AutoUpdateInteract(autoUpdateRepository, WALLET_VERSION_CODE, DEVICE_SDK,
-            packageManager, WALLET_PACKAGE_NAME, sharePreferences)
+            packageManager, WALLET_PACKAGE_NAME, impressionPreferences)
   }
 
   @Test

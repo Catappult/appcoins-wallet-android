@@ -4,6 +4,8 @@ import io.reactivex.Observable
 
 interface OverlayView {
 
+  fun initializeView(bottomNavigationItem: Int, type: OverlayType)
+
   fun discoverClick(): Observable<Any>
 
   fun dismissClick(): Observable<Any>

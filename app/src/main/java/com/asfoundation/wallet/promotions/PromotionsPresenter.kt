@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.VOUCHER_ID
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -21,10 +22,14 @@ class PromotionsPresenter(private val view: PromotionsView,
   private var viewState = ViewState.DEFAULT
 
   fun present() {
+    promotionsInteractor.setHasBeenInPromotionsScreen()
     handlePromotionClicks()
     handleRetryClick()
     handleBottomSheetVisibility()
     handleBackPress()
+    handleVouchersButtonClick()
+    handlePerksButtonClick()
+    handlePageChanged()
   }
 
   fun onResume() {
@@ -52,9 +57,9 @@ class PromotionsPresenter(private val view: PromotionsView,
         view.showLockedPromotionsScreen()
       }
       else -> {
-        if (promotionsModel.promotions.isNotEmpty()) {
+        if (hasPromotions(promotionsModel)) {
           viewState = ViewState.PROMOTIONS
-          cachedBonus = promotionsModel.maxBonus
+          cachedBonus = getMaxBonus(promotionsModel)
           view.showPromotions(promotionsModel)
           if (promotionsInteractor.shouldShowGamificationDisclaimer()) {
             view.showBottomSheet()
@@ -66,6 +71,18 @@ class PromotionsPresenter(private val view: PromotionsView,
         }
       }
     }
+  }
+
+  private fun hasPromotions(promotionsModel: PromotionsModel): Boolean {
+    return promotionsModel.promotions.isNotEmpty() || promotionsModel.vouchers.isNotEmpty()
+        || promotionsModel.perks.isNotEmpty()
+  }
+
+  private fun getMaxBonus(promotionsModel: PromotionsModel): Double {
+    for (promotion in promotionsModel.promotions) {
+      if (promotion is GamificationItem) return promotion.maxBonus
+    }
+    return 0.0
   }
 
   private fun handleError(throwable: Throwable) {
@@ -96,6 +113,8 @@ class PromotionsPresenter(private val view: PromotionsView,
       GAMIFICATION_ID -> navigator.navigateToGamification(cachedBonus)
       GAMIFICATION_INFO -> view.showBottomSheet()
       REFERRAL_ID -> mapReferralClick(promotionClick.extras)
+      VOUCHER_ID -> navigator.navigateToVoucherDetails(
+          promotionClick.extras!!.getValue(PromotionsViewHolder.PACKAGE_NAME_EXTRA))
       else -> mapPackagePerkClick(promotionClick.extras)
     }
   }
@@ -121,6 +140,27 @@ class PromotionsPresenter(private val view: PromotionsView,
         view.showToast()
       }
     }
+  }
+
+  private fun handleVouchersButtonClick() {
+    disposables.add(view.getVouchersRadioButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.checkVouchersRadioButton() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handlePerksButtonClick() {
+    disposables.add(view.getPerksRadioButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.checkPerksRadioButton() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handlePageChanged() {
+    disposables.add(view.pageChangedCallback()
+        .observeOn(viewScheduler)
+        .doOnNext { view.changeButtonState(it) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() = disposables.clear()

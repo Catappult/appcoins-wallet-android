@@ -1,21 +1,12 @@
 package com.asfoundation.wallet.promotions
 
 import android.graphics.drawable.Drawable
-import androidx.annotation.StringRes
 import java.math.BigDecimal
 
 open class Promotion(val id: String)
 
 open class PerkPromotion(id: String, val startDate: Long?, val endDate: Long,
                          val detailsLink: String?) : Promotion(id)
-
-class TitleItem(
-    @StringRes val title: Int,
-    @StringRes val subtitle: Int,
-    val isGamificationTitle: Boolean,
-    val bonus: String = "0.0",
-    id: String = ""
-) : Promotion(id)
 
 class DefaultItem(
     id: String,
@@ -54,6 +45,7 @@ class GamificationItem(
     val title: String,
     val toNextLevelAmount: BigDecimal?,
     var bonus: Double,
+    val maxBonus: Double,
     val links: MutableList<GamificationLinkItem>
 ) : Promotion(id)
 
@@ -71,3 +63,7 @@ class GamificationLinkItem(
     startDate: Long?,
     endDate: Long
 ) : PerkPromotion(id, startDate, endDate, null)
+
+class VoucherItem(id: String, val packageName: String, val title: String, val icon: String,
+                  val hasAppcoins: Boolean, val maxBonus: Double) :
+    Promotion(id)

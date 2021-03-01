@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
@@ -35,5 +36,10 @@ class PromotionsNavigator(private val fragment: Fragment) {
     val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
     launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     fragment.startActivity(launchBrowser)
+  }
+
+  fun navigateToVoucherDetails(packageName: String) {
+    //TODO
+    Log.d("PromotionsNavigator", "Tried to navigate $packageName")
   }
 }

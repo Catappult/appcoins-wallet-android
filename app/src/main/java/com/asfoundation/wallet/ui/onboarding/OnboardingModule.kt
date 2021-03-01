@@ -4,7 +4,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.support.SupportInteractor
 import dagger.Module
@@ -27,11 +27,11 @@ class OnboardingModule {
 
   @Provides
   fun providesOnboardingInteractor(walletService: WalletService,
-                                   preferencesRepositoryType: PreferencesRepositoryType,
+                                   impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType,
                                    supportInteractor: SupportInteractor, gamification: Gamification,
                                    bdsRepository: BdsRepository): OnboardingInteractor {
-    return OnboardingInteractor(walletService, preferencesRepositoryType, supportInteractor,
-        gamification, bdsRepository)
+    return OnboardingInteractor(walletService, impressionPreferencesRepositoryType,
+        supportInteractor, gamification, bdsRepository)
   }
 
   @Provides

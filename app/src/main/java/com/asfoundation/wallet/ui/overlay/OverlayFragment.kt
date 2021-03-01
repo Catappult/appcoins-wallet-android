@@ -26,14 +26,6 @@ class OverlayFragment : DaggerFragment(), OverlayView {
   lateinit var presenter: OverlayPresenter
   private lateinit var activity: TransactionsActivity
 
-  private val item: Int by lazy {
-    if (arguments!!.containsKey(ITEM_KEY)) {
-      arguments!!.getInt(ITEM_KEY)
-    } else {
-      throw IllegalArgumentException("item not found")
-    }
-  }
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
@@ -43,15 +35,26 @@ class OverlayFragment : DaggerFragment(), OverlayView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    handleItemAndArrowPosition()
     presenter.present()
   }
 
-  private fun handleItemAndArrowPosition() {
+  override fun initializeView(bottomNavigationItem: Int, type: OverlayType) {
+    displayOverlayText(type)
+    handleItemAndArrowPosition(bottomNavigationItem)
+  }
+
+  private fun displayOverlayText(type: OverlayType) {
+    dialog_message.text = when (type) {
+      OverlayType.ALL_PROMOTIONS -> getText(R.string.bottom_navigation_promotions_detailed)
+      OverlayType.VOUCHERS -> getText(R.string.voucher_tooltip)
+    }
+  }
+
+  private fun handleItemAndArrowPosition(bottomNavigationItem: Int) {
     //Highlights the correct BN item
     val size = overlay_bottom_navigation.menu.size()
     for (i in 0 until size) {
-      if (i != item) {
+      if (i != bottomNavigationItem) {
         overlay_bottom_navigation.menu.getItem(i)
             .icon = null
         overlay_bottom_navigation.menu.getItem(i)
@@ -59,18 +62,18 @@ class OverlayFragment : DaggerFragment(), OverlayView {
       }
     }
     //If selected view is not on the first half of the Bottom Navigation hide arrow
-    if (item > size / 2) {
+    if (bottomNavigationItem > size / 2) {
       arrow_down_tip.visibility = INVISIBLE
     } else {
-      setArrowPosition()
+      setArrowPosition(bottomNavigationItem)
     }
 
   }
 
-  private fun setArrowPosition() {
+  private fun setArrowPosition(bottomNavigationItem: Int) {
     val bottomNavigationMenuView = (overlay_bottom_navigation as BottomNavigationView)
         .getChildAt(0) as BottomNavigationMenuView
-    val promotionsIcon = bottomNavigationMenuView.getChildAt(item)
+    val promotionsIcon = bottomNavigationMenuView.getChildAt(bottomNavigationItem)
     val itemView = promotionsIcon as BottomNavigationItemView
     val icon = itemView.getChildAt(1)
     icon.viewTreeObserver.addOnGlobalLayoutListener(
@@ -116,13 +119,15 @@ class OverlayFragment : DaggerFragment(), OverlayView {
   }
 
   companion object {
-    private const val ITEM_KEY = "item"
+    internal const val BOTTOM_NAVIGATION_ITEM_KEY = "bottom_navigation_item"
+    internal const val OVERLAY_TYPE_KEY = "overlay_type"
 
     @JvmStatic
-    fun newInstance(highlightedBottomNavigationItem: Int): Fragment {
+    fun newInstance(highlightedBottomNavigationItem: Int, type: OverlayType): Fragment {
       val fragment = OverlayFragment()
       val bundle = Bundle()
-      bundle.putInt(ITEM_KEY, highlightedBottomNavigationItem)
+      bundle.putInt(BOTTOM_NAVIGATION_ITEM_KEY, highlightedBottomNavigationItem)
+      bundle.putSerializable(OVERLAY_TYPE_KEY, type)
       fragment.arguments = bundle
       return fragment
     }

@@ -8,14 +8,16 @@ import android.widget.Toast
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.voucher.EVoucherDetailsFragment
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
+import com.asfoundation.wallet.util.addBottomItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
+import kotlinx.android.synthetic.main.perks_and_vouchers_layout.*
 import javax.inject.Inject
 
 class PromotionsFragment : BasePageViewFragment(), PromotionsView {
@@ -23,11 +25,13 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   @Inject
   lateinit var presenter: PromotionsPresenter
 
-  private lateinit var adapter: PromotionsAdapter
+  private lateinit var uniquePromotionsAdapter: UniquePromotionsAdapter
+  private lateinit var perksVouchersPageAdapter: PerksVouchersPageAdapter
   private lateinit var detailsBottomSheet: BottomSheetBehavior<View>
   private lateinit var transactionsRouter: TransactionsRouter
-  private var clickListener: PublishSubject<PromotionClick>? = null
-  private var onBackPressedSubject: PublishSubject<Any>? = null
+  private lateinit var clickListener: PublishSubject<PromotionClick>
+  private lateinit var onBackPressedSubject: PublishSubject<Any>
+  private lateinit var pageChangedSubject: PublishSubject<Int>
   private var backEnabled = true
 
   companion object {
@@ -40,6 +44,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     transactionsRouter = TransactionsRouter()
     clickListener = PublishSubject.create()
     onBackPressedSubject = PublishSubject.create()
+    pageChangedSubject = PublishSubject.create()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -49,21 +54,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    adapter = PromotionsAdapter(emptyList(), clickListener!!)
-    rv_promotions.adapter = adapter
-    rv_promotions.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
-            .toInt()))
-    detailsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
-    detailsBottomSheet.addBottomSheetCallback(
-        object : BottomSheetBehavior.BottomSheetCallback() {
-          override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
-
-          override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = GONE
-            bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
-          }
-        })
+    setAdapters()
+    createBottomSheet()
     presenter.present()
     //    Remove
     requireView().findViewById<Button>(R.id.e_voucher_details_hook)
@@ -88,11 +80,14 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   override fun showPromotions(promotionsModel: PromotionsModel) {
-    adapter.setPromotions(promotionsModel.promotions)
+    perksVouchersPageAdapter.setItems(listOf(promotionsModel.vouchers, promotionsModel.perks))
+    if (promotionsModel.vouchers.isEmpty() && promotionsModel.perks.isNotEmpty()) checkPerksRadioButton()
+    uniquePromotionsAdapter.setPromotions(promotionsModel.promotions)
     rv_promotions.visibility = VISIBLE
     no_network.visibility = GONE
     locked_promotions.visibility = GONE
     no_promotions.visibility = GONE
+    perks_vouchers_buttons.visibility = VISIBLE
   }
 
   override fun showLoading() {
@@ -102,7 +97,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun retryClick() = RxView.clicks(retry_button)
 
-  override fun getPromotionClicks() = clickListener!!
+  override fun getPromotionClicks() = clickListener
 
   override fun showNetworkErrorView() {
     rv_promotions.visibility = GONE
@@ -143,7 +138,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun getBottomSheetButtonClick() = RxView.clicks(got_it_button)
 
-  override fun getBackPressed() = onBackPressedSubject!!
+  override fun getBackPressed() = onBackPressedSubject
 
   override fun hideBottomSheet() {
     detailsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -155,6 +150,38 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     bottomsheet_coordinator_container.visibility = VISIBLE
     bottomsheet_coordinator_container.background.alpha = 255
     setBackListener(bottomsheet_coordinator_container)
+  }
+
+  override fun getVouchersRadioButtonClick(): Observable<Boolean> {
+    return RxView.clicks(vouchers_button)
+        .map { vouchers_button.isChecked }
+  }
+
+  override fun getPerksRadioButtonClick(): Observable<Boolean> {
+    return RxView.clicks(perks_button)
+        .map { perks_button.isChecked }
+  }
+
+  override fun pageChangedCallback() = pageChangedSubject
+
+  override fun changeButtonState(position: Int) {
+    if (position == PerksVouchersViewHolder.VOUCHER_POSITION) {
+      perks_button.isChecked = false
+      vouchers_button.isChecked = true
+    } else {
+      vouchers_button.isChecked = false
+      perks_button.isChecked = true
+    }
+  }
+
+  override fun checkVouchersRadioButton() {
+    perks_button.isChecked = false
+    vouchers_perks_viewpager.currentItem = PerksVouchersViewHolder.VOUCHER_POSITION
+  }
+
+  override fun checkPerksRadioButton() {
+    vouchers_button.isChecked = false
+    vouchers_perks_viewpager.currentItem = PerksVouchersViewHolder.PERKS_POSITION
   }
 
   override fun getBottomSheetContainerClick() = RxView.clicks(bottomsheet_coordinator_container)
@@ -169,13 +196,37 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
       if (backEnabled) {
         activity?.finish()
       } else {
-        onBackPressedSubject?.onNext(Unit)
+        onBackPressedSubject.onNext(Unit)
       }
       true
     } else {
       super.onOptionsItemSelected(item)
     }
   }
+
+  private fun createBottomSheet() {
+    detailsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    detailsBottomSheet.addBottomSheetCallback(
+        object : BottomSheetBehavior.BottomSheetCallback() {
+          override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
+
+          override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            if (slideOffset == 0f) bottomsheet_coordinator_container.visibility = GONE
+            bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
+          }
+        })
+  }
+
+  private fun setAdapters() {
+    uniquePromotionsAdapter = UniquePromotionsAdapter(emptyList(), clickListener)
+    perksVouchersPageAdapter = PerksVouchersPageAdapter(emptyList(), clickListener)
+    rv_promotions.adapter = uniquePromotionsAdapter
+    rv_promotions.addBottomItemDecoration(resources.getDimension(R.dimen.promotions_item_margin))
+    vouchers_perks_viewpager.adapter = perksVouchersPageAdapter
+    vouchers_perks_viewpager.registerOnPageChangeCallback(
+        PerksVouchersPageChangeListener(pageChangedSubject))
+  }
+
 
   private fun setBackListener(view: View) {
     backEnabled = false
@@ -185,7 +236,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
       setOnKeyListener { _, keyCode, keyEvent ->
         if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
           if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED)
-            onBackPressedSubject?.onNext(Unit)
+            onBackPressedSubject.onNext(Unit)
         }
         true
       }

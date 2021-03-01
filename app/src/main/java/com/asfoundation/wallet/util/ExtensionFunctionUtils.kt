@@ -12,6 +12,8 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.recyclerview.widget.RecyclerView
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -139,4 +141,8 @@ inline fun View.withNoLayoutTransition(block: () -> Unit) {
   lt.enableTransitionType(LayoutTransition.CHANGE_APPEARING)
   lt.enableTransitionType(LayoutTransition.DISAPPEARING)
   lt.enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING)
+}
+
+fun RecyclerView.addBottomItemDecoration(dimension: Float) {
+  this.addItemDecoration(MarginItemDecoration(dimension.toInt()))
 }
