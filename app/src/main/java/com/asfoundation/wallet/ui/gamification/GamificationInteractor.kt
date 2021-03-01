@@ -84,7 +84,7 @@ class GamificationInteractor(
     return if (gamificationResponse == null || gamificationResponse.status != PromotionsResponse.Status.ACTIVE) {
       Single.just(false)
     } else {
-      gamification.hasNewLevel(walletAddress, gamificationContext)
+      gamification.hasNewLevel(walletAddress, gamificationContext, gamificationResponse.level)
     }
   }
 

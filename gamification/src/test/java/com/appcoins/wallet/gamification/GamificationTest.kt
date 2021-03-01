@@ -20,7 +20,6 @@ class GamificationTest {
     private const val WALLET = "wallet1"
     private const val PACKAGE_NAME = "packageName"
     private const val GAMIFICATION_ID = "GAMIFICATION"
-    private const val REFERRAL_ID = "REFERRAL"
   }
 
   @Before
@@ -112,20 +111,11 @@ class GamificationTest {
   fun hasNewLevelNoNewLevel() {
     val userStatsGamification =
         GamificationResponse(GAMIFICATION_ID, 100, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
-            BigDecimal.TEN,
-            PromotionsResponse.Status.ACTIVE, true)
-    val referralResponse =
-        ReferralResponse(REFERRAL_ID, 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
-            BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
-            PromotionsResponse.Status.ACTIVE,
-            BigDecimal.ONE)
+            BigDecimal.TEN, PromotionsResponse.Status.ACTIVE, true)
 
-    api.userStatusResponse =
-        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse),
-            WalletOrigin.APTOIDE))
     local.lastShownLevelResponse = Single.just(0)
-    val test = gamification.hasNewLevel(WALLET, GamificationContext.SCREEN_MY_LEVEL)
+    val test = gamification.hasNewLevel(WALLET, GamificationContext.SCREEN_MY_LEVEL,
+        userStatsGamification.level)
         .test()
     test.assertValue(false)
         .assertNoErrors()
@@ -138,31 +128,12 @@ class GamificationTest {
         GamificationResponse(GAMIFICATION_ID, 100, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
             BigDecimal.TEN,
             PromotionsResponse.Status.ACTIVE, true)
-    val referralResponse =
-        ReferralResponse(REFERRAL_ID, 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
-            BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
-            PromotionsResponse.Status.ACTIVE,
-            BigDecimal.ONE)
 
-    api.userStatusResponse =
-        Single.just(UserStatusResponse(listOf(userStatsGamification, referralResponse),
-            WalletOrigin.APTOIDE))
     local.lastShownLevelResponse = Single.just(-1)
-    val test = gamification.hasNewLevel(WALLET, GamificationContext.SCREEN_MY_LEVEL)
+    val test = gamification.hasNewLevel(WALLET, GamificationContext.SCREEN_MY_LEVEL,
+        userStatsGamification.level)
         .test()
     test.assertValue(true)
-        .assertNoErrors()
-        .assertComplete()
-  }
-
-  @Test
-  fun hasNewLevelNetworkError() {
-    api.userStatusResponse = Single.just(UserStatusResponse(Status.NO_NETWORK))
-    local.lastShownLevelResponse = Single.just(-1)
-    val test = gamification.hasNewLevel(WALLET, GamificationContext.SCREEN_MY_LEVEL)
-        .test()
-    test.assertValue(false)
         .assertNoErrors()
         .assertComplete()
   }

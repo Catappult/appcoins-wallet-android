@@ -34,6 +34,7 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   fun registerUser() =
       inAppPurchaseInteractor.walletAddress.flatMapObservable { address ->
         gamificationRepository.getUserStatsDbFirst(address)
+            .filter { !it.fromCache }
             .doOnNext { supportInteractor.registerUser(it.level, address) }
       }
 

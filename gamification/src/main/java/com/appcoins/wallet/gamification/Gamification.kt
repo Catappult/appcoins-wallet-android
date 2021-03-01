@@ -7,7 +7,6 @@ import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
@@ -32,8 +31,13 @@ class Gamification(private val repository: PromotionsRepository) {
   }
 
   fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {
-    return repository.getUserStatus(wallet)
+    return repository.getUserStatusDbFirst(wallet)
         .map { map(it) }
+        .filter {
+          it.status == ForecastBonus.Status.ACTIVE ||
+              it.status == ForecastBonus.Status.INACTIVE
+        }
+        .lastOrError()
         .onErrorReturn { mapReferralError(it) }
   }
 
@@ -75,13 +79,10 @@ class Gamification(private val repository: PromotionsRepository) {
     return repository.getForecastBonus(wallet, packageName, amount)
   }
 
-  fun hasNewLevel(wallet: String, gamificationContext: GamificationContext): Single<Boolean> {
-    return Single.zip(repository.getLastShownLevel(wallet, gamificationContext),
-        getUserStats(wallet),
-        BiFunction { lastShownLevel: Int, gamificationStats: GamificationStats ->
-          gamificationStats.status == GamificationStats.Status.OK &&
-              lastShownLevel < gamificationStats.level
-        })
+  fun hasNewLevel(wallet: String, gamificationContext: GamificationContext,
+                  level: Int): Single<Boolean> {
+    return repository.getLastShownLevel(wallet, gamificationContext)
+        .map { lastShownLevel: Int -> lastShownLevel < level }
   }
 
   fun levelShown(wallet: String, level: Int, gamificationContext: GamificationContext):

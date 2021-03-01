@@ -238,6 +238,19 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         .doOnError { it.printStackTrace() }
   }
 
+  override fun getUserStatusDbFirst(wallet: String): Observable<UserStatusResponse> {
+    return getUserStatsDbFirst(wallet)
+        .map { userStatusResponse ->
+          val gamification =
+              userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
+          if (userStatusResponse.error == null && gamification != null) {
+            local.setGamificationLevel(gamification.level)
+          }
+          userStatusResponse
+        }
+        .doOnError { it.printStackTrace() }
+  }
+
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
     return getUserStats(wallet)
         .flatMap {

@@ -18,6 +18,7 @@ class SupportInteractor(private val supportRepository: SupportRepository,
     return walletService.getWalletAddress()
         .flatMapCompletable { address ->
           gamificationRepository.getUserStatsDbFirst(address)
+              .filter { !it.fromCache }
               .lastOrError()
               .observeOn(viewScheduler)
               .flatMapCompletable { gamificationStats ->
@@ -66,10 +67,8 @@ class SupportInteractor(private val supportRepository: SupportRepository,
 
   fun registerUser(level: Int, walletAddress: String) {
     val currentUser = supportRepository.getCurrentUser()
-    // in case of error for same user address (level=-1 and actual level>=0),
-    // user info isn't left in inconsistent state
     if (currentUser.userAddress != walletAddress || (currentUser.gamificationLevel != level &&
-            (!(level < 0 && currentUser.gamificationLevel > level)))) {
+            !levelBeingInvalidated(level, currentUser.gamificationLevel))) {
       if (currentUser.userAddress != walletAddress) {
         Intercom.client()
             .logout()
@@ -92,4 +91,10 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
 
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
+
+  private fun levelBeingInvalidated(newLevel: Int, currentUserLevel: Int): Boolean {
+    // in case of error for same user address (newLevel=-1 and currentLevel>=0),
+    // user info isn't left in inconsistent state
+    return (newLevel < 0 && currentUserLevel > newLevel)
+  }
 }

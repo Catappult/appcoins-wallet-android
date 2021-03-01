@@ -28,6 +28,8 @@ interface PromotionsRepository {
 
   fun getUserStatus(wallet: String): Single<UserStatusResponse>
 
+  fun getUserStatusDbFirst(wallet: String): Observable<UserStatusResponse>
+
   fun getReferralUserStatus(wallet: String): Single<ReferralResponse>
 
   fun getReferralInfo(): Single<ReferralResponse>
