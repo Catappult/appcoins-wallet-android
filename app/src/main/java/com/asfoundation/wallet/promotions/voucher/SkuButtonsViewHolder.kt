@@ -11,11 +11,7 @@ class SkuButtonsViewHolder(private val button: Button) : RecyclerView.ViewHolder
            activatedButton: AtomicReference<Button?>, onSkuClick: PublishSubject<Int>) {
     button.text = skuButtonModel.title
 
-    if (selectedPosition == position) {
-      button.isActivated = true
-    } else {
-      button.isActivated = false
-    }
+    button.isActivated = selectedPosition == position
 
     button.setOnClickListener {
       if (activatedButton.get() == null) {
