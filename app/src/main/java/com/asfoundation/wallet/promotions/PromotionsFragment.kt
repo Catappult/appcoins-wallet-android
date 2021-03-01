@@ -3,10 +3,8 @@ package com.asfoundation.wallet.promotions
 import android.os.Bundle
 import android.view.*
 import android.view.View.*
-import android.widget.Button
 import android.widget.Toast
 import com.asf.wallet.R
-import com.asfoundation.wallet.promotions.voucher.EVoucherDetailsFragment
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.util.addBottomItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -57,16 +55,6 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     setAdapters()
     createBottomSheet()
     presenter.present()
-    //    Remove
-    requireView().findViewById<Button>(R.id.e_voucher_details_hook)
-        .setOnClickListener {
-          requireActivity().supportFragmentManager.beginTransaction()
-              .addToBackStack("tmp")
-              .replace(R.id.fragment_container,
-                  EVoucherDetailsFragment.newInstance("Voucher for Garena Free Fire: BOOYAH Day",
-                      "com.facebook.katana"))
-              .commit()
-        }
   }
 
   override fun onResume() {
