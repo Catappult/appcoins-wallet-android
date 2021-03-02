@@ -20,6 +20,7 @@ import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.util.*
 
 /**
  *
@@ -82,6 +83,10 @@ fun HttpException.getMessage(): String {
   val message = reader?.readText()
   reader?.close()
   return if (message.isNullOrBlank()) message() else message
+}
+
+fun Locale.getLanguageAndCountryCodes(sep: String = "-"): String {
+  return this.language + sep + this.country
 }
 
 inline fun <T> Iterable<T>.sumByBigDecimal(selector: (T) -> BigDecimal): BigDecimal {

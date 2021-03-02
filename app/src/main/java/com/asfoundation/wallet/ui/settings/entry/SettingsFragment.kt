@@ -17,6 +17,7 @@ import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
+import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
@@ -141,7 +142,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     redeemPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse(
           BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress +
-              "&lang=" + Locale.getDefault().language), false)
+              "&lang=" + Locale.getDefault().getLanguageAndCountryCodes()), false)
       false
     }
   }
