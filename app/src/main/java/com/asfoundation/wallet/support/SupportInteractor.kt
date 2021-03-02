@@ -18,7 +18,6 @@ class SupportInteractor(private val supportRepository: SupportRepository,
     return walletService.getWalletAddress()
         .flatMapCompletable { address ->
           gamificationRepository.getUserStatsDbFirst(address)
-              .filter { !it.fromCache }
               .lastOrError()
               .observeOn(viewScheduler)
               .flatMapCompletable { gamificationStats ->

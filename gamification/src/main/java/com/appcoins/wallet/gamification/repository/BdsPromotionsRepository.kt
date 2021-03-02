@@ -36,13 +36,12 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   // TODO, see if this can be merged with the above one, passing a boolean to decide which
-  //  one to apply
+  //  one to apply (if necessary)
   private fun getUserStatsDbFirst(wallet: String): Observable<UserStatusResponse> {
     return Observable.concat(getUserStatsFromDB(wallet), getUserStatsFromAPI(wallet))
   }
 
   private fun getUserStatsFromDB(wallet: String): Observable<UserStatusResponse> {
-    // TODO eventually change local. values to observables instead of singles
     return Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
         BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
           Pair(promotions, walletOrigin)
