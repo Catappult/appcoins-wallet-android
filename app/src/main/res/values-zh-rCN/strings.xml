@@ -892,7 +892,8 @@
   <string name="card_verification_no_attempts_title">糟糕，您输入的错误代码次数过多，因此%1$s将退款至您的卡中。</string>
   <string name="card_verification_no_attempts_body">请重新开始验证过程。</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">购买此优惠券即可获得高达%s%%的奖励。</string>
+  <string name="voucher_card_body_1">Buy this voucher and get</string>
+  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
   <string name="voucher_buy_header">%s优惠券</string>
   <string name="voucher_buy_short_header"> 优惠券</string>
   <string name="voucher_buy_no_game_title">您没有%s吗？</string>
