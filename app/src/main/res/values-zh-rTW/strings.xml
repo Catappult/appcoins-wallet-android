@@ -892,7 +892,8 @@
   <string name="card_verification_no_attempts_title">糟糕，您輸入的代碼錯誤太多次，因此 %1$s 會退回到您的卡片。</string>
   <string name="card_verification_no_attempts_body">請重新開始驗證。</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">購買此兌換券，獲得高達%s%%獎勵。</string>
+  <string name="voucher_card_body_1">Buy this voucher and get</string>
+  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
   <string name="voucher_buy_header">%s兌換券</string>
   <string name="voucher_buy_short_header">兌換券：</string>
   <string name="voucher_buy_no_game_title">您還未安裝%s嗎？</string>
