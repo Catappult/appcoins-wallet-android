@@ -892,7 +892,8 @@
   <string name="card_verification_no_attempts_title">이런, 잘못된 코드를 여러번 입력하셔서 %1$s 금액이 카드로 환불됩니다.</string>
   <string name="card_verification_no_attempts_body">인증 절차를 다시 진행해 주세요.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">이 바우처를 구매하여 최대 %% 보너스를 받으세요.</string>
+  <string name="voucher_card_body_1">Buy this voucher and get</string>
+  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
   <string name="voucher_buy_header">%s 바우처</string>
   <string name="voucher_buy_short_header">바우처:</string>
   <string name="voucher_buy_no_game_title">%s 이(가) 없나요?</string>
