@@ -725,6 +725,7 @@
   <string name="subscriptions_per_several_week">매 %2$s 주 마다 %1$s</string>
   <string name="subscriptions_per_several_month">매 %2$s 월 마다 %1$s</string>
   <string name="subscriptions_per_several_year">매 %2$s 년 마다 %1$s</string>
+  <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
   <!--New Gamification-->
   <string name="gamif_title">최대 %% 보너스!</string>
   <string name="gamif_bonus_received">받은 보너스</string>
