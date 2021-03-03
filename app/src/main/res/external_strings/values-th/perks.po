@@ -10,12 +10,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2020-10-15 14:26\n"
+"PO-Revision-Date: 2021-02-23 09:52\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "รับเครดิต AppCoins!"
+
+#. Tooltip - APPC Credis disclaimer.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "รับโบนัสพิเศษ {0}% สำหรับการซื้อทั้งหมดของคุณ ยกเว้นเครดิต AppCoins ใน {1}"
 
 #. Card - Purchase Promotion.
 #:
@@ -47,10 +52,15 @@ msgstr "ไปถึงระดับถัดไปและรับ {0} AppC
 msgid "Because you reached the next level."
 msgstr "เพราะคุณถึงเลเวลถัดไป"
 
-#. Card - Extra Gamification Bonus.
+#. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr "รับโบนัสพิเศษ {0}% สำหรับการซื้อทั้งหมดของคุณ ยกเว้นเครดิต AppCoins ใน {1}"
+
+#. Card - Promotions - Extra Gamification Bonus.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr "รับโบนัสพิเศษ {0}% สำหรับการซื้อทั้งหมดของคุณใน {1}"
 
 #. Card - First purchase.
 #:
@@ -77,10 +87,10 @@ msgstr "เนื่องจากการซื้อครั้งแรก
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0}โบนัส AppCoins Credits!"
 
-#. Card - Expendidute per amount Promotion.
+#. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "รับ {0} เครดิต AppCoins พิเศษสำหรับทุกๆ {1} {2} ที่คุณใช้จ่ายใน {3}"
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -90,15 +100,20 @@ msgstr "เนื่องจากคุณใช้จ่ายไป {0} {1} 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "รับ {0} เครดิต AppCoins พิเศษสำหรับทุกๆ {1} {2} ที่ในแอป AppCoins"
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "เพราะว่าคุณใช้จ่าย{0}{1} ในแอป AppCoins"
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
-msgstr ""
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr "รับโบนัสพิเศษ {0}% สำหรับการซื้อทั้งหมดของคุณ ยกเว้นเครดิต AppCoins"
+
+#. Card - Title - Common
+#:
+msgid "New Perk Available"
+msgstr "มีสิทธิพิเศษใหม่"
 
