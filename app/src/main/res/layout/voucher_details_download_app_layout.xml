@@ -19,11 +19,14 @@
   <TextView
       android:id="@+id/download_app_title"
       style="@style/Voucher.DownloadApp.Title"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="72dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
       android:text="@string/voucher_buy_no_game_title"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/app_icon"
       app:layout_constraintTop_toTopOf="@id/app_icon"
       />
 
@@ -38,7 +41,7 @@
       android:text="@string/voucher_buy_no_game_install_button"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/app_icon"
+      app:layout_constraintTop_toBottomOf="@id/download_app_title"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

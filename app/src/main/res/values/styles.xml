@@ -1185,6 +1185,10 @@
   </style>
 
   <style name="Voucher.DownloadApp.Title">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">@color/promotions_active_background</item>
+    <item name="android:letterSpacing">0.04</item>
+    <item name="android:lineSpacingExtra">3sp</item>
     <item name="android:textSize">16sp</item>
   </style>
 

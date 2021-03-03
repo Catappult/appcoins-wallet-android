@@ -1,12 +1,17 @@
 package com.asfoundation.wallet.promotions.voucher
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -15,6 +20,7 @@ import kotlinx.android.synthetic.main.layout_app_bar.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.voucher_details_content_scrolling.*
 import kotlinx.android.synthetic.main.voucher_details_download_app_layout.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
@@ -56,10 +62,25 @@ class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
                        packageName: String, hasAppcoins: Boolean) {
     activity?.toolbar?.title = getString(R.string.voucher_buy_header, title)
     app_title.text = title
-    app_bonus.apply { text = if (maxBonus > 0.0) "bonus" else "no bonus" }
+    if (maxBonus > 0.0) {
+      setupBonusString(maxBonus)
+    } else {
+      app_bonus.visibility = View.GONE
+    }
     appcoins_component.apply { visibility = if (hasAppcoins) View.VISIBLE else View.GONE }
     download_app_title.text = getString(R.string.voucher_buy_no_game_title, title)
     setupImages(featureGraphic, icon)
+  }
+
+  private fun setupBonusString(maxBonus: Double) {
+    val formatter = CurrencyFormatUtils.create()
+    val bonus = formatter.formatGamificationValues(BigDecimal(maxBonus))
+    val prefix = getString(R.string.voucher_card_body_1)
+    val suffix = getString(R.string.voucher_card_body_2, bonus)
+    val spannable = SpannableString("$prefix $suffix")
+    spannable.setSpan(StyleSpan(Typeface.BOLD), prefix.length, spannable.length - 1,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    app_bonus.text = spannable
   }
 
   private fun setupImages(featureGraphic: String, icon: String) {

@@ -70,6 +70,7 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
           android:layout_marginTop="31dp"
+          android:layout_marginEnd="16dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/app_featured_graphic"
           tools:text="Garena Free Fire: BOOYAH Day"
@@ -77,11 +78,12 @@
       <TextView
           android:id="@+id/app_bonus"
           style="@style/Voucher.AppBonus"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
           android:layout_marginTop="7dp"
-          app:layout_constraintStart_toStartOf="parent"
+          android:layout_marginEnd="16dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/app_title"
           app:layout_constraintTop_toBottomOf="@id/app_title"
           tools:text="Buy this voucher and get up to 25% bonus."
           />
