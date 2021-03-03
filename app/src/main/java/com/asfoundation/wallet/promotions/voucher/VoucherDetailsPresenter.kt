@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.promotions.voucher
 
+import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class VoucherDetailsPresenter(private val view: VoucherDetailsView,
                               private val disposable: CompositeDisposable,
@@ -9,9 +11,11 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
                               private val navigator: VoucherDetailsNavigator,
                               private val data: VoucherDetailsData,
                               private val viewScheduler: Scheduler,
-                              private val ioScheduler: Scheduler) {
+                              private val ioScheduler: Scheduler,
+                              private val logger: Logger) {
 
   fun present() {
+    view.showLoading()
     view.setupUi(data.title, data.featureGraphic, data.icon, data.maxBonus, data.packageName,
         data.hasAppcoins)
     initializeView()
@@ -20,6 +24,7 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
     handleBackClick()
     handleSkuButtonClick()
     handleDownloadAppButtonClick()
+    handleRetryClick()
   }
 
   private fun handleDownloadAppButtonClick() {
@@ -53,13 +58,35 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
         .subscribe({ }, { it.printStackTrace() }))
   }
 
+  private fun handleRetryClick() {
+    disposable.add(view.onRetryClick()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showRetryAnimation() }
+        .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { initializeView() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+
   private fun initializeView() {
-    disposable.add(interactor.getSkuButtonModels()
+    disposable.add(interactor.getVoucherSkus()
         .subscribeOn(ioScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { view.setupSkus(it) }
-        .subscribe({ }, { it.printStackTrace() }))
+        .doOnSuccess {
+          if (it.error.hasError.not()) {
+            view.hideLoading()
+            view.setupSkus(it.list)
+          } else if (it.error.isNoNetwork) {
+            view.showNoNetworkError()
+          }
+        }
+        .subscribe({ }, { logger.log(TAG, it) }))
   }
 
   fun stop() = disposable.clear()
+
+  private companion object {
+    private val TAG = VoucherDetailsPresenter::class.java.simpleName
+  }
 }

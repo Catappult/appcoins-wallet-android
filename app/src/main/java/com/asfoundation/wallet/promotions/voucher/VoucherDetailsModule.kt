@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions.voucher
 
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment.Companion.FEATURE_GRAPHIC
 import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment.Companion.ICON
 import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment.Companion.MAX_BONUS
@@ -18,9 +19,10 @@ class VoucherDetailsModule {
   fun providesVoucherDetailsPresenter(fragment: VoucherDetailsFragment,
                                       navigator: VoucherDetailsNavigator,
                                       interactor: VoucherDetailsInteractor,
-                                      data: VoucherDetailsData): VoucherDetailsPresenter {
+                                      data: VoucherDetailsData,
+                                      logger: Logger): VoucherDetailsPresenter {
     return VoucherDetailsPresenter(fragment, CompositeDisposable(), interactor, navigator, data,
-        AndroidSchedulers.mainThread(), Schedulers.io())
+        AndroidSchedulers.mainThread(), Schedulers.io(), logger)
   }
 
   @Provides

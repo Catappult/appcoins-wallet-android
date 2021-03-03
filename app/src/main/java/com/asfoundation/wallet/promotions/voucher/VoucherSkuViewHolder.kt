@@ -4,11 +4,11 @@ import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.subjects.PublishSubject
 
-class SkuButtonsViewHolder(private val button: Button) : RecyclerView.ViewHolder(button) {
+class VoucherSkuViewHolder(private val button: Button) : RecyclerView.ViewHolder(button) {
 
-  fun bind(position: Int, selectedPosition: Int, skuButtonModel: SkuButtonModel,
+  fun bind(position: Int, selectedPosition: Int, voucherSkuItem: VoucherSkuItem,
            onSkuClick: PublishSubject<Int>) {
-    button.text = skuButtonModel.title
+    button.text = voucherSkuItem.title
 
     button.isActivated = selectedPosition == position
 

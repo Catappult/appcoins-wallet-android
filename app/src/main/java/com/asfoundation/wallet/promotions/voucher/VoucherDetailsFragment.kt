@@ -12,6 +12,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.layout_app_bar.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.voucher_details_content_scrolling.*
 import kotlinx.android.synthetic.main.voucher_details_download_app_layout.*
 import javax.inject.Inject
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
 
   private lateinit var onBackPressedSubject: PublishSubject<Any>
-  private lateinit var skuButtonsAdapter: SkuButtonsAdapter
+  private lateinit var voucherSkuAdapter: VoucherSkuAdapter
   private lateinit var skuButtonClick: PublishSubject<Int>
 
   @Inject
@@ -71,18 +72,20 @@ class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
         .into(app_icon)
   }
 
-  override fun setupSkus(skuButtonModels: List<SkuButtonModel>) {
-    skuButtonsAdapter = SkuButtonsAdapter(skuButtonModels, skuButtonClick)
-    diamond_buttons_recycler_view.addItemDecoration(MarginItemDecoration(
-        resources.getDimension(R.dimen.voucher_details_grid_view_horizontal_spacing)
-            .toInt(), resources.getDimension(R.dimen.voucher_details_grid_view_vertical_spacing)
-        .toInt()))
-    diamond_buttons_recycler_view.adapter = skuButtonsAdapter
+  override fun setupSkus(voucherSkuItems: List<VoucherSkuItem>) {
+    voucherSkuAdapter = VoucherSkuAdapter(voucherSkuItems, skuButtonClick)
+    resources.apply {
+      val verticalSize = getDimension(R.dimen.voucher_details_grid_view_vertical_spacing)
+      val horizontalSize = getDimension(R.dimen.voucher_details_grid_view_horizontal_spacing)
+      sku_recycler_view.addItemDecoration(
+          MarginItemDecoration(horizontalSize.toInt(), verticalSize.toInt()))
+    }
+    sku_recycler_view.adapter = voucherSkuAdapter
   }
 
-  override fun onNextClicks(): Observable<SkuButtonModel> {
+  override fun onNextClicks(): Observable<VoucherSkuItem> {
     return RxView.clicks(next_button)
-        .map { skuButtonsAdapter.getSelectedSku() }
+        .map { voucherSkuAdapter.getSelectedSku() }
   }
 
   override fun onCancelClicks(): Observable<Any> = RxView.clicks(cancel_button)
@@ -91,10 +94,35 @@ class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
 
   override fun onSkuButtonClick(): Observable<Int> = skuButtonClick
 
+  override fun onRetryClick() = RxView.clicks(retry_button)
+
   override fun onDownloadButtonClick(): Observable<Any> = RxView.clicks(download_app_button)
 
+  override fun showRetryAnimation() {
+    retry_button.visibility = View.INVISIBLE
+    retry_animation.visibility = View.VISIBLE
+  }
+
+  override fun showLoading() {
+    loading_progress.visibility = View.VISIBLE
+    no_network_layout.visibility = View.GONE
+  }
+
+  override fun hideLoading() {
+    loading_progress.visibility = View.GONE
+    no_network_layout.visibility = View.GONE
+    main_content.visibility = View.VISIBLE
+  }
+
+  override fun showNoNetworkError() {
+    retry_animation.visibility = View.GONE
+    no_network_layout.visibility = View.VISIBLE
+    retry_button.visibility = View.VISIBLE
+    main_content.visibility = View.GONE
+  }
+
   override fun setSelectedSku(index: Int) {
-    skuButtonsAdapter.setSelectedSku(index)
+    voucherSkuAdapter.setSelectedSku(index)
     next_button.isEnabled = true
   }
 

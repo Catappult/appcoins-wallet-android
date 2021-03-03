@@ -7,9 +7,9 @@ interface VoucherDetailsView {
   fun setupUi(title: String, featureGraphic: String, icon: String, maxBonus: Double,
               packageName: String, hasAppcoins: Boolean)
 
-  fun setupSkus(skuButtonModels: List<SkuButtonModel>)
+  fun setupSkus(voucherSkuItems: List<VoucherSkuItem>)
 
-  fun onNextClicks(): Observable<SkuButtonModel>
+  fun onNextClicks(): Observable<VoucherSkuItem>
 
   fun onCancelClicks(): Observable<Any>
 
@@ -20,4 +20,14 @@ interface VoucherDetailsView {
   fun onDownloadButtonClick(): Observable<Any>
 
   fun setSelectedSku(index: Int)
+
+  fun onRetryClick(): Observable<Any>
+
+  fun showRetryAnimation()
+
+  fun showLoading()
+
+  fun hideLoading()
+
+  fun showNoNetworkError()
 }

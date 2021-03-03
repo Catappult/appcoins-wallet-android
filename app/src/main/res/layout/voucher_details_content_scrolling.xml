@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
     android:fillViewport="true"
     android:paddingBottom="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -16,123 +17,152 @@
       android:layout_height="match_parent"
       >
 
-    <ImageView
-        android:id="@+id/app_featured_graphic"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/voucher_details_image_height"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/free_fire"
-        />
-
-    <LinearLayout
-        android:id="@+id/appcoins_component"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/voucher_appcoins_textview_background"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent"
         >
       <ImageView
-          android:layout_width="10dp"
-          android:layout_height="10dp"
-          android:src="@drawable/ic_appc"
+          android:id="@+id/app_featured_graphic"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/voucher_details_image_height"
+          android:scaleType="centerCrop"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:src="@drawable/free_fire"
           />
-      <TextView
-          style="@style/AppCoinsIconStyle"
+
+      <LinearLayout
+          android:id="@+id/appcoins_component"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="4dp"
-          android:text="@string/appc_token_name"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="14dp"
+          android:background="@drawable/voucher_appcoins_textview_background"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingStart="8dp"
+          android:paddingTop="4dp"
+          android:paddingEnd="8dp"
+          android:paddingBottom="4dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          >
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_appc"
+            />
+        <TextView
+            style="@style/AppCoinsIconStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/appc_token_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/app_title"
+          style="@style/Voucher.AppTitle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="31dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/app_featured_graphic"
+          tools:text="Garena Free Fire: BOOYAH Day"
           />
-    </LinearLayout>
+      <TextView
+          android:id="@+id/app_bonus"
+          style="@style/Voucher.AppBonus"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="7dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/app_title"
+          tools:text="Buy this voucher and get up to 25% bonus."
+          />
 
-    <TextView
-        android:id="@+id/app_title"
-        style="@style/Voucher.AppTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="31dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_featured_graphic"
-        tools:text="Garena Free Fire: BOOYAH Day"
-        />
-    <TextView
-        android:id="@+id/app_bonus"
-        style="@style/Voucher.AppBonus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="7dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_title"
-        tools:text="Buy this voucher and get up to 25% bonus."
-        />
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/sku_recycler_view"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="29dp"
+          android:layout_marginEnd="16dp"
+          android:nestedScrollingEnabled="false"
+          android:overScrollMode="never"
+          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+          app:layout_constrainedHeight="true"
+          app:layout_constraintHeight_min="@dimen/button_height"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/app_bonus"
+          app:spanCount="3"
+          tools:itemCount="6"
+          tools:listitem="@layout/voucher_details_diamonds_button"
+          />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/diamond_buttons_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="16dp"
-        android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bonus"
-        app:spanCount="3"
-        tools:itemCount="6"
-        tools:listitem="@layout/voucher_details_diamonds_button"
-        />
+      <Button
+          android:id="@+id/cancel_button"
+          style="@style/ButtonStyle.Cancel"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/button_height"
+          android:layout_marginEnd="32dp"
+          android:text="@string/cancel_button"
+          app:layout_constraintEnd_toStartOf="@id/next_button"
+          app:layout_constraintTop_toTopOf="@id/next_button"
+          />
 
-    <Button
-        android:id="@+id/cancel_button"
-        style="@style/ButtonStyle.Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginEnd="32dp"
-        android:text="@string/cancel_button"
-        app:layout_constraintEnd_toStartOf="@id/next_button"
-        app:layout_constraintTop_toTopOf="@id/next_button"
-        />
+      <Button
+          android:id="@+id/next_button"
+          style="@style/ButtonStyle.Alternative.LargePadding"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/button_height"
+          android:layout_marginTop="32dp"
+          android:layout_marginEnd="30dp"
+          android:enabled="false"
+          android:text="@string/action_next"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/sku_recycler_view"
+          />
 
-    <Button
-        android:id="@+id/next_button"
-        style="@style/ButtonStyle.Alternative.LargePadding"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="30dp"
-        android:enabled="false"
-        android:text="@string/action_next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/diamond_buttons_recycler_view"
-        />
+      <include
+          android:id="@+id/download_app_container"
+          layout="@layout/voucher_details_download_app_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="58dp"
+          android:layout_marginEnd="16dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/next_button"
+          />
+
+      <ProgressBar
+          android:id="@+id/loading_progress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/sku_recycler_view"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@id/sku_recycler_view"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
-        android:id="@+id/download_app_container"
-        layout="@layout/voucher_details_download_app_layout"
+        android:id="@+id/no_network_layout"
+        layout="@layout/no_network_retry_only_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/next_button"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
-
   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

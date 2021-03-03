@@ -12,27 +12,27 @@ import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
 
-class SkuButtonsAdapter(private val buttonModels: List<SkuButtonModel>,
+class VoucherSkuAdapter(private val voucherSkuItem: List<VoucherSkuItem>,
                         private val onSkuClick: PublishSubject<Int>) :
-    RecyclerView.Adapter<SkuButtonsViewHolder>() {
+    RecyclerView.Adapter<VoucherSkuViewHolder>() {
 
   private var selectedPosition: Int = -1
 
 
-  override fun onBindViewHolder(holder: SkuButtonsViewHolder, position: Int) {
-    holder.bind(position, selectedPosition, buttonModels[position], onSkuClick)
+  override fun onBindViewHolder(holder: VoucherSkuViewHolder, position: Int) {
+    holder.bind(position, selectedPosition, voucherSkuItem[position], onSkuClick)
   }
 
-  override fun getItemCount() = buttonModels.size
+  override fun getItemCount() = voucherSkuItem.size
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkuButtonsViewHolder {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherSkuViewHolder {
     val context = parent.context
     val buttonHeight = context.resources.getDimension(R.dimen.voucher_details_grid_button_height)
     val button: Button = LayoutInflater.from(context)
         .inflate(R.layout.voucher_details_diamonds_button, parent, false) as Button
     button.layoutParams = AbsListView.LayoutParams(GridView.AUTO_FIT, buttonHeight.toInt())
 
-    return SkuButtonsViewHolder(button)
+    return VoucherSkuViewHolder(button)
   }
 
   fun setSelectedSku(index: Int) {
@@ -42,11 +42,11 @@ class SkuButtonsAdapter(private val buttonModels: List<SkuButtonModel>,
     notifyItemChanged(selectedPosition)
   }
 
-  fun getSelectedSku(): SkuButtonModel {
-    return if (selectedPosition != -1 && selectedPosition < buttonModels.size) {
-      buttonModels[selectedPosition]
+  fun getSelectedSku(): VoucherSkuItem {
+    return if (selectedPosition != -1 && selectedPosition < voucherSkuItem.size) {
+      voucherSkuItem[selectedPosition]
     } else {
-      SkuButtonModel()
+      VoucherSkuItem()
     }
   }
 }
