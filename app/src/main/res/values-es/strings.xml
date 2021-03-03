@@ -726,6 +726,7 @@
   <string name="subscriptions_per_several_week">%1$s cada %2$s semanas</string>
   <string name="subscriptions_per_several_month">%1$s cada %2$s meses</string>
   <string name="subscriptions_per_several_year">%1$s cada %2$s años</string>
+  <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
   <!--New Gamification-->
   <string name="gamif_title">¡Hasta %s%% de bonus!</string>
   <string name="gamif_bonus_received">Bonus recibido</string>
