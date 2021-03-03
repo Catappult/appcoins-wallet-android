@@ -509,7 +509,10 @@
   <string name="error_contac_us_body">If the problem persists please contact us.</string>
   <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
   <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
-  <string name="purchase_error_try_other_amount">Are you sure your top-up amount is right? Please try with a different one or contact us!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>
@@ -815,26 +818,45 @@
     <item quantity="few">The promotion ends in %s days.</item>
     <item quantity="other">The promotion ends in %s days.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="few">It ends in %s days.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">The promotion ends on %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">The promotion ends in %s hour.</item>
     <item quantity="few">The promotion ends in %s hours.</item>
     <item quantity="other">The promotion ends in %s hours.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="few">It ends in %s hours.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">The promotion ends in %s minute.</item>
     <item quantity="few">The promotion ends in %s minutes.</item>
     <item quantity="other">The promotion ends in %s minutes.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">It ends in %s minute.</item>
+    <item quantity="few">It ends in %s minutes.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">The promotion ends today.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Promotion available soon</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Reach the next level to get %s AppCoins Credits!</string>
   <string name="perks_notification">You just received %s AppCoins Credits as a Bonus</string>
   <string name="perks_level_up_on_this_purchase">Level up with this purchase</string>
   <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All in-app purchases and top ups made with any purchase method apart from AppCoins Credits will qualify to increase your bonus level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Fingerprint lock</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
@@ -890,6 +912,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
   <string name="voucher_buy_header">Voucher for %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
   <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
   <string name="voucher_code_title">Voucher Code</string>

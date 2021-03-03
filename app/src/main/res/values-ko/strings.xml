@@ -509,7 +509,10 @@
   <string name="error_contac_us_body">문제가 계속되면 당사로 연락 주세요.</string>
   <string name="purchase_error_unverified_wallet">지갑을 인증 후에 구매를 완료하세요.</string>
   <string name="purchase_error_try_other_method">이런&#8230; 무언가 잘못되고 있습니다! 다른 지불 방법으로 시도해보시거나 당사로 연락 주세요.</string>
-  <string name="purchase_error_try_other_amount">탑-업 금액이 맞나요? 다른 것으로 시도하시거나 당사로 연락 주세요.</string>
+  <string name="purchase_error_try_other_amount">탑업 금액이 너무 높습니다! 더 적은 것으로 시도하시거나 당사로 연락 주세요!</string>
+  <string name="purchase_error_try_other_amount_or_method">이런&#8230; 무언가 잘못되고 있습니다! 다른 지불 방법 또는 탑업 금액으로 시도해 보세요.</string>
+  <string name="purchase_error_try_cheaper_item">꽤 비쌉니다! 너 저렴한 아이템을 구매해 보세요.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">꽤 비쌉니다! 더 싼 아이템을 구매하시거나 다른 지불 방법으로 해 보세요.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -811,22 +814,35 @@
   <plurals name="promotion_ends">
     <item quantity="other">프로모션은 %s일 안에 끝납니다.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="other">%s 일 후에 끝납니다.</item>
+  </plurals>
   <string name="perks_end_in_date">프로모션은 %s 에 끝납니다.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">프로모션은 %s 시간내에 끝납니다.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="other">%s 시간 후에 끝납니다.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">프로모션은 %s 분내에 끝납니다.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="other">%s 분 후에 끝납니다.</item>
+  </plurals>
   <string name="perks_end_today">프로모션은 오늘 끝납니다.</string>
+  <string name="perks_end_today_short">오늘 끝납니다.</string>
   <string name="perks_available_soon">곧 프로모션이 진행됩니다</string>
+  <string name="perks_available_soon_short">곧 사용할 수 있습니다</string>
   <string name="perks_next_level_reward">%s AppCoins 크레디트를 받기 위한 다음 단계에 도달했습니다!</string>
   <string name="perks_notification">보너스로 방금 %s AppCoins 크레디트를 받았습니다</string>
   <string name="perks_level_up_on_this_purchase">이 구매를 통해 레벨 업</string>
   <string name="perks_level_up_amount_left">다음 단계까지 %1$s%2$s 남았습니다!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s 보너스: AppCoins 크레디트로 %2$s</string>
-  <string name="perks_purchases_disclaimer_body">AppCoins 크레디트을 제외한 모든 구매 방법으로 이루어지는 모든 앱 내 구매 및 탑업은 보너스 레벨을 높이고 보상을 받을 수 있는 자격이 주어집니다.</string>
+  <string name="perks_purchases_disclaimer_body">AppCoins 크레디트을 제외한 모든 지불 방법으로 이루어지는 모든 구매 및 탑업은 보너스 레벨을 높이고 보상을 받을 수 있는 자격이 주어집니다.</string>
+  <string name="perks_empty_state_first_purchase_body">AppCoins 호환 앱에서 첫 번째 구매를 하고 당신을 위해 준비한 프로모션의 잠금을 해제하세요!</string>
+  <string name="perks_empty_body">현재 사용할 수 있는 프로모션이 없습니다.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">지문 자금</string>
   <string name="fingerprint_failed_title">인증 실패!</string>
@@ -878,6 +894,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">이 바우처를 구매하여 최대 %% 보너스를 받으세요.</string>
   <string name="voucher_buy_header">%s 바우처</string>
+  <string name="voucher_buy_short_header">바우처:</string>
   <string name="voucher_buy_no_game_title">%s 이(가) 없나요?</string>
   <string name="voucher_buy_no_game_install_button">지금 다운로드</string>
   <string name="voucher_code_title">바우처 코드</string>
