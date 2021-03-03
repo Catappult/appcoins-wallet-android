@@ -6,7 +6,7 @@ import android.net.Uri
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.promotions.voucher.EVoucherDetailsFragment
+import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
@@ -38,13 +38,13 @@ class PromotionsNavigator(private val fragment: Fragment) {
     fragment.startActivity(launchBrowser)
   }
 
-  fun navigateToVoucherDetails(packageName: String) {
-    //TODO
+  fun navigateToVoucherDetails(title: String, featureGraphic: String, icon: String,
+                               maxBonus: Double, packageName: String, hasAppcoins: Boolean) {
     fragment.requireActivity().supportFragmentManager.beginTransaction()
         .addToBackStack(null)
         .replace(R.id.fragment_container,
-            EVoucherDetailsFragment.newInstance("Voucher for Garena Free Fire: BOOYAH Day",
-                packageName))
+            VoucherDetailsFragment.newInstance(title, featureGraphic, icon, maxBonus, packageName,
+                hasAppcoins))
         .commit()
   }
 }

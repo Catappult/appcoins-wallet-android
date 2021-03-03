@@ -28,7 +28,12 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
   companion object {
     const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
-    const val PACKAGE_NAME_EXTRA = "PACKAGE_NAME_EXTRA"
+    internal const val PACKAGE_NAME_EXTRA = "PACKAGE_NAME_EXTRA"
+    internal const val TITLE_NAME_EXTRA = "TITLE_NAME_EXTRA"
+    internal const val FEATURE_GRAPHIC_EXTRA = "FEATURE_GRAPHIC_EXTRA"
+    internal const val ICON_EXTRA = "ICON_EXTRA"
+    internal const val MAX_BONUS = "MAX_BONUS"
+    internal const val HAS_APPCOINS_EXTRA = "HAS_APPCOINS_EXTRA"
   }
 
   abstract fun bind(promotion: Promotion)
@@ -54,7 +59,6 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
         .error(R.drawable.ic_promotions_default)
         .circleCrop()
         .into(into)
-
   }
 
   private fun updateDate(view: TextView, container: LinearLayout, time: Long,
@@ -269,8 +273,12 @@ class VouchersViewHolder(itemView: View,
     loadIcon(voucher.icon, itemView.voucher_icon)
 
     itemView.setOnClickListener {
-      //TODO add here more info needed to identify app to move to details fragment
-      val extras = mapOf(Pair(PACKAGE_NAME_EXTRA, voucher.packageName))
+      val extras = mapOf(Pair(PACKAGE_NAME_EXTRA, voucher.packageName),
+          Pair(TITLE_NAME_EXTRA, voucher.title),
+          Pair(FEATURE_GRAPHIC_EXTRA, voucher.featureGraphic),
+          Pair(ICON_EXTRA, voucher.icon),
+          Pair(MAX_BONUS, voucher.maxBonus),
+          Pair(HAS_APPCOINS_EXTRA, voucher.hasAppcoins))
       clickListener.onNext(PromotionClick(voucher.id, extras))
     }
   }

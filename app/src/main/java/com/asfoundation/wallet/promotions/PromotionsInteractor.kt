@@ -195,7 +195,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                              maxBonus: Double): List<VoucherItem> {
     val list = ArrayList<VoucherItem>()
     vouchersListModel.vouchers.forEach {
-      list.add(VoucherItem(VOUCHER_ID, it.packageName, it.title, it.icon, it.hasAppcoins, maxBonus))
+      list.add(VoucherItem(VOUCHER_ID, it.packageName, it.title, it.featureGraphic, it.icon,
+          it.hasAppcoins, maxBonus))
     }
     return list
   }

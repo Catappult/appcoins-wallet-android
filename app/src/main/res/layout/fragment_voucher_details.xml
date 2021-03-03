@@ -8,6 +8,6 @@
     tools:context="com.asfoundation.wallet.promotions.PromotionsActivity"
     >
 
-  <include layout="@layout/e_voucher_details_content_scrolling" />
+  <include layout="@layout/voucher_details_content_scrolling" />
 
 </LinearLayout>

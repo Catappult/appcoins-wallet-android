@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:drawable="@drawable/e_voucher_details_grid_view_button_pressed" android:state_activated="true" />
-  <item android:drawable="@drawable/e_voucher_details_grid_view_button_not_pressed" android:state_activated="false" />
-</selector>

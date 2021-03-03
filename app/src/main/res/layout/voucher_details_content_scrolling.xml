@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:paddingBottom="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.asfoundation.wallet.promotions.PromotionsActivity"
-    tools:showIn="@layout/fragment_e_voucher_details"
+    tools:showIn="@layout/fragment_voucher_details"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,77 +19,88 @@
     <ImageView
         android:id="@+id/app_featured_graphic"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/e_voucher_details_image_height"
+        android:layout_height="@dimen/voucher_details_image_height"
         android:scaleType="centerCrop"
-        android:src="@drawable/free_fire"
         app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/free_fire"
         />
 
-    <TextView
-        style="@style/AppCoinsIconStyle"
-        android:layout_width="@dimen/e_voucher_details_appcoins_text_view_width"
-        android:layout_height="@dimen/e_voucher_details_appcoins_text_view_height"
+    <LinearLayout
+        android:id="@+id/appcoins_component"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
-        android:drawableLeft="@drawable/e_voucher_details_appcoins_textview_drawable"
-        android:drawablePadding="4.3dp"
-        android:text="@string/e_voucher_appcoins_textview"
+        android:background="@drawable/voucher_appcoins_textview_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        >
+      <ImageView
+          android:layout_width="10dp"
+          android:layout_height="10dp"
+          android:src="@drawable/ic_appc"
+          />
+      <TextView
+          style="@style/AppCoinsIconStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="4dp"
+          android:text="@string/appc_token_name"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/app_title"
-        style="@style/EVoucher.AppTitle"
+        style="@style/Voucher.AppTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="31dp"
-        android:text="Garena Free Fire: BOOYAH Day"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_featured_graphic"
+        tools:text="Garena Free Fire: BOOYAH Day"
         />
     <TextView
         android:id="@+id/app_bonus"
-        style="@style/EVoucher.AppBonus"
+        style="@style/Voucher.AppBonus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="7dp"
-        android:text="@string/e_voucher_buy_this_voucher"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_title"
-        />
-    <TextView
-        android:id="@+id/app_bonus_part_2"
-        style="@style/EVoucher.AppBonus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/e_voucher_buy_this_voucher_part_2"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/app_bonus"
-        app:layout_constraintTop_toTopOf="@id/app_bonus"
+        tools:text="Buy this voucher and get up to 25% bonus."
         />
 
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/diamond_buttons_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/e_voucher_details_grid_view_height"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="29dp"
         android:layout_marginEnd="16dp"
-        android:horizontalSpacing="@dimen/e_voucher_details_grid_view_horizontal_spacing"
-        android:verticalSpacing="@dimen/e_voucher_details_grid_view_vertial_spacing"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_bonus"
-        tools:context="com.asfoundation.wallet.promotions.voucher.EVoucherDetailsActivity"
-        ></androidx.recyclerview.widget.RecyclerView>
+        app:spanCount="3"
+        tools:itemCount="6"
+        tools:listitem="@layout/voucher_details_diamonds_button"
+        />
 
     <Button
         android:id="@+id/cancel_button"
         style="@style/ButtonStyle.Cancel"
-        android:layout_width="@dimen/e_voucher_details_diamonds_cancel_button_width"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
         android:layout_marginEnd="32dp"
         android:text="@string/cancel_button"
@@ -98,8 +110,8 @@
 
     <Button
         android:id="@+id/next_button"
-        style="@style/ButtonStyle.Alternative"
-        android:layout_width="@dimen/e_voucher_details_diamonds_next_button_width"
+        style="@style/ButtonStyle.Alternative.LargePadding"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="30dp"
@@ -111,22 +123,14 @@
 
     <include
         android:id="@+id/download_app_container"
-        layout="@layout/e_voucher_details_download_app_layout"
+        layout="@layout/voucher_details_download_app_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/e_voucher_details_download_app_container_height"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="58dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/next_button"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="29dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/download_app_container"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

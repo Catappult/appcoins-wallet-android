@@ -346,7 +346,7 @@
   <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
   <string name="gamification_how_bonus_received_body">Bonus received</string>
   <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>s AppCoins</b> more to reach <b>level s</b>.</string>
   <string name="gamification_level_expiration_title">Next level check: %s</string>
   <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
   <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
@@ -990,13 +990,4 @@
   <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
   <string name="voucher_empty">No vouchers available at the moment.</string>
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
-
-  <!-- E-Voucher Details -->
-  <string name="e_voucher_appcoins_textview" translatable="false">AppCoins</string>
-  <string name="e_voucher_details_dont_you_have_the_game">Don\'t you have the game?</string>
-  <string name="e_voucher_details_Install_game">Install</string>
-  <string name="e_voucher_download_now">Download Now!</string>
-  <string name="e_voucher_buy_this_voucher">Buy this voucher and get</string>
-  <string name="e_voucher_buy_this_voucher_part_2">\ up to 25% bonus.</string>
-
 </resources>

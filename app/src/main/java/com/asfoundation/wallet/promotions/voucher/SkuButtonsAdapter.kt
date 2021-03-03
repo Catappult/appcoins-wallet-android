@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.promotions.voucher
 
-import android.content.Context
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
@@ -11,40 +10,27 @@ import android.widget.GridView
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.atomic.AtomicReference
 
 
-class SkuButtonsAdapter(
-    val context: Context,
-    val buttonModels: List<SkuButtonModel>,
-    val onSkuClick: PublishSubject<Int>
-) :
+class SkuButtonsAdapter(private val buttonModels: List<SkuButtonModel>,
+                        private val onSkuClick: PublishSubject<Int>) :
     RecyclerView.Adapter<SkuButtonsViewHolder>() {
 
-  private var inflater: LayoutInflater
-  private var activatedButton: AtomicReference<Button?> = AtomicReference()
   private var selectedPosition: Int = -1
 
-  init {
-    inflater = LayoutInflater.from(context)
-  }
 
   override fun onBindViewHolder(holder: SkuButtonsViewHolder, position: Int) {
-    holder.bind(position, selectedPosition, buttonModels.get(position), activatedButton, onSkuClick)
+    holder.bind(position, selectedPosition, buttonModels[position], onSkuClick)
   }
 
-  override fun getItemCount(): Int {
-    return buttonModels.size
-  }
+  override fun getItemCount() = buttonModels.size
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkuButtonsViewHolder {
-    val button: Button =
-        inflater.inflate(R.layout.e_voucher_details_diamonds_button, null) as Button
-    val factor: Float =
-        parent?.getContext()
-            ?.getResources()
-            ?.getDisplayMetrics()?.density ?: 0.0.toFloat()
-    button.layoutParams = AbsListView.LayoutParams(GridView.AUTO_FIT, (factor * 48).toInt())
+    val context = parent.context
+    val buttonHeight = context.resources.getDimension(R.dimen.voucher_details_grid_button_height)
+    val button: Button = LayoutInflater.from(context)
+        .inflate(R.layout.voucher_details_diamonds_button, parent, false) as Button
+    button.layoutParams = AbsListView.LayoutParams(GridView.AUTO_FIT, buttonHeight.toInt())
 
     return SkuButtonsViewHolder(button)
   }
@@ -56,20 +42,28 @@ class SkuButtonsAdapter(
     notifyItemChanged(selectedPosition)
   }
 
-  fun getSelectedSku(): SkuButtonModel = buttonModels.get(selectedPosition)
+  fun getSelectedSku(): SkuButtonModel {
+    return if (selectedPosition != -1 && selectedPosition < buttonModels.size) {
+      buttonModels[selectedPosition]
+    } else {
+      SkuButtonModel()
+    }
+  }
 }
 
-class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {
+class MarginItemDecoration(private val horizontalSize: Int, private val verticalSize: Int) :
+    RecyclerView.ItemDecoration() {
   override fun getItemOffsets(
       outRect: Rect, view: View,
       parent: RecyclerView,
       state: RecyclerView.State
   ) {
+
     with(outRect) {
-      top = spaceSize
-      left = spaceSize
-      right = spaceSize
-      bottom = spaceSize
+      top = verticalSize / 2
+      left = horizontalSize / 2
+      right = horizontalSize / 2
+      bottom = verticalSize / 2
     }
   }
 }

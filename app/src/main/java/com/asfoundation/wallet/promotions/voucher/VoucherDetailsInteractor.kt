@@ -3,7 +3,7 @@ package com.asfoundation.wallet.promotions.voucher
 import io.reactivex.Single
 import java.util.*
 
-class EVoucherDetailsInteractor {
+class VoucherDetailsInteractor {
 
   fun getSkuButtonModels(): Single<List<SkuButtonModel>> {
     val skuButtonModels: MutableList<SkuButtonModel> = LinkedList()

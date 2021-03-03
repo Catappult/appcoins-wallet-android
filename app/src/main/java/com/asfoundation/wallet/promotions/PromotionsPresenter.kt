@@ -113,28 +113,37 @@ class PromotionsPresenter(private val view: PromotionsView,
       GAMIFICATION_ID -> navigator.navigateToGamification(cachedBonus)
       GAMIFICATION_INFO -> view.showBottomSheet()
       REFERRAL_ID -> mapReferralClick(promotionClick.extras)
-      VOUCHER_ID -> navigator.navigateToVoucherDetails(
-          promotionClick.extras!!.getValue(PromotionsViewHolder.PACKAGE_NAME_EXTRA))
+      VOUCHER_ID -> navigateToVouchers(promotionClick.extras!!)
       else -> mapPackagePerkClick(promotionClick.extras)
     }
   }
 
-  private fun mapReferralClick(extras: Map<String, String>?) {
+  private fun navigateToVouchers(extras: Map<String, Any>) {
+    navigator.navigateToVoucherDetails(
+        extras.getValue(PromotionsViewHolder.TITLE_NAME_EXTRA) as String,
+        extras.getValue(PromotionsViewHolder.FEATURE_GRAPHIC_EXTRA) as String,
+        extras.getValue(PromotionsViewHolder.ICON_EXTRA) as String,
+        extras.getValue(PromotionsViewHolder.MAX_BONUS) as Double,
+        extras.getValue(PromotionsViewHolder.PACKAGE_NAME_EXTRA) as String,
+        extras.getValue(PromotionsViewHolder.HAS_APPCOINS_EXTRA) as Boolean)
+  }
+
+  private fun mapReferralClick(extras: Map<String, Any>?) {
     if (extras != null) {
       val link = extras[ReferralViewHolder.KEY_LINK]
       if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
         navigator.navigateToInviteFriends()
       } else if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_SHARE && link != null) {
-        navigator.handleShare(link)
+        navigator.handleShare(link as String)
       }
     }
   }
 
-  private fun mapPackagePerkClick(extras: Map<String, String>?) {
+  private fun mapPackagePerkClick(extras: Map<String, Any>?) {
     if (extras != null && extras[PromotionsViewHolder.DETAILS_URL_EXTRA] != null) {
       val detailsLink = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
       try {
-        navigator.openDetailsLink(detailsLink!!)
+        navigator.openDetailsLink(detailsLink as String)
       } catch (exception: ActivityNotFoundException) {
         exception.printStackTrace()
         view.showToast()
