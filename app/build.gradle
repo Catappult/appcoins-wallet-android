@@ -19,8 +19,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 183
-    versionName "1.18.2.1"
+    versionCode 189
+    versionName "1.19.0.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -64,6 +64,7 @@ android {
     buildConfigField 'String', 'AMPLITUDE_API_KEY', project.AMPLITUDE_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_API_KEY', project.FEEDBACK_ZENDESK_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
+    buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 

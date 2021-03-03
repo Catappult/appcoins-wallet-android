@@ -509,7 +509,10 @@
   <string name="error_contac_us_body">Kalau masalah tetap ada, silakan hubungi kami.</string>
   <string name="purchase_error_unverified_wallet">Coba selesaikan pembelian setelah memverifikasi dompet Anda.</string>
   <string name="purchase_error_try_other_method">Ups&#8230; Sedang terjadi sesuatu! Harap coba dengan metode pembayaran lain atau hubungi kami.</string>
-  <string name="purchase_error_try_other_amount">Apakah Anda yakin jumlah top-up Anda sudah benar? Silakan coba metode yang lain atau hubungi kami!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -811,22 +814,35 @@
   <plurals name="promotion_ends">
     <item quantity="other">Promosi akan berakhir %s hari lagi.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promosi akan berakhir pada %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">Promosi akan berakhir dalam %s jam.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">Promosi akan berakhir dalam %s menit.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">Promosi akan berakhir hari ini.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Promosi akan segera tersedia</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Raih level berikutnya untuk mendapatkan %s Kredit AppCoins!</string>
   <string name="perks_notification">Anda baru saja menerima %s Kredit AppCoins sebagai Bonus</string>
   <string name="perks_level_up_on_this_purchase">Tingkatkan level dengan pembelian ini</string>
   <string name="perks_level_up_amount_left">Anda tinggal %1$s %2$s dari level berikutnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">Bonus %1$s: Kredit AppCoins sebesar %2$s</string>
-  <string name="perks_purchases_disclaimer_body">Semua pembelian in-app dan top up yang dilakukan dengan metode pembelian selain Kredit AppCoins akan memenuhi syarat untuk meningkatkan level bonus Anda dan menerima hadiah.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Kunci sidik jari</string>
   <string name="fingerprint_failed_title">Otentikasi gagal!</string>
@@ -878,6 +894,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Beli voucher ini dan dapatkan bonus sampai %s%%.</string>
   <string name="voucher_buy_header">Voucher untuk %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Apakah Anda tidak punya %s?</string>
   <string name="voucher_buy_no_game_install_button">UNDUH SEKARANG</string>
   <string name="voucher_code_title">Kode Voucher</string>

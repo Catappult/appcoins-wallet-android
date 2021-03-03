@@ -34,7 +34,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         authorizationProof.callback, authorizationProof.orderReference,
         authorizationProof.referrerUrl)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
-        .toCompletable()
+        .ignoreElement()
   }
 
   override fun registerPaymentProof(paymentId: String, paymentProof: String,
@@ -88,7 +88,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
 
   companion object {
     inline fun build(block: Builder.() -> Unit) =
-        Builder().apply(block).build()
+        Builder().apply(block)
+            .build()
   }
 
   class Builder {

@@ -185,8 +185,9 @@ public class InAppPurchaseInteractorTest {
         Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
             new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null)));
 
-    when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
-        Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
+    when(billing.getSkuTransaction(anyString(), anyString(), anyString(),
+        any(Scheduler.class))).thenReturn(Single.just(
+        new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
             new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null)));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
@@ -392,7 +393,7 @@ public class InAppPurchaseInteractorTest {
 
     TestObserver<Object> submitObserver = new TestObserver<>();
     inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, "INAPP")
         .subscribe(submitObserver);
 
     scheduler.triggerActions();
