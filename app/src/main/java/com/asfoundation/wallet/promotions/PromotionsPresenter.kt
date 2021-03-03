@@ -172,7 +172,10 @@ class PromotionsPresenter(private val view: PromotionsView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  fun stop() = disposables.clear()
+  fun stop() {
+    viewState = ViewState.DEFAULT
+    disposables.clear()
+  }
 
   private fun handleBottomSheetVisibility() {
     disposables.add(view.getBottomSheetButtonClick()
