@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
+import android.util.Log
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Observable
@@ -41,34 +42,42 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return Observable.concat(getUserStatsFromDB(wallet), getUserStatsFromAPI(wallet))
   }
 
-  private fun getUserStatsFromDB(wallet: String): Observable<UserStatusResponse> {
+  private fun getUserStatsFromDB(wallet: String,
+                                 t: Throwable? = null): Observable<UserStatusResponse> {
     return Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
         BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
           Pair(promotions, walletOrigin)
         })
         .toObservable()
         .map { (promotions, walletOrigin) ->
+          Log.e("user stats", "Retrieved from DB at " + System.currentTimeMillis())
           UserStatusResponse(promotions, walletOrigin, null, true)
         }
         .onErrorReturn {
-          mapErrorToUserStatsModel(it, true)
+          Log.e("user stats",
+              "Error occurred in getting from DB (" + it + ") at" + System.currentTimeMillis())
+          mapErrorToUserStatsModel(t ?: it, true)
         }
   }
 
   private fun getUserStatsFromAPI(wallet: String): Observable<UserStatusResponse> {
-    // TODO eventually change api. values to observable instead of single
     return api.getUserStats(wallet, Locale.getDefault().language)
         .toObservable()
         .map {
+          Log.e("user stats", "Retrieved from API at " + System.currentTimeMillis())
           val userStats = filterByDate(it)
           local.deletePromotions()
               .andThen(local.insertPromotions(userStats.promotions)
                   .andThen(local.insertWalletOrigin(wallet, userStats.walletOrigin)))
+          Log.e("user stats", "Saved to DB at " + System.currentTimeMillis())
           userStats
         }
-        .onErrorReturn {
-          mapErrorToUserStatsModel(it, false)
+        .onErrorResumeNext { t: Throwable ->
+          Log.e("user stats",
+              "Error occurred in getting from API (" + t + ") at" + System.currentTimeMillis())
+          getUserStatsFromDB(wallet, t)
         }
+    // todo Test multiple emissions
   }
 
   private fun filterByDate(userStatusResponse: UserStatusResponse): UserStatusResponse {
@@ -135,6 +144,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   override fun getGamificationStatsDbFirst(wallet: String): Observable<GamificationStats> {
     return getUserStatsDbFirst(wallet)
         .map {
+          Log.e("user stats",
+              "Retrieving Gamification stats " + "(cache=" + it.fromCache + ") at " + System.currentTimeMillis())
           val stats = mapToGamificationStats(it)
           local.setGamificationLevel(stats.level)
           stats
@@ -240,6 +251,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   override fun getUserStatusDbFirst(wallet: String): Observable<UserStatusResponse> {
     return getUserStatsDbFirst(wallet)
         .map { userStatusResponse ->
+          Log.e("user stats",
+              "Retrieving User stats " + "(cache=" + userStatusResponse.fromCache + ") at " + System.currentTimeMillis())
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
           if (userStatusResponse.error == null && gamification != null) {
