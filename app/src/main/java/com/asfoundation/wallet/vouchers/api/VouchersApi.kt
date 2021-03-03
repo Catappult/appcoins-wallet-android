@@ -4,9 +4,9 @@ import io.reactivex.Single
 import retrofit2.http.GET
 
 interface VouchersApi {
-  @GET("vouchers/apps")
+  @GET("voucher/apps")
   fun getAppsWithAvailableVouchers(): Single<VoucherAppListResponse>
 
-  @GET("vouchers/apps/{packageName}/vouchers")
+  @GET("voucher/apps/{packageName}/vouchers")
   fun getVouchersForPackage(packageName: String): Single<VoucherSkuListResponse>
 }
