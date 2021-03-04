@@ -70,9 +70,12 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun showPromotions(promotionsModel: PromotionsModel) {
     perksVouchersPageAdapter.setItems(listOf(promotionsModel.vouchers, promotionsModel.perks))
-    if (promotionsModel.vouchers.isEmpty() && promotionsModel.perks.isNotEmpty()) checkPerksRadioButton()
     uniquePromotionsAdapter.setPromotions(promotionsModel.promotions)
-    rv_promotions.visibility = VISIBLE
+
+    if (promotionsModel.vouchers.isEmpty() && promotionsModel.perks.isNotEmpty()) checkPerksRadioButton()
+    if (promotionsModel.promotions.isEmpty()) top_half.visibility = GONE
+    else top_half.visibility = VISIBLE
+
     perks_vouchers_layout.visibility = VISIBLE
     no_network.visibility = GONE
     locked_promotions_with_vouchers.visibility = GONE
@@ -83,12 +86,12 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   override fun showLockedPromotionsWithVouchers(vouchers: List<VoucherItem>) {
+    top_half.visibility = VISIBLE
     vouchers_text.visibility = VISIBLE
     locked_promotions_with_vouchers.visibility = VISIBLE
     perksVouchersPageAdapter.setItems(listOf(vouchers))
     perks_vouchers_layout.visibility = VISIBLE
     locked_promotions_no_vouchers.visibility = GONE
-    rv_promotions.visibility = GONE
     no_network.visibility = GONE
     no_promotions.visibility = GONE
     perks_vouchers_buttons.visibility = GONE
@@ -97,6 +100,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun showLoading() {
     promotions_progress_bar.visibility = VISIBLE
     locked_promotions_no_vouchers.visibility = GONE
+    top_half.visibility = GONE
+    perks_vouchers_layout.visibility = GONE
   }
 
   override fun retryClick() = RxView.clicks(retry_button)
@@ -104,7 +109,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun getPromotionClicks() = clickListener
 
   override fun showNetworkErrorView() {
-    rv_promotions.visibility = GONE
+    top_half.visibility = GONE
     no_promotions.visibility = GONE
     no_network.visibility = VISIBLE
     retry_button.visibility = VISIBLE
