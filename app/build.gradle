@@ -9,9 +9,6 @@ apply plugin: 'com.google.gms.google-services'
 android {
   buildToolsVersion '29.0.3'
   compileSdkVersion 29
-
-  flavorDimensions "default"
-
   defaultConfig {
 
     def inputFile = new File("appcoins-services.json")
@@ -79,15 +76,6 @@ android {
     }
   }
 
-  productFlavors {
-    loggable {
-      buildConfigField 'boolean', 'LOGGABLE', "true"
-    }
-    nologger {
-      buildConfigField 'boolean', 'LOGGABLE', "false"
-    }
-  }
-
   buildTypes {
     release {
       minifyEnabled false
@@ -108,6 +96,10 @@ android {
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
       manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_SECOND_PAYMENT_HOST}"
+    }
+    staging {
+      initWith release
+      versionNameSuffix ".staging"
     }
     debug {
       minifyEnabled false

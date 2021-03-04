@@ -25,7 +25,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.os.Build;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -33,6 +32,7 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.StringDef;
+import com.asfoundation.wallet.util.Log;
 import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
@@ -320,7 +320,7 @@ public class CameraSource {
           // quickly after stop).
           mProcessingThread.join();
         } catch (InterruptedException e) {
-            com.asfoundation.wallet.util.Log.d(TAG,
+            Log.d(TAG,
                 "Frame processing thread interrupted on release.");
         }
         mProcessingThread = null;
@@ -626,7 +626,7 @@ public class CameraSource {
           .contains(mFocusMode)) {
         parameters.setFocusMode(mFocusMode);
       } else {
-        com.asfoundation.wallet.util.Log.i(TAG,
+        Log.i(TAG,
             "Camera focus mode: " + mFocusMode + " is not supported on this device.");
       }
     }
@@ -639,7 +639,7 @@ public class CameraSource {
           .contains(mFlashMode)) {
         parameters.setFlashMode(mFlashMode);
       } else {
-        com.asfoundation.wallet.util.Log.i(TAG,
+        Log.i(TAG,
             "Camera flash mode: " + mFlashMode + " is not supported on this device.");
       }
     }
@@ -1096,7 +1096,7 @@ public class CameraSource {
         }
 
         if (!mBytesToByteBuffer.containsKey(data)) {
-          com.asfoundation.wallet.util.Log.d(TAG,
+          Log.d(TAG,
               "Skipping frame.  Could not find ByteBuffer associated with the image "
                   + "data from the camera.");
           return;
@@ -1139,7 +1139,7 @@ public class CameraSource {
               // don't have it yet.
               mLock.wait();
             } catch (InterruptedException e) {
-              com.asfoundation.wallet.util.Log.d(TAG, "Frame processing loop terminated.", e);
+              Log.d(TAG, "Frame processing loop terminated.", e);
               return;
             }
           }
