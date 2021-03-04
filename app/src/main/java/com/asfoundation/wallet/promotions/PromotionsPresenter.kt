@@ -112,38 +112,40 @@ class PromotionsPresenter(private val view: PromotionsView,
     when (promotionClick.id) {
       GAMIFICATION_ID -> navigator.navigateToGamification(cachedBonus)
       GAMIFICATION_INFO -> view.showBottomSheet()
-      REFERRAL_ID -> mapReferralClick(promotionClick.extras)
-      VOUCHER_ID -> navigateToVouchers(promotionClick.extras!!)
-      else -> mapPackagePerkClick(promotionClick.extras)
+      REFERRAL_ID -> mapReferralClick(promotionClick)
+      VOUCHER_ID -> navigateToVouchers(promotionClick)
+      else -> mapPackagePerkClick(promotionClick)
     }
   }
 
-  private fun navigateToVouchers(extras: Map<String, Any>) {
-    navigator.navigateToVoucherDetails(
-        extras.getValue(PromotionsViewHolder.TITLE_NAME_EXTRA) as String,
-        extras.getValue(PromotionsViewHolder.FEATURE_GRAPHIC_EXTRA) as String,
-        extras.getValue(PromotionsViewHolder.ICON_EXTRA) as String,
-        extras.getValue(PromotionsViewHolder.MAX_BONUS) as Double,
-        extras.getValue(PromotionsViewHolder.PACKAGE_NAME_EXTRA) as String,
-        extras.getValue(PromotionsViewHolder.HAS_APPCOINS_EXTRA) as Boolean)
+  private fun navigateToVouchers(promotionClick: PromotionClick) {
+    if (promotionClick is VoucherClick) {
+      navigator.navigateToVoucherDetails(promotionClick.title, promotionClick.featureGraphic,
+          promotionClick.icon, promotionClick.maxBonus, promotionClick.packageName,
+          promotionClick.hasAppcoins)
+    } else {
+      view.showToast()
+    }
   }
 
-  private fun mapReferralClick(extras: Map<String, Any>?) {
-    if (extras != null) {
-      val link = extras[ReferralViewHolder.KEY_LINK]
-      if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_DETAILS) {
+  private fun mapReferralClick(promotionClick: PromotionClick) {
+    if (promotionClick is ReferralClick) {
+      val link = promotionClick.link
+      val action = promotionClick.action
+      if (action == ReferralViewHolder.ACTION_DETAILS) {
         navigator.navigateToInviteFriends()
-      } else if (extras[ReferralViewHolder.KEY_ACTION] == ReferralViewHolder.ACTION_SHARE && link != null) {
-        navigator.handleShare(link as String)
+      } else if (action == ReferralViewHolder.ACTION_SHARE) {
+        navigator.handleShare(link)
       }
+    } else {
+      view.showToast()
     }
   }
 
-  private fun mapPackagePerkClick(extras: Map<String, Any>?) {
-    if (extras != null && extras[PromotionsViewHolder.DETAILS_URL_EXTRA] != null) {
-      val detailsLink = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
+  private fun mapPackagePerkClick(promotionClick: PromotionClick) {
+    if (promotionClick is AppPromotionClick) {
       try {
-        navigator.openDetailsLink(detailsLink as String)
+        navigator.openDetailsLink(promotionClick.downloadLink)
       } catch (exception: ActivityNotFoundException) {
         exception.printStackTrace()
         view.showToast()

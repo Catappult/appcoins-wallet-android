@@ -75,14 +75,11 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    itemView.isClickable = progressItem.detailsLink != null
-
-    itemView.setOnClickListener {
-      val extras = emptyMap<String, String>().toMutableMap()
-      progressItem.detailsLink?.let {
-        extras[DETAILS_URL_EXTRA] = it
+    progressItem.detailsLink?.let { detailsLink ->
+      itemView.isClickable = true
+      itemView.setOnClickListener {
+        clickListener.onNext(AppPromotionClick(promotion.id, detailsLink))
       }
-      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     loadIcon(progressItem.icon, itemView.active_icon)
@@ -117,14 +114,11 @@ class DefaultViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
 
-    itemView.isClickable = defaultItem.detailsLink != null
-
-    itemView.setOnClickListener {
-      val extras = emptyMap<String, String>().toMutableMap()
-      defaultItem.detailsLink?.let {
-        extras[DETAILS_URL_EXTRA] = it
+    defaultItem.detailsLink?.let { detailsLink ->
+      itemView.isClickable = true
+      itemView.setOnClickListener {
+        clickListener.onNext(AppPromotionClick(promotion.id, detailsLink))
       }
-      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     loadIcon(defaultItem.icon, itemView.active_icon)
@@ -143,14 +137,11 @@ class FutureViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val futureItem = promotion as FutureItem
 
-    itemView.isClickable = futureItem.detailsLink != null
-
-    itemView.setOnClickListener {
-      val extras = emptyMap<String, String>().toMutableMap()
-      futureItem.detailsLink?.let {
-        extras[DETAILS_URL_EXTRA] = it
+    futureItem.detailsLink?.let { detailsLink ->
+      itemView.isClickable = true
+      itemView.setOnClickListener {
+        clickListener.onNext(AppPromotionClick(promotion.id, detailsLink))
       }
-      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     loadIcon(futureItem.icon, itemView.future_icon)
@@ -165,8 +156,6 @@ class ReferralViewHolder(itemView: View,
     PromotionsViewHolder(itemView) {
 
   companion object {
-    const val KEY_ACTION = "ACTION"
-    const val KEY_LINK = "LINK"
     const val ACTION_DETAILS = "DETAILS"
     const val ACTION_SHARE = "SHARE"
   }
@@ -175,19 +164,11 @@ class ReferralViewHolder(itemView: View,
     val referralItem = promotion as ReferralItem
 
     itemView.setOnClickListener {
-      val extras = mapOf(
-          Pair(KEY_LINK, referralItem.link),
-          Pair(KEY_ACTION, ACTION_DETAILS)
-      )
-      clickListener.onNext(PromotionClick(promotion.id, extras))
+      clickListener.onNext(ReferralClick(promotion.id, referralItem.link, ACTION_DETAILS))
     }
 
     itemView.share_container.setOnClickListener {
-      val extras = mapOf(
-          Pair(KEY_LINK, referralItem.link),
-          Pair(KEY_ACTION, ACTION_SHARE)
-      )
-      clickListener.onNext(PromotionClick(promotion.id, extras))
+      clickListener.onNext(ReferralClick(promotion.id, referralItem.link, ACTION_SHARE))
     }
 
     val formatter = CurrencyFormatUtils.create()
@@ -274,13 +255,9 @@ class VouchersViewHolder(itemView: View,
     loadIcon(voucher.icon, itemView.voucher_icon)
 
     itemView.setOnClickListener {
-      val extras = mapOf(Pair(PACKAGE_NAME_EXTRA, voucher.packageName),
-          Pair(TITLE_NAME_EXTRA, voucher.title),
-          Pair(FEATURE_GRAPHIC_EXTRA, voucher.featureGraphic),
-          Pair(ICON_EXTRA, voucher.icon),
-          Pair(MAX_BONUS, voucher.maxBonus),
-          Pair(HAS_APPCOINS_EXTRA, voucher.hasAppcoins))
-      clickListener.onNext(PromotionClick(voucher.id, extras))
+      clickListener.onNext(
+          VoucherClick(voucher.id, voucher.packageName, voucher.title, voucher.featureGraphic,
+              voucher.icon, voucher.maxBonus, voucher.hasAppcoins))
     }
   }
 }

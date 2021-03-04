@@ -28,7 +28,7 @@
           android:layout_height="@dimen/voucher_details_image_height"
           android:scaleType="centerCrop"
           app:layout_constraintTop_toTopOf="parent"
-          tools:src="@drawable/free_fire"
+          tools:src="@drawable/ic_appc"
           />
 
       <LinearLayout
