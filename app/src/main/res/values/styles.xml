@@ -1134,17 +1134,9 @@
 
   <!-- E-Voucher Details -->
 
-  <style name="ButtonStyle.Cancel" parent="Base.Widget.AppCompat.ImageButton">
-    <item name="android:background">@color/transparent</item>
+  <style name="CancelBorderlessButtonStyle.Voucher">
     <item name="android:textColor">@color/cancel_dark_blue</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
-    <item name="android:minWidth">64dp</item>
     <item name="android:minHeight">36dp</item>
-    <item name="android:letterSpacing">.09</item>
-    <item name="textAllCaps">true</item>
   </style>
 
   <style name="AppCoinsIconStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
