@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.analytics;
 
 import android.os.Bundle;
-import android.util.Log;
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.EventLogger;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.util.Log;
 import com.facebook.appevents.AppEventsLogger;
 import java.math.BigDecimal;
 import java.util.Currency;

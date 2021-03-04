@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.logging
 
-import android.util.Log
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.util.Log
 
 class DebugReceiver : LogReceiver {
 
