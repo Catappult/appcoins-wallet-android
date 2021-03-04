@@ -45,15 +45,15 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
     val expiredSubs = subscriptionModel.expiredSubscriptions
     val bothEmpty = activeSubs.isEmpty() && expiredSubs.isEmpty()
     when {
-      subscriptionModel.error == Error.NO_NETWORK -> if (!view.hasItems()) view.showNoNetworkError()
+      subscriptionModel.error == Error.NO_NETWORK && !view.hasItems() -> view.showNoNetworkError() //If we have items from db then we should not show a no network error. If it's empty then we should show to the user
       bothEmpty && !subscriptionModel.fromCache -> view.showNoSubscriptions()
-      else -> {
-        if (bothEmpty.not()) {
-          view.onActiveSubscriptions(activeSubs)
-          view.onExpiredSubscriptions(subscriptionModel.expiredSubscriptions)
-          view.showSubscriptions()
-        }
+      bothEmpty.not() -> {
+        //Both from cache and not from cache
+        view.onActiveSubscriptions(activeSubs)
+        view.onExpiredSubscriptions(subscriptionModel.expiredSubscriptions)
+        view.showSubscriptions()
       }
+      else -> Unit //When both empty and fromCache we should not do anything and wait for the API
     }
   }
 
