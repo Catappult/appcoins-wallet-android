@@ -69,7 +69,7 @@ class GamificationTest {
   }
 
   @Test
-  fun getUserStatsOfflineFirstNoNetworkWithoutDb() {
+  fun getUserStatsNoNetworkWithoutDb() {
     local.walletOriginResponse = Single.error(EmptyResultSetException(""))
     local.userStatusResponse = Single.error(EmptyResultSetException(""))
     api.userStatusResponse = Single.error(UnknownHostException())
