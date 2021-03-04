@@ -15,4 +15,8 @@ class VoucherSkuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     itemView.sku_button.setOnClickListener { onSkuClick.onNext(adapterPosition) }
   }
+
+  fun refreshState(selectedPosition: Int) {
+    itemView.sku_button.isActivated = selectedPosition == adapterPosition
+  }
 }

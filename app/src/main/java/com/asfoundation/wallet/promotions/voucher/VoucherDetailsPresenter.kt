@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions.voucher
 
+import android.os.Bundle
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -14,10 +15,13 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
                               private val ioScheduler: Scheduler,
                               private val logger: Logger) {
 
-  fun present() {
+  fun present(savedInstanceState: Bundle?) {
     view.showLoading()
     view.setupUi(data.title, data.featureGraphic, data.icon, data.maxBonus, data.packageName,
         data.hasAppcoins)
+    savedInstanceState?.let {
+      view.setSelectedSku(it.getInt(SELECTED_ITEM_KEY, -1))
+    }
     retrieveSkuList()
     handleNextClick()
     handleCancelClick()
@@ -77,6 +81,7 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
           if (it.error.hasError.not()) {
             view.hideLoading()
             view.setupSkus(it.list)
+
           } else if (it.error.isNoNetwork) {
             view.showNoNetworkError()
           }
@@ -84,9 +89,14 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
         .subscribe({ }, { logger.log(TAG, it) }))
   }
 
+  fun onSavedInstance(outState: Bundle, selectedItem: Int) {
+    outState.putInt(SELECTED_ITEM_KEY, selectedItem)
+  }
+
   fun stop() = disposable.clear()
 
   private companion object {
     private val TAG = VoucherDetailsPresenter::class.java.simpleName
+    private const val SELECTED_ITEM_KEY = "selected_item"
   }
 }

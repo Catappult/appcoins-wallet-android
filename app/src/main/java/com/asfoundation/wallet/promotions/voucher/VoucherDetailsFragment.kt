@@ -53,7 +53,19 @@ class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present()
+    setupAdapter()
+    presenter.present(savedInstanceState)
+  }
+
+  private fun setupAdapter() {
+    voucherSkuAdapter = VoucherSkuAdapter(emptyList(), skuButtonClick)
+    resources.apply {
+      val verticalSize = getDimension(R.dimen.voucher_details_grid_view_vertical_spacing)
+      val horizontalSize = getDimension(R.dimen.voucher_details_grid_view_horizontal_spacing)
+      sku_recycler_view.addItemDecoration(
+          MarginItemDecoration(horizontalSize.toInt(), verticalSize.toInt()))
+    }
+    sku_recycler_view.adapter = voucherSkuAdapter
   }
 
   override fun setupUi(title: String, featureGraphic: String, icon: String, maxBonus: Double,
@@ -94,14 +106,7 @@ class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
   }
 
   override fun setupSkus(voucherSkuItems: List<VoucherSkuItem>) {
-    voucherSkuAdapter = VoucherSkuAdapter(voucherSkuItems, skuButtonClick)
-    resources.apply {
-      val verticalSize = getDimension(R.dimen.voucher_details_grid_view_vertical_spacing)
-      val horizontalSize = getDimension(R.dimen.voucher_details_grid_view_horizontal_spacing)
-      sku_recycler_view.addItemDecoration(
-          MarginItemDecoration(horizontalSize.toInt(), verticalSize.toInt()))
-    }
-    sku_recycler_view.adapter = voucherSkuAdapter
+    voucherSkuAdapter.setSkus(voucherSkuItems)
   }
 
   override fun onNextClicks(): Observable<VoucherSkuItem> {
@@ -145,6 +150,11 @@ class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
   override fun setSelectedSku(index: Int) {
     voucherSkuAdapter.setSelectedSku(index)
     next_button.isEnabled = true
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    presenter.onSavedInstance(outState, voucherSkuAdapter.getSelectedPosition())
   }
 
   override fun onDestroy() {

@@ -12,18 +12,28 @@ import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
 
-class VoucherSkuAdapter(private val voucherSkuItem: List<VoucherSkuItem>,
+class VoucherSkuAdapter(voucherSkuItem: List<VoucherSkuItem>,
                         private val onSkuClick: PublishSubject<Int>) :
     RecyclerView.Adapter<VoucherSkuViewHolder>() {
 
   private var selectedPosition: Int = -1
+  private var currentList: List<VoucherSkuItem> = emptyList()
 
-
-  override fun onBindViewHolder(holder: VoucherSkuViewHolder, position: Int) {
-    holder.bind(selectedPosition, voucherSkuItem[position], onSkuClick)
+  init {
+    currentList = voucherSkuItem
   }
 
-  override fun getItemCount() = voucherSkuItem.size
+  override fun onBindViewHolder(holder: VoucherSkuViewHolder, position: Int) {
+    //Should use payload onBindViewHolder instead
+  }
+
+  override fun onBindViewHolder(holder: VoucherSkuViewHolder, position: Int,
+                                payloads: MutableList<Any>) {
+    if (payloads.isEmpty()) holder.bind(selectedPosition, currentList[position], onSkuClick)
+    else if (payloads.contains(REFRESH_PAYLOAD)) holder.refreshState(selectedPosition)
+  }
+
+  override fun getItemCount() = currentList.size
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherSkuViewHolder {
     val context = parent.context
@@ -38,16 +48,27 @@ class VoucherSkuAdapter(private val voucherSkuItem: List<VoucherSkuItem>,
   fun setSelectedSku(index: Int) {
     val oldSelectedPosition = selectedPosition
     selectedPosition = index
-    notifyItemChanged(oldSelectedPosition)
-    notifyItemChanged(selectedPosition)
+    notifyItemChanged(oldSelectedPosition, REFRESH_PAYLOAD)
+    notifyItemChanged(selectedPosition, REFRESH_PAYLOAD)
   }
 
+  fun setSkus(voucherSkuItems: List<VoucherSkuItem>) {
+    currentList = voucherSkuItems
+    notifyDataSetChanged()
+  }
+
+  fun getSelectedPosition() = selectedPosition
+
   fun getSelectedSku(): VoucherSkuItem {
-    return if (selectedPosition != -1 && selectedPosition < voucherSkuItem.size) {
-      voucherSkuItem[selectedPosition]
+    return if (selectedPosition != -1 && selectedPosition < currentList.size) {
+      currentList[selectedPosition]
     } else {
       VoucherSkuItem()
     }
+  }
+
+  private companion object {
+    private const val REFRESH_PAYLOAD = "refresh"
   }
 }
 
