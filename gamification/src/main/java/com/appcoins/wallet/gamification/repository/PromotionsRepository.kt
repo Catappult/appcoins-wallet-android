@@ -13,6 +13,8 @@ interface PromotionsRepository {
 
   fun getLevels(wallet: String): Single<Levels>
 
+  fun getLevelsOfflineFirst(wallet: String): Observable<Levels>
+
   fun getForecastBonus(wallet: String, packageName: String,
                        amount: BigDecimal): Single<ForecastBonus>
 

@@ -196,27 +196,52 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               .andThen(local.insertLevels(it))
               .toSingle { it }
         }
-        .map { map(it) }
+        .map { map(it, false) }
         .onErrorResumeNext { t ->
           local.getLevels()
-              .map { map(it) }
-              .onErrorReturn { mapLevelsError(t) }
+              .map { map(it, true) }
+              .onErrorReturn { mapLevelsError(t, false) }
         }
   }
 
-  private fun mapLevelsError(throwable: Throwable): Levels {
+  override fun getLevelsOfflineFirst(wallet: String): Observable<Levels> {
+    return Observable.concat(getLevelsFromDB(), getLevelsFromAPI(wallet))
+  }
+
+  private fun getLevelsFromDB(t: Throwable? = null): Observable<Levels> {
+    return local.getLevels()
+        .toObservable()
+        .map { map(it, true) }
+        .onErrorReturn { mapLevelsError(t ?: it, t == null) }
+  }
+
+  private fun getLevelsFromAPI(wallet: String): Observable<Levels> {
+    return api.getLevels(wallet)
+        .toObservable()
+        .flatMap {
+          local.deleteLevels()
+              .andThen(local.insertLevels(it))
+              .toSingle { map(it, false) }
+              .toObservable()
+        }
+        .onErrorResumeNext { t: Throwable ->
+          getLevelsFromDB(t)
+        }
+  }
+
+  private fun mapLevelsError(throwable: Throwable, fromCache: Boolean): Levels {
     throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
-      Levels(Levels.Status.NO_NETWORK)
+      Levels(Levels.Status.NO_NETWORK, fromCache = fromCache)
     } else {
-      Levels(Levels.Status.UNKNOWN_ERROR)
+      Levels(Levels.Status.UNKNOWN_ERROR, fromCache = fromCache)
     }
   }
 
-  private fun map(response: LevelsResponse): Levels {
+  private fun map(response: LevelsResponse, fromCache: Boolean): Levels {
     val list = response.list.map { Levels.Level(it.amount, it.bonus, it.level) }
     return Levels(Levels.Status.OK, list, LevelsResponse.Status.ACTIVE == response.status,
-        response.updateDate)
+        response.updateDate, fromCache)
   }
 
   override fun getUserStatus(wallet: String): Single<UserStatusResponse> {
@@ -251,7 +276,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
-    return getUserStats(wallet)
+    return getUserStatsDbFirst(wallet)
+        .lastOrError()
         .flatMap {
           val gamification =
               it.promotions.firstOrNull { promotions -> promotions is GamificationResponse } as GamificationResponse?
