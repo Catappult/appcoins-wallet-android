@@ -15,33 +15,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rv_promotions"
+      <FrameLayout
+          android:id="@+id/top_half"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/big_margin"
           android:orientation="vertical"
-          android:overScrollMode="never"
-          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:itemCount="1"
-          tools:listitem="@layout/item_promotions_gamification"
-          />
+          >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_promotions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_promotions_gamification"
+            />
 
+        <include
+            android:id="@+id/locked_promotions_with_vouchers"
+            layout="@layout/layout_locked_promotions_with_vouchers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+      </FrameLayout>
+      <!-- Adjust margin top when there's no gamification -->
       <include
           android:id="@+id/perks_vouchers_layout"
           layout="@layout/perks_and_vouchers_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="32dp"
+          android:layout_marginTop="24dp"
           android:layout_marginEnd="8dp"
-          app:layout_constraintTop_toBottomOf="@id/rv_promotions"
+          android:visibility="invisible"
+          app:layout_constraintTop_toBottomOf="@id/top_half"
           />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
+
   <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:id="@+id/bottomsheet_coordinator_container"
       android:layout_width="match_parent"
@@ -101,7 +118,7 @@
       />
 
   <include
-      android:id="@+id/locked_promotions"
+      android:id="@+id/locked_promotions_no_vouchers"
       layout="@layout/locked_promotions_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

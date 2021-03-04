@@ -47,4 +47,6 @@ interface PromotionsView {
   fun pageChangedCallback(): Observable<Int>
 
   fun changeButtonState(position: Int)
+
+  fun showLockedPromotionsWithVouchers(vouchers: List<VoucherItem>)
 }

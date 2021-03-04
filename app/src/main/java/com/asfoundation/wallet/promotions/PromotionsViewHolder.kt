@@ -260,8 +260,9 @@ class VouchersViewHolder(itemView: View,
       itemView.has_bonus_group.visibility = View.VISIBLE
       val formatter = CurrencyFormatUtils.create()
       val bonus = formatter.formatGamificationValues(BigDecimal(voucher.maxBonus))
-      itemView.voucher_description.text =
-          String.format(itemView.context.getString(R.string.voucher_card_body), bonus)
+      val prefix = itemView.context.getString(R.string.voucher_card_body_1)
+      val suffix = String.format(itemView.context.getString(R.string.voucher_card_body_2), bonus)
+      itemView.voucher_description.text = "$prefix $suffix"
     } else {
       itemView.has_bonus_group.visibility = View.GONE
     }

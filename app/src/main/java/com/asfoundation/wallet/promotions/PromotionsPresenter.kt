@@ -54,7 +54,11 @@ class PromotionsPresenter(private val view: PromotionsView,
       }
       promotionsModel.walletOrigin == WalletOrigin.UNKNOWN -> {
         viewState = ViewState.UNKNOWN
-        view.showLockedPromotionsScreen()
+        if (promotionsModel.vouchers.isNotEmpty()) {
+          view.showLockedPromotionsWithVouchers(promotionsModel.vouchers)
+        } else {
+          view.showLockedPromotionsScreen()
+        }
       }
       else -> {
         if (hasPromotions(promotionsModel)) {

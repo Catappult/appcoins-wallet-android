@@ -14,6 +14,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
+import kotlinx.android.synthetic.main.layout_perks_vouchers_buttons.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.perks_and_vouchers_layout.*
 import javax.inject.Inject
@@ -72,15 +73,30 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     if (promotionsModel.vouchers.isEmpty() && promotionsModel.perks.isNotEmpty()) checkPerksRadioButton()
     uniquePromotionsAdapter.setPromotions(promotionsModel.promotions)
     rv_promotions.visibility = VISIBLE
+    perks_vouchers_layout.visibility = VISIBLE
     no_network.visibility = GONE
-    locked_promotions.visibility = GONE
+    locked_promotions_with_vouchers.visibility = GONE
+    locked_promotions_no_vouchers.visibility = GONE
     no_promotions.visibility = GONE
     perks_vouchers_buttons.visibility = VISIBLE
+    vouchers_text.visibility = GONE
+  }
+
+  override fun showLockedPromotionsWithVouchers(vouchers: List<VoucherItem>) {
+    vouchers_text.visibility = VISIBLE
+    locked_promotions_with_vouchers.visibility = VISIBLE
+    perksVouchersPageAdapter.setItems(listOf(vouchers))
+    perks_vouchers_layout.visibility = VISIBLE
+    locked_promotions_no_vouchers.visibility = GONE
+    rv_promotions.visibility = GONE
+    no_network.visibility = GONE
+    no_promotions.visibility = GONE
+    perks_vouchers_buttons.visibility = GONE
   }
 
   override fun showLoading() {
     promotions_progress_bar.visibility = VISIBLE
-    locked_promotions.visibility = GONE
+    locked_promotions_no_vouchers.visibility = GONE
   }
 
   override fun retryClick() = RxView.clicks(retry_button)
@@ -99,14 +115,14 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     no_network.visibility = GONE
     retry_animation.visibility = GONE
     no_promotions.visibility = VISIBLE
-    locked_promotions.visibility = GONE
+    locked_promotions_no_vouchers.visibility = GONE
   }
 
   override fun showLockedPromotionsScreen() {
     no_network.visibility = GONE
     retry_animation.visibility = GONE
     no_promotions.visibility = GONE
-    locked_promotions.visibility = VISIBLE
+    locked_promotions_no_vouchers.visibility = VISIBLE
   }
 
   override fun showRetryAnimation() {
