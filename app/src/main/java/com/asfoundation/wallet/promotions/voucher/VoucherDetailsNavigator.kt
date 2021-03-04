@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager
 
 class VoucherDetailsNavigator(private val fragmentManager: FragmentManager,
                               private val context: Context) {
-  fun navigateToPurchaseFlow() {
+  fun navigateToPurchaseFlow(voucherSkuItem: VoucherSkuItem) {
     //TODO
   }
 

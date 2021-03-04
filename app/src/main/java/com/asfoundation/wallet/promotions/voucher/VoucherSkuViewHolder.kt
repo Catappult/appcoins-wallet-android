@@ -1,17 +1,18 @@
 package com.asfoundation.wallet.promotions.voucher
 
-import android.widget.Button
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.voucher_details_sku_button.view.*
 
-class VoucherSkuViewHolder(private val button: Button) : RecyclerView.ViewHolder(button) {
+class VoucherSkuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-  fun bind(position: Int, selectedPosition: Int, voucherSkuItem: VoucherSkuItem,
+  fun bind(selectedPosition: Int, voucherSkuItem: VoucherSkuItem,
            onSkuClick: PublishSubject<Int>) {
-    button.text = voucherSkuItem.title
+    itemView.sku_button.text = voucherSkuItem.title
 
-    button.isActivated = selectedPosition == position
+    itemView.sku_button.isActivated = selectedPosition == adapterPosition
 
-    button.setOnClickListener { onSkuClick.onNext(position) }
+    itemView.sku_button.setOnClickListener { onSkuClick.onNext(adapterPosition) }
   }
 }

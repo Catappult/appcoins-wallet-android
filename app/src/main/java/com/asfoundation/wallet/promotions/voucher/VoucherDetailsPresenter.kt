@@ -18,7 +18,7 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
     view.showLoading()
     view.setupUi(data.title, data.featureGraphic, data.icon, data.maxBonus, data.packageName,
         data.hasAppcoins)
-    initializeView()
+    retrieveSkuList()
     handleNextClick()
     handleCancelClick()
     handleBackClick()
@@ -54,7 +54,7 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
   private fun handleNextClick() {
     disposable.add(view.onNextClicks()
         .filter { it.error.not() }
-        .doOnNext { navigator.navigateToPurchaseFlow() }
+        .doOnNext { navigator.navigateToPurchaseFlow(it) }
         .subscribe({ }, { it.printStackTrace() }))
   }
 
@@ -64,12 +64,12 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
-        .doOnNext { initializeView() }
+        .doOnNext { retrieveSkuList() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
 
-  private fun initializeView() {
+  private fun retrieveSkuList() {
     disposable.add(interactor.getVoucherSkus()
         .subscribeOn(ioScheduler)
         .observeOn(viewScheduler)

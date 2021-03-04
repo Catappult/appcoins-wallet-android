@@ -1,11 +1,6 @@
 package com.asfoundation.wallet.promotions.voucher
 
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment.Companion.FEATURE_GRAPHIC
-import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment.Companion.ICON
-import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment.Companion.MAX_BONUS
-import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment.Companion.PACKAGE_NAME
-import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment.Companion.TITLE
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,11 +29,11 @@ class VoucherDetailsModule {
   fun providesVoucherDetailsData(fragment: VoucherDetailsFragment): VoucherDetailsData {
     fragment.arguments!!.apply {
       return VoucherDetailsData(
-          getString(TITLE)!!,
-          getString(FEATURE_GRAPHIC)!!,
-          getString(ICON)!!,
-          getDouble(MAX_BONUS),
-          getString(PACKAGE_NAME)!!,
+          getString(VoucherDetailsFragment.TITLE)!!,
+          getString(VoucherDetailsFragment.FEATURE_GRAPHIC)!!,
+          getString(VoucherDetailsFragment.ICON)!!,
+          getDouble(VoucherDetailsFragment.MAX_BONUS),
+          getString(VoucherDetailsFragment.PACKAGE_NAME)!!,
           getBoolean(VoucherDetailsFragment.HAS_APPCOINS))
     }
   }

@@ -20,7 +20,7 @@ class VoucherSkuAdapter(private val voucherSkuItem: List<VoucherSkuItem>,
 
 
   override fun onBindViewHolder(holder: VoucherSkuViewHolder, position: Int) {
-    holder.bind(position, selectedPosition, voucherSkuItem[position], onSkuClick)
+    holder.bind(selectedPosition, voucherSkuItem[position], onSkuClick)
   }
 
   override fun getItemCount() = voucherSkuItem.size
@@ -29,7 +29,7 @@ class VoucherSkuAdapter(private val voucherSkuItem: List<VoucherSkuItem>,
     val context = parent.context
     val buttonHeight = context.resources.getDimension(R.dimen.voucher_details_grid_button_height)
     val button: Button = LayoutInflater.from(context)
-        .inflate(R.layout.voucher_details_diamonds_button, parent, false) as Button
+        .inflate(R.layout.voucher_details_sku_button, parent, false) as Button
     button.layoutParams = AbsListView.LayoutParams(GridView.AUTO_FIT, buttonHeight.toInt())
 
     return VoucherSkuViewHolder(button)
