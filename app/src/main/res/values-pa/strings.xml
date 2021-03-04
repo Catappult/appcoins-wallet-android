@@ -509,7 +509,10 @@
   <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_error_unverified_wallet">ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਤੋਂ ਬਾਅਦ ਖਰੀਦ ਪੂਰੀ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="purchase_error_try_other_method">ਓਹੋ&#8230; ਕੁੱਝ ਗਲਤ ਚੱਲ ਰਿਹਾ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਵਖਰੀ ਭੁਗਤਾਨ ਵਿਧੀ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
-  <string name="purchase_error_try_other_amount">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਰੀਚਾਰਜ ਰਕਮ ਸਹੀ ਹੈ? ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
@@ -813,24 +816,40 @@
     <item quantity="one">The promotion ends in %s day.</item>
     <item quantity="other">ਆਫਰ %s ਦਿਨਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">ਆਫਰ %s ਨੂੰ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">ਆਫਰ %s ਘੰਟੇ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
     <item quantity="other">ਆਫਰ %s ਘੰਟਿਆਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">The promotion ends in %s minute.</item>
     <item quantity="other">ਆਫਰ %s ਮਿੰਟਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">It ends in %s minute.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">ਆਫਰ ਅੱਜ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">ਆਫਰ ਜਲਦੀ ਉਪਲਬਧ ਹੋਵੇਗੀ</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚੋ!</string>
   <string name="perks_notification">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟ ਬੋਨਸ ਦੇ ਰੂਪ ਵਿੱਚ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
   <string name="perks_level_up_on_this_purchase">ਇਸ ਖਰੀਦ ਨਾਲ ਪੱਧਰ ਵਧਿਆ</string>
   <string name="perks_level_up_amount_left">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੋਂ %1$s %2$s ਦੂਰ ਹੋ!</string>
   <string name="perks_level_up_level_tag">ਐਲਵੀ %s</string>
   <string name="perks_bonus_purchase_flow">%1$sਬੋਨਸ: %2$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਵਿੱਚ</string>
-  <string name="perks_purchases_disclaimer_body">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਤੋਂ ਇਲਾਵਾ ਕਿਸੇ ਵੀ ਖਰੀਦ ਵਿਧੀ ਨਾਲ ਕੀਤੀਆਂ ਗਈਆਂ ਇਨ-ਐਪ ਖਰੀਦਾਂ ਅਤੇ ਟਾਪ ਅੱਪ ਤੁਹਾਡੇ ਬੋਨਸ ਪੱਧਰ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਦੇ ਯੋਗ ਹੋਣਗੇ|</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">ਫਿੰਗਰਪ੍ਰਿੰਟ ਲਾਕ</string>
   <string name="fingerprint_failed_title">ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ!</string>
@@ -884,6 +903,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">ਇਸ ਵਾਊਚਰ ਨੂੰ ਖਰੀਦੋ ਅਤੇ %s %% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
   <string name="voucher_buy_header">%s ਲਈ ਵਾਊਚਰ</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">ਕੀ ਤੁਹਾਡੇ ਕੋਲ %s ਨਹੀਂ ਹੈ?</string>
   <string name="voucher_buy_no_game_install_button">ਹੁਣੇ ਡਾਊਨਲੋਡ ਕਰੋ</string>
   <string name="voucher_code_title">ਵਾਊਚਰ ਕੋਡ</string>

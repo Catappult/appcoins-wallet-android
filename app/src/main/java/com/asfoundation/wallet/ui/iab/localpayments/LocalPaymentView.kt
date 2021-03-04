@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.annotation.StringRes
 import io.reactivex.Observable
 
 interface LocalPaymentView {
@@ -36,7 +35,7 @@ interface LocalPaymentView {
 
   fun getSupportIconClicks(): Observable<Any>
 
-  fun showWalletValidation(@StringRes error: Int)
+  fun showVerification()
 
   fun setupUi(bonus: String?)
 

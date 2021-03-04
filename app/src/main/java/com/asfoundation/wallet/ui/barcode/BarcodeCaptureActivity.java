@@ -216,8 +216,7 @@ public final class BarcodeCaptureActivity extends BaseActivity
       @NonNull int[] grantResults) {
     if (requestCode == RC_HANDLE_CAMERA_PERM) {
       if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          com.asfoundation.wallet.util.Log.d(TAG,
-              "Camera permission granted - initialize the camera source");
+        Log.d(TAG, "Camera permission granted - initialize the camera source");
         // we have permission, so create the camerasource
         createCameraSource(AUTO_FOCUS, USE_FLASH);
       } else {

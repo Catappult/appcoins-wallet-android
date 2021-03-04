@@ -15,7 +15,7 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationAnalytics
+import com.asfoundation.wallet.verification.VerificationAnalytics
 import com.facebook.appevents.AppEventsLogger
 import dagger.Module
 import dagger.Provides
@@ -83,9 +83,6 @@ class AnalyticsModule {
       TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
       TopUpAnalytics.RAKAM_TOP_UP_BILLING,
       PoaAnalytics.RAKAM_POA_EVENT,
-      WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION,
-      WalletValidationAnalytics.WALLET_CODE_VERIFICATION,
-      WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION,
       WalletsAnalytics.WALLET_CREATE_BACKUP,
       WalletsAnalytics.WALLET_SAVE_BACKUP,
       WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
@@ -98,7 +95,12 @@ class AnalyticsModule {
       RatingAnalytics.WALLET_RATING_WELCOME_EVENT,
       RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
       RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT,
-      RatingAnalytics.WALLET_RATING_FINISH_EVENT
+      RatingAnalytics.WALLET_RATING_FINISH_EVENT,
+      VerificationAnalytics.START_EVENT,
+      VerificationAnalytics.INSERT_CARD_EVENT,
+      VerificationAnalytics.REQUEST_CONCLUSION_EVENT,
+      VerificationAnalytics.CONFIRM_EVENT,
+      VerificationAnalytics.CONCLUSION_EVENT
   )
 
   @Singleton
@@ -117,9 +119,6 @@ class AnalyticsModule {
       TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
       TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
       PoaAnalytics.RAKAM_POA_EVENT,
-      WalletValidationAnalytics.WALLET_PHONE_NUMBER_VERIFICATION,
-      WalletValidationAnalytics.WALLET_CODE_VERIFICATION,
-      WalletValidationAnalytics.WALLET_VERIFICATION_CONFIRMATION,
       WalletsAnalytics.WALLET_CREATE_BACKUP,
       WalletsAnalytics.WALLET_SAVE_BACKUP,
       WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
@@ -198,11 +197,6 @@ class AnalyticsModule {
   @Provides
   fun provideTopUpAnalytics(analyticsManager: AnalyticsManager) = TopUpAnalytics(analyticsManager)
 
-  @Singleton
-  @Provides
-  fun provideWalletValidationAnalytics(analyticsManager: AnalyticsManager) =
-      WalletValidationAnalytics(analyticsManager)
-
   @Provides
   fun providePaymentMethodsAnalytics(billingAnalytics: BillingAnalytics,
                                      rakamAnalytics: RakamAnalytics,
@@ -220,4 +214,10 @@ class AnalyticsModule {
   @Provides
   fun providesRatingAnalytics(analyticsManager: AnalyticsManager) =
       RatingAnalytics(analyticsManager)
+
+  @Singleton
+  @Provides
+  fun providesVerificationAnalytics(analytics: AnalyticsManager): VerificationAnalytics {
+    return VerificationAnalytics(analytics)
+  }
 }

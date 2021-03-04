@@ -201,7 +201,7 @@ class CarrierVerifyPresenter(
               navigator.navigateToError(
                   stringProvider.getString(R.string.purchase_error_wallet_block_code_403))
             } else {
-              navigator.navigateToWalletValidation(R.string.purchase_error_wallet_block_code_403)
+              navigator.navigateToVerification()
             }
           } else {
             navigator.navigateToError(

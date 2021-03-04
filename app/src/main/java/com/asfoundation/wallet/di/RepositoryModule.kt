@@ -52,6 +52,9 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPreferencesRepository
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
+import com.asfoundation.wallet.verification.VerificationRepository
+import com.asfoundation.wallet.verification.network.VerificationApi
+import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -118,7 +121,7 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideAdyenPaymentRepository(
-      @Named("default") client: OkHttpClient): AdyenPaymentRepository {
+      @Named("default") client: OkHttpClient, gson: Gson): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
@@ -126,7 +129,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AdyenApi::class.java)
-    return AdyenPaymentRepository(api, AdyenResponseMapper())
+    return AdyenPaymentRepository(api, AdyenResponseMapper(gson))
   }
 
   @Singleton
@@ -254,14 +257,6 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideSmsValidationRepository(
-      smsValidationApi: SmsValidationApi, gson: Gson,
-      logger: Logger): SmsValidationRepositoryType {
-    return SmsValidationRepository(smsValidationApi, gson, logger)
-  }
-
-  @Singleton
-  @Provides
   fun provideWalletStatusRepository(
       walletStatusApi: WalletStatusApi): WalletStatusRepository {
     return WalletStatusRepository(walletStatusApi)
@@ -326,5 +321,13 @@ class RepositoryModule {
   fun providesCarrierBillingPreferencesRepository(
       secureSharedPreferences: SecureSharedPreferences): CarrierBillingPreferencesRepository {
     return SecureCarrierBillingPreferencesRepository(secureSharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun provideWalletVerificationRepository(verificationApi: VerificationApi,
+                                          verificationStateApi: VerificationStateApi,
+                                          sharedPreferences: SharedPreferences): VerificationRepository {
+    return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
   }
 }

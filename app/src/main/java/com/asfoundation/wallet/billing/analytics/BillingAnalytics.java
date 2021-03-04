@@ -34,7 +34,7 @@ public class BillingAnalytics implements EventSender {
   private static final String EVENT_STATUS = "status";
   private static final String EVENT_ERROR_CODE = "error_code";
   private static final String EVENT_ERROR_DETAILS = "error_details";
-  private static final String EVENT_RISK_RULES = "error_risk_rules";
+  private static final String EVENT_CODE_RISK_RULES = "error_code_risk_rule";
   private static final String EVENT_SUCCESS = "success";
   private static final String EVENT_FAIL = "fail";
   private static final String EVENT_PENDING = "pending";
@@ -181,7 +181,7 @@ public class BillingAnalytics implements EventSender {
 
     eventData.put(EVENT_ERROR_CODE, errorCode);
     eventData.put(EVENT_ERROR_DETAILS, errorDetails);
-    if (riskRules != null) eventData.put(EVENT_RISK_RULES, riskRules);
+    if (riskRules != null) eventData.put(EVENT_CODE_RISK_RULES, riskRules);
 
     analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET);
   }

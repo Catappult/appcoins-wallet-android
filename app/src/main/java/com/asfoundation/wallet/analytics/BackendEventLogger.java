@@ -32,9 +32,7 @@ public class BackendEventLogger implements EventLogger {
     api.registerEvent(action, eventName,
         new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
         .subscribeOn(Schedulers.io())
-        .subscribe(() -> {
-          Log.d(TAG, "event sent");
-        }, Throwable::printStackTrace);
+        .subscribe(() -> Log.d(TAG, "event sent"), Throwable::printStackTrace);
   }
 
   @Override public void setup() {

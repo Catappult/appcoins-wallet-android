@@ -15,13 +15,15 @@
       android:layout_height="32dp"
       android:gravity="center"
       android:minWidth="80dp"
+      android:paddingStart="@dimen/normal_margin"
+      android:paddingEnd="@dimen/normal_margin"
       android:textColor="@color/color_title"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintWidth_min="80dp"
-      tools:text="40€"
+      tools:text="Rp698.4922k"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

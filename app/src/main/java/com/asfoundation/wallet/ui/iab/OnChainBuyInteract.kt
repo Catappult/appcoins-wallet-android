@@ -3,9 +3,9 @@ package com.asfoundation.wallet.ui.iab
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -16,7 +16,7 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
                          private val supportInteractor: SupportInteractor,
                          private val walletService: WalletService,
                          private val walletBlockedInteract: WalletBlockedInteract,
-                         private val smsValidationInteract: SmsValidationInteract) {
+                         private val walletVerificationInteractor: WalletVerificationInteractor) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return supportInteractor.showSupport(gamificationLevel)
@@ -25,8 +25,8 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-      walletService.getWalletAddress()
-          .flatMap { smsValidationInteract.isValidated(it) }
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
           .onErrorReturn { true }
 
   fun getTransactionState(uri: String?): Observable<Payment> =
@@ -48,9 +48,9 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
 
   fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
              packageName: String, productName: String?, developerPayload: String?,
-             isBds: Boolean): Completable {
+             isBds: Boolean, type: String): Completable {
     return inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-        developerPayload, isBds)
+        developerPayload, isBds, type)
   }
 
   fun getCompletedPurchase(transaction: Payment, isBds: Boolean): Single<Payment> =

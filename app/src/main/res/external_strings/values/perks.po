@@ -3,6 +3,12 @@
 msgid "Earn AppCoins Credits!"
 msgstr ""
 
+#. Tooltip - APPC Credis disclaimer.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr ""
+
+
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
@@ -33,10 +39,16 @@ msgstr ""
 msgid "Because you reached the next level."
 msgstr ""
 
-#. Card - Extra Gamification Bonus.
+#. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr ""
+
+#. Card - Promotions - Extra Gamification Bonus.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
+
 
 #. Card - First purchase.
 #:
@@ -63,7 +75,7 @@ msgstr ""
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr ""
 
-#. Card - Expendidute per amount Promotion.
+#. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
 msgstr ""
@@ -86,6 +98,10 @@ msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
 msgstr ""
 
+#. Card - Title - Common
+#:
+msgid "New Perk Available"
+msgstr ""

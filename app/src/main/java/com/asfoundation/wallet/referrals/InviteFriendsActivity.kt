@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.referrals
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -7,11 +8,12 @@ import android.view.MenuItem
 import android.view.View.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
+import com.asfoundation.wallet.verification.VerificationActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -32,8 +34,10 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   private lateinit var browserRouter: ExternalBrowserRouter
   private var infoButtonSubject: PublishSubject<Any>? = null
   private var infoButtonInitializeSubject: ReplaySubject<Boolean>? = null
+
   @Inject
   lateinit var referralInteractor: ReferralInteractorContract
+
   @Inject
   lateinit var walletInteract: FindDefaultWalletInteract
 
@@ -104,14 +108,15 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   override fun navigateToWalletValidation(beenInvited: Boolean) {
-    startActivity(WalletValidationActivity.newIntent(this, beenInvited,
-        navigateToTransactionsOnSuccess = false,
-        navigateToTransactionsOnCancel = false,
-        showToolbar = true, previousContext = "invite_friends"))
+    val intent = VerificationActivity.newIntent(this)
+        .apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+    startActivity(intent)
   }
 
   override fun navigateToTopApps() {
-    browserRouter.open(this, Uri.parse(APTOIDE_TOP_APPS_URL))
+    browserRouter.open(this, Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL))
   }
 
   override fun showShare(link: String) {
@@ -160,7 +165,4 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     super.onDestroy()
   }
 
-  companion object {
-    const val APTOIDE_TOP_APPS_URL = "https://en.aptoide.com/store/bds-store/group/group-10867"
-  }
 }

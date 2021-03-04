@@ -9,6 +9,7 @@ import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics;
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender;
@@ -21,7 +22,6 @@ import com.asfoundation.wallet.interact.TransactionViewInteractor;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.promotions.PromotionNotification;
 import com.asfoundation.wallet.referrals.CardNotification;
-import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
@@ -449,7 +449,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showTopApps(Context context) {
     transactionViewNavigator.navigateToBrowser(context,
-        Uri.parse("https://en.aptoide.com/store/bds-store/group/group-10867"));
+        Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL));
   }
 
   public MutableLiveData<Boolean> shouldShowPromotionsNotification() {
@@ -488,7 +488,7 @@ public class TransactionsViewModel extends BaseViewModel {
         break;
       case DISCOVER:
         transactionViewNavigator.navigateToBrowser(context,
-            Uri.parse(InviteFriendsActivity.APTOIDE_TOP_APPS_URL));
+            Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL));
         break;
       case UPDATE:
         transactionViewNavigator.openIntent(context,

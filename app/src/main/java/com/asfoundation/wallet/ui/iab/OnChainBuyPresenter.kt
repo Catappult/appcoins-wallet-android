@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -83,7 +82,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                 when (currentPaymentStep) {
                   CurrentPaymentStep.PAUSED_ON_CHAIN -> onChainBuyInteract.resume(uriString,
                       AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage,
-                      transaction.skuId, developerPayload, isBds)
+                      transaction.skuId, developerPayload, isBds, transaction.type)
 
                   CurrentPaymentStep.READY -> Completable.fromAction { setup(appcAmount) }
                       .subscribeOn(viewScheduler)
@@ -248,7 +247,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                   if (verified) {
                     view.showForbiddenError()
                   } else {
-                    view.showWalletValidation(R.string.purchase_error_wallet_block_code_403)
+                    view.showVerification()
                   }
                 }
           } else {

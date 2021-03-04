@@ -19,8 +19,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 183
-    versionName "1.18.2.1"
+    versionCode 189
+    versionName "1.19.0.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -50,7 +50,7 @@ android {
     buildConfigField 'String', 'PAYMENT_GAS_LIMIT', project.PAYMENT_GAS_LIMIT
     buildConfigField 'String', 'FLURRY_APK_KEY', project.FLURRY_APK_KEY
     buildConfigField 'String', 'PAYMENT_HOST_ROPSTEN_NETWORK', project.PAYMENT_HOST_DEV
-    buildConfigField 'String', 'SECOND_PAYMENT_HOST', project.SECOND_PAYMENT_HOST
+    buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST', project.TRANSACTION_DETAILS_HOST
     buildConfigField 'String', 'TRANSACTION_DETAILS_HOST_ROPSTEN',
         project.TRANSACTION_DETAILS_HOST_ROPSTEN
@@ -64,6 +64,7 @@ android {
     buildConfigField 'String', 'AMPLITUDE_API_KEY', project.AMPLITUDE_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_API_KEY', project.FEEDBACK_ZENDESK_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
+    buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 
@@ -87,15 +88,14 @@ android {
       buildConfigField 'String', 'BACKEND_HOST', project.BACKEND_HOST_PROD
       buildConfigField 'String', 'BDS_BASE_HOST', project.BDS_BASE_HOST_PROD
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST
-      buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST
-      buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_PROD
+      buildConfigField 'String', 'LEGACY_PAYMENT_HOST', project.LEGACY_PAYMENT_HOST
       buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
+      manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
-      manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_SECOND_PAYMENT_HOST}"
     }
     staging {
       initWith release
@@ -112,16 +112,15 @@ android {
       buildConfigField 'String', 'BACKEND_HOST', project.BACKEND_HOST_DEV
       buildConfigField 'String', 'BDS_BASE_HOST', project.BDS_BASE_HOST_DEV
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
-      buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_DEV
       buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME_DEV
+      buildConfigField 'String', 'LEGACY_PAYMENT_HOST', project.PAYMENT_HOST_DEV
       buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST_DEV
-      buildConfigField 'String', 'SECOND_PAYMENT_HOST', project.PAYMENT_HOST_DEV
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
+      manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
-      manifestPlaceholders.secondPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
