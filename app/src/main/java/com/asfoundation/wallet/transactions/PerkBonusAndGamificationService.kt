@@ -70,7 +70,7 @@ class PerkBonusAndGamificationService :
   private fun handleNotifications(address: String): Single<Unit> {
     return Single.zip(getLastShownLevelUp(address),
         promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_ALMOST_NEXT_LEVEL),
-        promotionsRepository.getGamificationStats(address),
+        promotionsRepository.getGamificationStats(address).lastOrError(),
         promotionsRepository.getLevels(address)
             .map { it.list },
         getNewTransactions(address),

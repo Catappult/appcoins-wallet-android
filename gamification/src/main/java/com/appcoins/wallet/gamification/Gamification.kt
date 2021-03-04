@@ -17,13 +17,9 @@ class Gamification(private val repository: PromotionsRepository) {
     const val REFERRAL_ID = "REFERRAL"
   }
 
-  fun getUserStats(wallet: String): Single<GamificationStats> {
-    return repository.getGamificationStats(wallet)
-  }
-
   // TODO this method will be merged with the above, since all will eventually be DBfirst
-  fun getUserStatsDbFirst(wallet: String): Observable<GamificationStats> {
-    return repository.getGamificationStatsDbFirst(wallet)
+  fun getUserStats(wallet: String): Observable<GamificationStats> {
+    return repository.getGamificationStats(wallet)
   }
 
   fun getLevels(wallet: String): Single<Levels> {
@@ -32,12 +28,8 @@ class Gamification(private val repository: PromotionsRepository) {
 
   fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {
     return repository.getUserStatusDbFirst(wallet)
-        .map { map(it) }
-        .filter {
-          it.status == ForecastBonus.Status.ACTIVE ||
-              it.status == ForecastBonus.Status.INACTIVE
-        }
         .lastOrError()
+        .map { map(it) }
         .onErrorReturn { mapReferralError(it) }
   }
 

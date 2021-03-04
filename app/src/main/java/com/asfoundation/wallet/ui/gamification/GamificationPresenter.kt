@@ -47,7 +47,9 @@ class GamificationPresenter(private val view: GamificationView,
   }
 
   private fun handleLevelInformation(sendEvent: Boolean) {
-    disposables.add(Single.zip(gamification.getLevels(), gamification.getUserStats(),
+    // note - this logic should be changed in the future to become offline first
+    disposables.add(Single.zip(gamification.getLevels(), gamification.getUserStats()
+        .lastOrError(),
         BiFunction { levels: Levels, gamificationStats: GamificationStats ->
           handleHeaderInformation(gamificationStats.totalEarned, gamificationStats.totalSpend,
               gamificationStats.status)

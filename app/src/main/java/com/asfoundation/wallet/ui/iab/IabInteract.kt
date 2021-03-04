@@ -32,10 +32,10 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
       autoUpdateInteract.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)
 
   fun registerUser() =
-      inAppPurchaseInteractor.walletAddress.flatMapObservable { address ->
-        gamificationRepository.getUserStatsDbFirst(address)
-            .filter { !it.fromCache }
-            .doOnNext { supportInteractor.registerUser(it.level, address) }
+      inAppPurchaseInteractor.walletAddress.flatMap { address ->
+        gamificationRepository.getUserStats(address)
+            .firstOrError()
+            .doOnSuccess { supportInteractor.registerUser(it.level, address) }
       }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {

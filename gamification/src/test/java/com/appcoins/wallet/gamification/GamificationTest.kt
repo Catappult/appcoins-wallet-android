@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification
 
+import androidx.room.EmptyResultSetException
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Single
@@ -29,7 +30,7 @@ class GamificationTest {
   }
 
   @Test
-  fun getUserStatsTest() {
+  fun getUserStats() {
     val userStatsGamification =
         GamificationResponse("GAMIFICATION", 100, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 1,
             BigDecimal.TEN,
@@ -38,13 +39,13 @@ class GamificationTest {
         ReferralResponse("REFERRAL", 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
             BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
             PromotionsResponse.Status.ACTIVE, BigDecimal.ONE)
-    // TODO fix this test to properly use offline first for everything
+    // TODO add tests for offline first in several contexts
     local.walletOriginResponse = Single.just(WalletOrigin.UNKNOWN)
     local.userStatusResponse = Single.just(emptyList())
     api.userStatusResponse =
         Single.just(UserStatusResponse(
             listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE))
-    val testObserver = gamification.getUserStatsDbFirst(WALLET)
+    val testObserver = gamification.getUserStats(WALLET)
         .test()
     testObserver.assertResult(
         GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = true),
@@ -54,18 +55,29 @@ class GamificationTest {
   }
 
   @Test
-  fun getUserStatsNoNetworkTest() {
+  fun getUserStatsNoNetworkWithDb() {
     local.walletOriginResponse = Single.just(WalletOrigin.APTOIDE)
     local.userStatusResponse = Single.just(listOf(GamificationResponse("GAMIFICATION", 100, 15.0,
         BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
         PromotionsResponse.Status.ACTIVE, false)))
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserStatsDbFirst(WALLET)
+    val testObserver = gamification.getUserStats(WALLET)
         .test()
-    testObserver.assertResult(
+    testObserver.assertValue(
         GamificationStats(GamificationStats.Status.OK, 5, BigDecimal(60000.0), 15.0,
-            BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true),
-        GamificationStats(GamificationStats.Status.NO_NETWORK, fromCache = false))
+            BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true))
+  }
+
+  @Test
+  fun getUserStatsOfflineFirstNoNetworkWithoutDb() {
+    local.walletOriginResponse = Single.error(EmptyResultSetException(""))
+    local.userStatusResponse = Single.error(EmptyResultSetException(""))
+    api.userStatusResponse = Single.error(UnknownHostException())
+    val testObserver = gamification.getUserStats(WALLET)
+        .test(false)
+    testObserver.assertValue(
+        GamificationStats(GamificationStats.Status.NO_NETWORK, -1, BigDecimal.ZERO, -1.0,
+            BigDecimal.ZERO, BigDecimal.ZERO, isActive = false, fromCache = false))
   }
 
   @Test

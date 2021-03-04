@@ -88,7 +88,9 @@ class BackupInteract(
   }
 
   private fun meetsGamificationConditions(): Single<Boolean> {
+    // note - this logic should be changed in the future to become offline first
     return gamificationInteractor.getUserStats()
+        .lastOrError()
         .map { it.level + 1 >= GAMIFICATION_LEVEL_THRESHOLD }
         .onErrorReturn { false }
   }

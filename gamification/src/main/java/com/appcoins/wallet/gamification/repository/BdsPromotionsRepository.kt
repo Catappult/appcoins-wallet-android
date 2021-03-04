@@ -1,6 +1,5 @@
 package com.appcoins.wallet.gamification.repository
 
-import android.util.Log
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Observable
@@ -50,13 +49,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         })
         .toObservable()
         .map { (promotions, walletOrigin) ->
-          Log.e("user stats", "Retrieved from DB at " + System.currentTimeMillis())
           UserStatusResponse(promotions, walletOrigin, null, true)
         }
         .onErrorReturn {
-          Log.e("user stats",
-              "Error occurred in getting from DB (" + it + ") at" + System.currentTimeMillis())
-          mapErrorToUserStatsModel(t ?: it, true)
+          mapErrorToUserStatsModel(t ?: it, t == null)
         }
   }
 
@@ -64,20 +60,18 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return api.getUserStats(wallet, Locale.getDefault().language)
         .toObservable()
         .map {
-          Log.e("user stats", "Retrieved from API at " + System.currentTimeMillis())
-          val userStats = filterByDate(it)
+          filterByDate(it)
+        }
+        .flatMap {
           local.deletePromotions()
-              .andThen(local.insertPromotions(userStats.promotions)
-                  .andThen(local.insertWalletOrigin(wallet, userStats.walletOrigin)))
-          Log.e("user stats", "Saved to DB at " + System.currentTimeMillis())
-          userStats
+              .andThen(local.insertPromotions(it.promotions)
+                  .andThen(local.insertWalletOrigin(wallet, it.walletOrigin)))
+              .toSingle { it }
+              .toObservable()
         }
         .onErrorResumeNext { t: Throwable ->
-          Log.e("user stats",
-              "Error occurred in getting from API (" + t + ") at" + System.currentTimeMillis())
           getUserStatsFromDB(wallet, t)
         }
-    // todo Test multiple emissions
   }
 
   private fun filterByDate(userStatusResponse: UserStatusResponse): UserStatusResponse {
@@ -132,23 +126,15 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return ForecastBonus(ForecastBonus.Status.INACTIVE)
   }
 
-  override fun getGamificationStats(wallet: String): Single<GamificationStats> {
-    return getUserStats(wallet)
-        .map { mapToGamificationStats(it) }
+  override fun getGamificationStats(wallet: String): Observable<GamificationStats> {
+    return getUserStatsDbFirst(wallet)
+        .map {
+          mapToGamificationStats(it)
+        }
         .flatMap {
           local.setGamificationLevel(it.level)
               .toSingle { it }
-        }
-  }
-
-  override fun getGamificationStatsDbFirst(wallet: String): Observable<GamificationStats> {
-    return getUserStatsDbFirst(wallet)
-        .map {
-          Log.e("user stats",
-              "Retrieving Gamification stats " + "(cache=" + it.fromCache + ") at " + System.currentTimeMillis())
-          val stats = mapToGamificationStats(it)
-          local.setGamificationLevel(stats.level)
-          stats
+              .toObservable()
         }
   }
 
@@ -250,15 +236,16 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   override fun getUserStatusDbFirst(wallet: String): Observable<UserStatusResponse> {
     return getUserStatsDbFirst(wallet)
-        .map { userStatusResponse ->
-          Log.e("user stats",
-              "Retrieving User stats " + "(cache=" + userStatusResponse.fromCache + ") at " + System.currentTimeMillis())
+        .flatMap { userStatusResponse ->
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
-          if (userStatusResponse.error == null && gamification != null) {
+          if (userStatusResponse.error != null || gamification == null) {
+            Observable.just(userStatusResponse)
+          } else {
             local.setGamificationLevel(gamification.level)
+                .toSingle { userStatusResponse }
+                .toObservable()
           }
-          userStatusResponse
         }
         .doOnError { it.printStackTrace() }
   }

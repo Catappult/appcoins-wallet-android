@@ -48,10 +48,10 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
     return walletCreatorInteract.create()
         .flatMapCompletable { wallet ->
           walletCreatorInteract.setDefaultWallet(wallet.address)
-              .andThen(gamificationRepository.getUserStatsDbFirst(wallet.address)
-                  .filter { !it.fromCache }
-                  .doOnNext { supportInteractor.registerUser(it.level, wallet.address) }
-                  .ignoreElements())
+              .andThen(gamificationRepository.getUserStats(wallet.address)
+                  .lastOrError()
+                  .doOnSuccess { supportInteractor.registerUser(it.level, wallet.address) }
+                  .ignoreElement())
         }
   }
 

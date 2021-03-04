@@ -72,16 +72,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                             Single.just(idsRepository.getActiveWalletAddress())
                                 .flatMap { walletAddress ->
                                   promotionsRepository.getUserStatusDbFirst(walletAddress)
-                                      .flatMap origin_map@ {
-                                        // make sure that the response to be used is one that did
-                                        // not result on error, if there is any
-                                        if(it.error == null) {
-                                          return@origin_map Observable.just(it.walletOrigin)
-                                        }
-                                        return@origin_map Observable.just(WalletOrigin.UNKNOWN)
-                                      }
-                                      .filter { it != WalletOrigin.UNKNOWN }
-                                      .defaultIfEmpty(WalletOrigin.UNKNOWN)
+                                      .map { it.walletOrigin }
                                       .lastOrError()
                                       .doOnSuccess { walletOrigin ->
                                         setRakamSuperProperties(rakamClient, installerPackage,

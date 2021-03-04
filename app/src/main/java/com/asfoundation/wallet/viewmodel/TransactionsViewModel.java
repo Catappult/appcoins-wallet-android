@@ -168,7 +168,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private void handleRegisterUser() {
     disposables.add(transactionViewInteractor.findWallet()
         .subscribeOn(networkScheduler)
-        .flatMapObservable(wallet -> transactionViewInteractor.getUserLevel()
+        .flatMap(wallet -> transactionViewInteractor.getUserLevel()
             .subscribeOn(networkScheduler)
             .map(userLevel -> {
               registerSupportUser(userLevel, wallet.address);
