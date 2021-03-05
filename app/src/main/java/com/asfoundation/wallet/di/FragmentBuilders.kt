@@ -8,6 +8,8 @@ import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
 import com.asfoundation.wallet.promotions.PromotionsFragment
 import com.asfoundation.wallet.promotions.PromotionsModule
+import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment
+import com.asfoundation.wallet.promotions.voucher.VoucherDetailsModule
 import com.asfoundation.wallet.rating.entry.RatingEntryFragment
 import com.asfoundation.wallet.rating.entry.RatingEntryModule
 import com.asfoundation.wallet.rating.finish.RatingFinishFragment
@@ -233,6 +235,10 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [CarrierPaymentModule::class])
   abstract fun bindCarrierPaymentStatusFragment(): CarrierPaymentFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [VoucherDetailsModule::class])
+  abstract fun bindVoucherDetailsFragment(): VoucherDetailsFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [IabErrorModule::class])

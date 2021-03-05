@@ -15,8 +15,6 @@ import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.VOUCHER
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.ui.gamification.CurrentLevelInfo
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -158,21 +156,27 @@ class PromotionsInteractorTest {
   private fun getVouchersItemList(): List<VoucherItem> {
     return listOf(
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
             TEST_MAX_BONUS_VALUE))
   }

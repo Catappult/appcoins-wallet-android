@@ -64,6 +64,7 @@ class GamificationLinkItem(
     endDate: Long
 ) : PerkPromotion(id, startDate, endDate, null)
 
-class VoucherItem(id: String, val packageName: String, val title: String, val icon: String,
+class VoucherItem(id: String, val packageName: String, val title: String,
+                  val featureGraphic: String, val icon: String,
                   val hasAppcoins: Boolean, val maxBonus: Double) :
     Promotion(id)
