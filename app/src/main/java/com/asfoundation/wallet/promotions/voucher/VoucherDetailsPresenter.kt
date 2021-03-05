@@ -20,7 +20,8 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
     view.setupUi(data.title, data.featureGraphic, data.icon, data.maxBonus, data.packageName,
         data.hasAppcoins)
     savedInstanceState?.let {
-      view.setSelectedSku(it.getInt(SELECTED_ITEM_KEY, -1))
+      val selectedItem = it.getInt(SELECTED_ITEM_KEY, -1)
+      if (selectedItem != -1) view.setSelectedSku(selectedItem)
     }
     retrieveSkuList()
     handleNextClick()
