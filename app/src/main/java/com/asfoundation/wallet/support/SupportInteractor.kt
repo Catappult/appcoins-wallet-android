@@ -17,11 +17,10 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun showSupport(): Completable {
     return walletService.getWalletAddress()
         .flatMapCompletable { address ->
-          gamificationRepository.getUserStats(address)
-              .firstOrError()
+          gamificationRepository.getUserLevel(address)
               .observeOn(viewScheduler)
-              .flatMapCompletable { gamificationStats ->
-                showSupport(address, gamificationStats.level)
+              .flatMapCompletable {
+                showSupport(address, it)
               }
         }
         .subscribeOn(ioScheduler)

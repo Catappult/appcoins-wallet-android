@@ -15,7 +15,6 @@ import io.rakam.api.Rakam
 import io.rakam.api.RakamClient
 import io.rakam.api.TrackingOptions
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 import org.json.JSONException
 import org.json.JSONObject
@@ -71,9 +70,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                           .flatMap { hasGms: Boolean ->
                             Single.just(idsRepository.getActiveWalletAddress())
                                 .flatMap { walletAddress ->
-                                  promotionsRepository.getUserStatusDbFirst(walletAddress)
-                                      .map { it.walletOrigin }
-                                      .lastOrError()
+                                  promotionsRepository.getWalletOrigin(walletAddress)
                                       .doOnSuccess { walletOrigin ->
                                         setRakamSuperProperties(rakamClient, installerPackage,
                                             level, walletAddress, hasGms, walletOrigin)

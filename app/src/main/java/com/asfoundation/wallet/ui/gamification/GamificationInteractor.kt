@@ -35,6 +35,11 @@ class GamificationInteractor(
         .flatMapObservable { gamification.getUserStats(it.address) }
   }
 
+  fun getUserLevel(): Single<Int> {
+    return defaultWallet.find()
+        .flatMap { gamification.getUserLevel(it.address) }
+  }
+
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
     return defaultWallet.find()
         .flatMap { wallet: Wallet ->

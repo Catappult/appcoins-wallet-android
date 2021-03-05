@@ -59,9 +59,7 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
     get() = cardNotificationsInteractor.getCardNotifications()
 
   val userLevel: Single<Int>
-    get() = gamificationInteractor.getUserStats()
-        .lastOrError()
-        .map { it.level }
+    get() = gamificationInteractor.getUserLevel()
 
   fun shouldOpenRatingDialog(): Single<Boolean> = ratingInteractor.shouldOpenRatingDialog()
 

@@ -22,9 +22,8 @@ class RatingInteractor(private val ratingRepository: RatingRepository,
       return Single.just(true)
     }
     if (!ratingRepository.hasSeenDialog()) {
-      return gamificationInteractor.getUserStats()
-          .lastOrError()
-          .map { stats -> stats.level >= 6 || ratingRepository.hasEnoughSuccessfulTransactions() }
+      return gamificationInteractor.getUserLevel()
+          .map { level -> level >= 6 || ratingRepository.hasEnoughSuccessfulTransactions() }
     }
     return Single.just(false)
   }

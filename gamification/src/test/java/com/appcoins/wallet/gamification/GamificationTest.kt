@@ -66,8 +66,8 @@ class GamificationTest {
     testObserver.assertResult(
         GamificationStats(GamificationStats.Status.OK, 5, BigDecimal(60000.0), 15.0,
             BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true),
-        GamificationStats(GamificationStats.Status.OK, 5, BigDecimal(60000.0), 15.0,
-            BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true))
+        GamificationStats(GamificationStats.Status.NO_NETWORK, -1, BigDecimal.ZERO, -1.0,
+            BigDecimal.ZERO, BigDecimal.ZERO, isActive = false, fromCache = false))
   }
 
   @Test
@@ -76,10 +76,56 @@ class GamificationTest {
     local.userStatusResponse = Single.error(EmptyResultSetException(""))
     api.userStatusResponse = Single.error(UnknownHostException())
     val testObserver = gamification.getUserStats(WALLET)
-        .test(false)
-    testObserver.assertValue(
+        .test()
+    testObserver.assertResult(
+        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, -1, BigDecimal.ZERO, -1.0,
+            BigDecimal.ZERO, BigDecimal.ZERO, isActive = false, fromCache = true),
         GamificationStats(GamificationStats.Status.NO_NETWORK, -1, BigDecimal.ZERO, -1.0,
             BigDecimal.ZERO, BigDecimal.ZERO, isActive = false, fromCache = false))
+  }
+
+  @Test
+  fun getUserLevel() {
+    local.walletOriginResponse = Single.just(WalletOrigin.APTOIDE)
+    local.userStatusResponse = Single.just(listOf(GamificationResponse("GAMIFICATION", 100, 15.0,
+        BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
+        PromotionsResponse.Status.ACTIVE, false)))
+    val userStatsGamification =
+        GamificationResponse("GAMIFICATION", 100, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 4,
+            BigDecimal.TEN,
+            PromotionsResponse.Status.ACTIVE, true)
+    val referralResponse =
+        ReferralResponse("REFERRAL", 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+            BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
+            PromotionsResponse.Status.ACTIVE, BigDecimal.ONE)
+    api.userStatusResponse =
+        Single.just(UserStatusResponse(
+            listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE))
+    val testObserver = gamification.getUserLevel(WALLET)
+        .test()
+    testObserver.assertValue(4)
+  }
+
+  @Test
+  fun getUserLevelNoNetworkWithDb() {
+    local.walletOriginResponse = Single.just(WalletOrigin.APTOIDE)
+    local.userStatusResponse = Single.just(listOf(GamificationResponse("GAMIFICATION", 100, 15.0,
+        BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
+        PromotionsResponse.Status.ACTIVE, false)))
+    api.userStatusResponse = Single.error(UnknownHostException())
+    val testObserver = gamification.getUserLevel(WALLET)
+        .test()
+    testObserver.assertValue(5)
+  }
+
+  @Test
+  fun getUserLevelNoNetworkWithoutGamificationInDb() {
+    local.walletOriginResponse = Single.just(WalletOrigin.UNKNOWN)
+    local.userStatusResponse = Single.just(emptyList())
+    api.userStatusResponse = Single.error(UnknownHostException())
+    val testObserver = gamification.getUserLevel(WALLET)
+        .test()
+    testObserver.assertValue(-1)
   }
 
   @Test

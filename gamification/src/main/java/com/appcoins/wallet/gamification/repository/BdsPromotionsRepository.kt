@@ -41,8 +41,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return Observable.concat(getUserStatsFromDB(wallet), getUserStatsFromAPI(wallet))
   }
 
-  private fun getUserStatsFromDB(wallet: String,
-                                 t: Throwable? = null): Observable<UserStatusResponse> {
+  private fun getUserStatsFromDB(wallet: String): Observable<UserStatusResponse> {
     return Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
         BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
           Pair(promotions, walletOrigin)
@@ -52,7 +51,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
           UserStatusResponse(promotions, walletOrigin, null, true)
         }
         .onErrorReturn {
-          mapErrorToUserStatsModel(t ?: it, t == null)
+          mapErrorToUserStatsModel(it, true)
         }
   }
 
@@ -69,8 +68,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               .toSingle { it }
               .toObservable()
         }
-        .onErrorResumeNext { t: Throwable ->
-          getUserStatsFromDB(wallet, t)
+        .onErrorReturn {
+          mapErrorToUserStatsModel(it, false)
         }
   }
 
@@ -136,6 +135,13 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               .toSingle { it }
               .toObservable()
         }
+  }
+
+  override fun getGamificationLevel(wallet: String): Single<Int> {
+    return getGamificationStats(wallet).map { it.level }
+        .filter { it >= 0 }
+        .lastOrError()
+        .onErrorReturn { -1 }
   }
 
   private fun map(status: Status, fromCache: Boolean): GamificationStats {
@@ -208,11 +214,11 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return Observable.concat(getLevelsFromDB(), getLevelsFromAPI(wallet))
   }
 
-  private fun getLevelsFromDB(t: Throwable? = null): Observable<Levels> {
+  private fun getLevelsFromDB(): Observable<Levels> {
     return local.getLevels()
         .toObservable()
         .map { map(it, true) }
-        .onErrorReturn { mapLevelsError(t ?: it, t == null) }
+        .onErrorReturn { mapLevelsError(it, true) }
   }
 
   private fun getLevelsFromAPI(wallet: String): Observable<Levels> {
@@ -224,9 +230,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               .toSingle { map(it, false) }
               .toObservable()
         }
-        .onErrorResumeNext { t: Throwable ->
-          getLevelsFromDB(t)
-        }
+        .onErrorReturn { mapLevelsError(it, false) }
   }
 
   private fun mapLevelsError(throwable: Throwable, fromCache: Boolean): Levels {
@@ -275,6 +279,14 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         .doOnError { it.printStackTrace() }
   }
 
+  override fun getWalletOrigin(wallet: String): Single<WalletOrigin> {
+    return getUserStatusDbFirst(wallet)
+        .map { it.walletOrigin }
+        .filter { it != WalletOrigin.UNKNOWN }
+        .lastOrError()
+        .onErrorReturn { WalletOrigin.UNKNOWN }
+  }
+
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
     return getUserStatsDbFirst(wallet)
         .lastOrError()
@@ -302,4 +314,5 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         throwable.cause != null && throwable.cause is IOException ||
         throwable is UnknownHostException
   }
+
 }
