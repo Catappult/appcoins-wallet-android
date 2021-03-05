@@ -48,9 +48,9 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
 
   fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
              packageName: String, productName: String?, developerPayload: String?,
-             isBds: Boolean): Completable {
+             isBds: Boolean, type: String): Completable {
     return inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-        developerPayload, isBds)
+        developerPayload, isBds, type)
   }
 
   fun getCompletedPurchase(transaction: Payment, isBds: Boolean): Single<Payment> =

@@ -14,6 +14,7 @@ import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFIC
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.VOUCHER_ID
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.ui.gamification.CurrentLevelInfo
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -60,6 +61,9 @@ class PromotionsInteractorTest {
   @Mock
   lateinit var mapper: GamificationMapper
 
+  @Mock
+  lateinit var impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType
+
   private val testWalletOrigin = WalletOrigin.APTOIDE
 
   private lateinit var vouchersRepository: VouchersRepository
@@ -93,7 +97,7 @@ class PromotionsInteractorTest {
     interactor =
         PromotionsInteractor(referralInteractor, gamificationInteractor, promotionsRepository,
             vouchersRepository, findDefaultWalletInteractor, userLocalData, analyticsSetup,
-            mapper)
+            mapper, impressionPreferencesRepositoryType)
     Mockito.`when`(findDefaultWalletInteractor.find())
         .thenReturn(Single.just(Wallet(TEST_WALLET_ADDRESS)))
     Mockito.`when`(promotionsRepository.getUserStatus(TEST_WALLET_ADDRESS))
@@ -152,21 +156,27 @@ class PromotionsInteractorTest {
   private fun getVouchersItemList(): List<VoucherItem> {
     return listOf(
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", false,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
             TEST_MAX_BONUS_VALUE),
         VoucherItem(VOUCHER_ID, "com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
+            "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png", true,
             TEST_MAX_BONUS_VALUE))
   }

@@ -91,6 +91,7 @@ class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordVie
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun afterTextChanged(editable: Editable) {
+        label_input.error = null
         label_input.isErrorEnabled = false
         import_wallet_button.isEnabled = editable.toString()
             .isNotEmpty()

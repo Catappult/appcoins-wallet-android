@@ -3,14 +3,14 @@ package com.asfoundation.wallet.ui.splash
 import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
 
 class SplashInteractor(private val autoUpdateInteract: AutoUpdateInteract,
                        private val balanceWalletsExperiment: BalanceWalletsExperiment,
                        private val fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
-                       private val preferencesRepositoryType: PreferencesRepositoryType) {
+                       private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType) {
 
   fun getAutoUpdateModel(): Single<AutoUpdateModel> {
     return autoUpdateInteract.getAutoUpdateModel(true)
@@ -29,7 +29,7 @@ class SplashInteractor(private val autoUpdateInteract: AutoUpdateInteract,
   }
 
   fun shouldShowOnboarding(): Boolean {
-    return !preferencesRepositoryType.hasCompletedOnboarding()
+    return !impressionPreferencesRepositoryType.hasCompletedOnboarding()
   }
 
 }

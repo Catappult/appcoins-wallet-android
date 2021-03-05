@@ -340,4 +340,11 @@ class RepositoryModule {
   fun providesVouchersRepository(vouchersApi: VouchersApi): VouchersRepository {
     return VouchersRepositoryImpl(vouchersApi, VouchersResponseMapper())
   }
+
+  @Singleton
+  @Provides
+  fun providesImpressionPreferencesRepositoryType(
+      sharedPreferences: SharedPreferences): ImpressionPreferencesRepositoryType {
+    return ImpressionPreferencesRepository(sharedPreferences)
+  }
 }

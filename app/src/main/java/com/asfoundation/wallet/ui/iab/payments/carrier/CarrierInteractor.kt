@@ -17,6 +17,7 @@ import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -41,13 +42,15 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                     value: String): Single<CarrierPaymentModel> {
     return Single.zip(getAddresses(packageName), getTransactionBuilder(transactionData),
         BiFunction { addrs: WalletAddresses, builder: TransactionBuilder ->
-          Pair(addrs, builder)
+          TransactionDataDetails(addrs, builder)
         })
-        .flatMap { pair ->
-          repository.makePayment(pair.first.address, pair.first.signedAddress, phoneNumber,
-              packageName, origin, pair.second.skuId, pair.second.orderReference, transactionType,
-              currency, value, pair.second.toAddress(), pair.first.oemAddress,
-              pair.first.storeAddress, pair.first.address, pair.second.referrerUrl)
+        .flatMap { details ->
+          repository.makePayment(details.addrs.userAddress, details.addrs.signedAddress,
+              phoneNumber, packageName, origin, details.builder.skuId,
+              details.builder.orderReference, transactionType, currency, value,
+              details.builder.toAddress(), details.addrs.oemAddress, details.addrs.storeAddress,
+              details.addrs.userAddress, details.builder.referrerUrl, details.builder.payload,
+              details.builder.callbackUrl)
         }
         .doOnError { logger.log("CarrierInteractor", it) }
   }
@@ -55,7 +58,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
   fun getFinishedPayment(uri: Uri, packageName: String): Single<CarrierPaymentModel> {
     return getAddresses(packageName)
         .flatMapObservable { addresses ->
-          observeTransactionUpdates(getUidFromUri(uri)!!, addresses.address,
+          observeTransactionUpdates(getUidFromUri(uri)!!, addresses.userAddress,
               addresses.signedAddress)
         }
         .firstOrError()
@@ -157,9 +160,13 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
     return repository.retrieveAvailableCountryList()
   }
 
-  fun savePhoneNumber(phoneNumber: String) = repository.savePhoneNumber(phoneNumber)
+  fun savePhoneNumber(phoneNumber: String): Completable {
+    return Completable.fromAction { repository.savePhoneNumber(phoneNumber) }
+  }
 
   fun forgetPhoneNumber() = repository.forgetPhoneNumber()
 
   fun retrievePhoneNumber() = repository.retrievePhoneNumber()
 }
+
+data class TransactionDataDetails(val addrs: WalletAddresses, val builder: TransactionBuilder)

@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
@@ -115,7 +116,7 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   override fun navigateToTopApps() {
-    browserRouter.open(this, Uri.parse(APTOIDE_TOP_APPS_URL))
+    browserRouter.open(this, Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL))
   }
 
   override fun showShare(link: String) {
@@ -164,7 +165,4 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     super.onDestroy()
   }
 
-  companion object {
-    const val APTOIDE_TOP_APPS_URL = "https://en.aptoide.com/store/bds-store/group/group-10867"
-  }
 }

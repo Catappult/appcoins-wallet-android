@@ -3,10 +3,10 @@ package com.asfoundation.wallet.promotions
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
@@ -38,8 +38,13 @@ class PromotionsNavigator(private val fragment: Fragment) {
     fragment.startActivity(launchBrowser)
   }
 
-  fun navigateToVoucherDetails(packageName: String) {
-    //TODO
-    Log.d("PromotionsNavigator", "Tried to navigate $packageName")
+  fun navigateToVoucherDetails(title: String, featureGraphic: String, icon: String,
+                               maxBonus: Double, packageName: String, hasAppcoins: Boolean) {
+    fragment.requireActivity().supportFragmentManager.beginTransaction()
+        .addToBackStack(null)
+        .replace(R.id.fragment_container,
+            VoucherDetailsFragment.newInstance(title, featureGraphic, icon, maxBonus, packageName,
+                hasAppcoins))
+        .commit()
   }
 }
