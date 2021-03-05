@@ -21,7 +21,6 @@
           android:layout_height="wrap_content"
           android:orientation="vertical"
           app:layout_constraintTop_toTopOf="parent"
-          tools:visibility="gone"
           >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_promotions"
@@ -41,12 +40,12 @@
             layout="@layout/layout_locked_promotions_with_vouchers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             />
       </FrameLayout>
-      <!-- Adjust margin top when there's no gamification -->
+
       <include
           android:id="@+id/perks_vouchers_layout"
           layout="@layout/perks_and_vouchers_layout"
