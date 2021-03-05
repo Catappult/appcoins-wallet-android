@@ -15,6 +15,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import kotlinx.android.synthetic.main.layout_perks_vouchers_buttons.*
+import kotlinx.android.synthetic.main.layout_app_bar.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.perks_and_vouchers_layout.*
 import javax.inject.Inject
@@ -53,6 +54,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    activity?.toolbar?.title = getString(R.string.promotions_title)
     setAdapters()
     createBottomSheet()
     presenter.present()
