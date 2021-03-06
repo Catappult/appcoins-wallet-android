@@ -75,7 +75,7 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
 
 
   private fun retrieveSkuList() {
-    disposable.add(interactor.getVoucherSkus()
+    disposable.add(interactor.getVoucherSkus(data.packageName)
         .subscribeOn(ioScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {

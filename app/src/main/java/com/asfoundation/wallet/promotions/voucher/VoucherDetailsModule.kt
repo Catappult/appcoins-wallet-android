@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promotions.voucher
 
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.vouchers.VouchersRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,7 +40,7 @@ class VoucherDetailsModule {
   }
 
   @Provides
-  fun providesVoucherDetailsInteractor(): VoucherDetailsInteractor {
-    return VoucherDetailsInteractor()
+  fun providesVoucherDetailsInteractor(repository: VouchersRepository): VoucherDetailsInteractor {
+    return VoucherDetailsInteractor(repository)
   }
 }
