@@ -20,7 +20,6 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.bonus_updated_layout.*
 import kotlinx.android.synthetic.main.fragment_gamification.*
-import kotlinx.android.synthetic.main.fragment_gamification.bottom_sheet_fragment_container
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import java.math.BigDecimal
 import java.text.DateFormat
@@ -52,7 +51,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     const val SHOW_REACHED_LEVELS_ID = "SHOW_REACHED_LEVELS"
     const val GAMIFICATION_INFO_ID = "GAMIFICATION_INFO"
   }
-  
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
@@ -86,6 +85,9 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
             bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
           }
         })
+    gamification_recycler_view.addItemDecoration(
+        MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
+            .toInt()))
     presenter.present(savedInstanceState)
   }
 
@@ -99,9 +101,6 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
         LevelsAdapter(context!!, hiddenLevels, shownLevels, totalSpend, currentLevel,
             nextLevelAmount, formatter,
             mapper, uiEventListener!!)
-    gamification_recycler_view.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
-            .toInt()))
     gamification_recycler_view.adapter = levelsAdapter
     handleBonusUpdatedText(updateDate)
   }

@@ -30,6 +30,13 @@ class GamificationInteractor(
         .flatMap { gamification.getLevels(it.address) }
   }
 
+  fun getLevelsOfflineFirst(): Observable<Levels> {
+    // the original getLevels() has been left there because there are some contexts that still use it
+    //  this is to be addressed in another ticket
+    return defaultWallet.find()
+        .flatMapObservable { gamification.getLevelsOfflineFirst(it.address) }
+  }
+
   fun getUserStats(): Observable<GamificationStats> {
     return defaultWallet.find()
         .flatMapObservable { gamification.getUserStats(it.address) }

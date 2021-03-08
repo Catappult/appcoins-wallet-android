@@ -211,6 +211,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getLevelsOfflineFirst(wallet: String): Observable<Levels> {
+    // the original getLevels() has been left there because there are some contexts that still use it
+    //  this is to be addressed in another ticket
     return Observable.concat(getLevelsFromDB(), getLevelsFromAPI(wallet))
   }
 
