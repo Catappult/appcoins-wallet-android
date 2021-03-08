@@ -182,7 +182,7 @@ class CarrierVerifyPresenter(
         return if (error.type == ForbiddenType.BLOCKED) handleFraudFlow()
         else Completable.fromAction {
           navigator.navigateToError(
-              stringProvider.getString(R.string.purchase_error_incomplete_transaction_body))
+              stringProvider.getString(R.string.subscriptions_error_already_subscribed))
         }
       }
       is GenericError -> {

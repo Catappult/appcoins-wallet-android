@@ -149,7 +149,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       Payment.Status.FORBIDDEN -> Completable.fromAction { handleFraudFlow() }
           .andThen(onChainBuyInteract.remove(transaction.uri))
       Payment.Status.SUB_ALREADY_OWNED -> Completable.fromAction {
-        showError(null, "Sub Already Owned", R.string.purchase_error_incomplete_transaction_body)
+        showError(null, "Sub Already Owned", R.string.subscriptions_error_already_subscribed)
       }
       Payment.Status.ERROR -> Completable.fromAction {
         showError(null, "Payment status: ${transaction.status.name}")

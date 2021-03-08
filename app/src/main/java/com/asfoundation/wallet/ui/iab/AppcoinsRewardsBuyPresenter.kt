@@ -130,7 +130,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
       }
       Status.SUB_ALREADY_OWNED -> Completable.fromAction {
         logger.log(TAG, "Sub already owned")
-        view.showError(R.string.purchase_error_incomplete_transaction_body)
+        view.showError(R.string.subscriptions_error_already_subscribed)
       }
       Status.NO_NETWORK -> Completable.fromAction {
         view.showNoNetworkError()

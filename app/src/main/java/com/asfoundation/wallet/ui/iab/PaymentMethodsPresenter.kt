@@ -250,7 +250,7 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
   private fun handleSubscriptionAvailability(status: SubscriptionStatus) {
     if (status.isAvailable.not()) {
       if (status.isAlreadySubscribed) {
-        showError(R.string.purchase_error_incomplete_transaction_body)
+        showError(R.string.subscriptions_error_already_subscribed)
       } else {
         showError(R.string.unknown_error)
       }

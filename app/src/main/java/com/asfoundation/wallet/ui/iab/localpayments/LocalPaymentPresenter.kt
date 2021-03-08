@@ -240,8 +240,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     logger.log(TAG, throwable)
     val error = errorMapper.map(throwable)
     when (error.errorType) {
-      ErrorType.SUB_ALREADY_OWNED -> view.showError(
-          R.string.purchase_error_incomplete_transaction_body)
+      ErrorType.SUB_ALREADY_OWNED -> view.showError(R.string.subscriptions_error_already_subscribed)
       ErrorType.BLOCKED -> handleFraudFlow()
       else -> view.showError(R.string.unknown_error)
     }
