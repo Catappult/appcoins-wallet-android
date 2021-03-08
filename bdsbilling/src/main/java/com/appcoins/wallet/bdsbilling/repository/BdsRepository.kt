@@ -103,6 +103,11 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     }
   }
 
+  override fun getSubscriptionToken(packageName: String, skuId: String, walletAddress: String,
+                                    walletSignature: String): Single<String> {
+    return remoteRepository.getSubscriptionToken(packageName, skuId, walletAddress, walletSignature)
+  }
+
   override fun getPaymentMethods(value: String?,
                                  currency: String?,
                                  currencyType: String?,

@@ -112,6 +112,11 @@ class RemoteRepository(private val inAppApi: BdsApi,
         .toSingle { true }
   }
 
+  internal fun getSubscriptionToken(domain: String, skuId: String, walletAddress: String,
+                                    walletSignature: String): Single<String> {
+    return subsApi.getSkuSubscriptionToken(domain, skuId, null, walletAddress, walletSignature)
+  }
+
   internal fun acknowledgePurchase(packageName: String, purchaseToken: String,
                                    walletAddress: String,
                                    walletSignature: String): Single<Boolean> {

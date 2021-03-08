@@ -26,18 +26,17 @@ import retrofit2.HttpException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class PaymentMethodsPresenter(
-    private val view: PaymentMethodsView,
-    private val viewScheduler: Scheduler,
-    private val networkThread: Scheduler,
-    private val disposables: CompositeDisposable,
-    private val analytics: PaymentMethodsAnalytics,
-    private val transaction: TransactionBuilder,
-    private val paymentMethodsMapper: PaymentMethodsMapper,
-    private val formatter: CurrencyFormatUtils,
-    private val logger: Logger,
-    private val interactor: PaymentMethodsInteractor,
-    private val paymentMethodsData: PaymentMethodsData) {
+class PaymentMethodsPresenter(private val view: PaymentMethodsView,
+                              private val viewScheduler: Scheduler,
+                              private val networkThread: Scheduler,
+                              private val disposables: CompositeDisposable,
+                              private val analytics: PaymentMethodsAnalytics,
+                              private val transaction: TransactionBuilder,
+                              private val paymentMethodsMapper: PaymentMethodsMapper,
+                              private val formatter: CurrencyFormatUtils,
+                              private val logger: Logger,
+                              private val interactor: PaymentMethodsInteractor,
+                              private val paymentMethodsData: PaymentMethodsData) {
 
   private var cachedGamificationLevel = 0
   private var cachedFiatValue: FiatValue? = null
@@ -230,7 +229,30 @@ class PaymentMethodsPresenter(
   private fun waitForUi(skuId: String?, type: BillingSupportedType): Completable {
     return Completable.mergeArray(checkProcessing(skuId, type).subscribeOn(networkThread),
         checkAndConsumePrevious(skuId, type).subscribeOn(networkThread),
-        isSetupCompleted().subscribeOn(networkThread))
+        checkSubscriptionOwned(skuId, type).subscribeOn(networkThread),
+        isSetupCompleted())
+  }
+
+  private fun checkSubscriptionOwned(skuId: String?, type: BillingSupportedType): Completable {
+    return if (type == BillingSupportedType.INAPP_SUBSCRIPTION && skuId != null) {
+      interactor.isAbleToSubscribe(paymentMethodsData.appPackage, skuId, networkThread)
+          .subscribeOn(networkThread)
+          .observeOn(viewScheduler)
+          .doOnSuccess { handleSubscriptionAvailability(it) }
+          .ignoreElement()
+    } else {
+      Completable.complete()
+    }
+  }
+
+  private fun handleSubscriptionAvailability(status: SubscriptionStatus) {
+    if (status.isAvailable.not()) {
+      if (status.isAlreadySubscribed) {
+        view.showError(R.string.purchase_error_incomplete_transaction_body)
+      } else {
+        view.showError(R.string.unknown_error)
+      }
+    }
   }
 
   private fun checkProcessing(skuId: String?, type: BillingSupportedType): Completable {
@@ -417,9 +439,7 @@ class PaymentMethodsPresenter(
       paymentList = paymentMethods.toMutableList()
     } else {
       paymentList = paymentMethods
-          .filter {
-            it.id == paymentMethodsMapper.map(APPC)
-          }
+          .filter { it.id == paymentMethodsMapper.map(APPC) }
           .toMutableList()
     }
     view.showPaymentMethods(paymentList, symbol, paymentMethodId, fiatAmount, appcAmount,

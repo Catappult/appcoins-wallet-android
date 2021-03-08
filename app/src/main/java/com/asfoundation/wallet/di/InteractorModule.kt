@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.biometric.BiometricManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.WalletService
@@ -114,7 +115,8 @@ class InteractorModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.approve(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        Schedulers.io(),
         noWaitPendingTransactionService), NoValidateTransactionValidator())
   }
 
@@ -344,12 +346,11 @@ class InteractorModule {
                                       walletBlockedInteract: WalletBlockedInteract,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       fingerprintPreferences: FingerprintPreferencesRepositoryContract,
-                                      billing: Billing,
-                                      billingMessagesMapper: BillingMessagesMapper,
+                                      billing: Billing, errorMapper: ErrorMapper,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(supportInteractor, gamificationInteractor, balanceInteractor,
         walletBlockedInteract, inAppPurchaseInteractor, fingerprintPreferences, billing,
-        billingMessagesMapper, bdsPendingTransactionService)
+        errorMapper, bdsPendingTransactionService)
   }
 
   @Provides
