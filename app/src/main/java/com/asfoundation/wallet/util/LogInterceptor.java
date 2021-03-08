@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.util;
 
 import android.text.TextUtils;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -127,6 +126,7 @@ public class LogInterceptor implements Interceptor {
       Log.d(TAG, logBuilder.toString());
       return response;
     } catch (Exception exception) {
+      logBuilder = new StringBuilder();
       logBuilder.append("Failed request url: ")
           .append(request.method())
           .append(" ")

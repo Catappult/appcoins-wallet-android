@@ -10,12 +10,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2020-10-15 14:26\n"
+"PO-Revision-Date: 2021-02-19 12:27\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "Заработать AppCoins Credits!"
+
+#. Tooltip - APPC Credis disclaimer.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "Получите бонус в {0}% на все ваши покупки в {1}, кроме покупок AppCoins Credits."
 
 #. Card - Purchase Promotion.
 #:
@@ -47,10 +52,15 @@ msgstr "Получите следующий уровень и получите {
 msgid "Because you reached the next level."
 msgstr "Потому что вы достигли следующего уровня."
 
-#. Card - Extra Gamification Bonus.
+#. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr "Получите бонус в {0}% на все ваши покупки в {1}, кроме покупок AppCoins Credits."
+
+#. Card - Promotions - Extra Gamification Bonus.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr ""
 
 #. Card - First purchase.
 #:
@@ -77,7 +87,7 @@ msgstr "За вашу первую покупку за день в {0}."
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "Бонус +{0} AppCoins Credits!"
 
-#. Card - Expendidute per amount Promotion.
+#. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
 msgstr ""
@@ -99,6 +109,11 @@ msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr ""
+
+#. Card - Title - Common
+#:
+msgid "New Perk Available"
 msgstr ""
 

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
-import android.util.Log
 import android.util.Pair
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -11,6 +10,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Observable
