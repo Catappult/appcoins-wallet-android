@@ -12,14 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
+import com.appcoins.wallet.bdsbilling.WalletAddressModel;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
-import com.asfoundation.wallet.transactions.Voucher;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.balance.vouchers.VoucherTransactionDetailView;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
@@ -27,8 +27,6 @@ import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.WalletCurrency;
-import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
-import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -117,7 +115,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     isSent = transaction.getFrom()
         .toLowerCase()
-        .equals(wallet.address);
+        .equals(walletAddressModel.getAddress());
 
     NetworkInfo networkInfo = viewModel.defaultNetwork()
         .getValue();
@@ -254,17 +252,8 @@ public class TransactionDetailActivity extends BaseActivity {
         to = transaction.getTo();
         typeIcon = R.drawable.ic_transaction_iab;
         VoucherTransactionDetailView voucherDetails = findViewById(R.id.voucher_details);
-        voucherDetails.setVisibility(View.VISIBLE);
-        if (transaction.getMetadata() != null) {
-          Voucher voucher = transaction.getMetadata()
-              .getVoucher();
-          if (voucher != null) {
-            voucherDetails.setCode(voucher.getCode());
-            String redeemText = voucher.getRedeem()
-                .replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)", "");
-            voucherDetails.setRedeemWebsite(redeemText, voucher.getRedeem());
-          }
-        }
+        voucherDetails.setVisibility(View.INVISIBLE);
+        findViewById(R.id.voucher_details_progress).setVisibility(View.VISIBLE);
         break;
     }
 
@@ -289,6 +278,16 @@ public class TransactionDetailActivity extends BaseActivity {
     setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, icon, id, description,
         typeStr, typeIcon, statusStr, statusColor, to, isSent, isRevertTransaction,
         isRevertedTransaction, revertedDescription, descriptionColor);
+  }
+
+  private void onVoucherModel(VoucherTransactionModel voucherTransactionModel) {
+    VoucherTransactionDetailView voucherDetails = findViewById(R.id.voucher_details);
+    voucherDetails.setCode(voucherTransactionModel.getCode());
+    String redeemText = voucherTransactionModel.getRedeemUrl()
+        .replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)", "");
+    voucherDetails.setRedeemWebsite(redeemText, voucherTransactionModel.getRedeemUrl());
+    voucherDetails.setVisibility(View.VISIBLE);
+    findViewById(R.id.voucher_details_progress).setVisibility(View.GONE);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {

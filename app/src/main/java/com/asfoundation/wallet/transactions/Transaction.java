@@ -35,15 +35,13 @@ public class Transaction implements Parcelable {
   @Nullable private final String currency;
   @Nullable private final List<Operation> operations;
   @Nullable private final List<Transaction> linkedTx;
-  @Nullable private final Metadata metadata;
 
   public Transaction(String transactionId, TransactionType type, @Nullable SubType subType,
       @Nullable String title, @Nullable String description, @Nullable Perk perk,
       @Nullable String approveTransactionId, long timeStamp, long processedTime,
       TransactionStatus status, String value, String from, String to,
       @Nullable TransactionDetails details, @Nullable String currency,
-      @Nullable List<Operation> operations, @Nullable List<Transaction> linkedTx,
-      @Nullable Metadata metadata) {
+      @Nullable List<Operation> operations, @Nullable List<Transaction> linkedTx) {
     this.transactionId = transactionId;
     this.subType = subType;
     this.title = title;
@@ -61,7 +59,6 @@ public class Transaction implements Parcelable {
     this.currency = currency;
     this.operations = operations;
     this.linkedTx = linkedTx;
-    this.metadata = metadata;
   }
 
   protected Transaction(Parcel in) {
@@ -94,7 +91,6 @@ public class Transaction implements Parcelable {
           Arrays.copyOf(linkedTxParcelable, linkedTxParcelable.length, Transaction[].class);
       linkedTx.addAll(Arrays.asList(linkedTxArray));
     }
-    metadata = in.readParcelable(Metadata.class.getClassLoader());
   }
 
   @Override public int describeContents() {
@@ -137,7 +133,6 @@ public class Transaction implements Parcelable {
       linkedTx.toArray(linkedTxArray);
     }
     dest.writeParcelableArray(linkedTxArray, flags);
-    dest.writeParcelable(metadata, flags);
   }
 
   @Override public int hashCode() {
@@ -157,7 +152,6 @@ public class Transaction implements Parcelable {
     result = 31 * result + (currency != null ? currency.hashCode() : 0);
     result = 31 * result + (operations != null ? operations.hashCode() : 0);
     result = 31 * result + (linkedTx != null ? linkedTx.hashCode() : 0);
-    result = 31 * result + (metadata != null ? metadata.hashCode() : 0);
     return result;
   }
 
@@ -182,7 +176,6 @@ public class Transaction implements Parcelable {
     if (!Objects.equals(details, that.details)) return false;
     if (!Objects.equals(currency, that.currency)) return false;
     if (!Objects.equals(operations, that.operations)) return false;
-    if (!Objects.equals(metadata, that.metadata)) return false;
     return Objects.equals(linkedTx, that.linkedTx);
   }
 
@@ -230,8 +223,6 @@ public class Transaction implements Parcelable {
         + operations
         + ", linkedTx="
         + linkedTx
-        + ", metadata="
-        + metadata
         + '}';
   }
 
@@ -301,10 +292,6 @@ public class Transaction implements Parcelable {
 
   @Nullable public List<Transaction> getLinkedTx() {
     return linkedTx;
-  }
-
-  @Nullable public Metadata getMetadata() {
-    return metadata;
   }
 
   public enum TransactionType {

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.vouchers
 
 import com.asfoundation.wallet.promotions.VoucherListModel
 import com.asfoundation.wallet.promotions.voucher.VoucherSkuModelList
+import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel
 import com.asfoundation.wallet.vouchers.api.VouchersApi
 import io.reactivex.Single
 
@@ -18,5 +19,11 @@ class VouchersRepositoryImpl(private val api: VouchersApi,
     return api.getVouchersForPackage(packageName)
         .map { response -> mapper.mapVoucherSkuList(response) }
         .onErrorReturn { throwable -> mapper.mapVoucherSkuListError(throwable) }
+  }
+
+  override fun getVoucherTransactionData(transactionHash: String,
+                                         walletAddress: String,
+                                         signedAddress: String): Single<VoucherTransactionModel> {
+    return Single.just(VoucherTransactionModel("12345678", "https://game.com/redeem"))
   }
 }

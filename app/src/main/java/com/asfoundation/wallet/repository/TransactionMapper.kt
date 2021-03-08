@@ -3,8 +3,9 @@ package com.asfoundation.wallet.repository
 import com.asfoundation.wallet.repository.entity.OperationEntity
 import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
-import com.asfoundation.wallet.transactions.*
+import com.asfoundation.wallet.transactions.Operation
 import com.asfoundation.wallet.transactions.Transaction
+import com.asfoundation.wallet.transactions.TransactionDetails
 import com.asfoundation.wallet.util.BalanceUtils
 import java.math.BigDecimal
 
@@ -13,34 +14,30 @@ class TransactionMapper {
   fun map(transactions: List<TransactionEntity>) = transactions.map { map(it) }
 
   fun map(transaction: TransactionEntity, link: TransactionEntity): Transaction {
-    //TODO: Removed mocked data
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
         map(transaction.status), transaction.value, transaction.from, transaction.to,
         map(transaction.details), transaction.currency, mapToOperations(transaction.operations),
-        listOf(mapLink(link, transaction)),
-        Metadata(Voucher("12345678", "https://game.com/redeem")))
+        listOf(mapLink(link, transaction)))
   }
 
   private fun mapLink(transaction: TransactionEntity, link: TransactionEntity): Transaction {
-    //TODO: Removed mocked data
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
         map(transaction.status), transaction.value, transaction.from, transaction.to,
         map(transaction.details), transaction.currency, mapToOperations(transaction.operations),
-        listOf(map(link)), Metadata(Voucher("12345678", "https://game.com/redeem")))
+        listOf(map(link)))
   }
 
   fun map(transaction: TransactionEntity): Transaction {
-    //TODO: Removed mocked data
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
         map(transaction.status), transaction.value, transaction.from, transaction.to,
         map(transaction.details), transaction.currency, mapToOperations(transaction.operations),
-        emptyList(), Metadata(Voucher("12345678", "https://game.com/redeem")))
+        emptyList())
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {

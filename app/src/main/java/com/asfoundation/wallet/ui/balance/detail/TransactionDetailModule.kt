@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.di
 
+import com.appcoins.wallet.bdsbilling.WalletService
+import com.asfoundation.wallet.C
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionDetailRouter
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -15,11 +15,11 @@ class TransactionDetailModule {
   @Provides
   fun provideTransactionDetailViewModelFactory(
       findDefaultNetworkInteract: FindDefaultNetworkInteract,
-      findDefaultWalletInteract: FindDefaultWalletInteract,
       externalBrowserRouter: ExternalBrowserRouter, supportInteractor: SupportInteractor,
       transactionDetailRouter: TransactionDetailRouter): TransactionDetailViewModelFactory {
-    return TransactionDetailViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
-        externalBrowserRouter, CompositeDisposable(), supportInteractor, transactionDetailRouter)
+    return TransactionDetailViewModelFactory(data, interactor, findDefaultNetworkInteract,
+        walletService, externalBrowserRouter, CompositeDisposable(), supportInteractor,
+        transactionDetailRouter)
   }
 
   @Provides

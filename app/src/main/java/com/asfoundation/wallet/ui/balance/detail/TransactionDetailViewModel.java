@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.viewmodel;
+package com.asfoundation.wallet.ui.balance.detail;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
@@ -18,6 +17,7 @@ import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
@@ -45,6 +45,14 @@ public class TransactionDetailViewModel extends BaseViewModel {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultWallet::postValue, t -> {
         }));
+  }
+
+  private Single<VoucherTransactionModel> retrieveAndShowVoucher(
+      WalletAddressModel walletAddressModel) {
+    return interactor.getVoucherTransactionModel(data.getTransaction()
+        .getTransactionId(), walletAddressModel.getAddress(), walletAddressModel.getSignedAddress())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess(onVoucherModel::postValue);
   }
 
   @Override protected void onCleared() {
