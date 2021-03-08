@@ -13,6 +13,8 @@ import static com.asfoundation.wallet.C.ETHER_DECIMALS;
 
 public class TransactionBuilder implements Parcelable {
   public static final long NO_CHAIN_ID = -1;
+  public static final String APPCOINS_WALLET_ADDRESS = "0x123C2124b7F2C18b502296bA884d9CDe201f1c32";
+
   public static final Creator<TransactionBuilder> CREATOR = new Creator<TransactionBuilder>() {
     @Override public TransactionBuilder createFromParcel(Parcel in) {
       return new TransactionBuilder(in);
@@ -159,6 +161,15 @@ public class TransactionBuilder implements Parcelable {
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
     this(symbol, contractAddress, chainId, receiverAddress, null, "", "", tokenTransferAmount, "",
         decimals, "", null, "", "", "", "", null, null);
+  }
+
+  @NotNull public static TransactionBuilder createVoucherTransaction(@NotNull String sku,
+      @NotNull String title, @NotNull BigDecimal fiatAmount, @NotNull String fiatCurrency,
+      @NotNull String fiatSymbol, @NotNull BigDecimal appcAmount, @NotNull String packageName) {
+    //TODO Use enum instead after API implementation is complete
+    return new TransactionBuilder(fiatSymbol, null, null, APPCOINS_WALLET_ADDRESS, fiatAmount,
+        fiatCurrency, fiatSymbol, appcAmount, sku, 0, "VOUCHER", null, packageName, null, null,
+        null, null, title);
   }
 
   public String getIabContract() {
@@ -457,15 +468,5 @@ public class TransactionBuilder implements Parcelable {
 
   public String getOrderReference() {
     return orderReference;
-  }
-
-  @NotNull public static TransactionBuilder createVoucherTransaction(@NotNull String sku,
-      @NotNull String title, @NotNull BigDecimal fiatAmount, @NotNull String fiatCurrency,
-      @NotNull String fiatSymbol, @NotNull BigDecimal appcAmount, @NotNull String packageName) {
-    //TODO change type to "VOUCHER" when api is ready. Use enum instead after API implementation
-    // is complete
-    return new TransactionBuilder(fiatSymbol, null, null,
-        "0x123C2124b7F2C18b502296bA884d9CDe201f1c32", fiatAmount, fiatCurrency, fiatSymbol,
-        appcAmount, sku, 0, "VOUCHER", null, packageName, null, null, null, null, title);
   }
 }

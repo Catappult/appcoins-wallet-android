@@ -8,12 +8,9 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.voucher.VoucherDetailsFragment
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
-import com.asfoundation.wallet.ui.iab.IabActivity
-import java.math.BigDecimal
 
 class PromotionsNavigator(private val fragment: Fragment, private val activity: Activity) {
 
@@ -50,14 +47,5 @@ class PromotionsNavigator(private val fragment: Fragment, private val activity: 
             VoucherDetailsFragment.newInstance(title, featureGraphic, icon, maxBonus, packageName,
                 hasAppcoins))
         .commit()
-  }
-
-  private fun navigateToPurchaseFlow(sku: String, title: String, fiatAmount: BigDecimal,
-                                     fiatCurrency: String, fiatSymbol: String,
-                                     appcAmount: BigDecimal, packageName: String) {
-    val transaction =
-        TransactionBuilder.createVoucherTransaction(sku, title, fiatAmount, fiatCurrency,
-            fiatSymbol, appcAmount, packageName)
-    fragment.startActivity(IabActivity.newIntent(activity, null, transaction, true, null))
   }
 }
