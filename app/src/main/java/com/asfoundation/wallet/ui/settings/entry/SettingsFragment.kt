@@ -17,12 +17,14 @@ import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
+import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.preference_fingerprint.*
 import kotlinx.android.synthetic.main.preference_fingerprint_off.*
+import java.util.*
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -139,8 +141,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val redeemPreference = findPreference<Preference>("pref_redeem")
     redeemPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse(
-          BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress),
-          false)
+          BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress +
+              "&lang=" + Locale.getDefault().getLanguageAndCountryCodes()), false)
       false
     }
   }
@@ -267,6 +269,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setPrivacyPolicyPreference() {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
+      // NOTE - if this gets moved to myappcoins domain, don't forget to add "lang" parameter
+      //  just like it is done for setRedeemCodePreference (this class)
       startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"),
           false)
       false
@@ -276,6 +280,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setTermsConditionsPreference() {
     val termsConditionsPreference = findPreference<Preference>("pref_terms_condition")
     termsConditionsPreference?.setOnPreferenceClickListener {
+      // NOTE - if this gets moved to myappcoins domain, don't forget to add "lang" parameter
+      //  just like it is done for setRedeemCodePreference (this class)
       startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/terms-conditions"),
           false)
       false

@@ -1,119 +1,119 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: appcoins-bds-wallet\n"
 "X-Crowdin-Project-ID: 314965\n"
-"X-Crowdin-Language: es-ES\n"
+"X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /translations_update/app/src/main/res/external_strings/values/perks.po\n"
 "X-Crowdin-File-ID: 3840\n"
 "Project-Id-Version: appcoins-bds-wallet\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language-Team: Spanish\n"
-"Language: es_ES\n"
-"PO-Revision-Date: 2021-02-19 12:27\n"
+"Language-Team: Chinese Traditional\n"
+"Language: zh_TW\n"
+"PO-Revision-Date: 2021-02-22 05:58\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgstr "Gana AppCoins Credits!"
+msgstr "獲得AppCoins點數！"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "除了AppCoins點數外，您在{1}中的所有購買還會獲得額外的{0}%獎勵。"
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "Haz una compra en {0} y recibe {1} AppCoins Credits."
+msgstr "透過在 {0} 上的消費，獲得{1} AppCoins點數。"
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr "Porque hiciste una compra en {0}."
+msgstr "因為您在{0}上進行了購買。"
 
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "Gasta {0} {1} en {2} días y recibe {3} AppCoins Credits."
+msgstr "在{2}天內消費{0} {1} ，即可獲得{3} AppCoins點數。"
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr "Porque gastaste más de {0} {1} en los últimos {2} días."
+msgstr "因為您在過去{2}天內花費了超過{0} {1}。"
 
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "Alcanza el siguiente nivel y recibe {0} AppCoins Credits."
+msgstr "達到下一個級別，即可獲得{0} AppCoins點數！"
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr "Porque alcanzaste el siguiente nivel."
+msgstr "因為您已達到下一個級別。"
 
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "除了AppCoins點數外，您在{1}中的所有購買還會獲得額外的{0}%獎勵。"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr ""
+msgstr "您在 {1}中的所有購買均能獲得額外的{0}%獎勵。"
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "除了AppCoins點數外，您在{1}中的首次購買還會獲得額外的{0}%獎勵。"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "因為您在{0}進行了首次購買。"
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "除了AppCoins點數外，您在{1}中的當日首購還會獲得額外的{0}%獎勵。"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "因為您在{0}中的當日首購。"
 
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr "¡Un bonus de {0} AppCoins Credits!"
+msgstr "+{0} AppCoins點數！"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "當您在{3}中消費{1} {2}，即可獲得額外的{0} AppCoins點數。"
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "因為您在{2}消費了{0} {1} 。"
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "當您在AppCoins的應用程式及遊戲中消費{1} {2}，即可獲得額外的{0} AppCoins點數。"
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "因為您在AppCoins的應用程式及遊戲中花費了{0} {1}。"
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
-msgstr ""
+msgstr "除了AppCoins點數外，您的所有購買還會獲得額外的{0}%獎勵。"
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "有新的獎勵"
 

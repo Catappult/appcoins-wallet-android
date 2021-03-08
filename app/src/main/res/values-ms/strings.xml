@@ -509,7 +509,10 @@
   <string name="error_contac_us_body">Jika masalah berlanjutan, sila hubungi kami.</string>
   <string name="purchase_error_unverified_wallet">Cuba selesaikan pembelian setelah mengesahkan dompet anda.</string>
   <string name="purchase_error_try_other_method">Oops&#8230; Ada yang tak kena! Sila cuba dengan kaedah bayaran lain atau hubungi kami.</string>
-  <string name="purchase_error_try_other_amount">Baki tambah nilai anda cukup tak? Sila cuba dengan kaedah lain atau hubungi kami!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -811,22 +814,35 @@
   <plurals name="promotion_ends">
     <item quantity="other">Promosi tamat dalam masa %s hari.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Promosi tamat pada %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">Promosi tamat dalam tempoh %s jam.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">Promosi tamat dalam tempoh %s minit.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">Promosi tamat hari ini.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Promosi akan tiba tak lama lagi</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Capai tahap seterusnya untuk dapat %s Kredit AppCoins!</string>
   <string name="perks_notification">Anda baru saja terima %s Kredit AppCoins sebagai Bonus</string>
   <string name="perks_level_up_on_this_purchase">Naik tahap dengan pembelian ini</string>
   <string name="perks_level_up_amount_left">Anda perlu %1$s%2$s untuk ke tahap seterusnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s dalam Kredit AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">Semua pembelian dan tambah nilai dalam aplikasi yang dibuat dengan sebarang kaedah pembelian selain daripada Kredit AppCoins akan melayakkan anda untuk meningkatkan tahap bonus anda dan menerima ganjaran.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Kunci cap jari</string>
   <string name="fingerprint_failed_title">Pengesahan gagal!</string>
@@ -878,6 +894,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Beli baucar ini dan dapat bonus sehingga %s%%.</string>
   <string name="voucher_buy_header">Baucar untuk %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Ada %s?</string>
   <string name="voucher_buy_no_game_install_button">MUAT TURUN SEKARANG</string>
   <string name="voucher_code_title">Kod Baucar</string>

@@ -510,7 +510,10 @@
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
   <string name="purchase_error_unverified_wallet">حاول أن تنهي عملية الشراء بعد إتمام توثيق محفظتك.</string>
   <string name="purchase_error_try_other_method">ييي&#8230; هناك خطبٌ ما! يرجى المحاولة ثانية مع وسيلة دفع مختلفة أو التواصل معنا.</string>
-  <string name="purchase_error_try_other_amount">هل أنت متأكد من أن مبلغ المُضاف صحيح؟ يرجى المحاولة مع واحد آخر أو الاتصال بنا!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -822,6 +825,14 @@
     <item quantity="many">تنتهي الترقيات خلال %s يومًا.</item>
     <item quantity="other">تنتهي الترقيات خلال %s يومًا.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="zero">It ends in %s days.</item>
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="two">It ends in %s days.</item>
+    <item quantity="few">It ends in %s days.</item>
+    <item quantity="many">It ends in %s days.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">تنتهي الترقية في %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="zero">ينتهي الإعلان خلال %s ساعة.</item>
@@ -831,6 +842,14 @@
     <item quantity="many">ينتهي الإعلان خلال %s ساعة.</item>
     <item quantity="other">ينتهي الإعلان خلال %s ساعة.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="zero">It ends in %s hours.</item>
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="two">It ends in %s hours.</item>
+    <item quantity="few">It ends in %s hours.</item>
+    <item quantity="many">It ends in %s hours.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="zero">ينتهي الإعلان خلال %s دقيقة.</item>
     <item quantity="one">ينتهي الإعلان خلال دقيقة.</item>
@@ -839,15 +858,27 @@
     <item quantity="many">ينتهي الإعلان خلال %s دقيقة.</item>
     <item quantity="other">ينتهي الإعلان خلال %s دقيقة.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="zero">It ends in %s minutes.</item>
+    <item quantity="one">It ends in %s minute.</item>
+    <item quantity="two">It ends in %s minutes.</item>
+    <item quantity="few">It ends in %s minutes.</item>
+    <item quantity="many">It ends in %s minutes.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">ينتهي الإعلان اليوم.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">ترقيات متوفرة قريبًا</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">إذا وصلت المستوى التالي تحصل على رصيد %s AppCoins!</string>
   <string name="perks_notification">لقد تلقّيت للتوّ رصيد %s AppCoins كمكافأة</string>
   <string name="perks_level_up_on_this_purchase">انتقل للمستوى التالي مع عملية الشراء هذه</string>
   <string name="perks_level_up_amount_left">أنت على بعد %1$s %2$s عن المستوى التالي!</string>
   <string name="perks_level_up_level_tag">المستوى %s</string>
   <string name="perks_bonus_purchase_flow">%1$s مكافأة: %2$s في رصيد AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">كل عمليات الشراء داخل التطبيق وعمليات تعبئة الرصيد التي أجريتها بأي وسيلة شراء غير رصيد AppCoins ستؤهلك لرفع مستوى مكافآتك وتمكنك من استقبال الجوائز.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">قفل البصمة</string>
   <string name="fingerprint_failed_title">فشلت الإثبات!</string>
@@ -909,6 +940,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">اشترِ هذه القسيمة واحصل على مكافأة تصل إلى %s%%.</string>
   <string name="voucher_buy_header">القسيمة لـ %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">أليس لديك %s؟</string>
   <string name="voucher_buy_no_game_install_button">نزّله الآن</string>
   <string name="voucher_code_title">رمز القسيمة</string>

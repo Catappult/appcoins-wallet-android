@@ -10,12 +10,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
-"PO-Revision-Date: 2020-10-15 14:27\n"
+"PO-Revision-Date: 2021-02-19 18:59\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
 msgstr "Κερδίστε AppCoins Credits!"
+
+#. Tooltip - APPC Credis disclaimer.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας, εκτός αν γίνουν με AppCoins Credits, στο {1}."
 
 #. Card - Purchase Promotion.
 #:
@@ -47,10 +52,15 @@ msgstr "Φτάστε στο επόμενο επίπεδο και λάβετε {0
 msgid "Because you reached the next level."
 msgstr "Επειδή φτάσατε στο επόμενο επίπεδο."
 
-#. Card - Extra Gamification Bonus.
+#. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
 msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας, εκτός αν γίνουν με AppCoins Credits, στο {1}."
+
+#. Card - Promotions - Extra Gamification Bonus.
+#:
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας στο {1}."
 
 #. Card - First purchase.
 #:
@@ -77,10 +87,10 @@ msgstr "Λόγω της πρώτης σας αγοράς της ημέρας σ�
 msgid "+{0} AppCoins Credits Bonus!"
 msgstr "+{0} AppCoins Credits Bonus!"
 
-#. Card - Expendidute per amount Promotion.
+#. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "Λάβετε {0} AppCoins Credits επιπλέον όταν ξοδεύετε {1} {2} στο {3}."
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -90,15 +100,20 @@ msgstr "Επειδή ξοδέψατε {0} {1} στο {2}."
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "Λάβετε {0} AppCoins Credits επιπλέον όταν ξοδεύετε {1} {2} σε εφαρμογές με AppCoins."
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "Επειδή ξοδέψατε {0} {1} σε εφαρμογές με AppCoins."
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% in all your purchases, except AppCoins Credits."
-msgstr ""
+msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας, εκτός αν γίνουν με AppCoins Credits."
+
+#. Card - Title - Common
+#:
+msgid "New Perk Available"
+msgstr "Διατίθεται Νέο Προνόμιο"
 

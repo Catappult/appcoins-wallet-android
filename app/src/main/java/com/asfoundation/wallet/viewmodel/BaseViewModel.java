@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.viewmodel;
 
 import android.text.TextUtils;
-import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
+import com.asfoundation.wallet.util.Log;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BaseViewModel extends ViewModel {
