@@ -45,7 +45,7 @@
           app:layout_constraintTop_toBottomOf="@id/vouchers_lottie_transaction_success"
           />
 
-      <com.asfoundation.wallet.ui.balance.evouchers.VoucherDetailView
+      <com.asfoundation.wallet.ui.balance.vouchers.VoucherTransactionDetailView
           android:id="@+id/voucher_details"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
