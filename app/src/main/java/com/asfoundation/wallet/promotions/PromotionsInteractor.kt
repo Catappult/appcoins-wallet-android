@@ -17,6 +17,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function4
@@ -37,20 +38,24 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
-  fun retrievePromotions(): Single<PromotionsModel> {
+  fun retrievePromotions(): Observable<PromotionsModel> {
     return findWalletInteract.find()
-        .flatMap {
-          Single.zip(
-              gamificationInteractor.getSingleLevels(),
-              promotionsRepo.getSingleUserStatus(it.address),
-              BiFunction { level: Levels, userStatsResponse: UserStatusResponse ->
-                analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
-                mapToPromotionsModel(userStatsResponse, level)
+        .flatMapObservable {
+          Observable.zip(
+              gamificationInteractor.getLevels(),
+              promotionsRepo.getUserStatus(it.address),
+              BiFunction { levels: Levels, userStatsResponse: UserStatusResponse ->
+                if (userStatsResponse.error == null) {
+                  analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
+                }
+                mapToPromotionsModel(userStatsResponse, levels)
               })
-              .doOnSuccess { model ->
-                userStatsPreferencesRepository.setSeenWalletOrigin(it.address,
-                    model.walletOrigin.name)
-                setSeenGenericPromotion(model.promotions, it.address)
+              .doOnNext { model ->
+                if (model.error == null) {
+                  userStatsPreferencesRepository.setSeenWalletOrigin(it.address,
+                      model.walletOrigin.name)
+                  setSeenGenericPromotion(model.promotions, it.address)
+                }
               }
         }
   }
@@ -211,7 +216,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
       promotions.add(perksIndex, TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), userStatus.error)
+    return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), userStatus.error,
+        levels.fromCache && userStatus.fromCache)
   }
 
   private fun getPerksIndex(gamificationAvailable: Boolean, referralAvailable: Boolean): Int {

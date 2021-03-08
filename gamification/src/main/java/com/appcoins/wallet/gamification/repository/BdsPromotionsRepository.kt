@@ -287,8 +287,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   override fun getWalletOrigin(wallet: String): Single<WalletOrigin> {
     return getUserStatus(wallet)
+        .filter { it.error == null }
         .map { it.walletOrigin }
-        .filter { it != WalletOrigin.UNKNOWN }
         .lastOrError()
         .onErrorReturn { WalletOrigin.UNKNOWN }
   }

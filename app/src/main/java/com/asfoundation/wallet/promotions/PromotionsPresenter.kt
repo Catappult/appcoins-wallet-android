@@ -36,22 +36,34 @@ class PromotionsPresenter(private val view: PromotionsView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSubscribe { view.showLoading() }
-        .doOnSuccess { onPromotions(it) }
+        .doOnNext { onPromotions(it) }
         .subscribe({}, { handleError(it) }))
   }
 
   private fun onPromotions(promotionsModel: PromotionsModel) {
-    view.hideLoading()
     when {
+      promotionsModel.error != null && promotionsModel.fromCache -> {
+        // not meant to display anything
+        viewState = ViewState.DEFAULT
+      }
       promotionsModel.error == Status.NO_NETWORK -> {
-        viewState = ViewState.NO_NETWORK
-        view.showNetworkErrorView()
+        if (shouldShowNoNetworkView()) {
+          view.hideLoading()
+          view.showNetworkErrorView()
+          viewState = ViewState.NO_NETWORK
+        }
       }
       promotionsModel.walletOrigin == WalletOrigin.UNKNOWN -> {
-        viewState = ViewState.UNKNOWN
-        view.showLockedPromotionsScreen()
+        // Locked Promotions is only shown after one makes sure user is still unknown
+        // this is to avoid eventual flickering between view states (unknown and not unknown)
+        if (!promotionsModel.fromCache) {
+          view.hideLoading()
+          viewState = ViewState.UNKNOWN
+          view.showLockedPromotionsScreen()
+        }
       }
       else -> {
+        view.hideLoading()
         if (promotionsModel.promotions.isNotEmpty()) {
           viewState = ViewState.PROMOTIONS
           cachedBonus = promotionsModel.maxBonus
@@ -140,9 +152,11 @@ class PromotionsPresenter(private val view: PromotionsView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun shouldRequestPromotions(): Boolean {
-    return viewState == ViewState.DEFAULT || viewState == ViewState.UNKNOWN
-  }
+  private fun shouldRequestPromotions(): Boolean =
+      viewState == ViewState.DEFAULT || viewState == ViewState.UNKNOWN
+
+  private fun shouldShowNoNetworkView(): Boolean =
+      viewState == ViewState.DEFAULT || viewState == ViewState.NO_NETWORK
 
   enum class ViewState {
     DEFAULT, UNKNOWN, NO_NETWORK, PROMOTIONS, NO_PROMOTIONS
