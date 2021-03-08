@@ -108,13 +108,13 @@ class InteractorModule {
   @Provides
   @Named("APPROVE_SERVICE_ON_CHAIN")
   fun provideApproveService(sendTransactionInteract: SendTransactionInteract,
-                            errorMapper: ErrorMapper, @Named("no_wait_transaction")
+                            paymentErrorMapper: PaymentErrorMapper, @Named("no_wait_transaction")
                             noWaitPendingTransactionService: TrackTransactionService): ApproveService {
     return ApproveService(WatchedTransactionService(object : TransactionSender {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.approve(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
         noWaitPendingTransactionService), NoValidateTransactionValidator())
   }
 
@@ -537,12 +537,10 @@ class InteractorModule {
                                 inAppPurchaseInteractor: InAppPurchaseInteractor,
                                 walletBlockedInteract: WalletBlockedInteract,
                                 walletVerificationInteractor: WalletVerificationInteractor,
-                                billing: Billing,
-                                billingMessagesMapper: BillingMessagesMapper,
                                 logger: Logger): CarrierInteractor {
     return CarrierInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, walletBlockedInteract, walletVerificationInteractor, billing,
-        billingMessagesMapper, logger, Schedulers.io())
+        inAppPurchaseInteractor, walletBlockedInteract, walletVerificationInteractor, logger,
+        Schedulers.io())
   }
 
   @Singleton

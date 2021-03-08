@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
 import com.appcoins.wallet.billing.carrierbilling.*
+import com.appcoins.wallet.billing.carrierbilling.ForbiddenError.ForbiddenType
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -51,7 +52,7 @@ class CarrierVerifyPresenter(
             view.filterCountries(it.countryList, it.convertListToString())
           }
           val phoneNumber = interactor.retrievePhoneNumber()
-          if(phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
+          if (phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
           else view.hideSavedPhoneNumber()
           view.showPhoneNumberLayout()
         }
@@ -176,20 +177,21 @@ class CarrierVerifyPresenter(
           }
         }
       }
-      is GenericError -> {
-        if (isUnauthorizedCode(paymentModel.error.errorCode)) {
-          return handleFraudFlow()
+      is ForbiddenError -> {
+        val error = paymentModel.error as ForbiddenError
+        return if (error.type == ForbiddenType.BLOCKED) handleFraudFlow()
+        else Completable.fromAction {
+          navigator.navigateToError(
+              stringProvider.getString(R.string.purchase_error_incomplete_transaction_body))
         }
+      }
+      is GenericError -> {
         return Completable.fromAction {
           navigator.navigateToError(stringProvider.getString(R.string.activity_iab_error_message))
         }
       }
       else -> return Completable.complete()
     }
-  }
-
-  private fun isUnauthorizedCode(errorCode: Int?): Boolean {
-    return errorCode == 403
   }
 
   private fun handleFraudFlow(): Completable {

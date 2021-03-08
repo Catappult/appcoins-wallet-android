@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.carrierbilling
 
+import com.appcoins.wallet.billing.carrierbilling.ForbiddenError.ForbiddenType
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
 import com.appcoins.wallet.billing.common.response.TransactionResponse
@@ -10,6 +11,10 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 
 class CarrierResponseMapper(private val retrofit: Retrofit) {
+
+  companion object {
+    private const val FORBIDDEN_CODE = 403
+  }
 
   fun mapPayment(response: CarrierCreateTransactionResponse): CarrierPaymentModel {
     return CarrierPaymentModel(response.uid, null, null, response.url, response.fee,
@@ -54,6 +59,18 @@ class CarrierResponseMapper(private val retrofit: Retrofit) {
 
   private fun mapErrorResponseToCarrierError(httpCode: Int?,
                                              response: CarrierErrorResponse?): CarrierError? {
+    if (httpCode == FORBIDDEN_CODE) {
+      if (response?.code == "NotAllowed") {
+        return ForbiddenError(httpCode, response.text,
+            ForbiddenType.SUB_ALREADY_OWNED)
+      } else {
+        if (response?.code == "Authorization.Forbidden") {
+          return ForbiddenError(httpCode,
+              response.text, ForbiddenType.BLOCKED)
+        }
+      }
+    }
+
     if (response?.data == null || response.data.isEmpty()) {
       return null
     }
@@ -76,6 +93,7 @@ class CarrierResponseMapper(private val retrofit: Retrofit) {
           return InvalidPriceError(httpCode, response.text, type, error.value)
         }
       }
+
     }
     return null
   }

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.localpayments
 
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import dagger.Module
@@ -17,10 +18,11 @@ class LocalPaymentModule {
                                     interactor: LocalPaymentInteractor,
                                     navigator: LocalPaymentNavigator,
                                     analytics: LocalPaymentAnalytics,
-                                    logger: Logger): LocalPaymentPresenter {
+                                    logger: Logger,
+                                    errorMapper: ErrorMapper): LocalPaymentPresenter {
     return LocalPaymentPresenter(fragment as LocalPaymentView, data, interactor, navigator,
         analytics, AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(),
-        fragment.context, logger)
+        fragment.context, logger, errorMapper)
   }
 
   @Provides

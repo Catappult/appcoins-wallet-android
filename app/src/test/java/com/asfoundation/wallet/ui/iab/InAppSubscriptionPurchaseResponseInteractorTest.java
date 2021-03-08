@@ -31,8 +31,8 @@ import com.asfoundation.wallet.repository.BdsTransactionProvider;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
-import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
+import com.asfoundation.wallet.repository.PaymentErrorMapper;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
@@ -43,6 +43,7 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
+import com.google.gson.Gson;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -96,6 +97,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
+  @Mock Gson gson;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
@@ -150,12 +152,12 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
     WatchedTransactionService buyTransactionService =
         new WatchedTransactionService(transactionSender,
             new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-            new ErrorMapper(), scheduler, pendingTransactionService);
+            new PaymentErrorMapper(gson), scheduler, pendingTransactionService);
 
     WatchedTransactionService approveTransactionService =
         new WatchedTransactionService(transactionSender,
             new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-            new ErrorMapper(), scheduler, pendingTransactionService);
+            new PaymentErrorMapper(gson), scheduler, pendingTransactionService);
 
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
 
@@ -171,7 +173,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
             new ApproveService(approveTransactionService, transactionValidator), allowanceService,
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
                 countryCodeProvider, new DataMapper(), addressService), balanceService, scheduler,
-            new ErrorMapper());
+            new PaymentErrorMapper(gson));
 
     when(proofOfAttentionService.get()).thenReturn(PublishSubject.create());
 

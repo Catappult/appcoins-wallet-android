@@ -3,6 +3,7 @@ package com.asfoundation.wallet.repository
 import com.appcoins.wallet.commons.MemoryCache
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
@@ -22,8 +23,12 @@ class WatchedTransactionServiceTest {
 
   @Mock
   lateinit var pendingTransactionService: PendingTransactionService
+
   @Mock
   lateinit var transactionSender: TransactionSender
+
+  @Mock
+  lateinit var gson: Gson
   private lateinit var watchedTransactionService: WatchedTransactionService
   private lateinit var scheduler: TestScheduler
 
@@ -48,7 +53,7 @@ class WatchedTransactionServiceTest {
     scheduler = TestScheduler()
     watchedTransactionService = WatchedTransactionService(transactionSender,
         MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()),
-        ErrorMapper(), scheduler, pendingTransactionService)
+        PaymentErrorMapper(gson), scheduler, pendingTransactionService)
   }
 
   @Test

@@ -180,6 +180,8 @@ public class AsfInAppPurchaseInteractor {
         return Payment.Status.NO_INTERNET;
       case FORBIDDEN:
         return Payment.Status.FORBIDDEN;
+      case SUB_ALREADY_OWNED:
+        return Payment.Status.SUB_ALREADY_OWNED;
     }
     throw new IllegalStateException("State " + state + " not mapped");
   }

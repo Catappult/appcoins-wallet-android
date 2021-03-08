@@ -66,15 +66,24 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
                     }
                     .onErrorResumeNext { t ->
                       t.printStackTrace()
-                      val transactionError = errorMapper.map(t)
+                      val error = errorMapper.map(t)
+                      val transactionStatus = mapToTransactionStatus(error.errorType)
                       cache.save(getKey(transaction),
-                          Transaction(transaction, transactionError.status,
-                              transactionError.errorCode,
-                              transactionError.errorMessage))
+                          Transaction(transaction, transactionStatus, error.errorCode,
+                              error.errorMessage))
                     }
               }
         }
         .subscribe()
+  }
+
+  private fun mapToTransactionStatus(errorType: ErrorInfo.ErrorType): Transaction.Status {
+    return when (errorType) {
+      ErrorInfo.ErrorType.SUB_ALREADY_OWNED -> Transaction.Status.SUB_ALREADY_OWNED
+      ErrorInfo.ErrorType.BLOCKED -> Transaction.Status.FORBIDDEN
+      ErrorInfo.ErrorType.NO_NETWORK -> Transaction.Status.NO_NETWORK
+      else -> Transaction.Status.ERROR
+    }
   }
 
   private fun getOrigin(transaction: Transaction) =

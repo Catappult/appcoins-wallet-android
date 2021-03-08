@@ -59,6 +59,8 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
               errorCode = transaction.errorCode, errorMessage = transaction.errorMessage))
       Transaction.Status.FORBIDDEN -> Observable.just(
           RewardPayment(transaction.orderReference, Status.FORBIDDEN))
+      Transaction.Status.SUB_ALREADY_OWNED -> Observable.just(
+          RewardPayment(transaction.orderReference, Status.SUB_ALREADY_OWNED))
       Transaction.Status.NO_NETWORK -> Observable.just(
           RewardPayment(transaction.orderReference, Status.NO_NETWORK))
       else -> throw UnsupportedOperationException(
