@@ -158,7 +158,7 @@ class PerkBonusAndGamificationService :
   }
 
   private fun getLevelList(address: String): Single<List<Levels.Level>> =
-      promotionsRepository.getLevelsOfflineFirst(address)
+      promotionsRepository.getLevels(address)
           .lastOrError()
           .map { it.list }
 

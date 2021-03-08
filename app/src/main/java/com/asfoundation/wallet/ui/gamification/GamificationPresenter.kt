@@ -49,7 +49,7 @@ class GamificationPresenter(private val view: GamificationView,
 
   private fun handleLevelInformation(sendEvent: Boolean) {
     disposables.add(
-        Observable.zip(gamification.getLevelsOfflineFirst(), getUserStatsAndBonusEarned(),
+        Observable.zip(gamification.getLevels(), getUserStatsAndBonusEarned(),
             BiFunction { levels: Levels, statsAndBonusEarned: Pair<GamificationStats, FiatValue> ->
               mapToGamificationInfo(levels, statsAndBonusEarned.first, statsAndBonusEarned.second)
             })

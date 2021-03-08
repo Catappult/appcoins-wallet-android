@@ -17,7 +17,8 @@ class Gamification(private val repository: PromotionsRepository) {
     const val REFERRAL_ID = "REFERRAL"
   }
 
-  // TODO this method will be merged with the above, since all will eventually be DBfirst
+  // NOTE: this method may be removed once all logic has been converted to offline first (see the
+  // method below)
   fun getUserStats(wallet: String): Observable<GamificationStats> {
     return repository.getGamificationStats(wallet)
   }
@@ -26,19 +27,18 @@ class Gamification(private val repository: PromotionsRepository) {
     return repository.getGamificationLevel(wallet)
   }
 
-  fun getLevels(wallet: String): Single<Levels> {
+  // NOTE: this method may be removed once all logic has been converted to offline first (see the
+  // method below)
+  fun getSingleLevels(wallet: String): Single<Levels> {
+    return repository.getSingleLevels(wallet)
+  }
+
+  fun getLevels(wallet: String): Observable<Levels> {
     return repository.getLevels(wallet)
   }
 
-  fun getLevelsOfflineFirst(wallet: String): Observable<Levels> {
-    // the original getLevels() has been left there because there are some contexts that still use it
-    //  this is to be addressed in another ticket
-    return repository.getLevelsOfflineFirst(wallet)
-  }
-
   fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {
-    return repository.getUserStatusDbFirst(wallet)
-        .lastOrError()
+    return repository.getSingleUserStatus(wallet)
         .map { map(it) }
         .onErrorReturn { mapReferralError(it) }
   }

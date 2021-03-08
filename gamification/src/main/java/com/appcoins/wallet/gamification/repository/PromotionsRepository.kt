@@ -14,9 +14,9 @@ interface PromotionsRepository {
 
   fun getGamificationLevel(wallet: String): Single<Int>
 
-  fun getLevels(wallet: String): Single<Levels>
+  fun getSingleLevels(wallet: String): Single<Levels>
 
-  fun getLevelsOfflineFirst(wallet: String): Observable<Levels>
+  fun getLevels(wallet: String): Observable<Levels>
 
   fun getForecastBonus(wallet: String, packageName: String,
                        amount: BigDecimal): Single<ForecastBonus>
@@ -29,9 +29,9 @@ interface PromotionsRepository {
 
   fun setSeenGenericPromotion(id: String, screen: String)
 
-  fun getUserStatus(wallet: String): Single<UserStatusResponse>
+  fun getSingleUserStatus(wallet: String): Single<UserStatusResponse>
 
-  fun getUserStatusDbFirst(wallet: String): Observable<UserStatusResponse>
+  fun getUserStatus(wallet: String): Observable<UserStatusResponse>
 
   fun getWalletOrigin(wallet: String): Single<WalletOrigin>
 

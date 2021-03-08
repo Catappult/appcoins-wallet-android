@@ -41,8 +41,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     return findWalletInteract.find()
         .flatMap {
           Single.zip(
-              gamificationInteractor.getLevels(),
-              promotionsRepo.getUserStatus(it.address),
+              gamificationInteractor.getSingleLevels(),
+              promotionsRepo.getSingleUserStatus(it.address),
               BiFunction { level: Levels, userStatsResponse: UserStatusResponse ->
                 analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
                 mapToPromotionsModel(userStatsResponse, level)
@@ -53,13 +53,12 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                 setSeenGenericPromotion(model.promotions, it.address)
               }
         }
-
   }
 
   fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
     return findWalletInteract.find()
         .flatMap { wallet ->
-          promotionsRepo.getUserStatus(wallet.address)
+          promotionsRepo.getSingleUserStatus(wallet.address)
               .flatMap {
                 val gamification =
                     it.promotions.firstOrNull { promotionsResponse -> promotionsResponse is GamificationResponse } as GamificationResponse?
@@ -84,7 +83,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   fun getUnwatchedPromotionNotification(): Single<CardNotification> {
     return findWalletInteract.find()
         .flatMap { wallet ->
-          promotionsRepo.getUserStatus(wallet.address)
+          promotionsRepo.getSingleUserStatus(wallet.address)
               .map {
                 val promotionList = it.promotions.filterIsInstance<GenericResponse>()
                 val unwatchedPromotion = getUnWatchedPromotion(promotionList)

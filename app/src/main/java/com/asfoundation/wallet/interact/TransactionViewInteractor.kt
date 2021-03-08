@@ -44,7 +44,7 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
   }
 
   val levels: Single<Levels>
-    get() = gamificationInteractor.getLevels()
+    get() = gamificationInteractor.getSingleLevels()
 
   val appcBalance: Observable<Pair<Balance, FiatValue>>
     get() = balanceInteractor.getAppcBalance()

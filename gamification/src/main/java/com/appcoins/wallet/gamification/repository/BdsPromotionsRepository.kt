@@ -14,7 +14,9 @@ import java.util.concurrent.TimeUnit
 class BdsPromotionsRepository(private val api: GamificationApi,
                               private val local: UserStatsLocalData) : PromotionsRepository {
 
-  private fun getUserStats(wallet: String): Single<UserStatusResponse> {
+  // NOTE: this method may be removed once all logic has been converted to offline first (see the
+  // method below)
+  private fun getSingleUserStats(wallet: String): Single<UserStatusResponse> {
     return api.getUserStats(wallet, Locale.getDefault().language)
         .map { filterByDate(it) }
         .flatMap { userStats ->
@@ -35,9 +37,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         }
   }
 
-  // TODO, see if this can be merged with the above one, passing a boolean to decide which
-  //  one to apply (if necessary)
-  private fun getUserStatsDbFirst(wallet: String): Observable<UserStatusResponse> {
+  private fun getUserStats(wallet: String): Observable<UserStatusResponse> {
     return Observable.concat(getUserStatsFromDB(wallet), getUserStatsFromAPI(wallet))
   }
 
@@ -126,7 +126,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getGamificationStats(wallet: String): Observable<GamificationStats> {
-    return getUserStatsDbFirst(wallet)
+    return getUserStats(wallet)
         .map {
           mapToGamificationStats(it)
         }
@@ -195,7 +195,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     }
   }
 
-  override fun getLevels(wallet: String): Single<Levels> {
+  // NOTE: this method may be removed once all logic has been converted to offline first (see the
+  // method below)
+  override fun getSingleLevels(wallet: String): Single<Levels> {
     return api.getLevels(wallet)
         .flatMap {
           local.deleteLevels()
@@ -210,7 +212,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         }
   }
 
-  override fun getLevelsOfflineFirst(wallet: String): Observable<Levels> {
+  override fun getLevels(wallet: String): Observable<Levels> {
     // the original getLevels() has been left there because there are some contexts that still use it
     //  this is to be addressed in another ticket
     return Observable.concat(getLevelsFromDB(), getLevelsFromAPI(wallet))
@@ -250,8 +252,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         response.updateDate, fromCache)
   }
 
-  override fun getUserStatus(wallet: String): Single<UserStatusResponse> {
-    return getUserStats(wallet)
+  // NOTE: this method may be removed once all logic has been converted to offline first (see the
+  // method below)
+  override fun getSingleUserStatus(wallet: String): Single<UserStatusResponse> {
+    return getSingleUserStats(wallet)
         .flatMap { userStatusResponse ->
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
@@ -265,8 +269,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         .doOnError { it.printStackTrace() }
   }
 
-  override fun getUserStatusDbFirst(wallet: String): Observable<UserStatusResponse> {
-    return getUserStatsDbFirst(wallet)
+  override fun getUserStatus(wallet: String): Observable<UserStatusResponse> {
+    return getUserStats(wallet)
         .flatMap { userStatusResponse ->
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
@@ -282,7 +286,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getWalletOrigin(wallet: String): Single<WalletOrigin> {
-    return getUserStatusDbFirst(wallet)
+    return getUserStatus(wallet)
         .map { it.walletOrigin }
         .filter { it != WalletOrigin.UNKNOWN }
         .lastOrError()
@@ -290,7 +294,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
-    return getUserStatsDbFirst(wallet)
+    return getUserStats(wallet)
         .lastOrError()
         .flatMap {
           val gamification =
