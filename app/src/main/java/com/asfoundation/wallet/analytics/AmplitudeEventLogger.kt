@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.analytics
 
-import android.util.Log
 import cm.aptoide.analytics.AnalyticsManager
 import cm.aptoide.analytics.EventLogger
 import com.amplitude.api.Amplitude
+import com.asfoundation.wallet.util.Log
 import org.json.JSONException
 import org.json.JSONObject
 

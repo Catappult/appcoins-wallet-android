@@ -98,6 +98,10 @@ android {
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
     }
+    staging {
+      initWith release
+      versionNameSuffix ".staging"
+    }
     debug {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

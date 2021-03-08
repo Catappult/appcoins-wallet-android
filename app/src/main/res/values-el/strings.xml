@@ -509,7 +509,10 @@
   <string name="error_contac_us_body">Εάν το πρόβλημα επιμένει, παρακαλούμε επικοινωνήστε μαζί μας.</string>
   <string name="purchase_error_unverified_wallet">Προσπαθήστε να ολοκληρώσετε την αγορά αφού πιστοποιήσετε το wallet σας.</string>
   <string name="purchase_error_try_other_method">Ωχ&#8230; Κάτι συμβαίνει! Παρακαλούμε δοκιμάστε μία διαφορετική μέθοδο πληρωμής ή επικοινωνήστε μαζί μας.</string>
-  <string name="purchase_error_try_other_amount">Είστε σίγουροι ότι το ποσό φόρτισης είναι σωστό; Παρακαλούμε δοκιμάστε με ένα διαφορετικό ή επικοινωνήστε μαζί μας!</string>
+  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
+  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
@@ -813,24 +816,40 @@
     <item quantity="one">Η προώθηση τελειώνει σε %s ημέρα.</item>
     <item quantity="other">Η προώθηση τελειώνει σε %s ημέρες.</item>
   </plurals>
+  <plurals name="promotion_ends_short">
+    <item quantity="one">It ends in %s day.</item>
+    <item quantity="other">It ends in %s days.</item>
+  </plurals>
   <string name="perks_end_in_date">Η προώθηση τελειώνει στις %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="one">Η προώθηση τελειώνει σε %s ώρα.</item>
     <item quantity="other">Η προώθηση τελειώνει σε %s ώρες.</item>
   </plurals>
+  <plurals name="promotion_ends_hours_short">
+    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="other">It ends in %s hours.</item>
+  </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Η προώθηση τελειώνει σε %s λεπτό.</item>
     <item quantity="other">Η προώθηση τελειώνει σε %s λεπτά.</item>
   </plurals>
+  <plurals name="promotion_ends_minutes_short">
+    <item quantity="one">It ends in %s minute.</item>
+    <item quantity="other">It ends in %s minutes.</item>
+  </plurals>
   <string name="perks_end_today">Η προώθηση τελειώνει σήμερα.</string>
+  <string name="perks_end_today_short">It ends today.</string>
   <string name="perks_available_soon">Η προώθηση θα είναι διαθέσιμη σύντομα</string>
+  <string name="perks_available_soon_short">Available soon</string>
   <string name="perks_next_level_reward">Φτάστε στο επόμενο επίπεδο για να λάβετε %s AppCoins Credits!</string>
   <string name="perks_notification">Μόλις λάβατε %s AppCoins Credits ως Bonus</string>
   <string name="perks_level_up_on_this_purchase">Ανεβείτε στο επόμενο επίπεδο με αυτήν την αγορά</string>
   <string name="perks_level_up_amount_left">Είστε %1$s %2$s μακριά από το επόμενο επίπεδο!</string>
   <string name="perks_level_up_level_tag">Επ. %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s σε AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Κάθε αγορά εντός εφαρμογής και κάθε φόρτιση που πραγματοποιείται με οποιαδήποτε μέθοδο, εκτός από AppCoins Credits, θα πληροί τις προϋποθέσεις για την αύξηση του επιπέδου bonus σας και τη λήψη αμοιβών.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
+  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
+  <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Κλείδωμα με αποτύπωμα</string>
   <string name="fingerprint_failed_title">Αποτυχία επαλήθευσης!</string>
@@ -884,6 +903,7 @@
   <!--Vouchers-->
   <string name="voucher_card_body">Αγοράστε αυτό το voucher και λάβετε bonus έως %s%%.</string>
   <string name="voucher_buy_header">Voucher για %s</string>
+  <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Δεν έχετε %s;</string>
   <string name="voucher_buy_no_game_install_button">ΛΗΨΗ ΤΩΡΑ</string>
   <string name="voucher_code_title">Κωδικός Voucher</string>

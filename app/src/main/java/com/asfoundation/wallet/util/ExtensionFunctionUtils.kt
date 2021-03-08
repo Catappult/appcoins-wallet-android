@@ -86,6 +86,10 @@ fun HttpException.getMessage(): String {
   return if (message.isNullOrBlank()) message() else message
 }
 
+fun Locale.getLanguageAndCountryCodes(sep: String = "-"): String {
+  return this.language + sep + this.country
+}
+
 inline fun <T> Iterable<T>.sumByBigDecimal(selector: (T) -> BigDecimal): BigDecimal {
   var sum = BigDecimal.ZERO
   for (element in this) {

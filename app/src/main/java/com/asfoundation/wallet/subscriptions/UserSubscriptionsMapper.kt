@@ -9,7 +9,7 @@ import java.util.*
 
 class UserSubscriptionsMapper {
 
-  fun mapSubscriptionList(
+  private fun mapSubscriptionList(
       subscriptionList: UserSubscriptionsListResponse): UserSubscriptionListModel {
     return UserSubscriptionListModel(
         subscriptionList.items.map {
@@ -23,20 +23,16 @@ class UserSubscriptionsMapper {
         })
   }
 
-  fun mapToSubscriptionModel(active: UserSubscriptionsListResponse,
+  fun mapToSubscriptionModel(all: UserSubscriptionsListResponse,
                              expired: UserSubscriptionsListResponse,
                              fromCache: Boolean = false): SubscriptionModel {
-    val activeModel = mapSubscriptionList(active)
-    val expiredModel = mapSubscriptionList(expired)
-    return when {
-      activeModel.error != null && expiredModel.error != null -> {
-        SubscriptionModel(true, fromCache, activeModel.error)
-      }
-      activeModel.userSubscriptionItems.isEmpty() && expiredModel.userSubscriptionItems.isEmpty() -> {
-        SubscriptionModel(true, fromCache, null)
-      }
-      else -> SubscriptionModel(filterActive(activeModel.userSubscriptionItems),
-          expiredModel.userSubscriptionItems, fromCache = fromCache)
+    val allSubsModel = mapSubscriptionList(all)
+    val expiredSubsModel = mapSubscriptionList(expired)
+    return if (allSubsModel.error != null && expiredSubsModel.error != null) {
+      SubscriptionModel(fromCache, allSubsModel.error)
+    } else {
+      SubscriptionModel(allSubsModel.userSubscriptionItems,
+          expiredSubsModel.userSubscriptionItems, fromCache = fromCache)
     }
   }
 
@@ -69,9 +65,5 @@ class UserSubscriptionsMapper {
       val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
       dateFormat.parse(date)
     }
-  }
-
-  private fun filterActive(userSubscriptionItems: List<SubscriptionItem>): List<SubscriptionItem> {
-    return userSubscriptionItems.filter { it.isActiveSubscription() }
   }
 }
