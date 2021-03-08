@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.splash
 import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,10 +23,10 @@ class SplashModule {
   @Provides
   fun providesSplashInteractor(autoUpdateInteract: AutoUpdateInteract,
                                fingerprintPreferencesRepositoryContract: FingerprintPreferencesRepositoryContract,
-                               preferencesRepositoryType: PreferencesRepositoryType,
+                               impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType,
                                balanceWalletsExperiment: BalanceWalletsExperiment): SplashInteractor {
     return SplashInteractor(autoUpdateInteract, balanceWalletsExperiment,
-        fingerprintPreferencesRepositoryContract, preferencesRepositoryType)
+        fingerprintPreferencesRepositoryContract, impressionPreferencesRepositoryType)
   }
 
   @Provides

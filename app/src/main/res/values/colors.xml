@@ -168,4 +168,9 @@
   <!-- Vouchers -->
 
   <color name="vouchers_instructions">#868686</color>
+  <color name="dark_blue">#00223a</color>
+  <color name="ripple_dark_blue">#4000223a</color>
+  <color name="cancel_dark_blue">#142735</color>
+  <color name="voucher_details_download_background_color">#efefef</color>
+  <color name="promotions_active_75_alpha">#bf00131f</color>
 </resources>

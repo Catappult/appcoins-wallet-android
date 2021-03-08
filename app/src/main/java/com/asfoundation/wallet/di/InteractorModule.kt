@@ -279,10 +279,11 @@ class InteractorModule {
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
                                   rakamAnalytics: RakamAnalytics,
                                   userStatsLocalData: UserStatsLocalData,
-                                  gamificationMapper: GamificationMapper): PromotionsInteractor {
+                                  gamificationMapper: GamificationMapper,
+                                  impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, vouchersRepository, findDefaultWalletInteract,
-        userStatsLocalData, rakamAnalytics, gamificationMapper)
+        promotionsRepository, vouchersRepository, findDefaultWalletInteract, userStatsLocalData,
+        rakamAnalytics, gamificationMapper, impressionPreferencesRepositoryType)
   }
 
   @Provides
@@ -327,10 +328,10 @@ class InteractorModule {
   fun provideAutoUpdateInteract(autoUpdateRepository: AutoUpdateRepository,
                                 @Named("local_version_code")
                                 localVersionCode: Int, packageManager: PackageManager,
-                                sharedPreferences: PreferencesRepositoryType,
+                                impressionPreferences: ImpressionPreferencesRepositoryType,
                                 context: Context) =
       AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
-          packageManager, context.packageName, sharedPreferences)
+          packageManager, context.packageName, impressionPreferences)
 
   @Singleton
   @Provides
@@ -346,10 +347,11 @@ class InteractorModule {
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                       billing: Billing,
+                                      billingMessagesMapper: BillingMessagesMapper,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(supportInteractor, gamificationInteractor, balanceInteractor,
         walletBlockedInteract, inAppPurchaseInteractor, fingerprintPreferences, billing,
-        bdsPendingTransactionService)
+        billingMessagesMapper, bdsPendingTransactionService)
   }
 
   @Provides
@@ -394,9 +396,9 @@ class InteractorModule {
   fun provideCampaignInteract(campaignService: CampaignService, walletService: WalletService,
                               autoUpdateInteract: AutoUpdateInteract,
                               findDefaultWalletInteract: FindDefaultWalletInteract,
-                              sharedPreferences: PreferencesRepositoryType): CampaignInteract {
+                              impressionPreferences: ImpressionPreferencesRepositoryType): CampaignInteract {
     return CampaignInteract(campaignService, walletService, autoUpdateInteract,
-        AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, sharedPreferences)
+        AdvertisingThrowableCodeMapper(), findDefaultWalletInteract, impressionPreferences)
   }
 
   @Provides
@@ -409,7 +411,7 @@ class InteractorModule {
                                       cardNotificationsInteractor: CardNotificationsInteractor,
                                       autoUpdateInteract: AutoUpdateInteract,
                                       ratingInteractor: RatingInteractor,
-                                      preferencesRepositoryType: PreferencesRepositoryType,
+                                      impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
                                       fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
@@ -417,7 +419,7 @@ class InteractorModule {
     return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
         promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
-        preferencesRepositoryType, packageManager, fingerprintInteractor,
+        impressionPreferencesRepositoryType, packageManager, fingerprintInteractor,
         fingerprintPreferencesRepository, balanceWalletsExperiment)
   }
 

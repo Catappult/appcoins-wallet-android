@@ -72,7 +72,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun handleCompletedStatus(payment: CarrierPaymentModel): Completable {
     return sendPaymentSuccessEvents()
-        .andThen { carrierInteractor.savePhoneNumber(data.phoneNumber) }
+        .andThen(carrierInteractor.savePhoneNumber(data.phoneNumber))
         .observeOn(viewScheduler)
         .andThen(completePurchase(payment))
   }
@@ -115,7 +115,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?): Completable {
     return Completable.fromAction {
-      val code: String? = if (refusalCode == -1) "ERROR" else refusalCode.toString()
+      val code: String = if (refusalCode == -1) "ERROR" else refusalCode.toString()
       billingAnalytics.sendPaymentErrorWithDetailsEvent(data.domain, data.skuId,
           data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType,
           code, refusalReason)

@@ -4,12 +4,12 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.Gamification
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Single
 
 class OnboardingInteractor(private val walletService: WalletService,
-                           private val preferencesRepositoryType: PreferencesRepositoryType,
+                           private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType,
                            private val supportInteractor: SupportInteractor,
                            private val gamificationRepository: Gamification,
                            private val bdsRepository: BdsRepository) {
@@ -21,13 +21,13 @@ class OnboardingInteractor(private val walletService: WalletService,
             .map { address }
       }
 
-  fun saveOnboardingCompleted() = preferencesRepositoryType.setOnboardingComplete()
+  fun saveOnboardingCompleted() = impressionPreferencesRepositoryType.setOnboardingComplete()
 
-  fun clickSkipOnboarding() = preferencesRepositoryType.setOnboardingSkipClicked()
+  fun clickSkipOnboarding() = impressionPreferencesRepositoryType.setOnboardingSkipClicked()
 
-  fun hasClickedSkipOnboarding() = preferencesRepositoryType.hasClickedSkipOnboarding()
+  fun hasClickedSkipOnboarding() = impressionPreferencesRepositoryType.hasClickedSkipOnboarding()
 
-  fun hasOnboardingCompleted() = preferencesRepositoryType.hasCompletedOnboarding()
+  fun hasOnboardingCompleted() = impressionPreferencesRepositoryType.hasCompletedOnboarding()
 
   fun getPaymentMethodsIcons(): Single<List<String>> {
     return bdsRepository.getPaymentMethods(currencyType = "fiat", direct = true)

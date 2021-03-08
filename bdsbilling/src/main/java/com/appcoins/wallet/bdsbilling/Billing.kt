@@ -33,7 +33,7 @@ interface Billing {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR
   }
 
-  fun getSkuTransaction(merchantName: String, sku: String?,
+  fun getSkuTransaction(merchantName: String, sku: String?, transactionType: String,
                         scheduler: Scheduler): Single<Transaction>
 
   fun getWallet(packageName: String): Single<String>

@@ -100,10 +100,10 @@ public class InAppPurchaseInteractor {
   }
 
   Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, String developerPayload, boolean isBds) {
+      String packageName, String productName, String developerPayload, boolean isBds, String type) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-          developerPayload);
+          developerPayload, type);
     } else {
       return Completable.error(new UnsupportedOperationException("Asf doesn't support resume."));
     }

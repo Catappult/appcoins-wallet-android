@@ -12,6 +12,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
+import com.asfoundation.wallet.repository.ImpressionPreferencesRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
@@ -29,7 +30,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val findWalletInteract: FindDefaultWalletInteract,
                            private val userStatsPreferencesRepository: UserStatsLocalData,
                            private val analyticsSetup: AnalyticsSetup,
-                           private val mapper: GamificationMapper) {
+                           private val mapper: GamificationMapper,
+                           private val impressionPreferencesRepositoryType: ImpressionPreferencesRepositoryType) {
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
@@ -108,6 +110,9 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   fun setGamificationDisclaimerShown() =
       userStatsPreferencesRepository.setGamificationDisclaimerShown()
+
+  fun setHasBeenInPromotionsScreen() =
+      impressionPreferencesRepositoryType.setHasBeenInPromotionsScreen()
 
   private fun getUnWatchedPromotion(promotionList: List<GenericResponse>): GenericResponse? {
     return promotionList.sortedByDescending { list -> list.priority }
@@ -190,7 +195,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                              maxBonus: Double): List<VoucherItem> {
     val list = ArrayList<VoucherItem>()
     vouchersListModel.vouchers.forEach {
-      list.add(VoucherItem(VOUCHER_ID, it.packageName, it.title, it.icon, it.hasAppcoins, maxBonus))
+      list.add(VoucherItem(VOUCHER_ID, it.packageName, it.title, it.featureGraphic, it.icon,
+          it.hasAppcoins, maxBonus))
     }
     return list
   }
@@ -308,4 +314,5 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun getPromotionIdKey(id: String, startDate: Long?, endDate: Long): String {
     return id + "_" + startDate + "_" + endDate
   }
+
 }

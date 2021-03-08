@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance.evouchers
+package com.asfoundation.wallet.ui.balance.vouchers
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -14,7 +14,7 @@ import com.asfoundation.wallet.util.getStringSpanned
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.layout_voucher_code_detail.view.*
 
-class VoucherDetailView : FrameLayout {
+class VoucherTransactionDetailView : FrameLayout {
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
