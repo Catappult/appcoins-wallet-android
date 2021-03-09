@@ -8,7 +8,7 @@ import io.reactivex.Single
 class VouchersRepositoryImpl(private val api: VouchersApi,
                              private val mapper: VouchersResponseMapper) : VouchersRepository {
 
-  override fun getAppsWithVouchers(): Single<VoucherListModel> {
+  override fun getVoucherApps(): Single<VoucherListModel> {
     return api.getAppsWithAvailableVouchers()
         .map { response -> mapper.mapAppWithVouchers(response) }
         .onErrorReturn { throwable -> mapper.mapAppWithVouchersError(throwable) }

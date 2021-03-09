@@ -47,7 +47,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
           Single.zip(
               gamificationInteractor.getLevels(),
               promotionsRepo.getUserStatus(it.address),
-              vouchersRepository.getAppsWithVouchers(),
+              vouchersRepository.getVoucherApps(),
               Function3 { level: Levels, userStatsResponse: UserStatusResponse, vouchers: VoucherListModel ->
                 analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
                 mapToPromotionsModel(userStatsResponse, vouchers, level)

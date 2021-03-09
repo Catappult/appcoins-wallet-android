@@ -65,22 +65,22 @@ class VouchersRepositoryTest {
   }
 
   @Test
-  fun getAppsWithVouchersSuccessTest() {
+  fun getVoucherAppsSuccessTest() {
     Mockito.`when`(api.getAppsWithAvailableVouchers())
         .thenReturn(Single.just(successVoucherAppListResponse))
 
-    val appVoucherList = vouchersRepository.getAppsWithVouchers()
+    val appVoucherList = vouchersRepository.getVoucherApps()
         .blockingGet()
 
     Assert.assertEquals(appVoucherList, getSuccessVoucherListModel())
   }
 
   @Test
-  fun getAppsWithVouchersGenericErrorTest() {
+  fun getVoucherAppsGenericErrorTest() {
     Mockito.`when`(api.getAppsWithAvailableVouchers())
         .thenReturn(Single.error(Throwable("Error")))
 
-    val appVoucherList = vouchersRepository.getAppsWithVouchers()
+    val appVoucherList = vouchersRepository.getVoucherApps()
         .blockingGet()
 
     Assert.assertEquals(appVoucherList,
@@ -88,11 +88,11 @@ class VouchersRepositoryTest {
   }
 
   @Test
-  fun getAppsWithVouchersNetworkErrorTest() {
+  fun getVoucherAppsNetworkErrorTest() {
     Mockito.`when`(api.getAppsWithAvailableVouchers())
         .thenReturn(Single.error(IOException()))
 
-    val appVoucherList = vouchersRepository.getAppsWithVouchers()
+    val appVoucherList = vouchersRepository.getVoucherApps()
         .blockingGet()
 
     Assert.assertEquals(appVoucherList,
