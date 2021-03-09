@@ -19,6 +19,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentAnalytics.Event
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -435,10 +436,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
 
   private fun handlePaymentMethodAnalytics() {
     if (data.isPreselected) {
-      sendEvent(Event.PRE_SELECTED_PAYMENT_METHOD, "cancel")
+      sendEvent(Event.PRE_SELECTED_PAYMENT_METHOD, WalletsAnalytics.ACTION_CANCEL)
       view.close(adyenPaymentInteractor.mapCancellation())
     } else {
-      sendEvent(Event.CONFIRMATION, "back")
+      sendEvent(Event.CONFIRMATION, WalletsAnalytics.ACTION_BACK)
       view.showMoreMethods()
     }
   }
@@ -448,7 +449,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .observeOn(viewScheduler)
         .doOnNext { showMoreMethods() }
         .observeOn(networkScheduler)
-        .doOnNext { sendEvent(Event.PRE_SELECTED_PAYMENT_METHOD, "other_payments") }
+        .doOnNext {
+          sendEvent(Event.PRE_SELECTED_PAYMENT_METHOD, WalletsAnalytics.ACTION_OTHER_PAYMENT)
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -507,8 +510,11 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleBuyAnalytics() {
-    if (data.isPreselected) sendEvent(Event.PRE_SELECTED_PAYMENT_METHOD, "buy")
-    else sendEvent(Event.CONFIRMATION, "buy")
+    if (data.isPreselected) {
+      sendEvent(Event.PRE_SELECTED_PAYMENT_METHOD, WalletsAnalytics.ACTION_BUY)
+    } else {
+      sendEvent(Event.CONFIRMATION, WalletsAnalytics.ACTION_BUY)
+    }
   }
 
   private fun handleAdyenErrorBack() {

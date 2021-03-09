@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.PaymentNavigationData
@@ -439,7 +440,7 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
   private fun sendCancelPaymentMethodAnalytics(paymentMethod: PaymentMethod) {
     analytics.sendPaymentMethodEvent(paymentMethodsData.appPackage, transaction.skuId,
         transaction.amount()
-            .toString(), paymentMethod.id, transaction.type, "cancel",
+            .toString(), paymentMethod.id, transaction.type, WalletsAnalytics.ACTION_CANCEL,
         interactor.hasPreSelectedPaymentMethod())
 
   }
@@ -633,7 +634,7 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
-        if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
+        if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) WalletsAnalytics.ACTION_NEXT else WalletsAnalytics.ACTION_BUY
     if (interactor.hasPreSelectedPaymentMethod()) {
       analytics.sendPaymentMethodEvent(paymentMethodsData.appPackage, transaction.skuId,
           transaction.amount()

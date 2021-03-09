@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.annotation.StringRes
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asf.wallet.R
@@ -183,7 +184,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           transaction.status == Status.INVALID_TRANSACTION
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
-    return if (transaction.type == "VOUCHER") {
+    return if (transaction.type == TransactionType.VOUCHER.name) {
       //TODO Replace with values from API
       Completable.fromAction {
         navigator.navigateToVouchersSuccess("code", "link", data.bonus ?: "")

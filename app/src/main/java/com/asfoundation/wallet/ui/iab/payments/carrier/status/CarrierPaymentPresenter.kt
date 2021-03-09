@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.status
 
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
@@ -78,7 +79,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun completePurchase(payment: CarrierPaymentModel): Completable {
-    return if (data.transactionType == "VOUCHER") {
+    return if (data.transactionType == TransactionType.VOUCHER.name) {
       //TODO Replace with values from API
       Completable.fromAction {
         navigator.navigateToVouchersSuccess("code", "redeem", data.bonusAmount)

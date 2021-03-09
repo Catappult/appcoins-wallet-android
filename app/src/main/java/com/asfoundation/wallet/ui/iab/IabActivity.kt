@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -89,7 +90,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   private fun shouldUseBottomSheet(type: String?): Boolean {
-    return type == "VOUCHER"
+    return type == TransactionType.VOUCHER.name
   }
 
   private fun getLayoutOf(isVoucherTransaction: Boolean): Int {
@@ -250,7 +251,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload, getOrigin(isBds), paymentMethodIconUrl, paymentMethodLabel, async, referralUrl,
+                payload, getOrigin(isBds), paymentMethodIconUrl, paymentMethodLabel, async,
+                referralUrl,
                 gamificationLevel))
         .commit()
   }

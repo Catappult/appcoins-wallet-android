@@ -26,7 +26,7 @@ class VouchersSuccessFragment : DaggerFragment(), VouchersSuccessView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is IabView) { "adyen payment fragment must be attached to IAB activity" }
+    check(context is IabView) { "Adyen payment fragment must be attached to IAB activity" }
     iabView = context
   }
 

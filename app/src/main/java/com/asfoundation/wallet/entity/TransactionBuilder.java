@@ -163,13 +163,12 @@ public class TransactionBuilder implements Parcelable {
         decimals, "", null, "", "", "", "", null, null);
   }
 
-  @NotNull public static TransactionBuilder createVoucherTransaction(@NotNull String sku,
-      @NotNull String title, @NotNull BigDecimal fiatAmount, @NotNull String fiatCurrency,
-      @NotNull String fiatSymbol, @NotNull BigDecimal appcAmount, @NotNull String packageName) {
-    //TODO Use enum instead after API implementation is complete
-    return new TransactionBuilder(fiatSymbol, null, null, APPCOINS_WALLET_ADDRESS, fiatAmount,
-        fiatCurrency, fiatSymbol, appcAmount, sku, 0, "VOUCHER", null, packageName, null, null,
-        null, null, title);
+  public TransactionBuilder(@NotNull String sku, @NotNull String title,
+      @NotNull BigDecimal fiatAmount, @NotNull String fiatCurrency, @NotNull String fiatSymbol,
+      @NotNull BigDecimal appcAmount, @NotNull String packageName, @NotNull String type,
+      @NotNull String toAddress) {
+    this(fiatSymbol, null, null, toAddress, fiatAmount, fiatCurrency, fiatSymbol, appcAmount, sku,
+        0, type, null, packageName, null, null, null, null, title);
   }
 
   public String getIabContract() {

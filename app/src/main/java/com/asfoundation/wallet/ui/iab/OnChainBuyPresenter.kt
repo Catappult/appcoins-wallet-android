@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -112,7 +113,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
     return when (transaction.status) {
       Payment.Status.COMPLETED -> {
         transactionBuilder.flatMapCompletable {
-          if (it.type.equals("VOUCHER", ignoreCase = true)) {
+          if (it.type.equals(TransactionType.VOUCHER.name, ignoreCase = true)) {
             //TODO Replace with values from API
             Completable.fromAction { view.navigateToVouchersSuccess("code", "redeem") }
           } else {
