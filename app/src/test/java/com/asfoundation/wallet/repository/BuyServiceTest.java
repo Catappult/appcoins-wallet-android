@@ -49,7 +49,6 @@ import static org.mockito.Mockito.when;
   @Mock DefaultTokenProvider defaultTokenProvider;
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock AddressService addressService;
-  @Mock Gson gson;
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
@@ -62,7 +61,7 @@ import static org.mockito.Mockito.when;
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-        new PaymentErrorMapper(gson), scheduler, trackTransactionService);
+        new PaymentErrorMapper(new Gson()), scheduler, trackTransactionService);
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
     TokenInfo tokenInfo =
         new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18);

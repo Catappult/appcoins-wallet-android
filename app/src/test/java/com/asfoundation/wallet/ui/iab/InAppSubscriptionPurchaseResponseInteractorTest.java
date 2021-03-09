@@ -97,7 +97,6 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
-  @Mock Gson gson;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
@@ -119,6 +118,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
     MockitoAnnotations.initMocks(this);
     balance = PublishSubject.create();
+    Gson gson = new Gson();
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
         Single.just(new GasSettings(new BigDecimal(1), new BigDecimal(2))));
 

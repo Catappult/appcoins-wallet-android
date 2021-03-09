@@ -191,7 +191,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
 
   private fun sendPaymentErrorEvent(transaction: RewardPayment) {
     val status = transaction.status
-    if (isStatusError(status)) {
+    if (isErrorStatus(status)) {
       if (transaction.errorCode == null && transaction.errorMessage == null) {
         analytics.sendPaymentErrorEvent(packageName, transactionBuilder.skuId,
             transactionBuilder.amount()
@@ -206,7 +206,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     }
   }
 
-  private fun isStatusError(status: Status): Boolean {
+  private fun isErrorStatus(status: Status): Boolean {
     return status === Status.ERROR || status === Status.NO_NETWORK ||
         status === Status.FORBIDDEN || status === Status.SUB_ALREADY_OWNED
   }
