@@ -26,6 +26,7 @@ import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.Error;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -283,12 +284,20 @@ public class TransactionDetailActivity extends BaseActivity {
   }
 
   private void onVoucherModel(VoucherTransactionModel voucherTransactionModel) {
-    VoucherTransactionDetailView voucherDetails = findViewById(R.id.voucher_details);
-    voucherDetails.setCode(voucherTransactionModel.getCode());
-    String redeemText = voucherTransactionModel.getRedeemUrl()
-        .replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)", "");
-    voucherDetails.setRedeemWebsite(redeemText, voucherTransactionModel.getRedeemUrl());
-    voucherDetails.setVisibility(View.VISIBLE);
+    Error error = voucherTransactionModel.getError();
+    if (!error.getHasError()
+        && voucherTransactionModel.getCode() != null
+        && voucherTransactionModel.getRedeemUrl() != null) {
+      VoucherTransactionDetailView voucherDetails = findViewById(R.id.voucher_details);
+      voucherDetails.setCode(voucherTransactionModel.getCode());
+      String redeemText = voucherTransactionModel.getRedeemUrl()
+          .replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)", "");
+      voucherDetails.setRedeemWebsite(redeemText, voucherTransactionModel.getRedeemUrl());
+      voucherDetails.setVisibility(View.VISIBLE);
+    } else {
+      // TODO: Show an error, do nothing?
+    }
+
     findViewById(R.id.voucher_details_progress).setVisibility(View.GONE);
   }
 
