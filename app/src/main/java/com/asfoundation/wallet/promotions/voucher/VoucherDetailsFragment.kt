@@ -10,6 +10,9 @@ import androidx.core.text.buildSpannedString
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -100,8 +103,12 @@ class VoucherDetailsFragment : DaggerFragment(), VoucherDetailsView {
         .load(featureGraphic)
         .error(R.drawable.background_dark_grey)
         .into(app_featured_graphic)
+    val radius = resources.getDimension(R.dimen.voucher_app_icon_radius)
+        .toInt()
+    val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(radius))
     GlideApp.with(requireContext())
         .load(icon)
+        .apply(requestOptions)
         .into(app_icon)
   }
 
