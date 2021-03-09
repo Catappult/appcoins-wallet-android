@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface VouchersRepository {
 
-  fun getAppsWithVouchers(): Single<VoucherListModel>
+  fun getVoucherApps(): Single<VoucherListModel>
 
   fun getVoucherSkuList(packageName: String): Single<VoucherSkuModelList>
 

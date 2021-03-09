@@ -74,4 +74,5 @@
   <dimen name="voucher_details_grid_view_horizontal_spacing">8dp</dimen>
   <dimen name="voucher_details_grid_view_vertical_spacing">16dp</dimen>
   <dimen name="voucher_details_grid_button_height">48dp</dimen>
+  <dimen name="voucher_app_icon_radius">14dp</dimen>
 </resources>

@@ -11,7 +11,7 @@ class VouchersRepositoryImpl(private val api: VouchersApi,
                              private val mapper: VouchersResponseMapper,
                              private val remoteRepository: RemoteRepository) : VouchersRepository {
 
-  override fun getAppsWithVouchers(): Single<VoucherListModel> {
+  override fun getVoucherApps(): Single<VoucherListModel> {
     return api.getAppsWithAvailableVouchers()
         .map { response -> mapper.mapAppWithVouchers(response) }
         .onErrorReturn { throwable -> mapper.mapAppWithVouchersError(throwable) }

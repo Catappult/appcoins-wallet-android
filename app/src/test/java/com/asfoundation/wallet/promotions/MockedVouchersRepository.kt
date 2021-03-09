@@ -10,7 +10,7 @@ import io.reactivex.Single
 class MockedVouchersRepository :
     VouchersRepository {
 
-  override fun getAppsWithVouchers(): Single<VoucherListModel> {
+  override fun getVoucherApps(): Single<VoucherListModel> {
     return Single.just(VoucherListModel(listOf(
         Voucher("com.appcoins.trivialdrivesample.test", "Trivial Drive Sample",
             "https://pool.img.aptoide.com/appupdater/9d884f8e8d5095f79efc7915fd421b9a.png",
