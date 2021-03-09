@@ -14,8 +14,8 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_promotions.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
-import kotlinx.android.synthetic.main.layout_perks_vouchers_buttons.*
 import kotlinx.android.synthetic.main.layout_app_bar.*
+import kotlinx.android.synthetic.main.layout_perks_vouchers_buttons.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.perks_and_vouchers_layout.*
 import javax.inject.Inject
@@ -75,8 +75,8 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     uniquePromotionsAdapter.setPromotions(promotionsModel.promotions)
 
     if (promotionsModel.vouchers.isEmpty() && promotionsModel.perks.isNotEmpty()) checkPerksRadioButton()
-    if (promotionsModel.promotions.isEmpty()) top_half.visibility = GONE
-    else top_half.visibility = VISIBLE
+    if (promotionsModel.promotions.isEmpty()) promotions_view.visibility = GONE
+    else promotions_view.visibility = VISIBLE
 
     perks_vouchers_layout.visibility = VISIBLE
     no_network.visibility = GONE
@@ -88,7 +88,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   }
 
   override fun showLockedPromotionsWithVouchers(vouchers: List<VoucherItem>) {
-    top_half.visibility = VISIBLE
+    promotions_view.visibility = VISIBLE
     vouchers_text.visibility = VISIBLE
     locked_promotions_with_vouchers.visibility = VISIBLE
     perksVouchersPageAdapter.setItems(listOf(vouchers))
@@ -102,7 +102,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun showLoading() {
     promotions_progress_bar.visibility = VISIBLE
     locked_promotions_no_vouchers.visibility = GONE
-    top_half.visibility = GONE
+    promotions_view.visibility = GONE
     perks_vouchers_layout.visibility = GONE
   }
 
@@ -111,8 +111,10 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
   override fun getPromotionClicks() = clickListener
 
   override fun showNetworkErrorView() {
-    top_half.visibility = GONE
+    promotions_view.visibility = GONE
     no_promotions.visibility = GONE
+    locked_promotions_no_vouchers.visibility = GONE
+    perks_vouchers_layout.visibility = GONE
     no_network.visibility = VISIBLE
     retry_button.visibility = VISIBLE
     retry_animation.visibility = GONE
@@ -122,6 +124,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     no_network.visibility = GONE
     retry_animation.visibility = GONE
     no_promotions.visibility = VISIBLE
+    perks_vouchers_layout.visibility = GONE
     locked_promotions_no_vouchers.visibility = GONE
   }
 
@@ -129,6 +132,7 @@ class PromotionsFragment : BasePageViewFragment(), PromotionsView {
     no_network.visibility = GONE
     retry_animation.visibility = GONE
     no_promotions.visibility = GONE
+    perks_vouchers_layout.visibility = GONE
     locked_promotions_no_vouchers.visibility = VISIBLE
   }
 
