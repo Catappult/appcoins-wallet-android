@@ -27,8 +27,6 @@ class WatchedTransactionServiceTest {
   @Mock
   lateinit var transactionSender: TransactionSender
 
-  @Mock
-  lateinit var gson: Gson
   private lateinit var watchedTransactionService: WatchedTransactionService
   private lateinit var scheduler: TestScheduler
 
@@ -53,7 +51,7 @@ class WatchedTransactionServiceTest {
     scheduler = TestScheduler()
     watchedTransactionService = WatchedTransactionService(transactionSender,
         MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()),
-        PaymentErrorMapper(gson), scheduler, pendingTransactionService)
+        PaymentErrorMapper(Gson()), scheduler, pendingTransactionService)
   }
 
   @Test

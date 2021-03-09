@@ -60,9 +60,6 @@ class AppcoinsRewardsTest {
   @Mock
   lateinit var remoteApi: RemoteRepository
 
-  @Mock
-  lateinit var gson: Gson
-
   @Before
   fun setUp() {
     `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
@@ -96,7 +93,6 @@ class AppcoinsRewardsTest {
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", Metadata(PURCHASE_UID), "orderReference", null, "")))
-
     scheduler.advanceTimeBy(1, TimeUnit.DAYS)
     scheduler.triggerActions()
 
@@ -112,7 +108,7 @@ class AppcoinsRewardsTest {
 
           }
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler, billing
-            , ErrorMapper(gson))
+            , ErrorMapper(Gson()))
     appcoinsRewards.start()
   }
 
