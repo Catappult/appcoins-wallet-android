@@ -19,7 +19,6 @@ import com.asfoundation.wallet.ui.gamification.CurrentLevelInfo
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import com.asfoundation.wallet.vouchers.MockedVouchersRepository
 import com.asfoundation.wallet.vouchers.VouchersRepository
 import io.reactivex.Single
 import org.junit.Assert
@@ -77,7 +76,8 @@ class PromotionsInteractorTest {
 
   @Before
   fun setup() {
-    vouchersRepository = MockedVouchersRepository()
+    vouchersRepository =
+        MockedVouchersRepository()
     gamificationResponse =
         GamificationResponse(GAMIFICATION_ID, 100, 20.0, BigDecimal.ONE, BigDecimal.ONE, 1,
             BigDecimal.TEN, PromotionsResponse.Status.ACTIVE, false)
