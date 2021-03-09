@@ -12,7 +12,7 @@ interface AdyenPaymentView {
 
   fun getAnimationDuration(): Long
 
-  fun showLoading(isPreSelected: Boolean, bonus: String)
+  fun showLoading()
 
   fun errorDismisses(): Observable<Any>
 

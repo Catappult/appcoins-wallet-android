@@ -82,7 +82,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleForgetCardClick() {
     disposables.add(view.forgetCardClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.showLoading(data.isPreselected, data.bonus) }
+        .doOnNext { view.showLoading() }
         .observeOn(networkScheduler)
         .flatMapSingle { adyenPaymentInteractor.disablePayments() }
         .observeOn(viewScheduler)
@@ -111,7 +111,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun loadPaymentMethodInfo(savedInstanceState: Bundle?) {
-    view.showLoading(data.isPreselected, data.bonus)
+    view.showLoading()
     disposables.add(
         adyenPaymentInteractor.loadPaymentInfo(mapPaymentToService(data.paymentType),
             data.paymentData.fiatAmount.toString(), data.paymentData.currency)
@@ -168,7 +168,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     if (paymentModel.error.hasError) {
       handleErrors(paymentModel.error)
     } else {
-      view.showLoading(data.isPreselected, data.bonus)
+      view.showLoading()
       view.lockRotation()
       sendPaymentMethodDetailsEvent()
       handleAdyenAction(paymentModel)
@@ -183,7 +183,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         }
         .observeOn(viewScheduler)
         .doOnNext {
-          view.showLoading(data.isPreselected, data.bonus)
+          view.showLoading()
           view.hideKeyboard()
           view.lockRotation()
         }
@@ -252,7 +252,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT && paymentModel.action != null -> {
         Completable.fromAction {
-          view.showLoading(data.isPreselected, data.bonus)
+          view.showLoading()
           view.lockRotation()
           handleAdyenAction(paymentModel)
         }

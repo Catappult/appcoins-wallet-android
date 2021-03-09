@@ -203,22 +203,17 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
 
-  override fun showLoading(isPreSelected: Boolean, bonus: String) {
+  override fun showLoading() {
     fragment_credit_card_authorization_progress_bar.visibility = VISIBLE
-    if (isPreSelected) {
-      payment_methods?.visibility = INVISIBLE
-    } else {
-      if (bonus.isNotEmpty()) {
-        bonus_layout.visibility = INVISIBLE
-        bonus_msg.visibility = INVISIBLE
-      }
-      adyen_card_form.visibility = INVISIBLE
-      change_card_button.visibility = INVISIBLE
-      cancel_button.visibility = INVISIBLE
-      buy_button.visibility = INVISIBLE
-      fiat_price_skeleton.visibility = GONE
-      appc_price_skeleton.visibility = GONE
-    }
+    payment_methods?.visibility = INVISIBLE
+    bonus_layout?.visibility = INVISIBLE
+    bonus_msg?.visibility = INVISIBLE
+    adyen_card_form?.visibility = INVISIBLE
+    change_card_button?.visibility = INVISIBLE
+    cancel_button.visibility = INVISIBLE
+    buy_button.visibility = INVISIBLE
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
   }
 
   override fun hideLoadingAndShowView(isPreSelected: Boolean, bonus: String) {
