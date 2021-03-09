@@ -6,33 +6,42 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import com.appcoins.wallet.bdsbilling.WalletAddressModel;
+import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.viewmodel.BaseViewModel;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
+  private final TransactionDetailData data;
+  private final TransactionDetailInteractor interactor;
   private final ExternalBrowserRouter externalBrowserRouter;
   private final SupportInteractor supportInteractor;
   private final TransactionDetailRouter transactionDetailRouter;
 
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
-  private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
+  private final MutableLiveData<WalletAddressModel> onWalletAddress = new MutableLiveData<>();
+  private final MutableLiveData<VoucherTransactionModel> onVoucherModel = new MutableLiveData<>();
   private final CompositeDisposable disposables;
 
-  TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract,
+  TransactionDetailViewModel(TransactionDetailData data, TransactionDetailInteractor interactor,
+      FindDefaultNetworkInteract findDefaultNetworkInteract, WalletService walletService,
       ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,
       SupportInteractor supportInteractor, TransactionDetailRouter transactionDetailRouter) {
+    this.data = data;
+    this.interactor = interactor;
     this.externalBrowserRouter = externalBrowserRouter;
     this.disposables = compositeDisposable;
     this.supportInteractor = supportInteractor;
@@ -41,10 +50,20 @@ public class TransactionDetailViewModel extends BaseViewModel {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
         }));
-    disposables.add(findDefaultWalletInteract.find()
+    disposables.add(walletService.getAndSignCurrentWalletAddress()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(defaultWallet::postValue, t -> {
-        }));
+        .doOnSuccess(onWalletAddress::postValue)
+        .observeOn(Schedulers.io())
+        .flatMap(walletAddressModel -> {
+          if (data.getTransaction()
+              .getType() == Transaction.TransactionType.VOUCHER) {
+            return retrieveAndShowVoucher(walletAddressModel).map(
+                voucherTransactionModel -> walletAddressModel);
+          }
+          return Single.just(walletAddressModel);
+        })
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
   }
 
   private Single<VoucherTransactionModel> retrieveAndShowVoucher(
@@ -90,8 +109,12 @@ public class TransactionDetailViewModel extends BaseViewModel {
     return null;
   }
 
-  public LiveData<Wallet> defaultWallet() {
-    return defaultWallet;
+  public LiveData<WalletAddressModel> onWalletAddress() {
+    return onWalletAddress;
+  }
+
+  public LiveData<VoucherTransactionModel> onVoucherModel() {
+    return onVoucherModel;
   }
 
   public void showMoreDetailsBds(Context context, Transaction transaction) {

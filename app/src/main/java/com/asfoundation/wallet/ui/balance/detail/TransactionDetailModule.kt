@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.di
+package com.asfoundation.wallet.ui.balance.detail
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.C
@@ -14,6 +14,9 @@ import io.reactivex.disposables.CompositeDisposable
 class TransactionDetailModule {
   @Provides
   fun provideTransactionDetailViewModelFactory(
+      data: TransactionDetailData,
+      interactor: TransactionDetailInteractor,
+      walletService: WalletService,
       findDefaultNetworkInteract: FindDefaultNetworkInteract,
       externalBrowserRouter: ExternalBrowserRouter, supportInteractor: SupportInteractor,
       transactionDetailRouter: TransactionDetailRouter): TransactionDetailViewModelFactory {
@@ -24,6 +27,11 @@ class TransactionDetailModule {
 
   @Provides
   fun provideTransactionDetailRouter() = TransactionDetailRouter()
+
+  @Provides
+  fun providesTransactionDetailData(activity: TransactionDetailActivity): TransactionDetailData {
+    return TransactionDetailData(activity.intent.getParcelableExtra(C.Key.TRANSACTION))
+  }
 
   @Provides
   fun externalBrowserRouter() = ExternalBrowserRouter()

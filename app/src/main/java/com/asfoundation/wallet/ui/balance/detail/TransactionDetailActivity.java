@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance;
+package com.asfoundation.wallet.ui.balance.detail;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -81,8 +81,10 @@ public class TransactionDetailActivity extends BaseActivity {
         .get(TransactionDetailViewModel.class);
     viewModel.defaultNetwork()
         .observe(this, this::onDefaultNetwork);
-    viewModel.defaultWallet()
-        .observe(this, this::onDefaultWallet);
+    viewModel.onWalletAddress()
+        .observe(this, this::onInitializeView);
+    viewModel.onVoucherModel()
+        .observe(this, this::onVoucherModel);
 
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
@@ -104,8 +106,8 @@ public class TransactionDetailActivity extends BaseActivity {
     hideDialog();
   }
 
-  private void onDefaultWallet(Wallet wallet) {
-    adapter.setDefaultWallet(wallet);
+  private void onInitializeView(WalletAddressModel walletAddressModel) {
+    adapter.setDefaultWallet(walletAddressModel);
 
     if (transaction.getOperations() != null && !transaction.getOperations()
         .isEmpty()) {

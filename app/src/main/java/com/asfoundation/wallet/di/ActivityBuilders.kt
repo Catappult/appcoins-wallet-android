@@ -11,7 +11,8 @@ import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.backup.BackupActivityModule
 import com.asfoundation.wallet.ui.balance.QrCodeActivity
 import com.asfoundation.wallet.ui.balance.TokenDetailsActivity
-import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
+import com.asfoundation.wallet.ui.balance.detail.TransactionDetailActivity
+import com.asfoundation.wallet.ui.balance.detail.TransactionDetailModule
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity
