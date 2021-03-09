@@ -26,16 +26,6 @@ import java.util.concurrent.TimeUnit
 
 abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-  companion object {
-    const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
-    internal const val PACKAGE_NAME_EXTRA = "PACKAGE_NAME_EXTRA"
-    internal const val TITLE_NAME_EXTRA = "TITLE_NAME_EXTRA"
-    internal const val FEATURE_GRAPHIC_EXTRA = "FEATURE_GRAPHIC_EXTRA"
-    internal const val ICON_EXTRA = "ICON_EXTRA"
-    internal const val MAX_BONUS = "MAX_BONUS"
-    internal const val HAS_APPCOINS_EXTRA = "HAS_APPCOINS_EXTRA"
-  }
-
   abstract fun bind(promotion: Promotion)
 
   protected fun handleExpiryDate(view: TextView, container: LinearLayout, endDate: Long) {
