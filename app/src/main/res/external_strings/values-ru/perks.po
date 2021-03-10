@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2021-03-03 22:05\n"
+"PO-Revision-Date: 2021-03-10 11:44\n"
 
 #. Card Title
 #:
@@ -59,8 +59,8 @@ msgstr "Получите бонус в {0}% на все ваши покупки 
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr "Получите дополнительный бонус {0}% за все ваши покупки в {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases."
+msgstr ""
 
 #. Card - First purchase.
 #:
