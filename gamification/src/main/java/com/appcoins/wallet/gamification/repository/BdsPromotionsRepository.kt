@@ -58,9 +58,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   private fun getUserStatsFromAPI(wallet: String): Observable<UserStatusResponse> {
     return api.getUserStats(wallet, Locale.getDefault().language)
         .toObservable()
-        .map {
-          filterByDate(it)
-        }
+        .map { filterByDate(it) }
         .flatMap {
           local.deletePromotions()
               .andThen(local.insertPromotions(it.promotions)
@@ -68,9 +66,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               .toSingle { it }
               .toObservable()
         }
-        .onErrorReturn {
-          mapErrorToUserStatsModel(it, false)
-        }
+        .onErrorReturn { mapErrorToUserStatsModel(it, false) }
   }
 
   private fun filterByDate(userStatusResponse: UserStatusResponse): UserStatusResponse {
@@ -127,9 +123,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   override fun getGamificationStats(wallet: String): Observable<GamificationStats> {
     return getUserStats(wallet)
-        .map {
-          mapToGamificationStats(it)
-        }
+        .map { mapToGamificationStats(it) }
         .flatMap {
           local.setGamificationLevel(it.level)
               .toSingle { it }

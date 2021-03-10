@@ -19,9 +19,7 @@ class SupportInteractor(private val supportRepository: SupportRepository,
         .flatMapCompletable { address ->
           gamificationRepository.getUserLevel(address)
               .observeOn(viewScheduler)
-              .flatMapCompletable {
-                showSupport(address, it)
-              }
+              .flatMapCompletable { showSupport(address, it) }
         }
         .subscribeOn(ioScheduler)
   }
@@ -29,9 +27,7 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
         .observeOn(viewScheduler)
-        .flatMapCompletable { address ->
-          showSupport(address, gamificationLevel)
-        }
+        .flatMapCompletable { showSupport(it, gamificationLevel) }
         .subscribeOn(ioScheduler)
   }
 

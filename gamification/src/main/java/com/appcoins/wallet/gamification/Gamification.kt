@@ -17,8 +17,6 @@ class Gamification(private val repository: PromotionsRepository) {
     const val REFERRAL_ID = "REFERRAL"
   }
 
-  // NOTE: this method may be removed once all logic has been converted to offline first (see the
-  // method below)
   fun getUserStats(wallet: String): Observable<GamificationStats> {
     return repository.getGamificationStats(wallet)
   }

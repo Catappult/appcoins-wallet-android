@@ -37,8 +37,6 @@ class GamificationInteractor(
         .flatMapObservable { gamification.getLevels(it.address) }
   }
 
-  // NOTE: this method may be removed once all logic has been converted to offline first (see the
-  // method below)
   fun getUserStats(): Observable<GamificationStats> {
     return defaultWallet.find()
         .flatMapObservable { gamification.getUserStats(it.address) }

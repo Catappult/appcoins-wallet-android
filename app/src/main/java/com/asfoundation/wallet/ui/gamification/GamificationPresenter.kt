@@ -90,9 +90,7 @@ class GamificationPresenter(private val view: GamificationView,
       // this may flicker between something displayed that is in cache and then a no network view.
       // Since there is info that must be retrieved from API, and only from API, it's best to
       // notify the user that there is no network than the user thinking new data will eventually come
-      if (!gamification.fromCache) {
-        activityView.showNetworkErrorView()
-      }
+      if (!gamification.fromCache) activityView.showNetworkErrorView()
     } else {
       val currentLevel = gamification.currentLevel
       activityView.showMainView()
