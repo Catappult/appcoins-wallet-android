@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
-"PO-Revision-Date: 2021-02-22 21:06\n"
+"PO-Revision-Date: 2021-03-10 11:44\n"
 
 #. Card Title
 #:
@@ -59,8 +59,8 @@ msgstr "Szerezz extra {0}% bónuszt minden vásárlás után az AppCoins kredite
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr "Szerezz {0}% bónuszt minden vásárlásnál a/az {1} appban."
+msgid "Receive an extra {0}% Bonus in all your purchases."
+msgstr ""
 
 #. Card - First purchase.
 #:
