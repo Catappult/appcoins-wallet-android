@@ -6,6 +6,7 @@ import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.gamification.repository.entity.*
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
+import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.interact.EmptyNotification
@@ -216,7 +217,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
       promotions.add(perksIndex, TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), userStatus.error,
+    return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), map(userStatus.error),
         levels.fromCache && userStatus.fromCache)
   }
 
@@ -234,6 +235,14 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
       WalletOrigin.UNKNOWN -> com.asfoundation.wallet.promotions.WalletOrigin.UNKNOWN
       WalletOrigin.APTOIDE -> com.asfoundation.wallet.promotions.WalletOrigin.APTOIDE
       WalletOrigin.PARTNER -> com.asfoundation.wallet.promotions.WalletOrigin.PARTNER
+    }
+  }
+
+  private fun map(error: Status?): com.asfoundation.wallet.promotions.Status? {
+    return when(error) {
+      null -> null
+      Status.NO_NETWORK -> com.asfoundation.wallet.promotions.Status.NO_NETWORK
+      Status.UNKNOWN_ERROR -> com.asfoundation.wallet.promotions.Status.UNKNOWN_ERROR
     }
   }
 

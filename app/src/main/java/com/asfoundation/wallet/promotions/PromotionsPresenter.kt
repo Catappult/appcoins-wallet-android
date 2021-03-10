@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.promotions
 
 import android.content.ActivityNotFoundException
-import com.appcoins.wallet.gamification.repository.entity.Status
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
@@ -42,7 +41,7 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun onPromotions(promotionsModel: PromotionsModel) {
     when {
-      promotionsModel.error != null && promotionsModel.fromCache -> {
+      promotionsModel.hasError() && promotionsModel.fromCache -> {
         // not meant to display anything
         viewState = ViewState.DEFAULT
       }
