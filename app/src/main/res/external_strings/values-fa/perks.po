@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2021-02-22 21:06\n"
+"PO-Revision-Date: 2021-03-10 11:43\n"
 
 #. Card Title
 #:
@@ -59,8 +59,8 @@ msgstr "{0}% پاداش اضافی در همه خریدهای خود غیر از
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr "در همه خریدهای خود در {1} یک پاداش {0}% بیشتر دریافت کنید."
+msgid "Receive an extra {0}% Bonus in all your purchases."
+msgstr ""
 
 #. Card - First purchase.
 #:
