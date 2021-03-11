@@ -904,4 +904,6 @@
   <string name="voucher_instructions_transactions">您始终可以在交易历史记录中找到优惠券代码。</string>
   <string name="voucher_empty">目前没有可用的优惠券。</string>
   <string name="voucher_tooltip">您现在可以购买游戏优惠券！</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
