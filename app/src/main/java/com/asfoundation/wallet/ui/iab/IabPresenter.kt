@@ -4,14 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.util.concurrent.TimeUnit
 
 class IabPresenter(private val view: IabView,
                    private val networkScheduler: Scheduler,
@@ -19,7 +18,6 @@ class IabPresenter(private val view: IabView,
                    private val disposable: CompositeDisposable,
                    private val billingAnalytics: BillingAnalytics,
                    private val iabInteract: IabInteract,
-                   private val logger: Logger,
                    private val transaction: TransactionBuilder?) {
 
   private var firstImpression = true
@@ -42,28 +40,6 @@ class IabPresenter(private val view: IabView,
   fun onResume() {
     handleAutoUpdate()
     handleUserRegistration()
-    handleSupportClicks()
-    handleErrorDismisses()
-  }
-
-  private fun handleErrorDismisses() {
-    disposable.add(view.errorDismisses()
-        .doOnNext { view.close(Bundle()) }
-        .subscribe({ }, { view.close(Bundle()) }))
-  }
-
-  private fun handleSupportClicks() {
-    disposable.add(view.getSupportClicks()
-        .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .observeOn(viewScheduler)
-        .doOnNext { iabInteract.showSupport() }
-        .subscribe({}, { it.printStackTrace() })
-    )
-  }
-
-  private fun handleError(throwable: Throwable) {
-    logger.log(TAG, throwable)
-    view.finishWithError()
   }
 
   fun handlePerkNotifications(bundle: Bundle) {
@@ -183,9 +159,9 @@ class IabPresenter(private val view: IabView,
       if (data?.dataString?.contains("codapayments") != true) {
         if (data?.dataString?.contains(
                 BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA) == true) {
-          sendCarrierBillingConfirmationEvent("cancel")
+          sendCarrierBillingConfirmationEvent(WalletsAnalytics.ACTION_CANCEL)
         } else {
-          sendPayPalConfirmationEvent("cancel")
+          sendPayPalConfirmationEvent(WalletsAnalytics.ACTION_CANCEL)
         }
       }
       if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
@@ -196,9 +172,9 @@ class IabPresenter(private val view: IabView,
       if (data?.scheme?.contains("adyencheckout") == true) {
         sendPaypalUrlEvent(data)
         if (getQueryParameter(data, "resultCode") == "cancelled")
-          sendPayPalConfirmationEvent("cancel")
+          sendPayPalConfirmationEvent(WalletsAnalytics.ACTION_CANCEL)
         else
-          sendPayPalConfirmationEvent("buy")
+          sendPayPalConfirmationEvent(WalletsAnalytics.ACTION_BUY)
       }
       view.successWebViewResult(data!!.data)
     }

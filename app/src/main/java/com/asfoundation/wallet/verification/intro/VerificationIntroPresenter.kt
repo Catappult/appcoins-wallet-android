@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.verification.VerificationAnalytics
@@ -79,7 +80,7 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
     disposable.add(
         view.getCancelClicks()
             .doOnNext {
-              analytics.sendInsertCardEvent("cancel")
+              analytics.sendInsertCardEvent(WalletsAnalytics.ACTION_CANCEL)
               view.cancel()
             }
             .subscribe({}, { it.printStackTrace() })

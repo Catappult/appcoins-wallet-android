@@ -12,8 +12,6 @@ interface AdyenPaymentView {
 
   fun getAnimationDuration(): Long
 
-  fun showProduct()
-
   fun showLoading()
 
   fun errorDismisses(): Observable<Any>
@@ -26,7 +24,7 @@ interface AdyenPaymentView {
 
   fun close(bundle: Bundle?)
 
-  fun showSuccess()
+  fun showSuccess(isPreSelected: Boolean)
 
   fun showGenericError()
 
@@ -34,7 +32,7 @@ interface AdyenPaymentView {
 
   fun showMoreMethods()
 
-  fun hideLoadingAndShowView()
+  fun hideLoadingAndShowView(isPreSelected: Boolean, bonus: String)
 
   fun finishCardConfiguration(
       paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, isStored: Boolean,
@@ -48,7 +46,7 @@ interface AdyenPaymentView {
 
   fun showSpecificError(stringRes: Int)
 
-  fun showCvvError()
+  fun showCvvError(isPreSelected: Boolean, bonus: String)
 
   fun showProductPrice(amount: String, currencyCode: String)
 
@@ -80,5 +78,7 @@ interface AdyenPaymentView {
 
   fun setup3DSComponent()
 
-  fun showBillingAddress(value: BigDecimal, currency: String)
+  fun showBillingAddress(value: BigDecimal, currency: String, bonus: String, appcAmount: BigDecimal)
+
+  fun setupUi(data: AdyenPaymentData)
 }

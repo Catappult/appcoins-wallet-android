@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.withNoLayoutTransition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -88,20 +87,16 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     payment_methods_header.showPrice()
     payment_methods_header.hideSkeleton()
 
-    purchase_bonus.withNoLayoutTransition {
-      if (bonusAmount != null) {
-        purchase_bonus.visibility = View.VISIBLE
-        purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
-        purchase_bonus.hideSkeleton()
-      } else {
-        purchase_bonus.visibility = View.GONE
-      }
+    if (bonusAmount != null) {
+      purchase_bonus.visibility = View.VISIBLE
+      purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+      purchase_bonus.hideSkeleton()
+    } else {
+      purchase_bonus.visibility = View.GONE
     }
 
     if (preselected) {
-      other_payments_button.withNoLayoutTransition {
-        other_payments_button.visibility = View.VISIBLE
-      }
+      other_payments_button.visibility = View.VISIBLE
       cancel_button.setText(R.string.cancel_button)
       if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         val marginParams = purchase_bonus.layoutParams as ViewGroup.MarginLayoutParams

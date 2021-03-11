@@ -4,6 +4,7 @@ import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -51,7 +52,7 @@ class CarrierVerifyPresenter(
             view.filterCountries(it.countryList, it.convertListToString())
           }
           val phoneNumber = interactor.retrievePhoneNumber()
-          if(phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
+          if (phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
           else view.hideSavedPhoneNumber()
           view.showPhoneNumberLayout()
         }
@@ -103,8 +104,7 @@ class CarrierVerifyPresenter(
               view.setLoading()
               billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain,
                   data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
-                  data.transactionType,
-                  "next")
+                  data.transactionType, WalletsAnalytics.ACTION_NEXT)
             }
             .flatMap { phoneNumber ->
               interactor.createPayment(phoneNumber, data.domain, data.origin, data.transactionData,
@@ -232,7 +232,7 @@ class CarrierVerifyPresenter(
               if (data.preselected) {
                 billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain, data.skuId,
                     data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
-                    data.transactionType, "cancel")
+                    data.transactionType, WalletsAnalytics.ACTION_CANCEL)
                 navigator.finishActivityWithError()
               } else {
                 billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain, data.skuId,

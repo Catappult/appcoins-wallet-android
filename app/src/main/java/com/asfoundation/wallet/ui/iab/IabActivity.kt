@@ -6,8 +6,8 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -30,7 +30,7 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragm
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.jakewharton.rxbinding2.view.RxView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -39,8 +39,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_iab.*
-import kotlinx.android.synthetic.main.iab_error_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -60,6 +58,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   lateinit var logger: Logger
 
   private lateinit var presenter: IabPresenter
+  private var walletsBottomSheet: BottomSheetBehavior<View>? = null
+  private var shouldUseBottomSheet = false
   private var isBackEnable: Boolean = false
   private var transaction: TransactionBuilder? = null
   private var isBds: Boolean = false
@@ -75,16 +75,45 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     super.onCreate(savedInstanceState)
     backButtonPress = PublishRelay.create()
     results = PublishRelay.create()
+    transaction = intent.getParcelableExtra(TRANSACTION_EXTRA)
     authenticationResultSubject = PublishSubject.create()
-    setContentView(R.layout.activity_iab)
+    shouldUseBottomSheet = shouldUseBottomSheet(transaction!!.type)
+    setContentView(getLayoutOf(shouldUseBottomSheet))
     isBds = intent.getBooleanExtra(IS_BDS_EXTRA, false)
     developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
     uri = intent.getStringExtra(URI)
-    transaction = intent.getParcelableExtra(TRANSACTION_EXTRA)
     isBackEnable = true
+    if (shouldUseBottomSheet) showBottomSheet()
     presenter = IabPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
-        CompositeDisposable(), billingAnalytics, iabInteract, logger, transaction)
+        CompositeDisposable(), billingAnalytics, iabInteract, transaction)
     presenter.present(savedInstanceState)
+  }
+
+  private fun shouldUseBottomSheet(type: String?): Boolean {
+    return type == TransactionType.VOUCHER.name
+  }
+
+  private fun getLayoutOf(isVoucherTransaction: Boolean): Int {
+    return if (isVoucherTransaction) {
+      R.layout.activity_bottom_sheet_iab
+    } else {
+      R.layout.activity_iab
+    }
+  }
+
+  private fun showBottomSheet() {
+    walletsBottomSheet = BottomSheetBehavior.from(fragment_container)
+    walletsBottomSheet?.state = BottomSheetBehavior.STATE_EXPANDED
+    walletsBottomSheet?.isFitToContents = true
+    walletsBottomSheet?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+      override fun onStateChanged(bottomSheet: View, newState: Int) {
+        if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+          walletsBottomSheet?.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+      }
+
+      override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
+    })
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -154,7 +183,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     val intent = Intent()
     bundle?.let { intent.putExtras(bundle) }
     setResult(Activity.RESULT_CANCELED, intent)
-    finish()
+    finishAfterTransition()
   }
 
   override fun navigateToWebViewAuthorization(url: String) {
@@ -177,14 +206,17 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
+  override fun showAdyenPayment(fiatAmount: BigDecimal, currency: String, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
                                 iconUrl: String?, gamificationLevel: Int) {
+    val transactionData = TransactionPaymentData(fiatAmount, currency, isBds, transaction!!.type,
+        transaction!!.domain, getOrigin(isBds), transaction!!.amount(), transaction!!.skuId,
+        getSkuDescription(), transaction!!.payload, transaction!!.callbackUrl,
+        transaction!!.toAddress(), transaction!!.referrerUrl, transaction!!.orderReference)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
-                getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, getSkuDescription()))
+            AdyenPaymentFragment.newInstance(paymentType, bonus, isPreselected, gamificationLevel,
+                transactionData, shouldUseBottomSheet))
         .commit()
   }
 
@@ -192,7 +224,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                                   isPreselected: Boolean) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CarrierVerifyFragment.newInstance(isPreselected, transaction!!.domain, getOrigin(isBds),
+            CarrierVerifyFragment.newInstance(isPreselected, transaction!!.domain,
+                getOrigin(isBds),
                 transaction!!.type, intent.dataString, currency, amount, transaction!!.amount(),
                 bonus, getSkuDescription(), transaction!!.skuId))
         .addToBackStack(CarrierVerifyFragment.BACKSTACK_NAME)
@@ -218,7 +251,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload, getOrigin(isBds), paymentMethodIconUrl, paymentMethodLabel, async, referralUrl,
+                payload, getOrigin(isBds), paymentMethodIconUrl, paymentMethodLabel, async,
+                referralUrl,
                 gamificationLevel))
         .commit()
   }
@@ -226,12 +260,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun showPaymentMethodsView() {
     val isDonation = TransactionData.TransactionType.DONATION.name
         .equals(transaction?.type, ignoreCase = true)
-    layout_error.visibility = View.GONE
     fragment_container.visibility = View.VISIBLE
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getSkuDescription(), isBds, isDonation, developerPayload, uri,
-            intent.dataString))
+            intent.dataString, shouldUseBottomSheet))
         .commit()
   }
 
@@ -288,17 +321,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container, IabUpdateRequiredFragment())
         .commit()
   }
-
-  override fun showError(@StringRes error: Int) {
-    fragment_container.visibility = View.GONE
-    layout_error.visibility = View.VISIBLE
-    error_message.text = getText(error)
-  }
-
-  override fun getSupportClicks(): Observable<Any> =
-      Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
-
-  override fun errorDismisses() = RxView.clicks(error_dismiss)
 
   override fun launchPerkBonusAndGamificationService(address: String) {
     PerkBonusAndGamificationService.buildService(this, address)
@@ -407,21 +429,22 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val AUTHENTICATION_REQUEST_CODE = 33
     const val IS_BDS_EXTRA = "is_bds_extra"
-    const val ERROR_MESSAGE = "error_message"
 
     @JvmStatic
-    fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,
+    fun newIntent(activity: Activity, previousIntent: Intent?, transaction: TransactionBuilder,
                   isBds: Boolean?, developerPayload: String?): Intent {
       return Intent(activity, IabActivity::class.java)
           .apply {
-            data = previousIntent.data
-            if (previousIntent.extras != null) {
-              putExtras(previousIntent.extras!!)
+            if (previousIntent != null) {
+              data = previousIntent.data
+              if (previousIntent.extras != null) {
+                putExtras(previousIntent.extras!!)
+              }
             }
             putExtra(TRANSACTION_EXTRA, transaction)
             putExtra(IS_BDS_EXTRA, isBds)
             putExtra(DEVELOPER_PAYLOAD, developerPayload)
-            putExtra(URI, data!!.toString())
+            putExtra(URI, data?.toString() ?: "")
             putExtra(APP_PACKAGE, transaction.domain)
           }
     }

@@ -45,4 +45,6 @@ interface OnChainBuyView {
   fun lockRotation()
 
   fun showVerification()
+
+  fun navigateToVouchersSuccess(code: String, redeem: String)
 }

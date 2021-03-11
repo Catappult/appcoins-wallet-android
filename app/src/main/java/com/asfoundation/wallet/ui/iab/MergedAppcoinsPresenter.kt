@@ -5,6 +5,7 @@ import android.util.Log
 import android.util.Pair
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -110,7 +111,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .doOnNext { paymentMethod ->
           analytics.sendPaymentConfirmationEvent(paymentMethod.packageName,
               paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
-              paymentMethod.transactionType, "cancel")
+              paymentMethod.transactionType, WalletsAnalytics.ACTION_CANCEL)
         }
         .observeOn(viewScheduler)
         .doOnNext { view.showPaymentMethodsView() }
@@ -147,7 +148,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .doOnNext { paymentMethod ->
           analytics.sendPaymentConfirmationEvent(paymentMethod.packageName,
               paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
-              paymentMethod.transactionType, "buy")
+              paymentMethod.transactionType, WalletsAnalytics.ACTION_BUY)
         }
         .observeOn(viewScheduler)
         .doOnNext { view.showLoading() }
@@ -187,10 +188,10 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   private fun handleErrorDismiss() {
     disposables.add(view.errorDismisses()
         .observeOn(viewScheduler)
-        .doOnNext { navigator.popViewWithError() }
+        .doOnNext { navigator.finishPaymentWithError() }
         .subscribe({}, {
           it.printStackTrace()
-          navigator.popViewWithError()
+          navigator.finishPaymentWithError()
         }))
   }
 

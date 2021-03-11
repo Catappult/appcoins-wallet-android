@@ -3,6 +3,7 @@ package com.asfoundation.wallet.topup
 import android.os.Bundle
 import android.util.Log
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -138,7 +139,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .observeOn(viewScheduler)
               .doOnNext {
                 topUpAnalytics.sendSelectionEvent(topUpData.currency.appcValue.toDouble(),
-                    "next", topUpData.paymentMethod!!.paymentType.name)
+                    WalletsAnalytics.ACTION_NEXT, topUpData.paymentMethod!!.paymentType.name)
                 navigateToPayment(topUpData, cachedGamificationLevel)
               }
         }

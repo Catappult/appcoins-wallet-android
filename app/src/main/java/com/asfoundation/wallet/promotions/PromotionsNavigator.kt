@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -11,7 +12,7 @@ import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
 
-class PromotionsNavigator(private val fragment: Fragment) {
+class PromotionsNavigator(private val fragment: Fragment, private val activity: Activity) {
 
   fun navigateToGamification(cachedBonus: Double) {
     fragment.startActivity(GamificationActivity.newIntent(fragment.requireContext(), cachedBonus))

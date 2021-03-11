@@ -67,10 +67,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun setupUi(bonus: String?) {
     if (bonus?.isNotBlank() == true) {
       complete_payment_view.lottie_transaction_success.setAnimation(
-          R.raw.top_up_bonus_success_animation)
+          R.raw.transaction_complete_bonus_animation)
       setAnimationText(bonus)
     } else {
-      complete_payment_view.lottie_transaction_success.setAnimation(R.raw.top_up_success_animation)
+      complete_payment_view.lottie_transaction_success.setAnimation(R.raw.success_animation)
     }
 
     iabView.disableBack()
@@ -206,7 +206,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun getAnimationDuration() = complete_payment_view.lottie_transaction_success.duration
 
-  override fun popView(bundle: Bundle, paymentId: String) {
+  override fun finishPayment(bundle: Bundle, paymentId: String) {
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY, paymentId)
     iabView.finish(bundle)
   }

@@ -164,7 +164,7 @@ class LocalTopUpPaymentPresenter(private val view: LocalTopUpPaymentView,
       val bundle = createBundle(data.topUpData.fiatValue, data.topUpData.fiatCurrencyCode,
           data.topUpData.fiatCurrencySymbol)
       waitingResult = false
-      navigator.popView(bundle)
+      navigator.finishPayment(bundle)
     }
   }
 
