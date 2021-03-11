@@ -913,4 +913,6 @@
   <string name="voucher_instructions_transactions">Ο κωδικός voucher είναι πάντα διαθέσιμος στο ιστορικό συναλλαγών.</string>
   <string name="voucher_empty">Δεν υπάρχουν διαθέσιμα voucher αυτή τη στιγμή.</string>
   <string name="voucher_tooltip">Τώρα μπορείτε να αγοράσετε voucher για παιχνίδια!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
