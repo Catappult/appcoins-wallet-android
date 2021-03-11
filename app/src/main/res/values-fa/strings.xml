@@ -913,4 +913,6 @@
   <string name="voucher_instructions_transactions">همیشه می‌توانید کد ووچر را در تاریخچه تراکنش‌ها پیدا کنید.</string>
   <string name="voucher_empty">هیچ ووچری در حال حاضر موجود نیست.</string>
   <string name="voucher_tooltip">اکنون می‌توانید برای بازی‌ها ووچر بخرید!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
