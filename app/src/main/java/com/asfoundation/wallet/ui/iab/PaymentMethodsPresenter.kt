@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.PaymentNavigationData
@@ -24,18 +25,17 @@ import retrofit2.HttpException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class PaymentMethodsPresenter(
-    private val view: PaymentMethodsView,
-    private val viewScheduler: Scheduler,
-    private val networkThread: Scheduler,
-    private val disposables: CompositeDisposable,
-    private val analytics: PaymentMethodsAnalytics,
-    private val transaction: TransactionBuilder,
-    private val paymentMethodsMapper: PaymentMethodsMapper,
-    private val formatter: CurrencyFormatUtils,
-    private val logger: Logger,
-    private val interactor: PaymentMethodsInteractor,
-    private val paymentMethodsData: PaymentMethodsData) {
+class PaymentMethodsPresenter(private val view: PaymentMethodsView,
+                              private val viewScheduler: Scheduler,
+                              private val networkThread: Scheduler,
+                              private val disposables: CompositeDisposable,
+                              private val analytics: PaymentMethodsAnalytics,
+                              private val transaction: TransactionBuilder,
+                              private val paymentMethodsMapper: PaymentMethodsMapper,
+                              private val formatter: CurrencyFormatUtils,
+                              private val logger: Logger,
+                              private val interactor: PaymentMethodsInteractor,
+                              private val paymentMethodsData: PaymentMethodsData) {
 
   private var cachedGamificationLevel = 0
   private var cachedFiatValue: FiatValue? = null
@@ -276,7 +276,7 @@ class PaymentMethodsPresenter(
 
   private fun setupUi(firstRun: Boolean) {
     disposables.add(
-        interactor.convertToLocalFiat(paymentMethodsData.transactionValue.toDouble())
+        getFiatValue(paymentMethodsData.transactionValue.toDouble(), paymentMethodsData.fiatValue)
             .subscribeOn(networkThread)
             .flatMapCompletable { fiatValue ->
               this.cachedFiatValue = fiatValue
@@ -300,6 +300,14 @@ class PaymentMethodsPresenter(
               if (!firstRun) view.hideLoading()
             }
             .subscribe({ }, { this.showError(it) }))
+  }
+
+  private fun getFiatValue(appcAmount: Double, fiatValue: FiatValue?): Single<FiatValue> {
+    return if (fiatValue != null) {
+      Single.just(fiatValue)
+    } else {
+      interactor.convertToLocalFiat(appcAmount)
+    }
   }
 
   private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {
@@ -432,7 +440,7 @@ class PaymentMethodsPresenter(
   private fun sendCancelPaymentMethodAnalytics(paymentMethod: PaymentMethod) {
     analytics.sendPaymentMethodEvent(paymentMethodsData.appPackage, transaction.skuId,
         transaction.amount()
-            .toString(), paymentMethod.id, transaction.type, "cancel",
+            .toString(), paymentMethod.id, transaction.type, WalletsAnalytics.ACTION_CANCEL,
         interactor.hasPreSelectedPaymentMethod())
 
   }
@@ -626,7 +634,7 @@ class PaymentMethodsPresenter(
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
-        if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) "next" else "buy"
+        if (selectedPaymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) WalletsAnalytics.ACTION_NEXT else WalletsAnalytics.ACTION_BUY
     if (interactor.hasPreSelectedPaymentMethod()) {
       analytics.sendPaymentMethodEvent(paymentMethodsData.appPackage, transaction.skuId,
           transaction.amount()

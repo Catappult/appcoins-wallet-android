@@ -8,9 +8,9 @@ import io.reactivex.Observable;
 
 public class IabNavigator implements Navigator {
 
-  private FragmentManager fragmentManager;
   private final UriNavigator uriNavigator;
   private final IabView iabView;
+  private final FragmentManager fragmentManager;
 
   public IabNavigator(FragmentManager fragmentManager, UriNavigator uriNavigator, IabView iabView) {
     this.fragmentManager = fragmentManager;
@@ -18,11 +18,11 @@ public class IabNavigator implements Navigator {
     this.iabView = iabView;
   }
 
-  @Override public void popView(Bundle bundle) {
+  @Override public void finishPayment(Bundle bundle) {
     iabView.finish(bundle);
   }
 
-  @Override public void popViewWithError() {
+  @Override public void finishPaymentWithError() {
     iabView.close(new Bundle());
   }
 

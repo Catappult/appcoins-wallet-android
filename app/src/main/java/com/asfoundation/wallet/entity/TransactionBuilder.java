@@ -7,11 +7,14 @@ import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.annotations.NonNull;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.C.ETHER_DECIMALS;
 
 public class TransactionBuilder implements Parcelable {
   public static final long NO_CHAIN_ID = -1;
+  public static final String APPCOINS_WALLET_ADDRESS = "0x123C2124b7F2C18b502296bA884d9CDe201f1c32";
+
   public static final Creator<TransactionBuilder> CREATOR = new Creator<TransactionBuilder>() {
     @Override public TransactionBuilder createFromParcel(Parcel in) {
       return new TransactionBuilder(in);
@@ -28,6 +31,9 @@ public class TransactionBuilder implements Parcelable {
   private boolean shouldSendToken;
   private String toAddress;
   private String fromAddress;
+  private BigDecimal fiatAmount;
+  private String fiatCurrency;
+  private String fiatSymbol;
   private BigDecimal amount = BigDecimal.ZERO;
   private byte[] data;
   private byte[] appcoinsData;
@@ -52,6 +58,9 @@ public class TransactionBuilder implements Parcelable {
     this.shouldSendToken = transactionBuilder.shouldSendToken;
     this.toAddress = transactionBuilder.toAddress;
     this.fromAddress = transactionBuilder.fromAddress;
+    this.fiatAmount = transactionBuilder.fiatAmount;
+    this.fiatCurrency = transactionBuilder.fiatCurrency;
+    this.fiatSymbol = transactionBuilder.fiatSymbol;
     this.amount = transactionBuilder.amount;
     this.data = transactionBuilder.data;
     this.appcoinsData = transactionBuilder.appcoinsData;
@@ -90,6 +99,12 @@ public class TransactionBuilder implements Parcelable {
     shouldSendToken = in.readInt() == 1;
     toAddress = in.readString();
     fromAddress = in.readString();
+    String inFiatAmount = in.readString();
+    if (inFiatAmount != null) {
+      fiatAmount = new BigDecimal(inFiatAmount);
+    }
+    fiatCurrency = in.readString();
+    fiatSymbol = in.readString();
     amount = new BigDecimal(in.readString());
     data = in.createByteArray();
     gasSettings = in.readParcelable(GasSettings.class.getClassLoader());
@@ -108,13 +123,16 @@ public class TransactionBuilder implements Parcelable {
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
-      BigDecimal amount, String skuId, int decimals, String type, String origin, String domain,
-      String payload, String callbackUrl, String orderReference, String referrerUrl,
-      String productName) {
+      BigDecimal fiatAmount, String fiatCurrency, String fiatSymbol, BigDecimal amount,
+      String skuId, int decimals, String type, String origin, String domain, String payload,
+      String callbackUrl, String orderReference, String referrerUrl, String productName) {
     this.symbol = symbol;
     this.contractAddress = contractAddress;
     this.chainId = chainId == null ? NO_CHAIN_ID : chainId;
     this.toAddress = toAddress;
+    this.fiatAmount = fiatAmount;
+    this.fiatCurrency = fiatCurrency;
+    this.fiatSymbol = fiatSymbol;
     this.amount = amount;
     this.skuId = skuId;
     this.shouldSendToken = false;
@@ -133,15 +151,24 @@ public class TransactionBuilder implements Parcelable {
       String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
       String iabContract, String type, String origin, String domain, String payload,
       String callbackUrl, String orderReference, String referrerUrl, String productName) {
-    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
-        type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
+    this(symbol, contractAddress, chainId, receiverAddress, null, "", "", tokenTransferAmount,
+        skuId, decimals, type, origin, domain, payload, callbackUrl, orderReference, referrerUrl,
+        productName);
     this.iabContract = iabContract;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
-    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
-        null, "", "", "", "", null, null);
+    this(symbol, contractAddress, chainId, receiverAddress, null, "", "", tokenTransferAmount, "",
+        decimals, "", null, "", "", "", "", null, null);
+  }
+
+  public TransactionBuilder(@NotNull String sku, @NotNull String title,
+      @NotNull BigDecimal fiatAmount, @NotNull String fiatCurrency, @NotNull String fiatSymbol,
+      @NotNull BigDecimal appcAmount, @NotNull String packageName, @NotNull String type,
+      @NotNull String toAddress) {
+    this(fiatSymbol, null, null, toAddress, fiatAmount, fiatCurrency, fiatSymbol, appcAmount, sku,
+        0, type, null, packageName, null, null, null, null, title);
   }
 
   public String getIabContract() {
@@ -304,6 +331,15 @@ public class TransactionBuilder implements Parcelable {
         + ", fromAddress='"
         + fromAddress
         + '\''
+        + ", fiatAmount="
+        + fiatAmount
+        + '\''
+        + ", fiatCurrency="
+        + fiatCurrency
+        + '\''
+        + ", fiatSymbol="
+        + fiatSymbol
+        + '\''
         + ", amount="
         + amount
         + ", data="
@@ -381,6 +417,18 @@ public class TransactionBuilder implements Parcelable {
     this.originalOneStepCurrency = originalOneStepCurrency;
   }
 
+  public BigDecimal getFiatAmount() {
+    return fiatAmount;
+  }
+
+  public String getFiatCurrency() {
+    return fiatCurrency;
+  }
+
+  public String getFiatSymbol() {
+    return fiatSymbol;
+  }
+
   @Override public int describeContents() {
     return 0;
   }
@@ -392,6 +440,9 @@ public class TransactionBuilder implements Parcelable {
     dest.writeInt(shouldSendToken ? 1 : 0);
     dest.writeString(toAddress);
     dest.writeString(fromAddress);
+    dest.writeString(fiatAmount != null ? fiatAmount.toString() : null);
+    dest.writeString(fiatCurrency);
+    dest.writeString(fiatSymbol);
     dest.writeString(amount.toString());
     dest.writeByteArray(data);
     dest.writeParcelable(gasSettings, flags);

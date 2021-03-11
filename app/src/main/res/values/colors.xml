@@ -104,6 +104,7 @@
   <color name="remove_wallet_red">#e44b46</color>
 
   <color name="faded_background_color">#d9000000</color>
+  <color name="faded_54_background_color">#8a000000</color>
 
   <color name="transparent">#00000000</color>
   <color name="pending_payment_text_color">#727272</color>
@@ -164,7 +165,9 @@
   <color name="verify_wallet_example_code_background">#707070</color>
   <color name="verify_wallet_code_background">#afafaf</color>
 
-  <!-- Voucher Details -->
+  <!-- Vouchers -->
+
+  <color name="vouchers_instructions">#868686</color>
   <color name="dark_blue">#00223a</color>
   <color name="ripple_dark_blue">#4000223a</color>
   <color name="cancel_dark_blue">#142735</color>

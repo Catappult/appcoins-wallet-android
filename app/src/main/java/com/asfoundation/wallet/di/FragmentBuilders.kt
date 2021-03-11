@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -54,6 +55,8 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyModul
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.ui.iab.vouchers.VouchersSuccessFragment
+import com.asfoundation.wallet.ui.iab.vouchers.VouchersSuccessModule
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
@@ -157,7 +160,7 @@ abstract class FragmentBuilders {
   abstract fun bindWalletDetailFragment(): WalletDetailsFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [AdyenPaymentModule::class])
   abstract fun bindAdyenPaymentFragment(): AdyenPaymentFragment
 
   @FragmentScope
@@ -275,4 +278,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerificationErrorModule::class])
   abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [VouchersSuccessModule::class])
+  abstract fun bindVouchersSuccessFragment(): VouchersSuccessFragment
 }

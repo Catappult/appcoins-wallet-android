@@ -27,7 +27,7 @@ interface LocalPaymentView {
 
   fun getAnimationDuration(): Long
 
-  fun popView(bundle: Bundle, paymentId: String)
+  fun finishPayment(bundle: Bundle, paymentId: String)
 
   fun lockRotation()
 

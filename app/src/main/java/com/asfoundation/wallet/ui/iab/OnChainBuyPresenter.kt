@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -111,12 +112,19 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
     sendPaymentErrorEvent(transaction)
     return when (transaction.status) {
       Payment.Status.COMPLETED -> {
-        view.lockRotation()
-        onChainBuyInteract.getCompletedPurchase(transaction, isBds)
-            .observeOn(viewScheduler)
-            .map { buildBundle(it, transaction.orderReference) }
-            .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
-            .onErrorResumeNext { Completable.fromAction { showError(it) } }
+        transactionBuilder.flatMapCompletable {
+          if (it.type.equals(TransactionType.VOUCHER.name, ignoreCase = true)) {
+            //TODO Replace with values from API
+            Completable.fromAction { view.navigateToVouchersSuccess("code", "redeem") }
+          } else {
+            view.lockRotation()
+            onChainBuyInteract.getCompletedPurchase(transaction, isBds)
+                .observeOn(viewScheduler)
+                .map { payment -> buildBundle(payment, transaction.orderReference) }
+                .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
+                .onErrorResumeNext { Completable.fromAction { showError(it) } }
+          }
+        }
       }
       Payment.Status.NO_FUNDS -> Completable.fromAction { view.showNoFundsError() }
           .andThen(onChainBuyInteract.remove(transaction.uri))

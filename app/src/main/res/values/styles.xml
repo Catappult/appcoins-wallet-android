@@ -1132,7 +1132,23 @@
     <item name="android:textSize">16sp</item>
   </style>
 
-  <!-- E-Voucher Details -->
+  <!-- Vouchers -->
+  <style name="VoucherSuccessTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">19sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">4sp</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+
+  <style name="VoucherInstructionsTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">11sp</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">15sp</item>
+    <item name="android:textColor">@color/vouchers_instructions</item>
+  </style>
+
+  <!-- Voucher Details -->
 
   <style name="CancelBorderlessButtonStyle.Voucher">
     <item name="android:textColor">@color/cancel_dark_blue</item>

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab.localpayments
 
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import java.math.BigDecimal
 
 class LocalPaymentAnalytics(private val analytics: BillingAnalytics) {
@@ -8,7 +9,8 @@ class LocalPaymentAnalytics(private val analytics: BillingAnalytics) {
   fun sendNavigationToUrlEvents(packageName: String, skuId: String?, amount: String, type: String,
                                 paymentId: String) {
     analytics.sendPaymentMethodDetailsEvent(packageName, skuId, amount, paymentId, type)
-    analytics.sendPaymentConfirmationEvent(packageName, skuId, amount, type, paymentId, "buy")
+    analytics.sendPaymentConfirmationEvent(packageName, skuId, amount, type, paymentId,
+        WalletsAnalytics.ACTION_BUY)
   }
 
   fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,

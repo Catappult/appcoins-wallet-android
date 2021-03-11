@@ -109,6 +109,15 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                   view.hideLoading()
                 }
               }
+        } else if (transactionBuilder.type.equals(TransactionData.TransactionType.VOUCHER.name,
+                ignoreCase = true)) {
+          rewardsManager.getTransaction(packageName, sku, amount)
+              .flatMapCompletable {
+                Completable.fromAction {
+                  //TODO Replace with value from API
+                  view.navigateToVouchersSuccess("code", "link")
+                }
+              }
         } else {
           rewardsManager.getTransaction(packageName, sku, amount)
               .firstOrError()

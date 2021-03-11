@@ -375,7 +375,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
       topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType, "success")
       val bundle = createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
       waitingResult = false
-      navigator.popView(bundle)
+      navigator.finishPayment(bundle)
     }
   }
 

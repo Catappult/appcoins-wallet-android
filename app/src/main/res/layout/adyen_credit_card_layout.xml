@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/payment_methods_width"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:theme="@style/AdyenMaterialAppTheme"
@@ -12,19 +12,16 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="10dp"
-      android:animateLayoutChanges="true"
-      android:background="@drawable/background_card_light_grey"
       android:orientation="vertical"
       >
     <RelativeLayout
         android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_card"
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
-        android:padding="16dp"
+        android:padding="8dp"
         >
 
       <include
@@ -49,6 +46,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/line_separator"
+          android:animateLayoutChanges="true"
           android:overScrollMode="never"
           android:scrollbars="none"
           tools:visibility="visible"
@@ -152,12 +150,12 @@
 
     </RelativeLayout>
 
-    <include
+  </LinearLayout>
+
+  <include
         layout="@layout/fragment_iab_transaction_completed"
         tools:visibility="gone"
         />
-
-  </LinearLayout>
 
   <include
       android:id="@+id/fragment_iab_error"

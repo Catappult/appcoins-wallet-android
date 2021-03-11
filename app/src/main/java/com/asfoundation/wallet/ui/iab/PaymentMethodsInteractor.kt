@@ -63,8 +63,9 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
       inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
           developerPayload, isBds, type)
 
-  fun convertToLocalFiat(appcValue: Double): Single<FiatValue> =
-      inAppPurchaseInteractor.convertToLocalFiat(appcValue)
+  fun convertToLocalFiat(appcValue: Double): Single<FiatValue> {
+    return inAppPurchaseInteractor.convertToLocalFiat(appcValue)
+  }
 
   fun hasAsyncLocalPayment() = inAppPurchaseInteractor.hasAsyncLocalPayment()
 

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/payment_methods_width_landscape"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:animateLayoutChanges="true"
-    android:background="@drawable/background_card"
     >
 
   <include layout="@layout/fragment_iab_loading" />

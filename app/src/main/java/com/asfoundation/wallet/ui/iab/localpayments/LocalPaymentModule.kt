@@ -48,8 +48,9 @@ class LocalPaymentModule {
   }
 
   @Provides
-  fun providesLocalPaymentNavigator(uriNavigator: UriNavigator): LocalPaymentNavigator {
-    return LocalPaymentNavigator(uriNavigator)
+  fun providesLocalPaymentNavigator(fragment: LocalPaymentFragment,
+                                    uriNavigator: UriNavigator): LocalPaymentNavigator {
+    return LocalPaymentNavigator(fragment.requireFragmentManager(), uriNavigator)
   }
 
   @Provides

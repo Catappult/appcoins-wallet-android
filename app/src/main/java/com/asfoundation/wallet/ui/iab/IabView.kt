@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
@@ -31,7 +30,7 @@ interface IabView {
 
   fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String, gamificationLevel: Int)
 
-  fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
+  fun showAdyenPayment(fiatAmount: BigDecimal, currency: String, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
                        iconUrl: String?, gamificationLevel: Int)
 
@@ -75,12 +74,6 @@ interface IabView {
   fun showBackupNotification(walletAddress: String)
 
   fun showVerification()
-
-  fun showError(@StringRes error: Int)
-
-  fun getSupportClicks(): Observable<Any>
-
-  fun errorDismisses(): Observable<Any>
 
   fun launchPerkBonusAndGamificationService(address: String)
 

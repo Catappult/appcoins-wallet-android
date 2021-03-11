@@ -36,4 +36,6 @@ interface AppcoinsRewardsBuyView {
   fun lockRotation()
 
   fun showVerification()
+
+  fun navigateToVouchersSuccess(code: String, link: String)
 }

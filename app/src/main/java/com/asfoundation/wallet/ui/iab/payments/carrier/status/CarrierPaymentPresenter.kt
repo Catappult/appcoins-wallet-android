@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.status
 
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
@@ -74,9 +75,20 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
     return sendPaymentSuccessEvents()
         .andThen(carrierInteractor.savePhoneNumber(data.phoneNumber))
         .observeOn(viewScheduler)
-        .andThen(Completable.fromAction { view.showFinishedTransaction() }
-            .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
-            .andThen(finishPayment(payment)))
+        .andThen(completePurchase(payment))
+  }
+
+  private fun completePurchase(payment: CarrierPaymentModel): Completable {
+    return if (data.transactionType == TransactionType.VOUCHER.name) {
+      //TODO Replace with values from API
+      Completable.fromAction {
+        navigator.navigateToVouchersSuccess("code", "redeem", data.bonusAmount)
+      }
+    } else {
+      Completable.fromAction { view.showFinishedTransaction() }
+          .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
+          .andThen(finishPayment(payment))
+    }
   }
 
   private fun isUnauthorizedCode(errorCode: Int?): Boolean {
