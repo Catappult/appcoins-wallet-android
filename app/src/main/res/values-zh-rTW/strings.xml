@@ -904,4 +904,6 @@
   <string name="voucher_instructions_transactions">您隨時可以在交易記錄中查看兌換碼。</string>
   <string name="voucher_empty">目前沒有可購兌換券。</string>
   <string name="voucher_tooltip">您現在可以購買遊戲兌換券啦！</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
