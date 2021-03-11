@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions
 import com.asfoundation.wallet.promotions.voucher.Price
 import com.asfoundation.wallet.promotions.voucher.VoucherSkuItem
 import com.asfoundation.wallet.promotions.voucher.VoucherSkuModelList
+import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel
 import com.asfoundation.wallet.vouchers.VouchersRepository
 import io.reactivex.Single
 
@@ -40,5 +41,11 @@ class MockedVouchersRepository :
         VoucherSkuItem("400_diamonds", "400 Diamonds", Price(4.0, "USD", "$", 56.0)),
         VoucherSkuItem("500_diamonds", "500 Diamonds", Price(5.0, "USD", "$", 70.0))
     )))
+  }
+
+  override fun getVoucherTransactionData(transactionHash: String,
+                                         walletAddress: String,
+                                         signedAddress: String): Single<VoucherTransactionModel> {
+    return Single.just(VoucherTransactionModel("12345678", "https://game.com/redeem"))
   }
 }

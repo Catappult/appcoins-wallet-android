@@ -255,6 +255,18 @@
           app:layout_constraintTop_toBottomOf="@id/more_detail"
           />
 
+      <ProgressBar
+          android:id="@+id/voucher_details_progress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/voucher_details"
+          app:layout_constraintEnd_toEndOf="@id/voucher_details"
+          app:layout_constraintStart_toStartOf="@id/voucher_details"
+          app:layout_constraintTop_toTopOf="@id/voucher_details"
+          />
+
       <TextView
           android:id="@+id/details_label"
           style="@style/TransactionDetailsTextStyle.Dark"
