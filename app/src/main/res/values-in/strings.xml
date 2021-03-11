@@ -904,4 +904,6 @@
   <string name="voucher_instructions_transactions">Anda bisa menemukan kode voucher dalam riwayat transaksi.</string>
   <string name="voucher_empty">Tidak tersedia voucher saat ini.</string>
   <string name="voucher_tooltip">Sekarang Anda bisa membeli voucher untuk game!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
