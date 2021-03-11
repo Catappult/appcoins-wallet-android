@@ -929,4 +929,6 @@
   <string name="voucher_instructions_transactions">व्यवहार इतिहासात आपल्याला व्हाऊचर कोड नेहमीच सापडेल.</string>
   <string name="voucher_empty">सध्यातरी व्हाऊचर्स उपलब्ध नाहीत.</string>
   <string name="voucher_tooltip">आता आपण खेळासाठी व्हाऊचर्स खरेदी करु शकता!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
