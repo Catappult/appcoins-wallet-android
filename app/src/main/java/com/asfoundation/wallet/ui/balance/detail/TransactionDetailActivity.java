@@ -294,8 +294,6 @@ public class TransactionDetailActivity extends BaseActivity {
           .replaceFirst("^(http[s]?://www\\.|http[s]?://|www\\.)", "");
       voucherDetails.setRedeemWebsite(redeemText, voucherTransactionModel.getRedeemUrl());
       voucherDetails.setVisibility(View.VISIBLE);
-    } else {
-      // TODO: Show an error, do nothing?
     }
 
     findViewById(R.id.voucher_details_progress).setVisibility(View.GONE);
