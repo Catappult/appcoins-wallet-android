@@ -906,4 +906,6 @@
   <string name="voucher_instructions_transactions">คุณสามารถค้นหารหัสเวาเชอร์ได้ตลอดเวลาในประวัติการทำธุรกรรม</string>
   <string name="voucher_empty">ไม่มีเวาเชอร์ในขณะนี้</string>
   <string name="voucher_tooltip">ตอนนี้คุณสามารถซื้อเวาเชอร์สำหรับเกมได้แล้ว</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
