@@ -931,4 +931,6 @@
   <string name="voucher_instructions_transactions">Вы всегда можете найти код купона в истории ваших транзакций.</string>
   <string name="voucher_empty">На данный момент купонов нет.</string>
   <string name="voucher_tooltip">Теперь вы можете купить купоны для игр!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
