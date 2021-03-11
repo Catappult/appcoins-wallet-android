@@ -913,4 +913,6 @@
   <string name="voucher_instructions_transactions">Vous pouvez toujours trouver le code du bon dans l\'historique des transactions.</string>
   <string name="voucher_empty">Aucun bon n\'est disponible pour le moment.</string>
   <string name="voucher_tooltip">Vous pouvez désormais acheter des bons pour des jeux !</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
