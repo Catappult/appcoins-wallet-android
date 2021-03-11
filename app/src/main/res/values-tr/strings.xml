@@ -913,4 +913,6 @@
   <string name="voucher_instructions_transactions">Kupon kodunuza dilediğiniz zaman işlem geçmişinden ulaşabilirsiniz.</string>
   <string name="voucher_empty">Şu anda uygun kupon yok.</string>
   <string name="voucher_tooltip">Artık oyunlar için kupon satın alabilirsiniz!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
