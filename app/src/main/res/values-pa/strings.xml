@@ -913,4 +913,6 @@
   <string name="voucher_instructions_transactions">ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਸੌਦੇ ਦੇ ਇਤਿਹਾਸ ਵਿੱਚ ਵਾਊਚਰ ਕੋਡ ਨੂੰ ਲੱਭ ਸਕਦੇ ਹੋ|</string>
   <string name="voucher_empty">ਇਸ ਸਮੇਂ ਕੋਈ ਵਾਊਚਰ ਉਪਲਬਧ ਨਹੀਂ ਹਨ|</string>
   <string name="voucher_tooltip">ਤੁਸੀਂ ਹੁਣ ਗੇਮਾਂ ਲਈ ਵਊਚਰ ਖਰੀਦ ਸਕਦੇ ਹੋ!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
