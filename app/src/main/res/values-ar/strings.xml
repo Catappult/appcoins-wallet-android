@@ -950,4 +950,6 @@
   <string name="voucher_instructions_transactions">يمكنك دائمًا إيجاد رمز القسيمة في سجل التحويلات.</string>
   <string name="voucher_empty">لا يتوفر لدينا قسائم تسوق حاليًّا.</string>
   <string name="voucher_tooltip">يمكنك الآن شراء القسائم للألعاب!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
