@@ -79,6 +79,8 @@ class PaymentMethodsPresenter(
         .doOnNext { selectedPaymentMethod ->
           if (interactor.isBonusActiveAndValid()) {
             handleBonusVisibility(selectedPaymentMethod)
+          } else {
+            view.removeBonus()
           }
           handlePositiveButtonText(selectedPaymentMethod)
         }
