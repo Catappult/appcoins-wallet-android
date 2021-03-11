@@ -39,7 +39,7 @@ class SubscriptionsMapper {
   private fun mapRenewalDate(renewal: String?): Date? {
     return if (renewal == null) null
     else {
-      val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.US)
+      val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
       dateFormat.parse(renewal)
     }
   }

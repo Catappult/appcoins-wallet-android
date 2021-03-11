@@ -52,6 +52,7 @@ class UserSubscriptionsMapperTest {
 
   @Test
   fun mapResponseTest() {
+    Locale.setDefault(Locale.US)
     val applicationResponse = ApplicationInfoResponse(TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON)
     val orderResponse =
         OrderResponse(TEST_GATEWAY, TEST_REFERENCE, TEST_FIAT_AMOUNT, TEST_LABEL, TEST_CURRENCY,

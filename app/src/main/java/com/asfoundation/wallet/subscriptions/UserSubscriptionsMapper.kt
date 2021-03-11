@@ -56,7 +56,7 @@ class UserSubscriptionsMapper {
   private fun mapDate(date: String?): Date? {
     return if (date == null) null
     else {
-      val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.US)
+      val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
       dateFormat.parse(date)
     }
   }
