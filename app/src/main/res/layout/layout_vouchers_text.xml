@@ -11,7 +11,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
       android:layout_marginEnd="16dp"
-      android:text="Vouchers for games"
+      android:text="@string/voucher_empty_more_title"
       app:layout_constraintTop_toTopOf="parent"
       />
   <TextView
@@ -21,7 +21,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
       android:layout_marginEnd="16dp"
-      android:text="Find the best deals for your Favorite games"
+      android:text="@string/voucher_empty_more_body"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/vouchers_title"
       app:layout_constraintTop_toBottomOf="@id/vouchers_title"
