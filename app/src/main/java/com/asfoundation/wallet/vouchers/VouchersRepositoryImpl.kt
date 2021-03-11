@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.vouchers
 
-import android.util.Log
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.promotions.VoucherListModel
 import com.asfoundation.wallet.promotions.voucher.VoucherSkuModelList
 import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel
@@ -10,6 +10,7 @@ import io.reactivex.Single
 
 class VouchersRepositoryImpl(private val api: VouchersApi,
                              private val mapper: VouchersResponseMapper,
+                             private val logger: Logger,
                              private val remoteRepository: RemoteRepository) : VouchersRepository {
 
   companion object {
@@ -20,7 +21,7 @@ class VouchersRepositoryImpl(private val api: VouchersApi,
     return api.getAppsWithAvailableVouchers()
         .map { response -> mapper.mapAppWithVouchers(response) }
         .onErrorReturn { throwable ->
-          Log.e(TAG, throwable.message, throwable)
+          logger.log(TAG, throwable)
           mapper.mapAppWithVouchersError(throwable)
         }
   }
@@ -29,7 +30,7 @@ class VouchersRepositoryImpl(private val api: VouchersApi,
     return api.getVouchersForPackage(packageName)
         .map { response -> mapper.mapVoucherSkuList(response) }
         .onErrorReturn { throwable ->
-          Log.e(TAG, throwable.message, throwable)
+          logger.log(TAG, throwable)
           mapper.mapVoucherSkuListError(throwable)
         }
   }
@@ -41,7 +42,7 @@ class VouchersRepositoryImpl(private val api: VouchersApi,
         signedAddress)
         .map { transaction -> mapper.mapVoucherTransactionData(transaction) }
         .onErrorReturn { throwable ->
-          Log.e(TAG, throwable.message, throwable)
+          logger.log(TAG, throwable)
           mapper.mapVoucherTransactionDataError(throwable)
         }
   }

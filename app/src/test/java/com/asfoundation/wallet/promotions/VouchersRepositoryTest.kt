@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.TransactionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Metadata
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.promotions.voucher.VoucherSkuItem
 import com.asfoundation.wallet.promotions.voucher.VoucherSkuModelList
 import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel
@@ -46,6 +47,9 @@ class VouchersRepositoryTest {
   @Mock
   lateinit var bdsApiSecondary: BdsApiSecondary
 
+  @Mock
+  lateinit var logger: Logger
+
   private lateinit var vouchersRepository: VouchersRepository
 
   private lateinit var successVoucherAppListResponse: VoucherAppListResponse
@@ -54,7 +58,7 @@ class VouchersRepositoryTest {
 
   @Before
   fun setup() {
-    vouchersRepository = VouchersRepositoryImpl(api, VouchersResponseMapper(),
+    vouchersRepository = VouchersRepositoryImpl(api, VouchersResponseMapper(), logger,
         RemoteRepository(bdsApi, BdsApiResponseMapper(), bdsApiSecondary))
     val appVoucherList = listOf(
         VoucherAppResponse(TEST_PACKAGE_NAME, "Trivial Drive Sample",
