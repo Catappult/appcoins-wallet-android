@@ -42,7 +42,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       intent.putExtra(SUPPORT_NOTIFICATION_CLICK, fromSupportNotification)
       return intent
     }
-
+    // NOTE - if this gets moved to myappcoins domain, don't forget to add "lang" parameter to both
+    //  these urls. See how it's done in SettingsFragment
     private const val TERMS_CONDITIONS_URL = "https://catappult.io/appcoins-wallet/terms-conditions"
     private const val PRIVACY_POLICY_URL = "https://catappult.io/appcoins-wallet/privacy-policy"
     private const val PAYMENT_METHODS_ICONS = "paymentMethodsIcons"

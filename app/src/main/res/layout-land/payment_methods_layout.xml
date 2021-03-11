@@ -2,19 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/payment_methods_width_landscape"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:animateLayoutChanges="true"
     android:theme="@style/AppTheme"
     >
 
   <RelativeLayout
       android:id="@+id/payment_method_main_view"
-      android:layout_width="@dimen/payment_methods_width_landscape"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:background="@drawable/background_card"
       >
     <ProgressBar
         android:id="@+id/loading_view"
@@ -22,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/gradient_progress"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -71,161 +69,184 @@
         android:id="@+id/payment_methods"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_card"
         android:elevation="2dp"
         >
-
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/mid_guideline"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.46"
-          />
 
       <com.asfoundation.wallet.ui.common.SeparatorView
           android:id="@+id/top_separator"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/big_margin"
-          app:layout_constraintBottom_toTopOf="@id/payment_methods_header"
+          app:layout_constraintBottom_toTopOf="@id/content_main"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:line_orientation="horizontal"
           app:line_type="solid"
           />
-
-      <include
-          android:id="@+id/payment_methods_header"
-          layout="@layout/payment_methods_header"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="19dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
-          />
-
-      <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
-          android:id="@+id/bonus_view"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="20dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
-          app:layout_constraintVertical_bias="1"
-          app:layout_constraintVertical_chainStyle="packed"
-          />
-
-      <ImageView
-          android:id="@+id/mid_separator"
-          android:layout_width="1dp"
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/content_main"
+          android:layout_width="match_parent"
           android:layout_height="0dp"
-          android:layout_marginTop="7dp"
-          android:layout_marginBottom="8dp"
-          android:background="@drawable/dashed_vertical_line"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
-          app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
-          />
-
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/payment_methods_radio_list"
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:layout_centerInParent="true"
-          android:orientation="vertical"
-          android:overScrollMode="never"
-          android:paddingStart="16dp"
-          android:paddingTop="8dp"
-          android:paddingEnd="16dp"
-          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
-          tools:listitem="@layout/item_payment_method"
-          />
-
-      <LinearLayout
-          android:id="@+id/payments_skeleton"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="5dp"
-          android:layout_marginEnd="14dp"
-          android:orientation="vertical"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="@id/mid_guideline"
+          app:layout_constraintHeight_default="wrap"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           >
-        <include
-            layout="@layout/skeleton_payments"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mid_guideline"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.46"
             />
-        <include
-            layout="@layout/skeleton_payments"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            />
-        <include
-            layout="@layout/skeleton_payments"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            />
-        <include
-            layout="@layout/skeleton_payments"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            />
-      </LinearLayout>
-      <include
-          android:id="@+id/layout_pre_selected"
-          layout="@layout/selected_payment_method"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
-          android:layout_marginEnd="16dp"
-          app:layout_constraintBottom_toBottomOf="@id/bottom_separator_buttons"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/top_separator"
-          app:layout_constraintVertical_bias="0.4"
-          />
 
-      <Button
-          android:id="@+id/more_payment_methods"
-          style="?android:attr/borderlessButtonStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="4dp"
-          android:drawableEnd="@drawable/ic_arrow_right"
-          android:text="@string/purchase_more_payment_methods_button"
-          android:textColor="@color/text_button_color"
-          android:textSize="12sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
-          />
+        <include
+            android:id="@+id/payment_methods_header"
+            layout="@layout/payment_methods_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_margin"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="@dimen/big_margin"
+            app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
+        <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
+            android:id="@+id/bonus_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/big_margin"
+            app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintVertical_chainStyle="packed"
+            />
+
+        <ImageView
+            android:id="@+id/mid_separator"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/dashed_vertical_line"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mid_guideline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/payment_methods_radio_list"
+            android:layout_width="0dp"
+            android:layout_height="232dp"
+            android:layout_centerInParent="true"
+            android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/mid_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_payment_method"
+            />
+
+        <LinearLayout
+            android:id="@+id/payments_skeleton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="14dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/mid_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+          <include
+              layout="@layout/skeleton_payments"
+              android:layout_width="wrap_content"
+              android:layout_height="40dp"
+              />
+          <include
+              layout="@layout/skeleton_payments"
+              android:layout_width="wrap_content"
+              android:layout_height="40dp"
+              android:layout_marginTop="2dp"
+              />
+          <include
+              layout="@layout/skeleton_payments"
+              android:layout_width="wrap_content"
+              android:layout_height="40dp"
+              android:layout_marginTop="2dp"
+              />
+          <include
+              layout="@layout/skeleton_payments"
+              android:layout_width="wrap_content"
+              android:layout_height="40dp"
+              android:layout_marginTop="2dp"
+              />
+        </LinearLayout>
+        <include
+            android:id="@+id/layout_pre_selected"
+            layout="@layout/selected_payment_method"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/mid_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            />
+
+        <Button
+            android:id="@+id/more_payment_methods"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:text="@string/purchase_more_payment_methods_button"
+            android:textColor="@color/text_button_color"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
+            />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/payment_methods_list_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:constraint_referenced_ids="payment_methods_radio_list"
+            />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/pre_selected_payment_method_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="layout_pre_selected,more_payment_methods"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
       <com.asfoundation.wallet.ui.common.SeparatorView
           android:id="@+id/bottom_separator_buttons"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="232dp"
+          app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
           app:line_orientation="horizontal"
           app:line_type="solid"
           />
@@ -246,24 +267,6 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/bottom_separator_buttons"
-
-          />
-
-      <androidx.constraintlayout.widget.Group
-          android:id="@+id/payment_methods_list_group"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:visibility="invisible"
-          app:constraint_referenced_ids="payment_methods_radio_list"
-          />
-
-      <androidx.constraintlayout.widget.Group
-          android:id="@+id/pre_selected_payment_method_group"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:visibility="gone"
-          app:constraint_referenced_ids="layout_pre_selected,more_payment_methods"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -59,7 +59,7 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
   private fun handleNextClick() {
     disposable.add(view.onNextClicks()
         .filter { it.error.not() }
-        .doOnNext { navigator.navigateToPurchaseFlow(it) }
+        .doOnNext { navigator.navigateToPurchaseFlow(it, data.packageName) }
         .subscribe({ }, { it.printStackTrace() }))
   }
 
@@ -75,7 +75,7 @@ class VoucherDetailsPresenter(private val view: VoucherDetailsView,
 
 
   private fun retrieveSkuList() {
-    disposable.add(interactor.getVoucherSkus()
+    disposable.add(interactor.getVoucherSkus(data.packageName)
         .subscribeOn(ioScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {

@@ -7,6 +7,7 @@ import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalle
 import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentAnalytics
 import com.asfoundation.wallet.billing.analytics.*
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
@@ -219,5 +220,11 @@ class AnalyticsModule {
   @Provides
   fun providesVerificationAnalytics(analytics: AnalyticsManager): VerificationAnalytics {
     return VerificationAnalytics(analytics)
+  }
+
+  @Singleton
+  @Provides
+  fun providesAnalyticsWrapper(analytics: BillingAnalytics): AdyenPaymentAnalytics {
+    return AdyenPaymentAnalytics(analytics)
   }
 }

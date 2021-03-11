@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -50,12 +52,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     private const val TRANSACTION = "transaction"
     private const val ITEM_ALREADY_OWNED = "item_already_owned"
     private const val IS_DONATION = "is_donation"
+    private const val USE_BOTTOM_SHEET = "use_bottom_sheet"
 
     @JvmStatic
     fun newInstance(transaction: TransactionBuilder?, productName: String?,
                     isBds: Boolean, isDonation: Boolean,
                     developerPayload: String?, uri: String?,
-                    transactionData: String?): Fragment {
+                    transactionData: String?, shouldUseBottomSheet: Boolean = false): Fragment {
       val bundle = Bundle()
       bundle.apply {
         putParcelable(TRANSACTION, transaction)
@@ -67,6 +70,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         putBoolean(IS_BDS, isBds)
         putBoolean(IS_DONATION, isDonation)
         putString(IabActivity.TRANSACTION_DATA, transactionData)
+        putBoolean(USE_BOTTOM_SHEET, shouldUseBottomSheet)
       }
       return PaymentMethodsFragment().apply { arguments = bundle }
     }
@@ -113,8 +117,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     preSelectedPaymentMethod = BehaviorSubject.create()
     paymentMethodClick = PublishRelay.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
+    val fiatValue = if (transactionBuilder!!.fiatAmount != null) {
+      FiatValue(transactionBuilder!!.fiatAmount, transactionBuilder!!.fiatCurrency,
+          transactionBuilder!!.fiatSymbol)
+    } else null
     val paymentMethodsData = PaymentMethodsData(appPackage, isBds, getDeveloperPayload(), getUri(),
-        getTransactionValue())
+        getTransactionValue(), fiatValue)
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
         paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData)
@@ -132,7 +140,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.payment_methods_layout, container, false)
+    val view = inflater.inflate(R.layout.payment_methods_layout, container, false)
+    if (arguments?.getBoolean(USE_BOTTOM_SHEET) == true) {
+      val recyclerView = view.findViewById<RecyclerView>(R.id.payment_methods_radio_list)
+      recyclerView.layoutParams.height = LayoutParams.WRAP_CONTENT
+    }
+    return view
   }
 
   override fun onSaveInstanceState(outState: Bundle) {

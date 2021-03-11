@@ -12,6 +12,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.ui.iab.vouchers.VouchersSuccessFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -136,6 +137,12 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     loading_view.visibility = View.GONE
     generic_error_layout.visibility = View.GONE
     iab_activity_transaction_completed.visibility = View.VISIBLE
+  }
+
+  override fun navigateToVouchersSuccess(code: String, link: String) {
+    requireFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container, VouchersSuccessFragment.newInstance(code, link))
+        .commit()
   }
 
   override fun getAnimationDuration() = lottie_transaction_success.duration

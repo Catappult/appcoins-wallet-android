@@ -42,7 +42,6 @@ class CarrierPaymentFragment : DaggerFragment(), CarrierPaymentView {
   private fun setupUi() {
     iabView.disableBack()
     lockRotation()
-
   }
 
   override fun initializeView(bonusValue: BigDecimal?, currency: String) {

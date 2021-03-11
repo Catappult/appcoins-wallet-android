@@ -18,6 +18,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.logging.Logger;
+import com.asfoundation.wallet.ui.iab.vouchers.VouchersSuccessFragment;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
@@ -241,6 +242,13 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void showVerification() {
     iabView.showVerification();
+  }
+
+  @Override public void navigateToVouchersSuccess(@NotNull String code, @NotNull String redeem) {
+    requireFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            VouchersSuccessFragment.newInstance(code, redeem, getBonus()))
+        .commit();
   }
 
   @Override public void onAttach(Context context) {

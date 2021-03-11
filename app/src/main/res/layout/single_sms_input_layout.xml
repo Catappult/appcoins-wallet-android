@@ -9,7 +9,6 @@
     android:theme="@style/TextInputLayoutAppearance"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    tools:showIn="@layout/fragment_sms_code"
     >
 
   <EditText

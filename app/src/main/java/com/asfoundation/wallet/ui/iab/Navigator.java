@@ -6,9 +6,9 @@ import io.reactivex.Observable;
 
 public interface Navigator {
 
-  void popView(Bundle bundle);
+  void finishPayment(Bundle bundle);
 
-  void popViewWithError();
+  void finishPaymentWithError();
 
   void navigateToUriForResult(String redirectUrl);
 

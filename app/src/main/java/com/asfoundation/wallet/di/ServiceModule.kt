@@ -44,6 +44,7 @@ import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.DeviceInfo
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
+import com.asfoundation.wallet.vouchers.api.VouchersApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -585,5 +586,19 @@ class ServiceModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(VerificationStateApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun provideVouchersApi(@Named("default") client: OkHttpClient,
+                         gson: Gson): VouchersApi {
+    val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20210201/"
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(VouchersApi::class.java)
   }
 }

@@ -4,15 +4,13 @@
   <style name="PaymentMethods" />
 
   <style name="PaymentMethods.DialogCardStyle">
-    <item name="android:layout_width">@dimen/payment_methods_width</item>
+    <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_gravity">center</item>
-    <item name="android:animateLayoutChanges">true</item>
-    <item name="android:background">@drawable/background_card_light_grey</item>
   </style>
 
   <style name="PaymentMethods.DialogCardStyle.Landscape">
-    <item name="android:layout_width">@dimen/payment_methods_width_landscape</item>
+    <item name="android:layout_width">match_parent</item>
     <item name="android:maxHeight">300dp</item>
   </style>
 

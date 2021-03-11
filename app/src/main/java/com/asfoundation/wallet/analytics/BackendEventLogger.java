@@ -1,9 +1,10 @@
 package com.asfoundation.wallet.analytics;
 
-import android.util.Log;
 import cm.aptoide.analytics.AnalyticsManager;
+import cm.aptoide.analytics.AnalyticsManager.Action;
 import cm.aptoide.analytics.EventLogger;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.util.Log;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Map;
 
@@ -17,8 +18,7 @@ public class BackendEventLogger implements EventLogger {
   }
 
   @Override
-  public void log(String eventName, Map<String, Object> data, AnalyticsManager.Action action,
-      String context) {
+  public void log(String eventName, Map<String, Object> data, Action action, String context) {
     Log.d(TAG, "log() called with: eventName = ["
         + eventName
         + "], data = ["

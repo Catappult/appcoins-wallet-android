@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -36,7 +37,7 @@ class CarrierFeePresenter(private val disposables: CompositeDisposable,
     disposables.add(
         view.nextClickEvent()
             .doOnNext {
-              sendPaymentConfirmationEvent("next")
+              sendPaymentConfirmationEvent(WalletsAnalytics.ACTION_NEXT)
               navigator.navigateToPayment(data.domain, data.transactionData, data.transactionType,
                   data.skuId, data.paymentUrl, data.appcAmount, data.currency, data.bonusAmount,
                   data.phoneNumber)

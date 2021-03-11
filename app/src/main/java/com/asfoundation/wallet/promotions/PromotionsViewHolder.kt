@@ -244,10 +244,13 @@ class VouchersViewHolder(itemView: View,
 
     loadIcon(voucher.icon, itemView.voucher_icon)
 
-    itemView.setOnClickListener {
-      clickListener.onNext(
-          VoucherClick(voucher.id, voucher.packageName, voucher.title, voucher.featureGraphic,
-              voucher.icon, voucher.maxBonus, voucher.hasAppcoins))
-    }
+    itemView.voucher_buy_button.setOnClickListener { sendVoucherClickEvent(voucher) }
+    itemView.setOnClickListener { sendVoucherClickEvent(voucher) }
+  }
+
+  private fun sendVoucherClickEvent(voucher: VoucherItem) {
+    clickListener.onNext(
+        VoucherClick(voucher.id, voucher.packageName, voucher.title, voucher.featureGraphic,
+            voucher.icon, voucher.maxBonus, voucher.hasAppcoins))
   }
 }

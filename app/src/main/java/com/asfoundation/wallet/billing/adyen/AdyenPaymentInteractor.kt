@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
@@ -64,8 +65,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                   returnUrl: String, value: String, currency: String, reference: String?,
                   paymentType: String, origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?,
-                  referrerUrl: String?,
+                  developerWallet: String?, referrerUrl: String?,
                   billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { address ->
@@ -128,11 +128,13 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 orderReference: String?, hash: String?,
                                 scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
+    return when {
+      isInApp(type) && sku != null -> {
+        billing.getSkuPurchase(merchantName, sku, scheduler)
+            .map { billingMessagesMapper.mapPurchase(it, orderReference) }
+      }
+      type.equals(TransactionType.VOUCHER.name, true) -> Single.just(Bundle())
+      else -> Single.just(billingMessagesMapper.successBundle(hash))
     }
   }
 
@@ -184,7 +186,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   }
 
   private fun isInApp(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true)
+    return type.equals(TransactionType.INAPP.name, ignoreCase = true)
   }
 
   companion object {
