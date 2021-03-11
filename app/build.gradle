@@ -157,6 +157,7 @@ dependencies {
   implementation project(path: ':gamification')
   implementation project(path: ':permissions')
   implementation project(path: ':appcoinsRewards')
+  implementation project(path: ':skillz')
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
