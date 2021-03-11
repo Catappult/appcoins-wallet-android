@@ -904,4 +904,6 @@
   <string name="voucher_instructions_transactions">Anda boleh lihat kod baucar dalam sejarah transaksi.</string>
   <string name="voucher_empty">Tiada baucar buat masa ini.</string>
   <string name="voucher_tooltip">Anda kini boleh beli baucar untuk permainan!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
