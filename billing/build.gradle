@@ -24,7 +24,9 @@ android {
       buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_PROD
       buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
     }
-
+    staging {
+      initWith release
+    }
     debug {
       minifyEnabled false
       buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_DEV
