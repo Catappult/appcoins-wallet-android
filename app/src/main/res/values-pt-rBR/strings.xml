@@ -913,4 +913,6 @@
   <string name="voucher_instructions_transactions">Você sempre encontrará o código do voucher no histórico de transações.</string>
   <string name="voucher_empty">Nenhum voucher disponível no momento.</string>
   <string name="voucher_tooltip">Você agora pode comprar vouchers para os jogos!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
