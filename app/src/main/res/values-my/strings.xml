@@ -904,4 +904,6 @@
   <string name="voucher_instructions_transactions">ေငြလႊဲေျပာင္းမႈ ရာဇဝင္တြင္ ေဘာက္ခ်ာကုဒ္ကို အၿမဲတမ္းေတြ႕ႏိုင္ပါသည္။</string>
   <string name="voucher_empty">လက္ရွိတြင္ မည္သည့္ေဘာက္ခ်ာမွ် မရရွိႏိုင္ပါ။</string>
   <string name="voucher_tooltip">ယခုအခါ ဂိမ္းမ်ားအတြက္ ေဘာက္ခ်ာမ်ားကို သင္ဝယ္ယူႏိုင္ပါၿပီ။</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
