@@ -9,6 +9,11 @@ import java.util.*
 
 class UserSubscriptionsMapper {
 
+  internal companion object {
+    internal const val DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+    internal val LOCALE = Locale.US
+  }
+
   private fun mapSubscriptionList(
       subscriptionList: UserSubscriptionsListResponse): List<SubscriptionItem> {
     return subscriptionList.items.map {
@@ -56,7 +61,7 @@ class UserSubscriptionsMapper {
   private fun mapDate(date: String?): Date? {
     return if (date == null) null
     else {
-      val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+      val dateFormat = SimpleDateFormat(DATE_FORMAT_PATTERN, Locale.US)
       dateFormat.parse(date)
     }
   }

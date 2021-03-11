@@ -11,7 +11,7 @@ import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import java.io.IOException
 import java.math.BigDecimal
-import java.util.*
+import java.text.SimpleDateFormat
 
 @RunWith(MockitoJUnitRunner::class)
 class UserSubscriptionsMapperTest {
@@ -22,9 +22,9 @@ class UserSubscriptionsMapperTest {
     private const val TEST_TITLE = "title"
     private const val TEST_PERIOD = "P1W"
     private const val TEST_STARTED = "2020-04-01T10:27:45.823910Z"
-    private const val TEST_RENEWAL = "2020-05-01T10:27:45.823910Z"
-    private const val TEST_EXPIRE = "2020-06-01T10:27:45.823910Z"
-    private const val TEST_ENDED = "2020-07-01T10:27:45.823910Z"
+    private const val TEST_RENEWAL = "2020-04-01T10:27:45.823910Z"
+    private const val TEST_EXPIRE = "2020-04-01T10:27:45.823910Z"
+    private const val TEST_ENDED = "2020-04-01T10:27:45.823910Z"
     private const val TEST_ICON = "icon"
     private const val TEST_GATEWAY = "gateway"
     private const val TEST_REFERENCE = "reference"
@@ -52,7 +52,9 @@ class UserSubscriptionsMapperTest {
 
   @Test
   fun mapResponseTest() {
-    Locale.setDefault(Locale.US)
+    val dateFormat = SimpleDateFormat(UserSubscriptionsMapper.DATE_FORMAT_PATTERN,
+        UserSubscriptionsMapper.LOCALE)
+    val expectedDate = dateFormat.parse(TEST_STARTED)
     val applicationResponse = ApplicationInfoResponse(TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON)
     val orderResponse =
         OrderResponse(TEST_GATEWAY, TEST_REFERENCE, TEST_FIAT_AMOUNT, TEST_LABEL, TEST_CURRENCY,
@@ -72,13 +74,13 @@ class UserSubscriptionsMapperTest {
     val expiredSubscriptions = UserSubscriptionsListResponse(listOf(expiredSubResponse))
     val model = mapper.mapToSubscriptionModel(allSubscriptions, expiredSubscriptions, true)
     val activeItem =
-        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.ACTIVE, Date(1585734088000),
-            Date(1588326088000), Date(1591004488000), null, TEST_PACKAGE_NAME, TEST_TITLE,
+        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.ACTIVE, expectedDate,
+            expectedDate, expectedDate, null, TEST_PACKAGE_NAME, TEST_TITLE,
             TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE,
             TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
     val expiredItem =
-        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.EXPIRED, Date(1585734088000),
-            Date(1588326088000), null, Date(1593596488000), TEST_PACKAGE_NAME, TEST_TITLE,
+        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.EXPIRED, expectedDate,
+            expectedDate, null, expectedDate, TEST_PACKAGE_NAME, TEST_TITLE,
             TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE,
             TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
     val allItemsList = listOf(activeItem, expiredItem)
