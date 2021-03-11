@@ -59,6 +59,7 @@ class BillingPaymentProofSubmissionTest {
           override fun signContent(content: String): Single<String> = Single.just(signedContent)
           override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
               Single.just(WalletAddressModel(walletAddress, signedContent))
+
           override fun getWalletOrCreate(): Single<String> = Single.just(walletAddress)
           override fun findWalletOrCreate(): Observable<String> = Observable.just(walletAddress)
         })
@@ -75,7 +76,7 @@ class BillingPaymentProofSubmissionTest {
             developerPayload, callback, orderReference, referrerUrl, walletAddress,
             signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
         Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
-        "orderReference", null, "", "")))
+        "orderReference", null, "", null)))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())

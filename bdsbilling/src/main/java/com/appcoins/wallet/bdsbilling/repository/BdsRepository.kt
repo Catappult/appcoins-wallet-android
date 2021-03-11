@@ -88,7 +88,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
 
   override fun getAppcoinsTransaction(uid: String, address: String,
                                       signedContent: String): Single<Transaction> {
-    return getAppcoinsTransaction(uid, address, signedContent)
+    return remoteRepository.getAppcoinsTransaction(uid, address, signedContent)
   }
 
 }

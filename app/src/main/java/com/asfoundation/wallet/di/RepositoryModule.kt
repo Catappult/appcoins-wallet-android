@@ -338,8 +338,9 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesVouchersRepository(vouchersApi: VouchersApi,
-                                 remoteRepository: RemoteRepository): VouchersRepository {
-    return VouchersRepositoryImpl(vouchersApi, VouchersResponseMapper(), remoteRepository)
+                                 remoteRepository: RemoteRepository,
+                                 logger: Logger): VouchersRepository {
+    return VouchersRepositoryImpl(vouchersApi, VouchersResponseMapper(), logger, remoteRepository)
   }
 
   @Singleton

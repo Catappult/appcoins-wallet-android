@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.di
 
 import android.content.Context
-import android.util.Log
 import androidx.work.Configuration
 import androidx.work.DelegatingWorkerFactory
 import androidx.work.WorkManager
+import com.asfoundation.wallet.util.Log
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
