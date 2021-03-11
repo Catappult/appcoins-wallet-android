@@ -114,6 +114,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                    walletAddress: String,
                                    signedAddress: String): Single<Transaction> {
     return api.getAppcoinsTransactionByHash(walletAddress, signedAddress, transactionHash)
+        .map { list -> list.items[0] }
   }
 
   fun getWallet(packageName: String): Single<GetWalletResponse> {
@@ -191,7 +192,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     @GET("broker/8.20210201/transactions")
     fun getAppcoinsTransactionByHash(@Query("wallet.address") walletAddress: String,
                                      @Query("wallet.signature") walletSignature: String,
-                                     @Query("hash") hash: String): Single<Transaction>
+                                     @Query("hash") hash: String): Single<TransactionsResponse>
 
 
     @GET("inapp/8.20180518/packages/{packageName}/purchases")

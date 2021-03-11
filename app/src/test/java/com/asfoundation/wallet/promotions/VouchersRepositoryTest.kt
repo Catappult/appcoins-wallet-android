@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.TransactionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Metadata
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
@@ -49,7 +50,7 @@ class VouchersRepositoryTest {
 
   private lateinit var successVoucherAppListResponse: VoucherAppListResponse
   private lateinit var successSkuListResponse: VoucherSkuListResponse
-  private lateinit var successTransactionResponse: Transaction
+  private lateinit var successTransactionResponse: TransactionsResponse
 
   @Before
   fun setup() {
@@ -83,10 +84,11 @@ class VouchersRepositoryTest {
         VoucherSkuResponse("500_diamonds", "500 Diamonds", Price("5.0", "USD", "$", "70.0"))
     )
     successSkuListResponse = VoucherSkuListResponse(null, null, skuResponseList)
-    successTransactionResponse = Transaction("123", Transaction.Status.COMPLETED,
-        Gateway(Gateway.Name.myappcoins, "myappcoins", ""), "0x123", null, null, "VOUCHER",
-        Metadata(com.appcoins.wallet.bdsbilling.repository.entity.Voucher("12345678",
-            "https://game.com/redeem")))
+    successTransactionResponse =
+        TransactionsResponse(listOf(Transaction("123", Transaction.Status.COMPLETED,
+            Gateway(Gateway.Name.myappcoins, "myappcoins", ""), "0x123", null, null, "VOUCHER",
+            Metadata(com.appcoins.wallet.bdsbilling.repository.entity.Voucher("12345678",
+                "https://game.com/redeem")))))
   }
 
   @Test
