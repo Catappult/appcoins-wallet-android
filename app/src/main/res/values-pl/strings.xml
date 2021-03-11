@@ -931,4 +931,6 @@
   <string name="voucher_instructions_transactions">Kod vouchera znajdziesz w historii transakcji.</string>
   <string name="voucher_empty">Teraz nie ma tu żadnych voucherów.</string>
   <string name="voucher_tooltip">Teraz możesz kupić vouchery na gry!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
