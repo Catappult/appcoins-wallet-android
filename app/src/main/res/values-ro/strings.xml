@@ -922,4 +922,6 @@
   <string name="voucher_instructions_transactions">Vei găsi codul voucherului în istoricul tranzacțiilor.</string>
   <string name="voucher_empty">Fără vouchere disponibile în prezent.</string>
   <string name="voucher_tooltip">Acum poți cumpăra vouchere pentru jocuri!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
