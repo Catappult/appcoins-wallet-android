@@ -73,6 +73,7 @@ class TransactionsMapper {
       "Bonus Revert OffChain" -> TransactionEntity.TransactionType.BONUS_REVERT
       "Topup Revert OffChain" -> TransactionEntity.TransactionType.TOP_UP_REVERT
       "IAP Revert OffChain" -> TransactionEntity.TransactionType.IAP_REVERT
+      "Voucher OffChain" -> TransactionEntity.TransactionType.VOUCHER
       else -> TransactionEntity.TransactionType.STANDARD
     }
   }

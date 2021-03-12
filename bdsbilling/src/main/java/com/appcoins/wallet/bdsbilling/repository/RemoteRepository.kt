@@ -110,6 +110,13 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     return api.getAppcoinsTransaction(uid, address, signedContent)
   }
 
+  fun getAppCoinsTransactionByHash(transactionHash: String,
+                                   walletAddress: String,
+                                   signedAddress: String): Single<Transaction> {
+    return api.getAppcoinsTransactionByHash(walletAddress, signedAddress, transactionHash)
+        .map { list -> list.items[0] }
+  }
+
   fun getWallet(packageName: String): Single<GetWalletResponse> {
     return bdsApiSecondary.getWallet(packageName)
   }
@@ -131,8 +138,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
     return api.createTransaction(origin, packageName, price, currency, productName, type,
-        walletAddress, walletsDeveloper, walletsStore, walletsOem, paymentId, developerPayload, callback,
-        orderReference, referrerUrl, walletAddress, walletSignature)
+        walletAddress, walletsDeveloper, walletsStore, walletsOem, paymentId, developerPayload,
+        callback, orderReference, referrerUrl, walletAddress, walletSignature)
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
@@ -181,6 +188,11 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                @Query("wallet.address") walletAddress: String,
                                @Query("wallet.signature")
                                walletSignature: String): Single<Transaction>
+
+    @GET("broker/8.20210201/transactions")
+    fun getAppcoinsTransactionByHash(@Query("wallet.address") walletAddress: String,
+                                     @Query("wallet.signature") walletSignature: String,
+                                     @Query("hash") hash: String): Single<TransactionsResponse>
 
 
     @GET("inapp/8.20180518/packages/{packageName}/purchases")

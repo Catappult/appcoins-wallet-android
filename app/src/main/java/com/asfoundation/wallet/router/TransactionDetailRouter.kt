@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
+import com.asfoundation.wallet.ui.balance.detail.TransactionDetailActivity
 
 class TransactionDetailRouter {
   fun open(context: Context, transaction: Transaction) {

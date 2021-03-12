@@ -8,12 +8,13 @@ data class Transaction(val uid: String,
                        val orderReference: String?,
                        val price: Price?,
                        val type: String,
+                       val metadata: Metadata?,
                        val url: String? = null) {
 
   companion object {
     fun notFound(): Transaction {
       return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, "",
-          "")
+          null, "")
     }
 
   }

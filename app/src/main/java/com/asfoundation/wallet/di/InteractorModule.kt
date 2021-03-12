@@ -67,6 +67,7 @@ import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.balance.BalanceRepository
+import com.asfoundation.wallet.ui.balance.detail.TransactionDetailInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.iab.*
@@ -578,5 +579,12 @@ class InteractorModule {
                                            walletService: WalletService): WalletVerificationInteractor {
     return WalletVerificationInteractor(verificationRepository, adyenPaymentRepository,
         walletService)
+  }
+
+  @Singleton
+  @Provides
+  fun providesTransactionDetailInteractor(
+      vouchersRepository: VouchersRepository): TransactionDetailInteractor {
+    return TransactionDetailInteractor(vouchersRepository)
   }
 }
