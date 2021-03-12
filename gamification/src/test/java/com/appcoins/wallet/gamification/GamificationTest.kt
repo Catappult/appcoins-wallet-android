@@ -168,13 +168,13 @@ class GamificationTest {
         Levels(Levels.Status.NO_NETWORK, emptyList(), false, null, false))
   }
 
-  // TODO - remove the next 2 tests once everything has been put in offline first logic
+  // TODO - remove the next 3 tests once everything has been put in offline first logic
   @Test
   fun getLevelsOld() {
     api.levelsResponse = Single.just(
         LevelsResponse(listOf(Level(BigDecimal.ONE, 2.0, 1), Level(BigDecimal.TEN, 20.0, 2)),
             LevelsResponse.Status.ACTIVE, date))
-    val testObserver = gamification.getSingleLevels(WALLET)
+    val testObserver = gamification.getLevels(WALLET, false)
         .test()
     testObserver.assertValue(
         Levels(Levels.Status.OK,
@@ -183,10 +183,23 @@ class GamificationTest {
   }
 
   @Test
-  fun getLevelsNoNetworkOld() {
+  fun getLevelsNoNetworkWithDbOld() {
     api.levelsResponse = Single.error(UnknownHostException())
-    local.levelsResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getSingleLevels(WALLET)
+    local.levelsResponse = Single.just(
+        LevelsResponse(listOf(Level(BigDecimal.ONE, 5.0, 1), Level(BigDecimal.TEN, 10.0, 2)),
+            LevelsResponse.Status.ACTIVE, date))
+    val testObserver = gamification.getLevels(WALLET, false)
+        .test()
+    testObserver.assertValue(Levels(Levels.Status.OK,
+        listOf(Levels.Level(BigDecimal.ONE, 5.0, 1), Levels.Level(BigDecimal.TEN, 10.0, 2)),
+        true, date, true))
+  }
+
+  @Test
+  fun getLevelsNoNetworkWithoutDbOld() {
+    api.levelsResponse = Single.error(UnknownHostException())
+    local.levelsResponse = Single.error(EmptyResultSetException(""))
+    val testObserver = gamification.getLevels(WALLET, false)
         .test()
     testObserver.assertValue(Levels(Levels.Status.NO_NETWORK))
   }

@@ -25,19 +25,14 @@ class Gamification(private val repository: PromotionsRepository) {
     return repository.getGamificationLevel(wallet)
   }
 
-  // NOTE: this method may be removed once all logic has been converted to offline first (see the
-  // method below)
-  fun getSingleLevels(wallet: String): Single<Levels> {
-    return repository.getSingleLevels(wallet)
-  }
-
-  fun getLevels(wallet: String): Observable<Levels> {
-    return repository.getLevels(wallet)
+  fun getLevels(wallet: String, offlineFirst: Boolean = true): Observable<Levels> {
+    return repository.getLevels(wallet, offlineFirst)
   }
 
   fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {
-    return repository.getSingleUserStatus(wallet)
+    return repository.getUserStats(wallet, false)
         .map { map(it) }
+        .lastOrError()
         .onErrorReturn { mapReferralError(it) }
   }
 

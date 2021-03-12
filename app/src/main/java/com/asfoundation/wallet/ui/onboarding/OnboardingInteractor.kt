@@ -18,8 +18,7 @@ class OnboardingInteractor(private val walletService: WalletService,
       .flatMap { address ->
         gamificationRepository.getUserLevel(address)
             .doOnSuccess { supportInteractor.registerUser(it, address) }
-            .ignoreElement()
-            .andThen(Single.just(address))
+            .map { address }
       }
 
   fun saveOnboardingCompleted() = preferencesRepositoryType.setOnboardingComplete()

@@ -11,7 +11,6 @@ interface UserStatsLocalData {
   /**
    * @return -1 if never showed any level
    */
-
   fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int>
 
   fun saveShownLevel(wallet: String, level: Int, gamificationContext: GamificationContext)

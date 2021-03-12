@@ -25,16 +25,9 @@ class GamificationInteractor(
 
   private var isBonusActiveAndValid: Boolean = false
 
-  // NOTE: this method may be removed once all logic has been converted to offline first (see the
-  // method below)
-  fun getSingleLevels(): Single<Levels> {
+  fun getLevels(offlineFirst: Boolean = true): Observable<Levels> {
     return defaultWallet.find()
-        .flatMap { gamification.getSingleLevels(it.address) }
-  }
-
-  fun getLevels(): Observable<Levels> {
-    return defaultWallet.find()
-        .flatMapObservable { gamification.getLevels(it.address) }
+        .flatMapObservable { gamification.getLevels(it.address, offlineFirst) }
   }
 
   fun getUserStats(): Observable<GamificationStats> {
