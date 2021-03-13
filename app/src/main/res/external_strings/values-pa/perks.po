@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Punjabi\n"
 "Language: pa_IN\n"
-"PO-Revision-Date: 2021-03-10 11:44\n"
+"PO-Revision-Date: 2021-03-13 06:45\n"
 
 #. Card Title
 #:
@@ -60,7 +60,7 @@ msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ,
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ {0}% ਵਾਧੂ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Card - First purchase.
 #:
