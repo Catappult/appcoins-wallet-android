@@ -26,7 +26,7 @@
   <string name="credits">क्रेडीट्स</string>
   <string name="label_new">नविन</string>
   <string name="got_it_button">समजल</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">बदला</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
@@ -509,9 +509,9 @@
   <string name="error_contac_us_body">जर समस्या तशीच असेल तर कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_error_unverified_wallet">आपल वॉलेट सत्यापित केल्यानंतर खरेदी पूर्ण करा.</string>
   <string name="purchase_error_try_other_method">अरेरे&#8230; काहीतरी होत आहे! कृपया वेगळी पेमेंट वापरुन पहा किंवा आमच्याशी संपर्क साधा.</string>
-  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
-  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_other_amount">आपली टॉपअप रक्कम खूप जास्त आहे असे दिसतेय! कमी रक्कम घाला किंवा आमच्याशी संपर्क साधा!</string>
+  <string name="purchase_error_try_other_amount_or_method">अरेरे&#8230; काहीतरी होत आहे! कृपया वेगळी पेमेंट वापरुन किंवा टॉपअप रक्कम घालुन पहा.</string>
+  <string name="purchase_error_try_cheaper_item">हे फारच महाग आहे! कृपया कमी मूल्याची वस्तु खरेदी करण्याचा प्रयत्न करा.</string>
   <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
