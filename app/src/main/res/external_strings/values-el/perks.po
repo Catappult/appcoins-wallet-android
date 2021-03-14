@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
-"PO-Revision-Date: 2021-03-10 11:44\n"
+"PO-Revision-Date: 2021-03-14 13:41\n"
 
 #. Card Title
 #:
@@ -60,7 +60,7 @@ msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορέ
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας."
 
 #. Card - First purchase.
 #:
