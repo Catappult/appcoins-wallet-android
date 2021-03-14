@@ -26,7 +26,7 @@
   <string name="credits">Credits</string>
   <string name="label_new">Nieuw</string>
   <string name="got_it_button">BEGREPEN</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">WIJZIGEN</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission_title">Toestemming voor camera</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
@@ -509,10 +509,10 @@
   <string name="error_contac_us_body">Neem contact met ons op als het probleem zich blijft voordoen.</string>
   <string name="purchase_error_unverified_wallet">Probeer de aankoop te voltooien nadat je je wallet hebt geverifieerd.</string>
   <string name="purchase_error_try_other_method">Oeps&#8230; Er gaat iets fout! Probeer het met een andere betaalmethode of neem contact met ons op.</string>
-  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
-  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
-  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
+  <string name="purchase_error_try_other_amount">Het lijkt erop dat je bedrag om op te waarderen te hoog is! Probeer een lager bedrag of neem contact met ons op!</string>
+  <string name="purchase_error_try_other_amount_or_method">Oeps&#8230; Er gaat iets fout! Probeer een andere betaalmethode of kies een ander bedrag om op te waarderen.</string>
+  <string name="purchase_error_try_cheaper_item">Dat is behoorlijk duur! Probeer een item met een lagere prijs te kopen.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">Dat is behoorlijk duur! Probeer een goedkoper item te kopen of gebruik een andere betaalmethode.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -695,7 +695,7 @@
   <string name="subscriptions_settings_title">Abonnementen beheren</string>
   <string name="subscriptions_title">Abonnementen</string>
   <string name="subscriptions_active_title">Actief</string>
-  <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_expired_title">Verlopen</string>
   <string name="subscriptions_empty_title">Nog geen abonnementen</string>
   <string name="subscriptions_empty_body">Abonneer je op services in je favoriete apps en games, dan zorgen wij voor de periodieke betalingen.</string>
   <string name="subscriptions_details_billing_title">Facturatie:</string>
@@ -708,7 +708,7 @@
   <string name="subscriptions_canceled_body">Geannuleerd</string>
   <string name="subscriptions_details_disclaimer">Vanwege de wisselkoers kan de waarde in AppCoins voor de volgende betaling variëren.</string>
   <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
+  <string name="subscriptions_manage_button">ABONNEMENTEN BEHEREN</string>
   <string name="subscriptions_cancel_button">ABONNEMENT ANNULEREN</string>
   <string name="subscriptions_cancel_title">Abonnement annuleren</string>
   <string name="subscriptions_cancel_body">Weet je zeker dat je dit abonnement wilt annuleren?</string>
@@ -718,15 +718,15 @@
   <string name="subscriptions_cancel_confirmation_body">Er worden geen kosten meer in rekening gebracht voor dit abonnement en je kunt het abonnement gebruiken tot %s.</string>
   <string name="subscriptions_category_title">Abonnement</string>
   <string name="subscriptions_bonus_body">Je krijgt deze bonus bij elke betaling.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
-  <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
+  <string name="subscriptions_per_day">%1$s per dag</string>
+  <string name="subscriptions_per_week">%1$s per week</string>
+  <string name="subscriptions_per_month">%1$s per maand</string>
+  <string name="subscriptions_per_year">%1$s per jaar</string>
+  <string name="subscriptions_per_several_day">%1$s elke %2$s dagen</string>
+  <string name="subscriptions_per_several_week">%1$s elke %2$s weken</string>
+  <string name="subscriptions_per_several_month">%1$s elke %2$s maanden</string>
+  <string name="subscriptions_per_several_year">%1$s elk %2$s jaar</string>
+  <string name="subscriptions_error_already_subscribed">Oeps! Je bent al op deze service geabonneerd! Je kunt altijd contact met ons opnemen.</string>
   <!--New Gamification-->
   <string name="gamif_title">Tot %s%% bonus!</string>
   <string name="gamif_bonus_received">Bonus ontvangen</string>
@@ -779,7 +779,7 @@
   <string name="carrier_billing_payment_method_title">Facturering via provider</string>
   <string name="carrier_billing_fees_disclaimer">Er kunnen extra kosten van toepassing zijn</string>
   <string name="carrier_billing_insert_phone_body">Voer je telefoonnummer in</string>
-  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
+  <string name="carrier_billing_insert_phone_previously_used">Doorgaan met het nummer dat je eerder hebt gebruikt</string>
   <string name="carrier_billing_phone_field">Je telefoonnummer...</string>
   <string name="carrier_billing_carrier_fees_body">Er wordt een bedrag van %1$s in rekening gebracht</string>
   <string name="carrier_billing_purchase_info_body">%1$s voor %2$s.</string>
@@ -818,8 +818,8 @@
     <item quantity="other">De actie eindigt over %s dagen.</item>
   </plurals>
   <plurals name="promotion_ends_short">
-    <item quantity="one">It ends in %s day.</item>
-    <item quantity="other">It ends in %s days.</item>
+    <item quantity="one">Eindigt over %s dag.</item>
+    <item quantity="other">Eindigt over %s dagen.</item>
   </plurals>
   <string name="perks_end_in_date">De actie eindigt op %s.</string>
   <plurals name="promotion_ends_hours">
@@ -827,21 +827,21 @@
     <item quantity="other">De actie eindigt over %s uur.</item>
   </plurals>
   <plurals name="promotion_ends_hours_short">
-    <item quantity="one">It ends in %s hour.</item>
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="one">Eindigt over %s uur.</item>
+    <item quantity="other">Eindigt over %s uur.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">De actie eindigt over %s minuut.</item>
     <item quantity="other">De actie eindigt over %s minuten.</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
-    <item quantity="one">It ends in %s minute.</item>
-    <item quantity="other">It ends in %s minutes.</item>
+    <item quantity="one">Eindigt over %s minuut.</item>
+    <item quantity="other">Eindigt over %s minuten.</item>
   </plurals>
   <string name="perks_end_today">De actie eindigt vandaag.</string>
-  <string name="perks_end_today_short">It ends today.</string>
+  <string name="perks_end_today_short">Eindigt vandaag.</string>
   <string name="perks_available_soon">Actie binnenkort beschikbaar</string>
-  <string name="perks_available_soon_short">Available soon</string>
+  <string name="perks_available_soon_short">Binnenkort beschikbaar</string>
   <string name="perks_next_level_reward">Bereik het volgende niveau om %s AppCoins Credits te ontvangen!</string>
   <string name="perks_notification">Je hebt zojuist een bonus van %s ontvangen</string>
   <string name="perks_level_up_on_this_purchase">Bereik het volgende niveau met deze aankoop</string>
