@@ -17,7 +17,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
   private fun getUserStatsFromResponses(wallet: String,
-                                        offlineFirst: Boolean = true): Observable<UserStatusResponse> {
+                                        offlineFirst: Boolean = true): Observable<UserStats> {
     return if (offlineFirst) Observable.concat(getUserStatsFromDB(wallet),
         getUserStatsFromAPI(wallet))
     else getUserStatsFromAPI(wallet, true)
@@ -26,14 +26,14 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   // NOTE: the use of the throwable parameter can be dropped once all usages in these repository
   //  follow offline first logic.
   private fun getUserStatsFromDB(wallet: String,
-                                 t: Throwable? = null): Observable<UserStatusResponse> {
+                                 t: Throwable? = null): Observable<UserStats> {
     return Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
         BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
           Pair(promotions, walletOrigin)
         })
         .toObservable()
         .map { (promotions, walletOrigin) ->
-          if (t == null) UserStatusResponse(promotions, walletOrigin, null, true)
+          if (t == null) UserStats(promotions, walletOrigin, null, true)
           else mapErrorToUserStatsModel(promotions, walletOrigin, t)
         }
         .onErrorReturn {
@@ -44,14 +44,14 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
   private fun getUserStatsFromAPI(wallet: String,
-                                  useDbOnError: Boolean = false): Observable<UserStatusResponse> {
+                                  useDbOnError: Boolean = false): Observable<UserStats> {
     return api.getUserStats(wallet, Locale.getDefault().language)
         .map { filterByDate(it) }
         .flatMapObservable {
           local.deletePromotions()
               .andThen(local.insertPromotions(it.promotions)
                   .andThen(local.insertWalletOrigin(wallet, it.walletOrigin)))
-              .toSingle { it }
+              .toSingle { UserStats(it.promotions, it.walletOrigin) }
               .toObservable()
         }
         .onErrorResumeNext { t: Throwable ->
@@ -138,44 +138,44 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   private fun mapErrorToUserStatsModel(throwable: Throwable,
-                                       fromCache: Boolean): UserStatusResponse {
+                                       fromCache: Boolean): UserStats {
     throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
-      UserStatusResponse(Status.NO_NETWORK, fromCache)
+      UserStats(Status.NO_NETWORK, fromCache)
     } else {
-      UserStatusResponse(Status.UNKNOWN_ERROR, fromCache)
+      UserStats(Status.UNKNOWN_ERROR, fromCache)
     }
   }
 
   private fun mapErrorToUserStatsModel(promotions: List<PromotionsResponse>,
                                        walletOrigin: WalletOrigin,
-                                       throwable: Throwable): UserStatusResponse {
+                                       throwable: Throwable): UserStats {
     return when {
       promotions.isEmpty() && isNoNetworkException(throwable) -> {
         throwable.printStackTrace()
-        UserStatusResponse(Status.NO_NETWORK)
+        UserStats(Status.NO_NETWORK)
       }
       promotions.isEmpty() -> {
         throwable.printStackTrace()
-        UserStatusResponse(Status.UNKNOWN_ERROR)
+        UserStats(Status.UNKNOWN_ERROR)
       }
-      else -> UserStatusResponse(promotions, walletOrigin)
+      else -> UserStats(promotions, walletOrigin)
     }
   }
 
-  private fun mapToGamificationStats(response: UserStatusResponse): GamificationStats {
-    return if (response.error != null) {
-      map(response.error, response.fromCache)
+  private fun mapToGamificationStats(stats: UserStats): GamificationStats {
+    return if (stats.error != null) {
+      map(stats.error, stats.fromCache)
     } else {
       val gamification =
-          response.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
+          stats.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
       if (gamification == null) {
-        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = response.fromCache)
+        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = stats.fromCache)
       } else {
         GamificationStats(GamificationStats.Status.OK, gamification.level,
             gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
             gamification.totalEarned, PromotionsResponse.Status.ACTIVE == gamification.status,
-            response.fromCache)
+            stats.fromCache)
       }
     }
   }
@@ -230,7 +230,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
   override fun getUserStats(wallet: String,
-                            offlineFirst: Boolean): Observable<UserStatusResponse> {
+                            offlineFirst: Boolean): Observable<UserStats> {
     return getUserStatsFromResponses(wallet)
         .flatMap { userStatusResponse ->
           val gamification =

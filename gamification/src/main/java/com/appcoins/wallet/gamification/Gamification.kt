@@ -3,7 +3,6 @@ package com.appcoins.wallet.gamification
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -36,7 +35,7 @@ class Gamification(private val repository: PromotionsRepository) {
         .onErrorReturn { mapReferralError(it) }
   }
 
-  private fun map(userStats: UserStatusResponse): ForecastBonusAndLevel {
+  private fun map(userStats: UserStats): ForecastBonusAndLevel {
     val gamification = userStats.promotions
         .firstOrNull {
           it is GamificationResponse && it.id == GAMIFICATION_ID

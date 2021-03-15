@@ -2,7 +2,6 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -27,7 +26,7 @@ interface PromotionsRepository {
 
   fun setSeenGenericPromotion(id: String, screen: String)
 
-  fun getUserStats(wallet: String, offlineFirst: Boolean = true): Observable<UserStatusResponse>
+  fun getUserStats(wallet: String, offlineFirst: Boolean = true): Observable<UserStats>
 
   fun getWalletOrigin(wallet: String): Single<WalletOrigin>
 
