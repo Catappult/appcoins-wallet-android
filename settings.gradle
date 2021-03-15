@@ -1,2 +1,2 @@
-include ':skillz'
+include ':skills'
 include ':app', ':tn', ':airdrop', ':billing', ':appcoinsRewards', ':bdsbilling', ':commons', ':gamification', ':permissions'
