@@ -466,6 +466,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showBonus() {
     bonus_view.visibility = View.VISIBLE
+    bonus_view.setPurchaseBonusDescription(getString(R.string.gamification_purchase_body))
     bonus_view.showPurchaseBonusHeader()
     bottom_separator?.visibility = View.VISIBLE
     bonus_view.hideSkeleton()
@@ -486,7 +487,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun replaceBonus() {
-    bonus_view.visibility = View.INVISIBLE
+    bonus_view.visibility = View.VISIBLE
+    bottom_separator?.visibility = View.VISIBLE
     bonus_view.setPurchaseBonusDescription(getString(R.string.purchase_poa_body))
     bonus_view.hidePurchaseBonusHeader()
     bonus_view.hideSkeleton()
@@ -593,7 +595,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     fiat_price_skeleton.visibility = View.GONE
     appc_price_skeleton.visibility = View.GONE
     payments_skeleton.visibility = View.GONE
-    bonus_view.hideSkeleton()
   }
 
 }

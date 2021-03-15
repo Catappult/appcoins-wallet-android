@@ -48,7 +48,7 @@ class PurchaseBonusView : FrameLayout {
 
   fun hidePurchaseBonusHeader() {
     showHeader = false
-    bonus_layout.visibility = View.GONE
+    bonus_layout.visibility = View.INVISIBLE
   }
 
   fun showPurchaseBonusHeader() {
@@ -57,7 +57,9 @@ class PurchaseBonusView : FrameLayout {
   }
 
   fun setPurchaseBonusDescription(description: String) {
-    bonus_msg.visibility = View.GONE
+    bonus_msg.text = description
+    bonus_msg.visibility = View.VISIBLE
+    bonus_layout.visibility = View.INVISIBLE
   }
 
   fun showSkeleton() {
