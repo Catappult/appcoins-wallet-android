@@ -84,7 +84,7 @@ class GamificationTest {
   }
 
   @Test
-  fun getUserLevel() {
+  fun getUserLevelWithLevelIncreasing() {
     local.walletOriginResponse = Single.just(WalletOrigin.APTOIDE)
     local.userStatusResponse = Single.just(listOf(GamificationResponse("GAMIFICATION", 100, 15.0,
         BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
@@ -103,6 +103,46 @@ class GamificationTest {
     val testObserver = gamification.getUserLevel(WALLET)
         .test()
     testObserver.assertValue(4)
+  }
+
+  @Test
+  fun getUserLevelWithLevelDecreasing() {
+    // uncommon use case - if gamification tables change and more spending is required to reach that
+    //  level - the user level may decrease
+    local.walletOriginResponse = Single.just(WalletOrigin.APTOIDE)
+    local.userStatusResponse = Single.just(listOf(GamificationResponse("GAMIFICATION", 100, 15.0,
+        BigDecimal(25000.0), BigDecimal(5000.0), 4, BigDecimal(60000.0),
+        PromotionsResponse.Status.ACTIVE, false)))
+    val userStatsGamification =
+        GamificationResponse("GAMIFICATION", 100, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 5,
+            BigDecimal.TEN,
+            PromotionsResponse.Status.ACTIVE, true)
+    val referralResponse =
+        ReferralResponse("REFERRAL", 99, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+            BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
+            PromotionsResponse.Status.ACTIVE, BigDecimal.ONE)
+    api.userStatusResponse =
+        Single.just(UserStatusResponse(
+            listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE))
+    val testObserver = gamification.getUserLevel(WALLET)
+        .test()
+    testObserver.assertValue(5)
+  }
+
+  @Test
+  fun getUserLevelWhenGamificationBecomesUnavailable() {
+    // uncommon use case - the user may no longer have gamification available (e.g. wallet origin
+    //  changes). We want to display always the most recent emission, so we should make sure that
+    //  the invalid level value is received, even if user had gamification previously
+    local.walletOriginResponse = Single.just(WalletOrigin.APTOIDE)
+    local.userStatusResponse = Single.just(listOf(GamificationResponse("GAMIFICATION", 100, 15.0,
+        BigDecimal(25000.0), BigDecimal(5000.0), 4, BigDecimal(60000.0),
+        PromotionsResponse.Status.ACTIVE, false)))
+    api.userStatusResponse =
+        Single.just(UserStatusResponse(emptyList(), WalletOrigin.PARTNER))
+    val testObserver = gamification.getUserLevel(WALLET)
+        .test()
+    testObserver.assertValue(GamificationStats.INVALID_LEVEL)
   }
 
   @Test

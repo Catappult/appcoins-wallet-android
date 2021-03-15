@@ -61,8 +61,7 @@ class SupportInteractor(private val supportRepository: SupportRepository,
 
   fun registerUser(level: Int, walletAddress: String) {
     val currentUser = supportRepository.getCurrentUser()
-    if (currentUser.userAddress != walletAddress || (currentUser.gamificationLevel != level &&
-            !levelBeingInvalidated(level, currentUser.gamificationLevel))) {
+    if (currentUser.userAddress != walletAddress || currentUser.gamificationLevel != level) {
       if (currentUser.userAddress != walletAddress) {
         Intercom.client()
             .logout()
@@ -86,9 +85,4 @@ class SupportInteractor(private val supportRepository: SupportRepository,
 
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
 
-  private fun levelBeingInvalidated(newLevel: Int, currentUserLevel: Int): Boolean {
-    // in case of error for same user address (newLevel=-1 and currentLevel>=0),
-    // user info isn't left in inconsistent state
-    return (newLevel < 0 && currentUserLevel > newLevel)
-  }
 }

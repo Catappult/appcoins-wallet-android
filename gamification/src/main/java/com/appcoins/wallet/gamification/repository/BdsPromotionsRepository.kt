@@ -122,9 +122,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getGamificationLevel(wallet: String): Single<Int> {
-    // todo change for use case where db has aptoide user and api has partner
-    return getGamificationStats(wallet).map { it.level }
-        .filter { it >= 0 }
+    return getUserStats(wallet)
+        .filter { it.error == null }
+        .map { mapToGamificationStats(it).level }
         .lastOrError()
         .onErrorReturn { GamificationStats.INVALID_LEVEL }
   }
