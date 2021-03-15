@@ -114,11 +114,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   override fun getGamificationStats(wallet: String): Observable<GamificationStats> {
     return getUserStatsFromResponses(wallet)
-        .map { mapToGamificationStats(it) }
-        .flatMap {
-          local.setGamificationLevel(it.level)
-              .toSingle { it }
-              .toObservable()
+        .map {
+          val gamificationStats = mapToGamificationStats(it)
+          if (!it.fromCache && it.error == null) local.setGamificationLevel(gamificationStats.level)
+          gamificationStats
         }
   }
 
@@ -127,7 +126,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return getGamificationStats(wallet).map { it.level }
         .filter { it >= 0 }
         .lastOrError()
-        .onErrorReturn { -1 }
+        .onErrorReturn { GamificationStats.INVALID_LEVEL }
   }
 
   private fun map(status: Status, fromCache: Boolean = false): GamificationStats {
@@ -236,13 +235,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         .flatMap { userStatusResponse ->
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
-          if (userStatusResponse.error != null || gamification == null) {
-            Observable.just(userStatusResponse)
-          } else {
-            local.setGamificationLevel(gamification.level)
-                .toSingle { userStatusResponse }
-                .toObservable()
+          if (userStatusResponse.error == null && !userStatusResponse.fromCache) {
+            local.setGamificationLevel(gamification?.level ?: GamificationStats.INVALID_LEVEL)
           }
+          Observable.just(userStatusResponse)
         }
         .doOnError { it.printStackTrace() }
   }
@@ -265,10 +261,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               it.promotions.firstOrNull { promotions -> promotions is ReferralResponse } as ReferralResponse?
           if (gamification != null) {
             local.setGamificationLevel(gamification.level)
-                .toSingle { referral }
-          } else {
-            Single.just(referral)
           }
+          Single.just(referral)
         }
         .map { it }
   }

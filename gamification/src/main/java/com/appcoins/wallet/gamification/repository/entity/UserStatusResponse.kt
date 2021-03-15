@@ -7,10 +7,8 @@ data class UserStatusResponse(val promotions: List<PromotionsResponse>,
                               val error: Status? = null,
                               val fromCache: Boolean = false) {
 
-  constructor(error: Status) : this(emptyList(), WalletOrigin.UNKNOWN, error, false)
-
-  constructor(error: Status, fromCache: Boolean) : this(emptyList(), WalletOrigin.UNKNOWN, error,
-      fromCache)
+  constructor(error: Status, fromCache: Boolean = false) : this(emptyList(), WalletOrigin.UNKNOWN,
+      error, fromCache)
 }
 
 enum class WalletOrigin {

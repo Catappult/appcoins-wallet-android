@@ -9,13 +9,13 @@ import io.reactivex.Single
 
 interface UserStatsLocalData {
   /**
-   * @return -1 if never showed any level
+   * @return GamificationStats.INVALID_LEVEL if never showed any level
    */
   fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int>
 
   fun saveShownLevel(wallet: String, level: Int, gamificationContext: GamificationContext)
 
-  fun setGamificationLevel(gamificationLevel: Int): Completable
+  fun setGamificationLevel(gamificationLevel: Int)
 
   fun getGamificationLevel(): Int
 

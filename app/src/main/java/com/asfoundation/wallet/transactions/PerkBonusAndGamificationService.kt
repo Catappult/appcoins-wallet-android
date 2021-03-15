@@ -154,7 +154,7 @@ class PerkBonusAndGamificationService :
 
   private fun getLastShownLevelUp(address: String): Single<Int> {
     return promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_LEVEL_UP)
-        .map { if (it < 0) 0 else it }
+        .map { if (it == GamificationStats.INVALID_LEVEL) 0 else it }
   }
 
   private fun getLevelList(address: String): Single<List<Levels.Level>> =

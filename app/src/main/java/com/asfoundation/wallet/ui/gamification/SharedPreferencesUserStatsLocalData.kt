@@ -31,7 +31,8 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
   override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext):
       Single<Int> {
     return Single.fromCallable {
-      preferences.getInt(getKey(wallet, gamificationContext.toString()), -1)
+      preferences.getInt(getKey(wallet, gamificationContext.toString()),
+          GamificationStats.INVALID_LEVEL)
     }
   }
 
@@ -52,15 +53,14 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
         .apply()
   }
 
-  override fun setGamificationLevel(gamificationLevel: Int): Completable {
-    return Completable.fromCallable {
-      preferences.edit()
-          .putInt(GAMIFICATION_LEVEL, gamificationLevel)
-          .apply()
-    }
+  override fun setGamificationLevel(gamificationLevel: Int) {
+    return preferences.edit()
+        .putInt(GAMIFICATION_LEVEL, gamificationLevel)
+        .apply()
   }
 
-  override fun getGamificationLevel() = preferences.getInt(GAMIFICATION_LEVEL, -1)
+  override fun getGamificationLevel() =
+      preferences.getInt(GAMIFICATION_LEVEL, GamificationStats.INVALID_LEVEL)
 
   private fun getKey(wallet: String, screen: String): String {
     return if (screen == GamificationContext.SCREEN_MY_LEVEL.toString()) {
