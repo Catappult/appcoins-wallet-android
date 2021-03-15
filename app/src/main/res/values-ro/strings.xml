@@ -26,7 +26,7 @@
   <string name="credits">Credite</string>
   <string name="label_new">Nou</string>
   <string name="got_it_button">AM ÎNȚELES</string>
-  <string name="change_button">SCHIMBĂ</string>
+  <string name="change_button">MODIFICĂ</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
   <string name="no_camera_permission_title">Permisiune cameră foto</string>
   <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
@@ -511,8 +511,8 @@
   <string name="purchase_error_try_other_method">Ups&#8230; Ceva nu merge cum trebuie! Te rugăm să încerci o o metodă de plată diferită sau să ne contactezi.</string>
   <string name="purchase_error_try_other_amount">Se pare că suma pe care vrei să o depui este prea mare! Încearcă cu o sumă mai mică sau contactează-ne!</string>
   <string name="purchase_error_try_other_amount_or_method">Ups&#8230; Ceva nu merge cum trebuie! Încearcă cu o altă metodă de plată sau depune o sumă.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
-  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
+  <string name="purchase_error_try_cheaper_item">Este destul de scump! Încearcă să cumperi un articol cu o valoare mai mică.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">Este destul de scump! Încearcă să cumperi un articol mai ieftin sau încearcă o altă metodă de plată.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -696,7 +696,7 @@
   <string name="subscriptions_settings_title">Gestionează abonamente</string>
   <string name="subscriptions_title">Abonamente</string>
   <string name="subscriptions_active_title">Active</string>
-  <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_expired_title">Expirată</string>
   <string name="subscriptions_empty_title">Fără abonamente</string>
   <string name="subscriptions_empty_body">Abonează-te la servicii în aplicațiile și jocurile tale preferate și ne vom ocupa noi de plățile periodice.</string>
   <string name="subscriptions_details_billing_title">Facturare:</string>
@@ -709,7 +709,7 @@
   <string name="subscriptions_canceled_body">Anulată</string>
   <string name="subscriptions_details_disclaimer">Valoarea în AppCoins poate varia pentru următoarea plată din cauza cursului de schimb.</string>
   <string name="subscriptions_details_button">DETALII</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
+  <string name="subscriptions_manage_button">GESTIONEAZĂ ABONAMENTE</string>
   <string name="subscriptions_cancel_button">ANULEAZĂ ABONAMENT</string>
   <string name="subscriptions_cancel_title">Anulează Abonament</string>
   <string name="subscriptions_cancel_body">Ești sigur că vrei să anulezi acest abonament?</string>
@@ -719,15 +719,15 @@
   <string name="subscriptions_cancel_confirmation_body">Nu vei mai fi taxat pentru acest abonament și îl poți folosi până pe %s.</string>
   <string name="subscriptions_category_title">Abonament</string>
   <string name="subscriptions_bonus_body">Vei primi acest bonus la fiecare plată.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
-  <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
+  <string name="subscriptions_per_day">%1$s/zi</string>
+  <string name="subscriptions_per_week">%1$s/săptămână</string>
+  <string name="subscriptions_per_month">%1$s/lună</string>
+  <string name="subscriptions_per_year">%1$s/an</string>
+  <string name="subscriptions_per_several_day">%1$s la fiecare %2$s zile</string>
+  <string name="subscriptions_per_several_week">%1$s la fiecare %2$s săptămâni</string>
+  <string name="subscriptions_per_several_month">%1$s la fiecare %2$s luni</string>
+  <string name="subscriptions_per_several_year">%1$s la fiecare %2$s ani</string>
+  <string name="subscriptions_error_already_subscribed">Ups, te-ai abonat deja la acest serviciu! Nu ezita să ne contactezi.</string>
   <!--New Gamification-->
   <string name="gamif_title">Bonus de până la %s%%!</string>
   <string name="gamif_bonus_received">Bonus primit</string>
@@ -780,7 +780,7 @@
   <string name="carrier_billing_payment_method_title">Facturare operator</string>
   <string name="carrier_billing_fees_disclaimer">Este posibil să se aplice comisioane suplimentare</string>
   <string name="carrier_billing_insert_phone_body">Te rugăm să introduci numărul tău de telefon</string>
-  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
+  <string name="carrier_billing_insert_phone_previously_used">Continuă cu numărul utilizat anterior</string>
   <string name="carrier_billing_phone_field">Numărul tău de telefon...</string>
   <string name="carrier_billing_carrier_fees_body">Se va percepe o taxă de %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s în %2$s.</string>
@@ -820,9 +820,9 @@
     <item quantity="other">Promoția se încheie în %s zile.</item>
   </plurals>
   <plurals name="promotion_ends_short">
-    <item quantity="one">It ends in %s day.</item>
-    <item quantity="few">It ends in %s days.</item>
-    <item quantity="other">It ends in %s days.</item>
+    <item quantity="one">Se încheie în %s zi.</item>
+    <item quantity="few">Se încheie în %s zile.</item>
+    <item quantity="other">Se încheie în %s zile.</item>
   </plurals>
   <string name="perks_end_in_date">Promoția se încheie pe %s.</string>
   <plurals name="promotion_ends_hours">
@@ -831,9 +831,9 @@
     <item quantity="other">Promoția se încheie în %s ore.</item>
   </plurals>
   <plurals name="promotion_ends_hours_short">
-    <item quantity="one">It ends in %s hour.</item>
-    <item quantity="few">It ends in %s hours.</item>
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="one">Se încheie în %s oră.</item>
+    <item quantity="few">Se încheie în %s ore.</item>
+    <item quantity="other">Se încheie în %s ore.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Promoția se încheie în %s minut.</item>
@@ -841,23 +841,23 @@
     <item quantity="other">Promoția se încheie în %s minute.</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
-    <item quantity="one">It ends in %s minute.</item>
-    <item quantity="few">It ends in %s minutes.</item>
-    <item quantity="other">It ends in %s minutes.</item>
+    <item quantity="one">Se încheie în %s minut.</item>
+    <item quantity="few">Se încheie în %s minute.</item>
+    <item quantity="other">Se încheie în %s minute.</item>
   </plurals>
   <string name="perks_end_today">Promoția se încheie astăzi.</string>
-  <string name="perks_end_today_short">It ends today.</string>
+  <string name="perks_end_today_short">Se încheie azi.</string>
   <string name="perks_available_soon">Promoție disponibilă în curând</string>
-  <string name="perks_available_soon_short">Available soon</string>
+  <string name="perks_available_soon_short">Disponibilă în curând</string>
   <string name="perks_next_level_reward">Urcă la nivelul următor ca să primești %s AppCoins Credits!</string>
   <string name="perks_notification">Tocmai ai primit %s AppCoins Credits ca bonus</string>
   <string name="perks_level_up_on_this_purchase">Treci la nivelul următor cu această cumpărătură</string>
   <string name="perks_level_up_amount_left">Mai ai %1$s %2$s până la nivelul următor!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s în AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
-  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
-  <string name="perks_empty_body">No promotions available at the moment.</string>
+  <string name="perks_purchases_disclaimer_body">Toate cumpărăturile in-app și alimentările efectuate cu orice metodă de plată, cu excepția AppCoins Credits, se vor califica pentru creșterea nivelului tău și primirea de recompense.</string>
+  <string name="perks_empty_state_first_purchase_body">Fă prima ta achiziție într-o aplicație compatibilă cu AppCoins pentru a debloca promoțiile pe care ți le-am pregătit!</string>
+  <string name="perks_empty_body">Fără promoții disponibile momentan.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Blocare cu amprentă</string>
   <string name="fingerprint_failed_title">Autentificare eșuată!</string>
@@ -908,11 +908,11 @@
   <string name="card_verification_wallets_one_step_title">Încă un pas pentru validare</string>
   <string name="card_verification_wallets_one_step_body">Introdu codul care apare în detaliile tranzacției.</string>
   <string name="card_verification_wallets_insert_bode_button">Introdu cod</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
-  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+  <string name="card_verification_no_attempts_title">Ups, ai introdus greșit codul de prea multe ori, astfel că suma de %1$s va fi rambursată pe cardul tău.</string>
+  <string name="card_verification_no_attempts_body">Te rugăm să reîncepi procesul de verificare.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body_1">Buy this voucher and get</string>
-  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
+  <string name="voucher_card_body_1">Cumpără acest voucher și primești</string>
+  <string name="voucher_card_body_2"> un bonus de până la %s%%.</string>
   <string name="voucher_buy_header">Voucher pentru %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Nu ai %s?</string>
@@ -922,6 +922,6 @@
   <string name="voucher_instructions_transactions">Vei găsi codul voucherului în istoricul tranzacțiilor.</string>
   <string name="voucher_empty">Fără vouchere disponibile în prezent.</string>
   <string name="voucher_tooltip">Acum poți cumpăra vouchere pentru jocuri!</string>
-  <string name="voucher_empty_more_title">Vouchers for Games</string>
-  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
+  <string name="voucher_empty_more_title">Vouchere pentru Jocuri</string>
+  <string name="voucher_empty_more_body">Găsește cele mai bune oferte pentru jocurile tale favorite!</string>
 </resources>
