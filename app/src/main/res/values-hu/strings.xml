@@ -849,8 +849,8 @@
   <string name="perks_level_up_level_tag">%s. szint</string>
   <string name="perks_bonus_purchase_flow">%1$s Bónusz: %2$s AppCoins kreditben</string>
   <string name="perks_purchases_disclaimer_body">Az AppCoins krediteken kívül minden más fizetési móddal történő vásárlás és feltöltés magasabb szintre emelhet és jutalmakat hozhat számodra.</string>
-  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
-  <string name="perks_empty_body">No promotions available at the moment.</string>
+  <string name="perks_empty_state_first_purchase_body">Itt az ideje az első vásárlásnak egy AppCoins kompatibilis alkalmazásban. Felfedezheted, milyen promóciók várnak rád!</string>
+  <string name="perks_empty_body">Jelenleg nincs aktív promóció.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Ujjlenyomatos zár</string>
   <string name="fingerprint_failed_title">Sikertelen hitelesítés!</string>
@@ -899,13 +899,13 @@
   <string name="card_verification_wallets_one_step_title">Még egy lépés maradt hátra a hitelesítésből</string>
   <string name="card_verification_wallets_one_step_body">Add meg a tranzakció részletekben megjelenő kódot.</string>
   <string name="card_verification_wallets_insert_bode_button">Kód megadása</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
-  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+  <string name="card_verification_no_attempts_title">Hoppá, túl sokszor adtál meg helytelen kódot, ezért visszautaljuk a(z) %1$s összeget a kártyádra.</string>
+  <string name="card_verification_no_attempts_body">Kezdd újra a hitelesítési eljárást.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body_1">Buy this voucher and get</string>
-  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
+  <string name="voucher_card_body_1">Vedd meg ezt az utalványt és szerezz</string>
+  <string name="voucher_card_body_2"> akár %s%% bónuszt.</string>
   <string name="voucher_buy_header">%s utalvány</string>
-  <string name="voucher_buy_short_header">Voucher:</string>
+  <string name="voucher_buy_short_header">Utalvány:</string>
   <string name="voucher_buy_no_game_title">Nincs meg a(z) %s?</string>
   <string name="voucher_buy_no_game_install_button">TÖLTSD LE MOST</string>
   <string name="voucher_code_title">Utalványkód</string>
@@ -913,6 +913,6 @@
   <string name="voucher_instructions_transactions">Az utalvány kódot mindig megtalálhatod a tranzakció előzményekben.</string>
   <string name="voucher_empty">Jelenleg nincs elérhető utalvány.</string>
   <string name="voucher_tooltip">Mostantól utalványokat vásárolhatsz a játékokhoz!</string>
-  <string name="voucher_empty_more_title">Vouchers for Games</string>
-  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
+  <string name="voucher_empty_more_title">Utalványok játékokhoz</string>
+  <string name="voucher_empty_more_body">Keresd meg a legjobb ajánlatokat a kedvenc játékaidhoz!</string>
 </resources>
