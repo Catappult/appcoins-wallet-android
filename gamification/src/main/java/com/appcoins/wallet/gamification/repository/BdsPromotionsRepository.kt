@@ -26,18 +26,18 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   // NOTE: the use of the throwable parameter can be dropped once all usages in these repository
   //  follow offline first logic.
   private fun getUserStatsFromDB(wallet: String,
-                                 t: Throwable? = null): Observable<UserStats> {
+                                 throwable: Throwable? = null): Observable<UserStats> {
     return Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
         BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
           Pair(promotions, walletOrigin)
         })
         .toObservable()
         .map { (promotions, walletOrigin) ->
-          if (t == null) UserStats(promotions, walletOrigin, null, true)
-          else mapErrorToUserStatsModel(promotions, walletOrigin, t)
+          if (throwable == null) UserStats(promotions, walletOrigin, null, true)
+          else mapErrorToUserStatsModel(promotions, walletOrigin, throwable)
         }
         .onErrorReturn {
-          mapErrorToUserStatsModel(t ?: it, t == null)
+          mapErrorToUserStatsModel(throwable ?: it, throwable == null)
         }
   }
 
@@ -54,9 +54,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               .toSingle { UserStats(it.promotions, it.walletOrigin) }
               .toObservable()
         }
-        .onErrorResumeNext { t: Throwable ->
-          if (useDbOnError) getUserStatsFromDB(wallet, t)
-          else Observable.just(mapErrorToUserStatsModel(t, false))
+        .onErrorResumeNext { throwable: Throwable ->
+          if (useDbOnError) getUserStatsFromDB(wallet, throwable)
+          else Observable.just(mapErrorToUserStatsModel(throwable, false))
         }
   }
 
@@ -189,11 +189,11 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   // NOTE: the use of the throwable parameter can be dropped once all usages in these repository
   //  follow offline first logic.
-  private fun getLevelsFromDB(t: Throwable? = null): Observable<Levels> {
+  private fun getLevelsFromDB(throwable: Throwable? = null): Observable<Levels> {
     return local.getLevels()
         .toObservable()
         .map { map(it, true) }
-        .onErrorReturn { mapLevelsError(t ?: it, t == null) }
+        .onErrorReturn { mapLevelsError(throwable ?: it, throwable == null) }
   }
 
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
@@ -206,9 +206,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               .toSingle { map(it) }
               .toObservable()
         }
-        .onErrorResumeNext { t: Throwable ->
-          if (useDbOnError) getLevelsFromDB(t)
-          else Observable.just(mapLevelsError(t))
+        .onErrorResumeNext { throwable: Throwable ->
+          if (useDbOnError) getLevelsFromDB(throwable)
+          else Observable.just(mapLevelsError(throwable))
         }
   }
 
