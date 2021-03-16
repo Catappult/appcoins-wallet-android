@@ -173,4 +173,5 @@
   <color name="cancel_dark_blue">#142735</color>
   <color name="voucher_details_download_background_color">#efefef</color>
   <color name="promotions_active_75_alpha">#bf00131f</color>
+  <color name="vouchers_subtitle">#6f6f6f</color>
 </resources>
