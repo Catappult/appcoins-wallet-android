@@ -890,13 +890,13 @@
   <string name="card_verification_wallets_one_step_title">Satu lagi langkah untuk pengesahan</string>
   <string name="card_verification_wallets_one_step_body">Masukkan kod yang tertera pada butiran transaksi.</string>
   <string name="card_verification_wallets_insert_bode_button">Masukkan kod</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
-  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+  <string name="card_verification_no_attempts_title">Oops, anda telah masukkan kod yang salah berulang kali, jadi %1$s akan dikembalikan ke kad anda.</string>
+  <string name="card_verification_no_attempts_body">Sila mulakan proses pengesahan sekali lagi.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body_1">Buy this voucher and get</string>
-  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
+  <string name="voucher_card_body_1">Beli baucar ini dan dapatkan</string>
+  <string name="voucher_card_body_2"> bonus sehingga %s%%.</string>
   <string name="voucher_buy_header">Baucar untuk %s</string>
-  <string name="voucher_buy_short_header">Voucher:</string>
+  <string name="voucher_buy_short_header">Baucar:</string>
   <string name="voucher_buy_no_game_title">Ada %s?</string>
   <string name="voucher_buy_no_game_install_button">MUAT TURUN SEKARANG</string>
   <string name="voucher_code_title">Kod Baucar</string>
@@ -904,6 +904,6 @@
   <string name="voucher_instructions_transactions">Anda boleh lihat kod baucar dalam sejarah transaksi.</string>
   <string name="voucher_empty">Tiada baucar buat masa ini.</string>
   <string name="voucher_tooltip">Anda kini boleh beli baucar untuk permainan!</string>
-  <string name="voucher_empty_more_title">Vouchers for Games</string>
-  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
+  <string name="voucher_empty_more_title">Baucar untuk Permainan</string>
+  <string name="voucher_empty_more_body">Temui tawaran terhebat untuk permainan kegemaran anda!</string>
 </resources>
