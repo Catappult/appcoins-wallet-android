@@ -26,7 +26,7 @@
   <string name="credits">الأرصدة</string>
   <string name="label_new">جديد</string>
   <string name="got_it_button">مفهوم</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">تغيير</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
@@ -510,10 +510,10 @@
   <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
   <string name="purchase_error_unverified_wallet">حاول أن تنهي عملية الشراء بعد إتمام توثيق محفظتك.</string>
   <string name="purchase_error_try_other_method">ييي&#8230; هناك خطبٌ ما! يرجى المحاولة ثانية مع وسيلة دفع مختلفة أو التواصل معنا.</string>
-  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
-  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
-  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
+  <string name="purchase_error_try_other_amount">يبدو أن المبلغ الذي أضفته مرتفع جدًا! لطفًا جرب رقمًا أقل أو تواصل معنا!</string>
+  <string name="purchase_error_try_other_amount_or_method">يييي&#8230; هناك خطأ! جرب وسيلة دفع أخرى أو أضف إلى المبلغ.</string>
+  <string name="purchase_error_try_cheaper_item">ثمنها مرتفع جدًا! يرجى شراء عنصر أقل ثمنًا.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">الثمن مرتفع جدًا! يرجى شراء عنصر أقل ثمًا أو تجربة وسيلة دفع أخرى.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -700,7 +700,7 @@
   <string name="subscriptions_settings_title">إدارة الاشتراكات</string>
   <string name="subscriptions_title">الاشتراكات</string>
   <string name="subscriptions_active_title">مفعّل</string>
-  <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_expired_title">صلاحية منتهية</string>
   <string name="subscriptions_empty_title">لا توجد اشتراكات بعد</string>
   <string name="subscriptions_empty_body">اشترك في الخدمات التي في تطبيقاتك وألعابك المفضلة وسنتفق معك على دفعات منتظمة.</string>
   <string name="subscriptions_details_billing_title">الفوترة:</string>
@@ -713,7 +713,7 @@
   <string name="subscriptions_canceled_body">ملغية</string>
   <string name="subscriptions_details_disclaimer">قد تتغير القيمة في AppCoins للدفعة المقبلة بناء على سعر الصرف.</string>
   <string name="subscriptions_details_button">التفاصيل</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
+  <string name="subscriptions_manage_button">إدارة الاشتراكات</string>
   <string name="subscriptions_cancel_button">إلغاء الاشتراك</string>
   <string name="subscriptions_cancel_title">إلغاء الاشتراك</string>
   <string name="subscriptions_cancel_body">هل أنت متأكد أنك تريد إلغاء الاشتراك؟</string>
@@ -723,14 +723,14 @@
   <string name="subscriptions_cancel_confirmation_body">لن تتكلف مزيدًا من الدفعات بعد الآن لهذا الاشتراك، ويمكنك استخدامه حتى %s.</string>
   <string name="subscriptions_category_title">الاشتراك</string>
   <string name="subscriptions_bonus_body">ستتلقى هذه المكافأة على كل عملية شراء.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
+  <string name="subscriptions_per_day">%1$s/لليوم</string>
+  <string name="subscriptions_per_week">%1$s/للأسبوع</string>
+  <string name="subscriptions_per_month">%1$s/للشهر</string>
+  <string name="subscriptions_per_year">%1$s/للسنة</string>
+  <string name="subscriptions_per_several_day">%1$s كل %2$s يوم</string>
+  <string name="subscriptions_per_several_week">%1$s كل %2$s أسبوع</string>
+  <string name="subscriptions_per_several_month">%1$s كل %2$s شهر</string>
+  <string name="subscriptions_per_several_year">%1$s كل %2$s سنة</string>
   <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
   <!--New Gamification-->
   <string name="gamif_title">مكافأة حتى %s%%!</string>
