@@ -26,7 +26,7 @@
   <string name="credits">Credits</string>
   <string name="label_new">Novità</string>
   <string name="got_it_button">HO CAPITO</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">MODIFICA</string>
   <string name="low_storage_error">Spazio di archiviazione non sufficiente</string>
   <string name="no_camera_permission_title">Autorizzazione fotocamera</string>
   <string name="no_camera_permission">L\'AppCoins BDS Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
@@ -509,10 +509,10 @@
   <string name="error_contac_us_body">Se il problema persiste, contattaci.</string>
   <string name="purchase_error_unverified_wallet">Prova a completare l\'acquisto dopo aver verificato il tuo wallet.</string>
   <string name="purchase_error_try_other_method">Ops&#8230; Qualcosa è andato storto! Prova un altro metodo di pagamento oppure contattaci.</string>
-  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
-  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
-  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
+  <string name="purchase_error_try_other_amount">L\'importo da ricaricare è troppo alto! Ritenta con un importo più basso oppure contattaci.</string>
+  <string name="purchase_error_try_other_amount_or_method">Ops&#8230; Qualcosa è andato storto! Prova un altro metodo di pagamento oppure con un importo da ricaricare diverso.</string>
+  <string name="purchase_error_try_cheaper_item">Questo articolo è un po\' troppo caro! Prova ad acquistarne uno di importo minore.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">Questo articolo è un po\' troppo caro! Prova ad acquistarne uno più economico oppure cambia metodo di pagamento.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Indirizzo di fatturazione</string>
   <string name="purchase_address_address_field">Indirizzo</string>
@@ -695,7 +695,7 @@
   <string name="subscriptions_settings_title">Gestisci gli abbonamenti</string>
   <string name="subscriptions_title">Abbonamenti</string>
   <string name="subscriptions_active_title">Attivi</string>
-  <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_expired_title">Scaduto</string>
   <string name="subscriptions_empty_title">Nessun abbonamento</string>
   <string name="subscriptions_empty_body">Abbonati ai servizi delle tue app e dei tuoi giochi preferiti e penseremo noi ai pagamenti periodici.</string>
   <string name="subscriptions_details_billing_title">Costo:</string>
@@ -708,7 +708,7 @@
   <string name="subscriptions_canceled_body">Annullato</string>
   <string name="subscriptions_details_disclaimer">Il valore in AppCoins potrebbe variare per il prossimo pagamento a causa del tasso di cambio.</string>
   <string name="subscriptions_details_button">INFO</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
+  <string name="subscriptions_manage_button">GESTISCI ABBONAMENTI</string>
   <string name="subscriptions_cancel_button">ANNULLA ABBONAMENTO</string>
   <string name="subscriptions_cancel_title">Annulla abbonamento</string>
   <string name="subscriptions_cancel_body">Sei sicuro di voler annullare questo abbonamento?</string>
@@ -718,14 +718,14 @@
   <string name="subscriptions_cancel_confirmation_body">Non ti verranno addebitati altri costi per questo abbonamento e potrai usarlo fino al giorno %s.</string>
   <string name="subscriptions_category_title">Abbonamento</string>
   <string name="subscriptions_bonus_body">Riceverai questo bonus per ciascun pagamento.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
+  <string name="subscriptions_per_day">%1$s al giorno</string>
+  <string name="subscriptions_per_week">%1$s a settimana</string>
+  <string name="subscriptions_per_month">%1$s al mese</string>
+  <string name="subscriptions_per_year">%1$s</string>
+  <string name="subscriptions_per_several_day">%1$s ogni %2$s giorni</string>
+  <string name="subscriptions_per_several_week">%1$s ogni %2$s settimane</string>
+  <string name="subscriptions_per_several_month">%1$s ogni %2$s mesi</string>
+  <string name="subscriptions_per_several_year">%1$s ogni %2$s anni</string>
   <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
   <!--New Gamification-->
   <string name="gamif_title">Fino al %s%% di bonus!</string>
