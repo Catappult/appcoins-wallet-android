@@ -8,15 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import cm.aptoide.skills.factory.TicketApiFactory
-import cm.aptoide.skills.repository.TicketsRepository
-import com.google.gson.Gson
+import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import okhttp3.OkHttpClient
+import javax.inject.Inject
 
-class SkillsFragment : Fragment() {
+class SkillsFragment : DaggerFragment() {
 
   companion object {
     fun newInstance() = SkillsFragment()
@@ -25,7 +22,11 @@ class SkillsFragment : Fragment() {
     const val SESSION = "SESSION"
   }
 
-  private lateinit var viewModel: SkillsViewModel
+  @Inject
+  lateinit var walletAddressObtainer: WalletAddressObtainer
+
+  @Inject
+  lateinit var viewModel: SkillsViewModel
   private lateinit var disposable: CompositeDisposable
 
   private lateinit var button: Button
@@ -41,8 +42,6 @@ class SkillsFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
 
     disposable = CompositeDisposable()
-    viewModel = SkillsViewModel(
-        TicketsRepository(TicketApiFactory.providesTicketApi(OkHttpClient(), Gson())))
 
     button = view.findViewById(R.id.find_opponent_button)
     progressBar = view.findViewById(R.id.progress_bar)
@@ -59,6 +58,11 @@ class SkillsFragment : Fragment() {
           .doOnNext { ticket -> println("ticket: " + ticket) }
           .subscribe())
     }
+  }
+
+  override fun onDestroyView() {
+    disposable.clear()
+    super.onDestroyView()
   }
 
   private fun showLoading(textId: Int) {

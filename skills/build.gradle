@@ -46,6 +46,9 @@ dependencies {
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofit_version"
   implementation "com.google.code.gson:gson:$project.gson_version"
 
+  implementation "com.google.dagger:dagger:$project.dagger_version"
+  implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
+
   testImplementation 'junit:junit:4.+'
   androidTestImplementation 'androidx.test.ext:junit:1.1.2'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
