@@ -7,11 +7,11 @@ import io.reactivex.Single
 
 class TicketsRepository(private val ticketApi: TicketApi) {
 
-  fun createTicket(walletAddress: String): Single<TicketResponse> {
+  fun createTicket(ewt: String, walletAddress: String): Single<TicketResponse> {
     return ticketApi.postTicket(
-        buildTicketRequest(walletAddress))
+        ewt, buildTicketRequest(walletAddress))
   }
 
   private fun buildTicketRequest(walletAddress: String) =
-      TicketRequest("string_user_id", walletAddress, "0x3984723948723849", emptyMap())
+      TicketRequest("string_user_id", walletAddress, emptyMap())
 }

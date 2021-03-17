@@ -10,9 +10,6 @@ data class TicketRequest(
     @SerializedName("wallet_address")
     private val walletAddress: String,
 
-    @SerializedName("ewt")
-    private val ewt: String,
-
     @SerializedName("room_metadata")
     private val roomMetadata: Map<String, String>
 )
