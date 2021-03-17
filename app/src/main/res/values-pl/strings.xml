@@ -26,7 +26,7 @@
   <string name="credits">Kredyty</string>
   <string name="label_new">Nowość</string>
   <string name="got_it_button">OK</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">ZMIEŃ</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
   <string name="no_camera_permission_title">Zezwolenie na używanie aparatu</string>
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
@@ -509,9 +509,9 @@
   <string name="error_contac_us_body">Jeśli problem powróci, skontaktuj się z nami.</string>
   <string name="purchase_error_unverified_wallet">Spróbuj dokończyć zakup po sprawdzeniu portfela.</string>
   <string name="purchase_error_try_other_method">Uups&#8230; Coś jest na rzeczy! Spróbuj z inną metodą płatności lub skontaktuj się z nami.</string>
-  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
-  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
+  <string name="purchase_error_try_other_amount">Wygląda na to, że kwota doładowania jest za wysoka! Spróbuj z niższą lub skontaktuj się z nami!</string>
+  <string name="purchase_error_try_other_amount_or_method">Uups&#8230; Coś jest na rzeczy! Spróbuj z inną metodą płatności lub kwotą doładowania.</string>
+  <string name="purchase_error_try_cheaper_item">To nie są tanie rzeczy! Spróbuj kupić coś o niższej wartości.</string>
   <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
