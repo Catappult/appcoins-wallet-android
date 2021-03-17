@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.skills
 
-import cm.aptoide.skills.WalletAddressObtainer
+import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import com.appcoins.wallet.bdsbilling.WalletService
 import io.reactivex.Single
 

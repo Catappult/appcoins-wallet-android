@@ -1,14 +1,12 @@
 package cm.aptoide.skills
 
 import cm.aptoide.skills.model.TicketResponse
-import cm.aptoide.skills.repository.TicketsRepository
+import cm.aptoide.skills.usecase.CreateTicketUseCase
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 
-class SkillsViewModel(val ticketsRepository: TicketsRepository) {
+class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase) {
 
   fun createTicket(): Observable<TicketResponse> {
-    return ticketsRepository.createTicket()
-        .subscribeOn(Schedulers.io())
+    return createTicketUseCase.createTicket()
   }
 }

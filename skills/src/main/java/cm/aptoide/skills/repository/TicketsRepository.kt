@@ -1,21 +1,15 @@
 package cm.aptoide.skills.repository
 
-import cm.aptoide.skills.WalletAddressObtainer
 import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.model.TicketRequest
 import cm.aptoide.skills.model.TicketResponse
-import io.reactivex.Observable
+import io.reactivex.Single
 
-class TicketsRepository(private val walletAddressObtainer: WalletAddressObtainer,
-                        private val ticketApi: TicketApi) {
+class TicketsRepository(private val ticketApi: TicketApi) {
 
-  fun createTicket(): Observable<TicketResponse> {
-    return walletAddressObtainer.getWalletAddress()
-        .flatMap {
-          ticketApi.postTicket(
-              buildTicketRequest(it))
-        }
-        .toObservable()
+  fun createTicket(walletAddress: String): Single<TicketResponse> {
+    return ticketApi.postTicket(
+        buildTicketRequest(walletAddress))
   }
 
   private fun buildTicketRequest(walletAddress: String) =

@@ -1,4 +1,4 @@
-package cm.aptoide.skills
+package cm.aptoide.skills.interfaces
 
 import io.reactivex.Single
 

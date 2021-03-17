@@ -1,9 +1,10 @@
 package com.asfoundation.wallet.skills
 
 import cm.aptoide.skills.SkillsViewModel
-import cm.aptoide.skills.WalletAddressObtainer
 import cm.aptoide.skills.factory.TicketApiFactory
+import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.repository.TicketsRepository
+import cm.aptoide.skills.usecase.CreateTicketUseCase
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -20,18 +21,23 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesSkillsViewModel(ticketsRepository: TicketsRepository): SkillsViewModel {
-    return SkillsViewModel(ticketsRepository)
+  fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase): SkillsViewModel {
+    return SkillsViewModel(createTicketUseCase)
   }
 
   @Provides
-  fun providesTicketsRepository(@Named("default") client: OkHttpClient,
-                                walletAddressObtainer: WalletAddressObtainer): TicketsRepository {
+  fun providesCreateTicketUseCase(walletAddressObtainer: WalletAddressObtainer,
+                                  ticketsRepository: TicketsRepository): CreateTicketUseCase {
+    return CreateTicketUseCase(walletAddressObtainer, ticketsRepository)
+  }
+
+  @Provides
+  fun providesTicketsRepository(@Named("default") client: OkHttpClient): TicketsRepository {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
         .create()
 
-    return TicketsRepository(walletAddressObtainer,
+    return TicketsRepository(
         TicketApiFactory.providesTicketApi(client, gson))
   }
 }
