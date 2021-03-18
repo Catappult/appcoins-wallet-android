@@ -239,8 +239,10 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
     return Single.zip(checkAndConsumePrevious(skuId, type).subscribeOn(networkThread),
         checkSubscriptionOwned(skuId, type).subscribeOn(networkThread),
         BiFunction { itemOwned: Boolean, subStatus: SubscriptionStatus ->
-          handleItemsOwned(itemOwned, subStatus)
+          Pair(itemOwned, subStatus)
         })
+        .observeOn(viewScheduler)
+        .doOnSuccess { handleItemsOwned(it.first, it.second) }
         .ignoreElement()
   }
 
