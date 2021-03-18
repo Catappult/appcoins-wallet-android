@@ -85,6 +85,9 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
             bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
           }
         })
+    gamification_recycler_view.visibility = View.INVISIBLE
+    levelsAdapter = LevelsAdapter(context!!, formatter, mapper, uiEventListener!!)
+    gamification_recycler_view.adapter = levelsAdapter
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
             .toInt()))
@@ -97,11 +100,10 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
                                        shownLevels: List<LevelModel>,
                                        totalSpend: BigDecimal,
                                        updateDate: Date?) {
-    levelsAdapter =
-        LevelsAdapter(context!!, hiddenLevels, shownLevels, totalSpend, currentLevel,
-            nextLevelAmount, formatter,
-            mapper, uiEventListener!!)
-    gamification_recycler_view.adapter = levelsAdapter
+    gamification_recycler_view.visibility = View.VISIBLE
+    levelsAdapter.setLevelsContent(hiddenLevels, shownLevels, totalSpend, currentLevel,
+        nextLevelAmount)
+    //gamification_recycler_view.adapter = levelsAdapter
     handleBonusUpdatedText(updateDate)
   }
 

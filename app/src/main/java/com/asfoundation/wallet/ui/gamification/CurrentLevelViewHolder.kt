@@ -19,12 +19,18 @@ import java.text.DecimalFormat
 
 class CurrentLevelViewHolder(itemView: View,
                              private val context: Context,
-                             private val amountSpent: BigDecimal,
-                             private val nextLevelAmount: BigDecimal?,
                              private val currencyFormatUtils: CurrencyFormatUtils,
                              private val mapper: GamificationMapper,
                              private val uiEventListener: PublishSubject<Pair<String, Boolean>>) :
     LevelsViewHolder(itemView) {
+
+  private var amountSpent: BigDecimal = BigDecimal.ZERO
+  private var nextLevelAmount: BigDecimal? = null
+
+  fun setAmounts(_amountSpent: BigDecimal, _nextLevelAmount: BigDecimal?) {
+    amountSpent = _amountSpent
+    nextLevelAmount = _nextLevelAmount
+  }
 
   override fun bind(level: LevelModel) {
     val progress = getProgressPercentage(level.amount)
@@ -65,7 +71,7 @@ class CurrentLevelViewHolder(itemView: View,
     if (nextLevelAmount != null) {
       itemView.spend_amount_text.text =
           context.getString(R.string.gamif_card_body,
-              currencyFormatUtils.formatGamificationValues(nextLevelAmount - amountSpent))
+              currencyFormatUtils.formatGamificationValues(nextLevelAmount!! - amountSpent))
     } else {
       itemView.spend_amount_text.visibility = View.INVISIBLE
     }
@@ -78,7 +84,7 @@ class CurrentLevelViewHolder(itemView: View,
 
   private fun getProgressPercentage(levelAmount: BigDecimal): BigDecimal {
     return if (nextLevelAmount != null) {
-      var levelRange = nextLevelAmount.subtract(levelAmount)
+      var levelRange = nextLevelAmount!!.subtract(levelAmount)
       if (levelRange.toDouble() == 0.0) {
         levelRange = BigDecimal.ONE
       }
