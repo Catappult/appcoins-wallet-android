@@ -5,7 +5,7 @@ import cm.aptoide.skills.model.TicketRequest
 import cm.aptoide.skills.model.TicketResponse
 import io.reactivex.Single
 
-class TicketsRepository(private val ticketApi: TicketApi) {
+class TicketRepository(private val ticketApi: TicketApi) {
 
   fun createTicket(ewt: String, walletAddress: String): Single<TicketResponse> {
     return ticketApi.postTicket(

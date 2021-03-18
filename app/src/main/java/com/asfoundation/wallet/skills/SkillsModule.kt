@@ -1,19 +1,21 @@
 package com.asfoundation.wallet.skills
 
 import cm.aptoide.skills.SkillsViewModel
-import cm.aptoide.skills.factory.TicketApiFactory
+import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
-import cm.aptoide.skills.repository.TicketsRepository
+import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.CreateTicketUseCase
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.ewt.DefaultEwtObtainer
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 
 
@@ -33,18 +35,25 @@ class SkillsModule {
   @Provides
   fun providesCreateTicketUseCase(walletAddressObtainer: WalletAddressObtainer,
                                   ewtObtainer: EwtObtainer,
-                                  ticketsRepository: TicketsRepository): CreateTicketUseCase {
-    return CreateTicketUseCase(walletAddressObtainer, ewtObtainer, ticketsRepository)
+                                  ticketRepository: TicketRepository): CreateTicketUseCase {
+    return CreateTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
   }
 
   @Provides
-  fun providesTicketsRepository(@Named("default") client: OkHttpClient): TicketsRepository {
+  fun providesTicketsRepository(@Named("default") client: OkHttpClient): TicketRepository {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
         .create()
 
-    return TicketsRepository(
-        TicketApiFactory.providesTicketApi(client, gson))
+    val api = Retrofit.Builder()
+        .baseUrl(ENDPOINT)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(TicketApi::class.java)
+
+    return TicketRepository(api)
   }
 
   @Provides
@@ -59,4 +68,7 @@ class SkillsModule {
     return EwtAuthenticatorService(walletService, headerJson.toString())
   }
 
+  companion object {
+    const val ENDPOINT = "https://cbd801a2-845a-4e51-bb18-33f61dcddedd.mock.pstmn.io"
+  }
 }
