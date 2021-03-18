@@ -22,6 +22,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import retrofit2.HttpException
 import java.util.*
@@ -230,20 +231,35 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
 
   private fun waitForUi(skuId: String?, type: BillingSupportedType): Completable {
     return Completable.mergeArray(checkProcessing(skuId, type).subscribeOn(networkThread),
-        checkAndConsumePrevious(skuId, type).subscribeOn(networkThread),
-        checkSubscriptionOwned(skuId, type).subscribeOn(networkThread),
+        checkForOwnedItems(skuId, type).subscribeOn(networkThread),
         isSetupCompleted())
   }
 
-  private fun checkSubscriptionOwned(skuId: String?, type: BillingSupportedType): Completable {
+  private fun checkForOwnedItems(skuId: String?, type: BillingSupportedType): Completable {
+    return Single.zip(checkAndConsumePrevious(skuId, type).subscribeOn(networkThread),
+        checkSubscriptionOwned(skuId, type).subscribeOn(networkThread),
+        BiFunction { itemOwned: Boolean, subStatus: SubscriptionStatus ->
+          handleItemsOwned(itemOwned, subStatus)
+        })
+        .ignoreElement()
+  }
+
+  private fun handleItemsOwned(itemOwned: Boolean, subStatus: SubscriptionStatus) {
+    if (itemOwned) {
+      viewState = ViewState.ITEM_ALREADY_OWNED
+      view.showItemAlreadyOwnedError()
+    } else {
+      handleSubscriptionAvailability(subStatus)
+    }
+  }
+
+  private fun checkSubscriptionOwned(skuId: String?,
+                                     type: BillingSupportedType): Single<SubscriptionStatus> {
     return if (type == BillingSupportedType.INAPP_SUBSCRIPTION && skuId != null) {
       interactor.isAbleToSubscribe(paymentMethodsData.appPackage, skuId, networkThread)
           .subscribeOn(networkThread)
-          .observeOn(viewScheduler)
-          .doOnSuccess { handleSubscriptionAvailability(it) }
-          .ignoreElement()
     } else {
-      Completable.complete()
+      Single.just(SubscriptionStatus(true))
     }
   }
 
@@ -297,18 +313,11 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
         .ignoreElement()
   }
 
-  private fun checkAndConsumePrevious(sku: String?, type: BillingSupportedType): Completable {
+  private fun checkAndConsumePrevious(sku: String?, type: BillingSupportedType): Single<Boolean> {
     return getPurchases(type)
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
-        .flatMapCompletable { purchases ->
-          Completable.fromAction {
-            if (hasRequestedSkuPurchase(purchases, sku)) {
-              viewState = ViewState.ITEM_ALREADY_OWNED
-              view.showItemAlreadyOwnedError()
-            }
-          }
-        }
+        .map { purchases -> hasRequestedSkuPurchase(purchases, sku) }
   }
 
   private fun setupUi(firstRun: Boolean) {
