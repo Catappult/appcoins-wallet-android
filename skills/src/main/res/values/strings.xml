@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="find_opponent">Find Opponent</string>
-  <string name="creating_ticket">Creating Ticket</string>
+  <string name="find_room">Find a Room</string>
+  <string name="finding_room">Finding a room.</string>
 </resources>

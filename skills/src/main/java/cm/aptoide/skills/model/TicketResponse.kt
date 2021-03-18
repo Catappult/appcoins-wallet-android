@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 data class TicketResponse(
     @SerializedName("ticket_id")
-    private val ticketId: String,
+    val ticketId: String,
 
     @SerializedName("user_id")
-    private val userId: String,
+    val userId: String,
 
     @SerializedName("wallet_address")
-    private val walletAddress: String,
+    val walletAddress: String,
 
     @SerializedName("room_metadata")
-    private val roomMetadata: Map<String, String>
+    val roomMetadata: Map<String, String>
 )

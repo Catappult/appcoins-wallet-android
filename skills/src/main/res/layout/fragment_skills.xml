@@ -9,7 +9,7 @@
       android:id="@+id/find_opponent_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/find_opponent"
+      android:text="@string/find_room"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />

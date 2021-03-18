@@ -1,11 +1,14 @@
 package com.asfoundation.wallet.skills
 
 import cm.aptoide.skills.SkillsViewModel
+import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
+import cm.aptoide.skills.repository.RoomRepository
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.CreateTicketUseCase
+import cm.aptoide.skills.usecase.GetRoomUseCase
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
@@ -28,8 +31,33 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase): SkillsViewModel {
-    return SkillsViewModel(createTicketUseCase)
+  fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
+                              getRoomUseCase: GetRoomUseCase): SkillsViewModel {
+    return SkillsViewModel(createTicketUseCase, getRoomUseCase)
+  }
+
+  @Provides
+  fun providesGetRoomUseCase(walletAddressObtainer: WalletAddressObtainer,
+                             ewtObtainer: EwtObtainer,
+                             roomRepository: RoomRepository): GetRoomUseCase {
+    return GetRoomUseCase(walletAddressObtainer, ewtObtainer, roomRepository)
+  }
+
+  @Provides
+  fun providesRoomRepository(@Named("default") client: OkHttpClient): RoomRepository {
+    val gson = GsonBuilder()
+        .setDateFormat("yyyy-MM-dd HH:mm")
+        .create()
+
+    val api = Retrofit.Builder()
+        .baseUrl(ENDPOINT)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(RoomApi::class.java)
+
+    return RoomRepository(api)
   }
 
   @Provides
