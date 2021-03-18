@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Indonesian\n"
 "Language: id_ID\n"
-"PO-Revision-Date: 2021-03-10 11:44\n"
+"PO-Revision-Date: 2021-03-18 01:12\n"
 
 #. Card Title
 #:
@@ -60,7 +60,7 @@ msgstr "Dapatkan Bonus tambahan sebesar {0}% pada semua pembelian Anda, kecuali 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "Dapatkan Bonus tambahan sebesar {0} pada semua pembelian Anda."
 
 #. Card - First purchase.
 #:
