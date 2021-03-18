@@ -38,7 +38,7 @@ class SkillsFragment : DaggerFragment() {
     disposable = CompositeDisposable()
 
     binding.findOpponentButton.setOnClickListener {
-      disposable.add(viewModel.getRoom()
+      disposable.add(viewModel.getRoom("string_user_id")
           .observeOn(AndroidSchedulers.mainThread())
           .doOnSubscribe({ showLoading(R.string.finding_room) })
           .doOnNext({

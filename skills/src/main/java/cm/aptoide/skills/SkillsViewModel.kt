@@ -8,8 +8,8 @@ import io.reactivex.Observable
 class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val getRoomUseCase: GetRoomUseCase) {
 
-  fun getRoom(): Observable<RoomResponse> {
-    return createTicketUseCase.createTicket()
+  fun getRoom(userId: String): Observable<RoomResponse> {
+    return createTicketUseCase.createTicket(userId)
         .map { ticketResponse -> ticketResponse.ticketId }
         .flatMap { ticketId -> getRoomUseCase.getRoom(ticketId) }
   }

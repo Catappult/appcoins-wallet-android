@@ -11,11 +11,11 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
                           private val ewtObtainer: EwtObtainer,
                           private val ticketRepository: TicketRepository) {
 
-  fun createTicket(): Observable<TicketResponse> {
+  fun createTicket(userId: String): Observable<TicketResponse> {
     return walletAddressObtainer.getWalletAddress()
         .flatMap { walletAddress ->
           ewtObtainer.getEWT()
-              .flatMap { ewt -> ticketRepository.createTicket(ewt, walletAddress) }
+              .flatMap { ewt -> ticketRepository.createTicket(userId, ewt, walletAddress) }
         }
         .subscribeOn(Schedulers.io())
         .toObservable()
