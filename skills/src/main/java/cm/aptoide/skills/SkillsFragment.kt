@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
+import cm.aptoide.skills.entity.UserData
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,6 +19,8 @@ class SkillsFragment : DaggerFragment() {
 
     const val RESULT_OK = 1
     const val SESSION = "SESSION"
+    const val USER_ID = "USER_ID"
+    const val WALLET_ADDRESS = "WALLET_ADDRESS"
   }
 
   @Inject
@@ -41,8 +44,8 @@ class SkillsFragment : DaggerFragment() {
       disposable.add(viewModel.getRoom("string_user_id")
           .observeOn(AndroidSchedulers.mainThread())
           .doOnSubscribe({ showLoading(R.string.finding_room) })
-          .doOnNext({
-            requireActivity().setResult(RESULT_OK, buildDataIntent())
+          .doOnNext({ userData ->
+            requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
             requireActivity().finish()
           })
           .doOnNext { ticket -> println("ticket: " + ticket) }
@@ -64,10 +67,12 @@ class SkillsFragment : DaggerFragment() {
     binding.progressBarTv.visibility = View.VISIBLE
   }
 
-  private fun buildDataIntent(): Intent {
+  private fun buildDataIntent(userData: UserData): Intent {
     val intent = Intent()
 
     intent.putExtra(SESSION, "session")
+    intent.putExtra(USER_ID, userData.userId)
+    intent.putExtra(WALLET_ADDRESS, userData.walletAddress)
 
     return intent
   }

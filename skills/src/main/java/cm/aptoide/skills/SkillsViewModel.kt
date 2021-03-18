@@ -1,6 +1,6 @@
 package cm.aptoide.skills
 
-import cm.aptoide.skills.model.RoomResponse
+import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.usecase.CreateTicketUseCase
 import cm.aptoide.skills.usecase.GetRoomUseCase
 import io.reactivex.Observable
@@ -8,9 +8,11 @@ import io.reactivex.Observable
 class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val getRoomUseCase: GetRoomUseCase) {
 
-  fun getRoom(userId: String): Observable<RoomResponse> {
+  fun getRoom(userId: String): Observable<UserData> {
     return createTicketUseCase.createTicket(userId)
-        .map { ticketResponse -> ticketResponse.ticketId }
-        .flatMap { ticketId -> getRoomUseCase.getRoom(ticketId) }
+        .flatMap { ticketResponse ->
+          getRoomUseCase.getRoom(ticketResponse.ticketId)
+              .map { roomResponse -> UserData(ticketResponse.userId, ticketResponse.walletAddress) }
+        }
   }
 }
