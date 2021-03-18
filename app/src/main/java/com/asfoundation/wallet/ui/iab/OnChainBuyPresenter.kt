@@ -114,8 +114,19 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       Payment.Status.COMPLETED -> {
         transactionBuilder.flatMapCompletable {
           if (it.type.equals(TransactionType.VOUCHER.name, ignoreCase = true)) {
-            //TODO Replace with values from API
-            Completable.fromAction { view.navigateToVouchersSuccess("code", "redeem") }
+            onChainBuyInteract.getVoucherData(transaction.buyHash)
+                .subscribeOn(networkScheduler)
+                .observeOn(viewScheduler)
+                .flatMapCompletable { voucherModel ->
+                  if (voucherModel.error.hasError || voucherModel.code == null
+                      || voucherModel.redeemUrl == null) {
+                    Completable.fromAction { view.showError() }
+                  } else {
+                    Completable.fromAction {
+                      view.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl)
+                    }
+                  }
+                }
           } else {
             view.lockRotation()
             onChainBuyInteract.getCompletedPurchase(transaction, isBds)

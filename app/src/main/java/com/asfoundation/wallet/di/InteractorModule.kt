@@ -79,6 +79,7 @@ import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.vouchers.VouchersInteractor
 import com.asfoundation.wallet.vouchers.VouchersRepository
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
@@ -220,10 +221,11 @@ class InteractorModule {
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
-                                    remoteRepository: RemoteRepository): LocalPaymentInteractor {
+                                    remoteRepository: RemoteRepository,
+                                    vouchersInteractor: VouchersInteractor): LocalPaymentInteractor {
     return LocalPaymentInteractor(walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
-        walletBlockedInteract, walletVerificationInteractor, remoteRepository)
+        walletBlockedInteract, walletVerificationInteractor, remoteRepository, vouchersInteractor)
   }
 
   @Provides
@@ -254,11 +256,12 @@ class InteractorModule {
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
-                                    billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
+                                    billingAddressRepository: BillingAddressRepository,
+                                    vouchersInteractor: VouchersInteractor): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
         walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
-        billingAddressRepository)
+        billingAddressRepository, vouchersInteractor)
   }
 
   @Provides
@@ -370,9 +373,10 @@ class InteractorModule {
                                          supportInteractor: SupportInteractor,
                                          walletService: WalletService,
                                          walletBlockedInteract: WalletBlockedInteract,
-                                         walletVerificationInteractor: WalletVerificationInteractor): AppcoinsRewardsBuyInteract {
+                                         walletVerificationInteractor: WalletVerificationInteractor,
+                                         vouchersInteractor: VouchersInteractor): AppcoinsRewardsBuyInteract {
     return AppcoinsRewardsBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService,
-        walletBlockedInteract, walletVerificationInteractor)
+        walletBlockedInteract, walletVerificationInteractor, vouchersInteractor)
   }
 
   @Provides
@@ -380,9 +384,10 @@ class InteractorModule {
                                  supportInteractor: SupportInteractor,
                                  walletService: WalletService,
                                  walletBlockedInteract: WalletBlockedInteract,
-                                 walletVerificationInteractor: WalletVerificationInteractor): OnChainBuyInteract {
+                                 walletVerificationInteractor: WalletVerificationInteractor,
+                                 vouchersInteractor: VouchersInteractor): OnChainBuyInteract {
     return OnChainBuyInteract(inAppPurchaseInteractor, supportInteractor, walletService,
-        walletBlockedInteract, walletVerificationInteractor)
+        walletBlockedInteract, walletVerificationInteractor, vouchersInteractor)
   }
 
   @Singleton
@@ -542,10 +547,11 @@ class InteractorModule {
                                 walletVerificationInteractor: WalletVerificationInteractor,
                                 billing: Billing,
                                 billingMessagesMapper: BillingMessagesMapper,
-                                logger: Logger): CarrierInteractor {
+                                logger: Logger,
+                                vouchersInteractor: VouchersInteractor): CarrierInteractor {
     return CarrierInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, walletBlockedInteract, walletVerificationInteractor, billing,
-        billingMessagesMapper, logger, Schedulers.io())
+        inAppPurchaseInteractor, walletBlockedInteract, walletVerificationInteractor,
+        vouchersInteractor, billing, billingMessagesMapper, logger, Schedulers.io())
   }
 
   @Singleton
@@ -586,5 +592,12 @@ class InteractorModule {
   fun providesTransactionDetailInteractor(
       vouchersRepository: VouchersRepository): TransactionDetailInteractor {
     return TransactionDetailInteractor(vouchersRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesVouchersInteractor(vouchersRepository: VouchersRepository,
+                                 walletService: WalletService): VouchersInteractor {
+    return VouchersInteractor(vouchersRepository, walletService)
   }
 }

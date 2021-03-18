@@ -10,12 +10,14 @@ import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.vouchers.VouchersInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -31,6 +33,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                         private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                         private val walletBlockedInteract: WalletBlockedInteract,
                         private val walletVerificationInteractor: WalletVerificationInteractor,
+                        private val vouchersInteractor: VouchersInteractor,
                         private val billing: Billing,
                         private val billingMessagesMapper: BillingMessagesMapper,
                         private val logger: Logger,
@@ -167,6 +170,10 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
   fun forgetPhoneNumber() = repository.forgetPhoneNumber()
 
   fun retrievePhoneNumber() = repository.retrievePhoneNumber()
+
+  fun getVoucherData(transactionHash: String?): Single<VoucherTransactionModel> {
+    return vouchersInteractor.getVoucherData(transactionHash)
+  }
 }
 
 data class TransactionDataDetails(val addrs: WalletAddresses, val builder: TransactionBuilder)

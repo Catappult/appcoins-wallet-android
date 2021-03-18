@@ -11,7 +11,7 @@ import io.reactivex.Observable
 class AdyenPaymentNavigator(private val fragmentManager: FragmentManager,
                             private val navigator: Navigator) {
 
-  fun navigateToVoucherSuccess(bonus: String, code: String, redeemLink: String) {
+  fun navigateToVoucherSuccess(code: String, redeemLink: String, bonus: String) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             VouchersSuccessFragment.newInstance(code, redeemLink, bonus))

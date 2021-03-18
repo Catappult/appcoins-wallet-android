@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabActivity
+import com.asfoundation.wallet.util.toOneStepUri
 import java.math.BigDecimal
 
 class VoucherDetailsNavigator(private val fragmentManager: FragmentManager,
@@ -17,7 +18,14 @@ class VoucherDetailsNavigator(private val fragmentManager: FragmentManager,
         BigDecimal(voucherSkuItem.price.value), voucherSkuItem.price.currency,
         voucherSkuItem.price.symbol, BigDecimal(voucherSkuItem.price.appc), packageName,
         TransactionType.VOUCHER.name, TransactionBuilder.APPCOINS_WALLET_ADDRESS)
-    activity.startActivity(IabActivity.newIntent(activity, null, transactionBuilder, true, null))
+
+    val intent = Intent().apply {
+      data = transactionBuilder.toOneStepUri()
+      putExtra(IabActivity.PRODUCT_NAME, transactionBuilder.skuId)
+    }
+    activity.startActivity(
+        IabActivity.newIntent(activity, intent, transactionBuilder, true,
+            null))
   }
 
   fun navigateBack() = fragmentManager.popBackStack()

@@ -578,7 +578,7 @@ class ServiceModule {
   @Provides
   fun provideWalletValidationApi(@Named("default") client: OkHttpClient,
                                  gson: Gson): VerificationStateApi {
-    val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/"
+    val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20210201/gateways/adyen_v2/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)

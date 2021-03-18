@@ -111,11 +111,17 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               }
         } else if (transactionBuilder.type.equals(TransactionData.TransactionType.VOUCHER.name,
                 ignoreCase = true)) {
-          rewardsManager.getTransaction(packageName, sku, amount)
-              .flatMapCompletable {
-                Completable.fromAction {
-                  //TODO Replace with value from API
-                  view.navigateToVouchersSuccess("code", "link")
+          appcoinsRewardsBuyInteract.getVouchersData(transaction.txId)
+              .subscribeOn(networkScheduler)
+              .observeOn(viewScheduler)
+              .flatMapCompletable { voucherModel ->
+                if (voucherModel.error.hasError || voucherModel.code == null
+                    || voucherModel.redeemUrl == null) {
+                  Completable.fromAction { view.showError(R.string.unknown_error) }
+                } else {
+                  Completable.fromAction {
+                    view.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl)
+                  }
                 }
               }
         } else {

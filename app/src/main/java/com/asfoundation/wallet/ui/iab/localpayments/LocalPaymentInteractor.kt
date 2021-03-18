@@ -9,10 +9,12 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.vouchers.VouchersInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -28,7 +30,8 @@ class LocalPaymentInteractor(private val walletService: WalletService,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val walletVerificationInteractor: WalletVerificationInteractor,
-                             private val remoteRepository: RemoteRepository) {
+                             private val remoteRepository: RemoteRepository,
+                             private val vouchersInteractor: VouchersInteractor) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
@@ -116,6 +119,10 @@ class LocalPaymentInteractor(private val walletService: WalletService,
 
   fun convertToFiat(appcAmount: Double, toCurrency: String): Single<FiatValue> {
     return inAppPurchaseInteractor.convertToFiat(appcAmount, toCurrency)
+  }
+
+  fun getVoucherData(transactionHash: String?): Single<VoucherTransactionModel> {
+    return vouchersInteractor.getVoucherData(transactionHash)
   }
 
   private companion object {

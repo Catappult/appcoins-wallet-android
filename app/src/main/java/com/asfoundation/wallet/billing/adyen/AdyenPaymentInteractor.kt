@@ -14,10 +14,12 @@ import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.promotions.voucher.VoucherTransactionModel
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.vouchers.VouchersInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -37,7 +39,8 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val walletVerificationInteractor: WalletVerificationInteractor,
-                             private val billingAddressRepository: BillingAddressRepository
+                             private val billingAddressRepository: BillingAddressRepository,
+                             private val vouchersInteractor: VouchersInteractor
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
@@ -176,6 +179,10 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   }
 
   fun getWalletAddress() = walletService.getWalletAddress()
+
+  fun getVoucherData(transactionHash: String?): Single<VoucherTransactionModel> {
+    return vouchersInteractor.getVoucherData(transactionHash)
+  }
 
   private fun isEndingState(status: TransactionStatus): Boolean {
     return (status == TransactionStatus.COMPLETED

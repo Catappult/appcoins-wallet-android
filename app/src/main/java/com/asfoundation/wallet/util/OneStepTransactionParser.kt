@@ -33,11 +33,12 @@ class OneStepTransactionParser(
                 getAmount(oneStepUri, skuDetailsResponse.product),
                 Function5 { token: Token, iabContract: String, walletAddress: String,
                             tokenContract: String, amount: BigDecimal ->
+                  val type = mapPaymentType(oneStepUri)
                   TransactionBuilder(token.tokenInfo.symbol, tokenContract, getChainId(oneStepUri),
                       walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
-                      iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, null,
+                      iabContract, type, null,
                       getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
-                      getOrderReference(oneStepUri), referrerUrl,
+                      getOrderReference(oneStepUri), mapReferrer(referrerUrl, type),
                       skuDetailsResponse.product?.title.orEmpty()).shouldSendToken(true)
                 })
                 .map {
@@ -55,6 +56,27 @@ class OneStepTransactionParser(
           }
           .subscribeOn(Schedulers.io())
     }
+  }
+
+  private fun mapReferrer(referrerUrl: String, type: String): String? {
+    return when (type) {
+      Parameters.PAYMENT_TYPE_VOUCHER -> null
+      else -> referrerUrl
+    }
+  }
+
+  private fun mapPaymentType(oneStepUri: OneStepUri): String {
+    val split = oneStepUri.path.split("transaction/")
+    if (split.size >= 2 && split[1].isNotEmpty()) {
+      split[1].let { type ->
+        return when (type) {
+          "voucher" -> Parameters.PAYMENT_TYPE_VOUCHER
+          "donation" -> Parameters.PAYMENT_TYPE_DONATION
+          else -> Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
+        }
+      }
+    }
+    return Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
   }
 
   private fun getOrderReference(uri: OneStepUri): String? {

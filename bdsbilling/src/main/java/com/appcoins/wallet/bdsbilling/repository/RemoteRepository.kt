@@ -226,7 +226,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Query("transaction.type") type: String?): Single<GetMethodsResponse>
 
     @FormUrlEncoded
-    @PATCH("broker/8.20200810/gateways/{gateway}/transactions/{uid}")
+    @PATCH("broker/8.20210201/gateways/{gateway}/transactions/{uid}")
     fun patchTransaction(
         @Path("gateway") gateway: String,
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
@@ -257,7 +257,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * @param walletSignature signature obtained after signing the wallet
      */
     @FormUrlEncoded
-    @POST("broker/8.20200810/gateways/{gateway}/transactions")
+    @POST("broker/8.20210201/gateways/{gateway}/transactions")
     fun createTransaction(@Path("gateway") gateway: String,
                           @Field("origin") origin: String?,
                           @Field("domain") domain: String,
@@ -301,7 +301,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
      * @param walletSignature signature obtained after signing the wallet
      */
     @FormUrlEncoded
-    @POST("broker/8.20200810/gateways/myappcoins/transactions")
+    @POST("broker/8.20210201/gateways/myappcoins/transactions")
     fun createTransaction(@Field("origin") origin: String?,
                           @Field("domain") domain: String,
                           @Field("price.value") priceValue: String?,

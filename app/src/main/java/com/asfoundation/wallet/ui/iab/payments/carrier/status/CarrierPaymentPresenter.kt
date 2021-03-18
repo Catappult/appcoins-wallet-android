@@ -80,10 +80,22 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun completePurchase(payment: CarrierPaymentModel): Completable {
     return if (data.transactionType == TransactionType.VOUCHER.name) {
-      //TODO Replace with values from API
-      Completable.fromAction {
-        navigator.navigateToVouchersSuccess("code", "redeem", data.bonusAmount)
-      }
+      carrierInteractor.getVoucherData(payment.hash)
+          .subscribeOn(ioScheduler)
+          .observeOn(viewScheduler)
+          .flatMapCompletable { voucherModel ->
+            if (voucherModel.error.hasError || voucherModel.code == null
+                || voucherModel.redeemUrl == null) {
+              Completable.fromAction {
+                navigator.navigateToError(R.string.activity_iab_error_message)
+              }
+            } else {
+              Completable.fromAction {
+                navigator.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl,
+                    data.bonusAmount)
+              }
+            }
+          }
     } else {
       Completable.fromAction { view.showFinishedTransaction() }
           .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))

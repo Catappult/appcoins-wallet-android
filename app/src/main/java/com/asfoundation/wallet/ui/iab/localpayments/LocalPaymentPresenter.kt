@@ -185,10 +185,20 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
     return if (transaction.type == TransactionType.VOUCHER.name) {
-      //TODO Replace with values from API
-      Completable.fromAction {
-        navigator.navigateToVouchersSuccess("code", "link", data.bonus ?: "")
-      }
+      localPaymentInteractor.getVoucherData(transaction.hash)
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .flatMapCompletable { voucherModel ->
+            if (voucherModel.error.hasError || voucherModel.code == null
+                || voucherModel.redeemUrl == null) {
+              Completable.fromAction { view.showError(R.string.unknown_error) }
+            } else {
+              Completable.fromAction {
+                navigator.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl,
+                    data.bonus ?: "")
+              }
+            }
+          }
     } else {
       localPaymentInteractor.getCompletePurchaseBundle(data.type, data.packageName, data.skuId,
           transaction.orderReference, transaction.hash, networkScheduler)
@@ -289,8 +299,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   @StringRes
-  private fun mapHttpError(exceptiont: HttpException): Int {
-    return when (exceptiont.code()) {
+  private fun mapHttpError(exception: HttpException): Int {
+    return when (exception.code()) {
       FORBIDDEN_CODE -> R.string.purchase_error_wallet_block_code_403
       else -> R.string.unknown_error
     }

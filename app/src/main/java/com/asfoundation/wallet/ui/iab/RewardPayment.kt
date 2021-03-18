@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
-data class RewardPayment(val orderReference: String?,
+data class RewardPayment(val txId: String?,
+                         val orderReference: String?,
                          val status: Status, val errorCode: Int? = null,
                          val errorMessage: String? = null)
 

@@ -49,16 +49,17 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
   private fun map(transaction: Transaction): Observable<RewardPayment> {
     return when (transaction.status) {
       Transaction.Status.PROCESSING -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.PROCESSING))
+          RewardPayment(transaction.txId, transaction.orderReference, Status.PROCESSING))
       Transaction.Status.COMPLETED -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.COMPLETED))
+          RewardPayment(transaction.txId, transaction.orderReference, Status.COMPLETED))
       Transaction.Status.ERROR -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.ERROR, transaction.errorCode,
+          RewardPayment(transaction.txId, transaction.orderReference, Status.ERROR,
+              transaction.errorCode,
               transaction.errorMessage))
       Transaction.Status.FORBIDDEN -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.FORBIDDEN))
+          RewardPayment(transaction.txId, transaction.orderReference, Status.FORBIDDEN))
       Transaction.Status.NO_NETWORK -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.NO_NETWORK))
+          RewardPayment(transaction.txId, transaction.orderReference, Status.NO_NETWORK))
       else -> throw UnsupportedOperationException(
           "Transaction status " + transaction.status + " not supported")
     }
