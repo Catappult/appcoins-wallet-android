@@ -11,6 +11,7 @@ import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
+import com.appcoins.wallet.billing.adyen.AdyenSerializer
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
@@ -127,7 +128,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient, bdsApi: BdsApi,
-                                    subscriptionBillingApi: SubscriptionBillingApi, gson: Gson): AdyenPaymentRepository {
+                                    subscriptionBillingApi: SubscriptionBillingApi,
+                                    gson: Gson): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
@@ -135,7 +137,8 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AdyenApi::class.java)
-    return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi, AdyenResponseMapper(gson))
+    return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi,
+        AdyenResponseMapper(gson, AdyenSerializer()))
   }
 
   @Singleton

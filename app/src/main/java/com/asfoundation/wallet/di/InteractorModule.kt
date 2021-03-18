@@ -257,7 +257,7 @@ class InteractorModule {
     return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, walletService,
         supportInteractor, walletBlockedInteract, walletVerificationInteractor,
-        billingAddressRepository)
+        billingAddressRepository, Schedulers.io())
   }
 
   @Provides

@@ -21,7 +21,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
@@ -33,7 +32,8 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val walletVerificationInteractor: WalletVerificationInteractor,
-                             private val billingAddressRepository: BillingAddressRepository
+                             private val billingAddressRepository: BillingAddressRepository,
+                             private val networkThread: Scheduler
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
@@ -132,7 +132,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMapObservable { walletAddressModel ->
-          Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
+          Observable.interval(0, 10, TimeUnit.SECONDS, networkThread)
               .timeInterval()
               .switchMap {
                 adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
@@ -150,7 +150,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
           .flatMap { walletAddressModel ->
             Single.zip(adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
                 walletAddressModel.signedAddress),
-                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS),
+                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, networkThread),
                 BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
           }
           .flatMap {
