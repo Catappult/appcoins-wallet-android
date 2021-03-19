@@ -23,9 +23,9 @@ class VoucherDetailsNavigator(private val fragmentManager: FragmentManager,
       data = transactionBuilder.toOneStepUri()
       putExtra(IabActivity.PRODUCT_NAME, transactionBuilder.skuId)
     }
-    activity.startActivity(
+    activity.startActivityForResult(
         IabActivity.newIntent(activity, intent, transactionBuilder, true,
-            null))
+            null), 111) // This request code will not be processed by PromotionsActivity
   }
 
   fun navigateBack() = fragmentManager.popBackStack()
