@@ -126,6 +126,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         view.showError(null)
       }
       Status.FORBIDDEN -> Completable.fromAction {
+        logger.log(TAG, "Forbidden")
         handleFraudFlow()
       }
       Status.SUB_ALREADY_OWNED -> Completable.fromAction {

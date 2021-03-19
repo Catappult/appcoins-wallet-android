@@ -8,11 +8,10 @@ import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.ErrorInfo
-import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
+import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.common.response.TransactionStatus
-import com.appcoins.wallet.billing.repository.ResponseErrorBaseBody
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.getMessage
@@ -21,7 +20,8 @@ import com.google.gson.Gson
 import org.json.JSONObject
 import retrofit2.HttpException
 
-class AdyenResponseMapper(private val gson: Gson) {
+class AdyenResponseMapper(private val gson: Gson,
+                          private val billingErrorMapper: BillingErrorMapper) {
 
   fun map(response: PaymentMethodsResponse,
           method: AdyenPaymentRepository.Methods): PaymentInfoModel {
@@ -115,7 +115,7 @@ class AdyenResponseMapper(private val gson: Gson) {
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
-    val errorInfo = mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
+    val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
     return PaymentInfoModel(
         Error(true, throwable.isNoNetworkException(), errorInfo))
   }
@@ -123,7 +123,7 @@ class AdyenResponseMapper(private val gson: Gson) {
   fun mapPaymentModelError(throwable: Throwable): PaymentModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
-    val errorInfo = mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
+    val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
     return PaymentModel(Error(true, throwable.isNoNetworkException(), errorInfo))
   }
 
@@ -148,7 +148,7 @@ class AdyenResponseMapper(private val gson: Gson) {
           isNetworkError = false))
     } else {
       val codeAndMessage = throwable.getErrorCodeAndMessage()
-      val errorInfo = mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
+      val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
       VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER, null, null,
           Error(true, throwable.isNoNetworkException(), errorInfo))
     }
@@ -165,7 +165,7 @@ class AdyenResponseMapper(private val gson: Gson) {
         "Body.Invalid" -> errorType = VerificationCodeResult.ErrorType.WRONG_CODE
         "Request.TooMany" -> errorType = VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS
       }
-      val errorInfo = mapErrorInfo(throwable.code(), body)
+      val errorInfo = billingErrorMapper.mapErrorInfo(throwable.code(), body)
       return VerificationCodeResult(false, errorType, Error(hasError = true,
           isNetworkError = true, info = errorInfo))
     }
@@ -185,23 +185,6 @@ class AdyenResponseMapper(private val gson: Gson) {
       }
     }
     return PaymentInfoModel(Error(true))
-  }
-
-  private fun mapErrorInfo(httpCode: Int?, message: String?): ErrorInfo {
-    val messageGson = gson.fromJson(message, ResponseErrorBaseBody::class.java)
-    val errorType = getErrorType(httpCode, messageGson.code, messageGson.text)
-    return ErrorInfo(httpCode, messageGson.code, messageGson.text, errorType)
-  }
-
-  private fun getErrorType(httpCode: Int?, messageCode: String?, text: String?): ErrorType {
-    return when {
-      httpCode != null && httpCode == 400 && messageCode == "Body.Fields.Missing"
-          && text?.contains("payment.billing") == true -> ErrorType.BILLING_ADDRESS
-      messageCode == "NotAllowed" -> ErrorType.SUB_ALREADY_OWNED
-      messageCode == "Authorization.Forbidden" -> ErrorType.BLOCKED
-      httpCode == 409 -> ErrorType.CONFLICT
-      else -> ErrorType.UNKNOWN
-    }
   }
 
   companion object {

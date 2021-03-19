@@ -41,8 +41,6 @@ class UserSubscriptionsMapperTest {
     private val TEST_APPC_AMOUNT = BigDecimal.TEN
   }
 
-  private lateinit var activeSubResponse: UserSubscriptionResponse
-  private lateinit var expiredSubResponse: UserSubscriptionResponse
   private lateinit var mapper: UserSubscriptionsMapper
 
   @Before
@@ -61,16 +59,29 @@ class UserSubscriptionsMapperTest {
             TEST_SYMBOL, TEST_CREATED,
             MethodResponse(TEST_PAYMENT_METHOD, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON),
             AppcPrice(TEST_APPC_AMOUNT, TEST_APPC_LABEL))
-    activeSubResponse =
+    val activeSubResponse =
         UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
             SubscriptionSubStatus.ACTIVE, TEST_STARTED, TEST_RENEWAL, TEST_EXPIRE, null,
             applicationResponse, orderResponse)
-    expiredSubResponse =
+    val expiredSubResponse =
         UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
             SubscriptionSubStatus.EXPIRED, TEST_STARTED, TEST_RENEWAL, null, TEST_ENDED,
             applicationResponse, orderResponse)
+    val responseCanceled = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
+        SubscriptionSubStatus.CANCELED, TEST_STARTED, TEST_RENEWAL, TEST_EXPIRE, null,
+        applicationResponse, orderResponse)
+    val responsePaused = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
+        SubscriptionSubStatus.PAUSED, TEST_STARTED, null, null, null,
+        applicationResponse, orderResponse)
+    val responseRevoked = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
+        SubscriptionSubStatus.REVOKED, TEST_STARTED, null, TEST_EXPIRE, TEST_ENDED,
+        applicationResponse, orderResponse)
+    val responsePending = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
+        SubscriptionSubStatus.PENDING, null, null, null, null,
+        applicationResponse, orderResponse)
     val allSubscriptions = UserSubscriptionsListResponse(
-        listOf(activeSubResponse, expiredSubResponse))
+        listOf(activeSubResponse, expiredSubResponse, responseCanceled, responsePaused,
+            responseRevoked, responsePending))
     val expiredSubscriptions = UserSubscriptionsListResponse(listOf(expiredSubResponse))
     val model = mapper.mapToSubscriptionModel(allSubscriptions, expiredSubscriptions, true)
     val activeItem =
@@ -83,7 +94,27 @@ class UserSubscriptionsMapperTest {
             expectedDate, null, expectedDate, TEST_PACKAGE_NAME, TEST_TITLE,
             TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE,
             TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
-    val allItemsList = listOf(activeItem, expiredItem)
+    val canceledItem =
+        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.CANCELED, expectedDate,
+            expectedDate, expectedDate, null,
+            TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
+            TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
+    val pausedItem =
+        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.PAUSED, expectedDate, null, null,
+            null,
+            TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
+            TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
+    val revokedItem =
+        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.REVOKED, expectedDate, null,
+            expectedDate, expectedDate,
+            TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
+            TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
+    val pendingItem =
+        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.PENDING, null, null, null, null,
+            TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
+            TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
+    val allItemsList =
+        listOf(activeItem, expiredItem, canceledItem, pausedItem, revokedItem, pendingItem)
     val expiredItemList = listOf(expiredItem)
     val expectedModel = SubscriptionModel(allItemsList, expiredItemList, true)
     Assert.assertEquals(expectedModel.toString(), model.toString())
