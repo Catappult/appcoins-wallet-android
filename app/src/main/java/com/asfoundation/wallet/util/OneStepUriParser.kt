@@ -71,8 +71,13 @@ fun TransactionBuilder.toOneStepUri(): Uri {
 
   val parameters = mutableListOf<Parameter>()
   skuId?.let { parameters.add(Parameter(PRODUCT, skuId)) }
-  amount()?.let { parameters.add(Parameter(VALUE, amount().toString())) }
-  fiatCurrency?.let { parameters.add(Parameter(CURRENCY, fiatCurrency)) }
+  fiatAmount?.let {
+    parameters.add(Parameter(VALUE, fiatAmount.toString()))
+    fiatCurrency?.let { parameters.add(Parameter(CURRENCY, fiatCurrency)) }
+  } ?: amount()?.let {
+    parameters.add(Parameter(VALUE, amount().toString()))
+    fiatCurrency?.let { parameters.add(Parameter(CURRENCY, "APPC")) }
+  }
   domain?.let { parameters.add(Parameter(DOMAIN, domain)) }
   payload?.let { parameters.add(Parameter(DATA, payload)) }
   callbackUrl?.let { parameters.add(Parameter(CALLBACK_URL, callbackUrl)) }

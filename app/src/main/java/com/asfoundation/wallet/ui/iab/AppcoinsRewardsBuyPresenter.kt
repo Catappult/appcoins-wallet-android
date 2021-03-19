@@ -57,7 +57,8 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   private fun handleBuyClick() {
     disposables.add(transferParser.parse(uri)
         .flatMapCompletable { transaction: TransactionBuilder ->
-          rewardsManager.pay(transaction.skuId, amount, transaction.toAddress(), packageName,
+          rewardsManager.pay(transaction.skuId, transaction.amount(), transaction.toAddress(),
+              packageName,
               getOrigin(isBds, transaction), transaction.type, transaction.payload,
               transaction.callbackUrl, transaction.orderReference, transaction.referrerUrl)
               .andThen(rewardsManager.getPaymentStatus(packageName, transaction.skuId,
@@ -91,6 +92,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         if (isBds && transactionBuilder.type.equals(TransactionData.TransactionType.INAPP.name,
                 ignoreCase = true)) {
           rewardsManager.getPaymentCompleted(packageName, sku)
+              .subscribeOn(networkScheduler)
               .flatMapCompletable { purchase ->
                 Completable.fromAction { view.showTransactionCompleted() }
                     .subscribeOn(viewScheduler)
