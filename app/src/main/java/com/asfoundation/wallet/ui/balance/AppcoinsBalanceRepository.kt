@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.balance
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
-import com.asfoundation.wallet.service.LocalCurrencyConversionService
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDao
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsEntity
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
@@ -52,7 +52,7 @@ class AppcoinsBalanceRepository(
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
             localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),
-                SUM_FIAT_SCALE)
+                SUM_FIAT_SCALE, false)
                 .map { fiatValue ->
                   balanceDetailsDao.updateAppcBalance(address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
@@ -71,7 +71,7 @@ class AppcoinsBalanceRepository(
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
             localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),
-                SUM_FIAT_SCALE)
+                SUM_FIAT_SCALE, false)
                 .map { fiatValue ->
                   balanceDetailsDao.updateCreditsBalance(address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)

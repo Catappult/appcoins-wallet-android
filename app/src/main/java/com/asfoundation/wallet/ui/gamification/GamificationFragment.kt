@@ -103,7 +103,6 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     gamification_recycler_view.visibility = View.VISIBLE
     levelsAdapter.setLevelsContent(hiddenLevels, shownLevels, totalSpend, currentLevel,
         nextLevelAmount)
-    //gamification_recycler_view.adapter = levelsAdapter
     handleBonusUpdatedText(updateDate)
   }
 

@@ -29,6 +29,8 @@ class GamificationPresenter(private val view: GamificationView,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler) {
 
+  private var viewHasContent = false
+
   fun present(savedInstanceState: Bundle?) {
     handleLevelInformation(savedInstanceState == null)
     handleLevelsClick()
@@ -87,10 +89,7 @@ class GamificationPresenter(private val view: GamificationView,
 
   private fun displayInformation(gamification: GamificationInfo) {
     if (gamification.status != Status.OK) {
-      // this may flicker between something displayed that is in cache and then a no network view.
-      // Since there is info that must be retrieved from API, and only from API, it's best to
-      // notify the user that there is no network than the user thinking new data will eventually come
-      if (!gamification.fromCache) activityView.showNetworkErrorView()
+      if (!viewHasContent && !gamification.fromCache) activityView.showNetworkErrorView()
     } else {
       val currentLevel = gamification.currentLevel
       activityView.showMainView()
@@ -98,6 +97,7 @@ class GamificationPresenter(private val view: GamificationView,
       val levels = map(gamification.levels, currentLevel)
       view.displayGamificationInfo(currentLevel, gamification.nextLevelAmount, levels.first,
           levels.second, gamification.totalSpend, gamification.updateDate)
+      viewHasContent = true
     }
   }
 
@@ -130,8 +130,8 @@ class GamificationPresenter(private val view: GamificationView,
   private fun getUserStatsAndBonusEarned(): Observable<Pair<GamificationStats, FiatValue>> {
     return gamification.getUserStats()
         .flatMap { stats ->
-          if (stats.status == GamificationStats.Status.OK && !stats.fromCache) {
-            gamification.getAppcToLocalFiat(stats.totalEarned.toString(), 2)
+          if (stats.status == GamificationStats.Status.OK) {
+            gamification.getAppcToLocalFiat(stats.totalEarned.toString(), 2, stats.fromCache)
                 .map { Pair(stats, it) }
           } else {
             Observable.just(Pair(stats, FiatValue(BigDecimal.ONE.negate(), "")))
