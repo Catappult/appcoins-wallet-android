@@ -114,19 +114,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       Payment.Status.COMPLETED -> {
         transactionBuilder.flatMapCompletable {
           if (it.type.equals(TransactionType.VOUCHER.name, ignoreCase = true)) {
-            onChainBuyInteract.getVoucherData(transaction.buyHash)
-                .subscribeOn(networkScheduler)
-                .observeOn(viewScheduler)
-                .flatMapCompletable { voucherModel ->
-                  if (voucherModel.error.hasError || voucherModel.code == null
-                      || voucherModel.redeemUrl == null) {
-                    Completable.fromAction { view.showError() }
-                  } else {
-                    Completable.fromAction {
-                      view.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl)
-                    }
-                  }
-                }
+            handleSuccessVoucherTransaction(transaction)
           } else {
             view.lockRotation()
             onChainBuyInteract.getCompletedPurchase(transaction, isBds)
@@ -177,6 +165,22 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       }
           .andThen(onChainBuyInteract.remove(transaction.uri))
     }
+  }
+
+  private fun handleSuccessVoucherTransaction(transaction: Payment): Completable {
+    return onChainBuyInteract.getVoucherData(transaction.buyHash)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { voucherModel ->
+          Completable.fromAction {
+            if (voucherModel.error.hasError || voucherModel.code == null
+                || voucherModel.redeemUrl == null) {
+              view.showError()
+            } else {
+              view.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl)
+            }
+          }
+        }
   }
 
   private fun handleSuccessTransaction(bundle: Bundle): Completable {

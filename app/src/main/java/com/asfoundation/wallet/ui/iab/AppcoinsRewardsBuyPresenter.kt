@@ -113,19 +113,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               }
         } else if (transactionBuilder.type.equals(TransactionData.TransactionType.VOUCHER.name,
                 ignoreCase = true)) {
-          appcoinsRewardsBuyInteract.getVouchersData(transaction.txId)
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .flatMapCompletable { voucherModel ->
-                if (voucherModel.error.hasError || voucherModel.code == null
-                    || voucherModel.redeemUrl == null) {
-                  Completable.fromAction { view.showError(R.string.unknown_error) }
-                } else {
-                  Completable.fromAction {
-                    view.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl)
-                  }
-                }
-              }
+          handleVoucherSuccessTransaction(transaction)
         } else {
           rewardsManager.getTransaction(packageName, sku, amount)
               .firstOrError()
@@ -150,6 +138,22 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         view.hideLoading()
       }
     }
+  }
+
+  private fun handleVoucherSuccessTransaction(transaction: RewardPayment): Completable {
+    return appcoinsRewardsBuyInteract.getVouchersData(transaction.txId)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { voucherModel ->
+          Completable.fromAction {
+            if (voucherModel.error.hasError || voucherModel.code == null
+                || voucherModel.redeemUrl == null) {
+              view.showError(R.string.unknown_error)
+            } else {
+              view.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl)
+            }
+          }
+        }
   }
 
   private fun handleFraudFlow() {

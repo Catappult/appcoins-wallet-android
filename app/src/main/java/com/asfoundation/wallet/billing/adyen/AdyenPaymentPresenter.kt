@@ -305,22 +305,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleSuccessTransaction(bundle: Bundle,
                                        paymentModel: PaymentModel): Completable {
     return if (data.paymentData.type == TransactionType.VOUCHER.name) {
-      adyenPaymentInteractor.getVoucherData(paymentModel.hash)
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-          .flatMapCompletable { voucherModel ->
-            if (voucherModel.error.hasError || voucherModel.code == null
-                || voucherModel.redeemUrl == null) {
-              Completable.fromAction {
-                view.showGenericError()
-              }
-            } else {
-              Completable.fromAction {
-                navigator.navigateToVoucherSuccess(voucherModel.code, voucherModel.redeemUrl,
-                    data.bonus)
-              }
-            }
-          }
+      handleVoucherSuccessTransaction(paymentModel)
     } else {
       Completable.fromAction { view.showSuccess(data.isPreselected) }
           .andThen(Completable.timer(view.getAnimationDuration(),
@@ -328,6 +313,24 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           .andThen(Completable.fromAction { navigator.finishPayment(bundle) })
     }
   }
+
+  private fun handleVoucherSuccessTransaction(paymentModel: PaymentModel): Completable {
+    return adyenPaymentInteractor.getVoucherData(paymentModel.hash)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { voucherModel ->
+          Completable.fromAction {
+            if (voucherModel.error.hasError || voucherModel.code == null
+                || voucherModel.redeemUrl == null) {
+              view.showGenericError()
+            } else {
+              navigator.navigateToVoucherSuccess(voucherModel.code, voucherModel.redeemUrl,
+                  data.bonus)
+            }
+          }
+        }
+  }
+
 
   private fun retrieveFailedReason(uid: String): Completable {
     return adyenPaymentInteractor.getFailedTransactionReason(uid)

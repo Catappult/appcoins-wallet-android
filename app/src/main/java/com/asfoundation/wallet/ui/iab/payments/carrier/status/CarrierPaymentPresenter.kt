@@ -80,27 +80,29 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun completePurchase(payment: CarrierPaymentModel): Completable {
     return if (data.transactionType == TransactionType.VOUCHER.name) {
-      carrierInteractor.getVoucherData(payment.hash)
-          .subscribeOn(ioScheduler)
-          .observeOn(viewScheduler)
-          .flatMapCompletable { voucherModel ->
-            if (voucherModel.error.hasError || voucherModel.code == null
-                || voucherModel.redeemUrl == null) {
-              Completable.fromAction {
-                navigator.navigateToError(R.string.activity_iab_error_message)
-              }
-            } else {
-              Completable.fromAction {
-                navigator.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl,
-                    data.bonusAmount)
-              }
-            }
-          }
+      handleSuccessVoucherTransaction(payment)
     } else {
       Completable.fromAction { view.showFinishedTransaction() }
           .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
           .andThen(finishPayment(payment))
     }
+  }
+
+  private fun handleSuccessVoucherTransaction(payment: CarrierPaymentModel): Completable {
+    return carrierInteractor.getVoucherData(payment.hash)
+        .subscribeOn(ioScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { voucherModel ->
+          Completable.fromAction {
+            if (voucherModel.error.hasError || voucherModel.code == null
+                || voucherModel.redeemUrl == null) {
+              navigator.navigateToError(R.string.activity_iab_error_message)
+            } else {
+              navigator.navigateToVouchersSuccess(voucherModel.code, voucherModel.redeemUrl,
+                  data.bonusAmount)
+            }
+          }
+        }
   }
 
   private fun isUnauthorizedCode(errorCode: Int?): Boolean {
