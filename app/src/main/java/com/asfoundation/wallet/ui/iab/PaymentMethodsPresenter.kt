@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.State
@@ -21,27 +22,28 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import retrofit2.HttpException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class PaymentMethodsPresenter(
-    private val view: PaymentMethodsView,
-    private val viewScheduler: Scheduler,
-    private val networkThread: Scheduler,
-    private val disposables: CompositeDisposable,
-    private val analytics: PaymentMethodsAnalytics,
-    private val transaction: TransactionBuilder,
-    private val paymentMethodsMapper: PaymentMethodsMapper,
-    private val formatter: CurrencyFormatUtils,
-    private val logger: Logger,
-    private val interactor: PaymentMethodsInteractor,
-    private val paymentMethodsData: PaymentMethodsData) {
+class PaymentMethodsPresenter(private val view: PaymentMethodsView,
+                              private val viewScheduler: Scheduler,
+                              private val networkThread: Scheduler,
+                              private val disposables: CompositeDisposable,
+                              private val analytics: PaymentMethodsAnalytics,
+                              private val transaction: TransactionBuilder,
+                              private val paymentMethodsMapper: PaymentMethodsMapper,
+                              private val formatter: CurrencyFormatUtils,
+                              private val logger: Logger,
+                              private val interactor: PaymentMethodsInteractor,
+                              private val paymentMethodsData: PaymentMethodsData) {
 
   private var cachedGamificationLevel = 0
   private var cachedFiatValue: FiatValue? = null
   private var cachedPaymentNavigationData: PaymentNavigationData? = null
+  private var viewState: ViewState = ViewState.DEFAULT
   private var hasStartedAuth = false
 
   companion object {
@@ -215,7 +217,7 @@ class PaymentMethodsPresenter(
         view.showCarrierBilling(cachedFiatValue!!, paymentNavigationData.isPreselected)
       }
       else -> {
-        view.showError(R.string.unknown_error)
+        showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
       }
     }
@@ -229,8 +231,48 @@ class PaymentMethodsPresenter(
 
   private fun waitForUi(skuId: String?, type: BillingSupportedType): Completable {
     return Completable.mergeArray(checkProcessing(skuId, type).subscribeOn(networkThread),
-        checkAndConsumePrevious(skuId, type).subscribeOn(networkThread),
-        isSetupCompleted().subscribeOn(networkThread))
+        checkForOwnedItems(skuId, type).subscribeOn(networkThread),
+        isSetupCompleted())
+  }
+
+  private fun checkForOwnedItems(skuId: String?, type: BillingSupportedType): Completable {
+    return Single.zip(checkAndConsumePrevious(skuId, type).subscribeOn(networkThread),
+        checkSubscriptionOwned(skuId, type).subscribeOn(networkThread),
+        BiFunction { itemOwned: Boolean, subStatus: SubscriptionStatus ->
+          Pair(itemOwned, subStatus)
+        })
+        .observeOn(viewScheduler)
+        .doOnSuccess { handleItemsOwned(it.first, it.second) }
+        .ignoreElement()
+  }
+
+  private fun handleItemsOwned(itemOwned: Boolean, subStatus: SubscriptionStatus) {
+    if (itemOwned) {
+      viewState = ViewState.ITEM_ALREADY_OWNED
+      view.showItemAlreadyOwnedError()
+    } else {
+      handleSubscriptionAvailability(subStatus)
+    }
+  }
+
+  private fun checkSubscriptionOwned(skuId: String?,
+                                     type: BillingSupportedType): Single<SubscriptionStatus> {
+    return if (type == BillingSupportedType.INAPP_SUBSCRIPTION && skuId != null) {
+      interactor.isAbleToSubscribe(paymentMethodsData.appPackage, skuId, networkThread)
+          .subscribeOn(networkThread)
+    } else {
+      Single.just(SubscriptionStatus(true))
+    }
+  }
+
+  private fun handleSubscriptionAvailability(status: SubscriptionStatus) {
+    if (status.isAvailable.not()) {
+      if (status.isAlreadySubscribed) {
+        showError(R.string.subscriptions_error_already_subscribed)
+      } else {
+        showError(R.string.unknown_error)
+      }
+    }
   }
 
   private fun checkProcessing(skuId: String?, type: BillingSupportedType): Completable {
@@ -273,15 +315,11 @@ class PaymentMethodsPresenter(
         .ignoreElement()
   }
 
-  private fun checkAndConsumePrevious(sku: String?, type: BillingSupportedType): Completable {
+  private fun checkAndConsumePrevious(sku: String?, type: BillingSupportedType): Single<Boolean> {
     return getPurchases(type)
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
-        .flatMapCompletable { purchases ->
-          Completable.fromAction {
-            if (hasRequestedSkuPurchase(purchases, sku)) view.showItemAlreadyOwnedError()
-          }
-        }
+        .map { purchases -> hasRequestedSkuPurchase(purchases, sku) }
   }
 
   private fun setupUi(firstRun: Boolean) {
@@ -352,24 +390,26 @@ class PaymentMethodsPresenter(
       } else {
         when (paymentMethod.id) {
           PaymentMethodId.CARRIER_BILLING.id,
-          PaymentMethodId.CREDIT_CARD.id -> {
-            analytics.sendPurchaseDetailsEvent(paymentMethodsData.appPackage, transaction.skuId,
-                transaction.amount()
-                    .toString(), transaction.type)
-            if (interactor.hasAuthenticationPermission()) {
-              if (!hasStartedAuth) {
-                showAuthenticationActivity(paymentMethod, true)
-                hasStartedAuth = true
-              }
-            } else {
-              if (paymentMethod.id == PaymentMethodId.CREDIT_CARD.id) {
-                view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
-                    paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency,
-                    paymentMethodsData.subscription)
-              } else if (paymentMethod.id == PaymentMethodId.CARRIER_BILLING.id) {
-                view.showCarrierBilling(fiatValue, true)
-              }
+          PaymentMethodId.CREDIT_CARD.id, PaymentMethodId.CARRIER_BILLING.id -> {
+            if (viewState == ViewState.DEFAULT) {
+              analytics.sendPurchaseDetailsEvent(paymentMethodsData.appPackage, transaction.skuId,
+                  transaction.amount()
+                      .toString(), transaction.type)
+              if (interactor.hasAuthenticationPermission()) {
+                if (!hasStartedAuth) {
+                  showAuthenticationActivity(paymentMethod, true)
+                  hasStartedAuth = true
+                }
+              } else {
+                if (paymentMethod.id == PaymentMethodId.CREDIT_CARD.id) {
+                  view.showAdyen(fiatValue.amount, fiatValue.currency, PaymentType.CARD,
+                      paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency,
+                      paymentMethodsData.subscription)
+                } else if (paymentMethod.id == PaymentMethodId.CARRIER_BILLING.id) {
+                  view.showCarrierBilling(fiatValue, true)
+                }
 
+              }
             }
           }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,
@@ -417,9 +457,7 @@ class PaymentMethodsPresenter(
       paymentList = paymentMethods.toMutableList()
     } else {
       paymentList = paymentMethods
-          .filter {
-            it.id == paymentMethodsMapper.map(APPC)
-          }
+          .filter { it.id == paymentMethodsMapper.map(APPC) }
           .toMutableList()
     }
     view.showPaymentMethods(paymentList, symbol, paymentMethodId, fiatAmount, appcAmount,
@@ -499,13 +537,23 @@ class PaymentMethodsPresenter(
         .subscribe({ }, { this.showError(it) }))
   }
 
+  private fun showError(@StringRes message: Int) {
+    if (viewState != ViewState.ITEM_ALREADY_OWNED) {
+      viewState = ViewState.ERROR
+      view.showError(message)
+    }
+  }
+
   private fun showError(t: Throwable) {
     t.printStackTrace()
     logger.log(TAG, t)
     when {
-      t.isNoNetworkException() -> view.showError(R.string.notification_no_network_poa)
-      isItemAlreadyOwnedError(t) -> view.showItemAlreadyOwnedError()
-      else -> view.showError(R.string.activity_iab_error_message)
+      t.isNoNetworkException() -> showError(R.string.notification_no_network_poa)
+      isItemAlreadyOwnedError(t) -> {
+        viewState = ViewState.ITEM_ALREADY_OWNED
+        view.showItemAlreadyOwnedError()
+      }
+      else -> showError(R.string.activity_iab_error_message)
     }
   }
 
@@ -517,12 +565,12 @@ class PaymentMethodsPresenter(
 
   private fun handleErrorDismisses() {
     disposables.add(Observable.merge(view.errorDismisses(), view.onBackPressed())
-        .flatMapCompletable { itemAlreadyOwned ->
-          if (itemAlreadyOwned) {
+        .flatMapCompletable {
+          if (viewState == ViewState.ITEM_ALREADY_OWNED) {
             val type = BillingSupportedType.valueOfInsensitive(transaction.type)
             getPurchases(type).doOnSuccess { purchases ->
               val purchase = getRequestedSkuPurchase(purchases, transaction.skuId)
-              purchase?.let { finish(it, itemAlreadyOwned) } ?: view.close(Bundle())
+              purchase?.let { finishItemAlreadyOwned(it) } ?: view.close(Bundle())
             }
                 .ignoreElement()
           } else {
@@ -541,8 +589,8 @@ class PaymentMethodsPresenter(
     )
   }
 
-  private fun finish(purchase: Purchase, itemAlreadyOwned: Boolean) {
-    view.finish(paymentMethodsMapper.mapFinishedPurchase(purchase, itemAlreadyOwned))
+  private fun finishItemAlreadyOwned(purchase: Purchase) {
+    view.finish(paymentMethodsMapper.mapFinishedPurchase(purchase, true))
   }
 
   private fun sendPaymentMethodsEvents() {
@@ -703,5 +751,9 @@ class PaymentMethodsPresenter(
     outState.putBoolean(HAS_STARTED_AUTH, hasStartedAuth)
     outState.putSerializable(FIAT_VALUE, cachedFiatValue)
     outState.putSerializable(PAYMENT_NAVIGATION_DATA, cachedPaymentNavigationData)
+  }
+
+  enum class ViewState {
+    DEFAULT, ITEM_ALREADY_OWNED, ERROR
   }
 }

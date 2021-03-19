@@ -8,6 +8,7 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Metadata
 import com.appcoins.wallet.commons.MemoryCache
+import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -92,7 +93,6 @@ class AppcoinsRewardsTest {
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", Metadata(PURCHASE_UID), "orderReference", null, "")))
-
     scheduler.advanceTimeBy(1, TimeUnit.DAYS)
     scheduler.triggerActions()
 
@@ -108,7 +108,7 @@ class AppcoinsRewardsTest {
 
           }
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler, billing
-            , ErrorMapper())
+            , ErrorMapper(Gson()))
     appcoinsRewards.start()
   }
 
@@ -129,7 +129,8 @@ class AppcoinsRewardsTest {
         Transaction(SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, BDS_ORIGIN, Transaction.Status.PROCESSING, null, null, null, null, null, null),
         Transaction(SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, BDS_ORIGIN, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null, null,
+            PRICE, BDS_ORIGIN, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null,
+            null,
             null))
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)
@@ -153,7 +154,8 @@ class AppcoinsRewardsTest {
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null, null,
+            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null,
+            null,
             null))
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)
@@ -177,7 +179,8 @@ class AppcoinsRewardsTest {
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null, null,
+            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", PURCHASE_UID, null, null,
+            null,
             null))
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)

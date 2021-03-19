@@ -29,6 +29,9 @@ interface BillingRepository {
   fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
                        walletSignature: String, type: BillingSupportedType?): Single<Boolean>
 
+  fun getSubscriptionToken(packageName: String, skuId: String, walletAddress: String,
+                           walletSignature: String): Single<String>
+
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
                                  walletSignature: String, productName: String?, packageName: String,
                                  priceValue: BigDecimal, developerWallet: String,

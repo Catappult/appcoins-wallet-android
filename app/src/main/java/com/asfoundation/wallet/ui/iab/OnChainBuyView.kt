@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -16,7 +17,7 @@ interface OnChainBuyView {
 
   fun finish(data: Bundle?)
 
-  fun showError()
+  fun showError(@StringRes message: Int? = null)
 
   fun showTransactionCompleted()
 

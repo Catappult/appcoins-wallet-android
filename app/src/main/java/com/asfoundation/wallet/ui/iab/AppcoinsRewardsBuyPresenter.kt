@@ -126,7 +126,12 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         view.showError(null)
       }
       Status.FORBIDDEN -> Completable.fromAction {
+        logger.log(TAG, "Forbidden")
         handleFraudFlow()
+      }
+      Status.SUB_ALREADY_OWNED -> Completable.fromAction {
+        logger.log(TAG, "Sub already owned")
+        view.showError(R.string.subscriptions_error_already_subscribed)
       }
       Status.NO_NETWORK -> Completable.fromAction {
         view.showNoNetworkError()
@@ -187,7 +192,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
 
   private fun sendPaymentErrorEvent(transaction: RewardPayment) {
     val status = transaction.status
-    if (status === Status.ERROR || status === Status.NO_NETWORK || status === Status.FORBIDDEN) {
+    if (isErrorStatus(status)) {
       if (transaction.errorCode == null && transaction.errorMessage == null) {
         analytics.sendPaymentErrorEvent(packageName, transactionBuilder.skuId,
             transactionBuilder.amount()
@@ -200,6 +205,11 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
             transaction.errorCode.toString(), transaction.errorMessage.toString())
       }
     }
+  }
+
+  private fun isErrorStatus(status: Status): Boolean {
+    return status === Status.ERROR || status === Status.NO_NETWORK ||
+        status === Status.FORBIDDEN || status === Status.SUB_ALREADY_OWNED
   }
 
   private fun handleSupportClicks() {

@@ -34,7 +34,7 @@ interface PaymentMethodsView {
 
   fun close(bundle: Bundle)
 
-  fun errorDismisses(): Observable<Boolean>
+  fun errorDismisses(): Observable<Any>
 
   fun setupUiCompleted(): Observable<Boolean>
 
@@ -72,7 +72,7 @@ interface PaymentMethodsView {
 
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 
-  fun onBackPressed(): Observable<Boolean>
+  fun onBackPressed(): Observable<Any>
 
   fun showNext()
 

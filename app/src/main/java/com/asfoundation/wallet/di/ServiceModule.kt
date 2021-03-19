@@ -70,7 +70,7 @@ class ServiceModule {
   @Provides
   @Named("BUY_SERVICE_ON_CHAIN")
   fun provideBuyServiceOnChain(sendTransactionInteract: SendTransactionInteract,
-                               errorMapper: ErrorMapper,
+                               paymentErrorMapper: PaymentErrorMapper,
                                @Named("wait_pending_transaction")
                                pendingTransactionService: TrackTransactionService,
                                defaultTokenProvider: DefaultTokenProvider,
@@ -80,7 +80,7 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
         pendingTransactionService), NoValidateTransactionValidator(), defaultTokenProvider,
         countryCodeProvider, dataMapper, addressService)
   }
@@ -88,7 +88,7 @@ class ServiceModule {
   @Provides
   @Named("BUY_SERVICE_BDS")
   fun provideBuyServiceBds(sendTransactionInteract: SendTransactionInteract,
-                           errorMapper: ErrorMapper,
+                           paymentErrorMapper: PaymentErrorMapper,
                            bdsPendingTransactionService: BdsPendingTransactionService,
                            billingPaymentProofSubmission: BillingPaymentProofSubmission,
                            defaultTokenProvider: DefaultTokenProvider,
@@ -98,7 +98,7 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
         bdsPendingTransactionService),
         BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider, addressService), defaultTokenProvider, countryCodeProvider,
@@ -118,9 +118,9 @@ class ServiceModule {
                                   allowanceService: AllowanceService,
                                   @Named("BUY_SERVICE_BDS") buyService: BuyService,
                                   balanceService: BalanceService,
-                                  errorMapper: ErrorMapper): InAppPurchaseService {
+                                  paymentErrorMapper: PaymentErrorMapper): InAppPurchaseService {
     return InAppPurchaseService(MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
-        allowanceService, buyService, balanceService, Schedulers.io(), errorMapper)
+        allowanceService, buyService, balanceService, Schedulers.io(), paymentErrorMapper)
   }
 
   @Singleton
@@ -129,9 +129,9 @@ class ServiceModule {
   fun provideInAppPurchaseServiceAsf(
       @Named("APPROVE_SERVICE_ON_CHAIN") approveService: ApproveService,
       allowanceService: AllowanceService, @Named("BUY_SERVICE_ON_CHAIN") buyService: BuyService,
-      balanceService: BalanceService, errorMapper: ErrorMapper): InAppPurchaseService {
+      balanceService: BalanceService, paymentErrorMapper: PaymentErrorMapper): InAppPurchaseService {
     return InAppPurchaseService(MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
-        allowanceService, buyService, balanceService, Schedulers.io(), errorMapper)
+        allowanceService, buyService, balanceService, Schedulers.io(), paymentErrorMapper)
   }
 
   @Singleton
@@ -332,7 +332,7 @@ class ServiceModule {
   @Provides
   @Named("APPROVE_SERVICE_BDS")
   fun provideApproveServiceBds(sendTransactionInteract: SendTransactionInteract,
-                               errorMapper: ErrorMapper, @Named("no_wait_transaction")
+                               paymentErrorMapper: PaymentErrorMapper, @Named("no_wait_transaction")
                                noWaitPendingTransactionService: TrackTransactionService,
                                billingPaymentProofSubmission: BillingPaymentProofSubmission,
                                addressService: AddressService): ApproveService {
@@ -340,7 +340,7 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.approve(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
         noWaitPendingTransactionService),
         ApproveTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             addressService))
