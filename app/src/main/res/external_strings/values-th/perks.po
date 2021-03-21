@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2021-03-10 11:43\n"
+"PO-Revision-Date: 2021-03-21 17:03\n"
 
 #. Card Title
 #:
@@ -60,7 +60,7 @@ msgstr "รับโบนัสพิเศษ {0}% สำหรับการ
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "รับโบนัสพิเศษ {0}% สำหรับการซื้อทั้งหมดของคุณ"
 
 #. Card - First purchase.
 #:
