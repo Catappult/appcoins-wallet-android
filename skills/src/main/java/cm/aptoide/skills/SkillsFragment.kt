@@ -25,6 +25,7 @@ class SkillsFragment : DaggerFragment() {
 
   @Inject
   lateinit var viewModel: SkillsViewModel
+  private lateinit var userId: String
   private lateinit var disposable: CompositeDisposable
 
   private lateinit var binding: FragmentSkillsBinding
@@ -39,18 +40,30 @@ class SkillsFragment : DaggerFragment() {
     super.onViewCreated(view, savedInstanceState)
 
     disposable = CompositeDisposable()
+    val intent = requireActivity().intent
+    if (intent.hasExtra(USER_ID)) {
+      userId = intent.getStringExtra(USER_ID)
 
-    binding.findOpponentButton.setOnClickListener {
-      disposable.add(viewModel.getRoom("string_user_id")
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnSubscribe({ showLoading(R.string.finding_room) })
-          .doOnNext({ userData ->
-            requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
-            requireActivity().finish()
-          })
-          .doOnNext { ticket -> println("ticket: " + ticket) }
-          .subscribe())
+      binding.findOpponentButton.setOnClickListener {
+        disposable.add(viewModel.getRoom("string_user_id")
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe({ showLoading(R.string.finding_room) })
+            .doOnNext({ userData ->
+              requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
+              requireActivity().finish()
+            })
+            .doOnNext { ticket -> println("ticket: " + ticket) }
+            .subscribe())
+      }
+    } else {
+      showError(R.string.no_user_id)
     }
+  }
+
+  private fun showError(stringId: Int) {
+    binding.findOpponentButton.visibility = View.GONE
+    binding.errorText.visibility = View.VISIBLE
+    binding.errorText.text = requireContext().resources.getString(stringId)
   }
 
   override fun onDestroyView() {
