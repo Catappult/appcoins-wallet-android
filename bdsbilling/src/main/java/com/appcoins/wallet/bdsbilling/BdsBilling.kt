@@ -8,6 +8,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import java.util.logging.Level
+import java.util.logging.Logger
 
 class BdsBilling(private val repository: BillingRepository,
                  private val walletService: WalletService,
@@ -50,9 +52,15 @@ class BdsBilling(private val repository: BillingRepository,
   }
 
   private fun mapTransactionType(transactionType: String): TransactionType {
-    return if (transactionType.equals("INAPP_UNMANAGED", true)) {
+    return if (transactionType.equals(TransactionType.INAPP_UNMANAGED.name, true)) {
       TransactionType.INAPP_UNMANAGED
+    } else if (transactionType.equals(TransactionType.VOUCHER.name, true)) {
+      TransactionType.VOUCHER
+    } else if (transactionType.equals(TransactionType.INAPP.name, true)) {
+      TransactionType.INAPP
     } else {
+      Logger.getLogger("BdsBilling")
+          .log(Level.SEVERE, "Unknown transaction type")
       TransactionType.INAPP
     }
   }
