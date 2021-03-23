@@ -12,7 +12,9 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
     return createTicketUseCase.createTicket(userId)
         .flatMap { ticketResponse ->
           getRoomUseCase.getRoom(ticketResponse.ticketId)
-              .map { roomResponse -> UserData(ticketResponse.userId, ticketResponse.walletAddress) }
+              .map { roomResponse ->
+                UserData(ticketResponse.userId, roomResponse.roomId, ticketResponse.walletAddress)
+              }
         }
   }
 }

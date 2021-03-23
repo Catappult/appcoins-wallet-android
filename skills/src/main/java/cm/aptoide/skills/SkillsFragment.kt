@@ -17,10 +17,12 @@ class SkillsFragment : DaggerFragment() {
   companion object {
     fun newInstance() = SkillsFragment()
 
-    const val RESULT_OK = 1
-    const val SESSION = "SESSION"
-    const val USER_ID = "USER_ID"
-    const val WALLET_ADDRESS = "WALLET_ADDRESS"
+    private const val RESULT_OK = 1
+    private const val SESSION = "SESSION"
+    private const val USER_ID = "USER_ID"
+    private const val ROOM_ID = "ROOM_ID"
+    private const val WALLET_ADDRESS = "WALLET_ADDRESS"
+    private const val JWT = "JWT"
   }
 
   @Inject
@@ -45,7 +47,7 @@ class SkillsFragment : DaggerFragment() {
       userId = intent.getStringExtra(USER_ID)
 
       binding.findOpponentButton.setOnClickListener {
-        disposable.add(viewModel.getRoom("string_user_id")
+        disposable.add(viewModel.getRoom(userId)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe({ showLoading(R.string.finding_room) })
             .doOnNext({ userData ->
@@ -85,7 +87,9 @@ class SkillsFragment : DaggerFragment() {
 
     intent.putExtra(SESSION, "session")
     intent.putExtra(USER_ID, userData.userId)
+    intent.putExtra(ROOM_ID, userData.roomId)
     intent.putExtra(WALLET_ADDRESS, userData.walletAddress)
+    intent.putExtra(JWT, "{jwt}")
 
     return intent
   }
