@@ -1,4 +1,4 @@
-package com.appcoins.wallet.billing
+package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.base.model.PaymentMethodsApiResponse
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
@@ -10,7 +10,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Metadata
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice
-import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.common.response.TransactionMetadata
 import com.appcoins.wallet.billing.common.response.TransactionResponse
@@ -62,7 +62,8 @@ class AdyenResponseMapperTest {
   fun mapPaymentMethodsResponseNoMethodFoundTest() {
     val jsonObject = JsonObject()
     val paymentResponse =
-        PaymentMethodsResponse(Price(BigDecimal(2), TEST_FIAT_CURRENCY), jsonObject)
+        PaymentMethodsResponse(Price(BigDecimal(2),
+            TEST_FIAT_CURRENCY), jsonObject)
     val paymentMethodsApiResponse = PaymentMethodsApiResponse()
     val expectedModel = PaymentInfoModel(Error(true))
 
@@ -77,13 +78,15 @@ class AdyenResponseMapperTest {
   fun mapPaymentMethodsResponseStoredMethodTest() {
     val jsonObject = JsonObject()
     val paymentResponse =
-        PaymentMethodsResponse(Price(BigDecimal(2), TEST_FIAT_CURRENCY), jsonObject)
+        PaymentMethodsResponse(Price(BigDecimal(2),
+            TEST_FIAT_CURRENCY), jsonObject)
     val paymentMethodsApiResponse = PaymentMethodsApiResponse()
     val storedPaymentMethod = StoredPaymentMethod()
     storedPaymentMethod.type = AdyenPaymentRepository.Methods.CREDIT_CARD.adyenType
     paymentMethodsApiResponse.storedPaymentMethods = listOf(storedPaymentMethod)
     val expectedModel =
-        PaymentInfoModel(storedPaymentMethod, true, BigDecimal(2), TEST_FIAT_CURRENCY)
+        PaymentInfoModel(storedPaymentMethod, true, BigDecimal(2),
+            TEST_FIAT_CURRENCY)
 
     Mockito.`when`(adyenSerializer.deserializePaymentMethods(paymentResponse))
         .thenReturn(paymentMethodsApiResponse)
@@ -96,12 +99,14 @@ class AdyenResponseMapperTest {
   fun mapPaymentMethodsResponseNoStoredMethodTest() {
     val jsonObject = JsonObject()
     val paymentResponse =
-        PaymentMethodsResponse(Price(BigDecimal(2), TEST_FIAT_CURRENCY), jsonObject)
+        PaymentMethodsResponse(Price(BigDecimal(2),
+            TEST_FIAT_CURRENCY), jsonObject)
     val paymentMethodsApiResponse = PaymentMethodsApiResponse()
     val paymentMethod = PaymentMethod()
     paymentMethod.type = AdyenPaymentRepository.Methods.CREDIT_CARD.adyenType
     paymentMethodsApiResponse.paymentMethods = listOf(paymentMethod)
-    val expectedModel = PaymentInfoModel(paymentMethod, false, BigDecimal(2), TEST_FIAT_CURRENCY)
+    val expectedModel = PaymentInfoModel(paymentMethod, false, BigDecimal(2),
+        TEST_FIAT_CURRENCY)
 
     Mockito.`when`(adyenSerializer.deserializePaymentMethods(paymentResponse))
         .thenReturn(paymentMethodsApiResponse)
@@ -113,10 +118,15 @@ class AdyenResponseMapperTest {
   @Test
   fun mapAdyenTransactionResponseNullPaymentTest() {
     val response =
-        AdyenTransactionResponse(TEST_UID, TEST_HASH, TEST_REFERENCE, TransactionStatus.COMPLETED,
+        AdyenTransactionResponse(
+            TEST_UID,
+            TEST_HASH,
+            TEST_REFERENCE, TransactionStatus.COMPLETED,
             null, null)
     val expectedModel = PaymentModel(null, null, null, null, null, null,
-        TEST_UID, null, TEST_HASH, TEST_REFERENCE, emptyList(), PaymentModel.Status.COMPLETED,
+        TEST_UID, null,
+        TEST_HASH,
+        TEST_REFERENCE, emptyList(), PaymentModel.Status.COMPLETED,
         null, null)
     val model = mapper.map(response)
     Assert.assertEquals(expectedModel, model)
@@ -128,10 +138,15 @@ class AdyenResponseMapperTest {
     action.addProperty("type", AdyenResponseMapper.REDIRECT)
     val fraudResponse = FraudResultResponse("100", listOf(
         FraudResult(FraudCheckResult(10, 20, "name"))))
-    val payment = MakePaymentResponse("psp", TEST_RESULT_CODE, action, TEST_REFUSAL_REASON,
+    val payment = MakePaymentResponse("psp",
+        TEST_RESULT_CODE, action,
+        TEST_REFUSAL_REASON,
         TEST_REFUSAL_REASON_CODE, fraudResponse)
     val response =
-        AdyenTransactionResponse(TEST_UID, TEST_HASH, TEST_REFERENCE, TransactionStatus.COMPLETED,
+        AdyenTransactionResponse(
+            TEST_UID,
+            TEST_HASH,
+            TEST_REFERENCE, TransactionStatus.COMPLETED,
             payment, TransactionMetadata("errorMessage", 30, null))
 
     val expectedAction = RedirectAction()
@@ -141,8 +156,12 @@ class AdyenResponseMapperTest {
         .thenReturn(expectedAction)
 
     val expectedModel =
-        PaymentModel(TEST_RESULT_CODE, TEST_REFUSAL_REASON, 20, expectedAction, "url", "data",
-            TEST_UID, null, TEST_HASH, TEST_REFERENCE, listOf(20), PaymentModel.Status.COMPLETED,
+        PaymentModel(
+            TEST_RESULT_CODE,
+            TEST_REFUSAL_REASON, 20, expectedAction, "url", "data",
+            TEST_UID, null,
+            TEST_HASH,
+            TEST_REFERENCE, listOf(20), PaymentModel.Status.COMPLETED,
             "errorMessage", 30)
     val model = mapper.map(response)
     Assert.assertEquals(expectedModel, model)
@@ -154,10 +173,15 @@ class AdyenResponseMapperTest {
     action.addProperty("type", AdyenResponseMapper.THREEDS2FINGERPRINT)
     val fraudResponse = FraudResultResponse("100", listOf(
         FraudResult(FraudCheckResult(10, 20, "name"))))
-    val payment = MakePaymentResponse("psp", TEST_RESULT_CODE, action, TEST_REFUSAL_REASON,
+    val payment = MakePaymentResponse("psp",
+        TEST_RESULT_CODE, action,
+        TEST_REFUSAL_REASON,
         TEST_REFUSAL_REASON_CODE, fraudResponse)
     val response =
-        AdyenTransactionResponse(TEST_UID, TEST_HASH, TEST_REFERENCE, TransactionStatus.COMPLETED,
+        AdyenTransactionResponse(
+            TEST_UID,
+            TEST_HASH,
+            TEST_REFERENCE, TransactionStatus.COMPLETED,
             payment, TransactionMetadata("errorMessage", 30, null))
 
     val expectedAction = Threeds2FingerprintAction()
@@ -166,8 +190,12 @@ class AdyenResponseMapperTest {
         .thenReturn(expectedAction)
 
     val expectedModel =
-        PaymentModel(TEST_RESULT_CODE, TEST_REFUSAL_REASON, 20, expectedAction, null, "data",
-            TEST_UID, null, TEST_HASH, TEST_REFERENCE, listOf(20), PaymentModel.Status.COMPLETED,
+        PaymentModel(
+            TEST_RESULT_CODE,
+            TEST_REFUSAL_REASON, 20, expectedAction, null, "data",
+            TEST_UID, null,
+            TEST_HASH,
+            TEST_REFERENCE, listOf(20), PaymentModel.Status.COMPLETED,
             "errorMessage", 30)
     val model = mapper.map(response)
     Assert.assertEquals(expectedModel, model)
@@ -177,10 +205,15 @@ class AdyenResponseMapperTest {
   fun mapAdyenTransactionResponse3DSChallengeActionTypeTest() {
     val action = JsonObject()
     action.addProperty("type", AdyenResponseMapper.THREEDS2CHALLENGE)
-    val payment = MakePaymentResponse("psp", TEST_RESULT_CODE, action, TEST_REFUSAL_REASON,
+    val payment = MakePaymentResponse("psp",
+        TEST_RESULT_CODE, action,
+        TEST_REFUSAL_REASON,
         TEST_REFUSAL_REASON_CODE, null)
     val response =
-        AdyenTransactionResponse(TEST_UID, TEST_HASH, TEST_REFERENCE, TransactionStatus.COMPLETED,
+        AdyenTransactionResponse(
+            TEST_UID,
+            TEST_HASH,
+            TEST_REFERENCE, TransactionStatus.COMPLETED,
             payment, TransactionMetadata("errorMessage", 30, null))
 
     val expectedAction = Threeds2ChallengeAction()
@@ -189,8 +222,12 @@ class AdyenResponseMapperTest {
         .thenReturn(expectedAction)
 
     val expectedModel =
-        PaymentModel(TEST_RESULT_CODE, TEST_REFUSAL_REASON, 20, expectedAction, null, "data",
-            TEST_UID, null, TEST_HASH, TEST_REFERENCE, emptyList(), PaymentModel.Status.COMPLETED,
+        PaymentModel(
+            TEST_RESULT_CODE,
+            TEST_REFUSAL_REASON, 20, expectedAction, null, "data",
+            TEST_UID, null,
+            TEST_HASH,
+            TEST_REFERENCE, emptyList(), PaymentModel.Status.COMPLETED,
             "errorMessage", 30)
     val model = mapper.map(response)
     Assert.assertEquals(expectedModel, model)
@@ -199,7 +236,10 @@ class AdyenResponseMapperTest {
   @Test
   fun mapTransactionResponseTest() {
     val transactionResponse =
-        TransactionResponse(TEST_UID, TEST_HASH, TEST_REFERENCE, TransactionStatus.COMPLETED, null)
+        TransactionResponse(
+            TEST_UID,
+            TEST_HASH,
+            TEST_REFERENCE, TransactionStatus.COMPLETED, null)
     val expectedModel = PaymentModel(transactionResponse, PaymentModel.Status.COMPLETED)
     val model = mapper.map(transactionResponse)
     Assert.assertEquals(expectedModel, model)
@@ -207,11 +247,17 @@ class AdyenResponseMapperTest {
 
   @Test
   fun mapTransactionTest() {
-    val transaction = Transaction(TEST_UID, Transaction.Status.COMPLETED,
-        Gateway(Gateway.Name.adyen_v2, "label", "icon"), TEST_HASH, Metadata("purchase_uid"),
-        TEST_REFERENCE, TransactionPrice(TEST_FIAT_CURRENCY, TEST_FIAT_VALUE, "20"), "INAPP", null)
-    val expectedModel = PaymentModel("", null, null, null, "", "", TEST_UID, "purchase_uid",
-        TEST_HASH, TEST_REFERENCE, emptyList(), PaymentModel.Status.COMPLETED)
+    val transaction = Transaction(
+        TEST_UID, Transaction.Status.COMPLETED,
+        Gateway(Gateway.Name.adyen_v2, "label", "icon"),
+        TEST_HASH, Metadata("purchase_uid"),
+        TEST_REFERENCE, TransactionPrice(
+        TEST_FIAT_CURRENCY,
+        TEST_FIAT_VALUE, "20"), "INAPP", null)
+    val expectedModel = PaymentModel("", null, null, null, "", "",
+        TEST_UID, "purchase_uid",
+        TEST_HASH,
+        TEST_REFERENCE, emptyList(), PaymentModel.Status.COMPLETED)
     val model = mapper.map(transaction)
     Assert.assertEquals(expectedModel, model)
   }
@@ -219,7 +265,8 @@ class AdyenResponseMapperTest {
   @Test
   fun mapInfoModelErrorTest() {
     val throwable = Throwable("Error")
-    val errorInfo = ErrorInfo(null, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    val errorInfo = ErrorInfo(null, null, "Error",
+        ErrorInfo.ErrorType.UNKNOWN)
     Mockito.`when`(billingErrorMapper.mapErrorInfo(null, "Error"))
         .thenReturn(errorInfo)
     val expectedModel = PaymentInfoModel(Error(true, false, errorInfo))
@@ -231,7 +278,8 @@ class AdyenResponseMapperTest {
   fun mapInfoModelHttpErrorTest() {
     val errorResponse: Response<Any> = Response.error(400, ResponseBody.create(null, "Error"))
     val throwable = HttpException(errorResponse)
-    val errorInfo = ErrorInfo(400, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    val errorInfo = ErrorInfo(400, null, "Error",
+        ErrorInfo.ErrorType.UNKNOWN)
     Mockito.`when`(billingErrorMapper.mapErrorInfo(400, "Error"))
         .thenReturn(errorInfo)
     val expectedModel = PaymentInfoModel(Error(true, false, errorInfo))
@@ -250,7 +298,8 @@ class AdyenResponseMapperTest {
   @Test
   fun mapPaymentModelErrorTest() {
     val throwable = Throwable("Error")
-    val errorInfo = ErrorInfo(null, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    val errorInfo = ErrorInfo(null, null, "Error",
+        ErrorInfo.ErrorType.UNKNOWN)
     Mockito.`when`(billingErrorMapper.mapErrorInfo(null, "Error"))
         .thenReturn(errorInfo)
     val expectedModel = PaymentModel(
@@ -263,7 +312,8 @@ class AdyenResponseMapperTest {
   fun mapPaymentModelHttpErrorTest() {
     val errorResponse: Response<Any> = Response.error(400, ResponseBody.create(null, "Error"))
     val throwable = HttpException(errorResponse)
-    val errorInfo = ErrorInfo(400, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    val errorInfo = ErrorInfo(400, null, "Error",
+        ErrorInfo.ErrorType.UNKNOWN)
     Mockito.`when`(billingErrorMapper.mapErrorInfo(400, "Error"))
         .thenReturn(errorInfo)
     val expectedModel = PaymentModel(
@@ -290,7 +340,8 @@ class AdyenResponseMapperTest {
   @Test
   fun mapVerificationPaymentModelErrorTest() {
     val throwable = Throwable("Error")
-    val errorInfo = ErrorInfo(null, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    val errorInfo = ErrorInfo(null, null, "Error",
+        ErrorInfo.ErrorType.UNKNOWN)
     Mockito.`when`(billingErrorMapper.mapErrorInfo(null, "Error"))
         .thenReturn(errorInfo)
     val expectedModel =
@@ -372,7 +423,9 @@ class AdyenResponseMapperTest {
     val throwable = Throwable("Error")
     val expectedResult =
         VerificationCodeResult(false, VerificationCodeResult.ErrorType.OTHER,
-            Error(true, false, ErrorInfo(null, null, "Error", ErrorInfo.ErrorType.UNKNOWN)))
+            Error(true, false,
+                ErrorInfo(null, null, "Error",
+                    ErrorInfo.ErrorType.UNKNOWN)))
     val result = mapper.mapVerificationCodeError(throwable)
     Assert.assertEquals(expectedResult, result)
   }
@@ -385,7 +438,8 @@ class AdyenResponseMapperTest {
     val errorResponse: Response<Any> =
         Response.error(400, ResponseBody.create(null, content))
     val throwable = HttpException(errorResponse)
-    val errorInfo = ErrorInfo(400, null, content, ErrorInfo.ErrorType.UNKNOWN)
+    val errorInfo = ErrorInfo(400, null, content,
+        ErrorInfo.ErrorType.UNKNOWN)
     Mockito.`when`(billingErrorMapper.mapErrorInfo(400, content))
         .thenReturn(errorInfo)
     val expectedResult =
@@ -402,7 +456,8 @@ class AdyenResponseMapperTest {
         Response.error(429,
             ResponseBody.create(null, content))
     val throwable = HttpException(errorResponse)
-    val errorInfo = ErrorInfo(429, null, content, ErrorInfo.ErrorType.UNKNOWN)
+    val errorInfo = ErrorInfo(429, null, content,
+        ErrorInfo.ErrorType.UNKNOWN)
     Mockito.`when`(billingErrorMapper.mapErrorInfo(429, content))
         .thenReturn(errorInfo)
     val expectedResult =
@@ -418,7 +473,8 @@ class AdyenResponseMapperTest {
     val errorResponse: Response<Any> =
         Response.error(400, ResponseBody.create(null, content))
     val throwable = HttpException(errorResponse)
-    val errorInfo = ErrorInfo(400, null, content, ErrorInfo.ErrorType.UNKNOWN)
+    val errorInfo = ErrorInfo(400, null, content,
+        ErrorInfo.ErrorType.UNKNOWN)
     Mockito.`when`(billingErrorMapper.mapErrorInfo(400, content))
         .thenReturn(errorInfo)
     val expectedResult =
