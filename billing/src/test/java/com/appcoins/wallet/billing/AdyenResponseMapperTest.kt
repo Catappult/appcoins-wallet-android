@@ -11,6 +11,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Metadata
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice
 import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.common.response.TransactionMetadata
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.common.response.TransactionStatus
@@ -47,11 +48,14 @@ class AdyenResponseMapperTest {
   @Mock
   lateinit var adyenSerializer: AdyenSerializer
 
+  @Mock
+  lateinit var billingErrorMapper: BillingErrorMapper
+
   private lateinit var mapper: AdyenResponseMapper
 
   @Before
   fun setup() {
-    mapper = AdyenResponseMapper(Gson(), adyenSerializer)
+    mapper = AdyenResponseMapper(Gson(), billingErrorMapper, adyenSerializer)
   }
 
   @Test
@@ -215,8 +219,10 @@ class AdyenResponseMapperTest {
   @Test
   fun mapInfoModelErrorTest() {
     val throwable = Throwable("Error")
-    val expectedModel = PaymentInfoModel(
-        Error(true, false, null, "Error"))
+    val errorInfo = ErrorInfo(null, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    Mockito.`when`(billingErrorMapper.mapErrorInfo(null, "Error"))
+        .thenReturn(errorInfo)
+    val expectedModel = PaymentInfoModel(Error(true, false, errorInfo))
     val model = mapper.mapInfoModelError(throwable)
     Assert.assertEquals(expectedModel, model)
   }
@@ -225,8 +231,10 @@ class AdyenResponseMapperTest {
   fun mapInfoModelHttpErrorTest() {
     val errorResponse: Response<Any> = Response.error(400, ResponseBody.create(null, "Error"))
     val throwable = HttpException(errorResponse)
-    val expectedModel = PaymentInfoModel(
-        Error(true, false, 400, "Error"))
+    val errorInfo = ErrorInfo(400, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    Mockito.`when`(billingErrorMapper.mapErrorInfo(400, "Error"))
+        .thenReturn(errorInfo)
+    val expectedModel = PaymentInfoModel(Error(true, false, errorInfo))
     val model = mapper.mapInfoModelError(throwable)
     Assert.assertEquals(expectedModel, model)
   }
@@ -234,8 +242,7 @@ class AdyenResponseMapperTest {
   @Test
   fun mapInfoModelNoNetworkTest() {
     val throwable = IOException()
-    val expectedModel = PaymentInfoModel(
-        Error(true, true, null, null))
+    val expectedModel = PaymentInfoModel(Error(true, true))
     val model = mapper.mapInfoModelError(throwable)
     Assert.assertEquals(expectedModel, model)
   }
@@ -243,7 +250,11 @@ class AdyenResponseMapperTest {
   @Test
   fun mapPaymentModelErrorTest() {
     val throwable = Throwable("Error")
-    val expectedModel = PaymentModel(Error(true, false, null, "Error"))
+    val errorInfo = ErrorInfo(null, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    Mockito.`when`(billingErrorMapper.mapErrorInfo(null, "Error"))
+        .thenReturn(errorInfo)
+    val expectedModel = PaymentModel(
+        Error(true, false, errorInfo))
     val model = mapper.mapPaymentModelError(throwable)
     Assert.assertEquals(expectedModel, model)
   }
@@ -252,8 +263,11 @@ class AdyenResponseMapperTest {
   fun mapPaymentModelHttpErrorTest() {
     val errorResponse: Response<Any> = Response.error(400, ResponseBody.create(null, "Error"))
     val throwable = HttpException(errorResponse)
+    val errorInfo = ErrorInfo(400, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    Mockito.`when`(billingErrorMapper.mapErrorInfo(400, "Error"))
+        .thenReturn(errorInfo)
     val expectedModel = PaymentModel(
-        Error(true, false, 400, "Error"))
+        Error(true, false, errorInfo))
     val model = mapper.mapPaymentModelError(throwable)
     Assert.assertEquals(expectedModel, model)
   }
@@ -261,8 +275,7 @@ class AdyenResponseMapperTest {
   @Test
   fun mapPaymentModelNoNetworkTest() {
     val throwable = IOException()
-    val expectedModel = PaymentModel(
-        Error(true, true, null, null))
+    val expectedModel = PaymentModel(Error(true, true))
     val model = mapper.mapPaymentModelError(throwable)
     Assert.assertEquals(expectedModel, model)
   }
@@ -277,9 +290,12 @@ class AdyenResponseMapperTest {
   @Test
   fun mapVerificationPaymentModelErrorTest() {
     val throwable = Throwable("Error")
+    val errorInfo = ErrorInfo(null, null, "Error", ErrorInfo.ErrorType.UNKNOWN)
+    Mockito.`when`(billingErrorMapper.mapErrorInfo(null, "Error"))
+        .thenReturn(errorInfo)
     val expectedModel =
         VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER, null, null,
-            Error(true, false, null, "Error"))
+            Error(true, false, errorInfo))
     val model = mapper.mapVerificationPaymentModelError(throwable)
     Assert.assertEquals(expectedModel, model)
   }
@@ -356,7 +372,7 @@ class AdyenResponseMapperTest {
     val throwable = Throwable("Error")
     val expectedResult =
         VerificationCodeResult(false, VerificationCodeResult.ErrorType.OTHER,
-            Error(true, false, null, "Error"))
+            Error(true, false, ErrorInfo(null, null, "Error", ErrorInfo.ErrorType.UNKNOWN)))
     val result = mapper.mapVerificationCodeError(throwable)
     Assert.assertEquals(expectedResult, result)
   }
@@ -369,9 +385,12 @@ class AdyenResponseMapperTest {
     val errorResponse: Response<Any> =
         Response.error(400, ResponseBody.create(null, content))
     val throwable = HttpException(errorResponse)
+    val errorInfo = ErrorInfo(400, null, content, ErrorInfo.ErrorType.UNKNOWN)
+    Mockito.`when`(billingErrorMapper.mapErrorInfo(400, content))
+        .thenReturn(errorInfo)
     val expectedResult =
         VerificationCodeResult(false, VerificationCodeResult.ErrorType.WRONG_CODE,
-            Error(true, false, 400, content))
+            Error(true, false, errorInfo))
     val result = mapper.mapVerificationCodeError(throwable)
     Assert.assertEquals(expectedResult, result)
   }
@@ -383,9 +402,12 @@ class AdyenResponseMapperTest {
         Response.error(429,
             ResponseBody.create(null, content))
     val throwable = HttpException(errorResponse)
+    val errorInfo = ErrorInfo(429, null, content, ErrorInfo.ErrorType.UNKNOWN)
+    Mockito.`when`(billingErrorMapper.mapErrorInfo(429, content))
+        .thenReturn(errorInfo)
     val expectedResult =
         VerificationCodeResult(false, VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS,
-            Error(true, false, 429, content))
+            Error(true, false, errorInfo))
     val result = mapper.mapVerificationCodeError(throwable)
     Assert.assertEquals(expectedResult, result)
   }
@@ -396,9 +418,12 @@ class AdyenResponseMapperTest {
     val errorResponse: Response<Any> =
         Response.error(400, ResponseBody.create(null, content))
     val throwable = HttpException(errorResponse)
+    val errorInfo = ErrorInfo(400, null, content, ErrorInfo.ErrorType.UNKNOWN)
+    Mockito.`when`(billingErrorMapper.mapErrorInfo(400, content))
+        .thenReturn(errorInfo)
     val expectedResult =
         VerificationCodeResult(false, VerificationCodeResult.ErrorType.OTHER,
-            Error(true, false, 400, content))
+            Error(true, false, errorInfo))
     val result = mapper.mapVerificationCodeError(throwable)
     Assert.assertEquals(expectedResult, result)
   }
@@ -408,7 +433,7 @@ class AdyenResponseMapperTest {
     val throwable = IOException()
     val expectedResult =
         VerificationCodeResult(false, errorType = VerificationCodeResult.ErrorType.OTHER,
-            error = Error(true, true))
+            error = Error(true, true, ErrorInfo()))
     val result = mapper.mapVerificationCodeError(throwable)
     Assert.assertEquals(expectedResult, result)
   }

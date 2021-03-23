@@ -14,6 +14,7 @@ import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import retrofit2.HttpException
 
 class AdyenResponseMapper(private val gson: Gson,
