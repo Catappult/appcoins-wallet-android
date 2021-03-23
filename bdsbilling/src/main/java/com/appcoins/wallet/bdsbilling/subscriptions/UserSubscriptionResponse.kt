@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName
  * @param started Date when subscription started, null when subStatus is PENDING
  * @param renewal Date when subscription is renewed, null when subStatus is PENDING, PAUSED, EXPIRED or REVOKED
  * @param expire Date when subscription will expire or has expired, null when subStatus is PENDING or PAUSED
- * @param ended Date when subscription ended, null when substatus is ACTIVE, CANCELED or PAUSED
+ * @param ended Date when subscription ended, null when substatus is PENDING, ACTIVE, CANCELED or PAUSED
  *
  */
 data class UserSubscriptionResponse(val uid: String, val sku: String, val title: String,

@@ -82,6 +82,15 @@ class BdsBilling(private val repository: BillingRepository,
         }
   }
 
+  override fun getSubscriptionToken(packageName: String, skuId: String,
+                                    networkThread: Scheduler): Single<String> {
+    return walletService.getAndSignCurrentWalletAddress()
+        .observeOn(networkThread)
+        .flatMap {
+          repository.getSubscriptionToken(packageName, skuId, it.address, it.signedAddress)
+        }
+  }
+
   override fun getPaymentMethods(value: String,
                                  currency: String,
                                  transactionType: String): Single<List<PaymentMethodEntity>> {

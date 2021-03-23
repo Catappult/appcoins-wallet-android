@@ -14,10 +14,14 @@ fun Throwable?.isNoNetworkException(): Boolean {
 }
 
 fun HttpException.getMessage(): String {
-  val reader = this.response()
-      ?.errorBody()
-      ?.charStream()
-  val message = reader?.readText()
-  reader?.close()
+  var message: String? = null
+  try {
+    val reader = this.response()
+        ?.errorBody()
+        ?.charStream()
+    message = reader?.readText()
+    reader?.close()
+  } catch (e: Exception) {
+  }
   return if (message.isNullOrBlank()) message() else message
 }

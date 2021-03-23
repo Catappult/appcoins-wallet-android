@@ -1,9 +1,10 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.util.Pair
+import com.appcoins.wallet.appcoins.rewards.ErrorInfo
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.Balance
@@ -28,7 +29,7 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                private val billing: Billing,
-                               private val billingMessagesMapper: BillingMessagesMapper,
+                               private val errorMapper: ErrorMapper,
                                private val bdsPendingTransactionService: BdsPendingTransactionService) {
 
 
@@ -107,11 +108,14 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
   fun getPurchases(appPackage: String, inapp: BillingSupportedType, networkThread: Scheduler) =
       billing.getPurchases(appPackage, inapp, networkThread)
 
-
-  private fun isInApp(type: String) =
-      type.equals(INAPP_TRANSACTION_TYPE, ignoreCase = true)
-
-  private companion object {
-    private const val INAPP_TRANSACTION_TYPE = "INAPP"
+  fun isAbleToSubscribe(packageName: String, skuId: String,
+                        networkThread: Scheduler): Single<SubscriptionStatus> {
+    return billing.getSubscriptionToken(packageName, skuId, networkThread)
+        .map { SubscriptionStatus(true) }
+        .onErrorReturn {
+          val errorInfo = errorMapper.map(it)
+          val isAlreadySubscribed = errorInfo.errorType == ErrorInfo.ErrorType.SUB_ALREADY_OWNED
+          SubscriptionStatus(false, isAlreadySubscribed)
+        }
   }
 }

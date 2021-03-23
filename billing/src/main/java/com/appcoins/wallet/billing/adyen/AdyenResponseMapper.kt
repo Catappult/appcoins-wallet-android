@@ -4,7 +4,9 @@ import com.adyen.checkout.base.model.PaymentMethodsApiResponse
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
+import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
@@ -12,10 +14,11 @@ import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import retrofit2.HttpException
 
-class AdyenResponseMapper(private val gson: Gson, private val adyenSerializer: AdyenSerializer) {
+class AdyenResponseMapper(private val gson: Gson,
+                          private val billingErrorMapper: BillingErrorMapper,
+                          private val adyenSerializer: AdyenSerializer) {
 
   fun map(response: PaymentMethodsResponse,
           method: AdyenPaymentRepository.Methods): PaymentInfoModel {
@@ -109,15 +112,16 @@ class AdyenResponseMapper(private val gson: Gson, private val adyenSerializer: A
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
+    val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
     return PaymentInfoModel(
-        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
+        Error(true, throwable.isNoNetworkException(), errorInfo))
   }
 
   fun mapPaymentModelError(throwable: Throwable): PaymentModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
-    return PaymentModel(
-        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
+    val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
+    return PaymentModel(Error(true, throwable.isNoNetworkException(), errorInfo))
   }
 
   fun mapVerificationPaymentModelSuccess(): VerificationPaymentModel {
@@ -141,9 +145,9 @@ class AdyenResponseMapper(private val gson: Gson, private val adyenSerializer: A
           isNetworkError = false))
     } else {
       val codeAndMessage = throwable.getErrorCodeAndMessage()
+      val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
       VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER, null, null,
-          Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-              codeAndMessage.second))
+          Error(true, throwable.isNoNetworkException(), errorInfo))
     }
   }
 
@@ -158,14 +162,14 @@ class AdyenResponseMapper(private val gson: Gson, private val adyenSerializer: A
         "Body.Invalid" -> errorType = VerificationCodeResult.ErrorType.WRONG_CODE
         "Request.TooMany" -> errorType = VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS
       }
+      val errorInfo = billingErrorMapper.mapErrorInfo(throwable.code(), body)
       return VerificationCodeResult(false, errorType, Error(hasError = true,
-          isNetworkError = throwable.isNoNetworkException(), code = throwable.code(),
-          message = body))
+          isNetworkError = throwable.isNoNetworkException(), info = errorInfo))
     }
     return VerificationCodeResult(success = false,
         errorType = VerificationCodeResult.ErrorType.OTHER,
         error = Error(hasError = true, isNetworkError = throwable.isNoNetworkException(),
-            code = null, message = throwable.message))
+            info = ErrorInfo(text = throwable.message)))
   }
 
   private fun findPaymentMethod(paymentMethods: List<PaymentMethod>?,

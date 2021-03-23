@@ -113,7 +113,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                   .doOnSuccess { result ->
                     handleCodeConfirmationStatus(result)
                     analytics.sendConclusionEvent(result.success,
-                        result.error.code?.toString(), result.error.message)
+                        result.error.info?.httpCode?.toString(), result.error.info?.text)
                   }
             }
             .subscribe({}, { it.printStackTrace() })
@@ -126,9 +126,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
       view.showSuccess()
     } else {
       when (codeResult.errorType) {
-        VerificationCodeResult.ErrorType.WRONG_CODE -> {
-          view.showWrongCodeError()
-        }
+        VerificationCodeResult.ErrorType.WRONG_CODE -> view.showWrongCodeError()
         else -> {
           val errorCode = codeResult.errorType ?: VerificationCodeResult.ErrorType.OTHER
           navigator.navigateToError(errorCode, data.amount, data.symbol)

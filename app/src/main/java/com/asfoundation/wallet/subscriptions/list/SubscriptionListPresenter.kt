@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.subscriptions.list
 
-import com.asfoundation.wallet.subscriptions.Error
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.subscriptions.SubscriptionModel
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
@@ -45,7 +44,7 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
     val expiredSubs = subscriptionModel.expiredSubscriptions
     val bothEmpty = activeSubs.isEmpty() && expiredSubs.isEmpty()
     when {
-      subscriptionModel.error == Error.NO_NETWORK && !view.hasItems() -> view.showNoNetworkError() //If we have items from db then we should not show a no network error. If it's empty then we should show to the user
+      subscriptionModel.error == SubscriptionModel.Error.NO_NETWORK && !view.hasItems() -> view.showNoNetworkError() //If we have items from db then we should not show a no network error. If it's empty then we should show to the user
       bothEmpty && !subscriptionModel.fromCache -> view.showNoSubscriptions()
       bothEmpty.not() -> {
         //Both from cache and not from cache

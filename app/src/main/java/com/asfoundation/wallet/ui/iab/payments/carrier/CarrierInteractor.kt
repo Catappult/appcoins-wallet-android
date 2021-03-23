@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier
 
 import android.net.Uri
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
@@ -31,8 +29,6 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                         private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                         private val walletBlockedInteract: WalletBlockedInteract,
                         private val walletVerificationInteractor: WalletVerificationInteractor,
-                        private val billing: Billing,
-                        private val billingMessagesMapper: BillingMessagesMapper,
                         private val logger: Logger,
                         private val ioScheduler: Scheduler) {
 

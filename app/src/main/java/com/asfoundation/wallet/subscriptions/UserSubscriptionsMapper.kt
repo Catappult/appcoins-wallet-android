@@ -9,31 +9,30 @@ import java.util.*
 
 class UserSubscriptionsMapper {
 
+  internal companion object {
+    internal const val DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+    internal val LOCALE = Locale.US
+  }
+
   private fun mapSubscriptionList(
-      subscriptionList: UserSubscriptionsListResponse): UserSubscriptionListModel {
-    return UserSubscriptionListModel(
-        subscriptionList.items.map {
-          val application = it.application
-          val order = it.order
-          SubscriptionItem(it.title, mapPeriod(it.period), mapStatus(it.subStatus),
-              mapDate(it.started), mapDate(it.renewal), mapDate(it.expire), mapDate(it.ended),
-              application.name, application.title, application.icon, order.value, order.symbol,
-              order.currency, order.method.title, order.method.logo, order.appc.value,
-              order.appc.label, it.uid)
-        })
+      subscriptionList: UserSubscriptionsListResponse): List<SubscriptionItem> {
+    return subscriptionList.items.map {
+      val application = it.application
+      val order = it.order
+      SubscriptionItem(it.title, mapPeriod(it.period), mapStatus(it.subStatus),
+          mapDate(it.started), mapDate(it.renewal), mapDate(it.expire), mapDate(it.ended),
+          application.name, application.title, application.icon, order.value, order.symbol,
+          order.currency, order.method.title, order.method.logo, order.appc.value,
+          order.appc.label, it.uid)
+    }
   }
 
   fun mapToSubscriptionModel(all: UserSubscriptionsListResponse,
                              expired: UserSubscriptionsListResponse,
                              fromCache: Boolean = false): SubscriptionModel {
-    val allSubsModel = mapSubscriptionList(all)
-    val expiredSubsModel = mapSubscriptionList(expired)
-    return if (allSubsModel.error != null && expiredSubsModel.error != null) {
-      SubscriptionModel(fromCache, allSubsModel.error)
-    } else {
-      SubscriptionModel(allSubsModel.userSubscriptionItems,
-          expiredSubsModel.userSubscriptionItems, fromCache = fromCache)
-    }
+    val allSubsList = mapSubscriptionList(all)
+    val expiredSubsList = mapSubscriptionList(expired)
+    return SubscriptionModel(allSubsList, expiredSubsList, fromCache)
   }
 
   private fun mapStatus(subStatus: SubscriptionSubStatus): Status {
@@ -48,9 +47,9 @@ class UserSubscriptionsMapper {
   }
 
   fun mapError(throwable: Throwable, fromCache: Boolean): SubscriptionModel {
-    var error = Error.UNKNOWN
+    var error = SubscriptionModel.Error.UNKNOWN
     if (throwable.isNoNetworkException()) {
-      error = Error.NO_NETWORK
+      error = SubscriptionModel.Error.NO_NETWORK
     }
     return SubscriptionModel(fromCache, error)
   }
@@ -62,7 +61,7 @@ class UserSubscriptionsMapper {
   private fun mapDate(date: String?): Date? {
     return if (date == null) null
     else {
-      val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+      val dateFormat = SimpleDateFormat(DATE_FORMAT_PATTERN, Locale.US)
       dateFormat.parse(date)
     }
   }

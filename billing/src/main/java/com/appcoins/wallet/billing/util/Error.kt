@@ -1,4 +1,6 @@
 package com.appcoins.wallet.billing.util
 
+import com.appcoins.wallet.billing.ErrorInfo
+
 data class Error(val hasError: Boolean = false, val isNetworkError: Boolean = false,
-                 val code: Int? = null, val message: String? = null)
+                 val info: ErrorInfo? = null)

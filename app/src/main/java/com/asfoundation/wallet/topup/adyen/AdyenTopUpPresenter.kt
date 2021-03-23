@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
@@ -243,7 +244,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                   if (it.error.isNetworkError) view.showNetworkError()
                   else {
                     handleSpecificError(R.string.unknown_error,
-                        logMessage = "Message: ${it.error.message}, code: ${it.error.code}")
+                        logMessage = "Message: ${it.error.info?.text}, code: ${it.error.info?.httpCode}")
                   }
                 } else {
                   view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true, null)
@@ -365,9 +366,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun isBillingAddressError(error: Error): Boolean {
-    return error.code != null
-        && error.code == 400
-        && error.message?.contains("payment.billing_address") == true
+    return error.info?.errorType == ErrorType.BILLING_ADDRESS
   }
 
   private fun handleSuccessTransaction(): Completable {
@@ -525,22 +524,22 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     when {
       paymentModel.error.isNetworkError -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
-            paymentModel.error.code.toString(),
-            "network_error")
+            paymentModel.error.info?.httpCode.toString(), "network_error")
         view.showNetworkError()
       }
-      paymentModel.error.code != null -> {
+      paymentModel.error.info?.httpCode != null -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
-            paymentModel.error.code.toString(),
-            buildRefusalReason(paymentModel.status, paymentModel.error.message))
-        val resId = servicesErrorMapper.mapError(paymentModel.error.code!!)
-        if (paymentModel.error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
+            paymentModel.error.info?.httpCode.toString(),
+            buildRefusalReason(paymentModel.status, paymentModel.error.info?.text))
+        val resId = servicesErrorMapper.mapError(paymentModel.error.info?.errorType)
+        if (paymentModel.error.info?.errorType == ErrorType.BLOCKED) handleFraudFlow(resId,
+            emptyList())
         else view.showSpecificError(resId)
       }
       else -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
-            paymentModel.error.code.toString(),
-            buildRefusalReason(paymentModel.status, paymentModel.error.message))
+            paymentModel.error.info?.httpCode.toString(),
+            buildRefusalReason(paymentModel.status, paymentModel.error.info?.text))
         handleSpecificError(R.string.unknown_error)
       }
     }
@@ -553,7 +552,6 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     private const val RETRIEVED_CURRENCY = "RETRIEVED_CURRENCY"
     private const val UID = "UID"
     private const val PAYMENT_DATA = "payment_data"
-    private const val HTTP_FRAUD_CODE = 403
     private const val CHALLENGE_CANCELED = "Challenge canceled."
     private val TAG = AdyenTopUpPresenter::class.java.name
   }

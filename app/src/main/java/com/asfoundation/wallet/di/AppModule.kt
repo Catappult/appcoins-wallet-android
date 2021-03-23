@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import androidx.room.Room
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.*
@@ -181,7 +182,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideErrorMapper() = ErrorMapper()
+  fun providePaymentErrorMapper(gson: Gson) = PaymentErrorMapper(gson)
 
   @Provides
   fun provideGasSettingsRouter() = GasSettingsRouter()
@@ -303,7 +304,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideAppcoinsRewards(walletService: WalletService, billing: Billing, backendApi: BackendApi,
-                             remoteRepository: RemoteRepository): AppcoinsRewards {
+                             remoteRepository: RemoteRepository,
+                             errorMapper: ErrorMapper): AppcoinsRewards {
     return AppcoinsRewards(
         BdsAppcoinsRewardsRepository(CreditsRemoteRepository(backendApi, remoteRepository)),
         object : com.appcoins.wallet.appcoins.rewards.repository.WalletService {
@@ -311,7 +313,7 @@ internal class AppModule {
 
           override fun signContent(content: String) = walletService.signContent(content)
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), Schedulers.io(), billing,
-        com.appcoins.wallet.appcoins.rewards.ErrorMapper())
+        errorMapper)
   }
 
   @Singleton
@@ -609,5 +611,11 @@ internal class AppModule {
   @Provides
   fun providesSecureSharedPreferences(context: Context): SecureSharedPreferences {
     return SecureSharedPreferences(context)
+  }
+
+  @Singleton
+  @Provides
+  fun providesErrorMapper(gson: Gson): ErrorMapper {
+    return ErrorMapper(gson)
   }
 }

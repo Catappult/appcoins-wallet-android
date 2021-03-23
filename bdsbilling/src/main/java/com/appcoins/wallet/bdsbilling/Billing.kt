@@ -39,4 +39,7 @@ interface Billing {
                         scheduler: Scheduler, type: BillingSupportedType): Single<Transaction>
 
   fun getWallet(packageName: String): Single<String>
+
+  fun getSubscriptionToken(packageName: String, skuId: String,
+                           networkThread: Scheduler): Single<String>
 }

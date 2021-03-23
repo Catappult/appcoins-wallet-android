@@ -50,7 +50,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     private const val IS_BDS = "isBds"
     private const val APP_PACKAGE = "app_package"
     private const val TRANSACTION = "transaction"
-    private const val ITEM_ALREADY_OWNED = "item_already_owned"
     private const val IS_DONATION = "is_donation"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
@@ -100,7 +99,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private var setupSubject: PublishSubject<Boolean>? = null
   private var preSelectedPaymentMethod: BehaviorSubject<PaymentMethod>? = null
   private var isPreSelected = false
-  private var itemAlreadyOwnedError = false
   private var bonusMessageValue = ""
   private var bonusValue: BigDecimal? = null
 
@@ -116,7 +114,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     setupSubject = PublishSubject.create()
     preSelectedPaymentMethod = BehaviorSubject.create()
     paymentMethodClick = PublishRelay.create()
-    itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
     val paymentMethodsData = PaymentMethodsData(appPackage, isBds, getDeveloperPayload(), getUri(),
         getTransactionValue(), getFrequency(), getIsSubscription())
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
@@ -141,7 +138,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError)
     presenter.onSavedInstance(outState)
   }
 
@@ -270,17 +266,14 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showError(message: Int) {
-    if (!itemAlreadyOwnedError) {
-      payment_method_main_view.visibility = View.GONE
-      error_message.error_dismiss.text = getString(R.string.ok)
-      error_message.visibility = View.VISIBLE
-      error_message.generic_error_layout.error_message.setText(message)
-    }
+    payment_method_main_view.visibility = View.GONE
+    error_message.error_dismiss.text = getString(R.string.ok)
+    error_message.visibility = View.VISIBLE
+    error_message.generic_error_layout.error_message.setText(message)
   }
 
   override fun showItemAlreadyOwnedError() {
     payment_method_main_view.visibility = View.GONE
-    itemAlreadyOwnedError = true
     iabView.disableBack()
     error_dismiss.text = getString(R.string.ok)
     error_message.visibility = View.VISIBLE
@@ -353,9 +346,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     iabView.close(bundle)
   }
 
-  override fun errorDismisses(): Observable<Boolean> {
+  override fun errorDismisses(): Observable<Any> {
     return RxView.clicks(error_dismiss)
-        .map { itemAlreadyOwnedError }
   }
 
   override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
@@ -390,10 +382,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showAdyen(fiatAmount: BigDecimal, fiatCurrency: String, paymentType: PaymentType,
                          iconUrl: String?, gamificationLevel: Int, frequency: String?,
                          isSubscription: Boolean) {
-    if (!itemAlreadyOwnedError) {
-      iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType, bonusMessageValue,
-          true, iconUrl, gamificationLevel, isSubscription, frequency)
-    }
+    iabView.showAdyenPayment(fiatAmount, fiatCurrency, isBds, paymentType, bonusMessageValue,
+        true, iconUrl, gamificationLevel, isSubscription, frequency)
   }
 
   override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
@@ -462,9 +452,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     bonus_view.setPurchaseBonusHeaderValue(bonus, currency)
   }
 
-  override fun onBackPressed(): Observable<Boolean> {
+  override fun onBackPressed(): Observable<Any> {
     return iabView.backButtonPress()
-        .map { itemAlreadyOwnedError }
   }
 
   override fun showNext() = buy_button.setText(R.string.action_next)

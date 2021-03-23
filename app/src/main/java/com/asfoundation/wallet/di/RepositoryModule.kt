@@ -17,6 +17,7 @@ import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseTypeAdapter
+import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
@@ -128,8 +129,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient, bdsApi: BdsApi,
-                                    subscriptionBillingApi: SubscriptionBillingApi,
-                                    gson: Gson): AdyenPaymentRepository {
+                                    subscriptionBillingApi: SubscriptionBillingApi, gson: Gson,
+                                    billingErrorMapper: BillingErrorMapper): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
@@ -138,13 +139,14 @@ class RepositoryModule {
         .build()
         .create(AdyenApi::class.java)
     return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi,
-        AdyenResponseMapper(gson, AdyenSerializer()))
+        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()))
   }
 
   @Singleton
   @Provides
   fun provideCarrierBillingRepository(@Named("default") client: OkHttpClient,
-                                      preferences: CarrierBillingPreferencesRepository):
+                                      preferences: CarrierBillingPreferencesRepository,
+                                      billingErrorMapper: BillingErrorMapper):
       CarrierBillingRepository {
     val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
         CarrierErrorResponseTypeAdapter())
@@ -156,9 +158,13 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .build()
     val api = retrofit.create(CarrierBillingRepository.CarrierBillingApi::class.java)
-    return CarrierBillingRepository(api, preferences, CarrierResponseMapper(retrofit),
-        BuildConfig.APPLICATION_ID)
+    return CarrierBillingRepository(api, preferences,
+        CarrierResponseMapper(retrofit, billingErrorMapper), BuildConfig.APPLICATION_ID)
   }
+
+  @Singleton
+  @Provides
+  fun providesBillingMessageMapper(gson: Gson) = BillingErrorMapper(gson)
 
   @Singleton
   @Provides

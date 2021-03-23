@@ -1,12 +1,15 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.appcoins.rewards.ResponseErrorBaseBody
 import com.appcoins.wallet.appcoins.rewards.getMessage
 import com.asfoundation.wallet.repository.PaymentTransaction.PaymentState
 import com.asfoundation.wallet.util.UnknownTokenException
+import com.google.gson.Gson
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
-class ErrorMapper {
+class PaymentErrorMapper(private val gson: Gson) {
+
   fun map(throwable: Throwable): PaymentError {
     throwable.printStackTrace()
     return when (throwable) {
@@ -30,7 +33,12 @@ class ErrorMapper {
 
   private fun mapHttpException(exception: HttpException): PaymentError {
     return if (exception.code() == FORBIDDEN_CODE) {
-      PaymentError(PaymentState.FORBIDDEN)
+      val messageInfo = gson.fromJson(exception.getMessage(), ResponseErrorBaseBody::class.java)
+      when (messageInfo.code) {
+        "NotAllowed" -> PaymentError(PaymentState.SUB_ALREADY_OWNED)
+        "Authorization.Forbidden" -> PaymentError(PaymentState.FORBIDDEN)
+        else -> PaymentError(PaymentState.ERROR)
+      }
     } else {
       val message = exception.getMessage()
       PaymentError(PaymentState.ERROR, exception.code(), message)
