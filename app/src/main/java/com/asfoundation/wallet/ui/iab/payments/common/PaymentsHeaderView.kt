@@ -30,8 +30,8 @@ class PaymentsHeaderView : FrameLayout {
   }
 
   fun setPrice(fiatAmount: BigDecimal, appcAmount: BigDecimal, currency: String) {
-    val fiat = "${formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)} $currency"
-    val appc = "${formatter.formatCurrency(appcAmount,
+    val fiat = "${formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT)} $currency"
+    val appc = "${formatter.formatPaymentCurrency(appcAmount,
         WalletCurrency.APPCOINS)} ${WalletCurrency.APPCOINS.symbol}"
     fiat_price.text = fiat
     appc_price.text = appc
