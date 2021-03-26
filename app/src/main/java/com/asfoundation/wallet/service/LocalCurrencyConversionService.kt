@@ -18,26 +18,26 @@ class LocalCurrencyConversionService(private val tokenToLocalFiatApi: TokenToLoc
   fun getLocalCurrency(): Single<FiatValue> = getAppcToLocalFiat("1.0", 18).firstOrError()
 
   fun getAppcToLocalFiat(value: String?, scale: Int,
-                         rouding: RoundingMode? = RoundingMode.FLOOR): Observable<FiatValue> {
+                         rounding: RoundingMode? = RoundingMode.FLOOR): Observable<FiatValue> {
     return tokenToLocalFiatApi.getValueToLocalFiat(value, "APPC")
         .map { response: ConversionResponseBody ->
-          FiatValue(response.appcValue.setScale(scale, rouding), response.currency, response.symbol)
+          FiatValue(response.appcValue.setScale(scale, rounding), response.currency, response.symbol)
         }
   }
 
   fun getEtherToLocalFiat(value: String?, scale: Int,
-                          rouding: RoundingMode? = RoundingMode.FLOOR): Observable<FiatValue> {
+                          rounding: RoundingMode? = RoundingMode.FLOOR): Observable<FiatValue> {
     return tokenToLocalFiatApi.getValueToLocalFiat(value, "ETH")
         .map { response: ConversionResponseBody ->
-          FiatValue(response.appcValue.setScale(scale, rouding), response.currency, response.symbol)
+          FiatValue(response.appcValue.setScale(scale, rounding), response.currency, response.symbol)
         }
   }
 
   fun getLocalToAppc(currency: String?, value: String?, scale: Int,
-                     rouding: RoundingMode? = RoundingMode.FLOOR): Observable<FiatValue> {
+                     rounding: RoundingMode? = RoundingMode.FLOOR): Observable<FiatValue> {
     return tokenToLocalFiatApi.convertLocalToAppc(currency, value)
         .map { response: ConversionResponseBody ->
-          FiatValue(response.appcValue.setScale(scale, rouding), response.currency, response.symbol)
+          FiatValue(response.appcValue.setScale(scale, rounding), response.currency, response.symbol)
         }
   }
 
