@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface TicketApi {
 
-  @POST("queue/ticket")
+  @POST("queue/ticket/")
   fun postTicket(@Header("authorization") authorization: String,
                  @Body ticketRequest: TicketRequest): Single<TicketResponse>
 

@@ -74,7 +74,7 @@ class SkillsModule {
         .create()
 
     val api = Retrofit.Builder()
-        .baseUrl(ENDPOINT)
+        .baseUrl(ENDPOINT2)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -98,5 +98,6 @@ class SkillsModule {
 
   companion object {
     const val ENDPOINT = "https://cbd801a2-845a-4e51-bb18-33f61dcddedd.mock.pstmn.io"
+    const val ENDPOINT2 = "https://api.eskills.dev.catappult.io"
   }
 }

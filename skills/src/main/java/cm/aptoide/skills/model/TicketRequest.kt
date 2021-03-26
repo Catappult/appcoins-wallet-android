@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class TicketRequest(
 
+    @SerializedName("package_name")
+    private val packageName: String,
+
     @SerializedName("user_id")
     private val userId: String,
 
@@ -11,5 +14,8 @@ data class TicketRequest(
     private val walletAddress: String,
 
     @SerializedName("room_metadata")
-    private val roomMetadata: Map<String, String>
+    private val roomMetadata: Map<String, String>,
+
+    @SerializedName("ewt")
+    private val ewt: String
 )
