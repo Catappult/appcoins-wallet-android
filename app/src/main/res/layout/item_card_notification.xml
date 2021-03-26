@@ -6,14 +6,16 @@
     android:clickable="true"
     android:focusable="true"
     android:maxWidth="328dp"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="2dp"
+    app:cardBackgroundColor="#8D393939"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="0dp"
     app:cardUseCompatPadding="true"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="@color/transparent"
       >
 
     <ImageView
@@ -52,7 +54,7 @@
         android:gravity="center_vertical"
         android:maxLines="1"
         android:text="@string/referral_notification_bonus_pending_title"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:autoSizeMinTextSize="14sp"
         app:autoSizeTextType="uniform"
@@ -71,6 +73,7 @@
         android:maxLines="2"
         android:minLines="2"
         android:text="@string/referral_notification_bonus_pending_body"
+        android:textColor="#99FFFFFF"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/notification_title"
@@ -108,11 +111,10 @@
           style="@style/Widget.MaterialComponents.Button.TextButton"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/button_height"
-          android:backgroundTint="@color/white"
           android:maxWidth="252dp"
           android:minWidth="80dp"
           android:text="@string/dismiss_button"
-          android:textColor="@color/dialog_buy_value_text"
+          android:textColor="@color/white"
           android:textSize="12sp"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/notification_positive_button"

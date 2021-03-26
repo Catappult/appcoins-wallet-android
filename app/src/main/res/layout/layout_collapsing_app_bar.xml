@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.AppBarLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/app_bar_height"
+    android:layout_height="180dp"
     >
 
   <com.google.android.material.appbar.CollapsingToolbarLayout
       android:id="@+id/toolbar_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@drawable/appbar_background_color"
+      android:background="@drawable/appbar_transactions_background_color"
       android:fitsSystemWindows="false"
       app:collapsedTitleGravity="start|center_vertical"
       app:collapsedTitleTextAppearance="@style/ToolbarTextAppearance.Title"
@@ -60,6 +59,7 @@
         android:visibility="gone"
         />
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -79,12 +79,6 @@
           android:visibility="gone"
           />
     </androidx.appcompat.widget.Toolbar>
-
-    <com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground
-        android:id="@+id/toolbar_background_arc"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
   </com.google.android.material.appbar.CollapsingToolbarLayout>
+
 </com.google.android.material.appbar.AppBarLayout>
