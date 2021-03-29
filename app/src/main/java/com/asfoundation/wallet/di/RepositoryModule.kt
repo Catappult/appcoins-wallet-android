@@ -11,6 +11,7 @@ import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
+import com.appcoins.wallet.billing.adyen.AdyenSerializer
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
@@ -138,7 +139,7 @@ class RepositoryModule {
         .build()
         .create(AdyenApi::class.java)
     return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi,
-        AdyenResponseMapper(gson, billingErrorMapper))
+        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()))
   }
 
   @Singleton

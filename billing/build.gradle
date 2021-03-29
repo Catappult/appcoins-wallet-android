@@ -55,4 +55,7 @@ dependencies {
   implementation "com.madgag.spongycastle:core:$project.spongycastle_version"
   implementation "com.adyen.checkout:redirect:$project.adyen_version"
   implementation "com.blockchainds:communication:$project.appcoins_sdk_version"
+  testImplementation "junit:junit:$project.junit_version"
+  testImplementation "org.mockito:mockito-inline:$project.mockito_version"
+  testImplementation "org.mockito:mockito-core:$project.mockito_version"
 }

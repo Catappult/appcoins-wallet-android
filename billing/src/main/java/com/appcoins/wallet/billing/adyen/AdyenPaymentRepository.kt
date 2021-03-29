@@ -30,8 +30,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                   origin: String?, packageName: String?, metadata: String?, sku: String?,
                   callbackUrl: String?, transactionType: String, developerWallet: String?,
                   storeWallet: String?, oemWallet: String?, userWallet: String?,
-                  walletSignature: String,
-                  billingAddress: AdyenBillingAddress?,
+                  walletSignature: String, billingAddress: AdyenBillingAddress?,
                   referrerUrl: String?): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
@@ -49,7 +48,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                               walletSignature: String): Single<VerificationPaymentModel> {
     return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        .toSingle { adyenResponseMapper.mapVerificationPaymentModeSuccess() }
+        .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
         .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
   }
 
