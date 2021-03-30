@@ -63,6 +63,9 @@ import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
+import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesDatabase
+import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
+import com.asfoundation.wallet.service.currencies.RoomCurrencyConversionRatesPersistence
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -592,5 +595,20 @@ internal class AppModule {
   @Provides
   fun providesSecureSharedPreferences(context: Context): SecureSharedPreferences {
     return SecureSharedPreferences(context)
+  }
+
+  @Singleton
+  @Provides
+  fun provideCurrencyConversionRatesDatabase(context: Context): CurrencyConversionRatesDatabase {
+    return Room.databaseBuilder(context, CurrencyConversionRatesDatabase::class.java,
+        "currency_conversion_rates_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun provideRoomCurrencyConversionRatesPersistence(
+      database: CurrencyConversionRatesDatabase): CurrencyConversionRatesPersistence {
+    return RoomCurrencyConversionRatesPersistence(database.currencyConversionRatesDao())
   }
 }

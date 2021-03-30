@@ -2,7 +2,6 @@ package com.asfoundation.wallet.di
 
 import android.content.Context
 import android.os.Build
-import androidx.room.Room
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
@@ -37,11 +36,9 @@ import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService.CampaignApi
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi
-import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesDatabase
 import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService.TokenToLocalFiatApi
-import com.asfoundation.wallet.service.currencies.RoomCurrencyConversionRatesPersistence
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
@@ -192,21 +189,6 @@ class ServiceModule {
         .build()
         .create(TokenToFiatApi::class.java)
     return TokenRateService(api)
-  }
-
-  @Singleton
-  @Provides
-  fun provideCurrencyConversionRatesDatabase(context: Context): CurrencyConversionRatesDatabase {
-    return Room.databaseBuilder(context, CurrencyConversionRatesDatabase::class.java,
-        "currency_conversion_rates_database")
-        .build()
-  }
-
-  @Singleton
-  @Provides
-  fun provideRoomCurrencyConversionRatesPersistence(
-      database: CurrencyConversionRatesDatabase): CurrencyConversionRatesPersistence {
-    return RoomCurrencyConversionRatesPersistence(database.currencyConversionRatesDao())
   }
 
   @Singleton
