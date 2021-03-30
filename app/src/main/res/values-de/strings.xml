@@ -818,8 +818,8 @@
     <item quantity="other">Die Aktion endet in %s Tagen.</item>
   </plurals>
   <plurals name="promotion_ends_short">
-    <item quantity="one">It ends in %s day.</item>
-    <item quantity="other">It ends in %s days.</item>
+    <item quantity="one">Es endet in %s Tag.</item>
+    <item quantity="other">Es endet in %s Tagen.</item>
   </plurals>
   <string name="perks_end_in_date">Die Aktion endet am %s.</string>
   <plurals name="promotion_ends_hours">
@@ -827,8 +827,8 @@
     <item quantity="other">Die Aktion endet in %s Stunde.</item>
   </plurals>
   <plurals name="promotion_ends_hours_short">
-    <item quantity="one">It ends in %s hour.</item>
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="one">Es endet in %s Stunde.</item>
+    <item quantity="other">Es endet in %s Stunden.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Die Werbeaktion endet in %s Minuten.</item>
