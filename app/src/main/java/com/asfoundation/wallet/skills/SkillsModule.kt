@@ -9,6 +9,7 @@ import cm.aptoide.skills.repository.RoomRepository
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.CreateTicketUseCase
 import cm.aptoide.skills.usecase.GetRoomUseCase
+import cm.aptoide.skills.usecase.PayTicketUseCase
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
@@ -32,8 +33,9 @@ class SkillsModule {
 
   @Provides
   fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
+                              payTicketUseCase: PayTicketUseCase,
                               getRoomUseCase: GetRoomUseCase): SkillsViewModel {
-    return SkillsViewModel(createTicketUseCase, getRoomUseCase)
+    return SkillsViewModel(createTicketUseCase, payTicketUseCase, getRoomUseCase)
   }
 
   @Provides
@@ -58,6 +60,11 @@ class SkillsModule {
         .create(RoomApi::class.java)
 
     return RoomRepository(api)
+  }
+
+  @Provides
+  fun providesPayTicketUseCase(ticketRepository: TicketRepository): PayTicketUseCase {
+    return PayTicketUseCase(ticketRepository)
   }
 
   @Provides
