@@ -6,7 +6,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
@@ -21,7 +20,6 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.bonus_updated_layout.*
 import kotlinx.android.synthetic.main.fragment_gamification.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
-import java.math.BigDecimal
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -94,15 +92,11 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     presenter.present(savedInstanceState)
   }
 
-  override fun displayGamificationInfo(currentLevel: Int,
-                                       nextLevelAmount: BigDecimal?,
-                                       hiddenLevels: List<LevelModel>,
-                                       shownLevels: List<LevelModel>,
-                                       totalSpend: BigDecimal,
+  override fun displayGamificationInfo(hiddenLevels: List<LevelItem>,
+                                       shownLevels: List<LevelItem>,
                                        updateDate: Date?) {
     gamification_recycler_view.visibility = View.VISIBLE
-    levelsAdapter.setLevelsContent(hiddenLevels, shownLevels, totalSpend, currentLevel,
-        nextLevelAmount)
+    levelsAdapter.setLevelsContent(hiddenLevels, shownLevels)
     handleBonusUpdatedText(updateDate)
   }
 

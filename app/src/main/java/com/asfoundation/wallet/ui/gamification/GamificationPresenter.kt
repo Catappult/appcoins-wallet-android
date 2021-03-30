@@ -2,8 +2,6 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.os.Bundle
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.LevelModel
-import com.appcoins.wallet.gamification.LevelModel.LevelType
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
@@ -91,12 +89,10 @@ class GamificationPresenter(private val view: GamificationView,
     if (gamification.status != Status.OK) {
       if (!viewHasContent && !gamification.fromCache) activityView.showNetworkErrorView()
     } else {
-      val currentLevel = gamification.currentLevel
       activityView.showMainView()
       displayHeaderInformation(gamification)
-      val levels = map(gamification.levels, currentLevel)
-      view.displayGamificationInfo(currentLevel, gamification.nextLevelAmount, levels.first,
-          levels.second, gamification.totalSpend, gamification.updateDate)
+      val levels = mapToLevelsList(gamification)
+      view.displayGamificationInfo(levels.first, levels.second, gamification.updateDate)
       viewHasContent = true
     }
   }
@@ -110,19 +106,20 @@ class GamificationPresenter(private val view: GamificationView,
     }
   }
 
-  private fun map(levels: List<Levels.Level>,
-                  currentLevel: Int): Pair<List<LevelModel>, List<LevelModel>> {
-    val hiddenList = ArrayList<LevelModel>()
-    val shownList = ArrayList<LevelModel>()
-    for (level in levels) {
-      val viewType = when {
-        level.level < currentLevel -> LevelType.REACHED
-        level.level == currentLevel -> LevelType.CURRENT
-        else -> LevelType.UNREACHED
+  private fun mapToLevelsList(
+      gamification: GamificationInfo): Pair<List<LevelItem>, List<LevelItem>> {
+    val hiddenList = ArrayList<LevelItem>()
+    val shownList = ArrayList<LevelItem>()
+    val currentLevel = gamification.currentLevel
+    for (level in gamification.levels) {
+      val levelItem = when {
+        level.level < currentLevel -> ReachedLevelItem(level.amount, level.bonus, level.level)
+        level.level == currentLevel -> CurrentLevelItem(level.amount, level.bonus, level.level,
+            gamification.totalSpend, gamification.nextLevelAmount)
+        else -> UnreachedLevelItem(level.amount, level.bonus, level.level)
       }
-      val levelViewModel = LevelModel(level.amount, level.bonus, level.level, viewType)
-      if (viewType == LevelType.REACHED) hiddenList.add(levelViewModel)
-      else shownList.add(levelViewModel)
+      if (levelItem is ReachedLevelItem) hiddenList.add(levelItem)
+      else shownList.add(levelItem)
     }
     return Pair(hiddenList, shownList)
   }

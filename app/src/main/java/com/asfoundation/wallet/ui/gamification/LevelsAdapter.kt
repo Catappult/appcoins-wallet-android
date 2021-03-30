@@ -4,12 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.appcoins.wallet.gamification.LevelModel
-import com.appcoins.wallet.gamification.LevelModel.LevelType
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
-import java.math.BigDecimal
 
 class LevelsAdapter(private val context: Context,
                     private val currencyFormatUtils: CurrencyFormatUtils,
@@ -18,17 +15,11 @@ class LevelsAdapter(private val context: Context,
     RecyclerView.Adapter<LevelsViewHolder>() {
 
   /**
-   * these fields are meant to be initialized before onCreateViewHolder is called.
+   * these fields are meant to be properly initialized before onCreateViewHolder is called.
    * @see setLevelsContent
    */
-  private lateinit var hiddenLevels: List<LevelModel>
-  private lateinit var shownLevels: List<LevelModel>
-  private lateinit var amountSpent: BigDecimal
-  private var currentLevel: Int = -1
-  private var nextLevelAmount: BigDecimal? = null
-  private val activeLevelList: MutableList<LevelModel> = mutableListOf()
-
-  private var reachedLevelsToggled = false
+  private var hiddenLevels: List<LevelItem> = emptyList()
+  private val activeLevelList: MutableList<LevelItem> = mutableListOf()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsViewHolder {
     return when (viewType) {
@@ -53,15 +44,14 @@ class LevelsAdapter(private val context: Context,
   override fun getItemCount() = activeLevelList.size
 
   override fun onBindViewHolder(holder: LevelsViewHolder, position: Int) {
-    if (holder is CurrentLevelViewHolder) holder.setAmounts(amountSpent, nextLevelAmount)
     holder.bind(activeLevelList[position])
   }
 
   override fun getItemViewType(position: Int): Int {
-    return when (activeLevelList[position].levelType) {
-      LevelType.REACHED -> REACHED_VIEW_TYPE
-      LevelType.CURRENT -> CURRENT_LEVEL_VIEW_TYPE
-      LevelType.UNREACHED -> UNREACHED_VIEW_TYPE
+    return when (activeLevelList[position]) {
+      is ReachedLevelItem -> REACHED_VIEW_TYPE
+      is CurrentLevelItem -> CURRENT_LEVEL_VIEW_TYPE
+      else -> UNREACHED_VIEW_TYPE
     }
   }
 
@@ -69,34 +59,32 @@ class LevelsAdapter(private val context: Context,
    * set the content to display regarding the several levels
    * with this one can update the view holders several times
    */
-  fun setLevelsContent(_hiddenLevels: List<LevelModel>, _shownLevels: List<LevelModel>,
-                       _amountSpent: BigDecimal, _currentLevel: Int,
-                       _nextLevelAmount: BigDecimal?) {
-    activeLevelList.clear()
-    hiddenLevels = _hiddenLevels
-    shownLevels = _shownLevels
-    amountSpent = _amountSpent
-    currentLevel = _currentLevel
-    nextLevelAmount = _nextLevelAmount
-    if (reachedLevelsToggled) {
+  fun setLevelsContent(hiddenLevels: List<LevelItem>, shownLevels: List<LevelItem>) {
+    this.hiddenLevels = hiddenLevels
+    if (reachedLevelsShown(activeLevelList)) {
+      activeLevelList.clear()
       activeLevelList.addAll(hiddenLevels)
       activeLevelList.addAll(shownLevels)
-    } else activeLevelList.addAll(shownLevels)
+    } else {
+      activeLevelList.clear()
+      activeLevelList.addAll(shownLevels)
+    }
     notifyDataSetChanged()
   }
 
+  private fun reachedLevelsShown(activeLevelList: MutableList<LevelItem>) =
+      activeLevelList.any { it is ReachedLevelItem }
+
   fun toggleReachedLevels(show: Boolean) {
     if (show) {
-      reachedLevelsToggled = true
-      if (currentLevel != 0) {
+      if (activeLevelList.isNotEmpty() && activeLevelList[0] is CurrentLevelItem) {
         for (level in hiddenLevels.reversed()) {
           activeLevelList.add(0, level)
         }
-        notifyItemRangeInserted(0, currentLevel)
+        notifyItemRangeInserted(0, hiddenLevels.size)
       }
     } else {
-      reachedLevelsToggled = false
-      activeLevelList.removeAll { it.levelType == LevelType.REACHED }
+      activeLevelList.removeAll { it is ReachedLevelItem }
       notifyDataSetChanged()
     }
   }

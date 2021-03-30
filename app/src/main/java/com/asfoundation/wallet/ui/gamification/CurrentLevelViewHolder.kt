@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
-import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
@@ -24,34 +23,32 @@ class CurrentLevelViewHolder(itemView: View,
                              private val uiEventListener: PublishSubject<Pair<String, Boolean>>) :
     LevelsViewHolder(itemView) {
 
-  private var amountSpent: BigDecimal = BigDecimal.ZERO
-  private var nextLevelAmount: BigDecimal? = null
-
-  fun setAmounts(_amountSpent: BigDecimal, _nextLevelAmount: BigDecimal?) {
-    amountSpent = _amountSpent
-    nextLevelAmount = _nextLevelAmount
-  }
-
-  override fun bind(level: LevelModel) {
-    val progress = getProgressPercentage(level.amount)
+  override fun bind(level: LevelItem) {
+    val currentLevel = level as CurrentLevelItem
+    val progress = getProgressPercentage(currentLevel.amount, currentLevel.amountSpent,
+        currentLevel.nextLevelAmount)
     val progressString = validateAndGetProgressString(progress)
-    handleSpecificLevel(level.level, progressString, level.bonus)
+    handleSpecificLevel(currentLevel.level, progressString, currentLevel.bonus,
+        currentLevel.amountSpent, currentLevel.nextLevelAmount)
     setProgress(progress)
-    handleToggleButton(level.level)
+    handleToggleButton(currentLevel.level)
     itemView.gamification_info_btn.setOnClickListener {
       uiEventListener.onNext(Pair(GAMIFICATION_INFO_ID, true))
     }
   }
 
-  private fun handleSpecificLevel(level: Int, progressPercentage: String, bonus: Double) {
+  private fun handleSpecificLevel(level: Int, progressPercentage: String, bonus: Double,
+                                  amountSpent: BigDecimal, nextLevelAmount: BigDecimal?) {
     val currentLevelInfo = mapper.mapCurrentLevelInfo(level)
     itemView.current_level_image.setImageDrawable(currentLevelInfo.planet)
     setColor(currentLevelInfo.levelColor)
-    setText(currentLevelInfo.title, currentLevelInfo.phrase, progressPercentage, bonus)
+    setText(currentLevelInfo.title, currentLevelInfo.phrase, progressPercentage, bonus, amountSpent,
+        nextLevelAmount)
   }
 
   private fun handleToggleButton(level: Int) {
     if (level != 0) {
+      itemView.toggle_button.visibility = View.VISIBLE
       itemView.toggle_button.setOnCheckedChangeListener { _, isChecked ->
         uiEventListener.onNext(Pair(SHOW_REACHED_LEVELS_ID, isChecked))
       }
@@ -66,12 +63,12 @@ class CurrentLevelViewHolder(itemView: View,
   }
 
   private fun setText(title: String, phrase: String, progressPercentage: String,
-                      bonus: Double) {
+                      bonus: Double, amountSpent: BigDecimal, nextLevelAmount: BigDecimal?) {
     itemView.current_level_title.text = title
     if (nextLevelAmount != null) {
       itemView.spend_amount_text.text =
           context.getString(R.string.gamif_card_body,
-              currencyFormatUtils.formatGamificationValues(nextLevelAmount!! - amountSpent))
+              currencyFormatUtils.formatGamificationValues(nextLevelAmount - amountSpent))
     } else {
       itemView.spend_amount_text.visibility = View.INVISIBLE
     }
@@ -82,9 +79,10 @@ class CurrentLevelViewHolder(itemView: View,
     itemView.percentage_left.text = "$progressPercentage%"
   }
 
-  private fun getProgressPercentage(levelAmount: BigDecimal): BigDecimal {
+  private fun getProgressPercentage(levelAmount: BigDecimal, amountSpent: BigDecimal,
+                                    nextLevelAmount: BigDecimal?): BigDecimal {
     return if (nextLevelAmount != null) {
-      var levelRange = nextLevelAmount!!.subtract(levelAmount)
+      var levelRange = nextLevelAmount.subtract(levelAmount)
       if (levelRange.toDouble() == 0.0) {
         levelRange = BigDecimal.ONE
       }
