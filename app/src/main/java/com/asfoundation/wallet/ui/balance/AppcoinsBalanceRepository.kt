@@ -52,7 +52,7 @@ class AppcoinsBalanceRepository(
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
             localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),
-                SUM_FIAT_SCALE, false)
+                SUM_FIAT_SCALE)
                 .map { fiatValue ->
                   balanceDetailsDao.updateAppcBalance(address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
@@ -71,7 +71,7 @@ class AppcoinsBalanceRepository(
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
             localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),
-                SUM_FIAT_SCALE, false)
+                SUM_FIAT_SCALE)
                 .map { fiatValue ->
                   balanceDetailsDao.updateCreditsBalance(address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)

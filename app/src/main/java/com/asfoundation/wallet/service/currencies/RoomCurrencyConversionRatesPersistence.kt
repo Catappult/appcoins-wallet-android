@@ -17,14 +17,14 @@ class RoomCurrencyConversionRatesPersistence(
                                       fiatSymbol: String): Completable {
     val appcRate = calculateRate(appcValue, fiatValue)
     val entity = CurrencyConversionRateEntity(APPC, fiatCurrency, fiatSymbol, appcRate)
-    return saveRateDependingOnPreviouslySaved(APPC, entity)
+    return saveRate(APPC, entity)
   }
 
   override fun saveRateFromEthToFiat(ethValue: String, fiatValue: String, fiatCurrency: String,
                                      fiatSymbol: String): Completable {
     val ethRate = calculateRate(ethValue, fiatValue)
     val entity = CurrencyConversionRateEntity(ETH, fiatCurrency, fiatSymbol, ethRate)
-    return saveRateDependingOnPreviouslySaved(ETH, entity)
+    return saveRate(ETH, entity)
   }
 
   override fun getAppcToLocalFiat(appcValue: String, scale: Int): Single<FiatValue> {
@@ -49,20 +49,33 @@ class RoomCurrencyConversionRatesPersistence(
    * If there is a non-zero rate already saved, and the fiat currency is the same, with the new rate
    * being zero, then the new rate will not be saved.
    * If the fiat currency changes (e.g. user starts a VPN connection to a location with a different
-   * currency), then the new rate is always saved (even it is empty).
+   * currency), then the new rate is always saved (even if it is empty).
    * When saving a rate in DB, the existing one will be overwritten
+   * @see CurrencyConversionRatesDao.insertRate
    */
-  private fun saveRateDependingOnPreviouslySaved(currencyFrom: String,
-                                                 newRateEntity: CurrencyConversionRateEntity): Completable {
+  private fun saveRate(currencyFrom: String,
+                       newRateEntity: CurrencyConversionRateEntity): Completable {
     return currencyConversionRatesDao.getRate(currencyFrom)
         .map {
-          (it.rate == ZERO_RATE && newRateEntity.rate == ZERO_RATE) || newRateEntity.rate != ZERO_RATE ||
-              (newRateEntity.rate == ZERO_RATE && it.fiatCurrency != newRateEntity.fiatCurrency)
+          shouldSaveNewRate(it, newRateEntity)
         }
         .onErrorReturn { true }
-        .flatMapCompletable {
-          if (it) currencyConversionRatesDao.insertRate(newRateEntity) else Completable.complete()
+        .flatMapCompletable { shouldSaveNewRate ->
+          if (shouldSaveNewRate) currencyConversionRatesDao.insertRate(newRateEntity)
+          else Completable.complete()
         }
+  }
+
+  private fun shouldSaveNewRate(oldRate: CurrencyConversionRateEntity,
+                                newRate: CurrencyConversionRateEntity): Boolean {
+    return bothRatesEmpty(oldRate, newRate) ||
+        newRate.rate != ZERO_RATE ||
+        oldRate.fiatCurrency != newRate.fiatCurrency
+  }
+
+  private fun bothRatesEmpty(oldRate: CurrencyConversionRateEntity,
+                             newRate: CurrencyConversionRateEntity): Boolean {
+    return oldRate.rate == ZERO_RATE && newRate.rate == ZERO_RATE
   }
 
   private fun calculateRate(fromValue: String, toValue: String): String {
