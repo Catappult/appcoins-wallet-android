@@ -59,7 +59,7 @@ class EwtAuthenticatorService(private val walletService: WalletService,
     val payloadJson = JsonObject()
     payloadJson.addProperty("iss", walletAddress)
     val unixTimeWithTTL: Long = currentUnixTime + TTL_IN_SECONDS
-    payloadJson.addProperty("exp", unixTimeWithTTL.toString())
+    payloadJson.addProperty("exp", unixTimeWithTTL)
     return payloadJson.toString()
         .convertToBase64()
   }
