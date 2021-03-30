@@ -6,7 +6,8 @@ import io.reactivex.Single
 
 class RoomRepository(private val roomApi: RoomApi) {
 
-  fun getRoom(ewt: String, ticketId: String, walletAddress: String): Single<RoomResponse> {
-    return roomApi.getRoom(ewt, ticketId, walletAddress)
+  fun getRoomByTicketId(ewt: String, ticketId: String,
+                        walletAddress: String): Single<RoomResponse> {
+    return roomApi.getRoomByTicketId(ewt, ticketId)
   }
 }

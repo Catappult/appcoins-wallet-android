@@ -35,7 +35,8 @@ class SkillsModule {
   fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
                               payTicketUseCase: PayTicketUseCase,
                               getRoomUseCase: GetRoomUseCase): SkillsViewModel {
-    return SkillsViewModel(createTicketUseCase, payTicketUseCase, getRoomUseCase)
+    return SkillsViewModel(createTicketUseCase, payTicketUseCase, getRoomUseCase,
+        GET_ROOM_RETRY_MILLIS)
   }
 
   @Provides
@@ -81,7 +82,7 @@ class SkillsModule {
         .create()
 
     val api = Retrofit.Builder()
-        .baseUrl(ENDPOINT2)
+        .baseUrl(ENDPOINT)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -104,7 +105,7 @@ class SkillsModule {
   }
 
   companion object {
-    const val ENDPOINT = "https://cbd801a2-845a-4e51-bb18-33f61dcddedd.mock.pstmn.io"
-    const val ENDPOINT2 = "https://api.eskills.dev.catappult.io"
+    const val ENDPOINT = "https://api.eskills.dev.catappult.io"
+    const val GET_ROOM_RETRY_MILLIS = 1000L
   }
 }

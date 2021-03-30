@@ -8,8 +8,7 @@ import retrofit2.http.Query
 
 interface RoomApi {
 
-  @GET("room")
-  fun getRoom(@Header("authorization") authorization: String,
-              @Query("ticket_id") ticketId: String,
-              @Query("wallet_address") walletAddress: String): Single<RoomResponse>
+  @GET("room/")
+  fun getRoomByTicketId(@Header("authorization") authorization: String,
+                        @Query("ticket_id") ticketId: String): Single<RoomResponse>
 }

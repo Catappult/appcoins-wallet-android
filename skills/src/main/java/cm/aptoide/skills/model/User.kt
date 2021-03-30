@@ -9,9 +9,12 @@ class User(
     @SerializedName("user_id")
     var userId: String,
 
+    @SerializedName("ticket_id")
+    var ticketId: String,
+
     @SerializedName("room_metadata")
     var roomMetadata: Map<String, String>,
 
-    @SerializedName("score")
-    var score: Any
+    @SerializedName("status")
+    var status: UserStatus
 )
