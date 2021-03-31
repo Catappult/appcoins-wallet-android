@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a1f55b33ae9cf0e5a96420f0f621f3d3",
+    "entities": [
+      {
+        "tableName": "currency_conversion_rates",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`currency_from` TEXT NOT NULL, `fiat_currency_to` TEXT NOT NULL, `fiat_symbol` TEXT NOT NULL, `conversion_rate` TEXT NOT NULL, PRIMARY KEY(`currency_from`))",
+        "fields": [
+          {
+            "fieldPath": "currencyFrom",
+            "columnName": "currency_from",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fiatCurrency",
+            "columnName": "fiat_currency_to",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fiatSymbol",
+            "columnName": "fiat_symbol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rate",
+            "columnName": "conversion_rate",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "currency_from"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a1f55b33ae9cf0e5a96420f0f621f3d3')"
+    ]
+  }
+}

@@ -17,11 +17,9 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun showSupport(): Completable {
     return walletService.getWalletAddress()
         .flatMapCompletable { address ->
-          gamificationRepository.getUserStats(address)
+          gamificationRepository.getUserLevel(address)
               .observeOn(viewScheduler)
-              .flatMapCompletable { gamificationStats ->
-                showSupport(address, gamificationStats.level)
-              }
+              .flatMapCompletable { showSupport(address, it) }
         }
         .subscribeOn(ioScheduler)
   }
@@ -29,9 +27,7 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
         .observeOn(viewScheduler)
-        .flatMapCompletable { address ->
-          showSupport(address, gamificationLevel)
-        }
+        .flatMapCompletable { showSupport(it, gamificationLevel) }
         .subscribeOn(ioScheduler)
   }
 
@@ -88,4 +84,5 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
 
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
+
 }

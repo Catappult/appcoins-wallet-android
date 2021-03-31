@@ -35,8 +35,10 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.*
 import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService.CampaignApi
-import com.asfoundation.wallet.service.LocalCurrencyConversionService.TokenToLocalFiatApi
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi
+import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService.TokenToLocalFiatApi
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
@@ -192,7 +194,8 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideLocalCurrencyConversionService(@Named("default") client: OkHttpClient,
-                                            objectMapper: ObjectMapper): LocalCurrencyConversionService {
+                                            objectMapper: ObjectMapper,
+                                            persistence: CurrencyConversionRatesPersistence): LocalCurrencyConversionService {
     val baseUrl = LocalCurrencyConversionService.CONVERSION_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -201,7 +204,7 @@ class ServiceModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(TokenToLocalFiatApi::class.java)
-    return LocalCurrencyConversionService(api)
+    return LocalCurrencyConversionService(api, persistence)
   }
 
   @Singleton
