@@ -10,7 +10,7 @@ class TicketRepository(private val ticketApi: TicketApi) {
 
   fun createTicket(userId: String, ewt: String, walletAddress: String): Single<TicketResponse> {
     return ticketApi.postTicket(
-        ewt, buildTicketRequest(userId, walletAddress, ewt))
+        ewt, buildTicketRequest(userId, walletAddress))
   }
 
   fun payTicket(ticketId: String, callbackUrl: String): Single<Any> {
@@ -21,6 +21,6 @@ class TicketRepository(private val ticketApi: TicketApi) {
     return PayTicketRequest(ticketId, callbackUrl)
   }
 
-  private fun buildTicketRequest(userId: String, walletAddress: String, ewt: String) =
-      TicketRequest("testing", userId, walletAddress, emptyMap(), ewt)
+  private fun buildTicketRequest(userId: String, walletAddress: String) =
+      TicketRequest("testing", userId, walletAddress, emptyMap())
 }
