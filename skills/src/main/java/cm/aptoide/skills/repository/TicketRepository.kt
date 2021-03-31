@@ -21,7 +21,6 @@ class TicketRepository(private val ticketApi: TicketApi) {
     return PayTicketRequest(ticketId, callbackUrl)
   }
 
-  private fun buildTicketRequest(userId: String, walletAddress: String, ewt: String
-  ) =
+  private fun buildTicketRequest(userId: String, walletAddress: String, ewt: String) =
       TicketRequest("testing", userId, walletAddress, emptyMap(), ewt)
 }
