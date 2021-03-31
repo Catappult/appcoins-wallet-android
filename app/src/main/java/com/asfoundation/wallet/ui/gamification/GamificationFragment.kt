@@ -84,7 +84,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
           }
         })
     gamification_recycler_view.visibility = View.INVISIBLE
-    levelsAdapter = LevelsAdapter(context!!, formatter, mapper, uiEventListener!!)
+    levelsAdapter = LevelsAdapter(formatter, mapper, uiEventListener!!)
     gamification_recycler_view.adapter = levelsAdapter
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)

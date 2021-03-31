@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.gamification
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,17 +7,17 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 
-class LevelsAdapter(private val context: Context,
-                    private val currencyFormatUtils: CurrencyFormatUtils,
-                    private val mapper: GamificationMapper,
-                    private val uiEventListener: PublishSubject<Pair<String, Boolean>>) :
-    RecyclerView.Adapter<LevelsViewHolder>() {
+class LevelsAdapter(
+    private val currencyFormatUtils: CurrencyFormatUtils,
+    private val mapper: GamificationMapper,
+    private val uiEventListener: PublishSubject<Pair<String, Boolean>>
+) : RecyclerView.Adapter<LevelsViewHolder>() {
 
   /**
    * these fields are meant to be properly initialized before onCreateViewHolder is called.
    * @see setLevelsContent
    */
-  private var hiddenLevels: List<LevelItem> = emptyList()
+  private val hiddenLevels: MutableList<LevelItem> = mutableListOf()
   private val activeLevelList: MutableList<LevelItem> = mutableListOf()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsViewHolder {
@@ -31,12 +30,12 @@ class LevelsAdapter(private val context: Context,
       CURRENT_LEVEL_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.current_level_layout, parent, false)
-        CurrentLevelViewHolder(layout, context, currencyFormatUtils, mapper, uiEventListener)
+        CurrentLevelViewHolder(layout, currencyFormatUtils, mapper, uiEventListener)
       }
       else -> {
         val layout = LayoutInflater.from(parent.context)
             .inflate(R.layout.unreached_level_layout, parent, false)
-        UnreachedLevelViewHolder(layout, context, currencyFormatUtils)
+        UnreachedLevelViewHolder(layout, currencyFormatUtils)
       }
     }
   }
@@ -60,7 +59,8 @@ class LevelsAdapter(private val context: Context,
    * with this one can update the view holders several times
    */
   fun setLevelsContent(hiddenLevels: List<LevelItem>, shownLevels: List<LevelItem>) {
-    this.hiddenLevels = hiddenLevels
+    this.hiddenLevels.clear()
+    this.hiddenLevels.addAll(hiddenLevels)
     if (reachedLevelsShown(activeLevelList)) {
       activeLevelList.clear()
       activeLevelList.addAll(hiddenLevels)
