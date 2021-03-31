@@ -679,7 +679,7 @@
   <string name="support_new_message_title">Vous avez un nouveau message !</string>
   <string name="support_new_message_button">Cliquez pour ouvrir</string>
   <!--Pioneers-->
-  <string name="pioneer_bonus_updated_body">Les pourcentages des bonus ont été mis à jour sur %.</string>
+  <string name="pioneer_bonus_updated_body">Les pourcentages des bonus ont été mis à jour sur %s.</string>
   <string name="pioneer_gamification_title">Vous êtes un pionnier</string>
   <string name="pioneer_gamification_body">Un Pionnier fait parti des premiers et a des bonus plus importants.</string>
   <!--Check for Updates-->
