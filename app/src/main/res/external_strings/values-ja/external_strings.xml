@@ -44,15 +44,15 @@
   <!-- Error messages -->
   <string name="title_dialog_error">エラー</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="purchase_card_error_title">問題が発生しました。</string>
+  <string name="purchase_card_error_general_1">あなたのカードに問題がありました。もう一度お試しいただくか、お問い合わせください。</string>
+  <string name="purchase_card_error_general_2">お使いの銀行により取引が拒否されました。別のカードでお試しいただくか、お問い合わせください。</string>
+  <string name="purchase_card_error_no_funds">十分な資金がないか、カードの限度額が設定されているようです。別のカードでお試しください。</string>
+  <string name="purchase_card_error_expired">あなたのカードの有効期限が切れているようです。別のカードでお試しください。</string>
+  <string name="purchase_card_error_invalid_details">カード番号に間違いはありませんか？ご確認の上、再度お試しください。</string>
+  <string name="purchase_card_error_not_supported">お使いのカードタイプはまだサポートされていません。別のカードでお試しください。</string>
+  <string name="purchase_card_error_security">セキュリティ情報にお間違えはありませんか？確認後、もう一度お試しください。</string>
+  <string name="purchase_card_error_wrong_CVV">CVV/CVCコードが間違っているようです。確認後、もう一度お試しください。</string>
+  <string name="purchase_card_error_CVV">不正なCVV/CVC</string>
+  <string name="error_contac_us_body">それでも問題が解決しない場合は、お問い合わせください。</string>
 </resources>
