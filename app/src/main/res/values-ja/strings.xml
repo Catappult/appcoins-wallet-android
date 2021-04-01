@@ -767,10 +767,10 @@
   <string name="gamif_placeholder_uranus">天王星</string>
   <string name="gamif_quote_uranus">「天王星の月にはねじれがあるようだ」－ロバート・スタウェル・ボール</string>
   <string name="gamif_distance_uranus">地球から30.3億km</string>
-  <string name="gamif_placeholder_neptune">Neptune</string>
-  <string name="gamif_quote_neptune">\"That star is not on the chart!\" – Heinrich d\'Arrest upon discovering Neptune.</string>
-  <string name="gamif_distance_neptune">4.42 billion km from Earth</string>
-  <string name="gamif_placeholder_planetx">Planet %s</string>
+  <string name="gamif_placeholder_neptune">海王星</string>
+  <string name="gamif_quote_neptune">「その星は星図にない！」－海王星を発見際のハインリッヒ・ダレストの言葉</string>
+  <string name="gamif_distance_neptune">地球から44.2億km</string>
+  <string name="gamif_placeholder_planetx">惑星 %s</string>
   <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
   <string name="gamif_placeholder_unknown">an unknown planet</string>
   <string name="gamif_distance_unkown">Unknown location</string>
