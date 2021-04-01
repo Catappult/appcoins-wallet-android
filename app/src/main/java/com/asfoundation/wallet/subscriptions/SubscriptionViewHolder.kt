@@ -61,7 +61,7 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
 
     val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
 
-    item.expire?.let {
+    item.expiry?.let {
       view.expires_on.text = view.context.getString(R.string.subscriptions_expiration_body,
           dateFormat.format(it))
     }
