@@ -420,33 +420,33 @@
   <string name="repeat_password">パスワードを再入力</string>
   <string name="turn_on_button">オンにする</string>
   <string name="no_thanks_button">いいえ、結構です。</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="remind_later_button">後で通知</string>
+  <string name="get_code_button">コードを入手</string>
   <string name="confirm_button">承認する</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
+  <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
   <string name="terms_and_conditions">利用規約</string>
   <string name="privacy_policy">プライバシー ポリシー</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
-  <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
+  <string name="home_empty_discover_apps_body">最高のAndroidアプリがあなたを待っています。</string>
+  <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
-  <string name="settings_item_support">Contact Support Team</string>
+  <string name="title_redeem">コードを利用</string>
+  <string name="settings_item_support">サポートチームへのお問い合わせ</string>
   <string name="settings_subheader_support">サポート</string>
   <string name="settings_subheader_about_us">About Us</string>
   <!--Local Payments-->
-  <string name="local_payments_inprogress_header">In progress&#8230;</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_header">進行中&#8230;</string>
+  <string name="local_payments_inprogress_body">支払いが完了すると、ウォレットにAppCoins Creditsが表示されます。その後、ゲームに戻って購入してください。</string>
   <!--Wallet Verification-->
-  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
-  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
-  <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Choose your country/region</string>
-  <string name="verification_insert_phone_field_number">Phone Number</string>
+  <string name="verification_notification_verification_needed_title">リワードの準備は完了していますが、承認が必要です。</string>
+  <string name="verification_notification_verification_needed_body">セキュリティ上の理由から、お客様のウォレットをSMSコードで確認する必要があります。</string>
+  <string name="verification_insert_phone_title">電話番号を入力</string>
+  <string name="verification_insert_phone_body">ウォレットを認証してリワードをゲット！ 認証コードを送信します。</string>
+  <string name="verification_insert_phone_field_country">国/地域を選択してください。</string>
+  <string name="verification_insert_phone_field_number">電話番号</string>
   <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
   <string name="verification_insert_phone_field_region_error">Region not supported yet.</string>
   <string name="verification_insert_phone_field_landline_error">Landline numbers are not supported.</string>
