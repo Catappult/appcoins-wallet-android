@@ -487,8 +487,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       bonus_msg_pre_selected?.visibility = VISIBLE
       bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
       frequency?.let {
-        bonus_msg?.text = "You will receive this bonus for each payment"
-        bonus_msg_pre_selected?.text = "You will receive this bonus for each payment"
+        bonus_msg?.text = getString(R.string.subscriptions_bonus_body)
+        bonus_msg_pre_selected?.text = getString(R.string.subscriptions_bonus_body)
       }
     } else {
       bonus_layout?.visibility = GONE
@@ -597,8 +597,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private fun setBonusMessage(nextPaymentDate: Date) {
     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val formattedDate = dateFormat.format(nextPaymentDate)
-    val nextPaymentText = getString(R.string.subscriptions_details_next_payment_title)
-    next_payment_date.text = "$nextPaymentText $formattedDate"
+    val nextPaymentText =
+        "${getString(R.string.subscriptions_details_next_payment_title)} $formattedDate"
+    next_payment_date.text = nextPaymentText
   }
 
   private fun handleBuyButtonText() {
