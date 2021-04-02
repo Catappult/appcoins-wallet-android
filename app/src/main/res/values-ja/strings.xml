@@ -790,7 +790,7 @@
   <string name="carrier_billing_submit_button">送信</string>
   <string name="carrier_billing_number_not_supported">あなたの番号は、この支払い方法に対応していないようです。</string>
   <string name="carrier_billing_terms_disclaimer">「送信」をタップすることで「利用規約」と「プライバシーポリシー」に同意したことになります。</string>
-  <string name="carrier_billing_help_1">Need help?</string>
+  <string name="carrier_billing_help_1">ヘルプが必要ですか？</string>
   <string name="carrier_billing_help_2_button">サポートに問い合わせ</string>
   <string name="carrier_billing_terms_button">利用規約</string>
   <string name="carrier_billing_privacy_button">プライバシー ポリシー</string>
