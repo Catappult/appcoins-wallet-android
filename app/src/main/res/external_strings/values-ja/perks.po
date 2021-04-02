@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-04-02 14:49\n"
+"PO-Revision-Date: 2021-04-02 20:03\n"
 
 #. Card Title
 #:
@@ -100,20 +100,20 @@ msgstr "{2} で {0} {1} 使ったため"
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "AppCoinsアプリで{1}{2} 使うと、さらに{0} AppCoinsクレジットを受け取ることができます。"
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "AppCoinsのアプリで{0} {1} を使ったため"
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
-msgstr ""
+msgstr "AppCoinsクレジットを除くすべての購入で、さらに{0}%のボーナスを受け取ることができます。"
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "新しい特典が利用できます"
 
