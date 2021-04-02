@@ -771,14 +771,14 @@
   <string name="gamif_quote_neptune">「その星は星図にない！」－海王星を発見際のハインリッヒ・ダレストの言葉</string>
   <string name="gamif_distance_neptune">地球から44.2億km</string>
   <string name="gamif_placeholder_planetx">惑星 %s</string>
-  <string name="gamif_quote_planetx">\"Somewhere, something incredible is waiting to be known\" – Carl Sagan</string>
-  <string name="gamif_placeholder_unknown">an unknown planet</string>
-  <string name="gamif_distance_unkown">Unknown location</string>
-  <string name="gamif_placeholder_new_planet">a new planet</string>
+  <string name="gamif_quote_planetx">「どこかで、なにか素晴らしいことが、誰かに発見してもらいたくてうずうずしている」－カール・セイガン</string>
+  <string name="gamif_placeholder_unknown">未知の惑星</string>
+  <string name="gamif_distance_unkown">未知の場所</string>
+  <string name="gamif_placeholder_new_planet">新たな惑星</string>
   <!--Carrier Billing-->
-  <string name="carrier_billing_payment_method_title">Carrier billing</string>
-  <string name="carrier_billing_fees_disclaimer">Additional fees may apply</string>
-  <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
+  <string name="carrier_billing_payment_method_title">キャリア課金</string>
+  <string name="carrier_billing_fees_disclaimer">追加料金が発生する場合があります。</string>
+  <string name="carrier_billing_insert_phone_body">電話番号を入力してください</string>
   <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Your phone number...</string>
   <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
