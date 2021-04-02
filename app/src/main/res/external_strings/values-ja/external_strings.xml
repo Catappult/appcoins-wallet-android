@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
+  <string name="iab_wallet_not_installed_popup_body">このアイテムを購入するには、まず %s を入手する必要があります。</string>
   <string name="appcoins_wallet">AppCoins Wallet</string>
-  <string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
+  <string name="iab_wallet_not_installed_popup_close_button">閉じる</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">この購入には、AppCoins Walletが必要です。AptoideまたはPlayストアからダウンロードして購入を完了してください。</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">了解！</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">AppCoins Walletが必要です。</string>
+  <string name="poa_wallet_not_installed_notification_body">報酬を得るためにはAppCoins Walletが必要です。</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
+  <string name="iab_pay_as_guest_title">ゲストとして支払い</string>
   <string name="iab_pay_as_guest_credit_card">Credit Card</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
   <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
