@@ -848,9 +848,9 @@
   <string name="perks_level_up_amount_left">Sie sind %1$s %2$s vom nächsten Level entfernt!</string>
   <string name="perks_level_up_level_tag">Level %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
-  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
-  <string name="perks_empty_body">No promotions available at the moment.</string>
+  <string name="perks_purchases_disclaimer_body">Alle In-App Einkäufe und Aufladungen die Sie mit einer anderen Bezahl-Methode als AppCoins Credits getätigt haben, ermöglichen Ihnen ihren Prämien-Level zu erhöhen und Belohnungen zu erhalten.</string>
+  <string name="perks_empty_state_first_purchase_body">Tätige deinen ersten Einkauf in einer AppCoins kompatiblen App und schalte die Aktionen frei, die wir für Dich erstellt haben!</string>
+  <string name="perks_empty_body">Zur Zeit sind keine Aktionen verfügbar.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Fingerabdruck</string>
   <string name="fingerprint_failed_title">Authentifizierung fehlgeschlagen!</string>
@@ -899,10 +899,10 @@
   <string name="card_verification_wallets_one_step_title">Ein zusätzlicher Schritt zur Bestätigung</string>
   <string name="card_verification_wallets_one_step_body">Geben Sie den Code ein der in ihren Transaktionsdetails erscheint.</string>
   <string name="card_verification_wallets_insert_bode_button">Code eingeben</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
-  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+  <string name="card_verification_no_attempts_title">Upps, Sie haben zu oft einen falschen Code eingegeben deshalb wird ihnen %1$s wieder auf ihre Karte eingezahlt.</string>
+  <string name="card_verification_no_attempts_body">Bitte starten Sie den Verifikationsprozess erneut.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body_1">Buy this voucher and get</string>
+  <string name="voucher_card_body_1">Kaufen Sie diesem Gutschein und erhalten Sie</string>
   <string name="voucher_card_body_2"> up to %s%% bonus.</string>
   <string name="voucher_buy_header">Voucher für %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
