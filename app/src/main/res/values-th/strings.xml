@@ -695,6 +695,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">จัดการการสมัครสมาชิก</string>
   <string name="subscriptions_title">สมัครสมาชิก</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">ใช้งาน</string>
   <string name="subscriptions_expired_title">หมดอายุ</string>
   <string name="subscriptions_empty_title">ยังไม่มีการสมัครสมาชิก</string>
