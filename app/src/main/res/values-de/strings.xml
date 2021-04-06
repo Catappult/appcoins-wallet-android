@@ -26,7 +26,7 @@
   <string name="credits">Das Team</string>
   <string name="label_new">Neu</string>
   <string name="got_it_button">GESCHAFFT</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">ÄNDERN</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
   <string name="no_camera_permission_title">Kamera-Berechtigung</string>
   <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
@@ -509,10 +509,10 @@
   <string name="error_contac_us_body">Nehmen Sie Kontakt zu uns auf, falls das Problem weiterbesteht.</string>
   <string name="purchase_error_unverified_wallet">Versuchen Sie den Kauf abzuschliessen nach dem Sie ihr Wallet verifiziert haben.</string>
   <string name="purchase_error_try_other_method">Upps&#8230; Etwas ist schief gelaufen! Bitte versuchen Sie eine andere Bezahlmethode oder nehmen Sie Kontakt zu uns auf.</string>
-  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
-  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
-  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
+  <string name="purchase_error_try_other_amount">Wie es scheint ist ihr Einzahlungsbetrag zu groß! Bitte probieren Sie einen kleineren Betrag oder nehmen Sie Kontakt zu uns auf!</string>
+  <string name="purchase_error_try_other_amount_or_method">Upps&#8230; Etwas ist schief gelaufen! Bitte versuchen Sie eine andere Bezahlmethode oder einen anderen Einzahlungsbetrag.</string>
+  <string name="purchase_error_try_cheaper_item">Das ist ganz schön teuer! Bitte versuchen Sie einen billigeren Artikel zu erwerben.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">Das ist ganz schön teuer! Bitte versuchen Sie einen billigeren Artikel zu erwerben oder probieren Sie eine andere Bezahlmethode.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -695,7 +695,7 @@
   <string name="subscriptions_settings_title">Abonnements verwalten</string>
   <string name="subscriptions_title">Abonnements</string>
   <string name="subscriptions_active_title">Aktiv</string>
-  <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_expired_title">Abgelaufen</string>
   <string name="subscriptions_empty_title">Bisher keine Abonnements</string>
   <string name="subscriptions_empty_body">Abonniere Dienste in deinen Lieblings-Apps und -Spielen und wir sorgen für die regelmäßige Bezahlung.</string>
   <string name="subscriptions_details_billing_title">Bezahlung:</string>
@@ -708,7 +708,7 @@
   <string name="subscriptions_canceled_body">Storniert</string>
   <string name="subscriptions_details_disclaimer">Die Menge der AppCoins kann sich wegen der Veränderung des Wechselkurses verändern.</string>
   <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
+  <string name="subscriptions_manage_button">ABONNEMENTS VERWALTEN</string>
   <string name="subscriptions_cancel_button">ABONNEMENT KÜNDIGEN</string>
   <string name="subscriptions_cancel_title">Abonnement kündigen</string>
   <string name="subscriptions_cancel_body">Sind Sie sicher, dass Sie dieses Abonnement kündigen wollen?</string>
@@ -718,14 +718,15 @@
   <string name="subscriptions_cancel_confirmation_body">Sie müssen für dieses Abonnement nichts mehr bezahlen, sie können es noch bis %s nutzen.</string>
   <string name="subscriptions_category_title">Abonnement</string>
   <string name="subscriptions_bonus_body">Sie werden diesen Bonus für jede Bezahlung erhalten.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
+  <string name="subscriptions_per_day">%1$s/Tag</string>
+  <string name="subscriptions_per_week">%1$s/Woche</string>
+  <string name="subscriptions_per_month">%1$s/Monat</string>
+  <string name="subscriptions_per_year">%1$s/Jahr</string>
+  <string name="subscriptions_per_several_day">%1$s alle %2$s Tage</string>
+  <string name="subscriptions_per_several_week">%1$s alle %2$s Wochen</string>
+  <string name="subscriptions_per_several_month">%1$s alle %2$s Monate</string>
+  <string name="subscriptions_per_several_year">%1$s alle %2$s Jahre</string>
+  <string name="subscriptions_error_already_subscribed">Upps Sie haben diesen Dienst bereits abonniert! Wenn Sie wollen können Sie Kontakt mit uns aufnehmen.</string>
   <!--New Gamification-->
   <string name="gamif_title">Bis zu %s%% Bonus!</string>
   <string name="gamif_bonus_received">Prämie erhalten</string>
@@ -778,7 +779,7 @@
   <string name="carrier_billing_payment_method_title">Telefonrechnung</string>
   <string name="carrier_billing_fees_disclaimer">Es können zusätzliche Gebühren anfallen</string>
   <string name="carrier_billing_insert_phone_body">Bitte geben Sie ihre Telefonnummer ein</string>
-  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
+  <string name="carrier_billing_insert_phone_previously_used">Mit der zuvor verwendeten Nummer weitermachen</string>
   <string name="carrier_billing_phone_field">Ihre Telefonnummer...</string>
   <string name="carrier_billing_carrier_fees_body">Es wird eine Gebühr von %1$s berechnet</string>
   <string name="carrier_billing_purchase_info_body">%1$s bei %2$s.</string>
@@ -817,8 +818,8 @@
     <item quantity="other">Die Aktion endet in %s Tagen.</item>
   </plurals>
   <plurals name="promotion_ends_short">
-    <item quantity="one">It ends in %s day.</item>
-    <item quantity="other">It ends in %s days.</item>
+    <item quantity="one">Es endet in %s Tag.</item>
+    <item quantity="other">Es endet in %s Tagen.</item>
   </plurals>
   <string name="perks_end_in_date">Die Aktion endet am %s.</string>
   <plurals name="promotion_ends_hours">
@@ -826,8 +827,8 @@
     <item quantity="other">Die Aktion endet in %s Stunde.</item>
   </plurals>
   <plurals name="promotion_ends_hours_short">
-    <item quantity="one">It ends in %s hour.</item>
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="one">Es endet in %s Stunde.</item>
+    <item quantity="other">Es endet in %s Stunden.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Die Werbeaktion endet in %s Minuten.</item>
@@ -901,7 +902,8 @@
   <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">Kaufen Sie diesen Voucher und erhalten Sie einen Bonus von bis zu %s%%.</string>
+  <string name="voucher_card_body_1">Buy this voucher and get</string>
+  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
   <string name="voucher_buy_header">Voucher für %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Sie haben %s nicht?</string>
@@ -911,4 +913,6 @@
   <string name="voucher_instructions_transactions">Sie können den Voucher-Code stets in der Transaktions-Historie finden.</string>
   <string name="voucher_empty">Zur Zeit sind keine Gutscheine verfügbar.</string>
   <string name="voucher_tooltip">Sie können jetzt Gutscheine für die Spiele kaufen!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>
