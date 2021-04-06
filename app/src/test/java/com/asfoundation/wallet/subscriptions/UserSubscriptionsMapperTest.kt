@@ -79,8 +79,8 @@ class UserSubscriptionsMapperTest {
         SubscriptionSubStatus.GRACE, TEST_STARTED, TEST_RENEWAL, TEST_EXPIRE, null,
         applicationResponse, orderResponse)
     val responseHold = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.HOLD, TEST_STARTED, null, null, null, applicationResponse,
-        orderResponse)
+        SubscriptionSubStatus.HOLD, TEST_STARTED, TEST_RENEWAL, TEST_EXPIRE, null,
+        applicationResponse, orderResponse)
     val allSubscriptions = UserSubscriptionsListResponse(
         listOf(activeSubResponse, expiredSubResponse, responseCanceled, responsePaused,
             responseRevoked, responsePending, responseGrace, responseHold))
@@ -121,10 +121,10 @@ class UserSubscriptionsMapperTest {
             TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT,
             TEST_APPC_LABEL, TEST_UID)
     val onHoldItem =
-        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.HOLD, expectedDate, null, null,
-            null, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL,
-            TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL,
-            TEST_UID)
+        SubscriptionItem(TEST_TITLE, Period(0, 0, 1, 0), Status.HOLD, expectedDate, expectedDate,
+            expectedDate, null, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT,
+            TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL, TEST_UID)
     val allItemsList = listOf(activeItem, expiredItem, canceledItem, pausedItem, revokedItem,
         pendingItem, gracePeriodItem, onHoldItem)
     val expiredItemList = listOf(expiredItem)
