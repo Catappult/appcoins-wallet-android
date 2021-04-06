@@ -28,5 +28,8 @@ data class TicketResponse(
     val roomMetadata: Map<String, String>,
 
     @SerializedName("payment_transaction")
-    val paymentTransaction: String
+    val paymentTransaction: String,
+
+    @SerializedName("room_id")
+    val roomId: String?
 )

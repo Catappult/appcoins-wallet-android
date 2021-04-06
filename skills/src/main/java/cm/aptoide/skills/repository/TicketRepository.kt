@@ -13,6 +13,10 @@ class TicketRepository(private val ticketApi: TicketApi) {
         ewt, buildTicketRequest(userId, walletAddress))
   }
 
+  fun getTicket(ewt: String, ticketId: String): Single<TicketResponse> {
+    return ticketApi.getTicket(ewt, ticketId)
+  }
+
   fun payTicket(ticketId: String, callbackUrl: String): Single<Any> {
     return ticketApi.createTicket(buildPayTicketRequest(ticketId, callbackUrl))
   }

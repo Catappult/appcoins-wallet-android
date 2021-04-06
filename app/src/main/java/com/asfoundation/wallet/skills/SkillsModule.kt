@@ -8,7 +8,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.repository.RoomRepository
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.CreateTicketUseCase
-import cm.aptoide.skills.usecase.GetRoomUseCase
+import cm.aptoide.skills.usecase.GetTicketUseCase
 import cm.aptoide.skills.usecase.PayTicketUseCase
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
@@ -34,16 +34,16 @@ class SkillsModule {
   @Provides
   fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
                               payTicketUseCase: PayTicketUseCase,
-                              getRoomUseCase: GetRoomUseCase): SkillsViewModel {
-    return SkillsViewModel(createTicketUseCase, payTicketUseCase, getRoomUseCase,
+                              getTicketUseCase: GetTicketUseCase): SkillsViewModel {
+    return SkillsViewModel(createTicketUseCase, payTicketUseCase, getTicketUseCase,
         GET_ROOM_RETRY_MILLIS)
   }
 
   @Provides
   fun providesGetRoomUseCase(walletAddressObtainer: WalletAddressObtainer,
                              ewtObtainer: EwtObtainer,
-                             roomRepository: RoomRepository): GetRoomUseCase {
-    return GetRoomUseCase(walletAddressObtainer, ewtObtainer, roomRepository)
+                             ticketRepository: TicketRepository): GetTicketUseCase {
+    return GetTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
   }
 
   @Provides
