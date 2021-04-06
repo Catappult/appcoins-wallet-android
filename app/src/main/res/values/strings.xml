@@ -759,6 +759,7 @@
 <!--Subscriptions-->
   <string name="subscriptions_settings_title">Manage subscriptions</string>
   <string name="subscriptions_title">Subscriptions</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Active</string>
   <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">No Subscriptions Yet</string>
@@ -1001,6 +1002,8 @@
   <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
   <string name="voucher_empty">No vouchers available at the moment.</string>
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 
 
 
