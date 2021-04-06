@@ -694,6 +694,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">مدیریت آبونمان‌ها</string>
   <string name="subscriptions_title">آبونمان‌ها</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">فعال</string>
   <string name="subscriptions_expired_title">منقضی شده</string>
   <string name="subscriptions_empty_title">هنوز آبونمانی موجود نیست</string>
