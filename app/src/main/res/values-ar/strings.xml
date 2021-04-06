@@ -699,6 +699,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">إدارة الاشتراكات</string>
   <string name="subscriptions_title">الاشتراكات</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">مفعّل</string>
   <string name="subscriptions_expired_title">صلاحية منتهية</string>
   <string name="subscriptions_empty_title">لا توجد اشتراكات بعد</string>
