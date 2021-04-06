@@ -693,6 +693,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">구독 관리</string>
   <string name="subscriptions_title">구독</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">활성</string>
   <string name="subscriptions_expired_title">만료됨</string>
   <string name="subscriptions_empty_title">아직 구독이 없습니다</string>
