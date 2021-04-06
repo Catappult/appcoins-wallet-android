@@ -694,6 +694,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">購読の管理</string>
   <string name="subscriptions_title">購読</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">アクティブ</string>
   <string name="subscriptions_expired_title">期限切れ</string>
   <string name="subscriptions_empty_title">まだ購読はありません</string>
