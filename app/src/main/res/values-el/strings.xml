@@ -694,6 +694,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Διαχείριση εγγραφών</string>
   <string name="subscriptions_title">Εγγραφές</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Ενεργές</string>
   <string name="subscriptions_expired_title">Έληξε</string>
   <string name="subscriptions_empty_title">Δεν υπάρχουν ακόμη εγγραφές</string>
