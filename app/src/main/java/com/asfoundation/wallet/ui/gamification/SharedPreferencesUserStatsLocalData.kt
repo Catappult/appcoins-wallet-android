@@ -103,27 +103,25 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
     }
   }
 
-  override fun deletePromotions() = promotionDao.deletePromotions()
-
-  override fun insertPromotions(promotions: List<PromotionsResponse>): Completable {
+  override fun deleteAndInsertPromotions(promotions: List<PromotionsResponse>): Completable {
     return Single.create<List<PromotionEntity>> { emitter ->
       val results: List<PromotionEntity> = promotions.map {
         when (it) {
           is GamificationResponse ->
-            PromotionEntity(it.id, it.priority, bonus = it.bonus, totalSpend = it.totalSpend,
-                totalEarned = it.totalEarned, level = it.level,
+            PromotionEntity(id = it.id, priority = it.priority, bonus = it.bonus,
+                totalSpend = it.totalSpend, totalEarned = it.totalEarned, level = it.level,
                 nextLevelAmount = it.nextLevelAmount, status = it.status, bundle = it.bundle)
           is ReferralResponse -> {
-            PromotionEntity(it.id, it.priority, maxAmount = it.maxAmount, available = it.available,
-                bundle = it.bundle, completed = it.completed, currency = it.currency,
-                symbol = it.symbol, invited = it.invited, link = it.link,
+            PromotionEntity(id = it.id, priority = it.priority, maxAmount = it.maxAmount,
+                available = it.available, bundle = it.bundle, completed = it.completed,
+                currency = it.currency, symbol = it.symbol, invited = it.invited, link = it.link,
                 pendingAmount = it.pendingAmount, receivedAmount = it.receivedAmount,
                 userStatus = it.userStatus, minAmount = it.minAmount, status = it.status,
                 amount = it.amount)
           }
           else -> {
             val genericResponse = it as GenericResponse
-            PromotionEntity(genericResponse.id, genericResponse.priority,
+            PromotionEntity(id = genericResponse.id, priority = genericResponse.priority,
                 currentProgress = genericResponse.currentProgress,
                 description = genericResponse.description, endDate = genericResponse.endDate,
                 icon = genericResponse.icon, linkedPromotionId = genericResponse.linkedPromotionId,
@@ -135,7 +133,7 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
       }
       emitter.onSuccess(results)
     }
-        .flatMapCompletable { promotionDao.insertPromotions(it) }
+        .flatMapCompletable { Completable.fromAction { promotionDao.deleteAndInsert(it) } }
   }
 
   override fun deleteLevels(): Completable {

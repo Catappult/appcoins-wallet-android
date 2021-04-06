@@ -25,9 +25,7 @@ interface UserStatsLocalData {
 
   fun getPromotions(): Single<List<PromotionsResponse>>
 
-  fun deletePromotions(): Completable
-
-  fun insertPromotions(promotions: List<PromotionsResponse>): Completable
+  fun deleteAndInsertPromotions(promotions: List<PromotionsResponse>): Completable
 
   fun deleteLevels(): Completable
 
