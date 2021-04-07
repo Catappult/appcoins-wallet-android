@@ -693,6 +693,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Quản lý các gói đăng ký</string>
   <string name="subscriptions_title">Gói đăng ký</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Hoạt động</string>
   <string name="subscriptions_expired_title">Đã hết hạn</string>
   <string name="subscriptions_empty_title">Chưa có gói đăng ký nào</string>

@@ -694,6 +694,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Feliratkozások kezelése</string>
   <string name="subscriptions_title">Feliratkozások</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Aktív</string>
   <string name="subscriptions_expired_title">Lejárt</string>
   <string name="subscriptions_empty_title">Még nincsenek feliratkozások</string>

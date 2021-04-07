@@ -694,6 +694,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ</string>
   <string name="subscriptions_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">ਐਕਟਿਵ</string>
   <string name="subscriptions_expired_title">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
   <string name="subscriptions_empty_title">ਅਜੇ ਕੋਈ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨਹੀਂ</string>

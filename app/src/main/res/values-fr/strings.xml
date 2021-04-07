@@ -694,6 +694,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Gérer les abonnements</string>
   <string name="subscriptions_title">Abonnements</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Actif</string>
   <string name="subscriptions_expired_title">Expiré</string>
   <string name="subscriptions_empty_title">Pas encore d\'abonnements</string>

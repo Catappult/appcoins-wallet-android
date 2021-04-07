@@ -693,6 +693,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">管理訂閱</string>
   <string name="subscriptions_title">訂閱</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">訂閱項目</string>
   <string name="subscriptions_expired_title">已到期</string>
   <string name="subscriptions_empty_title">尚無訂閱</string>
