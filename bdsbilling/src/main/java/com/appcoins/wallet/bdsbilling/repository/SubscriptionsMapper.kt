@@ -11,11 +11,15 @@ import kotlin.collections.ArrayList
 
 class SubscriptionsMapper {
 
+  companion object {
+    private const val SUBS_TYPE = "subs"
+  }
+
   fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {
     return ArrayList(subscriptionsResponse.items.map {
       SubsProduct(it.sku, it.title, it.description,
           Price(it.price.currency, it.price.appc.value.toDouble(), it.price.value.toDouble(),
-              it.price.currency, it.price.symbol), BillingSupportedType.INAPP_SUBSCRIPTION.name,
+              it.price.currency, it.price.symbol), SUBS_TYPE,
           it.period, it.trialPeriod)
     })
   }
