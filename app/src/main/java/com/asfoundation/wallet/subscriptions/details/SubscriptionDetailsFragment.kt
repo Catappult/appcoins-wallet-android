@@ -122,7 +122,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
     val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
 
-    subscriptionItem.expire?.let {
+    subscriptionItem.expiry?.let {
       expires_on.text = getString(R.string.subscriptions_details_cancelled_body,
           dateFormat.format(it))
     }

@@ -20,7 +20,7 @@ class UserSubscriptionsMapper {
       val application = it.application
       val order = it.order
       SubscriptionItem(it.title, mapPeriod(it.period), mapStatus(it.subStatus),
-          mapDate(it.started), mapDate(it.renewal), mapDate(it.expire), mapDate(it.ended),
+          mapDate(it.started), mapDate(it.renewal), mapDate(it.expiry), mapDate(it.ended),
           application.name, application.title, application.icon, order.value, order.symbol,
           order.currency, order.method.title, order.method.logo, order.appc.value,
           order.appc.label, it.uid)
@@ -43,6 +43,8 @@ class UserSubscriptionsMapper {
       SubscriptionSubStatus.PAUSED -> Status.PAUSED
       SubscriptionSubStatus.PENDING -> Status.PENDING
       SubscriptionSubStatus.REVOKED -> Status.REVOKED
+      SubscriptionSubStatus.GRACE -> Status.GRACE
+      SubscriptionSubStatus.HOLD -> Status.HOLD
     }
   }
 

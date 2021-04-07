@@ -29,7 +29,7 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
   }
 
   private fun canCancelSubscription(status: Status): Boolean {
-    return status == Status.ACTIVE || status == Status.PAUSED
+    return status == Status.ACTIVE || status == Status.PAUSED || status == Status.GRACE
   }
 
   private fun onError(throwable: Throwable) {
