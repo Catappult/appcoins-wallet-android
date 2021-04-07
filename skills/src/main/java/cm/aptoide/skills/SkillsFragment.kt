@@ -85,11 +85,10 @@ class SkillsFragment : DaggerFragment() {
   private fun buildDataIntent(userData: UserData): Intent {
     val intent = Intent()
 
-    intent.putExtra(SESSION, "session")
+    intent.putExtra(SESSION, userData.session)
     intent.putExtra(USER_ID, userData.userId)
     intent.putExtra(ROOM_ID, userData.roomId)
     intent.putExtra(WALLET_ADDRESS, userData.walletAddress)
-    intent.putExtra(JWT, "{jwt}")
 
     return intent
   }

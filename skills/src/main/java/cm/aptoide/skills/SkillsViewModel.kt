@@ -4,6 +4,7 @@ import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.usecase.CreateTicketUseCase
 import cm.aptoide.skills.usecase.GetTicketUseCase
+import cm.aptoide.skills.usecase.LoginUseCase
 import cm.aptoide.skills.usecase.PayTicketUseCase
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
@@ -13,7 +14,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val payTicketUseCase: PayTicketUseCase,
                       private val getTicketUseCase: GetTicketUseCase,
-                      private val getTicketRetryMillis: Long) {
+                      private val getTicketRetryMillis: Long,
+                      private val loginUseCase: LoginUseCase) {
 
   fun getRoom(userId: String): Observable<UserData> {
     return createTicketUseCase.createTicket(userId)
@@ -27,9 +29,12 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                     .delay(getTicketRetryMillis, TimeUnit.MILLISECONDS)
                     .repeatUntil({ roomIdPresent.get() })
                     .skipWhile({ !roomIdPresent.get() })
-                    .map { ticketResponse ->
-                      UserData(ticketResponse.userId, ticketResponse.roomId!!,
-                          ticketResponse.walletAddress)
+                    .flatMapSingle { ticketResponse ->
+                      loginUseCase.login(ticketResponse.roomId!!)
+                          .map { session ->
+                            UserData(ticketResponse.userId, ticketResponse.roomId!!,
+                                ticketResponse.walletAddress, session)
+                          }
                     }
                     .singleOrError()
               }

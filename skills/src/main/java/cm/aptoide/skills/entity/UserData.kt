@@ -1,3 +1,4 @@
 package cm.aptoide.skills.entity
 
-data class UserData(val userId: String, val roomId: String, val walletAddress: String)
+data class UserData(val userId: String, val roomId: String, val walletAddress: String,
+                    val session: String)

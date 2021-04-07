@@ -5,10 +5,12 @@ import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
+import cm.aptoide.skills.repository.LoginRepository
 import cm.aptoide.skills.repository.RoomRepository
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.CreateTicketUseCase
 import cm.aptoide.skills.usecase.GetTicketUseCase
+import cm.aptoide.skills.usecase.LoginUseCase
 import cm.aptoide.skills.usecase.PayTicketUseCase
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
@@ -34,33 +36,48 @@ class SkillsModule {
   @Provides
   fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
                               payTicketUseCase: PayTicketUseCase,
-                              getTicketUseCase: GetTicketUseCase): SkillsViewModel {
+                              getTicketUseCase: GetTicketUseCase,
+                              loginUseCase: LoginUseCase): SkillsViewModel {
     return SkillsViewModel(createTicketUseCase, payTicketUseCase, getTicketUseCase,
-        GET_ROOM_RETRY_MILLIS)
+        GET_ROOM_RETRY_MILLIS, loginUseCase)
   }
 
   @Provides
-  fun providesGetRoomUseCase(walletAddressObtainer: WalletAddressObtainer,
-                             ewtObtainer: EwtObtainer,
-                             ticketRepository: TicketRepository): GetTicketUseCase {
+  fun providesLoginUseCase(ewtObtainer: EwtObtainer,
+                           loginRepository: LoginRepository): LoginUseCase {
+    return LoginUseCase(ewtObtainer, loginRepository)
+  }
+
+  @Provides
+  fun providesLoginRepository(roomApi: RoomApi): LoginRepository {
+    return LoginRepository(roomApi)
+  }
+
+  @Provides
+  fun providesGetTicketUseCase(walletAddressObtainer: WalletAddressObtainer,
+                               ewtObtainer: EwtObtainer,
+                               ticketRepository: TicketRepository): GetTicketUseCase {
     return GetTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
   }
 
   @Provides
-  fun providesRoomRepository(@Named("default") client: OkHttpClient): RoomRepository {
+  fun providesRoomRepository(roomApi: RoomApi): RoomRepository {
+    return RoomRepository(roomApi)
+  }
+
+  @Provides
+  fun providesRoomApi(@Named("default") client: OkHttpClient): RoomApi {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
         .create()
 
-    val api = Retrofit.Builder()
+    return Retrofit.Builder()
         .baseUrl(ENDPOINT)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(RoomApi::class.java)
-
-    return RoomRepository(api)
   }
 
   @Provides
