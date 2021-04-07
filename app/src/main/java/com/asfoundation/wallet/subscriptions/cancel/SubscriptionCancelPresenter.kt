@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.subscriptions.cancel
 
-import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
@@ -18,18 +17,10 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
 
   fun present() {
     view.setTransitionName(data.transitionName)
-    if (canCancelSubscription(data.subscriptionItem.status)) {
-      view.showSubscriptionDetails(data.subscriptionItem)
-    } else {
-      view.showCancelError()
-    }
+    view.showSubscriptionDetails(data.subscriptionItem)
     handleCancelClicks()
     handleBackClicks()
     handleNoNetworkRetryClicks()
-  }
-
-  private fun canCancelSubscription(status: Status): Boolean {
-    return status == Status.ACTIVE || status == Status.PAUSED || status == Status.GRACE
   }
 
   private fun onError(throwable: Throwable) {
