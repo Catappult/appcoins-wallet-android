@@ -64,8 +64,9 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
         view.getRetryNetworkClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.showNoNetworkRetryAnimation() }
-            .delay(1, TimeUnit.SECONDS)
             .observeOn(networkScheduler)
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
             .doOnNext { loadSubscriptions() }
             .subscribe({}, { it.printStackTrace() }))
   }
@@ -75,7 +76,9 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
         view.getRetryGenericClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.showGenericRetryAnimation() }
+            .observeOn(networkScheduler)
             .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
             .doOnNext { loadSubscriptions() }
             .subscribe({}, { it.printStackTrace() }))
   }
