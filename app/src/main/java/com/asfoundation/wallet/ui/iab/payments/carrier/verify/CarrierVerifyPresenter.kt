@@ -48,10 +48,10 @@ class CarrierVerifyPresenter(
         .observeOn(viewScheduler)
         .doOnSuccess {
           if (it.shouldFilter()) {
-            view.filterCountries(it.countryList, it.convertListToString())
+            view.filterCountries(it.convertListToString(), it.defaultCountry)
           }
           val phoneNumber = interactor.retrievePhoneNumber()
-          if(phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
+          if (phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
           else view.hideSavedPhoneNumber()
           view.showPhoneNumberLayout()
         }
