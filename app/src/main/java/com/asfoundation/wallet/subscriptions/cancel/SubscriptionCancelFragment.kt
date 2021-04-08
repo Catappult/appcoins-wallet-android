@@ -21,9 +21,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_subscription_cancel.*
-import kotlinx.android.synthetic.main.fragment_subscription_cancel.loading_animation
-import kotlinx.android.synthetic.main.fragment_subscription_cancel.no_network_retry_only_layout
-import kotlinx.android.synthetic.main.fragment_subscription_list.*
 import kotlinx.android.synthetic.main.layout_subscription_info.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
@@ -132,7 +129,6 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
   }
 
   override fun showNoNetworkError() {
-    main_layout.visibility = View.GONE
     retry_animation.visibility = View.GONE
     layout_content.visibility = View.GONE
     error.visibility = View.GONE

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.subscriptions.cancel
 
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.asfoundation.wallet.util.isNoNetworkException
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
@@ -37,17 +38,19 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
         .doOnNext { view.showLoading() }
         .subscribeOn(viewScheduler)
         .observeOn(networkScheduler)
-        .flatMapSingle {
+        .flatMap {
           subscriptionInteractor.cancelSubscription(data.subscriptionItem.packageName,
               data.subscriptionItem.uid)
               .observeOn(viewScheduler)
-              .doOnSuccess {
-                if (it) navigator.showCancelSuccess()
-                else view.showCancelError()
+              .doOnComplete {
+                navigator.showCancelSuccess()
               }
+              .doOnError { onError(it) }
+              .onErrorComplete()
+              .andThen(Observable.just(Unit))
         }
         .observeOn(viewScheduler)
-        .subscribe({}, { onError(it) }))
+        .subscribe {})
   }
 
   private fun handleBackClicks() {
@@ -63,8 +66,9 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
         view.getRetryNetworkClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.showNoNetworkRetryAnimation() }
-            .delay(1, TimeUnit.SECONDS)
             .observeOn(networkScheduler)
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
             .doOnNext { view.showSubscriptionDetails(data.subscriptionItem) }
             .subscribe({}, { it.printStackTrace() }))
   }

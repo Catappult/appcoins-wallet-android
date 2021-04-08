@@ -2,6 +2,7 @@ package com.asfoundation.wallet.subscriptions
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -14,9 +15,9 @@ class UserSubscriptionsInteractor(private val walletService: WalletService,
         .flatMapObservable { userSubscriptionRepository.getUserSubscriptions(it, freshReload) }
   }
 
-  fun cancelSubscription(packageName: String, uid: String): Single<Boolean> {
+  fun cancelSubscription(packageName: String, uid: String): Completable {
     return walletService.getAndSignCurrentWalletAddress()
-        .flatMap {
+        .flatMapCompletable {
           remoteRepository.cancelSubscription(packageName, uid, it.address, it.signedAddress)
         }
   }
