@@ -13,8 +13,7 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
                                   private val navigator: SubscriptionCancelNavigator,
                                   private val disposables: CompositeDisposable,
                                   private val networkScheduler: Scheduler,
-                                  private val viewScheduler: Scheduler
-) {
+                                  private val viewScheduler: Scheduler) {
 
   fun present() {
     view.setTransitionName(data.transitionName)
