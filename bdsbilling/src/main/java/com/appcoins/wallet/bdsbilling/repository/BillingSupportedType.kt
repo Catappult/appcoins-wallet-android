@@ -6,6 +6,8 @@ enum class BillingSupportedType {
 
   companion object {
 
+    const val SUBS_TYPE = "subs"
+
     @JvmStatic
     fun valueOfInsensitive(value: String): BillingSupportedType {
       return values().firstOrNull { it.name.equals(value, true) }
@@ -32,7 +34,7 @@ enum class BillingSupportedType {
     fun valueOfItemType(value: String): BillingSupportedType {
       return when {
         value.equals(INAPP.name, true) -> INAPP
-        value.equals("subs", true) -> INAPP_SUBSCRIPTION
+        value.equals(SUBS_TYPE, true) -> INAPP_SUBSCRIPTION
         else -> {
           throw IllegalArgumentException(Throwable("$value is not a product type supported"))
         }
