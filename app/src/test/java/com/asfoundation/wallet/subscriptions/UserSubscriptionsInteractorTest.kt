@@ -3,6 +3,7 @@ package com.asfoundation.wallet.subscriptions
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -59,14 +60,13 @@ class UserSubscriptionsInteractorTest {
         .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS)))
     Mockito.`when`(remoteRepository.cancelSubscription("packageName", "uid", TEST_WALLET_ADDRESS,
         TEST_WALLET_ADDRESS))
-        .thenReturn(Single.just(true))
+        .thenReturn(Completable.complete())
     val observer = TestObserver<Boolean>()
 
     interactor.cancelSubscription("packageName", "uid")
         .subscribe(observer)
 
-    observer.assertNoErrors()
-        .assertValue { it }
+    observer.assertComplete()
   }
 
   @Test
