@@ -41,7 +41,10 @@ data class PromotionEntity(
     val amount: BigDecimal? = null,
     @ColumnInfo(name = "current_progress")
     val currentProgress: BigDecimal? = null,
-    val description: String? = null,
+    @ColumnInfo(name = "notification_description")
+    val notificationDescription: String? = null,
+    @ColumnInfo(name = "perk_description")
+    val perkDescription: String? = null,
     @ColumnInfo(name = "end_date")
     val endDate: Long? = null,
     val icon: String? = null,
