@@ -12,7 +12,7 @@ import com.appcoins.wallet.gamification.repository.entity.WalletOriginEntity
 
 @Database(
     entities = [PromotionEntity::class, LevelsEntity::class, LevelEntity::class, WalletOriginEntity::class],
-    version = 3)
+    version = 4)
 @TypeConverters(PromotionConverter::class)
 abstract class PromotionDatabase : RoomDatabase() {
 
@@ -29,6 +29,23 @@ abstract class PromotionDatabase : RoomDatabase() {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
             "CREATE TABLE IF NOT EXISTS WalletOriginEntity (wallet_address TEXT PRIMARY KEY NOT NULL, wallet_origin TEXT NOT NULL)")
+      }
+    }
+
+    //Changes the primary key of promotions table to one that can uniquely identify each promotion
+    //(since the 'id' field can be the same for several promotions)
+    val MIGRATION_3_4: Migration = object : Migration(3, 4) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        //Since this involves changing the table structure (primary key), 4 steps need to be done:
+        // 1. Create a new table containing the new primary key, and all existing fields
+        database.execSQL(
+            "CREATE TABLE PromotionEntityNew (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` TEXT NOT NULL, `priority` INTEGER NOT NULL, `bonus` REAL, `total_spend` TEXT, `total_earned` TEXT, `level` INTEGER, `next_level_amount` TEXT, `status` TEXT, `max_amount` TEXT, `available` INTEGER, `bundle` INTEGER, `completed` INTEGER, `currency` TEXT, `symbol` TEXT, `invited` INTEGER, `link` TEXT, `pending_amount` TEXT, `received_amount` TEXT, `user_status` TEXT, `min_amount` TEXT, `amount` TEXT, `current_progress` TEXT, `description` TEXT, `end_date` INTEGER, `icon` TEXT, `linked_promotion_id` TEXT, `objective_progress` TEXT, `start_date` INTEGER, `title` TEXT, `view_type` TEXT, `details_link` TEXT)")
+        // 2. Copy the content from the old table to the new table
+        database.execSQL("INSERT INTO PromotionEntityNew(id, priority, bonus, total_spend, total_earned, level, next_level_amount, status, max_amount, available, bundle, completed, currency, symbol, invited, link, pending_amount, received_amount, user_status, min_amount, amount, current_progress, description, end_date, icon, linked_promotion_id, objective_progress, start_date, view_type, details_link) SELECT id, priority, bonus, total_spend, total_earned, level, next_level_amount, status, max_amount, available, bundle, completed, currency, symbol, invited, link, pending_amount, received_amount, user_status, min_amount, amount, current_progress, description, end_date, icon, linked_promotion_id, objective_progress, start_date, view_type, details_link FROM PromotionEntity")
+        // 3. Remove the old table
+        database.execSQL("DROP TABLE PromotionEntity")
+        // 4. Rename the new table to the old table's name
+        database.execSQL("ALTER TABLE PromotionEntityNew RENAME TO PromotionEntity")
       }
     }
   }

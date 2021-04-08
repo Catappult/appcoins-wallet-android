@@ -6,6 +6,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import java.util.*
 
 class RatingInteractor(private val ratingRepository: RatingRepository,
                        private val gamificationInteractor: GamificationInteractor,
@@ -45,7 +46,9 @@ class RatingInteractor(private val ratingRepository: RatingRepository,
 
   fun sendUserFeedback(feedbackText: String): Completable {
     return walletService.getWalletAddress()
-        .flatMap { address -> ratingRepository.sendFeedback(address, feedbackText) }
+        .flatMap { address ->
+          ratingRepository.sendFeedback(address.toLowerCase(Locale.ROOT), feedbackText)
+        }
         .ignoreElement()
         .subscribeOn(ioScheduler)
   }

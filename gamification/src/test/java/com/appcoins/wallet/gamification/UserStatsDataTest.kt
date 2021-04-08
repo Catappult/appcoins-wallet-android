@@ -53,7 +53,6 @@ class UserStatsDataTest : UserStatsLocalData {
 
   override fun getGamificationLevel(): Int = GamificationStats.INVALID_LEVEL
 
-  override fun deletePromotions(): Completable = Completable.complete()
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     val aux = userStatusResponse!!
@@ -61,7 +60,7 @@ class UserStatsDataTest : UserStatsLocalData {
     return aux
   }
 
-  override fun insertPromotions(promotions: List<PromotionsResponse>): Completable {
+  override fun deleteAndInsertPromotions(promotions: List<PromotionsResponse>): Completable {
     return Completable.complete()
   }
 
