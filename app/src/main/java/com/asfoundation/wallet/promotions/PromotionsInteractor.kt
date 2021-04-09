@@ -251,8 +251,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     val gamificationItem = promotions[1] as GamificationItem
     gamificationItem.links.add(
         GamificationLinkItem(genericResponse.id, genericResponse.perkDescription,
-            genericResponse.icon,
-            genericResponse.startDate, genericResponse.endDate))
+            genericResponse.icon, genericResponse.startDate, genericResponse.endDate))
   }
 
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
