@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing.carrierbilling
 
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
+import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.util.isNoNetworkException
 import okhttp3.ResponseBody
@@ -80,7 +81,7 @@ class CarrierResponseMapper(private val retrofit: Retrofit) {
     return null
   }
 
-  fun mapList(countryList: List<String>): AvailableCountryListModel {
-    return AvailableCountryListModel(countryList)
+  fun mapList(countryList: CountryListResponse): AvailableCountryListModel {
+    return AvailableCountryListModel(countryList.items, countryList.default)
   }
 }

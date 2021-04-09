@@ -115,11 +115,10 @@ class CarrierVerifyFragment : DaggerFragment(), CarrierVerifyView {
     payment_methods_header.setIcon(icon)
   }
 
-  override fun filterCountries(countryList: List<String>, countryListString: String) {
+  override fun filterCountries(countryListString: String, defaultCountry: String?) {
     country_code_picker.setCustomMasterCountries(countryListString)
-    if (!countryList.contains(
-            country_code_picker.selectedCountryNameCode.toLowerCase(Locale.ROOT))) {
-      country_code_picker.setCountryForNameCode(countryList[0])
+    defaultCountry?.let { country ->
+      country_code_picker.setCountryForNameCode(country)
       country_code_picker.holder.requestLayout()
     }
   }
