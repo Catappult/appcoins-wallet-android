@@ -51,8 +51,9 @@ abstract class PromotionDatabase : RoomDatabase() {
     }
 
     // It creates two new field descriptions (notification_description, perk_description)
-    // and copies the old description to both fields. We could just rename one of them,
-    // but the other one we couldn't copy the value without having to create a new table.
+    // and copies the old description to both fields. There are cleaner workarounds, like
+    // renaming one of them and copying the contents to the other column but these operations are
+    // not supported in the API we support.
     val MIGRATION_4_5: Migration = object : Migration(4, 5) {
       override fun migrate(database: SupportSQLiteDatabase) {
         // Creates new table with two new fields: notification_description, perk_description
