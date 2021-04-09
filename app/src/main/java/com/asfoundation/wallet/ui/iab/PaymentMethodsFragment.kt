@@ -403,7 +403,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showSubscribe() {
-    buy_button.text = "Subscribe"
+    buy_button.text = getString(R.string.subscriptions_subscribe_button)
   }
 
   override fun showShareLink(selectedPaymentMethod: String) {

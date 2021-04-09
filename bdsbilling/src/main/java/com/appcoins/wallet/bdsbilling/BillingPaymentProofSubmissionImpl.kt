@@ -88,9 +88,9 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   class Builder {
     private var walletService: WalletService? = null
     private var networkScheduler: Scheduler = Schedulers.io()
-    private var api: BdsApi? = null//TODO Rename BdsInAppApi
+    private var api: BdsApi? = null
     private var bdsApiSecondary: BdsApiSecondary? = null
-    private var subscriptionApi: SubscriptionBillingApi? = null//TODO Rename BdsSubscriptionApi
+    private var subscriptionApi: SubscriptionBillingApi? = null
 
     fun setApi(bdsApi: BdsApi) = apply { api = bdsApi }
 

@@ -44,7 +44,10 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
     val expiredSubs = subscriptionModel.expiredSubscriptions
     val bothEmpty = activeSubs.isEmpty() && expiredSubs.isEmpty()
     when {
-      subscriptionModel.error == SubscriptionModel.Error.NO_NETWORK && !view.hasItems() -> view.showNoNetworkError() //If we have items from db then we should not show a no network error. If it's empty then we should show to the user
+      subscriptionModel.error == SubscriptionModel.Error.NO_NETWORK -> {
+        //If we have items from db then we should not show a no network error. If it's empty then we should show to the user
+        if (!view.hasItems()) view.showNoNetworkError()
+      }
       bothEmpty && !subscriptionModel.fromCache -> view.showNoSubscriptions()
       bothEmpty.not() -> {
         //Both from cache and not from cache
@@ -61,8 +64,9 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
         view.getRetryNetworkClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.showNoNetworkRetryAnimation() }
-            .delay(1, TimeUnit.SECONDS)
             .observeOn(networkScheduler)
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
             .doOnNext { loadSubscriptions() }
             .subscribe({}, { it.printStackTrace() }))
   }
@@ -72,7 +76,9 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
         view.getRetryGenericClicks()
             .observeOn(viewScheduler)
             .doOnNext { view.showGenericRetryAnimation() }
+            .observeOn(networkScheduler)
             .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
             .doOnNext { loadSubscriptions() }
             .subscribe({}, { it.printStackTrace() }))
   }

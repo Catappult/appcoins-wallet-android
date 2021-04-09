@@ -197,10 +197,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   fun cancelSubscription(packageName: String, uid: String, walletAddress: String,
-                         walletSignature: String): Single<Boolean> {
+                         walletSignature: String): Completable {
     return subsApi.cancelSubscription(packageName, uid, walletAddress, walletSignature)
-        .toSingle { true }
-        .onErrorReturn { false }
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,

@@ -266,7 +266,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setBuyButtonText(): String {
-    return if (isSubscription) "Subscribe"
+    return if (isSubscription) getString(R.string.subscriptions_subscribe_button)
     else {
       if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
     }
