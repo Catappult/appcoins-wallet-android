@@ -54,7 +54,8 @@ data class PromotionEntity(
     val objectiveProgress: BigDecimal? = null,
     @ColumnInfo(name = "start_date")
     val startDate: Long? = null,
-    val title: String? = null,
+    @ColumnInfo(name = "notification_title")
+    val notificationTitle: String? = null,
     @ColumnInfo(name = "view_type")
     val viewType: String? = null,
     @ColumnInfo(name = "details_link")

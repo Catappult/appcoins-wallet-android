@@ -97,7 +97,7 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
         else ->
           GenericResponse(it.id, it.priority, it.currentProgress, it.notificationDescription,
               it.perkDescription, it.endDate!!, it.icon, it.linkedPromotionId, it.objectiveProgress,
-              it.startDate, it.title!!, it.viewType!!, it.detailsLink)
+              it.startDate, it.notificationTitle!!, it.viewType!!, it.detailsLink)
       }
     }
   }
@@ -127,7 +127,8 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
                 endDate = genericResponse.endDate, icon = genericResponse.icon,
                 linkedPromotionId = genericResponse.linkedPromotionId,
                 objectiveProgress = genericResponse.objectiveProgress,
-                startDate = genericResponse.startDate, title = genericResponse.notificationTitle,
+                startDate = genericResponse.startDate,
+                notificationTitle = genericResponse.notificationTitle,
                 viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink)
           }
         }
