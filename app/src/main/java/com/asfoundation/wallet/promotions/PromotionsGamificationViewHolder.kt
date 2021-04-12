@@ -18,5 +18,4 @@ class PromotionsGamificationViewHolder(itemView: View) : RecyclerView.ViewHolder
 
     itemView.link_description.text = gamificationLinkItem.description
   }
-
 }

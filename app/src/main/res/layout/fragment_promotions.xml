@@ -7,24 +7,111 @@
     android:background="@color/white"
     >
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rv_promotions"
+  <include
+      android:id="@+id/app_bar"
+      layout="@layout/layout_app_bar"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="@dimen/big_margin"
-      android:orientation="vertical"
-      android:overScrollMode="never"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageButton
+      android:id="@+id/gamification_info_btn"
+      android:layout_width="48dp"
+      android:layout_height="40dp"
+      android:background="?android:attr/selectableItemBackgroundBorderless"
+      android:clickable="true"
+      android:elevation="10dp"
+      android:focusable="true"
+      android:paddingTop="16dp"
+      android:paddingEnd="15dp"
+      android:scaleType="centerInside"
+      android:src="@drawable/ic_info"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginTop="?attr/actionBarSize"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:listitem="@layout/item_promotions_gamification"
-      />
+      >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_promotions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/big_margin"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_promotions_gamification"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/promotions_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <include
+        android:id="@+id/no_network"
+        layout="@layout/no_network_retry_only_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <include
+        android:id="@+id/no_promotions"
+        layout="@layout/no_promotions_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <include
+        android:id="@+id/locked_promotions"
+        layout="@layout/locked_promotions_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/half_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.68"
+        />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:id="@+id/bottomsheet_coordinator_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
       android:background="@color/bottom_sheet_translucent_background"
       android:clickable="true"
       android:elevation="2dp"
@@ -47,53 +134,4 @@
         />
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-  <ProgressBar
-      android:id="@+id/promotions_progress_bar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:indeterminateDrawable="@drawable/gradient_progress"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <include
-      android:id="@+id/no_network"
-      layout="@layout/no_network_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <include
-      android:id="@+id/no_promotions"
-      layout="@layout/no_promotions_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <include
-      android:id="@+id/locked_promotions"
-      layout="@layout/locked_promotions_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/half_guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.68"
-      />
 </androidx.constraintlayout.widget.ConstraintLayout>
