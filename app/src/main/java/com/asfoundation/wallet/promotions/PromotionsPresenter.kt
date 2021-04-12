@@ -2,7 +2,6 @@ package com.asfoundation.wallet.promotions
 
 import android.content.ActivityNotFoundException
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
-import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Scheduler
@@ -21,6 +20,7 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   fun present() {
     handlePromotionClicks()
+    handleGamificationInfoClicks()
     handleRetryClick()
     handleBottomSheetVisibility()
     handleBackPress()
@@ -95,6 +95,13 @@ class PromotionsPresenter(private val view: PromotionsView,
         .subscribe({}, { handleError(it) }))
   }
 
+  private fun handleGamificationInfoClicks() {
+    disposables.add(view.getGamificationInfoClicks()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showBottomSheet() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
   private fun handlePromotionClicks() {
     disposables.add(view.getPromotionClicks()
         .observeOn(viewScheduler)
@@ -105,7 +112,6 @@ class PromotionsPresenter(private val view: PromotionsView,
   private fun mapClickType(promotionClick: PromotionClick) {
     when (promotionClick.id) {
       GAMIFICATION_ID -> navigator.navigateToGamification(cachedBonus)
-      GAMIFICATION_INFO -> view.showBottomSheet()
       REFERRAL_ID -> mapReferralClick(promotionClick.extras)
       else -> mapPackagePerkClick(promotionClick.extras)
     }

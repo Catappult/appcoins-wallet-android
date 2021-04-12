@@ -7,7 +7,6 @@ import androidx.annotation.PluralsRes
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -241,10 +240,6 @@ class GamificationViewHolder(itemView: View,
           formatter.formatGamificationValues(gamificationItem.toNextLevelAmount))
     } else {
       itemView.planet_subtitle.visibility = View.INVISIBLE
-    }
-
-    itemView.gamification_info_btn.setOnClickListener {
-      clickListener.onNext(PromotionClick(GAMIFICATION_INFO))
     }
 
     handleLinks(gamificationItem.links, itemView)
