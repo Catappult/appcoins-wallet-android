@@ -84,6 +84,7 @@ class TransactionMapper {
       TransactionEntity.TransactionType.TOP_UP_REVERT -> Transaction.TransactionType.TOP_UP_REVERT
       TransactionEntity.TransactionType.BONUS_REVERT -> Transaction.TransactionType.BONUS_REVERT
       TransactionEntity.TransactionType.IAP_REVERT -> Transaction.TransactionType.IAP_REVERT
+      TransactionEntity.TransactionType.REFUND -> Transaction.TransactionType.REFUND
     }
   }
 
@@ -147,6 +148,7 @@ class TransactionMapper {
       Transaction.TransactionType.BONUS_REVERT -> TransactionEntity.TransactionType.BONUS_REVERT
       Transaction.TransactionType.TOP_UP_REVERT -> TransactionEntity.TransactionType.TOP_UP_REVERT
       Transaction.TransactionType.IAP_REVERT -> TransactionEntity.TransactionType.IAP_REVERT
+      Transaction.TransactionType.REFUND -> TransactionEntity.TransactionType.REFUND
     }
   }
 
