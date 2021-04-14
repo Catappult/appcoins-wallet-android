@@ -37,12 +37,12 @@ import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.overlay.OverlayFragment;
-import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.ExtensionFunctionUtilsKt;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -90,6 +90,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private View tooltip;
   private PopupWindow popup;
   private View fadedBackground;
+  private View cards;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -127,7 +128,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
       subtitleView.setAlpha(alpha);
       balanceSkeleton.setAlpha(alpha);
-      ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
+      //((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
 
       if (percentage == 0) {
         ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
@@ -146,19 +147,45 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
         this::onNotificationClick, formatter);
 
-    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-      @Override public void onItemRangeInserted(int positionStart, int itemCount) {
-        if (showScroll) {
-          linearLayoutManager.smoothScrollToPosition(list, null, 0);
-          showScroll = false;
-        }
-      }
-    });
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
+    int cardsBgHeight = ExtensionFunctionUtilsKt.convertDpToPx(138, getResources());
+    refreshLayout.setProgressViewOffset(true, cardsBgHeight, cardsBgHeight + 100);
     systemView = findViewById(R.id.system_view);
     list = findViewById(R.id.list);
     list.setAdapter(adapter);
     list.setLayoutManager(linearLayoutManager);
+    list.setVisibility(View.VISIBLE);
+    systemView.setVisibility(View.GONE);
+
+    linearLayoutManager.setSmoothScrollbarEnabled(true);
+    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+      @Override public void onItemRangeInserted(int positionStart, int itemCount) {
+        list.post(() -> list.smoothScrollToPosition(0));
+        if (showScroll) {
+          showScroll = false;
+        }
+      }
+    });
+
+    //list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+    //  @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+    //    super.onScrolled(recyclerView, dx, dy);
+    //    int scrollY = list.computeVerticalScrollOffset();
+    //    int cardsHeight = ExtensionFunctionUtilsKt.convertDpToPx(96, getResources());
+    //    //cards.setTranslationY(-ExtensionFunctionUtilsKt.convertDpToPx(200, getResources())
+    //    -scrollY);
+    //    ViewGroup.LayoutParams params = cards.getLayoutParams();
+    //    int height = cardsHeight - scrollY;
+    //    if(height < 1) height = 1;
+    //    if(height > ExtensionFunctionUtilsKt.convertDpToPx(96, getResources())) {
+    //      height = ExtensionFunctionUtilsKt.convertDpToPx(96, getResources());
+    //    }
+    //    params.height = height;
+    //    cards.setLayoutParams(params);
+    //
+    //    Log.i("SCROLLED!", "scrollY: " + scrollY + " height: " + height);
+    //  }
+    //});
 
     systemView.attachRecyclerView(list);
     systemView.attachSwipeRefreshLayout(refreshLayout);
@@ -324,7 +351,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         disposables = new CompositeDisposable();
       }
       adapter.clear();
-      list.setVisibility(View.GONE);
+      //list.setVisibility(View.GONE);
       viewModel.prepare();
       viewModel.updateConversationCount();
       viewModel.handleUnreadConversationCount();
@@ -387,8 +414,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onTransactionsModel(TransactionsModel transactionsModel) {
+    list.setVisibility(View.VISIBLE);
+    systemView.setVisibility(View.GONE);
+
     adapter.addItems(transactionsModel);
-    showList();
+    //showList();
   }
 
   private void showList() {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:gravity="bottom">
+    <shape>
+      <size android:height="316dp" />
+      <gradient
+          android:angle="45"
+          android:endColor="@color/appbar_end_gradient_color"
+          android:startColor="@color/appbar_start_gradient_color"
+          android:type="linear"
+          android:useLevel="false" />
+      <corners
+          android:bottomLeftRadius="12dp"
+          android:bottomRightRadius="12dp" />
+    </shape>
+  </item>
+
+</layer-list>

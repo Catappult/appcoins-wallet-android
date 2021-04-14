@@ -19,6 +19,7 @@
       app:layout_anchorGravity="start|top"
       />
 
+
   <include
       layout="@layout/layout_transactions_activity"
       android:layout_width="match_parent"
