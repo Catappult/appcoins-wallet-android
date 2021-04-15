@@ -26,5 +26,5 @@ class TicketRepository(private val ticketApi: TicketApi) {
   }
 
   private fun buildTicketRequest(userId: String, walletAddress: String) =
-      TicketRequest("testing", userId, walletAddress, emptyMap())
+      TicketRequest("com.appcoins.eskills2048.dev", userId, walletAddress, emptyMap())
 }
