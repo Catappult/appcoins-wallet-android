@@ -1,5 +1,6 @@
 package cm.aptoide.skills
 
+import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.usecase.CreateTicketUseCase
@@ -17,10 +18,10 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val getTicketRetryMillis: Long,
                       private val loginUseCase: LoginUseCase) {
 
-  fun getRoom(userId: String): Observable<UserData> {
+  fun getRoom(userId: String, fragment: Fragment): Observable<UserData> {
     return createTicketUseCase.createTicket(userId)
         .flatMap { ticketResponse ->
-          payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl)
+          payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl, fragment)
               .flatMap {
                 val roomIdPresent = AtomicBoolean(false)
 
@@ -46,5 +47,13 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
     if (ticketResponse.roomId != null) {
       roomIdPresent.set(true)
     }
+  }
+
+  fun getPayTicketRequestCode(): Int {
+    return PayTicketUseCase.RC_ONE_STEP
+  }
+
+  fun payTicketOnActivityResult(resultCode: Int, txHash: String?) {
+
   }
 }

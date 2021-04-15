@@ -23,6 +23,7 @@ class SkillsFragment : DaggerFragment() {
     private const val ROOM_ID = "ROOM_ID"
     private const val WALLET_ADDRESS = "WALLET_ADDRESS"
     private const val JWT = "JWT"
+    private const val TRANSACTION_HASH = "transaction_hash"
   }
 
   @Inject
@@ -47,7 +48,7 @@ class SkillsFragment : DaggerFragment() {
       userId = intent.getStringExtra(USER_ID)
 
       binding.findOpponentButton.setOnClickListener {
-        disposable.add(viewModel.getRoom(userId)
+        disposable.add(viewModel.getRoom(userId, this)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe({ showLoading(R.string.finding_room) })
             .doOnNext({ userData ->
@@ -59,6 +60,15 @@ class SkillsFragment : DaggerFragment() {
       }
     } else {
       showError(R.string.no_user_id)
+    }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode == viewModel.getPayTicketRequestCode()) {
+      viewModel.payTicketOnActivityResult(resultCode, data!!.extras
+      !!.getString(TRANSACTION_HASH))
+    } else {
+      super.onActivityResult(requestCode, resultCode, data)
     }
   }
 
