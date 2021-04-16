@@ -92,7 +92,6 @@
           style="@style/Widget.MaterialComponents.Button.TextButton"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/button_height"
-          android:backgroundTint="@color/white"
           android:fontFamily="sans-serif-medium"
           android:letterSpacing="0.09"
           android:lineSpacingExtra="0sp"

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository
 
+import android.content.SharedPreferences
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -14,6 +15,12 @@ interface PreferencesRepositoryType {
   fun setOnboardingSkipClicked()
 
   fun getCurrentWalletAddress(): String?
+
+  fun addChangeListener(
+      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener)
+
+  fun removeChangeListener(
+      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener)
 
   fun setCurrentWalletAddress(address: String)
 

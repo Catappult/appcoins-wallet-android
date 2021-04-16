@@ -8,7 +8,7 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   companion object {
 
-    private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
+    const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
     private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
     private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
 
@@ -42,6 +42,16 @@ class SharedPreferencesRepository(private val pref: SharedPreferences) : Prefere
 
   override fun getCurrentWalletAddress(): String? {
     return pref.getString(CURRENT_ACCOUNT_ADDRESS_KEY, null)
+  }
+
+  override fun addChangeListener(
+      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener) {
+    pref.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+  }
+
+  override fun removeChangeListener(
+      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener) {
+    pref.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
   }
 
   override fun setCurrentWalletAddress(address: String) {

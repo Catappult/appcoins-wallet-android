@@ -151,6 +151,6 @@ public class SendViewModel extends BaseViewModel {
   }
 
   public void showTransactions(Context context) {
-    transactionsRouter.open(context, true);
+    transactionsRouter.open(context, false);
   }
 }

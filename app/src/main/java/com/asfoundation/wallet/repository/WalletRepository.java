@@ -1,11 +1,15 @@
 package com.asfoundation.wallet.repository;
 
+import android.content.SharedPreferences;
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics;
 import com.asfoundation.wallet.analytics.AnalyticsSetup;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.WalletBalanceService;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.math.BigDecimal;
@@ -78,15 +82,40 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override public Single<Wallet> getDefaultWallet() {
-    return Single.fromCallable(() -> {
-      String currentWalletAddress = preferencesRepositoryType.getCurrentWalletAddress();
-      if (currentWalletAddress == null) {
-        throw new WalletNotFoundException();
-      } else {
-        return currentWalletAddress;
-      }
-    })
+    return Single.fromCallable(this::getDefaultWalletAddress)
         .flatMap(this::findWallet);
+  }
+
+  private String getDefaultWalletAddress() {
+    String currentWalletAddress = preferencesRepositoryType.getCurrentWalletAddress();
+    if (currentWalletAddress == null) {
+      throw new WalletNotFoundException();
+    } else {
+      return currentWalletAddress;
+    }
+  }
+
+  private void emitWalletAddress(ObservableEmitter<String> emitter) {
+    try {
+      String walletAddress = getDefaultWalletAddress();
+      emitter.onNext(walletAddress);
+    } catch (WalletNotFoundException e) {
+      emitter.tryOnError(e);
+    }
+  }
+
+  public Observable<Wallet> observeDefaultWallet() {
+    return Observable.create((ObservableOnSubscribe<String>) emitter -> {
+      SharedPreferences.OnSharedPreferenceChangeListener listener = (sharedPreferences, key) -> {
+        if (key.equals(SharedPreferencesRepository.CURRENT_ACCOUNT_ADDRESS_KEY)) {
+          emitWalletAddress(emitter);
+        }
+      };
+      emitter.setCancellable(() -> preferencesRepositoryType.removeChangeListener(listener));
+      emitWalletAddress(emitter);
+      preferencesRepositoryType.addChangeListener(listener);
+    })
+        .flatMapSingle(this::findWallet);
   }
 
   @NotNull @Override public Single<BigDecimal> getEthBalanceInWei(String address) {

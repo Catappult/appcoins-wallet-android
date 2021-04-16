@@ -222,7 +222,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::changeBottomNavigationName);
     viewModel.shouldShowRateUsDialog()
         .observe(this, this::navigateToRateUs);
-    refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
+    refreshLayout.setOnRefreshListener(() -> viewModel.refreshTransactions(true));
 
     if (savedInstanceState == null) {
       boolean fromAppOpening = getIntent().getBooleanExtra(FROM_APP_OPENING_FLAG, false);
@@ -313,12 +313,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
-    if (emptyView == null) {
-      emptyView =
-          new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this,
-              disposables);
-      systemView.showEmpty(emptyView);
-    }
+    emptyView =
+        new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this,
+            disposables);
+    systemView.showEmpty(emptyView);
   }
 
   private void onApplicationClick(AppcoinsApplication appcoinsApplication,
@@ -337,7 +335,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onPause() {
     super.onPause();
-    viewModel.pause();
+    viewModel.stopRefreshingData();
     disposables.dispose();
   }
 
@@ -346,15 +344,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     boolean supportNotificationClick =
         getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
     if (!supportNotificationClick) {
-      emptyView = null;
       if (disposables.isDisposed()) {
         disposables = new CompositeDisposable();
       }
-      adapter.clear();
-      //list.setVisibility(View.GONE);
-      viewModel.prepare();
-      viewModel.updateConversationCount();
-      viewModel.handleUnreadConversationCount();
+      viewModel.updateData();
       checkRoot();
       Intercom.client()
           .handlePushMessage();
@@ -367,7 +360,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
     supportActionView = menu.findItem(R.id.action_support);
-    viewModel.handleUnreadConversationCount();
     viewModel.shouldShowFingerprintTooltip()
         .observe(this, this::showFingerprintTooltip);
     viewModel.handleFingerprintTooltipVisibility(getPackageName());
@@ -375,40 +367,30 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   @Override public void onClick(View view) {
-    switch (view.getId()) {
-      case R.id.try_again: {
-        viewModel.fetchTransactions(true);
-        break;
-      }
-      case R.id.top_up_btn: {
-        viewModel.showTopUp(this);
-        break;
-      }
-      case R.id.empty_clickable_view: {
-        viewModel.showTokens(this);
-        break;
-      }
+    int id = view.getId();
+    if (view.getId() == R.id.try_again) {
+      viewModel.refreshTransactions(true);
+    } else if (id == R.id.top_up_btn) {
+      viewModel.showTopUp(this);
+    } else if (id == R.id.empty_clickable_view) {
+      viewModel.showTokens(this);
     }
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_promotions: {
-        navigateToPromotions(false);
-        return true;
-      }
-      case R.id.action_my_address: {
-        viewModel.showMyAddress(this);
-        return true;
-      }
-      case R.id.action_balance: {
-        viewModel.showTokens(this);
-        return true;
-      }
-      case R.id.action_send: {
-        viewModel.showSend(this);
-        return true;
-      }
+    int itemId = item.getItemId();
+    if (itemId == R.id.action_promotions) {
+      navigateToPromotions(false);
+      return true;
+    } else if (itemId == R.id.action_my_address) {
+      viewModel.showMyAddress(this);
+      return true;
+    } else if (itemId == R.id.action_balance) {
+      viewModel.showTokens(this);
+      return true;
+    } else if (itemId == R.id.action_send) {
+      viewModel.showSend(this);
+      return true;
     }
     return false;
   }
@@ -418,7 +400,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     systemView.setVisibility(View.GONE);
 
     adapter.addItems(transactionsModel);
-    //showList();
+    showList();
   }
 
   private void showList() {
@@ -443,6 +425,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onDefaultWallet(Wallet wallet) {
+    list.setVisibility(View.GONE);
     adapter.setDefaultWallet(wallet);
   }
 
@@ -452,11 +435,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
-      if (emptyView == null) {
-        emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
-            emptyTransactionsSubject, this, disposables);
-        systemView.showEmpty(emptyView);
-      }
+      emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
+          emptyTransactionsSubject, this, disposables);
+      systemView.showEmpty(emptyView);
     }
   }
 
@@ -615,7 +596,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void dismissNotification(CardNotification cardNotification) {
     showScroll = adapter.removeItem(cardNotification);
     if (showScroll) {
-      viewModel.fetchTransactions(false);
+      viewModel.refreshTransactions(false);
     }
   }
 }

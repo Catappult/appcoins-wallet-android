@@ -145,6 +145,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   }
 
   public void setDefaultWallet(Wallet wallet) {
+    clear();
     this.wallet = wallet;
     notifyDataSetChanged();
   }

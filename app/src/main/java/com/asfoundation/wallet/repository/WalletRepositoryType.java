@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.Wallet;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 
@@ -23,6 +24,8 @@ public interface WalletRepositoryType {
   Completable setDefaultWallet(String address);
 
   Single<Wallet> getDefaultWallet();
+
+  Observable<Wallet> observeDefaultWallet();
 
   Single<BigDecimal> getEthBalanceInWei(String address);
 
