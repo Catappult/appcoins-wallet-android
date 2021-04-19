@@ -18,10 +18,11 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val getTicketRetryMillis: Long,
                       private val loginUseCase: LoginUseCase) {
 
-  fun getRoom(userId: String, fragment: Fragment): Observable<UserData> {
+  fun getRoom(userId: String, packageName: String, fragment: Fragment): Observable<UserData> {
     return createTicketUseCase.createTicket(userId)
         .flatMap { ticketResponse ->
-          payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl, fragment)
+          payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
+              packageName, fragment)
               .flatMap {
                 val roomIdPresent = AtomicBoolean(false)
 

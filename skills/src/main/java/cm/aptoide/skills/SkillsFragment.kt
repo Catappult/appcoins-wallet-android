@@ -20,6 +20,7 @@ class SkillsFragment : DaggerFragment() {
     private const val RESULT_OK = 1
     private const val SESSION = "SESSION"
     private const val USER_ID = "USER_ID"
+    private const val PACKAGE_NAME = "PACKAGE_NAME"
     private const val ROOM_ID = "ROOM_ID"
     private const val WALLET_ADDRESS = "WALLET_ADDRESS"
     private const val JWT = "JWT"
@@ -46,9 +47,10 @@ class SkillsFragment : DaggerFragment() {
     val intent = requireActivity().intent
     if (intent.hasExtra(USER_ID)) {
       userId = intent.getStringExtra(USER_ID)
+      val packageName = intent.getStringExtra(PACKAGE_NAME)
 
       binding.findOpponentButton.setOnClickListener {
-        disposable.add(viewModel.getRoom(userId, this)
+        disposable.add(viewModel.getRoom(userId, packageName, this)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe({ showLoading(R.string.finding_room) })
             .doOnNext({ userData ->

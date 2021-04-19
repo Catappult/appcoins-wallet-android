@@ -9,10 +9,9 @@ import io.reactivex.Single
 
 class PayTicketUseCase(private val ticketRepository: TicketRepository) {
 
-  fun payTicket(ticketId: String, callbackUrl: String, fragment: Fragment): Single<Any> {
+  fun payTicket(ticketId: String, callbackUrl: String, packageName: String,
+                fragment: Fragment): Single<Any> {
     return Single.fromCallable {
-      val packageName = "com.appcoins.eskills2048.dev"
-
       val url: String =
           (BACKEND_HOST + "transaction/inapp?product=antifreeze&value=1.5&currency=USD"
               + "&domain="
