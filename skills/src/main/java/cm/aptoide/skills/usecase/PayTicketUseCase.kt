@@ -6,16 +6,18 @@ import android.net.Uri
 import androidx.fragment.app.Fragment
 import cm.aptoide.skills.repository.TicketRepository
 import io.reactivex.Single
+import java.math.BigDecimal
 
 class PayTicketUseCase(private val ticketRepository: TicketRepository) {
 
-  fun payTicket(ticketId: String, callbackUrl: String, packageName: String,
+  fun payTicket(ticketId: String, callbackUrl: String, price: BigDecimal,
+                priceCurrency: String, packageName: String,
                 fragment: Fragment): Single<Any> {
     return Single.fromCallable {
       val url: String =
-          (BACKEND_HOST + "transaction/inapp?product=antifreeze&value=1.5&currency=USD"
-              + "&domain="
-              + packageName + "&callback_url=" + callbackUrl + "&order_reference=" + ticketId)
+          (BACKEND_HOST + "transaction/inapp?product=antifreeze&value=" + price + "&currency=" +
+              priceCurrency + "&domain=" + packageName + "&callback_url=" + callbackUrl +
+              "&order_reference=" + ticketId)
 
       val i = Intent(Intent.ACTION_VIEW)
       i.data = Uri.parse(url)

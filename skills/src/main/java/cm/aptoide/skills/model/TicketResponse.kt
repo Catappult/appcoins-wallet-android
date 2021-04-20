@@ -1,6 +1,7 @@
 package cm.aptoide.skills.model
 
 import com.google.gson.annotations.SerializedName
+import java.math.BigDecimal
 
 data class TicketResponse(
     @SerializedName("ts")
@@ -23,6 +24,12 @@ data class TicketResponse(
 
     @SerializedName("callback_url")
     val callbackUrl: String,
+
+    @SerializedName("ticket_price")
+    val ticketPrice: BigDecimal,
+
+    @SerializedName("price_currency")
+    val priceCurrency: String,
 
     @SerializedName("room_metadata")
     val roomMetadata: Map<String, String>,
