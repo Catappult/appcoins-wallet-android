@@ -10,6 +10,9 @@ data class TicketRequest(
     @SerializedName("user_id")
     private val userId: String,
 
+    @SerializedName("user_name")
+    private val userName: String,
+
     @SerializedName("wallet_address")
     private val walletAddress: String,
 

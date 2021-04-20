@@ -8,10 +8,10 @@ import io.reactivex.Single
 
 class TicketRepository(private val ticketApi: TicketApi) {
 
-  fun createTicket(packageName: String, userId: String, ewt: String,
+  fun createTicket(packageName: String, userId: String, userName: String, ewt: String,
                    walletAddress: String): Single<TicketResponse> {
     return ticketApi.postTicket(
-        ewt, buildTicketRequest(packageName, userId, walletAddress))
+        ewt, buildTicketRequest(packageName, userId, userName, walletAddress))
   }
 
   fun getTicket(ewt: String, ticketId: String): Single<TicketResponse> {
@@ -26,6 +26,7 @@ class TicketRepository(private val ticketApi: TicketApi) {
     return PayTicketRequest(ticketId, callbackUrl)
   }
 
-  private fun buildTicketRequest(packageName: String, userId: String, walletAddress: String) =
-      TicketRequest(packageName, userId, walletAddress, emptyMap())
+  private fun buildTicketRequest(packageName: String, userId: String, userName: String,
+                                 walletAddress: String) =
+      TicketRequest(packageName, userId, userName, walletAddress, emptyMap())
 }

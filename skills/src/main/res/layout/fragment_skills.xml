@@ -11,7 +11,19 @@
       android:layout_height="wrap_content"
       android:text="@string/find_room"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+  <EditText
+      android:id="@+id/user_name_tv"
+      android:layout_width="160dp"
+      android:layout_height="wrap_content"
+      android:hint="@string/user_name"
+      app:layout_constraintBottom_toTopOf="@id/find_opponent_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       />
 
   <TextView

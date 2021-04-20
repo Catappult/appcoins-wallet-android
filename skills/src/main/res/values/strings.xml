@@ -3,4 +3,5 @@
   <string name="find_room">Find a Room</string>
   <string name="finding_room">Finding a room.</string>
   <string name="no_user_id">No User Id</string>
+  <string name="user_name">Username</string>
 </resources>

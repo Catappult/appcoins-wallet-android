@@ -1,5 +1,6 @@
 package cm.aptoide.skills
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,6 +26,9 @@ class SkillsFragment : DaggerFragment() {
     private const val WALLET_ADDRESS = "WALLET_ADDRESS"
     private const val JWT = "JWT"
     private const val TRANSACTION_HASH = "transaction_hash"
+
+    private const val SHARED_PREFERENCES_NAME = "SKILL_SHARED_PREFERENCES"
+    private const val PREFERENCES_USER_NAME = "PREFERENCES_USER_NAME"
   }
 
   @Inject
@@ -46,11 +50,14 @@ class SkillsFragment : DaggerFragment() {
     disposable = CompositeDisposable()
     val intent = requireActivity().intent
     if (intent.hasExtra(USER_ID)) {
-      userId = intent.getStringExtra(USER_ID)
-      val packageName = intent.getStringExtra(PACKAGE_NAME)
+      userId = intent.getStringExtra(USER_ID)!!
+      val packageName = intent.getStringExtra(PACKAGE_NAME)!!
+      loadUserName()
 
       binding.findOpponentButton.setOnClickListener {
-        disposable.add(viewModel.getRoom(userId, packageName, this)
+        val userName = binding.userNameTv.text.toString()
+        saveUserName(userName)
+        disposable.add(viewModel.getRoom(userId, userName, packageName, this)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe({ showLoading(R.string.finding_room) })
             .doOnNext({ userData ->
@@ -63,6 +70,21 @@ class SkillsFragment : DaggerFragment() {
     } else {
       showError(R.string.no_user_id)
     }
+  }
+
+  private fun saveUserName(userName: String) {
+    requireContext().getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+        .edit()
+        .putString(
+            PREFERENCES_USER_NAME, userName)
+        .commit()
+  }
+
+  private fun loadUserName() {
+    val sharedPreferences =
+        requireContext().getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
+
+    binding.userNameTv.setText(sharedPreferences.getString(PREFERENCES_USER_NAME, ""))
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -87,6 +109,7 @@ class SkillsFragment : DaggerFragment() {
 
   private fun showLoading(textId: Int) {
     binding.findOpponentButton.visibility = View.GONE
+    binding.userNameTv.visibility = View.GONE
 
     binding.progressBarTv.text = requireContext().resources.getString(textId)
 

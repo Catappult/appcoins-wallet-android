@@ -11,13 +11,13 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
                           private val ewtObtainer: EwtObtainer,
                           private val ticketRepository: TicketRepository) {
 
-  fun createTicket(packageName: String, userId: String): Single<TicketResponse> {
+  fun createTicket(packageName: String, userId: String, userName: String): Single<TicketResponse> {
     return walletAddressObtainer.getWalletAddress()
         .flatMap { walletAddress ->
           ewtObtainer.getEWT()
               .flatMap { ewt ->
                 ticketRepository.createTicket(packageName,
-                    userId, ewt,
+                    userId, userName, ewt,
                     walletAddress)
               }
         }

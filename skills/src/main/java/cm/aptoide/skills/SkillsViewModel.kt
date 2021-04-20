@@ -18,8 +18,9 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val getTicketRetryMillis: Long,
                       private val loginUseCase: LoginUseCase) {
 
-  fun getRoom(userId: String, packageName: String, fragment: Fragment): Observable<UserData> {
-    return createTicketUseCase.createTicket(packageName, userId)
+  fun getRoom(userId: String, userName: String, packageName: String,
+              fragment: Fragment): Observable<UserData> {
+    return createTicketUseCase.createTicket(packageName, userId, userName)
         .flatMap { ticketResponse ->
           payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
               ticketResponse.ticketPrice, ticketResponse.priceCurrency,
