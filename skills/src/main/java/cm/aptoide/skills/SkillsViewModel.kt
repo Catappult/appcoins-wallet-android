@@ -19,7 +19,7 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val loginUseCase: LoginUseCase) {
 
   fun getRoom(userId: String, packageName: String, fragment: Fragment): Observable<UserData> {
-    return createTicketUseCase.createTicket(userId)
+    return createTicketUseCase.createTicket(packageName, userId)
         .flatMap { ticketResponse ->
           payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
               ticketResponse.ticketPrice, ticketResponse.priceCurrency,
