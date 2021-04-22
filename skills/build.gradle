@@ -60,7 +60,7 @@ dependencies {
 
   implementation "com.airbnb.android:lottie:$project.lottie_version"
 
-  testImplementation 'junit:junit:4.+'
-  androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+  testImplementation "junit:junit:$project.junit_version"
+  testImplementation "org.mockito:mockito-core:$project.mockito_version"
+  androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"
 }
