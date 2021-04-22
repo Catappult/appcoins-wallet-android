@@ -909,4 +909,7 @@
   <string name="voucher_tooltip">Sekarang Anda bisa membeli voucher untuk game!</string>
   <string name="voucher_empty_more_title">Voucher untuk Game</string>
   <string name="voucher_empty_more_body">Temukan penawaran terbaik untuk game favorit Anda!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
