@@ -911,4 +911,7 @@
   <string name="voucher_tooltip">ตอนนี้คุณสามารถซื้อเวาเชอร์สำหรับเกมได้แล้ว</string>
   <string name="voucher_empty_more_title">บัตรกำนัลสำหรับเกมส์</string>
   <string name="voucher_empty_more_body">ค้นหาข้อเสนอที่ดีที่สุดสำหรับเกมโปรดของคุณ!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
