@@ -918,4 +918,7 @@
   <string name="voucher_tooltip">Τώρα μπορείτε να αγοράσετε voucher για παιχνίδια!</string>
   <string name="voucher_empty_more_title">Voucher για Παιχνίδια</string>
   <string name="voucher_empty_more_body">Ανακαλύψτε τις καλύτερες προσφορές για τα αγαπημένα σας παιχνίδια!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
