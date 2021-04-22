@@ -936,4 +936,7 @@
   <string name="voucher_tooltip">Теперь вы можете купить купоны для игр!</string>
   <string name="voucher_empty_more_title">Купоны для игр</string>
   <string name="voucher_empty_more_body">Найдите лучшие предложения для ваших любимых игр!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
