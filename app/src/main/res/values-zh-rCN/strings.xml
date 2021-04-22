@@ -909,4 +909,7 @@
   <string name="voucher_tooltip">您现在可以购买游戏优惠券！</string>
   <string name="voucher_empty_more_title">游戏优惠券</string>
   <string name="voucher_empty_more_body">查到你最喜欢的游戏的最佳优惠！</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
