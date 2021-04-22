@@ -909,4 +909,7 @@
   <string name="voucher_tooltip">ယခုအခါ ဂိမ္းမ်ားအတြက္ ေဘာက္ခ်ာမ်ားကို သင္ဝယ္ယူႏိုင္ပါၿပီ။</string>
   <string name="voucher_empty_more_title">ဂိမ္းမ်ားအတြက္ ေဘာက္ခ်ာမ်ား</string>
   <string name="voucher_empty_more_body">သင့္စိတ္ႀကိဳက္ဂိမ္းမ်ားအတြက္ အေကာင္းဆံုးေရာင္းေစ်းကို ရွာေဖြလိုက္ပါ။</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
