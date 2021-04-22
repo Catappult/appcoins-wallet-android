@@ -909,4 +909,7 @@
   <string name="voucher_tooltip">Bây giờ bạn có thể mua phiếu mua hàng cho các trò chơi!</string>
   <string name="voucher_empty_more_title">Phiếu mua hàng cho các trò chơi</string>
   <string name="voucher_empty_more_body">Tìm các ưu đãi tốt nhất cho các trò chơi yêu thích của bạn!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
