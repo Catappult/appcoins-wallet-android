@@ -936,4 +936,7 @@
   <string name="voucher_tooltip">Teraz możesz kupić vouchery na gry!</string>
   <string name="voucher_empty_more_title">Vouchery na Gry</string>
   <string name="voucher_empty_more_body">Znajdź najlepsze okazje do swoich ulubionych gier!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
