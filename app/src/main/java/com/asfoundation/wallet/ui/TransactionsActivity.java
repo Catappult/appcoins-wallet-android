@@ -5,11 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Pair;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +36,7 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.ExtensionFunctionUtilsKt;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -215,7 +214,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   @Override public void onBackPressed() {
-    if (popup != null && popup.isShowing() && views.fadedBackground != null) {
+    if (popup != null && popup.isShowing()) {
       dismissPopup();
     } else {
       super.onBackPressed();
@@ -263,10 +262,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
-    emptyView =
-        new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this,
-            disposables);
-    views.systemView.showEmpty(emptyView);
+    views.systemView.showEmpty(getEmptyView());
   }
 
   private Unit onApplicationClick(AppcoinsApplication appcoinsApplication,
@@ -357,9 +353,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     } else {
       views.systemView.setVisibility(View.VISIBLE);
       views.transactionsRecyclerView.setVisibility(View.INVISIBLE);
-      emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
-          emptyTransactionsSubject, this, disposables);
-      views.systemView.showEmpty(emptyView);
+      views.systemView.showEmpty(getEmptyView());
     }
     if (transactionsModel.getNotifications()
         .size() > 0) {
@@ -375,6 +369,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
+  private EmptyTransactionsView getEmptyView() {
+    if (emptyView == null) {
+      emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
+          emptyTransactionsSubject, this, disposables);
+    }
+    return emptyView;
+  }
+
   private void onDefaultWallet(TransactionsWalletModel walletModel) {
     views.transactionsRecyclerView.setVisibility(View.INVISIBLE);
     views.systemView.setVisibility(View.VISIBLE);
@@ -387,9 +389,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onError(ErrorEnvelope errorEnvelope) {
     if (errorEnvelope.code == EMPTY_COLLECTION) {
-      emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
-          emptyTransactionsSubject, this, disposables);
-      views.systemView.showEmpty(emptyView);
+      views.systemView.showEmpty(getEmptyView());
     }
   }
 
@@ -426,19 +426,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void setTooltip() {
-    View settingsView = findViewById(R.id.action_button_settings);
-    if (settingsView != null) {
-      popup = new PopupWindow(tooltip);
-      popup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-      popup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-      int yOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35f,
-          getResources().getDisplayMetrics());
-
-      views.fadedBackground.setVisibility(View.VISIBLE);
-      popup.showAsDropDown(settingsView, 0, yOffset * -1);
-      setTooltipListeners();
-      viewModel.onFingerprintTooltipShown();
-    }
+    popup = new PopupWindow(tooltip);
+    popup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+    popup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+    int yOffset = ExtensionFunctionUtilsKt.convertDpToPx(36, getResources());
+    views.fadedBackground.setVisibility(View.VISIBLE);
+    popup.showAsDropDown(views.actionButtonSettings, 0, -yOffset);
+    setTooltipListeners();
+    viewModel.onFingerprintTooltipShown();
   }
 
   private void setTooltipListeners() {
@@ -541,7 +536,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void showFingerprintTooltip(Boolean shouldShow) {
-    //Handler is needed otherwise the view returned by findViewById(R.id.action_settings) is null
-    if (shouldShow) new Handler().post(this::setTooltip);
+    if (shouldShow) {
+      this.setTooltip();
+    }
   }
 }

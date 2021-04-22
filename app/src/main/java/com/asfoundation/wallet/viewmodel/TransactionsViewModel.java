@@ -248,24 +248,21 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void handleFingerprintTooltipVisibility() {
-    disposables.add(observeRefreshData().switchMap(
-        __ -> transactionViewInteractor.shouldShowFingerprintTooltip(BuildConfig.APPLICATION_ID)
+    disposables.add(
+        transactionViewInteractor.shouldShowFingerprintTooltip(BuildConfig.APPLICATION_ID)
             .doOnSuccess(showFingerprintTooltip::postValue)
-            .toObservable())
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace));
+            .toObservable()
+            .subscribe(__ -> {
+            }, Throwable::printStackTrace));
   }
 
   private void handlePromotionTooltipVisibility() {
-    disposables.add(observeRefreshData().switchMap(
-        __ -> transactionViewInteractor.hasSeenPromotionTooltip()
-            .doOnSuccess(hasBeen -> {
-              Boolean shouldShowCachedValue = showPromotionTooltip.getValue();
-              boolean shouldShow =
-                  !hasBeen && (shouldShowCachedValue == null || shouldShowCachedValue);
-              showPromotionTooltip.postValue(shouldShow);
-            })
-            .toObservable())
+    disposables.add(transactionViewInteractor.hasSeenPromotionTooltip()
+        .doOnSuccess(hasBeen -> {
+          Boolean shouldShowCachedValue = showPromotionTooltip.getValue();
+          boolean shouldShow = !hasBeen && (shouldShowCachedValue == null || shouldShowCachedValue);
+          showPromotionTooltip.postValue(shouldShow);
+        })
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
