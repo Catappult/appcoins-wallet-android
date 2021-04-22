@@ -927,4 +927,7 @@
   <string name="voucher_tooltip">Acum poți cumpăra vouchere pentru jocuri!</string>
   <string name="voucher_empty_more_title">Vouchere pentru Jocuri</string>
   <string name="voucher_empty_more_body">Găsește cele mai bune oferte pentru jocurile tale favorite!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
