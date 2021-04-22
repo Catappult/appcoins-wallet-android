@@ -918,4 +918,7 @@
   <string name="voucher_tooltip">اکنون می‌توانید برای بازی‌ها ووچر بخرید!</string>
   <string name="voucher_empty_more_title">ووچر برای بازی‌ها</string>
   <string name="voucher_empty_more_body">بهترین پیشنهادها را برای بازی‌های موردعلاقه خود پیدا کنید!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
