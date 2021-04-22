@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.util.KeyboardUtils
-import com.airbnb.lottie.LottieAnimationView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
