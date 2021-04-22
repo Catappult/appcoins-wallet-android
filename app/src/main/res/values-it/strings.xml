@@ -918,4 +918,7 @@
   <string name="voucher_tooltip">Puoi adesso acquistare voucher per i giochi!</string>
   <string name="voucher_empty_more_title">Voucher per i Giochi</string>
   <string name="voucher_empty_more_body">Trova le offerte migliori per i tuoi giochi preferiti!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
