@@ -955,4 +955,7 @@
   <string name="voucher_tooltip">يمكنك الآن شراء القسائم للألعاب!</string>
   <string name="voucher_empty_more_title">بطاقات هدية للألعاب</string>
   <string name="voucher_empty_more_body">احصل على أفضل الصفقات لألعابك المفضلة!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
