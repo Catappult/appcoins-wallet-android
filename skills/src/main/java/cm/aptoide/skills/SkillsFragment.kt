@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
+import cm.aptoide.skills.util.KeyboardUtils
+import com.airbnb.lottie.LottieAnimationView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -39,7 +43,7 @@ class SkillsFragment : DaggerFragment() {
   private lateinit var binding: FragmentSkillsBinding
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+                            savedInstanceState: Bundle?): View {
     binding = FragmentSkillsBinding.inflate(inflater, container, false)
     return binding.root
   }
@@ -57,15 +61,23 @@ class SkillsFragment : DaggerFragment() {
       binding.findOpponentButton.setOnClickListener {
         val userName = binding.userNameTv.text.toString()
         saveUserName(userName)
-        disposable.add(viewModel.getRoom(userId, userName, packageName, this)
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe({ showLoading(R.string.finding_room) })
-            .doOnNext({ userData ->
-              requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
-              requireActivity().finish()
-            })
-            .doOnNext { ticket -> println("ticket: " + ticket) }
-            .subscribe())
+        KeyboardUtils.hideKeyboard(view)
+
+        disposable.add(
+            handleWalletCreationIfNeeded()
+                .takeUntil { it != "CREATING" }
+                .flatMap {
+                  viewModel.getRoom(userId, userName, packageName, this)
+                      .observeOn(AndroidSchedulers.mainThread())
+                      .doOnSubscribe { showLoading(R.string.finding_room) }
+                      .doOnNext { userData ->
+                        requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
+                        requireActivity().finish()
+                      }
+                      .doOnNext { ticket -> println("ticket: $ticket") }
+
+                }.subscribe()
+        )
       }
     } else {
       showError(R.string.no_user_id)
@@ -126,5 +138,32 @@ class SkillsFragment : DaggerFragment() {
     intent.putExtra(WALLET_ADDRESS, userData.walletAddress)
 
     return intent
+  }
+
+  private fun handleWalletCreationIfNeeded(): Observable<String> {
+    return viewModel.handleWalletCreationIfNeeded()
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnNext {
+          if (it == "CREATING") {
+            showWalletCreationLoadingAnimation()
+          }
+        }
+        .filter { it != "CREATING" }
+        .map {
+          endWalletCreationLoadingAnimation()
+          it
+        }
+  }
+
+  fun showWalletCreationLoadingAnimation() {
+    binding.findOpponentButton.visibility = View.GONE
+    binding.userNameTv.visibility = View.GONE
+
+    binding.createWalletCard.visibility = View.VISIBLE
+    binding.createWalletAnimation.playAnimation()
+  }
+
+  fun endWalletCreationLoadingAnimation() {
+    binding.createWalletCard.visibility = View.GONE
   }
 }
