@@ -918,4 +918,7 @@
   <string name="voucher_tooltip">Mostantól utalványokat vásárolhatsz a játékokhoz!</string>
   <string name="voucher_empty_more_title">Utalványok játékokhoz</string>
   <string name="voucher_empty_more_body">Keresd meg a legjobb ajánlatokat a kedvenc játékaidhoz!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
 </resources>
