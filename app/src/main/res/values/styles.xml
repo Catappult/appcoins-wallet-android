@@ -1078,4 +1078,12 @@
     <item name="android:textAlignment">center</item>
     <item name="android:textSize">16sp</item>
   </style>
+
+  <style name="Home" />
+
+  <style name="Home.HeaderShape">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSizeBottomLeft">12dp</item>
+    <item name="cornerSizeBottomRight">12dp</item>
+  </style>
 </resources>

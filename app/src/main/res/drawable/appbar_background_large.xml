@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:gravity="top">
     <shape>
-      <size android:height="316dp" />
+      <size android:height="320dp" />
       <gradient
           android:angle="45"
           android:endColor="@color/appbar_end_gradient_color"

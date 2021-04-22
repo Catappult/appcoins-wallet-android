@@ -96,9 +96,9 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
           && recyclerView != null
           && recyclerView.getAdapter() != null
           && recyclerView.getAdapter()
-          .getItemCount() > 0) {
+          .getItemCount() > 0
+          && recyclerView.getVisibility() == View.VISIBLE) {
         hide();
-        swipeRefreshLayout.setRefreshing(true);
       } else {
         hideAllComponents();
         progress.setVisibility(VISIBLE);

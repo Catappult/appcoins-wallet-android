@@ -50,8 +50,13 @@ class BackendTransactionRepository(
 
     return localRepository.getAllAsFlowable(wallet)
         .flatMap { transactions -> getLinkedTransactions(wallet, transactions) }
+        .map { transactions -> orderByDateDescending(transactions) }
         .toObservable()
         .distinctUntilChanged()
+  }
+
+  private fun orderByDateDescending(transactions: List<Transaction>): List<Transaction> {
+    return transactions.sortedByDescending { tx -> tx.timeStamp }
   }
 
   override fun fetchNewTransactions(wallet: String): Single<List<Transaction>> {

@@ -143,6 +143,9 @@ android {
     targetCompatibility 1.8
     sourceCompatibility 1.8
   }
+  buildFeatures {
+    viewBinding true
+  }
   kotlinOptions {
     jvmTarget = "1.8"
   }
@@ -244,6 +247,9 @@ dependencies {
   implementation "androidx.work:work-runtime-ktx:$project.work_version"
   implementation "androidx.work:work-rxjava2:$project.work_version"
 
+  implementation "com.airbnb.android:epoxy:$project.epoxy_version"
+  kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
+
   //Amplitude
   implementation "com.amplitude:android-sdk:$project.amplitude_version"
 
@@ -260,7 +266,7 @@ def renameArtifact(defaultConfig) {
   android.applicationVariants.all { variant ->
     variant.outputs.all {
       def SEP = "_"
-      def buildType = variant.variantData.variantConfiguration.buildType.name
+      def buildType = variant.buildType.name
       def versionName = variant.versionName
       def versionCode = defaultConfig.versionCode
       def fileName =

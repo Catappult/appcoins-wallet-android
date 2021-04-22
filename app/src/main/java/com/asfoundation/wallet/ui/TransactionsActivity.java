@@ -8,59 +8,53 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
+import com.asf.wallet.databinding.ActivityTransactionsBinding;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
-import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.rating.RatingActivity;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.overlay.OverlayFragment;
-import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
+import com.asfoundation.wallet.ui.transactions.HeaderController;
+import com.asfoundation.wallet.ui.transactions.TransactionsController;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
-import com.asfoundation.wallet.util.ExtensionFunctionUtilsKt;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
+import com.asfoundation.wallet.viewmodel.TransactionsWalletModel;
 import com.asfoundation.wallet.widget.EmptyTransactionsView;
-import com.asfoundation.wallet.widget.SystemView;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
 import io.intercom.android.sdk.Intercom;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
 import javax.inject.Inject;
+import kotlin.Unit;
 
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 import static com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK;
@@ -74,23 +68,19 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject CurrencyFormatUtils formatter;
   private TransactionsViewModel viewModel;
-  private SystemView systemView;
-  private TransactionsAdapter adapter;
-  private EmptyTransactionsView emptyView;
-  private RecyclerView list;
-  private TextView subtitleView;
-  private LottieAnimationView balanceSkeleton;
-  private PublishSubject<String> emptyTransactionsSubject;
   private CompositeDisposable disposables;
-  private View emptyClickableView;
-  private MenuItem supportActionView;
+
+  private ActivityTransactionsBinding views;
+
+  private HeaderController headerController;
+  private TransactionsController transactionsController;
+
+  private PublishSubject<String> emptyTransactionsSubject;
   private View badge;
-  private int paddingDp;
-  private boolean showScroll = false;
+
   private View tooltip;
   private PopupWindow popup;
-  private View fadedBackground;
-  private View cards;
+  private EmptyTransactionsView emptyView;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -108,106 +98,91 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_transactions);
-
-    toolbar();
-    enableDisplayHomeAsUp();
+    views = ActivityTransactionsBinding.inflate(getLayoutInflater());
+    setContentView(views.getRoot());
 
     disposables = new CompositeDisposable();
-    balanceSkeleton = findViewById(R.id.balance_skeleton);
-    balanceSkeleton.setVisibility(View.VISIBLE);
-    emptyClickableView = findViewById(R.id.empty_clickable_view);
     tooltip = getLayoutInflater().inflate(R.layout.fingerprint_tooltip, null);
-    emptyClickableView.setVisibility(View.VISIBLE);
-    balanceSkeleton.playAnimation();
-    subtitleView = findViewById(R.id.toolbar_subtitle);
-    AppBarLayout appBar = findViewById(R.id.app_bar);
-    appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-      float percentage = ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
-      float alpha = 1 - (percentage * 1.20f);
-      findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
-      subtitleView.setAlpha(alpha);
-      balanceSkeleton.setAlpha(alpha);
-      //((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
+    views.emptyClickableView.setVisibility(View.VISIBLE);
+    views.balanceSkeleton.setVisibility(View.VISIBLE);
+    views.balanceSkeleton.playAnimation();
 
-      if (percentage == 0) {
-        ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
-      } else {
-        ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).shrink();
-      }
-    });
-
-    setCollapsingTitle(" ");
     initBottomNavigation();
     disableDisplayHomeAsUp();
     prepareNotificationIcon();
     emptyTransactionsSubject = PublishSubject.create();
-    paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-    adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
-        this::onNotificationClick, formatter);
 
-    SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
-    int cardsBgHeight = ExtensionFunctionUtilsKt.convertDpToPx(138, getResources());
-    refreshLayout.setProgressViewOffset(true, cardsBgHeight, cardsBgHeight + 100);
-    systemView = findViewById(R.id.system_view);
-    list = findViewById(R.id.list);
-    list.setAdapter(adapter);
-    list.setLayoutManager(linearLayoutManager);
-    list.setVisibility(View.VISIBLE);
-    systemView.setVisibility(View.GONE);
+    views.systemView.setVisibility(View.GONE);
 
-    linearLayoutManager.setSmoothScrollbarEnabled(true);
-    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-      @Override public void onItemRangeInserted(int positionStart, int itemCount) {
-        list.post(() -> list.smoothScrollToPosition(0));
-        if (showScroll) {
-          showScroll = false;
+    initializeLists();
+    initializeViewModel();
+
+    views.transactionsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        if (newState == RecyclerView.SCROLL_STATE_IDLE
+            && !views.topUpBtn.isExtended()
+            && recyclerView.computeVerticalScrollOffset() == 0) {
+          views.topUpBtn.extend();
         }
+        super.onScrollStateChanged(recyclerView, newState);
+      }
+
+      @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        if (dy != 0
+            && recyclerView.computeVerticalScrollOffset() > 0
+            && views.topUpBtn.isExtended()) {
+          views.topUpBtn.shrink();
+        }
+        super.onScrolled(recyclerView, dx, dy);
       }
     });
 
-    //list.addOnScrollListener(new RecyclerView.OnScrollListener() {
-    //  @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-    //    super.onScrolled(recyclerView, dx, dy);
-    //    int scrollY = list.computeVerticalScrollOffset();
-    //    int cardsHeight = ExtensionFunctionUtilsKt.convertDpToPx(96, getResources());
-    //    //cards.setTranslationY(-ExtensionFunctionUtilsKt.convertDpToPx(200, getResources())
-    //    -scrollY);
-    //    ViewGroup.LayoutParams params = cards.getLayoutParams();
-    //    int height = cardsHeight - scrollY;
-    //    if(height < 1) height = 1;
-    //    if(height > ExtensionFunctionUtilsKt.convertDpToPx(96, getResources())) {
-    //      height = ExtensionFunctionUtilsKt.convertDpToPx(96, getResources());
-    //    }
-    //    params.height = height;
-    //    cards.setLayoutParams(params);
-    //
-    //    Log.i("SCROLLED!", "scrollY: " + scrollY + " height: " + height);
-    //  }
-    //});
+    views.topUpBtn.extend();
+    views.refreshLayout.setOnRefreshListener(() -> viewModel.refreshTransactions());
+    views.actionButtonSupport.setOnClickListener(v -> viewModel.showSupportScreen(false));
+    views.actionButtonSettings.setOnClickListener(v -> viewModel.showSettings(this));
 
-    systemView.attachRecyclerView(list);
-    systemView.attachSwipeRefreshLayout(refreshLayout);
+    if (savedInstanceState == null) {
+      boolean fromAppOpening = getIntent().getBooleanExtra(FROM_APP_OPENING_FLAG, false);
+      if (fromAppOpening) viewModel.increaseTimesInHome();
+      boolean supportNotificationClick =
+          getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
+      if (supportNotificationClick) {
+        overridePendingTransition(0, 0);
+        viewModel.showSupportScreen(true);
+      }
+    }
+  }
 
+  private void initializeLists() {
+    headerController = new HeaderController();
+    views.headerRecyclerView.setController(headerController);
+    headerController.setAppcoinsAppClickListener(this::onApplicationClick);
+    headerController.setCardNotificationClickListener(this::onNotificationClick);
+
+    transactionsController = new TransactionsController();
+    transactionsController.setTransactionClickListener(this::onTransactionClick);
+    views.transactionsRecyclerView.setController(transactionsController);
+
+    views.systemView.attachRecyclerView(views.transactionsRecyclerView);
+    views.systemView.attachSwipeRefreshLayout(views.refreshLayout);
+  }
+
+  private void initializeViewModel() {
     viewModel = ViewModelProviders.of(this, transactionsViewModelFactory)
         .get(TransactionsViewModel.class);
     viewModel.progress()
-        .observe(this, systemView::showProgress);
+        .observe(this, views.systemView::showProgress);
     viewModel.onFetchTransactionsError()
         .observe(this, this::onFetchTransactionsError);
     viewModel.error()
         .observe(this, this::onError);
-    viewModel.defaultNetwork()
-        .observe(this, this::onDefaultNetwork);
     viewModel.getDefaultWalletBalance()
         .observe(this, this::onBalanceChanged);
-    viewModel.defaultWallet()
+    viewModel.defaultWalletModel()
         .observe(this, this::onDefaultWallet);
     viewModel.transactionsModel()
         .observe(this, this::onTransactionsModel);
-    viewModel.dismissNotification()
-        .observe(this, this::dismissNotification);
     viewModel.gamificationMaxBonus()
         .observe(this, this::onGamificationMaxBonus);
     viewModel.shouldShowPromotionsNotification()
@@ -222,18 +197,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::changeBottomNavigationName);
     viewModel.shouldShowRateUsDialog()
         .observe(this, this::navigateToRateUs);
-    refreshLayout.setOnRefreshListener(() -> viewModel.refreshTransactions(true));
-
-    if (savedInstanceState == null) {
-      boolean fromAppOpening = getIntent().getBooleanExtra(FROM_APP_OPENING_FLAG, false);
-      if (fromAppOpening) viewModel.increaseTimesInHome();
-      boolean supportNotificationClick =
-          getIntent().getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false);
-      if (supportNotificationClick) {
-        overridePendingTransition(0, 0);
-        viewModel.showSupportScreen(true);
-      }
-    }
+    viewModel.shouldShowFingerprintTooltip()
+        .observe(this, this::showFingerprintTooltip);
   }
 
   public void navigateToRateUs(Boolean shouldNavigate) {
@@ -243,22 +208,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_settings) {
-      viewModel.showSettings(this);
-    }
-    return super.onOptionsItemSelected(item);
-  }
-
   private void changeBottomNavigationName(@StringRes Integer name) {
-    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-    bottomNavigationView.getMenu()
+    views.bottomNavigation.getMenu()
         .getItem(BALANCE.getPosition())
         .setTitle(getString(name));
   }
 
   @Override public void onBackPressed() {
-    if (popup != null && popup.isShowing() && fadedBackground != null) {
+    if (popup != null && popup.isShowing() && views.fadedBackground != null) {
       dismissPopup();
     } else {
       super.onBackPressed();
@@ -297,40 +254,36 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void updateSupportIcon(boolean hasMessages) {
-    if (supportActionView == null) {
-      return;
-    }
-    LottieAnimationView animation = findViewById(R.id.intercom_animation);
-
-    if (hasMessages && !animation.isAnimating()) {
-      animation.playAnimation();
+    if (hasMessages && !views.intercomAnimation.isAnimating()) {
+      views.intercomAnimation.playAnimation();
     } else {
-      animation.cancelAnimation();
-      animation.setProgress(0);
+      views.intercomAnimation.cancelAnimation();
+      views.intercomAnimation.setProgress(0);
     }
-
-    animation.setOnClickListener(v -> viewModel.showSupportScreen(false));
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
     emptyView =
         new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this,
             disposables);
-    systemView.showEmpty(emptyView);
+    views.systemView.showEmpty(emptyView);
   }
 
-  private void onApplicationClick(AppcoinsApplication appcoinsApplication,
+  private Unit onApplicationClick(AppcoinsApplication appcoinsApplication,
       ApplicationClickAction applicationClickAction) {
     viewModel.onAppClick(appcoinsApplication, applicationClickAction, this);
+    return Unit.INSTANCE;
   }
 
-  private void onTransactionClick(View view, Transaction transaction) {
-    viewModel.showDetails(view.getContext(), transaction);
+  private Unit onTransactionClick(Transaction transaction) {
+    viewModel.showDetails(this, transaction);
+    return Unit.INSTANCE;
   }
 
-  private void onNotificationClick(CardNotification cardNotification,
+  private Unit onNotificationClick(CardNotification cardNotification,
       CardNotificationAction cardNotificationAction) {
     viewModel.onNotificationClick(cardNotification, cardNotificationAction, this);
+    return Unit.INSTANCE;
   }
 
   @Override protected void onPause() {
@@ -357,19 +310,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     sendPageViewEvent();
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
-    supportActionView = menu.findItem(R.id.action_support);
-    viewModel.shouldShowFingerprintTooltip()
-        .observe(this, this::showFingerprintTooltip);
-    viewModel.handleFingerprintTooltipVisibility(getPackageName());
-    return super.onCreateOptionsMenu(menu);
-  }
-
   @Override public void onClick(View view) {
     int id = view.getId();
     if (view.getId() == R.id.try_again) {
-      viewModel.refreshTransactions(true);
+      viewModel.refreshTransactions();
     } else if (id == R.id.top_up_btn) {
       viewModel.showTopUp(this);
     } else if (id == R.id.empty_clickable_view) {
@@ -395,49 +339,57 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return false;
   }
 
-  private void onTransactionsModel(TransactionsModel transactionsModel) {
-    list.setVisibility(View.VISIBLE);
-    systemView.setVisibility(View.GONE);
+  private void onTransactionsModel(Pair<TransactionsModel, TransactionsWalletModel> result) {
+    views.transactionsRecyclerView.setVisibility(View.VISIBLE);
+    views.systemView.setVisibility(View.GONE);
+    transactionsController.setData(result.first, result.second.getWallet(),
+        result.second.getNetworkInfo());
+    headerController.setData(result.first);
 
-    adapter.addItems(transactionsModel);
-    showList();
+    showList(result.first);
   }
 
-  private void showList() {
-    if (adapter.getTransactionsCount() > 0) {
-      systemView.setVisibility(View.GONE);
-      if (list.getPaddingBottom() != paddingDp) {
-        //Adds padding when there's transactions
-        list.setPadding(0, 0, 0, paddingDp);
-      }
-      list.setVisibility(View.VISIBLE);
-    } else if (adapter.getNotificationsCount() > 0) {
-      systemView.setVisibility(View.VISIBLE);
-      if (list.getPaddingBottom() != 0) {
-        //Removes padding if the there's no transactions
-        list.setPadding(0, 0, 0, 0);
-      }
-      list.setVisibility(View.VISIBLE);
+  private void showList(TransactionsModel transactionsModel) {
+    if (transactionsModel.getTransactions()
+        .size() > 0) {
+      views.systemView.setVisibility(View.INVISIBLE);
+      views.transactionsRecyclerView.setVisibility(View.VISIBLE);
     } else {
-      systemView.setVisibility(View.VISIBLE);
-      list.setVisibility(View.GONE);
+      views.systemView.setVisibility(View.VISIBLE);
+      views.transactionsRecyclerView.setVisibility(View.INVISIBLE);
+      emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
+          emptyTransactionsSubject, this, disposables);
+      views.systemView.showEmpty(emptyView);
+    }
+    if (transactionsModel.getNotifications()
+        .size() > 0) {
+      views.headerRecyclerView.setVisibility(View.VISIBLE);
+      views.spacer.setVisibility(View.VISIBLE);
+      views.container.loadLayoutDescription(R.xml.activity_transactions_scene);
+    } else {
+      if (views.spacer.getVisibility() == View.VISIBLE) {
+        views.headerRecyclerView.setVisibility(View.GONE);
+        views.spacer.setVisibility(View.GONE);
+      }
+      views.container.loadLayoutDescription(R.xml.activity_transactions_scene_short);
     }
   }
 
-  private void onDefaultWallet(Wallet wallet) {
-    list.setVisibility(View.GONE);
-    adapter.setDefaultWallet(wallet);
-  }
+  private void onDefaultWallet(TransactionsWalletModel walletModel) {
+    views.transactionsRecyclerView.setVisibility(View.INVISIBLE);
+    views.systemView.setVisibility(View.VISIBLE);
+    views.systemView.showProgress(true);
 
-  private void onDefaultNetwork(NetworkInfo networkInfo) {
-    adapter.setDefaultNetwork(networkInfo);
+    transactionsController = new TransactionsController();
+    transactionsController.setTransactionClickListener(this::onTransactionClick);
+    views.transactionsRecyclerView.setController(transactionsController);
   }
 
   private void onError(ErrorEnvelope errorEnvelope) {
-    if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
+    if (errorEnvelope.code == EMPTY_COLLECTION) {
       emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
           emptyTransactionsSubject, this, disposables);
-      systemView.showEmpty(emptyView);
+      views.systemView.showEmpty(emptyView);
     }
   }
 
@@ -464,26 +416,25 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   @Override protected void onDestroy() {
-    subtitleView = null;
-    emptyClickableView = null;
-    balanceSkeleton.removeAllAnimatorListeners();
-    balanceSkeleton.removeAllUpdateListeners();
-    balanceSkeleton.removeAllLottieOnCompositionLoadedListener();
+    views.balanceSkeleton.removeAllAnimatorListeners();
+    views.balanceSkeleton.removeAllUpdateListeners();
+    views.balanceSkeleton.removeAllLottieOnCompositionLoadedListener();
     emptyTransactionsSubject = null;
+    emptyView = null;
     disposables.dispose();
     super.onDestroy();
   }
 
   private void setTooltip() {
-    View settingsView = findViewById(R.id.action_settings);
+    View settingsView = findViewById(R.id.action_button_settings);
     if (settingsView != null) {
       popup = new PopupWindow(tooltip);
       popup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
       popup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
       int yOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35f,
           getResources().getDisplayMetrics());
-      fadedBackground = findViewById(R.id.faded_background);
-      fadedBackground.setVisibility(View.VISIBLE);
+
+      views.fadedBackground.setVisibility(View.VISIBLE);
       popup.showAsDropDown(settingsView, 0, yOffset * -1);
       setTooltipListeners();
       viewModel.onFingerprintTooltipShown();
@@ -503,7 +454,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void dismissPopup() {
     viewModel.onFingerprintDismissed();
-    fadedBackground.setVisibility(View.GONE);
+    views.fadedBackground.setVisibility(View.GONE);
     popup.dismiss();
   }
 
@@ -511,7 +462,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (globalBalance.getFiatValue()
         .length() > 0 && !globalBalance.getFiatSymbol()
         .isEmpty()) {
-      balanceSkeleton.setVisibility(View.GONE);
+      views.balanceSkeleton.setVisibility(View.GONE);
+      views.balance.setText(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
       setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
       setSubtitle(globalBalance);
     }
@@ -522,7 +474,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         buildCurrencyString(globalBalance.getAppcoinsBalance(), globalBalance.getCreditsBalance(),
             globalBalance.getEtherBalance(), globalBalance.getShowAppcoins(),
             globalBalance.getShowCredits(), globalBalance.getShowEthereum());
-    subtitleView.setText(Html.fromHtml(subtitle));
+    views.balanceSubtitle.setText(Html.fromHtml(subtitle));
   }
 
   private String buildCurrencyString(Balance appcoinsBalance, Balance creditsBalance,
@@ -591,12 +543,5 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void showFingerprintTooltip(Boolean shouldShow) {
     //Handler is needed otherwise the view returned by findViewById(R.id.action_settings) is null
     if (shouldShow) new Handler().post(this::setTooltip);
-  }
-
-  private void dismissNotification(CardNotification cardNotification) {
-    showScroll = adapter.removeItem(cardNotification);
-    if (showScroll) {
-      viewModel.refreshTransactions(false);
-    }
   }
 }

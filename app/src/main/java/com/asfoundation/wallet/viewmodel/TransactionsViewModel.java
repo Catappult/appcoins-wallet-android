@@ -9,13 +9,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
 import com.asf.wallet.BuildConfig;
-import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics;
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender;
 import com.asfoundation.wallet.entity.Balance;
-import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
-import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.TransactionViewInteractor;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
@@ -48,10 +45,10 @@ import java.util.concurrent.TimeUnit;
 public class TransactionsViewModel extends BaseViewModel {
   private static final long UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
   private static final BigDecimal MINUS_ONE = new BigDecimal("-1");
-  private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
-  private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
-  private final MutableLiveData<TransactionsModel> transactionsModel = new MutableLiveData<>();
-  private final MutableLiveData<CardNotification> dismissNotification = new MutableLiveData<>();
+  private final MutableLiveData<TransactionsWalletModel> defaultWalletModel =
+      new MutableLiveData<>();
+  private final MutableLiveData<Pair<TransactionsModel, TransactionsWalletModel>>
+      transactionsModel = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showNotification = new MutableLiveData<>();
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
@@ -104,6 +101,7 @@ public class TransactionsViewModel extends BaseViewModel {
     handleRateUsDialogVisibility();
     handleConversationCount();
     handleWalletData();
+    handleFingerprintTooltipVisibility();
   }
 
   public void updateData() {
@@ -114,10 +112,9 @@ public class TransactionsViewModel extends BaseViewModel {
     refreshData.onNext(false);
   }
 
-  public void refreshTransactions(boolean shouldShowProgress) {
-    disposables.add(
-        updateTransactions(shouldShowProgress, defaultWallet.getValue()).subscribe(() -> {
-        }, this::onError));
+  public void refreshTransactions() {
+    disposables.add(updateTransactions(defaultWalletModel.getValue()).subscribe(() -> {
+    }, this::onError));
   }
 
   /**
@@ -128,15 +125,14 @@ public class TransactionsViewModel extends BaseViewModel {
    *
    * We use switchMap to disregard previous subscriptions every time we need to refresh data.
    *
-   * @see #refreshTransactionsAndBalance(boolean, Wallet).
+   * @see #refreshTransactionsAndBalance(TransactionsWalletModel model) .
    */
   private void handleWalletData() {
     disposables.add(observeRefreshData().switchMap(__ -> observeNetworkAndWallet())
         .doOnNext(walletNetworkModel -> {
           if (walletNetworkModel.isNewWallet()) {
-            defaultWallet.postValue(walletNetworkModel.getWallet());
+            defaultWalletModel.postValue(walletNetworkModel);
           }
-          defaultNetwork.postValue(walletNetworkModel.getNetworkInfo());
         })
         .switchMapCompletableDelayError(this::updateWalletData)
         .subscribe(() -> {
@@ -146,28 +142,28 @@ public class TransactionsViewModel extends BaseViewModel {
   private Observable<TransactionsWalletModel> observeNetworkAndWallet() {
     return Observable.combineLatest(transactionViewInteractor.findNetwork()
         .toObservable(), transactionViewInteractor.observeWallet(), (networkInfo, wallet) -> {
-      Wallet previousWallet = defaultWallet.getValue();
-      boolean isNewWallet = previousWallet == null || !previousWallet.sameAddress(wallet.address);
+      TransactionsWalletModel previousModel = defaultWalletModel.getValue();
+      boolean isNewWallet = previousModel == null || !previousModel.getWallet()
+          .sameAddress(wallet.address);
       return new TransactionsWalletModel(networkInfo, wallet, isNewWallet);
     });
   }
 
   private Completable updateWalletData(TransactionsWalletModel model) {
-    return Completable.mergeArrayDelayError(
-        refreshTransactionsAndBalance(model.isNewWallet(), model.getWallet()),
+    return Completable.mergeArrayDelayError(refreshTransactionsAndBalance(model),
         updateRegisterUser(model.getWallet()));
   }
 
   /**
    * Responsible for continuously refreshing transactions and balance. It refreshes every
-   * {@link UPDATE_INTERVAL} seconds. Note that if refreshData is false, it won't refresh it.
+   * {@link #UPDATE_INTERVAL} seconds. Note that if refreshData is false, it won't refresh it.
    */
-  private Completable refreshTransactionsAndBalance(boolean walletChanged, Wallet wallet) {
+  private Completable refreshTransactionsAndBalance(TransactionsWalletModel model) {
     return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
         .flatMap(__ -> observeRefreshData())
-        .switchMapCompletable(__ -> Completable.mergeArrayDelayError(updateBalance(),
-            updateTransactions(walletChanged, wallet))
-            .subscribeOn(networkScheduler))
+        .switchMapCompletable(
+            __ -> Completable.mergeArrayDelayError(updateBalance(), updateTransactions(model))
+                .subscribeOn(networkScheduler))
         .subscribeOn(networkScheduler);
   }
 
@@ -181,20 +177,12 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.dispose();
   }
 
-  public LiveData<NetworkInfo> defaultNetwork() {
-    return defaultNetwork;
+  public LiveData<TransactionsWalletModel> defaultWalletModel() {
+    return defaultWalletModel;
   }
 
-  public LiveData<Wallet> defaultWallet() {
-    return defaultWallet;
-  }
-
-  public LiveData<TransactionsModel> transactionsModel() {
+  public LiveData<Pair<TransactionsModel, TransactionsWalletModel>> transactionsModel() {
     return transactionsModel;
-  }
-
-  public LiveData<CardNotification> dismissNotification() {
-    return dismissNotification;
   }
 
   public MutableLiveData<GlobalBalance> getDefaultWalletBalance() {
@@ -259,9 +247,11 @@ public class TransactionsViewModel extends BaseViewModel {
         }, Throwable::printStackTrace));
   }
 
-  public void handleFingerprintTooltipVisibility(String packageName) {
-    disposables.add(transactionViewInteractor.shouldShowFingerprintTooltip(packageName)
-        .doOnSuccess(showFingerprintTooltip::postValue)
+  public void handleFingerprintTooltipVisibility() {
+    disposables.add(observeRefreshData().switchMap(
+        __ -> transactionViewInteractor.shouldShowFingerprintTooltip(BuildConfig.APPLICATION_ID)
+            .doOnSuccess(showFingerprintTooltip::postValue)
+            .toObservable())
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
@@ -323,9 +313,9 @@ public class TransactionsViewModel extends BaseViewModel {
         .ignoreElement();
   }
 
-  private Completable updateTransactions(boolean shouldShowProgress, Wallet wallet) {
-    return Completable.fromAction(() -> progress.postValue(shouldShowProgress))
-        .andThen(transactionViewInteractor.fetchTransactions(wallet))
+  private Completable updateTransactions(TransactionsWalletModel walletModel) {
+    if (walletModel == null) return Completable.complete();
+    return transactionViewInteractor.fetchTransactions(walletModel.getWallet())
         .flatMapSingle(transactions -> transactionViewInteractor.getCardNotifications()
             .subscribeOn(networkScheduler)
             .onErrorReturnItem(Collections.emptyList())
@@ -336,8 +326,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .flatMapCompletable(transactionsModel -> publishMaxBonus().observeOn(viewScheduler)
-            .andThen(onTransactionModel(transactionsModel))
-            .andThen(Completable.fromAction(this::onTransactionsFetchCompleted)))
+            .andThen(onTransactionModel(transactionsModel, walletModel)))
         .onErrorResumeNext(throwable -> publishMaxBonus())
         .observeOn(viewScheduler)
         .doAfterTerminate(transactionViewInteractor::stopTransactionFetch);
@@ -374,7 +363,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private Observable<Pair<Balance, FiatValue>> getAppcBalance() {
-    return transactionViewInteractor.getAppcBalance();
+    return transactionViewInteractor.getAppcBalance()
+        .filter(pair -> !pair.second.getSymbol()
+            .isEmpty());
   }
 
   private Observable<Pair<Balance, FiatValue>> getEthereumBalance() {
@@ -420,26 +411,15 @@ public class TransactionsViewModel extends BaseViewModel {
     return fiatSum;
   }
 
-  private Completable onTransactionModel(TransactionsModel transactionsModel) {
+  private Completable onTransactionModel(TransactionsModel transactionsModel,
+      TransactionsWalletModel walletModel) {
     return Completable.fromAction(() -> {
       transactionsModel.getTransactions();
       hasTransactions = !transactionsModel.getTransactions()
           .isEmpty() || hasTransactions;
-      this.transactionsModel.setValue(transactionsModel);
-      Boolean last = progress.getValue();
-      if (transactionsModel.getTransactions()
-          .size() > 0 && last != null && last) {
-        progress.postValue(true);
-      }
+      this.transactionsModel.setValue(new Pair<>(transactionsModel, walletModel));
       transactionViewInteractor.updateTransactionsNumber(transactionsModel.getTransactions());
     });
-  }
-
-  private void onTransactionsFetchCompleted() {
-    progress.postValue(false);
-    if (!hasTransactions) {
-      error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
-    }
   }
 
   public void showSettings(Context context) {
@@ -455,7 +435,10 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showMyAddress(Context context) {
-    transactionViewNavigator.openMyAddressView(context, defaultWallet.getValue());
+    TransactionsWalletModel model = defaultWalletModel.getValue();
+    if (model != null) {
+      transactionViewNavigator.openMyAddressView(context, model.getWallet());
+    }
   }
 
   public void showTokens(Context context) {
@@ -528,11 +511,14 @@ public class TransactionsViewModel extends BaseViewModel {
         dismissNotification(cardNotification);
         break;
       case BACKUP:
-        Wallet wallet = defaultWallet.getValue();
-        if (wallet != null && wallet.address != null) {
-          transactionViewNavigator.navigateToBackup(context, wallet.address);
-          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
+        TransactionsWalletModel model = defaultWalletModel.getValue();
+        if (model != null) {
+          Wallet wallet = model.getWallet();
+          if (wallet.address != null) {
+            transactionViewNavigator.navigateToBackup(context, wallet.address);
+            walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+                WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
+          }
         }
         break;
       case DETAILS_URL:
@@ -549,7 +535,9 @@ public class TransactionsViewModel extends BaseViewModel {
   private void dismissNotification(CardNotification cardNotification) {
     disposables.add(transactionViewInteractor.dismissNotification(cardNotification)
         .subscribeOn(viewScheduler)
-        .subscribe(() -> dismissNotification.postValue(cardNotification), this::onError));
+        .doOnComplete(() -> refreshData.onNext(true))
+        .subscribe(() -> {
+        }, this::onError));
   }
 
   public void showSupportScreen(boolean fromNotification) {
