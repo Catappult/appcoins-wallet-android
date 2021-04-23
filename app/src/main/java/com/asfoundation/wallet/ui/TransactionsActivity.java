@@ -63,7 +63,6 @@ import static com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem.
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
   private static String FROM_APP_OPENING_FLAG = "app_opening_flag";
-  private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject CurrencyFormatUtils formatter;
   private TransactionsViewModel viewModel;
@@ -75,11 +74,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private TransactionsController transactionsController;
 
   private PublishSubject<String> emptyTransactionsSubject;
-  private View badge;
 
+  private View badge;
   private View tooltip;
   private PopupWindow popup;
   private EmptyTransactionsView emptyView;
+
+  private double maxBonus = 0.0;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -137,7 +138,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     });
 
     views.topUpBtn.extend();
-    views.refreshLayout.setOnRefreshListener(() -> viewModel.refreshTransactions());
+    views.refreshLayout.setOnRefreshListener(() -> viewModel.updateData());
     views.actionButtonSupport.setOnClickListener(v -> viewModel.showSupportScreen(false));
     views.actionButtonSettings.setOnClickListener(v -> viewModel.showSettings(this));
 
@@ -172,8 +173,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .get(TransactionsViewModel.class);
     viewModel.progress()
         .observe(this, views.systemView::showProgress);
-    viewModel.onFetchTransactionsError()
-        .observe(this, this::onFetchTransactionsError);
     viewModel.error()
         .observe(this, this::onError);
     viewModel.getDefaultWalletBalance()
@@ -182,8 +181,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onDefaultWallet);
     viewModel.transactionsModel()
         .observe(this, this::onTransactionsModel);
-    viewModel.gamificationMaxBonus()
-        .observe(this, this::onGamificationMaxBonus);
     viewModel.shouldShowPromotionsNotification()
         .observe(this, this::onPromotionsNotification);
     viewModel.getUnreadMessages()
@@ -261,10 +258,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void onFetchTransactionsError(Double maxBonus) {
-    views.systemView.showEmpty(getEmptyView());
-  }
-
   private Unit onApplicationClick(AppcoinsApplication appcoinsApplication,
       ApplicationClickAction applicationClickAction) {
     viewModel.onAppClick(appcoinsApplication, applicationClickAction, this);
@@ -309,7 +302,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override public void onClick(View view) {
     int id = view.getId();
     if (view.getId() == R.id.try_again) {
-      viewModel.refreshTransactions();
+      viewModel.updateData();
     } else if (id == R.id.top_up_btn) {
       viewModel.showTopUp(this);
     } else if (id == R.id.empty_clickable_view) {
@@ -346,6 +339,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void showList(TransactionsModel transactionsModel) {
+    views.systemView.showProgress(false);
     if (transactionsModel.getTransactions()
         .size() > 0) {
       views.systemView.setVisibility(View.INVISIBLE);
@@ -353,7 +347,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     } else {
       views.systemView.setVisibility(View.VISIBLE);
       views.transactionsRecyclerView.setVisibility(View.INVISIBLE);
-      views.systemView.showEmpty(getEmptyView());
+      maxBonus = transactionsModel.getMaxBonus();
+      views.systemView.showEmpty(getEmptyView(maxBonus));
     }
     if (transactionsModel.getNotifications()
         .size() > 0) {
@@ -369,10 +364,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private EmptyTransactionsView getEmptyView() {
+  private EmptyTransactionsView getEmptyView(double maxBonus) {
     if (emptyView == null) {
-      emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
-          emptyTransactionsSubject, this, disposables);
+      emptyView =
+          new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this,
+              disposables);
     }
     return emptyView;
   }
@@ -389,12 +385,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onError(ErrorEnvelope errorEnvelope) {
     if (errorEnvelope.code == EMPTY_COLLECTION) {
-      views.systemView.showEmpty(getEmptyView());
+      views.systemView.showEmpty(getEmptyView(maxBonus));
     }
-  }
-
-  private void onGamificationMaxBonus(double bonus) {
-    maxBonusEmptyScreen = Double.toString(bonus);
   }
 
   private void checkRoot() {

@@ -40,6 +40,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TransactionsViewModel extends BaseViewModel {
@@ -51,8 +52,6 @@ public class TransactionsViewModel extends BaseViewModel {
       transactionsModel = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showNotification = new MutableLiveData<>();
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
-  private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
-  private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
@@ -60,6 +59,8 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
   private final BehaviorSubject<Boolean> refreshData = BehaviorSubject.createDefault(false);
+  private final BehaviorSubject<Boolean> refreshCardNotifications =
+      BehaviorSubject.createDefault(true);
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
@@ -110,11 +111,6 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void stopRefreshingData() {
     refreshData.onNext(false);
-  }
-
-  public void refreshTransactions() {
-    disposables.add(updateTransactions(defaultWalletModel.getValue()).subscribe(() -> {
-    }, this::onError));
   }
 
   /**
@@ -238,11 +234,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void handleRateUsDialogVisibility() {
-    disposables.add(observeRefreshData().switchMap(
-        __ -> transactionViewInteractor.shouldOpenRatingDialog()
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess(showRateUsDialog::setValue)
-            .toObservable())
+    disposables.add(transactionViewInteractor.shouldOpenRatingDialog()
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess(showRateUsDialog::setValue)
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
   }
@@ -288,11 +282,45 @@ public class TransactionsViewModel extends BaseViewModel {
     unreadMessages.setValue(count != null && count != 0);
   }
 
-  private Completable publishMaxBonus() {
-    if (fetchTransactionsError.getValue() != null) {
-      return Completable.fromAction(
-          () -> fetchTransactionsError.postValue(fetchTransactionsError.getValue()));
-    }
+  private Completable updateTransactions(TransactionsWalletModel walletModel) {
+    if (walletModel == null) return Completable.complete();
+
+    return Completable.fromObservable(
+        Observable.combineLatest(getTransactions(walletModel.getWallet()), getCardNotifications(),
+            getAppcoinsApps(), getMaxBonus(), this::createTransactionsModel)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnNext(transactionsModel -> onTransactionModel(transactionsModel, walletModel))
+            .map(__ -> walletModel));
+  }
+
+  private TransactionsModel createTransactionsModel(List<Transaction> transactions,
+      List<CardNotification> notifications, List<AppcoinsApplication> apps, Double maxBonus) {
+    return new TransactionsModel(transactions, notifications, apps, maxBonus);
+  }
+
+  private Observable<List<Transaction>> getTransactions(Wallet wallet) {
+    return transactionViewInteractor.fetchTransactions(wallet)
+        .subscribeOn(networkScheduler)
+        .onErrorReturnItem(Collections.emptyList())
+        .doAfterTerminate(transactionViewInteractor::stopTransactionFetch);
+  }
+
+  private Observable<List<CardNotification>> getCardNotifications() {
+    return refreshCardNotifications.flatMapSingle(
+        __ -> transactionViewInteractor.getCardNotifications())
+        .subscribeOn(networkScheduler)
+        .onErrorReturnItem(Collections.emptyList());
+  }
+
+  private Observable<List<AppcoinsApplication>> getAppcoinsApps() {
+    return applications.getApps()
+        .subscribeOn(networkScheduler)
+        .onErrorReturnItem(Collections.emptyList())
+        .toObservable();
+  }
+
+  private Observable<Double> getMaxBonus() {
     return transactionViewInteractor.getLevels()
         .subscribeOn(networkScheduler)
         .flatMap(levels -> {
@@ -306,27 +334,7 @@ public class TransactionsViewModel extends BaseViewModel {
           return Single.error(new IllegalStateException(levels.getStatus()
               .name()));
         })
-        .doOnSuccess(fetchTransactionsError::postValue)
-        .ignoreElement();
-  }
-
-  private Completable updateTransactions(TransactionsWalletModel walletModel) {
-    if (walletModel == null) return Completable.complete();
-    return transactionViewInteractor.fetchTransactions(walletModel.getWallet())
-        .flatMapSingle(transactions -> transactionViewInteractor.getCardNotifications()
-            .subscribeOn(networkScheduler)
-            .onErrorReturnItem(Collections.emptyList())
-            .flatMap(notifications -> applications.getApps()
-                .onErrorReturnItem(Collections.emptyList())
-                .map(applications -> new TransactionsModel(transactions, notifications,
-                    applications))))
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .flatMapCompletable(transactionsModel -> publishMaxBonus().observeOn(viewScheduler)
-            .andThen(onTransactionModel(transactionsModel, walletModel)))
-        .onErrorResumeNext(throwable -> publishMaxBonus())
-        .observeOn(viewScheduler)
-        .doAfterTerminate(transactionViewInteractor::stopTransactionFetch);
+        .toObservable();
   }
 
   private Completable updateBalance() {
@@ -408,15 +416,12 @@ public class TransactionsViewModel extends BaseViewModel {
     return fiatSum;
   }
 
-  private Completable onTransactionModel(TransactionsModel transactionsModel,
+  private void onTransactionModel(TransactionsModel transactionsModel,
       TransactionsWalletModel walletModel) {
-    return Completable.fromAction(() -> {
-      transactionsModel.getTransactions();
-      hasTransactions = !transactionsModel.getTransactions()
-          .isEmpty() || hasTransactions;
-      this.transactionsModel.setValue(new Pair<>(transactionsModel, walletModel));
-      transactionViewInteractor.updateTransactionsNumber(transactionsModel.getTransactions());
-    });
+    hasTransactions = !transactionsModel.getTransactions()
+        .isEmpty() || hasTransactions;
+    this.transactionsModel.setValue(new Pair<>(transactionsModel, walletModel));
+    transactionViewInteractor.updateTransactionsNumber(transactionsModel.getTransactions());
   }
 
   public void showSettings(Context context) {
@@ -472,16 +477,8 @@ public class TransactionsViewModel extends BaseViewModel {
     topUpClicks.onNext(context);
   }
 
-  public MutableLiveData<Double> gamificationMaxBonus() {
-    return gamificationMaxBonus;
-  }
-
   public MutableLiveData<String> shareApp() {
     return shareApp;
-  }
-
-  public MutableLiveData<Double> onFetchTransactionsError() {
-    return fetchTransactionsError;
   }
 
   public MutableLiveData<Boolean> getUnreadMessages() {
@@ -532,7 +529,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private void dismissNotification(CardNotification cardNotification) {
     disposables.add(transactionViewInteractor.dismissNotification(cardNotification)
         .subscribeOn(viewScheduler)
-        .doOnComplete(() -> refreshData.onNext(true))
+        .doOnComplete(() -> refreshCardNotifications.onNext(true))
         .subscribe(() -> {
         }, this::onError));
   }

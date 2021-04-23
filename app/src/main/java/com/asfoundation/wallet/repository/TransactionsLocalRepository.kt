@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
+import com.asfoundation.wallet.repository.entity.LastUpdatedWalletEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
 import io.reactivex.Flowable
@@ -20,6 +21,15 @@ class TransactionsLocalRepository(private val transactionsDao: TransactionsDao,
   override fun getAllAsFlowable(relatedWallet: String): Flowable<List<TransactionEntity>> {
     return transactionsDao.getAllAsFlowable(relatedWallet)
   }
+
+  override fun getWalletLastUpdated(wallet: String): Flowable<LastUpdatedWalletEntity> {
+    return transactionsDao.getLastUpdatedWallet(wallet)
+  }
+
+  override fun setTransactionsLastUpdated(wallet: String, timestamp: Long) {
+    return transactionsDao.insertLastUpdatedWallet(LastUpdatedWalletEntity(wallet, timestamp))
+  }
+
 
   override fun insertAll(roomTransactions: List<TransactionEntity>) {
     return transactionsDao.insertAll(roomTransactions)

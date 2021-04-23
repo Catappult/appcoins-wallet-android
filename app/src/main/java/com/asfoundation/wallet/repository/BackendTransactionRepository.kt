@@ -48,7 +48,10 @@ class BackendTransactionRepository(
     }
     disposables.add(disposable)
 
-    return localRepository.getAllAsFlowable(wallet)
+    // getWalletLastUpdated ensures that we only start listening to DB once it gets updated from
+    // network at least once
+    return localRepository.getWalletLastUpdated(wallet)
+        .flatMap { localRepository.getAllAsFlowable(wallet) }
         .flatMap { transactions -> getLinkedTransactions(wallet, transactions) }
         .map { transactions -> orderByDateDescending(transactions) }
         .toObservable()
@@ -145,7 +148,10 @@ class BackendTransactionRepository(
 
   private fun saveTransactions(transactions: List<WalletHistory.Transaction>,
                                wallet: String): Observable<List<TransactionEntity>> {
-    return Observable.fromIterable(transactions)
+    return Completable.fromAction {
+      localRepository.setTransactionsLastUpdated(wallet, Date().time)
+    }
+        .andThen(Observable.fromIterable(transactions))
         .flatMap { transaction ->
           if (isRevertTransaction(transaction.type, transaction.linkedTx.orEmpty())) {
             transaction.linkedTx?.forEach {
