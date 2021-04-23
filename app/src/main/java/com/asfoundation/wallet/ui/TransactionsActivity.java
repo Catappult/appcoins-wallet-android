@@ -141,6 +141,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     views.refreshLayout.setOnRefreshListener(() -> viewModel.updateData());
     views.actionButtonSupport.setOnClickListener(v -> viewModel.showSupportScreen(false));
     views.actionButtonSettings.setOnClickListener(v -> viewModel.showSettings(this));
+    views.sendButton.setOnClickListener(v -> viewModel.showSend(this));
+    views.receiveButton.setOnClickListener(v -> viewModel.showMyAddress(this));
 
     if (savedInstanceState == null) {
       boolean fromAppOpening = getIntent().getBooleanExtra(FROM_APP_OPENING_FLAG, false);

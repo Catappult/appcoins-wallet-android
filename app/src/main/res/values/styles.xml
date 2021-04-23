@@ -1081,6 +1081,11 @@
 
   <style name="Home" />
 
+  <style name="Home.PillShape">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">50%</item>
+  </style>
+
   <style name="Home.HeaderShape">
     <item name="cornerFamily">rounded</item>
     <item name="cornerSizeBottomLeft">12dp</item>
