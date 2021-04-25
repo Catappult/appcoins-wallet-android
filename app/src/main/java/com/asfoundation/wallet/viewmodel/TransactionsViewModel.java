@@ -58,7 +58,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
-  private final BehaviorSubject<Boolean> refreshData = BehaviorSubject.createDefault(false);
+  private final BehaviorSubject<Boolean> refreshData = BehaviorSubject.createDefault(true);
   private final BehaviorSubject<Boolean> refreshCardNotifications =
       BehaviorSubject.createDefault(true);
   private final AppcoinsApps applications;
