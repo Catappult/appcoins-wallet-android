@@ -8,7 +8,6 @@ import cm.aptoide.skills.usecase.GetTicketUseCase
 import cm.aptoide.skills.usecase.LoginUseCase
 import cm.aptoide.skills.usecase.PayTicketUseCase
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 

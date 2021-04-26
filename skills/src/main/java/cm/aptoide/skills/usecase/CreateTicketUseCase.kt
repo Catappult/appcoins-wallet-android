@@ -18,10 +18,9 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
 
   fun createTicket(packageName: String, userId: String, userName: String): Single<TicketResponse> {
     return walletAddressObtainer.getWalletAddress()
-        .observeOn(networkScheduler)
+        .subscribeOn(networkScheduler)
         .flatMap { walletAddress ->
           ewtObtainer.getEWT()
-              .observeOn(networkScheduler)
               .flatMap { ewt ->
                 ticketRepository.createTicket(packageName,
                     userId, userName, ewt,
@@ -30,3 +29,4 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
         }
   }
 }
+

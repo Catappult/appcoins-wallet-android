@@ -31,6 +31,7 @@ class SkillsFragment : DaggerFragment() {
 
     private const val SHARED_PREFERENCES_NAME = "SKILL_SHARED_PREFERENCES"
     private const val PREFERENCES_USER_NAME = "PREFERENCES_USER_NAME"
+    private const val WALLET_CREATING_STATUS = "CREATING"
   }
 
   @Inject
@@ -63,7 +64,7 @@ class SkillsFragment : DaggerFragment() {
 
         disposable.add(
             handleWalletCreationIfNeeded()
-                .takeUntil { it != "CREATING" }
+                .takeUntil { it != WALLET_CREATING_STATUS }
                 .flatMap {
                   viewModel.getRoom(userId, userName, packageName, this)
                       .observeOn(AndroidSchedulers.mainThread())
@@ -142,11 +143,11 @@ class SkillsFragment : DaggerFragment() {
     return viewModel.handleWalletCreationIfNeeded()
         .observeOn(AndroidSchedulers.mainThread())
         .doOnNext {
-          if (it == "CREATING") {
+          if (it == WALLET_CREATING_STATUS) {
             showWalletCreationLoadingAnimation()
           }
         }
-        .filter { it != "CREATING" }
+        .filter { it != WALLET_CREATING_STATUS }
         .map {
           endWalletCreationLoadingAnimation()
           it
