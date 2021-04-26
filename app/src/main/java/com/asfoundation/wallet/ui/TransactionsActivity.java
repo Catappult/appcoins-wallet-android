@@ -353,6 +353,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       views.systemView.showEmpty(getEmptyView(maxBonus));
     }
     if (transactionsModel.getNotifications()
+        .size() > 0
+        || transactionsModel.getApplications()
         .size() > 0) {
       views.headerRecyclerView.setVisibility(View.VISIBLE);
       views.spacer.setVisibility(View.VISIBLE);

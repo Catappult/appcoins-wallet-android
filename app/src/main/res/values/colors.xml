@@ -5,10 +5,12 @@
   <color name="orange">#ef6c00</color>
   <color name="white">#FFFFFFFF</color>
   <color name="black">#000000</color>
+  <color name="blueish_black">#000508</color>
   <color name="fakeBlack">#313849</color>
   <color name="appc_pink">#fe7073</color>
   <color name="wild_watermelon">#FF6381</color>
   <color name="navy_blue">#001726</color>
+  <color name="darker_navy_blue">#001523</color>
 
   <color name="colorPrimary">#fc9d48</color>
   <color name="colorPrimaryDark">#e44b46</color>

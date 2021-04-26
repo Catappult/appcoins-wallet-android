@@ -150,16 +150,9 @@ public class TransactionsViewModel extends BaseViewModel {
         updateRegisterUser(model.getWallet()));
   }
 
-  /**
-   * Responsible for continuously refreshing transactions and balance. It refreshes every
-   * {@link #UPDATE_INTERVAL} seconds. Note that if refreshData is false, it won't refresh it.
-   */
   private Completable refreshTransactionsAndBalance(TransactionsWalletModel model) {
-    return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
-        .flatMap(__ -> observeRefreshData())
-        .switchMapCompletable(
-            __ -> Completable.mergeArrayDelayError(updateBalance(), updateTransactions(model))
-                .subscribeOn(networkScheduler))
+    return Completable.mergeArrayDelayError(updateBalance(),
+        updateTransactions(model).subscribeOn(networkScheduler))
         .subscribeOn(networkScheduler);
   }
 
@@ -299,8 +292,14 @@ public class TransactionsViewModel extends BaseViewModel {
     return new TransactionsModel(transactions, notifications, apps, maxBonus);
   }
 
+  /**
+   * Transactions are refreshed every {@link #UPDATE_INTERVAL} seconds, and stops while
+   * {@link #refreshData} is false
+   */
   private Observable<List<Transaction>> getTransactions(Wallet wallet) {
-    return transactionViewInteractor.fetchTransactions(wallet)
+    return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
+        .flatMap(__ -> observeRefreshData())
+        .switchMap(__ -> transactionViewInteractor.fetchTransactions(wallet))
         .subscribeOn(networkScheduler)
         .onErrorReturnItem(Collections.emptyList())
         .doAfterTerminate(transactionViewInteractor::stopTransactionFetch);
@@ -337,11 +336,15 @@ public class TransactionsViewModel extends BaseViewModel {
         .toObservable();
   }
 
+  /**
+   * Balance is refreshed every {@link #UPDATE_INTERVAL} seconds, and stops while
+   * {@link #refreshData} is false
+   */
   private Completable updateBalance() {
-    return Observable.zip(getAppcBalance(), getCreditsBalance(), getEthereumBalance(),
-        this::updateWalletValue)
-        .firstOrError()
-        .ignoreElement();
+    return Completable.fromObservable(Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
+        .flatMap(__ -> observeRefreshData())
+        .switchMap(__ -> Observable.zip(getAppcBalance(), getCreditsBalance(), getEthereumBalance(),
+            this::updateWalletValue)));
   }
 
   private GlobalBalance updateWalletValue(Pair<Balance, FiatValue> tokenBalance,

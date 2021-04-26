@@ -25,6 +25,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.button.MaterialButton
 
 @EpoxyModelClass
 abstract class AppCoinsAppModel : EpoxyModelWithHolder<AppCoinsAppModel.AppHolder>() {
@@ -105,10 +106,7 @@ abstract class AppCoinsAppModel : EpoxyModelWithHolder<AppCoinsAppModel.AppHolde
     holder.featuredGraphic.setOnClickListener {
       clickListener?.invoke(app, ApplicationClickAction.CLICK)
     }
-    holder.shareIcon.setOnClickListener {
-      clickListener?.invoke(app, ApplicationClickAction.SHARE)
-    }
-    holder.shareTitle.setOnClickListener {
+    holder.shareButton.setOnClickListener {
       clickListener?.invoke(app, ApplicationClickAction.SHARE)
     }
   }
@@ -153,7 +151,6 @@ abstract class AppCoinsAppModel : EpoxyModelWithHolder<AppCoinsAppModel.AppHolde
     val appIcon by bind<ImageView>(R.id.app_icon)
     val featuredGraphic by bind<ImageView>(R.id.featured_graphic)
     val appRating by bind<TextView>(R.id.app_rating)
-    val shareIcon by bind<ImageView>(R.id.share_icon)
-    val shareTitle by bind<TextView>(R.id.share_title)
+    val shareButton by bind<MaterialButton>(R.id.share_button)
   }
 }

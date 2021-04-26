@@ -25,6 +25,7 @@ class AppcoinsAppListModel(val data: List<AppcoinsApplication>,
       }
       return listOf(
           GeneralCarouselModel_()
+              .numViewsToShowOnScreen(1.26f)
               .id("appcoins_app_list")
               .models(appModels)
       )
