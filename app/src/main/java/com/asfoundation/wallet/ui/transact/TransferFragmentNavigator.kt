@@ -8,7 +8,7 @@ import com.asfoundation.wallet.C
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.ui.TransferConfirmationActivity
+import com.asfoundation.wallet.transfers.TransferConfirmationActivity
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
