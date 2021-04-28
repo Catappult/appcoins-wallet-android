@@ -17,6 +17,9 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val getTicketUseCase: GetTicketUseCase,
                       private val getTicketRetryMillis: Long,
                       private val loginUseCase: LoginUseCase) {
+  fun handleWalletCreationIfNeeded(): Observable<String> {
+    return createTicketUseCase.getOrCreateWallet()
+  }
 
   fun getRoom(userId: String, userName: String, packageName: String,
               fragment: Fragment): Observable<UserData> {
@@ -31,12 +34,12 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                 getTicketUseCase.getTicket(ticketResponse.ticketId)
                     .doOnSuccess { checkRoomIdPresent(it, roomIdPresent) }
                     .delay(getTicketRetryMillis, TimeUnit.MILLISECONDS)
-                    .repeatUntil({ roomIdPresent.get() })
-                    .skipWhile({ !roomIdPresent.get() })
+                    .repeatUntil { roomIdPresent.get() }
+                    .skipWhile { !roomIdPresent.get() }
                     .flatMapSingle { ticketResponse ->
                       loginUseCase.login(ticketResponse.roomId!!)
                           .map { session ->
-                            UserData(ticketResponse.userId, ticketResponse.roomId!!,
+                            UserData(ticketResponse.userId, ticketResponse.roomId,
                                 ticketResponse.walletAddress, session)
                           }
                     }
