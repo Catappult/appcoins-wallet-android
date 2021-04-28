@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.skills
 
+import cm.aptoide.skills.BuildConfig
 import cm.aptoide.skills.SkillsViewModel
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
@@ -122,7 +123,7 @@ class SkillsModule {
   }
 
   companion object {
-    const val ENDPOINT = "https://api.eskills.dev.catappult.io"
+    const val ENDPOINT = BuildConfig.BASE_HOST_SKILLS
     const val GET_ROOM_RETRY_MILLIS = 1000L
   }
 }
