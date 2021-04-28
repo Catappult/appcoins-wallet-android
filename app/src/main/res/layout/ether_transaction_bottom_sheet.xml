@@ -55,6 +55,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:id="@+id/ether_transaction_bottom_sheet_hash_string"
         android:layout_width="168dp"
         android:layout_height="32dp"
         android:text="0x0bb0505b1fa7e4d106ae5b2fcc1f9844b606671"
@@ -72,26 +73,27 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <TextView
+  <Button
       android:id="@+id/ether_transaction_bottom_sheet_copy_clipboard"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/copy"
       android:layout_marginTop="21dp"
+      android:minHeight="0dp"
       style="@style/BottomSheetEtherTransactionClipboard"
+      android:background="@null"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_rectangle"/>
 
   <Button
-      android:id="@+id/got_it_button"
+      android:id="@+id/ether_transaction_bottom_sheet_got_it_button"
       style="@style/ButtonStyle"
       android:layout_width="134dp"
       android:layout_height="wrap_content"
       android:text="@string/got_it_button"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_rectangle"
-      app:layout_constraintVertical_bias="1"
+      app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_copy_clipboard"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
