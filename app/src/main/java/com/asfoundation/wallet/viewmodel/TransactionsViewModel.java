@@ -428,18 +428,22 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showSettings(Context context) {
+    analytics.sendAction("settings");
     transactionViewNavigator.openSettings(context, false);
   }
 
   public void showSend(Context context) {
+    analytics.sendAction("send");
     transactionViewNavigator.openSendView(context);
   }
 
   public void showDetails(Context context, Transaction transaction) {
+    analytics.sendAction("transactions_details");
     transactionViewNavigator.openTransactionsDetailView(context, transaction);
   }
 
   public void showMyAddress(Context context) {
+    analytics.sendAction("receive");
     TransactionsWalletModel model = defaultWalletModel.getValue();
     if (model != null) {
       transactionViewNavigator.openMyAddressView(context, model.getWallet());
@@ -447,6 +451,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTokens(Context context) {
+    analytics.sendAction("balance");
     analytics.sendAbTestConversionEvent();
     transactionViewNavigator.openTokensView(context,
         transactionViewInteractor.getCachedExperiment());
@@ -496,18 +501,22 @@ public class TransactionsViewModel extends BaseViewModel {
       CardNotificationAction cardNotificationAction, Context context) {
     switch (cardNotificationAction) {
       case DISMISS:
+        analytics.sendAction("notification_card_dismiss");
         dismissNotification(cardNotification);
         break;
       case DISCOVER:
+        analytics.sendAction("notification_card");
         transactionViewNavigator.navigateToBrowser(context,
             Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL));
         break;
       case UPDATE:
+        analytics.sendAction("notification_card");
         transactionViewNavigator.openIntent(context,
             transactionViewInteractor.retrieveUpdateIntent());
         dismissNotification(cardNotification);
         break;
       case BACKUP:
+        analytics.sendAction("notification_card");
         TransactionsWalletModel model = defaultWalletModel.getValue();
         if (model != null) {
           Wallet wallet = model.getWallet();
@@ -519,6 +528,7 @@ public class TransactionsViewModel extends BaseViewModel {
         }
         break;
       case DETAILS_URL:
+        analytics.sendAction("notification_card");
         if (cardNotification instanceof PromotionNotification) {
           String url = ((PromotionNotification) cardNotification).getDetailsLink();
           transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));
@@ -541,6 +551,7 @@ public class TransactionsViewModel extends BaseViewModel {
     if (fromNotification) {
       supportInteractor.displayConversationListOrChat();
     } else {
+      analytics.sendAction("support");
       supportInteractor.displayChatScreen();
     }
   }
