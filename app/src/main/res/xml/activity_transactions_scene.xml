@@ -72,6 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <Constraint android:id="@+id/system_view">
       <PropertySet
           app:applyMotionScene="false"
@@ -82,6 +83,7 @@
           app:applyMotionScene="false"
           app:visibilityMode="ignore" />
     </Constraint>
+
     <Constraint
         android:id="@+id/balance_subtitle"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
@@ -108,14 +110,6 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/balance_skeleton"
         app:visibilityMode="ignore" />
-    <Constraint
-        android:id="@+id/top_up_wrapper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:visibilityMode="ignore" />
     <Constraint android:id="@+id/faded_background">
       <PropertySet
           app:applyMotionScene="false"
@@ -124,14 +118,6 @@
   </ConstraintSet>
 
   <ConstraintSet android:id="@+id/collapsed">
-    <Constraint
-        android:id="@+id/top_up_wrapper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:visibilityMode="ignore" />
     <Constraint
         android:id="@+id/collapsable_bar"
         android:layout_width="match_parent"
@@ -149,7 +135,6 @@
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@id/toolbar" />
-
     <Constraint android:id="@+id/system_view">
       <PropertySet
           app:applyMotionScene="false"
@@ -160,6 +145,7 @@
           app:applyMotionScene="false"
           app:visibilityMode="ignore" />
     </Constraint>
+
     <Constraint
         android:id="@+id/balance_subtitle"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
