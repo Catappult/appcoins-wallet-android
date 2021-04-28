@@ -33,9 +33,12 @@ class OneStepTransactionParser(
                 getAmount(oneStepUri, skuDetailsResponse.product),
                 Function5 { token: Token, iabContract: String, walletAddress: String,
                             tokenContract: String, amount: BigDecimal ->
+                  val paymentType = if (isSkills(oneStepUri)) {
+                    Parameters.ESKILLS
+                  } else Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
                   TransactionBuilder(token.tokenInfo.symbol, tokenContract, getChainId(oneStepUri),
                       walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
-                      iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, null,
+                      iabContract, paymentType, null,
                       getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
                       getOrderReference(oneStepUri), getProductToken(oneStepUri), referrerUrl,
                       skuDetailsResponse.product?.title.orEmpty()).shouldSendToken(true)
@@ -152,6 +155,10 @@ class OneStepTransactionParser(
 
   private fun getProductToken(uri: OneStepUri): String? {
     return uri.parameters[Parameters.PRODUCT_TOKEN]
+  }
+
+  private fun isSkills(uri: OneStepUri): Boolean {
+    return uri.parameters[Parameters.SKILLS] != null
   }
 }
 

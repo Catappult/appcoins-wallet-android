@@ -16,6 +16,7 @@ data class Transaction(val sku: String?,
                        val callback: String?,
                        val orderReference: String?,
                        val referrerUrl: String?,
+                       val productToken: String?,
                        val errorCode: Int? = null,
                        val errorMessage: String? = null) {
   constructor(transaction: Transaction, status: Status, errorCode: Int? = null,
@@ -23,7 +24,7 @@ data class Transaction(val sku: String?,
       transaction.developerAddress, transaction.oemAddress, transaction.storeAddress,
       transaction.packageName, transaction.amount, transaction.origin, status, transaction.txId,
       transaction.payload, transaction.callback, transaction.orderReference,
-      transaction.referrerUrl, errorCode, errorMessage)
+      transaction.referrerUrl, transaction.productToken, errorCode, errorMessage)
 
   fun isBds(): Boolean = this.origin == "BDS" || this.origin == "UNITY"
 

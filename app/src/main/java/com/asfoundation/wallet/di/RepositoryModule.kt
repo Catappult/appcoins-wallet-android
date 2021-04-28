@@ -53,7 +53,6 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPreferencesRepository
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
-import com.asfoundation.wallet.util.LogInterceptor
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
@@ -138,13 +137,9 @@ class RepositoryModule {
   @Provides
   fun provideSkillsPaymentRepository(
       @Named("default") client: OkHttpClient, gson: Gson): SkillsPaymentRepository {
-    val httpClient = OkHttpClient().newBuilder()
-        .addInterceptor(ContentTypeInterceptor())
-        .addInterceptor(LogInterceptor())
-
     val api = Retrofit.Builder()
-        .baseUrl("https://api.dev.catappult.io/broker/8.20210201/gateways/adyen_v2/")
-        .client(httpClient.build())
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20210201/gateways/adyen_v2/")
+        .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()

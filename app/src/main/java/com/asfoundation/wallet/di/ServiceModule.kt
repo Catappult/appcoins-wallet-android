@@ -510,6 +510,7 @@ class ServiceModule {
   @Provides
   fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
+
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)

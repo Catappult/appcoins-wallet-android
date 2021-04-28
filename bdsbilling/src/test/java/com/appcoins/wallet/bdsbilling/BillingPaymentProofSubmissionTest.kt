@@ -40,6 +40,7 @@ class BillingPaymentProofSubmissionTest {
     const val callback = "callback_url"
     const val orderReference = "order_reference"
     const val referrerUrl = "a_random_url"
+    const val productToken = "productToken"
   }
 
   @Mock
@@ -72,7 +73,7 @@ class BillingPaymentProofSubmissionTest {
     `when`(
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
             type, null, developerAddress, storeAddress, oemAddress, paymentId,
-            developerPayload, callback, orderReference, referrerUrl, walletAddress,
+            developerPayload, callback, orderReference, referrerUrl, productToken, walletAddress,
             signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
         Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
         "orderReference", null, "", "")))
@@ -105,6 +106,7 @@ class BillingPaymentProofSubmissionTest {
     verify(api, times(1)).createTransaction(paymentType, origin, packageName,
         priceValue, currency, productName, type, null, developerAddress, storeAddress,
         oemAddress, paymentId, developerPayload, callback, orderReference, referrerUrl,
+        productToken,
         walletAddress, signedContent)
     verify(api, times(1)).patchTransaction(paymentType, paymentId,
         walletAddress, signedContent, paymentToken)
