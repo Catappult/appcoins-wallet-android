@@ -16,6 +16,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
+import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
@@ -246,6 +247,7 @@ class InteractorModule {
   @Provides
   fun provideAdyenPaymentInteractor(context: Context,
                                     adyenPaymentRepository: AdyenPaymentRepository,
+                                    skillsPaymentRepository: SkillsPaymentRepository,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
                                     partnerAddressService: AddressService, billing: Billing,
                                     walletService: WalletService,
@@ -253,7 +255,8 @@ class InteractorModule {
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
                                     billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
-    return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
+    return AdyenPaymentInteractor(adyenPaymentRepository, skillsPaymentRepository,
+        inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
         walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
         billingAddressRepository)

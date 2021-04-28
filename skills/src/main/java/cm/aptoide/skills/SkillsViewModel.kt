@@ -23,7 +23,7 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
     return createTicketUseCase.createTicket(packageName, userId, userName)
         .flatMap { ticketResponse ->
           payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
-              ticketResponse.ticketPrice, ticketResponse.priceCurrency,
+              ticketResponse.ticketPrice, ticketResponse.priceCurrency, ticketResponse.productToken,
               packageName, fragment)
               .flatMap {
                 val roomIdPresent = AtomicBoolean(false)

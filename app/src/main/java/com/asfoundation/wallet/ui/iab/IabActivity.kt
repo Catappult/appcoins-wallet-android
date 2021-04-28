@@ -184,7 +184,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, getSkuDescription()))
+                bonus, isPreselected, gamificationLevel, getSkuDescription(),
+                transaction!!.productToken))
         .commit()
   }
 

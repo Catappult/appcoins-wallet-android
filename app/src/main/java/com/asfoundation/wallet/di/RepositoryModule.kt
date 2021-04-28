@@ -16,6 +16,7 @@ import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseTypeAdapter
+import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
@@ -52,6 +53,7 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPreferencesRepository
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
+import com.asfoundation.wallet.util.LogInterceptor
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
@@ -130,6 +132,24 @@ class RepositoryModule {
         .build()
         .create(AdyenApi::class.java)
     return AdyenPaymentRepository(api, AdyenResponseMapper(gson))
+  }
+
+  @Singleton
+  @Provides
+  fun provideSkillsPaymentRepository(
+      @Named("default") client: OkHttpClient, gson: Gson): SkillsPaymentRepository {
+    val httpClient = OkHttpClient().newBuilder()
+        .addInterceptor(ContentTypeInterceptor())
+        .addInterceptor(LogInterceptor())
+
+    val api = Retrofit.Builder()
+        .baseUrl("https://api.dev.catappult.io/broker/8.20210201/gateways/adyen_v2/")
+        .client(httpClient.build())
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(SkillsPaymentRepository.AdyenApi::class.java)
+    return SkillsPaymentRepository(api, AdyenResponseMapper(gson))
   }
 
   @Singleton

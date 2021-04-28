@@ -49,6 +49,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val transactionType: String,
                             private val amount: BigDecimal,
                             private val currency: String,
+                            private val skills: Boolean,
                             private val isPreSelected: Boolean,
                             private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
                             private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
@@ -201,12 +202,27 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 handleBuyAnalytics(it)
                 val billingAddressModel = view.retrieveBillingAddressData()
                 val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
-                adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
-                    shouldStore, adyenCard.hasCvc, adyenCard.supportedShopperInteractions,
-                    returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
-                    mapPaymentToService(paymentType).transactionType, origin, domain,
-                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(), it.referrerUrl,
-                    mapToAdyenBillingAddress(billingAddressModel))
+                if (skills) {
+                  adyenPaymentInteractor.makeSkillsPayment(
+                      returnUrl, it.orderReference,
+                      mapPaymentToService(paymentType).transactionType, origin, domain,
+                      it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
+                      it.referrerUrl,
+                      mapToAdyenBillingAddress(billingAddressModel), it.productToken,
+
+                      adyenCard.cardPaymentMethod.encryptedCardNumber,
+                      adyenCard.cardPaymentMethod.encryptedExpiryMonth,
+                      adyenCard.cardPaymentMethod.encryptedExpiryYear,
+                      adyenCard.cardPaymentMethod.encryptedSecurityCode!!)
+                } else {
+                  adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
+                      shouldStore, adyenCard.hasCvc, adyenCard.supportedShopperInteractions,
+                      returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
+                      mapPaymentToService(paymentType).transactionType, origin, domain,
+                      it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
+                      it.referrerUrl,
+                      mapToAdyenBillingAddress(billingAddressModel))
+                }
               }
         }
         .observeOn(viewScheduler)

@@ -11,13 +11,13 @@ import java.math.BigDecimal
 class PayTicketUseCase(private val ticketRepository: TicketRepository) {
 
   fun payTicket(ticketId: String, callbackUrl: String, price: BigDecimal,
-                priceCurrency: String, packageName: String,
+                priceCurrency: String, productToken: String, packageName: String,
                 fragment: Fragment): Single<Any> {
     return Single.fromCallable {
       val url: String =
           (BACKEND_HOST + "transaction/inapp?product=antifreeze&value=" + price + "&currency=" +
               priceCurrency + "&domain=" + packageName + "&callback_url=" + callbackUrl +
-              "&order_reference=" + ticketId)
+              "&order_reference=" + ticketId + "&product_token=" + productToken + "&skills")
 
       val i = Intent(Intent.ACTION_VIEW)
       i.data = Uri.parse(url)

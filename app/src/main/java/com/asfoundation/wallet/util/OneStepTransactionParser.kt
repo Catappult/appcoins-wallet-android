@@ -37,7 +37,7 @@ class OneStepTransactionParser(
                       walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
                       iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, null,
                       getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
-                      getOrderReference(oneStepUri), referrerUrl,
+                      getOrderReference(oneStepUri), getProductToken(oneStepUri), referrerUrl,
                       skuDetailsResponse.product?.title.orEmpty()).shouldSendToken(true)
                 })
                 .map {
@@ -148,6 +148,10 @@ class OneStepTransactionParser(
 
   private fun getCallback(uri: OneStepUri): String? {
     return uri.parameters[Parameters.CALLBACK_URL]
+  }
+
+  private fun getProductToken(uri: OneStepUri): String? {
+    return uri.parameters[Parameters.PRODUCT_TOKEN]
   }
 }
 

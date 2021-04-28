@@ -31,6 +31,9 @@ data class TicketResponse(
     @SerializedName("price_currency")
     val priceCurrency: String,
 
+    @SerializedName("product_token")
+    val productToken: String,
+
     @SerializedName("room_metadata")
     val roomMetadata: Map<String, String>,
 
