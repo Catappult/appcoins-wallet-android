@@ -501,22 +501,22 @@ public class TransactionsViewModel extends BaseViewModel {
       CardNotificationAction cardNotificationAction, Context context) {
     switch (cardNotificationAction) {
       case DISMISS:
-        analytics.sendAction("notification_card_dismiss");
+        analytics.sendAction("notification_card_button", "dismiss");
         dismissNotification(cardNotification);
         break;
       case DISCOVER:
-        analytics.sendAction("notification_card");
+        analytics.sendAction("notification_card_button", "discover");
         transactionViewNavigator.navigateToBrowser(context,
             Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL));
         break;
       case UPDATE:
-        analytics.sendAction("notification_card");
+        analytics.sendAction("notification_card_button", "update");
         transactionViewNavigator.openIntent(context,
             transactionViewInteractor.retrieveUpdateIntent());
         dismissNotification(cardNotification);
         break;
       case BACKUP:
-        analytics.sendAction("notification_card");
+        analytics.sendAction("notification_card_button", "backup");
         TransactionsWalletModel model = defaultWalletModel.getValue();
         if (model != null) {
           Wallet wallet = model.getWallet();
@@ -528,7 +528,7 @@ public class TransactionsViewModel extends BaseViewModel {
         }
         break;
       case DETAILS_URL:
-        analytics.sendAction("notification_card");
+        analytics.sendAction("notification_card_button", "details");
         if (cardNotification instanceof PromotionNotification) {
           String url = ((PromotionNotification) cardNotification).getDetailsLink();
           transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));

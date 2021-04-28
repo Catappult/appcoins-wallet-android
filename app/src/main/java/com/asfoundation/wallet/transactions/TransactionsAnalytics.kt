@@ -10,6 +10,7 @@ class TransactionsAnalytics(private val analytics: AnalyticsManager,
   companion object {
     const val WALLET_HOME_INTERACTION_EVENT = "wallet_home_interaction_event"
     const val CALL_TO_ACTION = "call_to_action"
+    const val CARD_BUTTON_ACTION = "card_button_action"
     const val OPEN_APPLICATION = "OPEN_APPLICATION"
 
     private const val UNIQUE_NAME = "unique_name"
@@ -29,8 +30,16 @@ class TransactionsAnalytics(private val analytics: AnalyticsManager,
   fun sendAbTestConversionEvent() = balanceWalletsAnalytics.sendAbTestConvertingEvent()
 
   fun sendAction(action: String) {
+    sendAction(action, null)
+  }
+
+  fun sendAction(action: String, button: String? = null) {
     val data = HashMap<String, Any>()
     data[CALL_TO_ACTION] = action
+
+    if (action == "notification_card_button" && button != null) {
+      data[CARD_BUTTON_ACTION] = button
+    }
     analytics.logEvent(data, WALLET_HOME_INTERACTION_EVENT, AnalyticsManager.Action.CLICK, WALLET)
   }
 }
