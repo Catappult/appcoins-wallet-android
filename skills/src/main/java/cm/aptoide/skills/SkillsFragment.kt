@@ -88,7 +88,7 @@ class SkillsFragment : DaggerFragment() {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == viewModel.getPayTicketRequestCode()) {
+    if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == RESULT_OK) {
       viewModel.payTicketOnActivityResult(resultCode, data!!.extras
       !!.getString(TRANSACTION_HASH))
     } else {

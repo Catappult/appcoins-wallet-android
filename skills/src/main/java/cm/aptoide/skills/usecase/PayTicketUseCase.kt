@@ -39,8 +39,8 @@ class PayTicketUseCase(private val ticketRepository: TicketRepository) {
   }
 
   companion object {
-    const val BACKEND_HOST = "https://apichain-dev.blockchainds.com/"
-    const val IAB_BIND_PACKAGE = "com.appcoins.wallet.dev"
+    const val BACKEND_HOST = "https://apichain.catappult.io/"
+    const val IAB_BIND_PACKAGE = "com.appcoins.wallet"
     const val RC_ONE_STEP = 10003
   }
 }

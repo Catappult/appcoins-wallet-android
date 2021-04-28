@@ -510,10 +510,13 @@ class ServiceModule {
   @Provides
   fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
+    var okHttpClient = OkHttpClient().newBuilder()
+
+    okHttpClient.addInterceptor(CustomInterceptor())
 
     return Retrofit.Builder()
         .baseUrl(baseUrl)
-        .client(client)
+        .client(okHttpClient.build())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
