@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -89,7 +90,7 @@ class SkillsModule {
   fun providesCreateTicketUseCase(walletAddressObtainer: WalletAddressObtainer,
                                   ewtObtainer: EwtObtainer,
                                   ticketRepository: TicketRepository): CreateTicketUseCase {
-    return CreateTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
+    return CreateTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository, Schedulers.io())
   }
 
   @Provides

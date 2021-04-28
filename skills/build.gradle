@@ -17,10 +17,18 @@ android {
     consumerProguardFiles "consumer-rules.pro"
   }
 
+  ndkVersion "21.3.6528147"
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+    staging {
+      initWith release
+    }
+    debug {
+      minifyEnabled false
     }
   }
   compileOptions {
@@ -52,7 +60,9 @@ dependencies {
   implementation "com.google.dagger:dagger:$project.dagger_version"
   implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
 
-  testImplementation 'junit:junit:4.+'
-  androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+  implementation "com.airbnb.android:lottie:$project.lottie_version"
+
+  testImplementation "junit:junit:$project.junit_version"
+  testImplementation "org.mockito:mockito-core:$project.mockito_version"
+  androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"
 }
