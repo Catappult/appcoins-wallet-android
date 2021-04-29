@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.transfers
 
+import android.content.Intent
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.FragmentManager
@@ -31,9 +32,8 @@ class EtherTransactionBottomSheetNavigator(val fragmentManager: FragmentManager,
   }
 
   fun goBackToTransactions() {
-    fragment.startActivity(
-        TransactionsActivity.newIntent(
-            fragment.context!!))
-    fragmentManager.popBackStack()
+    val intent: Intent = TransactionsActivity.newIntent(fragment.context)
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+    fragment.startActivity(intent)
   }
 }
