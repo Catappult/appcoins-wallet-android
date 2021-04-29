@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
+import kotlinx.android.synthetic.main.activity_confirm.*
 import kotlinx.android.synthetic.main.ether_transaction_bottom_sheet.*
 import javax.inject.Inject
 
@@ -46,7 +47,10 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     }
   }
 
-
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    setAnimations()
+  }
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.ether_transaction_bottom_sheet, container, false)
@@ -55,9 +59,14 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     dialog?.setCanceledOnTouchOutside(false)
+    presenter.present()
+  }
+
+  fun setAnimations(){
+    dialog?.window
+        ?.attributes?.windowAnimations =  R.anim.fragment_slide_up;
     ether_transaction_bottom_sheet_layout.animation =
         AnimationUtils.loadAnimation(context, R.anim.fragment_slide_up)
-    presenter.present()
   }
 
   override fun getTheme(): Int {
