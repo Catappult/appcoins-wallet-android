@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif"
+            app:fontFamily="sans-serif"
             android:gravity="center"
             android:lineSpacingExtra="8sp"
             android:text="@string/finding_room_loading_title"

@@ -1,12 +1,10 @@
 package cm.aptoide.skills
 
+import android.graphics.drawable.Drawable
 import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.model.TicketResponse
-import cm.aptoide.skills.usecase.CreateTicketUseCase
-import cm.aptoide.skills.usecase.GetTicketUseCase
-import cm.aptoide.skills.usecase.LoginUseCase
-import cm.aptoide.skills.usecase.PayTicketUseCase
+import cm.aptoide.skills.usecase.*
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
@@ -16,7 +14,8 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val payTicketUseCase: PayTicketUseCase,
                       private val getTicketUseCase: GetTicketUseCase,
                       private val getTicketRetryMillis: Long,
-                      private val loginUseCase: LoginUseCase) {
+                      private val loginUseCase: LoginUseCase,
+                      private val getApplicationInfoUseCase: GetApplicationInfoUseCase) {
   fun handleWalletCreationIfNeeded(): Observable<String> {
     return createTicketUseCase.getOrCreateWallet()
   }
@@ -61,5 +60,13 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
 
   fun payTicketOnActivityResult(resultCode: Int, txHash: String?) {
 
+  }
+
+  fun getApplicationIcon(packageName: String): Drawable? {
+    return getApplicationInfoUseCase.getApplicationIcon(packageName)
+  }
+
+  fun getApplicationName(packageName: String): String? {
+    return getApplicationInfoUseCase.getApplicationName(packageName)
   }
 }

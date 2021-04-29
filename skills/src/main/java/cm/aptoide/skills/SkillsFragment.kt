@@ -57,7 +57,7 @@ class SkillsFragment : DaggerFragment() {
       val packageName = intent.getStringExtra(PACKAGE_NAME)!!
       loadUserName()
 
-      setTicketDetails()
+      setTicketDetails(packageName)
 
       binding.createTicketLayout.findRoomButton.setOnClickListener {
         val userName = binding.createTicketLayout.userName.text.toString()
@@ -85,8 +85,17 @@ class SkillsFragment : DaggerFragment() {
     }
   }
 
-  private fun setTicketDetails() {
-    binding.createTicketLayout.createTicketHeader.appName.text = "2048"
+  private fun setTicketDetails(packageName: String) {
+    val applicationIcon = viewModel.getApplicationIcon(packageName)
+    if (applicationIcon != null) {
+      binding.createTicketLayout.createTicketHeader.appIcon.setImageDrawable(applicationIcon)
+    }
+
+    val applicationName = viewModel.getApplicationName(packageName)
+    if (applicationName != null) {
+      binding.createTicketLayout.createTicketHeader.appName.text = applicationName
+    }
+
     binding.createTicketLayout.createTicketHeader.appSkuDescription.text = "Become a champion (1v1)"
     binding.createTicketLayout.createTicketHeader.fiatPrice.text = "1 USD"
   }
