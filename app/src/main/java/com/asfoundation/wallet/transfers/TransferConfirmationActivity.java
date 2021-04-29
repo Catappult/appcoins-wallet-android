@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -165,6 +166,7 @@ public class TransferConfirmationActivity extends BaseActivity {
     Log.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
     hideDialog();
     viewModel.progressFinished();
+    sendButton.setVisibility(View.GONE);
   }
 
   private void onError(ErrorEnvelope error) {
