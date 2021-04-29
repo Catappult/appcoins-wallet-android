@@ -4,7 +4,7 @@
     android:id="@+id/ether_transaction_bottom_sheet_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/bottom_sheet_big_height"
-    android:background="@drawable/background_white_card_top"
+    android:background="@drawable/rounded_dialog"
     android:orientation="vertical"
     android:paddingTop="32dp"
     android:paddingHorizontal="32dp"

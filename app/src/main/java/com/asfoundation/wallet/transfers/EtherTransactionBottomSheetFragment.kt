@@ -60,9 +60,9 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     presenter.present()
   }
 
-//  override fun getTheme(): Int {
-//    return R.style.CustomBottomSheetDialog
-//  }
+  override fun getTheme(): Int {
+    return R.style.AppBottomSheetDialogTheme
+  }
 
   override fun setTransactionHash() {
     ether_transaction_bottom_sheet_hash_string.text = transactionHash

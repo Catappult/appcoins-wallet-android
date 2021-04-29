@@ -7,6 +7,7 @@
     <item name="colorAccent">@color/colorAccent</item>
     <item name="android:statusBarColor">@color/statusBarColor</item>
     <item name="android:windowContentTransitions">true</item>
+
   </style>
 
   <style name="MaterialAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -20,6 +21,30 @@
     <item name="actionMenuTextColor">@color/white</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowContentTransitions">true</item>
+  </style>
+
+<!--  <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">-->
+<!--    <item name="bottomSheetStyle">@style/CustomBottomSheet</item>-->
+<!--  </style>-->
+
+<!--  <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">-->
+<!--    <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>-->
+<!--  </style>-->
+
+<!--  <style name="CustomShapeAppearanceBottomSheetDialog" parent="">-->
+<!--    <item name="cornerFamily">rounded</item>-->
+<!--    <item name="cornerSizeTopRight">22dp</item>-->
+<!--    <item name="cornerSizeTopLeft">22dp</item>-->
+<!--  </style>-->
+
+  <style name="AppBottomSheetDialogTheme"
+      parent="Theme.Design.Light.BottomSheetDialog">
+    <item name="bottomSheetStyle">@style/AppModalStyle</item>
+  </style>
+
+  <style name="AppModalStyle"
+      parent="Widget.Design.BottomSheet.Modal">
+    <item name="android:background">@drawable/rounded_dialog</item>
   </style>
 
   <style name="AdyenMaterialAppTheme" parent="MaterialAppTheme">
