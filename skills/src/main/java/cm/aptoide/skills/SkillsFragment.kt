@@ -57,8 +57,10 @@ class SkillsFragment : DaggerFragment() {
       val packageName = intent.getStringExtra(PACKAGE_NAME)!!
       loadUserName()
 
-      binding.findOpponentButton.setOnClickListener {
-        val userName = binding.userNameTv.text.toString()
+      setTicketDetails(packageName)
+
+      binding.createTicketLayout.findRoomButton.setOnClickListener {
+        val userName = binding.createTicketLayout.userName.text.toString()
         saveUserName(userName)
         KeyboardUtils.hideKeyboard(view)
 
@@ -68,7 +70,7 @@ class SkillsFragment : DaggerFragment() {
                 .flatMap {
                   viewModel.getRoom(userId, userName, packageName, this)
                       .observeOn(AndroidSchedulers.mainThread())
-                      .doOnSubscribe { showLoading(R.string.finding_room) }
+                      .doOnSubscribe { showFindingRoomLoading() }
                       .doOnNext { userData ->
                         requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
                         requireActivity().finish()
@@ -83,6 +85,21 @@ class SkillsFragment : DaggerFragment() {
     }
   }
 
+  private fun setTicketDetails(packageName: String) {
+    val applicationIcon = viewModel.getApplicationIcon(packageName)
+    if (applicationIcon != null) {
+      binding.createTicketLayout.createTicketHeader.appIcon.setImageDrawable(applicationIcon)
+    }
+
+    val applicationName = viewModel.getApplicationName(packageName)
+    if (applicationName != null) {
+      binding.createTicketLayout.createTicketHeader.appName.text = applicationName
+    }
+
+    binding.createTicketLayout.createTicketHeader.appSkuDescription.text = "Become a champion (1v1)"
+    binding.createTicketLayout.createTicketHeader.fiatPrice.text = "1 USD"
+  }
+
   private fun saveUserName(userName: String) {
     requireContext().getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
         .edit()
@@ -95,7 +112,7 @@ class SkillsFragment : DaggerFragment() {
     val sharedPreferences =
         requireContext().getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE)
 
-    binding.userNameTv.setText(sharedPreferences.getString(PREFERENCES_USER_NAME, ""))
+    binding.createTicketLayout.userName.setText(sharedPreferences.getString(PREFERENCES_USER_NAME, ""))
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -108,7 +125,7 @@ class SkillsFragment : DaggerFragment() {
   }
 
   private fun showError(stringId: Int) {
-    binding.findOpponentButton.visibility = View.GONE
+    binding.createTicketLayout.createTicketMainView.visibility = View.GONE
     binding.errorText.visibility = View.VISIBLE
     binding.errorText.text = requireContext().resources.getString(stringId)
   }
@@ -118,14 +135,9 @@ class SkillsFragment : DaggerFragment() {
     super.onDestroyView()
   }
 
-  private fun showLoading(textId: Int) {
-    binding.findOpponentButton.visibility = View.GONE
-    binding.userNameTv.visibility = View.GONE
-
-    binding.progressBarTv.text = requireContext().resources.getString(textId)
-
-    binding.progressBar.visibility = View.VISIBLE
-    binding.progressBarTv.visibility = View.VISIBLE
+  private fun showFindingRoomLoading() {
+    binding.createTicketLayout.createTicketMainView.visibility = View.GONE
+    binding.loadingTicketLayout.processingLoading.visibility = View.VISIBLE
   }
 
   private fun buildDataIntent(userData: UserData): Intent {
@@ -155,14 +167,12 @@ class SkillsFragment : DaggerFragment() {
   }
 
   fun showWalletCreationLoadingAnimation() {
-    binding.findOpponentButton.visibility = View.GONE
-    binding.userNameTv.visibility = View.GONE
-
-    binding.createWalletCard.visibility = View.VISIBLE
-    binding.createWalletAnimation.playAnimation()
+    binding.createTicketLayout.createTicketMainView.visibility = View.GONE
+    binding.createWalletLayout.createWalletCard.visibility = View.VISIBLE
+    binding.createWalletLayout.createWalletAnimation.playAnimation()
   }
 
   fun endWalletCreationLoadingAnimation() {
-    binding.createWalletCard.visibility = View.GONE
+    binding.createWalletLayout.createWalletCard.visibility = View.GONE
   }
 }

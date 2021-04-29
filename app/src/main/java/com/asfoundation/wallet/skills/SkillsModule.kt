@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.skills
 
+import android.content.Context
 import cm.aptoide.skills.BuildConfig
 import cm.aptoide.skills.SkillsViewModel
 import cm.aptoide.skills.api.RoomApi
@@ -9,10 +10,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.repository.LoginRepository
 import cm.aptoide.skills.repository.RoomRepository
 import cm.aptoide.skills.repository.TicketRepository
-import cm.aptoide.skills.usecase.CreateTicketUseCase
-import cm.aptoide.skills.usecase.GetTicketUseCase
-import cm.aptoide.skills.usecase.LoginUseCase
-import cm.aptoide.skills.usecase.PayTicketUseCase
+import cm.aptoide.skills.usecase.*
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
@@ -39,9 +37,12 @@ class SkillsModule {
   fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
                               payTicketUseCase: PayTicketUseCase,
                               getTicketUseCase: GetTicketUseCase,
-                              loginUseCase: LoginUseCase): SkillsViewModel {
-    return SkillsViewModel(createTicketUseCase, payTicketUseCase, getTicketUseCase,
-        GET_ROOM_RETRY_MILLIS, loginUseCase)
+                              loginUseCase: LoginUseCase,
+                              getApplicationInfoUseCase: GetApplicationInfoUseCase): SkillsViewModel {
+    return SkillsViewModel(
+        createTicketUseCase, payTicketUseCase, getTicketUseCase,
+        GET_ROOM_RETRY_MILLIS, loginUseCase, getApplicationInfoUseCase
+    )
   }
 
   @Provides
@@ -121,6 +122,11 @@ class SkillsModule {
     val headerJson = JsonObject()
     headerJson.addProperty("typ", "EWT")
     return EwtAuthenticatorService(walletService, headerJson.toString())
+  }
+
+  @Provides
+  fun providesGetApplicationInfoUseCase(context: Context): GetApplicationInfoUseCase {
+    return GetApplicationInfoUseCase(context)
   }
 
   companion object {
