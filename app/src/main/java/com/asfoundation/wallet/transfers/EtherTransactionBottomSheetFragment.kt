@@ -57,13 +57,6 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     presenter.present()
   }
 
-  fun setAnimations() {
-    dialog?.window
-        ?.attributes?.windowAnimations = R.anim.fragment_slide_up;
-    ether_transaction_bottom_sheet_layout.animation =
-        AnimationUtils.loadAnimation(context, R.anim.fragment_slide_up)
-  }
-
   override fun getTheme(): Int {
     return R.style.AppBottomSheetDialogTheme
   }
