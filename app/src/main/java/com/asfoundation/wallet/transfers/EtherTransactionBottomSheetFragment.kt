@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.asf.wallet.R
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.ether_transaction_bottom_sheet.*
 import javax.inject.Inject
@@ -44,6 +45,12 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
             }
           }
     }
+  }
+
+  override fun onStart() {
+    val behavior = BottomSheetBehavior.from(requireView().parent as View)
+    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    super.onStart()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
