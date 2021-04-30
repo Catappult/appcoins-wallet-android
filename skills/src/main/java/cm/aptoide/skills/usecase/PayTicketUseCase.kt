@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
+import cm.aptoide.skills.BuildConfig
 import cm.aptoide.skills.repository.TicketRepository
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -15,7 +16,7 @@ class PayTicketUseCase(private val ticketRepository: TicketRepository) {
                 fragment: Fragment): Single<Any> {
     return Single.fromCallable {
       val url: String =
-          (BACKEND_HOST + "transaction/inapp?product=antifreeze&value=" + price + "&currency=" +
+          (BACKEND_HOST + "/transaction/inapp?product=antifreeze&value=" + price + "&currency=" +
               priceCurrency + "&domain=" + packageName + "&callback_url=" + callbackUrl +
               "&order_reference=" + ticketId + "&product_token=" + productToken + "&skills")
 
@@ -39,8 +40,8 @@ class PayTicketUseCase(private val ticketRepository: TicketRepository) {
   }
 
   companion object {
-    const val BACKEND_HOST = "https://apichain.catappult.io/"
-    const val IAB_BIND_PACKAGE = "com.appcoins.wallet"
+    const val BACKEND_HOST = BuildConfig.BASE_HOST
+    const val IAB_BIND_PACKAGE = BuildConfig.WALLET_PACKAGE
     const val RC_ONE_STEP = 10003
   }
 }
