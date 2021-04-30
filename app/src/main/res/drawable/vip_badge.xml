@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/vip_badge_backgroud" />
+  <item
+      android:drawable="@drawable/ic_vip_badge"
+      android:left="6dp"
+      android:right="34dp"
+      android:top="4dp"
+      android:bottom="4dp"/>
+</layer-list>
