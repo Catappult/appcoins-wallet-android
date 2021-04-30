@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.Pair;
 import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
@@ -62,6 +63,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showVipBadge = new MutableLiveData<>();
   private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
   private final AppcoinsApps applications;
@@ -404,6 +406,33 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showSettings(Context context) {
     transactionViewNavigator.openSettings(context, false);
+  }
+
+  public void goToVipLink(Context context) {
+    Uri uri = Uri.parse("https://example.example.com");
+    transactionViewNavigator.navigateToBrowser(context, uri);
+  }
+
+  public MutableLiveData<Boolean> shouldShowVipBadge() {
+    return showVipBadge;
+  }
+
+  public void verifyUserLevel() {
+    disposables.add(transactionViewInteractor.findWallet()
+        .subscribeOn(networkScheduler)
+        .flatMap(wallet -> transactionViewInteractor.getUserLevel()
+            .subscribeOn(networkScheduler)
+            .map(userLevel -> {
+              isVipUser(userLevel);
+              return true;
+            }))
+        .subscribe(wallet -> {
+        }, this::onError));
+  }
+
+  private void isVipUser(int level) {
+    Log.d("APPC-2456", "TransactionsViewModel: isVipUser: level " + level);
+    showVipBadge.postValue(level == -1 || level == 10);
   }
 
   public void showSend(Context context) {

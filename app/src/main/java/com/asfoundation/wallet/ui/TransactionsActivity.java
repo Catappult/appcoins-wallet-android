@@ -84,6 +84,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private CompositeDisposable disposables;
   private View emptyClickableView;
   private MenuItem supportActionView;
+  private MenuItem vipBadge;
   private View badge;
   private int paddingDp;
   private boolean showScroll = false;
@@ -220,6 +221,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (item.getItemId() == R.id.action_settings) {
       viewModel.showSettings(this);
     }
+    if (item.getItemId() == R.id.action_vip_badge) {
+      viewModel.goToVipLink(this);
+    }
     return super.onOptionsItemSelected(item);
   }
 
@@ -344,6 +348,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.shouldShowFingerprintTooltip()
         .observe(this, this::showFingerprintTooltip);
     viewModel.handleFingerprintTooltipVisibility(getPackageName());
+    setupVipBadge(menu);
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -580,6 +585,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void showFingerprintTooltip(Boolean shouldShow) {
     //Handler is needed otherwise the view returned by findViewById(R.id.action_settings) is null
     if (shouldShow) new Handler().post(this::setTooltip);
+  }
+
+  private void setupVipBadge(Menu menu) {
+    vipBadge = menu.findItem(R.id.action_vip_badge);
+    vipBadge.setVisible(false);
+    viewModel.verifyUserLevel();
+    viewModel.shouldShowVipBadge()
+        .observe(this, this::showVipBadge);
+  }
+
+  private void showVipBadge(Boolean shouldShow) {
+    vipBadge.setVisible(shouldShow);
   }
 
   private void dismissNotification(CardNotification cardNotification) {
