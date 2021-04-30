@@ -201,13 +201,4 @@
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
-  <include
-      android:id="@+id/ether_transaction_bottom_sheet_fragment_container"
-      layout="@layout/ether_transaction_bottom_sheet"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_sheet_big_height"
-      app:behavior_hideable="true"
-      app:behavior_peekHeight="0dp"
-      app:layout_behavior="@string/bottom_sheet_behavior"
-      />
 </LinearLayout>

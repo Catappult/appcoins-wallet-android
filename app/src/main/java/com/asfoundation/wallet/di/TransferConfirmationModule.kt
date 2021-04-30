@@ -26,15 +26,13 @@ class TransferConfirmationModule {
   fun providesConfirmationInteractor(sendTransactionInteract: SendTransactionInteract,
                                      gasSettingsInteract: FetchGasSettingsInteract,
                                      gasPreferenceRepository: GasPreferenceRepository): TransferConfirmationInteractor {
-    return TransferConfirmationInteractor(
-        sendTransactionInteract, gasSettingsInteract,
+    return TransferConfirmationInteractor(sendTransactionInteract, gasSettingsInteract,
         gasPreferenceRepository)
   }
 
   @Provides
   fun providesConfirmationNavigator(
       transferConfirmationActivity: TransferConfirmationActivity): TransferConfirmationNavigator {
-    return TransferConfirmationNavigator(
-        transferConfirmationActivity.supportFragmentManager)
+    return TransferConfirmationNavigator(transferConfirmationActivity.supportFragmentManager)
   }
 }

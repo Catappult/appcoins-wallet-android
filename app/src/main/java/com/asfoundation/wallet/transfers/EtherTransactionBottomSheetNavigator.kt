@@ -18,22 +18,21 @@ class EtherTransactionBottomSheetNavigator(val fragmentManager: FragmentManager,
     }
   }
 
-  private fun openUrl(url: String?) {
-    val builder = CustomTabsIntent.Builder()
-    builder.addDefaultShareMenuItem()
-    builder.build()
+  private fun openUrl(url: String) {
+    CustomTabsIntent.Builder()
+        .addDefaultShareMenuItem()
+        .build()
         .launchUrl(fragment.context!!, Uri.parse(url))
   }
 
   fun navigateToEtherScanTransaction(transactionHash: String) {
-    setupBaseUrl(transactionHash)
     openUrl(setupBaseUrl(transactionHash))
     fragmentManager.popBackStack()
   }
 
   fun goBackToTransactions() {
     val intent: Intent = TransactionsActivity.newIntent(fragment.context)
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
     fragment.startActivity(intent)
   }
 }

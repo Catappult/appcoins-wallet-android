@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ether_transaction_bottom_sheet_layout"
     android:layout_width="match_parent"
@@ -58,7 +59,7 @@
         android:id="@+id/ether_transaction_bottom_sheet_hash_string"
         android:layout_width="168dp"
         android:layout_height="32dp"
-        android:text="0x0bb0505b1fa7e4d106ae5b2fcc1f9844b606671"
+        tools:text="..."
         style="@style/BottomSheetEtherTransactionHash"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.asf.wallet.R
+import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.ether_transaction_bottom_sheet.*
@@ -21,27 +21,19 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   @Inject
   lateinit var presenter: EtherTransactionBottomSheetPresenter
 
-  private val transactionHash: String by lazy {
-    if (arguments!!.containsKey(
-            HASH_KEY)) {
-      arguments!!.getString(
-          HASH_KEY, null)
-    } else {
-      throw IllegalArgumentException("Transaction Hash not found")
-    }
-  }
-
   companion object {
 
-    const val HASH_KEY = "hash_key"
+    const val TRANSACTION_KEY = "transaction_hash"
+
+    const val transaction = "transaction"
 
     @JvmStatic
     fun newInstance(transactionHash: String): EtherTransactionBottomSheetFragment {
       return EtherTransactionBottomSheetFragment()
           .apply {
             arguments = Bundle().apply {
-              putSerializable(
-                  HASH_KEY, transactionHash)
+              putString(
+                  TRANSACTION_KEY, transactionHash)
             }
           }
     }
@@ -68,7 +60,7 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     return R.style.AppBottomSheetDialogTheme
   }
 
-  override fun setTransactionHash() {
+  override fun setTransactionHash(transactionHash: String) {
     ether_transaction_bottom_sheet_hash_string.text = transactionHash
   }
 
@@ -76,9 +68,9 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
   override fun getClipboardClick() = RxView.clicks(ether_transaction_bottom_sheet_copy_clipboard)
 
-  override fun copyToClipboard() {
+  override fun copyToClipboard(transactionHash: String) {
     val clipboard = activity?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText("transaction transaction", transactionHash)
+    val clip = ClipData.newPlainText(transaction, transactionHash)
     clipboard.setPrimaryClip(clip)
 
     Toast.makeText(activity, "Copied to clipboard", Toast.LENGTH_SHORT)
@@ -89,8 +81,6 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
   override fun onDestroyView() {
     super.onDestroyView()
-    ether_transaction_bottom_sheet_layout.animation =
-        AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
     presenter.stop()
   }
 }

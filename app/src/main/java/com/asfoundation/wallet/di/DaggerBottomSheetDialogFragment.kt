@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.transfers
+package com.asfoundation.wallet.di
 
 import android.content.Context
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

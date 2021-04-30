@@ -10,7 +10,7 @@ class EtherTransactionBottomSheetPresenter(private val view: EtherTransactionBot
                                            private val data: EtherTransactionBottomSheetData) {
 
   fun present() {
-    view.setTransactionHash()
+    view.setTransactionHash(data.transactionHash)
     handleEtherScanClick()
     handleClipboardClick()
     handleOkClick()
@@ -26,7 +26,7 @@ class EtherTransactionBottomSheetPresenter(private val view: EtherTransactionBot
   private fun handleClipboardClick() {
     disposable.add(view.getClipboardClick()
         .observeOn(viewScheduler)
-        .doOnNext { view.copyToClipboard() }
+        .doOnNext { view.copyToClipboard(data.transactionHash) }
         .subscribe({}, { it.printStackTrace() }))
   }
 

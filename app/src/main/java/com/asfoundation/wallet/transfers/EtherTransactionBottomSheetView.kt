@@ -4,7 +4,7 @@ import io.reactivex.Observable
 
 interface EtherTransactionBottomSheetView {
 
-  fun setTransactionHash()
+  fun setTransactionHash(transactionHash: String)
 
   fun getEtherScanClick(): Observable<Any>
 
@@ -12,5 +12,5 @@ interface EtherTransactionBottomSheetView {
 
   fun getOkClick(): Observable<Any>
 
-  fun copyToClipboard()
+  fun copyToClipboard(transactionHash: String)
 }

@@ -21,7 +21,7 @@ class EtherTransactionBottomSheetModule {
       fragment: EtherTransactionBottomSheetFragment): EtherTransactionBottomSheetData {
     fragment.arguments!!.apply {
       return EtherTransactionBottomSheetData(
-          getSerializable(EtherTransactionBottomSheetFragment.HASH_KEY) as String)
+          getString(EtherTransactionBottomSheetFragment.TRANSACTION_KEY) as String)
     }
   }
 
