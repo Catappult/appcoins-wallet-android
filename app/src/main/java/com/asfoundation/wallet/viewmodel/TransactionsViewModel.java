@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.util.Pair;
 import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
@@ -409,7 +408,8 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void goToVipLink(Context context) {
-    Uri uri = Uri.parse("https://example.example.com");
+    Uri uri =
+        Uri.parse("https://appcoins.medium.com/welcome-to-the-appcoins-vip-program-7e5d133cc0ad");
     transactionViewNavigator.navigateToBrowser(context, uri);
   }
 
@@ -423,16 +423,15 @@ public class TransactionsViewModel extends BaseViewModel {
         .flatMap(wallet -> transactionViewInteractor.getUserLevel()
             .subscribeOn(networkScheduler)
             .map(userLevel -> {
-              isVipUser(userLevel);
+              setVipUser(userLevel);
               return true;
             }))
         .subscribe(wallet -> {
         }, this::onError));
   }
 
-  private void isVipUser(int level) {
-    Log.d("APPC-2456", "TransactionsViewModel: isVipUser: level " + level);
-    showVipBadge.postValue(level == -1 || level == 10);
+  private void setVipUser(int level) {
+    showVipBadge.postValue(level == 9 || level == 10);
   }
 
   public void showSend(Context context) {

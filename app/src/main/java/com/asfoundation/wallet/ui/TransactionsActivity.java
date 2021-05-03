@@ -590,6 +590,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void setupVipBadge(Menu menu) {
     vipBadge = menu.findItem(R.id.action_vip_badge);
     vipBadge.setVisible(false);
+    View vipBadgeActionView = vipBadge.getActionView();
+    vipBadgeActionView.setOnClickListener(v -> onOptionsItemSelected(vipBadge));
     viewModel.verifyUserLevel();
     viewModel.shouldShowVipBadge()
         .observe(this, this::showVipBadge);
