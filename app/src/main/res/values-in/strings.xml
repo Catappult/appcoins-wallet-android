@@ -26,7 +26,7 @@
   <string name="credits">Kredit</string>
   <string name="label_new">Baru</string>
   <string name="got_it_button">MENGERTI</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">UBAH</string>
   <string name="low_storage_error">Ruang penyimpanan tidak cukup</string>
   <string name="no_camera_permission_title">Izin Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet membutuhkan izin untuk mengakses kamera Anda guna memindai kode QR.</string>
@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Pengembalian Dana Pembelian</string>
   <string name="transaction_type_reverted_purchase_body">Pembelian yang Anda lakukan pada %s sudah dikembalikan. Hubungi Tim Dukungan untuk informasi lebih lanjut.</string>
   <string name="transaction_reverted_view_original_header">Transaksi Semula</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Diberdayakan oleh Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -509,10 +511,10 @@
   <string name="error_contac_us_body">Kalau masalah tetap ada, silakan hubungi kami.</string>
   <string name="purchase_error_unverified_wallet">Coba selesaikan pembelian setelah memverifikasi dompet Anda.</string>
   <string name="purchase_error_try_other_method">Ups&#8230; Sedang terjadi sesuatu! Harap coba dengan metode pembayaran lain atau hubungi kami.</string>
-  <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
-  <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
-  <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
-  <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
+  <string name="purchase_error_try_other_amount">Sepertinya jumlah top-up Anda terlalu besar. Silakan coba jumlah yang lebih kecil atau hubungi kami!</string>
+  <string name="purchase_error_try_other_amount_or_method">Ups&#8230; Sedang terjadi sesuatu! Silakan coba dengan metode pembayaran atau jumlah top-up yang lain.</string>
+  <string name="purchase_error_try_cheaper_item">Itu cukup mahal! Silakan coba beli item yang nilainya lebih rendah.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">Itu cukup mahal! Silakan coba beli item yang lebih murah atau coba metode pembayaran lain.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -693,8 +695,9 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Kelola langganan</string>
   <string name="subscriptions_title">Langganan</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Aktif</string>
-  <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_expired_title">Kedaluwarsa</string>
   <string name="subscriptions_empty_title">Belum Berlangganan</string>
   <string name="subscriptions_empty_body">Berlangganan layanan di aplikasi dan game favorit Anda, nanti kami akan menangani pembayaran berkala.</string>
   <string name="subscriptions_details_billing_title">Tagihan:</string>
@@ -707,7 +710,7 @@
   <string name="subscriptions_canceled_body">Dibatalkan</string>
   <string name="subscriptions_details_disclaimer">Nilai dalam AppCoins bisa bervariasi untuk pembayaran berikutnya karena perubahan nilai tukar.</string>
   <string name="subscriptions_details_button">RINCIAN</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
+  <string name="subscriptions_manage_button">KELOLA LANGGANAN</string>
   <string name="subscriptions_cancel_button">BATALKAN LANGGANAN</string>
   <string name="subscriptions_cancel_title">Batalkan Langganan</string>
   <string name="subscriptions_cancel_body">Apakah Anda yakin ingin membatalkan langganan ini?</string>
@@ -717,14 +720,15 @@
   <string name="subscriptions_cancel_confirmation_body">Anda tidak akan dikenai biaya lagi untuk paket langganan ini, dan Anda bisa menggunakannya sampai %s.</string>
   <string name="subscriptions_category_title">Langganan</string>
   <string name="subscriptions_bonus_body">Anda akan menerima bonus ini di setiap pembayaran.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
+  <string name="subscriptions_per_day">%1$s/hari</string>
+  <string name="subscriptions_per_week">%1$s/minggu</string>
+  <string name="subscriptions_per_month">%1$s/bulan</string>
+  <string name="subscriptions_per_year">%1$s/tahun</string>
+  <string name="subscriptions_per_several_day">%1$s setiap %2$s hari</string>
+  <string name="subscriptions_per_several_week">%1$s setiap %2$s minggu</string>
+  <string name="subscriptions_per_several_month">%1$s setiap %2$s bulan</string>
+  <string name="subscriptions_per_several_year">%1$s setiap %2$s tahun</string>
+  <string name="subscriptions_error_already_subscribed">Ups, Anda sudah berlangganan ke layanan ini! Jangan ragu untuk menghubungi kami.</string>
   <!--New Gamification-->
   <string name="gamif_title">Bonus Hingga %s%%!</string>
   <string name="gamif_bonus_received">Bonus diterima</string>
@@ -777,7 +781,7 @@
   <string name="carrier_billing_payment_method_title">Tagihan operator</string>
   <string name="carrier_billing_fees_disclaimer">Mungkin akan dikenakan biaya tambahan</string>
   <string name="carrier_billing_insert_phone_body">Silakan masukkan nomor telepon Anda</string>
-  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
+  <string name="carrier_billing_insert_phone_previously_used">Lanjutkan dengan nomor yang digunakan sebelumnya</string>
   <string name="carrier_billing_phone_field">Nomor telepon Anda...</string>
   <string name="carrier_billing_carrier_fees_body">Akan dibebankan biaya sebesar %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s di %2$s.</string>
@@ -815,34 +819,34 @@
     <item quantity="other">Promosi akan berakhir %s hari lagi.</item>
   </plurals>
   <plurals name="promotion_ends_short">
-    <item quantity="other">It ends in %s days.</item>
+    <item quantity="other">Akan berakhir dalam %s hari.</item>
   </plurals>
   <string name="perks_end_in_date">Promosi akan berakhir pada %s.</string>
   <plurals name="promotion_ends_hours">
     <item quantity="other">Promosi akan berakhir dalam %s jam.</item>
   </plurals>
   <plurals name="promotion_ends_hours_short">
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="other">Akan berakhir dalam %s jam.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="other">Promosi akan berakhir dalam %s menit.</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
-    <item quantity="other">It ends in %s minutes.</item>
+    <item quantity="other">Akan berakhir dalam %s menit.</item>
   </plurals>
   <string name="perks_end_today">Promosi akan berakhir hari ini.</string>
-  <string name="perks_end_today_short">It ends today.</string>
+  <string name="perks_end_today_short">Akan berakhir hari ini.</string>
   <string name="perks_available_soon">Promosi akan segera tersedia</string>
-  <string name="perks_available_soon_short">Available soon</string>
+  <string name="perks_available_soon_short">Segera hadir</string>
   <string name="perks_next_level_reward">Raih level berikutnya untuk mendapatkan %s Kredit AppCoins!</string>
   <string name="perks_notification">Anda baru saja menerima %s Kredit AppCoins sebagai Bonus</string>
   <string name="perks_level_up_on_this_purchase">Tingkatkan level dengan pembelian ini</string>
   <string name="perks_level_up_amount_left">Anda tinggal %1$s %2$s dari level berikutnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">Bonus %1$s: Kredit AppCoins sebesar %2$s</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
-  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
-  <string name="perks_empty_body">No promotions available at the moment.</string>
+  <string name="perks_purchases_disclaimer_body">Semua pembelian dan top up yang dilakukan dengan metode pembayaran selain Kredit AppCoins akan memenuhi syarat untuk meningkatkan level Anda dan menerima hadiah.</string>
+  <string name="perks_empty_state_first_purchase_body">Lakukan pembelian pertama Anda di aplikasi yang kompatibel dengan AppCoins untuk membuka promosi yang kami sediakan untuk Anda!</string>
+  <string name="perks_empty_body">Tidak tersedia promosi saat ini.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Kunci sidik jari</string>
   <string name="fingerprint_failed_title">Otentikasi gagal!</string>
@@ -889,10 +893,11 @@
   <string name="card_verification_wallets_one_step_title">Satu langkah lagi untuk memvalidasi</string>
   <string name="card_verification_wallets_one_step_body">Masukkan kode yang muncul dalam rincian transaksi.</string>
   <string name="card_verification_wallets_insert_bode_button">Masukkan kode</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
-  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+  <string name="card_verification_no_attempts_title">Ups, Anda terlalu banyak memasukkan kode yang salah, jadi dana sebesar %1$s akan dikembalikan ke kartu Anda.</string>
+  <string name="card_verification_no_attempts_body">Silakan mulai lagi proses verifikasinya.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">Beli voucher ini dan dapatkan bonus sampai %s%%.</string>
+  <string name="voucher_card_body_1">Beli voucher ini dan dapatkan</string>
+  <string name="voucher_card_body_2"> bonus hingga %s%%.</string>
   <string name="voucher_buy_header">Voucher untuk %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Apakah Anda tidak punya %s?</string>
@@ -902,4 +907,6 @@
   <string name="voucher_instructions_transactions">Anda bisa menemukan kode voucher dalam riwayat transaksi.</string>
   <string name="voucher_empty">Tidak tersedia voucher saat ini.</string>
   <string name="voucher_tooltip">Sekarang Anda bisa membeli voucher untuk game!</string>
+  <string name="voucher_empty_more_title">Voucher untuk Game</string>
+  <string name="voucher_empty_more_body">Temukan penawaran terbaik untuk game favorit Anda!</string>
 </resources>
