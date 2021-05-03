@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Asegúrate de tener una copia de seguridad de esta wallet.</string>
   <string name="action_import">Recuperar</string>
   <string name="copy">Copiar</string>
+  <string name="copied">Copied!</string>
   <string name="close">Cerrar</string>
   <string name="title_activity_settings">Ajustes</string>
   <string name="network_label">Red</string>
@@ -921,4 +922,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
