@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">مطمئن شوید که از این کیف پول بک‌آپ دارید.</string>
   <string name="action_import">بازیابی</string>
   <string name="copy">کپی به کلیپ بورد</string>
+  <string name="copied">Copied!</string>
   <string name="close">بستن</string>
   <string name="title_activity_settings">تنظیمات</string>
   <string name="network_label">شبکه</string>
@@ -921,4 +922,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
