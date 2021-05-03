@@ -73,7 +73,7 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     val clip = ClipData.newPlainText(transaction, transactionHash)
     clipboard.setPrimaryClip(clip)
 
-    Toast.makeText(activity, "Copied to clipboard", Toast.LENGTH_SHORT)
+    Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT)
         .show()
   }
 
