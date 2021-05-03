@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">ह्या वॉलेटचा बॅकअप आपल्याकडे असण्याची खात्री करा.</string>
   <string name="action_import">परत मिळवा</string>
   <string name="copy">क्लिपबोर्डावर कॉपी करा</string>
+  <string name="copied">Copied!</string>
   <string name="close">बंद करा</string>
   <string name="title_activity_settings">सेटिंग्ज</string>
   <string name="network_label">नेटवर्क</string>
@@ -942,4 +943,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
