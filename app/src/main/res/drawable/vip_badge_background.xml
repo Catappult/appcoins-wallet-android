@@ -3,12 +3,9 @@
     android:shape="rectangle">
 
   <solid
-      android:color="#EC9B1A"/>
+        android:color="@color/vip_badge_background_color"/>
 
   <corners
       android:radius="16dp"/>
-  <size
-      android:width="65dp"
-      android:height="32dp"/>
 
 </shape>

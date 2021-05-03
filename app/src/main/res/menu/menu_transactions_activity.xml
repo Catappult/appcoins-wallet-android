@@ -4,9 +4,10 @@
 
   <item
       android:id="@+id/action_vip_badge"
-      android:icon="@drawable/vip_badge"
+      android:icon="@drawable/ic_vip_badge"
       android:orderInCategory="1"
       android:title="VIP"
+      app:actionLayout="@layout/layout_vip_badge"
       app:showAsAction="ifRoom" />
 
   <item

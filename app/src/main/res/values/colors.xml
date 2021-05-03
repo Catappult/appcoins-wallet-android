@@ -113,6 +113,8 @@
 
   <color name="adyen_3DS_color">#111B3B</color>
 
+  <color name="vip_badge_background_color">#4DEC9B1A</color>
+
   <!-- Backup -->
 
   <color name="warning_background_color">#0Ae44b46</color>
