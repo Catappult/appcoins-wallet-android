@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Увери се, че имаш бекъп на този портфейл.</string>
   <string name="action_import">Възстанови</string>
   <string name="copy">Копиране в клипборда</string>
+  <string name="copied">Copied!</string>
   <string name="close">Затвори</string>
   <string name="title_activity_settings">Настройки</string>
   <string name="network_label">Мрежа</string>
@@ -921,4 +922,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
