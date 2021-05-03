@@ -583,6 +583,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void showFingerprintTooltip(Boolean shouldShow) {
+    //Handler is needed otherwise the view returned by findViewById(R.id.action_settings) is null
     if (shouldShow) new Handler().post(this::setTooltip);
   }
 
