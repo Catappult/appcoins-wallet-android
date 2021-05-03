@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">আপনার ওয়ালেটটির একটি ব্যাকআপ থাকার বিষয়টি নিশ্চিত করুন।</string>
   <string name="action_import">Recover</string>
   <string name="copy">ক্লিপবোর্ডে অনুলিপি করুণ</string>
+  <string name="copied">Copied!</string>
   <string name="close">বন্ধ</string>
   <string name="title_activity_settings">সেটিংস</string>
   <string name="network_label">নেটওয়ার্ক</string>
@@ -921,4 +922,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
