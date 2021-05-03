@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Bu cüzdanın yedeğine sahip olduğunuzdan emin olun.</string>
   <string name="action_import">Geri yükle</string>
   <string name="copy">Panoya kopyala</string>
+  <string name="copied">Copied!</string>
   <string name="close">Kapat</string>
   <string name="title_activity_settings">Ayarlar</string>
   <string name="network_label">Ağ</string>
@@ -921,4 +922,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
