@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">이 지갑을 백업하셨는지 확인하십시오.</string>
   <string name="action_import">복구</string>
   <string name="copy">클립보드에 복사</string>
+  <string name="copied">Copied!</string>
   <string name="close">닫기</string>
   <string name="title_activity_settings">설정</string>
   <string name="network_label">네트워크</string>
@@ -912,4 +913,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
