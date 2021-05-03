@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2021-02-22 21:06\n"
+"PO-Revision-Date: 2021-03-14 08:00\n"
 
 #. Card Title
 #:
@@ -59,8 +59,8 @@ msgstr "Krijg een extra bonus van {0}% voor al je aankopen in {1}, met uitzonder
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr "Krijg een extra bonus van {0}% bij al je aankopen in {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases."
+msgstr "Krijg een extra bonus van {0}% bij al je aankopen."
 
 #. Card - First purchase.
 #:
