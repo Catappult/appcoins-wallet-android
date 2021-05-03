@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Hãy chắc rằng bạn có một bản sao lưu của ví này.</string>
   <string name="action_import">Khôi phục</string>
   <string name="copy">Sao chép vào bộ nhớ tạm</string>
+  <string name="copied">Copied!</string>
   <string name="close">Đóng</string>
   <string name="title_activity_settings">Cài đặt</string>
   <string name="network_label">Mạng lưới</string>
@@ -912,4 +913,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
