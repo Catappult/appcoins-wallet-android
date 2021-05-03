@@ -21,11 +21,15 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   @Inject
   lateinit var presenter: EtherTransactionBottomSheetPresenter
 
+  init {
+    isCancelable = false
+  }
+
   companion object {
 
     const val TRANSACTION_KEY = "transaction_hash"
 
-    const val transaction = "transaction"
+    private const val TRANSACTION_HASH_CLIPBOARD = "eth_transaction_hash_clipboard"
 
     @JvmStatic
     fun newInstance(transactionHash: String): EtherTransactionBottomSheetFragment {
@@ -70,7 +74,7 @@ class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
   override fun copyToClipboard(transactionHash: String) {
     val clipboard = activity?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText(transaction, transactionHash)
+    val clip = ClipData.newPlainText(TRANSACTION_HASH_CLIPBOARD, transactionHash)
     clipboard.setPrimaryClip(clip)
 
     Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT)
