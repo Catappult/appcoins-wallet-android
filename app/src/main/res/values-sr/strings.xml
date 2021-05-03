@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Proverite da li ste napravili rezervnu kopiju ovog novčanika.</string>
   <string name="action_import">Oporavi</string>
   <string name="copy">Kopiraj u ostavu</string>
+  <string name="copied">Copied!</string>
   <string name="close">Zatvori</string>
   <string name="title_activity_settings">Podešavanja</string>
   <string name="network_label">Mreža</string>
@@ -930,4 +931,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
