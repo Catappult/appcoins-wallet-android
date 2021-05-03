@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">ตรวจสอบว่า คุณมีสำเนาสำรองนี้กระเป๋าสตางค์</string>
   <string name="action_import">กู้คืน</string>
   <string name="copy">คัดลอกลงคลิปบอร์ด</string>
+  <string name="copied">Copied!</string>
   <string name="close">ปิด</string>
   <string name="title_activity_settings">การตั้งค่า</string>
   <string name="network_label">เครือข่าย</string>
@@ -914,4 +915,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
