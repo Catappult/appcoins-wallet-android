@@ -24,7 +24,7 @@
   </style>
 
   <style name="AppBottomSheetDialogTheme"
-      parent="Theme.Design.Light.BottomSheetDialog">
+      parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
     <item name="bottomSheetStyle">@style/AppModalStyle</item>
     <item name="behavior_draggable">false</item>
   </style>
