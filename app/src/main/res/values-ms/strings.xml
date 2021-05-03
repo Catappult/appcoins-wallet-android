@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Pastikan anda ada sandaran bagi dompet ini.</string>
   <string name="action_import">Dapatkan Semula</string>
   <string name="copy">Salin ke papan klip</string>
+  <string name="copied">Copied!</string>
   <string name="close">Tutup</string>
   <string name="title_activity_settings">Tetapan</string>
   <string name="network_label">Rangkaian</string>
@@ -912,4 +913,7 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
