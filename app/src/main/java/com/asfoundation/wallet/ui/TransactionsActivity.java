@@ -143,6 +143,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     views.actionButtonSettings.setOnClickListener(v -> viewModel.showSettings(this));
     views.sendButton.setOnClickListener(v -> viewModel.showSend(this));
     views.receiveButton.setOnClickListener(v -> viewModel.showMyAddress(this));
+    views.toolbarLayoutLogo.setOnClickListener(v -> viewModel.appcoinsLogoClick());
 
     if (savedInstanceState == null) {
       boolean fromAppOpening = getIntent().getBooleanExtra(FROM_APP_OPENING_FLAG, false);

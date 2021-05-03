@@ -594,4 +594,8 @@ public class TransactionsViewModel extends BaseViewModel {
   public void onFingerprintTooltipShown() {
     showFingerprintTooltip.postValue(false);
   }
+
+  public void appcoinsLogoClick() {
+    analytics.sendAction("appcoins_logo");
+  }
 }
