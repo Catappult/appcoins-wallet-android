@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: appcoins-bds-wallet\n"
-"X-Crowdin-Project-ID: 314965\n"
+"X-Crowdin-Project: appcoins\n"
+"X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: /translations_update/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 3840\n"
-"Project-Id-Version: appcoins-bds-wallet\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] translations_update/app/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 4700\n"
+"Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-04-02 20:03\n"
+"PO-Revision-Date: 2021-05-04 16:59\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "次のレベルに到達！"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr "{1} では、AppCoinsクレジットを除くすべての購入品に対して、さらに{0}%のボーナスを受け取ることができます。"
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
