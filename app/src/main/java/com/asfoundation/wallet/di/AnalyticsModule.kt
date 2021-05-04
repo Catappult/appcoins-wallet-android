@@ -68,6 +68,7 @@ class AnalyticsModule {
   @Named("rakam_event_list")
   fun provideRakamEventList() = listOf(
       LaunchAnalytics.FIRST_LAUNCH,
+      TransactionsAnalytics.WALLET_HOME_INTERACTION_EVENT,
       BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,

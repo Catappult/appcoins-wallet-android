@@ -408,6 +408,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void goToVipLink(Context context) {
+    analytics.sendAction("vip_badge");
     Uri uri = Uri.parse(BuildConfig.VIP_PROGRAM_BADGE_URL);
     transactionViewNavigator.navigateToBrowser(context, uri);
   }
@@ -422,7 +423,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .flatMap(wallet -> transactionViewInteractor.getUserLevel()
             .subscribeOn(networkScheduler)
             .doOnSuccess(userLevel -> {
-              showVipBadge.postValue(userLevel == -1 || userLevel == 10);
+              showVipBadge.postValue(userLevel == 9 || userLevel == 10);
             }))
         .subscribe(wallet -> {
         }, this::onError));
