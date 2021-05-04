@@ -62,6 +62,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showVipBadge = new MutableLiveData<>();
   private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
   private final AppcoinsApps applications;
@@ -404,6 +405,28 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showSettings(Context context) {
     transactionViewNavigator.openSettings(context, false);
+  }
+
+  public void goToVipLink(Context context) {
+    analytics.sendAction("vip_badge");
+    Uri uri = Uri.parse(BuildConfig.VIP_PROGRAM_BADGE_URL);
+    transactionViewNavigator.navigateToBrowser(context, uri);
+  }
+
+  public LiveData<Boolean> shouldShowVipBadge() {
+    return showVipBadge;
+  }
+
+  public void verifyUserLevel() {
+    disposables.add(transactionViewInteractor.findWallet()
+        .subscribeOn(networkScheduler)
+        .flatMap(wallet -> transactionViewInteractor.getUserLevel()
+            .subscribeOn(networkScheduler)
+            .doOnSuccess(userLevel -> {
+              showVipBadge.postValue(userLevel == 9 || userLevel == 10);
+            }))
+        .subscribe(wallet -> {
+        }, this::onError));
   }
 
   public void showSend(Context context) {
