@@ -408,12 +408,11 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void goToVipLink(Context context) {
-    Uri uri =
-        Uri.parse("https://appcoins.medium.com/welcome-to-the-appcoins-vip-program-7e5d133cc0ad");
+    Uri uri = Uri.parse(BuildConfig.VIP_PROGRAM_BADGE_URL);
     transactionViewNavigator.navigateToBrowser(context, uri);
   }
 
-  public MutableLiveData<Boolean> shouldShowVipBadge() {
+  public LiveData<Boolean> shouldShowVipBadge() {
     return showVipBadge;
   }
 
@@ -422,16 +421,11 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribeOn(networkScheduler)
         .flatMap(wallet -> transactionViewInteractor.getUserLevel()
             .subscribeOn(networkScheduler)
-            .map(userLevel -> {
-              setVipUser(userLevel);
-              return true;
+            .doOnSuccess(userLevel -> {
+              showVipBadge.postValue(userLevel == -1 || userLevel == 10);
             }))
         .subscribe(wallet -> {
         }, this::onError));
-  }
-
-  private void setVipUser(int level) {
-    showVipBadge.postValue(level == 9 || level == 10);
   }
 
   public void showSend(Context context) {
