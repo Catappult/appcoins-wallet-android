@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Увери се, че имаш бекъп на този портфейл.</string>
   <string name="action_import">Възстанови</string>
   <string name="copy">Копиране в клипборда</string>
+  <string name="copied">Copied!</string>
   <string name="close">Затвори</string>
   <string name="title_activity_settings">Настройки</string>
   <string name="network_label">Мрежа</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Ново</string>
   <string name="got_it_button">РАЗБРАХ</string>
   <string name="change_button">CHANGE</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">Няма достатъчно място за съхранение</string>
   <string name="no_camera_permission_title">Разрешение за камера</string>
   <string name="no_camera_permission">AppCoins BDS портфейлът се нуждае от разрешение за достъп до твоята камера, за да сканира QR кодове.</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
   <string name="voucher_empty_more_title">Vouchers for Games</string>
   <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
