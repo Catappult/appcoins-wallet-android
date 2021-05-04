@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Assurez-vous que vous disposez d’une sauvegarde de ce portefeuille.</string>
   <string name="action_import">Récupération</string>
   <string name="copy">Copier dans le Presse-papiers</string>
+  <string name="copied">Copied!</string>
   <string name="close">Fermer</string>
   <string name="title_activity_settings">Paramètres</string>
   <string name="network_label">Réseau</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Nouveau</string>
   <string name="got_it_button">COMPRIS</string>
   <string name="change_button">CHANGER</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
   <string name="no_camera_permission_title">Autorisation de la caméra</string>
   <string name="no_camera_permission">AppCoins BDS Wallet nécessite l\'autorisation pour accéder à votre caméra pour scanner les codes QR.</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">Vous pouvez désormais acheter des bons pour des jeux !</string>
   <string name="voucher_empty_more_title">Bons pour les jeux</string>
   <string name="voucher_empty_more_body">Trouvez les meilleures offres pour vos jeux préférés !</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
