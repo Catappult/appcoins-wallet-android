@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: appcoins-bds-wallet\n"
-"X-Crowdin-Project-ID: 314965\n"
+"X-Crowdin-Project: appcoins\n"
+"X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: el\n"
-"X-Crowdin-File: /translations_update/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 3840\n"
-"Project-Id-Version: appcoins-bds-wallet\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] translations_update/app/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 4700\n"
+"Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
-"PO-Revision-Date: 2021-03-14 13:41\n"
+"PO-Revision-Date: 2021-05-04 16:58\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Επειδή φτάσατε στο επόμενο επίπεδο."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας, εκτός αν γίνουν με AppCoins Credits, στο {1}."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -85,7 +85,7 @@ msgstr "Λόγω της πρώτης σας αγοράς της ημέρας σ�
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} AppCoins Credits Bonus!"
+msgstr ""
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
