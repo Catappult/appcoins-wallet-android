@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: appcoins-bds-wallet\n"
-"X-Crowdin-Project-ID: 314965\n"
+"X-Crowdin-Project: appcoins\n"
+"X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /translations_update/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 3840\n"
-"Project-Id-Version: appcoins-bds-wallet\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] translations_update/app/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 4700\n"
+"Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2021-03-31 13:51\n"
+"PO-Revision-Date: 2021-05-04 16:58\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Porque alcanzaste el siguiente nivel."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr "Recibe un {0}% extra de bonus en todas las compras, excepto AppCoins Credits, en {1}."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
