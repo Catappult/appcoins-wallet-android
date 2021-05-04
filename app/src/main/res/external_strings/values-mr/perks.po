@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: appcoins-bds-wallet\n"
-"X-Crowdin-Project-ID: 314965\n"
+"X-Crowdin-Project: appcoins\n"
+"X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: mr\n"
-"X-Crowdin-File: /translations_update/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 3840\n"
-"Project-Id-Version: appcoins-bds-wallet\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] translations_update/app/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 4700\n"
+"Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Marathi\n"
 "Language: mr_IN\n"
-"PO-Revision-Date: 2021-03-13 00:31\n"
+"PO-Revision-Date: 2021-05-04 16:58\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "कारण आपण पुढच्या पातळीवर प�
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr "{1} मधीलआपल्या सर्व खरेदीवर {0}% अतिरिक्त बोनस मिळवा अपवाद फक्त अॅपकॉइन्स क्रेडीटसचा,."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
