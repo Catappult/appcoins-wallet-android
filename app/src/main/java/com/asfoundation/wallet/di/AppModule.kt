@@ -45,6 +45,7 @@ import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
+import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
@@ -614,5 +615,11 @@ internal class AppModule {
   fun provideRoomCurrencyConversionRatesPersistence(
       database: CurrencyConversionRatesDatabase): CurrencyConversionRatesPersistence {
     return RoomCurrencyConversionRatesPersistence(database.currencyConversionRatesDao())
+  }
+
+  @Singleton
+  @Provides
+  fun provideTaskTimer(): TaskTimer {
+    return TaskTimer()
   }
 }
