@@ -1,132 +1,110 @@
-package com.asfoundation.wallet.repository;
+package com.asfoundation.wallet.repository
 
-import android.content.SharedPreferences;
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics;
-import com.asfoundation.wallet.analytics.AnalyticsSetup;
-import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.service.AccountKeystoreService;
-import com.asfoundation.wallet.service.WalletBalanceService;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
-import java.math.BigDecimal;
-import org.jetbrains.annotations.NotNull;
+import android.content.SharedPreferences
+import com.asfoundation.wallet.analytics.AmplitudeAnalytics
+import com.asfoundation.wallet.analytics.AnalyticsSetup
+import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.service.AccountKeystoreService
+import com.asfoundation.wallet.service.WalletBalanceService
+import io.reactivex.*
+import java.math.BigDecimal
 
-public class WalletRepository implements WalletRepositoryType {
+class WalletRepository(private val preferencesRepositoryType: PreferencesRepositoryType,
+                       private val accountKeystoreService: AccountKeystoreService,
+                       private val walletBalanceService: WalletBalanceService,
+                       private val networkScheduler: Scheduler,
+                       private val analyticsSetUp: AnalyticsSetup,
+                       private val amplitudeAnalytics: AmplitudeAnalytics) : WalletRepositoryType {
 
-  private final PreferencesRepositoryType preferencesRepositoryType;
-  private final AccountKeystoreService accountKeystoreService;
-  private final WalletBalanceService walletBalanceService;
-  private final Scheduler networkScheduler;
-  private final AnalyticsSetup analyticsSetUp;
-  private final AmplitudeAnalytics amplitudeAnalytics;
-
-  public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
-      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService,
-      Scheduler networkScheduler, AnalyticsSetup analyticsSetUp,
-      AmplitudeAnalytics amplitudeAnalytics) {
-    this.preferencesRepositoryType = preferencesRepositoryType;
-    this.accountKeystoreService = accountKeystoreService;
-    this.walletBalanceService = walletBalanceService;
-    this.networkScheduler = networkScheduler;
-    this.analyticsSetUp = analyticsSetUp;
-    this.amplitudeAnalytics = amplitudeAnalytics;
+  override fun fetchWallets(): Single<Array<Wallet>> {
+    return accountKeystoreService.fetchAccounts()
   }
 
-  @Override public Single<Wallet[]> fetchWallets() {
-    return accountKeystoreService.fetchAccounts();
-  }
-
-  @Override public Single<Wallet> findWallet(String address) {
-    return fetchWallets().flatMap(accounts -> {
-      for (Wallet wallet : accounts) {
+  override fun findWallet(address: String): Single<Wallet> {
+    return fetchWallets().flatMap { accounts ->
+      for (wallet in accounts) {
         if (wallet.sameAddress(address)) {
-          return Single.just(wallet);
+          return@flatMap Single.just(wallet)
         }
       }
-      return null;
-    });
-  }
-
-  @Override public Single<Wallet> createWallet(String password) {
-    return accountKeystoreService.createAccount(password);
-  }
-
-  @Override
-  public Single<Wallet> restoreKeystoreToWallet(String store, String password, String newPassword) {
-    return accountKeystoreService.restoreKeystore(store, password, newPassword);
-  }
-
-  @Override public Single<Wallet> restorePrivateKeyToWallet(String privateKey, String newPassword) {
-    return accountKeystoreService.restorePrivateKey(privateKey, newPassword);
-  }
-
-  @Override
-  public Single<String> exportWallet(String address, String password, String newPassword) {
-    return accountKeystoreService.exportAccount(address, password, newPassword);
-  }
-
-  @Override public Completable deleteWallet(String address, String password) {
-    return accountKeystoreService.deleteAccount(address, password);
-  }
-
-  @Override public Completable setDefaultWallet(String address) {
-    return Completable.fromAction(() -> {
-      analyticsSetUp.setUserId(address);
-      amplitudeAnalytics.setUserId(address);
-      preferencesRepositoryType.setCurrentWalletAddress(address);
-    });
-  }
-
-  @Override public Single<Wallet> getDefaultWallet() {
-    return Single.fromCallable(this::getDefaultWalletAddress)
-        .flatMap(this::findWallet);
-  }
-
-  private String getDefaultWalletAddress() {
-    String currentWalletAddress = preferencesRepositoryType.getCurrentWalletAddress();
-    if (currentWalletAddress == null) {
-      throw new WalletNotFoundException();
-    } else {
-      return currentWalletAddress;
+      null
     }
   }
 
-  private void emitWalletAddress(ObservableEmitter<String> emitter) {
+  override fun createWallet(password: String): Single<Wallet> {
+    return accountKeystoreService.createAccount(password)
+  }
+
+  override fun restoreKeystoreToWallet(store: String, password: String,
+                                       newPassword: String): Single<Wallet> {
+    return accountKeystoreService.restoreKeystore(store, password, newPassword)
+  }
+
+  override fun restorePrivateKeyToWallet(privateKey: String, newPassword: String): Single<Wallet> {
+    return accountKeystoreService.restorePrivateKey(privateKey, newPassword)
+  }
+
+  override fun exportWallet(address: String, password: String,
+                            newPassword: String): Single<String> {
+    return accountKeystoreService.exportAccount(address, password, newPassword)
+  }
+
+  override fun deleteWallet(address: String, password: String): Completable {
+    return accountKeystoreService.deleteAccount(address, password)
+  }
+
+  override fun setDefaultWallet(address: String): Completable {
+    return Completable.fromAction {
+      analyticsSetUp.setUserId(address)
+      amplitudeAnalytics.setUserId(address)
+      preferencesRepositoryType.setCurrentWalletAddress(address)
+    }
+  }
+
+  override fun getDefaultWallet(): Single<Wallet> {
+    return Single.fromCallable { getDefaultWalletAddress() }
+        .flatMap { address -> findWallet(address) }
+  }
+
+  private fun getDefaultWalletAddress(): String {
+    val currentWalletAddress = preferencesRepositoryType.getCurrentWalletAddress()
+    return currentWalletAddress ?: throw WalletNotFoundException()
+  }
+
+  private fun emitWalletAddress(emitter: ObservableEmitter<String>) {
     try {
-      String walletAddress = getDefaultWalletAddress();
-      emitter.onNext(walletAddress);
-    } catch (WalletNotFoundException e) {
-      emitter.tryOnError(e);
+      val walletAddress = getDefaultWalletAddress()
+      emitter.onNext(walletAddress)
+    } catch (e: WalletNotFoundException) {
+      emitter.tryOnError(e)
     }
   }
 
-  public Observable<Wallet> observeDefaultWallet() {
-    return Observable.create((ObservableOnSubscribe<String>) emitter -> {
-      SharedPreferences.OnSharedPreferenceChangeListener listener = (sharedPreferences, key) -> {
-        if (key.equals(SharedPreferencesRepository.CURRENT_ACCOUNT_ADDRESS_KEY)) {
-          emitWalletAddress(emitter);
-        }
-      };
-      emitter.setCancellable(() -> preferencesRepositoryType.removeChangeListener(listener));
-      emitWalletAddress(emitter);
-      preferencesRepositoryType.addChangeListener(listener);
-    })
-        .flatMapSingle(this::findWallet);
+  override fun observeDefaultWallet(): Observable<Wallet> {
+    return Observable.create(
+        ObservableOnSubscribe { emitter: ObservableEmitter<String> ->
+          val listener =
+              SharedPreferences.OnSharedPreferenceChangeListener { _, key: String ->
+                if (key == SharedPreferencesRepository.CURRENT_ACCOUNT_ADDRESS_KEY) {
+                  emitWalletAddress(emitter)
+                }
+              }
+          emitter.setCancellable { preferencesRepositoryType.removeChangeListener(listener) }
+          emitWalletAddress(emitter)
+          preferencesRepositoryType.addChangeListener(listener)
+        } as ObservableOnSubscribe<String>)
+        .flatMapSingle { address -> findWallet(address) }
   }
 
-  @NotNull @Override public Single<BigDecimal> getEthBalanceInWei(String address) {
+  override fun getEthBalanceInWei(address: String): Single<BigDecimal> {
     return walletBalanceService.getWalletBalance(address)
-        .map(walletBalance -> new BigDecimal(walletBalance.getEth()))
-        .subscribeOn(networkScheduler);
+        .map { walletBalance -> BigDecimal(walletBalance.eth) }
+        .subscribeOn(networkScheduler)
   }
 
-  @NotNull @Override public Single<BigDecimal> getAppcBalanceInWei(String address) {
+  override fun getAppcBalanceInWei(address: String): Single<BigDecimal> {
     return walletBalanceService.getWalletBalance(address)
-        .map(walletBalance -> new BigDecimal(walletBalance.getAppc()))
-        .subscribeOn(networkScheduler);
+        .map { (appc) -> BigDecimal(appc) }
+        .subscribeOn(networkScheduler)
   }
 }

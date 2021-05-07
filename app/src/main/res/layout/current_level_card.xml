@@ -130,7 +130,7 @@
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="5sp"
         android:paddingBottom="12dp"
-        android:textColor="#99FFFFFF"
+        android:textColor="@color/white_99"
         android:textSize="11sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@id/percentage_left"

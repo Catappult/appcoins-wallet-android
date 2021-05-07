@@ -74,7 +74,7 @@
         android:maxLines="3"
         android:minLines="3"
         android:text="@string/referral_notification_bonus_pending_body"
-        android:textColor="#99FFFFFF"
+        android:textColor="@color/white_99"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/notification_title"
