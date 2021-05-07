@@ -130,7 +130,7 @@ public class TransactionsViewModel extends BaseViewModel {
             defaultWalletModel.postValue(walletNetworkModel);
           }
         })
-        .switchMapCompletableDelayError(this::updateWalletData)
+        .switchMapCompletable(this::updateWalletData)
         .subscribe(() -> {
         }, this::onError));
   }
@@ -146,12 +146,12 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private Completable updateWalletData(TransactionsWalletModel model) {
-    return Completable.mergeArrayDelayError(refreshTransactionsAndBalance(model),
+    return Completable.mergeArray(refreshTransactionsAndBalance(model),
         updateRegisterUser(model.getWallet()));
   }
 
   private Completable refreshTransactionsAndBalance(TransactionsWalletModel model) {
-    return Completable.mergeArrayDelayError(updateBalance(),
+    return Completable.mergeArray(updateBalance(),
         updateTransactions(model).subscribeOn(networkScheduler))
         .subscribeOn(networkScheduler);
   }

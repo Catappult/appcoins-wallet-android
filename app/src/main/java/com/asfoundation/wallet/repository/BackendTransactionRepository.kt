@@ -44,6 +44,7 @@ class BackendTransactionRepository(
           }
           .buffer(2, TimeUnit.SECONDS)
           .flatMap { transactions -> saveTransactions(transactions.flatten(), wallet) }
+          .onErrorResumeNext(saveTransactions(emptyList(), wallet))
           .subscribe({}, { it.printStackTrace() })
     }
     disposables.add(disposable)
