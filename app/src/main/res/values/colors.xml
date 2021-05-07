@@ -43,6 +43,7 @@
   <color name="gray_alpha_8a">#8a000000</color>
   <color name="gray_alpha_61">#61000000</color>
   <color name="grey_alpha_6b">#6b000000</color>
+  <color name="light_grey_alpha_8d">#8d393939</color>
 
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>

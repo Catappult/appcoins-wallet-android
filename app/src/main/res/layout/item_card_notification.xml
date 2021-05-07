@@ -8,8 +8,8 @@
     android:clickable="true"
     android:focusable="true"
     android:maxWidth="328dp"
-    app:cardBackgroundColor="#8D393939"
-    app:cardCornerRadius="14dp"
+    app:cardBackgroundColor="@color/light_grey_alpha_8d"
+    app:cardCornerRadius="@dimen/notifications_card_view_corner_radius"
     app:cardElevation="0dp"
     >
 

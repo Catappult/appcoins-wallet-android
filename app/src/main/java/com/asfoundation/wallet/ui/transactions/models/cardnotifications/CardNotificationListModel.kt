@@ -4,7 +4,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.ui.transactions.models.GeneralCarouselModel_
+import com.asfoundation.wallet.ui.transactions.models.DefaultCarouselModel_
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 
 class CardNotificationListModel(val data: List<CardNotification>,
@@ -26,7 +26,7 @@ class CardNotificationListModel(val data: List<CardNotification>,
         )
       }
       return listOf(
-          GeneralCarouselModel_()
+          DefaultCarouselModel_()
               .id("card_notification_list")
               .numViewsToShowOnScreen(1.05f) // This should be consistent on every screen
               .models(appModels)

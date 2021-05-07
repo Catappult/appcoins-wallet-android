@@ -6,11 +6,7 @@ import com.airbnb.epoxy.ModelView
 import com.asfoundation.wallet.util.convertDpToPx
 
 @ModelView(saveViewState = true, autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
-class GeneralCarousel(context: Context) : Carousel(context) {
-
-  override fun getSnapHelperFactory(): SnapHelperFactory? {
-    return null
-  }
+class DefaultCarousel(context: Context) : Carousel(context) {
 
   override fun getPaddingBottom(): Int {
     return 0

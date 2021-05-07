@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="@dimen/appcoins_card_view_height"
     android:layout_margin="4dp"
     android:elevation="4dp"
     app:cardBackgroundColor="@color/blueish_black"

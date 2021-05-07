@@ -4,7 +4,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
-import com.asfoundation.wallet.ui.transactions.models.GeneralCarouselModel_
+import com.asfoundation.wallet.ui.transactions.models.DefaultCarouselModel_
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction
 
 class AppcoinsAppListModel(val data: List<AppcoinsApplication>,
@@ -24,7 +24,7 @@ class AppcoinsAppListModel(val data: List<AppcoinsApplication>,
         )
       }
       return listOf(
-          GeneralCarouselModel_()
+          DefaultCarouselModel_()
               .numViewsToShowOnScreen(1.26f)
               .id("appcoins_app_list")
               .models(appModels)
