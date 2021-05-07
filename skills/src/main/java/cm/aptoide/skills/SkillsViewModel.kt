@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.usecase.*
+import cm.aptoide.skills.util.EskillsParameters
+import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
@@ -20,13 +22,12 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
     return createTicketUseCase.getOrCreateWallet()
   }
 
-  fun getRoom(userId: String, userName: String, packageName: String,
+  fun getRoom(eskillsUri: EskillsUri, userName: String,
               fragment: Fragment): Observable<UserData> {
-    return createTicketUseCase.createTicket(packageName, userId, userName)
+    return createTicketUseCase.createTicket(eskillsUri, userName)
         .flatMap { ticketResponse ->
           payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
-              ticketResponse.ticketPrice, ticketResponse.priceCurrency, ticketResponse.productToken,
-              packageName, fragment)
+              ticketResponse.productToken, eskillsUri, fragment)
               .flatMap {
                 val roomIdPresent = AtomicBoolean(false)
 
@@ -69,4 +70,6 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
   fun getApplicationName(packageName: String): String? {
     return getApplicationInfoUseCase.getApplicationName(packageName)
   }
+
+
 }
