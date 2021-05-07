@@ -79,17 +79,17 @@ class AccountWalletService(private val accountKeyService: AccountKeystoreService
   }
 
   fun find(): Single<Wallet> {
-    return walletRepository.defaultWallet
+    return walletRepository.getDefaultWallet()
         .onErrorResumeNext {
           walletRepository.fetchWallets()
-              .filter { wallets: Array<Wallet?> -> wallets.isNotEmpty() }
+              .filter { wallets -> wallets.isNotEmpty() }
               .map { wallets: Array<Wallet> ->
                 wallets[0]
               }
               .flatMapCompletable { wallet: Wallet ->
                 walletRepository.setDefaultWallet(wallet.address)
               }
-              .andThen(walletRepository.defaultWallet)
+              .andThen(walletRepository.getDefaultWallet())
         }
   }
 

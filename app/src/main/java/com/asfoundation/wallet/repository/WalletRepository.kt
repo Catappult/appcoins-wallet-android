@@ -40,12 +40,12 @@ class WalletRepository(private val preferencesRepositoryType: PreferencesReposit
     return accountKeystoreService.restoreKeystore(store, password, newPassword)
   }
 
-  override fun restorePrivateKeyToWallet(privateKey: String, newPassword: String): Single<Wallet> {
+  override fun restorePrivateKeyToWallet(privateKey: String?, newPassword: String): Single<Wallet> {
     return accountKeystoreService.restorePrivateKey(privateKey, newPassword)
   }
 
   override fun exportWallet(address: String, password: String,
-                            newPassword: String): Single<String> {
+                            newPassword: String?): Single<String> {
     return accountKeystoreService.exportAccount(address, password, newPassword)
   }
 

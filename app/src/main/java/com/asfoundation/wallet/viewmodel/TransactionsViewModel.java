@@ -281,6 +281,8 @@ public class TransactionsViewModel extends BaseViewModel {
     return Completable.fromObservable(
         Observable.combineLatest(getTransactions(walletModel.getWallet()), getCardNotifications(),
             getAppcoinsApps(), getMaxBonus(), this::createTransactionsModel)
+            .doOnNext(transactionsModel -> transactionViewInteractor.updateTransactionsNumber(
+                transactionsModel.getTransactions()))
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnNext(transactionsModel -> onTransactionModel(transactionsModel, walletModel))
@@ -424,7 +426,6 @@ public class TransactionsViewModel extends BaseViewModel {
     hasTransactions = !transactionsModel.getTransactions()
         .isEmpty() || hasTransactions;
     this.transactionsModel.setValue(new Pair<>(transactionsModel, walletModel));
-    transactionViewInteractor.updateTransactionsNumber(transactionsModel.getTransactions());
   }
 
   public void showSettings(Context context) {

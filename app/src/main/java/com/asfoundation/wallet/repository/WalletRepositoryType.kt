@@ -1,33 +1,36 @@
-package com.asfoundation.wallet.repository;
+package com.asfoundation.wallet.repository
 
-import com.asfoundation.wallet.entity.Wallet;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import java.math.BigDecimal;
+import com.asfoundation.wallet.entity.Wallet
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
+import java.math.BigDecimal
 
-public interface WalletRepositoryType {
-  Single<Wallet[]> fetchWallets();
+interface WalletRepositoryType {
 
-  Single<Wallet> findWallet(String address);
+  fun fetchWallets(): Single<Array<Wallet>>
 
-  Single<Wallet> createWallet(String password);
+  fun findWallet(address: String): Single<Wallet>
 
-  Single<Wallet> restoreKeystoreToWallet(String store, String password, String newPassword);
+  fun createWallet(password: String): Single<Wallet>
 
-  Single<Wallet> restorePrivateKeyToWallet(String privateKey, String newPassword);
+  fun restoreKeystoreToWallet(store: String, password: String,
+                              newPassword: String): Single<Wallet>
 
-  Single<String> exportWallet(String address, String password, String newPassword);
+  fun restorePrivateKeyToWallet(privateKey: String?, newPassword: String): Single<Wallet>
 
-  Completable deleteWallet(String address, String password);
+  fun exportWallet(address: String, password: String, newPassword: String?): Single<String>
 
-  Completable setDefaultWallet(String address);
+  fun deleteWallet(address: String, password: String): Completable
 
-  Single<Wallet> getDefaultWallet();
+  fun setDefaultWallet(address: String): Completable
 
-  Observable<Wallet> observeDefaultWallet();
+  fun getDefaultWallet(): Single<Wallet>
 
-  Single<BigDecimal> getEthBalanceInWei(String address);
+  fun observeDefaultWallet(): Observable<Wallet>
 
-  Single<BigDecimal> getAppcBalanceInWei(String address);
+  fun getEthBalanceInWei(address: String): Single<BigDecimal>
+
+  fun getAppcBalanceInWei(address: String): Single<BigDecimal>
+
 }

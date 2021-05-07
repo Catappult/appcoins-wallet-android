@@ -9,17 +9,18 @@ import io.reactivex.Single
 class FindDefaultWalletInteract(private val walletRepository: WalletRepositoryType,
                                 private val scheduler: Scheduler) {
   fun find(): Single<Wallet> {
-    return walletRepository.defaultWallet.subscribeOn(scheduler)
+    return walletRepository.getDefaultWallet()
+        .subscribeOn(scheduler)
         .onErrorResumeNext {
           walletRepository.fetchWallets()
-              .filter { wallets: Array<Wallet?> -> wallets.isNotEmpty() }
+              .filter { wallets -> wallets.isNotEmpty() }
               .map { wallets: Array<Wallet> ->
                 wallets[0]
               }
               .flatMapCompletable { wallet: Wallet ->
                 walletRepository.setDefaultWallet(wallet.address)
               }
-              .andThen(walletRepository.defaultWallet)
+              .andThen(walletRepository.getDefaultWallet())
         }
   }
 
@@ -28,7 +29,7 @@ class FindDefaultWalletInteract(private val walletRepository: WalletRepositoryTy
         .subscribeOn(scheduler)
         .onErrorResumeNext { _: Throwable ->
           return@onErrorResumeNext walletRepository.fetchWallets()
-              .filter { wallets: Array<Wallet?> -> wallets.isNotEmpty() }
+              .filter { wallets -> wallets.isNotEmpty() }
               .map { wallets: Array<Wallet> ->
                 wallets[0]
               }
