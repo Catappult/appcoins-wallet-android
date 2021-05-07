@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">ตรวจสอบว่า คุณมีสำเนาสำรองนี้กระเป๋าสตางค์</string>
   <string name="action_import">กู้คืน</string>
   <string name="copy">คัดลอกลงคลิปบอร์ด</string>
+  <string name="copied">Copied!</string>
   <string name="close">ปิด</string>
   <string name="title_activity_settings">การตั้งค่า</string>
   <string name="network_label">เครือข่าย</string>
@@ -27,6 +28,7 @@
   <string name="label_new">ใหม่</string>
   <string name="got_it_button">เข้าใจล่ะ</string>
   <string name="change_button">เปลี่ยนแปลง</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
@@ -911,4 +913,10 @@
   <string name="voucher_tooltip">ตอนนี้คุณสามารถซื้อเวาเชอร์สำหรับเกมได้แล้ว</string>
   <string name="voucher_empty_more_title">บัตรกำนัลสำหรับเกมส์</string>
   <string name="voucher_empty_more_body">ค้นหาข้อเสนอที่ดีที่สุดสำหรับเกมโปรดของคุณ!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
