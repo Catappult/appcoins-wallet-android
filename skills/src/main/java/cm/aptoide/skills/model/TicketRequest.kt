@@ -1,5 +1,6 @@
 package cm.aptoide.skills.model
 
+import cm.aptoide.skills.util.EskillsUri
 import com.google.gson.annotations.SerializedName
 
 data class TicketRequest(
@@ -17,5 +18,8 @@ data class TicketRequest(
     private val walletAddress: String,
 
     @SerializedName("room_metadata")
-    private val roomMetadata: Map<String, String>
+    private val roomMetadata: Map<String, String>,
+
+    @SerializedName("match_environment")
+    private val matchEnvironment: EskillsUri.MatchEnvironment
 )

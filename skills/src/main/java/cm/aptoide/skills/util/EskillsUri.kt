@@ -35,4 +35,16 @@ data class EskillsUri(
     val currency = parameters[EskillsParameters.CURRENCY]!!
     return "$value $currency"
   }
+
+  fun getEnvironment(): MatchEnvironment? {
+    return try {
+      MatchEnvironment.valueOf(parameters[EskillsParameters.ENVIRONMENT]!!)
+    } catch(e: IllegalArgumentException) {
+      null
+    }
+  }
+
+  enum class MatchEnvironment {
+    LIVE, SANDBOX
+  }
 }
