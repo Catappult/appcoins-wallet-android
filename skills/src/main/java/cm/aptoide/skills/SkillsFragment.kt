@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
+import cm.aptoide.skills.util.DeviceScreenManager
 import cm.aptoide.skills.util.EskillsUri
 import cm.aptoide.skills.util.EskillsUriParser
 import cm.aptoide.skills.util.KeyboardUtils
@@ -57,6 +58,7 @@ class SkillsFragment : DaggerFragment() {
     super.onViewCreated(view, savedInstanceState)
     disposable = CompositeDisposable()
 
+
     val eskillsUri = getEskillsUri()
     userId = eskillsUri.getUserId()
     loadUserName()
@@ -66,6 +68,7 @@ class SkillsFragment : DaggerFragment() {
       val userName = binding.createTicketLayout.userName.text.toString()
       saveUserName(userName)
       KeyboardUtils.hideKeyboard(view)
+      DeviceScreenManager.keepAwake(activity!!.window)
 
       disposable.add(
           handleWalletCreationIfNeeded()
@@ -75,6 +78,7 @@ class SkillsFragment : DaggerFragment() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe { showFindingRoomLoading() }
                     .doOnNext { userData ->
+                      DeviceScreenManager.stopKeepAwake(activity!!.window)
                       requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
                       requireActivity().finish()
                     }
