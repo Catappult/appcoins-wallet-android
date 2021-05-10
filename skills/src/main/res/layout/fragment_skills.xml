@@ -21,15 +21,6 @@
       />
 
 
-  <TextView
-      android:id="@+id/error_text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
   <include
       android:id="@+id/loading_ticket_layout"
       layout="@layout/loading_ticket_layout"

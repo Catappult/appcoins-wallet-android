@@ -11,6 +11,7 @@ import cm.aptoide.skills.repository.LoginRepository
 import cm.aptoide.skills.repository.RoomRepository
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.*
+import cm.aptoide.skills.util.EskillsUriParser
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
@@ -127,6 +128,11 @@ class SkillsModule {
   @Provides
   fun providesGetApplicationInfoUseCase(context: Context): GetApplicationInfoUseCase {
     return GetApplicationInfoUseCase(context)
+  }
+
+  @Provides
+  fun providesEskillsUriParser(): EskillsUriParser {
+    return EskillsUriParser()
   }
 
   companion object {

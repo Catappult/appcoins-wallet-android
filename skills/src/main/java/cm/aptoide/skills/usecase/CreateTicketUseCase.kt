@@ -4,6 +4,7 @@ import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.repository.TicketRepository
+import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -16,14 +17,14 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
     return walletAddressObtainer.getOrCreateWallet()
   }
 
-  fun createTicket(packageName: String, userId: String, userName: String): Single<TicketResponse> {
+  fun createTicket(eskillsUri: EskillsUri, userName: String): Single<TicketResponse> {
     return walletAddressObtainer.getWalletAddress()
         .subscribeOn(networkScheduler)
         .flatMap { walletAddress ->
           ewtObtainer.getEWT()
               .flatMap { ewt ->
-                ticketRepository.createTicket(packageName,
-                    userId, userName, ewt,
+                ticketRepository.createTicket(eskillsUri.getPackageName(),
+                    eskillsUri.getUserId(), userName, ewt,
                     walletAddress)
               }
         }

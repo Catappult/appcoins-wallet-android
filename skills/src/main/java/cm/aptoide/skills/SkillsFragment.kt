@@ -2,12 +2,15 @@ package cm.aptoide.skills
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
+import cm.aptoide.skills.util.EskillsUri
+import cm.aptoide.skills.util.EskillsUriParser
 import cm.aptoide.skills.util.KeyboardUtils
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -23,19 +26,22 @@ class SkillsFragment : DaggerFragment() {
     private const val RESULT_OK = 1
     private const val SESSION = "SESSION"
     private const val USER_ID = "USER_ID"
-    private const val PACKAGE_NAME = "PACKAGE_NAME"
     private const val ROOM_ID = "ROOM_ID"
     private const val WALLET_ADDRESS = "WALLET_ADDRESS"
-    private const val JWT = "JWT"
     private const val TRANSACTION_HASH = "transaction_hash"
 
     private const val SHARED_PREFERENCES_NAME = "SKILL_SHARED_PREFERENCES"
     private const val PREFERENCES_USER_NAME = "PREFERENCES_USER_NAME"
     private const val WALLET_CREATING_STATUS = "CREATING"
+    private const val ESKILLS_URI_KEY = "ESKILLS_URI"
   }
 
   @Inject
   lateinit var viewModel: SkillsViewModel
+
+  @Inject
+  lateinit var eskillsUriParser: EskillsUriParser
+
   private lateinit var userId: String
   private lateinit var disposable: CompositeDisposable
 
@@ -49,43 +55,43 @@ class SkillsFragment : DaggerFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
     disposable = CompositeDisposable()
-    val intent = requireActivity().intent
-    if (intent.hasExtra(USER_ID)) {
-      userId = intent.getStringExtra(USER_ID)!!
-      val packageName = intent.getStringExtra(PACKAGE_NAME)!!
-      loadUserName()
 
-      setTicketDetails(packageName)
+    val eskillsUri = getEskillsUri()
+    userId = eskillsUri.getUserId()
+    loadUserName()
+    setTicketDetails(eskillsUri)
 
-      binding.createTicketLayout.findRoomButton.setOnClickListener {
-        val userName = binding.createTicketLayout.userName.text.toString()
-        saveUserName(userName)
-        KeyboardUtils.hideKeyboard(view)
+    binding.createTicketLayout.findRoomButton.setOnClickListener {
+      val userName = binding.createTicketLayout.userName.text.toString()
+      saveUserName(userName)
+      KeyboardUtils.hideKeyboard(view)
 
-        disposable.add(
-            handleWalletCreationIfNeeded()
-                .takeUntil { it != WALLET_CREATING_STATUS }
-                .flatMap {
-                  viewModel.getRoom(userId, userName, packageName, this)
-                      .observeOn(AndroidSchedulers.mainThread())
-                      .doOnSubscribe { showFindingRoomLoading() }
-                      .doOnNext { userData ->
-                        requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
-                        requireActivity().finish()
-                      }
-                      .doOnNext { ticket -> println("ticket: $ticket") }
-
-                }.subscribe()
-        )
-      }
-    } else {
-      showError(R.string.no_user_id)
+      disposable.add(
+          handleWalletCreationIfNeeded()
+              .takeUntil { it != WALLET_CREATING_STATUS }
+              .flatMap {
+                viewModel.getRoom(eskillsUri, userName, this)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe { showFindingRoomLoading() }
+                    .doOnNext { userData ->
+                      requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
+                      requireActivity().finish()
+                    }
+                    .doOnNext { ticket -> println("ticket: $ticket") }
+              }.subscribe()
+      )
     }
   }
 
-  private fun setTicketDetails(packageName: String) {
+  private fun getEskillsUri(): EskillsUri {
+    val intent = requireActivity().intent
+    return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
+  }
+
+  private fun setTicketDetails(eskillsUri: EskillsUri) {
+    val packageName = eskillsUri.getPackageName()
+
     val applicationIcon = viewModel.getApplicationIcon(packageName)
     if (applicationIcon != null) {
       binding.createTicketLayout.createTicketHeader.appIcon.setImageDrawable(applicationIcon)
@@ -96,8 +102,8 @@ class SkillsFragment : DaggerFragment() {
       binding.createTicketLayout.createTicketHeader.appName.text = applicationName
     }
 
-    binding.createTicketLayout.createTicketHeader.appSkuDescription.text = "Become a champion (1v1)"
-    binding.createTicketLayout.createTicketHeader.fiatPrice.text = "1 USD"
+    binding.createTicketLayout.createTicketHeader.appSkuDescription.text = eskillsUri.getProductLabel()
+    binding.createTicketLayout.createTicketHeader.fiatPrice.text = eskillsUri.getFormattedPrice()
   }
 
   private fun saveUserName(userName: String) {
@@ -105,7 +111,7 @@ class SkillsFragment : DaggerFragment() {
         .edit()
         .putString(
             PREFERENCES_USER_NAME, userName)
-        .commit()
+        .apply()
   }
 
   private fun loadUserName() {
@@ -122,12 +128,6 @@ class SkillsFragment : DaggerFragment() {
     } else {
       super.onActivityResult(requestCode, resultCode, data)
     }
-  }
-
-  private fun showError(stringId: Int) {
-    binding.createTicketLayout.createTicketMainView.visibility = View.GONE
-    binding.errorText.visibility = View.VISIBLE
-    binding.errorText.text = requireContext().resources.getString(stringId)
   }
 
   override fun onDestroyView() {
