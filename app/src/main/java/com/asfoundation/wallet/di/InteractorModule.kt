@@ -505,10 +505,11 @@ class InteractorModule {
   @Provides
   fun provideRestoreWalletInteract(
       walletRepository: WalletRepositoryType, passwordStore: PasswordStore,
+      balanceInteractor: BalanceInteractor,
       backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
       setDefaultWalletInteractor: SetDefaultWalletInteractor,
       fileInteractor: FileInteractor): RestoreWalletInteractor {
-    return RestoreWalletInteractor(walletRepository, setDefaultWalletInteractor,
+    return RestoreWalletInteractor(walletRepository, setDefaultWalletInteractor, balanceInteractor,
         passwordStore, backupRestorePreferencesRepository, fileInteractor)
   }
 

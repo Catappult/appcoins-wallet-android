@@ -57,6 +57,8 @@
   <dimen name="backup_success_icon_margin_top">58dp</dimen>
   <dimen name="backup_success_text_margin_top">24dp</dimen>
   <dimen name="backup_success_text_box_horizontal_margin">16dp</dimen>
+  <dimen name="notifications_card_view_corner_radius">14dp</dimen>
+  <dimen name="appcoins_card_view_height">100dp</dimen>
 
   <!--Backup Entry -->
   <dimen name="backup_password_padding">12dp</dimen>

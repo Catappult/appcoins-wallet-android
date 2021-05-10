@@ -44,14 +44,23 @@ class BackendTransactionRepository(
           }
           .buffer(2, TimeUnit.SECONDS)
           .flatMap { transactions -> saveTransactions(transactions.flatten(), wallet) }
+          .onErrorResumeNext(saveTransactions(emptyList(), wallet))
           .subscribe({}, { it.printStackTrace() })
     }
     disposables.add(disposable)
 
-    return localRepository.getAllAsFlowable(wallet)
+    // getWalletLastUpdated ensures that we only start listening to DB once it gets updated from
+    // network at least once
+    return localRepository.getWalletLastUpdated(wallet)
+        .flatMap { localRepository.getAllAsFlowable(wallet) }
         .flatMap { transactions -> getLinkedTransactions(wallet, transactions) }
+        .map { transactions -> orderByDateDescending(transactions) }
         .toObservable()
         .distinctUntilChanged()
+  }
+
+  private fun orderByDateDescending(transactions: List<Transaction>): List<Transaction> {
+    return transactions.sortedByDescending { tx -> tx.timeStamp }
   }
 
   override fun fetchNewTransactions(wallet: String): Single<List<Transaction>> {
@@ -140,7 +149,10 @@ class BackendTransactionRepository(
 
   private fun saveTransactions(transactions: List<WalletHistory.Transaction>,
                                wallet: String): Observable<List<TransactionEntity>> {
-    return Observable.fromIterable(transactions)
+    return Completable.fromAction {
+      localRepository.setTransactionsLastUpdated(wallet, Date().time)
+    }
+        .andThen(Observable.fromIterable(transactions))
         .flatMap { transaction ->
           if (isRevertTransaction(transaction.type, transaction.linkedTx.orEmpty())) {
             transaction.linkedTx?.forEach {

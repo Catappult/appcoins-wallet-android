@@ -1078,4 +1078,28 @@
     <item name="android:textAlignment">center</item>
     <item name="android:textSize">16sp</item>
   </style>
+
+  <style name="Home" />
+
+  <style name="Home.PillShape">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">50%</item>
+  </style>
+
+  <style name="Home.HeaderShape">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSizeBottomLeft">12dp</item>
+    <item name="cornerSizeBottomRight">12dp</item>
+  </style>
+
+  <style name="Home.SendReceiveButton">
+    <item name="android:textAllCaps">false</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="backgroundTint">@color/wild_watermelon</item>
+    <item name="iconGravity">end</item>
+    <item name="iconPadding">0dp</item>
+    <item name="shapeAppearance">@style/Home.PillShape</item>
+  </style>
+
 </resources>

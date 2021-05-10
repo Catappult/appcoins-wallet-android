@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/appcoins_application_list"
     android:layout_width="match_parent"
@@ -13,37 +12,35 @@
       android:id="@+id/title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
+      android:layout_marginStart="8dp"
       android:fontFamily="@font/roboto_regular"
       android:text="@string/spend_your_appcoins"
-      android:textColor="@color/list_group_head"
+      android:textColor="@color/white_99"
       android:textSize="@dimen/list_group_head"
-      app:layout_constraintEnd_toStartOf="@id/icon"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintHorizontal_chainStyle="packed"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintStart_toEndOf="@id/icon"
       app:layout_constraintTop_toTopOf="parent"
       />
   <ImageView
       android:id="@+id/icon"
       android:layout_width="16dp"
       android:layout_height="16dp"
-      android:layout_marginStart="8dp"
+      android:layout_marginStart="16dp"
       android:src="@drawable/ic_appc"
       app:layout_constraintBottom_toBottomOf="@id/title"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/title"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@id/title"
       />
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recycler_view"
+
+  <ViewStub
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:nestedScrollingEnabled="false"
+      android:layout_marginTop="12dp"
+      android:inflatedId="@+id/recycler_view"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/title"
       />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,7 @@ class AccountWalletServiceTest {
 
   @Before
   fun setUp() {
-    `when`(walletRepository.defaultWallet).thenReturn(
+    `when`(walletRepository.getDefaultWallet()).thenReturn(
         Single.just(Wallet(ADDRESS)))
     `when`(passwordStore.getPassword(any())).thenReturn(Single.just(PASSWORD))
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))

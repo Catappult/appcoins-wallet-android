@@ -10,6 +10,8 @@ class TransactionsRouter {
     val intent = Intent(context, TransactionsActivity::class.java)
     if (isClearStack) {
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+    } else {
+      intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
     }
     context.startActivity(intent)
   }

@@ -137,7 +137,6 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   private fun mapErrorToUserStatsModel(throwable: Throwable, fromCache: Boolean): UserStats {
-    throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
       UserStats(Status.NO_NETWORK, fromCache)
     } else {

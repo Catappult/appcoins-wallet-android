@@ -151,10 +151,8 @@ class BalanceActivity : ActivityNavigator(), BalanceActivityView {
 
   override fun backPressed() = onBackPressedSubject!!
 
-
   override fun navigateToTransactions() {
-    TransactionsRouter().open(this, true)
-    finish()
+    TransactionsRouter().open(this, false)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

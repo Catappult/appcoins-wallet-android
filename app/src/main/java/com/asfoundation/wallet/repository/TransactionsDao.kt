@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.asfoundation.wallet.repository.entity.LastUpdatedWalletEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import io.reactivex.Flowable
 import io.reactivex.Maybe
@@ -15,6 +16,10 @@ interface TransactionsDao {
   @Query(
       "select * from TransactionEntity where relatedWallet like :relatedWallet order by timeStamp")
   fun getAllAsFlowable(relatedWallet: String): Flowable<List<TransactionEntity>>
+
+  @Query(
+      "select * from LastUpdatedWalletEntity where wallet like :wallet")
+  fun getLastUpdatedWallet(wallet: String): Flowable<LastUpdatedWalletEntity>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertAll(roomTransactions: List<TransactionEntity>)
@@ -33,4 +38,7 @@ interface TransactionsDao {
   @Query(
       "select * from TransactionEntity where relatedWallet like :relatedWallet and transactionId = :txId limit 1")
   fun getById(relatedWallet: String, txId: String): Single<TransactionEntity>
+
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun insertLastUpdatedWallet(lastUpdatedWalletEntity: LastUpdatedWalletEntity)
 }

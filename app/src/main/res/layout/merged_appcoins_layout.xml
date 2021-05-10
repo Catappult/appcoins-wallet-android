@@ -80,8 +80,7 @@
               app:layout_constraintTop_toTopOf="parent"
               />
           <include
-              android:id="@+id/skeleton_appcoins"
-              layout="@layout/skeleton_appcoins"
+              layout="@layout/skeleton_appcoins_layout"
               android:layout_width="match_parent"
               android:layout_height="0dp"
               android:layout_marginStart="10dp"

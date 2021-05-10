@@ -86,6 +86,10 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
     return findDefaultWalletInteract.find()
   }
 
+  fun observeWallet(): Observable<Wallet> {
+    return findDefaultWalletInteract.observe()
+  }
+
   fun dismissNotification(cardNotification: CardNotification): Completable {
     return cardNotificationsInteractor.dismissNotification(cardNotification)
   }

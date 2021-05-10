@@ -209,7 +209,6 @@
       />
 
   <include
-      android:id="@+id/dialog_buy_buttons"
       layout="@layout/dialog_buy_buttons_payment_methods"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

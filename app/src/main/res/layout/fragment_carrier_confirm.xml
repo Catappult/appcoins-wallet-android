@@ -5,6 +5,7 @@
     style="@style/PaymentMethods.DialogCardStyle"
     android:animateLayoutChanges="true"
     android:theme="@style/MaterialAppTheme"
+    tools:viewBindingIgnore="true"
     >
 
   <com.asfoundation.wallet.ui.iab.payments.common.PaymentsHeaderView

@@ -2,7 +2,6 @@ package com.asfoundation.wallet.viewmodel;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Pair;
 import androidx.annotation.StringRes;
@@ -10,13 +9,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
 import com.asf.wallet.BuildConfig;
-import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics;
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender;
 import com.asfoundation.wallet.entity.Balance;
-import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
-import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.TransactionViewInteractor;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
@@ -40,46 +36,43 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TransactionsViewModel extends BaseViewModel {
-  private static final long GET_BALANCE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
-  private static final long FETCH_TRANSACTIONS_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
+  private static final long UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS;
   private static final BigDecimal MINUS_ONE = new BigDecimal("-1");
-  private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
-  private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
-  private final MutableLiveData<TransactionsModel> transactionsModel = new MutableLiveData<>();
-  private final MutableLiveData<CardNotification> dismissNotification = new MutableLiveData<>();
+  private final MutableLiveData<TransactionsWalletModel> defaultWalletModel =
+      new MutableLiveData<>();
+  private final MutableLiveData<Pair<TransactionsModel, TransactionsWalletModel>>
+      transactionsModel = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showNotification = new MutableLiveData<>();
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
-  private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
-  private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
+  private final BehaviorSubject<Boolean> refreshData = BehaviorSubject.createDefault(true);
+  private final BehaviorSubject<Boolean> refreshCardNotifications =
+      BehaviorSubject.createDefault(true);
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
   private final TransactionViewNavigator transactionViewNavigator;
   private final TransactionViewInteractor transactionViewInteractor;
   private final SupportInteractor supportInteractor;
-  private final Handler handler = new Handler();
   private final WalletsEventSender walletsEventSender;
   private final PublishSubject<Context> topUpClicks = PublishSubject.create();
   private final CurrencyFormatUtils formatter;
   private final Scheduler viewScheduler;
   private final Scheduler networkScheduler;
-  private CompositeDisposable disposables;
-  private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
+  private final CompositeDisposable disposables;
   private boolean hasTransactions = false;
-  private Disposable fetchTransactionsDisposable;
-  private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
 
   TransactionsViewModel(AppcoinsApps applications, TransactionsAnalytics analytics,
       TransactionViewNavigator transactionViewNavigator,
@@ -96,32 +89,89 @@ public class TransactionsViewModel extends BaseViewModel {
     this.viewScheduler = viewScheduler;
     this.networkScheduler = networkScheduler;
     this.disposables = new CompositeDisposable();
+    init();
+  }
+
+  private void init() {
+    progress.postValue(true);
+    handleBalanceWalletsExperiment();
+    handleTopUpClicks();
+    handleUnreadConversationCount();
+    handlePromotionTooltipVisibility();
+    handlePromotionUpdateNotification();
+    handleRateUsDialogVisibility();
+    handleConversationCount();
+    handleWalletData();
+    handleFingerprintTooltipVisibility();
+  }
+
+  public void updateData() {
+    refreshData.onNext(true);
+  }
+
+  public void stopRefreshingData() {
+    refreshData.onNext(false);
+  }
+
+  /**
+   * Spine stream responsible for keeping wallet data up-to-date.
+   *
+   * If {@link #refreshData} is true, we retrieve the latest network and active wallet, we post
+   * its values, we check if the wallet changed and refresh the rest of the data.
+   *
+   * We use switchMap to disregard previous subscriptions every time we need to refresh data.
+   *
+   * @see #refreshTransactionsAndBalance(TransactionsWalletModel model) .
+   */
+  private void handleWalletData() {
+    disposables.add(observeRefreshData().switchMap(__ -> observeNetworkAndWallet())
+        .doOnNext(walletNetworkModel -> {
+          if (walletNetworkModel.isNewWallet()) {
+            defaultWalletModel.postValue(walletNetworkModel);
+          }
+        })
+        .switchMapCompletable(this::updateWalletData)
+        .subscribe(() -> {
+        }, this::onError));
+  }
+
+  private Observable<TransactionsWalletModel> observeNetworkAndWallet() {
+    return Observable.combineLatest(transactionViewInteractor.findNetwork()
+        .toObservable(), transactionViewInteractor.observeWallet(), (networkInfo, wallet) -> {
+      TransactionsWalletModel previousModel = defaultWalletModel.getValue();
+      boolean isNewWallet = previousModel == null || !previousModel.getWallet()
+          .sameAddress(wallet.address);
+      return new TransactionsWalletModel(networkInfo, wallet, isNewWallet);
+    });
+  }
+
+  private Completable updateWalletData(TransactionsWalletModel model) {
+    return Completable.mergeArray(refreshTransactionsAndBalance(model),
+        updateRegisterUser(model.getWallet()));
+  }
+
+  private Completable refreshTransactionsAndBalance(TransactionsWalletModel model) {
+    return Completable.mergeArray(updateBalance(),
+        updateTransactions(model).subscribeOn(networkScheduler))
+        .subscribeOn(networkScheduler);
+  }
+
+  private Observable<Boolean> observeRefreshData() {
+    return refreshData.filter(refreshData -> refreshData);
   }
 
   @Override protected void onCleared() {
     super.onCleared();
     hasTransactions = false;
-    if (!disposables.isDisposed()) {
-      disposables.dispose();
-    }
-    handler.removeCallbacks(startFetchTransactionsTask);
-    handler.removeCallbacks(startGlobalBalanceTask);
+    disposables.dispose();
   }
 
-  public LiveData<NetworkInfo> defaultNetwork() {
-    return defaultNetwork;
+  public LiveData<TransactionsWalletModel> defaultWalletModel() {
+    return defaultWalletModel;
   }
 
-  public LiveData<Wallet> defaultWallet() {
-    return defaultWallet;
-  }
-
-  public LiveData<TransactionsModel> transactionsModel() {
+  public LiveData<Pair<TransactionsModel, TransactionsWalletModel>> transactionsModel() {
     return transactionsModel;
-  }
-
-  public LiveData<CardNotification> dismissNotification() {
-    return dismissNotification;
   }
 
   public MutableLiveData<GlobalBalance> getDefaultWalletBalance() {
@@ -140,42 +190,26 @@ public class TransactionsViewModel extends BaseViewModel {
     return showRateUsDialog;
   }
 
-  public void prepare() {
-    if (disposables.isDisposed()) {
-      disposables = new CompositeDisposable();
-    }
-    progress.postValue(true);
-    handleBalanceWalletsExperiment();
-    handlePromotionTooltipVisibility();
-    handleFindNetwork();
-    handlePromotionUpdateNotification();
-    handleRegisterUser();
-    handleTopUpClicks();
-    handleRateUsDialogVisibility();
-  }
-
-  private void handleFindNetwork() {
-    disposables.add(transactionViewInteractor.findNetwork()
-        .subscribe(this::onDefaultNetwork, this::onError));
-  }
-
   private void handlePromotionUpdateNotification() {
-    disposables.add(transactionViewInteractor.hasPromotionUpdate()
-        .subscribeOn(networkScheduler)
-        .subscribe(showNotification::postValue, this::onError));
+    disposables.add(observeRefreshData().switchMap(
+        __ -> transactionViewInteractor.hasPromotionUpdate()
+            .doOnSuccess(showNotification::postValue)
+            .subscribeOn(networkScheduler)
+            .toObservable())
+
+        .subscribe(__ -> {
+        }, this::onError));
   }
 
-  private void handleRegisterUser() {
-    disposables.add(transactionViewInteractor.findWallet()
+  private Completable updateRegisterUser(Wallet wallet) {
+    return transactionViewInteractor.getUserLevel()
         .subscribeOn(networkScheduler)
-        .flatMap(wallet -> transactionViewInteractor.getUserLevel()
-            .subscribeOn(networkScheduler)
-            .map(userLevel -> {
-              registerSupportUser(userLevel, wallet.address);
-              return true;
-            }))
-        .subscribe(wallet -> {
-        }, this::onError));
+        .map(userLevel -> {
+          registerSupportUser(userLevel, wallet.address);
+          return true;
+        })
+        .ignoreElement()
+        .subscribeOn(networkScheduler);
   }
 
   private void handleBalanceWalletsExperiment() {
@@ -200,11 +234,13 @@ public class TransactionsViewModel extends BaseViewModel {
         }, Throwable::printStackTrace));
   }
 
-  public void handleFingerprintTooltipVisibility(String packageName) {
-    disposables.add(transactionViewInteractor.shouldShowFingerprintTooltip(packageName)
-        .doOnSuccess(showFingerprintTooltip::postValue)
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace));
+  public void handleFingerprintTooltipVisibility() {
+    disposables.add(
+        transactionViewInteractor.shouldShowFingerprintTooltip(BuildConfig.APPLICATION_ID)
+            .doOnSuccess(showFingerprintTooltip::postValue)
+            .toObservable()
+            .subscribe(__ -> {
+            }, Throwable::printStackTrace));
   }
 
   private void handlePromotionTooltipVisibility() {
@@ -219,16 +255,19 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void handleUnreadConversationCount() {
-    disposables.add(supportInteractor.getUnreadConversationCountEvents()
-        .subscribeOn(viewScheduler)
-        .doOnNext(this::updateIntercomAnimation)
+    disposables.add(observeRefreshData().switchMap(
+        __ -> supportInteractor.getUnreadConversationCountEvents()
+            .subscribeOn(viewScheduler)
+            .doOnNext(this::updateIntercomAnimation))
         .subscribe());
   }
 
-  public void updateConversationCount() {
-    disposables.add(supportInteractor.getUnreadConversationCount()
-        .subscribeOn(viewScheduler)
-        .doOnNext(this::updateIntercomAnimation)
+  public void handleConversationCount() {
+    disposables.add(observeRefreshData().switchMap(
+        __ -> supportInteractor.getUnreadConversationCount()
+            .subscribeOn(viewScheduler)
+            .doOnSuccess(this::updateIntercomAnimation)
+            .toObservable())
         .subscribe());
   }
 
@@ -236,11 +275,53 @@ public class TransactionsViewModel extends BaseViewModel {
     unreadMessages.setValue(count != null && count != 0);
   }
 
-  private Completable publishMaxBonus() {
-    if (fetchTransactionsError.getValue() != null) {
-      return Completable.fromAction(
-          () -> fetchTransactionsError.postValue(fetchTransactionsError.getValue()));
-    }
+  private Completable updateTransactions(TransactionsWalletModel walletModel) {
+    if (walletModel == null) return Completable.complete();
+
+    return Completable.fromObservable(
+        Observable.combineLatest(getTransactions(walletModel.getWallet()), getCardNotifications(),
+            getAppcoinsApps(), getMaxBonus(), this::createTransactionsModel)
+            .doOnNext(transactionsModel -> transactionViewInteractor.updateTransactionsNumber(
+                transactionsModel.getTransactions()))
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnNext(transactionsModel -> onTransactionModel(transactionsModel, walletModel))
+            .map(__ -> walletModel));
+  }
+
+  private TransactionsModel createTransactionsModel(List<Transaction> transactions,
+      List<CardNotification> notifications, List<AppcoinsApplication> apps, Double maxBonus) {
+    return new TransactionsModel(transactions, notifications, apps, maxBonus);
+  }
+
+  /**
+   * Transactions are refreshed every {@link #UPDATE_INTERVAL} seconds, and stops while
+   * {@link #refreshData} is false
+   */
+  private Observable<List<Transaction>> getTransactions(Wallet wallet) {
+    return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
+        .flatMap(__ -> observeRefreshData())
+        .switchMap(__ -> transactionViewInteractor.fetchTransactions(wallet))
+        .subscribeOn(networkScheduler)
+        .onErrorReturnItem(Collections.emptyList())
+        .doAfterTerminate(transactionViewInteractor::stopTransactionFetch);
+  }
+
+  private Observable<List<CardNotification>> getCardNotifications() {
+    return refreshCardNotifications.flatMapSingle(
+        __ -> transactionViewInteractor.getCardNotifications())
+        .subscribeOn(networkScheduler)
+        .onErrorReturnItem(Collections.emptyList());
+  }
+
+  private Observable<List<AppcoinsApplication>> getAppcoinsApps() {
+    return applications.getApps()
+        .subscribeOn(networkScheduler)
+        .onErrorReturnItem(Collections.emptyList())
+        .toObservable();
+  }
+
+  private Observable<Double> getMaxBonus() {
     return transactionViewInteractor.getLevels()
         .subscribeOn(networkScheduler)
         .flatMap(levels -> {
@@ -254,46 +335,18 @@ public class TransactionsViewModel extends BaseViewModel {
           return Single.error(new IllegalStateException(levels.getStatus()
               .name()));
         })
-        .doOnSuccess(fetchTransactionsError::postValue)
-        .ignoreElement();
+        .toObservable();
   }
 
-  public void fetchTransactions(boolean shouldShowProgress) {
-    handler.removeCallbacks(startFetchTransactionsTask);
-    progress.postValue(shouldShowProgress);
-    if (fetchTransactionsDisposable != null && !fetchTransactionsDisposable.isDisposed()) {
-      fetchTransactionsDisposable.dispose();
-    }
-
-    fetchTransactionsDisposable =
-        transactionViewInteractor.fetchTransactions(defaultWallet.getValue())
-            .flatMapSingle(transactions -> transactionViewInteractor.getCardNotifications()
-                .subscribeOn(networkScheduler)
-                .onErrorReturnItem(Collections.emptyList())
-                .flatMap(notifications -> applications.getApps()
-                    .onErrorReturnItem(Collections.emptyList())
-                    .map(applications -> new TransactionsModel(transactions, notifications,
-                        applications))))
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .flatMapCompletable(transactionsModel -> publishMaxBonus().observeOn(viewScheduler)
-                .andThen(onTransactionModel(transactionsModel))
-                .andThen(Completable.fromAction(this::onTransactionsFetchCompleted)))
-            .onErrorResumeNext(throwable -> publishMaxBonus())
-            .observeOn(viewScheduler)
-            .doAfterTerminate(transactionViewInteractor::stopTransactionFetch)
-            .subscribe(() -> {
-            }, this::onError);
-    disposables.add(fetchTransactionsDisposable);
-  }
-
-  private void getGlobalBalance() {
-    disposables.add(Observable.zip(getAppcBalance(), getCreditsBalance(), getEthereumBalance(),
-        this::updateWalletValue)
-        .subscribe(globalBalance -> {
-          handler.removeCallbacks(startGlobalBalanceTask);
-          handler.postDelayed(startGlobalBalanceTask, GET_BALANCE_INTERVAL);
-        }, Throwable::printStackTrace));
+  /**
+   * Balance is refreshed every {@link #UPDATE_INTERVAL} seconds, and stops while
+   * {@link #refreshData} is false
+   */
+  private Completable updateBalance() {
+    return Completable.fromObservable(Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
+        .flatMap(__ -> observeRefreshData())
+        .switchMap(__ -> Observable.zip(getAppcBalance(), getCreditsBalance(), getEthereumBalance(),
+            this::updateWalletValue)));
   }
 
   private GlobalBalance updateWalletValue(Pair<Balance, FiatValue> tokenBalance,
@@ -320,7 +373,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private Observable<Pair<Balance, FiatValue>> getAppcBalance() {
-    return transactionViewInteractor.getAppcBalance();
+    return transactionViewInteractor.getAppcBalance()
+        .filter(pair -> !pair.second.getSymbol()
+            .isEmpty());
   }
 
   private Observable<Pair<Balance, FiatValue>> getEthereumBalance() {
@@ -366,40 +421,11 @@ public class TransactionsViewModel extends BaseViewModel {
     return fiatSum;
   }
 
-  private void onDefaultNetwork(NetworkInfo networkInfo) {
-    defaultNetwork.postValue(networkInfo);
-    disposables.add(transactionViewInteractor.findWallet()
-        .observeOn(viewScheduler)
-        .subscribe(this::onDefaultWallet, this::onError));
-  }
-
-  private void onDefaultWallet(Wallet wallet) {
-    defaultWallet.setValue(wallet);
-    getGlobalBalance();
-    fetchTransactions(true);
-  }
-
-  private Completable onTransactionModel(TransactionsModel transactionsModel) {
-    return Completable.fromAction(() -> {
-      transactionsModel.getTransactions();
-      hasTransactions = !transactionsModel.getTransactions()
-          .isEmpty() || hasTransactions;
-      this.transactionsModel.setValue(transactionsModel);
-      Boolean last = progress.getValue();
-      if (transactionsModel.getTransactions()
-          .size() > 0 && last != null && last) {
-        progress.postValue(true);
-      }
-      transactionViewInteractor.updateTransactionsNumber(transactionsModel.getTransactions());
-    });
-  }
-
-  private void onTransactionsFetchCompleted() {
-    progress.postValue(false);
-    if (!hasTransactions) {
-      error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
-    }
-    handler.postDelayed(startFetchTransactionsTask, FETCH_TRANSACTIONS_INTERVAL);
+  private void onTransactionModel(TransactionsModel transactionsModel,
+      TransactionsWalletModel walletModel) {
+    hasTransactions = !transactionsModel.getTransactions()
+        .isEmpty() || hasTransactions;
+    this.transactionsModel.setValue(new Pair<>(transactionsModel, walletModel));
   }
 
   public void showSettings(Context context) {
@@ -415,21 +441,16 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showMyAddress(Context context) {
-    transactionViewNavigator.openMyAddressView(context, defaultWallet.getValue());
+    TransactionsWalletModel model = defaultWalletModel.getValue();
+    if (model != null) {
+      transactionViewNavigator.openMyAddressView(context, model.getWallet());
+    }
   }
 
   public void showTokens(Context context) {
     analytics.sendAbTestConversionEvent();
     transactionViewNavigator.openTokensView(context,
         transactionViewInteractor.getCachedExperiment());
-  }
-
-  public void pause() {
-    if (!disposables.isDisposed()) {
-      disposables.dispose();
-    }
-    handler.removeCallbacks(startFetchTransactionsTask);
-    handler.removeCallbacks(startGlobalBalanceTask);
   }
 
   public void onAppClick(AppcoinsApplication appcoinsApplication,
@@ -460,16 +481,8 @@ public class TransactionsViewModel extends BaseViewModel {
     topUpClicks.onNext(context);
   }
 
-  public MutableLiveData<Double> gamificationMaxBonus() {
-    return gamificationMaxBonus;
-  }
-
   public MutableLiveData<String> shareApp() {
     return shareApp;
-  }
-
-  public MutableLiveData<Double> onFetchTransactionsError() {
-    return fetchTransactionsError;
   }
 
   public MutableLiveData<Boolean> getUnreadMessages() {
@@ -496,11 +509,14 @@ public class TransactionsViewModel extends BaseViewModel {
         dismissNotification(cardNotification);
         break;
       case BACKUP:
-        Wallet wallet = defaultWallet.getValue();
-        if (wallet != null && wallet.address != null) {
-          transactionViewNavigator.navigateToBackup(context, wallet.address);
-          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
+        TransactionsWalletModel model = defaultWalletModel.getValue();
+        if (model != null) {
+          Wallet wallet = model.getWallet();
+          if (wallet.address != null) {
+            transactionViewNavigator.navigateToBackup(context, wallet.address);
+            walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
+                WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS);
+          }
         }
         break;
       case DETAILS_URL:
@@ -517,7 +533,9 @@ public class TransactionsViewModel extends BaseViewModel {
   private void dismissNotification(CardNotification cardNotification) {
     disposables.add(transactionViewInteractor.dismissNotification(cardNotification)
         .subscribeOn(viewScheduler)
-        .subscribe(() -> dismissNotification.postValue(cardNotification), this::onError));
+        .doOnComplete(() -> refreshCardNotifications.onNext(true))
+        .subscribe(() -> {
+        }, this::onError));
   }
 
   public void showSupportScreen(boolean fromNotification) {
