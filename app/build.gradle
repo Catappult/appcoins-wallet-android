@@ -9,6 +9,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
   buildToolsVersion '29.0.3'
   compileSdkVersion 29
+  ndkVersion "21.3.6528147"
   defaultConfig {
 
     def inputFile = new File("appcoins-services.json")
