@@ -14,30 +14,36 @@ class PayTicketUseCase(private val ticketRepository: TicketRepository) {
   fun payTicket(ticketId: String, callbackUrl: String, productToken: String,
                 eskillsUri: EskillsUri, fragment: Fragment): Single<Any> {
     return Single.fromCallable {
-      val url: String =
-          (BACKEND_HOST + "/transaction/inapp?product=" + eskillsUri.getProduct() +
-              "&value=" + eskillsUri.getPrice() + "&currency=" + eskillsUri.getCurrency() +
-              "&domain=" + eskillsUri.getPackageName() + "&callback_url=" + callbackUrl +
-              "&order_reference=" + ticketId + "&product_token=" + productToken + "&skills")
-
-      val i = Intent(Intent.ACTION_VIEW)
-      i.data = Uri.parse(url)
-      i.setPackage(IAB_BIND_PACKAGE)
-
-      val intent =
-          PendingIntent.getActivity(fragment.requireContext()
-              .getApplicationContext(), 0, i,
-              PendingIntent.FLAG_UPDATE_CURRENT)
-      try {
-        fragment.startIntentSenderForResult(intent.intentSender, RC_ONE_STEP, Intent(), 0, 0, 0,
-            null)
-      } catch (e: Exception) {
-        e.printStackTrace()
+      if (eskillsUri.getEnvironment() == EskillsUri.MatchEnvironment.LIVE) {
+        launchPurchaseFlow(eskillsUri, callbackUrl, ticketId, productToken, fragment)
       }
-
       0
     }
   }
+
+  private fun launchPurchaseFlow(eskillsUri: EskillsUri, callbackUrl: String, ticketId: String, productToken: String, fragment: Fragment) {
+    val url: String =
+        (BACKEND_HOST + "/transaction/inapp?product=" + eskillsUri.getProduct() +
+            "&value=" + eskillsUri.getPrice() + "&currency=" + eskillsUri.getCurrency() +
+            "&domain=" + eskillsUri.getPackageName() + "&callback_url=" + callbackUrl +
+            "&order_reference=" + ticketId + "&product_token=" + productToken + "&skills")
+
+    val i = Intent(Intent.ACTION_VIEW)
+    i.data = Uri.parse(url)
+    i.setPackage(IAB_BIND_PACKAGE)
+
+    val intent =
+        PendingIntent.getActivity(fragment.requireContext()
+            .getApplicationContext(), 0, i,
+            PendingIntent.FLAG_UPDATE_CURRENT)
+    try {
+      fragment.startIntentSenderForResult(intent.intentSender, RC_ONE_STEP, Intent(), 0, 0, 0,
+          null)
+    } catch (e: Exception) {
+      e.printStackTrace()
+    }
+  }
+
 
   companion object {
     const val BACKEND_HOST = BuildConfig.BASE_HOST
