@@ -17,8 +17,6 @@ android {
     consumerProguardFiles "consumer-rules.pro"
   }
 
-  ndkVersion "21.3.6528147"
-
   buildTypes {
     release {
       minifyEnabled false
