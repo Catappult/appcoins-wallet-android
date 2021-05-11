@@ -5,7 +5,6 @@ class EskillsParameters {
     const val VALUE = "value"
     const val CURRENCY = "currency"
     const val PRODUCT = "product"
-    const val PRODUCT_LABEL = "product_label"
     const val DOMAIN = "domain"
     const val METADATA = "metadata"
     const val TIMEOUT = "timeout"
