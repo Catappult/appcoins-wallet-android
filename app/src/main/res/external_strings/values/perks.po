@@ -46,7 +46,7 @@ msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases."
 msgstr ""
 
 

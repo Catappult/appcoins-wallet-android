@@ -1,10 +1,11 @@
 package cm.aptoide.skills.util
 
 data class EskillsUri(
-    var scheme: String,
-    var host: String,
-    var path: String,
-    var parameters: MutableMap<String, String>) {
+  var scheme: String,
+  var host: String,
+  var path: String,
+  var parameters: MutableMap<String, String?>
+) {
 
   fun getUserId(): String {
     return parameters[EskillsParameters.USER_ID]!!

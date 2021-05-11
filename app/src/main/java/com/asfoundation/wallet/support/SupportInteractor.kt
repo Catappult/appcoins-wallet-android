@@ -17,11 +17,9 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun showSupport(): Completable {
     return walletService.getWalletAddress()
         .flatMapCompletable { address ->
-          gamificationRepository.getUserStats(address)
+          gamificationRepository.getUserLevel(address)
               .observeOn(viewScheduler)
-              .flatMapCompletable { gamificationStats ->
-                showSupport(address, gamificationStats.level)
-              }
+              .flatMapCompletable { showSupport(address, it) }
         }
         .subscribeOn(ioScheduler)
   }
@@ -29,15 +27,13 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
         .observeOn(viewScheduler)
-        .flatMapCompletable { address ->
-          showSupport(address, gamificationLevel)
-        }
+        .flatMapCompletable { showSupport(it, gamificationLevel) }
         .subscribeOn(ioScheduler)
   }
 
   fun showSupport(walletAddress: String, gamificationLevel: Int): Completable {
     return Completable.fromAction {
-      registerUser(gamificationLevel, walletAddress.toLowerCase(Locale.ROOT))
+      registerUser(gamificationLevel, walletAddress)
       displayChatScreen()
     }
   }
@@ -64,13 +60,16 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   }
 
   fun registerUser(level: Int, walletAddress: String) {
+    // force lowercase to make sure 2 users are not registered with the same wallet address, where
+    // one has uppercase letters (to be check summed), and the other does not
+    val address = walletAddress.toLowerCase(Locale.ROOT)
     val currentUser = supportRepository.getCurrentUser()
-    if (currentUser.userAddress != walletAddress || currentUser.gamificationLevel != level) {
-      if (currentUser.userAddress != walletAddress) {
+    if (currentUser.userAddress != address || currentUser.gamificationLevel != level) {
+      if (currentUser.userAddress != address) {
         Intercom.client()
             .logout()
       }
-      supportRepository.saveNewUser(walletAddress, level)
+      supportRepository.saveNewUser(address, level)
     }
   }
 
@@ -88,4 +87,5 @@ class SupportInteractor(private val supportRepository: SupportRepository,
   fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
 
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
+
 }

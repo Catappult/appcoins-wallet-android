@@ -2,6 +2,7 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.*
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.io.IOException
@@ -13,24 +14,48 @@ import java.util.concurrent.TimeUnit
 class BdsPromotionsRepository(private val api: GamificationApi,
                               private val local: UserStatsLocalData) : PromotionsRepository {
 
-  private fun getUserStats(wallet: String): Single<UserStatusResponse> {
+  // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
+  //  offline first logic.
+  private fun getUserStatsFromResponses(wallet: String,
+                                        offlineFirst: Boolean = true): Observable<UserStats> {
+    return if (offlineFirst) Observable.concat(getUserStatsFromDB(wallet),
+        getUserStatsFromAPI(wallet))
+    else getUserStatsFromAPI(wallet, true)
+  }
+
+  // NOTE: the use of the throwable parameter can be dropped once all usages in these repository
+  //  follow offline first logic.
+  private fun getUserStatsFromDB(wallet: String,
+                                 throwable: Throwable? = null): Observable<UserStats> {
+    return Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
+        BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
+          Pair(promotions, walletOrigin)
+        })
+        .toObservable()
+        .map { (promotions, walletOrigin) ->
+          if (throwable == null) UserStats(promotions, walletOrigin, null, true)
+          else mapErrorToUserStatsModel(promotions, walletOrigin, throwable)
+        }
+        .onErrorReturn {
+          mapErrorToUserStatsModel(throwable ?: it, throwable == null)
+        }
+  }
+
+  // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
+  //  offline first logic.
+  private fun getUserStatsFromAPI(wallet: String,
+                                  useDbOnError: Boolean = false): Observable<UserStats> {
     return api.getUserStats(wallet, Locale.getDefault().language)
         .map { filterByDate(it) }
-        .flatMap { userStats ->
-          local.deletePromotions()
-              .andThen(local.insertPromotions(userStats.promotions)
-                  .andThen(local.insertWalletOrigin(wallet, userStats.walletOrigin)))
-              .toSingle { userStats }
+        .flatMapObservable {
+          local.deleteAndInsertPromotions(it.promotions)
+              .andThen(local.insertWalletOrigin(wallet, it.walletOrigin))
+              .toSingle { UserStats(it.promotions, it.walletOrigin) }
+              .toObservable()
         }
-        .onErrorResumeNext { t ->
-          Single.zip(local.getPromotions(), local.retrieveWalletOrigin(wallet),
-              BiFunction { promotions: List<PromotionsResponse>, walletOrigin: WalletOrigin ->
-                Pair(promotions, walletOrigin)
-              })
-              .map { (promotions, walletOrigin) ->
-                mapErrorToUserStatsModel(promotions, walletOrigin, t)
-              }
-              .onErrorReturn { mapErrorToUserStatsModel(t) }
+        .onErrorResumeNext { throwable: Throwable ->
+          if (useDbOnError) getUserStatsFromDB(wallet, throwable)
+          else Observable.just(mapErrorToUserStatsModel(throwable, false))
         }
   }
 
@@ -86,111 +111,146 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return ForecastBonus(ForecastBonus.Status.INACTIVE)
   }
 
-  override fun getGamificationStats(wallet: String): Single<GamificationStats> {
-    return getUserStats(wallet)
-        .map { mapToGamificationStats(it) }
-        .flatMap {
-          local.setGamificationLevel(it.level)
-              .toSingle { it }
+  override fun getGamificationStats(wallet: String): Observable<GamificationStats> {
+    return getUserStatsFromResponses(wallet)
+        .map {
+          val gamificationStats = mapToGamificationStats(it)
+          if (!it.fromCache && it.error == null) local.setGamificationLevel(gamificationStats.level)
+          gamificationStats
         }
   }
 
-  private fun map(status: Status): GamificationStats {
+  override fun getGamificationLevel(wallet: String): Single<Int> {
+    return getUserStats(wallet)
+        .filter { it.error == null }
+        .map { mapToGamificationStats(it).level }
+        .lastOrError()
+        .onErrorReturn { GamificationStats.INVALID_LEVEL }
+  }
+
+  private fun map(status: Status, fromCache: Boolean = false): GamificationStats {
     return if (status == Status.NO_NETWORK) {
-      GamificationStats(GamificationStats.Status.NO_NETWORK)
+      GamificationStats(GamificationStats.Status.NO_NETWORK, fromCache = fromCache)
     } else {
-      GamificationStats(GamificationStats.Status.UNKNOWN_ERROR)
+      GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = fromCache)
     }
   }
 
-  private fun mapErrorToUserStatsModel(throwable: Throwable): UserStatusResponse {
+  private fun mapErrorToUserStatsModel(throwable: Throwable, fromCache: Boolean): UserStats {
     throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
-      UserStatusResponse(Status.NO_NETWORK)
+      UserStats(Status.NO_NETWORK, fromCache)
     } else {
-      UserStatusResponse(Status.UNKNOWN_ERROR)
+      UserStats(Status.UNKNOWN_ERROR, fromCache)
     }
   }
 
   private fun mapErrorToUserStatsModel(promotions: List<PromotionsResponse>,
                                        walletOrigin: WalletOrigin,
-                                       throwable: Throwable): UserStatusResponse {
+                                       throwable: Throwable): UserStats {
     return when {
       promotions.isEmpty() && isNoNetworkException(throwable) -> {
         throwable.printStackTrace()
-        UserStatusResponse(Status.NO_NETWORK)
+        UserStats(Status.NO_NETWORK)
       }
       promotions.isEmpty() -> {
         throwable.printStackTrace()
-        UserStatusResponse(Status.UNKNOWN_ERROR)
+        UserStats(Status.UNKNOWN_ERROR)
       }
-      else -> UserStatusResponse(promotions, walletOrigin)
+      else -> UserStats(promotions, walletOrigin)
     }
   }
 
-  private fun mapToGamificationStats(response: UserStatusResponse): GamificationStats {
-    return if (response.error != null) {
-      map(response.error)
+  private fun mapToGamificationStats(stats: UserStats): GamificationStats {
+    return if (stats.error != null) {
+      map(stats.error, stats.fromCache)
     } else {
       val gamification =
-          response.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
+          stats.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
       if (gamification == null) {
-        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR)
+        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = stats.fromCache)
       } else {
         GamificationStats(GamificationStats.Status.OK, gamification.level,
             gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
-            gamification.totalEarned, PromotionsResponse.Status.ACTIVE == gamification.status)
+            gamification.totalEarned, PromotionsResponse.Status.ACTIVE == gamification.status,
+            stats.fromCache)
       }
     }
   }
 
-  override fun getLevels(wallet: String): Single<Levels> {
+  // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
+  //  offline first logic.
+  override fun getLevels(wallet: String, offlineFirst: Boolean): Observable<Levels> {
+    return if (offlineFirst) Observable.concat(getLevelsFromDB(), getLevelsFromAPI(wallet))
+    else getLevelsFromAPI(wallet, true)
+  }
+
+  // NOTE: the use of the throwable parameter can be dropped once all usages in these repository
+  //  follow offline first logic.
+  private fun getLevelsFromDB(throwable: Throwable? = null): Observable<Levels> {
+    return local.getLevels()
+        .toObservable()
+        .map { map(it, true) }
+        .onErrorReturn { mapLevelsError(throwable ?: it, throwable == null) }
+  }
+
+  // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
+  //  offline first logic.
+  private fun getLevelsFromAPI(wallet: String, useDbOnError: Boolean = false): Observable<Levels> {
     return api.getLevels(wallet)
-        .flatMap {
+        .flatMapObservable {
           local.deleteLevels()
               .andThen(local.insertLevels(it))
-              .toSingle { it }
+              .toSingle { map(it) }
+              .toObservable()
         }
-        .map { map(it) }
-        .onErrorResumeNext { t ->
-          local.getLevels()
-              .map { map(it) }
-              .onErrorReturn { mapLevelsError(t) }
+        .onErrorResumeNext { throwable: Throwable ->
+          if (useDbOnError) getLevelsFromDB(throwable)
+          else Observable.just(mapLevelsError(throwable))
         }
   }
 
-  private fun mapLevelsError(throwable: Throwable): Levels {
+  private fun mapLevelsError(throwable: Throwable, fromCache: Boolean = false): Levels {
     throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
-      Levels(Levels.Status.NO_NETWORK)
+      Levels(Levels.Status.NO_NETWORK, fromCache = fromCache)
     } else {
-      Levels(Levels.Status.UNKNOWN_ERROR)
+      Levels(Levels.Status.UNKNOWN_ERROR, fromCache = fromCache)
     }
   }
 
-  private fun map(response: LevelsResponse): Levels {
+  private fun map(response: LevelsResponse, fromCache: Boolean = false): Levels {
     val list = response.list.map { Levels.Level(it.amount, it.bonus, it.level) }
     return Levels(Levels.Status.OK, list, LevelsResponse.Status.ACTIVE == response.status,
-        response.updateDate)
+        response.updateDate, fromCache)
   }
 
-  override fun getUserStatus(wallet: String): Single<UserStatusResponse> {
-    return getUserStats(wallet)
+  // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
+  //  offline first logic.
+  override fun getUserStats(wallet: String, offlineFirst: Boolean): Observable<UserStats> {
+    return getUserStatsFromResponses(wallet)
         .flatMap { userStatusResponse ->
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
-          if (userStatusResponse.error != null || gamification == null) {
-            Single.just(userStatusResponse)
-          } else {
-            local.setGamificationLevel(gamification.level)
-                .toSingle { userStatusResponse }
+          if (userStatusResponse.error == null && !userStatusResponse.fromCache) {
+            local.setGamificationLevel(gamification?.level ?: GamificationStats.INVALID_LEVEL)
           }
+          Observable.just(userStatusResponse)
         }
         .doOnError { it.printStackTrace() }
   }
 
-  override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
+  override fun getWalletOrigin(wallet: String): Single<WalletOrigin> {
     return getUserStats(wallet)
+        .filter { it.error == null }
+        .map { it.walletOrigin }
+        .lastOrError()
+        .onErrorReturn { WalletOrigin.UNKNOWN }
+  }
+
+  override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
+    return getUserStatsFromResponses(wallet, false)
+        .lastOrError()
         .flatMap {
           val gamification =
               it.promotions.firstOrNull { promotions -> promotions is GamificationResponse } as GamificationResponse?
@@ -198,10 +258,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
               it.promotions.firstOrNull { promotions -> promotions is ReferralResponse } as ReferralResponse?
           if (gamification != null) {
             local.setGamificationLevel(gamification.level)
-                .toSingle { referral }
-          } else {
-            Single.just(referral)
           }
+          Single.just(referral)
         }
         .map { it }
   }
@@ -215,4 +273,5 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         throwable.cause != null && throwable.cause is IOException ||
         throwable is UnknownHostException
   }
+
 }

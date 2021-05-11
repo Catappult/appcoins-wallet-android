@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">购买退款</string>
   <string name="transaction_type_reverted_purchase_body">您于%s进行的购买已还原。请联系支持团队以了解更多信息。</string>
   <string name="transaction_reverted_view_original_header">原始交易</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">采用以太网技术</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -693,6 +695,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">管理订购</string>
   <string name="subscriptions_title">订购</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">激活</string>
   <string name="subscriptions_expired_title">已到期</string>
   <string name="subscriptions_empty_title">尚无订购</string>
@@ -725,6 +728,7 @@
   <string name="subscriptions_per_several_week">%1$s/%2$s周</string>
   <string name="subscriptions_per_several_month">%1$s/%2$s月</string>
   <string name="subscriptions_per_several_year">%1$s/%2$s年</string>
+  <string name="subscriptions_error_already_subscribed">呀，你已经订阅了此服务！请随时联系我们。</string>
   <!--New Gamification-->
   <string name="gamif_title">高达 %s%% 的奖金！</string>
   <string name="gamif_bonus_received">已收到的奖金</string>
@@ -892,7 +896,8 @@
   <string name="card_verification_no_attempts_title">糟糕，您输入的错误代码次数过多，因此%1$s将退款至您的卡中。</string>
   <string name="card_verification_no_attempts_body">请重新开始验证过程。</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">购买此优惠券即可获得高达%s%%的奖励。</string>
+  <string name="voucher_card_body_1">购买优惠券并获取</string>
+  <string name="voucher_card_body_2">高达 %s%% 的奖励。</string>
   <string name="voucher_buy_header">%s优惠券</string>
   <string name="voucher_buy_short_header"> 优惠券</string>
   <string name="voucher_buy_no_game_title">您没有%s吗？</string>
@@ -902,4 +907,6 @@
   <string name="voucher_instructions_transactions">您始终可以在交易历史记录中找到优惠券代码。</string>
   <string name="voucher_empty">目前没有可用的优惠券。</string>
   <string name="voucher_tooltip">您现在可以购买游戏优惠券！</string>
+  <string name="voucher_empty_more_title">游戏优惠券</string>
+  <string name="voucher_empty_more_body">查到你最喜欢的游戏的最佳优惠！</string>
 </resources>

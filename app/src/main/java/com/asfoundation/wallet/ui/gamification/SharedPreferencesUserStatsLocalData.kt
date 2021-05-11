@@ -31,7 +31,8 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
   override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext):
       Single<Int> {
     return Single.fromCallable {
-      preferences.getInt(getKey(wallet, gamificationContext.toString()), -1)
+      preferences.getInt(getKey(wallet, gamificationContext.toString()),
+          GamificationStats.INVALID_LEVEL)
     }
   }
 
@@ -52,15 +53,14 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
         .apply()
   }
 
-  override fun setGamificationLevel(gamificationLevel: Int): Completable {
-    return Completable.fromCallable {
-      preferences.edit()
-          .putInt(GAMIFICATION_LEVEL, gamificationLevel)
-          .apply()
-    }
+  override fun setGamificationLevel(gamificationLevel: Int) {
+    return preferences.edit()
+        .putInt(GAMIFICATION_LEVEL, gamificationLevel)
+        .apply()
   }
 
-  override fun getGamificationLevel() = preferences.getInt(GAMIFICATION_LEVEL, -1)
+  override fun getGamificationLevel() =
+      preferences.getInt(GAMIFICATION_LEVEL, GamificationStats.INVALID_LEVEL)
 
   private fun getKey(wallet: String, screen: String): String {
     return if (screen == GamificationContext.SCREEN_MY_LEVEL.toString()) {
@@ -95,47 +95,47 @@ class SharedPreferencesUserStatsLocalData(private val preferences: SharedPrefere
             it.pendingAmount!!, it.receivedAmount!!, it.userStatus, it.minAmount!!, it.status!!,
             it.amount!!)
         else ->
-          GenericResponse(it.id, it.priority, it.currentProgress, it.description!!, it.endDate!!,
-              it.icon,
-              it.linkedPromotionId, it.objectiveProgress, it.startDate, it.title!!, it.viewType!!,
-              it.detailsLink)
+          GenericResponse(it.id, it.priority, it.currentProgress, it.notificationDescription,
+              it.perkDescription, it.endDate!!, it.icon, it.linkedPromotionId, it.objectiveProgress,
+              it.startDate, it.notificationTitle!!, it.viewType!!, it.detailsLink)
       }
     }
   }
 
-  override fun deletePromotions() = promotionDao.deletePromotions()
-
-  override fun insertPromotions(promotions: List<PromotionsResponse>): Completable {
+  override fun deleteAndInsertPromotions(promotions: List<PromotionsResponse>): Completable {
     return Single.create<List<PromotionEntity>> { emitter ->
       val results: List<PromotionEntity> = promotions.map {
         when (it) {
           is GamificationResponse ->
-            PromotionEntity(it.id, it.priority, bonus = it.bonus, totalSpend = it.totalSpend,
-                totalEarned = it.totalEarned, level = it.level,
+            PromotionEntity(id = it.id, priority = it.priority, bonus = it.bonus,
+                totalSpend = it.totalSpend, totalEarned = it.totalEarned, level = it.level,
                 nextLevelAmount = it.nextLevelAmount, status = it.status, bundle = it.bundle)
           is ReferralResponse -> {
-            PromotionEntity(it.id, it.priority, maxAmount = it.maxAmount, available = it.available,
-                bundle = it.bundle, completed = it.completed, currency = it.currency,
-                symbol = it.symbol, invited = it.invited, link = it.link,
+            PromotionEntity(id = it.id, priority = it.priority, maxAmount = it.maxAmount,
+                available = it.available, bundle = it.bundle, completed = it.completed,
+                currency = it.currency, symbol = it.symbol, invited = it.invited, link = it.link,
                 pendingAmount = it.pendingAmount, receivedAmount = it.receivedAmount,
                 userStatus = it.userStatus, minAmount = it.minAmount, status = it.status,
                 amount = it.amount)
           }
           else -> {
             val genericResponse = it as GenericResponse
-            PromotionEntity(genericResponse.id, genericResponse.priority,
+            PromotionEntity(id = genericResponse.id, priority = genericResponse.priority,
                 currentProgress = genericResponse.currentProgress,
-                description = genericResponse.description, endDate = genericResponse.endDate,
-                icon = genericResponse.icon, linkedPromotionId = genericResponse.linkedPromotionId,
+                notificationDescription = genericResponse.notificationDescription,
+                perkDescription = genericResponse.perkDescription,
+                endDate = genericResponse.endDate, icon = genericResponse.icon,
+                linkedPromotionId = genericResponse.linkedPromotionId,
                 objectiveProgress = genericResponse.objectiveProgress,
-                startDate = genericResponse.startDate, title = genericResponse.title,
+                startDate = genericResponse.startDate,
+                notificationTitle = genericResponse.notificationTitle,
                 viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink)
           }
         }
       }
       emitter.onSuccess(results)
     }
-        .flatMapCompletable { promotionDao.insertPromotions(it) }
+        .flatMapCompletable { Completable.fromAction { promotionDao.deleteAndInsert(it) } }
   }
 
   override fun deleteLevels(): Completable {

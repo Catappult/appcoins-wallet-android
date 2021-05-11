@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -73,6 +74,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   @Inject
+  lateinit var taskTimer: TaskTimer
+
+  @Inject
   lateinit var paymentMethodsAnalytics: PaymentMethodsAnalytics
 
   @Inject
@@ -117,7 +121,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         getTransactionValue())
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
-        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData)
+        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData,
+        taskTimer)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -466,6 +471,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showBonus() {
     bonus_view.visibility = View.VISIBLE
+    bonus_view.setPurchaseBonusDescription(getString(R.string.gamification_purchase_body))
     bonus_view.showPurchaseBonusHeader()
     bottom_separator?.visibility = View.VISIBLE
     bonus_view.hideSkeleton()
@@ -486,7 +492,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun replaceBonus() {
-    bonus_view.visibility = View.INVISIBLE
+    bonus_view.visibility = View.VISIBLE
+    bottom_separator?.visibility = View.VISIBLE
     bonus_view.setPurchaseBonusDescription(getString(R.string.purchase_poa_body))
     bonus_view.hidePurchaseBonusHeader()
     bonus_view.hideSkeleton()
@@ -593,7 +600,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     fiat_price_skeleton.visibility = View.GONE
     appc_price_skeleton.visibility = View.GONE
     payments_skeleton.visibility = View.GONE
-    bonus_view.hideSkeleton()
   }
 
 }

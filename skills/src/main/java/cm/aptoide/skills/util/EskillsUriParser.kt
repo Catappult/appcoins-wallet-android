@@ -7,7 +7,7 @@ class EskillsUriParser {
     val scheme = uri.scheme
     val host = uri.host
     val path = uri.path
-    val parameters = mutableMapOf<String, String>()
+    val parameters = mutableMapOf<String, String?>()
     parameters.apply {
       for (key in uri.queryParameterNames) {
         this[key] = uri.getQueryParameter(key)
