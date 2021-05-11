@@ -17,14 +17,14 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
     return walletAddressObtainer.getOrCreateWallet()
   }
 
-  fun createTicket(eskillsUri: EskillsUri, userName: String): Single<TicketResponse> {
+  fun createTicket(eskillsUri: EskillsUri): Single<TicketResponse> {
     return walletAddressObtainer.getWalletAddress()
         .subscribeOn(networkScheduler)
         .flatMap { walletAddress ->
           ewtObtainer.getEWT()
               .flatMap { ewt ->
                 ticketRepository.createTicket(eskillsUri.getPackageName(),
-                    eskillsUri.getUserId(), userName, ewt,
+                    eskillsUri.getUserId(), eskillsUri.getUserName(), ewt,
                     walletAddress, eskillsUri.getEnvironment()!!)
               }
         }
