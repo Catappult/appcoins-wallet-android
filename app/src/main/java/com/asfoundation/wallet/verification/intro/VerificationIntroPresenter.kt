@@ -47,7 +47,6 @@ class VerificationIntroPresenter(private val view: VerificationIntroView,
     if (currentError == null) loadModel(savedInstanceState)
     else {
       when {
-        currentError?.noNetworkError == true -> view.showNetworkError()
         currentError?.errorType != null -> view.showError(currentError!!.errorType)
         currentError?.errorString != null -> view.showSpecificError(currentError!!.errorString!!)
         else -> loadModel(savedInstanceState)

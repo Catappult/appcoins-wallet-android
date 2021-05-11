@@ -6,6 +6,7 @@ import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivityModule
 import com.asfoundation.wallet.topup.TopUpActivity
+import com.asfoundation.wallet.transfers.TransferConfirmationActivity
 import com.asfoundation.wallet.ui.*
 import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.backup.BackupActivityModule

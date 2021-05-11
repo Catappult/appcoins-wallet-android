@@ -44,7 +44,8 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
   }
 
   val levels: Single<Levels>
-    get() = gamificationInteractor.getLevels()
+    get() = gamificationInteractor.getLevels(false)
+        .lastOrError()
 
   val appcBalance: Observable<Pair<Balance, FiatValue>>
     get() = balanceInteractor.getAppcBalance()
@@ -59,8 +60,7 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
     get() = cardNotificationsInteractor.getCardNotifications()
 
   val userLevel: Single<Int>
-    get() = gamificationInteractor.getUserStats()
-        .map { it.level }
+    get() = gamificationInteractor.getUserLevel()
 
   fun shouldOpenRatingDialog(): Single<Boolean> = ratingInteractor.shouldOpenRatingDialog()
 

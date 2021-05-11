@@ -112,6 +112,12 @@
   <color name="tooltip_black">#212121</color>
 
   <color name="adyen_3DS_color">#111B3B</color>
+  
+  <color name="etherscan_transaction_border">#21325B</color>
+  <color name="etherscan_transaction_background">#F8F8F8</color>
+  <color name="etherscan_transaction_clipboard">#FF5F84</color>
+
+  <color name="vip_badge_background_color">#4DEC9B1A</color>
 
   <!-- Backup -->
 

@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_reverted_view_original_header">Original Transaction</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -695,6 +697,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Manage subscriptions</string>
   <string name="subscriptions_title">Subscriptions</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Active</string>
   <string name="subscriptions_expired_title">Expired</string>
   <string name="subscriptions_empty_title">No Subscriptions Yet</string>
@@ -727,6 +730,7 @@
   <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
   <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
   <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
+  <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
   <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
   <string name="gamif_bonus_received">Bonus received</string>
@@ -910,7 +914,8 @@
   <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body">Buy this voucher and get up to %s%% bonus.</string>
+  <string name="voucher_card_body_1">Buy this voucher and get</string>
+  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
   <string name="voucher_buy_header">Voucher for %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
@@ -920,4 +925,6 @@
   <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
   <string name="voucher_empty">No vouchers available at the moment.</string>
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
+  <string name="voucher_empty_more_title">Vouchers for Games</string>
+  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 </resources>

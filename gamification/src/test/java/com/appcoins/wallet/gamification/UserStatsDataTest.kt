@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification
 
+import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
@@ -15,7 +16,7 @@ class UserStatsDataTest : UserStatsLocalData {
   var walletOriginResponse: Single<WalletOrigin>? = null
   var levelsResponse: Single<LevelsResponse>? = null
   private var wallet: String? = null
-  private var gamificationLevel: Int? = -1
+  private var gamificationLevel: Int? = GamificationStats.INVALID_LEVEL
 
   override fun saveShownLevel(wallet: String, level: Int,
                               gamificationContext: GamificationContext) {
@@ -46,15 +47,12 @@ class UserStatsDataTest : UserStatsLocalData {
     seenGenericPromotionResponse = true
   }
 
-  override fun setGamificationLevel(gamificationLevel: Int): Completable {
-    return Completable.fromAction {
-      this.gamificationLevel = gamificationLevel
-    }
+  override fun setGamificationLevel(gamificationLevel: Int) {
+    this.gamificationLevel = gamificationLevel
   }
 
-  override fun getGamificationLevel(): Int = -1
+  override fun getGamificationLevel(): Int = GamificationStats.INVALID_LEVEL
 
-  override fun deletePromotions(): Completable = Completable.complete()
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     val aux = userStatusResponse!!
@@ -62,7 +60,7 @@ class UserStatsDataTest : UserStatsLocalData {
     return aux
   }
 
-  override fun insertPromotions(promotions: List<PromotionsResponse>): Completable {
+  override fun deleteAndInsertPromotions(promotions: List<PromotionsResponse>): Completable {
     return Completable.complete()
   }
 
