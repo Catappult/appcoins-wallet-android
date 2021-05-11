@@ -221,8 +221,8 @@ dependencies {
 
   implementation "com.asfoundation:applications:$project.asf_applications_version"
   implementation "com.asfoundation:ethereumj-android:$project.ethereumj_sdk_version"
-  implementation "com.blockchainds:appcoins-contract-proxy:$project.appcoins_sdk_version"
-  debugImplementation "com.blockchainds:appcoins-contract-proxy:$project.appcoins_sdk_dev_version"
+  implementation "io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_version"
+  debugImplementation "io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_dev_version"
 
   implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
 
