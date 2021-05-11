@@ -62,19 +62,11 @@ class SkillsFragment : DaggerFragment() {
               viewModel.getRoom(eskillsUri, this)
                   .observeOn(AndroidSchedulers.mainThread())
                   .doOnSubscribe { showFindingRoomLoading() }
-                  .doOnNext { userData ->
-                    requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
-                    requireActivity().finish()
-                  }
+                  .doOnNext { userData -> postbackUserData(userData) }
                   .doOnNext { ticket -> println("ticket: $ticket") }
             }.subscribe()
     )
 
-  }
-
-  private fun getEskillsUri(): EskillsUri {
-    val intent = requireActivity().intent
-    return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -91,19 +83,9 @@ class SkillsFragment : DaggerFragment() {
     super.onDestroyView()
   }
 
-  private fun showFindingRoomLoading() {
-    binding.loadingTicketLayout.processingLoading.visibility = View.VISIBLE
-  }
-
-  private fun buildDataIntent(userData: UserData): Intent {
-    val intent = Intent()
-
-    intent.putExtra(SESSION, userData.session)
-    intent.putExtra(USER_ID, userData.userId)
-    intent.putExtra(ROOM_ID, userData.roomId)
-    intent.putExtra(WALLET_ADDRESS, userData.walletAddress)
-
-    return intent
+  private fun getEskillsUri(): EskillsUri {
+    val intent = requireActivity().intent
+    return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
@@ -121,12 +103,32 @@ class SkillsFragment : DaggerFragment() {
         }
   }
 
-  fun showWalletCreationLoadingAnimation() {
+  private fun showWalletCreationLoadingAnimation() {
     binding.createWalletLayout.createWalletCard.visibility = View.VISIBLE
     binding.createWalletLayout.createWalletAnimation.playAnimation()
   }
 
-  fun endWalletCreationLoadingAnimation() {
+  private fun endWalletCreationLoadingAnimation() {
     binding.createWalletLayout.createWalletCard.visibility = View.GONE
+  }
+
+  private fun showFindingRoomLoading() {
+    binding.loadingTicketLayout.processingLoading.visibility = View.VISIBLE
+  }
+
+  private fun postbackUserData(userData: UserData) {
+    requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
+    requireActivity().finish()
+  }
+
+  private fun buildDataIntent(userData: UserData): Intent {
+    val intent = Intent()
+
+    intent.putExtra(SESSION, userData.session)
+    intent.putExtra(USER_ID, userData.userId)
+    intent.putExtra(ROOM_ID, userData.roomId)
+    intent.putExtra(WALLET_ADDRESS, userData.walletAddress)
+
+    return intent
   }
 }
