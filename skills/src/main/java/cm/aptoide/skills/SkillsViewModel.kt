@@ -1,11 +1,12 @@
 package cm.aptoide.skills
 
-import android.graphics.drawable.Drawable
 import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.model.TicketResponse
-import cm.aptoide.skills.usecase.*
-import cm.aptoide.skills.util.EskillsParameters
+import cm.aptoide.skills.usecase.CreateTicketUseCase
+import cm.aptoide.skills.usecase.GetTicketUseCase
+import cm.aptoide.skills.usecase.LoginUseCase
+import cm.aptoide.skills.usecase.PayTicketUseCase
 import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
@@ -16,15 +17,13 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val payTicketUseCase: PayTicketUseCase,
                       private val getTicketUseCase: GetTicketUseCase,
                       private val getTicketRetryMillis: Long,
-                      private val loginUseCase: LoginUseCase,
-                      private val getApplicationInfoUseCase: GetApplicationInfoUseCase) {
+                      private val loginUseCase: LoginUseCase) {
   fun handleWalletCreationIfNeeded(): Observable<String> {
     return createTicketUseCase.getOrCreateWallet()
   }
 
-  fun getRoom(eskillsUri: EskillsUri, userName: String,
-              fragment: Fragment): Observable<UserData> {
-    return createTicketUseCase.createTicket(eskillsUri, userName)
+  fun getRoom(eskillsUri: EskillsUri, fragment: Fragment): Observable<UserData> {
+    return createTicketUseCase.createTicket(eskillsUri)
         .flatMap { ticketResponse ->
           payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
               ticketResponse.productToken, eskillsUri, fragment)
@@ -62,14 +61,4 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
   fun payTicketOnActivityResult(resultCode: Int, txHash: String?) {
 
   }
-
-  fun getApplicationIcon(packageName: String): Drawable? {
-    return getApplicationInfoUseCase.getApplicationIcon(packageName)
-  }
-
-  fun getApplicationName(packageName: String): String? {
-    return getApplicationInfoUseCase.getApplicationName(packageName)
-  }
-
-
 }

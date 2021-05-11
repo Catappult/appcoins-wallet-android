@@ -10,6 +10,10 @@ data class EskillsUri(
     return parameters[EskillsParameters.USER_ID]!!
   }
 
+  fun getUserName(): String {
+    return parameters[EskillsParameters.USER_NAME]!!
+  }
+
   fun getPackageName(): String {
     return parameters[EskillsParameters.DOMAIN]!!
   }
@@ -18,22 +22,12 @@ data class EskillsUri(
     return parameters[EskillsParameters.PRODUCT]!!
   }
 
-  fun getProductLabel(): String {
-    return parameters[EskillsParameters.PRODUCT_LABEL]!!
-  }
-
   fun getPrice(): String {
     return parameters[EskillsParameters.VALUE]!!
   }
 
   fun getCurrency(): String {
     return parameters[EskillsParameters.CURRENCY]!!
-  }
-
-  fun getFormattedPrice(): String {
-    val value = parameters[EskillsParameters.VALUE]!!
-    val currency = parameters[EskillsParameters.CURRENCY]!!
-    return "$value $currency"
   }
 
   fun getEnvironment(): MatchEnvironment? {
