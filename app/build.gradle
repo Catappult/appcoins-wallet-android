@@ -261,7 +261,7 @@ def renameArtifact(defaultConfig) {
   android.applicationVariants.all { variant ->
     variant.outputs.all {
       def SEP = "_"
-      def buildType = variant.variantData.variantConfiguration.buildType.name
+      def buildType = variant.buildType.name
       def versionName = variant.versionName
       def versionCode = defaultConfig.versionCode
       def fileName =
