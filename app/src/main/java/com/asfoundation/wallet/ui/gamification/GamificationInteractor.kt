@@ -45,7 +45,7 @@ class GamificationInteractor(
         .flatMap { wallet: Wallet ->
           Single.zip(
               gamification.getEarningBonus(wallet.address, packageName, amount),
-              conversionService.getLocalCurrency(),
+              conversionService.localCurrency,
               gamification.getUserBonusAndLevel(wallet.address),
               Function3 { appcBonusValue: ForecastBonus, localCurrency: FiatValue, userBonusAndLevel: ForecastBonusAndLevel ->
                 map(appcBonusValue, localCurrency, userBonusAndLevel, amount)
