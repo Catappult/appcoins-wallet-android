@@ -231,7 +231,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private fun setupFee(fee: PaymentMethodFee?) {
     if (fee?.isValidFee() == true) {
       payment_method_fee.visibility = View.VISIBLE
-      val formattedValue = formatter.formatCurrency(fee.amount!!, WalletCurrency.FIAT)
+      val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
       payment_method_fee_value.apply {

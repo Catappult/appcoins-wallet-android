@@ -13,6 +13,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Completable
@@ -348,8 +349,8 @@ class PaymentMethodsPresenter(
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,
                                   isBonusActive: Boolean) {
-    val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
-    val appcAmount = formatter.formatCurrency(transaction.amount(), WalletCurrency.APPCOINS)
+    val fiatAmount = formatter.formatPaymentCurrency(fiatValue.amount, WalletCurrency.FIAT)
+    val appcAmount = formatter.formatPaymentCurrency(transaction.amount(), WalletCurrency.APPCOINS)
     if (interactor.hasAsyncLocalPayment()) {
       //After a asynchronous payment credits will be used as pre selected
       getCreditsPaymentMethod(paymentMethods)?.let {
@@ -496,9 +497,10 @@ class PaymentMethodsPresenter(
               .observeOn(viewScheduler)
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
-                  val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
-                  val appcAmount = formatter.formatCurrency(transaction.amount(),
-                      WalletCurrency.APPCOINS)
+                  val fiatAmount =
+                      formatter.formatPaymentCurrency(fiatValue.amount, WalletCurrency.FIAT)
+                  val appcAmount =
+                      formatter.formatPaymentCurrency(transaction.amount(), WalletCurrency.APPCOINS)
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount,
                       appcAmount)
