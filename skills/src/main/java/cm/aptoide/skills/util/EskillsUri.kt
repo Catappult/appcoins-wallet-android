@@ -1,5 +1,8 @@
 package cm.aptoide.skills.util
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
 data class EskillsUri(
   var scheme: String,
   var host: String,
@@ -34,8 +37,17 @@ data class EskillsUri(
   fun getEnvironment(): MatchEnvironment? {
     return try {
       MatchEnvironment.valueOf(parameters[EskillsParameters.ENVIRONMENT]!!)
-    } catch(e: IllegalArgumentException) {
+    } catch (e: IllegalArgumentException) {
       null
+    }
+  }
+
+  fun getMetadata(): Map<String, String> {
+    val metadata = parameters[EskillsParameters.METADATA]
+    return if (metadata != null) {
+      Gson().fromJson(metadata, object : TypeToken<Map<String?, String?>?>() {}.type)
+    } else {
+      emptyMap()
     }
   }
 

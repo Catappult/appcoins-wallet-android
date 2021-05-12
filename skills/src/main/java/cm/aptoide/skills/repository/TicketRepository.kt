@@ -10,9 +10,10 @@ import io.reactivex.Single
 class TicketRepository(private val ticketApi: TicketApi) {
 
   fun createTicket(packageName: String, userId: String, userName: String, ewt: String,
-                   walletAddress: String, environment: EskillsUri.MatchEnvironment): Single<TicketResponse> {
+                   walletAddress: String, roomMetadata: Map<String, String>,
+                   environment: EskillsUri.MatchEnvironment): Single<TicketResponse> {
     return ticketApi.postTicket(
-        ewt, buildTicketRequest(packageName, userId, userName, walletAddress, environment))
+        ewt, buildTicketRequest(packageName, userId, userName, walletAddress, roomMetadata, environment))
   }
 
   fun getTicket(ewt: String, ticketId: String): Single<TicketResponse> {
@@ -28,6 +29,7 @@ class TicketRepository(private val ticketApi: TicketApi) {
   }
 
   private fun buildTicketRequest(packageName: String, userId: String, userName: String,
-                                 walletAddress: String, environment: EskillsUri.MatchEnvironment) =
-      TicketRequest(packageName, userId, userName, walletAddress, emptyMap(), environment)
+                                 walletAddress: String, roomMetadata: Map<String, String>,
+                                 environment: EskillsUri.MatchEnvironment) =
+      TicketRequest(packageName, userId, userName, walletAddress, roomMetadata, environment)
 }
