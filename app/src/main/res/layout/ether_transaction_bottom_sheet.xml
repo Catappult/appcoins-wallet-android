@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ether_transaction_bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_big_height"
+    android:background="@drawable/rounded_dialog"
+    android:orientation="vertical"
+    android:paddingTop="32dp"
+    android:paddingHorizontal="32dp"
+    android:paddingBottom="36dp"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    >
+
+  <TextView
+      android:id="@+id/ether_transaction_bottom_sheet_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/block_transaction_disclaimer_title"
+      style="@style/BottomSheetEtherTransactionTitle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <TextView
+      android:id="@+id/ether_transaction_bottom_sheet_subtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="11dp"
+      android:text="@string/block_transaction_disclaimer_body"
+      style="@style/BottomSheetEtherTransactionSubtitle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_title"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+  
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/ether_transaction_bottom_sheet_rectangle"
+      android:layout_width="match_parent"
+      android:layout_height="88dp"
+      android:layout_marginTop="24dp"
+      android:background="@drawable/rectangle_outline_darkblue_radius_8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_subtitle"
+      android:paddingVertical="8dp"
+      android:paddingHorizontal="8dp">
+    <ImageView
+        android:id="@+id/ether_transaction_bottom_sheet_etherscan_logo"
+        android:layout_width="100dp"
+        android:layout_height="22dp"
+        android:background="@drawable/ic_etherscan_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/ether_transaction_bottom_sheet_hash_string"
+        android:layout_width="168dp"
+        android:layout_height="32dp"
+        tools:text="..."
+        style="@style/BottomSheetEtherTransactionHash"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/ic_right_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <Button
+      android:id="@+id/ether_transaction_bottom_sheet_copy_clipboard"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/copy"
+      android:layout_marginTop="21dp"
+      android:minHeight="0dp"
+      style="@style/BottomSheetEtherTransactionClipboard"
+      android:background="@null"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_rectangle"/>
+
+  <Button
+      android:id="@+id/ether_transaction_bottom_sheet_got_it_button"
+      style="@style/ButtonStyle"
+      android:layout_width="134dp"
+      android:layout_height="wrap_content"
+      android:text="@string/got_it_button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_copy_clipboard"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

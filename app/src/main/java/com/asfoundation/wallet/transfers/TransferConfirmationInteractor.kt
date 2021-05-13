@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui
+package com.asfoundation.wallet.transfers
 
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.TransactionBuilder
