@@ -3,12 +3,14 @@ package cm.aptoide.skills
 import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.model.TicketResponse
+import cm.aptoide.skills.model.TicketStatus
 import cm.aptoide.skills.usecase.CreateTicketUseCase
 import cm.aptoide.skills.usecase.GetTicketUseCase
 import cm.aptoide.skills.usecase.LoginUseCase
 import cm.aptoide.skills.usecase.PayTicketUseCase
 import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -28,29 +30,39 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
           payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
               ticketResponse.productToken, eskillsUri, fragment)
               .flatMap {
-                val roomIdPresent = AtomicBoolean(false)
+                val canProcceed = AtomicBoolean(false)
 
                 getTicketUseCase.getTicket(ticketResponse.ticketId)
-                    .doOnSuccess { checkRoomIdPresent(it, roomIdPresent) }
-                    .delay(getTicketRetryMillis, TimeUnit.MILLISECONDS)
-                    .repeatUntil { roomIdPresent.get() }
-                    .skipWhile { !roomIdPresent.get() }
+                  .doOnSuccess { checkCanProcceed(it, canProcceed) }
+                  .delay(getTicketRetryMillis, TimeUnit.MILLISECONDS)
+                  .repeatUntil { canProcceed.get() }
+                  .skipWhile { !canProcceed.get() }
                     .flatMapSingle { ticketResponse ->
-                      loginUseCase.login(ticketResponse.roomId!!)
+                      if (isRefunded(ticketResponse)) {
+                        Single.just(UserData("", "", "", "", true))
+                      } else {
+                        loginUseCase.login(ticketResponse.roomId!!)
                           .map { session ->
-                            UserData(ticketResponse.userId, ticketResponse.roomId,
-                                ticketResponse.walletAddress, session)
+                            UserData(
+                              ticketResponse.userId, ticketResponse.roomId,
+                              ticketResponse.walletAddress, session
+                            )
                           }
+                      }
                     }
-                    .singleOrError()
+                  .singleOrError()
               }
         }
-        .toObservable()
+      .toObservable()
   }
 
-  private fun checkRoomIdPresent(ticketResponse: TicketResponse, roomIdPresent: AtomicBoolean) {
-    if (ticketResponse.roomId != null) {
-      roomIdPresent.set(true)
+  private fun isRefunded(ticketResponse: TicketResponse): Boolean {
+    return ticketResponse.ticketStatus == TicketStatus.REFUNDED
+  }
+
+  private fun checkCanProcceed(ticketResponse: TicketResponse, canProcceed: AtomicBoolean) {
+    if (ticketResponse.roomId != null || ticketResponse.ticketStatus == TicketStatus.REFUNDED) {
+      canProcceed.set(true)
     }
   }
 

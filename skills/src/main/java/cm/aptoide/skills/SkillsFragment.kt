@@ -60,19 +60,33 @@ class SkillsFragment : DaggerFragment() {
             .takeUntil { it != WALLET_CREATING_STATUS }
             .flatMap {
               viewModel.getRoom(eskillsUri, this)
-                  .observeOn(AndroidSchedulers.mainThread())
-                  .doOnSubscribe { showFindingRoomLoading() }
-                  .doOnNext { userData -> postbackUserData(userData) }
-                  .doOnNext { ticket -> println("ticket: $ticket") }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { showFindingRoomLoading() }
+                .doOnNext { userData ->
+                  if (userData.refunded) {
+                    showRefunded()
+                  } else {
+                    postbackUserData(userData)
+                  }
+                }
+                .doOnNext { ticket -> println("ticket: $ticket") }
             }.subscribe()
     )
 
   }
 
+  private fun showRefunded() {
+    binding.loadingTicketLayout.processingLoading.visibility = View.GONE
+    binding.refundTicketLayout.refund.visibility = View.VISIBLE
+    binding.refundTicketLayout.refundOkButton.setOnClickListener({ requireActivity().finish() })
+  }
+
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == RESULT_OK) {
-      viewModel.payTicketOnActivityResult(resultCode, data!!.extras
-      !!.getString(TRANSACTION_HASH))
+      viewModel.payTicketOnActivityResult(
+        resultCode, data!!.extras
+        !!.getString(TRANSACTION_HASH)
+      )
     } else {
       super.onActivityResult(requestCode, resultCode, data)
     }

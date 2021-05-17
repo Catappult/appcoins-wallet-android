@@ -7,14 +7,25 @@
     >
 
   <include
-      android:id="@+id/loading_ticket_layout"
-      layout="@layout/loading_ticket_layout"
+      android:id="@+id/refund_ticket_layout"
+      layout="@layout/refund_ticket_layout"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      />
+
+  <include
+      android:id="@+id/loading_ticket_layout"
+      layout="@layout/loading_ticket_layout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <include
