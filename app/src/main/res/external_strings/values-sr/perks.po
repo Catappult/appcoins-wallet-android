@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Serbian (Latin)\n"
 "Language: sr_CS\n"
-"PO-Revision-Date: 2021-05-04 16:59\n"
+"PO-Revision-Date: 2021-05-17 10:26\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Zato što ste dostigli sledeći nivo."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "Dobićete dodatni bonus od {0}% za sve kupovine, osim kupovine pomoću AppCoins Credits, u igri {1}."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
