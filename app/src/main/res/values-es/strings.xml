@@ -593,7 +593,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Haz un Backup de tu Wallet</string>
   <string name="backup_home_notification_body">¿Alguna vez perdiste tu dispositivo? ¡Haz un backup!</string>
-  <string name="backup_button">BACKUP</string>
+  <string name="backup_button">HACER COPIA</string>
   <string name="backup_title">Backup de la Wallet</string>
   <string name="backup_password_title">Encripta tu wallet (opcional)</string>
   <string name="backup_password">Contraseña</string>
