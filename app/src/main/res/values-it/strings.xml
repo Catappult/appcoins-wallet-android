@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Portafoglio AppCoins</string>
   <string name="title_send">Invia</string>
   <string name="title_send_with_token">Invia %s</string>
   <string name="title_request">Ricevi</string>
@@ -454,7 +454,7 @@
   <string name="verification_insert_phone_field_region_error">Regione non supportata.</string>
   <string name="verification_insert_phone_field_landline_error">Numeri fissi non supportati.</string>
   <string name="verification_insert_phone_security_disclaimer">Non conserviamo dati personali, dobbiamo solo effettuare questa verifica per motivi di sicurezza.</string>
-  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_title">Portafoglio AppCoins</string>
   <string name="verification_notification_code_body">Il tuo codice di verifica è %s. Usalo per verificare l\'indirizzo del tuo AppCoins Wallet.</string>
   <string name="verification_insert_code_title">Inserisci il tuo codice di verifica</string>
   <string name="verification_insert_code_error">Codice non valido</string>
