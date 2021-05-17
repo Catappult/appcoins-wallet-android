@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2021-05-04 16:58\n"
+"PO-Revision-Date: 2021-05-17 10:26\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "เพราะคุณถึงเลเวลถัดไป"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "รับโบนัสพิเศษ {0}% สำหรับการซื้อทั้งหมดของคุณ ยกเว้นเครดิต AppCoins ใน {1}"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
