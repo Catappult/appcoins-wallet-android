@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">کیف پول AppCoins</string>
   <string name="title_send">ارسال</string>
   <string name="title_send_with_token">ارسال %s</string>
   <string name="title_request">دریافت</string>
