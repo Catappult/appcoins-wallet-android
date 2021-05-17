@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Ví AppCoins</string>
   <string name="title_send">Gửi</string>
   <string name="title_send_with_token">Gửi %s</string>
   <string name="title_request">Nhận</string>
