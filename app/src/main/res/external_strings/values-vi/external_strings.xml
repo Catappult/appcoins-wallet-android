@@ -2,7 +2,7 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">Để mua vật phẩm này, trước tiên bạn cần tải %s.</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">Ví AppCoins</string>
   <string name="iab_wallet_not_installed_popup_close_button">ĐÓNG</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">Bạn cần Ví AppCoins để thực hiện giao dịch này. Hãy tải về từ Aptoide hoặc Play Store và quay lại để hoàn tất giao dịch mua của bạn!</string>
