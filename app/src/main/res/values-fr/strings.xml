@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Portefeuille AppCoins</string>
   <string name="title_send">Envoyer</string>
   <string name="title_send_with_token">Envoyer %s</string>
   <string name="title_request">Recevoir</string>
@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">Assurez-vous que vous disposez d’une sauvegarde de ce portefeuille.</string>
   <string name="action_import">Récupération</string>
   <string name="copy">Copier dans le Presse-papiers</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">Copié !</string>
   <string name="close">Fermer</string>
   <string name="title_activity_settings">Paramètres</string>
   <string name="network_label">Réseau</string>
@@ -245,8 +245,8 @@
   <string name="transaction_type_reverted_purchase_title">Remboursement de l\'achat</string>
   <string name="transaction_type_reverted_purchase_body">L\'achat que vous avez fait le %s a été annulé. Contactez l\'assistance pour plus d\'informations.</string>
   <string name="transaction_reverted_view_original_header">Transaction originale</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_onchain_completed_title">Transaction en cours !</string>
+  <string name="transaction_onchain_completed_body">Vous pouvez suivre l\'évolution sur Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Présenté par Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
