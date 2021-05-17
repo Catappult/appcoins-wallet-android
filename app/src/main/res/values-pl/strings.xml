@@ -842,8 +842,8 @@
   <plurals name="promotion_ends_hours_short">
     <item quantity="one">Kończy się za %s godzinę.</item>
     <item quantity="few">Kończy się za %s godziny.</item>
-    <item quantity="many">It ends in %s hours.</item>
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="many">Kończy się za %s godziny.</item>
+    <item quantity="other">Kończy się za %s godziny.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Promocja kończy się za %s minutę.</item>
@@ -854,8 +854,8 @@
   <plurals name="promotion_ends_minutes_short">
     <item quantity="one">Kończy się za %s minutę.</item>
     <item quantity="few">Kończy się za %s minut.</item>
-    <item quantity="many">It ends in %s minutes.</item>
-    <item quantity="other">It ends in %s minutes.</item>
+    <item quantity="many">Kończy się za %s minut.</item>
+    <item quantity="other">Kończy się za %s minut.</item>
   </plurals>
   <string name="perks_end_today">Promocja kończy się dzisiaj.</string>
   <string name="perks_end_today_short">Kończy się dzisiaj.</string>
