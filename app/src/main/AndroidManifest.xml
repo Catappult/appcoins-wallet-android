@@ -108,7 +108,7 @@
         android:name="com.asfoundation.wallet.ui.SendActivity"
         android:label="@string/title_activity_send" />
     <activity
-        android:name="com.asfoundation.wallet.ui.TransferConfirmationActivity"
+        android:name="com.asfoundation.wallet.transfers.TransferConfirmationActivity"
         android:label="@string/title_activity_confirmation" />
     <activity
         android:name="com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity"

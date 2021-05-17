@@ -199,8 +199,6 @@
           app:layout_constraintTop_toBottomOf="@id/divider2"
           style="@style/ButtonStyle"
           />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
   </ScrollView>
 </LinearLayout>

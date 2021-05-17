@@ -68,6 +68,7 @@ class AnalyticsModule {
   @Named("rakam_event_list")
   fun provideRakamEventList() = listOf(
       LaunchAnalytics.FIRST_LAUNCH,
+      TransactionsAnalytics.WALLET_HOME_INTERACTION_EVENT,
       BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
@@ -100,7 +101,9 @@ class AnalyticsModule {
       VerificationAnalytics.INSERT_CARD_EVENT,
       VerificationAnalytics.REQUEST_CONCLUSION_EVENT,
       VerificationAnalytics.CONFIRM_EVENT,
-      VerificationAnalytics.CONCLUSION_EVENT
+      VerificationAnalytics.CONCLUSION_EVENT,
+      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
+      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP
   )
 
   @Singleton
@@ -198,10 +201,12 @@ class AnalyticsModule {
   fun provideTopUpAnalytics(analyticsManager: AnalyticsManager) = TopUpAnalytics(analyticsManager)
 
   @Provides
-  fun providePaymentMethodsAnalytics(billingAnalytics: BillingAnalytics,
+  fun providePaymentMethodsAnalytics(analyticsManager: AnalyticsManager,
+                                     billingAnalytics: BillingAnalytics,
                                      rakamAnalytics: RakamAnalytics,
                                      amplitudeAnalytics: AmplitudeAnalytics): PaymentMethodsAnalytics {
-    return PaymentMethodsAnalytics(billingAnalytics, rakamAnalytics, amplitudeAnalytics)
+    return PaymentMethodsAnalytics(analyticsManager, billingAnalytics, rakamAnalytics,
+        amplitudeAnalytics)
   }
 
   @Singleton

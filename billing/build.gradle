@@ -36,6 +36,7 @@ android {
 }
 repositories {
   mavenCentral()
+  maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots" }
   jcenter()
 }
 
@@ -54,5 +55,5 @@ dependencies {
   implementation "com.fasterxml.jackson.core:jackson-databind:$project.jackson_version"
   implementation "com.madgag.spongycastle:core:$project.spongycastle_version"
   implementation "com.adyen.checkout:redirect:$project.adyen_version"
-  implementation "com.blockchainds:communication:$project.appcoins_sdk_version"
+  implementation "io.catappult:communication:$project.appcoins_sdk_version"
 }

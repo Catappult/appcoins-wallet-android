@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Traditional\n"
 "Language: zh_TW\n"
-"PO-Revision-Date: 2021-02-22 05:58\n"
+"PO-Revision-Date: 2021-03-10 11:44\n"
 
 #. Card Title
 #:
@@ -59,8 +59,8 @@ msgstr "除了AppCoins點數外，您在{1}中的所有購買還會獲得額外�
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases in {1}."
-msgstr "您在 {1}中的所有購買均能獲得額外的{0}%獎勵。"
+msgid "Receive an extra {0}% Bonus in all your purchases."
+msgstr ""
 
 #. Card - First purchase.
 #:
