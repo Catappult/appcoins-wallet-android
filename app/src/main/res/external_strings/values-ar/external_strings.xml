@@ -2,7 +2,7 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">لشراء هذا العنصر أنت بحاجة أولًا للحصول على %s.</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">محفظة AppCoins</string>
   <string name="iab_wallet_not_installed_popup_close_button">إغلاق</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">أنت بحاجة إلى تطبيق AppCoins Wallet لإتمام الشراء. يمكنك تنزيله من Aptoide أو Play Store والعودة لإتمام الشراء!</string>
