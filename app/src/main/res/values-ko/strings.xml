@@ -270,7 +270,7 @@
   <string name="activity_airdrop_hint">이미지에 있는 단어를 입력하십시오</string>
   <string name="activity_airdrop_submit_btn">제출</string>
   <string name="activity_airdrop_wrong_captcha">캡차가 잘못되었습니다</string>
-  <string name="activity_airdrop_ok">ok</string>
+  <string name="activity_airdrop_ok">확인</string>
   <string name="activity_airdrop_message_title">에어드롭</string>
   <string name="activity_airdrop_success_message">에어드롭 완료</string>
   <string name="activity_airdrop_generic_error_message">오류가 발생 했습니다</string>
