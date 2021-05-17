@@ -6,7 +6,7 @@
   <string name="iab_wallet_not_installed_popup_close_button">ZAMKNIJ</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">OK!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">Potrzebujesz portfela AppCoins!</string>
   <string name="poa_wallet_not_installed_notification_body">Aby odebrać nagrodę, potrzebujesz portfela AppCoins.</string>
@@ -16,8 +16,8 @@
   <string name="iab_pay_as_guest_paypal">PayPal</string>
   <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
   <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
-  <string name="iab_card_number">Card number</string>
-  <string name="iab_card_expiry">MM/YY</string>
+  <string name="iab_card_number">Numer karty</string>
+  <string name="iab_card_expiry">MM/RR</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">ZMIANA KARTY</string>
@@ -33,7 +33,7 @@
   <string name="iab_purchase_done_title_long">Purchase completed!</string>
   <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
   <string name="iab_purchase_support_1">Need help?</string>
-  <string name="iab_purchase_support_2_link">Contact Support.</string>
+  <string name="iab_purchase_support_2_link">Pomoc.</string>
   <!-- SDK - Common -->
   <string name="next_button">NEXT</string>
   <string name="cancel_button">Anuluj</string>
