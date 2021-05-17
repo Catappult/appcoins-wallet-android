@@ -81,9 +81,9 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
     payment_methods_header.hideSkeleton()
 
     val fiat =
-        "${formatter.formatCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)} $currency"
+        "${formatter.formatPaymentCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)} $currency"
     val appc = "${
-      formatter.formatCurrency(appcAmount,
+      formatter.formatPaymentCurrency(appcAmount,
           WalletCurrency.APPCOINS)
     } ${WalletCurrency.APPCOINS.symbol}"
     fiat_price_text.text = fiat
@@ -91,7 +91,7 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
 
     val feeString: SpannedString = buildSpannedString {
       color(ResourcesCompat.getColor(resources, R.color.disable_reason, null)) {
-        append("${formatter.formatCurrency(carrierFeeFiat, WalletCurrency.FIAT)} $currency")
+        append("${formatter.formatPaymentCurrency(carrierFeeFiat, WalletCurrency.FIAT)} $currency")
       }
     }
     fee_title.text =

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -73,6 +74,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   @Inject
+  lateinit var taskTimer: TaskTimer
+
+  @Inject
   lateinit var paymentMethodsAnalytics: PaymentMethodsAnalytics
 
   @Inject
@@ -117,7 +121,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         getTransactionValue())
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
-        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData)
+        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData,
+        taskTimer)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -226,7 +231,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private fun setupFee(fee: PaymentMethodFee?) {
     if (fee?.isValidFee() == true) {
       payment_method_fee.visibility = View.VISIBLE
-      val formattedValue = formatter.formatCurrency(fee.amount!!, WalletCurrency.FIAT)
+      val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
       payment_method_fee_value.apply {
