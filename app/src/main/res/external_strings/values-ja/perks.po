@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-05-04 16:59\n"
+"PO-Revision-Date: 2021-05-17 10:25\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "次のレベルに到達！"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "{1} では、AppCoinsクレジットを除くすべての購入品に対して、さらに{0}%のボーナスを受け取ることができます。"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
