@@ -271,7 +271,7 @@
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
   <string name="activity_airdrop_submit_btn">提出する</string>
   <string name="activity_airdrop_wrong_captcha">間違ったキャプチャ</string>
-  <string name="activity_airdrop_ok">ok</string>
+  <string name="activity_airdrop_ok">わかりました</string>
   <string name="activity_airdrop_message_title">エアドロップ</string>
   <string name="activity_airdrop_success_message">Airdrop 完成</string>
   <string name="activity_airdrop_generic_error_message">エラーが発生しました。</string>
