@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins портфейл</string>
   <string name="title_send">Изпрати</string>
   <string name="title_send_with_token">Изпрати %s</string>
   <string name="title_request">Получи</string>
@@ -422,7 +422,7 @@
   <string name="password">Парола</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No, thanks</string>
+  <string name="no_thanks_button">No,thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">Потвърди</string>
@@ -454,7 +454,7 @@
   <string name="verification_insert_phone_field_region_error">Регионът все още не се поддържа.</string>
   <string name="verification_insert_phone_field_landline_error">Не се поддържат стационарни номера.</string>
   <string name="verification_insert_phone_security_disclaimer">Това е само от съображения за сигурност, ние не съхраняваме никакви лични данни.</string>
-  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_title">AppCoins портфейл</string>
   <string name="verification_notification_code_body">Твоят код за верификация е %s. Използвай го, за да верифицираш твоя AppCoins Wallet адрес.</string>
   <string name="verification_insert_code_title">Въведи твоя код за верификация</string>
   <string name="verification_insert_code_error">Невалиден код</string>
@@ -511,7 +511,7 @@
   <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">Грешен CVV/CVC</string>
   <string name="error_contac_us_body">Ако проблемът продължава, свържи се с нас.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
   <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
   <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
