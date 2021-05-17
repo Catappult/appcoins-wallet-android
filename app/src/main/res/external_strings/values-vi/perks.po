@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Vietnamese\n"
 "Language: vi_VN\n"
-"PO-Revision-Date: 2021-05-04 16:57\n"
+"PO-Revision-Date: 2021-05-17 10:26\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Bởi vì bạn đã đạt đến cấp kế tiếp."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của bạn, ngoại trừ AppCoins Credits, trong {1}."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
