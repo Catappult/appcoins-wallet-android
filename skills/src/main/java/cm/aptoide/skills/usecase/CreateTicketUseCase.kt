@@ -23,9 +23,7 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
         .flatMap { walletAddress ->
           ewtObtainer.getEWT()
               .flatMap { ewt ->
-                ticketRepository.createTicket(eskillsUri.getPackageName(),
-                    eskillsUri.getUserId(), eskillsUri.getUserName(), ewt,
-                    walletAddress, eskillsUri.getMetadata(), eskillsUri.getEnvironment()!!)
+                ticketRepository.createTicket(eskillsUri, ewt, walletAddress)
               }
         }
   }

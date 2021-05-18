@@ -21,7 +21,9 @@ class SkillsFragment : DaggerFragment() {
   companion object {
     fun newInstance() = SkillsFragment()
 
-    private const val RESULT_OK = 1
+    private const val RESULT_OK = 0
+    private const val RESULT_USER_CANCELED = 1
+    private const val RESULT_ERROR = 6
     private const val SESSION = "SESSION"
     private const val USER_ID = "USER_ID"
     private const val ROOM_ID = "ROOM_ID"
@@ -59,20 +61,23 @@ class SkillsFragment : DaggerFragment() {
         handleWalletCreationIfNeeded()
             .takeUntil { it != WALLET_CREATING_STATUS }
             .flatMap {
-              viewModel.getRoom(eskillsUri, this)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { showFindingRoomLoading() }
-                .doOnNext { userData ->
-                  if (userData.refunded) {
-                    showRefunded()
-                  } else {
-                    postbackUserData(userData)
+              viewModel.createTicket(eskillsUri)
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .doOnSubscribe { showRoomLoading(false, null) }
+                  .flatMap { ticketResponse ->
+                    viewModel.getRoom(eskillsUri, ticketResponse, this)
+                        .doOnSubscribe { showRoomLoading(true, ticketResponse.ticketId) }
+                        .doOnNext { userData ->
+                          if (userData.refunded) {
+                            showRefunded()
+                          } else {
+                            postbackUserData(RESULT_OK, userData)
+                          }
+                        }
+                        .doOnNext { ticket -> println("ticket: $ticket") }
                   }
-                }
-                .doOnNext { ticket -> println("ticket: $ticket") }
             }.subscribe()
     )
-
   }
 
   private fun showRefunded() {
@@ -84,8 +89,8 @@ class SkillsFragment : DaggerFragment() {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == RESULT_OK) {
       viewModel.payTicketOnActivityResult(
-        resultCode, data!!.extras
-        !!.getString(TRANSACTION_HASH)
+          resultCode, data!!.extras
+      !!.getString(TRANSACTION_HASH)
       )
     } else {
       super.onActivityResult(requestCode, resultCode, data)
@@ -126,12 +131,31 @@ class SkillsFragment : DaggerFragment() {
     binding.createWalletLayout.createWalletCard.visibility = View.GONE
   }
 
-  private fun showFindingRoomLoading() {
+  private fun showRoomLoading(isCancelActive: Boolean, ticketId: String?) {
     binding.loadingTicketLayout.processingLoading.visibility = View.VISIBLE
+    if (isCancelActive) {
+      binding.loadingTicketLayout.loadingTitle.text = getString(R.string.finding_room_loading_title)
+      binding.loadingTicketLayout.cancelButton.isEnabled = true
+      binding.loadingTicketLayout.cancelButton.setOnClickListener {
+        // only paid tickets can be canceled/refunded on the backend side, meaning that if we
+        // cancel before actually paying the backend will return a 409 HTTP. this way we allow
+        // users to return to the game, without crashing, even if they weren't waiting in queue
+        try {
+          viewModel.cancelTicket(ticketId!!)
+              .map {
+                postbackUserData(RESULT_USER_CANCELED, UserData("", "", "", "", true))
+              }.blockingGet()
+        } catch (e: Exception) {
+          postbackUserData(RESULT_ERROR, UserData("", "", "", "", true))
+        }
+      }
+    } else {
+      binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)
+    }
   }
 
-  private fun postbackUserData(userData: UserData) {
-    requireActivity().setResult(RESULT_OK, buildDataIntent(userData))
+  private fun postbackUserData(resultCode: Int, userData: UserData) {
+    requireActivity().setResult(resultCode, buildDataIntent(userData))
     requireActivity().finish()
   }
 

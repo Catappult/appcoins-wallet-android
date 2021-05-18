@@ -2,6 +2,7 @@ package cm.aptoide.skills.util
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.math.BigDecimal
 
 data class EskillsUri(
   var scheme: String,
@@ -26,8 +27,8 @@ data class EskillsUri(
     return parameters[EskillsParameters.PRODUCT]!!
   }
 
-  fun getPrice(): String {
-    return parameters[EskillsParameters.VALUE]!!
+  fun getPrice(): BigDecimal {
+    return parameters[EskillsParameters.VALUE]!!.toBigDecimal()
   }
 
   fun getCurrency(): String {
@@ -49,6 +50,10 @@ data class EskillsUri(
     } else {
       emptyMap()
     }
+  }
+
+  fun getNumberOfUsers(): Int {
+    return parameters[EskillsParameters.NUMBER_OF_USERS]!!.toInt()
   }
 
   enum class MatchEnvironment {

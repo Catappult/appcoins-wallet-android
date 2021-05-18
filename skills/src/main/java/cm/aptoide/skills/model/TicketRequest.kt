@@ -2,6 +2,7 @@ package cm.aptoide.skills.model
 
 import cm.aptoide.skills.util.EskillsUri
 import com.google.gson.annotations.SerializedName
+import java.math.BigDecimal
 
 data class TicketRequest(
 
@@ -21,5 +22,17 @@ data class TicketRequest(
     private val roomMetadata: Map<String, String>,
 
     @SerializedName("match_environment")
-    private val matchEnvironment: EskillsUri.MatchEnvironment
+    private val matchEnvironment: EskillsUri.MatchEnvironment,
+
+    @SerializedName("number_of_users")
+    private val numberOfUsers: Int,
+
+    @SerializedName("price")
+    private val price: BigDecimal,
+
+    @SerializedName("price_currency")
+    private val priceCurrency: String,
+
+    @SerializedName("sku")
+    private val sku: String
 )

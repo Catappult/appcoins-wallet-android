@@ -8,6 +8,7 @@ import cm.aptoide.skills.usecase.CreateTicketUseCase
 import cm.aptoide.skills.usecase.GetTicketUseCase
 import cm.aptoide.skills.usecase.LoginUseCase
 import cm.aptoide.skills.usecase.PayTicketUseCase
+import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -19,41 +20,44 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       private val payTicketUseCase: PayTicketUseCase,
                       private val getTicketUseCase: GetTicketUseCase,
                       private val getTicketRetryMillis: Long,
-                      private val loginUseCase: LoginUseCase) {
+                      private val loginUseCase: LoginUseCase,
+                      private val cancelTicketUseCase: CancelTicketUseCase) {
   fun handleWalletCreationIfNeeded(): Observable<String> {
     return createTicketUseCase.getOrCreateWallet()
   }
 
-  fun getRoom(eskillsUri: EskillsUri, fragment: Fragment): Observable<UserData> {
-    return createTicketUseCase.createTicket(eskillsUri)
-        .flatMap { ticketResponse ->
-          payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
-              ticketResponse.productToken, eskillsUri, fragment)
-              .flatMap {
-                val canProcceed = AtomicBoolean(false)
+  fun createTicket(eskillsUri: EskillsUri): Observable<TicketResponse> {
+    return createTicketUseCase.createTicket(eskillsUri).toObservable()
+  }
 
-                getTicketUseCase.getTicket(ticketResponse.ticketId)
-                  .doOnSuccess { checkCanProcceed(it, canProcceed) }
-                  .delay(getTicketRetryMillis, TimeUnit.MILLISECONDS)
-                  .repeatUntil { canProcceed.get() }
-                  .skipWhile { !canProcceed.get() }
-                    .flatMapSingle { ticketResponse ->
-                      if (isRefunded(ticketResponse)) {
-                        Single.just(UserData("", "", "", "", true))
-                      } else {
-                        loginUseCase.login(ticketResponse.roomId!!)
-                          .map { session ->
-                            UserData(
-                              ticketResponse.userId, ticketResponse.roomId,
-                              ticketResponse.walletAddress, session
-                            )
-                          }
+  fun getRoom(eskillsUri: EskillsUri, ticketResponse: TicketResponse,
+              fragment: Fragment): Observable<UserData> {
+    return payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
+        ticketResponse.productToken, eskillsUri, fragment)
+        .flatMap {
+          val canProcceed = AtomicBoolean(false)
+
+          getTicketUseCase.getTicket(ticketResponse.ticketId)
+              .doOnSuccess { checkCanProcceed(it, canProcceed) }
+              .delay(getTicketRetryMillis, TimeUnit.MILLISECONDS)
+              .repeatUntil { canProcceed.get() }
+              .skipWhile { !canProcceed.get() }
+              .flatMapSingle { ticketResponse ->
+                if (isRefunded(ticketResponse)) {
+                  Single.just(UserData("", "", "", "", true))
+                } else {
+                  loginUseCase.login(ticketResponse.roomId!!)
+                      .map { session ->
+                        UserData(
+                            ticketResponse.userId, ticketResponse.roomId,
+                            ticketResponse.walletAddress, session
+                        )
                       }
-                    }
-                  .singleOrError()
+                }
               }
+              .singleOrError()
         }
-      .toObservable()
+        .toObservable()
   }
 
   private fun isRefunded(ticketResponse: TicketResponse): Boolean {
@@ -72,5 +76,9 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
 
   fun payTicketOnActivityResult(resultCode: Int, txHash: String?) {
 
+  }
+
+  fun cancelTicket(ticketId: String): Single<TicketResponse> {
+    return cancelTicketUseCase.cancelTicket(ticketId)
   }
 }

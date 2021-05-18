@@ -19,4 +19,10 @@ interface TicketApi {
   @POST("queue/dummy/purchase")
   fun createTicket(@Body payTicketRequest: PayTicketRequest): Single<Any>
 
+  @PATCH("queue/ticket/{ticket_id}/status")
+  fun cancelTicket(@Header("authorization") authorization: String,
+                   @Path("ticket_id") ticketId: String,
+                   @Body data: Refunded): Single<TicketResponse>
+
+  data class Refunded(val status: String = "REFUNDED")
 }

@@ -52,6 +52,17 @@
             android:layout_marginBottom="38dp"
             android:indeterminateDrawable="@drawable/gradient_progress"
             />
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:enabled="false"
+            android:text="@string/cancel" />
     </LinearLayout>
 
 
