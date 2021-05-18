@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.GlideApp;
@@ -40,9 +41,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private final View typeIcon;
   private final TextView address;
   private final TextView description;
+  private final TextView paidValue;
+  private final TextView paidCurrency;
   private final TextView value;
   private final TextView currency;
-  private final TextView status;
   private final OnTransactionClickListener onTransactionClickListener;
   private final CurrencyFormatUtils formatter;
   private final TextView revertMessage;
@@ -57,9 +59,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     typeIcon = findViewById(R.id.type_icon);
     address = findViewById(R.id.address);
     description = findViewById(R.id.description);
+    paidValue = findViewById(R.id.paid_value);
+    paidCurrency = findViewById(R.id.paid_currency);
     value = findViewById(R.id.value);
     currency = findViewById(R.id.currency);
-    status = findViewById(R.id.status);
     revertMessage = findViewById(R.id.revert_message);
     onTransactionClickListener = listener;
     this.formatter = formatter;
@@ -81,11 +84,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     fill(transaction.getFrom(), transaction.getTo(), currency, transaction.getValue(),
-        transaction.getStatus(), transaction.getDetails());
+        transaction.getPaidAmount(), transaction.getPaidCurrency(), transaction.getStatus(),
+        transaction.getDetails());
   }
 
   private void fill(String from, String to, String currencySymbol, String valueStr,
-      Transaction.TransactionStatus transactionStatus, TransactionDetails details) {
+      String paidAmount, String paidCurrency, Transaction.TransactionStatus transactionStatus,
+      TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
 
@@ -204,23 +209,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         })
         .into(srcImage);
 
-    int statusText = R.string.transaction_status_success;
-    int statusColor = R.color.green;
-
-    switch (transactionStatus) {
-      case PENDING:
-        statusText = R.string.transaction_status_pending;
-        statusColor = R.color.orange;
-        break;
-      case FAILED:
-        statusText = R.string.transaction_status_failed;
-        statusColor = R.color.red;
-        break;
-    }
-
-    status.setText(statusText);
-    status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
-
     if (valueStr.equals("0")) {
       valueStr = "0 ";
     } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
@@ -232,6 +220,24 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     currency.setText(currencySymbol);
 
     this.value.setText(valueStr);
+
+    if (shouldShowFiat(paidAmount)) {
+      paidAmount = (isSent ? "-" : "+") + getScaledValue(paidAmount, 0, "");
+      this.paidValue.setText(paidAmount);
+      this.paidCurrency.setText(paidCurrency);
+    } else {
+      this.paidValue.setVisibility(View.GONE);
+      this.paidCurrency.setVisibility(View.GONE);
+      this.value.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+      this.value.setTypeface(ResourcesCompat.getFont(getContext(), R.font.roboto_medium));
+      this.value.setTextSize(16);
+    }
+  }
+
+  private boolean shouldShowFiat(String paidAmount) {
+    return paidAmount != null && (transaction.getType()
+        .equals(Transaction.TransactionType.IAP_OFFCHAIN) || transaction.getType()
+        .equals(Transaction.TransactionType.TOP_UP));
   }
 
   private void setRevertMessage() {
