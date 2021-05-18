@@ -76,5 +76,13 @@ abstract class TransactionsDatabase : RoomDatabase() {
         database.execSQL("DELETE FROM TransactionEntity WHERE processedTime >= 1583280000000")
       }
     }
+
+    //Adds 2 new values to be possible to show fiat on transactions
+    val MIGRATION_5_6: Migration = object : Migration(5, 6) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN paidAmount TEXT")
+        database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN paidCurrency TEXT")
+      }
+    }
   }
 }
