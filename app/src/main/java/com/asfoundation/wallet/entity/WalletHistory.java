@@ -2,6 +2,7 @@ package com.asfoundation.wallet.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
@@ -29,6 +30,8 @@ import java.util.List;
     @JsonProperty("sku") private String sku;
     @JsonProperty("TxID") private String txID;
     @JsonProperty("amount") private BigInteger amount;
+    @JsonProperty("paid_currency_amount") @Nullable private String paidAmount;
+    @JsonProperty("paid_currency") @Nullable private String paidCurrency;
     @JsonProperty("block") private BigInteger block;
     @JsonProperty("bonus") private BigDecimal bonus;
     @JsonProperty("icon") private String icon;
@@ -91,6 +94,22 @@ import java.util.List;
 
     public void setAmount(BigInteger amount) {
       this.amount = amount;
+    }
+
+    public String getPaidAmount() {
+      return paidAmount;
+    }
+
+    public void setPaidAmount(String paidAmount) {
+      this.paidAmount = paidAmount;
+    }
+
+    public String getPaidCurrency() {
+      return paidCurrency;
+    }
+
+    public void setPaidCurrency(String paidCurrency) {
+      this.paidCurrency = paidCurrency;
     }
 
     public BigInteger getBlock() {
