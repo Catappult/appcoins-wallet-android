@@ -9,10 +9,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.repository.LoginRepository
 import cm.aptoide.skills.repository.RoomRepository
 import cm.aptoide.skills.repository.TicketRepository
-import cm.aptoide.skills.usecase.CreateTicketUseCase
-import cm.aptoide.skills.usecase.GetTicketUseCase
-import cm.aptoide.skills.usecase.LoginUseCase
-import cm.aptoide.skills.usecase.PayTicketUseCase
+import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsUriParser
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
@@ -40,9 +37,11 @@ class SkillsModule {
   fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
                               payTicketUseCase: PayTicketUseCase,
                               getTicketUseCase: GetTicketUseCase,
-                              loginUseCase: LoginUseCase): SkillsViewModel {
+                              loginUseCase: LoginUseCase,
+                              cancelUseCase: CancelTicketUseCase): SkillsViewModel {
     return SkillsViewModel(
-        createTicketUseCase, payTicketUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS, loginUseCase
+        createTicketUseCase, payTicketUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS,
+        loginUseCase, cancelUseCase
     )
   }
 
@@ -128,6 +127,13 @@ class SkillsModule {
   @Provides
   fun providesEskillsUriParser(): EskillsUriParser {
     return EskillsUriParser()
+  }
+
+  @Provides
+  fun providesCancelUseCase(walletAddressObtainer: WalletAddressObtainer,
+                            ewtObtainer: EwtObtainer,
+                            ticketRepository: TicketRepository): CancelTicketUseCase {
+    return CancelTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
   }
 
   companion object {

@@ -9,15 +9,22 @@ import io.reactivex.Single
 
 class TicketRepository(private val ticketApi: TicketApi) {
 
-  fun createTicket(packageName: String, userId: String, userName: String, ewt: String,
-                   walletAddress: String, roomMetadata: Map<String, String>,
-                   environment: EskillsUri.MatchEnvironment): Single<TicketResponse> {
-    return ticketApi.postTicket(
-        ewt, buildTicketRequest(packageName, userId, userName, walletAddress, roomMetadata, environment))
+  fun createTicket(eskillsUri: EskillsUri, ewt: String, walletAddress: String): Single<TicketResponse> {
+    return ticketApi.postTicket(ewt, buildTicketRequest(eskillsUri, walletAddress))
   }
+
+  private fun buildTicketRequest(eskillsUri: EskillsUri, walletAddress: String) =
+      TicketRequest(eskillsUri.getPackageName(), eskillsUri.getUserId(), eskillsUri.getUserName(),
+          walletAddress, eskillsUri.getMetadata(), eskillsUri.getEnvironment()!!,
+          eskillsUri.getNumberOfUsers(), eskillsUri.getPrice(), eskillsUri.getCurrency(),
+          eskillsUri.getProduct())
 
   fun getTicket(ewt: String, ticketId: String): Single<TicketResponse> {
     return ticketApi.getTicket(ewt, ticketId)
+  }
+
+  fun cancelTicket(ewt: String, ticketId: String): Single<TicketResponse> {
+    return ticketApi.cancelTicket(ewt, ticketId, TicketApi.Refunded())
   }
 
   fun payTicket(ticketId: String, callbackUrl: String): Single<Any> {
@@ -27,9 +34,4 @@ class TicketRepository(private val ticketApi: TicketApi) {
   private fun buildPayTicketRequest(ticketId: String, callbackUrl: String): PayTicketRequest {
     return PayTicketRequest(ticketId, callbackUrl)
   }
-
-  private fun buildTicketRequest(packageName: String, userId: String, userName: String,
-                                 walletAddress: String, roomMetadata: Map<String, String>,
-                                 environment: EskillsUri.MatchEnvironment) =
-      TicketRequest(packageName, userId, userName, walletAddress, roomMetadata, environment)
 }
