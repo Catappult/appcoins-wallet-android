@@ -229,7 +229,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       this.paidValue.setVisibility(View.GONE);
       this.paidCurrency.setVisibility(View.GONE);
       this.value.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-      this.value.setTypeface(ResourcesCompat.getFont(getContext(), R.font.roboto_medium));
       this.value.setTextSize(16);
     }
   }
