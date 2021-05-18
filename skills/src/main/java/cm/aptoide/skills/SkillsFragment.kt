@@ -137,6 +137,9 @@ class SkillsFragment : DaggerFragment() {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.finding_room_loading_title)
       binding.loadingTicketLayout.cancelButton.isEnabled = true
       binding.loadingTicketLayout.cancelButton.setOnClickListener {
+        // only paid tickets can be canceled/refunded on the backend side, meaning that if we
+        // cancel before actually paying the backend will return a 409 HTTP. this way we allow
+        // users to return to the game, without crashing, even if they weren't waiting in queue
         try {
           viewModel.cancelTicket(ticketId!!)
               .map {
