@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "a087af121c280bf1001cf87fea3dbf74",
+    "identityHash": "c82c9a3171c63d4c932ff6025648aa16",
     "entities": [
       {
         "tableName": "TransactionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` TEXT NOT NULL, `relatedWallet` TEXT NOT NULL, `approveTransactionId` TEXT, `perk` TEXT, `type` TEXT NOT NULL, `subType` TEXT, `title` TEXT, `cardDescription` TEXT, `timeStamp` INTEGER NOT NULL, `processedTime` INTEGER NOT NULL, `status` TEXT NOT NULL, `value` TEXT NOT NULL, `paidAmount` TEXT, `paidCurrency` TEXT, `from` TEXT NOT NULL, `to` TEXT NOT NULL, `currency` TEXT, `operations` TEXT, `sourceName` TEXT, `description` TEXT, `iconType` TEXT, `uri` TEXT, PRIMARY KEY(`transactionId`, `relatedWallet`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` TEXT NOT NULL, `relatedWallet` TEXT NOT NULL, `approveTransactionId` TEXT, `perk` TEXT, `type` TEXT NOT NULL, `subType` TEXT, `title` TEXT, `cardDescription` TEXT, `timeStamp` INTEGER NOT NULL, `processedTime` INTEGER NOT NULL, `status` TEXT NOT NULL, `value` TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, `currency` TEXT, `operations` TEXT, `sourceName` TEXT, `description` TEXT, `iconType` TEXT, `uri` TEXT, PRIMARY KEY(`transactionId`, `relatedWallet`))",
         "fields": [
           {
             "fieldPath": "transactionId",
@@ -79,18 +79,6 @@
             "columnName": "value",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "paidAmount",
-            "columnName": "paidAmount",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "paidCurrency",
-            "columnName": "paidCurrency",
-            "affinity": "TEXT",
-            "notNull": false
           },
           {
             "fieldPath": "from",
@@ -262,7 +250,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a087af121c280bf1001cf87fea3dbf74')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c82c9a3171c63d4c932ff6025648aa16')"
     ]
   }
 }
