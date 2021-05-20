@@ -80,6 +80,7 @@ abstract class TransactionsDatabase : RoomDatabase() {
     //Adds 2 new values to be possible to show fiat on transactions
     val MIGRATION_5_6: Migration = object : Migration(5, 6) {
       override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("DELETE FROM TransactionEntity")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN paidAmount TEXT")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN paidCurrency TEXT")
       }
