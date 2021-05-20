@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -83,12 +84,12 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     fill(transaction.getFrom(), transaction.getTo(), currency, transaction.getValue(),
-        transaction.getPaidAmount(), transaction.getPaidCurrency(), transaction.getStatus(),
+        transaction.getPaidAmount(), transaction.getPaidCurrency(),
         transaction.getDetails());
   }
 
   private void fill(String from, String to, String currencySymbol, String valueStr,
-      String paidAmount, String paidCurrency, Transaction.TransactionStatus transactionStatus,
+      String paidAmount, String paidCurrency,
       TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
@@ -216,23 +217,19 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
     }
 
-    currency.setText(currencySymbol);
-
-    this.value.setText(valueStr);
-
     if (shouldShowFiat(paidAmount, paidCurrency)) {
       paidAmount = (isSent ? "-" : "+") + getScaledValue(paidAmount, 0, "");
-      this.paidValue.setVisibility(View.VISIBLE);
-      this.paidCurrency.setVisibility(View.VISIBLE);
-      this.value.setTextColor(ContextCompat.getColor(getContext(), R.color.grey_8a_alpha));
-      this.value.setTextSize(12);
       this.paidValue.setText(paidAmount);
       this.paidCurrency.setText(paidCurrency);
+      this.value.setVisibility(View.VISIBLE);
+      this.currency.setVisibility(View.VISIBLE);
+      this.value.setText(valueStr);
+      this.currency.setText(currencySymbol);
     } else {
-      this.paidValue.setVisibility(View.GONE);
-      this.paidCurrency.setVisibility(View.GONE);
-      this.value.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-      this.value.setTextSize(16);
+      this.paidValue.setText(valueStr);
+      this.paidCurrency.setText(currencySymbol);
+      this.value.setVisibility(View.GONE);
+      this.currency.setVisibility(View.GONE);
     }
   }
 
