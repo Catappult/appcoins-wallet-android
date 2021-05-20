@@ -222,6 +222,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     if (shouldShowFiat(paidAmount, paidCurrency)) {
       paidAmount = (isSent ? "-" : "+") + getScaledValue(paidAmount, 0, "");
+      this.paidValue.setVisibility(View.VISIBLE);
+      this.paidCurrency.setVisibility(View.VISIBLE);
+      this.value.setTextColor(ContextCompat.getColor(getContext(), R.color.grey_8a_alpha));
+      this.value.setTextSize(12);
       this.paidValue.setText(paidAmount);
       this.paidCurrency.setText(paidCurrency);
     } else {
@@ -233,11 +237,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   private boolean shouldShowFiat(String paidAmount, String paidCurrency) {
-    return paidAmount != null && !paidCurrency.equals("APPC") && !paidCurrency.equals("APPC-C") && (
-        transaction.getType()
-            .equals(Transaction.TransactionType.IAP_OFFCHAIN)
-            || transaction.getType()
-            .equals(Transaction.TransactionType.TOP_UP));
+    return paidAmount != null
+        && !paidCurrency.equals("APPC")
+        && !paidCurrency.equals("APPC-C")
+        && !paidCurrency.equals("ETH");
   }
 
   private void setRevertMessage() {
