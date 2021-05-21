@@ -98,6 +98,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleVerifyWalletClick() {
     disposables.add(view.getVerifyWalletClick()
+        .doOnNext { walletsEventSender.sendVerifyAction("verify_wallet", "start_verification") }
         .observeOn(viewScheduler)
         .doOnNext { view.openWalletVerificationScreen() }
         .subscribe({}, { it.printStackTrace() }))
@@ -105,6 +106,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleInsertCodeClick() {
     disposables.add(view.getInsertCodeClick()
+        .doOnNext { walletsEventSender.sendVerifyAction("verify_wallet", "insert_code") }
         .observeOn(viewScheduler)
         .doOnNext { view.openWalletVerificationScreen() }
         .subscribe({}, { it.printStackTrace() }))
@@ -181,6 +183,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleCopyClick() {
     disposables.add(view.getCopyClick()
+        .doOnNext { walletsEventSender.sendAction("wallet_copy") }
         .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext { view.setAddressToClipBoard(it) }
@@ -189,6 +192,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleQrCodeClick() {
     disposables.add(view.getQrCodeClick()
+        .doOnNext { walletsEventSender.sendAction("wallet_qr_code") }
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.showQrCodeView() }
@@ -197,6 +201,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleBackupClick() {
     disposables.add(view.getBackupClick()
+        .doOnNext { walletsEventSender.sendAction("wallet_backup") }
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
