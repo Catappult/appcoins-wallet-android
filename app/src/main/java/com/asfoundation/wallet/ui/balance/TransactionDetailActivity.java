@@ -10,6 +10,8 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
@@ -20,6 +22,7 @@ import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.common.SeparatorView;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
@@ -49,6 +52,9 @@ public class TransactionDetailActivity extends BaseActivity {
   private Transaction transaction;
   private boolean isSent = false;
   private TextView amount;
+  private TextView paidAmount;
+  private TextView convertedAmount;
+  private SeparatorView verticalSeparator;
   private TransactionsDetailsAdapter adapter;
   private RecyclerView detailsList;
   private Dialog dialog;
@@ -73,6 +79,9 @@ public class TransactionDetailActivity extends BaseActivity {
     ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(1f);
 
     amount = findViewById(R.id.amount);
+    paidAmount = findViewById(R.id.paid_amount);
+    convertedAmount = findViewById(R.id.converted_amount);
+    verticalSeparator = findViewById(R.id.vertical_separator);
     adapter = new TransactionsDetailsAdapter(this::onMoreClicked);
     detailsList = findViewById(R.id.details_list);
     detailsList.setAdapter(adapter);
@@ -262,7 +271,11 @@ public class TransactionDetailActivity extends BaseActivity {
       statusColor = R.color.green;
     }
 
-    setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, icon, id, description,
+    String convertedAmount = "";
+    String convertedCurrency = "";
+
+    setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, getPaidValue(),
+        transaction.getPaidCurrency(), convertedAmount, convertedCurrency, icon, id, description,
         typeStr, typeIcon, statusStr, statusColor, to, isSent, isRevertTransaction,
         isRevertedTransaction, revertedDescription, descriptionColor);
   }
@@ -277,14 +290,18 @@ public class TransactionDetailActivity extends BaseActivity {
     boolean isRevertTransaction = isRevertTransaction(transaction);
     boolean isRevertedTransaction = isRevertedTransaction(transaction);
 
-    formatValue(getValue(symbol), symbol, transaction.getType(), isRevertTransaction,
+    String convertedAmount = "";
+    String convertedCurrency = "";
+
+    formatValues(getValue(symbol), symbol, getPaidValue(), transaction.getPaidCurrency(),
+        convertedAmount, convertedCurrency, transaction.getType(), isRevertTransaction,
         isRevertedTransaction);
   }
 
-  private String getScaledValue(String valueStr, String currencySymbol) {
+  private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
     WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
-    value = value.divide(new BigDecimal(Math.pow(10, DECIMALS)));
+    value = value.divide(new BigDecimal(Math.pow(10, decimals)));
     return formatter.formatCurrency(value, walletCurrency);
   }
 
@@ -306,14 +323,16 @@ public class TransactionDetailActivity extends BaseActivity {
     viewModel.showMoreDetails(view.getContext(), operation);
   }
 
-  private void setUiContent(long timeStamp, String value, String symbol, String icon, String id,
+  private void setUiContent(long timeStamp, String value, String symbol, String paidAmount,
+      String paidCurrency, String convertedAmount, String convertedCurrency, String icon, String id,
       String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to,
       boolean isSent, boolean isRevertTransaction, boolean isRevertedTransaction,
       int revertedDescription, int descriptionColor) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
-    formatValue(value, symbol, transaction.getType(), isRevertTransaction, isRevertedTransaction);
+    formatValues(value, symbol, paidAmount, paidCurrency, convertedAmount, convertedCurrency,
+        transaction.getType(), isRevertTransaction, isRevertedTransaction);
 
     ImageView typeIconImageView = findViewById(R.id.img);
     if (icon != null) {
@@ -528,7 +547,8 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void formatValue(String value, String symbol, Transaction.TransactionType type,
+  private void formatValues(String value, String symbol, String paidAmount, String paidCurrency,
+      String convertedAmount, String convertedCurrency, Transaction.TransactionType type,
       boolean isRevert, boolean isReverted) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
@@ -541,14 +561,43 @@ public class TransactionDetailActivity extends BaseActivity {
       signal = isSent ? "-" : "+";
     }
 
-    String formattedValue = signal + value;
-    amount.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
+    String formattedValue = signal + value + " " + symbol.toUpperCase();
+    String formattedPaidValue = signal + paidAmount;
+    String formattedConvertedValue =
+        signal + convertedAmount + " " + convertedCurrency.toUpperCase();
+    this.paidAmount.setText(
+        BalanceUtils.formatBalance(formattedPaidValue, paidCurrency, smallTitleSize, color));
+    this.amount.setText(formattedValue);
+
+    handleConverted(paidCurrency, formattedConvertedValue, convertedCurrency);
+  }
+
+  private void handleConverted(String paidCurrency, String formattedConvertedAmount,
+      String convertedCurrency) {
+    if (convertedCurrency.equals(paidCurrency)) {
+      this.convertedAmount.setVisibility(View.GONE);
+      this.verticalSeparator.setVisibility(View.GONE);
+
+      ConstraintSet constraintSet = new ConstraintSet();
+      constraintSet.clone(
+          (ConstraintLayout) findViewById(R.id.transaction_detail_constraint_layout));
+      constraintSet.connect(R.id.amount, ConstraintSet.END, R.id.guideline_end, ConstraintSet.END,
+          0);
+      constraintSet.connect(R.id.amount, ConstraintSet.START, R.id.guideline_start,
+          ConstraintSet.START, 0);
+      constraintSet.applyTo(
+          (ConstraintLayout) findViewById(R.id.transaction_detail_constraint_layout));
+    } else {
+      this.convertedAmount.setVisibility(View.VISIBLE);
+      this.verticalSeparator.setVisibility(View.VISIBLE);
+      this.convertedAmount.setText(formattedConvertedAmount);
+    }
   }
 
   private String getValue(String currencySymbol) {
     String rawValue = transaction.getValue();
     if (!rawValue.equals("0")) {
-      rawValue = getScaledValue(rawValue, currencySymbol);
+      rawValue = getScaledValue(rawValue, DECIMALS, currencySymbol);
     }
     return rawValue;
   }
@@ -556,7 +605,28 @@ public class TransactionDetailActivity extends BaseActivity {
   private String getValue(Transaction linkedTx, String currencySymbol) {
     String rawValue = linkedTx.getValue();
     if (!rawValue.equals("0")) {
-      rawValue = getScaledValue(rawValue, currencySymbol);
+      rawValue = getScaledValue(rawValue, DECIMALS, currencySymbol);
+    }
+    if (linkedTx.getType() == Transaction.TransactionType.IAP_OFFCHAIN) {
+      rawValue = "-" + rawValue;
+    } else {
+      rawValue = "+" + rawValue;
+    }
+    return rawValue;
+  }
+
+  private String getPaidValue() {
+    String rawValue = transaction.getPaidAmount();
+    if (!rawValue.equals("0")) {
+      rawValue = getScaledValue(rawValue, 0, "");
+    }
+    return rawValue;
+  }
+
+  private String getPaidValue(Transaction linkedTx) {
+    String rawValue = linkedTx.getPaidAmount();
+    if (!rawValue.equals("0")) {
+      rawValue = getScaledValue(rawValue, 0, "");
     }
     if (linkedTx.getType() == Transaction.TransactionType.IAP_OFFCHAIN) {
       rawValue = "-" + rawValue;

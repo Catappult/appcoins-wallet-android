@@ -36,6 +36,7 @@
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/transaction_detail_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
@@ -49,7 +50,7 @@
           android:layout_width="1dp"
           android:layout_height="wrap_content"
           android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.12"
+          app:layout_constraintGuide_percent="0.124087594"
           />
 
       <androidx.constraintlayout.widget.Guideline
@@ -69,7 +70,7 @@
           />
 
       <TextView
-          android:id="@+id/amount"
+          android:id="@+id/paid_amount"
           style="@style/TransactionDetailsTextStyle.Heading"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -77,7 +78,39 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:text="+0.85 APPC"
+          tools:text="-2.03 EUR"
+          />
+
+      <TextView
+          android:id="@+id/amount"
+          style="@style/TransactionDetailsTextStyle.Subtitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginEnd="12dp"
+          app:layout_constraintEnd_toEndOf="@id/vertical_separator"
+          app:layout_constraintTop_toBottomOf="@id/paid_amount"
+          tools:text="-30.58 APPC"
+          />
+
+      <com.asfoundation.wallet.ui.common.SeparatorView
+          android:id="@+id/vertical_separator"
+          android:layout_width="1dp"
+          android:layout_height="16dp"
+          app:layout_constraintStart_toStartOf="@id/guideline_start"
+          app:layout_constraintEnd_toEndOf="@id/guideline_end"
+          app:layout_constraintTop_toBottomOf="@id/paid_amount"
+        />
+
+      <TextView
+          android:id="@+id/converted_amount"
+          style="@style/TransactionDetailsTextStyle.Subtitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginStart="12dp"
+          app:layout_constraintStart_toStartOf="@id/vertical_separator"
+          app:layout_constraintTop_toBottomOf="@id/paid_amount"
           />
 
       <TextView
@@ -85,29 +118,33 @@
           style="@style/TransactionDetailsTextStyle.Title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
+          android:layout_marginStart="@dimen/half_large_margin"
+          android:layout_marginTop="40dp"
           android:ellipsize="end"
           android:maxLines="1"
           app:layout_constrainedWidth="true"
-          app:layout_constraintEnd_toStartOf="@id/guideline_end"
-          app:layout_constraintStart_toEndOf="@id/guideline_start"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/guideline_mid"
+          app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintTop_toBottomOf="@id/amount"
+          tools:text="-12.58 CNY"
           />
-
       <TextView
           android:id="@+id/item_id"
           style="@style/TransactionDetailsTextStyle.Subtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_marginTop="44dp"
+          android:layout_marginEnd="@dimen/half_large_margin"
           android:ellipsize="end"
           android:maxLines="1"
           android:visibility="invisible"
           app:layout_constrainedWidth="true"
-          app:layout_constraintEnd_toStartOf="@id/guideline_end"
-          app:layout_constraintStart_toEndOf="@id/guideline_start"
-          app:layout_constraintTop_toBottomOf="@id/app_id"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/guideline_mid"
+          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintTop_toBottomOf="@id/amount"
           />
-
       <TextView
           android:id="@+id/reverted_description"
           style="@style/TransactionDetailsTextStyle.Subtitle"
