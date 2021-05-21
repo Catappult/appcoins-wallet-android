@@ -131,6 +131,7 @@ enum class WalletCurrency(val symbol: String) {
         "APPC" -> APPCOINS
         "ETH" -> ETHEREUM
         "APPC-C" -> CREDITS
+        "" -> FIAT
         else -> throw IllegalArgumentException()
       }
     }
