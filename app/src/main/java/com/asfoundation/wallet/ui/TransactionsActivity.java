@@ -192,8 +192,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
         .observe(this, this::showPromotionsOverlay);
-    viewModel.balanceWalletsExperimentAssignment()
-        .observe(this, this::changeBottomNavigationName);
     viewModel.shouldShowRateUsDialog()
         .observe(this, this::navigateToRateUs);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
@@ -225,13 +223,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       viewModel.goToVipLink(this);
     }
     return super.onOptionsItemSelected(item);
-  }
-
-  private void changeBottomNavigationName(@StringRes Integer name) {
-    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-    bottomNavigationView.getMenu()
-        .getItem(BALANCE.getPosition())
-        .setTitle(getString(name));
   }
 
   @Override public void onBackPressed() {

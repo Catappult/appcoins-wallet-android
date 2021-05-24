@@ -28,14 +28,8 @@ class SplashPresenter(private val interactor: SplashInteractor,
 
   private fun handleNavigation() {
     disposables.add(
-        Single.zip(
-            interactor.getAutoUpdateModel()
-                .subscribeOn(ioScheduler),
-            interactor.retrieveExperiment()
-                .subscribeOn(ioScheduler),
-            BiFunction { autoUpdateModel: AutoUpdateModel, _: String ->
-              autoUpdateModel
-            })
+        interactor.getAutoUpdateModel()
+            .subscribeOn(ioScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { (updateVersionCode, updateMinSdk, blackList) ->
               if (interactor.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)) {

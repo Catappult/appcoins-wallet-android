@@ -1,17 +1,17 @@
-package com.asfoundation.wallet.abtesting.experiments.balancewallets
+package com.asfoundation.wallet.abtesting.experiments.topup
 
 import com.asf.wallet.R
 import com.asfoundation.wallet.abtesting.ABTestInteractor
 import com.asfoundation.wallet.abtesting.experiments.RakamExperiment
 import io.reactivex.Single
 
-class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
+class TopUpDefaultValueExperiment(private val abTestInteractor: ABTestInteractor) :
     RakamExperiment() {
 
   companion object {
     internal const val NO_EXPERIMENT = "Default"
-    private const val EXPERIMENT_ID = "WAL-78-Balance-vs-MyWallets"
-    private val experimentValues = listOf("Balance", "MyWallets")
+    private const val EXPERIMENT_ID = "APPC-2448-topup-default-value"
+    private val experimentValues = listOf("Index1", "Index2")
   }
 
   private var assignment: String? = null
@@ -33,9 +33,9 @@ class BalanceWalletsExperiment(private val abTestInteractor: ABTestInteractor) :
 
   override fun mapConfiguration(assignment: String?): Int {
     return when (assignment) {
-      "Balance" -> R.string.balance_title
-      "MyWallets" -> R.string.bottom_navigation_my_wallets
-      else -> R.string.balance_title
+      "Index1" -> 1
+      "Index2" -> 2
+      else -> 1
     }
   }
 
