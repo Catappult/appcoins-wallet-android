@@ -80,6 +80,10 @@ import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
+import com.asfoundation.wallet.wallets.FetchWalletsInteract
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -262,7 +266,8 @@ class InteractorModule {
   @Provides
   fun provideWalletCreatorInteract(accountRepository: WalletRepositoryType,
                                    passwordStore: PasswordStore, syncScheduler: ExecutorScheduler) =
-      WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+      WalletCreatorInteract(accountRepository,
+          passwordStore, syncScheduler)
 
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,

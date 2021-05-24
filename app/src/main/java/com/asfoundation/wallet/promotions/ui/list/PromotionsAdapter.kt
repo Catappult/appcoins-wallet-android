@@ -1,14 +1,15 @@
-package com.asfoundation.wallet.promotions
+package com.asfoundation.wallet.promotions.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
-import io.reactivex.subjects.PublishSubject
+import com.asfoundation.wallet.promotions.*
+import com.asfoundation.wallet.promotions.model.*
 
 
 class PromotionsAdapter(private var promotions: List<Promotion>,
-                        private val clickListener: PublishSubject<PromotionClick>) :
+                        private val clickListener: (PromotionClick) -> Unit) :
     RecyclerView.Adapter<PromotionsViewHolder>() {
 
   companion object {

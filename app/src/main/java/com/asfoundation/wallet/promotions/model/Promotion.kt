@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.promotions
+package com.asfoundation.wallet.promotions.model
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes

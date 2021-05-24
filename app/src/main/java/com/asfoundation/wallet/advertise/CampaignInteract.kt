@@ -3,7 +3,6 @@ package com.asfoundation.wallet.advertise
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.ProofSubmissionData
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -11,6 +10,7 @@ import com.asfoundation.wallet.repository.WalletNotFoundException
 import com.asfoundation.wallet.service.Campaign
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.CampaignStatus
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
 import java.net.UnknownHostException
 

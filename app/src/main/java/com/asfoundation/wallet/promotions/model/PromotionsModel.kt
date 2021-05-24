@@ -1,7 +1,10 @@
-package com.asfoundation.wallet.promotions
+package com.asfoundation.wallet.promotions.model
+
+import com.asfoundation.wallet.entity.Wallet
 
 data class PromotionsModel(val promotions: List<Promotion>,
                            val maxBonus: Double,
+                           val wallet: Wallet,
                            val walletOrigin: WalletOrigin,
                            val error: Status? = null,
                            val fromCache: Boolean = false) {

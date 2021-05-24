@@ -3,10 +3,10 @@ package com.asfoundation.wallet.restore.intro
 import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.util.RestoreError
 import com.asfoundation.wallet.util.RestoreErrorType
+import com.asfoundation.wallet.wallets.WalletModel
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single

@@ -1,16 +1,23 @@
-package com.asfoundation.wallet.promotions
+package com.asfoundation.wallet.promotions.ui
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
+import com.asfoundation.wallet.base.Navigator
+import com.asfoundation.wallet.base.navigate
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
 
-class PromotionsNavigator(private val fragment: Fragment) {
+class PromotionsNavigator(private val fragment: Fragment) : Navigator {
+
+  fun navigateToInfo() {
+    navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToInfo())
+  }
 
   fun navigateToGamification(cachedBonus: Double) {
     fragment.startActivity(GamificationActivity.newIntent(fragment.requireContext(), cachedBonus))

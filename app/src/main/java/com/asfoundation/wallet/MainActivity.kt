@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.core.view.get
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import com.asf.wallet.R
@@ -20,10 +21,6 @@ import javax.inject.Inject
  */
 class MainActivity : DaggerAppCompatActivity() {
 
-  @Inject
-  lateinit var navigator: MainActivityNavigator
-  private var currentNavController: LiveData<NavController>? = null
-
   companion object {
     fun newIntent(context: Context, supportNotificationClicked: Boolean): Intent {
       return Intent(context, MainActivity::class.java).apply {
@@ -31,6 +28,22 @@ class MainActivity : DaggerAppCompatActivity() {
       }
     }
   }
+
+  enum class BottomNavItem(val navGraphIdRes: Int) {
+    HOME(R.navigation.home_graph),
+    PROMOTIONS(R.navigation.promotions_graph),
+    MY_WALLETS(R.navigation.my_wallets_graph)
+  }
+
+  private val bottomNavItems =
+      listOf(BottomNavItem.HOME, BottomNavItem.PROMOTIONS, BottomNavItem.MY_WALLETS)
+
+  @Inject
+  lateinit var navigator: MainActivityNavigator
+
+  private var currentNavController: LiveData<NavController>? = null
+
+  private var bottomNavigationView: BottomNavigationView? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -52,24 +65,34 @@ class MainActivity : DaggerAppCompatActivity() {
    * Issue here https://issuetracker.google.com/issues/80029773#comment136
    */
   private fun setupBottomNavigationBar() {
-    val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+    bottomNavigationView = findViewById(R.id.bottom_nav)
 
-    val navGraphIds =
-        listOf(R.navigation.home_graph, R.navigation.promotions_graph, R.navigation.balance_graph)
+    val navGraphIds = bottomNavItems.map { it.navGraphIdRes }
 
-    val controller = bottomNavigationView.setupWithNavController(
+    val controller = bottomNavigationView?.setupWithNavController(
         navGraphIds = navGraphIds,
         fragmentManager = supportFragmentManager,
         containerId = R.id.nav_host_container,
         intent = intent
     )
+
     setupTopUpItem(bottomNavigationView)
 
     currentNavController = controller
   }
 
-  private fun setupTopUpItem(bottomNavigationView: BottomNavigationView) {
-    val menuView = bottomNavigationView.getChildAt(0) as BottomNavigationMenuView
+  fun setSelectedBottomNavItem(bottomNavItem: BottomNavItem) {
+    try {
+      val index = bottomNavItems.indexOf(bottomNavItem)
+      val menuItemId = bottomNavigationView?.menu?.get(index)?.itemId
+      menuItemId?.let { bottomNavigationView?.selectedItemId = it }
+    } catch (e: Exception) {
+      // Do nothing
+    }
+  }
+
+  private fun setupTopUpItem(bottomNavigationView: BottomNavigationView?) {
+    val menuView = bottomNavigationView?.getChildAt(0) as BottomNavigationMenuView
     val topUpItemView = menuView.getChildAt(3) as BottomNavigationItemView
     val topUpCustomView = LayoutInflater.from(this)
         .inflate(R.layout.bottom_nav_top_up_item, menuView, false)

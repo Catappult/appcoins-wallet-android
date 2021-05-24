@@ -773,6 +773,14 @@
     <item name="android:lineSpacingExtra">4sp</item>
   </style>
 
+  <style name="Promotions" />
+
+  <style name="Promotions.ContentShape">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSizeTopLeft">15dp</item>
+    <item name="cornerSizeTopRight">15dp</item>
+  </style>
+
   <style name="Promotions.CardView" parent="Widget.MaterialComponents.CardView">
     <item name="cardBackgroundColor">@color/white</item>
     <item name="cardCornerRadius">12dp</item>
@@ -1134,9 +1142,20 @@
     <item name="shapeAppearance">@style/Home.PillShape</item>
   </style>
 
-  <style name="Home.BottomNav" />
+  <style name="BottomNav" />
 
-  <style name="Home.BottomNav.TopUpShape">
+  <style name="BottomNav.Header" />
+
+  <style name="BottomNav.Header.Title">
+    <item name="android:textAllCaps">false</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="BottomNav.Home" />
+
+  <style name="BottomNav.Home.TopUpShape">
     <item name="cornerFamily">rounded</item>
     <item name="cornerSizeTopLeft">50%</item>
     <item name="cornerSizeTopRight">0dp</item>

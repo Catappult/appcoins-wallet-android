@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.promotions.model.GamificationLinkItem
 import kotlinx.android.synthetic.main.item_gamification_link.view.*
 
 

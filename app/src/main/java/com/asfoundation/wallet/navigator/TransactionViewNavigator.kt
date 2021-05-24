@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.promotions.PromotionsActivity
 import com.asfoundation.wallet.router.*
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.backup.BackupActivity
@@ -39,9 +38,11 @@ class TransactionViewNavigator(private val sendRouter: SendRouter,
   fun openTopUp(context: Context) = topUpRouter.open(context)
 
   fun openPromotions(context: Context) {
-    val intent = Intent(context, PromotionsActivity::class.java)
-        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
-    context.startActivity(intent)
+    // TODO: IMPORTANT! This has to be refactored once home is only a fragment
+    // TODO: Use MainActivityNavigator
+//    val intent = Intent(context, PromotionsActivity::class.java)
+//        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+//    context.startActivity(intent)
   }
 
   fun navigateToBackup(context: Context, walletAddress: String) {
