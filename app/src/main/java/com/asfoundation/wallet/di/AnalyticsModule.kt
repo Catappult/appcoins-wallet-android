@@ -3,7 +3,7 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsAnalytics
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
 import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
@@ -91,8 +91,7 @@ class AnalyticsModule {
       WalletsAnalytics.WALLET_IMPORT_RESTORE,
       WalletsAnalytics.WALLET_PASSWORD_RESTORE,
       PageViewAnalytics.WALLET_PAGE_VIEW,
-      BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_PARTICIPATING_EVENT,
-      BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_CONVERSION_EVENT,
+      TopUpABTestingAnalytics.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
       RatingAnalytics.WALLET_RATING_WELCOME_EVENT,
       RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
       RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT,
@@ -169,9 +168,8 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun providesTransactionsAnalytics(analytics: AnalyticsManager,
-                                    balanceWalletsAnalytics: BalanceWalletsAnalytics) =
-      TransactionsAnalytics(analytics, balanceWalletsAnalytics)
+  fun providesTransactionsAnalytics(analytics: AnalyticsManager) =
+      TransactionsAnalytics(analytics)
 
   @Singleton
   @Provides
@@ -198,7 +196,9 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideTopUpAnalytics(analyticsManager: AnalyticsManager) = TopUpAnalytics(analyticsManager)
+  fun provideTopUpAnalytics(analyticsManager: AnalyticsManager,
+                            abTestingAnalytics: TopUpABTestingAnalytics) =
+      TopUpAnalytics(analyticsManager, abTestingAnalytics)
 
   @Provides
   fun providePaymentMethodsAnalytics(analyticsManager: AnalyticsManager,
@@ -211,8 +211,8 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun providesBalanceWalletsAnalytics(analytics: AnalyticsManager): BalanceWalletsAnalytics {
-    return BalanceWalletsAnalytics(analytics)
+  fun providesTopUpdABTestingAnalytics(analytics: AnalyticsManager): TopUpABTestingAnalytics {
+    return TopUpABTestingAnalytics(analytics)
   }
 
   @Singleton

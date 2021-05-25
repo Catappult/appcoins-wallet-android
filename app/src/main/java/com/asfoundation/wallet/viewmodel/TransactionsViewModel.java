@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Pair;
-import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
@@ -63,7 +62,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showVipBadge = new MutableLiveData<>();
-  private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
   private final AppcoinsApps applications;
   private final TransactionsAnalytics analytics;
@@ -133,10 +131,6 @@ public class TransactionsViewModel extends BaseViewModel {
     return showPromotionTooltip;
   }
 
-  public MutableLiveData<Integer> balanceWalletsExperimentAssignment() {
-    return experimentAssignment;
-  }
-
   public LiveData<Boolean> shouldShowRateUsDialog() {
     return showRateUsDialog;
   }
@@ -146,7 +140,6 @@ public class TransactionsViewModel extends BaseViewModel {
       disposables = new CompositeDisposable();
     }
     progress.postValue(true);
-    handleBalanceWalletsExperiment();
     handlePromotionTooltipVisibility();
     handleFindNetwork();
     handlePromotionUpdateNotification();
@@ -179,19 +172,7 @@ public class TransactionsViewModel extends BaseViewModel {
         }, this::onError));
   }
 
-  private void handleBalanceWalletsExperiment() {
-    disposables.add(transactionViewInteractor.getBalanceWalletsExperiment()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess(assignment -> {
-          @StringRes int bottomNavigationItemName =
-              transactionViewInteractor.mapConfiguration(assignment);
-          analytics.sendAbTestImpressionEvent(assignment);
-          experimentAssignment.postValue(bottomNavigationItemName);
-        })
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace));
-  }
+
 
   private void handleRateUsDialogVisibility() {
     disposables.add(transactionViewInteractor.shouldOpenRatingDialog()
@@ -422,9 +403,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribeOn(networkScheduler)
         .flatMap(wallet -> transactionViewInteractor.getUserLevel()
             .subscribeOn(networkScheduler)
-            .doOnSuccess(userLevel -> {
-              showVipBadge.postValue(userLevel == 9 || userLevel == 10);
-            }))
+            .doOnSuccess(userLevel -> showVipBadge.postValue(userLevel == 9 || userLevel == 10)))
         .subscribe(wallet -> {
         }, this::onError));
   }
@@ -442,9 +421,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTokens(Context context) {
-    analytics.sendAbTestConversionEvent();
-    transactionViewNavigator.openTokensView(context,
-        transactionViewInteractor.getCachedExperiment());
+    transactionViewNavigator.openMyWalletsView(context);
   }
 
   public void pause() {
