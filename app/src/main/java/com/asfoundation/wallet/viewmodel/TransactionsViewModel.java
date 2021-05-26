@@ -308,8 +308,9 @@ public class TransactionsViewModel extends BaseViewModel {
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
     GlobalBalance newGlobalBalance =
         new GlobalBalance(tokenBalance.first, creditsBalance.first, ethereumBalance.first,
-            tokenBalance.second.getSymbol(), fiatValue, shouldShow(tokenBalance, 0.01),
-            shouldShow(creditsBalance, 0.01), shouldShow(ethereumBalance, 0.0001));
+            tokenBalance.second.getSymbol(), tokenBalance.second.getCurrency(), fiatValue,
+            shouldShow(tokenBalance, 0.01), shouldShow(creditsBalance, 0.01),
+            shouldShow(ethereumBalance, 0.0001));
     if (currentGlobalBalance != null) {
       if (!currentGlobalBalance.equals(newGlobalBalance)) {
         defaultWalletBalance.postValue(newGlobalBalance);
@@ -434,7 +435,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showDetails(Context context, Transaction transaction) {
-    transactionViewNavigator.openTransactionsDetailView(context, transaction);
+    transactionViewNavigator.openTransactionsDetailView(context, transaction,
+        defaultWalletBalance.getValue()
+            .getFiatCurrency());
   }
 
   public void showMyAddress(Context context) {

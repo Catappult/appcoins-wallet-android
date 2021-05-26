@@ -21,31 +21,27 @@ class LocalCurrencyConversionService(
     return if (getFromCache) {
       currencyConversionRatesPersistence.getAppcToLocalFiat(value, scale)
           .toObservable()
-    } else tokenToLocalFiatApi.getValueToLocalFiat(value, "APPC")
-        .flatMap { response: ConversionResponseBody ->
-          val convertedValue = FiatValue(response.appcValue
-              .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
-          currencyConversionRatesPersistence.saveRateFromAppcToFiat(value, response.appcValue
-              .toString(), response.currency, response.symbol)
-              .andThen(Observable.just(convertedValue))
+    } else getValueToFiat("APPC", value, scale)
+        .flatMap {
+          currencyConversionRatesPersistence.saveRateFromAppcToFiat(value, it.amount
+              .toString(), it.currency, it.symbol)
+              .andThen(Observable.just(it))
               .onErrorReturn { throwable: Throwable ->
                 throwable.printStackTrace()
-                convertedValue
+                it
               }
         }
   }
 
   fun getEtherToLocalFiat(value: String, scale: Int): Observable<FiatValue> {
-    return tokenToLocalFiatApi.getValueToLocalFiat(value, "ETH")
-        .flatMap { response: ConversionResponseBody ->
-          val convertedValue = FiatValue(response.appcValue
-              .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
-          currencyConversionRatesPersistence.saveRateFromEthToFiat(value, response.appcValue
-              .toString(), response.currency, response.symbol)
-              .andThen(Observable.just(convertedValue))
+    return getValueToFiat("ETH", value, scale)
+        .flatMap {
+          currencyConversionRatesPersistence.saveRateFromEthToFiat(value, it.amount
+              .toString(), it.currency, it.symbol)
+              .andThen(Observable.just(it))
               .onErrorReturn { throwable: Throwable ->
                 throwable.printStackTrace()
-                convertedValue
+                it
               }
         }
   }
@@ -58,11 +54,18 @@ class LocalCurrencyConversionService(
         }
   }
 
+  fun getValueToFiat(value: String, currency: String, scale: Int): Observable<FiatValue> {
+    return tokenToLocalFiatApi.getValueToLocalFiat(currency, value)
+        .map { response: ConversionResponseBody ->
+          FiatValue(response.appcValue
+              .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
+        }
+  }
+
   interface TokenToLocalFiatApi {
-    @GET("broker/8.20180518/exchanges/{valueFrom}/convert/{appcValue}")
-    fun getValueToLocalFiat(@Path("appcValue") appcValue: String,
-                            @Path("valueFrom")
-                            valueFrom: String): Observable<ConversionResponseBody>
+    @GET("broker/8.20180518/exchanges/{localCurrency}/convert/{value}")
+    fun getValueToLocalFiat(@Path("localCurrency") currency: String,
+                            @Path("value") value: String): Observable<ConversionResponseBody>
 
     @GET("broker/8.20180518/exchanges/{localCurrency}/convert/{value}?to=APPC")
     fun convertLocalToAppc(@Path("localCurrency") currency: String,

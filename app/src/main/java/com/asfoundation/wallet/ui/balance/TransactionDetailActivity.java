@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.entity.TransactionsDetailsModel;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
@@ -41,6 +41,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import javax.inject.Inject;
 
+import static com.asfoundation.wallet.C.Key.GLOBAL_BALANCE_CURRENCY;
 import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
 public class TransactionDetailActivity extends BaseActivity {
@@ -50,6 +51,8 @@ public class TransactionDetailActivity extends BaseActivity {
   @Inject CurrencyFormatUtils formatter;
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
+  private String globalBalanceCurrency;
+  private String convertedValue;
   private boolean isSent = false;
   private TextView amount;
   private TextView paidAmount;
@@ -76,6 +79,7 @@ public class TransactionDetailActivity extends BaseActivity {
     }
     toolbar();
 
+    globalBalanceCurrency = getIntent().getStringExtra(GLOBAL_BALANCE_CURRENCY);
     ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(1f);
 
     amount = findViewById(R.id.amount);
@@ -88,10 +92,10 @@ public class TransactionDetailActivity extends BaseActivity {
 
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
-    viewModel.defaultNetwork()
-        .observe(this, this::onDefaultNetwork);
-    viewModel.defaultWallet()
-        .observe(this, this::onDefaultWallet);
+
+    viewModel.initializeView(getPaidValue(), transaction.getPaidCurrency());
+    viewModel.transactionsDetailsModel()
+        .observe(this, this::onTransactionsDetails);
 
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
@@ -113,8 +117,9 @@ public class TransactionDetailActivity extends BaseActivity {
     hideDialog();
   }
 
-  private void onDefaultWallet(Wallet wallet) {
-    adapter.setDefaultWallet(wallet);
+  private void onTransactionsDetails(TransactionsDetailsModel transactionsDetailsModel) {
+    adapter.setDefaultWallet(transactionsDetailsModel.getWallet());
+    adapter.setDefaultNetwork(transactionsDetailsModel.getNetworkInfo());
 
     if (transaction.getOperations() != null && !transaction.getOperations()
         .isEmpty()) {
@@ -124,14 +129,11 @@ public class TransactionDetailActivity extends BaseActivity {
 
     isSent = transaction.getFrom()
         .toLowerCase()
-        .equals(wallet.address);
-
-    NetworkInfo networkInfo = viewModel.defaultNetwork()
-        .getValue();
+        .equals(transactionsDetailsModel.getWallet().address);
 
     String symbol =
-        transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
-            : transaction.getCurrency();
+        transaction.getCurrency() == null ? (transactionsDetailsModel.getNetworkInfo() == null ? ""
+            : transactionsDetailsModel.getNetworkInfo().symbol) : transaction.getCurrency();
 
     String icon = null;
     String id = null;
@@ -271,31 +273,16 @@ public class TransactionDetailActivity extends BaseActivity {
       statusColor = R.color.green;
     }
 
-    String convertedAmount = "";
-    String convertedCurrency = "";
-
-    setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, getPaidValue(),
-        transaction.getPaidCurrency(), convertedAmount, convertedCurrency, icon, id, description,
-        typeStr, typeIcon, statusStr, statusColor, to, isSent, isRevertTransaction,
-        isRevertedTransaction, revertedDescription, descriptionColor);
-  }
-
-  private void onDefaultNetwork(NetworkInfo networkInfo) {
-    adapter.setDefaultNetwork(networkInfo);
-
-    String symbol =
-        transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
-            : transaction.getCurrency();
-
-    boolean isRevertTransaction = isRevertTransaction(transaction);
-    boolean isRevertedTransaction = isRevertedTransaction(transaction);
-
-    String convertedAmount = "";
-    String convertedCurrency = "";
+    String convertedCurrency = globalBalanceCurrency;
 
     formatValues(getValue(symbol), symbol, getPaidValue(), transaction.getPaidCurrency(),
-        convertedAmount, convertedCurrency, transaction.getType(), isRevertTransaction,
-        isRevertedTransaction);
+        transactionsDetailsModel.getConvertedValue(), convertedCurrency, transaction.getType(),
+        isRevertTransaction, isRevertedTransaction);
+
+    setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, getPaidValue(),
+        transaction.getPaidCurrency(), transactionsDetailsModel.getConvertedValue(),
+        convertedCurrency, icon, id, description, typeStr, typeIcon, statusStr, statusColor, to,
+        isSent, isRevertTransaction, isRevertedTransaction, revertedDescription, descriptionColor);
   }
 
   private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
@@ -421,11 +408,11 @@ public class TransactionDetailActivity extends BaseActivity {
       icn.setOnClickListener(view -> viewModel.showSupportScreen());
 
       revertedView.setOnClickListener(
-          view -> viewModel.showDetails(view.getContext(), linkTransaction));
+          view -> viewModel.showDetails(view.getContext(), linkTransaction, globalBalanceCurrency));
 
-      NetworkInfo networkInfo = viewModel.defaultNetwork()
-          .getValue();
-
+      NetworkInfo networkInfo = viewModel.transactionsDetailsModel()
+          .getValue()
+          .getNetworkInfo();
       String symbol =
           linkTransaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
               : linkTransaction.getCurrency();
@@ -563,8 +550,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     String formattedValue = signal + value + " " + symbol.toUpperCase();
     String formattedPaidValue = signal + paidAmount;
-    String formattedConvertedValue =
-        signal + convertedAmount + " " + convertedCurrency.toUpperCase();
+    String formattedConvertedValue = signal + convertedAmount + " " + convertedCurrency;
     this.paidAmount.setText(
         BalanceUtils.formatBalance(formattedPaidValue, paidCurrency, smallTitleSize, color));
     this.amount.setText(formattedValue);
