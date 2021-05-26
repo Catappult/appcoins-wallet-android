@@ -89,6 +89,7 @@ class AnalyticsModule {
       WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
       WalletsAnalytics.WALLET_SAVE_FILE,
       WalletsAnalytics.WALLET_IMPORT_RESTORE,
+      WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
       WalletsAnalytics.WALLET_PASSWORD_RESTORE,
       PageViewAnalytics.WALLET_PAGE_VIEW,
       BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_PARTICIPATING_EVENT,
