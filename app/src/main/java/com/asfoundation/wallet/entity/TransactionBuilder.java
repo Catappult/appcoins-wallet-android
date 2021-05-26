@@ -132,10 +132,13 @@ public class TransactionBuilder implements Parcelable {
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
       String iabContract, String type, String origin, String domain, String payload,
-      String callbackUrl, String orderReference, String referrerUrl, String productName) {
+      String callbackUrl, String orderReference, String originValue,
+      String originCurrency, String referrerUrl, String productName) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
         type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
     this.iabContract = iabContract;
+    this.originalOneStepValue = originValue;
+    this.originalOneStepCurrency = originCurrency;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
