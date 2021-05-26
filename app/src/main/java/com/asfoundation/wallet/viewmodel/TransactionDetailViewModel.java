@@ -65,15 +65,19 @@ public class TransactionDetailViewModel extends BaseViewModel {
     supportInteractor.displayChatScreen();
   }
 
-  private Observable<FiatValue> convertValue(String value, String currency, int scale) {
-    return conversionService.getValueToFiat(value, currency, scale);
+  private Observable<FiatValue> convertValue(String value, String currency) {
+    return conversionService.getValueToFiat(value, currency, 2);
   }
 
   public Single<String> getConvertedValue(String value, String currency) {
-    return convertValue(value, currency, 2).subscribeOn(Schedulers.io())
-        .firstElement()
-        .flatMapSingle(converted -> Single.just(converted.getAmount()
-            .toString()));
+    if (value != null) {
+      return convertValue(value, currency).subscribeOn(Schedulers.io())
+          .firstElement()
+          .flatMapSingle(converted -> Single.just(converted.getAmount()
+              .toString()));
+    } else {
+      return Single.just("");
+    }
   }
 
   public LiveData<TransactionsDetailsModel> transactionsDetailsModel() {

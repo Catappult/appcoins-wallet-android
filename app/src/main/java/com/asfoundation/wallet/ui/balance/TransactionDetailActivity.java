@@ -52,7 +52,6 @@ public class TransactionDetailActivity extends BaseActivity {
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
   private String globalBalanceCurrency;
-  private String convertedValue;
   private boolean isSent = false;
   private TextView amount;
   private TextView paidAmount;
@@ -274,10 +273,6 @@ public class TransactionDetailActivity extends BaseActivity {
     }
 
     String convertedCurrency = globalBalanceCurrency;
-
-    formatValues(getValue(symbol), symbol, getPaidValue(), transaction.getPaidCurrency(),
-        transactionsDetailsModel.getConvertedValue(), convertedCurrency, transaction.getType(),
-        isRevertTransaction, isRevertedTransaction);
 
     setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, getPaidValue(),
         transaction.getPaidCurrency(), transactionsDetailsModel.getConvertedValue(),
@@ -548,21 +543,26 @@ public class TransactionDetailActivity extends BaseActivity {
       signal = isSent ? "-" : "+";
     }
 
-    String formattedValue = signal + value + " " + symbol.toUpperCase();
-    String formattedPaidValue = signal + paidAmount;
-    String formattedConvertedValue = signal + convertedAmount + " " + convertedCurrency;
-    this.paidAmount.setText(
-        BalanceUtils.formatBalance(formattedPaidValue, paidCurrency, smallTitleSize, color));
-    this.amount.setText(formattedValue);
+    if (paidAmount != null) {
+      String formattedValue = signal + value + " " + symbol.toUpperCase();
+      String formattedPaidValue = signal + paidAmount;
+      String formattedConvertedValue = signal + convertedAmount + " " + convertedCurrency;
+      this.paidAmount.setText(
+          BalanceUtils.formatBalance(formattedPaidValue, paidCurrency, smallTitleSize, color));
+      this.amount.setText(formattedValue);
 
-    handleConverted(paidCurrency, formattedConvertedValue, convertedCurrency);
+      handleConverted(paidCurrency, formattedConvertedValue, convertedCurrency);
+    } else {
+      String formattedValue = signal + value;
+      this.paidAmount.setText(
+          BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
+    }
   }
 
   private void handleConverted(String paidCurrency, String formattedConvertedAmount,
       String convertedCurrency) {
     if (convertedCurrency.equals(paidCurrency)) {
       this.convertedAmount.setVisibility(View.GONE);
-      this.verticalSeparator.setVisibility(View.GONE);
 
       ConstraintSet constraintSet = new ConstraintSet();
       constraintSet.clone(
@@ -603,21 +603,8 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private String getPaidValue() {
     String rawValue = transaction.getPaidAmount();
-    if (!rawValue.equals("0")) {
+    if (rawValue != null && !rawValue.equals("0")) {
       rawValue = getScaledValue(rawValue, 0, "");
-    }
-    return rawValue;
-  }
-
-  private String getPaidValue(Transaction linkedTx) {
-    String rawValue = linkedTx.getPaidAmount();
-    if (!rawValue.equals("0")) {
-      rawValue = getScaledValue(rawValue, 0, "");
-    }
-    if (linkedTx.getType() == Transaction.TransactionType.IAP_OFFCHAIN) {
-      rawValue = "-" + rawValue;
-    } else {
-      rawValue = "+" + rawValue;
     }
     return rawValue;
   }
