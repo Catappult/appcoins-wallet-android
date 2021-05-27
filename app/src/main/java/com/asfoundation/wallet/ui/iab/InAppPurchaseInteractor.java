@@ -287,14 +287,12 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
-    if (hasFunds(paymentMethods) || !hasRequiredAptoideVersionInstalled()) {
-      Iterator<PaymentMethod> iterator = paymentMethods.iterator();
-      while (iterator.hasNext()) {
-        PaymentMethod paymentMethod = iterator.next();
-        if (paymentMethod.getId()
-            .equals("earn_appcoins")) {
-          iterator.remove();
-        }
+    Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+    while (iterator.hasNext()) {
+      PaymentMethod paymentMethod = iterator.next();
+      if (paymentMethod.getId()
+          .equals("earn_appcoins")) {
+        iterator.remove();
       }
     }
     return paymentMethods;

@@ -124,19 +124,21 @@ public class AppcoinsApplicationViewHolder extends RecyclerView.ViewHolder {
   }
 
   private void setupClickListeners(AppcoinsApplication appcoinsApplication) {
-    appName.setOnClickListener(
-        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
-    appIcon.setOnClickListener(
-        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
-    appRating.setOnClickListener(
-        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
-    featuredGraphic.setOnClickListener(
-        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
+    if (applicationClickListener != null) {
+      appName.setOnClickListener(
+          v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
+      appIcon.setOnClickListener(
+          v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
+      appRating.setOnClickListener(
+          v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
+      featuredGraphic.setOnClickListener(
+          v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.CLICK));
 
-    shareIcon.setOnClickListener(
-        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.SHARE));
-    shareTitle.setOnClickListener(
-        v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.SHARE));
+      shareIcon.setOnClickListener(
+          v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.SHARE));
+      shareTitle.setOnClickListener(
+          v -> applicationClickListener.call(appcoinsApplication, ApplicationClickAction.SHARE));
+    }
   }
 
   private void loadDefaultFeaturedGraphic(Bitmap bitmap) {
