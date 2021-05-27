@@ -20,16 +20,13 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.TransactionViewInteractor;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
-import com.asfoundation.wallet.promotions.PromotionNotification;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
-import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
-import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.SingleLiveEvent;
@@ -455,26 +452,6 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startGlobalBalanceTask);
   }
 
-  public void onAppClick(AppcoinsApplication appcoinsApplication,
-      ApplicationClickAction applicationClickAction, Context context) {
-    String url = "https://" + appcoinsApplication.getUniqueName() + ".en.aptoide.com/";
-    switch (applicationClickAction) {
-      case SHARE:
-        shareApp.setValue(url);
-        break;
-      case CLICK:
-      default:
-        transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));
-        analytics.openApp(appcoinsApplication.getUniqueName(),
-            appcoinsApplication.getPackageName());
-    }
-  }
-
-  public void showTopApps(Context context) {
-    transactionViewNavigator.navigateToBrowser(context,
-        Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL));
-  }
-
   public MutableLiveData<Boolean> shouldShowPromotionsNotification() {
     return showNotification;
   }
@@ -509,10 +486,7 @@ public class TransactionsViewModel extends BaseViewModel {
       case DISMISS:
         dismissNotification(cardNotification);
         break;
-      case DISCOVER:
-        transactionViewNavigator.navigateToBrowser(context,
-            Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL));
-        break;
+
       case UPDATE:
         transactionViewNavigator.openIntent(context,
             transactionViewInteractor.retrieveUpdateIntent());
@@ -527,11 +501,7 @@ public class TransactionsViewModel extends BaseViewModel {
         }
         break;
       case DETAILS_URL:
-        if (cardNotification instanceof PromotionNotification) {
-          String url = ((PromotionNotification) cardNotification).getDetailsLink();
-          transactionViewNavigator.navigateToBrowser(context, Uri.parse(url));
-        }
-        break;
+      case DISCOVER:
       case NONE:
         break;
     }
