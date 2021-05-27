@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.util.EskillsUri
@@ -42,6 +43,7 @@ class SkillsFragment : DaggerFragment() {
 
   private lateinit var userId: String
   private lateinit var disposable: CompositeDisposable
+  private var ticketId: String? = null
 
   private lateinit var binding: FragmentSkillsBinding
 
@@ -57,16 +59,29 @@ class SkillsFragment : DaggerFragment() {
 
     val eskillsUri = getEskillsUri()
     userId = eskillsUri.getUserId()
+
+    requireActivity().onBackPressedDispatcher
+        .addCallback(this, object : OnBackPressedCallback(true) {
+          override fun handleOnBackPressed() {
+            cancelTicketAndReturnToGame()
+          }
+        })
+
     disposable.add(
         handleWalletCreationIfNeeded()
             .takeUntil { it != WALLET_CREATING_STATUS }
             .flatMap {
               viewModel.createTicket(eskillsUri)
                   .observeOn(AndroidSchedulers.mainThread())
-                  .doOnSubscribe { showRoomLoading(false, null) }
+                  .doOnSubscribe { showRoomLoading(false) }
                   .flatMap { ticketResponse ->
                     viewModel.getRoom(eskillsUri, ticketResponse, this)
-                        .doOnSubscribe { showRoomLoading(true, ticketResponse.ticketId) }
+                        .doOnSubscribe {
+                          run {
+                            ticketId = ticketResponse.ticketId
+                            showRoomLoading(true)
+                          }
+                        }
                         .doOnNext { userData ->
                           if (userData.refunded) {
                             showRefunded()
@@ -83,15 +98,17 @@ class SkillsFragment : DaggerFragment() {
   private fun showRefunded() {
     binding.loadingTicketLayout.processingLoading.visibility = View.GONE
     binding.refundTicketLayout.refund.visibility = View.VISIBLE
-    binding.refundTicketLayout.refundOkButton.setOnClickListener({ requireActivity().finish() })
+    binding.refundTicketLayout.refundOkButton.setOnClickListener { requireActivity().finish() }
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == RESULT_OK) {
-      viewModel.payTicketOnActivityResult(
-          resultCode, data!!.extras
-      !!.getString(TRANSACTION_HASH)
-      )
+      if (data != null) {
+        viewModel.payTicketOnActivityResult(resultCode, data.extras!!.getString(TRANSACTION_HASH))
+      } else {
+        cancelTicketAndReturnToGame()
+      }
+
     } else {
       super.onActivityResult(requestCode, resultCode, data)
     }
@@ -131,26 +148,30 @@ class SkillsFragment : DaggerFragment() {
     binding.createWalletLayout.createWalletCard.visibility = View.GONE
   }
 
-  private fun showRoomLoading(isCancelActive: Boolean, ticketId: String?) {
+  private fun showRoomLoading(isCancelActive: Boolean) {
     binding.loadingTicketLayout.processingLoading.visibility = View.VISIBLE
     if (isCancelActive) {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.finding_room_loading_title)
       binding.loadingTicketLayout.cancelButton.isEnabled = true
       binding.loadingTicketLayout.cancelButton.setOnClickListener {
-        // only paid tickets can be canceled/refunded on the backend side, meaning that if we
-        // cancel before actually paying the backend will return a 409 HTTP. this way we allow
-        // users to return to the game, without crashing, even if they weren't waiting in queue
-        try {
-          viewModel.cancelTicket(ticketId!!)
-              .map {
-                postbackUserData(RESULT_USER_CANCELED, UserData("", "", "", "", true))
-              }.blockingGet()
-        } catch (e: Exception) {
-          postbackUserData(RESULT_ERROR, UserData("", "", "", "", true))
-        }
+        cancelTicketAndReturnToGame()
       }
     } else {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)
+    }
+  }
+
+  private fun cancelTicketAndReturnToGame() {
+    // only paid tickets can be canceled/refunded on the backend side, meaning that if we
+    // cancel before actually paying the backend will return a 409 HTTP. this way we allow
+    // users to return to the game, without crashing, even if they weren't waiting in queue
+    try {
+      viewModel.cancelTicket(ticketId!!)
+          .map {
+            postbackUserData(RESULT_USER_CANCELED, UserData("", "", "", "", true))
+          }.blockingGet()
+    } catch (e: Exception) {
+      postbackUserData(RESULT_ERROR, UserData("", "", "", "", true))
     }
   }
 
