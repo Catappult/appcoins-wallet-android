@@ -23,8 +23,9 @@ class TransactionViewNavigator(private val sendRouter: SendRouter,
 
   fun openSendView(context: Context) = sendRouter.open(context)
 
-  fun openTransactionsDetailView(context: Context, transaction: Transaction) =
-      transactionDetailRouter.open(context, transaction)
+  fun openTransactionsDetailView(context: Context, transaction: Transaction,
+                                 globalBalanceCurrency: String) =
+      transactionDetailRouter.open(context, transaction, globalBalanceCurrency)
 
   fun openMyAddressView(context: Context, value: Wallet?) = myAddressRouter.open(context, value)
 
