@@ -10,8 +10,6 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
@@ -55,7 +53,7 @@ public class TransactionDetailActivity extends BaseActivity {
   private boolean isSent = false;
   private TextView amount;
   private TextView paidAmount;
-  private TextView convertedAmount;
+  private TextView localFiatAmount;
   private SeparatorView verticalSeparator;
   private TransactionsDetailsAdapter adapter;
   private RecyclerView detailsList;
@@ -83,7 +81,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     amount = findViewById(R.id.amount);
     paidAmount = findViewById(R.id.paid_amount);
-    convertedAmount = findViewById(R.id.converted_amount);
+    localFiatAmount = findViewById(R.id.local_fiat_amount);
     verticalSeparator = findViewById(R.id.vertical_separator);
     adapter = new TransactionsDetailsAdapter(this::onMoreClicked);
     detailsList = findViewById(R.id.details_list);
@@ -92,7 +90,7 @@ public class TransactionDetailActivity extends BaseActivity {
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
 
-    viewModel.initializeView(getPaidValue(), transaction.getPaidCurrency());
+    viewModel.initializeView(getPaidValue(), transaction.getPaidCurrency(), globalBalanceCurrency);
     viewModel.transactionsDetailsModel()
         .observe(this, this::onTransactionsDetails);
 
@@ -272,12 +270,14 @@ public class TransactionDetailActivity extends BaseActivity {
       statusColor = R.color.green;
     }
 
-    String convertedCurrency = globalBalanceCurrency;
+    String localFiatCurrency = globalBalanceCurrency;
 
     setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, getPaidValue(),
-        transaction.getPaidCurrency(), transactionsDetailsModel.getConvertedValue(),
-        convertedCurrency, icon, id, description, typeStr, typeIcon, statusStr, statusColor, to,
-        isSent, isRevertTransaction, isRevertedTransaction, revertedDescription, descriptionColor);
+        transaction.getPaidCurrency(), transactionsDetailsModel.getFiatValue()
+            .getAmount()
+            .toString(), localFiatCurrency, icon, id, description, typeStr, typeIcon, statusStr,
+        statusColor, to, isSent, isRevertTransaction, isRevertedTransaction, revertedDescription,
+        descriptionColor);
   }
 
   private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
@@ -306,14 +306,14 @@ public class TransactionDetailActivity extends BaseActivity {
   }
 
   private void setUiContent(long timeStamp, String value, String symbol, String paidAmount,
-      String paidCurrency, String convertedAmount, String convertedCurrency, String icon, String id,
+      String paidCurrency, String localFiatAmount, String localFiatCurrency, String icon, String id,
       String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to,
       boolean isSent, boolean isRevertTransaction, boolean isRevertedTransaction,
       int revertedDescription, int descriptionColor) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
-    formatValues(value, symbol, paidAmount, paidCurrency, convertedAmount, convertedCurrency,
+    formatValues(value, symbol, paidAmount, paidCurrency, localFiatAmount, localFiatCurrency,
         transaction.getType(), isRevertTransaction, isRevertedTransaction);
 
     ImageView typeIconImageView = findViewById(R.id.img);
@@ -546,12 +546,12 @@ public class TransactionDetailActivity extends BaseActivity {
     if (paidAmount != null) {
       String formattedValue = signal + value + " " + symbol.toUpperCase();
       String formattedPaidValue = signal + paidAmount;
-      String formattedConvertedValue = signal + convertedAmount + " " + convertedCurrency;
+      String formattedLocalFiatValue = signal + convertedAmount + " " + convertedCurrency;
       this.paidAmount.setText(
           BalanceUtils.formatBalance(formattedPaidValue, paidCurrency, smallTitleSize, color));
       this.amount.setText(formattedValue);
 
-      handleConverted(paidCurrency, formattedConvertedValue, convertedCurrency);
+      handleLocalFiatVisibility(paidCurrency, formattedLocalFiatValue, convertedCurrency);
     } else {
       String formattedValue = signal + value;
       this.paidAmount.setText(
@@ -559,24 +559,15 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void handleConverted(String paidCurrency, String formattedConvertedAmount,
+  private void handleLocalFiatVisibility(String paidCurrency, String formattedConvertedAmount,
       String convertedCurrency) {
     if (convertedCurrency.equals(paidCurrency)) {
-      this.convertedAmount.setVisibility(View.GONE);
-
-      ConstraintSet constraintSet = new ConstraintSet();
-      constraintSet.clone(
-          (ConstraintLayout) findViewById(R.id.transaction_detail_constraint_layout));
-      constraintSet.connect(R.id.amount, ConstraintSet.END, R.id.guideline_end, ConstraintSet.END,
-          0);
-      constraintSet.connect(R.id.amount, ConstraintSet.START, R.id.guideline_start,
-          ConstraintSet.START, 0);
-      constraintSet.applyTo(
-          (ConstraintLayout) findViewById(R.id.transaction_detail_constraint_layout));
+      this.localFiatAmount.setVisibility(View.GONE);
+      this.verticalSeparator.setVisibility(View.GONE);
     } else {
-      this.convertedAmount.setVisibility(View.VISIBLE);
+      this.localFiatAmount.setVisibility(View.VISIBLE);
       this.verticalSeparator.setVisibility(View.VISIBLE);
-      this.convertedAmount.setText(formattedConvertedAmount);
+      this.localFiatAmount.setText(formattedConvertedAmount);
     }
   }
 

@@ -18,7 +18,6 @@ import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.iab.FiatValue;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -54,9 +53,12 @@ public class TransactionDetailViewModel extends BaseViewModel {
     super.onCleared();
   }
 
-  public void initializeView(String paidValue, String paidCurrency) {
+  public void initializeView(String paidValue, String paidCurrency, String targetCurrency) {
+    Single<FiatValue> fiatValueSingle =
+        (paidValue != null) ? convertValueToTargetCurrency(paidValue, paidCurrency, targetCurrency)
+            : Single.just(new FiatValue());
     disposables.add(Single.zip(findDefaultNetworkInteract.find(), findDefaultWalletInteract.find(),
-        getConvertedValue(paidValue, paidCurrency), TransactionsDetailsModel::new)
+        fiatValueSingle, TransactionsDetailsModel::new)
         .subscribe(transactionsDetailsModel::postValue, t -> {
         }));
   }
@@ -65,19 +67,11 @@ public class TransactionDetailViewModel extends BaseViewModel {
     supportInteractor.displayChatScreen();
   }
 
-  private Observable<FiatValue> convertValue(String value, String currency) {
-    return conversionService.getValueToFiat(value, currency, 2);
-  }
-
-  public Single<String> getConvertedValue(String value, String currency) {
-    if (value != null) {
-      return convertValue(value, currency).subscribeOn(Schedulers.io())
-          .firstElement()
-          .flatMapSingle(converted -> Single.just(converted.getAmount()
-              .toString()));
-    } else {
-      return Single.just("");
-    }
+  private Single<FiatValue> convertValueToTargetCurrency(String paidValue, String paidCurrency,
+      String targetCurrency) {
+    return conversionService.getValueToFiat(paidValue, paidCurrency, targetCurrency, 2)
+        .subscribeOn(Schedulers.io())
+        .firstOrError();
   }
 
   public LiveData<TransactionsDetailsModel> transactionsDetailsModel() {
