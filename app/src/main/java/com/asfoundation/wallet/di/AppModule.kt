@@ -44,7 +44,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -598,9 +598,9 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBalanceWalletsExperiment(
-      abTestInteractor: ABTestInteractor): BalanceWalletsExperiment {
-    return BalanceWalletsExperiment(abTestInteractor)
+  fun providesTopUpDefaultValueExperiment(
+      abTestInteractor: ABTestInteractor): TopUpDefaultValueExperiment {
+    return TopUpDefaultValueExperiment(abTestInteractor)
   }
 
   @Singleton

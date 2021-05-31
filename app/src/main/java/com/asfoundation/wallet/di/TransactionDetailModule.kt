@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionDetailRouter
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
@@ -17,9 +18,11 @@ class TransactionDetailModule {
       findDefaultNetworkInteract: FindDefaultNetworkInteract,
       findDefaultWalletInteract: FindDefaultWalletInteract,
       externalBrowserRouter: ExternalBrowserRouter, supportInteractor: SupportInteractor,
-      transactionDetailRouter: TransactionDetailRouter): TransactionDetailViewModelFactory {
+      transactionDetailRouter: TransactionDetailRouter,
+      localCurrencyConversionService: LocalCurrencyConversionService): TransactionDetailViewModelFactory {
     return TransactionDetailViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
-        externalBrowserRouter, CompositeDisposable(), supportInteractor, transactionDetailRouter)
+        externalBrowserRouter, CompositeDisposable(), supportInteractor, transactionDetailRouter,
+        localCurrencyConversionService)
   }
 
   @Provides

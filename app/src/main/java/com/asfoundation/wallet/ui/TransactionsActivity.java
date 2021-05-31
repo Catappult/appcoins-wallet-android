@@ -191,8 +191,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
         .observe(this, this::showPromotionsOverlay);
-    viewModel.balanceWalletsExperimentAssignment()
-        .observe(this, this::changeBottomNavigationName);
     viewModel.shouldShowRateUsDialog()
         .observe(this, this::navigateToRateUs);
     viewModel.shouldShowFingerprintTooltip()
@@ -211,6 +209,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .getItem(BALANCE.getPosition())
         .setTitle(getString(name));
   }
+ // TODO: ddd
+  //@Override public boolean onOptionsItemSelected(MenuItem item) {
+  //  if (item.getItemId() == R.id.action_settings) {
+  //    viewModel.showSettings(this);
+  //  }
+  //  if (item.getItemId() == R.id.action_vip_badge) {
+  //    viewModel.goToVipLink(this);
+  //  }
+  //  return super.onOptionsItemSelected(item);
+  //}
 
   @Override public void onBackPressed() {
     if (popup != null && popup.isShowing()) {

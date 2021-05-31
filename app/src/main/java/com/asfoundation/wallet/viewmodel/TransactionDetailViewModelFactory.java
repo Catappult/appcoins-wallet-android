@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.disposables.CompositeDisposable;
@@ -18,21 +19,25 @@ public class TransactionDetailViewModelFactory implements ViewModelProvider.Fact
   private final CompositeDisposable compositeDisposable;
   private final SupportInteractor supportInteractor;
   private final TransactionDetailRouter transactionDetailRouter;
+  private final LocalCurrencyConversionService localCurrencyConversionService;
 
   public TransactionDetailViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,
-      SupportInteractor supportInteractor, TransactionDetailRouter transactionDetailRouter) {
+      SupportInteractor supportInteractor, TransactionDetailRouter transactionDetailRouter,
+      LocalCurrencyConversionService localCurrencyConversionService) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.externalBrowserRouter = externalBrowserRouter;
     this.compositeDisposable = compositeDisposable;
     this.supportInteractor = supportInteractor;
     this.transactionDetailRouter = transactionDetailRouter;
+    this.localCurrencyConversionService = localCurrencyConversionService;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new TransactionDetailViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
-        externalBrowserRouter, compositeDisposable, supportInteractor, transactionDetailRouter);
+        externalBrowserRouter, compositeDisposable, supportInteractor, transactionDetailRouter,
+        localCurrencyConversionService);
   }
 }
