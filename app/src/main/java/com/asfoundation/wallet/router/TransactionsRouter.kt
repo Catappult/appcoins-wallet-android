@@ -2,7 +2,6 @@ package com.asfoundation.wallet.router
 
 import android.content.Context
 import android.content.Intent
-import com.asfoundation.wallet.MainActivity
 import com.asfoundation.wallet.ui.TransactionsActivity
 
 class TransactionsRouter {
@@ -19,7 +18,8 @@ class TransactionsRouter {
   }
 
   fun navigateFromSplash(context: Context, fromSupportNotification: Boolean) {
-    val intent = MainActivity.newIntent(context, fromSupportNotification)
+    val intent =
+        TransactionsActivity.newIntent(context, fromSupportNotification, !fromSupportNotification)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
     context.startActivity(intent)
   }

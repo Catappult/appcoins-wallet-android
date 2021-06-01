@@ -88,7 +88,7 @@ abstract class TransactionsDatabase : RoomDatabase() {
       }
     }
 
-    val MIGRATION_6_7: Migration = object : Migration(5, 6) {
+    val MIGRATION_6_7: Migration = object : Migration(6, 7) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
             "CREATE TABLE IF NOT EXISTS LastUpdatedWalletEntity (wallet TEXT NOT NULL, transactionsUpdateTimestamp INTEGER NOT NULL, PRIMARY KEY(wallet))")

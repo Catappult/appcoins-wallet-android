@@ -114,6 +114,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     views.systemView.setVisibility(View.GONE);
 
+    views.actionButtonVip.getRoot()
+        .setVisibility(View.GONE);
+    views.actionButtonVip.getRoot()
+        .setOnClickListener(v -> viewModel.goToVipLink(this));
+
     initializeLists();
     initializeViewModel();
 
@@ -195,6 +200,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::navigateToRateUs);
     viewModel.shouldShowFingerprintTooltip()
         .observe(this, this::showFingerprintTooltip);
+    viewModel.shouldShowVipBadge()
+        .observe(this, this::showVipBadge);
   }
 
   public void navigateToRateUs(Boolean shouldNavigate) {
@@ -209,7 +216,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .getItem(BALANCE.getPosition())
         .setTitle(getString(name));
   }
- // TODO: ddd
+  // TODO: ddd
   //@Override public boolean onOptionsItemSelected(MenuItem item) {
   //  if (item.getItemId() == R.id.action_settings) {
   //    viewModel.showSettings(this);
@@ -543,5 +550,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (shouldShow) {
       this.setTooltip();
     }
+  }
+
+  private void showVipBadge(Boolean shouldShow) {
+    views.actionButtonVip.getRoot()
+        .setVisibility(shouldShow ? View.VISIBLE : View.GONE);
   }
 }

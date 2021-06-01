@@ -543,7 +543,8 @@ internal class AppModule {
             TransactionsDatabase.MIGRATION_2_3,
             TransactionsDatabase.MIGRATION_3_4,
             TransactionsDatabase.MIGRATION_4_5,
-            TransactionsDatabase.MIGRATION_5_6
+            TransactionsDatabase.MIGRATION_5_6,
+            TransactionsDatabase.MIGRATION_6_7
         )
         .build()
   }

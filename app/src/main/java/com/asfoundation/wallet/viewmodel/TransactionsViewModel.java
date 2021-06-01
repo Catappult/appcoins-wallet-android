@@ -101,6 +101,7 @@ public class TransactionsViewModel extends BaseViewModel {
     handleConversationCount();
     handleWalletData();
     handleFingerprintTooltipVisibility();
+    verifyUserLevel();
   }
 
   public void updateData() {
