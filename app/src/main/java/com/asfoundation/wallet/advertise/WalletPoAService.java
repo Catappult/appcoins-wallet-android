@@ -284,7 +284,7 @@ public class WalletPoAService extends Service {
       case COMPLETED:
         PoaInformationModel poaInformation = proofOfAttentionService.retrievePoaInformation()
             .blockingGet();
-        Intent intent = TransactionsActivity.newIntent(this);
+        Intent intent = TransactionsActivity.Companion.newIntent(this);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         String completed = getString(R.string.verification_notification_reward_received_body);
         if (!poaInformation.hasRemainingPoa()) {
