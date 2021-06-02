@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -57,7 +56,6 @@ import kotlin.Unit;
 
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 import static com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK;
-import static com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem.BALANCE;
 import static com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem.PROMOTIONS;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
@@ -210,22 +208,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       this.startActivityForResult(intent, 0);
     }
   }
-
-  private void changeBottomNavigationName(@StringRes Integer name) {
-    views.bottomNavigation.getMenu()
-        .getItem(BALANCE.getPosition())
-        .setTitle(getString(name));
-  }
-  // TODO: ddd
-  //@Override public boolean onOptionsItemSelected(MenuItem item) {
-  //  if (item.getItemId() == R.id.action_settings) {
-  //    viewModel.showSettings(this);
-  //  }
-  //  if (item.getItemId() == R.id.action_vip_badge) {
-  //    viewModel.goToVipLink(this);
-  //  }
-  //  return super.onOptionsItemSelected(item);
-  //}
 
   @Override public void onBackPressed() {
     if (popup != null && popup.isShowing()) {
