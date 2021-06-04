@@ -7,19 +7,15 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Html
 import android.util.Pair
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
-import androidx.annotation.StringRes
 import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityTransactionsBinding
-import com.asfoundation.wallet.C
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.ErrorEnvelope
 import com.asfoundation.wallet.entity.GlobalBalance
@@ -45,9 +41,6 @@ import com.asfoundation.wallet.viewmodel.TransactionsViewModel
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.widget.EmptyTransactionsView
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.AndroidInjection
 import io.intercom.android.sdk.Intercom
 import io.reactivex.Observable
@@ -82,9 +75,9 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
     views!!.emptyClickableView.visibility = View.VISIBLE
     views!!.balanceSkeleton.visibility = View.VISIBLE
     views!!.balanceSkeleton.playAnimation()
-    initBottomNavigation()
+    //initBottomNavigation()
     disableDisplayHomeAsUp()
-    prepareNotificationIcon()
+    //prepareNotificationIcon()
     emptyTransactionsSubject = PublishSubject.create()
     views!!.systemView.visibility = View.GONE
     views!!.actionButtonVip.root.visibility = View.GONE
@@ -92,23 +85,23 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
         .setOnClickListener { viewModel!!.goToVipLink(this) }
     initializeLists()
     initializeViewModel()
-    views!!.transactionsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-      override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-        if (newState == RecyclerView.SCROLL_STATE_IDLE && !views!!.topUpBtn.isExtended
-            && recyclerView.computeVerticalScrollOffset() == 0) {
-          views!!.topUpBtn.extend()
-        }
-        super.onScrollStateChanged(recyclerView, newState)
-      }
-
-      override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        if (dy != 0 && recyclerView.computeVerticalScrollOffset() > 0 && views!!.topUpBtn.isExtended) {
-          views!!.topUpBtn.shrink()
-        }
-        super.onScrolled(recyclerView, dx, dy)
-      }
-    })
-    views!!.topUpBtn.extend()
+//    views!!.transactionsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//      override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//        if (newState == RecyclerView.SCROLL_STATE_IDLE && !views!!.topUpBtn.isExtended
+//            && recyclerView.computeVerticalScrollOffset() == 0) {
+//          views!!.topUpBtn.extend()
+//        }
+//        super.onScrollStateChanged(recyclerView, newState)
+//      }
+//
+//      override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//        if (dy != 0 && recyclerView.computeVerticalScrollOffset() > 0 && views!!.topUpBtn.isExtended) {
+//          views!!.topUpBtn.shrink()
+//        }
+//        super.onScrolled(recyclerView, dx, dy)
+//      }
+//    })
+//    views!!.topUpBtn.extend()
     views!!.refreshLayout.setOnRefreshListener { viewModel!!.updateData() }
     views!!.actionButtonSupport.setOnClickListener { viewModel!!.showSupportScreen(false) }
     views!!.actionButtonSettings.setOnClickListener { viewModel!!.showSettings(this) }
@@ -151,7 +144,7 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
         .observe(this, views!!.systemView::showProgress)
     viewModel!!.error()
         .observe(this, { errorEnvelope: ErrorEnvelope ->
-          onError(errorEnvelope)
+//          onError(errorEnvelope)
         })
     viewModel!!.defaultWalletBalance
         .observe(this, { globalBalance: GlobalBalance ->
@@ -169,7 +162,7 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
             })
     viewModel!!.shouldShowPromotionsNotification()
         .observe(this, { shouldShow: Boolean ->
-          onPromotionsNotification(shouldShow)
+//          onPromotionsNotification(shouldShow)
         })
     viewModel!!.unreadMessages
         .observe(this, { hasMessages: Boolean ->
@@ -204,10 +197,6 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
     }
   }
 
-  private fun changeBottomNavigationName(@StringRes name: Int) {
-    views!!.bottomNavigation.menu
-        .getItem(BottomNavigationItem.BALANCE.position).title = getString(name)
-  }
 
   // TODO: ddd
   //@Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -238,25 +227,25 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
     }
   }
 
-  private fun prepareNotificationIcon() {
-    val bottomNavigationMenuView = (findViewById<View>(
-        R.id.bottom_navigation) as BottomNavigationView).getChildAt(0) as BottomNavigationMenuView
-    val promotionsIcon =
-        bottomNavigationMenuView.getChildAt(BottomNavigationItem.PROMOTIONS.position)
-    val itemView = promotionsIcon as BottomNavigationItemView
-    badge = LayoutInflater.from(this)
-        .inflate(R.layout.notification_badge, bottomNavigationMenuView, false)
-    badge!!.visibility = View.INVISIBLE
-    itemView.addView(badge)
-  }
+//  private fun prepareNotificationIcon() {
+//    val bottomNavigationMenuView = (findViewById<View>(
+//        R.id.bottom_navigation) as BottomNavigationView).getChildAt(0) as BottomNavigationMenuView
+//    val promotionsIcon =
+//        bottomNavigationMenuView.getChildAt(BottomNavigationItem.PROMOTIONS.position)
+//    val itemView = promotionsIcon as BottomNavigationItemView
+//    badge = LayoutInflater.from(this)
+//        .inflate(R.layout.notification_badge, bottomNavigationMenuView, false)
+//    badge!!.visibility = View.INVISIBLE
+//    itemView.addView(badge)
+//  }
 
-  private fun onPromotionsNotification(shouldShow: Boolean) {
-    if (shouldShow) {
-      badge!!.visibility = View.VISIBLE
-    } else {
-      badge!!.visibility = View.INVISIBLE
-    }
-  }
+//  private fun onPromotionsNotification(shouldShow: Boolean) {
+//    if (shouldShow) {
+//      badge!!.visibility = View.VISIBLE
+//    } else {
+//      badge!!.visibility = View.INVISIBLE
+//    }
+//  }
 
   private fun updateSupportIcon(hasMessages: Boolean) {
     if (hasMessages && !views!!.intercomAnimation.isAnimating) {
@@ -308,8 +297,6 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
     val id = view.id
     if (view.id == R.id.try_again) {
       viewModel!!.updateData()
-    } else if (id == R.id.top_up_btn) {
-      viewModel!!.showTopUp(this)
     } else if (id == R.id.empty_clickable_view) {
       viewModel!!.showTokens(this)
     }
@@ -355,7 +342,7 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
       views!!.systemView.visibility = View.VISIBLE
       views!!.transactionsRecyclerView.visibility = View.INVISIBLE
       maxBonus = transactionsModel.maxBonus
-      views!!.systemView.showEmpty(getEmptyView(maxBonus))
+//      views!!.systemView.showEmpty(getEmptyView(maxBonus))
     }
     if (transactionsModel.notifications.isNotEmpty()
         || transactionsModel.applications.isNotEmpty()) {
@@ -370,14 +357,14 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
       views!!.container.loadLayoutDescription(R.xml.activity_transactions_scene_short)
     }
   }
-
-  private fun getEmptyView(maxBonus: Double): EmptyTransactionsView {
-    if (emptyView == null) {
-      emptyView = EmptyTransactionsView(this, maxBonus.toString(), emptyTransactionsSubject, this,
-          disposables)
-    }
-    return emptyView as EmptyTransactionsView
-  }
+//
+//  private fun getEmptyView(maxBonus: Double): EmptyTransactionsView {
+//    if (emptyView == null) {
+//      emptyView = EmptyTransactionsView(this, maxBonus.toString(), emptyTransactionsSubject, this,
+//          disposables)
+//    }
+//    return emptyView as EmptyTransactionsView
+//  }
 
   private fun onDefaultWallet(walletModel: TransactionsWalletModel) {
     views!!.transactionsRecyclerView.visibility = View.INVISIBLE
@@ -389,11 +376,11 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
     views!!.transactionsRecyclerView.setController(transactionsController!!)
   }
 
-  private fun onError(errorEnvelope: ErrorEnvelope) {
-    if (errorEnvelope.code == C.ErrorCode.EMPTY_COLLECTION) {
-      views!!.systemView.showEmpty(getEmptyView(maxBonus))
-    }
-  }
+//  private fun onError(errorEnvelope: ErrorEnvelope) {
+//    if (errorEnvelope.code == C.ErrorCode.EMPTY_COLLECTION) {
+//      views!!.systemView.showEmpty(getEmptyView(maxBonus))
+//    }
+//  }
 
   private fun checkRoot() {
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
@@ -550,5 +537,7 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
       intent.putExtra(FROM_APP_OPENING_FLAG, fromAppOpening)
       return intent
     }
+
+    fun newInstance() = TransactionsActivity()
   }
 }
