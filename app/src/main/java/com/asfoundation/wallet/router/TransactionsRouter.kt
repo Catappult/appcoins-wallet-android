@@ -2,7 +2,7 @@ package com.asfoundation.wallet.router
 
 import android.content.Context
 import android.content.Intent
-import com.asfoundation.wallet.MainActivity
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.TransactionsActivity
 
 class TransactionsRouter {

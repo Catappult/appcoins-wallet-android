@@ -35,6 +35,7 @@ import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -282,10 +283,11 @@ class InteractorModule {
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
                                   rakamAnalytics: RakamAnalytics,
                                   userStatsLocalData: UserStatsLocalData,
-                                  gamificationMapper: GamificationMapper): PromotionsInteractor {
+                                  gamificationMapper: GamificationMapper,
+                                  schedulers: RxSchedulers): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
         promotionsRepository, findDefaultWalletInteract, userStatsLocalData, rakamAnalytics,
-        gamificationMapper)
+        gamificationMapper, schedulers)
   }
 
   @Provides

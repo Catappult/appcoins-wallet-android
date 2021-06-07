@@ -15,7 +15,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
-import com.asfoundation.wallet.MainActivityNavigator
+import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.TransactionsActivity
 import com.asfoundation.wallet.ui.gamification.GamificationMapper

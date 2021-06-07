@@ -1,4 +1,4 @@
-package com.asfoundation.wallet
+package com.asfoundation.wallet.main
 
 import android.app.PendingIntent
 import android.content.Context
@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.navigation.NavDeepLinkBuilder
 import com.asf.wallet.R
 import com.asfoundation.wallet.topup.TopUpActivity
+import com.asfoundation.wallet.ui.overlay.OverlayFragment
 
 class MainActivityNavigator(val context: Context) {
 
@@ -64,5 +65,18 @@ class MainActivityNavigator(val context: Context) {
     val intent = TopUpActivity.newIntent(context)
         .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
     context.startActivity(intent)
+  }
+
+  fun showPromotionsOverlay(index: Int) {
+    if (context is MainActivity) {
+      context.supportFragmentManager.beginTransaction()
+          .setCustomAnimations(R.anim.fragment_fade_in_animation,
+              R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
+              R.anim.fragment_fade_out_animation)
+          .add(R.id.tooltip_container,
+              OverlayFragment.newInstance(index))
+          .addToBackStack(OverlayFragment::class.java.name)
+          .commit()
+    }
   }
 }
