@@ -40,10 +40,6 @@ abstract class ActivityBuilders {
   internal abstract fun bindBaseActivityModule(): BaseActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [TransactionsModule::class])
-  internal abstract fun bindTransactionsModule(): TransactionsActivity
-
-  @ActivityScope
   @ContributesAndroidInjector(modules = [TransactionDetailModule::class])
   internal abstract fun bindTransactionDetailModule(): TransactionDetailActivity
 

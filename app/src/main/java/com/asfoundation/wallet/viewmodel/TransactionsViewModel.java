@@ -53,7 +53,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Boolean> unreadMessages = new MutableLiveData<>();
   private final MutableLiveData<String> shareApp = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showVipBadge = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
@@ -95,7 +94,6 @@ public class TransactionsViewModel extends BaseViewModel {
     progress.postValue(true);
     handleTopUpClicks();
     handleUnreadConversationCount();
-    handlePromotionTooltipVisibility();
     handlePromotionUpdateNotification();
     handleRateUsDialogVisibility();
     handleConversationCount();
@@ -177,10 +175,6 @@ public class TransactionsViewModel extends BaseViewModel {
     return defaultWalletBalance;
   }
 
-  public MutableLiveData<Boolean> shouldShowPromotionsTooltip() {
-    return showPromotionTooltip;
-  }
-
   public LiveData<Boolean> shouldShowRateUsDialog() {
     return showRateUsDialog;
   }
@@ -207,8 +201,6 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribeOn(networkScheduler);
   }
 
-
-
   private void handleRateUsDialogVisibility() {
     disposables.add(transactionViewInteractor.shouldOpenRatingDialog()
         .observeOn(AndroidSchedulers.mainThread())
@@ -224,17 +216,6 @@ public class TransactionsViewModel extends BaseViewModel {
             .toObservable()
             .subscribe(__ -> {
             }, Throwable::printStackTrace));
-  }
-
-  private void handlePromotionTooltipVisibility() {
-    disposables.add(transactionViewInteractor.hasSeenPromotionTooltip()
-        .doOnSuccess(hasBeen -> {
-          Boolean shouldShowCachedValue = showPromotionTooltip.getValue();
-          boolean shouldShow = !hasBeen && (shouldShowCachedValue == null || shouldShowCachedValue);
-          showPromotionTooltip.postValue(shouldShow);
-        })
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace));
   }
 
   public void handleUnreadConversationCount() {
@@ -263,7 +244,8 @@ public class TransactionsViewModel extends BaseViewModel {
 
     return Completable.fromObservable(
         Observable.combineLatest(getTransactions(walletModel.getWallet()), getCardNotifications(),
-            getAppcoinsApps(), getMaxBonus(), this::createTransactionsModel)
+            getAppcoinsApps(), getMaxBonus(), observeNetworkAndWallet(),
+            this::createTransactionsModel)
             .doOnNext(transactionsModel -> transactionViewInteractor.updateTransactionsNumber(
                 transactionsModel.getTransactions()))
             .subscribeOn(networkScheduler)
@@ -273,8 +255,10 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private TransactionsModel createTransactionsModel(List<Transaction> transactions,
-      List<CardNotification> notifications, List<AppcoinsApplication> apps, Double maxBonus) {
-    return new TransactionsModel(transactions, notifications, apps, maxBonus);
+      List<CardNotification> notifications, List<AppcoinsApplication> apps, Double maxBonus,
+      TransactionsWalletModel transactionsWalletModel) {
+    return new TransactionsModel(transactions, notifications, apps, maxBonus,
+        transactionsWalletModel);
   }
 
   /**
@@ -579,10 +563,6 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void onFingerprintDismissed() {
     transactionViewInteractor.setSeenFingerprintTooltip();
-  }
-
-  public void onPromotionsShown() {
-    showPromotionTooltip.postValue(false);
   }
 
   public void onFingerprintTooltipShown() {

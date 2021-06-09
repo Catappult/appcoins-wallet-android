@@ -3,6 +3,7 @@ package com.asfoundation.wallet.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.asfoundation.wallet.util.isNoNetworkException
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -148,6 +149,18 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    * is also cleared.
    */
   protected fun <T> Single<T>.scopedSubscribe(
+      onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
+    val disposable = subscribe({}, { onErrorAction?.invoke(it) })
+    return disposable.apply {
+      compositeDisposable.add(this)
+    }
+  }
+
+  /**
+   * Subscribes safely to this view model scope. Once the ViewModel is cleared, this subscription
+   * is also cleared.
+   */
+  protected fun Completable.scopedSubscribe(
       onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
     val disposable = subscribe({}, { onErrorAction?.invoke(it) })
     return disposable.apply {

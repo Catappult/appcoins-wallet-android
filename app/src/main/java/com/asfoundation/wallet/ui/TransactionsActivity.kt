@@ -7,13 +7,11 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Html
 import android.util.Pair
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.ViewModelProviders
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityTransactionsBinding
 import com.asfoundation.wallet.entity.Balance
@@ -24,9 +22,6 @@ import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
-import com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem
-import com.asfoundation.wallet.ui.overlay.OverlayFragment
-import com.asfoundation.wallet.ui.overlay.OverlayFragment.Companion.newInstance
 import com.asfoundation.wallet.ui.transactions.HeaderController
 import com.asfoundation.wallet.ui.transactions.TransactionsController
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
@@ -36,9 +31,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RootUtil
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
-import com.asfoundation.wallet.viewmodel.BaseNavigationActivity
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel
-import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.widget.EmptyTransactionsView
 import dagger.android.AndroidInjection
@@ -48,9 +41,9 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
-  @Inject
-  lateinit var transactionsViewModelFactory: TransactionsViewModelFactory
+class TransactionsActivity : BaseActivity(), View.OnClickListener {
+//  @Inject
+//  lateinit var transactionsViewModelFactory: TransactionsViewModelFactory
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -138,8 +131,8 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
   }
 
   private fun initializeViewModel() {
-    viewModel =
-        ViewModelProviders.of(this, transactionsViewModelFactory)[TransactionsViewModel::class.java]
+//    viewModel =
+//        ViewModelProviders.of(this, transactionsViewModelFactory)[TransactionsViewModel::class.java]
     viewModel!!.progress()
         .observe(this, views!!.systemView::showProgress)
     viewModel!!.error()
@@ -171,10 +164,6 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
     viewModel!!.shareApp()
         .observe(this, { url: String? ->
           shareApp(url)
-        })
-    viewModel!!.shouldShowPromotionsTooltip()
-        .observe(this, { shouldShow: Boolean ->
-          showPromotionsOverlay(shouldShow)
         })
     viewModel!!.shouldShowRateUsDialog()
         .observe(this, { shouldNavigate: Boolean ->
@@ -299,28 +288,6 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
       viewModel!!.updateData()
     } else if (id == R.id.empty_clickable_view) {
       viewModel!!.showTokens(this)
-    }
-  }
-
-  override fun onNavigationItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.action_promotions -> {
-        navigateToPromotions(false)
-        return true
-      }
-      R.id.action_my_address -> {
-        viewModel!!.showMyAddress(this)
-        return true
-      }
-      R.id.action_balance -> {
-        viewModel!!.showTokens(this)
-        return true
-      }
-      R.id.action_send -> {
-        viewModel!!.showSend(this)
-        return true
-      }
-      else -> return false
     }
   }
 
@@ -499,19 +466,6 @@ class TransactionsActivity : BaseNavigationActivity(), View.OnClickListener {
       supportFragmentManager.popBackStack()
     }
     viewModel!!.navigateToPromotions(this)
-  }
-
-  private fun showPromotionsOverlay(shouldShow: Boolean) {
-    if (shouldShow) {
-      supportFragmentManager.beginTransaction()
-          .setCustomAnimations(R.anim.fragment_fade_in_animation,
-              R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
-              R.anim.fragment_fade_out_animation)
-          .add(R.id.container, newInstance(BottomNavigationItem.PROMOTIONS.position))
-          .addToBackStack(OverlayFragment::class.java.name)
-          .commit()
-      viewModel!!.onPromotionsShown()
-    }
   }
 
   private fun showFingerprintTooltip(shouldShow: Boolean) {

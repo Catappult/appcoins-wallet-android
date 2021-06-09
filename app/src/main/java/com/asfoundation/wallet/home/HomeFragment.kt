@@ -4,26 +4,26 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Html
-import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityTransactionsBinding
 import com.asfoundation.wallet.C
+import com.asfoundation.wallet.base.Async
+import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.ErrorEnvelope
 import com.asfoundation.wallet.entity.GlobalBalance
-import com.asfoundation.wallet.promotions.ui.HomeNavigator
 import com.asfoundation.wallet.referrals.CardNotification
+import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
-import com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem
-import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.transactions.HeaderController
 import com.asfoundation.wallet.ui.transactions.TransactionsController
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
@@ -34,9 +34,6 @@ import com.asfoundation.wallet.util.RootUtil
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.viewmodel.TransactionsViewModel
-import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory
-import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.widget.EmptyTransactionsView
 import dagger.android.support.AndroidSupportInjection
 import io.intercom.android.sdk.Intercom
@@ -45,10 +42,14 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-class HomeFragment : BasePageViewFragment() {
+class HomeFragment : BasePageViewFragment(),
+    SingleStateFragment<HomeState, HomeSideEffect> {
+
+//  @Inject
+//  lateinit var transactionsViewModelFactory: TransactionsViewModelFactory
 
   @Inject
-  lateinit var transactionsViewModelFactory: TransactionsViewModelFactory
+  lateinit var homeViewModelFactory: HomeViewModelFactory
 
   @Inject
   lateinit var navigator: HomeNavigator
@@ -56,14 +57,13 @@ class HomeFragment : BasePageViewFragment() {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  private val viewModel: TransactionsViewModel by viewModels { transactionsViewModelFactory }
+  //  private val viewModelOld: TransactionsViewModel by viewModels { transactionsViewModelFactory }
+  private val viewModel: HomeViewModel by viewModels { homeViewModelFactory }
   private val views by viewBinding(ActivityTransactionsBinding::bind)
 
   private lateinit var disposables: CompositeDisposable
   private lateinit var headerController: HeaderController
   private lateinit var transactionsController: TransactionsController
-
-  //  private lateinit var badge: View
   private lateinit var tooltip: View
   private lateinit var popup: PopupWindow
   private var emptyTransactionsSubject: PublishSubject<String>? = null
@@ -85,68 +85,45 @@ class HomeFragment : BasePageViewFragment() {
     views.balanceSkeleton.visibility = View.VISIBLE
     views.balanceSkeleton.playAnimation()
 
-    //initBottomNavigation()
-    //disableDisplayHomeAsUp()
-    //prepareNotificationIcon(view)
-
     emptyTransactionsSubject = PublishSubject.create()
     views.systemView.visibility = View.GONE
     views.actionButtonVip.root.visibility = View.GONE
     views.actionButtonVip.root
-        .setOnClickListener { viewModel.goToVipLink(context) }
+        .setOnClickListener { viewModel.goToVipLink() }
     initializeLists()
-    initializeViewModel()
     views.refreshLayout.setOnRefreshListener { viewModel.updateData() }
     views.actionButtonSupport.setOnClickListener { viewModel.showSupportScreen(false) }
-    views.actionButtonSettings.setOnClickListener { viewModel.showSettings(context) }
-    views.sendButton.setOnClickListener { viewModel.showSend(context) }
-    views.receiveButton.setOnClickListener { viewModel.showMyAddress(context) }
-//      if (savedInstanceState == null) {
-//        val fromAppOpening = intent.getBooleanExtra(TransactionsActivity.FROM_APP_OPENING_FLAG, false)
-//        if (fromAppOpening) viewModel.increaseTimesInHome()
-//        val supportNotificationClick = intent.getBooleanExtra(
-//            SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK, false)
-//        if (supportNotificationClick) {
-//          overridePendingTransition(0, 0)
-//          viewModel.showSupportScreen(true)
-//        }
-//      }
+    views.actionButtonSettings.setOnClickListener { viewModel.onSettingsClick() }
+    views.sendButton.setOnClickListener { viewModel.onSendClick() }
+    views.receiveButton.setOnClickListener { viewModel.onReceiveClick() }
+    views.emptyClickableView.setOnClickListener { viewModel.onBalanceClick() }
+    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
-
-//TODO mainativity
-//  private fun prepareNotificationIcon(view: View) {
-//    val promotionsIcon =
-//        bottomNavigationMenuView.getChildAt(BottomNavigationItem.PROMOTIONS.position)
-//    val itemView = promotionsIcon as BottomNavigationItemView
-//    badge = LayoutInflater.from(context)
-//        .inflate(R.layout.notification_badge, bottomNavigationMenuView, false)
-//    badge.visibility = View.INVISIBLE
-//    itemView.addView(badge)
-//  }
 
   override fun onPause() {
     super.onPause()
-    viewModel!!.stopRefreshingData()
-    disposables!!.dispose()
+    viewModel.stopRefreshingData()
+    disposables.dispose()
   }
 
 
   override fun onResume() {
     super.onResume()
-//TODO
-//    val supportNotificationClick = intent.getBooleanExtra(
-//        SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK, false)
-//    if (!supportNotificationClick) {
-    if (disposables.isDisposed) {
-      disposables = CompositeDisposable()
+    val fromSupportNotification =
+        requireActivity().intent.getBooleanExtra(
+            SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
+            false)
+    if (!fromSupportNotification) {
+      if (disposables.isDisposed) {
+        disposables = CompositeDisposable()
+      }
+      viewModel.updateData()
+      checkRoot()
+      Intercom.client()
+          .handlePushMessage()
+    } else {
+      requireActivity().finish()
     }
-    viewModel.updateData()
-    checkRoot()
-    Intercom.client()
-        .handlePushMessage()
-//    } else {
-//      finish()
-//    }
 //    sendPageViewEvent()
   }
 
@@ -158,29 +135,6 @@ class HomeFragment : BasePageViewFragment() {
     emptyView = null
     disposables.dispose()
     super.onDestroy()
-  }
-
-  private fun checkRoot() {
-    val pref = PreferenceManager.getDefaultSharedPreferences(context)
-    if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
-      pref.edit()
-          .putBoolean("should_show_root_warning", false)
-          .apply()
-      val alertDialog = AlertDialog.Builder(context)
-          .setTitle(R.string.root_title)
-          .setMessage(R.string.root_body)
-          .setNegativeButton(R.string.ok) { dialog, which -> }
-          .show()
-      alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-          .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
-      alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-          .setTextColor(ResourcesCompat.getColor(resources, R.color.text_button_color, null))
-    }
-  }
-
-  //TODO colocar no viewmodel
-  private fun sendPageViewEvent() {
-    //pageViewAnalytics.sendPageViewEvent(javaClass.simpleName)
   }
 
   private fun initializeLists() {
@@ -202,97 +156,53 @@ class HomeFragment : BasePageViewFragment() {
     views.systemView.attachSwipeRefreshLayout(views.refreshLayout)
   }
 
-  private fun initializeViewModel() {
-    viewModel.progress()
-        .observe(viewLifecycleOwner, views.systemView::showProgress)
-    viewModel.error()
-        .observe(viewLifecycleOwner, { errorEnvelope: ErrorEnvelope ->
-          onError(errorEnvelope)
-        })
-    viewModel.defaultWalletBalance
-        .observe(viewLifecycleOwner, { globalBalance: GlobalBalance ->
-          onBalanceChanged(globalBalance)
-        })
-    viewModel.defaultWalletModel()
-        .observe(viewLifecycleOwner,
-            { walletModel: TransactionsWalletModel ->
-              onDefaultWallet(walletModel)
-            })
-    viewModel.transactionsModel()
-        .observe(viewLifecycleOwner, { onTransactionsModel(it) })
-    viewModel.shouldShowPromotionsNotification()
-        .observe(viewLifecycleOwner, { shouldShow: Boolean ->
-//          onPromotionsNotification(shouldShow)
-        })
-    viewModel.unreadMessages
-        .observe(viewLifecycleOwner, { hasMessages: Boolean ->
-          updateSupportIcon(hasMessages)
-        })
-    viewModel.shareApp()
-        .observe(viewLifecycleOwner, { url: String ->
-          navigator.handleShare(url)
-        })
-    viewModel.shouldShowPromotionsTooltip()
-        .observe(viewLifecycleOwner, { shouldShow: Boolean ->
-          showPromotionsOverlay(shouldShow)
-        })
-    viewModel.shouldShowRateUsDialog()
-        .observe(viewLifecycleOwner, { shouldNavigate: Boolean ->
-          navigator.navigateToRateUs(shouldNavigate)
-        })
-    viewModel.shouldShowFingerprintTooltip()
-        .observe(viewLifecycleOwner, { shouldShow: Boolean ->
-          showFingerprintTooltip(shouldShow)
-        })
-    viewModel.shouldShowVipBadge()
-        .observe(viewLifecycleOwner, { shouldShow: Boolean ->
-          showVipBadge(shouldShow)
-        })
+
+  override fun onStateChanged(state: HomeState) {
+    setTransactionsModel(state.transactionsModelAsync)
+    setDefaultWalletBalance(state.defaultWalletBalanceAsync)
+    showVipBadge(state.showVipBadge)
+    updateSupportIcon(state.unreadMessages)
   }
 
-  private fun onApplicationClick(appcoinsApplication: AppcoinsApplication,
-                                 applicationClickAction: ApplicationClickAction) {
-    viewModel.onAppClick(appcoinsApplication, applicationClickAction, context)
-  }
-
-  private fun onTransactionClick(transaction: Transaction) {
-    viewModel.showDetails(context, transaction)
-  }
-
-  private fun onNotificationClick(cardNotification: CardNotification,
-                                  cardNotificationAction: CardNotificationAction) {
-    viewModel.onNotificationClick(cardNotification, cardNotificationAction, context)
-  }
-
-  private fun onError(errorEnvelope: ErrorEnvelope) {
-    if (errorEnvelope.code == C.ErrorCode.EMPTY_COLLECTION) {
-      views.systemView.showEmpty(getEmptyView(maxBonus))
+  override fun onSideEffect(sideEffect: HomeSideEffect) {
+    when (sideEffect) {
+      is HomeSideEffect.NavigateToBrowser -> navigator.navigateToBrowser(sideEffect.uri)
+      is HomeSideEffect.NavigateToRateUs -> navigator.navigateToRateUs(sideEffect.shouldNavigate)
+      HomeSideEffect.NavigateToMyWallets -> navigator.navigateToMyWallets()
+      is HomeSideEffect.NavigateToReceive -> navigator.navigateToReceive(sideEffect.wallet)
+      HomeSideEffect.NavigateToSend -> navigator.navigateToSend()
+      is HomeSideEffect.NavigateToSettings -> navigator.navigateToSettings(
+          sideEffect.turnOnFingerprint)
+      is HomeSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
+      is HomeSideEffect.NavigateToDetails -> navigator.navigateToTransactionDetails(
+          sideEffect.transaction, sideEffect.balanceCurrency)
+      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
+      is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
+      HomeSideEffect.ShowFingerprintTooltip -> setFingerprintTooltip()
     }
   }
 
-  private fun getEmptyView(maxBonus: Double): EmptyTransactionsView {
-    var emptyView = this.emptyView
-    if (emptyView == null) {
-      emptyView =
-          EmptyTransactionsView(requireContext(), maxBonus.toString(), emptyTransactionsSubject,
-              this,
-              disposables)
-    }
-    return emptyView
-  }
+  private fun setTransactionsModel(asyncTransactionsModel: Async<TransactionsModel>) {
+    when (asyncTransactionsModel) {
+      Async.Uninitialized,
+      is Async.Loading -> {
 
-  val emptyTransactionsScreenClick: Observable<String>?
-    get() = emptyTransactionsSubject
+      }
+      is Async.Fail -> {
 
-  private fun onBalanceChanged(globalBalance: GlobalBalance) {
-    if (globalBalance.fiatValue.isNotEmpty() && globalBalance.fiatSymbol.isNotEmpty()) {
-      views.balanceSkeleton.visibility = View.GONE
-      views.balance.text = globalBalance.fiatSymbol + globalBalance.fiatValue
-      setSubtitle(globalBalance)
+      }
+      is Async.Success -> {
+        setTransactions(asyncTransactionsModel())
+      }
     }
   }
 
-  private fun onDefaultWallet(walletModel: TransactionsWalletModel) {
+  private fun setTransactions(transactionsModel: TransactionsModel) {
+    setDefaultWallet()
+    setTransactionList(transactionsModel)
+  }
+
+  private fun setDefaultWallet() {
     views.transactionsRecyclerView.visibility = View.INVISIBLE
     views.systemView.visibility = View.VISIBLE
     views.systemView.showProgress(true)
@@ -302,80 +212,78 @@ class HomeFragment : BasePageViewFragment() {
     views.transactionsRecyclerView.setController(transactionsController)
   }
 
-  private fun onTransactionsModel(result: Pair<TransactionsModel, TransactionsWalletModel>) {
+  private fun setTransactionList(transactionsModel: TransactionsModel) {
     views.transactionsRecyclerView.visibility = View.VISIBLE
     views.systemView.visibility = View.GONE
-    transactionsController.setData(result.first, result.second.wallet,
-        result.second.networkInfo)
-    headerController.setData(result.first)
-    showList(result.first)
+    transactionsController.setData(transactionsModel,
+        transactionsModel.transactionsWalletModel.wallet,
+        transactionsModel.transactionsWalletModel.networkInfo)
+    headerController.setData(transactionsModel)
+    showList(transactionsModel)
   }
 
   private fun showList(transactionsModel: TransactionsModel) {
     views.systemView.showProgress(false)
     if (transactionsModel.transactions.isNotEmpty()) {
-      views.systemView.visibility = View.INVISIBLE
-      views.transactionsRecyclerView.visibility = View.VISIBLE
+      showTransactionsScreen()
     } else {
-      views.systemView.visibility = View.VISIBLE
-      views.transactionsRecyclerView.visibility = View.INVISIBLE
-      maxBonus = transactionsModel.maxBonus
-      views.systemView.showEmpty(getEmptyView(maxBonus))
+      showNoTransactionsScreen(transactionsModel)
     }
     if (transactionsModel.notifications.isNotEmpty()
         || transactionsModel.applications.isNotEmpty()) {
-      views.headerRecyclerView.visibility = View.VISIBLE
-      views.spacer.visibility = View.VISIBLE
-      views.container.loadLayoutDescription(R.xml.activity_transactions_scene)
+      showNotificationOrApplications()
     } else {
-      if (views.spacer.visibility === View.VISIBLE) {
-        views.headerRecyclerView.visibility = View.GONE
-        views.spacer.visibility = View.GONE
+      dontShowNotificationOrApplications()
+    }
+  }
+
+  private fun showTransactionsScreen() {
+    views.systemView.visibility = View.INVISIBLE
+    views.transactionsRecyclerView.visibility = View.VISIBLE
+  }
+
+  private fun showNoTransactionsScreen(transactionsModel: TransactionsModel) {
+    views.systemView.visibility = View.VISIBLE
+    views.transactionsRecyclerView.visibility = View.INVISIBLE
+    maxBonus = transactionsModel.maxBonus
+    views.systemView.showEmpty(getEmptyView(maxBonus))
+  }
+
+  private fun showNotificationOrApplications() {
+    views.headerRecyclerView.visibility = View.VISIBLE
+    views.spacer.visibility = View.VISIBLE
+    views.container.loadLayoutDescription(R.xml.activity_transactions_scene)
+  }
+
+  private fun dontShowNotificationOrApplications() {
+    if (views.spacer.visibility === View.VISIBLE) {
+      views.headerRecyclerView.visibility = View.GONE
+      views.spacer.visibility = View.GONE
+    }
+    views.container.loadLayoutDescription(R.xml.activity_transactions_scene_short)
+  }
+
+  private fun setDefaultWalletBalance(asyncDefaultWalletBalance: Async<GlobalBalance>) {
+    when (asyncDefaultWalletBalance) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+
       }
-      views.container.loadLayoutDescription(R.xml.activity_transactions_scene_short)
+      is Async.Fail -> {
+
+      }
+      is Async.Success -> {
+        setWalletBalance(asyncDefaultWalletBalance())
+      }
     }
   }
 
-//TODO mainativity
-//  private fun onPromotionsNotification(shouldShow: Boolean) {
-//    if (shouldShow) {
-//      badge.visibility = View.VISIBLE
-//    } else {
-//      badge.visibility = View.INVISIBLE
-//    }
-//  }
-
-  private fun updateSupportIcon(hasMessages: Boolean) {
-    if (hasMessages && !views.intercomAnimation.isAnimating) {
-      views.intercomAnimation.playAnimation()
-    } else {
-      views.intercomAnimation.cancelAnimation()
-      views.intercomAnimation.progress = 0F
+  private fun setWalletBalance(globalBalance: GlobalBalance) {
+    if (globalBalance.fiatValue.isNotEmpty() && globalBalance.fiatSymbol.isNotEmpty()) {
+      views.balanceSkeleton.visibility = View.GONE
+      views.balance.text = globalBalance.fiatSymbol + globalBalance.fiatValue
+      setSubtitle(globalBalance)
     }
-  }
-
-  private fun showPromotionsOverlay(shouldShow: Boolean) {
-    if (shouldShow) {
-      childFragmentManager.beginTransaction()
-          .setCustomAnimations(R.anim.fragment_fade_in_animation,
-              R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
-              R.anim.fragment_fade_out_animation)
-          .add(R.id.container,
-              OverlayFragment.newInstance(BottomNavigationItem.PROMOTIONS.position))
-          .addToBackStack(OverlayFragment::class.java.name)
-          .commit()
-      viewModel.onPromotionsShown()
-    }
-  }
-
-  private fun showFingerprintTooltip(shouldShow: Boolean) {
-    if (shouldShow) {
-      setTooltip()
-    }
-  }
-
-  private fun showVipBadge(shouldShow: Boolean) {
-    views.actionButtonVip.root.visibility = if (shouldShow) View.VISIBLE else View.GONE
   }
 
   private fun setSubtitle(globalBalance: GlobalBalance) {
@@ -418,7 +326,78 @@ class HomeFragment : BasePageViewFragment() {
     return subtitle.replace(bullet, "<font color='#ffffff'>$bullet</font>")
   }
 
-  private fun setTooltip() {
+
+  private fun showVipBadge(shouldShow: Boolean) {
+    views.actionButtonVip.root.visibility = if (shouldShow) View.VISIBLE else View.GONE
+  }
+
+  private fun updateSupportIcon(hasMessages: Boolean) {
+    if (hasMessages && !views.intercomAnimation.isAnimating) {
+      views.intercomAnimation.playAnimation()
+    } else {
+      views.intercomAnimation.cancelAnimation()
+      views.intercomAnimation.progress = 0F
+    }
+  }
+
+  private fun checkRoot() {
+    val pref = PreferenceManager.getDefaultSharedPreferences(context)
+    if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
+      pref.edit()
+          .putBoolean("should_show_root_warning", false)
+          .apply()
+      val alertDialog = AlertDialog.Builder(context)
+          .setTitle(R.string.root_title)
+          .setMessage(R.string.root_body)
+          .setNegativeButton(R.string.ok) { dialog, which -> }
+          .show()
+      alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+          .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
+      alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+          .setTextColor(ResourcesCompat.getColor(resources, R.color.text_button_color, null))
+    }
+  }
+
+  //TODO colocar no viewmodel
+  private fun sendPageViewEvent() {
+    //pageViewAnalytics.sendPageViewEvent(javaClass.simpleName)
+  }
+
+  private fun onApplicationClick(appcoinsApplication: AppcoinsApplication,
+                                 applicationClickAction: ApplicationClickAction) {
+    viewModel.onAppClick(appcoinsApplication, applicationClickAction)
+  }
+
+  private fun onTransactionClick(transaction: Transaction) {
+    viewModel.onTransactionDetailsClick(transaction)
+  }
+
+  private fun onNotificationClick(cardNotification: CardNotification,
+                                  cardNotificationAction: CardNotificationAction) {
+    viewModel.onNotificationClick(cardNotification, cardNotificationAction)
+  }
+
+  private fun onError(errorEnvelope: ErrorEnvelope) {
+    if (errorEnvelope.code == C.ErrorCode.EMPTY_COLLECTION) {
+      views.systemView.showEmpty(getEmptyView(maxBonus))
+    }
+  }
+
+  private fun getEmptyView(maxBonus: Double): EmptyTransactionsView {
+    var emptyView = this.emptyView
+    if (emptyView == null) {
+      emptyView =
+          EmptyTransactionsView(requireContext(), maxBonus.toString(), emptyTransactionsSubject,
+              this,
+              disposables)
+    }
+    return emptyView
+  }
+
+  val emptyTransactionsScreenClick: Observable<String>?
+    get() = emptyTransactionsSubject
+
+  private fun setFingerprintTooltip() {
     popup = PopupWindow(tooltip)
     popup.height = ViewGroup.LayoutParams.WRAP_CONTENT
     popup.width = ViewGroup.LayoutParams.MATCH_PARENT
@@ -426,7 +405,6 @@ class HomeFragment : BasePageViewFragment() {
     views.fadedBackground.visibility = View.VISIBLE
     popup.showAsDropDown(views.actionButtonSettings, 0, -yOffset)
     setTooltipListeners()
-    viewModel.onFingerprintTooltipShown()
   }
 
   private fun setTooltipListeners() {
@@ -435,7 +413,7 @@ class HomeFragment : BasePageViewFragment() {
     tooltip.findViewById<View>(R.id.tooltip_turn_on_button)
         .setOnClickListener {
           dismissPopup()
-          viewModel.onTurnFingerprintOnClick(context)
+          viewModel.onTurnFingerprintOnClick()
         }
   }
 
