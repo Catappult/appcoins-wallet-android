@@ -20,13 +20,13 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
 import com.asfoundation.wallet.logging.Logger;
+import com.asfoundation.wallet.main.MainActivityNavigator;
 import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
-import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.verification.VerificationBroadcastReceiver;
 import dagger.android.AndroidInjection;
@@ -75,6 +75,7 @@ public class WalletPoAService extends Service {
   @Inject CampaignInteract campaignInteract;
   @Inject AutoUpdateInteract autoUpdateInteract;
   @Inject @Named("heads_up") NotificationCompat.Builder headsUpNotificationBuilder;
+  @Inject public MainActivityNavigator mainActivityNavigator;
   /** Boolean indicating that we are already bound */
   private boolean isBound = false;
   private Disposable disposable;
@@ -284,17 +285,17 @@ public class WalletPoAService extends Service {
       case COMPLETED:
         PoaInformationModel poaInformation = proofOfAttentionService.retrievePoaInformation()
             .blockingGet();
-        Intent intent = TransactionsActivity.Companion.newIntent(this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //Intent intent = TransactionsActivity.Companion.newIntent(this);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         String completed = getString(R.string.verification_notification_reward_received_body);
         if (!poaInformation.hasRemainingPoa()) {
           completed = buildNoPoaRemainingString(poaInformation);
         }
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         NotificationCompat.Builder notificationBuilder = headsUpNotificationBuilder.setStyle(
             new NotificationCompat.BigTextStyle().bigText(completed))
             .setContentText(completed)
-            .setContentIntent(pendingIntent);
+            .setContentIntent(mainActivityNavigator.getHomePendingIntent());
         if (appName != null) {
           notificationBuilder.setContentTitle(appName);
         }
