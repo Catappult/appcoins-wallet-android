@@ -118,7 +118,6 @@ class HomeFragment : BasePageViewFragment(),
     } else {
       requireActivity().finish()
     }
-//    sendPageViewEvent()
   }
 
   override fun onDestroy() {
@@ -358,11 +357,6 @@ class HomeFragment : BasePageViewFragment(),
       alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
           .setTextColor(ResourcesCompat.getColor(resources, R.color.text_button_color, null))
     }
-  }
-
-  //TODO colocar no viewmodel
-  private fun sendPageViewEvent() {
-    //pageViewAnalytics.sendPageViewEvent(javaClass.simpleName)
   }
 
   private fun onApplicationClick(appcoinsApplication: AppcoinsApplication,
