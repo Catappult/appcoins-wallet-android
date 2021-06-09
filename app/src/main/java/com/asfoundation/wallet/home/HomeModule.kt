@@ -15,7 +15,7 @@ class HomeModule {
 
   @Provides
   fun providesHomeNavigator(fragment: HomeFragment): HomeNavigator {
-    return HomeNavigator(fragment)
+    return HomeNavigator(fragment, MainActivityNavigator(fragment.requireActivity()))
   }
 
   @Provides

@@ -32,7 +32,6 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function5
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -85,8 +84,6 @@ class HomeViewModel(private val applications: AppcoinsApps,
     handleWalletData()
     verifyUserLevel()
     handleUnreadConversationCount()
-    handleConversationCount()
-    //handlePromotionUpdateNotification()
     handleRateUsDialogVisibility()
     handleFingerprintTooltipVisibility()
   }
@@ -153,7 +150,7 @@ class HomeViewModel(private val applications: AppcoinsApps,
    * Balance is refreshed every [.UPDATE_INTERVAL] seconds, and stops while
    * [.refreshData] is false
    */
-  private fun updateBalance(): Completable? {
+  private fun updateBalance(): Completable {
     return Completable.fromObservable(
         Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
             .flatMap { observeRefreshData() }
@@ -161,8 +158,11 @@ class HomeViewModel(private val applications: AppcoinsApps,
               Observable.zip(
                   getAppcBalance(), getCreditsBalance(), getEthereumBalance(),
                   { tokenBalance, creditsBalance, ethereumBalance ->
-                    this.updateWalletValue(tokenBalance, creditsBalance, ethereumBalance)
+                    this.mapWalletValue(tokenBalance, creditsBalance, ethereumBalance)
                   })
+                  .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
+                    copy(defaultWalletBalanceAsync = it)
+                  }
             })
   }
 
@@ -181,23 +181,19 @@ class HomeViewModel(private val applications: AppcoinsApps,
     return transactionViewInteractor.creditsBalance
   }
 
-  private fun updateWalletValue(tokenBalance: Pair<Balance, FiatValue>,
-                                creditsBalance: Pair<Balance, FiatValue>,
-                                ethereumBalance: Pair<Balance, FiatValue>): GlobalBalance {
+  private fun mapWalletValue(tokenBalance: Pair<Balance, FiatValue>,
+                             creditsBalance: Pair<Balance, FiatValue>,
+                             ethereumBalance: Pair<Balance, FiatValue>): GlobalBalance {
     var fiatValue = ""
     val sumFiat: BigDecimal = sumFiat(tokenBalance.second.amount, creditsBalance.second.amount,
         ethereumBalance.second.amount)
     if (sumFiat > MINUS_ONE) {
       fiatValue = formatter.formatCurrency(sumFiat, WalletCurrency.FIAT)
     }
-    val newGlobalBalance =
-        GlobalBalance(tokenBalance.first, creditsBalance.first, ethereumBalance.first,
-            tokenBalance.second.symbol, tokenBalance.second.currency, fiatValue,
-            shouldShow(tokenBalance, 0.01), shouldShow(creditsBalance, 0.01),
-            shouldShow(ethereumBalance, 0.0001))
-    return Observable.just(newGlobalBalance)
-        .asAsyncToState { copy(defaultWalletBalanceAsync = it) }
-        .blockingSingle()
+    return GlobalBalance(tokenBalance.first, creditsBalance.first, ethereumBalance.first,
+        tokenBalance.second.symbol, tokenBalance.second.currency, fiatValue,
+        shouldShow(tokenBalance, 0.01), shouldShow(creditsBalance, 0.01),
+        shouldShow(ethereumBalance, 0.0001))
   }
 
   private fun shouldShow(balance: Pair<Balance, FiatValue>, threshold: Double): Boolean {
@@ -232,10 +228,12 @@ class HomeViewModel(private val applications: AppcoinsApps,
   }
 
   private fun updateTransactions(walletModel: TransactionsWalletModel?): Completable {
-    return if (walletModel == null) Completable.complete() else Completable.fromObservable(
+    if (walletModel == null) return Completable.complete()
+    val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
+    return Completable.fromObservable(
         Observable.combineLatest(getTransactions(walletModel.wallet), getCardNotifications(),
             getAppcoinsApps(), getMaxBonus(), observeNetworkAndWallet(),
-            Function5() { transactions: List<Transaction>, notifications: List<CardNotification>, apps: List<AppcoinsApplication>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
+            { transactions: List<Transaction>, notifications: List<CardNotification>, apps: List<AppcoinsApplication>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
               createTransactionsModel(transactions, notifications, apps, maxBonus,
                   transactionsWalletModel)
             })
@@ -245,8 +243,7 @@ class HomeViewModel(private val applications: AppcoinsApps,
             }
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .asAsyncToState { copy(transactionsModelAsync = it) }
-            //.doOnNext { transactionsModel -> onTransactionModel(transactionsModel, walletModel) }
+            .asAsyncToState(retainValue) { copy(transactionsModelAsync = it) }
             .map { walletModel })
   }
 
@@ -327,30 +324,12 @@ class HomeViewModel(private val applications: AppcoinsApps,
       supportInteractor.getUnreadConversationCountEvents()
           .subscribeOn(viewScheduler)
           .doOnNext { count: Int? ->
-            this.updateIntercomAnimation(count)
+            setState { copy(unreadMessages = (count != null && count != 0)) }
           }
     }
         .scopedSubscribe() { e ->
           e.printStackTrace()
         }
-  }
-
-  fun handleConversationCount() {
-    observeRefreshData().switchMap {
-      supportInteractor.getUnreadConversationCount()
-          .subscribeOn(viewScheduler)
-          .doOnSuccess { count ->
-            this.updateIntercomAnimation(count)
-          }
-          .toObservable()
-    }
-        .scopedSubscribe() { e ->
-          e.printStackTrace()
-        }
-  }
-
-  private fun updateIntercomAnimation(count: Int?) {
-    setState { copy(unreadMessages = (count != null && count != 0)) }
   }
 
   private fun handleRateUsDialogVisibility() {
@@ -371,7 +350,6 @@ class HomeViewModel(private val applications: AppcoinsApps,
             sendSideEffect { HomeSideEffect.ShowFingerprintTooltip }
           }
         }
-        .toObservable()
         .scopedSubscribe() { e ->
           e.printStackTrace()
         }
@@ -408,15 +386,19 @@ class HomeViewModel(private val applications: AppcoinsApps,
 
   fun onReceiveClick() {
     sendSideEffect {
-      HomeSideEffect.NavigateToReceive(
-          state.transactionsModelAsync.value!!.transactionsWalletModel.wallet)
+      state.transactionsModelAsync.value?.transactionsWalletModel?.let {
+        HomeSideEffect.NavigateToReceive(
+            it.wallet)
+      }
     }
   }
 
   fun onTransactionDetailsClick(transaction: Transaction) {
     sendSideEffect {
-      HomeSideEffect.NavigateToDetails(transaction,
-          state.defaultWalletBalanceAsync.value!!.fiatCurrency)
+      state.defaultWalletBalanceAsync.value?.let {
+        HomeSideEffect.NavigateToDetails(transaction,
+            it.fiatCurrency)
+      }
     }
   }
 
