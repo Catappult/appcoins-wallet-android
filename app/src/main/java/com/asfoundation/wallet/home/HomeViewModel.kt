@@ -20,7 +20,6 @@ import com.asfoundation.wallet.promotions.PromotionNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -60,7 +59,7 @@ data class HomeState(
     ViewState
 
 class HomeViewModel(private val applications: AppcoinsApps,
-                    private val analytics: TransactionsAnalytics,
+                    private val analytics: HomeAnalytics,
                     private val transactionViewInteractor: TransactionViewInteractor,
                     private val supportInteractor: SupportInteractor,
                     private val walletsEventSender: WalletsEventSender,

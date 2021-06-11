@@ -4,7 +4,6 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.TransactionViewInteractor
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.Module
@@ -25,13 +24,13 @@ class HomeModule {
 
   @Provides
   fun providesHomeViewModelFactory(appcoinsApps: AppcoinsApps,
-                                   transactionsAnalytics: TransactionsAnalytics,
+                                   homeAnalytics: HomeAnalytics,
                                    transactionViewInteractor: TransactionViewInteractor,
                                    walletsEventSender: WalletsEventSender,
                                    supportInteractor: SupportInteractor,
                                    currencyFormatUtils: CurrencyFormatUtils): HomeViewModelFactory {
     return HomeViewModelFactory(
-        appcoinsApps, transactionsAnalytics, transactionViewInteractor, walletsEventSender,
+        appcoinsApps, homeAnalytics, transactionViewInteractor, walletsEventSender,
         supportInteractor, currencyFormatUtils)
   }
 }
