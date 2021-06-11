@@ -399,7 +399,9 @@ class HomeFragment : BasePageViewFragment(),
     popup.width = ViewGroup.LayoutParams.MATCH_PARENT
     val yOffset = 36.convertDpToPx(resources)
     views.fadedBackground.visibility = View.VISIBLE
-    popup.showAsDropDown(views.actionButtonSettings, 0, -yOffset)
+    views.actionButtonSettings.post {
+      popup.showAsDropDown(views.actionButtonSettings, 0, -yOffset)
+    }
     setTooltipListeners()
   }
 

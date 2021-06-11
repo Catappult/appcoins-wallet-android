@@ -318,7 +318,7 @@ class HomeViewModel(private val applications: AppcoinsApps,
     sendSideEffect { HomeSideEffect.NavigateToBrowser(uri) }
   }
 
-  fun handleUnreadConversationCount() {
+  private fun handleUnreadConversationCount() {
     observeRefreshData().switchMap {
       supportInteractor.getUnreadConversationCountEvents()
           .subscribeOn(viewScheduler)
@@ -460,9 +460,5 @@ class HomeViewModel(private val applications: AppcoinsApps,
         .scopedSubscribe() { e ->
           e.printStackTrace()
         }
-  }
-
-  fun increaseTimesInHome() {
-    transactionViewInteractor.increaseTimesOnHome()
   }
 }
