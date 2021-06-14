@@ -23,20 +23,4 @@ class FindDefaultWalletInteract(private val walletRepository: WalletRepositoryTy
               .andThen(walletRepository.getDefaultWallet())
         }
   }
-
-  fun observe(): Observable<Wallet> {
-    return walletRepository.observeDefaultWallet()
-        .subscribeOn(scheduler)
-        .onErrorResumeNext { _: Throwable ->
-          return@onErrorResumeNext walletRepository.fetchWallets()
-              .filter { wallets -> wallets.isNotEmpty() }
-              .map { wallets: Array<Wallet> ->
-                wallets[0]
-              }
-              .flatMapCompletable { wallet: Wallet ->
-                walletRepository.setDefaultWallet(wallet.address)
-              }
-              .andThen(walletRepository.observeDefaultWallet())
-        }
-  }
 }

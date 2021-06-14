@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.main
 
+import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
-import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import dagger.Module
 import dagger.Provides
@@ -29,8 +29,8 @@ class MainActivityModule {
                                   hasSeenPromotionTooltipUseCase: HasSeenPromotionTooltipUseCase,
                                   increaseLaunchCountUseCase: IncreaseLaunchCountUseCase,
                                   promotionsInteractor: PromotionsInteractor,
-                                  supportInteractor: SupportInteractor): MainViewModelFactory {
+                                  displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase): MainViewModelFactory {
     return MainViewModelFactory(data, hasSeenPromotionTooltipUseCase, increaseLaunchCountUseCase,
-        promotionsInteractor, supportInteractor)
+        promotionsInteractor, displayConversationListOrChatUseCase)
   }
 }
