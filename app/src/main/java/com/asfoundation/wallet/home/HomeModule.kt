@@ -3,7 +3,6 @@ package com.asfoundation.wallet.home
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.main.MainActivityNavigator
-import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.Module
@@ -42,8 +41,11 @@ class HomeModule {
                                    getEthBalanceUseCase: GetEthBalanceUseCase,
                                    getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
                                    getCardNotificationsUseCase: GetCardNotificationsUseCase,
+                                   registerSupportUserUseCase: RegisterSupportUserUseCase,
+                                   getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
+                                   displayChatUseCase: DisplayChatUseCase,
+                                   displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
                                    walletsEventSender: WalletsEventSender,
-                                   supportInteractor: SupportInteractor,
                                    currencyFormatUtils: CurrencyFormatUtils): HomeViewModelFactory {
     return HomeViewModelFactory(
         appcoinsApps, homeAnalytics, shouldOpenRatingDialogUseCase, updateTransactionsNumberUseCase,
@@ -52,7 +54,8 @@ class HomeModule {
         buildAutoUpdateIntentUseCase, shouldShowFingerprintTooltipUseCase,
         setSeenFingerprintTooltipUseCase, getLevelsUseCase, getUserLevelUseCase,
         getAppcBalanceUseCase, getEthBalanceUseCase, getCreditsBalanceUseCase,
-        getCardNotificationsUseCase, walletsEventSender,
-        supportInteractor, currencyFormatUtils)
+        getCardNotificationsUseCase, registerSupportUserUseCase,
+        getUnreadConversationsCountEventsUseCase, displayChatUseCase,
+        displayConversationListOrChatUseCase, walletsEventSender, currencyFormatUtils)
   }
 }

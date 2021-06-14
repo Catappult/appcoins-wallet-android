@@ -18,7 +18,6 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.promotions.PromotionNotification
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
@@ -77,7 +76,10 @@ class HomeViewModel(private val applications: AppcoinsApps,
                     private val getEthBalanceUseCase: GetEthBalanceUseCase,
                     private val getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
                     private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
-                    private val supportInteractor: SupportInteractor,
+                    private val registerSupportUserUseCase: RegisterSupportUserUseCase,
+                    private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
+                    private val displayChatUseCase: DisplayChatUseCase,
+                    private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
                     private val walletsEventSender: WalletsEventSender,
                     private val formatter: CurrencyFormatUtils,
                     private val viewScheduler: Scheduler,
@@ -152,7 +154,7 @@ class HomeViewModel(private val applications: AppcoinsApps,
   }
 
   private fun registerSupportUser(level: Int, walletAddress: String) {
-    supportInteractor.registerUser(level, walletAddress)
+    registerSupportUserUseCase(level, walletAddress)
   }
 
   private fun refreshTransactionsAndBalance(model: TransactionsWalletModel): Completable {
@@ -336,7 +338,7 @@ class HomeViewModel(private val applications: AppcoinsApps,
 
   private fun handleUnreadConversationCount() {
     observeRefreshData().switchMap {
-      supportInteractor.getUnreadConversationCountEvents()
+      getUnreadConversationsCountEventsUseCase()
           .subscribeOn(viewScheduler)
           .doOnNext { count: Int? ->
             setState { copy(unreadMessages = (count != null && count != 0)) }
@@ -381,9 +383,9 @@ class HomeViewModel(private val applications: AppcoinsApps,
 
   fun showSupportScreen(fromNotification: Boolean) {
     if (fromNotification) {
-      supportInteractor.displayConversationListOrChat()
+      displayConversationListOrChatUseCase
     } else {
-      supportInteractor.displayChatScreen()
+      displayChatUseCase()
     }
   }
 

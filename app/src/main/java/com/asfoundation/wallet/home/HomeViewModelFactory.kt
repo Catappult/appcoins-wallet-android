@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.home.usecases.*
-import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,8 +28,11 @@ class HomeViewModelFactory(private val applications: AppcoinsApps,
                            private val getEthBalanceUseCase: GetEthBalanceUseCase,
                            private val getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
                            private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
+                           private val registerSupportUserUseCase: RegisterSupportUserUseCase,
+                           private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
+                           private val displayChatUseCase: DisplayChatUseCase,
+                           private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
                            private val walletsEventSender: WalletsEventSender,
-                           private val supportInteractor: SupportInteractor,
                            private val formatter: CurrencyFormatUtils) :
     ViewModelProvider.Factory {
 
@@ -41,7 +43,9 @@ class HomeViewModelFactory(private val applications: AppcoinsApps,
         observeDefaultWalletUseCase, dismissCardNotificationUseCase, buildAutoUpdateIntentUseCase,
         shouldShowFingerprintTooltipUseCase, setSeenFingerprintTooltipUseCase, getLevelsUseCase,
         getUserLevelUseCase, getAppcBalanceUseCase, getEthBalanceUseCase, getCreditsBalanceUseCase,
-        getCardNotificationsUseCase, supportInteractor, walletsEventSender, formatter,
+        getCardNotificationsUseCase, registerSupportUserUseCase,
+        getUnreadConversationsCountEventsUseCase, displayChatUseCase,
+        displayConversationListOrChatUseCase, walletsEventSender, formatter,
         AndroidSchedulers.mainThread(), Schedulers.io()) as T
   }
 }

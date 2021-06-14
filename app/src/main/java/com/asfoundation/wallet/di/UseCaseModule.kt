@@ -24,6 +24,7 @@ import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
+import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import dagger.Module
@@ -219,4 +220,30 @@ class UseCaseModule {
     return GetCardNotificationsUseCase(referralInteractor, autoUpdateInteract, backupInteract,
         promotionsInteractor)
   }
+
+  @Singleton
+  @Provides
+  fun providesRegisterSupportUserUseCase(
+      supportRepository: SupportRepository): RegisterSupportUserUseCase {
+    return RegisterSupportUserUseCase(supportRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun provideGetUnreadConversationsCountEventsUseCase() =
+      GetUnreadConversationsCountEventsUseCase()
+
+  @Singleton
+  @Provides
+  fun providesDisplayChatUseCase(supportRepository: SupportRepository): DisplayChatUseCase {
+    return DisplayChatUseCase(supportRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesDisplayConversationListOrChatUseCase(
+      supportRepository: SupportRepository): DisplayConversationListOrChatUseCase {
+    return DisplayConversationListOrChatUseCase(supportRepository)
+  }
+
 }
