@@ -39,6 +39,10 @@ class HomeNavigator(private val fragment: Fragment,
     mainActivityNavigator.navigateToMyWallets()
   }
 
+  fun navigateToPromotions() {
+    mainActivityNavigator.navigateToPromotions()
+  }
+
   fun navigateToSend() {
     val intent = newIntent(fragment.requireContext())
     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
