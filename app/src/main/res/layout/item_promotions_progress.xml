@@ -13,8 +13,9 @@
       android:id="@+id/progress_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="?attr/selectableItemBackground"
+      android:background="@color/activity_background_color"
       android:paddingBottom="@dimen/normal_margin"
+      android:clickable="false"
       >
 
     <ImageView

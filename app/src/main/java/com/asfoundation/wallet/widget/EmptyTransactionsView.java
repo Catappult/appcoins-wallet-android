@@ -39,9 +39,6 @@ public class EmptyTransactionsView extends FrameLayout {
           if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_GAMIFICATION)) {
             //transactionsActivity.navigateToPromotions(false);
           }
-          if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_TOP_APPS)) {
-            //transactionsActivity.navigateToTopApps();
-          }
         })
         .subscribe());
   }
