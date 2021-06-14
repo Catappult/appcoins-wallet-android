@@ -413,7 +413,6 @@ class InteractorModule {
                                       gamificationInteractor: GamificationInteractor,
                                       balanceInteractor: BalanceInteractor,
                                       promotionsInteractor: PromotionsInteractor,
-                                      cardNotificationsInteractor: CardNotificationsInteractor,
                                       autoUpdateInteract: AutoUpdateInteract,
                                       ratingInteractor: RatingInteractor,
                                       preferencesRepositoryType: PreferencesRepositoryType,
@@ -422,7 +421,7 @@ class InteractorModule {
                                       fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteractor {
     return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
-        promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
+        promotionsInteractor, autoUpdateInteract, ratingInteractor,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
         fingerprintPreferencesRepository)
   }
@@ -443,15 +442,6 @@ class InteractorModule {
     return BackupInteract(sharedPreferences, backupRestorePreferencesRepository,
         fetchTransactionsInteract, balanceInteractor, gamificationInteractor,
         findDefaultWalletInteract)
-  }
-
-  @Provides
-  fun provideCardNotificationInteractor(referralInteractor: ReferralInteractorContract,
-                                        autoUpdateInteract: AutoUpdateInteract,
-                                        backupInteract: BackupInteractContract,
-                                        promotionsInteractor: PromotionsInteractor): CardNotificationsInteractor {
-    return CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        backupInteract, promotionsInteractor, Schedulers.io())
   }
 
   @Singleton

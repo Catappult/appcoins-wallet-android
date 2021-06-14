@@ -30,7 +30,6 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
                                 private val gamificationInteractor: GamificationInteractor,
                                 private val balanceInteractor: BalanceInteractor,
                                 private val promotionsInteractor: PromotionsInteractor,
-                                private val cardNotificationsInteractor: CardNotificationsInteractor,
                                 private val autoUpdateInteract: AutoUpdateInteract,
                                 private val ratingInteractor: RatingInteractor,
                                 private val preferencesRepositoryType: PreferencesRepositoryType,
@@ -54,9 +53,6 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
 
   val creditsBalance: Observable<Pair<Balance, FiatValue>>
     get() = balanceInteractor.getCreditsBalance()
-
-  val cardNotifications: Single<List<CardNotification>>
-    get() = cardNotificationsInteractor.getCardNotifications()
 
   val userLevel: Single<Int>
     get() = gamificationInteractor.getUserLevel()
@@ -87,10 +83,6 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
 
   fun observeWallet(): Observable<Wallet> {
     return findDefaultWalletInteract.observe()
-  }
-
-  fun dismissNotification(cardNotification: CardNotification): Completable {
-    return cardNotificationsInteractor.dismissNotification(cardNotification)
   }
 
   fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
