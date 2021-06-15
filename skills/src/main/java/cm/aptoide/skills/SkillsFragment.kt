@@ -14,6 +14,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import java.net.ConnectException
 import javax.inject.Inject
 
 class SkillsFragment : DaggerFragment() {
@@ -66,18 +67,39 @@ class SkillsFragment : DaggerFragment() {
                   .doOnSubscribe { showRoomLoading(false, null) }
                   .flatMap { ticketResponse ->
                     viewModel.getRoom(eskillsUri, ticketResponse, this)
-                        .doOnSubscribe { showRoomLoading(true, ticketResponse.ticketId) }
-                        .doOnNext { userData ->
-                          if (userData.refunded) {
-                            showRefunded()
-                          } else {
-                            postbackUserData(RESULT_OK, userData)
-                          }
+                      .doOnSubscribe { showRoomLoading(true, ticketResponse.ticketId) }
+                      .doOnNext { userData ->
+                        if (userData.refunded) {
+                          showRefunded()
+                        } else {
+                          postbackUserData(RESULT_OK, userData)
                         }
-                        .doOnNext { ticket -> println("ticket: $ticket") }
+                      }
+                      .doOnNext { ticket -> println("ticket: $ticket") }
                   }
-            }.subscribe()
+            }.ignoreElements().doOnError({ handleError(it) })
+          .onErrorComplete({ t -> isNetworkException(t) }).subscribe()
     )
+  }
+
+  private fun handleError(throwable: Throwable) {
+    if (throwable is ConnectException) {
+      binding.loadingTicketLayout.processingLoading.visibility = View.GONE
+      binding.refundTicketLayout.root.visibility = View.GONE
+      binding.noNetworkLayout.root.visibility = View.VISIBLE
+      binding.noNetworkLayout.noNetworkOkButton.setOnClickListener({
+        finishWithError()
+      })
+    }
+  }
+
+  private fun finishWithError() {
+    requireActivity().setResult(RESULT_ERROR)
+    requireActivity().finish()
+  }
+
+  private fun isNetworkException(throwable: Throwable): Boolean {
+    return throwable is ConnectException
   }
 
   private fun showRefunded() {
