@@ -13,7 +13,6 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_promotions)
-    toolbar()
     if (savedInstanceState == null) {
       supportFragmentManager.beginTransaction()
           .add(R.id.fragment_container, PromotionsFragment.newInstance())

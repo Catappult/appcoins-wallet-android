@@ -28,6 +28,8 @@ import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionDatabase
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_1_2
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_2_3
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_3_4
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_4_5
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.WalletOriginDao
 import com.appcoins.wallet.permissions.Permissions
@@ -42,7 +44,8 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
+import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
@@ -63,6 +66,9 @@ import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
+import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesDatabase
+import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
+import com.asfoundation.wallet.service.currencies.RoomCurrencyConversionRatesPersistence
 import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
 import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDatabase
 import com.asfoundation.wallet.support.SupportSharedPreferences
@@ -377,6 +383,8 @@ internal class AppModule {
     return Room.databaseBuilder(context, PromotionDatabase::class.java, "promotion_database")
         .addMigrations(MIGRATION_1_2)
         .addMigrations(MIGRATION_2_3)
+        .addMigrations(MIGRATION_3_4)
+        .addMigrations(MIGRATION_4_5)
         .build()
   }
 
@@ -547,7 +555,8 @@ internal class AppModule {
             TransactionsDatabase.MIGRATION_1_2,
             TransactionsDatabase.MIGRATION_2_3,
             TransactionsDatabase.MIGRATION_3_4,
-            TransactionsDatabase.MIGRATION_4_5
+            TransactionsDatabase.MIGRATION_4_5,
+            TransactionsDatabase.MIGRATION_5_6
         )
         .build()
   }
@@ -602,9 +611,9 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBalanceWalletsExperiment(
-      abTestInteractor: ABTestInteractor): BalanceWalletsExperiment {
-    return BalanceWalletsExperiment(abTestInteractor)
+  fun providesTopUpDefaultValueExperiment(
+      abTestInteractor: ABTestInteractor): TopUpDefaultValueExperiment {
+    return TopUpDefaultValueExperiment(abTestInteractor)
   }
 
   @Singleton
@@ -617,5 +626,28 @@ internal class AppModule {
   @Provides
   fun providesErrorMapper(gson: Gson): ErrorMapper {
     return ErrorMapper(gson)
+  }
+
+
+  @Singleton
+  @Provides
+  fun provideCurrencyConversionRatesDatabase(context: Context): CurrencyConversionRatesDatabase {
+    return Room.databaseBuilder(context, CurrencyConversionRatesDatabase::class.java,
+      "currency_conversion_rates_database")
+      .build()
+  }
+
+  @Singleton
+  @Provides
+  fun provideRoomCurrencyConversionRatesPersistence(
+    database: CurrencyConversionRatesDatabase
+  ): CurrencyConversionRatesPersistence {
+    return RoomCurrencyConversionRatesPersistence(database.currencyConversionRatesDao())
+  }
+
+  @Singleton
+  @Provides
+  fun provideTaskTimer(): TaskTimer {
+    return TaskTimer()
   }
 }

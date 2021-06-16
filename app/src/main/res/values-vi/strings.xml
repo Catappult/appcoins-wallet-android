@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Hoàn trả tiền mua</string>
   <string name="transaction_type_reverted_purchase_body">Giao dịch mua bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
   <string name="transaction_reverted_view_original_header">Giao dịch ban đầu</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Được cung cấp bởi Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -693,6 +695,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Quản lý các gói đăng ký</string>
   <string name="subscriptions_title">Gói đăng ký</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Hoạt động</string>
   <string name="subscriptions_expired_title">Đã hết hạn</string>
   <string name="subscriptions_empty_title">Chưa có gói đăng ký nào</string>

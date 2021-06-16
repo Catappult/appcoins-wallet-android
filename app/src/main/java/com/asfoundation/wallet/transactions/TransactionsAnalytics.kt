@@ -1,13 +1,15 @@
 package com.asfoundation.wallet.transactions
 
 import cm.aptoide.analytics.AnalyticsManager
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsAnalytics
+import java.util.*
 
-class TransactionsAnalytics(private val analytics: AnalyticsManager,
-                            private val balanceWalletsAnalytics: BalanceWalletsAnalytics) {
+class TransactionsAnalytics(private val analytics: AnalyticsManager) {
 
   companion object {
+    const val WALLET_HOME_INTERACTION_EVENT = "wallet_home_interaction_event"
+    const val CALL_TO_ACTION = "call_to_action"
     const val OPEN_APPLICATION = "OPEN_APPLICATION"
+
     private const val UNIQUE_NAME = "unique_name"
     private const val PACKAGE_NAME = "package_name"
     private const val WALLET = "WALLET"
@@ -19,8 +21,9 @@ class TransactionsAnalytics(private val analytics: AnalyticsManager,
         OPEN_APPLICATION, AnalyticsManager.Action.OPEN, WALLET)
   }
 
-  fun sendAbTestImpressionEvent(assignment: String) =
-      balanceWalletsAnalytics.sendAbTestParticipatingEvent(assignment)
-
-  fun sendAbTestConversionEvent() = balanceWalletsAnalytics.sendAbTestConvertingEvent()
+  fun sendAction(action: String) {
+    val data = HashMap<String, Any>()
+    data[CALL_TO_ACTION] = action
+    analytics.logEvent(data, WALLET_HOME_INTERACTION_EVENT, AnalyticsManager.Action.CLICK, WALLET)
+  }
 }

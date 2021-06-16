@@ -24,6 +24,7 @@
   <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
   <string name="action_import">Recover</string>
   <string name="copy">Copy to clipboard</string>
+  <string name="copied">Copied!</string>
   <string name="close">Close</string>
   <string name="title_activity_settings">Settings</string>
   <string name="network_label">Network</string>
@@ -31,6 +32,7 @@
   <string name="label_new">New</string>
   <string name="got_it_button">GOT IT</string>
   <string name="change_button">CHANGE</string>
+  <string name="vip">VIP</string>
 
   <string name="low_storage_error">Not enough storage space</string>
   <string name="no_camera_permission_title">Camera Permission</string>
@@ -256,6 +258,8 @@
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_reverted_view_original_header">Original Transaction</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -1004,6 +1008,15 @@
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
   <string name="voucher_empty_more_title">Vouchers for Games</string>
   <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
+  
+ <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  
+ <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+
 
 
 

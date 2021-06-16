@@ -8,6 +8,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.State
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -15,6 +16,7 @@ import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Completable
@@ -28,17 +30,19 @@ import retrofit2.HttpException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class PaymentMethodsPresenter(private val view: PaymentMethodsView,
-                              private val viewScheduler: Scheduler,
-                              private val networkThread: Scheduler,
-                              private val disposables: CompositeDisposable,
-                              private val analytics: PaymentMethodsAnalytics,
-                              private val transaction: TransactionBuilder,
-                              private val paymentMethodsMapper: PaymentMethodsMapper,
-                              private val formatter: CurrencyFormatUtils,
-                              private val logger: Logger,
-                              private val interactor: PaymentMethodsInteractor,
-                              private val paymentMethodsData: PaymentMethodsData) {
+class PaymentMethodsPresenter(
+    private val view: PaymentMethodsView,
+    private val viewScheduler: Scheduler,
+    private val networkThread: Scheduler,
+    private val disposables: CompositeDisposable,
+    private val analytics: PaymentMethodsAnalytics,
+    private val transaction: TransactionBuilder,
+    private val paymentMethodsMapper: PaymentMethodsMapper,
+    private val formatter: CurrencyFormatUtils,
+    private val logger: Logger,
+    private val interactor: PaymentMethodsInteractor,
+    private val paymentMethodsData: PaymentMethodsData,
+    private val taskTimer: TaskTimer) {
 
   private var cachedGamificationLevel = 0
   private var cachedFiatValue: FiatValue? = null
@@ -73,6 +77,7 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
   }
 
   fun onResume(firstRun: Boolean) {
+    startMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun);
     if (firstRun.not()) view.showPaymentsSkeletonLoading()
     setupUi(firstRun)
   }
@@ -83,6 +88,8 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
         .doOnNext { selectedPaymentMethod ->
           if (interactor.isBonusActiveAndValid()) {
             handleBonusVisibility(selectedPaymentMethod)
+          } else {
+            view.removeBonus()
           }
           handlePositiveButtonText(selectedPaymentMethod)
         }
@@ -96,8 +103,7 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
         .doOnNext { handleBuyAnalytics(it) }
         .doOnNext { selectedPaymentMethod ->
           when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-            EARN_APPC -> view.showEarnAppcoins()
-            APPC_CREDITS -> {
+           APPC_CREDITS -> {
               view.showProgressBarLoading()
               handleWalletBlockStatus(selectedPaymentMethod)
             }
@@ -323,31 +329,60 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
   }
 
   private fun setupUi(firstRun: Boolean) {
-    disposables.add(
-        interactor.convertToLocalFiat(paymentMethodsData.transactionValue.toDouble())
-            .subscribeOn(networkThread)
-            .flatMapCompletable { fiatValue ->
-              this.cachedFiatValue = fiatValue
-              getPaymentMethods(fiatValue)
-                  .flatMapCompletable { paymentMethods ->
-                    interactor.getEarningBonus(transaction.domain, transaction.amount())
-                        .observeOn(viewScheduler)
-                        .flatMapCompletable {
-                          Completable.fromAction {
-                            setupBonusInformation(it)
-                            selectPaymentMethod(paymentMethods, fiatValue,
-                                interactor.isBonusActiveAndValid(it))
-                          }
-                        }
-                  }
-            }
-            .subscribeOn(networkThread)
-            .observeOn(viewScheduler)
-            .doOnComplete {
-              //If not first run we should rely on the hideLoading of the handleOnGoingPurchases method
-              if (!firstRun) view.hideLoading()
-            }
-            .subscribe({ }, { this.showError(it) }))
+    disposables.add(Completable.fromAction {
+      startMeasure(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT, firstRun)
+    }
+        .andThen(interactor.convertToLocalFiat(paymentMethodsData.transactionValue.toDouble())
+            .subscribeOn(networkThread))
+        .flatMapCompletable { fiatValue ->
+          endMeasure(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT, firstRun)
+          this.cachedFiatValue = fiatValue
+          startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS, firstRun)
+          getPaymentMethods(fiatValue)
+              .flatMapCompletable { paymentMethods ->
+                endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS, firstRun)
+                startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS, firstRun)
+                interactor.getEarningBonus(transaction.domain, transaction.amount())
+                    .observeOn(viewScheduler)
+                    .flatMapCompletable {
+                      endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS, firstRun)
+                      Completable.fromAction {
+                        startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA,
+                            firstRun)
+                        setupBonusInformation(it)
+                        selectPaymentMethod(paymentMethods, fiatValue,
+                            interactor.isBonusActiveAndValid(it))
+                        endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA,
+                            firstRun)
+                      }
+                    }
+              }
+        }
+        .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
+        .doOnComplete {
+          //If first run we should rely on the hideLoading of the handleOnGoingPurchases method
+          if (!firstRun) view.hideLoading()
+          endMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun);
+        }
+        .subscribe({ }, { this.showError(it) }))
+  }
+
+  private fun startMeasure(id: String, firstRun: Boolean) {
+    if (firstRun) {
+      taskTimer.start(id)
+    }
+  }
+
+  private fun endMeasure(id: String, firstRun: Boolean) {
+    val duration = taskTimer.end(id)
+    if (firstRun && duration != -1L) {
+      if (id == PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL) {
+        analytics.sendTimeToLoadTotalEvent(duration)
+      } else {
+        analytics.sendTimeToLoadStepEvent(id, duration)
+      }
+    }
   }
 
   private fun setupBonusInformation(forecastBonus: ForecastBonusAndLevel) {
@@ -368,8 +403,8 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,
                                   isBonusActive: Boolean) {
-    val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
-    val appcAmount = formatter.formatCurrency(transaction.amount(), WalletCurrency.APPCOINS)
+    val fiatAmount = formatter.formatPaymentCurrency(fiatValue.amount, WalletCurrency.FIAT)
+    val appcAmount = formatter.formatPaymentCurrency(transaction.amount(), WalletCurrency.APPCOINS)
     if (interactor.hasAsyncLocalPayment()) {
       //After a asynchronous payment credits will be used as pre selected
       getCreditsPaymentMethod(paymentMethods)?.let {
@@ -521,9 +556,10 @@ class PaymentMethodsPresenter(private val view: PaymentMethodsView,
               .observeOn(viewScheduler)
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
-                  val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
-                  val appcAmount = formatter.formatCurrency(transaction.amount(),
-                      WalletCurrency.APPCOINS)
+                  val fiatAmount =
+                      formatter.formatPaymentCurrency(fiatValue.amount, WalletCurrency.FIAT)
+                  val appcAmount =
+                      formatter.formatPaymentCurrency(transaction.amount(), WalletCurrency.APPCOINS)
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount,
                       appcAmount, paymentMethodsData.frequency)

@@ -229,7 +229,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       e.printStackTrace()
     }
     app_sku_description?.text = skuDescription
-    val appcValue = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
+    val appcValue = formatter.formatPaymentCurrency(appcAmount, WalletCurrency.APPCOINS)
     appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
 

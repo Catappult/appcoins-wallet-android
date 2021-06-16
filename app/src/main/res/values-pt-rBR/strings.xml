@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Reembolso de Compra</string>
   <string name="transaction_type_reverted_purchase_body">A compra que você fez em %s foi reembolsada. Contate o Suporte para mais informações.</string>
   <string name="transaction_reverted_view_original_header">Transação Original</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered by Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -694,6 +696,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Gerenciar assinaturas</string>
   <string name="subscriptions_title">Assinaturas</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Ativa</string>
   <string name="subscriptions_expired_title">Expirado</string>
   <string name="subscriptions_empty_title">Sem Assinaturas</string>

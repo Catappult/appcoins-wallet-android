@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">购买退款</string>
   <string name="transaction_type_reverted_purchase_body">您于%s进行的购买已还原。请联系支持团队以了解更多信息。</string>
   <string name="transaction_reverted_view_original_header">原始交易</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">采用以太网技术</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -693,6 +695,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">管理订购</string>
   <string name="subscriptions_title">订购</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">激活</string>
   <string name="subscriptions_expired_title">已到期</string>
   <string name="subscriptions_empty_title">尚无订购</string>

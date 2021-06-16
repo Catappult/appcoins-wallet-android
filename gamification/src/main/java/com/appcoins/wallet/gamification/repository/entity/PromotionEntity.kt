@@ -5,9 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.math.BigDecimal
 
+// a uid field needed to be created because the previous primary key ('id') was not necessarily
+// unique for all kinds of promotions.
 @Entity
 data class PromotionEntity(
-    @PrimaryKey val id: String,
+    @PrimaryKey(autoGenerate = true) val uid: Long = 0,
+    val id: String,
     val priority: Int,
     val bonus: Double? = null,
     @ColumnInfo(name = "total_spend")
@@ -38,7 +41,10 @@ data class PromotionEntity(
     val amount: BigDecimal? = null,
     @ColumnInfo(name = "current_progress")
     val currentProgress: BigDecimal? = null,
-    val description: String? = null,
+    @ColumnInfo(name = "notification_description")
+    val notificationDescription: String? = null,
+    @ColumnInfo(name = "perk_description")
+    val perkDescription: String? = null,
     @ColumnInfo(name = "end_date")
     val endDate: Long? = null,
     val icon: String? = null,
@@ -48,7 +54,8 @@ data class PromotionEntity(
     val objectiveProgress: BigDecimal? = null,
     @ColumnInfo(name = "start_date")
     val startDate: Long? = null,
-    val title: String? = null,
+    @ColumnInfo(name = "notification_title")
+    val notificationTitle: String? = null,
     @ColumnInfo(name = "view_type")
     val viewType: String? = null,
     @ColumnInfo(name = "details_link")

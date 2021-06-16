@@ -5,8 +5,9 @@ import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.backup.NotificationNeeded
-import com.asfoundation.wallet.service.LocalCurrencyConversionService
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -29,7 +30,8 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private var limitValues: TopUpLimitValues,
                       private var walletBlockedInteract: WalletBlockedInteract,
                       private var inAppPurchaseInteractor: InAppPurchaseInteractor,
-                      private var supportInteractor: SupportInteractor) {
+                      private var supportInteractor: SupportInteractor,
+                      private var topUpDefaultValueExperiment: TopUpDefaultValueExperiment) {
 
 
   fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> {
@@ -43,9 +45,7 @@ class TopUpInteractor(private val repository: BdsRepository,
       inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
 
   fun showSupport(): Completable {
-    return gamificationInteractor.getUserStats()
-        .map { it.level }
-        .onErrorReturn { 0 }
+    return gamificationInteractor.getUserLevel()
         .flatMapCompletable { level ->
           inAppPurchaseInteractor.walletAddress
               .flatMapCompletable { wallet ->
@@ -127,4 +127,9 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun getWalletAddress(): Single<String> = inAppPurchaseInteractor.walletAddress
+
+  fun getABTestingExperiment(): Single<String> = topUpDefaultValueExperiment.getConfiguration()
+
+  fun mapABTestingExperiment(experiment: String): Int =
+      topUpDefaultValueExperiment.mapConfiguration(experiment)
 }

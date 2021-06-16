@@ -33,8 +33,8 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
 
   fun registerUser() =
       inAppPurchaseInteractor.walletAddress.flatMap { address ->
-        gamificationRepository.getUserStats(address)
-            .doOnSuccess { supportInteractor.registerUser(it.level, address) }
+        gamificationRepository.getUserLevel(address)
+            .doOnSuccess { supportInteractor.registerUser(it, address) }
       }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {

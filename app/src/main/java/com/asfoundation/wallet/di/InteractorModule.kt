@@ -26,7 +26,7 @@ import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
 import com.asfoundation.wallet.abtesting.ABTestInteractor
 import com.asfoundation.wallet.abtesting.ABTestRepository
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.LaunchAnalytics
@@ -55,7 +55,7 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.service.CampaignService
-import com.asfoundation.wallet.service.LocalCurrencyConversionService
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.asfoundation.wallet.support.SupportInteractor
@@ -308,10 +308,11 @@ class InteractorModule {
                               topUpValuesService: TopUpValuesService,
                               walletBlockedInteract: WalletBlockedInteract,
                               inAppPurchaseInteractor: InAppPurchaseInteractor,
-                              supportInteractor: SupportInteractor) =
+                              supportInteractor: SupportInteractor,
+                              topUpDefaultValueExperiment: TopUpDefaultValueExperiment) =
       TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
           LinkedHashMap(), TopUpLimitValues(), walletBlockedInteract, inAppPurchaseInteractor,
-          supportInteractor)
+          supportInteractor, topUpDefaultValueExperiment)
 
   @Singleton
   @Provides
@@ -413,13 +414,12 @@ class InteractorModule {
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
-                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
-                                      balanceWalletsExperiment: BalanceWalletsExperiment): TransactionViewInteractor {
+                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteractor {
     return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
         promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
-        fingerprintPreferencesRepository, balanceWalletsExperiment)
+        fingerprintPreferencesRepository)
   }
 
   @Provides

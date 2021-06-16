@@ -19,7 +19,7 @@ class TitleItem(
 
 class DefaultItem(
     id: String,
-    val description: String,
+    val description: String?,
     val icon: String?,
     startDate: Long?,
     endDate: Long,
@@ -28,7 +28,7 @@ class DefaultItem(
 
 class FutureItem(
     id: String,
-    val description: String,
+    val description: String?,
     val icon: String?,
     startDate: Long?,
     endDate: Long,
@@ -37,7 +37,7 @@ class FutureItem(
 
 class ProgressItem(
     id: String,
-    val description: String,
+    val description: String?,
     val icon: String?,
     startDate: Long?,
     endDate: Long,
@@ -66,7 +66,7 @@ class ReferralItem(
 
 class GamificationLinkItem(
     id: String,
-    val description: String,
+    val description: String?,
     val icon: String?,
     startDate: Long?,
     endDate: Long

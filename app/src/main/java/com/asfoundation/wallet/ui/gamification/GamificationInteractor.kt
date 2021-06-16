@@ -10,7 +10,7 @@ import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.service.LocalCurrencyConversionService
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -25,14 +25,19 @@ class GamificationInteractor(
 
   private var isBonusActiveAndValid: Boolean = false
 
-  fun getLevels(): Single<Levels> {
+  fun getLevels(offlineFirst: Boolean = true): Observable<Levels> {
     return defaultWallet.find()
-        .flatMap { gamification.getLevels(it.address) }
+        .flatMapObservable { gamification.getLevels(it.address, offlineFirst) }
   }
 
-  fun getUserStats(): Single<GamificationStats> {
+  fun getUserStats(): Observable<GamificationStats> {
     return defaultWallet.find()
-        .flatMap { gamification.getUserStats(it.address) }
+        .flatMapObservable { gamification.getUserStats(it.address) }
+  }
+
+  fun getUserLevel(): Single<Int> {
+    return defaultWallet.find()
+        .flatMap { gamification.getUserLevel(it.address) }
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
@@ -78,7 +83,7 @@ class GamificationInteractor(
     return if (gamificationResponse == null || gamificationResponse.status != PromotionsResponse.Status.ACTIVE) {
       Single.just(false)
     } else {
-      gamification.hasNewLevel(walletAddress, gamificationContext)
+      gamification.hasNewLevel(walletAddress, gamificationContext, gamificationResponse.level)
     }
   }
 
@@ -87,8 +92,9 @@ class GamificationInteractor(
         .flatMapCompletable { gamification.levelShown(it.address, level, gamificationContext) }
   }
 
-  fun getAppcToLocalFiat(value: String, scale: Int): Observable<FiatValue> {
-    return conversionService.getAppcToLocalFiat(value, scale)
+  fun getAppcToLocalFiat(value: String, scale: Int,
+                         getFromCache: Boolean = false): Observable<FiatValue> {
+    return conversionService.getAppcToLocalFiat(value, scale, getFromCache)
         .onErrorReturn { FiatValue(BigDecimal("-1"), "", "") }
   }
 

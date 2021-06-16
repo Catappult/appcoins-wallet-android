@@ -8,7 +8,8 @@ class GenericResponse(
     priority: Int,
     @SerializedName("current_progress")
     val currentProgress: BigDecimal?,
-    val description: String,
+    @SerializedName("notification_description") val notificationDescription: String?,
+    @SerializedName("perk_description") val perkDescription: String?,
     @SerializedName("end_date")
     val endDate: Long,
     val icon: String?,
@@ -18,7 +19,7 @@ class GenericResponse(
     val objectiveProgress: BigDecimal?,
     @SerializedName("start_date")
     val startDate: Long?,
-    val title: String,
+    @SerializedName("notification_title") val notificationTitle: String?,
     @SerializedName("view_type") val viewType: String,
     @SerializedName("details_link") val detailsLink: String?
 ) : PromotionsResponse(id, priority)

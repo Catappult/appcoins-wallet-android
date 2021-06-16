@@ -17,27 +17,33 @@ class TransactionMapper {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value, transaction.from, transaction.to,
-        map(transaction.details), transaction.currency, mapToOperations(transaction.operations),
-        listOf(mapLink(link, transaction)))
+        map(transaction.status), transaction.value,
+        transaction.from, transaction.to, map(transaction.details),
+        transaction.currency,
+        mapToOperations(transaction.operations),
+        listOf(mapLink(link, transaction)), transaction.paidAmount, transaction.paidCurrency)
   }
 
   private fun mapLink(transaction: TransactionEntity, link: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value, transaction.from, transaction.to,
-        map(transaction.details), transaction.currency, mapToOperations(transaction.operations),
-        listOf(map(link)))
+        map(transaction.status), transaction.value,
+        transaction.from, transaction.to, map(transaction.details),
+        transaction.currency,
+        mapToOperations(transaction.operations),
+        listOf(map(link)), transaction.paidAmount, transaction.paidCurrency)
   }
 
   fun map(transaction: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
         transaction.title, transaction.cardDescription, map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value, transaction.from, transaction.to,
-        map(transaction.details), transaction.currency, mapToOperations(transaction.operations),
-        emptyList())
+        map(transaction.status), transaction.value,
+        transaction.from, transaction.to, map(transaction.details),
+        transaction.currency,
+        mapToOperations(transaction.operations),
+        emptyList(), transaction.paidAmount, transaction.paidCurrency)
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {
@@ -93,8 +99,9 @@ class TransactionMapper {
         transaction.approveTransactionId, map(transaction.perk),
         map(transaction.type), map(transaction.subType), transaction.title,
         transaction.description, transaction.timeStamp,
-        transaction.processedTime, map(transaction.status), transaction.value,
-        transaction.from, transaction.to, map(transaction.details), transaction.currency,
+        transaction.processedTime, map(transaction.status), transaction.value, transaction.currency,
+        transaction.paidAmount, transaction.paidCurrency,
+        transaction.from, transaction.to, map(transaction.details),
         mapToOperationEntities(transaction.operations))
   }
 

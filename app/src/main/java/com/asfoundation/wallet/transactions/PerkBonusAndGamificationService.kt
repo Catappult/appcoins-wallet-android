@@ -70,9 +70,8 @@ class PerkBonusAndGamificationService :
   private fun handleNotifications(address: String): Single<Unit> {
     return Single.zip(getLastShownLevelUp(address),
         promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_ALMOST_NEXT_LEVEL),
-        promotionsRepository.getGamificationStats(address),
-        promotionsRepository.getLevels(address)
-            .map { it.list },
+        getGamificationStats(address),
+        getLevelList(address),
         getNewTransactions(address),
         Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
                     allLevels: List<Levels.Level>, transactions: List<Transaction> ->
@@ -149,10 +148,19 @@ class PerkBonusAndGamificationService :
             * 100.0).toInt() > almostNextLevelPercent
   }
 
+  private fun getGamificationStats(address: String): Single<GamificationStats> =
+      promotionsRepository.getGamificationStats(address)
+          .lastOrError()
+
   private fun getLastShownLevelUp(address: String): Single<Int> {
     return promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_LEVEL_UP)
-        .map { if (it < 0) 0 else it }
+        .map { if (it == GamificationStats.INVALID_LEVEL) 0 else it }
   }
+
+  private fun getLevelList(address: String): Single<List<Levels.Level>> =
+      promotionsRepository.getLevels(address)
+          .lastOrError()
+          .map { it.list }
 
   private fun isCaseInvalidForNotifications(stats: GamificationStats,
                                             transactions: List<Transaction>,

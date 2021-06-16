@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing.carrierbilling
 
 import com.appcoins.wallet.billing.carrierbilling.request.CarrierTransactionBody
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
+import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -65,6 +66,6 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
                    walletSignature: String): Observable<TransactionResponse>
 
     @GET("dimoco/countries")
-    fun getAvailableCountryList(): Single<List<String>>
+    fun getAvailableCountryList(): Single<CountryListResponse>
   }
 }

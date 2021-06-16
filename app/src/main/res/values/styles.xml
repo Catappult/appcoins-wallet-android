@@ -7,6 +7,7 @@
     <item name="colorAccent">@color/colorAccent</item>
     <item name="android:statusBarColor">@color/statusBarColor</item>
     <item name="android:windowContentTransitions">true</item>
+
   </style>
 
   <style name="MaterialAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -20,6 +21,17 @@
     <item name="actionMenuTextColor">@color/white</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowContentTransitions">true</item>
+  </style>
+
+  <style name="AppBottomSheetDialogTheme"
+      parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    <item name="behavior_draggable">false</item>
+  </style>
+
+  <style name="AppModalStyle"
+      parent="Widget.Design.BottomSheet.Modal">
+    <item name="android:background">@drawable/rounded_dialog</item>
   </style>
 
   <style name="AdyenMaterialAppTheme" parent="MaterialAppTheme">
@@ -852,6 +864,28 @@
     <item name="android:textColor">#191919</item>
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">10sp</item>
+  </style>
+
+  <style name="BottomSheetEtherTransactionTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/tooltip_black</item>
+    <item name="android:textSize">18sp</item>
+  </style>
+
+  <style name="BottomSheetEtherTransactionSubtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/tooltip_black</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
+  <style name="BottomSheetEtherTransactionHash" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/etherscan_transaction_border</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="BottomSheetEtherTransactionClipboard" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/etherscan_transaction_clipboard</item>
+    <item name="android:textSize">12sp</item>
+    <item name="textAllCaps">true</item>
   </style>
 
   <style name="BillingAddress.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">

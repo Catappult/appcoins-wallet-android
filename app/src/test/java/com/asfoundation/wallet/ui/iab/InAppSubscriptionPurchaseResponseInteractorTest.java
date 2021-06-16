@@ -37,7 +37,7 @@ import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
-import com.asfoundation.wallet.service.LocalCurrencyConversionService;
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.EIPTransactionParser;

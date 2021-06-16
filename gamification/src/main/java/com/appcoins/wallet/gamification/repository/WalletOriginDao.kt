@@ -11,7 +11,7 @@ import io.reactivex.Single
 @Dao
 interface WalletOriginDao {
 
-  @Query("select * from WalletOriginEntity where wallet_address like :wallet")
+  @Query("select * from WalletOriginEntity where wallet_address = :wallet")
   fun getWalletOrigin(wallet: String): Single<WalletOriginEntity>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)

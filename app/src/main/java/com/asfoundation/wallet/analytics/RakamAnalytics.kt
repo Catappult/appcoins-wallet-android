@@ -70,17 +70,14 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                           .flatMap { hasGms: Boolean ->
                             Single.just(idsRepository.getActiveWalletAddress())
                                 .flatMap { walletAddress ->
-                                  promotionsRepository.getUserStatus(walletAddress)
-                                      .map { userStatus -> userStatus.walletOrigin }
+                                  promotionsRepository.getWalletOrigin(walletAddress)
                                       .doOnSuccess { walletOrigin ->
                                         setRakamSuperProperties(rakamClient, installerPackage,
-                                            level,
-                                            walletAddress, hasGms, walletOrigin)
+                                            level, walletAddress, hasGms, walletOrigin)
                                         if (!BuildConfig.DEBUG) {
                                           logger.addReceiver(RakamReceiver())
                                         }
                                       }
-
                                 }
                           }
                     }

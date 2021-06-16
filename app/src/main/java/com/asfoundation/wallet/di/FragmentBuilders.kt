@@ -38,6 +38,8 @@ import com.asfoundation.wallet.topup.address.BillingAddressTopUpModule
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentModule
+import com.asfoundation.wallet.transfers.EtherTransactionBottomSheetFragment
+import com.asfoundation.wallet.transfers.EtherTransactionBottomSheetModule
 import com.asfoundation.wallet.ui.AuthenticationErrorFragment
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment
@@ -113,6 +115,10 @@ abstract class FragmentBuilders {
 
   @ContributesAndroidInjector(modules = [TransferFragmentModule::class])
   abstract fun bindTransactFragment(): TransferFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [EtherTransactionBottomSheetModule::class])
+  abstract fun bindEtherTransactionBottomSheetFragment(): EtherTransactionBottomSheetFragment
 
   @ContributesAndroidInjector
   abstract fun bindAppcoinsCreditsTransactSuccessFragment(): AppcoinsCreditsTransferSuccessFragment

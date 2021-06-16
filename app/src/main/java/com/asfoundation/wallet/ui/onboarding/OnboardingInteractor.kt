@@ -7,6 +7,7 @@ import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Single
+import java.util.*
 
 class OnboardingInteractor(private val walletService: WalletService,
                            private val preferencesRepositoryType: PreferencesRepositoryType,
@@ -15,9 +16,10 @@ class OnboardingInteractor(private val walletService: WalletService,
                            private val bdsRepository: BdsRepository) {
 
   fun getWalletAddress() = walletService.getWalletOrCreate()
-      .flatMap { address ->
-        gamificationRepository.getUserStats(address)
-            .doOnSuccess { supportInteractor.registerUser(it.level, address) }
+      .flatMap {
+        val address = it.toLowerCase(Locale.ROOT)
+        gamificationRepository.getUserLevel(address)
+            .doOnSuccess { level -> supportInteractor.registerUser(level, address) }
             .map { address }
       }
 

@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Возврат за покупку</string>
   <string name="transaction_type_reverted_purchase_body">Покупка, которую вы сделали %s, была отменена. Свяжитесь с поддержкой, чтобы получить больше информации.</string>
   <string name="transaction_reverted_view_original_header">Оригинальная транзакция</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Работает на Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -696,6 +698,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Управление подписками</string>
   <string name="subscriptions_title">Подписки</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Активные</string>
   <string name="subscriptions_expired_title">Истекло</string>
   <string name="subscriptions_empty_title">Пока нет подписок</string>

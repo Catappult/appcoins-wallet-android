@@ -40,7 +40,11 @@ import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
-import com.asfoundation.wallet.service.*
+import com.asfoundation.wallet.service.AccountKeystoreService
+import com.asfoundation.wallet.service.AutoUpdateService
+import com.asfoundation.wallet.service.GasService
+import com.asfoundation.wallet.service.WalletBalanceService
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsLocalData
@@ -152,7 +156,7 @@ class RepositoryModule {
         CarrierErrorResponseTypeAdapter())
         .create()
     val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20201228/")
+        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20210329/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))

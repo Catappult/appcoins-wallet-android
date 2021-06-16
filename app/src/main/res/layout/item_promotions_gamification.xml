@@ -22,6 +22,7 @@
         android:paddingBottom="@dimen/normal_margin"
         >
       <ImageView
+          android:id="@+id/imageView"
           android:layout_width="match_parent"
           android:layout_height="88dp"
           android:adjustViewBounds="true"
@@ -61,24 +62,9 @@
           android:textColor="@color/white"
           android:textSize="12sp"
           android:textStyle="bold"
-          app:layout_constraintEnd_toStartOf="@id/gamification_info_btn"
-          app:layout_constraintTop_toTopOf="parent"
-          tools:text="14% Bonus"
-          />
-      
-      <ImageButton
-          android:id="@+id/gamification_info_btn"
-          android:layout_width="48dp"
-          android:layout_height="40dp"
-          android:paddingTop="16dp"
-          android:paddingEnd="15dp"
-          android:src="@drawable/ic_info"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          android:scaleType="centerInside"
-          android:background="?android:attr/selectableItemBackgroundBorderless"
-          android:clickable="true"
-          android:focusable="true"
+          tools:text="14% Bonus"
           />
 
       <TextView

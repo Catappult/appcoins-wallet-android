@@ -49,6 +49,7 @@
   <dimen name="promotions_item_margin">8dp</dimen>
   <dimen name="bottom_sheet_peek_height">96dp</dimen>
   <dimen name="bottom_sheet_small_height">208dp</dimen>
+  <dimen name="bottom_sheet_big_height">309dp</dimen>
   <dimen name="wallets_button_size">32dp</dimen>
   <dimen name="item_wallet_addr_height">56dp</dimen>
   <dimen name="item_wallet_icon_height">31dp</dimen>

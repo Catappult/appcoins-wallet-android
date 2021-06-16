@@ -6,7 +6,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.appcoins.wallet.gamification.LevelModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
@@ -22,6 +21,7 @@ import kotlinx.android.synthetic.main.bonus_updated_layout.*
 import kotlinx.android.synthetic.main.fragment_gamification.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import java.math.BigDecimal
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -50,7 +50,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     const val SHOW_REACHED_LEVELS_ID = "SHOW_REACHED_LEVELS"
     const val GAMIFICATION_INFO_ID = "GAMIFICATION_INFO"
   }
-  
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
@@ -84,23 +84,20 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
             bottomsheet_coordinator_container.background.alpha = (255 * slideOffset).toInt()
           }
         })
-    presenter.present(savedInstanceState)
-  }
-
-  override fun displayGamificationInfo(currentLevel: Int,
-                                       nextLevelAmount: BigDecimal?,
-                                       hiddenLevels: List<LevelModel>,
-                                       shownLevels: List<LevelModel>,
-                                       totalSpend: BigDecimal,
-                                       updateDate: Date?) {
-    levelsAdapter =
-        LevelsAdapter(context!!, hiddenLevels, shownLevels, totalSpend, currentLevel,
-            nextLevelAmount, formatter,
-            mapper, uiEventListener!!)
+    gamification_recycler_view.visibility = View.INVISIBLE
+    levelsAdapter = LevelsAdapter(formatter, mapper, uiEventListener!!)
+    gamification_recycler_view.adapter = levelsAdapter
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
             .toInt()))
-    gamification_recycler_view.adapter = levelsAdapter
+    presenter.present(savedInstanceState)
+  }
+
+  override fun displayGamificationInfo(hiddenLevels: List<LevelItem>,
+                                       shownLevels: List<LevelItem>,
+                                       updateDate: Date?) {
+    gamification_recycler_view.visibility = View.VISIBLE
+    levelsAdapter.setLevelsContent(hiddenLevels, shownLevels)
     handleBonusUpdatedText(updateDate)
   }
 

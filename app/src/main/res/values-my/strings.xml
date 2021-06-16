@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">ဝယ္ယူမႈ ေငြျပန္အမ္းျခင္း</string>
   <string name="transaction_type_reverted_purchase_body">%s တြင္ သင္ျပဳလုပ္ခဲ့ေသာ ဝယ္ယူမႈကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_reverted_view_original_header">မူလေငြလႊဲေျပာင္းမႈ</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum မွ ျပဳလုပ္ပါသည္</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -693,6 +695,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
   <string name="subscriptions_title">ပံုမွန္၀ယ္ယူမႈမ်ား</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
   <string name="subscriptions_expired_title">သက္တမ္းကုန္သြားပါၿပီ</string>
   <string name="subscriptions_empty_title">ပံုမွန္၀ယ္ယူမႈမ်ား မရွိေသးပါ</string>

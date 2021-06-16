@@ -4,6 +4,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionDetailRouter
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory
 import dagger.Module
@@ -20,10 +21,11 @@ class TransactionDetailModule {
       findDefaultNetworkInteract: FindDefaultNetworkInteract,
       findDefaultWalletInteract: FindDefaultWalletInteract,
       externalBrowserRouter: ExternalBrowserRouter, supportInteractor: SupportInteractor,
-      transactionDetailRouter: TransactionDetailRouter): TransactionDetailViewModelFactory {
+      transactionDetailRouter: TransactionDetailRouter,
+      localCurrencyConversionService: LocalCurrencyConversionService): TransactionDetailViewModelFactory {
     return TransactionDetailViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         externalBrowserRouter, CompositeDisposable(), supportInteractor, transactionDetailRouter,
-        Schedulers.io())
+        localCurrencyConversionService)
   }
 
   @Provides

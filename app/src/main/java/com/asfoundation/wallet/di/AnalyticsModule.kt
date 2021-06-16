@@ -3,7 +3,7 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsAnalytics
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
 import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
@@ -68,6 +68,7 @@ class AnalyticsModule {
   @Named("rakam_event_list")
   fun provideRakamEventList() = listOf(
       LaunchAnalytics.FIRST_LAUNCH,
+      TransactionsAnalytics.WALLET_HOME_INTERACTION_EVENT,
       BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
@@ -88,10 +89,10 @@ class AnalyticsModule {
       WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
       WalletsAnalytics.WALLET_SAVE_FILE,
       WalletsAnalytics.WALLET_IMPORT_RESTORE,
+      WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
       WalletsAnalytics.WALLET_PASSWORD_RESTORE,
       PageViewAnalytics.WALLET_PAGE_VIEW,
-      BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_PARTICIPATING_EVENT,
-      BalanceWalletsAnalytics.WAL_78_BALANCE_VS_MYWALLETS_CONVERSION_EVENT,
+      TopUpABTestingAnalytics.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
       RatingAnalytics.WALLET_RATING_WELCOME_EVENT,
       RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
       RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT,
@@ -100,7 +101,9 @@ class AnalyticsModule {
       VerificationAnalytics.INSERT_CARD_EVENT,
       VerificationAnalytics.REQUEST_CONCLUSION_EVENT,
       VerificationAnalytics.CONFIRM_EVENT,
-      VerificationAnalytics.CONCLUSION_EVENT
+      VerificationAnalytics.CONCLUSION_EVENT,
+      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
+      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP
   )
 
   @Singleton
@@ -166,9 +169,8 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun providesTransactionsAnalytics(analytics: AnalyticsManager,
-                                    balanceWalletsAnalytics: BalanceWalletsAnalytics) =
-      TransactionsAnalytics(analytics, balanceWalletsAnalytics)
+  fun providesTransactionsAnalytics(analytics: AnalyticsManager) =
+      TransactionsAnalytics(analytics)
 
   @Singleton
   @Provides
@@ -195,19 +197,23 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideTopUpAnalytics(analyticsManager: AnalyticsManager) = TopUpAnalytics(analyticsManager)
+  fun provideTopUpAnalytics(analyticsManager: AnalyticsManager,
+                            abTestingAnalytics: TopUpABTestingAnalytics) =
+      TopUpAnalytics(analyticsManager, abTestingAnalytics)
 
   @Provides
-  fun providePaymentMethodsAnalytics(billingAnalytics: BillingAnalytics,
+  fun providePaymentMethodsAnalytics(analyticsManager: AnalyticsManager,
+                                     billingAnalytics: BillingAnalytics,
                                      rakamAnalytics: RakamAnalytics,
                                      amplitudeAnalytics: AmplitudeAnalytics): PaymentMethodsAnalytics {
-    return PaymentMethodsAnalytics(billingAnalytics, rakamAnalytics, amplitudeAnalytics)
+    return PaymentMethodsAnalytics(analyticsManager, billingAnalytics, rakamAnalytics,
+        amplitudeAnalytics)
   }
 
   @Singleton
   @Provides
-  fun providesBalanceWalletsAnalytics(analytics: AnalyticsManager): BalanceWalletsAnalytics {
-    return BalanceWalletsAnalytics(analytics)
+  fun providesTopUpdABTestingAnalytics(analytics: AnalyticsManager): TopUpABTestingAnalytics {
+    return TopUpABTestingAnalytics(analytics)
   }
 
   @Singleton

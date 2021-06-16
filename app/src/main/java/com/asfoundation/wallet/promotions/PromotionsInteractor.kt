@@ -1,9 +1,8 @@
 package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.UserStatsLocalData
+import com.appcoins.wallet.gamification.repository.*
+import com.appcoins.wallet.gamification.repository.Status
 import com.appcoins.wallet.gamification.repository.entity.*
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.R
@@ -17,6 +16,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function4
@@ -32,34 +32,37 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
-    const val GAMIFICATION_INFO = "GAMIFICATION_INFO"
     const val REFERRAL_ID = "REFERRAL"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
-  fun retrievePromotions(): Single<PromotionsModel> {
+  fun retrievePromotions(): Observable<PromotionsModel> {
     return findWalletInteract.find()
-        .flatMap {
-          Single.zip(
+        .flatMapObservable {
+          Observable.zip(
               gamificationInteractor.getLevels(),
-              promotionsRepo.getUserStatus(it.address),
-              BiFunction { level: Levels, userStatsResponse: UserStatusResponse ->
-                analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
-                mapToPromotionsModel(userStatsResponse, level)
+              promotionsRepo.getUserStats(it.address),
+              BiFunction { levels: Levels, userStatsResponse: UserStats ->
+                if (userStatsResponse.error == null) {
+                  analyticsSetup.setWalletOrigin(userStatsResponse.walletOrigin)
+                }
+                mapToPromotionsModel(userStatsResponse, levels)
               })
-              .doOnSuccess { model ->
-                userStatsPreferencesRepository.setSeenWalletOrigin(it.address,
-                    model.walletOrigin.name)
-                setSeenGenericPromotion(model.promotions, it.address)
+              .doOnNext { model ->
+                if (model.error == null) {
+                  userStatsPreferencesRepository.setSeenWalletOrigin(it.address,
+                      model.walletOrigin.name)
+                  setSeenGenericPromotion(model.promotions, it.address)
+                }
               }
         }
-
   }
 
   fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
     return findWalletInteract.find()
         .flatMap { wallet ->
-          promotionsRepo.getUserStatus(wallet.address)
+          promotionsRepo.getUserStats(wallet.address, false)
+              .lastOrError()
               .flatMap {
                 val gamification =
                     it.promotions.firstOrNull { promotionsResponse -> promotionsResponse is GamificationResponse } as GamificationResponse?
@@ -84,7 +87,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   fun getUnwatchedPromotionNotification(): Single<CardNotification> {
     return findWalletInteract.find()
         .flatMap { wallet ->
-          promotionsRepo.getUserStatus(wallet.address)
+          promotionsRepo.getUserStats(wallet.address, false)
+              .lastOrError()
               .map {
                 val promotionList = it.promotions.filterIsInstance<GenericResponse>()
                 val unwatchedPromotion = getUnWatchedPromotion(promotionList)
@@ -120,7 +124,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
       if (!isFuturePromotion(res)) {
         val action = CardNotificationAction.DETAILS_URL.takeIf { res.detailsLink != null }
             ?: CardNotificationAction.NONE
-        PromotionNotification(action, res.title, res.description, res.icon,
+        PromotionNotification(action, res.notificationTitle, res.notificationDescription, res.icon,
             getPromotionIdKey(res.id, res.startDate, res.endDate), res.detailsLink)
       } else {
         EmptyNotification()
@@ -159,14 +163,14 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     }
   }
 
-  private fun mapToPromotionsModel(userStatus: UserStatusResponse,
+  private fun mapToPromotionsModel(userStats: UserStats,
                                    levels: Levels): PromotionsModel {
     var gamificationAvailable = false
     var referralAvailable = false
     var perksAvailable = false
     val promotions = mutableListOf<Promotion>()
     var maxBonus = 0.0
-    userStatus.promotions.sortedByDescending { it.priority }
+    userStats.promotions.sortedByDescending { it.priority }
         .forEach {
           when (it) {
             is GamificationResponse -> {
@@ -212,7 +216,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
       promotions.add(perksIndex, TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(promotions, maxBonus, map(userStatus.walletOrigin), userStatus.error)
+    return PromotionsModel(promotions, maxBonus, map(userStats.walletOrigin), map(userStats.error),
+        levels.fromCache && userStats.fromCache)
   }
 
   private fun getPerksIndex(gamificationAvailable: Boolean, referralAvailable: Boolean): Int {
@@ -232,22 +237,30 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     }
   }
 
+  private fun map(error: Status?): com.asfoundation.wallet.promotions.Status? {
+    return when (error) {
+      null -> null
+      Status.NO_NETWORK -> com.asfoundation.wallet.promotions.Status.NO_NETWORK
+      Status.UNKNOWN_ERROR -> com.asfoundation.wallet.promotions.Status.UNKNOWN_ERROR
+    }
+  }
+
   private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,
                                         genericResponse: GenericResponse) {
     val gamificationItem = promotions[1] as GamificationItem
     gamificationItem.links.add(
-        GamificationLinkItem(genericResponse.id, genericResponse.description, genericResponse.icon,
-            genericResponse.startDate, genericResponse.endDate))
+        GamificationLinkItem(genericResponse.id, genericResponse.perkDescription,
+            genericResponse.icon, genericResponse.startDate, genericResponse.endDate))
   }
 
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
-    return ProgressItem(genericResponse.id, genericResponse.description, genericResponse.icon,
+    return ProgressItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
         genericResponse.startDate, genericResponse.endDate, genericResponse.currentProgress!!,
         genericResponse.objectiveProgress, genericResponse.detailsLink)
   }
 
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
-    return DefaultItem(genericResponse.id, genericResponse.description, genericResponse.icon,
+    return DefaultItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
         genericResponse.startDate, genericResponse.endDate, genericResponse.detailsLink)
   }
 
@@ -268,7 +281,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   }
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
-    return FutureItem(genericResponse.id, genericResponse.description, genericResponse.icon,
+    return FutureItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
         genericResponse.startDate, genericResponse.endDate, genericResponse.detailsLink)
   }
 

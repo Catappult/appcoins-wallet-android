@@ -70,7 +70,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
   private lateinit var merchantName: String
 
   @Throws(RemoteException::class)
-  override fun onTransact(code: Int, data: Parcel, reply: Parcel, flags: Int): Boolean {
+  override fun onTransact(code: Int, data: Parcel, reply: Parcel?, flags: Int): Boolean {
     merchantName = packageManager.getPackagesForUid(Binder.getCallingUid())!![0]
     billing = AndroidBilling(billingFactory.getBilling())
     return super.onTransact(code, data, reply, flags)

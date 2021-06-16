@@ -3,10 +3,9 @@ package com.appcoins.wallet.gamification
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
@@ -17,21 +16,26 @@ class Gamification(private val repository: PromotionsRepository) {
     const val REFERRAL_ID = "REFERRAL"
   }
 
-  fun getUserStats(wallet: String): Single<GamificationStats> {
+  fun getUserStats(wallet: String): Observable<GamificationStats> {
     return repository.getGamificationStats(wallet)
   }
 
-  fun getLevels(wallet: String): Single<Levels> {
-    return repository.getLevels(wallet)
+  fun getUserLevel(wallet: String): Single<Int> {
+    return repository.getGamificationLevel(wallet)
+  }
+
+  fun getLevels(wallet: String, offlineFirst: Boolean = true): Observable<Levels> {
+    return repository.getLevels(wallet, offlineFirst)
   }
 
   fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {
-    return repository.getUserStatus(wallet)
+    return repository.getUserStats(wallet, false)
         .map { map(it) }
+        .lastOrError()
         .onErrorReturn { mapReferralError(it) }
   }
 
-  private fun map(userStats: UserStatusResponse): ForecastBonusAndLevel {
+  private fun map(userStats: UserStats): ForecastBonusAndLevel {
     val gamification = userStats.promotions
         .firstOrNull {
           it is GamificationResponse && it.id == GAMIFICATION_ID
@@ -69,13 +73,10 @@ class Gamification(private val repository: PromotionsRepository) {
     return repository.getForecastBonus(wallet, packageName, amount)
   }
 
-  fun hasNewLevel(wallet: String, gamificationContext: GamificationContext): Single<Boolean> {
-    return Single.zip(repository.getLastShownLevel(wallet, gamificationContext),
-        getUserStats(wallet),
-        BiFunction { lastShownLevel: Int, gamificationStats: GamificationStats ->
-          gamificationStats.status == GamificationStats.Status.OK &&
-              lastShownLevel < gamificationStats.level
-        })
+  fun hasNewLevel(wallet: String, gamificationContext: GamificationContext,
+                  level: Int): Single<Boolean> {
+    return repository.getLastShownLevel(wallet, gamificationContext)
+        .map { lastShownLevel: Int -> lastShownLevel < level }
   }
 
   fun levelShown(wallet: String, level: Int, gamificationContext: GamificationContext):

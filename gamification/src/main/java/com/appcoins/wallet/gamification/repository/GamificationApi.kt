@@ -9,7 +9,7 @@ import retrofit2.http.Query
 import java.math.BigDecimal
 
 interface GamificationApi {
-  @GET("gamification/1.20200720/user_stats")
+  @GET("gamification/1.20210222/user_stats")
   fun getUserStats(@Query("address") address: String,
                    @Query("lang_code") languageCode: String): Single<UserStatusResponse>
 

@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -41,9 +42,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private final View typeIcon;
   private final TextView address;
   private final TextView description;
+  private final TextView paidValue;
+  private final TextView paidCurrency;
   private final TextView value;
   private final TextView currency;
-  private final TextView status;
   private final OnTransactionClickListener onTransactionClickListener;
   private final CurrencyFormatUtils formatter;
   private final TextView revertMessage;
@@ -58,9 +60,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     typeIcon = findViewById(R.id.type_icon);
     address = findViewById(R.id.address);
     description = findViewById(R.id.description);
+    paidValue = findViewById(R.id.paid_value);
+    paidCurrency = findViewById(R.id.paid_currency);
     value = findViewById(R.id.value);
     currency = findViewById(R.id.currency);
-    status = findViewById(R.id.status);
     revertMessage = findViewById(R.id.revert_message);
     onTransactionClickListener = listener;
     this.formatter = formatter;
@@ -82,11 +85,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     fill(transaction.getFrom(), transaction.getTo(), currency, transaction.getValue(),
-        transaction.getStatus(), transaction.getDetails());
+        transaction.getPaidAmount(), transaction.getPaidCurrency(),
+        transaction.getDetails());
   }
 
   private void fill(String from, String to, String currencySymbol, String valueStr,
-      Transaction.TransactionStatus transactionStatus, TransactionDetails details) {
+      String paidAmount, String paidCurrency,
+      TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
 
@@ -217,23 +222,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         })
         .into(srcImage);
 
-    int statusText = R.string.transaction_status_success;
-    int statusColor = R.color.green;
-
-    switch (transactionStatus) {
-      case PENDING:
-        statusText = R.string.transaction_status_pending;
-        statusColor = R.color.orange;
-        break;
-      case FAILED:
-        statusText = R.string.transaction_status_failed;
-        statusColor = R.color.red;
-        break;
-    }
-
-    status.setText(statusText);
-    status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
-
     if (valueStr.equals("0")) {
       valueStr = "0 ";
     } else if (transaction.getType() == TransactionType.IAP_REVERT) {
@@ -242,9 +230,27 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
     }
 
-    currency.setText(currencySymbol);
+    if (shouldShowFiat(paidAmount, paidCurrency)) {
+      paidAmount = (isSent ? "-" : "+") + getScaledValue(paidAmount, 0, "");
+      this.paidValue.setText(paidAmount);
+      this.paidCurrency.setText(paidCurrency);
+      this.value.setVisibility(View.VISIBLE);
+      this.currency.setVisibility(View.VISIBLE);
+      this.value.setText(valueStr);
+      this.currency.setText(currencySymbol);
+    } else {
+      this.paidValue.setText(valueStr);
+      this.paidCurrency.setText(currencySymbol);
+      this.value.setVisibility(View.GONE);
+      this.currency.setVisibility(View.GONE);
+    }
+  }
 
-    this.value.setText(valueStr);
+  private boolean shouldShowFiat(String paidAmount, String paidCurrency) {
+    return paidAmount != null
+        && !paidCurrency.equals("APPC")
+        && !paidCurrency.equals("APPC-C")
+        && !paidCurrency.equals("ETH");
   }
 
   private void setRevertMessage() {

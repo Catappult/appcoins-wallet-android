@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -76,6 +77,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   @Inject
+  lateinit var taskTimer: TaskTimer
+
+  @Inject
   lateinit var paymentMethodsAnalytics: PaymentMethodsAnalytics
 
   @Inject
@@ -118,7 +122,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         getTransactionValue(), getFrequency(), getIsSubscription())
     presenter = PaymentMethodsPresenter(this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
-        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData)
+        paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData,
+        taskTimer)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -238,7 +243,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private fun setupFee(fee: PaymentMethodFee?) {
     if (fee?.isValidFee() == true) {
       payment_method_fee.visibility = View.VISIBLE
-      val formattedValue = formatter.formatCurrency(fee.amount!!, WalletCurrency.FIAT)
+      val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
       payment_method_fee_value.apply {
@@ -480,6 +485,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showBonus(@StringRes bonusText: Int) {
     bonus_view.visibility = View.VISIBLE
+    bonus_view.setPurchaseBonusDescription(R.string.gamification_purchase_body)
     bonus_view.showPurchaseBonusHeader()
     bonus_view.setPurchaseBonusDescription(bonusText)
     bottom_separator?.visibility = View.VISIBLE
@@ -502,6 +508,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun replaceBonus() {
     bonus_view.visibility = View.INVISIBLE
+    bottom_separator?.visibility = View.VISIBLE
     bonus_view.setPurchaseBonusDescription(R.string.purchase_poa_body)
     bonus_view.hidePurchaseBonusHeader()
     bonus_view.hideSkeleton()
@@ -538,13 +545,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     val packageInfo = packageManager.getApplicationInfo(packageName, 0)
     return packageManager.getApplicationLabel(packageInfo)
         .toString()
-  }
-
-  private fun removeSkeletons() {
-    fiat_price_skeleton.visibility = View.GONE
-    appc_price_skeleton.visibility = View.GONE
-    payments_skeleton.visibility = View.GONE
-    bonus_view.hideSkeleton()
   }
 
   private val isBds: Boolean by lazy {
@@ -609,6 +609,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     } else {
       throw java.lang.IllegalArgumentException("transaction value not found")
     }
+  }
+
+  private fun removeSkeletons() {
+    fiat_price_skeleton.visibility = View.GONE
+    appc_price_skeleton.visibility = View.GONE
+    payments_skeleton.visibility = View.GONE
   }
 
   private fun getIsSubscription(): Boolean {

@@ -35,12 +35,10 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.rating.RatingActivity;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
-import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.overlay.OverlayFragment;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
-import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.RootUtil;
@@ -84,6 +82,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private CompositeDisposable disposables;
   private View emptyClickableView;
   private MenuItem supportActionView;
+  private MenuItem vipBadge;
   private View badge;
   private int paddingDp;
   private boolean showScroll = false;
@@ -143,8 +142,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     emptyTransactionsSubject = PublishSubject.create();
     paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-    adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
-        this::onNotificationClick, formatter);
+    adapter = new TransactionsAdapter(this::onTransactionClick, null, this::onNotificationClick,
+        formatter);
 
     adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
       @Override public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -191,8 +190,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
         .observe(this, this::showPromotionsOverlay);
-    viewModel.balanceWalletsExperimentAssignment()
-        .observe(this, this::changeBottomNavigationName);
     viewModel.shouldShowRateUsDialog()
         .observe(this, this::navigateToRateUs);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
@@ -220,14 +217,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (item.getItemId() == R.id.action_settings) {
       viewModel.showSettings(this);
     }
+    if (item.getItemId() == R.id.action_vip_badge) {
+      viewModel.goToVipLink(this);
+    }
     return super.onOptionsItemSelected(item);
-  }
-
-  private void changeBottomNavigationName(@StringRes Integer name) {
-    BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-    bottomNavigationView.getMenu()
-        .getItem(BALANCE.getPosition())
-        .setTitle(getString(name));
   }
 
   @Override public void onBackPressed() {
@@ -294,11 +287,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void onApplicationClick(AppcoinsApplication appcoinsApplication,
-      ApplicationClickAction applicationClickAction) {
-    viewModel.onAppClick(appcoinsApplication, applicationClickAction, this);
-  }
-
   private void onTransactionClick(View view, Transaction transaction) {
     viewModel.showDetails(view.getContext(), transaction);
   }
@@ -344,6 +332,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.shouldShowFingerprintTooltip()
         .observe(this, this::showFingerprintTooltip);
     viewModel.handleFingerprintTooltipVisibility(getPackageName());
+    setupVipBadge(menu);
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -553,10 +542,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return emptyTransactionsSubject;
   }
 
-  public void navigateToTopApps() {
-    viewModel.showTopApps(this);
-  }
-
   public void navigateToPromotions(boolean clearStack) {
     if (clearStack) {
       getSupportFragmentManager().popBackStack();
@@ -580,6 +565,20 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void showFingerprintTooltip(Boolean shouldShow) {
     //Handler is needed otherwise the view returned by findViewById(R.id.action_settings) is null
     if (shouldShow) new Handler().post(this::setTooltip);
+  }
+
+  private void setupVipBadge(Menu menu) {
+    vipBadge = menu.findItem(R.id.action_vip_badge);
+    vipBadge.setVisible(false);
+    View vipBadgeActionView = vipBadge.getActionView();
+    vipBadgeActionView.setOnClickListener(v -> onOptionsItemSelected(vipBadge));
+    viewModel.verifyUserLevel();
+    viewModel.shouldShowVipBadge()
+        .observe(this, this::showVipBadge);
+  }
+
+  private void showVipBadge(Boolean shouldShow) {
+    vipBadge.setVisible(shouldShow);
   }
 
   private void dismissNotification(CardNotification cardNotification) {

@@ -19,8 +19,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 189
-    versionName "1.19.0.0"
+    versionCode 193
+    versionName "1.19.2.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -65,6 +65,7 @@ android {
     buildConfigField 'String', 'FEEDBACK_ZENDESK_API_KEY', project.FEEDBACK_ZENDESK_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
+    buildConfigField 'String', 'VIP_PROGRAM_BADGE_URL', project.VIP_PROGRAM_BADGE_URL
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 
@@ -151,7 +152,7 @@ android {
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
   implementation project(":tn")
   implementation project(path: ':airdrop')
   implementation project(path: ':billing')
@@ -216,12 +217,9 @@ dependencies {
   implementation "com.flurry.android:analytics:$project.flurry_version"
 
   implementation "com.facebook.android:facebook-android-sdk:$project.facebook_sdk_version"
-  implementation "aptoide-client-v8:aptoide-analytics-core:$project.aptoide_analytics_version"
 
-  implementation "com.asfoundation:applications:$project.asf_applications_version"
-  implementation "com.asfoundation:ethereumj-android:$project.ethereumj_sdk_version"
-  implementation "com.blockchainds:appcoins-contract-proxy:$project.appcoins_sdk_version"
-  debugImplementation "com.blockchainds:appcoins-contract-proxy:$project.appcoins_sdk_dev_version"
+  implementation "io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_version"
+  debugImplementation "io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_dev_version"
 
   implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
 
@@ -253,6 +251,9 @@ dependencies {
 
   implementation "androidx.security:security-crypto:$project.securitycrypto_version"
 
+  implementation "org.apache.commons:commons-lang3:$project.commons_lang3_version"
+  implementation "com.android.support:support-annotations:$project.support_annotations"
+
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
   androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"
@@ -262,7 +263,7 @@ def renameArtifact(defaultConfig) {
   android.applicationVariants.all { variant ->
     variant.outputs.all {
       def SEP = "_"
-      def buildType = variant.variantData.variantConfiguration.buildType.name
+      def buildType = variant.buildType.name
       def versionName = variant.versionName
       def versionCode = defaultConfig.versionCode
       def fileName =

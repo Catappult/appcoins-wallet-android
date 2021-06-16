@@ -8,7 +8,8 @@ import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.router.GasSettingsRouter
-import com.asfoundation.wallet.ui.TransferConfirmationInteractor
+import com.asfoundation.wallet.transfers.TransferConfirmationInteractor
+import com.asfoundation.wallet.transfers.TransferConfirmationNavigator
 import com.asfoundation.wallet.util.BalanceUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -18,7 +19,8 @@ import java.math.BigInteger
 class TransferConfirmationViewModel internal constructor(
     private val transferConfirmationInteractor: TransferConfirmationInteractor,
     private val gasSettingsRouter: GasSettingsRouter,
-    private val logger: Logger) : BaseViewModel() {
+    private val logger: Logger,
+    private val transactionConfirmationNavigator: TransferConfirmationNavigator) : BaseViewModel() {
 
   private val transactionBuilder = MutableLiveData<TransactionBuilder>()
   private val transactionHash = MutableLiveData<PendingTransaction>()
@@ -69,6 +71,7 @@ class TransferConfirmationViewModel internal constructor(
 
   private fun onCreateTransaction(pendingTransaction: PendingTransaction) {
     transactionHash.postValue(pendingTransaction)
+    transactionConfirmationNavigator.showEtherTransactionBottomSheet(pendingTransaction.hash)
   }
 
   fun progressFinished() {

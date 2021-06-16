@@ -31,7 +31,7 @@ interface CarrierVerifyView {
 
   fun setAppDetails(appName: String, icon: Drawable)
 
-  fun filterCountries(countryList: List<String>, countryListString: String)
+  fun filterCountries(countryListString: String, defaultCountry: String?)
 
   fun showPhoneNumberLayout()
 

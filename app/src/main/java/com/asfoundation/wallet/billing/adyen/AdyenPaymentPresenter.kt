@@ -132,7 +132,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 view.hideLoadingAndShowView()
                 handleErrors(it.error)
               } else {
-                val amount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
+                val amount = formatter.formatPaymentCurrency(it.priceAmount, WalletCurrency.FIAT)
                 view.showProductPrice(amount, it.priceCurrency)
                 if (paymentType == PaymentType.CARD.name) {
                   view.hideLoadingAndShowView()

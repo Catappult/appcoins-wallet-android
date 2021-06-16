@@ -1,13 +1,10 @@
-package com.asfoundation.wallet.ui;
+package com.asfoundation.wallet.transfers;
 
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -20,6 +17,7 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.Log;
@@ -49,6 +47,7 @@ public class TransferConfirmationActivity extends BaseActivity {
   private TextView gasPriceText;
   private TextView gasLimitText;
   private TextView networkFeeText;
+  private Button sendButton;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -64,7 +63,8 @@ public class TransferConfirmationActivity extends BaseActivity {
     gasPriceText = findViewById(R.id.text_gas_price);
     gasLimitText = findViewById(R.id.text_gas_limit);
     networkFeeText = findViewById(R.id.text_network_fee);
-    findViewById(R.id.send_button).setOnClickListener(view -> onSend());
+    sendButton = findViewById(R.id.send_button);
+    sendButton.setOnClickListener(view -> onSend());
 
     viewModel = ViewModelProviders.of(this, transferConfirmationViewModelFactory)
         .get(TransferConfirmationViewModel.class);
@@ -72,7 +72,6 @@ public class TransferConfirmationActivity extends BaseActivity {
         .observe(this, this::onTransactionBuilder);
     viewModel.transactionHash()
         .observe(this, this::onTransaction);
-
     viewModel.progress()
         .observe(this, this::onProgress);
     viewModel.error()
@@ -143,10 +142,11 @@ public class TransferConfirmationActivity extends BaseActivity {
       ProgressBar progressBar = new ProgressBar(this);
       progressBar.setIndeterminateDrawable(
           ResourcesCompat.getDrawable(getResources(), R.drawable.gradient_progress, null));
-      dialog = new AlertDialog.Builder(this).setTitle(R.string.title_dialog_sending)
-          .setView(progressBar)
+      dialog = new AlertDialog.Builder(this).setView(progressBar)
           .setCancelable(false)
           .create();
+      dialog.getWindow()
+          .setBackgroundDrawableResource(android.R.color.transparent);
       dialog.show();
     }
   }
@@ -163,33 +163,8 @@ public class TransferConfirmationActivity extends BaseActivity {
 
   private void onTransaction(PendingTransaction transaction) {
     Log.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
-    if (!transaction.isPending()) {
-      viewModel.progressFinished();
-      hideDialog();
-      dialog = new AlertDialog.Builder(this).setTitle(R.string.transaction_succeeded)
-          .setMessage(transaction.getHash())
-          .setPositiveButton(R.string.button_ok,
-              (dialog1, id) -> successFinish(transaction.getHash()))
-          .setNeutralButton(R.string.copy, (dialog1, id) -> {
-            ClipboardManager clipboard =
-                (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            if (clipboard != null) {
-              ClipData clip =
-                  ClipData.newPlainText("transaction transaction", transaction.getHash());
-              clipboard.setPrimaryClip(clip);
-            }
-            successFinish(transaction.getHash());
-          })
-          .create();
-      dialog.show();
-    }
-  }
-
-  private void successFinish(String hash) {
-    Intent intent = new Intent();
-    intent.putExtra("transaction_hash", hash);
-    setResult(Activity.RESULT_OK, intent);
-    finish();
+    hideDialog();
+    viewModel.progressFinished();
   }
 
   private void onError(ErrorEnvelope error) {

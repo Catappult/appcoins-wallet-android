@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">खरेदी परतावा</string>
   <string name="transaction_type_reverted_purchase_body">%s वर आपण केलेली खरेदी रक्कम परतवलीय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_reverted_view_original_header">मूळ व्यवहार</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">एथरियमने पावर्ड</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -698,6 +700,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">सदस्यत्वाचे व्यवस्थापन करा</string>
   <string name="subscriptions_title">सदस्यत्व</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">सक्रिय</string>
   <string name="subscriptions_expired_title">कालबाह्य</string>
   <string name="subscriptions_empty_title">अजुन तरी कोणतेही सदस्यत्व नाही</string>

@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Vásárlás visszatérítés</string>
   <string name="transaction_type_reverted_purchase_body">A %s napon lebonyolított vásárlást visszavonták. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
   <string name="transaction_reverted_view_original_header">Eredeti tranzakció</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum-mal hajtva</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -694,6 +696,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Feliratkozások kezelése</string>
   <string name="subscriptions_title">Feliratkozások</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Aktív</string>
   <string name="subscriptions_expired_title">Lejárt</string>
   <string name="subscriptions_empty_title">Még nincsenek feliratkozások</string>

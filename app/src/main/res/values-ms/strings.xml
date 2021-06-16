@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Bayar Balik Pembelian</string>
   <string name="transaction_type_reverted_purchase_body">Pembelian yang anda buat pada %s telah dikembalikan. Hubungi Sokongan untuk maklumat lanjut.</string>
   <string name="transaction_reverted_view_original_header">Transaksi Asal</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Dikuasakan Oleh Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -693,6 +695,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Urus langganan</string>
   <string name="subscriptions_title">Langganan</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Aktif</string>
   <string name="subscriptions_expired_title">Luput</string>
   <string name="subscriptions_empty_title">Tiada Langganan Semasa</string>

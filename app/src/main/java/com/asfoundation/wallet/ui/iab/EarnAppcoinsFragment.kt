@@ -71,20 +71,6 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
 
   override fun backPressed() = iabView.backButtonPress()
 
-  override fun navigateToAptoide() {
-    val intent = Intent(Intent.ACTION_VIEW).apply {
-      val packageManager = context?.packageManager
-      this.data = Uri.parse(APTOIDE_EARN_APPCOINS_DEEP_LINK)
-      val appsList =
-          packageManager?.queryIntentActivities(this, PackageManager.MATCH_DEFAULT_ONLY)
-      appsList?.first { it.activityInfo.packageName == "cm.aptoide.pt" }
-          ?.let {
-            setPackage(it.activityInfo.packageName)
-          }
-    }
-    iabView.launchIntent(intent)
-  }
-
   override fun onDestroyView() {
     iabView.enableBack()
     presenter.destroy()

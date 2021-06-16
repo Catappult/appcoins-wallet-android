@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Terugbetaalde aankoop</string>
   <string name="transaction_type_reverted_purchase_body">De aankoop die je hebt uitgevoerd op %s is teruggedraaid. Neem voor meer informatie contact op met de klantenservice.</string>
   <string name="transaction_reverted_view_original_header">Oorspronkelijke transactie</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Mogelijk gemaakt door Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -694,6 +696,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Abonnementen beheren</string>
   <string name="subscriptions_title">Abonnementen</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Actief</string>
   <string name="subscriptions_expired_title">Verlopen</string>
   <string name="subscriptions_empty_title">Nog geen abonnementen</string>

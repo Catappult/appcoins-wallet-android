@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">Einkauf Zurückerstattung</string>
   <string name="transaction_type_reverted_purchase_body">Ihr Einkauf bei %s wurde zurückerstattet. Für weitere Informationen nehmen Sie bitte Kontakt zum Kundensupport auf.</string>
   <string name="transaction_reverted_view_original_header">Original-Transaktion</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -694,6 +696,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Abonnements verwalten</string>
   <string name="subscriptions_title">Abonnements</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Aktiv</string>
   <string name="subscriptions_expired_title">Abgelaufen</string>
   <string name="subscriptions_empty_title">Bisher keine Abonnements</string>
@@ -836,21 +839,21 @@
   </plurals>
   <plurals name="promotion_ends_minutes_short">
     <item quantity="one">It ends in %s minute.</item>
-    <item quantity="other">It ends in %s minutes.</item>
+    <item quantity="other">Es endet in %s Minuten.</item>
   </plurals>
   <string name="perks_end_today">Die Aktion endet heute.</string>
-  <string name="perks_end_today_short">It ends today.</string>
+  <string name="perks_end_today_short">Es endet heute.</string>
   <string name="perks_available_soon">Aktion startet in Kürze</string>
-  <string name="perks_available_soon_short">Available soon</string>
+  <string name="perks_available_soon_short">In Kürze verfügbar</string>
   <string name="perks_next_level_reward">Erreichen Sie den nächsten Level und erhalten Sie %s AppCoins Credits!</string>
   <string name="perks_notification">Sie haben gerade %s AppCoins Credits als Bonus erhalten</string>
   <string name="perks_level_up_on_this_purchase">Erreichen Sie mit diesem Einkauf ein höheres Level</string>
   <string name="perks_level_up_amount_left">Sie sind %1$s %2$s vom nächsten Level entfernt!</string>
   <string name="perks_level_up_level_tag">Level %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
-  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
-  <string name="perks_empty_body">No promotions available at the moment.</string>
+  <string name="perks_purchases_disclaimer_body">Alle In-App Einkäufe und Aufladungen die Sie mit einer anderen Bezahl-Methode als AppCoins Credits getätigt haben, ermöglichen Ihnen ihren Prämien-Level zu erhöhen und Belohnungen zu erhalten.</string>
+  <string name="perks_empty_state_first_purchase_body">Tätige deinen ersten Einkauf in einer AppCoins kompatiblen App und schalte die Aktionen frei, die wir für Dich erstellt haben!</string>
+  <string name="perks_empty_body">Zur Zeit sind keine Aktionen verfügbar.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Fingerabdruck</string>
   <string name="fingerprint_failed_title">Authentifizierung fehlgeschlagen!</string>
@@ -899,13 +902,13 @@
   <string name="card_verification_wallets_one_step_title">Ein zusätzlicher Schritt zur Bestätigung</string>
   <string name="card_verification_wallets_one_step_body">Geben Sie den Code ein der in ihren Transaktionsdetails erscheint.</string>
   <string name="card_verification_wallets_insert_bode_button">Code eingeben</string>
-  <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
-  <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+  <string name="card_verification_no_attempts_title">Upps, Sie haben zu oft einen falschen Code eingegeben deshalb wird ihnen %1$s wieder auf ihre Karte eingezahlt.</string>
+  <string name="card_verification_no_attempts_body">Bitte starten Sie den Verifikationsprozess erneut.</string>
   <!--Vouchers-->
-  <string name="voucher_card_body_1">Buy this voucher and get</string>
-  <string name="voucher_card_body_2"> up to %s%% bonus.</string>
+  <string name="voucher_card_body_1">Kaufen Sie dieses Voucher und erhalten Sie</string>
+  <string name="voucher_card_body_2"> bis zu %s%% Bonus.</string>
   <string name="voucher_buy_header">Voucher für %s</string>
-  <string name="voucher_buy_short_header">Voucher:</string>
+  <string name="voucher_buy_short_header">Vouchers:</string>
   <string name="voucher_buy_no_game_title">Sie haben %s nicht?</string>
   <string name="voucher_buy_no_game_install_button">JETZT HERUNTERLADEN</string>
   <string name="voucher_code_title">Voucher Code</string>
@@ -913,6 +916,6 @@
   <string name="voucher_instructions_transactions">Sie können den Voucher-Code stets in der Transaktions-Historie finden.</string>
   <string name="voucher_empty">Zur Zeit sind keine Gutscheine verfügbar.</string>
   <string name="voucher_tooltip">Sie können jetzt Gutscheine für die Spiele kaufen!</string>
-  <string name="voucher_empty_more_title">Vouchers for Games</string>
-  <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
+  <string name="voucher_empty_more_title">Voucher für Spiele</string>
+  <string name="voucher_empty_more_body">Finden Sie die besten Angebote für ihre Lieblingsspiele!</string>
 </resources>

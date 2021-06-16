@@ -243,6 +243,8 @@
   <string name="transaction_type_reverted_purchase_title">برگشت خرید</string>
   <string name="transaction_type_reverted_purchase_body">خریدی که در %s انجام دادید بازگردانده شد. برای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
   <string name="transaction_reverted_view_original_header">تراکنش اصلی</string>
+  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
+  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">طراحی شده توسط Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -694,6 +696,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">مدیریت آبونمان‌ها</string>
   <string name="subscriptions_title">آبونمان‌ها</string>
+  <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">فعال</string>
   <string name="subscriptions_expired_title">منقضی شده</string>
   <string name="subscriptions_empty_title">هنوز آبونمانی موجود نیست</string>
