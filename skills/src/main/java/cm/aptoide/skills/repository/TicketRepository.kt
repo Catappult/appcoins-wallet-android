@@ -14,10 +14,12 @@ class TicketRepository(private val ticketApi: TicketApi) {
   }
 
   private fun buildTicketRequest(eskillsUri: EskillsUri, walletAddress: String) =
-      TicketRequest(eskillsUri.getPackageName(), eskillsUri.getUserId(), eskillsUri.getUserName(),
-          walletAddress, eskillsUri.getMetadata(), eskillsUri.getEnvironment()!!,
-          eskillsUri.getNumberOfUsers(), eskillsUri.getPrice(), eskillsUri.getCurrency(),
-          eskillsUri.getProduct())
+      TicketRequest(
+        eskillsUri.getPackageName(), eskillsUri.getUserId(), eskillsUri.getUserName(),
+        walletAddress, eskillsUri.getMetadata(), eskillsUri.getEnvironment(),
+        eskillsUri.getNumberOfUsers(), eskillsUri.getPrice(), eskillsUri.getCurrency(),
+        eskillsUri.getProduct()
+      )
 
   fun getTicket(ewt: String, ticketId: String): Single<TicketResponse> {
     return ticketApi.getTicket(ewt, ticketId)

@@ -4,10 +4,6 @@ import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.model.TicketStatus
-import cm.aptoide.skills.usecase.CreateTicketUseCase
-import cm.aptoide.skills.usecase.GetTicketUseCase
-import cm.aptoide.skills.usecase.LoginUseCase
-import cm.aptoide.skills.usecase.PayTicketUseCase
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Observable
@@ -32,8 +28,15 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
 
   fun getRoom(eskillsUri: EskillsUri, ticketResponse: TicketResponse,
               fragment: Fragment): Observable<UserData> {
-    return payTicketUseCase.payTicket(ticketResponse.ticketId, ticketResponse.callbackUrl,
-        ticketResponse.productToken, eskillsUri, fragment)
+    return payTicketUseCase.payTicket(
+      ticketResponse.ticketId,
+      ticketResponse.callbackUrl,
+      ticketResponse.productToken,
+      ticketResponse.ticketPrice,
+      ticketResponse.priceCurrency,
+      eskillsUri,
+      fragment
+    )
         .flatMap {
           val canProcceed = AtomicBoolean(false)
 

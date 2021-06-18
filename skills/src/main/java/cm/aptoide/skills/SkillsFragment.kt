@@ -40,7 +40,7 @@ class SkillsFragment : DaggerFragment() {
   @Inject
   lateinit var eskillsUriParser: EskillsUriParser
 
-  private lateinit var userId: String
+  private var userId: String? = null
   private lateinit var disposable: CompositeDisposable
 
   private lateinit var binding: FragmentSkillsBinding
