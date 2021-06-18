@@ -23,14 +23,12 @@
     <item name="android:windowContentTransitions">true</item>
   </style>
 
-  <style name="AppBottomSheetDialogTheme"
-      parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+  <style name="AppBottomSheetDialogTheme" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
     <item name="bottomSheetStyle">@style/AppModalStyle</item>
     <item name="behavior_draggable">false</item>
   </style>
 
-  <style name="AppModalStyle"
-      parent="Widget.Design.BottomSheet.Modal">
+  <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
     <item name="android:background">@drawable/rounded_dialog</item>
   </style>
 
@@ -1134,6 +1132,16 @@
     <item name="iconGravity">end</item>
     <item name="iconPadding">0dp</item>
     <item name="shapeAppearance">@style/Home.PillShape</item>
+  </style>
+
+  <style name="Home.BottomNav" />
+
+  <style name="Home.BottomNav.TopUpShape">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSizeTopLeft">50%</item>
+    <item name="cornerSizeTopRight">0dp</item>
+    <item name="cornerSizeBottomRight">0dp</item>
+    <item name="cornerSizeBottomLeft">0dp</item>
   </style>
 
 </resources>

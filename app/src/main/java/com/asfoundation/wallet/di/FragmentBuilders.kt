@@ -1,11 +1,14 @@
 package com.asfoundation.wallet.di
 
+import com.asfoundation.wallet.balance.BalanceFragmentPH
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
+import com.asfoundation.wallet.promotions.PromotionFragmentPH
 import com.asfoundation.wallet.promotions.PromotionsFragment
 import com.asfoundation.wallet.promotions.PromotionsModule
 import com.asfoundation.wallet.rating.entry.RatingEntryFragment
@@ -275,4 +278,16 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerificationErrorModule::class])
   abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindHomeFragment(): HomeFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindPromotionFragmentPH(): PromotionFragmentPH
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindBalanceFragmentPH(): BalanceFragmentPH
 }

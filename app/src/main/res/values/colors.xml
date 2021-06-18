@@ -23,6 +23,10 @@
   <color name="bottom_dialog_title">#89000000</color>
   <color name="bottom_dialog_item">#dd000000</color>
 
+  <color name="bottom_nav_top_up_blue">#111B39</color>
+  <color name="bottom_nav_selected_purple">#200E32</color>
+  <color name="bottom_nav_unselected_grey">#A0A4B0</color>
+
   <color name="list_group_head">#8a000000</color>
 
   <color name="semitransparentWhite">#AAFFFFFF</color>
