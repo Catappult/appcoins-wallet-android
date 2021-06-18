@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.wallet_blocked
 
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 

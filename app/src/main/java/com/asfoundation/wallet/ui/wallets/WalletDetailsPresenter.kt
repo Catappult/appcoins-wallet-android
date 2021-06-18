@@ -22,6 +22,7 @@ class WalletDetailsPresenter(
     handleMakeWalletActiveClick()
     handleBackupClick()
     handleRemoveWalletClick()
+    handleBackPress()
   }
 
   private fun handleRemoveWalletClick() {
@@ -77,6 +78,13 @@ class WalletDetailsPresenter(
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.populateUi(it) }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleBackPress() {
+    disposable.add(view.backPressed()
+        .observeOn(viewScheduler)
+        .doOnNext { view.handleBackPress() }
         .subscribe({}, { it.printStackTrace() }))
   }
 

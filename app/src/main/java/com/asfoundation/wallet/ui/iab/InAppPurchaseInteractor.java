@@ -19,8 +19,8 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.backup.NotificationNeeded;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.util.BalanceUtils;
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -287,14 +287,12 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
-    if (hasFunds(paymentMethods) || !hasRequiredAptoideVersionInstalled()) {
-      Iterator<PaymentMethod> iterator = paymentMethods.iterator();
-      while (iterator.hasNext()) {
-        PaymentMethod paymentMethod = iterator.next();
-        if (paymentMethod.getId()
-            .equals("earn_appcoins")) {
-          iterator.remove();
-        }
+    Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+    while (iterator.hasNext()) {
+      PaymentMethod paymentMethod = iterator.next();
+      if (paymentMethod.getId()
+          .equals("earn_appcoins")) {
+        iterator.remove();
       }
     }
     return paymentMethods;

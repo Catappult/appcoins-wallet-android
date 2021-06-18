@@ -12,8 +12,9 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.main.MainActivityNavigator
+import com.asfoundation.wallet.my_wallets.MyWalletsNavigator
 import com.asfoundation.wallet.ui.MyAddressActivity
-import com.asfoundation.wallet.ui.balance.BalanceActivityView
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -24,7 +25,9 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.copy_share_buttons_layout.*
+import kotlinx.android.synthetic.main.fragment_balance.view.*
 import kotlinx.android.synthetic.main.fragment_wallet_details.*
 import kotlinx.android.synthetic.main.remove_backup_buttons_layout.*
 import kotlinx.android.synthetic.main.wallet_details_balance_layout.*
@@ -38,24 +41,30 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
   @Inject
   lateinit var walletsEventSender: WalletsEventSender
 
+  lateinit var myWalletsNavigator: MyWalletsNavigator
+
+  private var onBackPressedSubject: PublishSubject<Any>? = null
+
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
-  private lateinit var activityView: BalanceActivityView
   private lateinit var presenter: WalletDetailsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = WalletDetailsPresenter(this, interactor, walletsEventSender, walletAddress,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+    myWalletsNavigator = MyWalletsNavigator(this, MainActivityNavigator(requireContext()))
+    onBackPressedSubject = PublishSubject.create()
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    if (context !is BalanceActivityView) {
-      throw IllegalStateException(
-          "Wallet Detail Fragment must be attached to Balance Activity")
-    }
-    activityView = context
+  override fun backPressed() = onBackPressedSubject!!
+
+  override fun handleBackPress() {
+    myWalletsNavigator.navigateBackToMyWallets()
+  }
+
+  fun setupToolbar() {
+    app_bar?.toolbar?.title = getString(R.string.bottom_navigation_my_wallets)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +74,8 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    activityView.setupToolbar()
+
+    setupToolbar()
 
     generateQrCode(view)
 
@@ -103,7 +113,7 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
 
   override fun showShare(walletAddress: String) {
     activity?.let {
-      ShareCompat.IntentBuilder.from(activity!!)
+      ShareCompat.IntentBuilder.from(requireActivity())
           .setText(walletAddress)
           .setType("text/plain")
           .setChooserTitle(resources.getString(R.string.share_via))
@@ -112,15 +122,15 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
   }
 
   override fun navigateToBalanceView() {
-    activityView.showBalanceScreen()
+    myWalletsNavigator.navigateBackToMyWallets()
   }
 
   override fun navigateToBackupView(walletAddress: String) {
-    activityView.navigateToBackupView(walletAddress)
+    myWalletsNavigator.navigateToBackupView(walletAddress)
   }
 
   override fun navigateToRemoveWalletView(walletAddress: String) {
-    activityView.navigateToRemoveWalletView(walletAddress, total_balance_fiat.text.toString(),
+    myWalletsNavigator.navigateToRemoveWalletView(walletAddress, total_balance_fiat.text.toString(),
         balance_appcoins.text.toString(), balance_credits.text.toString(),
         balance_ethereum.text.toString())
   }
@@ -153,7 +163,7 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
   private fun generateQrCode(view: View) {
     try {
       val logo = ResourcesCompat.getDrawable(resources, R.drawable.ic_appc_token, null)
-      val mergedQrCode = walletAddress.generateQrCode(activity!!.windowManager, logo!!)
+      val mergedQrCode = walletAddress.generateQrCode(requireActivity().windowManager, logo!!)
       qr_image.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
       Snackbar.make(view, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
@@ -182,16 +192,16 @@ class WalletDetailsFragment : BasePageViewFragment(), WalletDetailsView {
   }
 
   private val walletAddress: String by lazy {
-    if (arguments!!.containsKey(WALLET_ADDRESS_KEY)) {
-      arguments!!.getString(WALLET_ADDRESS_KEY)!!
+    if (requireArguments().containsKey(WALLET_ADDRESS_KEY)) {
+      requireArguments().getString(WALLET_ADDRESS_KEY)!!
     } else {
       throw IllegalArgumentException("walletAddress not found")
     }
   }
 
   private val isActive: Boolean by lazy {
-    if (arguments!!.containsKey(IS_ACTIVE_KEY)) {
-      arguments!!.getBoolean(IS_ACTIVE_KEY)
+    if (requireArguments().containsKey(IS_ACTIVE_KEY)) {
+      requireArguments().getBoolean(IS_ACTIVE_KEY)
     } else {
       throw IllegalArgumentException("is active not found")
     }

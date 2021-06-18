@@ -15,6 +15,6 @@
   <item
       android:id="@+id/action_balance"
       android:icon="@drawable/ic_bottom_nav_tokens"
-      android:title="@string/balance_title" />
+      android:title="@string/bottom_navigation_my_wallets" />
 </menu>
 

@@ -14,7 +14,6 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
   fun present() {
     handleInfoButtonClick()
     handleShareClicks()
-    handleAppsGamesClicks()
     handlePendingNotification()
   }
 
@@ -33,12 +32,6 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
   private fun handleShareClicks() {
     disposable.add(view.shareLinkClick()
         .doOnNext { view.showShare() }
-        .subscribe({}, { it.printStackTrace() }))
-  }
-
-  private fun handleAppsGamesClicks() {
-    disposable.add(view.appsAndGamesButtonClick()
-        .doOnNext { view.navigateToAptoide() }
         .subscribe({}, { it.printStackTrace() }))
   }
 

@@ -5,9 +5,9 @@ import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.util.scaleToString
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single

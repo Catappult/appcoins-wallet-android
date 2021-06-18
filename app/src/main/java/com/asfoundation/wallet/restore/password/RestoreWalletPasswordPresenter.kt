@@ -2,9 +2,9 @@ package com.asfoundation.wallet.restore.password
 
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
+import com.asfoundation.wallet.wallets.WalletModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 

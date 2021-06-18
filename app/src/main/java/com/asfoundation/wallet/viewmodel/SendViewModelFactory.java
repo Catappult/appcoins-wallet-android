@@ -3,10 +3,10 @@ package com.asfoundation.wallet.viewmodel;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.router.TransferConfirmationRouter;
 import com.asfoundation.wallet.util.TransferParser;
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.annotations.NonNull;
 
 public class SendViewModelFactory implements ViewModelProvider.Factory {

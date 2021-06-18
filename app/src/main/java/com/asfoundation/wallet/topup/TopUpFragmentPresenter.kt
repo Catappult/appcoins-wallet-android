@@ -12,7 +12,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -62,13 +62,17 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getDefaultValues()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
-        BiFunction { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
+        interactor.getABTestingExperiment()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler),
+            Function3 { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: String ->
           if (values.error.hasError || defaultValues.error.hasError &&
               (values.error.isNoNetwork || defaultValues.error.isNoNetwork)) {
             view.showNoNetworkError()
           } else {
             view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-            updateDefaultValues(defaultValues)
+            topUpAnalytics.sendAbTestImpressionEvent(experiment)
+            updateDefaultValues(defaultValues, interactor.mapABTestingExperiment(experiment))
           }
         })
         .subscribe({}, { handleError(it) }))
@@ -84,12 +88,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .ignoreElement()
   }
 
-  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel) {
+  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel, defaultvalueIndex: Int) {
     hasDefaultValues = topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
     if (hasDefaultValues) {
       val defaultValues = topUpValuesModel.values
-      val defaultFiatValue = defaultValues.drop(1)
-          .first()
+      val defaultFiatValue = defaultValues[defaultvalueIndex]
       view.setDefaultAmountValue(selectedValue ?: defaultFiatValue.amount.toString())
       view.setValuesAdapter(defaultValues)
     } else {

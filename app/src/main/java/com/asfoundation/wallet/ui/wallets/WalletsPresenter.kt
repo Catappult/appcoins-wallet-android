@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.wallets
 
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.logging.Logger
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +11,8 @@ class WalletsPresenter(private val view: WalletsView,
                        private val logger: Logger,
                        private val disposables: CompositeDisposable,
                        private val viewScheduler: Scheduler,
-                       private val networkScheduler: Scheduler) {
+                       private val networkScheduler: Scheduler,
+                       private val walletsEventSender: WalletsEventSender) {
   fun present() {
     retrieveViewInformation()
     handleActiveWalletCardClick()
@@ -28,6 +30,7 @@ class WalletsPresenter(private val view: WalletsView,
 
   private fun handleRestoreWalletClick() {
     disposables.add(view.restoreWalletClicked()
+        .doOnNext { walletsEventSender.sendAction("wallet_list_recover_wallet") }
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToRestoreView() }
@@ -36,6 +39,7 @@ class WalletsPresenter(private val view: WalletsView,
 
   private fun handleCreateNewWalletClick() {
     disposables.add(view.createNewWalletClicked()
+        .doOnNext { walletsEventSender.sendAction("wallet_list_create_wallet") }
         .throttleFirst(100, TimeUnit.MILLISECONDS)
         .doOnNext { view.showCreatingAnimation() }
         .observeOn(networkScheduler)
@@ -49,6 +53,7 @@ class WalletsPresenter(private val view: WalletsView,
 
   private fun handleOtherWalletCardClick() {
     disposables.add(view.otherWalletCardClicked()
+        .doOnNext { walletsEventSender.sendAction("wallet_list_wallet_details") }
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToWalletDetailView(it, false) }
@@ -57,6 +62,7 @@ class WalletsPresenter(private val view: WalletsView,
 
   private fun handleActiveWalletCardClick() {
     disposables.add(view.activeWalletCardClicked()
+        .doOnNext { walletsEventSender.sendAction("wallet_list_wallet_details") }
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.navigateToWalletDetailView(it, true) }

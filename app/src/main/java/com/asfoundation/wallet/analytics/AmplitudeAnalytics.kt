@@ -5,9 +5,9 @@ import android.content.Context
 import com.amplitude.api.Amplitude
 import com.amplitude.api.Identify
 import com.amplitude.api.TrackingOptions
-import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
+import com.asfoundation.wallet.promotions.model.WalletOrigin
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import io.reactivex.schedulers.Schedulers

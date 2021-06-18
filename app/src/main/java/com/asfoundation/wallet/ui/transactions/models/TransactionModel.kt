@@ -6,7 +6,6 @@ import android.text.format.DateFormat
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
@@ -56,7 +55,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         currency
       }
       initializeView(holder, tx.from, tx.to, actualCurrency, tx.value, tx.status, tx.details,
-          tx.type, tx.linkedTx)
+          tx.type, tx.linkedTx, tx.paidAmount, tx.paidCurrency)
       holder.itemView.setOnClickListener { clickListener?.invoke(tx) }
     }
   }
@@ -64,7 +63,8 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
   private fun initializeView(holder: TransactionHolder, from: String, to: String,
                              currency: String?, value: String,
                              status: Transaction.TransactionStatus, details: TransactionDetails?,
-                             type: Transaction.TransactionType, linkedTx: List<Transaction>?) {
+                             type: Transaction.TransactionType, linkedTx: List<Transaction>?,
+                             txPaidAmount: String?, txPaidCurrency: String?) {
     val isSent = from.equals(defaultAddress, ignoreCase = true)
     holder.revertMessage.visibility = View.GONE
 
@@ -185,9 +185,6 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
       else -> Unit
     }
 
-    holder.status.setText(statusText)
-    holder.status.setTextColor(ContextCompat.getColor(holder.itemView.context, statusColor))
-
     var valueStr = value
     if (valueStr == "0") {
       valueStr = "0 "
@@ -198,8 +195,30 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
           currencySymbol!!)
     }
 
+    if (shouldShowFiat(txPaidAmount, txPaidCurrency)) {
+      val sign = if (isSent) "-" else "+"
+      val paidAmount = sign + getScaledValue(txPaidAmount!!, 0, "")
+      holder.paidValue.text = paidAmount
+      holder.paidCurrency.text = txPaidCurrency
+      holder.value.visibility = View.VISIBLE
+      holder.currency.visibility = View.VISIBLE
+      holder.value.text = valueStr
+      holder.currency.text = currencySymbol
+    } else {
+      holder.paidValue.text = valueStr
+      holder.paidCurrency.text = currencySymbol
+      holder.value.visibility = View.GONE
+      holder.currency.visibility = View.GONE
+    }
+
     holder.currency.text = currencySymbol
     holder.value.text = valueStr
+  }
+
+  private fun shouldShowFiat(paidAmount: String?, paidCurrency: String?): Boolean {
+    return (paidAmount != null && paidCurrency != "APPC"
+        && paidCurrency != "APPC-C"
+        && paidCurrency != "ETH")
   }
 
   private fun getScaledValue(valueStr: String, decimals: Long, currencySymbol: String): String {
@@ -265,7 +284,8 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     val description by bind<TextView>(R.id.description)
     val value by bind<TextView>(R.id.value)
     val currency by bind<TextView>(R.id.currency)
-    val status by bind<TextView>(R.id.status)
+    val paidValue by bind<TextView>(R.id.paid_value)
+    val paidCurrency by bind<TextView>(R.id.paid_currency)
     val revertMessage by bind<TextView>(R.id.revert_message)
   }
 }

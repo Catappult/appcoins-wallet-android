@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.airdrop;
 
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropData;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;

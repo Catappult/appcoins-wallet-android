@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.di
 
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.router.TransferConfirmationRouter
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.viewmodel.SendViewModelFactory
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import dagger.Module
 import dagger.Provides
 import io.reactivex.subjects.PublishSubject

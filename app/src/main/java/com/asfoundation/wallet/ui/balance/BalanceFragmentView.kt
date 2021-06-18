@@ -23,6 +23,8 @@ interface BalanceFragmentView {
 
   fun showTokenDetails(view: View)
 
+  fun navigateToBackup(walletAddress: String)
+
   fun getCopyClick(): Observable<Any>
 
   fun getQrCodeClick(): Observable<Any>
@@ -43,6 +45,8 @@ interface BalanceFragmentView {
 
   fun changeBottomSheetState()
 
+  fun shouldExpandBottomSheet(): Boolean
+
   fun getBackupClick(): Observable<Any>
 
   fun setTooltip()
@@ -51,13 +55,13 @@ interface BalanceFragmentView {
 
   fun getTooltipBackupButton(): Observable<Any>
 
-  fun homeBackPressed(): Observable<Any>?
-
   fun dismissTooltip()
 
   fun getVerifyWalletClick(): Observable<Any>
 
   fun getInsertCodeClick(): Observable<Any>
+
+  fun getBottomSheetStateChanged(): Observable<Int>
 
   fun openWalletVerificationScreen()
 

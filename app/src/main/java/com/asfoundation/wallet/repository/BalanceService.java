@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 

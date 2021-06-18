@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.transfers
 
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.main.MainActivityNavigator
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,16 +21,18 @@ class EtherTransactionBottomSheetModule {
   @Provides
   fun providesEtherTransactionsBottomSheetData(
       fragment: EtherTransactionBottomSheetFragment): EtherTransactionBottomSheetData {
-    fragment.arguments!!.apply {
-      return EtherTransactionBottomSheetData(
-          getString(EtherTransactionBottomSheetFragment.TRANSACTION_KEY) as String)
-    }
+    fragment.requireArguments()
+        .apply {
+          return EtherTransactionBottomSheetData(
+              getString(EtherTransactionBottomSheetFragment.TRANSACTION_KEY) as String)
+        }
   }
 
   @Provides
   fun providesEtherTransactionBottomSheetNavigator(fragment: EtherTransactionBottomSheetFragment,
                                                    networkInfo: NetworkInfo): EtherTransactionBottomSheetNavigator {
-    return EtherTransactionBottomSheetNavigator(fragment.requireFragmentManager(), fragment,
+    return EtherTransactionBottomSheetNavigator(fragment.parentFragmentManager, fragment,
+        MainActivityNavigator(fragment.requireActivity()),
         networkInfo)
   }
 }

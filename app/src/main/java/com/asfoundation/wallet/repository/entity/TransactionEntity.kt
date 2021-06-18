@@ -16,10 +16,12 @@ data class TransactionEntity(val transactionId: String,
                              val processedTime: Long,
                              val status: TransactionStatus,
                              val value: String,
+                             val currency: String?,
+                             val paidAmount: String?,
+                             val paidCurrency: String?,
                              val from: String,
                              val to: String,
                              @Embedded val details: TransactionDetailsEntity?,
-                             val currency: String?,
                              val operations: List<OperationEntity>?) {
 
   enum class TransactionType {

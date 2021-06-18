@@ -9,10 +9,10 @@ import android.os.Bundle
 import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.util.generateQrCode
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection

@@ -81,13 +81,14 @@ class TransactionsMapperTest {
         TransactionEntity.TransactionType.TOP_UP, null,
         null, null,
         1598535596254,
-        1598535639951, TransactionEntity.TransactionStatus.SUCCESS, "312822262380000000000",
+        1598535639951, TransactionEntity.TransactionStatus.SUCCESS, "312822262380000000000", "APPC",
+        "30", "EUR",
         "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
         "0x1bbbed2930395229b8f20fe1bad356b50a6b3f6f",
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://apichain-dev.blockchainds.com/appc/icons/topup.png"),
-            null, null), "APPC", Collections.emptyList())
+            null, null), Collections.emptyList())
   }
 
   private fun createTopUpBonusTransaction(): TransactionEntity {
@@ -99,13 +100,14 @@ class TransactionsMapperTest {
         TransactionEntity.TransactionType.BONUS, null,
         null, null,
         1598535746474,
-        1598535928814, TransactionEntity.TransactionStatus.SUCCESS, "31282226238000000000",
+        1598535928814, TransactionEntity.TransactionStatus.SUCCESS, "31282226238000000000", "APPC",
+        "30", "EUR",
         "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
         "0x1bbbed2930395229b8f20fe1bad356b50a6b3f6f",
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://apichain-dev.blockchainds.com/appc/icons/bonus.png"),
-            "10", null), "APPC", Collections.emptyList())
+            "10", null), Collections.emptyList())
   }
 
   private fun createPerkBonusTransaction(): TransactionEntity {
@@ -117,13 +119,14 @@ class TransactionsMapperTest {
         TransactionEntity.TransactionType.BONUS, TransactionEntity.SubType.PERK_PROMOTION,
         "Level Up Perk", "You will receive APPC-C when you reach a new gamification level",
         1598535828590,
-        1598535996272, TransactionEntity.TransactionStatus.SUCCESS, "11000000000000000000",
+        1598535996272, TransactionEntity.TransactionStatus.SUCCESS, "11000000000000000000", "APPC",
+        "10", "EUR",
         "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
         "0x1bbbed2930395229b8f20fe1bad356b50a6b3f6f",
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://apichain-dev.blockchainds.com/appc/icons/bonus.png"),
-            null, null), "APPC", Collections.emptyList())
+            null, null), Collections.emptyList())
   }
 
   private fun createIapTransaction(): TransactionEntity {
@@ -133,13 +136,14 @@ class TransactionsMapperTest {
         null,
         null,
         TransactionEntity.TransactionType.IAP_OFFCHAIN, null, null, null, 1598537346794,
-        1598536519482, TransactionEntity.TransactionStatus.SUCCESS, "1000000000000000000",
+        1598536519482, TransactionEntity.TransactionStatus.SUCCESS, "1000000000000000000", "APPC",
+        "10", "EUR",
         "0x1bbbed2930395229b8f20fe1bad356b50a6b3f6f",
         "0x123c2124b7f2c18b502296ba884d9cde201f1c32",
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png"),
-            "Appcoins Trivial Drive demo sample", "gas"), "APPC", Collections.emptyList())
+            "Appcoins Trivial Drive demo sample", "gas"), Collections.emptyList())
   }
 
   private fun createIapBonusTransaction(): TransactionEntity {
@@ -149,13 +153,14 @@ class TransactionsMapperTest {
         null,
         null,
         TransactionEntity.TransactionType.BONUS, null, null, null, 1598536660586,
-        1598536807269, TransactionEntity.TransactionStatus.SUCCESS, "115000000000000000",
+        1598536807269, TransactionEntity.TransactionStatus.SUCCESS, "115000000000000000", "APPC",
+        "10", "EUR",
         "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
         "0x1bbbed2930395229b8f20fe1bad356b50a6b3f6f",
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://apichain-dev.blockchainds.com/appc/icons/bonus.png"),
-            "11.5", "gas"), "APPC", Collections.emptyList())
+            "11.5", "gas"), Collections.emptyList())
   }
 
   @Test

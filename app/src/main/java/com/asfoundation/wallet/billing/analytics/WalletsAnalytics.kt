@@ -5,6 +5,21 @@ import java.util.*
 
 class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSender {
 
+  override fun sendAction(action: String) {
+    val data = HashMap<String, Any>()
+    data[CALL_TO_ACTION] = action
+    analytics.logEvent(data, WALLET_MY_WALLETS_INTERACTION_EVENT, AnalyticsManager.Action.CLICK,
+        WALLET)
+  }
+
+  override fun sendVerifyAction(action: String, status: String) {
+    val data = HashMap<String, Any>()
+    data[CALL_TO_ACTION] = action
+    data[STATUS] = status
+    analytics.logEvent(data, WALLET_MY_WALLETS_INTERACTION_EVENT, AnalyticsManager.Action.CLICK,
+        WALLET)
+  }
+
   override fun sendCreateBackupEvent(action: String, context: String,
                                      status: String) {
     sendCreateBackupEvent(action, context, status, null)
@@ -107,6 +122,9 @@ class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSe
     const val WALLET_PASSWORD_RESTORE = "wallet_password_restore"
     const val WALLET_COMPLETE_RESTORE = "wallet_complete_restore"
     const val REASON_CANCELED = "canceled"
+    const val WALLET_MY_WALLETS_INTERACTION_EVENT = "wallet_my_wallets_interaction_event"
+    const val CALL_TO_ACTION = "call_to_action"
+    const val STATUS = "status"
     private const val WALLET = "WALLET"
     private const val EVENT_ACTION = "action"
     private const val EVENT_CONTEXT = "context"

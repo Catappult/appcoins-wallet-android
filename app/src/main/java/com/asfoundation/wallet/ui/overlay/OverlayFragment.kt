@@ -9,7 +9,8 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.TransactionsActivity
+import com.asfoundation.wallet.home.HomeFragment
+import com.asfoundation.wallet.main.MainActivityNavigator
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,11 +25,13 @@ class OverlayFragment : DaggerFragment(), OverlayView {
 
   @Inject
   lateinit var presenter: OverlayPresenter
-  private lateinit var activity: TransactionsActivity
+
+  @Inject
+  lateinit var mainActivityNavigator: MainActivityNavigator
 
   private val item: Int by lazy {
-    if (arguments!!.containsKey(ITEM_KEY)) {
-      arguments!!.getInt(ITEM_KEY)
+    if (requireArguments().containsKey(ITEM_KEY)) {
+      requireArguments().getInt(ITEM_KEY)
     } else {
       throw IllegalArgumentException("item not found")
     }
@@ -36,9 +39,7 @@ class OverlayFragment : DaggerFragment(), OverlayView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    require(
-        context is TransactionsActivity) { OverlayFragment::class.java.simpleName + " needs to be attached to a " + TransactionsActivity::class.java.simpleName }
-    activity = context
+    HomeFragment.newInstance()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,7 +81,7 @@ class OverlayFragment : DaggerFragment(), OverlayView {
             val location = IntArray(2)
             icon.getLocationInWindow(location)
             arrow_down_tip.x =
-                location[0] * 1f + (icon.width / 4f) + (arrow_down_tip.width / 4f)
+                location[0] * 1f + (icon.width / 2f) - (arrow_down_tip.width / 2f)
           }
         })
   }
@@ -99,7 +100,7 @@ class OverlayFragment : DaggerFragment(), OverlayView {
   }
 
   override fun dismissView() {
-    activity.onBackPressed()
+    requireActivity().onBackPressed()
   }
 
   override fun overlayClick(): Observable<Any> {
@@ -107,7 +108,7 @@ class OverlayFragment : DaggerFragment(), OverlayView {
   }
 
   override fun navigateToPromotions() {
-    activity.navigateToPromotions(true)
+    mainActivityNavigator.navigateToPromotions()
   }
 
   override fun onDestroyView() {

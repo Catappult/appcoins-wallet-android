@@ -84,16 +84,9 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
     return RxView.clicks(share_invite_button)
   }
 
-  override fun appsAndGamesButtonClick(): Observable<Any> {
-    return RxView.clicks(notification_apps_games_button)
-  }
 
   override fun showShare() {
     activity?.showShare(link)
-  }
-
-  override fun navigateToAptoide() {
-    activity?.navigateToTopApps()
   }
 
   override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String,

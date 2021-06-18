@@ -47,7 +47,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
     rakamClient.superProperties = superProperties
   }
 
-  override fun setWalletOrigin(origin: WalletOrigin) {
+  override fun setWalletOrigin(origin: com.asfoundation.wallet.promotions.model.WalletOrigin) {
     val superProperties = rakamClient.superProperties ?: JSONObject()
     try {
       superProperties.put("wallet_origin", origin)

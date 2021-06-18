@@ -4,6 +4,8 @@ import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import io.reactivex.Observable
 
 interface WalletDetailsView {
+  fun backPressed(): Observable<Any>
+  fun handleBackPress()
   fun populateUi(balanceScreenModel: BalanceScreenModel)
   fun copyClick(): Observable<Any>
   fun shareClick(): Observable<Any>

@@ -36,13 +36,7 @@ class EmptyTransactionPagerAdapter(private val animation: IntArray,
 
     when (action[position]) {
       R.string.home_empty_discover_apps_button -> {
-        (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
-          emptyTransactionsSubject.onNext(CAROUSEL_TOP_APPS)
-        }
-        (view.findViewById<View>(
-            R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
-          emptyTransactionsSubject.onNext(CAROUSEL_TOP_APPS)
-        }
+        view.findViewById<View>(R.id.empty_action_text).visibility = View.INVISIBLE
       }
       R.string.gamification_home_button -> {
         (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {

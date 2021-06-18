@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.analytics
 
-import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
+import com.asfoundation.wallet.promotions.model.WalletOrigin
+
 
 interface AnalyticsSetup {
 

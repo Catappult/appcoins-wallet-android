@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.overlay
 
+import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import dagger.Module
 import dagger.Provides
@@ -18,5 +19,10 @@ class OverlayModule {
   fun providesOverlayInteractor(
       preferencesRepositoryType: PreferencesRepositoryType): OverlayInteractor {
     return OverlayInteractor(preferencesRepositoryType)
+  }
+
+  @Provides
+  fun providesMainActivityNavigator(fragment: OverlayFragment): MainActivityNavigator {
+    return MainActivityNavigator(fragment.requireContext())
   }
 }

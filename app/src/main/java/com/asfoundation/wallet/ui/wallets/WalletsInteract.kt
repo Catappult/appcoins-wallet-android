@@ -2,14 +2,14 @@ package com.asfoundation.wallet.ui.wallets
 
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FetchWalletsInteract
-import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.sumByBigDecimal
+import com.asfoundation.wallet.wallets.FetchWalletsInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

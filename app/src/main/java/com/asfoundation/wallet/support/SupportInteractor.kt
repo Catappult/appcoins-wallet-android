@@ -7,7 +7,6 @@ import io.intercom.android.sdk.UnreadConversationCountListener
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
-import io.reactivex.Single
 import java.util.*
 
 class SupportInteractor(private val supportRepository: SupportRepository,
@@ -82,6 +81,7 @@ class SupportInteractor(private val supportRepository: SupportRepository,
       supportRepository.updateUnreadConversations(Intercom.client().unreadConversationCount)
 
   fun getUnreadConversationCountEvents() = Observable.create<Int> {
+    it.onNext(Intercom.client().unreadConversationCount)
     val unreadListener = UnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
     Intercom.client()
         .addUnreadConversationCountListener(unreadListener)
@@ -91,8 +91,5 @@ class SupportInteractor(private val supportRepository: SupportRepository,
     }
   }
 
-  fun getUnreadConversationCount() = Single.just(Intercom.client().unreadConversationCount)
-
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
-
 }

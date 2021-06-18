@@ -3,6 +3,7 @@ package com.asfoundation.wallet.interact;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TokenInfo;
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.Single;
 import org.jetbrains.annotations.NotNull;
 

@@ -5,10 +5,10 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract.BalanceState
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

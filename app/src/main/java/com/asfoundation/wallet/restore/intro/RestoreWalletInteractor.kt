@@ -4,7 +4,6 @@ import android.net.Uri
 import android.os.Build
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.interact.SetDefaultWalletInteractor
-import com.asfoundation.wallet.interact.WalletModel
 import com.asfoundation.wallet.interact.rx.operator.Operators
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PasswordStore
@@ -12,6 +11,7 @@ import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.util.RestoreError
 import com.asfoundation.wallet.util.RestoreErrorType
+import com.asfoundation.wallet.wallets.WalletModel
 import io.reactivex.Completable
 import io.reactivex.Single
 

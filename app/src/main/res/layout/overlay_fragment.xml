@@ -13,7 +13,7 @@
       android:id="@+id/promotions_dialog"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="32dp"
+      android:layout_marginBottom="8dp"
       app:cardCornerRadius="8dp"
       app:cardElevation="0dp"
       app:layout_constraintBottom_toTopOf="@id/overlay_bottom_navigation"
@@ -80,7 +80,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.125"
+      app:layout_constraintGuide_percent="0.375"
       />
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/card_start_guideline"
@@ -101,15 +101,16 @@
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/overlay_bottom_navigation"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="69dp"
       android:background="@color/transparent"
+      app:itemHorizontalTranslationEnabled="false"
       app:elevation="0dp"
       app:itemIconTint="@color/white"
       app:itemRippleColor="@color/transparent"
       app:itemTextColor="@color/white"
       app:labelVisibilityMode="labeled"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:menu="@menu/bottom_navigation_menu"
+      app:menu="@menu/new_bottom_navigation_menu"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

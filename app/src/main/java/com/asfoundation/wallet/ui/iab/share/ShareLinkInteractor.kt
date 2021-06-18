@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab.share
 
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
 
 class ShareLinkInteractor(private val remoteRepository: ShareLinkRepository,

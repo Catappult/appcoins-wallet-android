@@ -11,7 +11,7 @@
   <item
       android:id="@+id/balance"
       android:icon="@drawable/ic_balance"
-      android:title="@string/balance_title" />
+      android:title="@string/bottom_navigation_my_wallets" />
   <item
       android:id="@+id/top_up"
       android:actionLayout="@layout/bottom_nav_top_up_item"
