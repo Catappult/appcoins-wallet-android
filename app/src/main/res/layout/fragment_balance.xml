@@ -368,4 +368,35 @@
       android:focusable="true"
       android:visibility="gone"
       />
+
+  <LinearLayout
+      android:id="@+id/wallet_creation_animation"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/faded_background_color"
+      android:clickable="true"
+      android:focusable="true"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="gone"
+      >
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/create_wallet_animation"
+        android:layout_width="136dp"
+        android:layout_height="136dp"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/create_wallet_loading_animation"
+        />
+
+    <TextView
+        android:id="@+id/create_wallet_text"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium.White"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/provide_wallet_creating_wallet_header"
+        android:gravity="center"
+        />
+  </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

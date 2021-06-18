@@ -1,11 +1,12 @@
 package com.asfoundation.wallet.di
 
-import com.asfoundation.wallet.balance.BalanceFragmentPH
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.home.HomeModule
+import com.asfoundation.wallet.my_wallets.MyWalletsFragment
+import com.asfoundation.wallet.my_wallets.MyWalletsModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -44,7 +45,6 @@ import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletModule
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessModule
-import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
@@ -133,9 +133,6 @@ abstract class FragmentBuilders {
 
   @ContributesAndroidInjector
   abstract fun bindMergedAppcoinsFragment(): MergedAppcoinsFragment
-
-  @ContributesAndroidInjector
-  abstract fun bindBalanceFragment(): BalanceFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [PromotionsModuleNew::class])
@@ -289,6 +286,6 @@ abstract class FragmentBuilders {
   abstract fun bindHomeFragment(): HomeFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
-  abstract fun bindBalanceFragmentPH(): BalanceFragmentPH
+  @ContributesAndroidInjector(modules = [MyWalletsModule::class])
+  abstract fun bindMyWalletsFragment(): MyWalletsFragment
 }

@@ -1,10 +1,10 @@
-package com.asfoundation.wallet.ui.balance
+package com.asfoundation.wallet.my_wallets
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -15,11 +15,11 @@ import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.MyAddressActivity
+import com.asfoundation.wallet.ui.balance.*
 import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
-import com.asfoundation.wallet.verification.VerificationActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -40,10 +40,16 @@ import kotlinx.android.synthetic.main.layout_unverified.*
 import javax.inject.Inject
 import kotlin.math.abs
 
-class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
+/**
+ * Placeholder fragment, to be replaced with the actual fragment
+ */
+class MyWalletsFragment : BasePageViewFragment(), BalanceFragmentView {
 
   @Inject
   lateinit var balanceInteractor: BalanceInteractor
+
+  @Inject
+  lateinit var myWalletsNavigator: MyWalletsNavigator
 
   @Inject
   lateinit var walletsEventSender: WalletsEventSender
@@ -52,29 +58,24 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
   lateinit var formatter: CurrencyFormatUtils
 
   private var onBackPressedSubject: PublishSubject<Any>? = null
-  private var activityView: BalanceActivityView? = null
+
   private var showingAnimation: Boolean = false
   private var popup: PopupWindow? = null
+
+  private var expandBottomSheet: Boolean = false
   private lateinit var tooltip: View
   private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
   private lateinit var presenter: BalanceFragmentPresenter
 
   companion object {
-    @JvmStatic
-    fun newInstance() = BalanceFragment()
-  }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    if (context !is BalanceActivityView) {
-      throw IllegalStateException("Balance Fragment must be attached to Balance Activity")
-    }
-    activityView = context
+    @JvmStatic
+    fun newInstance() = MyWalletsFragment()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = BalanceFragmentPresenter(this, activityView, balanceInteractor, walletsEventSender,
+    presenter = BalanceFragmentPresenter(this, balanceInteractor, walletsEventSender,
         Schedulers.io(), AndroidSchedulers.mainThread(), CompositeDisposable(), formatter)
     onBackPressedSubject = PublishSubject.create()
   }
@@ -92,15 +93,15 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     super.onViewCreated(view, savedInstanceState)
     walletsBottomSheet =
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
-    setBackListener(view)
-    activityView?.let {
+    this.let {
       if (it.shouldExpandBottomSheet()) walletsBottomSheet.state =
           BottomSheetBehavior.STATE_EXPANDED
     }
+    setBackListener(view)
     animateBackgroundFade()
-    activityView?.setupToolbar()
     presenter.present()
 
+    setupToolbar()
     (app_bar as AppBarLayout).addOnOffsetChangedListener(
         AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
           if (balance_label != null) {
@@ -132,6 +133,10 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     presenter.onResume()
   }
 
+  fun setupToolbar() {
+    toolbar?.title = getString(R.string.bottom_navigation_my_wallets)
+  }
+
   override fun setTooltip() {
     popup = PopupWindow(tooltip)
     popup?.height = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -142,7 +147,6 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
   }
 
   override fun onDestroyView() {
-    activityView?.enableBack()
     presenter.stop()
     super.onDestroyView()
   }
@@ -238,8 +242,11 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
       appcoins_token -> tokenId = TokenDetailsActivity.TokenDetailsId.APPC
       ether_token -> tokenId = TokenDetailsActivity.TokenDetailsId.ETHER
     }
+    myWalletsNavigator.showTokenDetailsScreen(tokenId, view.token_icon, view.token_name, view)
+  }
 
-    activityView?.showTokenDetailsScreen(tokenId, view.token_icon, view.token_name, view)
+  override fun navigateToBackup(walletAddress: String) {
+    myWalletsNavigator.navigateToBackupView(walletAddress)
   }
 
   override fun getVerifyWalletClick() = RxView.clicks(verify_wallet_button)
@@ -277,24 +284,16 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun backPressed() = onBackPressedSubject!!
 
-  override fun homeBackPressed() = activityView?.backPressed()
-
   override fun handleBackPress() {
     if (walletsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED) {
       walletsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
     } else {
-      activityView?.navigateToTransactions()
+      navigateToHome()
     }
   }
 
   override fun openWalletVerificationScreen() {
-    context?.let {
-      val intent = VerificationActivity.newIntent(it)
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-          }
-      startActivity(intent)
-    }
+    myWalletsNavigator.navigateToVerificationView()
   }
 
   override fun showVerifiedWalletChip() {
@@ -339,12 +338,23 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
 
   override fun showCreatingAnimation() {
     showingAnimation = true
-    activityView?.showCreatingAnimation()
+//    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    wallet_creation_animation.visibility = View.VISIBLE
+    create_wallet_animation.playAnimation()
   }
 
   override fun showWalletCreatedAnimation() {
     showingAnimation = false
-    activityView?.showWalletCreatedAnimation()
+    create_wallet_animation.setAnimation(R.raw.success_animation)
+    create_wallet_text.text = getText(R.string.provide_wallet_created_header)
+    create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) = Unit
+      override fun onAnimationEnd(animation: Animator?) = navigateToHome()
+      override fun onAnimationCancel(animation: Animator?) = Unit
+      override fun onAnimationStart(animation: Animator?) = Unit
+    })
+    create_wallet_animation.repeatCount = 0
+    create_wallet_animation.playAnimation()
   }
 
   override fun changeBottomSheetState() {
@@ -355,13 +365,19 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
     }
   }
 
+  override fun shouldExpandBottomSheet(): Boolean {
+    val shouldExpand = expandBottomSheet
+    expandBottomSheet = false
+    return shouldExpand
+  }
+
+
   override fun dismissTooltip() {
     faded_background.visibility = View.GONE
     popup?.dismiss()
   }
 
   private fun setBackListener(view: View) {
-    activityView?.disableBack()
     view.apply {
       isFocusableInTouchMode = true
       requestFocus()
@@ -375,6 +391,10 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
         true
       }
     }
+  }
+
+  fun navigateToHome() {
+    myWalletsNavigator.navigateToHome()
   }
 
   private fun animateBackgroundFade() {
