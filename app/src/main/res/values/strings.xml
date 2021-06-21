@@ -1016,9 +1016,10 @@
  <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
-
-
-
+  <string name="withdraw_funds">Withdraw funds</string>
+  <string name="withdraw_email">Paypal email address</string>
+  <string name="withdraw_amount">Amount</string>
+  <string name="withdraw_withdraw_button_text">withdraw</string>
 
 
 </resources>
