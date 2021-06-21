@@ -5,12 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
 import cm.aptoide.skills.BuildConfig
-import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Single
 import java.math.BigDecimal
 
-class PayTicketUseCase(private val ticketRepository: TicketRepository) {
+class PayTicketUseCase() {
 
   fun payTicket(
     ticketId: String, callbackUrl: String, productToken: String,
