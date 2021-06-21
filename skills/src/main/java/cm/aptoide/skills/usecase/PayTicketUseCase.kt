@@ -51,11 +51,17 @@ class PayTicketUseCase() {
     i.data = Uri.parse(url)
     i.setPackage(IAB_BIND_PACKAGE)
 
+    var flags = PendingIntent.FLAG_UPDATE_CURRENT
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+      flags = flags or PendingIntent.FLAG_IMMUTABLE
+    }
+
     val intent =
-        PendingIntent.getActivity(fragment.requireContext()
+      PendingIntent.getActivity(
+        fragment.requireContext()
           .getApplicationContext(), 0, i,
-          PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        flags
+      )
     try {
       fragment.startIntentSenderForResult(
         intent.intentSender, RC_ONE_STEP, Intent(), 0, 0, 0,
