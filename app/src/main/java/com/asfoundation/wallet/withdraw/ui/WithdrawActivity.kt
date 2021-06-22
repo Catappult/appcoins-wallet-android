@@ -17,5 +17,12 @@ class WithdrawActivity: BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.withdraw_activity)
+    toolbar()
+
+    if (savedInstanceState == null) {
+      supportFragmentManager.beginTransaction()
+        .add(R.id.fragment_container, WithdrawFragment.newInstance())
+        .commit()
+    }
   }
 }
