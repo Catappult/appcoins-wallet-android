@@ -34,5 +34,8 @@ data class TicketRequest(
     private val priceCurrency: String,
 
     @SerializedName("sku")
-    private val sku: String
+    private val sku: String,
+
+    @SerializedName("match_max_duration")
+    private val timeout: Int?
 )

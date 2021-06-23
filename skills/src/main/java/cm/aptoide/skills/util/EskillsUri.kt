@@ -56,6 +56,10 @@ data class EskillsUri(
     return parameters[EskillsParameters.NUMBER_OF_USERS]!!.toInt()
   }
 
+  fun getTimeout(): Int? {
+    return parameters[EskillsParameters.TIMEOUT]?.toInt()
+  }
+
   enum class MatchEnvironment {
     LIVE, SANDBOX
   }
