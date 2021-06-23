@@ -55,6 +55,7 @@ public abstract class C {
   public interface Key {
     String WALLET = "wallet";
     String TRANSACTION = "transaction";
+    String GLOBAL_BALANCE_CURRENCY = "global_balance_currency";
     String SHOULD_SHOW_SECURITY_WARNING = "should_show_security_warning";
   }
 }

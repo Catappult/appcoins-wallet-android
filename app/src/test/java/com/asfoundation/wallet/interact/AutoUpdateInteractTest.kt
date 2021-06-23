@@ -83,8 +83,6 @@ class AutoUpdateInteractTest {
 
   @Test
   fun fallBackRetrieveUrlTest() {
-    `when`(packageManager.getApplicationInfo(anyString(), eq(0)))
-        .thenReturn(ApplicationInfo())
     val url = autoUpdateInteract.retrieveRedirectUrl()
     Assert.assertEquals(url,
         String.format(AutoUpdateInteract.PLAY_APP_VIEW_URL, WALLET_PACKAGE_NAME))

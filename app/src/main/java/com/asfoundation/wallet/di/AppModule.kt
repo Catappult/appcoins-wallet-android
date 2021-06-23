@@ -44,7 +44,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -536,7 +536,8 @@ internal class AppModule {
             TransactionsDatabase.MIGRATION_1_2,
             TransactionsDatabase.MIGRATION_2_3,
             TransactionsDatabase.MIGRATION_3_4,
-            TransactionsDatabase.MIGRATION_4_5
+            TransactionsDatabase.MIGRATION_4_5,
+            TransactionsDatabase.MIGRATION_5_6
         )
         .build()
   }
@@ -591,9 +592,9 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBalanceWalletsExperiment(
-      abTestInteractor: ABTestInteractor): BalanceWalletsExperiment {
-    return BalanceWalletsExperiment(abTestInteractor)
+  fun providesTopUpDefaultValueExperiment(
+      abTestInteractor: ABTestInteractor): TopUpDefaultValueExperiment {
+    return TopUpDefaultValueExperiment(abTestInteractor)
   }
 
   @Singleton
