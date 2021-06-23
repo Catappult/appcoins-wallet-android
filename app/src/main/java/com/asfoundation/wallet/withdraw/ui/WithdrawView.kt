@@ -1,0 +1,11 @@
+package com.asfoundation.wallet.withdraw.ui
+
+import io.reactivex.Observable
+import java.math.BigDecimal
+
+interface WithdrawView {
+  fun getWithdrawClicks(): Observable<Pair<String, BigDecimal>>
+  fun showError(error: Throwable)
+  fun showWithdrawSuccessMessage()
+
+}

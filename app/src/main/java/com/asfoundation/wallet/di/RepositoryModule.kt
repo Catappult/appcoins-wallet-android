@@ -62,6 +62,8 @@ import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
+import com.asfoundation.wallet.withdraw.repository.WithdrawApi
+import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -334,7 +336,6 @@ class RepositoryModule {
                                logger: Logger): RatingRepository {
     return RatingRepository(sharedPreferences, walletFeedbackApi, logger)
   }
-
   @Singleton
   @Provides
   fun providesCarrierBillingPreferencesRepository(
@@ -348,5 +349,11 @@ class RepositoryModule {
                                           verificationStateApi: VerificationStateApi,
                                           sharedPreferences: SharedPreferences): VerificationRepository {
     return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesWithdrawRepository(api: WithdrawApi): WithdrawRepository {
+    return WithdrawRepository(api)
   }
 }

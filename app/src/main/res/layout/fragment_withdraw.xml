@@ -22,10 +22,11 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:autofillHints="emailAddress"
+      android:hint="@string/withdraw_email_hint"
+      android:inputType="textEmailAddress"
       app:layout_constraintEnd_toEndOf="@id/paypal_email_title"
       app:layout_constraintStart_toStartOf="@id/paypal_email_title"
       app:layout_constraintTop_toBottomOf="@id/paypal_email_title"
-      android:inputType="textEmailAddress"
       />
   <TextView
       android:id="@+id/amount_title"
@@ -45,6 +46,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:autofillHints="emailAddress"
+      android:hint="@string/withdraw_amount_hint"
       android:inputType="numberDecimal"
       app:layout_constraintEnd_toEndOf="@id/amount_title"
       app:layout_constraintStart_toStartOf="@id/amount_title"
@@ -52,6 +54,7 @@
       />
 
   <Button
+      android:id="@+id/withdraw_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/withdraw_withdraw_button_text"
