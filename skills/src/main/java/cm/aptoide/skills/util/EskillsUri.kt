@@ -11,33 +11,38 @@ data class EskillsUri(
   var parameters: MutableMap<String, String?>
 ) {
 
-  fun getUserId(): String {
-    return parameters[EskillsParameters.USER_ID]!!
+  fun getUserId(): String? {
+    return parameters[EskillsParameters.USER_ID]
   }
 
-  fun getUserName(): String {
-    return parameters[EskillsParameters.USER_NAME]!!
+  fun getUserName(): String? {
+    return parameters[EskillsParameters.USER_NAME]
   }
 
   fun getPackageName(): String {
     return parameters[EskillsParameters.DOMAIN]!!
   }
 
-  fun getProduct(): String {
-    return parameters[EskillsParameters.PRODUCT]!!
+  fun getProduct(): String? {
+    return parameters[EskillsParameters.PRODUCT]
   }
 
-  fun getPrice(): BigDecimal {
-    return parameters[EskillsParameters.VALUE]!!.toBigDecimal()
+  fun getPrice(): BigDecimal? {
+    return parameters[EskillsParameters.VALUE]?.toBigDecimal()
   }
 
-  fun getCurrency(): String {
-    return parameters[EskillsParameters.CURRENCY]!!
+  fun getCurrency(): String? {
+    return parameters[EskillsParameters.CURRENCY]
   }
 
   fun getEnvironment(): MatchEnvironment? {
     return try {
-      MatchEnvironment.valueOf(parameters[EskillsParameters.ENVIRONMENT]!!)
+      val value = parameters[EskillsParameters.ENVIRONMENT]
+      if (value != null) {
+        return MatchEnvironment.valueOf(value)
+      } else {
+        return null
+      }
     } catch (e: IllegalArgumentException) {
       null
     }
@@ -52,8 +57,8 @@ data class EskillsUri(
     }
   }
 
-  fun getNumberOfUsers(): Int {
-    return parameters[EskillsParameters.NUMBER_OF_USERS]!!.toInt()
+  fun getNumberOfUsers(): Int? {
+    return parameters[EskillsParameters.NUMBER_OF_USERS]?.toInt()
   }
 
   enum class MatchEnvironment {
