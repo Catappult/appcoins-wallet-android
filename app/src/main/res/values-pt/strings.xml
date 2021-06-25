@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">Certifique-se que tem uma cópia de segurança desta wallet.</string>
   <string name="action_import">Recuperar</string>
   <string name="copy">Copiar para a área de transferência</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">Copiado!</string>
   <string name="close">Fechar</string>
   <string name="title_activity_settings">Definições</string>
   <string name="network_label">Rede</string>
@@ -698,7 +698,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Gerir subscrições</string>
   <string name="subscriptions_title">Subscrições</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">Subscreve</string>
   <string name="subscriptions_active_title">Ativas</string>
   <string name="subscriptions_expired_title">Expirado</string>
   <string name="subscriptions_empty_title">Ainda Sem Subscrições</string>
