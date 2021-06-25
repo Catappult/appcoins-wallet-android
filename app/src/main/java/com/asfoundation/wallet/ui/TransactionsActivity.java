@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -57,7 +56,6 @@ import kotlin.Unit;
 
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 import static com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK;
-import static com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem.BALANCE;
 import static com.asfoundation.wallet.ui.bottom_navigation.BottomNavigationItem.PROMOTIONS;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
@@ -113,6 +111,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     emptyTransactionsSubject = PublishSubject.create();
 
     views.systemView.setVisibility(View.GONE);
+
+    views.actionButtonVip.getRoot()
+        .setVisibility(View.GONE);
+    views.actionButtonVip.getRoot()
+        .setOnClickListener(v -> viewModel.goToVipLink(this));
 
     initializeLists();
     initializeViewModel();
@@ -191,12 +194,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::shareApp);
     viewModel.shouldShowPromotionsTooltip()
         .observe(this, this::showPromotionsOverlay);
-    viewModel.balanceWalletsExperimentAssignment()
-        .observe(this, this::changeBottomNavigationName);
     viewModel.shouldShowRateUsDialog()
         .observe(this, this::navigateToRateUs);
     viewModel.shouldShowFingerprintTooltip()
         .observe(this, this::showFingerprintTooltip);
+    viewModel.shouldShowVipBadge()
+        .observe(this, this::showVipBadge);
   }
 
   public void navigateToRateUs(Boolean shouldNavigate) {
@@ -204,12 +207,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       Intent intent = RatingActivity.newIntent(this);
       this.startActivityForResult(intent, 0);
     }
-  }
-
-  private void changeBottomNavigationName(@StringRes Integer name) {
-    views.bottomNavigation.getMenu()
-        .getItem(BALANCE.getPosition())
-        .setTitle(getString(name));
   }
 
   @Override public void onBackPressed() {
@@ -535,5 +532,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (shouldShow) {
       this.setTooltip();
     }
+  }
+
+  private void showVipBadge(Boolean shouldShow) {
+    views.actionButtonVip.getRoot()
+        .setVisibility(shouldShow ? View.VISIBLE : View.GONE);
   }
 }

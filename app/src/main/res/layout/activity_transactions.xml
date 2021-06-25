@@ -141,10 +141,22 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
+  <include
+      android:id="@+id/action_button_vip"
+      layout="@layout/layout_vip_badge"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintBottom_toBottomOf="@id/toolbar"
+      app:layout_constraintEnd_toStartOf="@id/action_button_support"
+      app:layout_constraintTop_toTopOf="@id/toolbar"
+      />
+
   <FrameLayout
       android:id="@+id/action_button_support"
       style="@style/Widget.AppCompat.ActionButton"
-      android:layout_width="48dp"
+      android:layout_width="42dp"
       android:layout_height="48dp"
       android:clickable="true"
       android:focusable="true"
@@ -166,12 +178,12 @@
         />
   </FrameLayout>
 
-
   <ImageButton
       android:id="@+id/action_button_settings"
       style="@style/Widget.AppCompat.ActionButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="42dp"
+      android:layout_marginEnd="5dp"
+      android:layout_height="48dp"
       android:src="@drawable/ic_settings_white_24dp"
       app:layout_constraintBottom_toBottomOf="@id/toolbar"
       app:layout_constraintEnd_toEndOf="parent"

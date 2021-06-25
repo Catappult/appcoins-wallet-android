@@ -26,7 +26,7 @@ import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.AirdropService
 import com.asfoundation.wallet.abtesting.ABTestInteractor
 import com.asfoundation.wallet.abtesting.ABTestRepository
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.LaunchAnalytics
@@ -80,6 +80,10 @@ import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
+import com.asfoundation.wallet.wallets.FetchWalletsInteract
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -262,7 +266,8 @@ class InteractorModule {
   @Provides
   fun provideWalletCreatorInteract(accountRepository: WalletRepositoryType,
                                    passwordStore: PasswordStore, syncScheduler: ExecutorScheduler) =
-      WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+      WalletCreatorInteract(accountRepository,
+          passwordStore, syncScheduler)
 
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,
@@ -305,10 +310,11 @@ class InteractorModule {
                               topUpValuesService: TopUpValuesService,
                               walletBlockedInteract: WalletBlockedInteract,
                               inAppPurchaseInteractor: InAppPurchaseInteractor,
-                              supportInteractor: SupportInteractor) =
+                              supportInteractor: SupportInteractor,
+                              topUpDefaultValueExperiment: TopUpDefaultValueExperiment) =
       TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
           LinkedHashMap(), TopUpLimitValues(), walletBlockedInteract, inAppPurchaseInteractor,
-          supportInteractor)
+          supportInteractor, topUpDefaultValueExperiment)
 
   @Singleton
   @Provides
@@ -411,13 +417,12 @@ class InteractorModule {
                                       preferencesRepositoryType: PreferencesRepositoryType,
                                       packageManager: PackageManager,
                                       fingerprintInteractor: FingerprintInteractor,
-                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
-                                      balanceWalletsExperiment: BalanceWalletsExperiment): TransactionViewInteractor {
+                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteractor {
     return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
         promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
         preferencesRepositoryType, packageManager, fingerprintInteractor,
-        fingerprintPreferencesRepository, balanceWalletsExperiment)
+        fingerprintPreferencesRepository)
   }
 
   @Provides

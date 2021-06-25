@@ -2,9 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/balance"
-    app:startDestination="@id/balance_fragment">
+    app:startDestination="@id/my_wallets_fragment">
 
   <fragment
-      android:id="@+id/balance_fragment"
+      android:id="@+id/my_wallets_fragment"
       android:name="com.asfoundation.wallet.balance.BalanceFragmentPH" />
 </navigation>

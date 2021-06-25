@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.Pair;
-import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
@@ -57,7 +56,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Boolean> showPromotionTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showFingerprintTooltip = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showVipBadge = new MutableLiveData<>();
-  private final MutableLiveData<Integer> experimentAssignment = new MutableLiveData<>();
   private final SingleLiveEvent<Boolean> showRateUsDialog = new SingleLiveEvent<>();
   private final BehaviorSubject<Boolean> refreshData = BehaviorSubject.createDefault(true);
   private final BehaviorSubject<Boolean> refreshCardNotifications =
@@ -95,7 +93,6 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void init() {
     progress.postValue(true);
-    handleBalanceWalletsExperiment();
     handleTopUpClicks();
     handleUnreadConversationCount();
     handlePromotionTooltipVisibility();
@@ -104,6 +101,7 @@ public class TransactionsViewModel extends BaseViewModel {
     handleConversationCount();
     handleWalletData();
     handleFingerprintTooltipVisibility();
+    verifyUserLevel();
   }
 
   public void updateData() {
@@ -183,10 +181,6 @@ public class TransactionsViewModel extends BaseViewModel {
     return showPromotionTooltip;
   }
 
-  public MutableLiveData<Integer> balanceWalletsExperimentAssignment() {
-    return experimentAssignment;
-  }
-
   public LiveData<Boolean> shouldShowRateUsDialog() {
     return showRateUsDialog;
   }
@@ -213,19 +207,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribeOn(networkScheduler);
   }
 
-  private void handleBalanceWalletsExperiment() {
-    disposables.add(transactionViewInteractor.getBalanceWalletsExperiment()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess(assignment -> {
-          @StringRes int bottomNavigationItemName =
-              transactionViewInteractor.mapConfiguration(assignment);
-          analytics.sendAbTestImpressionEvent(assignment);
-          experimentAssignment.postValue(bottomNavigationItemName);
-        })
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace));
-  }
+
 
   private void handleRateUsDialogVisibility() {
     disposables.add(transactionViewInteractor.shouldOpenRatingDialog()
@@ -361,8 +343,9 @@ public class TransactionsViewModel extends BaseViewModel {
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
     GlobalBalance newGlobalBalance =
         new GlobalBalance(tokenBalance.first, creditsBalance.first, ethereumBalance.first,
-            tokenBalance.second.getSymbol(), fiatValue, shouldShow(tokenBalance, 0.01),
-            shouldShow(creditsBalance, 0.01), shouldShow(ethereumBalance, 0.0001));
+            tokenBalance.second.getSymbol(), tokenBalance.second.getCurrency(), fiatValue,
+            shouldShow(tokenBalance, 0.01), shouldShow(creditsBalance, 0.01),
+            shouldShow(ethereumBalance, 0.0001));
     if (currentGlobalBalance != null) {
       if (!currentGlobalBalance.equals(newGlobalBalance)) {
         defaultWalletBalance.postValue(newGlobalBalance);
@@ -448,9 +431,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribeOn(networkScheduler)
         .flatMap(wallet -> transactionViewInteractor.getUserLevel()
             .subscribeOn(networkScheduler)
-            .doOnSuccess(userLevel -> {
-              showVipBadge.postValue(userLevel == 9 || userLevel == 10);
-            }))
+            .doOnSuccess(userLevel -> showVipBadge.postValue(userLevel == 9 || userLevel == 10)))
         .subscribe(wallet -> {
         }, this::onError));
   }
@@ -460,7 +441,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showDetails(Context context, Transaction transaction) {
-    transactionViewNavigator.openTransactionsDetailView(context, transaction);
+    transactionViewNavigator.openTransactionsDetailView(context, transaction,
+        defaultWalletBalance.getValue()
+            .getFiatCurrency());
   }
 
   public void showMyAddress(Context context) {
@@ -471,9 +454,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTokens(Context context) {
-    analytics.sendAbTestConversionEvent();
-    transactionViewNavigator.openTokensView(context,
-        transactionViewInteractor.getCachedExperiment());
+    transactionViewNavigator.openMyWalletsView(context);
   }
 
   public void onAppClick(AppcoinsApplication appcoinsApplication,

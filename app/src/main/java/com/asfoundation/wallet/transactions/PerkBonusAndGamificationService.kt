@@ -15,7 +15,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
-import com.asfoundation.wallet.promotions.PromotionsActivity
+import com.asfoundation.wallet.MainActivityNavigator
 import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.TransactionsActivity
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -46,6 +46,9 @@ class PerkBonusAndGamificationService :
 
   @Inject
   lateinit var gamificationMapper: GamificationMapper
+
+  @Inject
+  lateinit var mainActivityNavigator: MainActivityNavigator
 
   private lateinit var notificationManager: NotificationManager
 
@@ -260,8 +263,7 @@ class PerkBonusAndGamificationService :
     }
     val builder =
         initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID, LEVEL_UP_CHANNEL_NAME,
-            PendingIntent.getActivity(this, 0,
-                PromotionsActivity.newIntent(this), 0))
+            mainActivityNavigator.getPromotionsPendingIntent())
             .setContentTitle(reachedLevelInfo.reachedTitle)
     val levelBitmap = reachedLevelInfo.planet?.toBitmap()
     if (levelBitmap != null) {
@@ -287,8 +289,7 @@ class PerkBonusAndGamificationService :
   private fun createAlmostNextLevelNotification(appCoinsToSpend: String):
       NotificationCompat.Builder {
     return initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID,
-        LEVEL_UP_CHANNEL_NAME, PendingIntent.getActivity(this, 0,
-        PromotionsActivity.newIntent(this), 0))
+        LEVEL_UP_CHANNEL_NAME, mainActivityNavigator.getPromotionsPendingIntent())
         .setContentTitle(getString(R.string.gamification_level_up_notification_title))
         .setContentText(
             getString(R.string.gamification_level_up_notification_body, appCoinsToSpend))

@@ -104,10 +104,10 @@
         android:label="@string/title_my_address" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
-        android:label="@string/balance_title" />
+        android:label="@string/bottom_navigation_my_wallets" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
-        android:label="@string/balance_title"
+        android:label="@string/bottom_navigation_my_wallets"
         android:theme="@style/AppTheme.Transparent" />
     <activity
         android:name="com.asfoundation.wallet.ui.SendActivity"

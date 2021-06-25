@@ -10,10 +10,10 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.VerificationActivity
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable

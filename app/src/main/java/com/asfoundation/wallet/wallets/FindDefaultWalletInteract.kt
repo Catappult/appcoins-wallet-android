@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.interact
+package com.asfoundation.wallet.wallets
 
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.WalletRepositoryType

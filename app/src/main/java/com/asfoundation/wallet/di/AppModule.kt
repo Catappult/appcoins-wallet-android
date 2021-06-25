@@ -44,7 +44,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -52,7 +52,6 @@ import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.LogReceiver
 import com.asfoundation.wallet.logging.Logger
@@ -60,6 +59,7 @@ import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
+import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
 import com.asfoundation.wallet.router.GasSettingsRouter
@@ -81,6 +81,7 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils.Companion.create
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -520,6 +521,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  fun providesPromotionsMapper(gamificationMapper: GamificationMapper) =
+      PromotionsMapper(gamificationMapper)
+
+  @Singleton
+  @Provides
   fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 
   @Singleton
@@ -537,7 +543,8 @@ internal class AppModule {
             TransactionsDatabase.MIGRATION_2_3,
             TransactionsDatabase.MIGRATION_3_4,
             TransactionsDatabase.MIGRATION_4_5,
-            TransactionsDatabase.MIGRATION_5_6
+            TransactionsDatabase.MIGRATION_5_6,
+            TransactionsDatabase.MIGRATION_6_7
         )
         .build()
   }
@@ -592,9 +599,9 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBalanceWalletsExperiment(
-      abTestInteractor: ABTestInteractor): BalanceWalletsExperiment {
-    return BalanceWalletsExperiment(abTestInteractor)
+  fun providesTopUpDefaultValueExperiment(
+      abTestInteractor: ABTestInteractor): TopUpDefaultValueExperiment {
+    return TopUpDefaultValueExperiment(abTestInteractor)
   }
 
   @Singleton

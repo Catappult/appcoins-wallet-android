@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.balance
 
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 

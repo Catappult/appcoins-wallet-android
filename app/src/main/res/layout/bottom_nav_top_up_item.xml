@@ -7,7 +7,7 @@
     android:focusable="true"
     app:cardBackgroundColor="@color/bottom_nav_top_up_blue"
     app:rippleColor="@color/white"
-    app:shapeAppearance="@style/Home.BottomNav.TopUpShape"
+    app:shapeAppearance="@style/BottomNav.Home.TopUpShape"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout

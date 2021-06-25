@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.interact;
+package com.asfoundation.wallet.wallets;
 
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.GasSettings;
@@ -7,6 +7,7 @@ import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.FetchCreditsInteract;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;

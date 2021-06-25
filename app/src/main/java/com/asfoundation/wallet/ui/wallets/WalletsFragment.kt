@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.balance.BalanceActivityView
 import com.asfoundation.wallet.ui.balance.BalanceFragmentView
@@ -28,6 +29,9 @@ import javax.inject.Inject
 class WalletsFragment : DaggerFragment(), WalletsView {
 
   @Inject
+  lateinit var walletsEventSender: WalletsEventSender
+
+  @Inject
   lateinit var walletsInteract: WalletsInteract
 
   @Inject
@@ -46,7 +50,7 @@ class WalletsFragment : DaggerFragment(), WalletsView {
     uiEventListener = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
     presenter = WalletsPresenter(this, walletsInteract, logger, CompositeDisposable(),
-        AndroidSchedulers.mainThread(), Schedulers.io())
+        AndroidSchedulers.mainThread(), Schedulers.io(), walletsEventSender)
   }
 
   override fun onAttach(context: Context) {

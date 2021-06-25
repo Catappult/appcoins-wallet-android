@@ -4,10 +4,10 @@ import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.util.WalletUtils
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import ethereumj.crypto.ECKey
 import ethereumj.crypto.HashUtil.sha3
 import io.reactivex.Observable

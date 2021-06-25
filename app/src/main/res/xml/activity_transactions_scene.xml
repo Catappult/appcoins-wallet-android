@@ -110,6 +110,18 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/balance_skeleton"
         app:visibilityMode="ignore" />
+
+    <Constraint
+        android:id="@+id/action_button_vip"
+        layout="@layout/layout_vip_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/action_button_support"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:visibilityMode="ignore" />
+
     <Constraint android:id="@+id/faded_background">
       <PropertySet
           app:applyMotionScene="false"
@@ -171,6 +183,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/balance_skeleton"
+        app:visibilityMode="ignore" />
+
+    <Constraint
+        android:id="@+id/action_button_vip"
+        layout="@layout/layout_vip_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/action_button_support"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
         app:visibilityMode="ignore" />
 
     <Constraint android:id="@+id/faded_background">

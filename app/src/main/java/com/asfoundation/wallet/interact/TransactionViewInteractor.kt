@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.hardware.biometrics.BiometricManager
 import android.util.Pair
 import com.appcoins.wallet.gamification.repository.Levels
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
@@ -19,6 +18,7 @@ import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -36,8 +36,7 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
                                 private val preferencesRepositoryType: PreferencesRepositoryType,
                                 private val packageManager: PackageManager,
                                 private val fingerprintInteractor: FingerprintInteractor,
-                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
-                                private val balanceWalletsExperiment: BalanceWalletsExperiment) {
+                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
   private companion object {
     private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
@@ -105,8 +104,6 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
     }
   }
 
-  fun getBalanceWalletsExperiment(): Single<String> = balanceWalletsExperiment.getConfiguration()
-
   private fun getNumberOfTimesOnHome(): Int = preferencesRepositoryType.getNumberOfTimesOnHome()
 
   fun shouldShowFingerprintTooltip(packageName: String): Single<Boolean> {
@@ -139,9 +136,4 @@ class TransactionViewInteractor(private val findDefaultNetworkInteract: FindDefa
   private fun hasFingerprint(): Boolean {
     return fingerprintInteractor.getDeviceCompatibility() == BiometricManager.BIOMETRIC_SUCCESS
   }
-
-  fun mapConfiguration(assignment: String): Int =
-      balanceWalletsExperiment.mapConfiguration(assignment)
-
-  fun getCachedExperiment() = balanceWalletsExperiment.getCachedAssignment()
 }

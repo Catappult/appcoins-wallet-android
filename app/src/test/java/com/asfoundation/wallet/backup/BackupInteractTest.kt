@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.backup
 
 import com.asfoundation.wallet.interact.FetchTransactionsInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.observers.TestObserver
 import org.junit.Assert

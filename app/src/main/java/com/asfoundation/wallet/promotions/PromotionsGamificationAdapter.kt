@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
+import com.asfoundation.wallet.promotions.model.GamificationLinkItem
 
 
 class PromotionsGamificationAdapter(private val links: List<GamificationLinkItem>) :

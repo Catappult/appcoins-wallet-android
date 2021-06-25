@@ -113,6 +113,20 @@ class BalanceFragment : BasePageViewFragment(), BalanceFragmentView {
         })
   }
 
+  override fun getBottomSheetStateChanged(): Observable<Int> {
+    return Observable.create {
+      val callback = object : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+          it.onNext(newState)
+        }
+
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+      }
+      walletsBottomSheet.addBottomSheetCallback(callback)
+      it.setCancellable { walletsBottomSheet.removeBottomSheetCallback(callback) }
+    }
+  }
+
   override fun onResume() {
     super.onResume()
     presenter.onResume()
