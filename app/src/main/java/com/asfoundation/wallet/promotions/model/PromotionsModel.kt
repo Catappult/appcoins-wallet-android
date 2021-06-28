@@ -10,12 +10,15 @@ data class PromotionsModel(val promotions: List<Promotion>,
                            val fromCache: Boolean = false) {
 
   fun hasError() = error != null
+
+  enum class WalletOrigin {
+    UNKNOWN, APTOIDE, PARTNER
+  }
+
+  enum class Status {
+    NO_NETWORK, UNKNOWN_ERROR
+  }
 }
 
-enum class WalletOrigin {
-  UNKNOWN, APTOIDE, PARTNER
-}
 
-enum class Status {
-  NO_NETWORK, UNKNOWN_ERROR
-}
+
