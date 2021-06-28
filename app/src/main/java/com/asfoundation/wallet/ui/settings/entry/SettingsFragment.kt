@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -17,6 +18,7 @@ import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
+import com.asfoundation.wallet.ui.settings.change_currency.ChangeFiatCurrencyFragment
 import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -118,6 +120,18 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
+  override fun setCurrencyPreference() {
+    val currencyPreference = findPreference<Preference>("pref_currency")
+    currencyPreference?.setOnPreferenceClickListener {
+      Log.d("APPC-2472", "setCurrencyPreference: click")
+      requireActivity().supportFragmentManager.beginTransaction()
+          .replace(R.id.fragment_container, ChangeFiatCurrencyFragment.newInstance())
+          .addToBackStack(null)
+          .commit()
+      false
+    }
+  }
+
   override fun setBackupPreference() {
     val backupPreference = findPreference<Preference>("pref_backup")
     backupPreference?.setOnPreferenceClickListener {
@@ -142,7 +156,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     redeemPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse(
           BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress +
-              "&lang=" + Locale.getDefault().getLanguageAndCountryCodes()), false)
+              "&lang=" + Locale.getDefault()
+              .getLanguageAndCountryCodes()), false)
       false
     }
   }

@@ -42,6 +42,7 @@ class SettingsPresenter(private val view: SettingsView,
     view.setCreditsPreference()
     view.setVersionPreference()
     view.setRestorePreference()
+    view.setCurrencyPreference()
     view.setBackupPreference()
   }
 

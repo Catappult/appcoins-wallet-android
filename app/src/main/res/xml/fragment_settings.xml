@@ -17,6 +17,12 @@
       android:title="@string/title_redeem" />
 
   <Preference
+      android:icon="@drawable/ic_currency"
+      android:key="pref_currency"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/change_currency_settings_title" />
+
+  <Preference
       android:icon="@drawable/ic_backup_black"
       android:key="pref_backup"
       android:layout="@layout/preference_without_summary_layout"

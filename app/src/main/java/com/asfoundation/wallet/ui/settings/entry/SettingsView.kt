@@ -40,6 +40,8 @@ interface SettingsView {
 
   fun setVersionPreference()
 
+  fun setCurrencyPreference()
+
   fun setRestorePreference()
 
   fun setBackupPreference()
