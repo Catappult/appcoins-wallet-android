@@ -5,12 +5,12 @@ import com.asfoundation.wallet.withdraw.WithdrawResult
 import com.google.gson.Gson
 import retrofit2.HttpException
 
-class WithdrawApiMapper {
+class WithdrawApiMapper(private val jsonMapper: Gson) {
   fun map(error: Throwable): WithdrawResult {
     if (error.isNoNetworkException()) {
       return WithdrawResult(WithdrawResult.Status.NO_NETWORK)
     }
-    val response = Gson().fromJson(
+    val response = jsonMapper.fromJson(
         (error as HttpException).response()
             ?.errorBody()
             ?.charStream(),

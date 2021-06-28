@@ -357,8 +357,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesWithdrawRepository(api: WithdrawApi): WithdrawRepository {
-    return WithdrawRepository(api, WithdrawApiMapper())
+  fun providesWithdrawRepository(api: WithdrawApi, gson: Gson): WithdrawRepository {
+    return WithdrawRepository(api, WithdrawApiMapper(gson))
   }
 
   @Singleton
