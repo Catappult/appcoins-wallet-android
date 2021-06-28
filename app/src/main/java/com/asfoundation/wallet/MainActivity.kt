@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.navigator.setupWithNavController
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
+import com.asfoundation.wallet.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,7 +22,10 @@ import javax.inject.Inject
  */
 class MainActivity : DaggerAppCompatActivity() {
 
+
   companion object {
+    private const val TAG = "MainActivity"
+
     fun newIntent(context: Context, supportNotificationClicked: Boolean): Intent {
       return Intent(context, MainActivity::class.java).apply {
         putExtra(SUPPORT_NOTIFICATION_CLICK, supportNotificationClicked)
@@ -87,7 +91,7 @@ class MainActivity : DaggerAppCompatActivity() {
       val menuItemId = bottomNavigationView?.menu?.get(index)?.itemId
       menuItemId?.let { bottomNavigationView?.selectedItemId = it }
     } catch (e: Exception) {
-      // Do nothing
+      Log.e(TAG, "Couldn't select nav item. " + e.message)
     }
   }
 
