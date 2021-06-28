@@ -60,6 +60,10 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
     presenter.present()
   }
 
+  override fun showInvalidEmailError() {
+    emailEditText.error = getString(R.string.withdraw_invalid_email_error_message)
+  }
+
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
@@ -87,11 +91,11 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   }
 
   override fun showNotEnoughBalanceError() {
-    amountEditText.error = "Not enough balance"
+    amountEditText.error = getString(R.string.withdraw_not_enough_balance_error_message)
   }
 
   override fun showNotEnoughEarningsBalanceError() {
-    amountEditText.error = "Not enough earnings"
+    amountEditText.error = getString(R.string.withdraw_not_enough_earnings_error_message)
   }
 
   override fun showLoading() {
@@ -110,7 +114,7 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
     builder.setMessage(R.string.activity_iab_no_network_message)
         .setPositiveButton(
             R.string.ok
-        ) { dialog, which -> dialog.dismiss() }
+        ) { dialog, _ -> dialog.dismiss() }
         .show()
   }
 

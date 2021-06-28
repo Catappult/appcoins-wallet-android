@@ -1012,8 +1012,8 @@
  <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
-  
- <!--Blockchain transactions-->
+
+  <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
   <string name="withdraw_funds">Withdraw funds</string>
@@ -1023,6 +1023,9 @@
   <string name="withdraw_email_hint">user@appcoins.com</string>
   <string name="withdraw_amount_hint">0</string>
   <string name="withdraw_title">Withdraw</string>
+  <string name="withdraw_invalid_email_error_message">Invalid Email</string>
+  <string name="withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="withdraw_not_enough_earnings_error_message">Not enough earnings</string>
 
 
 </resources>

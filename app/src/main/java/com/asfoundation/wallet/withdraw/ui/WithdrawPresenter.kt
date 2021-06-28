@@ -30,6 +30,7 @@ class WithdrawPresenter(
             WithdrawResult.Status.NOT_ENOUGH_EARNING -> view.showNotEnoughEarningsBalanceError()
             WithdrawResult.Status.NOT_ENOUGH_BALANCE -> view.showNotEnoughBalanceError()
             WithdrawResult.Status.NO_NETWORK -> view.showNoNetworkError()
+            WithdrawResult.Status.INVALID_EMAIL -> view.showInvalidEmailError()
           }
         }
         .doOnNext { view.hideLoading() }

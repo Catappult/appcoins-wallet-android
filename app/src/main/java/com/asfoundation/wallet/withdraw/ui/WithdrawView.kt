@@ -12,5 +12,6 @@ interface WithdrawView {
   fun showNoNetworkError()
   fun showLoading()
   fun hideLoading()
+  fun showInvalidEmailError()
 
 }

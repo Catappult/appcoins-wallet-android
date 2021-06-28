@@ -150,3 +150,8 @@ inline fun View.withNoLayoutTransition(block: () -> Unit) {
 fun String.convertToBase64(): String {
   return Base64.encodeToString(this.toByteArray(), Base64.NO_WRAP)
 }
+
+fun String?.isEmailValid(): Boolean {
+  return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
+      .matches()
+}
