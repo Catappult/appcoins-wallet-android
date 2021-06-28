@@ -62,8 +62,6 @@ class PromotionsFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: PromotionsSideEffect) {
     when (sideEffect) {
-      is PromotionsSideEffect.NavigateToDetailsLink -> navigator.openDetailsLink(
-          sideEffect.detailsLink)
       is PromotionsSideEffect.NavigateToGamification -> navigator.navigateToGamification(
           sideEffect.cachedBonus)
       is PromotionsSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
