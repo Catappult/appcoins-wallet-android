@@ -3,8 +3,6 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import cm.aptoide.skills.interfaces.EwtObtainer
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
@@ -47,7 +45,6 @@ import com.asfoundation.wallet.service.AutoUpdateService
 import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.WalletBalanceService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.skills.DefaultEwtObtainer
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -73,7 +70,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -367,21 +363,10 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesWithdrawUseCase(
-    ewt: EwtObtainer,
+    ewt: EwtAuthenticatorService,
     withdrawRepository: WithdrawRepository
   ): WithdrawFiatUseCase {
     return WithdrawFiatUseCase(ewt, withdrawRepository)
   }
 
-  @Provides
-  fun providesEWTObtainer(ewtAuthenticatorService: EwtAuthenticatorService): EwtObtainer {
-    return DefaultEwtObtainer(ewtAuthenticatorService)
-  }
-
-  @Provides
-  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
-    val headerJson = JsonObject()
-    headerJson.addProperty("typ", "EWT")
-    return EwtAuthenticatorService(walletService, headerJson.toString())
-  }
 }

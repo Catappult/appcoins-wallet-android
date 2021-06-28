@@ -12,6 +12,7 @@ import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsUriParser
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -116,10 +117,17 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesCancelUseCase(walletAddressObtainer: WalletAddressObtainer,
-                            ewtObtainer: EwtObtainer,
-                            ticketRepository: TicketRepository): CancelTicketUseCase {
+  fun providesCancelUseCase(
+    walletAddressObtainer: WalletAddressObtainer,
+    ewtObtainer: EwtObtainer,
+    ticketRepository: TicketRepository
+  ): CancelTicketUseCase {
     return CancelTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
+  }
+
+  @Provides
+  fun providesEWTObtainer(ewtAuthenticatorService: EwtAuthenticatorService): EwtObtainer {
+    return DefaultEwtObtainer(ewtAuthenticatorService)
   }
 
   companion object {
