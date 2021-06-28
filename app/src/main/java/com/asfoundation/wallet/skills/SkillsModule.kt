@@ -12,9 +12,7 @@ import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsUriParser
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
@@ -110,18 +108,6 @@ class SkillsModule {
         .create(TicketApi::class.java)
 
     return TicketRepository(api)
-  }
-
-  @Provides
-  fun providesEWTObtainer(ewtAuthenticatorService: EwtAuthenticatorService): EwtObtainer {
-    return DefaultEwtObtainer(ewtAuthenticatorService)
-  }
-
-  @Provides
-  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
-    val headerJson = JsonObject()
-    headerJson.addProperty("typ", "EWT")
-    return EwtAuthenticatorService(walletService, headerJson.toString())
   }
 
   @Provides

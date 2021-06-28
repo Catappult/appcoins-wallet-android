@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import com.asf.wallet.R
-import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class WithdrawFragment : DaggerFragment(), WithdrawView {
 
   @Inject
-  lateinit var withdrawRepository: WithdrawRepository
+  lateinit var withdrawUseCase: WithdrawFiatUseCase
 
   lateinit var presenter: WithdrawPresenter
 
@@ -34,8 +34,10 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = WithdrawPresenter(this, withdrawRepository, CompositeDisposable(), Schedulers.io(),
-        AndroidSchedulers.mainThread())
+    presenter = WithdrawPresenter(
+      this, withdrawUseCase, CompositeDisposable(), Schedulers.io(),
+      AndroidSchedulers.mainThread()
+    )
   }
 
   override fun onCreateView(

@@ -3,6 +3,8 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import cm.aptoide.skills.interfaces.EwtObtainer
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
@@ -29,6 +31,7 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.identification.IdsRepository
@@ -44,6 +47,7 @@ import com.asfoundation.wallet.service.AutoUpdateService
 import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.WalletBalanceService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.skills.DefaultEwtObtainer
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -64,10 +68,12 @@ import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -347,7 +353,8 @@ class RepositoryModule {
   @Provides
   fun provideWalletVerificationRepository(verificationApi: VerificationApi,
                                           verificationStateApi: VerificationStateApi,
-                                          sharedPreferences: SharedPreferences): VerificationRepository {
+                                          sharedPreferences: SharedPreferences
+  ): VerificationRepository {
     return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
   }
 
@@ -355,5 +362,26 @@ class RepositoryModule {
   @Provides
   fun providesWithdrawRepository(api: WithdrawApi): WithdrawRepository {
     return WithdrawRepository(api)
+  }
+
+  @Singleton
+  @Provides
+  fun providesWithdrawUseCase(
+    ewt: EwtObtainer,
+    withdrawRepository: WithdrawRepository
+  ): WithdrawFiatUseCase {
+    return WithdrawFiatUseCase(ewt, withdrawRepository)
+  }
+
+  @Provides
+  fun providesEWTObtainer(ewtAuthenticatorService: EwtAuthenticatorService): EwtObtainer {
+    return DefaultEwtObtainer(ewtAuthenticatorService)
+  }
+
+  @Provides
+  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
+    val headerJson = JsonObject()
+    headerJson.addProperty("typ", "EWT")
+    return EwtAuthenticatorService(walletService, headerJson.toString())
   }
 }
