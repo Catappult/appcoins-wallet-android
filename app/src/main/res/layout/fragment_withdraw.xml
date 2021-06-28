@@ -55,12 +55,41 @@
 
   <Button
       android:id="@+id/withdraw_button"
+      style="@style/ButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/withdraw_withdraw_button_text"
       app:layout_constraintEnd_toEndOf="@id/paypal_email"
       app:layout_constraintStart_toStartOf="@id/paypal_email"
       app:layout_constraintTop_toBottomOf="@+id/amount"
+      />
+
+  <androidx.constraintlayout.widget.Group
+      android:id="@+id/loading_layout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:constraint_referenced_ids="loading_background,loading_progress"
+      />
+  <View
+      android:id="@+id/loading_background"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@color/intercom_semi_transparent"
+      android:focusableInTouchMode="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <ProgressBar
+      android:id="@+id/loading_progress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

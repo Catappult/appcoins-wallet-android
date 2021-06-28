@@ -7,5 +7,10 @@ interface WithdrawView {
   fun getWithdrawClicks(): Observable<Pair<String, BigDecimal>>
   fun showError(error: Throwable)
   fun showWithdrawSuccessMessage()
+  fun showNotEnoughBalanceError()
+  fun showNotEnoughEarningsBalanceError()
+  fun showNoNetworkError()
+  fun showLoading()
+  fun hideLoading()
 
 }

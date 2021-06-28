@@ -1,8 +1,9 @@
 package com.asfoundation.wallet.withdraw.usecase
 
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.asfoundation.wallet.withdraw.WithdrawResult
 import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
-import io.reactivex.Completable
+import io.reactivex.Single
 import java.math.BigDecimal
 
 class WithdrawFiatUseCase(
@@ -10,8 +11,8 @@ class WithdrawFiatUseCase(
   private val repository: WithdrawRepository,
 ) {
 
-  fun execute(email: String, amount: BigDecimal): Completable {
+  fun execute(email: String, amount: BigDecimal): Single<WithdrawResult> {
     return ewtObtainer.getEwtAuthentication()
-      .flatMapCompletable { repository.withdrawAppcCredits(it, email, amount) }
+        .flatMap { repository.withdrawAppcCredits(it, email, amount) }
   }
 }

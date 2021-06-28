@@ -1,11 +1,12 @@
 package com.asfoundation.wallet.withdraw.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import com.asf.wallet.R
 import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
 import com.jakewharton.rxbinding2.view.RxView
@@ -23,20 +24,22 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   lateinit var withdrawUseCase: WithdrawFiatUseCase
 
   lateinit var presenter: WithdrawPresenter
+  lateinit var amountEditText: EditText
+  lateinit var emailEditText: EditText
+  lateinit var loadingView: View
+  lateinit var withdrawButton: Button
 
   companion object {
     fun newInstance(): WithdrawFragment {
-      val fragment = WithdrawFragment()
-
-      return fragment
+      return WithdrawFragment()
     }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = WithdrawPresenter(
-      this, withdrawUseCase, CompositeDisposable(), Schedulers.io(),
-      AndroidSchedulers.mainThread()
+        this, withdrawUseCase, CompositeDisposable(), Schedulers.io(),
+        AndroidSchedulers.mainThread()
     )
   }
 
@@ -50,6 +53,10 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    amountEditText = view.findViewById(R.id.amount)
+    emailEditText = view.findViewById(R.id.paypal_email)
+    loadingView = view.findViewById(R.id.loading_layout)
+    withdrawButton = view.findViewById(R.id.withdraw_button)
     presenter.present()
   }
 
@@ -59,22 +66,61 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   }
 
   override fun showError(error: Throwable) {
-    Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG)
+    val builder = AlertDialog.Builder(context)
+    builder.setMessage(R.string.unknown_error)
+        .setPositiveButton(
+            R.string.ok
+        ) { dialog, _ -> dialog.dismiss() }
         .show()
   }
 
   override fun showWithdrawSuccessMessage() {
-    Toast.makeText(context, "Withdraw completed", Toast.LENGTH_LONG)
+    val builder = AlertDialog.Builder(context)
+    builder.setMessage(R.string.transaction_status_success)
+        .setPositiveButton(
+            R.string.ok
+        ) { dialog, _ ->
+          dialog.dismiss()
+          activity?.onBackPressed()
+        }
+        .show()
+  }
+
+  override fun showNotEnoughBalanceError() {
+    amountEditText.error = "Not enough balance"
+  }
+
+  override fun showNotEnoughEarningsBalanceError() {
+    amountEditText.error = "Not enough earnings"
+  }
+
+  override fun showLoading() {
+    withdrawButton.isEnabled = false
+    loadingView.visibility = View.VISIBLE
+  }
+
+  override fun hideLoading() {
+    withdrawButton.isEnabled = true
+    loadingView.visibility = View.GONE
+
+  }
+
+  override fun showNoNetworkError() {
+    val builder = AlertDialog.Builder(context)
+    builder.setMessage(R.string.activity_iab_no_network_message)
+        .setPositiveButton(
+            R.string.ok
+        ) { dialog, which -> dialog.dismiss() }
         .show()
   }
 
   override fun getWithdrawClicks(): Observable<Pair<String, BigDecimal>> {
-    val amountEditText = view!!.findViewById<EditText>(R.id.amount)
-    val emailEditText = view!!.findViewById<EditText>(R.id.paypal_email)
-    return RxView.clicks(view!!.findViewById(R.id.withdraw_button))
+    return RxView.clicks(withdrawButton)
         .map {
-          Pair(emailEditText.text.toString(),
-              BigDecimal(amountEditText.text.toString()))
+          Pair(
+              emailEditText.text.toString(),
+              BigDecimal(amountEditText.text.toString())
+          )
         }
   }
 

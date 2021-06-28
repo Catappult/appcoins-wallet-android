@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.withdraw.ui
 
+import com.asfoundation.wallet.withdraw.WithdrawResult
 import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -14,15 +15,26 @@ class WithdrawPresenter(
 
   fun present() {
     compositeDisposable.add(view.getWithdrawClicks()
-      .observeOn(scheduler)
-      .flatMapCompletable { withdrawUseCase.execute(it.first, it.second) }
-      .observeOn(viewScheduler)
-      .doOnError {
-        it.printStackTrace()
-        view.showError(it)
-      }
+        .doOnNext { view.showLoading() }
+        .observeOn(scheduler)
+        .flatMapSingle { withdrawUseCase.execute(it.first, it.second) }
+        .observeOn(viewScheduler)
+        .doOnError {
+          it.printStackTrace()
+          view.showError(it)
+          view.hideLoading()
+        }
+        .doOnNext {
+          when (it.status) {
+            WithdrawResult.Status.SUCCESS -> view.showWithdrawSuccessMessage()
+            WithdrawResult.Status.NOT_ENOUGH_EARNING -> view.showNotEnoughEarningsBalanceError()
+            WithdrawResult.Status.NOT_ENOUGH_BALANCE -> view.showNotEnoughBalanceError()
+            WithdrawResult.Status.NO_NETWORK -> view.showNoNetworkError()
+          }
+        }
+        .doOnNext { view.hideLoading() }
         .retry()
-        .subscribe { view.showWithdrawSuccessMessage() })
+        .subscribe())
 
   }
 

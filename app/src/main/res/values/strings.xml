@@ -1020,8 +1020,9 @@
   <string name="withdraw_email">Paypal email address</string>
   <string name="withdraw_amount">Amount</string>
   <string name="withdraw_withdraw_button_text">withdraw</string>
-  <string name="withdraw_email_hint">email</string>
+  <string name="withdraw_email_hint">user@appcoins.com</string>
   <string name="withdraw_amount_hint">0</string>
+  <string name="withdraw_title">Withdraw</string>
 
 
 </resources>

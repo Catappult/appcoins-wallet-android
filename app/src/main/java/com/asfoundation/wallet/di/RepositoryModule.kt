@@ -64,6 +64,7 @@ import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.withdraw.repository.WithdrawApi
+import com.asfoundation.wallet.withdraw.repository.WithdrawApiMapper
 import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
 import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -357,7 +358,7 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesWithdrawRepository(api: WithdrawApi): WithdrawRepository {
-    return WithdrawRepository(api)
+    return WithdrawRepository(api, WithdrawApiMapper())
   }
 
   @Singleton
