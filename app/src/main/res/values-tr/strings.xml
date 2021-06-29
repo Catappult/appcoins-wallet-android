@@ -28,7 +28,7 @@
   <string name="label_new">Yeni</string>
   <string name="got_it_button">ANLADIM</string>
   <string name="change_button">CHANGE</string>
-  <string name="vip">VIP</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
   <string name="no_camera_permission_title">Kamera İzni</string>
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
