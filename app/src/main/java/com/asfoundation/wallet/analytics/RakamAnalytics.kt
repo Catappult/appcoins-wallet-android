@@ -8,6 +8,7 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.RakamReceiver
+import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.util.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -47,7 +48,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
     rakamClient.superProperties = superProperties
   }
 
-  override fun setWalletOrigin(origin: com.asfoundation.wallet.promotions.model.WalletOrigin) {
+  override fun setWalletOrigin(origin: PromotionsModel.WalletOrigin) {
     val superProperties = rakamClient.superProperties ?: JSONObject()
     try {
       superProperties.put("wallet_origin", origin)
