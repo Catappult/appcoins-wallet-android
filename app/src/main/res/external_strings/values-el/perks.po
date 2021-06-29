@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
-"PO-Revision-Date: 2021-05-04 16:58\n"
+"PO-Revision-Date: 2021-05-17 11:35\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Επειδή φτάσατε στο επόμενο επίπεδο."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr ""
+msgstr "Λάβετε επιπλέον {0}% Bonus σε όλες τις αγορές σας, εκτός αν γίνουν με AppCoins Credits, στο {1}."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -85,7 +85,7 @@ msgstr "Λόγω της πρώτης σας αγοράς της ημέρας σ�
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+{0} AppCoins Credits Bonus!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:

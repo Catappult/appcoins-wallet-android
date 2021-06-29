@@ -28,7 +28,7 @@
   <string name="label_new">Neu</string>
   <string name="got_it_button">GESCHAFFT</string>
   <string name="change_button">ÄNDERN</string>
-  <string name="vip">VIP</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
   <string name="no_camera_permission_title">Kamera-Berechtigung</string>
   <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
@@ -234,7 +234,7 @@
   <string name="transaction_type_iab">In-App-Kauf</string>
   <string name="transaction_type_poa">Prämie</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
-  <string name="transaction_type_standard">Transfer</string>
+  <string name="transaction_type_standard">Überweisen</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher für %s</string>
@@ -490,7 +490,7 @@
   <string name="purchase_poa_view_title">Keine Einzahlungen, keine Sorgen!</string>
   <string name="purchase_poa_view_body">Testen Sie 2 Minuten lang eine App und erhalten Sie als Belonhung AppCoins Credits mit denen Sie einen Einkauf bezahlen!</string>
   <string name="purchase_current_balance_body">Aktuelles Guthaben:</string>
-  <string name="purchase_current_balance_appcc_body">%s in AppCoins Credits.</string>
+  <string name="purchase_current_balance_appcc_body">%s AppCoins.</string>
   <string name="purchase_current_balance_appc_eth_body">%s in AppCoins und Ether.</string>
   <string name="purchase_wallet_blocked_title">Ihr App Coins Credits Guthaben wurde geblockt</string>
   <string name="purchase_wallet_blocked_body">Wegen eines untypischen Verlaufs ihrer Transaktions-Historie wurde ihr AppCoins Guthaben gesperrt. Sie können weiterhin Zahlungen und Transaktionen mit anderen Methoden als AppCoins Credits durchführen \n\nFalls Sie der Meinung sind, dass dies ein Fehler ist melden Sie das an uns:</string>

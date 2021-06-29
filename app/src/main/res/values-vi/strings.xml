@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Ví AppCoins</string>
   <string name="title_send">Gửi</string>
   <string name="title_send_with_token">Gửi %s</string>
   <string name="title_request">Nhận</string>
@@ -28,7 +28,7 @@
   <string name="label_new">Mới</string>
   <string name="got_it_button">TÔI HIỂU</string>
   <string name="change_button">THAY ĐỔI</string>
-  <string name="vip">VIP</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>

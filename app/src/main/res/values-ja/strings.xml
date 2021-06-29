@@ -28,7 +28,7 @@
   <string name="label_new">新しい</string>
   <string name="got_it_button">了解</string>
   <string name="change_button">変更</string>
-  <string name="vip">VIP</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">空き容量が不足しています</string>
   <string name="no_camera_permission_title">カメラのアクセス許可</string>
   <string name="no_camera_permission">AppCoins BDS のウォレットには、QR コードをスキャンしてお使いのカメラへのアクセスを許可する必要があります。</string>
@@ -271,7 +271,7 @@
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
   <string name="activity_airdrop_submit_btn">提出する</string>
   <string name="activity_airdrop_wrong_captcha">間違ったキャプチャ</string>
-  <string name="activity_airdrop_ok">ok</string>
+  <string name="activity_airdrop_ok">わかりました</string>
   <string name="activity_airdrop_message_title">エアドロップ</string>
   <string name="activity_airdrop_success_message">Airdrop 完成</string>
   <string name="activity_airdrop_generic_error_message">エラーが発生しました。</string>
