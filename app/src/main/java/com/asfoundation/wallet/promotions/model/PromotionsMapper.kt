@@ -4,7 +4,6 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.appcoins.wallet.gamification.repository.entity.*
-import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsInteractor
@@ -82,19 +81,19 @@ class PromotionsMapper(private val gamificationMapper: GamificationMapper) {
   }
 
   private fun map(
-      walletOrigin: WalletOrigin): com.asfoundation.wallet.promotions.model.WalletOrigin {
+      walletOrigin: WalletOrigin): PromotionsModel.WalletOrigin {
     return when (walletOrigin) {
-      WalletOrigin.UNKNOWN -> com.asfoundation.wallet.promotions.model.WalletOrigin.UNKNOWN
-      WalletOrigin.APTOIDE -> com.asfoundation.wallet.promotions.model.WalletOrigin.APTOIDE
-      WalletOrigin.PARTNER -> com.asfoundation.wallet.promotions.model.WalletOrigin.PARTNER
+      WalletOrigin.UNKNOWN -> PromotionsModel.WalletOrigin.UNKNOWN
+      WalletOrigin.APTOIDE -> PromotionsModel.WalletOrigin.APTOIDE
+      WalletOrigin.PARTNER -> PromotionsModel.WalletOrigin.PARTNER
     }
   }
 
-  private fun map(error: Status?): com.asfoundation.wallet.promotions.model.Status? {
+  private fun map(error: Status?): PromotionsModel.Status? {
     return when (error) {
       null -> null
-      Status.NO_NETWORK -> com.asfoundation.wallet.promotions.model.Status.NO_NETWORK
-      Status.UNKNOWN_ERROR -> com.asfoundation.wallet.promotions.model.Status.UNKNOWN_ERROR
+      Status.NO_NETWORK -> PromotionsModel.Status.NO_NETWORK
+      Status.UNKNOWN_ERROR -> PromotionsModel.Status.UNKNOWN_ERROR
     }
   }
 
