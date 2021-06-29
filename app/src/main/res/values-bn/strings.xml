@@ -28,7 +28,7 @@
   <string name="label_new">New</string>
   <string name="got_it_button">GOT IT</string>
   <string name="change_button">CHANGE</string>
-  <string name="vip">VIP</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">পর্যাপ্ত সংরক্ষণযোগ্য জায়গা নেই</string>
   <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">কিউআর কোডসমূহ স্ক্যাণ করার জন্য আপনার ক্যামারটিকে নিয়ন্ত্রণ করতে AppCoins BDS Wallet এর অনুমতি প্রয়োজন।</string>
