@@ -14,8 +14,6 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.promotions.model.Promotion
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.asfoundation.wallet.promotions.model.Status
-import com.asfoundation.wallet.promotions.model.WalletOrigin
 import com.asfoundation.wallet.promotions.ui.list.PromotionsAdapter
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -64,8 +62,6 @@ class PromotionsFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: PromotionsSideEffect) {
     when (sideEffect) {
-      is PromotionsSideEffect.NavigateToDetailsLink -> navigator.openDetailsLink(
-          sideEffect.detailsLink)
       is PromotionsSideEffect.NavigateToGamification -> navigator.navigateToGamification(
           sideEffect.cachedBonus)
       is PromotionsSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
@@ -82,7 +78,7 @@ class PromotionsFragment : BasePageViewFragment(),
         if (asyncPromotionsModel.value == null) {
           showLoading()
         } else {
-          if (asyncPromotionsModel.value.error == Status.NO_NETWORK) {
+          if (asyncPromotionsModel.value.error == PromotionsModel.Status.NO_NETWORK) {
             showNoNetworkErrorLoading()
           }
         }
@@ -102,7 +98,7 @@ class PromotionsFragment : BasePageViewFragment(),
       // In the future we should get rid of this previousModel. Here it exists because the offline
       // first flow emits when it shouldn't (e.g. it emits a network error even if local data exists)
       if (previousModel == null || previousModel.hasError()) {
-        if (promotionsModel.error == Status.NO_NETWORK) {
+        if (promotionsModel.error == PromotionsModel.Status.NO_NETWORK) {
           showNetworkErrorView()
         } else {
           // In case of error that is not "no network", this screen will be shown. This was already
@@ -111,7 +107,7 @@ class PromotionsFragment : BasePageViewFragment(),
           showNoPromotionsScreen()
         }
       }
-    } else if (promotionsModel.walletOrigin == WalletOrigin.UNKNOWN) {
+    } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
       if (!promotionsModel.fromCache) {
         showLockedPromotionsScreen()
       }

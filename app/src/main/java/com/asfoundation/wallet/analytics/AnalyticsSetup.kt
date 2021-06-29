@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.analytics
 
-import com.asfoundation.wallet.promotions.model.WalletOrigin
-
+import com.asfoundation.wallet.promotions.model.PromotionsModel
 
 interface AnalyticsSetup {
 
@@ -9,5 +8,5 @@ interface AnalyticsSetup {
 
   fun setGamificationLevel(level: Int)
 
-  fun setWalletOrigin(origin: WalletOrigin)
+  fun setWalletOrigin(origin: PromotionsModel.WalletOrigin)
 }
