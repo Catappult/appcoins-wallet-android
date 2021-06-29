@@ -28,7 +28,7 @@
   <string name="label_new">ใหม่</string>
   <string name="got_it_button">เข้าใจล่ะ</string>
   <string name="change_button">เปลี่ยนแปลง</string>
-  <string name="vip">VIP</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
