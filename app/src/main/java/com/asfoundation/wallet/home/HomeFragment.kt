@@ -11,7 +11,6 @@ import android.widget.PopupWindow
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityTransactionsBinding
 import com.asfoundation.wallet.C
@@ -35,7 +34,6 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.widget.EmptyTransactionsView
-import dagger.android.support.AndroidSupportInjection
 import io.intercom.android.sdk.Intercom
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -55,7 +53,9 @@ class HomeFragment : BasePageViewFragment(),
   lateinit var formatter: CurrencyFormatUtils
 
   private val viewModel: HomeViewModel by viewModels { homeViewModelFactory }
-  private val views by viewBinding(ActivityTransactionsBinding::bind)
+
+  private var _views: ActivityTransactionsBinding? = null
+  private val views get() = _views!!
 
   private lateinit var disposables: CompositeDisposable
   private lateinit var headerController: HeaderController
@@ -68,8 +68,8 @@ class HomeFragment : BasePageViewFragment(),
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    AndroidSupportInjection.inject(this)
-    return inflater.inflate(R.layout.activity_transactions, null)
+    _views = ActivityTransactionsBinding.inflate(inflater, container, false)
+    return views.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -128,6 +128,11 @@ class HomeFragment : BasePageViewFragment(),
     emptyView = null
     disposables.dispose()
     super.onDestroy()
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _views = null
   }
 
   private fun initializeLists() {
