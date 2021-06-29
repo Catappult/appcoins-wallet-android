@@ -28,7 +28,7 @@
   <string name="label_new">Novità</string>
   <string name="got_it_button">HO CAPITO</string>
   <string name="change_button">MODIFICA</string>
-  <string name="vip">VIP</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Spazio di archiviazione non sufficiente</string>
   <string name="no_camera_permission_title">Autorizzazione fotocamera</string>
   <string name="no_camera_permission">L\'AppCoins BDS Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
