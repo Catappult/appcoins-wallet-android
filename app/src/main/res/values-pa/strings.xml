@@ -28,7 +28,7 @@
   <string name="label_new">ਨਵਾਂ</string>
   <string name="got_it_button">ਠੀਕ ਹੈ!</string>
   <string name="change_button">ਬਦਲੋ</string>
-  <string name="vip">VIP</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission_title">ਕੈਮਰਾ ਅਧਿਕਾਰ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
