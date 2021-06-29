@@ -18,7 +18,7 @@ public class EmptyTransactionsView extends FrameLayout {
   private final int[] body = { R.string.home_empty_discover_apps_body, MAX_BONUS_STRING_RESOURCE };
 
   public EmptyTransactionsView(@NonNull Context context, @NonNull String bonus,
-      PublishSubject<String> emptyTransactionsSubject, HomeFragment transactionsActivity,
+      PublishSubject<String> emptyTransactionsSubject, HomeFragment homeFragment,
       CompositeDisposable disposables) {
     super(context);
 
@@ -34,13 +34,11 @@ public class EmptyTransactionsView extends FrameLayout {
     pageAdapter.randomizeCarouselContent();
     viewPager.setAdapter(pageAdapter);
 
-    disposables.add(transactionsActivity.getEmptyTransactionsScreenClick()
+    disposables.add(homeFragment.getEmptyTransactionsScreenClick()
         .doOnNext(string -> {
           if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_GAMIFICATION)) {
-            //transactionsActivity.navigateToPromotions(false);
-          }
-          if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_TOP_APPS)) {
-            //transactionsActivity.navigateToTopApps();
+            homeFragment.getNavigator()
+                .navigateToPromotions();
           }
         })
         .subscribe());

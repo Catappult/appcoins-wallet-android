@@ -45,9 +45,6 @@ import javax.inject.Inject
 class HomeFragment : BasePageViewFragment(),
     SingleStateFragment<HomeState, HomeSideEffect> {
 
-//  @Inject
-//  lateinit var transactionsViewModelFactory: TransactionsViewModelFactory
-
   @Inject
   lateinit var homeViewModelFactory: HomeViewModelFactory
 
@@ -57,7 +54,6 @@ class HomeFragment : BasePageViewFragment(),
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  //  private val viewModelOld: TransactionsViewModel by viewModels { transactionsViewModelFactory }
   private val viewModel: HomeViewModel by viewModels { homeViewModelFactory }
   private val views by viewBinding(ActivityTransactionsBinding::bind)
 
@@ -82,8 +78,6 @@ class HomeFragment : BasePageViewFragment(),
 
     tooltip = layoutInflater.inflate(R.layout.fingerprint_tooltip, null)
     views.emptyClickableView.visibility = View.VISIBLE
-    views.balanceSkeleton.visibility = View.VISIBLE
-    views.balanceSkeleton.playAnimation()
 
     emptyTransactionsSubject = PublishSubject.create()
     views.systemView.visibility = View.GONE
@@ -124,7 +118,6 @@ class HomeFragment : BasePageViewFragment(),
     } else {
       requireActivity().finish()
     }
-//    sendPageViewEvent()
   }
 
   override fun onDestroy() {
@@ -186,10 +179,12 @@ class HomeFragment : BasePageViewFragment(),
     when (asyncTransactionsModel) {
       Async.Uninitialized,
       is Async.Loading -> {
-
+        if (asyncTransactionsModel() == null) {
+          showLoading()
+        }
       }
       is Async.Fail -> {
-
+        onError(ErrorEnvelope(C.ErrorCode.UNKNOWN, null, asyncTransactionsModel.error.throwable))
       }
       is Async.Success -> {
         setTransactions(asyncTransactionsModel())
@@ -198,11 +193,10 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   private fun setTransactions(transactionsModel: TransactionsModel) {
-    setDefaultWallet()
     setTransactionList(transactionsModel)
   }
 
-  private fun setDefaultWallet() {
+  private fun showLoading() {
     views.transactionsRecyclerView.visibility = View.INVISIBLE
     views.systemView.visibility = View.VISIBLE
     views.systemView.showProgress(true)
@@ -267,15 +261,22 @@ class HomeFragment : BasePageViewFragment(),
     when (asyncDefaultWalletBalance) {
       Async.Uninitialized,
       is Async.Loading -> {
-
+        if (asyncDefaultWalletBalance() == null) {
+          showSkeleton()
+        }
       }
       is Async.Fail -> {
-
+        onError(ErrorEnvelope(C.ErrorCode.UNKNOWN, null, asyncDefaultWalletBalance.error.throwable))
       }
       is Async.Success -> {
         setWalletBalance(asyncDefaultWalletBalance())
       }
     }
+  }
+
+  private fun showSkeleton() {
+    views.balanceSkeleton.visibility = View.VISIBLE
+    views.balanceSkeleton.playAnimation()
   }
 
   private fun setWalletBalance(globalBalance: GlobalBalance) {
@@ -358,11 +359,6 @@ class HomeFragment : BasePageViewFragment(),
     }
   }
 
-  //TODO colocar no viewmodel
-  private fun sendPageViewEvent() {
-    //pageViewAnalytics.sendPageViewEvent(javaClass.simpleName)
-  }
-
   private fun onApplicationClick(appcoinsApplication: AppcoinsApplication,
                                  applicationClickAction: ApplicationClickAction) {
     viewModel.onAppClick(appcoinsApplication, applicationClickAction)
@@ -403,7 +399,9 @@ class HomeFragment : BasePageViewFragment(),
     popup.width = ViewGroup.LayoutParams.MATCH_PARENT
     val yOffset = 36.convertDpToPx(resources)
     views.fadedBackground.visibility = View.VISIBLE
-    popup.showAsDropDown(views.actionButtonSettings, 0, -yOffset)
+    views.actionButtonSettings.post {
+      popup.showAsDropDown(views.actionButtonSettings, 0, -yOffset)
+    }
     setTooltipListeners()
   }
 

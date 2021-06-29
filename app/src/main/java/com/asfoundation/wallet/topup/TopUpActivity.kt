@@ -13,9 +13,9 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
-import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
@@ -210,7 +210,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun close(navigateToTransactions: Boolean) {
     if (supportFragmentManager.findFragmentByTag(
             TopUpSuccessFragment::class.java.simpleName) != null && navigateToTransactions) {
-      TransactionsRouter().open(this, false)
+      //TODO use  mainActivityNavigator.navigateToHome()
+      supportFragmentManager.beginTransaction()
+          .replace(R.id.fragment_container,
+              HomeFragment.newInstance())
+          .commit()
     }
     finish()
   }

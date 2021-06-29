@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.viewmodel;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.lifecycle.LiveData;
@@ -148,9 +147,5 @@ public class SendViewModel extends BaseViewModel {
 
   public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
     return transferConfirmationRouter.onActivityResult(requestCode, resultCode, data);
-  }
-
-  public void showTransactions(Context context) {
-    transactionsRouter.open(context, false);
   }
 }

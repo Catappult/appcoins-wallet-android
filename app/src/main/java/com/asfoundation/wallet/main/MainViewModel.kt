@@ -3,6 +3,7 @@ package com.asfoundation.wallet.main
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
@@ -20,7 +21,7 @@ class MainViewModel(
     private val hasSeenPromotionTooltip: HasSeenPromotionTooltipUseCase,
     private val increaseLaunchCount: IncreaseLaunchCountUseCase,
     private val promotionsInteractor: PromotionsInteractor,
-    private val supportInteractor: SupportInteractor
+    private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
 ) : BaseViewModel<MainState, MainSideEffect>(MainState()) {
 
   init {
@@ -31,7 +32,7 @@ class MainViewModel(
 
   private fun handleSupportNotificationClick() {
     if (data.fromSupportNotificationClick) {
-      supportInteractor.displayConversationListOrChat()
+      displayConversationListOrChatUseCase()
     } else {
       // We only count a launch if it did not come from a notification
       increaseLaunchCount()

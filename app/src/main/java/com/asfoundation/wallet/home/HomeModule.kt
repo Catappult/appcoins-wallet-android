@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.home
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.TransactionViewInteractor
+import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.main.MainActivityNavigator
-import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.transactions.TransactionsAnalytics
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.Module
@@ -15,7 +13,7 @@ class HomeModule {
 
   @Provides
   fun providesHomeNavigator(fragment: HomeFragment): HomeNavigator {
-    return HomeNavigator(fragment)
+    return HomeNavigator(fragment, MainActivityNavigator(fragment.requireActivity()))
   }
 
   @Provides
@@ -25,13 +23,39 @@ class HomeModule {
 
   @Provides
   fun providesHomeViewModelFactory(appcoinsApps: AppcoinsApps,
-                                   transactionsAnalytics: TransactionsAnalytics,
-                                   transactionViewInteractor: TransactionViewInteractor,
+                                   homeAnalytics: HomeAnalytics,
+                                   shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
+                                   updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
+                                   findNetworkInfoUseCase: FindNetworkInfoUseCase,
+                                   fetchTransactionsUseCase: FetchTransactionsUseCase,
+                                   stopFetchTransactionsUseCase: StopFetchTransactionsUseCase,
+                                   findDefaultWalletUseCase: FindDefaultWalletUseCase,
+                                   observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
+                                   dismissCardNotificationUseCase: DismissCardNotificationUseCase,
+                                   buildAutoUpdateIntentUseCase: BuildAutoUpdateIntentUseCase,
+                                   shouldShowFingerprintTooltipUseCase: ShouldShowFingerprintTooltipUseCase,
+                                   setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
+                                   getLevelsUseCase: GetLevelsUseCase,
+                                   getUserLevelUseCase: GetUserLevelUseCase,
+                                   getAppcBalanceUseCase: GetAppcBalanceUseCase,
+                                   getEthBalanceUseCase: GetEthBalanceUseCase,
+                                   getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
+                                   getCardNotificationsUseCase: GetCardNotificationsUseCase,
+                                   registerSupportUserUseCase: RegisterSupportUserUseCase,
+                                   getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
+                                   displayChatUseCase: DisplayChatUseCase,
+                                   displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
                                    walletsEventSender: WalletsEventSender,
-                                   supportInteractor: SupportInteractor,
                                    currencyFormatUtils: CurrencyFormatUtils): HomeViewModelFactory {
     return HomeViewModelFactory(
-        appcoinsApps, transactionsAnalytics, transactionViewInteractor, walletsEventSender,
-        supportInteractor, currencyFormatUtils)
+        appcoinsApps, homeAnalytics, shouldOpenRatingDialogUseCase, updateTransactionsNumberUseCase,
+        findNetworkInfoUseCase, fetchTransactionsUseCase, stopFetchTransactionsUseCase,
+        findDefaultWalletUseCase, observeDefaultWalletUseCase, dismissCardNotificationUseCase,
+        buildAutoUpdateIntentUseCase, shouldShowFingerprintTooltipUseCase,
+        setSeenFingerprintTooltipUseCase, getLevelsUseCase, getUserLevelUseCase,
+        getAppcBalanceUseCase, getEthBalanceUseCase, getCreditsBalanceUseCase,
+        getCardNotificationsUseCase, registerSupportUserUseCase,
+        getUnreadConversationsCountEventsUseCase, displayChatUseCase,
+        displayConversationListOrChatUseCase, walletsEventSender, currencyFormatUtils)
   }
 }

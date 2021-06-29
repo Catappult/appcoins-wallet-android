@@ -3,18 +3,17 @@ package com.asfoundation.wallet.base
 /**
  * General specification of common errors used throughout the architecture stack.
  */
-sealed class Error {
-  sealed class ApiError<out E> : Error() {
-    data class HttpError<out E>(val code: Int, val value: E) : ApiError<E>() {
+sealed class Error(open val throwable: Throwable) {
+  sealed class ApiError<out E>(override val throwable: Throwable) : Error(throwable) {
+    data class HttpError<out E>(val code: Int, val value: E) :
+        ApiError<E>(Throwable("HttpError - Code:${code} Value:${value}")) {
       operator fun invoke(): E = value
     }
 
-    data class NetworkError(val throwable: Throwable) : ApiError<Nothing>()
-
-    data class UnknownError(val throwable: Throwable) : ApiError<Nothing>()
+    data class NetworkError(override val throwable: Throwable) : ApiError<Nothing>(throwable)
+    data class UnknownError(override val throwable: Throwable) : ApiError<Nothing>(throwable)
   }
 
-  data class NotFoundError(val throwable: Throwable) : Error()
-
-  data class UnknownError(val throwable: Throwable) : Error()
+  data class NotFoundError(override val throwable: Throwable) : Error(throwable)
+  data class UnknownError(override val throwable: Throwable) : Error(throwable)
 }

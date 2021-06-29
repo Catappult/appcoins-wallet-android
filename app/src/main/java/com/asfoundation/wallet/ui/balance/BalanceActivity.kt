@@ -15,9 +15,9 @@ import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.navigator.ActivityNavigator
 import com.asfoundation.wallet.restore.RestoreWalletActivity
-import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.backup.BackupActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.wallets.RemoveWalletActivity
 import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
@@ -152,7 +152,11 @@ class BalanceActivity : ActivityNavigator(), BalanceActivityView {
   override fun backPressed() = onBackPressedSubject!!
 
   override fun navigateToTransactions() {
-    TransactionsRouter().open(this, false)
+    //TODO use  mainActivityNavigator.navigateToHome()
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container,
+            HomeFragment.newInstance())
+        .commit()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
