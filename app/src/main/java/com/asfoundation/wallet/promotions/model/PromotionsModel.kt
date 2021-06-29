@@ -20,3 +20,5 @@ data class PromotionsModel(val promotions: List<Promotion>,
   }
 }
 
+
+
