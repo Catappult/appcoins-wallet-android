@@ -51,14 +51,15 @@ class MainActivity : DaggerAppCompatActivity(), SingleStateFragment<MainState, M
     setContentView(R.layout.activity_main)
     if (savedInstanceState == null) {
       setupBottomNavigationBar()
+      addPromotionNotificationBadge()
     }
-    addPromotionNotificationBadge()
     viewModel.collectStateAndEvents(lifecycle, lifecycleScope)
   }
 
   override fun onRestoreInstanceState(savedInstanceState: Bundle) {
     super.onRestoreInstanceState(savedInstanceState)
     setupBottomNavigationBar()
+    addPromotionNotificationBadge()
   }
 
   override fun onStateChanged(state: MainState) {
