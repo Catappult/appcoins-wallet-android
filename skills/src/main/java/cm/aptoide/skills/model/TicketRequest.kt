@@ -10,10 +10,10 @@ data class TicketRequest(
     private val packageName: String,
 
     @SerializedName("user_id")
-    private val userId: String,
+    private val userId: String?,
 
     @SerializedName("user_name")
-    private val userName: String,
+    private val userName: String?,
 
     @SerializedName("wallet_address")
     private val walletAddress: String,
@@ -22,19 +22,19 @@ data class TicketRequest(
     private val roomMetadata: Map<String, String>,
 
     @SerializedName("match_environment")
-    private val matchEnvironment: EskillsUri.MatchEnvironment,
+    private val matchEnvironment: EskillsUri.MatchEnvironment?,
 
     @SerializedName("number_of_users")
-    private val numberOfUsers: Int,
+    private val numberOfUsers: Int?,
 
     @SerializedName("price")
-    private val price: BigDecimal,
+    private val price: BigDecimal?,
 
     @SerializedName("price_currency")
-    private val priceCurrency: String,
+    private val priceCurrency: String?,
 
     @SerializedName("sku")
-    private val sku: String,
+    private val sku: String?,
 
     @SerializedName("match_max_duration")
     private val timeout: Int?

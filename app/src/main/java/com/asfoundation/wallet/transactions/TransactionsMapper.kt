@@ -26,8 +26,9 @@ class TransactionsMapper {
     val currency = if (txType == TransactionEntity.TransactionType.ETHER_TRANSFER) "ETH" else "APPC"
     return TransactionEntity(transaction.txID, wallet, null, perk, txType, bonusSubType,
         transaction.title, transaction.description, transaction.ts.time,
-        transaction.processedTime.time, status, transaction.amount.toString(), transaction.sender,
-        transaction.receiver, details, currency, operations)
+        transaction.processedTime.time, status, transaction.amount.toString(), currency,
+        transaction.paidAmount, transaction.paidCurrency, transaction.sender,
+        transaction.receiver, details, operations)
   }
 
   private fun mapSource(txType: TransactionEntity.TransactionType,

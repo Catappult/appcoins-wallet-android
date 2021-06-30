@@ -6,6 +6,7 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.verification.network.VerificationStatus
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -44,6 +45,19 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     handleVerifyWalletClick()
     handleInsertCodeClick()
     handleCachedWalletInfoDisplay()
+    handleBottomSheetStateChanged()
+  }
+
+  private fun handleBottomSheetStateChanged() {
+    disposables.add(view.getBottomSheetStateChanged()
+        .filter { it == BottomSheetBehavior.STATE_EXPANDED || it == BottomSheetBehavior.STATE_COLLAPSED }
+        .distinctUntilChanged()
+        .doOnNext { state ->
+          if (state == BottomSheetBehavior.STATE_EXPANDED) {
+            walletsEventSender.sendAction("wallet_list_expand")
+          }
+        }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun onResume() {
@@ -98,6 +112,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleVerifyWalletClick() {
     disposables.add(view.getVerifyWalletClick()
+        .doOnNext { walletsEventSender.sendVerifyAction("verify_wallet", "start_verification") }
         .observeOn(viewScheduler)
         .doOnNext { view.openWalletVerificationScreen() }
         .subscribe({}, { it.printStackTrace() }))
@@ -105,6 +120,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleInsertCodeClick() {
     disposables.add(view.getInsertCodeClick()
+        .doOnNext { walletsEventSender.sendVerifyAction("verify_wallet", "insert_code") }
         .observeOn(viewScheduler)
         .doOnNext { view.openWalletVerificationScreen() }
         .subscribe({}, { it.printStackTrace() }))
@@ -155,7 +171,12 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleTokenDetailsClick() {
     disposables.add(
-        Observable.merge(view.getCreditClick(), view.getAppcClick(), view.getEthClick())
+        Observable.merge(view.getCreditClick()
+            .doOnNext { walletsEventSender.sendAction("currency_details_credits") },
+            view.getAppcClick()
+                .doOnNext { walletsEventSender.sendAction("currency_details_appc") },
+            view.getEthClick()
+                .doOnNext { walletsEventSender.sendAction("currency_details_eth") })
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .map { view.showTokenDetails(it) }
             .subscribe({}, { it.printStackTrace() }))
@@ -181,6 +202,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleCopyClick() {
     disposables.add(view.getCopyClick()
+        .doOnNext { walletsEventSender.sendAction("wallet_copy") }
         .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
         .doOnNext { view.setAddressToClipBoard(it) }
@@ -189,6 +211,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleQrCodeClick() {
     disposables.add(view.getQrCodeClick()
+        .doOnNext { walletsEventSender.sendAction("wallet_qr_code") }
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
         .doOnNext { view.showQrCodeView() }
@@ -197,6 +220,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun handleBackupClick() {
     disposables.add(view.getBackupClick()
+        .doOnNext { walletsEventSender.sendAction("wallet_backup") }
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)

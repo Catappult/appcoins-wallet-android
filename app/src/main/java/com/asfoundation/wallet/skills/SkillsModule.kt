@@ -85,7 +85,7 @@ class SkillsModule {
 
   @Provides
   fun providesPayTicketUseCase(ticketRepository: TicketRepository): PayTicketUseCase {
-    return PayTicketUseCase(ticketRepository)
+    return PayTicketUseCase()
   }
 
   @Provides

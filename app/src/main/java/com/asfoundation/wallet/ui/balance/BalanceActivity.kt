@@ -138,7 +138,7 @@ class BalanceActivity : ActivityNavigator(), BalanceActivityView {
 
   override fun setupToolbar() {
     toolbar()
-    setTitle(getString(intent.extras?.getInt(TITLE_KEY) ?: R.string.balance_title))
+    setTitle(getString(R.string.bottom_navigation_my_wallets))
   }
 
   override fun enableBack() {
@@ -167,12 +167,10 @@ class BalanceActivity : ActivityNavigator(), BalanceActivityView {
 
   companion object {
     private const val REQUEST_CODE = 123
-    private const val TITLE_KEY = "title"
 
     @JvmStatic
-    fun newIntent(context: Context, title: Int?): Intent {
+    fun newIntent(context: Context): Intent {
       return Intent(context, BalanceActivity::class.java).apply {
-        putExtra(TITLE_KEY, title)
         flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
       }
     }
