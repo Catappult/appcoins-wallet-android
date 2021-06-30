@@ -117,10 +117,10 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesCancelUseCase(
-    walletAddressObtainer: WalletAddressObtainer,
-    ewtObtainer: EwtObtainer,
-    ticketRepository: TicketRepository
+  fun providesCancelTicketUseCase(
+      walletAddressObtainer: WalletAddressObtainer,
+      ewtObtainer: EwtObtainer,
+      ticketRepository: TicketRepository
   ): CancelTicketUseCase {
     return CancelTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
   }
