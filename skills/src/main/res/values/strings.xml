@@ -7,4 +7,5 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
+  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
 </resources>
