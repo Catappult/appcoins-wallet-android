@@ -29,6 +29,7 @@ import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.identification.IdsRepository
@@ -62,6 +63,10 @@ import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
+import com.asfoundation.wallet.withdraw.repository.WithdrawApi
+import com.asfoundation.wallet.withdraw.repository.WithdrawApiMapper
+import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -334,7 +339,6 @@ class RepositoryModule {
                                logger: Logger): RatingRepository {
     return RatingRepository(sharedPreferences, walletFeedbackApi, logger)
   }
-
   @Singleton
   @Provides
   fun providesCarrierBillingPreferencesRepository(
@@ -346,7 +350,24 @@ class RepositoryModule {
   @Provides
   fun provideWalletVerificationRepository(verificationApi: VerificationApi,
                                           verificationStateApi: VerificationStateApi,
-                                          sharedPreferences: SharedPreferences): VerificationRepository {
+                                          sharedPreferences: SharedPreferences
+  ): VerificationRepository {
     return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
   }
+
+  @Singleton
+  @Provides
+  fun providesWithdrawRepository(api: WithdrawApi, gson: Gson): WithdrawRepository {
+    return WithdrawRepository(api, WithdrawApiMapper(gson))
+  }
+
+  @Singleton
+  @Provides
+  fun providesWithdrawUseCase(
+    ewt: EwtAuthenticatorService,
+    withdrawRepository: WithdrawRepository
+  ): WithdrawFiatUseCase {
+    return WithdrawFiatUseCase(ewt, withdrawRepository)
+  }
+
 }
