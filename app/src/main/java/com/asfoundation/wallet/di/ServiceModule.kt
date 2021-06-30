@@ -516,7 +516,7 @@ class ServiceModule {
     val baseUrl = BuildConfig.BASE_HOST
     var okHttpClient = OkHttpClient().newBuilder()
 
-    okHttpClient.addInterceptor(CustomInterceptor())
+    okHttpClient.addInterceptor(ContentTypeInterceptor())
 
     return Retrofit.Builder()
         .baseUrl(baseUrl)
