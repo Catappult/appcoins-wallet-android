@@ -28,7 +28,6 @@ class SkillsFragment : DaggerFragment() {
     private const val USER_ID = "USER_ID"
     private const val ROOM_ID = "ROOM_ID"
     private const val WALLET_ADDRESS = "WALLET_ADDRESS"
-    private const val TRANSACTION_HASH = "transaction_hash"
 
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
@@ -74,7 +73,6 @@ class SkillsFragment : DaggerFragment() {
                             postbackUserData(RESULT_OK, userData)
                           }
                         }
-                        .doOnNext { ticket -> println("ticket: $ticket") }
                   }
             }.subscribe()
     )
@@ -84,17 +82,6 @@ class SkillsFragment : DaggerFragment() {
     binding.loadingTicketLayout.processingLoading.visibility = View.GONE
     binding.refundTicketLayout.refund.visibility = View.VISIBLE
     binding.refundTicketLayout.refundOkButton.setOnClickListener({ requireActivity().finish() })
-  }
-
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == RESULT_OK) {
-      viewModel.payTicketOnActivityResult(
-          resultCode, data!!.extras
-      !!.getString(TRANSACTION_HASH)
-      )
-    } else {
-      super.onActivityResult(requestCode, resultCode, data)
-    }
   }
 
   override fun onDestroyView() {

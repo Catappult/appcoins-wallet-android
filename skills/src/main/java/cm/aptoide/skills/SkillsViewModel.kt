@@ -77,10 +77,6 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
     return PayTicketUseCase.RC_ONE_STEP
   }
 
-  fun payTicketOnActivityResult(resultCode: Int, txHash: String?) {
-
-  }
-
   fun cancelTicket(ticketId: String): Single<TicketResponse> {
     return cancelTicketUseCase.cancelTicket(ticketId)
   }
