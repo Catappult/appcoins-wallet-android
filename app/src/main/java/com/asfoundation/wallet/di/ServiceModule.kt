@@ -512,9 +512,9 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
+  fun provideBdsApi(gson: Gson): BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
-    var okHttpClient = OkHttpClient().newBuilder()
+    val okHttpClient = OkHttpClient().newBuilder()
 
     okHttpClient.addInterceptor(ContentTypeInterceptor())
 

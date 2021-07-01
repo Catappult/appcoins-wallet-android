@@ -147,7 +147,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 packageName: String, amount: String?,
                                 currency: String,
                                 productName: String?): Single<Transaction> {
-    if (type.equals(ESKILLS)) {
+    if (type == ESKILLS) {
       val creditsPurchaseBody =
           CreditsPurchaseBody(callback, productToken)
 

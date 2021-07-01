@@ -65,6 +65,7 @@ class SkillsFragment : DaggerFragment() {
                   .doOnSubscribe { showRoomLoading(false, null) }
                   .flatMap { ticketResponse ->
                     viewModel.getRoom(eskillsUri, ticketResponse, this)
+                        .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe { showRoomLoading(true, ticketResponse.ticketId) }
                         .doOnNext { userData ->
                           if (userData.refunded) {

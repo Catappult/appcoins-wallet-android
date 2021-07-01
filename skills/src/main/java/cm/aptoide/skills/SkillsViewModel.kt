@@ -61,7 +61,7 @@ class SkillsViewModel(private val walletAddressObtainer: WalletAddressObtainer,
 
   private fun getTicketUpdates(ticketId: String): Observable<TicketResponse> {
     return Observable.interval(getTicketRetryMillis, TimeUnit.MILLISECONDS)
-        .flatMapSingle { getTicketUseCase.getTicket(ticketId) }
+        .switchMapSingle { getTicketUseCase.getTicket(ticketId) }
   }
 
   private fun isRefunded(ticketResponse: TicketResponse): Boolean {

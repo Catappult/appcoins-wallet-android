@@ -134,6 +134,6 @@ class SkillsModule {
 
   companion object {
     const val ENDPOINT = BuildConfig.BASE_HOST_SKILLS
-    const val GET_ROOM_RETRY_MILLIS = 1000L
+    const val GET_ROOM_RETRY_MILLIS = 3000L
   }
 }
