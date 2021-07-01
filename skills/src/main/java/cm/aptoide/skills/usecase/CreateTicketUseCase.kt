@@ -5,7 +5,6 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.util.EskillsUri
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 
@@ -13,9 +12,6 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
                           private val ewtObtainer: EwtObtainer,
                           private val ticketRepository: TicketRepository,
                           private val networkScheduler: Scheduler) {
-  fun getOrCreateWallet(): Observable<String> {
-    return walletAddressObtainer.getOrCreateWallet()
-  }
 
   fun createTicket(eskillsUri: EskillsUri): Single<TicketResponse> {
     return walletAddressObtainer.getWalletAddress()

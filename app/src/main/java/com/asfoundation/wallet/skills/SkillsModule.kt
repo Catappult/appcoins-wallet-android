@@ -33,13 +33,15 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
-                              payTicketUseCase: PayTicketUseCase,
+  fun providesSkillsViewModel(walletObtainer: WalletAddressObtainer,
+                              createTicketUseCase: CreateTicketUseCase,
+                              payTicketUseCase: SkillsNavigator,
                               getTicketUseCase: GetTicketUseCase,
                               loginUseCase: LoginUseCase,
                               cancelUseCase: CancelTicketUseCase): SkillsViewModel {
     return SkillsViewModel(
-        createTicketUseCase, payTicketUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS,
+        walletObtainer, createTicketUseCase, payTicketUseCase, getTicketUseCase,
+        GET_ROOM_RETRY_MILLIS,
         loginUseCase, cancelUseCase
     )
   }
@@ -83,8 +85,8 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesPayTicketUseCase(ticketRepository: TicketRepository): PayTicketUseCase {
-    return PayTicketUseCase()
+  fun providesPayTicketUseCase(): SkillsNavigator {
+    return SkillsNavigator()
   }
 
   @Provides

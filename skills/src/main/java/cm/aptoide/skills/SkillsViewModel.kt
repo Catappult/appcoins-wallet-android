@@ -2,6 +2,7 @@ package cm.aptoide.skills
 
 import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
+import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.model.TicketStatus
 import cm.aptoide.skills.usecase.*
@@ -11,14 +12,15 @@ import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 
 
-class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
-                      private val payTicketUseCase: PayTicketUseCase,
+class SkillsViewModel(private val walletAddressObtainer: WalletAddressObtainer,
+                      private val createTicketUseCase: CreateTicketUseCase,
+                      private val navigator: SkillsNavigator,
                       private val getTicketUseCase: GetTicketUseCase,
                       private val getTicketRetryMillis: Long,
                       private val loginUseCase: LoginUseCase,
                       private val cancelTicketUseCase: CancelTicketUseCase) {
   fun handleWalletCreationIfNeeded(): Observable<String> {
-    return createTicketUseCase.getOrCreateWallet()
+    return walletAddressObtainer.getOrCreateWallet()
   }
 
   fun createTicket(eskillsUri: EskillsUri): Observable<TicketResponse> {
@@ -28,7 +30,7 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
 
   fun getRoom(eskillsUri: EskillsUri, ticketResponse: TicketResponse,
               fragment: Fragment): Observable<UserData> {
-    return payTicketUseCase.payTicket(
+    return navigator.navigateToPayTicket(
         ticketResponse.ticketId,
         ticketResponse.callbackUrl,
         ticketResponse.productToken,
@@ -71,7 +73,7 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
   }
 
   fun getPayTicketRequestCode(): Int {
-    return PayTicketUseCase.RC_ONE_STEP
+    return SkillsNavigator.RC_ONE_STEP
   }
 
   fun cancelTicket(ticketId: String): Single<TicketResponse> {

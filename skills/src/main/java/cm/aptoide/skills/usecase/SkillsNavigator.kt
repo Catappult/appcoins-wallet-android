@@ -9,23 +9,23 @@ import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Single
 import java.math.BigDecimal
 
-class PayTicketUseCase() {
+class SkillsNavigator {
 
-  fun payTicket(
-    ticketId: String, callbackUrl: String, productToken: String,
-    ticketPrice: BigDecimal, priceCurrency: String, eskillsUri: EskillsUri, fragment: Fragment
+  fun navigateToPayTicket(
+      ticketId: String, callbackUrl: String, productToken: String,
+      ticketPrice: BigDecimal, priceCurrency: String, eskillsUri: EskillsUri, fragment: Fragment
   ): Single<Any> {
     return Single.fromCallable {
       val environment = eskillsUri.getEnvironment()
       if (environment == EskillsUri.MatchEnvironment.LIVE || environment == null) {
         launchPurchaseFlow(
-          eskillsUri,
-          callbackUrl,
-          ticketId,
-          productToken,
-          ticketPrice,
-          priceCurrency,
-          fragment
+            eskillsUri,
+            callbackUrl,
+            ticketId,
+            productToken,
+            ticketPrice,
+            priceCurrency,
+            fragment
         )
       }
       0
@@ -33,19 +33,19 @@ class PayTicketUseCase() {
   }
 
   private fun launchPurchaseFlow(
-    eskillsUri: EskillsUri,
-    callbackUrl: String,
-    ticketId: String,
-    productToken: String,
-    ticketPrice: BigDecimal,
-    priceCurrency: String,
-    fragment: Fragment
+      eskillsUri: EskillsUri,
+      callbackUrl: String,
+      ticketId: String,
+      productToken: String,
+      ticketPrice: BigDecimal,
+      priceCurrency: String,
+      fragment: Fragment
   ) {
     val url: String =
-      (BACKEND_HOST + "/transaction/inapp?domain=" + eskillsUri.getPackageName() + "&callback_url=" + callbackUrl +
-          "&order_reference=" + ticketId + "&product_token=" + productToken + "&skills") + getOptionalFields(
-        eskillsUri, ticketPrice, priceCurrency
-      )
+        (BACKEND_HOST + "/transaction/inapp?domain=" + eskillsUri.getPackageName() + "&callback_url=" + callbackUrl +
+            "&order_reference=" + ticketId + "&product_token=" + productToken + "&skills") + getOptionalFields(
+            eskillsUri, ticketPrice, priceCurrency
+        )
 
     val i = Intent(Intent.ACTION_VIEW)
     i.data = Uri.parse(url)
@@ -57,15 +57,15 @@ class PayTicketUseCase() {
     }
 
     val intent =
-      PendingIntent.getActivity(
-        fragment.requireContext()
-          .getApplicationContext(), 0, i,
-        flags
-      )
+        PendingIntent.getActivity(
+            fragment.requireContext()
+                .applicationContext, 0, i,
+            flags
+        )
     try {
       fragment.startIntentSenderForResult(
-        intent.intentSender, RC_ONE_STEP, Intent(), 0, 0, 0,
-        null
+          intent.intentSender, RC_ONE_STEP, Intent(), 0, 0, 0,
+          null
       )
     } catch (e: Exception) {
       e.printStackTrace()
@@ -73,9 +73,9 @@ class PayTicketUseCase() {
   }
 
   private fun getOptionalFields(
-    eskillsUri: EskillsUri,
-    ticketPrice: BigDecimal,
-    priceCurrency: String
+      eskillsUri: EskillsUri,
+      ticketPrice: BigDecimal,
+      priceCurrency: String
   ): String {
     var url = ""
 
