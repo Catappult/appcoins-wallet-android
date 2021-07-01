@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
-import cm.aptoide.skills.util.EskillsUri
+import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -55,7 +55,7 @@ class SkillsFragment : DaggerFragment() {
     disposable = CompositeDisposable()
 
     val eskillsUri = getEskillsUri()
-    userId = eskillsUri.getUserId()
+    userId = eskillsUri.userId
     disposable.add(
         handleWalletCreationIfNeeded()
             .takeUntil { it != WALLET_CREATING_STATUS }
@@ -89,7 +89,7 @@ class SkillsFragment : DaggerFragment() {
     super.onDestroyView()
   }
 
-  private fun getEskillsUri(): EskillsUri {
+  private fun getEskillsUri(): EskillsPaymentData {
     val intent = requireActivity().intent
     return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
   }

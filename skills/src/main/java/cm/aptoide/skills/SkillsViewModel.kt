@@ -6,7 +6,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.model.TicketStatus
 import cm.aptoide.skills.usecase.*
-import cm.aptoide.skills.util.EskillsUri
+import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
@@ -23,12 +23,12 @@ class SkillsViewModel(private val walletAddressObtainer: WalletAddressObtainer,
     return walletAddressObtainer.getOrCreateWallet()
   }
 
-  fun createTicket(eskillsUri: EskillsUri): Observable<TicketResponse> {
-    return createTicketUseCase.createTicket(eskillsUri)
+  fun createTicket(eskillsPaymentData: EskillsPaymentData): Observable<TicketResponse> {
+    return createTicketUseCase.createTicket(eskillsPaymentData)
         .toObservable()
   }
 
-  fun getRoom(eskillsUri: EskillsUri, ticketResponse: TicketResponse,
+  fun getRoom(eskillsPaymentData: EskillsPaymentData, ticketResponse: TicketResponse,
               fragment: Fragment): Observable<UserData> {
     return navigator.navigateToPayTicket(
         ticketResponse.ticketId,
@@ -36,7 +36,7 @@ class SkillsViewModel(private val walletAddressObtainer: WalletAddressObtainer,
         ticketResponse.productToken,
         ticketResponse.ticketPrice,
         ticketResponse.priceCurrency,
-        eskillsUri,
+        eskillsPaymentData,
         fragment
     )
         .flatMap {

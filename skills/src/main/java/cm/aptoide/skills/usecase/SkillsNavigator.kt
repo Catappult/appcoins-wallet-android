@@ -5,7 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
 import cm.aptoide.skills.BuildConfig
-import cm.aptoide.skills.util.EskillsUri
+import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
 import java.math.BigDecimal
 
@@ -13,13 +13,14 @@ class SkillsNavigator {
 
   fun navigateToPayTicket(
       ticketId: String, callbackUrl: String, productToken: String,
-      ticketPrice: BigDecimal, priceCurrency: String, eskillsUri: EskillsUri, fragment: Fragment
+      ticketPrice: BigDecimal, priceCurrency: String, eskillsPaymentData: EskillsPaymentData,
+      fragment: Fragment
   ): Single<Any> {
     return Single.fromCallable {
-      val environment = eskillsUri.getEnvironment()
-      if (environment == EskillsUri.MatchEnvironment.LIVE || environment == null) {
+      val environment = eskillsPaymentData.environment
+      if (environment == EskillsPaymentData.MatchEnvironment.LIVE || environment == null) {
         launchPurchaseFlow(
-            eskillsUri,
+            eskillsPaymentData,
             callbackUrl,
             ticketId,
             productToken,
@@ -33,7 +34,7 @@ class SkillsNavigator {
   }
 
   private fun launchPurchaseFlow(
-      eskillsUri: EskillsUri,
+      eskillsPaymentData: EskillsPaymentData,
       callbackUrl: String,
       ticketId: String,
       productToken: String,
@@ -42,9 +43,9 @@ class SkillsNavigator {
       fragment: Fragment
   ) {
     val url: String =
-        (BACKEND_HOST + "/transaction/inapp?domain=" + eskillsUri.getPackageName() + "&callback_url=" + callbackUrl +
+        (BACKEND_HOST + "/transaction/inapp?domain=" + eskillsPaymentData.packageName + "&callback_url=" + callbackUrl +
             "&order_reference=" + ticketId + "&product_token=" + productToken + "&skills") + getOptionalFields(
-            eskillsUri, ticketPrice, priceCurrency
+            eskillsPaymentData, ticketPrice, priceCurrency
         )
 
     val i = Intent(Intent.ACTION_VIEW)
@@ -73,24 +74,24 @@ class SkillsNavigator {
   }
 
   private fun getOptionalFields(
-      eskillsUri: EskillsUri,
+      eskillsPaymentData: EskillsPaymentData,
       ticketPrice: BigDecimal,
       priceCurrency: String
   ): String {
     var url = ""
 
-    if (eskillsUri.getProduct() != null) {
-      url = url + "&product=" + eskillsUri.getProduct()
+    if (eskillsPaymentData.product != null) {
+      url = url + "&product=" + eskillsPaymentData.product
     }
 
-    if (eskillsUri.getPrice() != null) {
-      url = url + "&value=" + eskillsUri.getPrice()
+    if (eskillsPaymentData.price != null) {
+      url = url + "&value=" + eskillsPaymentData.price
     } else {
       url = url + "&value=" + ticketPrice
     }
 
-    if (eskillsUri.getCurrency() != null) {
-      url = url + "&currency=" + eskillsUri.getCurrency()
+    if (eskillsPaymentData.currency != null) {
+      url = url + "&currency=" + eskillsPaymentData.currency
     } else {
       url = url + "&currency=" + priceCurrency
     }

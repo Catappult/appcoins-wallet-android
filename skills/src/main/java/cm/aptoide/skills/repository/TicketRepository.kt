@@ -4,21 +4,22 @@ import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.model.PayTicketRequest
 import cm.aptoide.skills.model.TicketRequest
 import cm.aptoide.skills.model.TicketResponse
-import cm.aptoide.skills.util.EskillsUri
+import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
 
 class TicketRepository(private val ticketApi: TicketApi) {
 
-  fun createTicket(eskillsUri: EskillsUri, ewt: String, walletAddress: String): Single<TicketResponse> {
-    return ticketApi.postTicket(ewt, buildTicketRequest(eskillsUri, walletAddress))
+  fun createTicket(eskillsPaymentData: EskillsPaymentData, ewt: String,
+                   walletAddress: String): Single<TicketResponse> {
+    return ticketApi.postTicket(ewt, buildTicketRequest(eskillsPaymentData, walletAddress))
   }
 
-  private fun buildTicketRequest(eskillsUri: EskillsUri, walletAddress: String) =
+  private fun buildTicketRequest(eskillsPaymentData: EskillsPaymentData, walletAddress: String) =
       TicketRequest(
-        eskillsUri.getPackageName(), eskillsUri.getUserId(), eskillsUri.getUserName(),
-        walletAddress, eskillsUri.getMetadata(), eskillsUri.getEnvironment(),
-        eskillsUri.getNumberOfUsers(), eskillsUri.getPrice(), eskillsUri.getCurrency(),
-        eskillsUri.getProduct()
+          eskillsPaymentData.packageName, eskillsPaymentData.userId, eskillsPaymentData.userName,
+          walletAddress, eskillsPaymentData.metadata, eskillsPaymentData.environment,
+          eskillsPaymentData.numberOfUsers, eskillsPaymentData.price, eskillsPaymentData.currency,
+          eskillsPaymentData.product
       )
 
   fun getTicket(ewt: String, ticketId: String): Single<TicketResponse> {
