@@ -9,7 +9,6 @@ import cm.aptoide.skills.util.EskillsUri
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
 
 
 class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
@@ -23,29 +22,25 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
   }
 
   fun createTicket(eskillsUri: EskillsUri): Observable<TicketResponse> {
-    return createTicketUseCase.createTicket(eskillsUri).toObservable()
+    return createTicketUseCase.createTicket(eskillsUri)
+        .toObservable()
   }
 
   fun getRoom(eskillsUri: EskillsUri, ticketResponse: TicketResponse,
               fragment: Fragment): Observable<UserData> {
     return payTicketUseCase.payTicket(
-      ticketResponse.ticketId,
-      ticketResponse.callbackUrl,
-      ticketResponse.productToken,
-      ticketResponse.ticketPrice,
-      ticketResponse.priceCurrency,
-      eskillsUri,
-      fragment
+        ticketResponse.ticketId,
+        ticketResponse.callbackUrl,
+        ticketResponse.productToken,
+        ticketResponse.ticketPrice,
+        ticketResponse.priceCurrency,
+        eskillsUri,
+        fragment
     )
         .flatMap {
-          val canProcceed = AtomicBoolean(false)
-
-          getTicketUseCase.getTicket(ticketResponse.ticketId)
-              .doOnSuccess { checkCanProcceed(it, canProcceed) }
-              .delay(getTicketRetryMillis, TimeUnit.MILLISECONDS)
-              .repeatUntil { canProcceed.get() }
-              .skipWhile { !canProcceed.get() }
-              .flatMapSingle { ticketResponse ->
+          getTicketUpdates(ticketResponse.ticketId).filter { checkCanProceed(it) }
+              .firstOrError()
+              .flatMap { ticketResponse ->
                 if (isRefunded(ticketResponse)) {
                   Single.just(UserData("", "", "", "", true))
                 } else {
@@ -58,19 +53,21 @@ class SkillsViewModel(private val createTicketUseCase: CreateTicketUseCase,
                       }
                 }
               }
-              .singleOrError()
         }
         .toObservable()
+  }
+
+  private fun getTicketUpdates(ticketId: String): Observable<TicketResponse> {
+    return Observable.interval(getTicketRetryMillis, TimeUnit.MILLISECONDS)
+        .flatMapSingle { getTicketUseCase.getTicket(ticketId) }
   }
 
   private fun isRefunded(ticketResponse: TicketResponse): Boolean {
     return ticketResponse.ticketStatus == TicketStatus.REFUNDED
   }
 
-  private fun checkCanProcceed(ticketResponse: TicketResponse, canProcceed: AtomicBoolean) {
-    if (ticketResponse.roomId != null || ticketResponse.ticketStatus == TicketStatus.REFUNDED) {
-      canProcceed.set(true)
-    }
+  private fun checkCanProceed(ticketResponse: TicketResponse): Boolean {
+    return ticketResponse.roomId != null || ticketResponse.ticketStatus == TicketStatus.REFUNDED
   }
 
   fun getPayTicketRequestCode(): Int {
