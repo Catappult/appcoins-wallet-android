@@ -512,15 +512,12 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsApi(gson: Gson): BdsApi {
+  fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
-    val okHttpClient = OkHttpClient().newBuilder()
-
-    okHttpClient.addInterceptor(ContentTypeInterceptor())
 
     return Retrofit.Builder()
         .baseUrl(baseUrl)
-        .client(okHttpClient.build())
+        .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
@@ -594,10 +591,11 @@ class ServiceModule {
         .build()
         .create(VerificationStateApi::class.java)
   }
+
   @Singleton
   @Provides
   fun provideWithdrawApi(@Named("default") client: OkHttpClient,
-                                 gson: Gson): WithdrawApi {
+                         gson: Gson): WithdrawApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
         .baseUrl(baseUrl)
