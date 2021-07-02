@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.settings.change_currency
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.settings.change_currency.adapter.ChangeFiatCurrencyAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_change_fiat_currency.*
-
 import org.jetbrains.annotations.NotNull
 import javax.inject.Inject
 
@@ -50,6 +50,10 @@ class ChangeFiatCurrencyFragment : DaggerFragment() {
         .observe(this, {
           this.showCurrencies(it)
         })
+    viewModel.selectedCurrency()
+        .observe(this, {
+          this.showSelectedCurrency(it)
+        })
   }
 
   fun showCurrencies(@NotNull currencyList: List<FiatCurrency>) {
@@ -58,9 +62,8 @@ class ChangeFiatCurrencyFragment : DaggerFragment() {
     fragment_change_fiat_currency_list.visibility = View.VISIBLE
   }
 
-  fun refreshCurrencies(@NotNull currencyList: List<FiatCurrency>) {
-    currencyAdapter.setCurrencies(currencyList)
-    fragment_change_fiat_swipe_refresh.isRefreshing = false
-    fragment_change_fiat_currency_list.scheduleLayoutAnimation()
+  fun showSelectedCurrency(selectedCurrency: FiatCurrency) {
+    Log.d("APPC-2472", "ChangeFiatCurrencyFragment: showSelectedCurrency -> $selectedCurrency")
+    currencyAdapter.setSelected(selectedCurrency)
   }
 }

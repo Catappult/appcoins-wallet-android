@@ -15,8 +15,6 @@ class FiatCurrenciesService(
         .map { response: FiatCurrenciesResponse ->
           val currencyList: MutableList<FiatCurrency> = ArrayList()
           for (currencyItem in response.items) {
-            Log.d("APPC-2472",
-                "getApiToFiatCurrency: flag: ${currencyItem.flag}, currency: ${currencyItem.currency}, label ${currencyItem.label}, sign  ${currencyItem.sign}")
             currencyList.add(
                 FiatCurrency(currencyItem.flag, currencyItem.currency, currencyItem.label,
                     currencyItem.sign))

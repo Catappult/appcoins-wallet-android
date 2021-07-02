@@ -10,7 +10,9 @@ class ChangeFiatCurrencyModule {
 
   @Provides
   fun providesChangeFiatCurrencyViewModelFactory(
-      fiatCurrenciesService: FiatCurrenciesService): ChangeFiatCurrencyViewModelFactory {
-    return ChangeFiatCurrencyViewModelFactory(fiatCurrenciesService, CompositeDisposable())
+      fiatCurrenciesService: FiatCurrenciesService,
+      selectedCurrencyInteract: SelectedCurrencyInteract): ChangeFiatCurrencyViewModelFactory {
+    return ChangeFiatCurrencyViewModelFactory(fiatCurrenciesService, CompositeDisposable(),
+        selectedCurrencyInteract)
   }
 }

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.settings.change_currency.adapter
 
-import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -9,8 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrency
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrencyClickListener
-import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 
 
 class ChangeFiatCurrencyItemViewHolder(itemView: View, val listener: FiatCurrencyClickListener) :
@@ -27,22 +24,28 @@ class ChangeFiatCurrencyItemViewHolder(itemView: View, val listener: FiatCurrenc
   }
 
   fun setCurrency(fiatCurrency: FiatCurrency, selected: Boolean) {
-    Log.d("APPC-2472", "Holder -> setCurrency: parse flag " + Uri.parse(fiatCurrency.flag))
-    GlideToVectorYou
-        .init()
-        .with(itemView.context)
-        .setPlaceHolder(R.drawable.ic_currency, R.drawable.ic_currency)
-        .load(Uri.parse(fiatCurrency.flag), fiatFlag)
+    Log.d("APPC-2472",
+        "Holder -> currency ${fiatCurrency.currency}, currency ${fiatCurrency.label}, isSelected? $selected")
+//    GlideToVectorYou
+//        .init()
+//        .with(itemView.context)
+//        .setPlaceHolder(R.drawable.ic_currency, R.drawable.ic_currency)
+//        .load(Uri.parse(fiatCurrency.flag), fiatFlag)
+    //TODO
 
     shortCurrency.text = fiatCurrency.currency
     longCurrency.text = fiatCurrency.label
 
     if (!selected) {
       currencyItem.setBackgroundColor(itemView.resources.getColor(R.color.white))
+      shortCurrency.setTextColor(
+          itemView.resources.getColor(R.color.black))
       fiatCheckmark.visibility = View.GONE
     } else {
       currencyItem.setBackgroundColor(
           itemView.resources.getColor(R.color.change_fiat_selected_item))
+      shortCurrency.setTextColor(
+          itemView.resources.getColor(R.color.change_fiat_selected_item_short))
       fiatCheckmark.visibility = View.VISIBLE
     }
   }

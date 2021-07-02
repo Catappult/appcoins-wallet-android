@@ -7,6 +7,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
+import com.asfoundation.wallet.ui.settings.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import dagger.Module
 import dagger.Provides
@@ -21,9 +22,11 @@ class SettingsModule {
   fun providesSettingsPresenter(settingsFragment: SettingsFragment,
                                 navigator: SettingsNavigator,
                                 interactor: SettingsInteractor,
-                                data: SettingsData): SettingsPresenter {
+                                data: SettingsData,
+                                selectedCurrencyInteract: SelectedCurrencyInteract): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
-        AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data)
+        AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data,
+        selectedCurrencyInteract)
   }
 
   @Provides

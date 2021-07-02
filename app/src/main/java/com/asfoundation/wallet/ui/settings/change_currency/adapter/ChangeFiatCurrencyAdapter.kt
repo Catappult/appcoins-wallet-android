@@ -7,14 +7,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrency
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrencyClickListener
 import com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
 import java.util.*
 
 
-class ChangeFiatCurrencyAdapter(val fragmentManager: FragmentManager) :
+class ChangeFiatCurrencyAdapter(private val fragmentManager: FragmentManager) :
     RecyclerView.Adapter<ChangeFiatCurrencyItemViewHolder>() {
-  lateinit var selectedCurrency: FiatCurrency
+  private var selectedCurrency: FiatCurrency? = null
   private val currencyList: MutableList<FiatCurrency> = ArrayList()
   private var fiatCurrencyClickListener: FiatCurrencyClickListener
 
@@ -33,7 +32,7 @@ class ChangeFiatCurrencyAdapter(val fragmentManager: FragmentManager) :
   }
 
   override fun onBindViewHolder(holder: ChangeFiatCurrencyItemViewHolder, position: Int) {
-    holder.setCurrency(currencyList[position], currencyList.contains(position))
+    holder.setCurrency(currencyList[position], selectedCurrency == currencyList[position])
   }
 
   override fun getItemCount(): Int {
@@ -44,19 +43,17 @@ class ChangeFiatCurrencyAdapter(val fragmentManager: FragmentManager) :
     if (list != currencyList) {
       currencyList.clear()
       currencyList.addAll(list)
+//      selectedCurrencyInteract.setSelectedCurrency(currencyList[1])
       notifyDataSetChanged()
     }
   }
 
   fun handleClick(position: Int) {
-    val bottomSheet = ChooseCurrencyBottomSheetFragment.newInstance(currencyList[position].flag!!,
-        currencyList[position].currency!!, currencyList[position].label!!)
-    bottomSheet.show(fragmentManager, "ChooseCurrencyBottomSheet")
-
-    notifyItemChanged(position)
+    ChooseCurrencyBottomSheetFragment.newInstance(currencyList[position])
+        .show(fragmentManager, "ChooseCurrencyBottomSheet")
   }
 
-  fun setSelected(position: Int) {
-    notifyItemChanged(position)
+  fun setSelected(selectedCurrency: FiatCurrency?) {
+    this.selectedCurrency = selectedCurrency
   }
 }

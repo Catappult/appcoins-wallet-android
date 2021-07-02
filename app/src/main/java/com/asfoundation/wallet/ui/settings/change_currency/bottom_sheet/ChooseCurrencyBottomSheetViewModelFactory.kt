@@ -2,16 +2,18 @@ package com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.asfoundation.wallet.ui.settings.change_currency.SelectedCurrencyInteract
 import io.reactivex.Scheduler
-import io.reactivex.disposables.CompositeDisposable
 
 class ChooseCurrencyBottomSheetViewModelFactory(private val view: ChooseCurrencyBottomSheetView,
                                                 private val data: ChooseCurrencyBottomSheetData,
-                                                private val disposable: CompositeDisposable,
-                                                private val viewScheduler: Scheduler) :
+                                                private val viewScheduler: Scheduler,
+                                                private val selectedCurrencyInteract: SelectedCurrencyInteract,
+                                                private val navigator: ChooseCurrencyBottomSheetNavigator) :
     ViewModelProvider.Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-    return ChooseCurrencyBottomSheetViewModel(view, data, disposable, viewScheduler) as T
+    return ChooseCurrencyBottomSheetViewModel(view, data, viewScheduler, selectedCurrencyInteract,
+        navigator) as T
   }
 }

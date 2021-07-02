@@ -42,12 +42,12 @@
       />
   <TextView
       android:id="@+id/fiat_currency_long"
-      style="@style/TransactionsItem.Description"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="@dimen/big_margin"
+      android:textColor="@color/change_fiat_selected_item_long"
       android:textSize="14sp"
       app:layout_constraintEnd_toStartOf="@id/fiat_check_mark"
       app:layout_constraintHorizontal_bias="0.0"
@@ -68,8 +68,8 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
-      android:visibility="gone"
-      tools:src="@drawable/ic_check_mark"
+      android:visibility="visible"
+      android:src="@drawable/ic_check_mark"
       />
 
 

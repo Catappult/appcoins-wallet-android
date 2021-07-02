@@ -6,10 +6,12 @@ import com.asfoundation.wallet.service.currencies.FiatCurrenciesService
 import io.reactivex.disposables.CompositeDisposable
 
 class ChangeFiatCurrencyViewModelFactory(private val fiatCurrenciesService: FiatCurrenciesService,
-                                         private val disposables: CompositeDisposable) :
+                                         private val disposables: CompositeDisposable,
+                                         private val selectedCurrencyInteract: SelectedCurrencyInteract) :
     ViewModelProvider.Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-    return ChangeFiatCurrencyViewModel(fiatCurrenciesService, disposables) as T
+    return ChangeFiatCurrencyViewModel(fiatCurrenciesService, disposables,
+        selectedCurrencyInteract) as T
   }
 }

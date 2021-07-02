@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet
 
+import io.reactivex.Observable
+
 interface ChooseCurrencyBottomSheetView {
 
   fun setCurrencyFlag(currencyFlag: String)
@@ -8,5 +10,5 @@ interface ChooseCurrencyBottomSheetView {
 
   fun setCurrencyLabel(currencyLabel: String)
 
-  fun getConfirmationClick()
+  fun getConfirmationClick(): Observable<Any>
 }

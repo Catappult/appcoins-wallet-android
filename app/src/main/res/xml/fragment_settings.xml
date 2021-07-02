@@ -3,24 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+s
   <Preference
       android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/permissions_title" />
 
+
+  <com.asfoundation.wallet.ui.settings.change_currency.SettingsCurrencyPreference
+      android:icon="@drawable/ic_currency"
+      android:key="pref_currency"
+      android:layout="@layout/preferences_with_active_currency_layout"
+      android:title="@string/change_currency_settings_title"/>
+
   <Preference
       android:icon="@drawable/ic_settings_redeem"
       android:key="pref_redeem"
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/title_redeem" />
-
-  <Preference
-      android:icon="@drawable/ic_currency"
-      android:key="pref_currency"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/change_currency_settings_title" />
 
   <Preference
       android:icon="@drawable/ic_backup_black"
