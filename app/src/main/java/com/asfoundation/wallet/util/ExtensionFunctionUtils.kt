@@ -8,6 +8,7 @@ import android.graphics.Matrix
 import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.Base64
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -144,4 +145,13 @@ inline fun View.withNoLayoutTransition(block: () -> Unit) {
   lt.enableTransitionType(LayoutTransition.CHANGE_APPEARING)
   lt.enableTransitionType(LayoutTransition.DISAPPEARING)
   lt.enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING)
+}
+
+fun String.convertToBase64(): String {
+  return Base64.encodeToString(this.toByteArray(), Base64.NO_WRAP)
+}
+
+fun String?.isEmailValid(): Boolean {
+  return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
+      .matches()
 }

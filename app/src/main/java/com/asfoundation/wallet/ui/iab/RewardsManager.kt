@@ -21,13 +21,15 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
 
   fun pay(sku: String?, amount: BigDecimal, developerAddress: String, packageName: String,
           origin: String?, type: String, payload: String?, callbackUrl: String?,
-          orderReference: String?, referrerUrl: String?): Completable {
+          orderReference: String?, referrerUrl: String?, productToken: String?): Completable {
     return Single.zip(partnerAddressService.getStoreAddressForPackage(packageName),
         partnerAddressService.getOemAddressForPackage(packageName),
         BiFunction { storeAddress: String, oemAddress: String -> Pair(storeAddress, oemAddress) })
         .flatMapCompletable {
-          appcoinsRewards.pay(amount, origin, sku, type, developerAddress, it.first, it.second,
-              packageName, payload, callbackUrl, orderReference, referrerUrl)
+          appcoinsRewards.pay(
+              amount, origin, sku, type, developerAddress, it.first, it.second,
+              packageName, payload, callbackUrl, orderReference, referrerUrl, productToken
+          )
         }
   }
 

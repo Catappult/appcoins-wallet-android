@@ -27,11 +27,14 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
 
   fun pay(amount: BigDecimal, origin: String?, sku: String?, type: String, developerAddress: String,
           storeAddress: String, oemAddress: String, packageName: String, payload: String?,
-          callbackUrl: String?, orderReference: String?, referrerUrl: String?): Completable {
+          callbackUrl: String?, orderReference: String?, referrerUrl: String?,
+          productToken: String?): Completable {
     return cache.save(getKey(amount.toString(), sku, packageName),
-        Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
+        Transaction(
+            sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
             origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference,
-            referrerUrl))
+            referrerUrl, productToken
+        ))
   }
 
   fun start() {
@@ -48,12 +51,15 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
                     .flatMapCompletable { walletAddress ->
                       walletService.signContent(walletAddress)
                           .flatMap { signature ->
-                            repository.pay(walletAddress, signature, transaction.amount,
+                            repository.pay(
+                                walletAddress, signature, transaction.amount,
                                 getOrigin(transaction), transaction.sku, transaction.type,
                                 transaction.developerAddress, transaction.storeAddress,
                                 transaction.oemAddress, transaction.packageName,
                                 transaction.payload, transaction.callback,
-                                transaction.orderReference, transaction.referrerUrl)
+                                transaction.orderReference, transaction.referrerUrl,
+                                transaction.productToken
+                            )
                           }
                           .flatMapCompletable { transaction1 ->
                             waitTransactionCompletion(transaction1).andThen {
