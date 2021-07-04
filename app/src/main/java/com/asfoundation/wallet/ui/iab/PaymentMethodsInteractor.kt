@@ -5,6 +5,7 @@ import android.util.Pair
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.billing.repository.entity.Product
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.PendingTransaction
@@ -63,8 +64,15 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
       inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
           developerPayload, isBds, type)
 
-  fun convertToLocalFiat(appcValue: Double): Single<FiatValue> =
+  fun convertAppcToLocalFiat(appcValue: Double): Single<FiatValue> =
       inAppPurchaseInteractor.convertToLocalFiat(appcValue)
+
+  fun convertCurrencyToLocalFiat(value: Double, currency: String): Single<FiatValue> =
+    inAppPurchaseInteractor.convertFiatToLocalFiat(value, currency)
+
+  fun convertCurrencyToAppc(value: Double, currency: String): Single<FiatValue> =
+    inAppPurchaseInteractor.convertFiatToAppc(value, currency)
+
 
   fun hasAsyncLocalPayment() = inAppPurchaseInteractor.hasAsyncLocalPayment()
 
@@ -105,6 +113,10 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
     }
+  }
+
+  fun getSkuDetails(domain: String, sku: String): Single<Product> {
+    return billing.getProducts(domain, mutableListOf(sku)).map { products -> products.first() }
   }
 
   private fun isInApp(type: String) =

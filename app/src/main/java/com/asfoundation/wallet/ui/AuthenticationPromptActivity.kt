@@ -34,6 +34,10 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     }
   }
 
+  override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    super.onRestoreInstanceState(savedInstanceState)
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)

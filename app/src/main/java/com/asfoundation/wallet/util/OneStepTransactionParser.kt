@@ -80,10 +80,13 @@ class OneStepTransactionParser(
   }
 
   private fun getAppcAmount(uri: OneStepUri): BigDecimal? {
+    // To avoid spending time, during the parse, getting the appc value by calling the conversion of
+    // fiat to appc, we are setting the amount to zero. Later when this value is zero we should make
+    // the request to get the conversion and set it on the transaction builder.
     return when {
       (getCurrency(uri) == null || getCurrency(uri).equals("APPC", true)) ->
         BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18)
-      else -> null
+      else -> BigDecimal.ZERO
     }
   }
 
