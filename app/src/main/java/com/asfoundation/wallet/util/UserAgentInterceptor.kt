@@ -2,6 +2,7 @@ package com.asfoundation.wallet.util
 
 import android.content.Context
 import android.os.Build
+import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.WindowManager
 import com.asf.wallet.BuildConfig
@@ -22,6 +23,7 @@ class UserAgentInterceptor(private val context: Context,
       val displayMetrics = DisplayMetrics()
       display.getRealMetrics(displayMetrics)
       val walletId = getOrCreateWalletId()
+      val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
       return ("AppCoins_Wallet/"
           + BuildConfig.VERSION_NAME
           + " (Linux; Android "
@@ -44,6 +46,8 @@ class UserAgentInterceptor(private val context: Context,
           + displayMetrics.widthPixels
           + "x"
           + displayMetrics.heightPixels
+          + "; "
+          + androidId
           + ")")
     }
 
