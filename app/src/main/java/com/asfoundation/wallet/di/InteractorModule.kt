@@ -16,6 +16,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
+import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
@@ -37,6 +38,7 @@ import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.SkillsPaymentInteractor
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
@@ -252,22 +254,43 @@ class InteractorModule {
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
-                                    billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
-    return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
-        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
-        billingAddressRepository)
+                                    billingAddressRepository: BillingAddressRepository
+  ): AdyenPaymentInteractor {
+    return AdyenPaymentInteractor(
+      adyenPaymentRepository,
+      inAppPurchaseInteractor,
+      inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
+      walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
+      billingAddressRepository
+    )
   }
 
   @Provides
-  fun provideWalletCreatorInteract(accountRepository: WalletRepositoryType,
-                                   passwordStore: PasswordStore, syncScheduler: ExecutorScheduler) =
-      WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+  fun provideSkillsPaymentInteractor(
+    skillsPaymentRepository: SkillsPaymentRepository,
+    partnerAddressService: AddressService,
+    walletService: WalletService
+  ): SkillsPaymentInteractor {
+    return SkillsPaymentInteractor(
+      skillsPaymentRepository,
+      partnerAddressService,
+      walletService
+    )
+  }
 
   @Provides
-  fun provideGamificationInteractor(gamification: Gamification,
-                                    defaultWallet: FindDefaultWalletInteract,
-                                    conversionService: LocalCurrencyConversionService) =
+  fun provideWalletCreatorInteract(
+    accountRepository: WalletRepositoryType,
+    passwordStore: PasswordStore, syncScheduler: ExecutorScheduler
+  ) =
+    WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+
+  @Provides
+  fun provideGamificationInteractor(
+    gamification: Gamification,
+    defaultWallet: FindDefaultWalletInteract,
+    conversionService: LocalCurrencyConversionService
+  ) =
       GamificationInteractor(gamification, defaultWallet, conversionService)
 
   @Provides

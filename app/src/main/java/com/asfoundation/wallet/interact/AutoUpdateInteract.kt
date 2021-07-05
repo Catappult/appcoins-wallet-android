@@ -32,23 +32,12 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   }
 
   fun retrieveRedirectUrl(): String {
-    return if (isAptoideInstalled()) String.format(APTOIDE_APP_VIEW_URL, walletPackageName)
-    else String.format(PLAY_APP_VIEW_URL, walletPackageName)
+    return String.format(PLAY_APP_VIEW_URL, walletPackageName)
   }
 
   fun buildUpdateIntent(): Intent {
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(retrieveRedirectUrl()))
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    val appsList =
-        packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-    appsList.let {
-      for (info in appsList) {
-        if (info.activityInfo.packageName == APTOIDE_PACKAGE_NAME) {
-          intent.setPackage(info.activityInfo.packageName)
-          break
-        }
-      }
-    }
     return intent
   }
 
@@ -99,6 +88,6 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   companion object {
     private const val APTOIDE_PACKAGE_NAME = "cm.aptoide.pt"
     private const val APTOIDE_APP_VIEW_URL = "aptoideinstall://package=%s&show_install_popup=false"
-    const val PLAY_APP_VIEW_URL = "https://play.google.com/store/apps/details?id=%s"
+    const val PLAY_APP_VIEW_URL = "market://details?id=%s"
   }
 }

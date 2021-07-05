@@ -31,6 +31,7 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun setupPreferences() {
     view.setPermissionPreference()
+    view.setWithdrawPreference()
     view.setSourceCodePreference()
     view.setIssueReportPreference()
     view.setTwitterPreference()
@@ -148,6 +149,10 @@ class SettingsPresenter(private val view: SettingsView,
     disposables.add(view.switchPreferenceChange()
         .doOnNext { navigator.showAuthentication() }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  fun onWithdrawClicked() {
+    navigator.navigateToWithdrawScreen()
   }
 }
 

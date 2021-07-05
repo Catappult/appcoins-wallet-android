@@ -93,20 +93,17 @@ class PaymentMethodsPresenter(
 
   private fun handleBuyClick() {
     disposables.add(view.getBuyClick()
-      .map { view.getSelectedPaymentMethod(interactor.hasPreSelectedPaymentMethod()) }
-      .observeOn(viewScheduler)
-      .doOnNext { handleBuyAnalytics(it) }
-      .doOnNext { selectedPaymentMethod ->
-        when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-          SelectedPaymentMethod.EARN_APPC -> view.showEarnAppcoins()
-          SelectedPaymentMethod.APPC_CREDITS -> {
-            view.showProgressBarLoading()
-            handleWalletBlockStatus(selectedPaymentMethod)
-          }
-          SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(
-            cachedGamificationLevel,
-            cachedFiatValue!!
-          )
+        .map { view.getSelectedPaymentMethod(interactor.hasPreSelectedPaymentMethod()) }
+        .observeOn(viewScheduler)
+        .doOnNext { handleBuyAnalytics(it) }
+        .doOnNext { selectedPaymentMethod ->
+          when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
+            SelectedPaymentMethod.APPC_CREDITS -> {
+              view.showProgressBarLoading()
+              handleWalletBlockStatus(selectedPaymentMethod)
+            }
+            SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(cachedGamificationLevel,
+                cachedFiatValue!!)
 
           else -> {
             if (interactor.hasAuthenticationPermission()) {

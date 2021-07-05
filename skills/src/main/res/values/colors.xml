@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#fc9d48</color>
+    <color name="colorPrimaryDark">#e44b46</color>
+    <color name="colorAccent">#e44b46</color>
+    <color name="statusBarColor">#154868</color>
+
+    <color name="btn_start_gradient_color">#fc9d48</color>
+    <color name="btn_end_gradient_color">#ff578c</color>
+    <color name="btn_text_disable_color">#42000000</color>
+    <color name="btn_text_enable_color">#ffffff</color>
+    <color name="btn_disable_color">#00000000</color>
+
+    <color name="black_87_alpha">#de000000</color>
+    <color name="grey_alpha_active_54">#8a000000</color>
+</resources>

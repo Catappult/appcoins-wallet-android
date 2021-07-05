@@ -15,11 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.entity.TransactionsDetailsModel;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.common.SeparatorView;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
@@ -38,6 +39,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import javax.inject.Inject;
 
+import static com.asfoundation.wallet.C.Key.GLOBAL_BALANCE_CURRENCY;
 import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
 public class TransactionDetailActivity extends BaseActivity {
@@ -47,8 +49,12 @@ public class TransactionDetailActivity extends BaseActivity {
   @Inject CurrencyFormatUtils formatter;
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
+  private String globalBalanceCurrency;
   private boolean isSent = false;
   private TextView amount;
+  private TextView paidAmount;
+  private TextView localFiatAmount;
+  private SeparatorView verticalSeparator;
   private TransactionsDetailsAdapter adapter;
   private RecyclerView detailsList;
   private Dialog dialog;
@@ -70,19 +76,23 @@ public class TransactionDetailActivity extends BaseActivity {
     }
     toolbar();
 
+    globalBalanceCurrency = getIntent().getStringExtra(GLOBAL_BALANCE_CURRENCY);
     ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(1f);
 
     amount = findViewById(R.id.amount);
+    paidAmount = findViewById(R.id.paid_amount);
+    localFiatAmount = findViewById(R.id.local_fiat_amount);
+    verticalSeparator = findViewById(R.id.vertical_separator);
     adapter = new TransactionsDetailsAdapter(this::onMoreClicked);
     detailsList = findViewById(R.id.details_list);
     detailsList.setAdapter(adapter);
 
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
-    viewModel.defaultNetwork()
-        .observe(this, this::onDefaultNetwork);
-    viewModel.defaultWallet()
-        .observe(this, this::onDefaultWallet);
+
+    viewModel.initializeView(getPaidValue(), transaction.getPaidCurrency(), globalBalanceCurrency);
+    viewModel.transactionsDetailsModel()
+        .observe(this, this::onTransactionsDetails);
 
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
@@ -104,8 +114,9 @@ public class TransactionDetailActivity extends BaseActivity {
     hideDialog();
   }
 
-  private void onDefaultWallet(Wallet wallet) {
-    adapter.setDefaultWallet(wallet);
+  private void onTransactionsDetails(TransactionsDetailsModel transactionsDetailsModel) {
+    adapter.setDefaultWallet(transactionsDetailsModel.getWallet());
+    adapter.setDefaultNetwork(transactionsDetailsModel.getNetworkInfo());
 
     if (transaction.getOperations() != null && !transaction.getOperations()
         .isEmpty()) {
@@ -115,14 +126,11 @@ public class TransactionDetailActivity extends BaseActivity {
 
     isSent = transaction.getFrom()
         .toLowerCase()
-        .equals(wallet.address);
-
-    NetworkInfo networkInfo = viewModel.defaultNetwork()
-        .getValue();
+        .equals(transactionsDetailsModel.getWallet().address);
 
     String symbol =
-        transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
-            : transaction.getCurrency();
+        transaction.getCurrency() == null ? (transactionsDetailsModel.getNetworkInfo() == null ? ""
+            : transactionsDetailsModel.getNetworkInfo().symbol) : transaction.getCurrency();
 
     String icon = null;
     String id = null;
@@ -262,29 +270,20 @@ public class TransactionDetailActivity extends BaseActivity {
       statusColor = R.color.green;
     }
 
-    setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, icon, id, description,
-        typeStr, typeIcon, statusStr, statusColor, to, isSent, isRevertTransaction,
-        isRevertedTransaction, revertedDescription, descriptionColor);
+    String localFiatCurrency = globalBalanceCurrency;
+
+    setUiContent(transaction.getTimeStamp(), getValue(symbol), symbol, getPaidValue(),
+        transaction.getPaidCurrency(), transactionsDetailsModel.getFiatValue()
+            .getAmount()
+            .toString(), localFiatCurrency, icon, id, description, typeStr, typeIcon, statusStr,
+        statusColor, to, isSent, isRevertTransaction, isRevertedTransaction, revertedDescription,
+        descriptionColor);
   }
 
-  private void onDefaultNetwork(NetworkInfo networkInfo) {
-    adapter.setDefaultNetwork(networkInfo);
-
-    String symbol =
-        transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
-            : transaction.getCurrency();
-
-    boolean isRevertTransaction = isRevertTransaction(transaction);
-    boolean isRevertedTransaction = isRevertedTransaction(transaction);
-
-    formatValue(getValue(symbol), symbol, transaction.getType(), isRevertTransaction,
-        isRevertedTransaction);
-  }
-
-  private String getScaledValue(String valueStr, String currencySymbol) {
+  private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
     WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
-    value = value.divide(new BigDecimal(Math.pow(10, DECIMALS)));
+    value = value.divide(new BigDecimal(Math.pow(10, decimals)));
     return formatter.formatCurrency(value, walletCurrency);
   }
 
@@ -306,14 +305,16 @@ public class TransactionDetailActivity extends BaseActivity {
     viewModel.showMoreDetails(view.getContext(), operation);
   }
 
-  private void setUiContent(long timeStamp, String value, String symbol, String icon, String id,
+  private void setUiContent(long timeStamp, String value, String symbol, String paidAmount,
+      String paidCurrency, String localFiatAmount, String localFiatCurrency, String icon, String id,
       String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to,
       boolean isSent, boolean isRevertTransaction, boolean isRevertedTransaction,
       int revertedDescription, int descriptionColor) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
-    formatValue(value, symbol, transaction.getType(), isRevertTransaction, isRevertedTransaction);
+    formatValues(value, symbol, paidAmount, paidCurrency, localFiatAmount, localFiatCurrency,
+        transaction.getType(), isRevertTransaction, isRevertedTransaction);
 
     ImageView typeIconImageView = findViewById(R.id.img);
     if (icon != null) {
@@ -402,11 +403,11 @@ public class TransactionDetailActivity extends BaseActivity {
       icn.setOnClickListener(view -> viewModel.showSupportScreen());
 
       revertedView.setOnClickListener(
-          view -> viewModel.showDetails(view.getContext(), linkTransaction));
+          view -> viewModel.showDetails(view.getContext(), linkTransaction, globalBalanceCurrency));
 
-      NetworkInfo networkInfo = viewModel.defaultNetwork()
-          .getValue();
-
+      NetworkInfo networkInfo = viewModel.transactionsDetailsModel()
+          .getValue()
+          .getNetworkInfo();
       String symbol =
           linkTransaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
               : linkTransaction.getCurrency();
@@ -528,7 +529,8 @@ public class TransactionDetailActivity extends BaseActivity {
     }
   }
 
-  private void formatValue(String value, String symbol, Transaction.TransactionType type,
+  private void formatValues(String value, String symbol, String paidAmount, String paidCurrency,
+      String convertedAmount, String convertedCurrency, Transaction.TransactionType type,
       boolean isRevert, boolean isReverted) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
@@ -541,14 +543,38 @@ public class TransactionDetailActivity extends BaseActivity {
       signal = isSent ? "-" : "+";
     }
 
-    String formattedValue = signal + value;
-    amount.setText(BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
+    if (paidAmount != null) {
+      String formattedValue = signal + value + " " + symbol.toUpperCase();
+      String formattedPaidValue = signal + paidAmount;
+      String formattedLocalFiatValue = signal + convertedAmount + " " + convertedCurrency;
+      this.paidAmount.setText(
+          BalanceUtils.formatBalance(formattedPaidValue, paidCurrency, smallTitleSize, color));
+      this.amount.setText(formattedValue);
+
+      handleLocalFiatVisibility(paidCurrency, formattedLocalFiatValue, convertedCurrency);
+    } else {
+      String formattedValue = signal + value;
+      this.paidAmount.setText(
+          BalanceUtils.formatBalance(formattedValue, symbol, smallTitleSize, color));
+    }
+  }
+
+  private void handleLocalFiatVisibility(String paidCurrency, String formattedConvertedAmount,
+      String convertedCurrency) {
+    if (convertedCurrency.equals(paidCurrency)) {
+      this.localFiatAmount.setVisibility(View.GONE);
+      this.verticalSeparator.setVisibility(View.GONE);
+    } else {
+      this.localFiatAmount.setVisibility(View.VISIBLE);
+      this.verticalSeparator.setVisibility(View.VISIBLE);
+      this.localFiatAmount.setText(formattedConvertedAmount);
+    }
   }
 
   private String getValue(String currencySymbol) {
     String rawValue = transaction.getValue();
     if (!rawValue.equals("0")) {
-      rawValue = getScaledValue(rawValue, currencySymbol);
+      rawValue = getScaledValue(rawValue, DECIMALS, currencySymbol);
     }
     return rawValue;
   }
@@ -556,12 +582,20 @@ public class TransactionDetailActivity extends BaseActivity {
   private String getValue(Transaction linkedTx, String currencySymbol) {
     String rawValue = linkedTx.getValue();
     if (!rawValue.equals("0")) {
-      rawValue = getScaledValue(rawValue, currencySymbol);
+      rawValue = getScaledValue(rawValue, DECIMALS, currencySymbol);
     }
     if (linkedTx.getType() == Transaction.TransactionType.IAP_OFFCHAIN) {
       rawValue = "-" + rawValue;
     } else {
       rawValue = "+" + rawValue;
+    }
+    return rawValue;
+  }
+
+  private String getPaidValue() {
+    String rawValue = transaction.getPaidAmount();
+    if (rawValue != null && !rawValue.equals("0")) {
+      rawValue = getScaledValue(rawValue, 0, "");
     }
     return rawValue;
   }

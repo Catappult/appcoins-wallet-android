@@ -14,11 +14,14 @@ class Parameters {
     const val DATA = "data"
     const val CURRENCY = "currency"
     const val CALLBACK_URL = "callback_url"
+    const val PRODUCT_TOKEN = "product_token"
+    const val SKILLS = "skills"
     const val SCHEME = "https"
     const val LEGACY_HOST = BuildConfig.LEGACY_PAYMENT_HOST
     const val HOST = BuildConfig.PAYMENT_HOST
     const val PATH = "/transaction"
     const val PAYMENT_TYPE_INAPP_UNMANAGED = "INAPP_UNMANAGED"
+    const val ESKILLS = "ESKILLS"
     const val NETWORK_ID_ROPSTEN = 3L
     const val NETWORK_ID_MAIN = 1L
   }

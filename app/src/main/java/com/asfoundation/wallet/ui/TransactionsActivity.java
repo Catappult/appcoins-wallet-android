@@ -35,12 +35,10 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.rating.RatingActivity;
 import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
-import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.overlay.OverlayFragment;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
-import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.RootUtil;
@@ -144,8 +142,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     emptyTransactionsSubject = PublishSubject.create();
     paddingDp = (int) (80 * getResources().getDisplayMetrics().density);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-    adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
-        this::onNotificationClick, formatter);
+    adapter = new TransactionsAdapter(this::onTransactionClick, null, this::onNotificationClick,
+        formatter);
 
     adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
       @Override public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -287,11 +285,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
               disposables);
       systemView.showEmpty(emptyView);
     }
-  }
-
-  private void onApplicationClick(AppcoinsApplication appcoinsApplication,
-      ApplicationClickAction applicationClickAction) {
-    viewModel.onAppClick(appcoinsApplication, applicationClickAction, this);
   }
 
   private void onTransactionClick(View view, Transaction transaction) {
@@ -547,10 +540,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   public Observable<String> getEmptyTransactionsScreenClick() {
     return emptyTransactionsSubject;
-  }
-
-  public void navigateToTopApps() {
-    viewModel.showTopApps(this);
   }
 
   public void navigateToPromotions(boolean clearStack) {
