@@ -17,14 +17,15 @@ class SelectedCurrencyInteract(private val pref: SharedPreferences) {
         .apply()
   }
 
-  fun getSelectedCurrency(): FiatCurrency? {
+  fun getSelectedCurrency(): FiatCurrency {
     Log.d("APPC-2472", "SelectedCurrencyInteract: getSelectedCurrency: ${
       Gson().fromJson(pref.getString(FIAT_CURRENCY, ""), FiatCurrency::class.java)
     }")
     return if (selectedCurrencyPrefExists()) {
       Gson().fromJson(pref.getString(FIAT_CURRENCY, ""), FiatCurrency::class.java)
     } else {
-      null
+      //TODO: default local fiat currency
+      FiatCurrency("test", "test", "test", "test")
     }
   }
 

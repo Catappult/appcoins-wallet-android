@@ -60,7 +60,6 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     viewModel =
         ViewModelProviders.of(this,
             chooseCurrencyBottomSheetViewModelFactory)[ChooseCurrencyBottomSheetViewModel::class.java]
-//    dialog?.setCanceledOnTouchOutside(false)
   }
 
   override fun getTheme(): Int {
@@ -86,12 +85,16 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   }
 
   override fun getConfirmationClick(): Observable<Any> {
-//    val behavior = BottomSheetBehavior.from(requireView().parent as View)
-//    behavior.state = BottomSheetBehavior.STATE_COLLAPSED
     return RxView.clicks(choose_currency_confirmation_button)
   }
 
-  override fun onDestroyView() {
-    super.onDestroyView()
+  override fun showLoading() {
+    choose_currency_flag.visibility = View.GONE
+    choose_currency_short.visibility = View.GONE
+    choose_currency_label.visibility = View.GONE
+    choose_currency_confirmation_button.visibility = View.GONE
+
+    choose_currency_system_view.showOnlyProgress()
+    choose_currency_system_view.visibility = View.VISIBLE
   }
 }

@@ -43,7 +43,6 @@ class ChangeFiatCurrencyAdapter(private val fragmentManager: FragmentManager) :
     if (list != currencyList) {
       currencyList.clear()
       currencyList.addAll(list)
-//      selectedCurrencyInteract.setSelectedCurrency(currencyList[1])
       notifyDataSetChanged()
     }
   }

@@ -23,9 +23,13 @@ class ChooseCurrencyBottomSheetViewModel(private val view: ChooseCurrencyBottomS
     disposable.add(view.getConfirmationClick()
         .observeOn(viewScheduler)
         .doOnNext {
+          view.showLoading()
           selectedCurrencyInteract.setSelectedCurrency(
               FiatCurrency(data.flag, data.currency, data.label, data.sign))
-          navigator.navigateBackToSettings()
+        }
+//        .delay(5, TimeUnit.SECONDS)
+        .doOnNext {
+          navigator.navigateBack()
         }
         .subscribe({}, { it.printStackTrace() }))
   }

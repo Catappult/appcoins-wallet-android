@@ -11,4 +11,6 @@ interface ChooseCurrencyBottomSheetView {
   fun setCurrencyLabel(currencyLabel: String)
 
   fun getConfirmationClick(): Observable<Any>
+
+  fun showLoading()
 }

@@ -29,7 +29,7 @@ class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
     setFlagImageView()
   }
 
-  fun setCurrency(selectedCurrency: FiatCurrency?) {
+  fun setCurrency(selectedCurrency: FiatCurrency) {
     this.selectedCurrency = selectedCurrency
   }
 

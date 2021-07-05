@@ -32,6 +32,6 @@ class ChooseCurrencyBottomSheetModule {
   @Provides
   fun providesChooseCurrencyBottomSheetNavigator(
       fragment: ChooseCurrencyBottomSheetFragment): ChooseCurrencyBottomSheetNavigator {
-    return ChooseCurrencyBottomSheetNavigator(fragment.requireFragmentManager())
+    return ChooseCurrencyBottomSheetNavigator(fragment)
   }
 }

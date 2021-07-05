@@ -142,6 +142,13 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     emptyBox.addView(view);
   }
 
+  public void showOnlyProgress() {
+    emptyBox.setVisibility(GONE);
+    errorBox.setVisibility(GONE);
+    tryAgain.setVisibility(GONE);
+    progress.setVisibility(VISIBLE);
+  }
+
   @Override public void onClick(View v) {
     if (onTryAgainClickListener != null) {
       hide();
