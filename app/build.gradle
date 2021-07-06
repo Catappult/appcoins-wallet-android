@@ -9,6 +9,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
   buildToolsVersion '29.0.3'
   compileSdkVersion 29
+  ndkVersion "21.3.6528147"
   defaultConfig {
 
     def inputFile = new File("appcoins-services.json")
@@ -120,7 +121,7 @@ android {
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
-      manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
+      manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
@@ -158,6 +159,7 @@ dependencies {
   implementation project(path: ':gamification')
   implementation project(path: ':permissions')
   implementation project(path: ':appcoinsRewards')
+  implementation project(path: ':skills')
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

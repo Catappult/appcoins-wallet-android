@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import cm.aptoide.skills.SkillsActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
@@ -17,6 +18,7 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import java.util.*
 import javax.inject.Inject
 
 class OneStepPaymentReceiver : BaseActivity() {
@@ -35,31 +37,39 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   companion object {
     const val REQUEST_CODE = 234
+    private const val ESKILLS_URI_KEY = "ESKILLS_URI"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_iab_wallet_creation)
-    walletCreationCard = findViewById(R.id.create_wallet_card)
-    walletCreationAnimation =
-        findViewById(R.id.create_wallet_animation)
-    walletCreationText = findViewById(R.id.create_wallet_text)
-    if (savedInstanceState == null) {
-      disposable = handleWalletCreationIfNeeded()
-          .takeUntil { it != WalletGetterStatus.CREATING.toString() }
-          .flatMap {
-            transferParser.parse(intent.dataString!!)
-                .flatMap { transaction: TransactionBuilder ->
-                  inAppPurchaseInteractor.isWalletFromBds(transaction.domain,
-                      transaction.toAddress())
-                      .doOnSuccess { isBds: Boolean ->
-                        startOneStepTransfer(transaction, isBds)
-                      }
-                }
-                .toObservable()
-          }
-          .subscribe({ }, { throwable: Throwable -> startApp(throwable) })
+
+    if (isEskillsUri(intent.dataString!!)) {
+      val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
+      skillsActivityIntent.putExtra(ESKILLS_URI_KEY, intent.dataString)
+      startActivityForResult(skillsActivityIntent, REQUEST_CODE)
+    } else {
+      setContentView(R.layout.activity_iab_wallet_creation)
+      walletCreationCard = findViewById(R.id.create_wallet_card)
+      walletCreationAnimation =
+          findViewById(R.id.create_wallet_animation)
+      walletCreationText = findViewById(R.id.create_wallet_text)
+      if (savedInstanceState == null) {
+        disposable = handleWalletCreationIfNeeded()
+            .takeUntil { it != WalletGetterStatus.CREATING.toString() }
+            .flatMap {
+              transferParser.parse(intent.dataString!!)
+                  .flatMap { transaction: TransactionBuilder ->
+                    inAppPurchaseInteractor.isWalletFromBds(transaction.domain,
+                        transaction.toAddress())
+                        .doOnSuccess { isBds: Boolean ->
+                          startOneStepTransfer(transaction, isBds)
+                        }
+                  }
+                  .toObservable()
+            }
+            .subscribe({ }, { throwable: Throwable -> startApp(throwable) })
+      }
     }
   }
 
@@ -70,6 +80,10 @@ class OneStepPaymentReceiver : BaseActivity() {
       setResult(resultCode, data)
       finish()
     }
+  }
+
+  private fun isEskillsUri(uri: String): Boolean {
+    return uri.toLowerCase(Locale.ROOT).contains("/transaction/eskills")
   }
 
   private fun startApp(throwable: Throwable) {

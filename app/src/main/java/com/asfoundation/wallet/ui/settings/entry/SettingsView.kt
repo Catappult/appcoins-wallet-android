@@ -54,4 +54,6 @@ interface SettingsView {
   fun switchPreferenceChange(): Observable<Unit>
 
   fun updateFingerPrintListener(enabled: Boolean)
+
+  fun setWithdrawPreference()
 }

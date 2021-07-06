@@ -239,6 +239,16 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
+  override fun setWithdrawPreference() {
+    val bugReportPreference = findPreference<Preference>("pref_withdraw")
+    bugReportPreference?.setOnPreferenceClickListener {
+      presenter.onWithdrawClicked()
+      false
+    }
+
+  }
+
+
   override fun setTwitterPreference() {
     val twitterPreference = findPreference<Preference>("pref_twitter")
     twitterPreference?.setOnPreferenceClickListener {

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di
 
+import cm.aptoide.skills.SkillsFragment
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
@@ -23,6 +24,7 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.restore.intro.RestoreWalletModule
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
+import com.asfoundation.wallet.skills.SkillsModule
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
@@ -79,6 +81,7 @@ import com.asfoundation.wallet.verification.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.error.VerificationErrorModule
 import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 import com.asfoundation.wallet.verification.intro.VerificationIntroModule
+import com.asfoundation.wallet.withdraw.ui.WithdrawFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -279,6 +282,15 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerificationErrorModule::class])
   abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [SkillsModule::class])
+  abstract fun bindSkillsFragment(): SkillsFragment
+
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindWithdrawFragment(): WithdrawFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [ChangeFiatCurrencyModule::class])

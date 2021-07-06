@@ -14,6 +14,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                        private val bdsApiSecondary: BdsApiSecondary) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
+    private const val ESKILLS = "ESKILLS"
   }
 
   internal fun isBillingSupported(packageName: String,
@@ -83,10 +84,12 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                  developerWallet: String, storeWallet: String,
                                  developerPayload: String?, callback: String?,
                                  orderReference: String?,
-                                 referrerUrl: String?): Single<Transaction> {
+                                 referrerUrl: String?,
+                                 productToken: String?): Single<Transaction> {
     return createTransaction(null, developerWallet, storeWallet, oemWallet, id, developerPayload,
-        callback, orderReference, referrerUrl, origin, type, gateway, walletAddress,
-        walletSignature, packageName, priceValue.toPlainString(), "APPC", productName)
+        callback, orderReference, referrerUrl, productToken, origin, type, gateway,
+        walletAddress, walletSignature, packageName, priceValue.toPlainString(), "APPC",
+        productName)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -117,8 +120,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   fun transferCredits(toWallet: String, origin: String, type: String, gateway: String,
                       walletAddress: String, signature: String, packageName: String,
                       amount: BigDecimal): Completable {
-    return createTransaction(toWallet, null, null, null, null, null, null, null, null, origin, type,
-        gateway, walletAddress, signature, packageName, amount.toPlainString(), "APPC",
+    return createTransaction(toWallet, null, null, null, null, null, null, null, null, null, origin,
+        type, gateway, walletAddress, signature, packageName, amount.toPlainString(),
+        "APPC",
         null).ignoreElement()
   }
 
@@ -138,13 +142,21 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
                                 oemWallet: String?, token: String?, developerPayload: String?,
                                 callback: String?, orderReference: String?, referrerUrl: String?,
-                                origin: String?, type: String, gateway: String,
-                                walletAddress: String, signature: String, packageName: String,
-                                amount: String?, currency: String,
+                                productToken: String?, origin: String?, type: String,
+                                gateway: String, walletAddress: String, signature: String,
+                                packageName: String, amount: String?,
+                                currency: String,
                                 productName: String?): Single<Transaction> {
-    return api.createTransaction(gateway, origin, packageName, amount, currency, productName,
-        type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
-        callback, orderReference, referrerUrl, walletAddress, signature)
+    if (type == ESKILLS) {
+      val creditsPurchaseBody =
+          CreditsPurchaseBody(callback, productToken)
+
+      return api.createTransaction(gateway, creditsPurchaseBody, walletAddress, signature)
+    } else {
+      return api.createTransaction(gateway, origin, packageName, amount, currency, productName,
+          type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
+          callback, orderReference, referrerUrl, walletAddress, signature)
+    }
   }
 
   interface BdsApi {
@@ -220,6 +232,19 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String, @Field("pay_key")
         paykey: String): Completable
+
+    /**
+     * @param gateway type of the transaction that is being created;
+     * @param creditsPurchaseBody CreditsPurchaseBody.
+     * @param walletAddress address of the user wallet
+     * @param walletSignature signature obtained after signing the wallet
+     */
+    @POST("broker/8.20200810/gateways/{gateway}/transactions")
+    @Headers("Content-Type: application/json; format=product_token")
+    fun createTransaction(@Path("gateway") gateway: String,
+                          @Body creditsPurchaseBody: CreditsPurchaseBody,
+                          @Query("wallet.address") walletAddress: String,
+                          @Query("wallet.signature") walletSignature: String): Single<Transaction>
 
     /**
      * All optional fields should be passed despite possible being null as these are

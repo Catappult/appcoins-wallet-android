@@ -49,6 +49,7 @@ import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -84,6 +85,7 @@ import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -614,7 +616,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideRoomCurrencyConversionRatesPersistence(
-      database: CurrencyConversionRatesDatabase): CurrencyConversionRatesPersistence {
+    database: CurrencyConversionRatesDatabase
+  ): CurrencyConversionRatesPersistence {
     return RoomCurrencyConversionRatesPersistence(database.currencyConversionRatesDao())
   }
 
@@ -622,5 +625,12 @@ internal class AppModule {
   @Provides
   fun provideTaskTimer(): TaskTimer {
     return TaskTimer()
+  }
+
+  @Provides
+  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
+    val headerJson = JsonObject()
+    headerJson.addProperty("typ", "EWT")
+    return EwtAuthenticatorService(walletService, headerJson.toString())
   }
 }

@@ -34,7 +34,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     return adyenApi.makePayment(walletAddress, walletSignature,
         Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
             billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku, reference,
-            transactionType, currency, value, developerWallet, storeWallet, oemWallet, userWallet, referrerUrl))
+            transactionType, currency, value, developerWallet, storeWallet, oemWallet, userWallet,
+            referrerUrl))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }

@@ -84,6 +84,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   lateinit var adyenPaymentInteractor: AdyenPaymentInteractor
 
   @Inject
+  lateinit var skillsPaymentInteractor: SkillsPaymentInteractor
+
+  @Inject
   lateinit var adyenEnvironment: Environment
 
   @Inject
@@ -121,11 +124,31 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
-        AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
-            Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
-            adyenPaymentInteractor, inAppPurchaseInteractor.parseTransaction(transactionData, true),
-            navigator, paymentType, transactionType, amount, currency, isPreSelected,
-            AdyenErrorCodeMapper(), servicesErrorMapper, gamificationLevel, formatter, logger)
+        AdyenPaymentPresenter(
+          this,
+          compositeDisposable,
+          AndroidSchedulers.mainThread(),
+          Schedulers.io(),
+          RedirectComponent.getReturnUrl(context!!),
+          analytics,
+          domain,
+          origin,
+          adyenPaymentInteractor,
+          skillsPaymentInteractor,
+          inAppPurchaseInteractor.parseTransaction(transactionData, true),
+          navigator,
+          paymentType,
+          transactionType,
+          amount,
+          currency,
+          skills,
+          isPreSelected,
+          AdyenErrorCodeMapper(),
+          servicesErrorMapper,
+          gamificationLevel,
+          formatter,
+          logger
+        )
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -616,13 +639,14 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val SAVE_DETAILS_KEY = "save_details"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
+    private const val PRODUCT_TOKEN = "product_token"
 
     @JvmStatic
     fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
                     origin: String?, transactionData: String?, appcAmount: BigDecimal,
                     amount: BigDecimal, currency: String?, bonus: String?,
                     isPreSelected: Boolean, gamificationLevel: Int,
-                    skuDescription: String): AdyenPaymentFragment {
+                    skuDescription: String, productToken: String?): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
@@ -637,6 +661,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
         putBoolean(PRE_SELECTED_KEY, isPreSelected)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
         putString(SKU_DESCRIPTION, skuDescription)
+        putString(PRODUCT_TOKEN, productToken)
       }
       return fragment
     }
@@ -736,5 +761,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     } else {
       throw IllegalArgumentException("sku description data not found")
     }
+  }
+
+  private val skills: Boolean by lazy {
+    transactionData.contains("&skills")
   }
 }
