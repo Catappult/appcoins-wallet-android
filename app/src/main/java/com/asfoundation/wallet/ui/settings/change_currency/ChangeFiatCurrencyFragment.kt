@@ -56,7 +56,7 @@ class ChangeFiatCurrencyFragment : DaggerFragment() {
         })
   }
 
-  fun showCurrencies(@NotNull currencyList: List<FiatCurrency>) {
+  fun showCurrencies(@NotNull currencyList: MutableList<FiatCurrency>) {
     currencyAdapter.setCurrencies(currencyList)
     fragment_change_fiat_currency_list.scheduleLayoutAnimation()
     fragment_change_fiat_currency_list.visibility = View.VISIBLE

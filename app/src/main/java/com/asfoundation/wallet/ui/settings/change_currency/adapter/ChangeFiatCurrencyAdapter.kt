@@ -39,12 +39,24 @@ class ChangeFiatCurrencyAdapter(private val fragmentManager: FragmentManager) :
     return currencyList.size
   }
 
-  fun setCurrencies(list: List<FiatCurrency>) {
+  fun setCurrencies(list: MutableList<FiatCurrency>) {
     if (list != currencyList) {
       currencyList.clear()
-      currencyList.addAll(list)
+      selectedCurrency?.let { currencyList.add(it) }
+      currencyList.addAll(removeSelectedFromList(list))
       notifyDataSetChanged()
     }
+  }
+
+  fun removeSelectedFromList(list: MutableList<FiatCurrency>): MutableList<FiatCurrency> {
+    val iterator = list.iterator()
+    while (iterator.hasNext()) {
+      if (iterator.next() == selectedCurrency) {
+        iterator.remove()
+        break
+      }
+    }
+    return list
   }
 
   fun handleClick(position: Int) {
