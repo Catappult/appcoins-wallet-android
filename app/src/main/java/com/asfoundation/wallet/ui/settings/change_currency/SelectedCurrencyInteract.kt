@@ -5,20 +5,43 @@ import android.util.Log
 import android.util.Pair
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.service.currencies.FiatCurrenciesService
-import com.asfoundation.wallet.ui.balance.BalanceInteractor
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.google.gson.Gson
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
+import io.reactivex.Single
 
+// Rename
 class SelectedCurrencyInteract(private val pref: SharedPreferences,
-                               private val balanceInteractor: BalanceInteractor,
-                               private val fiatCurrenciesService: FiatCurrenciesService) {
+                               private val fiatCurrenciesService: FiatCurrenciesService,
+                               private val conversionService: LocalCurrencyConversionService) {
 
   lateinit var fiatCurrency: FiatCurrency
 
   private companion object {
     private const val FIAT_CURRENCY = "fiat_currency"
+  }
+
+  fun getChangeFiatCurrencyModel(): Single<ChangeFiatCurrency> {
+    return Single.zip(fiatCurrenciesService.getApiToFiatCurrency(),
+        fiatCurrenciesService.getSelectedCurrency(),
+        { list, selectedCurrency -> ChangeFiatCurrency(list, selectedCurrency) })
+        .flatMap { changeFiatCurrencyModel ->
+          if (changeFiatCurrencyModel.selectedCurrency.isEmpty()) {
+            return@flatMap conversionService.localCurrency
+                .map { localCurrency ->
+                  changeFiatCurrencyModel.copy(selectedCurrency = localCurrency.currency)
+                }
+          }
+          return@flatMap Single.just(changeFiatCurrencyModel)
+        }
+  }
+
+  private fun mapToChangeFiatCurrencyModel(list: List<FiatCurrency>,
+                                           selectedCurrency: String): ChangeFiatCurrency {
+    if (selectedCurrency.isEmpty()) {
+      // Buscar getPair()
+    }
+    return ChangeFiatCurrency(list, selectedCurrency)
   }
 
   fun setSelectedCurrency(fiatCurrency: FiatCurrency) {
@@ -28,22 +51,9 @@ class SelectedCurrencyInteract(private val pref: SharedPreferences,
         .apply()
   }
 
-  fun getSelectedCurrency(): FiatCurrency {
-
-    return if (selectedCurrencyPrefExists()) {
-      Gson().fromJson(pref.getString(FIAT_CURRENCY, ""), FiatCurrency::class.java)
-    } else {
-      mapLocalCurrency()
-//      FiatCurrency("test", "test", "test", "test")
-    }
-  }
 
   private fun selectedCurrencyPrefExists(): Boolean {
     return pref.contains(FIAT_CURRENCY)
-  }
-
-  fun getApiToFiatCurrency(): Observable<MutableList<FiatCurrency>> {
-    return fiatCurrenciesService.getApiToFiatCurrency()
   }
 
   private fun getList(): MutableList<FiatCurrency> {
@@ -51,7 +61,8 @@ class SelectedCurrencyInteract(private val pref: SharedPreferences,
   }
 
   private fun getPair(): Pair<Balance, FiatValue> {
-    return balanceInteractor.getAppcBalance().blockingFirst()
+    return balanceInteractor.getAppcBalance()
+        .blockingFirst()
   }
 
   private fun mapLocalCurrency(): FiatCurrency {

@@ -1,16 +1,23 @@
 package com.asfoundation.wallet.service.currencies
 
+import android.content.SharedPreferences
 import android.util.Log
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrency
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
 
 class FiatCurrenciesService(
-    private val fiatCurrenciesApi: FiatCurrenciesApi) {
+    private val fiatCurrenciesApi: FiatCurrenciesApi,
+    private val pref: SharedPreferences) {
 
-  fun getApiToFiatCurrency(): Observable<MutableList<FiatCurrency>> {
+  companion object {
+    private const val FIAT_CURRENCY = "fiat_currency"
+    const val CONVERSION_HOST = BuildConfig.BASE_HOST
+  }
+
+  fun getApiToFiatCurrency(): Single<List<FiatCurrency>> {
     return fiatCurrenciesApi.getFiatCurrencies()
         .map { response: FiatCurrenciesResponse ->
           val currencyList: MutableList<FiatCurrency> = ArrayList()
@@ -19,7 +26,7 @@ class FiatCurrenciesService(
                 FiatCurrency(currencyItem.flag, currencyItem.currency, currencyItem.label,
                     currencyItem.sign))
           }
-          currencyList
+          currencyList.toList()
         }
         .subscribeOn(Schedulers.io())
         .doOnError {
@@ -28,12 +35,17 @@ class FiatCurrenciesService(
         }
   }
 
-  interface FiatCurrenciesApi {
-    @GET("broker/8.20210201/currencies?type=FIAT")
-    fun getFiatCurrencies(): Observable<FiatCurrenciesResponse>
+  fun getSelectedCurrency(): Single<String> {
+    return Single.just(pref.getString(FIAT_CURRENCY, ""))
   }
 
-  companion object {
-    const val CONVERSION_HOST = BuildConfig.BASE_HOST
+  fun setSelectedCurrency() {
+
   }
+
+  interface FiatCurrenciesApi {
+    @GET("broker/8.20210201/currencies?type=FIAT")
+    fun getFiatCurrencies(): Single<FiatCurrenciesResponse>
+  }
+
 }

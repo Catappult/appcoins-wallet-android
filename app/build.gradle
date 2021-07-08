@@ -246,6 +246,9 @@ dependencies {
   implementation "androidx.work:work-runtime-ktx:$project.work_version"
   implementation "androidx.work:work-rxjava2:$project.work_version"
 
+  implementation "com.airbnb.android:epoxy:$project.epoxy_version"
+  kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
+
   //Amplitude
   implementation "com.amplitude:android-sdk:$project.amplitude_version"
 

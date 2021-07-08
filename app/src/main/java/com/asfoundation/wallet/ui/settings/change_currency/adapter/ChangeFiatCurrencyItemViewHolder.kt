@@ -23,6 +23,7 @@ class ChangeFiatCurrencyItemViewHolder(itemView: View, val listener: FiatCurrenc
     itemView.setOnClickListener(this)
   }
 
+
   fun setCurrency(fiatCurrency: FiatCurrency, selected: Boolean) {
     Log.d("APPC-2472",
         "Holder -> currency ${fiatCurrency.currency}, currency ${fiatCurrency.label}, isSelected? $selected")

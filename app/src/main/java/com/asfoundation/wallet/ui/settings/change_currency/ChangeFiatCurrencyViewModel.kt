@@ -1,22 +1,20 @@
 package com.asfoundation.wallet.ui.settings.change_currency
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.asfoundation.wallet.service.currencies.FiatCurrenciesService
 import com.asfoundation.wallet.viewmodel.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
 
-class ChangeFiatCurrencyViewModel(private val fiatCurrenciesService: FiatCurrenciesService,
-                                  private val disposables: CompositeDisposable,
+class ChangeFiatCurrencyViewModel(private val disposables: CompositeDisposable,
                                   private val selectedCurrencyInteract: SelectedCurrencyInteract) :
     BaseViewModel() {
 
-  private val currencyList: MutableLiveData<MutableList<FiatCurrency>> = MutableLiveData()
-  private val selectedCurrency: MutableLiveData<FiatCurrency> = MutableLiveData()
+  private val _changeFiatCurrencyLiveData: MutableLiveData<ChangeFiatCurrency> = MutableLiveData()
+  val changeFiatCurrencyLiveData: LiveData<ChangeFiatCurrency> = _changeFiatCurrencyLiveData
 
   init {
     showCurrencyList()
-    showSelectedCurrency()
   }
 
   override fun onCleared() {
@@ -24,27 +22,13 @@ class ChangeFiatCurrencyViewModel(private val fiatCurrenciesService: FiatCurrenc
     super.onCleared()
   }
 
-  fun currencyList(): MutableLiveData<MutableList<FiatCurrency>> {
-    return currencyList
-  }
-
-  fun selectedCurrency(): MutableLiveData<FiatCurrency> {
-    Log.d("APPC-2472", "ChangeFiatCurrencyViewModel: selectedCurrency: $selectedCurrency")
-    return selectedCurrency
-  }
-
   fun showCurrencyList() {
-    disposables.add(fiatCurrenciesService.getApiToFiatCurrency()
-        .doOnNext() {
-          currencyList.postValue(it)
-        }
+    disposables.add(selectedCurrencyInteract.getChangeFiatCurrencyModel()
+        .doOnSuccess { _changeFiatCurrencyLiveData.postValue(it) }
         .doOnError {
           Log.d("APPC-2472", "showCurrencyList: error ${it.message}")
         }
         .subscribe())
   }
 
-  fun showSelectedCurrency() {
-    selectedCurrency.postValue(selectedCurrencyInteract.getSelectedCurrency())
-  }
 }

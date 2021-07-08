@@ -1,28 +1,26 @@
 package com.asfoundation.wallet.ui.settings.change_currency
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.settings.change_currency.adapter.ChangeFiatCurrencyAdapter
+import com.asfoundation.wallet.ui.settings.change_currency.list.ChangeFiatCurrencyController
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_change_fiat_currency.*
-import org.jetbrains.annotations.NotNull
 import javax.inject.Inject
 
 class ChangeFiatCurrencyFragment : DaggerFragment() {
 
-  lateinit var currencyAdapter: ChangeFiatCurrencyAdapter
 
   @Inject
   lateinit var changeFiatCurrencyViewModelFactory: ChangeFiatCurrencyViewModelFactory
 
   lateinit var viewModel: ChangeFiatCurrencyViewModel
+
+  private val changeFiatCurrencyController = ChangeFiatCurrencyController()
 
   companion object {
     fun newInstance() = ChangeFiatCurrencyFragment()
@@ -30,9 +28,11 @@ class ChangeFiatCurrencyFragment : DaggerFragment() {
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    currencyAdapter = ChangeFiatCurrencyAdapter(requireFragmentManager())
-    fragment_change_fiat_currency_list.layoutManager = LinearLayoutManager(context);
-    fragment_change_fiat_currency_list.adapter = currencyAdapter
+
+    changeFiatCurrencyController.clickListener = { fiatCurrency ->
+      navigator.showBottom()
+    }
+    fragment_change_fiat_currency_list.setController(changeFiatCurrencyController)
   }
 
   @Nullable
@@ -43,27 +43,17 @@ class ChangeFiatCurrencyFragment : DaggerFragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     viewModel =
         ViewModelProviders.of(this,
             changeFiatCurrencyViewModelFactory)[ChangeFiatCurrencyViewModel::class.java]
-    viewModel.currencyList()
+    viewModel.changeFiatCurrencyLiveData
         .observe(this, {
           this.showCurrencies(it)
         })
-    viewModel.selectedCurrency()
-        .observe(this, {
-          this.showSelectedCurrency(it)
-        })
   }
 
-  fun showCurrencies(@NotNull currencyList: MutableList<FiatCurrency>) {
-    currencyAdapter.setCurrencies(currencyList)
-    fragment_change_fiat_currency_list.scheduleLayoutAnimation()
-    fragment_change_fiat_currency_list.visibility = View.VISIBLE
-  }
-
-  fun showSelectedCurrency(selectedCurrency: FiatCurrency) {
-    Log.d("APPC-2472", "ChangeFiatCurrencyFragment: showSelectedCurrency -> $selectedCurrency")
-    currencyAdapter.setSelected(selectedCurrency)
+  fun showCurrencies(currency: ChangeFiatCurrency) {
+    changeFiatCurrencyController.setData(currency)
   }
 }
