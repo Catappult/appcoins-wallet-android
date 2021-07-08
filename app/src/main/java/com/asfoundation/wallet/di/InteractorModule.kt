@@ -57,7 +57,7 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.service.CampaignService
-import com.asfoundation.wallet.service.currencies.FiatCurrenciesService
+import com.asfoundation.wallet.service.currencies.FiatCurrenciesRepository
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.support.SupportRepository
@@ -604,10 +604,9 @@ class InteractorModule {
 
   @Singleton
   @Provides
-  fun providesSelectedCurrencyInteract(
-      preferences: SharedPreferences,
-      balanceInteractor: BalanceInteractor,
-      fiatCurrenciesService: FiatCurrenciesService): SelectedCurrencyInteract {
-    return SelectedCurrencyInteract(preferences, balanceInteractor, fiatCurrenciesService)
+  fun providesSelectedCurrencyInteract(fiatCurrenciesRepository: FiatCurrenciesRepository,
+                                       localCurrencyConversionService: LocalCurrencyConversionService
+  ): SelectedCurrencyInteract {
+    return SelectedCurrencyInteract(fiatCurrenciesRepository, localCurrencyConversionService)
   }
 }

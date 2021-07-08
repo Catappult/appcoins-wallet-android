@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.settings.change_currency.list.model
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +24,28 @@ abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCu
   var clickListener: ((FiatCurrency) -> Unit)? = null
 
   override fun bind(holder: FiatCurrencyHolder) {
-    // Bind
+//    GlideToVectorYou
+//        .init()
+//        .with(holder.itemView.context)
+//        .setPlaceHolder(R.drawable.ic_currency, R.drawable.ic_currency)
+//        .load(Uri.parse(fiatCurrency.flag), fiatFlag)
+    //TODO
+
+    holder.shortCurrency.text = fiatCurrency.currency
+    holder.longCurrency.text = fiatCurrency.label
+
+    if (!selected) {
+      holder.currencyItem.setBackgroundColor(holder.itemView.resources.getColor(R.color.white))
+      holder.shortCurrency.setTextColor(
+          holder.itemView.resources.getColor(R.color.black))
+      holder.fiatCheckmark.visibility = View.GONE
+    } else {
+      holder.currencyItem.setBackgroundColor(
+          holder.itemView.resources.getColor(R.color.change_fiat_selected_item))
+      holder.shortCurrency.setTextColor(
+          holder.itemView.resources.getColor(R.color.change_fiat_selected_item_short))
+      holder.fiatCheckmark.visibility = View.VISIBLE
+    }
 
     holder.itemView.setOnClickListener { clickListener?.invoke(fiatCurrency) }
   }

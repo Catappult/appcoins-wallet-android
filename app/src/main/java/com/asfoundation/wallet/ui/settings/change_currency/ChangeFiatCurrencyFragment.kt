@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.lifecycle.ViewModelProviders
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
 import com.asfoundation.wallet.ui.settings.change_currency.list.ChangeFiatCurrencyController
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_change_fiat_currency.*
@@ -30,7 +31,9 @@ class ChangeFiatCurrencyFragment : DaggerFragment() {
     super.onViewCreated(view, savedInstanceState)
 
     changeFiatCurrencyController.clickListener = { fiatCurrency ->
-      navigator.showBottom()
+      //TODO with the navigator.showBottom()
+      ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
+          .show(this.requireFragmentManager(), "ChooseCurrencyBottomSheet")
     }
     fragment_change_fiat_currency_list.setController(changeFiatCurrencyController)
   }
@@ -49,11 +52,11 @@ class ChangeFiatCurrencyFragment : DaggerFragment() {
             changeFiatCurrencyViewModelFactory)[ChangeFiatCurrencyViewModel::class.java]
     viewModel.changeFiatCurrencyLiveData
         .observe(this, {
-          this.showCurrencies(it)
+          this.showChangeFiatCurrency(it)
         })
   }
 
-  fun showCurrencies(currency: ChangeFiatCurrency) {
+  fun showChangeFiatCurrency(currency: ChangeFiatCurrency) {
     changeFiatCurrencyController.setData(currency)
   }
 }

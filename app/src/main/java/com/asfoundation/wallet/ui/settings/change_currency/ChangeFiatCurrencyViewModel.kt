@@ -14,7 +14,7 @@ class ChangeFiatCurrencyViewModel(private val disposables: CompositeDisposable,
   val changeFiatCurrencyLiveData: LiveData<ChangeFiatCurrency> = _changeFiatCurrencyLiveData
 
   init {
-    showCurrencyList()
+    showChangeFiatCurrency()
   }
 
   override fun onCleared() {
@@ -22,7 +22,7 @@ class ChangeFiatCurrencyViewModel(private val disposables: CompositeDisposable,
     super.onCleared()
   }
 
-  fun showCurrencyList() {
+  fun showChangeFiatCurrency() {
     disposables.add(selectedCurrencyInteract.getChangeFiatCurrencyModel()
         .doOnSuccess { _changeFiatCurrencyLiveData.postValue(it) }
         .doOnError {
@@ -30,5 +30,4 @@ class ChangeFiatCurrencyViewModel(private val disposables: CompositeDisposable,
         }
         .subscribe())
   }
-
 }

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.settings.change_currency
 //import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -30,11 +31,14 @@ class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
   }
 
   fun setCurrency(selectedCurrency: FiatCurrency) {
+    Log.d("APPC-2472", "SettingsCurrencyPreference: setCurrency: $selectedCurrency")
     this.selectedCurrency = selectedCurrency
   }
 
   private fun setCurrencyTextView() {
     currency?.text = selectedCurrency?.currency
+    Log.d("APPC-2472",
+        "SettingsCurrencyPreference: setCurrencyTextView: ${selectedCurrency?.currency}")
   }
 
   private fun setFlagImageView() {

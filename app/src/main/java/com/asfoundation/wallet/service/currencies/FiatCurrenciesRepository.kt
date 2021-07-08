@@ -8,7 +8,7 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
 
-class FiatCurrenciesService(
+class FiatCurrenciesRepository(
     private val fiatCurrenciesApi: FiatCurrenciesApi,
     private val pref: SharedPreferences) {
 
@@ -39,8 +39,11 @@ class FiatCurrenciesService(
     return Single.just(pref.getString(FIAT_CURRENCY, ""))
   }
 
-  fun setSelectedCurrency() {
-
+  fun setSelectedCurrency(currency: String) {
+    Log.d("APPC-2472", "SelectedCurrencyInteract: setSelectedCurrency: $currency")
+    pref.edit()
+        .putString(FIAT_CURRENCY, currency)
+        .apply()
   }
 
   interface FiatCurrenciesApi {

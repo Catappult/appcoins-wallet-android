@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.settings.entry
 import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
+import android.util.Log
 import com.asfoundation.wallet.ui.settings.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
@@ -45,8 +46,8 @@ class SettingsPresenter(private val view: SettingsView,
     view.setCreditsPreference()
     view.setVersionPreference()
     view.setRestorePreference()
-    view.setCurrencyPreference(selectedCurrencyInteract.getSelectedCurrency())
     view.setBackupPreference()
+    setCurrencyPreference()
   }
 
   fun setFingerPrintPreference() {
@@ -156,6 +157,23 @@ class SettingsPresenter(private val view: SettingsView,
 
   fun onWithdrawClicked() {
     navigator.navigateToWithdrawScreen()
+  }
+
+  fun setCurrencyPreference() {
+    disposables.add(selectedCurrencyInteract.getChangeFiatCurrencyModel()
+        .doOnSuccess {
+          for (fiatCurrency in it.list) {
+            Log.d("APPC-2472",
+                "SettingsPresenter: setCurrencyPreference: check if -> ${fiatCurrency.currency} , ${it.selectedCurrency}")
+            if (fiatCurrency.currency == it.selectedCurrency) {
+              Log.d("APPC-2472",
+                  "SettingsPresenter: setCurrencyPreference: fiatCurrency $fiatCurrency")
+              view.setCurrencyPreference(fiatCurrency)
+              break
+            }
+          }
+        }
+        .subscribe())
   }
 }
 

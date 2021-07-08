@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.settings.change_currency
 
-import com.asfoundation.wallet.service.currencies.FiatCurrenciesService
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -10,9 +9,8 @@ class ChangeFiatCurrencyModule {
 
   @Provides
   fun providesChangeFiatCurrencyViewModelFactory(
-      fiatCurrenciesService: FiatCurrenciesService,
       selectedCurrencyInteract: SelectedCurrencyInteract): ChangeFiatCurrencyViewModelFactory {
-    return ChangeFiatCurrencyViewModelFactory(fiatCurrenciesService, CompositeDisposable(),
+    return ChangeFiatCurrencyViewModelFactory(CompositeDisposable(),
         selectedCurrencyInteract)
   }
 }
