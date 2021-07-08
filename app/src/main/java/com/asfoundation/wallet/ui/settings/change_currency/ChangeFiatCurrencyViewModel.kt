@@ -29,6 +29,7 @@ class ChangeFiatCurrencyViewModel(private val fiatCurrenciesService: FiatCurrenc
   }
 
   fun selectedCurrency(): MutableLiveData<FiatCurrency> {
+    Log.d("APPC-2472", "ChangeFiatCurrencyViewModel: selectedCurrency: $selectedCurrency")
     return selectedCurrency
   }
 

@@ -57,6 +57,7 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.service.CampaignService
+import com.asfoundation.wallet.service.currencies.FiatCurrenciesService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.support.SupportRepository
@@ -258,39 +259,39 @@ class InteractorModule {
                                     billingAddressRepository: BillingAddressRepository
   ): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(
-      adyenPaymentRepository,
-      inAppPurchaseInteractor,
-      inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-      walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
-      billingAddressRepository
+        adyenPaymentRepository,
+        inAppPurchaseInteractor,
+        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
+        walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
+        billingAddressRepository
     )
   }
 
   @Provides
   fun provideSkillsPaymentInteractor(
-    skillsPaymentRepository: SkillsPaymentRepository,
-    partnerAddressService: AddressService,
-    walletService: WalletService
+      skillsPaymentRepository: SkillsPaymentRepository,
+      partnerAddressService: AddressService,
+      walletService: WalletService
   ): SkillsPaymentInteractor {
     return SkillsPaymentInteractor(
-      skillsPaymentRepository,
-      partnerAddressService,
-      walletService
+        skillsPaymentRepository,
+        partnerAddressService,
+        walletService
     )
   }
 
   @Provides
   fun provideWalletCreatorInteract(
-    accountRepository: WalletRepositoryType,
-    passwordStore: PasswordStore, syncScheduler: ExecutorScheduler
+      accountRepository: WalletRepositoryType,
+      passwordStore: PasswordStore, syncScheduler: ExecutorScheduler
   ) =
-    WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+      WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
 
   @Provides
   fun provideGamificationInteractor(
-    gamification: Gamification,
-    defaultWallet: FindDefaultWalletInteract,
-    conversionService: LocalCurrencyConversionService
+      gamification: Gamification,
+      defaultWallet: FindDefaultWalletInteract,
+      conversionService: LocalCurrencyConversionService
   ) =
       GamificationInteractor(gamification, defaultWallet, conversionService)
 
@@ -604,7 +605,9 @@ class InteractorModule {
   @Singleton
   @Provides
   fun providesSelectedCurrencyInteract(
-      preferences: SharedPreferences): SelectedCurrencyInteract {
-    return SelectedCurrencyInteract(preferences)
+      preferences: SharedPreferences,
+      balanceInteractor: BalanceInteractor,
+      fiatCurrenciesService: FiatCurrenciesService): SelectedCurrencyInteract {
+    return SelectedCurrencyInteract(preferences, balanceInteractor, fiatCurrenciesService)
   }
 }
