@@ -58,6 +58,8 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPreferencesRepository
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
+import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrenciesMapper
+import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
@@ -339,6 +341,7 @@ class RepositoryModule {
                                logger: Logger): RatingRepository {
     return RatingRepository(sharedPreferences, walletFeedbackApi, logger)
   }
+
   @Singleton
   @Provides
   fun providesCarrierBillingPreferencesRepository(
@@ -364,10 +367,26 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesWithdrawUseCase(
-    ewt: EwtAuthenticatorService,
-    withdrawRepository: WithdrawRepository
+      ewt: EwtAuthenticatorService,
+      withdrawRepository: WithdrawRepository
   ): WithdrawFiatUseCase {
     return WithdrawFiatUseCase(ewt, withdrawRepository)
   }
 
+  @Singleton
+  @Provides
+  fun providesFiatCurrenciesRepository(@Named("default") client: OkHttpClient,
+                                       objectMapper: ObjectMapper,
+                                       sharedPreferences: SharedPreferences): FiatCurrenciesRepository {
+    val baseUrl = FiatCurrenciesRepository.CONVERSION_HOST
+    val api = Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
+    return FiatCurrenciesRepository(api, sharedPreferences, FiatCurrenciesMapper())
+
+  }
 }

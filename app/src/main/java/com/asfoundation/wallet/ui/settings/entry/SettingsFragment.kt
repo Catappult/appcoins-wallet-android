@@ -85,12 +85,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     presenter.onResume()
   }
 
-  override fun onDestroyView() {
-    presenter.stop()
-    super.onDestroyView()
-  }
-
   override fun onDestroy() {
+    presenter.stop()
     switchSubject = null
     super.onDestroy()
   }

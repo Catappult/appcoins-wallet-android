@@ -1,16 +1,16 @@
-package com.asfoundation.wallet.service.currencies
+package com.asfoundation.wallet.ui.settings.change_currency
 
 import android.content.SharedPreferences
 import android.util.Log
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrency
+import com.asfoundation.wallet.service.currencies.FiatCurrenciesResponse
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
 
-class FiatCurrenciesRepository(
-    private val fiatCurrenciesApi: FiatCurrenciesApi,
-    private val pref: SharedPreferences) {
+class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
+                               private val pref: SharedPreferences,
+                               private val fiatCurrenciesMapper: FiatCurrenciesMapper) {
 
   companion object {
     private const val FIAT_CURRENCY = "fiat_currency"
@@ -18,15 +18,16 @@ class FiatCurrenciesRepository(
   }
 
   fun getApiToFiatCurrency(): Single<List<FiatCurrency>> {
+    Log.d("APPC-2472", "FiatCurrenciesRepository: getApiToFiatCurrency: begin")
     return fiatCurrenciesApi.getFiatCurrencies()
+        .doOnSuccess {
+          Log.d("APPC-2472", "FiatCurrenciesRepository: getApiToFiatCurrency: api request success")
+        }
         .map { response: FiatCurrenciesResponse ->
-          val currencyList: MutableList<FiatCurrency> = ArrayList()
-          for (currencyItem in response.items) {
-            currencyList.add(
-                FiatCurrency(currencyItem.flag, currencyItem.currency, currencyItem.label,
-                    currencyItem.sign))
-          }
-          currencyList.toList()
+          fiatCurrenciesMapper.mapResponseToCurrencyList(response)
+        }
+        .doOnSuccess {
+          Log.d("APPC-2472", "FiatCurrenciesRepository: getApiToFiatCurrency: onSuccess")
         }
         .subscribeOn(Schedulers.io())
         .doOnError {
@@ -36,11 +37,15 @@ class FiatCurrenciesRepository(
   }
 
   fun getSelectedCurrency(): Single<String> {
+    Log.d("APPC-2472", "FiatCurrenciesRepository: getSelectedCurrency: ${
+      pref.getString(
+          FIAT_CURRENCY, "")
+    }")
     return Single.just(pref.getString(FIAT_CURRENCY, ""))
   }
 
   fun setSelectedCurrency(currency: String) {
-    Log.d("APPC-2472", "SelectedCurrencyInteract: setSelectedCurrency: $currency")
+    Log.d("APPC-2472", "FiatCurrenciesRepository: setSelectedCurrency: $currency")
     pref.edit()
         .putString(FIAT_CURRENCY, currency)
         .apply()

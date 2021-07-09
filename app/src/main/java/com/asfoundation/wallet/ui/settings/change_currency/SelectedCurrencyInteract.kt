@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.ui.settings.change_currency
 
-import com.asfoundation.wallet.service.currencies.FiatCurrenciesRepository
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import io.reactivex.Single
 
-// Rename
 class SelectedCurrencyInteract(private val fiatCurrenciesRepository: FiatCurrenciesRepository,
                                private val conversionService: LocalCurrencyConversionService) {
 

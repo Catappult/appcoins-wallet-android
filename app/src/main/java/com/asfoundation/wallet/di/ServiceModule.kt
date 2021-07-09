@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.Billing
@@ -38,7 +37,6 @@ import com.asfoundation.wallet.service.AutoUpdateService.AutoUpdateApi
 import com.asfoundation.wallet.service.CampaignService.CampaignApi
 import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi
 import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
-import com.asfoundation.wallet.service.currencies.FiatCurrenciesRepository
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService.TokenToLocalFiatApi
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
@@ -215,22 +213,6 @@ class ServiceModule {
   fun provideCurrencyConversionService(tokenRateService: TokenRateService,
                                        localCurrencyConversionService: LocalCurrencyConversionService): CurrencyConversionService {
     return CurrencyConversionService(tokenRateService, localCurrencyConversionService)
-  }
-
-  @Singleton
-  @Provides
-  fun providesFiatCurrenciesService(@Named("default") client: OkHttpClient,
-                                    objectMapper: ObjectMapper,
-                                    sharedPreferences: SharedPreferences): FiatCurrenciesRepository {
-    val baseUrl = FiatCurrenciesRepository.CONVERSION_HOST
-    val api = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
-    return FiatCurrenciesRepository(api, sharedPreferences)
   }
 
   @Singleton

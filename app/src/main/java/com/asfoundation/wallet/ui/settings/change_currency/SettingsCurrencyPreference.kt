@@ -33,12 +33,12 @@ class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
   fun setCurrency(selectedCurrency: FiatCurrency) {
     Log.d("APPC-2472", "SettingsCurrencyPreference: setCurrency: $selectedCurrency")
     this.selectedCurrency = selectedCurrency
+    setCurrencyTextView()
+    setFlagImageView()
   }
 
   private fun setCurrencyTextView() {
     currency?.text = selectedCurrency?.currency
-    Log.d("APPC-2472",
-        "SettingsCurrencyPreference: setCurrencyTextView: ${selectedCurrency?.currency}")
   }
 
   private fun setFlagImageView() {
