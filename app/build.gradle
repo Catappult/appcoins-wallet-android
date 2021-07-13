@@ -262,12 +262,14 @@ dependencies {
 def renameArtifact(defaultConfig) {
   android.applicationVariants.all { variant ->
     variant.outputs.all {
-      def SEP = "_"
       def buildType = variant.buildType.name
       def versionName = variant.versionName
       def versionCode = defaultConfig.versionCode
-      def fileName =
-          "AppCoins_Wallet_v" + versionName + SEP + versionCode + SEP + buildType + ".apk"
+      def formattedDate = ""
+      if (buildType == "debug") {
+        formattedDate = "_" + new Date().format('yyMMdd-HHmm')
+      }
+      def fileName = "AppCoins_Wallet_v${versionName}_${versionCode}_${buildType}${formattedDate}.apk"
       outputFileName = new File("${fileName}")
     }
   }
