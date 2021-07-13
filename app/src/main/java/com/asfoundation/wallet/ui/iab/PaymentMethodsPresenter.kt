@@ -17,7 +17,9 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.Single.zip
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import retrofit2.HttpException
 import java.math.BigDecimal
@@ -93,17 +95,19 @@ class PaymentMethodsPresenter(
 
   private fun handleBuyClick() {
     disposables.add(view.getBuyClick()
-        .map { view.getSelectedPaymentMethod(interactor.hasPreSelectedPaymentMethod()) }
-        .observeOn(viewScheduler)
-        .doOnNext { handleBuyAnalytics(it) }
-        .doOnNext { selectedPaymentMethod ->
-          when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-            SelectedPaymentMethod.APPC_CREDITS -> {
-              view.showProgressBarLoading()
-              handleWalletBlockStatus(selectedPaymentMethod)
-            }
-            SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(cachedGamificationLevel,
-                cachedFiatValue!!)
+      .map { view.getSelectedPaymentMethod(interactor.hasPreSelectedPaymentMethod()) }
+      .observeOn(viewScheduler)
+      .doOnNext { handleBuyAnalytics(it) }
+      .doOnNext { selectedPaymentMethod ->
+        when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
+          SelectedPaymentMethod.APPC_CREDITS -> {
+            view.showProgressBarLoading()
+            handleWalletBlockStatus(selectedPaymentMethod)
+          }
+          SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(
+            cachedGamificationLevel,
+            cachedFiatValue!!
+          )
 
           else -> {
             if (interactor.hasAuthenticationPermission()) {
@@ -818,22 +822,14 @@ class PaymentMethodsPresenter(
           price.currencySymbol
         )
       }.onErrorResumeNext(
-        if (getOriginalCurrency() == "APPC") {
-          interactor.convertAppcToLocalFiat(getOriginalValue().toDouble())
-        } else {
+        zip(
           interactor.convertCurrencyToLocalFiat(
             getOriginalValue().toDouble(),
             getOriginalCurrency()
-          ).map { fiatValue ->
-            if (transaction.amount().compareTo(BigDecimal.ZERO) == 0) {
-              interactor.convertCurrencyToAppc(getOriginalValue().toDouble(), getOriginalCurrency())
-                .map { appcValue ->
-                  transaction.amount(appcValue.amount)
-                }
-            }
-            return@map fiatValue
-          }
-        })
+          ),
+          setTransactionAppcValue(transaction),
+          { fiatValue, _ -> fiatValue }
+        ))
   }
 
   private fun getOriginalValue(): BigDecimal {
@@ -849,6 +845,18 @@ class PaymentMethodsPresenter(
       "APPC"
     } else {
       transaction.originalOneStepCurrency
+    }
+  }
+
+  private fun setTransactionAppcValue(transaction: TransactionBuilder): Single<FiatValue> {
+    return if (transaction.amount().compareTo(BigDecimal.ZERO) == 0) {
+      interactor.convertCurrencyToAppc(getOriginalValue().toDouble(), getOriginalCurrency())
+        .map { appcValue ->
+          transaction.amount(appcValue.amount)
+          appcValue
+        }
+    } else {
+      Single.just(FiatValue(transaction.amount(), "APPC"))
     }
   }
 }

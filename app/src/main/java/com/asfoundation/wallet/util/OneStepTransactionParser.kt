@@ -149,28 +149,6 @@ class OneStepTransactionParser(
     }
   }
 
-  private fun getSkuDetails(uri: OneStepUri): Single<SkuDetailsResponse> {
-    val domain = getDomain(uri)
-    val skuId = getSkuId(uri)
-    return if (domain != null && skuId != null) {
-      billing.getProducts(domain, listOf(skuId))
-        .map { products -> SkuDetailsResponse(products[0]) }
-        .onErrorReturn { SkuDetailsResponse(null) }
-    } else Single.just(SkuDetailsResponse(null))
-  }
-
-  private fun getTransactionValue(uri: OneStepUri): Single<BigDecimal> {
-    return if (getCurrency(uri) == null || getCurrency(uri).equals("APPC", true)) {
-      Single.just(BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18))
-    } else {
-      conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase())
-        .map {
-          BigDecimal(uri.parameters[Parameters.VALUE])
-            .divide(it.amount, 18, RoundingMode.UP)
-        }
-    }
-  }
-
   private fun getCallback(uri: OneStepUri): String? {
     return uri.parameters[Parameters.CALLBACK_URL]
   }
