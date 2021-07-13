@@ -5,9 +5,6 @@ import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Single
 
-/**
- * Created by franciscocalado on 24/07/2018.
- */
 class CurrencyConversionService(private val tokenRateService: TokenRateService,
                                 private val localCurrencyConversionService: LocalCurrencyConversionService) {
 
@@ -18,5 +15,15 @@ class CurrencyConversionService(private val tokenRateService: TokenRateService,
   fun getLocalFiatAmount(appcValue: String): Single<FiatValue> {
     return localCurrencyConversionService.getAppcToLocalFiat(appcValue, 18)
         .firstOrError()
+  }
+
+  fun getLocalFiatAmount(value: String, currency: String): Single<FiatValue> {
+    return localCurrencyConversionService.getFiatToLocalFiat(value, currency, 2)
+      .firstOrError()
+  }
+
+  fun getFiatToAppcAmount(value: String, currency: String): Single<FiatValue> {
+    return localCurrencyConversionService.getFiatToAppc(value, currency, 18)
+      .firstOrError()
   }
 }
