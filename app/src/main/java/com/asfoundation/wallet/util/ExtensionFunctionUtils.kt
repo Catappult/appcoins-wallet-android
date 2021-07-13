@@ -153,5 +153,5 @@ fun String.convertToBase64(): String {
 
 fun String?.isEmailValid(): Boolean {
   return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
-      .matches()
+    .matches()
 }

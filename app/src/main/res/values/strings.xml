@@ -1008,8 +1008,8 @@
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
   <string name="voucher_empty_more_title">Vouchers for Games</string>
   <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
-  
- <!--Change Currency-->
+
+  <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
 

@@ -33,16 +33,18 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesSkillsViewModel(walletObtainer: WalletAddressObtainer,
-                              createTicketUseCase: CreateTicketUseCase,
-                              payTicketUseCase: SkillsNavigator,
-                              getTicketUseCase: GetTicketUseCase,
-                              loginUseCase: LoginUseCase,
-                              cancelUseCase: CancelTicketUseCase): SkillsViewModel {
+  fun providesSkillsViewModel(
+    walletObtainer: WalletAddressObtainer,
+    createTicketUseCase: CreateTicketUseCase,
+    payTicketUseCase: SkillsNavigator,
+    getTicketUseCase: GetTicketUseCase,
+    loginUseCase: LoginUseCase,
+    cancelUseCase: CancelTicketUseCase
+  ): SkillsViewModel {
     return SkillsViewModel(
-        walletObtainer, createTicketUseCase, payTicketUseCase, getTicketUseCase,
-        GET_ROOM_RETRY_MILLIS,
-        loginUseCase, cancelUseCase
+      walletObtainer, createTicketUseCase, payTicketUseCase, getTicketUseCase,
+      GET_ROOM_RETRY_MILLIS,
+      loginUseCase, cancelUseCase
     )
   }
 
@@ -120,9 +122,9 @@ class SkillsModule {
 
   @Provides
   fun providesCancelTicketUseCase(
-      walletAddressObtainer: WalletAddressObtainer,
-      ewtObtainer: EwtObtainer,
-      ticketRepository: TicketRepository
+    walletAddressObtainer: WalletAddressObtainer,
+    ewtObtainer: EwtObtainer,
+    ticketRepository: TicketRepository
   ): CancelTicketUseCase {
     return CancelTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
   }

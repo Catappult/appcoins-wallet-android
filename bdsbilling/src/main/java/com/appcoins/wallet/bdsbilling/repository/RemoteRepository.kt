@@ -149,13 +149,15 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 productName: String?): Single<Transaction> {
     if (type == ESKILLS) {
       val creditsPurchaseBody =
-          CreditsPurchaseBody(callback, productToken)
+        CreditsPurchaseBody(callback, productToken)
 
       return api.createTransaction(gateway, creditsPurchaseBody, walletAddress, signature)
     } else {
-      return api.createTransaction(gateway, origin, packageName, amount, currency, productName,
-          type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
-          callback, orderReference, referrerUrl, walletAddress, signature)
+      return api.createTransaction(
+        gateway, origin, packageName, amount, currency, productName,
+        type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
+        callback, orderReference, referrerUrl, walletAddress, signature
+      )
     }
   }
 

@@ -9,18 +9,20 @@ import io.reactivex.Single
 
 class TicketRepository(private val ticketApi: TicketApi) {
 
-  fun createTicket(eskillsPaymentData: EskillsPaymentData, ewt: String,
-                   walletAddress: String): Single<TicketResponse> {
+  fun createTicket(
+    eskillsPaymentData: EskillsPaymentData, ewt: String,
+    walletAddress: String
+  ): Single<TicketResponse> {
     return ticketApi.postTicket(ewt, buildTicketRequest(eskillsPaymentData, walletAddress))
   }
 
   private fun buildTicketRequest(eskillsPaymentData: EskillsPaymentData, walletAddress: String) =
-      TicketRequest(
-          eskillsPaymentData.packageName, eskillsPaymentData.userId, eskillsPaymentData.userName,
-          walletAddress, eskillsPaymentData.metadata, eskillsPaymentData.environment,
-          eskillsPaymentData.numberOfUsers, eskillsPaymentData.price, eskillsPaymentData.currency,
-          eskillsPaymentData.product
-      )
+    TicketRequest(
+      eskillsPaymentData.packageName, eskillsPaymentData.userId, eskillsPaymentData.userName,
+      walletAddress, eskillsPaymentData.metadata, eskillsPaymentData.environment,
+      eskillsPaymentData.numberOfUsers, eskillsPaymentData.price, eskillsPaymentData.currency,
+      eskillsPaymentData.product, eskillsPaymentData.timeout
+    )
 
   fun getTicket(ewt: String, ticketId: String): Single<TicketResponse> {
     return ticketApi.getTicket(ewt, ticketId)

@@ -516,8 +516,8 @@ class ServiceModule {
     val baseUrl = BuildConfig.BASE_HOST
 
     return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
+      .baseUrl(baseUrl)
+      .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
@@ -581,29 +581,32 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideWalletValidationApi(@Named("default") client: OkHttpClient,
-                                 gson: Gson): VerificationStateApi {
+                                 gson: Gson
+  ): VerificationStateApi {
     val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/"
     return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(VerificationStateApi::class.java)
+      .baseUrl(baseUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(VerificationStateApi::class.java)
   }
 
   @Singleton
   @Provides
-  fun provideWithdrawApi(@Named("default") client: OkHttpClient,
-                         gson: Gson): WithdrawApi {
+  fun provideWithdrawApi(
+    @Named("default") client: OkHttpClient,
+    gson: Gson
+  ): WithdrawApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(WithdrawApi::class.java)
+      .baseUrl(baseUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(WithdrawApi::class.java)
   }
 
 }

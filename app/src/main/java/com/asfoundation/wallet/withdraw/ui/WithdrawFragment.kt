@@ -38,15 +38,15 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = WithdrawPresenter(
-        this, withdrawUseCase, CompositeDisposable(), Schedulers.io(),
-        AndroidSchedulers.mainThread()
+      this, withdrawUseCase, CompositeDisposable(), Schedulers.io(),
+      AndroidSchedulers.mainThread()
     )
   }
 
   override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View? {
     return inflater.inflate(R.layout.fragment_withdraw, container, false)
   }
@@ -72,22 +72,22 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   override fun showError(error: Throwable) {
     val builder = AlertDialog.Builder(context)
     builder.setMessage(R.string.unknown_error)
-        .setPositiveButton(
-            R.string.ok
-        ) { dialog, _ -> dialog.dismiss() }
-        .show()
+      .setPositiveButton(
+        R.string.ok
+      ) { dialog, _ -> dialog.dismiss() }
+      .show()
   }
 
   override fun showWithdrawSuccessMessage() {
     val builder = AlertDialog.Builder(context)
     builder.setMessage(R.string.transaction_status_success)
-        .setPositiveButton(
-            R.string.ok
-        ) { dialog, _ ->
-          dialog.dismiss()
-          activity?.onBackPressed()
-        }
-        .show()
+      .setPositiveButton(
+        R.string.ok
+      ) { dialog, _ ->
+        dialog.dismiss()
+        activity?.onBackPressed()
+      }
+      .show()
   }
 
   override fun showNotEnoughBalanceError() {
@@ -112,20 +112,20 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   override fun showNoNetworkError() {
     val builder = AlertDialog.Builder(context)
     builder.setMessage(R.string.activity_iab_no_network_message)
-        .setPositiveButton(
-            R.string.ok
-        ) { dialog, _ -> dialog.dismiss() }
-        .show()
+      .setPositiveButton(
+        R.string.ok
+      ) { dialog, _ -> dialog.dismiss() }
+      .show()
   }
 
   override fun getWithdrawClicks(): Observable<Pair<String, BigDecimal>> {
     return RxView.clicks(withdrawButton)
-        .map {
-          Pair(
-              emailEditText.text.toString(),
-              BigDecimal(amountEditText.text.toString())
-          )
-        }
+      .map {
+        Pair(
+          emailEditText.text.toString(),
+          BigDecimal(amountEditText.text.toString())
+        )
+      }
   }
 
 }

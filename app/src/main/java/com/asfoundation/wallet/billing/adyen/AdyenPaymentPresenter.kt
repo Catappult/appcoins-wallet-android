@@ -57,7 +57,8 @@ class AdyenPaymentPresenter(
   private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
   private val gamificationLevel: Int,
   private val formatter: CurrencyFormatUtils,
-  private val logger: Logger) {
+  private val logger: Logger
+) {
 
   private var waitingResult = false
   private var cachedUid = ""

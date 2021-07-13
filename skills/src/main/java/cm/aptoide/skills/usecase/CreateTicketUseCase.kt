@@ -15,13 +15,13 @@ class CreateTicketUseCase(private val walletAddressObtainer: WalletAddressObtain
 
   fun createTicket(eskillsPaymentData: EskillsPaymentData): Single<TicketResponse> {
     return walletAddressObtainer.getWalletAddress()
-        .subscribeOn(networkScheduler)
-        .flatMap { walletAddress ->
-          ewtObtainer.getEWT()
-              .flatMap { ewt ->
-                ticketRepository.createTicket(eskillsPaymentData, ewt, walletAddress)
-              }
-        }
+      .subscribeOn(networkScheduler)
+      .flatMap { walletAddress ->
+        ewtObtainer.getEWT()
+          .flatMap { ewt ->
+            ticketRepository.createTicket(eskillsPaymentData, ewt, walletAddress)
+          }
+      }
   }
 }
 

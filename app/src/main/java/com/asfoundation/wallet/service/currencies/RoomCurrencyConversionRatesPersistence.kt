@@ -82,9 +82,11 @@ class RoomCurrencyConversionRatesPersistence(
     val fromValueDecimal = BigDecimal(fromValue)
     val toValueDecimal = BigDecimal(toValue)
     if (fromValueDecimal.compareTo(BigDecimal.ZERO) == 0 || toValueDecimal.compareTo(
-            BigDecimal.ZERO) == 0) return ZERO_RATE
+        BigDecimal.ZERO
+      ) == 0
+    ) return ZERO_RATE
     return toValueDecimal.divide(fromValueDecimal, RATE_SCALE, RATE_ROUNDING)
-        .toString()
+      .toString()
   }
 
   private fun applyRate(rate: String, value: String, scale: Int): BigDecimal {

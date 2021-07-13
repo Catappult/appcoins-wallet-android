@@ -348,9 +348,10 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideWalletVerificationRepository(verificationApi: VerificationApi,
-                                          verificationStateApi: VerificationStateApi,
-                                          sharedPreferences: SharedPreferences
+  fun provideWalletVerificationRepository(
+    verificationApi: VerificationApi,
+    verificationStateApi: VerificationStateApi,
+    sharedPreferences: SharedPreferences
   ): VerificationRepository {
     return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
   }
