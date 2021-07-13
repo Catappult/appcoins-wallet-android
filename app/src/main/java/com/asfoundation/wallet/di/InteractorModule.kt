@@ -38,6 +38,7 @@ import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.SkillsPaymentInteractor
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
@@ -89,7 +90,6 @@ import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Named
 import javax.inject.Singleton
@@ -245,33 +245,53 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideAdyenPaymentInteractor(context: Context,
-                                    adyenPaymentRepository: AdyenPaymentRepository,
-                                    skillsPaymentRepository: SkillsPaymentRepository,
-                                    inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                    partnerAddressService: AddressService, billing: Billing,
-                                    walletService: WalletService,
-                                    supportInteractor: SupportInteractor,
-                                    walletBlockedInteract: WalletBlockedInteract,
-                                    walletVerificationInteractor: WalletVerificationInteractor,
-                                    billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
-    return AdyenPaymentInteractor(adyenPaymentRepository, skillsPaymentRepository,
-        inAppPurchaseInteractor,
-        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
-        billingAddressRepository)
+  fun provideAdyenPaymentInteractor(
+    context: Context,
+    adyenPaymentRepository: AdyenPaymentRepository,
+    inAppPurchaseInteractor: InAppPurchaseInteractor,
+    partnerAddressService: AddressService, billing: Billing,
+    walletService: WalletService,
+    supportInteractor: SupportInteractor,
+    walletBlockedInteract: WalletBlockedInteract,
+    walletVerificationInteractor: WalletVerificationInteractor,
+    billingAddressRepository: BillingAddressRepository
+  ): AdyenPaymentInteractor {
+    return AdyenPaymentInteractor(
+      adyenPaymentRepository,
+      inAppPurchaseInteractor,
+      inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
+      walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
+      billingAddressRepository
+    )
   }
 
   @Provides
-  fun provideWalletCreatorInteract(accountRepository: WalletRepositoryType,
-                                   passwordStore: PasswordStore, syncScheduler: ExecutorScheduler) =
-      WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+  fun provideSkillsPaymentInteractor(
+    skillsPaymentRepository: SkillsPaymentRepository,
+    partnerAddressService: AddressService,
+    walletService: WalletService
+  ): SkillsPaymentInteractor {
+    return SkillsPaymentInteractor(
+      skillsPaymentRepository,
+      partnerAddressService,
+      walletService
+    )
+  }
 
   @Provides
-  fun provideGamificationInteractor(gamification: Gamification,
-                                    defaultWallet: FindDefaultWalletInteract,
-                                    conversionService: LocalCurrencyConversionService) =
-      GamificationInteractor(gamification, defaultWallet, conversionService)
+  fun provideWalletCreatorInteract(
+    accountRepository: WalletRepositoryType,
+    passwordStore: PasswordStore, syncScheduler: ExecutorScheduler
+  ) =
+    WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+
+  @Provides
+  fun provideGamificationInteractor(
+    gamification: Gamification,
+    defaultWallet: FindDefaultWalletInteract,
+    conversionService: LocalCurrencyConversionService
+  ) =
+    GamificationInteractor(gamification, defaultWallet, conversionService)
 
   @Provides
   fun providePromotionsInteractor(referralInteractor: ReferralInteractorContract,

@@ -10,7 +10,6 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
-import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -29,7 +28,6 @@ import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRepository,
-                             private val skillsPaymentRepository: SkillsPaymentRepository,
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billingMessagesMapper: BillingMessagesMapper,
                              private val partnerAddressService: AddressService,
@@ -83,36 +81,6 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                     address.address, origin, packageName, metadata, sku, callbackUrl,
                     transactionType, developerWallet, it.first, it.second, address.address,
                     address.signedAddress, billingAddress, referrerUrl)
-              }
-        }
-  }
-
-  fun makeSkillsPayment(
-      returnUrl: String, reference: String?,
-      paymentType: String, origin: String?, packageName: String,
-      metadata: String?,
-      sku: String?, callbackUrl: String?, transactionType: String,
-      developerWallet: String?,
-      referrerUrl: String?,
-      billingAddress: AdyenBillingAddress? = null, productToken: String,
-      encryptedCardNumber: String?,
-      encryptedExpiryMonth: String?,
-      encryptedExpiryYear: String?,
-      encryptedSecurityCode: String): Single<PaymentModel> {
-    return walletService.getAndSignCurrentWalletAddress()
-        .flatMap { address ->
-          Single.zip(
-              partnerAddressService.getStoreAddressForPackage(packageName),
-              partnerAddressService.getOemAddressForPackage(packageName),
-              BiFunction { storeAddress: String, oemAddress: String ->
-                Pair(storeAddress, oemAddress)
-              })
-              .flatMap {
-                skillsPaymentRepository.makeSkillsPayment(returnUrl,
-                    address.address,
-                    address.signedAddress, productToken, encryptedCardNumber, encryptedExpiryMonth,
-                    encryptedExpiryYear, encryptedSecurityCode
-                )
               }
         }
   }

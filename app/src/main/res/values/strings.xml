@@ -1008,17 +1008,24 @@
   <string name="voucher_tooltip">You can now buy vouchers for games!</string>
   <string name="voucher_empty_more_title">Vouchers for Games</string>
   <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
-  
- <!--Change Currency-->
+
+  <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
-  
- <!--Blockchain transactions-->
+
+  <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
-
-
-
+  <string name="withdraw_funds">Withdraw funds</string>
+  <string name="withdraw_email">Paypal email address</string>
+  <string name="withdraw_amount">Amount</string>
+  <string name="withdraw_withdraw_button_text">withdraw</string>
+  <string name="withdraw_email_hint">user@appcoins.com</string>
+  <string name="withdraw_amount_hint">0</string>
+  <string name="withdraw_title">Withdraw</string>
+  <string name="withdraw_invalid_email_error_message">Invalid Email</string>
+  <string name="withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="withdraw_not_enough_earnings_error_message">Not enough earnings</string>
 
 
 </resources>
