@@ -160,7 +160,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   fun setCurrencyPreference() {
-    disposables.add(selectedCurrencyInteract.getChangeFiatCurrencyModel()
+    disposables.add(selectedCurrencyInteract.getChangeFiatCurrencyModel(shouldCheckFirstTime = true)
         .observeOn(viewScheduler)
         .doOnSuccess {
           for (fiatCurrency in it.list) {
@@ -174,7 +174,7 @@ class SettingsPresenter(private val view: SettingsView,
         }
         .subscribeOn(networkScheduler)
         .doOnError {
-          Log.d("APPC-2472","SettingsPresenter: setCurrencyPreference: error ${it.message}")
+          Log.d("APPC-2472", "SettingsPresenter: setCurrencyPreference: error ${it.message}")
         }
         .subscribe())
   }

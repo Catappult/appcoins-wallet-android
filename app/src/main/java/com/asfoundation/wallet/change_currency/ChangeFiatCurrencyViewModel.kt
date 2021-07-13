@@ -23,7 +23,7 @@ class ChangeFiatCurrencyViewModel(private val disposables: CompositeDisposable,
   }
 
   fun showChangeFiatCurrency() {
-    disposables.add(selectedCurrencyInteract.getChangeFiatCurrencyModel()
+    disposables.add(selectedCurrencyInteract.getChangeFiatCurrencyModel(shouldCheckFirstTime = false)
         .doOnSuccess { _changeFiatCurrencyLiveData.postValue(it) }
         .doOnError {
           Log.d("APPC-2472", "showCurrencyList: error ${it.message}")

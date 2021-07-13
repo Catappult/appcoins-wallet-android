@@ -31,7 +31,6 @@ class ChangeFiatCurrencyFragment : DaggerFragment() {
     super.onViewCreated(view, savedInstanceState)
 
     changeFiatCurrencyController.clickListener = { fiatCurrency ->
-      //TODO with the navigator.showBottom()
       ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
           .show(this.requireFragmentManager(), "ChooseCurrencyBottomSheet")
     }

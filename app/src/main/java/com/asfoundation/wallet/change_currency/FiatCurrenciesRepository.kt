@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.service.currencies.FiatCurrenciesResponse
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
@@ -19,14 +18,14 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
     const val CONVERSION_HOST = BuildConfig.BASE_HOST
   }
 
-  private fun mapAndSaveFiatCurrency(): Single<List<FiatCurrency>> {
-    Log.d("APPC-2472", "FiatCurrenciesRepository: first time - mapAndSaveFiatCurrency")
+  fun mapAndSaveFiatCurrency(): Single<List<FiatCurrency>> {
     return fiatCurrenciesApi.getFiatCurrencies()
         .map { response: FiatCurrenciesResponse ->
           fiatCurrenciesMapper.mapResponseToCurrencyList(response)
         }
         .flatMap {
-          return@flatMap roomFiatCurrenciesPersistence.replaceAllBy(it).toSingle { it }
+          return@flatMap roomFiatCurrenciesPersistence.replaceAllBy(it)
+              .toSingle { it }
         }
         .subscribeOn(Schedulers.io())
         .doOnError {
@@ -34,6 +33,7 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
               "getApiToFiatCurrency: error : ${it.message}")
         }
   }
+
   fun checkFirstTime(): Single<List<FiatCurrency>> {
     return if (pref.getBoolean("first_time", true)) {
       pref.edit()
@@ -41,7 +41,6 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
           .apply();
       mapAndSaveFiatCurrency()
     } else {
-      Log.d("APPC-2472", "FiatCurrenciesRepository: not first time - db")
       roomFiatCurrenciesPersistence.getFiatCurrencies()
     }
   }

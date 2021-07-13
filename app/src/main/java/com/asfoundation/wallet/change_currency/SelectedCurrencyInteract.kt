@@ -6,8 +6,10 @@ import io.reactivex.Single
 class SelectedCurrencyInteract(private val fiatCurrenciesRepository: FiatCurrenciesRepository,
                                private val conversionService: LocalCurrencyConversionService) {
 
-  fun getChangeFiatCurrencyModel(): Single<ChangeFiatCurrency> {
-    return Single.zip(fiatCurrenciesRepository.checkFirstTime(),
+  fun getChangeFiatCurrencyModel(shouldCheckFirstTime: Boolean): Single<ChangeFiatCurrency> {
+    val fiatCurrencyList: Single<List<FiatCurrency>> =
+        if (shouldCheckFirstTime) fiatCurrenciesRepository.checkFirstTime() else fiatCurrenciesRepository.mapAndSaveFiatCurrency()
+    return Single.zip(fiatCurrencyList,
         fiatCurrenciesRepository.getSelectedCurrency(),
         { list, selectedCurrency -> ChangeFiatCurrency(list, selectedCurrency) })
         .flatMap { changeFiatCurrencyModel ->
