@@ -99,7 +99,6 @@ class BackupInteract(
 
   private fun meetsTransactionsCountConditions(walletAddress: String): Single<Boolean> {
     return fetchTransactionsUseCase(walletAddress)
-        .doAfterTerminate { stopFetchTransactionsUseCase() }
         .map { it.size >= TRANSACTION_COUNT_THRESHOLD }
         .firstOrError()
         .onErrorReturn { false }

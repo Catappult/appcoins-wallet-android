@@ -102,9 +102,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun buildPromotionNotification(unwatchedPromotion: GenericResponse?): CardNotification {
     return unwatchedPromotion?.let { res ->
       if (!isFuturePromotion(res)) {
-        val action = CardNotificationAction.DETAILS_URL.takeIf { res.detailsLink != null }
-            ?: CardNotificationAction.NONE
-        PromotionNotification(action, res.notificationTitle, res.notificationDescription, res.icon,
+        PromotionNotification(CardNotificationAction.NONE, res.notificationTitle,
+            res.notificationDescription, res.icon,
             getPromotionIdKey(res.id, res.startDate, res.endDate), res.detailsLink)
       } else {
         EmptyNotification()

@@ -12,5 +12,6 @@ class FetchTransactionsUseCase(private val transactionRepository: TransactionRep
     return transactionRepository.fetchTransaction(wallet)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
+        .doAfterTerminate { transactionRepository.stop() }
   }
 }

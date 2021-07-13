@@ -13,7 +13,7 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.home.HomeFragment
+import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
@@ -50,6 +50,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
+  private var mainActivityNavigator: MainActivityNavigator = MainActivityNavigator(this)
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
@@ -210,11 +211,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun close(navigateToTransactions: Boolean) {
     if (supportFragmentManager.findFragmentByTag(
             TopUpSuccessFragment::class.java.simpleName) != null && navigateToTransactions) {
-      //TODO use  mainActivityNavigator.navigateToHome()
-      supportFragmentManager.beginTransaction()
-          .replace(R.id.fragment_container,
-              HomeFragment.newInstance())
-          .commit()
+      mainActivityNavigator.navigateToHome()
     }
     finish()
   }

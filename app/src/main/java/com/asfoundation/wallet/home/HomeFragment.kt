@@ -138,10 +138,6 @@ class HomeFragment : BasePageViewFragment(),
   private fun initializeLists() {
     headerController = HeaderController()
     views.headerRecyclerView.setController(headerController)
-    headerController.appcoinsAppClickListener =
-        { appcoinsApplication, applicationClickAction ->
-          onApplicationClick(appcoinsApplication, applicationClickAction)
-        }
     headerController.cardNotificationClickListener =
         { cardNotification, cardNotificationAction ->
           onNotificationClick(cardNotification, cardNotificationAction)
@@ -228,11 +224,10 @@ class HomeFragment : BasePageViewFragment(),
     } else {
       showNoTransactionsScreen(transactionsModel)
     }
-    if (transactionsModel.notifications.isNotEmpty()
-        || transactionsModel.applications.isNotEmpty()) {
-      showNotificationOrApplications()
+    if (transactionsModel.notifications.isNotEmpty()) {
+      showNotification()
     } else {
-      dontShowNotificationOrApplications()
+      dontShowNotification()
     }
   }
 
@@ -248,13 +243,13 @@ class HomeFragment : BasePageViewFragment(),
     views.systemView.showEmpty(getEmptyView(maxBonus))
   }
 
-  private fun showNotificationOrApplications() {
+  private fun showNotification() {
     views.headerRecyclerView.visibility = View.VISIBLE
     views.spacer.visibility = View.VISIBLE
     views.container.loadLayoutDescription(R.xml.activity_transactions_scene)
   }
 
-  private fun dontShowNotificationOrApplications() {
+  private fun dontShowNotification() {
     if (views.spacer.visibility === View.VISIBLE) {
       views.headerRecyclerView.visibility = View.GONE
       views.spacer.visibility = View.GONE
@@ -362,11 +357,6 @@ class HomeFragment : BasePageViewFragment(),
       alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
           .setTextColor(ResourcesCompat.getColor(resources, R.color.text_button_color, null))
     }
-  }
-
-  private fun onApplicationClick(appcoinsApplication: AppcoinsApplication,
-                                 applicationClickAction: ApplicationClickAction) {
-    viewModel.onAppClick(appcoinsApplication, applicationClickAction)
   }
 
   private fun onTransactionClick(transaction: Transaction) {

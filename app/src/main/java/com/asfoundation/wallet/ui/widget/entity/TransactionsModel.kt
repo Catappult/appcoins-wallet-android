@@ -8,7 +8,6 @@ import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 data class TransactionsModel(
     val transactions: List<Transaction>,
     val notifications: List<CardNotification>,
-    val applications: List<AppcoinsApplication>,
     val maxBonus: Double,
     val transactionsWalletModel: TransactionsWalletModel
 )

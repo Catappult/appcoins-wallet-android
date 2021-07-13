@@ -16,14 +16,12 @@ import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.home.usecases.*
-import com.asfoundation.wallet.promotions.PromotionNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -249,9 +247,9 @@ class HomeViewModel(private val applications: AppcoinsApps,
     val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
     return Completable.fromObservable(
         Observable.combineLatest(getTransactions(walletModel.wallet), getCardNotifications(),
-            getAppcoinsApps(), getMaxBonus(), observeNetworkAndWallet(),
-            { transactions: List<Transaction>, notifications: List<CardNotification>, apps: List<AppcoinsApplication>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
-              createTransactionsModel(transactions, notifications, apps, maxBonus,
+            getMaxBonus(), observeNetworkAndWallet(),
+            { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
+              createTransactionsModel(transactions, notifications, maxBonus,
                   transactionsWalletModel)
             })
             .doOnNext { (transactions) ->
@@ -265,10 +263,9 @@ class HomeViewModel(private val applications: AppcoinsApps,
   }
 
   private fun createTransactionsModel(transactions: List<Transaction>,
-                                      notifications: List<CardNotification>,
-                                      apps: List<AppcoinsApplication>, maxBonus: Double,
+                                      notifications: List<CardNotification>, maxBonus: Double,
                                       transactionsWalletModel: TransactionsWalletModel): TransactionsModel {
-    return TransactionsModel(transactions, notifications, apps, maxBonus, transactionsWalletModel)
+    return TransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
   }
 
   /**
@@ -283,7 +280,6 @@ class HomeViewModel(private val applications: AppcoinsApps,
         }
         .subscribeOn(networkScheduler)
         .onErrorReturnItem(emptyList())
-        .doAfterTerminate { stopFetchTransactionsUseCase() }
   }
 
   private fun getCardNotifications(): Observable<List<CardNotification>> {
@@ -419,24 +415,6 @@ class HomeViewModel(private val applications: AppcoinsApps,
     }
   }
 
-  fun onAppClick(appcoinsApplication: AppcoinsApplication,
-                 applicationClickAction: ApplicationClickAction?) {
-    val url = "https://" + appcoinsApplication.uniqueName + ".en.aptoide.com/"
-    when (applicationClickAction) {
-      ApplicationClickAction.SHARE -> sendSideEffect { HomeSideEffect.NavigateToShare(url) }
-      ApplicationClickAction.CLICK -> {
-        sendSideEffect { HomeSideEffect.NavigateToBrowser(Uri.parse(url)) }
-        analytics.openApp(appcoinsApplication.uniqueName,
-            appcoinsApplication.packageName)
-      }
-      else -> {
-        sendSideEffect { HomeSideEffect.NavigateToBrowser(Uri.parse(url)) }
-        analytics.openApp(appcoinsApplication.uniqueName,
-            appcoinsApplication.packageName)
-      }
-    }
-  }
-
   fun onNotificationClick(cardNotification: CardNotification,
                           cardNotificationAction: CardNotificationAction) {
     when (cardNotificationAction) {
@@ -461,10 +439,6 @@ class HomeViewModel(private val applications: AppcoinsApps,
                 WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS)
           }
         }
-      }
-      CardNotificationAction.DETAILS_URL -> if (cardNotification is PromotionNotification) {
-        val url = cardNotification.detailsLink
-        sendSideEffect { HomeSideEffect.NavigateToBrowser(Uri.parse(url)) }
       }
       CardNotificationAction.NONE -> {
       }
