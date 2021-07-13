@@ -22,13 +22,11 @@ class HomeModule {
   }
 
   @Provides
-  fun providesHomeViewModelFactory(appcoinsApps: AppcoinsApps,
-                                   homeAnalytics: HomeAnalytics,
+  fun providesHomeViewModelFactory(homeAnalytics: HomeAnalytics,
                                    shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
                                    updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
                                    findNetworkInfoUseCase: FindNetworkInfoUseCase,
                                    fetchTransactionsUseCase: FetchTransactionsUseCase,
-                                   stopFetchTransactionsUseCase: StopFetchTransactionsUseCase,
                                    findDefaultWalletUseCase: FindDefaultWalletUseCase,
                                    observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
                                    dismissCardNotificationUseCase: DismissCardNotificationUseCase,
@@ -47,9 +45,8 @@ class HomeModule {
                                    displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
                                    walletsEventSender: WalletsEventSender,
                                    currencyFormatUtils: CurrencyFormatUtils): HomeViewModelFactory {
-    return HomeViewModelFactory(
-        appcoinsApps, homeAnalytics, shouldOpenRatingDialogUseCase, updateTransactionsNumberUseCase,
-        findNetworkInfoUseCase, fetchTransactionsUseCase, stopFetchTransactionsUseCase,
+    return HomeViewModelFactory(homeAnalytics, shouldOpenRatingDialogUseCase,
+        updateTransactionsNumberUseCase, findNetworkInfoUseCase, fetchTransactionsUseCase,
         findDefaultWalletUseCase, observeDefaultWalletUseCase, dismissCardNotificationUseCase,
         buildAutoUpdateIntentUseCase, shouldShowFingerprintTooltipUseCase,
         setSeenFingerprintTooltipUseCase, getLevelsUseCase, getUserLevelUseCase,

@@ -44,7 +44,6 @@ import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.home.usecases.FetchTransactionsUseCase
-import com.asfoundation.wallet.home.usecases.StopFetchTransactionsUseCase
 import com.asfoundation.wallet.interact.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
@@ -409,12 +408,10 @@ class InteractorModule {
                               backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                               gamificationInteractor: GamificationInteractor,
                               fetchTransactionsUseCase: FetchTransactionsUseCase,
-                              stopFetchTransactionsUseCase: StopFetchTransactionsUseCase,
                               balanceInteractor: BalanceInteractor,
                               findDefaultWalletInteract: FindDefaultWalletInteract): BackupInteractContract {
     return BackupInteract(sharedPreferences, backupRestorePreferencesRepository,
-        fetchTransactionsUseCase, stopFetchTransactionsUseCase, balanceInteractor,
-        gamificationInteractor,
+        fetchTransactionsUseCase, balanceInteractor, gamificationInteractor,
         findDefaultWalletInteract)
   }
 

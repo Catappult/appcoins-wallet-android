@@ -55,13 +55,11 @@ data class HomeState(
     val unreadMessages: Boolean = false) :
     ViewState
 
-class HomeViewModel(private val applications: AppcoinsApps,
-                    private val analytics: HomeAnalytics,
+class HomeViewModel(private val analytics: HomeAnalytics,
                     private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
                     private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
                     private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
                     private val fetchTransactionsUseCase: FetchTransactionsUseCase,
-                    private val stopFetchTransactionsUseCase: StopFetchTransactionsUseCase,
                     private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
                     private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
                     private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
@@ -286,13 +284,6 @@ class HomeViewModel(private val applications: AppcoinsApps,
     return refreshCardNotifications.flatMapSingle { getCardNotificationsUseCase() }
         .subscribeOn(networkScheduler)
         .onErrorReturnItem(emptyList())
-  }
-
-  private fun getAppcoinsApps(): Observable<List<AppcoinsApplication>> {
-    return applications.apps
-        .subscribeOn(networkScheduler)
-        .onErrorReturnItem(emptyList())
-        .toObservable()
   }
 
   private fun getMaxBonus(): Observable<Double> {

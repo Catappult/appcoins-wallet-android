@@ -118,13 +118,6 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun provideStopFetchTransactionsUseCase(
-      transactionRepository: TransactionRepositoryType): StopFetchTransactionsUseCase {
-    return StopFetchTransactionsUseCase(transactionRepository)
-  }
-
-  @Singleton
-  @Provides
   fun providesFindDefaultWalletUseCase(
       walletRepository: WalletRepositoryType): FindDefaultWalletUseCase {
     return FindDefaultWalletUseCase(walletRepository)

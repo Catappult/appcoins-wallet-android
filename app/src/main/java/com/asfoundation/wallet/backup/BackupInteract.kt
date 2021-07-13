@@ -2,7 +2,6 @@ package com.asfoundation.wallet.backup
 
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.FetchTransactionsUseCase
-import com.asfoundation.wallet.home.usecases.StopFetchTransactionsUseCase
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
@@ -21,7 +20,6 @@ class BackupInteract(
     private val sharedPreferencesRepository: PreferencesRepositoryType,
     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
     private val fetchTransactionsUseCase: FetchTransactionsUseCase,
-    private val stopFetchTransactionsUseCase: StopFetchTransactionsUseCase,
     private val balanceInteractor: BalanceInteractor,
     private val gamificationInteractor: GamificationInteractor,
     private val findDefaultWalletInteract: FindDefaultWalletInteract

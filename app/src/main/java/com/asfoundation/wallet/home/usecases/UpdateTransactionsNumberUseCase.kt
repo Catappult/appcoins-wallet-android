@@ -16,7 +16,7 @@ class UpdateTransactionsNumberUseCase(private val ratingRepository: RatingReposi
               || transaction.type == Transaction.TransactionType.TOP_UP
               || transaction.type == Transaction.TransactionType.IAP_OFFCHAIN)
           && transaction.status == Transaction.TransactionStatus.SUCCESS) {
-        if (++transactionsNumber >= MINIMUM_TRANSACTIONS_NR) {
+        if (++transactionsNumber >= MINIMUM_TRANSACTIONS_NR && !ratingRepository.hasEnoughSuccessfulTransactions()) {
           ratingRepository.saveEnoughSuccessfulTransactions()
           break
         }

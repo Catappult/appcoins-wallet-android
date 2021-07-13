@@ -9,13 +9,11 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class HomeViewModelFactory(private val applications: AppcoinsApps,
-                           private val analytics: HomeAnalytics,
+class HomeViewModelFactory(private val analytics: HomeAnalytics,
                            private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
                            private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
                            private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
                            private val fetchTransactionsUseCase: FetchTransactionsUseCase,
-                           private val stopFetchTransactionsUseCase: StopFetchTransactionsUseCase,
                            private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
                            private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
                            private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
@@ -37,9 +35,9 @@ class HomeViewModelFactory(private val applications: AppcoinsApps,
     ViewModelProvider.Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-    return HomeViewModel(applications, analytics,
+    return HomeViewModel(analytics,
         shouldOpenRatingDialogUseCase, updateTransactionsNumberUseCase, findNetworkInfoUseCase,
-        fetchTransactionsUseCase, stopFetchTransactionsUseCase, findDefaultWalletUseCase,
+        fetchTransactionsUseCase, findDefaultWalletUseCase,
         observeDefaultWalletUseCase, dismissCardNotificationUseCase, buildAutoUpdateIntentUseCase,
         shouldShowFingerprintTooltipUseCase, setSeenFingerprintTooltipUseCase, getLevelsUseCase,
         getUserLevelUseCase, getAppcBalanceUseCase, getEthBalanceUseCase, getCreditsBalanceUseCase,
