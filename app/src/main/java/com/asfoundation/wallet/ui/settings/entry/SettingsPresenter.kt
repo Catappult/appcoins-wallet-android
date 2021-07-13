@@ -4,7 +4,7 @@ import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import android.util.Log
-import com.asfoundation.wallet.ui.settings.change_currency.SelectedCurrencyInteract
+import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -173,6 +173,9 @@ class SettingsPresenter(private val view: SettingsView,
           }
         }
         .subscribeOn(networkScheduler)
+        .doOnError {
+          Log.d("APPC-2472","SettingsPresenter: setCurrencyPreference: error ${it.message}")
+        }
         .subscribe())
   }
 }

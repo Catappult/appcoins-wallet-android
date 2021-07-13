@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.settings.change_currency
+package com.asfoundation.wallet.change_currency
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.lifecycle.ViewModelProviders
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
-import com.asfoundation.wallet.ui.settings.change_currency.list.ChangeFiatCurrencyController
+import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
+import com.asfoundation.wallet.change_currency.list.ChangeFiatCurrencyController
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_change_fiat_currency.*
 import javax.inject.Inject

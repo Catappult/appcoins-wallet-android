@@ -1,7 +1,7 @@
-package com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet
+package com.asfoundation.wallet.change_currency.bottom_sheet
 
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrency
-import com.asfoundation.wallet.ui.settings.change_currency.SelectedCurrencyInteract
+import com.asfoundation.wallet.change_currency.FiatCurrency
+import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.viewmodel.BaseViewModel
 import io.reactivex.Scheduler
 
@@ -25,7 +25,7 @@ class ChooseCurrencyBottomSheetViewModel(private val view: ChooseCurrencyBottomS
         .doOnNext {
           view.showLoading()
           selectedCurrencyInteract.setSelectedCurrency(
-              FiatCurrency(data.flag, data.currency, data.label, data.sign))
+              FiatCurrency(data.currency!!, data.flag, data.label, data.sign))
         }
 //        .delay(5, TimeUnit.SECONDS)
         .doOnNext {

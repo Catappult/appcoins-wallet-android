@@ -18,9 +18,9 @@ import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
-import com.asfoundation.wallet.ui.settings.change_currency.ChangeFiatCurrencyFragment
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrency
-import com.asfoundation.wallet.ui.settings.change_currency.SettingsCurrencyPreference
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
+import com.asfoundation.wallet.change_currency.FiatCurrency
+import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection

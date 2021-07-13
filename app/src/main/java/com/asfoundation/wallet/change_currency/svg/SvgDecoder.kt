@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.settings.svg
+package com.asfoundation.wallet.change_currency.svg
 
 //import com.bumptech.glide.load.Options
 //import com.bumptech.glide.load.ResourceDecoder

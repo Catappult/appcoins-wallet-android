@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.settings.svg
+package com.asfoundation.wallet.change_currency.svg
 
 import android.graphics.drawable.PictureDrawable
 import android.widget.ImageView

@@ -1,5 +1,6 @@
-package com.asfoundation.wallet.ui.settings.change_currency.list.model
+package com.asfoundation.wallet.change_currency.list.model
 
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,7 +10,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.common.BaseViewHolder
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrency
+import com.asfoundation.wallet.change_currency.FiatCurrency
 
 @EpoxyModelClass
 abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCurrencyHolder>() {
@@ -28,7 +29,7 @@ abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCu
 //        .init()
 //        .with(holder.itemView.context)
 //        .setPlaceHolder(R.drawable.ic_currency, R.drawable.ic_currency)
-//        .load(Uri.parse(fiatCurrency.flag), fiatFlag)
+//        .load(Uri.parse(fiatCurrency.flag), holder.fiatFlag)
     //TODO
 
     holder.shortCurrency.text = fiatCurrency.currency

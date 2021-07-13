@@ -58,8 +58,9 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPreferencesRepository
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrenciesMapper
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrenciesRepository
+import com.asfoundation.wallet.change_currency.FiatCurrenciesMapper
+import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
+import com.asfoundation.wallet.change_currency.RoomFiatCurrenciesPersistence
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
@@ -377,7 +378,8 @@ class RepositoryModule {
   @Provides
   fun providesFiatCurrenciesRepository(@Named("default") client: OkHttpClient,
                                        objectMapper: ObjectMapper,
-                                       sharedPreferences: SharedPreferences): FiatCurrenciesRepository {
+                                       sharedPreferences: SharedPreferences,
+                                       roomFiatCurrenciesPersistence: RoomFiatCurrenciesPersistence): FiatCurrenciesRepository {
     val baseUrl = FiatCurrenciesRepository.CONVERSION_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -386,7 +388,8 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
-    return FiatCurrenciesRepository(api, sharedPreferences, FiatCurrenciesMapper())
+    return FiatCurrenciesRepository(api, sharedPreferences, FiatCurrenciesMapper(),
+        roomFiatCurrenciesPersistence)
 
   }
 }

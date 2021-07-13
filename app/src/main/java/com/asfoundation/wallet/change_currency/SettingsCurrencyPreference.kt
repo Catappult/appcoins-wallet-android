@@ -1,7 +1,7 @@
-package com.asfoundation.wallet.ui.settings.change_currency
+package com.asfoundation.wallet.change_currency
 
-//import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import android.content.Context
+import android.net.Uri
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -42,10 +42,11 @@ class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
   }
 
   private fun setFlagImageView() {
+    Log.d("APPC-2472", "SettingsCurrencyPreference: setFlagImageView: ${selectedCurrency?.flag}")
 //    GlideToVectorYou
 //        .init()
 //        .with(context)
-//        .load(Uri.parse(selectedCurrency.flag), flag)
+//        .load(Uri.parse(selectedCurrency?.flag), flag)
 
 //    flag?.let {
 //      GlideApp.with(context)

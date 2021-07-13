@@ -1,6 +1,6 @@
-package com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet
+package com.asfoundation.wallet.change_currency.bottom_sheet
 
-import com.asfoundation.wallet.ui.settings.change_currency.SelectedCurrencyInteract
+import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers

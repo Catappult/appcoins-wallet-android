@@ -75,8 +75,8 @@ import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrenciesRepository
-import com.asfoundation.wallet.ui.settings.change_currency.SelectedCurrencyInteract
+import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
+import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser

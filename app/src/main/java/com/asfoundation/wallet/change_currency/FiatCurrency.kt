@@ -1,0 +1,13 @@
+package com.asfoundation.wallet.change_currency
+
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "fiat_currencies")
+data class FiatCurrency(@field:PrimaryKey @ColumnInfo(name = "currency") @NonNull
+                        val currency: String,
+                        @ColumnInfo(name = "flag") val flag: String?,
+                        @ColumnInfo(name = "label") val label: String?,
+                        @ColumnInfo(name = "sign") val sign: String?)

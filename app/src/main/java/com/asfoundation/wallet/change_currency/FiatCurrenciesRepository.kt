@@ -1,33 +1,32 @@
-package com.asfoundation.wallet.ui.settings.change_currency
+package com.asfoundation.wallet.change_currency
 
 import android.content.SharedPreferences
 import android.util.Log
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.service.currencies.FiatCurrenciesResponse
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
 
 class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
                                private val pref: SharedPreferences,
-                               private val fiatCurrenciesMapper: FiatCurrenciesMapper) {
+                               private val fiatCurrenciesMapper: FiatCurrenciesMapper,
+                               private val roomFiatCurrenciesPersistence: RoomFiatCurrenciesPersistence) {
 
   companion object {
     private const val FIAT_CURRENCY = "fiat_currency"
     const val CONVERSION_HOST = BuildConfig.BASE_HOST
   }
 
-  fun getApiToFiatCurrency(): Single<List<FiatCurrency>> {
-    Log.d("APPC-2472", "FiatCurrenciesRepository: getApiToFiatCurrency: begin")
+  private fun mapAndSaveFiatCurrency(): Single<List<FiatCurrency>> {
+    Log.d("APPC-2472", "FiatCurrenciesRepository: first time - mapAndSaveFiatCurrency")
     return fiatCurrenciesApi.getFiatCurrencies()
-        .doOnSuccess {
-          Log.d("APPC-2472", "FiatCurrenciesRepository: getApiToFiatCurrency: api request success")
-        }
         .map { response: FiatCurrenciesResponse ->
           fiatCurrenciesMapper.mapResponseToCurrencyList(response)
         }
-        .doOnSuccess {
-          Log.d("APPC-2472", "FiatCurrenciesRepository: getApiToFiatCurrency: onSuccess")
+        .flatMap {
+          return@flatMap roomFiatCurrenciesPersistence.replaceAllBy(it).toSingle { it }
         }
         .subscribeOn(Schedulers.io())
         .doOnError {
@@ -35,11 +34,21 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
               "getApiToFiatCurrency: error : ${it.message}")
         }
   }
+  fun checkFirstTime(): Single<List<FiatCurrency>> {
+    return if (pref.getBoolean("first_time", true)) {
+      pref.edit()
+          .putBoolean("first_time", false)
+          .apply();
+      mapAndSaveFiatCurrency()
+    } else {
+      Log.d("APPC-2472", "FiatCurrenciesRepository: not first time - db")
+      roomFiatCurrenciesPersistence.getFiatCurrencies()
+    }
+  }
 
   fun getSelectedCurrency(): Single<String> {
     Log.d("APPC-2472", "FiatCurrenciesRepository: getSelectedCurrency: ${
-      pref.getString(
-          FIAT_CURRENCY, "")
+      pref.getString(FIAT_CURRENCY, "")
     }")
     return Single.just(pref.getString(FIAT_CURRENCY, ""))
   }

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.settings.change_currency
+package com.asfoundation.wallet.change_currency
 
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import io.reactivex.Single
@@ -7,7 +7,7 @@ class SelectedCurrencyInteract(private val fiatCurrenciesRepository: FiatCurrenc
                                private val conversionService: LocalCurrencyConversionService) {
 
   fun getChangeFiatCurrencyModel(): Single<ChangeFiatCurrency> {
-    return Single.zip(fiatCurrenciesRepository.getApiToFiatCurrency(),
+    return Single.zip(fiatCurrenciesRepository.checkFirstTime(),
         fiatCurrenciesRepository.getSelectedCurrency(),
         { list, selectedCurrency -> ChangeFiatCurrency(list, selectedCurrency) })
         .flatMap { changeFiatCurrencyModel ->
@@ -22,6 +22,6 @@ class SelectedCurrencyInteract(private val fiatCurrenciesRepository: FiatCurrenc
   }
 
   fun setSelectedCurrency(fiatCurrency: FiatCurrency) {
-    fiatCurrency.currency?.let { fiatCurrenciesRepository.setSelectedCurrency(it) }
+    fiatCurrency.currency.let { fiatCurrenciesRepository.setSelectedCurrency(it) }
   }
 }

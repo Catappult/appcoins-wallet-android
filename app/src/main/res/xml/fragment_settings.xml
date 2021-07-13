@@ -11,7 +11,7 @@ s
       android:title="@string/permissions_title" />
 
 
-  <com.asfoundation.wallet.ui.settings.change_currency.SettingsCurrencyPreference
+  <com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
       android:icon="@drawable/ic_currency"
       android:key="pref_currency"
       android:layout="@layout/preferences_with_active_currency_layout"

@@ -7,7 +7,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
-import com.asfoundation.wallet.ui.settings.change_currency.SelectedCurrencyInteract
+import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import dagger.Module
 import dagger.Provides

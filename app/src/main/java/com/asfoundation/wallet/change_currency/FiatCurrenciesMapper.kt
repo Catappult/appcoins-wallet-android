@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.settings.change_currency
+package com.asfoundation.wallet.change_currency
 
 import com.asfoundation.wallet.service.currencies.FiatCurrenciesResponse
 
@@ -8,7 +8,7 @@ class FiatCurrenciesMapper {
     val currencyList: MutableList<FiatCurrency> = ArrayList()
     for (currencyItem in response.items) {
       currencyList.add(
-          FiatCurrency(currencyItem.flag, currencyItem.currency, currencyItem.label,
+          FiatCurrency(currencyItem.currency!!, currencyItem.flag, currencyItem.label,
               currencyItem.sign))
     }
     return currencyList.toList()

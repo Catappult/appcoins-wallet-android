@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet
+package com.asfoundation.wallet.change_currency.bottom_sheet
 
 class ChooseCurrencyBottomSheetNavigator(private val fragment: ChooseCurrencyBottomSheetFragment) {
 

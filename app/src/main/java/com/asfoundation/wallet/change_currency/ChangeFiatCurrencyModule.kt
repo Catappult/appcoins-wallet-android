@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.settings.change_currency
+package com.asfoundation.wallet.change_currency
 
 import dagger.Module
 import dagger.Provides

@@ -48,6 +48,7 @@ import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExpe
 import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.change_currency.RoomFiatCurrenciesPersistence
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.interact.BalanceGetter
@@ -67,7 +68,7 @@ import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
-import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesDatabase
+import com.asfoundation.wallet.service.currencies.CurrenciesDatabase
 import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
 import com.asfoundation.wallet.service.currencies.RoomCurrencyConversionRatesPersistence
 import com.asfoundation.wallet.support.SupportSharedPreferences
@@ -607,19 +608,29 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideCurrencyConversionRatesDatabase(context: Context): CurrencyConversionRatesDatabase {
-    return Room.databaseBuilder(context, CurrencyConversionRatesDatabase::class.java,
-        "currency_conversion_rates_database")
+  fun provideCurrencyConversionRatesDatabase(context: Context): CurrenciesDatabase {
+    return Room.databaseBuilder(context, CurrenciesDatabase::class.java,
+        "currencies_database")
+        .addMigrations(
+            CurrenciesDatabase.MIGRATION_1_2,
+        )
         .build()
   }
 
   @Singleton
   @Provides
   fun provideRoomCurrencyConversionRatesPersistence(
-    database: CurrencyConversionRatesDatabase
-  ): CurrencyConversionRatesPersistence {
+      database: CurrenciesDatabase): CurrencyConversionRatesPersistence {
     return RoomCurrencyConversionRatesPersistence(database.currencyConversionRatesDao())
   }
+
+  @Singleton
+  @Provides
+  fun provideFiatCurrenciesPersistence(
+      database: CurrenciesDatabase): RoomFiatCurrenciesPersistence {
+    return RoomFiatCurrenciesPersistence(database.fiatCurrenciesDao())
+  }
+
 
   @Singleton
   @Provides

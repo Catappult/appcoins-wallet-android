@@ -1,5 +1,6 @@
-package com.asfoundation.wallet.ui.settings.change_currency.bottom_sheet
+package com.asfoundation.wallet.change_currency.bottom_sheet
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.asf.wallet.R
 import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
-import com.asfoundation.wallet.ui.settings.change_currency.FiatCurrency
+import com.asfoundation.wallet.change_currency.FiatCurrency
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
