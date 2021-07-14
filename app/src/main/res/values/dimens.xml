@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!-- Default screen margins, per the Android Design guidelines. -->
 
   <dimen name="app_bar_height">200dp</dimen>
@@ -58,6 +58,8 @@
   <dimen name="backup_success_icon_margin_top">58dp</dimen>
   <dimen name="backup_success_text_margin_top">24dp</dimen>
   <dimen name="backup_success_text_box_horizontal_margin">16dp</dimen>
+  <dimen name="notifications_card_view_corner_radius">14dp</dimen>
+  <dimen name="appcoins_card_view_height">100dp</dimen>
 
   <!--Backup Entry -->
   <dimen name="backup_password_padding">12dp</dimen>
@@ -74,4 +76,10 @@
   <dimen name="currency_flag_img_size">40dp</dimen>
   <dimen name="check_mark_img_height">14dp</dimen>
   <dimen name="check_mark_img_width">19dp</dimen>
+
+  <dimen name="design_bottom_navigation_height" tools:override="true">69dp</dimen>
+  <dimen name="design_bottom_navigation_margin" tools:override="true">15dp</dimen>
+  <dimen name="design_bottom_navigation_label_padding" tools:override="true">15dp</dimen>
+  <dimen name="design_bottom_navigation_item_max_width" tools:override="true">5000dp</dimen>
+  <dimen name="design_bottom_navigation_active_item_max_width" tools:override="true">5000dp</dimen>
 </resources>

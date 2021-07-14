@@ -7,5 +7,5 @@ import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
 data class TransactionsModel(
     val transactions: List<Transaction>,
     val notifications: List<CardNotification>,
-    val applications: List<AppcoinsApplication>
+    val maxBonus: Double
 )

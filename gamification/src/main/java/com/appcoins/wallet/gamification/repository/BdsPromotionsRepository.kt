@@ -137,7 +137,6 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   private fun mapErrorToUserStatsModel(throwable: Throwable, fromCache: Boolean): UserStats {
-    throwable.printStackTrace()
     return if (isNoNetworkException(throwable)) {
       UserStats(Status.NO_NETWORK, fromCache)
     } else {
@@ -228,7 +227,7 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
   override fun getUserStats(wallet: String, offlineFirst: Boolean): Observable<UserStats> {
-    return getUserStatsFromResponses(wallet)
+    return getUserStatsFromResponses(wallet, offlineFirst)
         .flatMap { userStatusResponse ->
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?

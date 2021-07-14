@@ -10,7 +10,7 @@ class RestoreWalletActivityNavigator(private val context: Context,
                                      private val fragmentManager: FragmentManager) {
 
   fun navigateToTransactions() {
-    TransactionsRouter().open(context, true)
+    TransactionsRouter().open(context, false)
   }
 
   fun navigateToInitialRestoreFragment() {

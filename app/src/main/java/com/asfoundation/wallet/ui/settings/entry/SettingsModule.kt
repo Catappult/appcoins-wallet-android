@@ -3,12 +3,12 @@ package com.asfoundation.wallet.ui.settings.entry
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,7 +31,7 @@ class SettingsModule {
 
   @Provides
   fun providesSettingsData(settingsFragment: SettingsFragment): SettingsData {
-    settingsFragment.arguments!!.apply {
+    settingsFragment.requireArguments().apply {
       return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
     }
   }
@@ -52,6 +52,6 @@ class SettingsModule {
 
   @Provides
   fun providesSettingsNavigator(settingsFragment: SettingsFragment): SettingsNavigator {
-    return SettingsNavigator(settingsFragment.requireFragmentManager(), settingsFragment.activity!!)
+    return SettingsNavigator(settingsFragment.requireFragmentManager(), settingsFragment.requireActivity())
   }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/PaymentMethods.DialogCardStyle.Landscape"
     android:theme="@style/MaterialAppTheme"
+    tools:viewBindingIgnore="true"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout

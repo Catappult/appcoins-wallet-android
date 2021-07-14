@@ -26,9 +26,7 @@ import com.asfoundation.wallet.billing.partners.*
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
-import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.poa.*
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
@@ -47,6 +45,8 @@ import com.asfoundation.wallet.util.DeviceInfo
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import com.asfoundation.wallet.withdraw.repository.WithdrawApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -514,7 +514,6 @@ class ServiceModule {
   @Provides
   fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
-
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)

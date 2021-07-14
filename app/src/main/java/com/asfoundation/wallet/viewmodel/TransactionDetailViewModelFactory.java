@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.support.SupportInteractor;
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class TransactionDetailViewModelFactory implements ViewModelProvider.Factory {

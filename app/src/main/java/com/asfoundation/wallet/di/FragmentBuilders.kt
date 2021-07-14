@@ -1,14 +1,17 @@
 package com.asfoundation.wallet.di
 
+import com.asfoundation.wallet.balance.BalanceFragmentPH
 import cm.aptoide.skills.SkillsFragment
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
-import com.asfoundation.wallet.promotions.PromotionsFragment
-import com.asfoundation.wallet.promotions.PromotionsModule
+import com.asfoundation.wallet.promotions.info.PromotionsInfoDialogFragment
+import com.asfoundation.wallet.promotions.ui.PromotionsFragment
+import com.asfoundation.wallet.promotions.ui.PromotionsModuleNew
 import com.asfoundation.wallet.rating.entry.RatingEntryFragment
 import com.asfoundation.wallet.rating.entry.RatingEntryModule
 import com.asfoundation.wallet.rating.finish.RatingFinishFragment
@@ -141,8 +144,12 @@ abstract class FragmentBuilders {
   abstract fun bindBalanceFragment(): BalanceFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(modules = [PromotionsModule::class])
+  @ContributesAndroidInjector(modules = [PromotionsModuleNew::class])
   abstract fun bindPromotionsFragment(): PromotionsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindPromotionsInfoDialogFragment(): PromotionsInfoDialogFragment
 
   @ContributesAndroidInjector
   abstract fun bindInviteFriendsVerificationFragment(): InviteFriendsVerificationFragment
@@ -282,6 +289,14 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerificationErrorModule::class])
   abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindHomeFragment(): HomeFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindBalanceFragmentPH(): BalanceFragmentPH
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [SkillsModule::class])

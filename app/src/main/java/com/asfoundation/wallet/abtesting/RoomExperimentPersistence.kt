@@ -22,7 +22,6 @@ class RoomExperimentPersistence(private val experimentDao: ExperimentDao,
         .flatMap { roomExperiment ->
           Single.just(ExperimentModel(mapper.map(roomExperiment), false))
         }
-        .doOnError { it.printStackTrace() }
         .onErrorReturn { ExperimentModel(Experiment(), true) }
   }
 }

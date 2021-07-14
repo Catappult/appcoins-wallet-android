@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.ui.transact
 
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +28,7 @@ class TransferFragmentModule {
 
   @Provides
   fun providesTransferFragmentData(transferFragment: TransferFragment): TransferFragmentData {
-    return TransferFragmentData(transferFragment.context!!.packageName)
+    return TransferFragmentData(transferFragment.requireContext().packageName)
   }
 
   @Provides
@@ -43,6 +43,6 @@ class TransferFragmentModule {
   fun providesTransferFragmentNavigator(transferFragment: TransferFragment,
                                         defaultTokenProvider: DefaultTokenProvider): TransferFragmentNavigator {
     return TransferFragmentNavigator(transferFragment.requireFragmentManager(), transferFragment,
-        transferFragment.activity!!, defaultTokenProvider)
+        transferFragment.requireActivity(), defaultTokenProvider)
   }
 }

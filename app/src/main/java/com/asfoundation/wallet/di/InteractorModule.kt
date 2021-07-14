@@ -84,6 +84,10 @@ import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
+import com.asfoundation.wallet.wallets.FetchWalletsInteract
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -530,10 +534,11 @@ class InteractorModule {
   @Provides
   fun provideRestoreWalletInteract(
       walletRepository: WalletRepositoryType, passwordStore: PasswordStore,
+      balanceInteractor: BalanceInteractor,
       backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
       setDefaultWalletInteractor: SetDefaultWalletInteractor,
       fileInteractor: FileInteractor): RestoreWalletInteractor {
-    return RestoreWalletInteractor(walletRepository, setDefaultWalletInteractor,
+    return RestoreWalletInteractor(walletRepository, setDefaultWalletInteractor, balanceInteractor,
         passwordStore, backupRestorePreferencesRepository, fileInteractor)
   }
 

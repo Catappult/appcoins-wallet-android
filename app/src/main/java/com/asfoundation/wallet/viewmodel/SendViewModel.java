@@ -11,12 +11,12 @@ import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.Result;
 import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.router.TransferConfirmationRouter;
 import com.asfoundation.wallet.util.QRUri;
 import com.asfoundation.wallet.util.TransferParser;
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import com.google.android.gms.vision.barcode.Barcode;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
@@ -151,6 +151,6 @@ public class SendViewModel extends BaseViewModel {
   }
 
   public void showTransactions(Context context) {
-    transactionsRouter.open(context, true);
+    transactionsRouter.open(context, false);
   }
 }

@@ -51,6 +51,7 @@ class WalletDetailsPresenter(
     disposable.add(view.makeWalletActiveClick()
         .flatMapCompletable {
           interactor.setActiveWallet(walletAddress)
+              .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
               .doOnComplete { view.navigateToBalanceView() }
         }

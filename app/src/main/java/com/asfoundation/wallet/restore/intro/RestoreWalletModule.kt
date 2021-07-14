@@ -25,7 +25,8 @@ class RestoreWalletModule {
                                      interactor: RestoreWalletInteractor, logger: Logger,
                                      eventSender: WalletsEventSender): RestoreWalletPresenter {
     return RestoreWalletPresenter(fragment as RestoreWalletView, CompositeDisposable(), navigator,
-        interactor, eventSender, logger, AndroidSchedulers.mainThread(), Schedulers.computation()
+        interactor, eventSender, logger, AndroidSchedulers.mainThread(), Schedulers.computation(),
+        Schedulers.io()
     )
   }
 
