@@ -14,7 +14,8 @@
       android:icon="@drawable/ic_withdraw"
       android:key="pref_withdraw"
       android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/withdraw_funds" />
+      android:title="@string/withdraw_funds"
+      app:isPreferenceVisible="false" />
 
   <Preference
       android:icon="@drawable/ic_settings_redeem"
