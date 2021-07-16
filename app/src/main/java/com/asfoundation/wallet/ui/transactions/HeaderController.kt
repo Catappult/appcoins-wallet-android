@@ -3,11 +3,8 @@ package com.asfoundation.wallet.ui.transactions
 import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.TypedEpoxyController
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
-import com.asfoundation.wallet.ui.transactions.models.appcoinsapps.AppcoinsAppListModel
 import com.asfoundation.wallet.ui.transactions.models.cardnotifications.CardNotificationListModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 
 class HeaderController :

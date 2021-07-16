@@ -15,9 +15,8 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
-import com.asfoundation.wallet.MainActivityNavigator
+import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.repository.TransactionRepositoryType
-import com.asfoundation.wallet.ui.TransactionsActivity
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.gamification.ReachedLevelInfo
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -247,8 +246,7 @@ class PerkBonusAndGamificationService :
 
   private fun createPerkBonusNotification(value: String): NotificationCompat.Builder {
     return initializeNotificationBuilder(PERK_CHANNEL_ID, PERK_CHANNEL_NAME,
-        PendingIntent.getActivity(this, 0,
-            TransactionsActivity.newIntent(this), 0))
+        mainActivityNavigator.getHomePendingIntent())
         .setContentTitle(getString(R.string.perks_notification, value))
         .setContentText(getString(R.string.support_new_message_button))
   }

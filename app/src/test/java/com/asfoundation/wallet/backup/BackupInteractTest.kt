@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.backup
 
-import com.asfoundation.wallet.interact.FetchTransactionsInteract
+import com.asfoundation.wallet.home.usecases.FetchTransactionsUseCase
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
@@ -28,7 +28,7 @@ class BackupInteractTest {
   lateinit var sharedPreferencesRepository: PreferencesRepositoryType
 
   @Mock
-  lateinit var fetchTransactionsInteract: FetchTransactionsInteract
+  lateinit var fetchTransactionsUseCase: FetchTransactionsUseCase
 
   @Mock
   lateinit var backupRestorePreferencesRepository: BackupRestorePreferencesRepository
@@ -48,7 +48,7 @@ class BackupInteractTest {
   fun setup() {
     backupInteract =
         BackupInteract(sharedPreferencesRepository, backupRestorePreferencesRepository,
-            fetchTransactionsInteract, balanceInteractor, gamificationInteractor,
+            fetchTransactionsUseCase, balanceInteractor, gamificationInteractor,
             findDefaultWalletInteract)
   }
 

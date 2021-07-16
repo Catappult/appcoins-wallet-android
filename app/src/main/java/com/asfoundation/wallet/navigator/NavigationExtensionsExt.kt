@@ -25,7 +25,8 @@ fun BottomNavigationView.setupWithNavController(
     navGraphIds: List<Int>,
     fragmentManager: FragmentManager,
     containerId: Int,
-    intent: Intent
+    intent: Intent,
+    onSelectedItem: ((Int) -> Unit)? = null
 ): LiveData<NavController> {
 
   // Map of tags
@@ -80,6 +81,7 @@ fun BottomNavigationView.setupWithNavController(
     } else {
       val newlySelectedItemTag = graphIdToTagMap[item.itemId]
       if (selectedItemTag != newlySelectedItemTag) {
+        onSelectedItem?.invoke(newlySelectedItemTag.split("bottomNavigation#")[1].toInt())
         // Pop everything above the first fragment (the "fixed start destination")
         fragmentManager.popBackStack(firstFragmentTag,
             FragmentManager.POP_BACK_STACK_INCLUSIVE)

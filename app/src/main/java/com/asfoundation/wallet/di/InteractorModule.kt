@@ -36,6 +36,7 @@ import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.SkillsPaymentInteractor
@@ -44,6 +45,7 @@ import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
+import com.asfoundation.wallet.home.usecases.FetchTransactionsUseCase
 import com.asfoundation.wallet.interact.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
@@ -236,10 +238,6 @@ class InteractorModule {
   fun provideFetchCreditsInteract(balanceGetter: BalanceGetter) =
       FetchCreditsInteract(balanceGetter)
 
-  @Provides
-  fun provideFindDefaultNetworkInteract(networkInfo: NetworkInfo) =
-      FindDefaultNetworkInteract(networkInfo, AndroidSchedulers.mainThread())
-
   @Singleton
   @Provides
   fun provideAirdropInteractor(pendingTransactionService: PendingTransactionService,
@@ -306,10 +304,11 @@ class InteractorModule {
                                   findDefaultWalletInteract: FindDefaultWalletInteract,
                                   rakamAnalytics: RakamAnalytics,
                                   userStatsLocalData: UserStatsLocalData,
-                                  gamificationMapper: GamificationMapper): PromotionsInteractor {
+                                  gamificationMapper: GamificationMapper,
+                                  schedulers: RxSchedulers): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
         promotionsRepository, findDefaultWalletInteract, userStatsLocalData, rakamAnalytics,
-        gamificationMapper)
+        gamificationMapper, schedulers)
   }
 
   @Provides
@@ -429,51 +428,15 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideTransactionsViewInteract(findDefaultNetworkInteract: FindDefaultNetworkInteract,
-                                      findDefaultWalletInteract: FindDefaultWalletInteract,
-                                      fetchTransactionsInteract: FetchTransactionsInteract,
-                                      gamificationInteractor: GamificationInteractor,
-                                      balanceInteractor: BalanceInteractor,
-                                      promotionsInteractor: PromotionsInteractor,
-                                      cardNotificationsInteractor: CardNotificationsInteractor,
-                                      autoUpdateInteract: AutoUpdateInteract,
-                                      ratingInteractor: RatingInteractor,
-                                      preferencesRepositoryType: PreferencesRepositoryType,
-                                      packageManager: PackageManager,
-                                      fingerprintInteractor: FingerprintInteractor,
-                                      fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): TransactionViewInteractor {
-    return TransactionViewInteractor(findDefaultNetworkInteract, findDefaultWalletInteract,
-        fetchTransactionsInteract, gamificationInteractor, balanceInteractor,
-        promotionsInteractor, cardNotificationsInteractor, autoUpdateInteract, ratingInteractor,
-        preferencesRepositoryType, packageManager, fingerprintInteractor,
-        fingerprintPreferencesRepository)
-  }
-
-  @Provides
-  fun provideFetchTransactionsInteract(
-      transactionRepository: TransactionRepositoryType): FetchTransactionsInteract {
-    return FetchTransactionsInteract(transactionRepository)
-  }
-
-  @Provides
   fun provideBackupInteractor(sharedPreferences: PreferencesRepositoryType,
                               backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                               gamificationInteractor: GamificationInteractor,
-                              fetchTransactionsInteract: FetchTransactionsInteract,
+                              fetchTransactionsUseCase: FetchTransactionsUseCase,
                               balanceInteractor: BalanceInteractor,
                               findDefaultWalletInteract: FindDefaultWalletInteract): BackupInteractContract {
     return BackupInteract(sharedPreferences, backupRestorePreferencesRepository,
-        fetchTransactionsInteract, balanceInteractor, gamificationInteractor,
+        fetchTransactionsUseCase, balanceInteractor, gamificationInteractor,
         findDefaultWalletInteract)
-  }
-
-  @Provides
-  fun provideCardNotificationInteractor(referralInteractor: ReferralInteractorContract,
-                                        autoUpdateInteract: AutoUpdateInteract,
-                                        backupInteract: BackupInteractContract,
-                                        promotionsInteractor: PromotionsInteractor): CardNotificationsInteractor {
-    return CardNotificationsInteractor(referralInteractor, autoUpdateInteract,
-        backupInteract, promotionsInteractor, Schedulers.io())
   }
 
   @Singleton
@@ -592,9 +555,8 @@ class InteractorModule {
   @Singleton
   @Provides
   fun providesRatingInteractor(ratingRepository: RatingRepository,
-                               gamificationInteractor: GamificationInteractor,
                                walletService: WalletService): RatingInteractor {
-    return RatingInteractor(ratingRepository, gamificationInteractor, walletService,
+    return RatingInteractor(ratingRepository, walletService,
         Schedulers.io())
   }
 

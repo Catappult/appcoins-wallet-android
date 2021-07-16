@@ -46,6 +46,8 @@ import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.analytics.TaskTimer
+import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.base.RxSchedulersImpl
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.change_currency.RoomFiatCurrenciesPersistence
@@ -112,6 +114,12 @@ import kotlin.collections.HashMap
 internal class AppModule {
   @Provides
   fun provideContext(application: App): Context = application.applicationContext
+
+  @Provides
+  @Singleton
+  fun provideRxSchedulers(): RxSchedulers {
+    return RxSchedulersImpl()
+  }
 
   @Singleton
   @Provides

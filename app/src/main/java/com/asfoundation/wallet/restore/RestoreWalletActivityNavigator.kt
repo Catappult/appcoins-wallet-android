@@ -1,16 +1,15 @@
 package com.asfoundation.wallet.restore
 
-import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
+import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
-import com.asfoundation.wallet.router.TransactionsRouter
 
-class RestoreWalletActivityNavigator(private val context: Context,
+class RestoreWalletActivityNavigator(private val mainActivityNavigator: MainActivityNavigator,
                                      private val fragmentManager: FragmentManager) {
 
   fun navigateToTransactions() {
-    TransactionsRouter().open(context, false)
+    mainActivityNavigator.navigateToHome()
   }
 
   fun navigateToInitialRestoreFragment() {

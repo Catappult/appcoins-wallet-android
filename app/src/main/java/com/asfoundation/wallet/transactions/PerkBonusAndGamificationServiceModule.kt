@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.transactions
 
-import com.asfoundation.wallet.MainActivityNavigator
+import com.asfoundation.wallet.main.MainActivityNavigator
 import dagger.Module
 import dagger.Provides
 

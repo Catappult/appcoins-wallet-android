@@ -84,13 +84,9 @@
 
         android:label="@string/title_import"
         android:windowSoftInputMode="stateHidden" />
-    <activity
-        android:name="com.asfoundation.wallet.ui.TransactionsActivity"
-        android:label="@string/app_name"
-        android:theme="@style/MaterialAppTheme" />
 
     <activity
-        android:name="com.asfoundation.wallet.MainActivity"
+        android:name="com.asfoundation.wallet.main.MainActivity"
         android:label="@string/app_name"
         android:theme="@style/MaterialAppTheme" />
     <activity
