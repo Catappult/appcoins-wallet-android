@@ -1,9 +1,9 @@
-package com.asfoundation.wallet.transactions
+package com.asfoundation.wallet.home
 
 import cm.aptoide.analytics.AnalyticsManager
 import java.util.*
 
-class TransactionsAnalytics(private val analytics: AnalyticsManager) {
+class HomeAnalytics(private val analytics: AnalyticsManager) {
 
   companion object {
     const val WALLET_HOME_INTERACTION_EVENT = "wallet_home_interaction_event"

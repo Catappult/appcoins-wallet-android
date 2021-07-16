@@ -16,7 +16,6 @@ interface InviteFriendsActivityView {
   fun showInfoButton()
   fun navigateToWalletValidation(beenInvited: Boolean)
   fun showShare(link: String)
-  fun navigateToTopApps()
   fun showNetworkErrorView()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>

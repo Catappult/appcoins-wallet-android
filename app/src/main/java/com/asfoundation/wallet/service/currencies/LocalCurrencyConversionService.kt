@@ -22,7 +22,7 @@ class LocalCurrencyConversionService(
     return if (getFromCache) {
       currencyConversionRatesPersistence.getAppcToLocalFiat(value, scale)
           .toObservable()
-    } else getValueToFiat("APPC", value, null, scale)
+    } else getValueToFiat(value, "APPC", null, scale)
         .flatMap {
           currencyConversionRatesPersistence.saveRateFromAppcToFiat(value, it.amount
               .toString(), it.currency, it.symbol)
@@ -35,7 +35,7 @@ class LocalCurrencyConversionService(
   }
 
   fun getEtherToLocalFiat(value: String, scale: Int): Observable<FiatValue> {
-    return getValueToFiat("ETH", value, null, scale)
+    return getValueToFiat(value, "ETH", null, scale)
         .flatMap {
           currencyConversionRatesPersistence.saveRateFromEthToFiat(value, it.amount
               .toString(), it.currency, it.symbol)

@@ -115,10 +115,6 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     startActivity(intent)
   }
 
-  override fun navigateToTopApps() {
-    browserRouter.open(this, Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL))
-  }
-
   override fun showShare(link: String) {
     ShareCompat.IntentBuilder.from(this)
         .setText(link)

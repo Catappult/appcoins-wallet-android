@@ -5,6 +5,7 @@ import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.home.HomeFragment
+import com.asfoundation.wallet.home.HomeModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -284,7 +285,7 @@ abstract class FragmentBuilders {
   abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [HomeModule::class])
   abstract fun bindHomeFragment(): HomeFragment
 
   @FragmentScope

@@ -12,7 +12,7 @@ import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
-import com.asfoundation.wallet.transactions.TransactionsAnalytics
+import com.asfoundation.wallet.home.HomeAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
 import com.asfoundation.wallet.verification.VerificationAnalytics
@@ -58,7 +58,7 @@ class AnalyticsModule {
       BillingAnalytics.REVENUE,
       PoaAnalytics.POA_STARTED,
       PoaAnalytics.POA_COMPLETED,
-      TransactionsAnalytics.OPEN_APPLICATION,
+      HomeAnalytics.OPEN_APPLICATION,
       GamificationAnalytics.GAMIFICATION,
       GamificationAnalytics.GAMIFICATION_MORE_INFO
   )
@@ -68,7 +68,7 @@ class AnalyticsModule {
   @Named("rakam_event_list")
   fun provideRakamEventList() = listOf(
       LaunchAnalytics.FIRST_LAUNCH,
-      TransactionsAnalytics.WALLET_HOME_INTERACTION_EVENT,
+      HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
       BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
@@ -170,7 +170,7 @@ class AnalyticsModule {
   @Singleton
   @Provides
   fun providesTransactionsAnalytics(analytics: AnalyticsManager) =
-      TransactionsAnalytics(analytics)
+      HomeAnalytics(analytics)
 
   @Singleton
   @Provides

@@ -77,7 +77,7 @@ class ProgressViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    itemView.isClickable = progressItem.detailsLink != null
+    itemView.isClickable = false
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
@@ -117,7 +117,7 @@ class DefaultViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
 
-    itemView.isClickable = defaultItem.detailsLink != null
+    itemView.isClickable = false
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
@@ -147,7 +147,7 @@ class FutureViewHolder(itemView: View,
   override fun bind(promotion: Promotion) {
     val futureItem = promotion as FutureItem
 
-    itemView.isClickable = futureItem.detailsLink != null
+    itemView.isClickable = false
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()

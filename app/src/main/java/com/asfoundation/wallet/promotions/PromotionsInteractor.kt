@@ -8,6 +8,7 @@ import com.appcoins.wallet.gamification.repository.entity.GenericResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asfoundation.wallet.analytics.AnalyticsSetup
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
@@ -27,7 +28,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val findWalletInteract: FindDefaultWalletInteract,
                            private val userStatsPreferencesRepository: UserStatsLocalData,
                            private val analyticsSetup: AnalyticsSetup,
-                           private val mapper: GamificationMapper) {
+                           private val mapper: GamificationMapper,
+                           private val schedulers: RxSchedulers) {
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
@@ -58,6 +60,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                       hasReferralUpdate || hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
                     })
               }
+              .subscribeOn(schedulers.io)
         }
   }
 
@@ -99,9 +102,8 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   private fun buildPromotionNotification(unwatchedPromotion: GenericResponse?): CardNotification {
     return unwatchedPromotion?.let { res ->
       if (!isFuturePromotion(res)) {
-        val action = CardNotificationAction.DETAILS_URL.takeIf { res.detailsLink != null }
-            ?: CardNotificationAction.NONE
-        PromotionNotification(action, res.notificationTitle, res.notificationDescription, res.icon,
+        PromotionNotification(CardNotificationAction.NONE, res.notificationTitle,
+            res.notificationDescription, res.icon,
             getPromotionIdKey(res.id, res.startDate, res.endDate), res.detailsLink)
       } else {
         EmptyNotification()
