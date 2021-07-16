@@ -1,35 +1,44 @@
 package com.asfoundation.wallet.change_currency.bottom_sheet
 
-import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
-import com.asfoundation.wallet.viewmodel.BaseViewModel
+import android.util.Log
+import com.asfoundation.wallet.base.Async
+import com.asfoundation.wallet.base.BaseViewModel
+import com.asfoundation.wallet.base.SideEffect
+import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 
-class ChooseCurrencyBottomSheetViewModel(private val view: ChooseCurrencyBottomSheetView,
-                                         private val data: ChooseCurrencyBottomSheetData,
-                                         private val viewScheduler: Scheduler,
-                                         private val selectedCurrencyInteract: SelectedCurrencyInteract,
-                                         private val navigator: ChooseCurrencyBottomSheetNavigator) :
-    BaseViewModel() {
 
-  init {
-    data.flag?.let { view.setCurrencyFlag(it) }
-    data.currency?.let { view.setCurrencyShort(it) }
-    data.label?.let { view.setCurrencyLabel(it) }
-    currencyConfirmationClick()
+sealed class ChooseCurrencyBottomSideEffect : SideEffect {
+  object NavigateBack : ChooseCurrencyBottomSideEffect()
+}
+
+data class ChooseCurrencyBottomSheetState(val selectedCurrency: String,
+                                          val selectedFlag: String,
+                                          val selectedLabel: String,
+                                          val selectedConfirmationAsync: Async<Unit> = Async.Uninitialized) :
+    ViewState
+
+class ChooseCurrencyBottomSheetViewModel(data: ChooseCurrencyBottomSheetData,
+                                         private val networkScheduler: Scheduler,
+                                         private val setSelectedCurrencyUseCase: SetSelectedCurrencyUseCase) :
+    BaseViewModel<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect>(
+        initialState(data)) {
+
+  companion object {
+    fun initialState(data: ChooseCurrencyBottomSheetData): ChooseCurrencyBottomSheetState {
+      return ChooseCurrencyBottomSheetState(data.currency!!, data.flag!!, data.label!!)
+    }
   }
 
-  private fun currencyConfirmationClick() {
-//    disposable.add(view.getConfirmationClick()
-//        .observeOn(viewScheduler)
-//        .doOnNext {
-//          view.showLoading()
-//          selectedCurrencyInteract.setSelectedCurrency(
-//              FiatCurrency(data.currency!!, data.flag, data.label, data.sign))
-//        }
-////        .delay(5, TimeUnit.SECONDS)
-//        .doOnNext {
-//          navigator.navigateBack()
-//        }
-//        .subscribe({}, { it.printStackTrace() }))
+  fun currencyConfirmationClick() {
+    Observable.just(setSelectedCurrencyUseCase(state.selectedCurrency))
+        .subscribeOn(networkScheduler)
+        .asAsyncToState() {
+          Log.d("APPC-2472",
+              "showChangeFiatCurrency: currencyConfirmationClick ${state.selectedConfirmationAsync} ... $it")
+          copy(selectedConfirmationAsync = it)
+        }
   }
 }

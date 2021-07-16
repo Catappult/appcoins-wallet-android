@@ -1,28 +1,35 @@
 package com.asfoundation.wallet.change_currency.bottom_sheet
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
+import com.asf.wallet.databinding.ChooseCurrencyBottomSheetBinding
+import com.asfoundation.wallet.base.Async
+import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.change_currency.FiatCurrency
+import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.Observable
-import kotlinx.android.synthetic.main.choose_currency_bottom_sheet.*
 import javax.inject.Inject
 
 class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
-    ChooseCurrencyBottomSheetView {
+    ChooseCurrencyBottomSheetView,
+    SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
+
 
   @Inject
   lateinit var chooseCurrencyBottomSheetViewModelFactory: ChooseCurrencyBottomSheetViewModelFactory
 
-  lateinit var viewModel: ChooseCurrencyBottomSheetViewModel
+  @Inject
+  lateinit var navigator: ChooseCurrencyBottomSheetNavigator
+
+  private val viewModel: ChooseCurrencyBottomSheetViewModel by viewModels { chooseCurrencyBottomSheetViewModelFactory }
+  private val views by viewBinding(ChooseCurrencyBottomSheetBinding::bind)
 
   companion object {
 
@@ -58,44 +65,76 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    viewModel =
-        ViewModelProviders.of(this,
-            chooseCurrencyBottomSheetViewModelFactory)[ChooseCurrencyBottomSheetViewModel::class.java]
+    views.chooseCurrencyConfirmationButton.setOnClickListener { viewModel.currencyConfirmationClick() }
+    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   override fun getTheme(): Int {
     return R.style.AppBottomSheetDialogTheme
   }
 
+
+  override fun onStateChanged(state: ChooseCurrencyBottomSheetState) {
+    Log.d("APPC-2472", "ChooseCurrencyBottomSheetFragment: onStateChanged: $state")
+    setChooseCurrencyBottomSheetData(state.selectedCurrency, state.selectedFlag,
+        state.selectedLabel)
+    setSelectedConfirmation(state.selectedConfirmationAsync)
+  }
+
+  override fun onSideEffect(sideEffect: ChooseCurrencyBottomSideEffect) {
+    when (sideEffect) {
+      is ChooseCurrencyBottomSideEffect.NavigateBack -> navigator.navigateBack()
+    }
+  }
+
+  fun setChooseCurrencyBottomSheetData(selectedCurrency: String, selectedFlag: String,
+                                       selectedLabel: String) {
+    setCurrencyFlag(selectedFlag)
+    setCurrencyShort(selectedCurrency)
+    setCurrencyLabel(selectedLabel)
+  }
+
   override fun setCurrencyFlag(currencyFlag: String) {
 //    GlideToVectorYou
 //        .init()
 //        .with(context)
-//        .load(Uri.parse(currencyFlag), choose_currency_flag)
+//        .load(Uri.parse(currencyFlag), views.chooseCurrencyFlag)
     //TODO
   }
 
   override fun setCurrencyShort(currencyShort: String) {
-    Log.d("APPC-2472", "setCurrencyShort: short: $currencyShort")
-    choose_currency_short.text = currencyShort
+    views.chooseCurrencyShort.text = currencyShort
   }
 
   override fun setCurrencyLabel(currencyLabel: String) {
-    Log.d("APPC-2472", "setCurrencyLabel: label: $currencyLabel")
-    choose_currency_label.text = currencyLabel
+    views.chooseCurrencyLabel.text = currencyLabel
   }
 
-//  override fun getConfirmationClick(): Observable<Any> {
-//    return RxView.clicks(choose_currency_confirmation_button)
-//  }
+  fun setSelectedConfirmation(selectedConfirmationAsync: Async<Unit>) {
+    when (selectedConfirmationAsync) {
+      is Async.Uninitialized -> {
+      }
+      is Async.Loading -> {
+        if (selectedConfirmationAsync.value == null) {
+          showLoading(shouldShow = true)
+        }
+      }
+      is Async.Fail -> {
+      }
+      is Async.Success -> {
+        showLoading(shouldShow = false)
+        navigator.navigateBack()
+      }
+    }
+  }
 
-  override fun showLoading() {
-    choose_currency_flag.visibility = View.GONE
-    choose_currency_short.visibility = View.GONE
-    choose_currency_label.visibility = View.GONE
-    choose_currency_confirmation_button.visibility = View.GONE
-
-    choose_currency_system_view.showOnlyProgress()
-    choose_currency_system_view.visibility = View.VISIBLE
+  override fun showLoading(shouldShow: Boolean) {
+    Log.d("APPC-2472", "ChooseCurrencyBottomSheetFragment: showLoading: $shouldShow")
+    views.chooseCurrencyFlag.visibility = if (shouldShow) View.GONE else View.VISIBLE
+    views.chooseCurrencyShort.visibility = if (shouldShow) View.GONE else View.VISIBLE
+    views.chooseCurrencyLabel.visibility = if (shouldShow) View.GONE else View.VISIBLE
+    views.chooseCurrencyConfirmationButton.visibility = if (shouldShow) View.GONE else View.VISIBLE
+    views.chooseCurrencySystemView.showOnlyProgress()
+    views.chooseCurrencySystemView.visibility = if (shouldShow) View.VISIBLE else View.GONE
   }
 }

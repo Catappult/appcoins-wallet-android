@@ -5,57 +5,88 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentChangeFiatCurrencyBinding
+import com.asfoundation.wallet.base.Async
+import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
 import com.asfoundation.wallet.change_currency.list.ChangeFiatCurrencyController
-import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_change_fiat_currency.*
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
 
-class ChangeFiatCurrencyFragment : DaggerFragment() {
-
+class ChangeFiatCurrencyFragment : BasePageViewFragment(),
+    SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
 
   @Inject
   lateinit var changeFiatCurrencyViewModelFactory: ChangeFiatCurrencyViewModelFactory
 
-  lateinit var viewModel: ChangeFiatCurrencyViewModel
+  private val viewModel: ChangeFiatCurrencyViewModel by viewModels { changeFiatCurrencyViewModelFactory }
+  private val views by viewBinding(FragmentChangeFiatCurrencyBinding::bind)
 
   private val changeFiatCurrencyController = ChangeFiatCurrencyController()
 
-  companion object {
-    fun newInstance() = ChangeFiatCurrencyFragment()
-  }
-
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    changeFiatCurrencyController.clickListener = { fiatCurrency ->
-      ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
-          .show(this.requireFragmentManager(), "ChooseCurrencyBottomSheet")
-    }
-    fragment_change_fiat_currency_list.setController(changeFiatCurrencyController)
-  }
-
-  @Nullable
   override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?,
                             @Nullable savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_change_fiat_currency, container, false)
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
 
-    viewModel =
-        ViewModelProviders.of(this,
-            changeFiatCurrencyViewModelFactory)[ChangeFiatCurrencyViewModel::class.java]
-    viewModel.changeFiatCurrencyLiveData
-        .observe(this, {
-          this.showChangeFiatCurrency(it)
-        })
+  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    changeFiatCurrencyController.clickListener = { fiatCurrency ->
+      ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
+          .show(this.requireFragmentManager(), "ChooseCurrencyBottomSheet")
+    }
+    views.fragmentChangeFiatCurrencyList.setController(changeFiatCurrencyController)
+    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
-  fun showChangeFiatCurrency(currency: ChangeFiatCurrency) {
-    changeFiatCurrencyController.setData(currency)
+  override fun onStateChanged(state: ChangeFiatCurrencyState) {
+    setChangeFiatCurrencyModel(state.changeFiatCurrencyAsync)
+  }
+
+  override fun onSideEffect(sideEffect: ChangeFiatCurrencySideEffect) {
+    TODO("Not yet implemented")
+  }
+
+  fun setChangeFiatCurrencyModel(asyncChangeFiatCurrency: Async<ChangeFiatCurrency>) {
+    when (asyncChangeFiatCurrency) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        if (asyncChangeFiatCurrency.value == null) {
+          showLoading()
+        }
+      }
+      is Async.Fail -> {
+      }
+      is Async.Success -> {
+        setChangeFiatCurrency(asyncChangeFiatCurrency())
+      }
+    }
+  }
+
+  private fun showLoading() {
+    views.fragmentChangeFiatCurrencyList.visibility = View.INVISIBLE
+    views.changeFiatSystemView.showOnlyProgress()
+    views.changeFiatSystemView.visibility = View.VISIBLE
+
+    changeFiatCurrencyController.clickListener = { fiatCurrency ->
+      ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
+          .show(this.requireFragmentManager(), "ChooseCurrencyBottomSheet")
+    }
+    views.fragmentChangeFiatCurrencyList.setController(changeFiatCurrencyController)
+  }
+
+  fun setChangeFiatCurrency(asyncChangeFiatCurrency: ChangeFiatCurrency) {
+    views.fragmentChangeFiatCurrencyList.visibility = View.VISIBLE
+    views.changeFiatSystemView.visibility = View.GONE
+    changeFiatCurrencyController.setData(asyncChangeFiatCurrency)
+  }
+
+  companion object {
+    fun newInstance() = ChangeFiatCurrencyFragment()
   }
 }

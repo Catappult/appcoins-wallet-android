@@ -9,6 +9,6 @@ class ChangeFiatCurrencyViewModelFactory(
     ViewModelProvider.Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-    return NewChangeFiatCurrencyViewModel(getSelectedCurrencyUseCase) as T
+    return ChangeFiatCurrencyViewModel(getSelectedCurrencyUseCase) as T
   }
 }

@@ -1,33 +1,39 @@
 package com.asfoundation.wallet.change_currency
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.asfoundation.wallet.viewmodel.BaseViewModel
-import io.reactivex.disposables.CompositeDisposable
+import com.asfoundation.wallet.base.Async
+import com.asfoundation.wallet.base.BaseViewModel
+import com.asfoundation.wallet.base.SideEffect
+import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 
-class ChangeFiatCurrencyViewModel(private val disposables: CompositeDisposable,
-                                  private val selectedCurrencyInteract: SelectedCurrencyInteract) :
-    BaseViewModel() {
+object ChangeFiatCurrencySideEffect : SideEffect
 
-  private val _changeFiatCurrencyLiveData: MutableLiveData<ChangeFiatCurrency> = MutableLiveData()
-  val changeFiatCurrencyLiveData: LiveData<ChangeFiatCurrency> = _changeFiatCurrencyLiveData
+data class ChangeFiatCurrencyState(
+    val changeFiatCurrencyAsync: Async<ChangeFiatCurrency> = Async.Uninitialized) :
+    ViewState
+
+class ChangeFiatCurrencyViewModel(
+    private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase) :
+    BaseViewModel<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect>(
+        initialState()) {
+
+  companion object {
+    fun initialState(): ChangeFiatCurrencyState {
+      return ChangeFiatCurrencyState()
+    }
+  }
 
   init {
     showChangeFiatCurrency()
   }
 
-  override fun onCleared() {
-    disposables.clear()
-    super.onCleared()
-  }
-
-  fun showChangeFiatCurrency() {
-    disposables.add(selectedCurrencyInteract.getChangeFiatCurrencyModel(shouldCheckFirstTime = false)
-        .doOnSuccess { _changeFiatCurrencyLiveData.postValue(it) }
-        .doOnError {
-          Log.d("APPC-2472", "showCurrencyList: error ${it.message}")
+  private fun showChangeFiatCurrency() {
+    getSelectedCurrencyUseCase(shouldCheckFirstTime = false)
+        .asAsyncToState(ChangeFiatCurrencyState::changeFiatCurrencyAsync) {
+          copy(changeFiatCurrencyAsync = it)
         }
-        .subscribe())
+        .scopedSubscribe() { e ->
+          e.printStackTrace()
+        }
   }
 }

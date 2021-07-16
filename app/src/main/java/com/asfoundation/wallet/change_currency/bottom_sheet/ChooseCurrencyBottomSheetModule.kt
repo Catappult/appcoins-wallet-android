@@ -1,32 +1,31 @@
 package com.asfoundation.wallet.change_currency.bottom_sheet
 
-import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
+import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import dagger.Module
 import dagger.Provides
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 @Module
 class ChooseCurrencyBottomSheetModule {
 
   @Provides
-  fun providesChooseCurrencyBottomSheetViewModelFactory(fragment: ChooseCurrencyBottomSheetFragment,
-                                                        data: ChooseCurrencyBottomSheetData,
-                                                        selectedCurrencyInteract: SelectedCurrencyInteract,
-                                                        navigator: ChooseCurrencyBottomSheetNavigator): ChooseCurrencyBottomSheetViewModelFactory {
-    return ChooseCurrencyBottomSheetViewModelFactory(fragment as ChooseCurrencyBottomSheetView,
-        data, AndroidSchedulers.mainThread(), selectedCurrencyInteract, navigator)
+  fun providesChooseCurrencyBottomSheetViewModelFactory(data: ChooseCurrencyBottomSheetData,
+                                                        setSelectedCurrencyUseCase: SetSelectedCurrencyUseCase): ChooseCurrencyBottomSheetViewModelFactory {
+    return ChooseCurrencyBottomSheetViewModelFactory(data, Schedulers.io(),
+        setSelectedCurrencyUseCase)
   }
 
   @Provides
   fun providesChooseCurrencyBottomSheetData(
       fragment: ChooseCurrencyBottomSheetFragment): ChooseCurrencyBottomSheetData {
-    fragment.requireArguments().apply {
-      return ChooseCurrencyBottomSheetData(
-          getString(ChooseCurrencyBottomSheetFragment.FLAG) as String,
-          getString(ChooseCurrencyBottomSheetFragment.CURRENCY) as String,
-          getString(ChooseCurrencyBottomSheetFragment.LABEL) as String,
-          getString(ChooseCurrencyBottomSheetFragment.SIGN) as String)
-    }
+    fragment.requireArguments()
+        .apply {
+          return ChooseCurrencyBottomSheetData(
+              getString(ChooseCurrencyBottomSheetFragment.FLAG) as String,
+              getString(ChooseCurrencyBottomSheetFragment.CURRENCY) as String,
+              getString(ChooseCurrencyBottomSheetFragment.LABEL) as String,
+              getString(ChooseCurrencyBottomSheetFragment.SIGN) as String)
+        }
   }
 
   @Provides
