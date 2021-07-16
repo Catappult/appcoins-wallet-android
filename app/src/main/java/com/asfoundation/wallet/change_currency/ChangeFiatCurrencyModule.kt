@@ -1,16 +1,15 @@
 package com.asfoundation.wallet.change_currency
 
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import dagger.Module
 import dagger.Provides
-import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class ChangeFiatCurrencyModule {
 
   @Provides
   fun providesChangeFiatCurrencyViewModelFactory(
-      selectedCurrencyInteract: SelectedCurrencyInteract): ChangeFiatCurrencyViewModelFactory {
-    return ChangeFiatCurrencyViewModelFactory(CompositeDisposable(),
-        selectedCurrencyInteract)
+      getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): ChangeFiatCurrencyViewModelFactory {
+    return ChangeFiatCurrencyViewModelFactory(getSelectedCurrencyUseCase)
   }
 }

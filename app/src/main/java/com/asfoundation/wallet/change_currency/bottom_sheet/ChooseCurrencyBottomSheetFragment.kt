@@ -85,9 +85,9 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     choose_currency_label.text = currencyLabel
   }
 
-  override fun getConfirmationClick(): Observable<Any> {
-    return RxView.clicks(choose_currency_confirmation_button)
-  }
+//  override fun getConfirmationClick(): Observable<Any> {
+//    return RxView.clicks(choose_currency_confirmation_button)
+//  }
 
   override fun showLoading() {
     choose_currency_flag.visibility = View.GONE

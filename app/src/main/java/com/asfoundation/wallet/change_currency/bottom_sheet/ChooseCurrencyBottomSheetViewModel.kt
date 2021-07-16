@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.change_currency.bottom_sheet
 
-import com.asfoundation.wallet.change_currency.FiatCurrency
 import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.viewmodel.BaseViewModel
 import io.reactivex.Scheduler
@@ -20,17 +19,17 @@ class ChooseCurrencyBottomSheetViewModel(private val view: ChooseCurrencyBottomS
   }
 
   private fun currencyConfirmationClick() {
-    disposable.add(view.getConfirmationClick()
-        .observeOn(viewScheduler)
-        .doOnNext {
-          view.showLoading()
-          selectedCurrencyInteract.setSelectedCurrency(
-              FiatCurrency(data.currency!!, data.flag, data.label, data.sign))
-        }
-//        .delay(5, TimeUnit.SECONDS)
-        .doOnNext {
-          navigator.navigateBack()
-        }
-        .subscribe({}, { it.printStackTrace() }))
+//    disposable.add(view.getConfirmationClick()
+//        .observeOn(viewScheduler)
+//        .doOnNext {
+//          view.showLoading()
+//          selectedCurrencyInteract.setSelectedCurrency(
+//              FiatCurrency(data.currency!!, data.flag, data.label, data.sign))
+//        }
+////        .delay(5, TimeUnit.SECONDS)
+//        .doOnNext {
+//          navigator.navigateBack()
+//        }
+//        .subscribe({}, { it.printStackTrace() }))
   }
 }

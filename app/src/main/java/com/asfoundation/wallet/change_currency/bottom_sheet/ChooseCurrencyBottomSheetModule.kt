@@ -20,7 +20,7 @@ class ChooseCurrencyBottomSheetModule {
   @Provides
   fun providesChooseCurrencyBottomSheetData(
       fragment: ChooseCurrencyBottomSheetFragment): ChooseCurrencyBottomSheetData {
-    fragment.arguments!!.apply {
+    fragment.requireArguments().apply {
       return ChooseCurrencyBottomSheetData(
           getString(ChooseCurrencyBottomSheetFragment.FLAG) as String,
           getString(ChooseCurrencyBottomSheetFragment.CURRENCY) as String,
