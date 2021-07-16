@@ -16,10 +16,9 @@ import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.home.usecases.*
+import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.AppcoinsApps
-import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
@@ -48,12 +47,10 @@ sealed class HomeSideEffect : SideEffect {
   object ShowFingerprintTooltip : HomeSideEffect()
 }
 
-data class HomeState(
-    val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
-    val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
-    val showVipBadge: Boolean = false,
-    val unreadMessages: Boolean = false) :
-    ViewState
+data class HomeState(val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
+                     val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
+                     val showVipBadge: Boolean = false,
+                     val unreadMessages: Boolean = false) : ViewState
 
 class HomeViewModel(private val analytics: HomeAnalytics,
                     private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
@@ -63,7 +60,6 @@ class HomeViewModel(private val analytics: HomeAnalytics,
                     private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
                     private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
                     private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
-                    private val buildAutoUpdateIntentUseCase: BuildAutoUpdateIntentUseCase,
                     private val shouldShowFingerprintTooltipUseCase: ShouldShowFingerprintTooltipUseCase,
                     private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
                     private val getLevelsUseCase: GetLevelsUseCase,
@@ -76,6 +72,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
                     private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
                     private val displayChatUseCase: DisplayChatUseCase,
                     private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
+                    private val walletPackageName: String,
                     private val walletsEventSender: WalletsEventSender,
                     private val formatter: CurrencyFormatUtils,
                     private val viewScheduler: Scheduler,
@@ -415,7 +412,8 @@ class HomeViewModel(private val analytics: HomeAnalytics,
       }
       CardNotificationAction.UPDATE -> {
         sendSideEffect {
-          HomeSideEffect.NavigateToIntent(buildAutoUpdateIntentUseCase())
+//          HomeSideEffect.NavigateToIntent(buildAutoUpdateIntentUseCase())
+          HomeSideEffect.NavigateToIntent(buildAutoUpdateIntent())
         }
         dismissNotification(cardNotification)
       }
@@ -434,6 +432,14 @@ class HomeViewModel(private val analytics: HomeAnalytics,
       CardNotificationAction.NONE -> {
       }
     }
+  }
+
+  private fun buildAutoUpdateIntent(): Intent {
+    val intent =
+        Intent(Intent.ACTION_VIEW,
+            Uri.parse(String.format(AutoUpdateInteract.PLAY_APP_VIEW_URL, walletPackageName)))
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    return intent
   }
 
   private fun dismissNotification(cardNotification: CardNotification) {

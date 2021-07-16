@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.home
 
+import android.content.Context
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.main.MainActivityNavigator
-import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.Module
 import dagger.Provides
@@ -30,7 +30,6 @@ class HomeModule {
                                    findDefaultWalletUseCase: FindDefaultWalletUseCase,
                                    observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
                                    dismissCardNotificationUseCase: DismissCardNotificationUseCase,
-                                   buildAutoUpdateIntentUseCase: BuildAutoUpdateIntentUseCase,
                                    shouldShowFingerprintTooltipUseCase: ShouldShowFingerprintTooltipUseCase,
                                    setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
                                    getLevelsUseCase: GetLevelsUseCase,
@@ -43,16 +42,18 @@ class HomeModule {
                                    getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
                                    displayChatUseCase: DisplayChatUseCase,
                                    displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
+                                   context: Context,
                                    walletsEventSender: WalletsEventSender,
                                    currencyFormatUtils: CurrencyFormatUtils): HomeViewModelFactory {
     return HomeViewModelFactory(homeAnalytics, shouldOpenRatingDialogUseCase,
         updateTransactionsNumberUseCase, findNetworkInfoUseCase, fetchTransactionsUseCase,
         findDefaultWalletUseCase, observeDefaultWalletUseCase, dismissCardNotificationUseCase,
-        buildAutoUpdateIntentUseCase, shouldShowFingerprintTooltipUseCase,
+        shouldShowFingerprintTooltipUseCase,
         setSeenFingerprintTooltipUseCase, getLevelsUseCase, getUserLevelUseCase,
         getAppcBalanceUseCase, getEthBalanceUseCase, getCreditsBalanceUseCase,
         getCardNotificationsUseCase, registerSupportUserUseCase,
         getUnreadConversationsCountEventsUseCase, displayChatUseCase,
-        displayConversationListOrChatUseCase, walletsEventSender, currencyFormatUtils)
+        displayConversationListOrChatUseCase, context.packageName, walletsEventSender,
+        currencyFormatUtils)
   }
 }

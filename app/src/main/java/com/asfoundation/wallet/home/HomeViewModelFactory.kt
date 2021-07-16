@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.home.usecases.*
-import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,7 +16,6 @@ class HomeViewModelFactory(private val analytics: HomeAnalytics,
                            private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
                            private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
                            private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
-                           private val buildAutoUpdateIntentUseCase: BuildAutoUpdateIntentUseCase,
                            private val shouldShowFingerprintTooltipUseCase: ShouldShowFingerprintTooltipUseCase,
                            private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
                            private val getLevelsUseCase: GetLevelsUseCase,
@@ -30,6 +28,7 @@ class HomeViewModelFactory(private val analytics: HomeAnalytics,
                            private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
                            private val displayChatUseCase: DisplayChatUseCase,
                            private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
+                           private val walletPackageName: String,
                            private val walletsEventSender: WalletsEventSender,
                            private val formatter: CurrencyFormatUtils) :
     ViewModelProvider.Factory {
@@ -38,12 +37,12 @@ class HomeViewModelFactory(private val analytics: HomeAnalytics,
     return HomeViewModel(analytics,
         shouldOpenRatingDialogUseCase, updateTransactionsNumberUseCase, findNetworkInfoUseCase,
         fetchTransactionsUseCase, findDefaultWalletUseCase,
-        observeDefaultWalletUseCase, dismissCardNotificationUseCase, buildAutoUpdateIntentUseCase,
+        observeDefaultWalletUseCase, dismissCardNotificationUseCase,
         shouldShowFingerprintTooltipUseCase, setSeenFingerprintTooltipUseCase, getLevelsUseCase,
         getUserLevelUseCase, getAppcBalanceUseCase, getEthBalanceUseCase, getCreditsBalanceUseCase,
         getCardNotificationsUseCase, registerSupportUserUseCase,
         getUnreadConversationsCountEventsUseCase, displayChatUseCase,
-        displayConversationListOrChatUseCase, walletsEventSender, formatter,
+        displayConversationListOrChatUseCase, walletPackageName, walletsEventSender, formatter,
         AndroidSchedulers.mainThread(), Schedulers.io()) as T
   }
 }

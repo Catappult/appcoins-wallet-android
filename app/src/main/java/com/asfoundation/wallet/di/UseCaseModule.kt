@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.di
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.biometric.BiometricManager
@@ -142,13 +141,6 @@ class UseCaseModule {
         SharedPreferencesReferralLocalData(preferences),
         autoUpdateRepository, sharedPreferencesRepository, backupRestorePreferencesRepository,
         promotionsRepo)
-  }
-
-  @Singleton
-  @Provides
-  fun provideBuildAutoUpdateIntentUseCase(
-      context: Context): BuildAutoUpdateIntentUseCase {
-    return BuildAutoUpdateIntentUseCase(context.packageName)
   }
 
   @Singleton
