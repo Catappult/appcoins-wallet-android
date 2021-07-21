@@ -6,4 +6,6 @@ interface AddressService {
   fun getStoreAddressForPackage(packageName: String): Single<String>
 
   fun getOemAddressForPackage(packageName: String): Single<String>
+
+  fun getAttributionEntity(packageName: String): Single<AttributionEntity>
 }

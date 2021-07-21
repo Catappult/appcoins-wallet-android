@@ -2,7 +2,6 @@ package com.asfoundation.wallet.billing.partners
 
 import com.asfoundation.wallet.util.DeviceInfo
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 
 
 class PartnerAddressService(private val installerService: InstallerService,
@@ -12,25 +11,27 @@ class PartnerAddressService(private val installerService: InstallerService,
     AddressService {
 
   override fun getStoreAddressForPackage(packageName: String): Single<String> {
-    return Single.zip(installerService.getInstallerPackageName(packageName),
-        oemIdExtractorService.extractOemId(packageName),
-        BiFunction { installerPackage: String, oemId: String -> Pair(installerPackage, oemId) })
-        .flatMap { pair ->
-          walletAddressService.getStoreWalletForPackage(pair.first.ifEmpty { null },
-              deviceInfo.manufacturer, deviceInfo.model, pair.second.ifEmpty { null })
+    return getAttributionEntity(packageName)
+        .flatMap { entity ->
+          walletAddressService.getStoreWalletForPackage(entity.domain.ifEmpty { null },
+              deviceInfo.manufacturer, deviceInfo.model, entity.oemId.ifEmpty { null })
         }
         .onErrorResumeNext { walletAddressService.getStoreDefaultAddress() }
   }
 
   override fun getOemAddressForPackage(packageName: String): Single<String> {
-    return Single.zip(installerService.getInstallerPackageName(packageName),
-        oemIdExtractorService.extractOemId(packageName),
-        BiFunction { installerPackage: String, oemId: String -> Pair(installerPackage, oemId) })
-        .flatMap { pair ->
-          walletAddressService.getOemWalletForPackage(pair.first.ifEmpty { null },
-              deviceInfo.manufacturer, deviceInfo.model, pair.second.ifEmpty { null })
+    return getAttributionEntity(packageName)
+        .flatMap { entity ->
+          walletAddressService.getOemWalletForPackage(entity.domain.ifEmpty { null },
+              deviceInfo.manufacturer, deviceInfo.model, entity.oemId.ifEmpty { null })
         }
         .onErrorResumeNext { walletAddressService.getOemDefaultAddress() }
+  }
+
+  override fun getAttributionEntity(packageName: String): Single<AttributionEntity> {
+    return Single.zip(installerService.getInstallerPackageName(packageName),
+        oemIdExtractorService.extractOemId(packageName),
+        { installerPackage, oemId -> AttributionEntity(oemId, installerPackage) })
   }
 
 }
