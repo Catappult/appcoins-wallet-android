@@ -12,14 +12,15 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod
-import com.asfoundation.wallet.util.*
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.Single.zip
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
 import retrofit2.HttpException
 import java.math.BigDecimal
@@ -69,18 +70,24 @@ class PaymentMethodsPresenter(
     handleBuyClick()
     handleSupportClicks()
     handleAuthenticationResult()
+    handleTopupClicks()
     if (paymentMethodsData.isBds) handlePaymentSelection()
   }
 
+  private fun handleTopupClicks() {
+    disposables.add(view.getTopupClicks().retry().doOnNext { view.showTopupFlow() }.subscribe())
+  }
+
   fun onResume(firstRun: Boolean) {
-    startMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun);
+    startMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun)
     if (firstRun.not()) view.showPaymentsSkeletonLoading()
     setupUi(firstRun)
   }
 
   private fun handlePaymentSelection() {
-    disposables.add(view.getPaymentSelection()
-      .observeOn(viewScheduler)
+    disposables.add(
+      view.getPaymentSelection()
+        .observeOn(viewScheduler)
       .doOnNext { selectedPaymentMethod ->
         if (interactor.isBonusActiveAndValid()) {
           handleBonusVisibility(selectedPaymentMethod)
@@ -354,7 +361,7 @@ class PaymentMethodsPresenter(
       .doOnComplete {
         //If first run we should rely on the hideLoading of the handleOnGoingPurchases method
         if (!firstRun) view.hideLoading()
-        endMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun);
+        endMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun)
       }
       .subscribe({ }, { this.showError(it) })
     )
@@ -460,7 +467,16 @@ class PaymentMethodsPresenter(
         )
       }
       if (it.id == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id) {
-        return it
+        return PaymentMethod(
+          it.id,
+          it.label,
+          it.iconUrl,
+          it.async,
+          it.fee,
+          it.isEnabled,
+          it.disabledReason,
+          paymentMethods.size == 1
+        )
       }
     }
 

@@ -16,10 +16,15 @@ import kotlinx.android.synthetic.main.item_payment_method.view.*
 
 class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-  fun bind(data: PaymentMethod, checked: Boolean, listener: View.OnClickListener) {
+  fun bind(
+    data: PaymentMethod,
+    checked: Boolean,
+    listener: View.OnClickListener,
+    onClickListener: View.OnClickListener
+  ) {
     GlideApp.with(itemView.context)
-        .load(data.iconUrl)
-        .into(itemView.payment_method_ic)
+      .load(data.iconUrl)
+      .into(itemView.payment_method_ic)
 
     val selected = data.isEnabled && checked
     itemView.radio_button.isChecked = selected
@@ -44,6 +49,12 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       }
 
       applyAlphaScale(itemView.payment_method_ic)
+    }
+    itemView.checkout_topup_button.setOnClickListener(onClickListener)
+    if (data.showTopup) {
+      itemView.checkout_topup_button.visibility = View.VISIBLE
+    } else {
+      itemView.checkout_topup_button.visibility = View.GONE
     }
   }
 

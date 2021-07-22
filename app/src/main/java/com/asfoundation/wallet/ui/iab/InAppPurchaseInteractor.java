@@ -459,12 +459,14 @@ public class InAppPurchaseInteractor {
           .equals(availablePaymentMethod.getId())) {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null);
+            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
+            paymentMethod.getId()
+                .equals(CREDITS_ID) && availablePaymentMethods.size() == 1);
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null);
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false);
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {
