@@ -3,6 +3,7 @@ package com.asfoundation.wallet.repository;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.PaymentProof;
 import com.asfoundation.wallet.billing.partners.AddressService;
+import com.asfoundation.wallet.billing.partners.AttributionEntity;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
@@ -30,15 +31,13 @@ public class BuyTransactionValidatorBds implements TransactionValidator {
     Single<String> getTransactionHash = defaultTokenProvider.getDefaultToken()
         .flatMap(tokenInfo -> sendTransactionInteract.computeBuyTransactionHash(
             paymentTransaction.getTransactionBuilder()));
-    Single<String> getStoreAddress =
-        partnerAddressService.getStoreAddressForPackage(paymentTransaction.getPackageName());
-    Single<String> getOemAddress =
-        partnerAddressService.getOemAddressForPackage(paymentTransaction.getPackageName());
 
-    return Single.zip(getTransactionHash, getStoreAddress, getOemAddress,
-        (hash, storeAddress, oemAddress) -> new PaymentProof("appcoins",
-            paymentTransaction.getApproveHash(), hash, productName, packageName, storeAddress,
-            oemAddress))
+    Single<AttributionEntity> attributionEntity =
+        partnerAddressService.getAttributionEntity(packageName);
+
+    return Single.zip(getTransactionHash, attributionEntity,
+        (hash, attrEntity) -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(),
+            hash, productName, packageName, attrEntity.getOemId(), attrEntity.getDomain()))
         .flatMapCompletable(billingPaymentProofSubmission::processPurchaseProof);
   }
 }

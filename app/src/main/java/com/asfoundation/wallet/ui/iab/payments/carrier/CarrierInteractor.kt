@@ -22,7 +22,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import io.reactivex.functions.Function3
 import java.util.concurrent.TimeUnit
 
 class CarrierInteractor(private val repository: CarrierBillingRepository,
@@ -48,7 +47,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
           repository.makePayment(details.addrs.userAddress, details.addrs.signedAddress,
               phoneNumber, packageName, origin, details.builder.skuId,
               details.builder.orderReference, transactionType, currency, value,
-              details.builder.toAddress(), details.addrs.oemAddress, details.addrs.storeAddress,
+              details.builder.toAddress(), details.addrs.entityOemId, details.addrs.entityDomain,
               details.addrs.userAddress, details.builder.referrerUrl, details.builder.payload,
               details.builder.callbackUrl)
         }
@@ -106,11 +105,10 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
 
   private fun getAddresses(packageName: String): Single<WalletAddresses> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress()
-        .subscribeOn(ioScheduler), partnerAddressService.getStoreAddressForPackage(packageName)
-        .subscribeOn(ioScheduler),
-        partnerAddressService.getOemAddressForPackage(packageName)
-            .subscribeOn(ioScheduler), Function3 { addressModel, storeAddress, oemAddress ->
-      WalletAddresses(addressModel.address, addressModel.signedAddress, storeAddress, oemAddress)
+        .subscribeOn(ioScheduler), partnerAddressService.getAttributionEntity(packageName)
+        .subscribeOn(ioScheduler), BiFunction { addressModel, attributionEntity ->
+      WalletAddresses(addressModel.address, addressModel.signedAddress, attributionEntity.oemId,
+          attributionEntity.domain)
     })
   }
 

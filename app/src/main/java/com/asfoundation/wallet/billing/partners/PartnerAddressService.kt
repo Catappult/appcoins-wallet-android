@@ -13,8 +13,8 @@ class PartnerAddressService(private val installerService: InstallerService,
   override fun getStoreAddressForPackage(packageName: String): Single<String> {
     return getAttributionEntity(packageName)
         .flatMap { entity ->
-          walletAddressService.getStoreWalletForPackage(entity.domain.ifEmpty { null },
-              deviceInfo.manufacturer, deviceInfo.model, entity.oemId.ifEmpty { null })
+          walletAddressService.getStoreWalletForPackage(entity.domain, deviceInfo.manufacturer,
+              deviceInfo.model, entity.oemId)
         }
         .onErrorResumeNext { walletAddressService.getStoreDefaultAddress() }
   }
@@ -22,8 +22,8 @@ class PartnerAddressService(private val installerService: InstallerService,
   override fun getOemAddressForPackage(packageName: String): Single<String> {
     return getAttributionEntity(packageName)
         .flatMap { entity ->
-          walletAddressService.getOemWalletForPackage(entity.domain.ifEmpty { null },
-              deviceInfo.manufacturer, deviceInfo.model, entity.oemId.ifEmpty { null })
+          walletAddressService.getOemWalletForPackage(entity.domain, deviceInfo.manufacturer,
+              deviceInfo.model, entity.oemId)
         }
         .onErrorResumeNext { walletAddressService.getOemDefaultAddress() }
   }
@@ -31,7 +31,9 @@ class PartnerAddressService(private val installerService: InstallerService,
   override fun getAttributionEntity(packageName: String): Single<AttributionEntity> {
     return Single.zip(installerService.getInstallerPackageName(packageName),
         oemIdExtractorService.extractOemId(packageName),
-        { installerPackage, oemId -> AttributionEntity(oemId, installerPackage) })
+        { installerPackage, oemId ->
+          AttributionEntity(oemId.ifEmpty { null }, installerPackage.ifEmpty { null })
+        })
   }
 
 }

@@ -29,8 +29,9 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
         authorizationProof.priceValue, authorizationProof.developerAddress,
-        authorizationProof.storeAddress, authorizationProof.origin, authorizationProof.type,
-        authorizationProof.oemAddress, authorizationProof.developerPayload,
+        authorizationProof.entityOemId, authorizationProof.entityDomain, authorizationProof.origin,
+        authorizationProof.type,
+        authorizationProof.developerPayload,
         authorizationProof.callback, authorizationProof.orderReference,
         authorizationProof.referrerUrl)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
@@ -57,10 +58,10 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                                           packageName: String,
                                           priceValue: BigDecimal,
                                           developerWallet: String,
-                                          storeWallet: String,
+                                          entityOemId: String?,
+                                          entityDomain: String?,
                                           origin: String,
                                           type: String,
-                                          oemWallet: String,
                                           developerPayload: String?,
                                           callback: String?,
                                           orderReference: String?,
@@ -72,8 +73,9 @@ class BillingPaymentProofSubmissionImpl internal constructor(
               .observeOn(networkScheduler)
               .flatMap { signedData ->
                 repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
-                    productName, packageName, priceValue, developerWallet, storeWallet, origin,
-                    type, oemWallet, developerPayload, callback, orderReference, referrerUrl)
+                    productName, packageName, priceValue, developerWallet, entityOemId,
+                    entityDomain,
+                    origin, type, developerPayload, callback, orderReference, referrerUrl)
               }
         }
   }
@@ -129,8 +131,8 @@ data class AuthorizationProof(val paymentType: String,
                               val productName: String?,
                               val packageName: String,
                               val priceValue: BigDecimal,
-                              val storeAddress: String,
-                              val oemAddress: String,
+                              val entityOemId: String?,
+                              val entityDomain: String?,
                               val developerAddress: String,
                               val type: String,
                               val origin: String,
@@ -144,5 +146,5 @@ data class PaymentProof(val paymentType: String,
                         val paymentProof: String,
                         val productName: String?,
                         val packageName: String,
-                        val storeAddress: String,
-                        val oemAddress: String)
+                        val entityOemId: String?,
+                        val entityDomain: String?)
