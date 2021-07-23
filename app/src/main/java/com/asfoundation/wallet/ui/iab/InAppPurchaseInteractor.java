@@ -257,7 +257,33 @@ public class InAppPurchaseInteractor {
                 .flatMap(paymentMethod -> retrieveDisableReason(paymentMethod, transaction))
                 .toList())
             .map(this::removePaymentMethods))
-        .map(this::swapDisabledPositions);
+        .map(this::swapDisabledPositions)
+        .map(this::showTopup);
+  }
+
+  private List<PaymentMethod> showTopup(List<PaymentMethod> paymentMethods) {
+    if (paymentMethods.size() == 0) {
+      return paymentMethods;
+    }
+
+    int appcCreditPaymentIndex = 0;
+    for (int i = 0; i < paymentMethods.size(); i++) {
+      PaymentMethod paymentMethod = paymentMethods.get(i);
+      if (paymentMethod.isEnabled()) {
+        return paymentMethods;
+      }
+      if (paymentMethod.getId()
+          .equals(CREDITS_ID)) {
+        appcCreditPaymentIndex = i;
+      }
+    }
+    PaymentMethod appcPaymentMethod = paymentMethods.get(appcCreditPaymentIndex);
+    paymentMethods.set(appcCreditPaymentIndex,
+        new PaymentMethod(appcPaymentMethod.getId(), appcPaymentMethod.getLabel(),
+            appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
+            appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
+            appcPaymentMethod.getDisabledReason(), true));
+    return paymentMethods;
   }
 
   private Observable<PaymentMethod> retrieveDisableReason(PaymentMethod paymentMethod,
@@ -465,7 +491,7 @@ public class InAppPurchaseInteractor {
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, true);
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false);
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {
