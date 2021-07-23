@@ -78,7 +78,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
       style="@style/ButtonStyle"
-      app:flow_horizontalBias="1"
+      app:layout_constraintHorizontal_bias="1"
       app:iconTint="#ffffff"
       android:text="@string/topup_home_button"
       app:layout_constraintBottom_toBottomOf="parent"

@@ -53,8 +53,10 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     itemView.checkout_topup_button.setOnClickListener(onClickListener)
     if (data.showTopup) {
       itemView.checkout_topup_button.visibility = View.VISIBLE
+      itemView.radio_button.visibility = View.GONE
     } else {
       itemView.checkout_topup_button.visibility = View.GONE
+      itemView.radio_button.visibility = View.VISIBLE
     }
   }
 
