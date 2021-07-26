@@ -15,6 +15,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiConsumer
 import javax.inject.Inject
 
 class SkillsFragment : DaggerFragment() {
@@ -22,9 +23,6 @@ class SkillsFragment : DaggerFragment() {
   companion object {
     fun newInstance() = SkillsFragment()
 
-    private const val RESULT_OK = 0
-    private const val RESULT_USER_CANCELED = 1
-    private const val RESULT_ERROR = 6
     private const val SESSION = "SESSION"
     private const val USER_ID = "USER_ID"
     private const val ROOM_ID = "ROOM_ID"
@@ -63,9 +61,10 @@ class SkillsFragment : DaggerFragment() {
     requireActivity().onBackPressedDispatcher
         .addCallback(this, object : OnBackPressedCallback(true) {
           override fun handleOnBackPressed() {
-            cancelTicketAndReturnToGame()
+            disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
           }
         })
+    disposable.add(viewModel.closeView().subscribe { postbackUserData(it.first, it.second) })
 
     disposable.add(
         handleWalletCreationIfNeeded()
@@ -86,7 +85,7 @@ class SkillsFragment : DaggerFragment() {
                           if (userData.refunded) {
                             showRefunded()
                           } else {
-                            postbackUserData(RESULT_OK, userData)
+                            postbackUserData(SkillsViewModel.RESULT_OK, userData)
                           }
                         }
                         .doOnNext { ticket -> println("ticket: $ticket") }
@@ -102,11 +101,11 @@ class SkillsFragment : DaggerFragment() {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == RESULT_OK) {
-      if (data != null) {
+    if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == SkillsViewModel.RESULT_OK) {
+      if (data != null && data.extras!!.getString(TRANSACTION_HASH) != null) {
         viewModel.payTicketOnActivityResult(resultCode, data.extras!!.getString(TRANSACTION_HASH))
       } else {
-        cancelTicketAndReturnToGame()
+        disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
       }
 
     } else {
@@ -154,24 +153,10 @@ class SkillsFragment : DaggerFragment() {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.finding_room_loading_title)
       binding.loadingTicketLayout.cancelButton.isEnabled = true
       binding.loadingTicketLayout.cancelButton.setOnClickListener {
-        cancelTicketAndReturnToGame()
+        disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
       }
     } else {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)
-    }
-  }
-
-  private fun cancelTicketAndReturnToGame() {
-    // only paid tickets can be canceled/refunded on the backend side, meaning that if we
-    // cancel before actually paying the backend will return a 409 HTTP. this way we allow
-    // users to return to the game, without crashing, even if they weren't waiting in queue
-    try {
-      viewModel.cancelTicket(ticketId!!)
-          .map {
-            postbackUserData(RESULT_USER_CANCELED, UserData("", "", "", "", true))
-          }.blockingGet()
-    } catch (e: Exception) {
-      postbackUserData(RESULT_ERROR, UserData("", "", "", "", true))
     }
   }
 

@@ -18,6 +18,7 @@ import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -41,7 +42,7 @@ class SkillsModule {
                               cancelUseCase: CancelTicketUseCase): SkillsViewModel {
     return SkillsViewModel(
         createTicketUseCase, payTicketUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS,
-        loginUseCase, cancelUseCase
+        loginUseCase, cancelUseCase, PublishSubject.create()
     )
   }
 
