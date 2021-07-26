@@ -2,7 +2,7 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">Per acquistare questo articolo ti serve l\'%s.</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">Portafoglio AppCoins</string>
   <string name="iab_wallet_not_installed_popup_close_button">CHIUDI</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">Ti serve l\'AppCoins Wallet per effettuare questo acquisto. Scaricalo da Aptoide o Play Store e torna a trovarci per completare l\'acquisto!</string>

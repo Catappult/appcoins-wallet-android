@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">ਐਪ ਸਿੱਕੇ ਬਟੂਆ</string>
   <string name="title_send">ਭੇਜੋ</string>
   <string name="title_send_with_token">ਭੇਜੋ %s</string>
   <string name="title_request">ਪ੍ਰਾਪਤ ਕਰੋ</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">ਇਹ ਪੱਕਾ ਕਰੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਹੈ|</string>
   <string name="action_import">ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="copy">ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕਰੋ</string>
+  <string name="copied">Copied!</string>
   <string name="close">ਬੰਦ ਕਰੋ</string>
   <string name="title_activity_settings">ਸੈਟਿੰਗਾਂ</string>
   <string name="network_label">ਨੈੱਟਵਰਕ</string>
@@ -27,6 +28,7 @@
   <string name="label_new">ਨਵਾਂ</string>
   <string name="got_it_button">ਠੀਕ ਹੈ!</string>
   <string name="change_button">ਬਦਲੋ</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission_title">ਕੈਮਰਾ ਅਧਿਕਾਰ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">ਤੁਸੀਂ ਹੁਣ ਗੇਮਾਂ ਲਈ ਵਊਚਰ ਖਰੀਦ ਸਕਦੇ ਹੋ!</string>
   <string name="voucher_empty_more_title">ਗੇਮਾਂ ਲਈ ਵਾਊਚਰ</string>
   <string name="voucher_empty_more_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਗੇਮਾਂ ਲਈ ਵਧੀਆ ਸੌਦੇ ਲੱਭੋ!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

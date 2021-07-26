@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Dompet AppCoins</string>
   <string name="title_send">Kirim</string>
   <string name="title_send_with_token">Kirim %s</string>
   <string name="title_request">Terima</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Pastikan agar Anda sudah punya cadangan dari dompet ini.</string>
   <string name="action_import">Pulihkan</string>
   <string name="copy">Salin ke clipboard</string>
+  <string name="copied">Copied!</string>
   <string name="close">Tutup</string>
   <string name="title_activity_settings">Pengaturan</string>
   <string name="network_label">Jaringan</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Baru</string>
   <string name="got_it_button">MENGERTI</string>
   <string name="change_button">UBAH</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Ruang penyimpanan tidak cukup</string>
   <string name="no_camera_permission_title">Izin Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet membutuhkan izin untuk mengakses kamera Anda guna memindai kode QR.</string>
@@ -909,4 +911,10 @@
   <string name="voucher_tooltip">Sekarang Anda bisa membeli voucher untuk game!</string>
   <string name="voucher_empty_more_title">Voucher untuk Game</string>
   <string name="voucher_empty_more_body">Temukan penawaran terbaik untuk game favorit Anda!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

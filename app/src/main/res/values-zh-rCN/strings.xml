@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins钱包</string>
   <string name="title_send">发送</string>
   <string name="title_send_with_token">发送%s</string>
   <string name="title_request">接收</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">请一定要保留此钱包的备份。</string>
   <string name="action_import">恢复</string>
   <string name="copy">复制到剪贴板</string>
+  <string name="copied">Copied!</string>
   <string name="close">关闭</string>
   <string name="title_activity_settings">设置</string>
   <string name="network_label">网络</string>
@@ -27,6 +28,7 @@
   <string name="label_new">新</string>
   <string name="got_it_button">明白了</string>
   <string name="change_button">更改</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission_title">相机权限</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
@@ -452,7 +454,7 @@
   <string name="verification_insert_phone_field_region_error">尚不支持该地区。</string>
   <string name="verification_insert_phone_field_landline_error">不支持座机号码。</string>
   <string name="verification_insert_phone_security_disclaimer">此操作仅出于安全原因，我们不存储任何个人数据。</string>
-  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_title">AppCoins钱包</string>
   <string name="verification_notification_code_body">你的验证码是%s。使用它验证你的AppCoins Wallet地址。</string>
   <string name="verification_insert_code_title">输入你的验证码</string>
   <string name="verification_insert_code_error">代码无效</string>
@@ -909,4 +911,10 @@
   <string name="voucher_tooltip">您现在可以购买游戏优惠券！</string>
   <string name="voucher_empty_more_title">游戏优惠券</string>
   <string name="voucher_empty_more_body">查到你最喜欢的游戏的最佳优惠！</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
