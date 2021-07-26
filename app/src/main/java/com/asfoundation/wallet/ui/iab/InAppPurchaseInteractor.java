@@ -150,6 +150,14 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.convertToLocalFiat(appcValue);
   }
 
+  public Single<FiatValue> convertFiatToLocalFiat(double value, String currency) {
+    return asfInAppPurchaseInteractor.convertFiatToLocalFiat(value, currency);
+  }
+
+  public Single<FiatValue> convertFiatToAppc(double value, String currency) {
+    return asfInAppPurchaseInteractor.convertFiatToAppc(value, currency);
+  }
+
   public BillingMessagesMapper getBillingMessagesMapper() {
     return bdsInAppPurchaseInteractor.getBillingMessagesMapper();
   }
@@ -249,7 +257,33 @@ public class InAppPurchaseInteractor {
                 .flatMap(paymentMethod -> retrieveDisableReason(paymentMethod, transaction))
                 .toList())
             .map(this::removePaymentMethods))
-        .map(this::swapDisabledPositions);
+        .map(this::swapDisabledPositions)
+        .map(this::showTopup);
+  }
+
+  private List<PaymentMethod> showTopup(List<PaymentMethod> paymentMethods) {
+    if (paymentMethods.size() == 0) {
+      return paymentMethods;
+    }
+
+    int appcCreditPaymentIndex = 0;
+    for (int i = 0; i < paymentMethods.size(); i++) {
+      PaymentMethod paymentMethod = paymentMethods.get(i);
+      if (paymentMethod.isEnabled()) {
+        return paymentMethods;
+      }
+      if (paymentMethod.getId()
+          .equals(CREDITS_ID)) {
+        appcCreditPaymentIndex = i;
+      }
+    }
+    PaymentMethod appcPaymentMethod = paymentMethods.get(appcCreditPaymentIndex);
+    paymentMethods.set(appcCreditPaymentIndex,
+        new PaymentMethod(appcPaymentMethod.getId(), appcPaymentMethod.getLabel(),
+            appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
+            appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
+            appcPaymentMethod.getDisabledReason(), true));
+    return paymentMethods;
   }
 
   private Observable<PaymentMethod> retrieveDisableReason(PaymentMethod paymentMethod,
@@ -287,14 +321,12 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
-    if (hasFunds(paymentMethods) || !hasRequiredAptoideVersionInstalled()) {
-      Iterator<PaymentMethod> iterator = paymentMethods.iterator();
-      while (iterator.hasNext()) {
-        PaymentMethod paymentMethod = iterator.next();
-        if (paymentMethod.getId()
-            .equals("earn_appcoins")) {
-          iterator.remove();
-        }
+    Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+    while (iterator.hasNext()) {
+      PaymentMethod paymentMethod = iterator.next();
+      if (paymentMethod.getId()
+          .equals("earn_appcoins")) {
+        iterator.remove();
       }
     }
     return paymentMethods;
@@ -453,12 +485,13 @@ public class InAppPurchaseInteractor {
           .equals(availablePaymentMethod.getId())) {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null);
+            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
+            false);
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null);
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false);
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {

@@ -16,7 +16,6 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.*
-import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
@@ -44,11 +43,12 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsExperiment
+import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -84,6 +84,7 @@ import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -96,12 +97,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.math.BigDecimal
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
-import kotlin.collections.HashMap
 
 
 @Module
@@ -536,7 +535,8 @@ internal class AppModule {
             TransactionsDatabase.MIGRATION_1_2,
             TransactionsDatabase.MIGRATION_2_3,
             TransactionsDatabase.MIGRATION_3_4,
-            TransactionsDatabase.MIGRATION_4_5
+            TransactionsDatabase.MIGRATION_4_5,
+            TransactionsDatabase.MIGRATION_5_6
         )
         .build()
   }
@@ -591,9 +591,9 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBalanceWalletsExperiment(
-      abTestInteractor: ABTestInteractor): BalanceWalletsExperiment {
-    return BalanceWalletsExperiment(abTestInteractor)
+  fun providesTopUpDefaultValueExperiment(
+      abTestInteractor: ABTestInteractor): TopUpDefaultValueExperiment {
+    return TopUpDefaultValueExperiment(abTestInteractor)
   }
 
   @Singleton
@@ -613,7 +613,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideRoomCurrencyConversionRatesPersistence(
-      database: CurrencyConversionRatesDatabase): CurrencyConversionRatesPersistence {
+    database: CurrencyConversionRatesDatabase
+  ): CurrencyConversionRatesPersistence {
     return RoomCurrencyConversionRatesPersistence(database.currencyConversionRatesDao())
   }
 
@@ -621,5 +622,12 @@ internal class AppModule {
   @Provides
   fun provideTaskTimer(): TaskTimer {
     return TaskTimer()
+  }
+
+  @Provides
+  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
+    val headerJson = JsonObject()
+    headerJson.addProperty("typ", "EWT")
+    return EwtAuthenticatorService(walletService, headerJson.toString())
   }
 }

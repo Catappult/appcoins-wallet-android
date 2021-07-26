@@ -149,7 +149,7 @@ class OneStepTransactionParserTest {
 
   @Test
   @Throws(InterruptedException::class)
-  fun parseTransactionWithConversion() {
+  fun parseTransactionWithFiatValue() {
 
     val oneStepTransactionParser =
         OneStepTransactionParser(proxyService,
@@ -169,8 +169,7 @@ class OneStepTransactionParserTest {
         .await()
 
     test.assertValue { transactionBuilder ->
-      transactionBuilder.amount() == BigDecimal(
-          "32.857142857142857143")
+      transactionBuilder.amount() == BigDecimal.ZERO
     }
     test.assertValue { transactionBuilder ->
       transactionBuilder.toAddress()

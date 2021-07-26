@@ -16,10 +16,15 @@ import kotlinx.android.synthetic.main.item_payment_method.view.*
 
 class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-  fun bind(data: PaymentMethod, checked: Boolean, listener: View.OnClickListener) {
+  fun bind(
+    data: PaymentMethod,
+    checked: Boolean,
+    listener: View.OnClickListener,
+    onClickListener: View.OnClickListener
+  ) {
     GlideApp.with(itemView.context)
-        .load(data.iconUrl)
-        .into(itemView.payment_method_ic)
+      .load(data.iconUrl)
+      .into(itemView.payment_method_ic)
 
     val selected = data.isEnabled && checked
     itemView.radio_button.isChecked = selected
@@ -45,6 +50,14 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
 
       applyAlphaScale(itemView.payment_method_ic)
     }
+    itemView.checkout_topup_button.setOnClickListener(onClickListener)
+    if (data.showTopup) {
+      itemView.checkout_topup_button.visibility = View.VISIBLE
+      itemView.radio_button.visibility = View.GONE
+    } else {
+      itemView.checkout_topup_button.visibility = View.GONE
+      itemView.radio_button.visibility = View.VISIBLE
+    }
   }
 
   private fun handleDescription(data: PaymentMethod, selected: Boolean) {
@@ -65,7 +78,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     if (fee?.isValidFee() == true) {
       itemView.payment_method_fee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils.create()
-          .formatCurrency(fee.amount!!, WalletCurrency.FIAT)
+          .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       itemView.payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
       itemView.payment_method_fee_value.apply {

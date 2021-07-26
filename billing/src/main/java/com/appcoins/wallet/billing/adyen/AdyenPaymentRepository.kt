@@ -40,30 +40,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
 
-  fun makeSkillsPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                        hasCvc: Boolean,
-                        supportedShopperInteractions: List<String>, returnUrl: String,
-                        value: String,
-                        currency: String, reference: String?, paymentType: String,
-                        walletAddress: String,
-                        origin: String?, packageName: String?, metadata: String?, sku: String?,
-                        callbackUrl: String?, transactionType: String, developerWallet: String?,
-                        storeWallet: String?, oemWallet: String?, userWallet: String?,
-                        walletSignature: String,
-                        billingAddress: AdyenBillingAddress?,
-                        referrerUrl: String?): Single<PaymentModel> {
-    val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
-      "ContAuth"
-    } else "Ecommerce"
-    return adyenApi.makePayment(walletAddress, walletSignature,
-        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-            billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku, reference,
-            transactionType, currency, value, developerWallet, storeWallet, oemWallet, userWallet,
-            referrerUrl))
-        .map { adyenResponseMapper.map(it) }
-        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
-  }
-
   fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                               returnUrl: String, walletAddress: String,
                               walletSignature: String): Single<VerificationPaymentModel> {

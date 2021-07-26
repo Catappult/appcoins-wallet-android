@@ -96,6 +96,12 @@ interface PaymentMethodsView {
 
   fun getSelectedPaymentMethod(hasPreSelectedPaymentMethod: Boolean): PaymentMethod
 
+  fun updateProductName()
+
+  fun getTopupClicks(): Observable<String>
+
+  fun showTopupFlow()
+
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
     CARRIER_BILLING, ERROR

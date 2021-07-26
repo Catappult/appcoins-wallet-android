@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
-import cm.aptoide.skills.util.EskillsUri
+import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -30,7 +30,6 @@ class SkillsFragment : DaggerFragment() {
     private const val USER_ID = "USER_ID"
     private const val ROOM_ID = "ROOM_ID"
     private const val WALLET_ADDRESS = "WALLET_ADDRESS"
-    private const val TRANSACTION_HASH = "transaction_hash"
 
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
@@ -42,7 +41,7 @@ class SkillsFragment : DaggerFragment() {
   @Inject
   lateinit var eskillsUriParser: EskillsUriParser
 
-  private lateinit var userId: String
+  private var userId: String? = null
   private lateinit var disposable: CompositeDisposable
 
   private lateinit var binding: FragmentSkillsBinding
@@ -58,7 +57,7 @@ class SkillsFragment : DaggerFragment() {
     disposable = CompositeDisposable()
 
     val eskillsUri = getEskillsUri()
-    userId = eskillsUri.getUserId()
+    userId = eskillsUri.userId
     disposable.add(
         handleWalletCreationIfNeeded()
             .takeUntil { it != WALLET_CREATING_STATUS }
@@ -68,7 +67,8 @@ class SkillsFragment : DaggerFragment() {
                   .doOnSubscribe { showRoomLoading(false, null) }
                   .flatMap { ticketResponse ->
                     viewModel.getRoom(eskillsUri, ticketResponse, this)
-                      .doOnSubscribe { showRoomLoading(true, ticketResponse.ticketId) }
+                      .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe { showRoomLoading(true, ticketResponse.ticketId) }
                       .doOnNext { userData ->
                         if (userData.refunded) {
                           showRefunded()
@@ -76,7 +76,6 @@ class SkillsFragment : DaggerFragment() {
                           postbackUserData(RESULT_OK, userData)
                         }
                       }
-                      .doOnNext { ticket -> println("ticket: $ticket") }
                   }
             }.ignoreElements().doOnError({ handleError(it) })
           .onErrorComplete({ t -> isNetworkException(t) }).subscribe()
@@ -109,23 +108,12 @@ class SkillsFragment : DaggerFragment() {
     binding.refundTicketLayout.refundOkButton.setOnClickListener({ requireActivity().finish() })
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == RESULT_OK) {
-      viewModel.payTicketOnActivityResult(
-          resultCode, data!!.extras
-      !!.getString(TRANSACTION_HASH)
-      )
-    } else {
-      super.onActivityResult(requestCode, resultCode, data)
-    }
-  }
-
   override fun onDestroyView() {
     disposable.clear()
     super.onDestroyView()
   }
 
-  private fun getEskillsUri(): EskillsUri {
+  private fun getEskillsUri(): EskillsPaymentData {
     val intent = requireActivity().intent
     return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
   }

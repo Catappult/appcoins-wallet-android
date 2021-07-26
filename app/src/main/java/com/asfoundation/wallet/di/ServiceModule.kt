@@ -47,6 +47,7 @@ import com.asfoundation.wallet.util.DeviceInfo
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
+import com.asfoundation.wallet.withdraw.repository.WithdrawApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -513,13 +514,10 @@ class ServiceModule {
   @Provides
   fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
-    var okHttpClient = OkHttpClient().newBuilder()
-
-    okHttpClient.addInterceptor(CustomInterceptor())
 
     return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(okHttpClient.build())
+      .baseUrl(baseUrl)
+      .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
@@ -583,14 +581,32 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideWalletValidationApi(@Named("default") client: OkHttpClient,
-                                 gson: Gson): VerificationStateApi {
+                                 gson: Gson
+  ): VerificationStateApi {
     val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/"
     return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(VerificationStateApi::class.java)
+      .baseUrl(baseUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(VerificationStateApi::class.java)
   }
+
+  @Singleton
+  @Provides
+  fun provideWithdrawApi(
+    @Named("default") client: OkHttpClient,
+    gson: Gson
+  ): WithdrawApi {
+    val baseUrl = BuildConfig.BACKEND_HOST
+    return Retrofit.Builder()
+      .baseUrl(baseUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(WithdrawApi::class.java)
+  }
+
 }
