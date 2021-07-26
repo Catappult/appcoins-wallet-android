@@ -14,7 +14,6 @@ import cm.aptoide.skills.util.EskillsUriParser
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
@@ -35,14 +34,18 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesSkillsViewModel(createTicketUseCase: CreateTicketUseCase,
-                              payTicketUseCase: PayTicketUseCase,
-                              getTicketUseCase: GetTicketUseCase,
-                              loginUseCase: LoginUseCase,
-                              cancelUseCase: CancelTicketUseCase): SkillsViewModel {
+  fun providesSkillsViewModel(
+    walletObtainer: WalletAddressObtainer,
+    createTicketUseCase: CreateTicketUseCase,
+    payTicketUseCase: SkillsNavigator,
+    getTicketUseCase: GetTicketUseCase,
+    loginUseCase: LoginUseCase,
+    cancelUseCase: CancelTicketUseCase
+  ): SkillsViewModel {
     return SkillsViewModel(
-        createTicketUseCase, payTicketUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS,
-        loginUseCase, cancelUseCase, PublishSubject.create()
+      walletObtainer, createTicketUseCase, payTicketUseCase, getTicketUseCase,
+      GET_ROOM_RETRY_MILLIS,
+      loginUseCase, cancelUseCase,PublishSubject.create()
     )
   }
 
@@ -85,8 +88,8 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesPayTicketUseCase(ticketRepository: TicketRepository): PayTicketUseCase {
-    return PayTicketUseCase(ticketRepository)
+  fun providesPayTicketUseCase(): SkillsNavigator {
+    return SkillsNavigator()
   }
 
   @Provides
@@ -114,31 +117,26 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesEWTObtainer(ewtAuthenticatorService: EwtAuthenticatorService): EwtObtainer {
-    return DefaultEwtObtainer(ewtAuthenticatorService)
-  }
-
-  @Provides
-  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
-    val headerJson = JsonObject()
-    headerJson.addProperty("typ", "EWT")
-    return EwtAuthenticatorService(walletService, headerJson.toString())
-  }
-
-  @Provides
   fun providesEskillsUriParser(): EskillsUriParser {
     return EskillsUriParser()
   }
 
   @Provides
-  fun providesCancelUseCase(walletAddressObtainer: WalletAddressObtainer,
-                            ewtObtainer: EwtObtainer,
-                            ticketRepository: TicketRepository): CancelTicketUseCase {
+  fun providesCancelTicketUseCase(
+    walletAddressObtainer: WalletAddressObtainer,
+    ewtObtainer: EwtObtainer,
+    ticketRepository: TicketRepository
+  ): CancelTicketUseCase {
     return CancelTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
+  }
+
+  @Provides
+  fun providesEWTObtainer(ewtAuthenticatorService: EwtAuthenticatorService): EwtObtainer {
+    return DefaultEwtObtainer(ewtAuthenticatorService)
   }
 
   companion object {
     const val ENDPOINT = BuildConfig.BASE_HOST_SKILLS
-    const val GET_ROOM_RETRY_MILLIS = 1000L
+    const val GET_ROOM_RETRY_MILLIS = 3000L
   }
 }

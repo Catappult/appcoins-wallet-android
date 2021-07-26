@@ -112,8 +112,6 @@ class PromotionsPresenter(private val view: PromotionsView,
   private fun mapClickType(promotionClick: PromotionClick) {
     when (promotionClick.id) {
       GAMIFICATION_ID -> navigator.navigateToGamification(cachedBonus)
-      REFERRAL_ID -> mapReferralClick(promotionClick.extras)
-      else -> mapPackagePerkClick(promotionClick.extras)
     }
   }
 

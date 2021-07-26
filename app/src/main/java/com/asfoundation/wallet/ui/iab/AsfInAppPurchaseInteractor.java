@@ -298,6 +298,14 @@ public class AsfInAppPurchaseInteractor {
     return currencyConversionService.getLocalFiatAmount(Double.toString(appcValue));
   }
 
+  Single<FiatValue> convertFiatToLocalFiat(double value, String currency) {
+    return currencyConversionService.getLocalFiatAmount(Double.toString(value), currency);
+  }
+
+  Single<FiatValue> convertFiatToAppc(double value, String currency) {
+    return currencyConversionService.getFiatToAppcAmount(Double.toString(value), currency);
+  }
+
   private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {
     return new FiatValue(fiatValue.getAmount()
         .multiply(BigDecimal.valueOf(appcValue)), fiatValue.getCurrency(), fiatValue.getSymbol());

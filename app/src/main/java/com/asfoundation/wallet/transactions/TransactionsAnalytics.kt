@@ -1,11 +1,9 @@
 package com.asfoundation.wallet.transactions
 
 import cm.aptoide.analytics.AnalyticsManager
-import com.asfoundation.wallet.abtesting.experiments.balancewallets.BalanceWalletsAnalytics
 import java.util.*
 
-class TransactionsAnalytics(private val analytics: AnalyticsManager,
-                            private val balanceWalletsAnalytics: BalanceWalletsAnalytics) {
+class TransactionsAnalytics(private val analytics: AnalyticsManager) {
 
   companion object {
     const val WALLET_HOME_INTERACTION_EVENT = "wallet_home_interaction_event"
@@ -22,11 +20,6 @@ class TransactionsAnalytics(private val analytics: AnalyticsManager,
         hashMapOf<String, Any>(Pair(UNIQUE_NAME, uniqueName), Pair(PACKAGE_NAME, packageName)),
         OPEN_APPLICATION, AnalyticsManager.Action.OPEN, WALLET)
   }
-
-  fun sendAbTestImpressionEvent(assignment: String) =
-      balanceWalletsAnalytics.sendAbTestParticipatingEvent(assignment)
-
-  fun sendAbTestConversionEvent() = balanceWalletsAnalytics.sendAbTestConvertingEvent()
 
   fun sendAction(action: String) {
     val data = HashMap<String, Any>()

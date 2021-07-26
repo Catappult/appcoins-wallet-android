@@ -150,6 +150,14 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.convertToLocalFiat(appcValue);
   }
 
+  public Single<FiatValue> convertFiatToLocalFiat(double value, String currency) {
+    return asfInAppPurchaseInteractor.convertFiatToLocalFiat(value, currency);
+  }
+
+  public Single<FiatValue> convertFiatToAppc(double value, String currency) {
+    return asfInAppPurchaseInteractor.convertFiatToAppc(value, currency);
+  }
+
   public BillingMessagesMapper getBillingMessagesMapper() {
     return bdsInAppPurchaseInteractor.getBillingMessagesMapper();
   }
@@ -287,14 +295,12 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> removePaymentMethods(List<PaymentMethod> paymentMethods) {
-    if (hasFunds(paymentMethods) || !hasRequiredAptoideVersionInstalled()) {
-      Iterator<PaymentMethod> iterator = paymentMethods.iterator();
-      while (iterator.hasNext()) {
-        PaymentMethod paymentMethod = iterator.next();
-        if (paymentMethod.getId()
-            .equals("earn_appcoins")) {
-          iterator.remove();
-        }
+    Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+    while (iterator.hasNext()) {
+      PaymentMethod paymentMethod = iterator.next();
+      if (paymentMethod.getId()
+          .equals("earn_appcoins")) {
+        iterator.remove();
       }
     }
     return paymentMethods;

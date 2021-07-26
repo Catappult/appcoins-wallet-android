@@ -84,6 +84,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   lateinit var adyenPaymentInteractor: AdyenPaymentInteractor
 
   @Inject
+  lateinit var skillsPaymentInteractor: SkillsPaymentInteractor
+
+  @Inject
   lateinit var adyenEnvironment: Environment
 
   @Inject
@@ -121,11 +124,31 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
-        AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
-            Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
-            adyenPaymentInteractor, inAppPurchaseInteractor.parseTransaction(transactionData, true),
-            navigator, paymentType, transactionType, amount, currency, skills, isPreSelected,
-            AdyenErrorCodeMapper(), servicesErrorMapper, gamificationLevel, formatter, logger)
+      AdyenPaymentPresenter(
+        this,
+        compositeDisposable,
+        AndroidSchedulers.mainThread(),
+        Schedulers.io(),
+        RedirectComponent.getReturnUrl(context!!),
+        analytics,
+        domain,
+        origin,
+        adyenPaymentInteractor,
+        skillsPaymentInteractor,
+        inAppPurchaseInteractor.parseTransaction(transactionData, true),
+        navigator,
+        paymentType,
+        transactionType,
+        amount,
+        currency,
+        skills,
+        isPreSelected,
+        AdyenErrorCodeMapper(),
+        servicesErrorMapper,
+        gamificationLevel,
+        formatter,
+        logger
+      )
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -226,7 +249,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       e.printStackTrace()
     }
     app_sku_description?.text = skuDescription
-    val appcValue = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
+    val appcValue = formatter.formatPaymentCurrency(appcAmount, WalletCurrency.APPCOINS)
     appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
 

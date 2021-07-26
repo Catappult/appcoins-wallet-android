@@ -162,13 +162,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
       removeApps();
       items.add(
           new CardNotificationSortedItem(notifications, CardNotificationsListViewHolder.VIEW_TYPE));
-    } else {
-      transactionsModel.getApplications();
-      if (!transactionsModel.getApplications()
-          .isEmpty()) {
-        items.add(new ApplicationSortedItem(transactionsModel.getApplications(),
-            AppcoinsApplicationListViewHolder.VIEW_TYPE));
-      }
     }
 
     for (Transaction transaction : transactionsModel.getTransactions()) {

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
-import cm.aptoide.skills.util.EskillsUri
+import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -27,10 +27,10 @@ class SkillsFragment : DaggerFragment() {
     private const val USER_ID = "USER_ID"
     private const val ROOM_ID = "ROOM_ID"
     private const val WALLET_ADDRESS = "WALLET_ADDRESS"
-    private const val TRANSACTION_HASH = "transaction_hash"
 
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
+    private const val TRANSACTION_HASH = "transaction_hash"
   }
 
   @Inject
@@ -39,9 +39,8 @@ class SkillsFragment : DaggerFragment() {
   @Inject
   lateinit var eskillsUriParser: EskillsUriParser
 
-  private lateinit var userId: String
+  private var userId: String? = null
   private lateinit var disposable: CompositeDisposable
-  private var ticketId: String? = null
 
   private lateinit var binding: FragmentSkillsBinding
 
@@ -56,16 +55,16 @@ class SkillsFragment : DaggerFragment() {
     disposable = CompositeDisposable()
 
     val eskillsUri = getEskillsUri()
-    userId = eskillsUri.getUserId()
-
     requireActivity().onBackPressedDispatcher
-        .addCallback(this, object : OnBackPressedCallback(true) {
-          override fun handleOnBackPressed() {
-            disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
-          }
-        })
+      .addCallback(this, object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
+        }
+      })
     disposable.add(viewModel.closeView().subscribe { postbackUserData(it.first, it.second) })
 
+
+    userId = eskillsUri.userId
     disposable.add(
         handleWalletCreationIfNeeded()
             .takeUntil { it != WALLET_CREATING_STATUS }
@@ -75,12 +74,8 @@ class SkillsFragment : DaggerFragment() {
                   .doOnSubscribe { showRoomLoading(false) }
                   .flatMap { ticketResponse ->
                     viewModel.getRoom(eskillsUri, ticketResponse, this)
-                        .doOnSubscribe {
-                          run {
-                            ticketId = ticketResponse.ticketId
-                            showRoomLoading(true)
-                          }
-                        }
+                      .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe { showRoomLoading(true) }
                         .doOnNext { userData ->
                           if (userData.refunded) {
                             showRefunded()
@@ -88,7 +83,6 @@ class SkillsFragment : DaggerFragment() {
                             postbackUserData(SkillsViewModel.RESULT_OK, userData)
                           }
                         }
-                        .doOnNext { ticket -> println("ticket: $ticket") }
                   }
             }.subscribe()
     )
@@ -102,12 +96,9 @@ class SkillsFragment : DaggerFragment() {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == SkillsViewModel.RESULT_OK) {
-      if (data != null && data.extras!!.getString(TRANSACTION_HASH) != null) {
-        viewModel.payTicketOnActivityResult(resultCode, data.extras!!.getString(TRANSACTION_HASH))
-      } else {
+      if (data == null || data.extras!!.getString(TRANSACTION_HASH) == null) {
         disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
       }
-
     } else {
       super.onActivityResult(requestCode, resultCode, data)
     }
@@ -118,7 +109,7 @@ class SkillsFragment : DaggerFragment() {
     super.onDestroyView()
   }
 
-  private fun getEskillsUri(): EskillsUri {
+  private fun getEskillsUri(): EskillsPaymentData {
     val intent = requireActivity().intent
     return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
   }

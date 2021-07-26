@@ -147,15 +147,17 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 packageName: String, amount: String?,
                                 currency: String,
                                 productName: String?): Single<Transaction> {
-    if (type.equals(ESKILLS)) {
+    if (type == ESKILLS) {
       val creditsPurchaseBody =
-          CreditsPurchaseBody(callback, productToken)
+        CreditsPurchaseBody(callback, productToken)
 
       return api.createTransaction(gateway, creditsPurchaseBody, walletAddress, signature)
     } else {
-      return api.createTransaction(gateway, origin, packageName, amount, currency, productName,
-          type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
-          callback, orderReference, referrerUrl, walletAddress, signature)
+      return api.createTransaction(
+        gateway, origin, packageName, amount, currency, productName,
+        type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
+        callback, orderReference, referrerUrl, walletAddress, signature
+      )
     }
   }
 
@@ -234,25 +236,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         paykey: String): Completable
 
     /**
-     * All optional fields should be passed despite possible being null as these are
-     * required by some applications to complete the purchase flow
      * @param gateway type of the transaction that is being created;
-     * @see com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
-     * @param origin value from the transaction origin (bds, unity, unknown)
-     * @param domain package name of the application
-     * @param priceValue amount of the transaction. Only needed in one step payments
-     * @param priceCurrency currency of the transaction. Only needed in one step payments
-     * @param product name of the product that is being bought
-     * @param type name of the payment method being used
-     * @param userWallet address of the user wallet
-     * @param walletsDeveloper Wallet address of the apps developer
-     * @param walletsOem Wallet address of the original equipment manufacturer
-     * @param token
-     * @param developerPayload Group of details used in some purchases by the application to
-     * complete the purchase
-     * @param callback url used in some purchases by the application to complete the purchase
-     * @param orderReference reference used in some purchases by the application to
-     * @param referrerUrl url to validate the transaction
+     * @param creditsPurchaseBody CreditsPurchaseBody.
      * @param walletAddress address of the user wallet
      * @param walletSignature signature obtained after signing the wallet
      */

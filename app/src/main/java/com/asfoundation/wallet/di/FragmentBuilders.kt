@@ -77,6 +77,7 @@ import com.asfoundation.wallet.verification.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.error.VerificationErrorModule
 import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 import com.asfoundation.wallet.verification.intro.VerificationIntroModule
+import com.asfoundation.wallet.withdraw.ui.WithdrawFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -282,4 +283,8 @@ abstract class FragmentBuilders {
   @ContributesAndroidInjector(modules = [SkillsModule::class])
   abstract fun bindSkillsFragment(): SkillsFragment
 
+
+  @FragmentScope
+  @ContributesAndroidInjector
+  abstract fun bindWithdrawFragment(): WithdrawFragment
 }

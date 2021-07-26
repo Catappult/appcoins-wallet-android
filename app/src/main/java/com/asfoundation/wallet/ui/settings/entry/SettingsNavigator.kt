@@ -8,9 +8,12 @@ import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.asfoundation.wallet.withdraw.ui.WithdrawActivity
 
-class SettingsNavigator(private val fragmentManager: FragmentManager,
-                        private val activity: FragmentActivity) {
+class SettingsNavigator(
+  private val fragmentManager: FragmentManager,
+  private val activity: FragmentActivity
+) {
 
   companion object {
     private const val AUTHENTICATION_REQUEST_CODE = 33
@@ -28,11 +31,19 @@ class SettingsNavigator(private val fragmentManager: FragmentManager,
 
   fun showWalletsBottomSheet(walletModel: WalletsModel) {
     fragmentManager.beginTransaction()
-        .setCustomAnimations(R.anim.fade_in_animation, R.anim.fragment_slide_down,
-            R.anim.fade_in_animation, R.anim.fragment_slide_down)
-        .replace(R.id.bottom_sheet_fragment_container,
-            SettingsWalletsFragment.newInstance(walletModel))
-        .addToBackStack(SettingsWalletsFragment::class.java.simpleName)
-        .commit()
+      .setCustomAnimations(
+        R.anim.fade_in_animation, R.anim.fragment_slide_down,
+        R.anim.fade_in_animation, R.anim.fragment_slide_down
+      )
+      .replace(
+        R.id.bottom_sheet_fragment_container,
+        SettingsWalletsFragment.newInstance(walletModel)
+      )
+      .addToBackStack(SettingsWalletsFragment::class.java.simpleName)
+      .commit()
+  }
+
+  fun navigateToWithdrawScreen() {
+    activity.startActivity(WithdrawActivity.newIntent(activity))
   }
 }
