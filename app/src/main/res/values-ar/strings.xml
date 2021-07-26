@@ -28,7 +28,7 @@
   <string name="label_new">جديد</string>
   <string name="got_it_button">مفهوم</string>
   <string name="change_button">تغيير</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
@@ -426,6 +426,7 @@
   <string name="remind_later_button">ذكرني لاحقًا</string>
   <string name="get_code_button">احصل على الرمز</string>
   <string name="confirm_button">تأكيد</string>
+  <string name="withdraw_button">withdraw</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -518,6 +519,8 @@
   <string name="purchase_error_try_other_amount_or_method">يييي&#8230; هناك خطأ! جرب وسيلة دفع أخرى أو أضف إلى المبلغ.</string>
   <string name="purchase_error_try_cheaper_item">ثمنها مرتفع جدًا! يرجى شراء عنصر أقل ثمنًا.</string>
   <string name="purchase_error_try_cheaper_item_or_method">الثمن مرتفع جدًا! يرجى شراء عنصر أقل ثمًا أو تجربة وسيلة دفع أخرى.</string>
+  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -911,7 +914,7 @@
   <string name="rate_us_back_body">أضف تقيمك لمحفظة AppCoins على متجر التطبيقات لنعمل على تحسينه.</string>
   <!--Card verification-->
   <string name="card_verification_body">استخدم بطاقة الائتمان للتحقق من محفظتك.</string>
-  <string name="card_verification_charde_disclaimer">سنتلقي %s من بطاقتك، وسنعيدها حالما تؤكد لنا الرمز.</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">تفقد الرمز في تفاصيل حركة الدفع</string>
   <string name="card_verification_code_body">سيظهر رمز مميز في ملخص عملية التحويل عن طريق مُصدِر بطاقتك.</string>
   <string name="card_verification_code_example_title">مثال على ملخص إشعار الدفع</string>
@@ -960,7 +963,20 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_choose_button">Choose currency</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+  <string name="e_skills_withdraw_amount">Amount (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
+  <string name="e_skills_more_info_button">More info.</string>
 </resources>
