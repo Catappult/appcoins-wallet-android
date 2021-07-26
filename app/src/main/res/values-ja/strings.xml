@@ -28,7 +28,7 @@
   <string name="label_new">新しい</string>
   <string name="got_it_button">了解</string>
   <string name="change_button">変更</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">空き容量が不足しています</string>
   <string name="no_camera_permission_title">カメラのアクセス許可</string>
   <string name="no_camera_permission">AppCoins BDS のウォレットには、QR コードをスキャンしてお使いのカメラへのアクセスを許可する必要があります。</string>
@@ -427,6 +427,7 @@
   <string name="remind_later_button">後で通知</string>
   <string name="get_code_button">コードを入手</string>
   <string name="confirm_button">承認する</string>
+  <string name="withdraw_button">withdraw</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -518,6 +519,8 @@
   <string name="purchase_error_try_other_amount_or_method">&#8230; 問題が発生しました。別のお支払い方法、または異なるチャージ金額でお試しください。</string>
   <string name="purchase_error_try_cheaper_item">それはかなり高価なものです。もっと低い金額の商品を購入してみてください。</string>
   <string name="purchase_error_try_cheaper_item_or_method">それはかなり高価なものです。もっと安い商品をご購入いただくか、他のお支払い方法をお試しください。</string>
+  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -876,7 +879,7 @@
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
   <!--Card verification-->
   <string name="card_verification_body">クレジットカードやデビットカードを使って、ウォレットを認証します。</string>
-  <string name="card_verification_charde_disclaimer">お客様のカードには%sの請求がされますが、これはコードを確認後に返金されます。</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">取引明細のコードを確認</string>
   <string name="card_verification_code_body">カード発行会社が提供する取引の概要に固有のコードが表示されます。</string>
   <string name="card_verification_code_example_title">取引概要の例</string>
@@ -915,7 +918,20 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_choose_button">Choose currency</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+  <string name="e_skills_withdraw_amount">Amount (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
+  <string name="e_skills_more_info_button">More info.</string>
 </resources>
