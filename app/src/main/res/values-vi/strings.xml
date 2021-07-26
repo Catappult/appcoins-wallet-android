@@ -28,7 +28,7 @@
   <string name="label_new">Mới</string>
   <string name="got_it_button">TÔI HIỂU</string>
   <string name="change_button">THAY ĐỔI</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
@@ -426,6 +426,7 @@
   <string name="remind_later_button">Nhắc lại sau</string>
   <string name="get_code_button">Lấy mã</string>
   <string name="confirm_button">Xác nhận</string>
+  <string name="withdraw_button">withdraw</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -517,6 +518,8 @@
   <string name="purchase_error_try_other_amount_or_method">Rất tiếc&#8230; Đã xảy ra sự cố! Hãy thử với một phương thức thanh toán hoặc số tiền nạp khác.</string>
   <string name="purchase_error_try_cheaper_item">Thứ đó khá đắt đỏ! Vui lòng thử mua một món hàng có giá trị thấp hơn.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Thứ đó khá đắt đỏ! Vui lòng thử mua một món hàng rẻ hơn hoặc thử một phương thức thanh toán mới.</string>
+  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
@@ -875,7 +878,7 @@
   <string name="rate_us_back_body">Xếp hạng Ví AppCoins trên cửa hàng ứng dụng để chúng tôi có thể cải thiện nó.</string>
   <!--Card verification-->
   <string name="card_verification_body">Sử dụng thẻ tín dụng / thẻ ghi nợ của bạn để xác minh ví của mình.</string>
-  <string name="card_verification_charde_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và tiền sẽ được hoàn lại ngay khi bạn xác nhận mã.</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Kiểm tra mã trong chi tiết giao dịch</string>
   <string name="card_verification_code_body">Mã sẽ xuất hiện trong bản tóm tắt giao dịch do công ty phát hành thẻ của bạn cung cấp.</string>
   <string name="card_verification_code_example_title">Ví dụ về Tóm tắt Giao dịch</string>
@@ -914,7 +917,20 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_choose_button">Choose currency</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+  <string name="e_skills_withdraw_amount">Amount (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
+  <string name="e_skills_more_info_button">More info.</string>
 </resources>
