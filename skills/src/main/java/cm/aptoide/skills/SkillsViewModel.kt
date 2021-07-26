@@ -26,9 +26,9 @@ class SkillsViewModel(
   lateinit var ticketId: String
 
   companion object {
-    public const val RESULT_OK = 0
-    public const val RESULT_USER_CANCELED = 1
-    public const val RESULT_ERROR = 6
+    const val RESULT_OK = 0
+    const val RESULT_USER_CANCELED = 1
+    const val RESULT_ERROR = 6
 
   }
   fun handleWalletCreationIfNeeded(): Observable<String> {

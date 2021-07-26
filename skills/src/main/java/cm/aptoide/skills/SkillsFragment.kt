@@ -15,7 +15,8 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiConsumer
+import java.net.ConnectException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class SkillsFragment : DaggerFragment() {
@@ -84,8 +85,29 @@ class SkillsFragment : DaggerFragment() {
                           }
                         }
                   }
-            }.subscribe()
+            }.ignoreElements().doOnError({ handleError(it) })
+          .onErrorComplete({ t -> isNetworkException(t) }).subscribe()
     )
+  }
+
+  private fun handleError(throwable: Throwable) {
+    if (isNetworkException(throwable)) {
+      binding.loadingTicketLayout.processingLoading.visibility = View.GONE
+      binding.refundTicketLayout.root.visibility = View.GONE
+      binding.noNetworkLayout.root.visibility = View.VISIBLE
+      binding.noNetworkLayout.noNetworkOkButton.setOnClickListener({
+        finishWithError()
+      })
+    }
+  }
+
+  private fun finishWithError() {
+    requireActivity().setResult(SkillsViewModel.RESULT_ERROR)
+    requireActivity().finish()
+  }
+
+  private fun isNetworkException(throwable: Throwable): Boolean {
+    return throwable is ConnectException || throwable is UnknownHostException
   }
 
   private fun showRefunded() {
