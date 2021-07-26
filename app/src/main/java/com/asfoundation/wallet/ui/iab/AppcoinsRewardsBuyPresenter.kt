@@ -58,7 +58,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     disposables.add(transferParser.parse(uri)
         .flatMapCompletable { transaction: TransactionBuilder ->
           rewardsManager.pay(
-              transaction.skuId, amount, transaction.toAddress(), packageName,
+              transaction.skuId, transaction.amount(), transaction.toAddress(), packageName,
               getOrigin(isBds, transaction), transaction.type, transaction.payload,
               transaction.callbackUrl, transaction.orderReference, transaction.referrerUrl,
               transaction.productToken
