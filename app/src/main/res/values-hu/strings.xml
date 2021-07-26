@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Győződj meg róla, hogy van biztonsági mentésed erről a tárcáról.</string>
   <string name="action_import">Helyreállítás</string>
   <string name="copy">Másolás a vágólapra</string>
+  <string name="copied">Copied!</string>
   <string name="close">Bezárás</string>
   <string name="title_activity_settings">Beállítások</string>
   <string name="network_label">Hálózat</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Új</string>
   <string name="got_it_button">ÉRTEM</string>
   <string name="change_button">MÓDOSÍTÁS</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission_title">Engedély kamera használatára</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">Mostantól utalványokat vásárolhatsz a játékokhoz!</string>
   <string name="voucher_empty_more_title">Utalványok játékokhoz</string>
   <string name="voucher_empty_more_body">Keresd meg a legjobb ajánlatokat a kedvenc játékaidhoz!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Ví AppCoins</string>
   <string name="title_send">Gửi</string>
   <string name="title_send_with_token">Gửi %s</string>
   <string name="title_request">Nhận</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Hãy chắc rằng bạn có một bản sao lưu của ví này.</string>
   <string name="action_import">Khôi phục</string>
   <string name="copy">Sao chép vào bộ nhớ tạm</string>
+  <string name="copied">Copied!</string>
   <string name="close">Đóng</string>
   <string name="title_activity_settings">Cài đặt</string>
   <string name="network_label">Mạng lưới</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Mới</string>
   <string name="got_it_button">TÔI HIỂU</string>
   <string name="change_button">THAY ĐỔI</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
@@ -909,4 +911,10 @@
   <string name="voucher_tooltip">Bây giờ bạn có thể mua phiếu mua hàng cho các trò chơi!</string>
   <string name="voucher_empty_more_title">Phiếu mua hàng cho các trò chơi</string>
   <string name="voucher_empty_more_body">Tìm các ưu đãi tốt nhất cho các trò chơi yêu thích của bạn!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
