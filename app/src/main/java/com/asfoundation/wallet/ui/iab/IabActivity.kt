@@ -358,6 +358,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     authenticationResultSubject?.onNext(success)
   }
 
+  override fun showTopupFlow() {
+    startActivity(TopUpActivity.newIntent(this))
+  }
+
   override fun onPause() {
     presenter.stop()
     super.onPause()

@@ -33,7 +33,6 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.iab_error_layout.view.*
-import kotlinx.android.synthetic.main.overlay_fragment.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.payment_methods_layout.*
 import kotlinx.android.synthetic.main.payment_methods_layout.error_message
@@ -41,7 +40,6 @@ import kotlinx.android.synthetic.main.selected_payment_method.*
 import kotlinx.android.synthetic.main.support_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.view.error_message
 import java.math.BigDecimal
-import java.util.*
 import javax.inject.Inject
 
 class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
@@ -98,6 +96,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private lateinit var iabView: IabView
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var paymentMethodClick: PublishRelay<Int>
+  private lateinit var topupClick: PublishSubject<String>
   private lateinit var paymentMethodsAdapter: PaymentMethodsAdapter
   private val paymentMethodList: MutableList<PaymentMethod> = ArrayList()
   private var setupSubject: PublishSubject<Boolean>? = null
@@ -117,6 +116,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     super.onCreate(savedInstanceState)
     compositeDisposable = CompositeDisposable()
     setupSubject = PublishSubject.create()
+    topupClick = PublishSubject.create()
     preSelectedPaymentMethod = BehaviorSubject.create()
     paymentMethodClick = PublishRelay.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
@@ -130,6 +130,14 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData,
       taskTimer
     )
+  }
+
+  override fun getTopupClicks(): Observable<String> {
+    return topupClick
+  }
+
+  override fun showTopupFlow() {
+    iabView.showTopupFlow()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -187,7 +195,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     mid_separator?.visibility = View.VISIBLE
     if (paymentMethods.isNotEmpty()) {
       paymentMethodsAdapter =
-        PaymentMethodsAdapter(paymentMethods, paymentMethodId, paymentMethodClick)
+        PaymentMethodsAdapter(paymentMethods, paymentMethodId, paymentMethodClick, topupClick)
       payment_methods_radio_list.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
       paymentMethodList.addAll(paymentMethods)
