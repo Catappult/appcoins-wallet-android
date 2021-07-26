@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: appcoins-bds-wallet\n"
-"X-Crowdin-Project-ID: 314965\n"
+"X-Crowdin-Project: appcoins\n"
+"X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: bg\n"
-"X-Crowdin-File: /translations_update/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 3840\n"
-"Project-Id-Version: appcoins-bds-wallet\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] translations_update/app/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 4700\n"
+"Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Bulgarian\n"
 "Language: bg_BG\n"
-"PO-Revision-Date: 2021-03-10 11:44\n"
+"PO-Revision-Date: 2021-05-04 16:58\n"
 
 #. Card Title
 #:
