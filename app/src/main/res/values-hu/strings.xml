@@ -28,7 +28,7 @@
   <string name="label_new">Új</string>
   <string name="got_it_button">ÉRTEM</string>
   <string name="change_button">MÓDOSÍTÁS</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission_title">Engedély kamera használatára</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
@@ -426,6 +426,7 @@
   <string name="remind_later_button">Emlékeztess később</string>
   <string name="get_code_button">Kód kérése</string>
   <string name="confirm_button">Megerősítés</string>
+  <string name="withdraw_button">withdraw</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -517,6 +518,8 @@
   <string name="purchase_error_try_other_amount_or_method">Hoppá&#8230; Valami nincs rendben! Kérjük, próbálkozz egy másik fizetési móddal vagy feltöltő összeggel.</string>
   <string name="purchase_error_try_cheaper_item">Ez aztán a borsos ár! Vegyél meg inkább egy olcsóbb elemet.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Ez aztán a borsos ár! Vegyél meg inkább egy olcsóbb elemet vagy válassz másféle fizetési módot.</string>
+  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -882,7 +885,7 @@
   <string name="rate_us_back_body">Értékeld az AppCoins Walletot az alkalmazásboltban, hogy jobbá tehessük azt.</string>
   <!--Card verification-->
   <string name="card_verification_body">Használd a hitelkártyád/bankkártyád a tárca hitelesítéséhez.</string>
-  <string name="card_verification_charde_disclaimer">%s összeget vonunk le a kártyádról, majd visszafizetjük miután megerősíted a kódot.</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Ellenőrizd a kódot a tranzakció részletekben</string>
   <string name="card_verification_code_body">A kártyaszolgáltató által kiadott tranzakció összegzésben egy egyedi kód fog megjelenni.</string>
   <string name="card_verification_code_example_title">Tranzakció összegzés pédája</string>
@@ -923,7 +926,20 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_choose_button">Choose currency</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+  <string name="e_skills_withdraw_amount">Amount (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
+  <string name="e_skills_more_info_button">More info.</string>
 </resources>
