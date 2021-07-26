@@ -246,7 +246,7 @@
   <string name="transaction_type_reverted_purchase_body">La compra que hiciste el %s ha sido revertida. Ponte en contacto con nosotros para más información.</string>
   <string name="transaction_reverted_view_original_header">Transacción original</string>
   <string name="transaction_onchain_completed_title">¡La compra está en camino!</string>
-  <string name="transaction_onchain_completed_body">Puedes seguirla desde Etherscan.</string>
+  <string name="transaction_onchain_completed_body">Puedes seguirla en Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -925,5 +925,5 @@
   <string name="change_currency_settings_title">Moneda</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">¡La compra está en camino!</string>
-  <string name="block_transaction_disclaimer_body">Puedes seguirla desde Etherscan.</string>
+  <string name="block_transaction_disclaimer_body">Puedes seguirla en Etherscan.</string>
 </resources>
