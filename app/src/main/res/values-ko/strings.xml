@@ -28,7 +28,7 @@
   <string name="label_new">신규</string>
   <string name="got_it_button">알겠습니다</string>
   <string name="change_button">변경</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">저장 공간이 부족합니다</string>
   <string name="no_camera_permission_title">카메라 사용 권한</string>
   <string name="no_camera_permission">AppCoins BDS Wallet은 QR 코드 스캔을 위해 카메라 접근 권한이 필요합니다.</string>
@@ -426,6 +426,7 @@
   <string name="remind_later_button">나중에 알려주세요</string>
   <string name="get_code_button">코드 받기</string>
   <string name="confirm_button">확인</string>
+  <string name="withdraw_button">withdraw</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -517,6 +518,8 @@
   <string name="purchase_error_try_other_amount_or_method">이런&#8230; 무언가 잘못되고 있습니다! 다른 지불 방법 또는 탑업 금액으로 시도해 보세요.</string>
   <string name="purchase_error_try_cheaper_item">꽤 비쌉니다! 너 저렴한 아이템을 구매해 보세요.</string>
   <string name="purchase_error_try_cheaper_item_or_method">꽤 비쌉니다! 더 싼 아이템을 구매하시거나 다른 지불 방법으로 해 보세요.</string>
+  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -875,7 +878,7 @@
   <string name="rate_us_back_body">AppCoins 지갑을 평가해서 개선할 수 있도록 해 주세요.</string>
   <!--Card verification-->
   <string name="card_verification_body">신용/직불 카드를 사용하여 지갑을 인증해주세요.</string>
-  <string name="card_verification_charde_disclaimer">카드에 %s 금액이 승인되며 코드가 확인되는 즉시 환불됩니다.</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">거래 상세에서 이 코드를 확인하세요</string>
   <string name="card_verification_code_body">카드 발급사에서 제공한 거래 요약정보에 이 유일한 코드가 표시됩니다.</string>
   <string name="card_verification_code_example_title">거래 요약 예제</string>
@@ -914,7 +917,20 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_choose_button">Choose currency</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+  <string name="e_skills_withdraw_amount">Amount (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
+  <string name="e_skills_more_info_button">More info.</string>
 </resources>
