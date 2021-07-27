@@ -35,29 +35,29 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentPresenter(
-  private val view: AdyenPaymentView,
-  private val disposables: CompositeDisposable,
-  private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler,
-  private val returnUrl: String,
-  private val analytics: BillingAnalytics,
-  private val domain: String,
-  private val origin: String?,
-  private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val skillsPaymentInteractor: SkillsPaymentInteractor,
-  private val transactionBuilder: Single<TransactionBuilder>,
-  private val navigator: Navigator,
-  private val paymentType: String,
-  private val transactionType: String,
-  private val amount: BigDecimal,
-  private val currency: String,
-  private val skills: Boolean,
-  private val isPreSelected: Boolean,
-  private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
-  private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
-  private val gamificationLevel: Int,
-  private val formatter: CurrencyFormatUtils,
-  private val logger: Logger
+    private val view: AdyenPaymentView,
+    private val disposables: CompositeDisposable,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler,
+    private val returnUrl: String,
+    private val analytics: BillingAnalytics,
+    private val domain: String,
+    private val origin: String?,
+    private val adyenPaymentInteractor: AdyenPaymentInteractor,
+    private val skillsPaymentInteractor: SkillsPaymentInteractor,
+    private val transactionBuilder: Single<TransactionBuilder>,
+    private val navigator: Navigator,
+    private val paymentType: String,
+    private val transactionType: String,
+    private val amount: BigDecimal,
+    private val currency: String,
+    private val skills: Boolean,
+    private val isPreSelected: Boolean,
+    private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+    private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
+    private val gamificationLevel: Int,
+    private val formatter: CurrencyFormatUtils,
+    private val logger: Logger
 ) {
 
   private var waitingResult = false
@@ -206,14 +206,11 @@ class AdyenPaymentPresenter(
                 val billingAddressModel = view.retrieveBillingAddressData()
                 val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
                 if (skills) {
-                  skillsPaymentInteractor.makeSkillsPayment(
-                    returnUrl,
-                    domain,
-                    it.productToken,
-                    adyenCard.cardPaymentMethod.encryptedCardNumber,
-                    adyenCard.cardPaymentMethod.encryptedExpiryMonth,
-                    adyenCard.cardPaymentMethod.encryptedExpiryYear,
-                    adyenCard.cardPaymentMethod.encryptedSecurityCode!!
+                  skillsPaymentInteractor.makeSkillsPayment(returnUrl, it.productToken,
+                      adyenCard.cardPaymentMethod.encryptedCardNumber,
+                      adyenCard.cardPaymentMethod.encryptedExpiryMonth,
+                      adyenCard.cardPaymentMethod.encryptedExpiryYear,
+                      adyenCard.cardPaymentMethod.encryptedSecurityCode!!
                   )
                 } else {
                   adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
