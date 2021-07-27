@@ -32,7 +32,7 @@ class TopUpPaymentMethodsAdapter(private var paymentMethods: List<PaymentMethod>
       selectedItem = position
       paymentMethodClick.accept(paymentMethods[position].id)
       notifyDataSetChanged()
-    })
+    }, { })
   }
 
   fun getSelectedItemData(): PaymentMethod = paymentMethods[selectedItem]

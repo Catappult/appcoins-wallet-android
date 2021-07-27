@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.util.EskillsPaymentData
@@ -14,6 +15,8 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import java.net.ConnectException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class SkillsFragment : DaggerFragment() {
@@ -21,9 +24,6 @@ class SkillsFragment : DaggerFragment() {
   companion object {
     fun newInstance() = SkillsFragment()
 
-    private const val RESULT_OK = 0
-    private const val RESULT_USER_CANCELED = 1
-    private const val RESULT_ERROR = 6
     private const val SESSION = "SESSION"
     private const val USER_ID = "USER_ID"
     private const val ROOM_ID = "ROOM_ID"
@@ -31,6 +31,7 @@ class SkillsFragment : DaggerFragment() {
 
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
+    private const val TRANSACTION_HASH = "transaction_hash"
   }
 
   @Inject
@@ -55,6 +56,15 @@ class SkillsFragment : DaggerFragment() {
     disposable = CompositeDisposable()
 
     val eskillsUri = getEskillsUri()
+    requireActivity().onBackPressedDispatcher
+      .addCallback(this, object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
+        }
+      })
+    disposable.add(viewModel.closeView().subscribe { postbackUserData(it.first, it.second) })
+
+
     userId = eskillsUri.userId
     disposable.add(
         handleWalletCreationIfNeeded()
@@ -62,27 +72,58 @@ class SkillsFragment : DaggerFragment() {
             .flatMap {
               viewModel.createTicket(eskillsUri)
                   .observeOn(AndroidSchedulers.mainThread())
-                  .doOnSubscribe { showRoomLoading(false, null) }
+                  .doOnSubscribe { showRoomLoading(false) }
                   .flatMap { ticketResponse ->
                     viewModel.getRoom(eskillsUri, ticketResponse, this)
                       .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { showRoomLoading(true, ticketResponse.ticketId) }
+                        .doOnSubscribe { showRoomLoading(true) }
                         .doOnNext { userData ->
                           if (userData.refunded) {
                             showRefunded()
                           } else {
-                            postbackUserData(RESULT_OK, userData)
+                            postbackUserData(SkillsViewModel.RESULT_OK, userData)
                           }
                         }
                   }
-            }.subscribe()
+            }.ignoreElements().doOnError({ handleError(it) })
+          .onErrorComplete({ t -> isNetworkException(t) }).subscribe()
     )
+  }
+
+  private fun handleError(throwable: Throwable) {
+    if (isNetworkException(throwable)) {
+      binding.loadingTicketLayout.processingLoading.visibility = View.GONE
+      binding.refundTicketLayout.root.visibility = View.GONE
+      binding.noNetworkLayout.root.visibility = View.VISIBLE
+      binding.noNetworkLayout.noNetworkOkButton.setOnClickListener({
+        finishWithError()
+      })
+    }
+  }
+
+  private fun finishWithError() {
+    requireActivity().setResult(SkillsViewModel.RESULT_ERROR)
+    requireActivity().finish()
+  }
+
+  private fun isNetworkException(throwable: Throwable): Boolean {
+    return throwable is ConnectException || throwable is UnknownHostException
   }
 
   private fun showRefunded() {
     binding.loadingTicketLayout.processingLoading.visibility = View.GONE
     binding.refundTicketLayout.refund.visibility = View.VISIBLE
-    binding.refundTicketLayout.refundOkButton.setOnClickListener({ requireActivity().finish() })
+    binding.refundTicketLayout.refundOkButton.setOnClickListener { requireActivity().finish() }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == SkillsViewModel.RESULT_OK) {
+      if (data == null || data.extras!!.getString(TRANSACTION_HASH) == null) {
+        disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
+      }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data)
+    }
   }
 
   override fun onDestroyView() {
@@ -119,23 +160,13 @@ class SkillsFragment : DaggerFragment() {
     binding.createWalletLayout.createWalletCard.visibility = View.GONE
   }
 
-  private fun showRoomLoading(isCancelActive: Boolean, ticketId: String?) {
+  private fun showRoomLoading(isCancelActive: Boolean) {
     binding.loadingTicketLayout.processingLoading.visibility = View.VISIBLE
     if (isCancelActive) {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.finding_room_loading_title)
       binding.loadingTicketLayout.cancelButton.isEnabled = true
       binding.loadingTicketLayout.cancelButton.setOnClickListener {
-        // only paid tickets can be canceled/refunded on the backend side, meaning that if we
-        // cancel before actually paying the backend will return a 409 HTTP. this way we allow
-        // users to return to the game, without crashing, even if they weren't waiting in queue
-        try {
-          viewModel.cancelTicket(ticketId!!)
-              .map {
-                postbackUserData(RESULT_USER_CANCELED, UserData("", "", "", "", true))
-              }.blockingGet()
-        } catch (e: Exception) {
-          postbackUserData(RESULT_ERROR, UserData("", "", "", "", true))
-        }
+        disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
       }
     } else {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)

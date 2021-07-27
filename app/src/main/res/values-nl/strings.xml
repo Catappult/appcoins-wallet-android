@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Zorg ervoor dat je een back-up van deze wallet hebt.</string>
   <string name="action_import">Herstellen</string>
   <string name="copy">Naar klembord kopiëren</string>
+  <string name="copied">Copied!</string>
   <string name="close">Sluiten</string>
   <string name="title_activity_settings">Instellingen</string>
   <string name="network_label">Netwerk</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Nieuw</string>
   <string name="got_it_button">BEGREPEN</string>
   <string name="change_button">WIJZIGEN</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission_title">Toestemming voor camera</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">Je kunt nu vouchers voor games kopen!</string>
   <string name="voucher_empty_more_title">Vouchers voor games</string>
   <string name="voucher_empty_more_body">Vind de beste deals voor je favoriete games!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

@@ -262,7 +262,7 @@
         android:windowSoftInputMode="stateHidden" />
     <activity
         android:name="com.asfoundation.wallet.withdraw.ui.WithdrawActivity"
-        android:label="@string/withdraw_title" />
+        android:label="@string/e_skills_withdraw_title" />
 
     <service
         android:name="com.asfoundation.wallet.support.SupportMessagingService"
