@@ -124,31 +124,31 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter =
-      AdyenPaymentPresenter(
-        this,
-        compositeDisposable,
-        AndroidSchedulers.mainThread(),
-        Schedulers.io(),
-        RedirectComponent.getReturnUrl(context!!),
-        analytics,
-        domain,
-        origin,
-        adyenPaymentInteractor,
-        skillsPaymentInteractor,
-        inAppPurchaseInteractor.parseTransaction(transactionData, true),
-        navigator,
-        paymentType,
-        transactionType,
-        amount,
-        currency,
-        skills,
-        isPreSelected,
-        AdyenErrorCodeMapper(),
-        servicesErrorMapper,
-        gamificationLevel,
-        formatter,
-        logger
-      )
+        AdyenPaymentPresenter(
+            this,
+            compositeDisposable,
+            AndroidSchedulers.mainThread(),
+            Schedulers.io(),
+            RedirectComponent.getReturnUrl(context!!),
+            analytics,
+            domain,
+            origin,
+            adyenPaymentInteractor,
+            skillsPaymentInteractor,
+            inAppPurchaseInteractor.parseTransaction(transactionData, true),
+            navigator,
+            paymentType,
+            transactionType,
+            amount,
+            currency,
+            skills,
+            isPreSelected,
+            AdyenErrorCodeMapper(),
+            servicesErrorMapper,
+            gamificationLevel,
+            formatter,
+            logger
+        )
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -308,6 +308,26 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showGenericError() {
     showSpecificError(R.string.unknown_error)
+  }
+
+  override fun showInvalidCardError() {
+    showSpecificError(R.string.codigo_101)
+  }
+
+  override fun showSecurityValidationError() {
+    showSpecificError(R.string.codigo_105)
+  }
+
+  override fun showTimeoutError() {
+    showSpecificError(R.string.codigo_172)
+  }
+
+  override fun showAlreadyProcessedError() {
+    showSpecificError(R.string.codigo_704)
+  }
+
+  override fun showPaymentError() {
+    showSpecificError(R.string.codigo_905)
   }
 
   override fun showVerification() = iabView.showVerification()

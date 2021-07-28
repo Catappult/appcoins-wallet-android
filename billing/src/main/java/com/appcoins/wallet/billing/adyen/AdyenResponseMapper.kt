@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
+import android.util.Log
 import com.adyen.checkout.base.model.PaymentMethodsApiResponse
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
@@ -61,6 +62,8 @@ class AdyenResponseMapper(private val gson: Gson) {
         THREEDS2CHALLENGE -> action = Threeds2ChallengeAction.SERIALIZER.deserialize(jsonAction)
       }
     }
+    Log.d("APPC-2571",
+        "AdyenResponseMapper: map: resultCode: ${adyenResponse?.resultCode} ------- refusalCode: ${adyenResponse?.refusalReasonCode?.toInt()} ")
     return PaymentModel(adyenResponse?.resultCode, adyenResponse?.refusalReason,
         adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl, action?.paymentData,
         response.uid, response.hash, response.orderReference, fraudResultsId, response.status,
@@ -74,6 +77,8 @@ class AdyenResponseMapper(private val gson: Gson) {
   fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
+    Log.d("APPC-2571",
+        "AdyenResponseMapper: mapInfoModelError: error code: ${codeAndMessage.first} ------- error message: ${codeAndMessage.second} ")
     return PaymentInfoModel(
         Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
   }
@@ -81,8 +86,41 @@ class AdyenResponseMapper(private val gson: Gson) {
   fun mapPaymentModelError(throwable: Throwable): PaymentModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
-    return PaymentModel(
-        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second))
+    var error =
+        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second)
+
+    Log.d("APPC-2571",
+        "AdyenResponseMapper: mapPaymentModelError: error code: ${codeAndMessage.first} ------- error message: ${codeAndMessage.second} ")
+
+    if (throwable is HttpException) {
+      val adyenErrorResponse = gson.fromJson(codeAndMessage.second, AdyenErrorResponse::class.java)
+      if (adyenErrorResponse.code == "AdyenV2.Error") {
+        when (adyenErrorResponse.data) {
+          101 -> {
+            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
+                codeAndMessage.second, Error.ErrorType.INVALID_CARD)
+          }
+          105 -> {
+            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
+                codeAndMessage.second, Error.ErrorType.CARD_SECURITY_VALIDATION)
+          }
+          172 -> {
+
+            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
+                codeAndMessage.second, Error.ErrorType.TIMEOUT)
+          }
+          704 -> {
+            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
+                codeAndMessage.second, Error.ErrorType.ALREADY_PROCESSED)
+          }
+          905 -> {
+            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
+                codeAndMessage.second, Error.ErrorType.PAYMENT_ERROR)
+          }
+        }
+      }
+    }
+    return PaymentModel(error)
   }
 
   fun mapVerificationPaymentModeSuccess(): VerificationPaymentModel {
