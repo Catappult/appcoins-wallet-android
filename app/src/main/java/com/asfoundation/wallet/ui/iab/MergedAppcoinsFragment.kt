@@ -458,11 +458,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     iabView.showAuthenticationActivity()
   }
 
-  override fun navigateToAppcPayment() =
-      iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel)
+  override fun navigateToAppcPayment(transactionBuilder: TransactionBuilder) =
+      iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel, transactionBuilder)
 
-  override fun navigateToCreditsPayment() =
-      iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel)
+  override fun navigateToCreditsPayment(transactionBuilder: TransactionBuilder) =
+      iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel, transactionBuilder)
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =

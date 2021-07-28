@@ -55,26 +55,26 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   }
 
   private fun handleBuyClick() {
-    disposables.add(transferParser.parse(uri)
-        .flatMapCompletable { transaction: TransactionBuilder ->
-          rewardsManager.pay(
-              transaction.skuId, transaction.amount(), transaction.toAddress(), packageName,
-              getOrigin(isBds, transaction), transaction.type, transaction.payload,
-              transaction.callbackUrl, transaction.orderReference, transaction.referrerUrl,
-              transaction.productToken
-          )
-              .andThen(rewardsManager.getPaymentStatus(packageName, transaction.skuId,
-                  transaction.amount()))
-              .observeOn(viewScheduler)
-              .flatMapCompletable { paymentStatus: RewardPayment ->
-                handlePaymentStatus(paymentStatus, transaction.skuId, transaction.amount())
-              }
-        }
-        .doOnSubscribe { view.showLoading() }
-        .subscribe({}, {
-          logger.log(TAG, it)
-          view.showError(null)
-        }))
+    disposables.add(
+        rewardsManager.pay(
+            transactionBuilder.skuId, transactionBuilder.amount(), transactionBuilder.toAddress(),
+            packageName, getOrigin(isBds, transactionBuilder), transactionBuilder.type,
+            transactionBuilder.payload, transactionBuilder.callbackUrl,
+            transactionBuilder.orderReference, transactionBuilder.referrerUrl,
+            transactionBuilder.productToken
+        )
+            .andThen(rewardsManager.getPaymentStatus(packageName, transactionBuilder.skuId,
+                transactionBuilder.amount()))
+            .observeOn(viewScheduler)
+            .flatMapCompletable { paymentStatus: RewardPayment ->
+              handlePaymentStatus(paymentStatus, transactionBuilder.skuId,
+                  transactionBuilder.amount())
+            }
+            .doOnSubscribe { view.showLoading() }
+            .subscribe({}, {
+              logger.log(TAG, it)
+              view.showError(null)
+            }))
   }
 
   private fun getOrigin(isBds: Boolean, transaction: TransactionBuilder): String? {

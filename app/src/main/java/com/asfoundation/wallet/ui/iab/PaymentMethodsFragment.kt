@@ -426,25 +426,26 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     )
   }
 
-  override fun showAppCoins(gamificationLevel: Int) {
+  override fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder) {
     iabView.showOnChain(
-      transactionBuilder!!.amount(), isBds, bonusMessageValue,
-      gamificationLevel
+        transaction.amount(), isBds, bonusMessageValue,
+        gamificationLevel,
+        transaction
     )
   }
 
-  override fun showCredits(gamificationLevel: Int) {
-    iabView.showAppcoinsCreditsPayment(transactionBuilder!!.amount(), gamificationLevel)
+  override fun showCredits(gamificationLevel: Int, transaction: TransactionBuilder) {
+    iabView.showAppcoinsCreditsPayment(transaction.amount(), gamificationLevel, transaction)
   }
 
   override fun showShareLink(selectedPaymentMethod: String) {
     val isOneStep: Boolean = transactionBuilder!!.type
-      .equals("INAPP_UNMANAGED", ignoreCase = true)
+        .equals("INAPP_UNMANAGED", ignoreCase = true)
     iabView.showShareLinkPayment(
-      transactionBuilder!!.domain, transactionBuilder!!.skuId,
-      if (isOneStep) transactionBuilder!!.originalOneStepValue else null,
-      if (isOneStep) transactionBuilder!!.originalOneStepCurrency else null,
-      transactionBuilder!!.amount(),
+        transactionBuilder!!.domain, transactionBuilder!!.skuId,
+        if (isOneStep) transactionBuilder!!.originalOneStepValue else null,
+        if (isOneStep) transactionBuilder!!.originalOneStepCurrency else null,
+        transactionBuilder!!.amount(),
       transactionBuilder!!.type, selectedPaymentMethod
     )
   }
@@ -505,10 +506,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue) {
+  override fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
+                                  transaction: TransactionBuilder) {
     iabView.showMergedAppcoins(
-      fiatValue.amount, fiatValue.currency, bonusMessageValue,
-      isBds, isDonation, gamificationLevel
+        fiatValue.amount, fiatValue.currency, bonusMessageValue,
+        isBds, isDonation, gamificationLevel, transaction
     )
   }
 

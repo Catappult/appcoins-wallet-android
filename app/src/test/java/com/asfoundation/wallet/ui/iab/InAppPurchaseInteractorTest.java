@@ -36,8 +36,8 @@ import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.TokenRateService;
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
@@ -233,7 +233,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, transactionBuilder)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.OK);
@@ -293,7 +293,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, transactionBuilder)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER);
@@ -334,7 +334,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, transactionBuilder)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalanceInteract.BalanceState.NO_ETHER_NO_TOKEN);
@@ -393,7 +393,7 @@ public class InAppPurchaseInteractorTest {
 
     TestObserver<Object> submitObserver = new TestObserver<>();
     inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, "INAPP")
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, "INAPP", transactionBuilder)
         .subscribe(submitObserver);
 
     scheduler.triggerActions();
