@@ -66,7 +66,7 @@ public class AsfInAppPurchaseInteractor {
       String productName, String developerPayload, TransactionBuilder transactionBuilder) {
     if (transactionType == TransactionType.NORMAL) {
       return buildPaymentTransaction(uri, packageName, productName, developerPayload,
-          transactionBuilder).flatMapCompletable(
+          transactionBuilder.amount()).flatMapCompletable(
           paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
               paymentTransaction));
     }
@@ -79,7 +79,7 @@ public class AsfInAppPurchaseInteractor {
       TransactionBuilder transactionBuilder) {
     if (transactionType == TransactionType.NORMAL) {
       return buildPaymentTransaction(uri, packageName, productName, developerPayload,
-          transactionBuilder).flatMapCompletable(
+          transactionBuilder.amount()).flatMapCompletable(
           paymentTransaction -> billing.getSkuTransaction(packageName,
               paymentTransaction.getTransactionBuilder()
                   .getSkuId(), paymentTransaction.getTransactionBuilder()
@@ -185,7 +185,7 @@ public class AsfInAppPurchaseInteractor {
   }
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
-      String productName, String developerPayload, TransactionBuilder ogTransactionBuilder) {
+      String productName, String developerPayload, BigDecimal amount) {
     return Single.zip(parseTransaction(uri).observeOn(scheduler), defaultWalletInteract.find()
         .observeOn(scheduler), (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
@@ -193,7 +193,7 @@ public class AsfInAppPurchaseInteractor {
               transactionBuilder.gasSettings(new GasSettings(
                   gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                   paymentGasLimit));
-              return transactionBuilder.amount(ogTransactionBuilder.amount());
+              return transactionBuilder.amount(amount);
             }))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
             productName, transactionBuilder.getSkuId(), developerPayload,
