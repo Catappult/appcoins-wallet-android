@@ -89,21 +89,23 @@ public class InAppPurchaseInteractor {
   }
 
   public Completable send(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, String developerPayload, boolean isBds) {
+      String packageName, String productName, String developerPayload, boolean isBds,
+      TransactionBuilder transactionBuilder) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-          developerPayload);
+          developerPayload, transactionBuilder);
     } else {
       return asfInAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-          developerPayload);
+          developerPayload, transactionBuilder);
     }
   }
 
   Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, String developerPayload, boolean isBds, String type) {
+      String packageName, String productName, String developerPayload, boolean isBds, String type,
+      TransactionBuilder transactionBuilder) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-          developerPayload, type);
+          developerPayload, type, transactionBuilder);
     } else {
       return Completable.error(new UnsupportedOperationException("Asf doesn't support resume."));
     }

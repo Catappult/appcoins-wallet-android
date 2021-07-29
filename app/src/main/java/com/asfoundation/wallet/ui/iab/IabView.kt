@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -29,7 +30,8 @@ interface IabView {
 
   fun navigateToWebViewAuthorization(url: String)
 
-  fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String, gamificationLevel: Int)
+  fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String, gamificationLevel: Int,
+                  transactionBuilder: TransactionBuilder)
 
   fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
@@ -38,7 +40,8 @@ interface IabView {
   fun showCarrierBilling(currency: String?, amount: BigDecimal, bonus: BigDecimal?,
                          isPreselected: Boolean)
 
-  fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int)
+  fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int,
+                                 transactionBuilder: TransactionBuilder)
 
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
                        bonus: String?, selectedPaymentMethod: String, developerAddress: String,
@@ -54,7 +57,8 @@ interface IabView {
                            selectedPaymentMethod: String)
 
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                         isBds: Boolean, isDonation: Boolean, gamificationLevel: Int)
+                         isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
+                         transaction: TransactionBuilder)
 
   fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
                          appcAmount: BigDecimal, targetFragment: Fragment, shouldStoreCard: Boolean,
