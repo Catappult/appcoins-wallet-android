@@ -34,9 +34,9 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
 
   fun send(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
            packageName: String, productName: String?, developerPayload: String?,
-           isBds: Boolean): Completable {
+           isBds: Boolean, transactionBuilder: TransactionBuilder): Completable {
     return inAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-        developerPayload, isBds)
+        developerPayload, isBds, transactionBuilder)
   }
 
   fun parseTransaction(uri: String?, isBds: Boolean): Single<TransactionBuilder> =
@@ -48,9 +48,9 @@ class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInter
 
   fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
              packageName: String, productName: String?, developerPayload: String?,
-             isBds: Boolean, type: String): Completable {
+             isBds: Boolean, type: String, transactionBuilder: TransactionBuilder): Completable {
     return inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-        developerPayload, isBds, type)
+        developerPayload, isBds, type, transactionBuilder)
   }
 
   fun getCompletedPurchase(transaction: Payment, isBds: Boolean): Single<Payment> =
