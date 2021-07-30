@@ -5,27 +5,18 @@ import io.reactivex.Single
 
 
 class PartnerAddressService(private val installerService: InstallerService,
-                            private val walletAddressService: WalletAddressService,
                             private val deviceInfo: DeviceInfo,
-                            private val oemIdExtractorService: OemIdExtractorService) :
+                            private val oemIdExtractorService: OemIdExtractorService,
+                            private val defaultStoreAddress: String,
+                            private val defaultOemAddress: String) :
     AddressService {
 
-  override fun getStoreAddressForPackage(packageName: String): Single<String> {
-    return getAttributionEntity(packageName)
-        .flatMap { entity ->
-          walletAddressService.getStoreWalletForPackage(entity.domain, deviceInfo.manufacturer,
-              deviceInfo.model, entity.oemId)
-        }
-        .onErrorResumeNext { walletAddressService.getStoreDefaultAddress() }
+  override fun getStoreAddress(suggestedStoreAddress: String?): String {
+    return suggestedStoreAddress?.let { suggestedStoreAddress } ?: defaultStoreAddress
   }
 
-  override fun getOemAddressForPackage(packageName: String): Single<String> {
-    return getAttributionEntity(packageName)
-        .flatMap { entity ->
-          walletAddressService.getOemWalletForPackage(entity.domain, deviceInfo.manufacturer,
-              deviceInfo.model, entity.oemId)
-        }
-        .onErrorResumeNext { walletAddressService.getOemDefaultAddress() }
+  override fun getOemAddress(suggestedOemAddress: String?): String {
+    return suggestedOemAddress?.let { suggestedOemAddress } ?: defaultOemAddress
   }
 
   override fun getAttributionEntity(packageName: String): Single<AttributionEntity> {

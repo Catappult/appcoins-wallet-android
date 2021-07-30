@@ -22,13 +22,12 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
                                           entityDomainId: String?,
                                           origin: String, type: String, developerPayload: String?,
                                           callback: String?, orderReference: String?,
-                                          referrerUrl: String?): Single<String> {
+                                          referrerUrl: String?): Single<Transaction> {
     return remoteRepository.registerAuthorizationProof(
         origin, type, entityOemId, entityDomainId, id, paymentType,
         walletAddress, walletSignature, productName, packageName, priceValue, developerWallet,
         developerPayload, callback, orderReference, referrerUrl, null
     )
-        .map { it.uid }
   }
 
   override fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,

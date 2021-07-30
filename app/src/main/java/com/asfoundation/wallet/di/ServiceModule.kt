@@ -267,23 +267,15 @@ class ServiceModule {
   @Singleton
   @Provides
   fun providesAddressService(installerService: InstallerService,
-                             addressService: WalletAddressService,
                              oemIdExtractorService: OemIdExtractorService): AddressService {
-    return PartnerAddressService(installerService, addressService,
-        DeviceInfo(Build.MANUFACTURER, Build.MODEL), oemIdExtractorService)
+    return PartnerAddressService(installerService, DeviceInfo(Build.MANUFACTURER, Build.MODEL),
+        oemIdExtractorService, BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS)
   }
 
   @Singleton
   @Provides
   fun providesInstallerService(context: Context): InstallerService {
     return InstallerSourceService(context)
-  }
-
-  @Singleton
-  @Provides
-  fun providesWalletAddressService(api: BdsPartnersApi): WalletAddressService {
-    return PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
-        BuildConfig.DEFAULT_OEM_ADDRESS)
   }
 
   @Singleton
@@ -442,19 +434,6 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsPartnersApi(@Named("default") client: OkHttpClient, gson: Gson): BdsPartnersApi {
-    val baseUrl = BuildConfig.BASE_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(BdsPartnersApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun provideAnalyticsAPI(@Named("default") client: OkHttpClient,
                           objectMapper: ObjectMapper): AnalyticsAPI {
     return Retrofit.Builder()
@@ -516,8 +495,8 @@ class ServiceModule {
     val baseUrl = BuildConfig.BASE_HOST
 
     return Retrofit.Builder()
-      .baseUrl(baseUrl)
-      .client(client)
+        .baseUrl(baseUrl)
+        .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
@@ -585,28 +564,28 @@ class ServiceModule {
   ): VerificationStateApi {
     val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/"
     return Retrofit.Builder()
-      .baseUrl(baseUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create(gson))
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
-      .create(VerificationStateApi::class.java)
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(VerificationStateApi::class.java)
   }
 
   @Singleton
   @Provides
   fun provideWithdrawApi(
-    @Named("default") client: OkHttpClient,
-    gson: Gson
+      @Named("default") client: OkHttpClient,
+      gson: Gson
   ): WithdrawApi {
     val baseUrl = BuildConfig.BACKEND_HOST
     return Retrofit.Builder()
-      .baseUrl(baseUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create(gson))
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
-      .create(WithdrawApi::class.java)
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(WithdrawApi::class.java)
   }
 
 }

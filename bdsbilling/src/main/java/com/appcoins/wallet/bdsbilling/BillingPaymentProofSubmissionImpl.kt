@@ -4,6 +4,7 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -15,17 +16,19 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private val walletService: WalletService,
     private val repository: BillingRepository,
     private val networkScheduler: Scheduler,
-    private val transactionIdsFromApprove: MutableMap<String, String>,
+    private val transactionFromApprove: MutableMap<String, Transaction>,
     private val transactionIdsFromBuy: MutableMap<String, String>) : BillingPaymentProofSubmission {
 
-  override fun processPurchaseProof(paymentProof: PaymentProof): Completable {
-    return transactionIdsFromApprove[paymentProof.approveProof]?.let { paymentId ->
-      registerPaymentProof(paymentId, paymentProof.paymentProof, paymentProof.paymentType)
-    } ?: Completable.error(
+  override fun processPurchaseProof(paymentProof: PaymentProof): Single<Transaction> {
+    return transactionFromApprove[paymentProof.approveProof]?.let { transaction ->
+      registerPaymentProof(transaction.uid, paymentProof.paymentProof, paymentProof.paymentType)
+          .andThen(Single.just(transaction))
+    } ?: Single.error(
         IllegalArgumentException("No payment id for {${paymentProof.approveProof}}"))
   }
 
-  override fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
+  override fun processAuthorizationProof(
+      authorizationProof: AuthorizationProof): Single<Transaction> {
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
         authorizationProof.priceValue, authorizationProof.developerAddress,
@@ -34,8 +37,9 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         authorizationProof.developerPayload,
         authorizationProof.callback, authorizationProof.orderReference,
         authorizationProof.referrerUrl)
-        .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
-        .ignoreElement()
+        .doOnSuccess { transaction ->
+          transactionFromApprove[authorizationProof.id] = transaction
+        }
   }
 
   override fun registerPaymentProof(paymentId: String, paymentProof: String,
@@ -65,7 +69,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                                           developerPayload: String?,
                                           callback: String?,
                                           orderReference: String?,
-                                          referrerUrl: String?): Single<String> {
+                                          referrerUrl: String?): Single<Transaction> {
     return walletService.getWalletAddress()
         .observeOn(networkScheduler)
         .flatMap { walletAddress ->
@@ -80,8 +84,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         }
   }
 
-  override fun saveTransactionId(key: String) {
-    transactionIdsFromApprove[key] = key
+  override fun saveTransactionId(transaction: Transaction) {
+    transactionFromApprove[transaction.uid] = transaction
   }
 
   override fun getTransactionId(buyHash: String): String? {

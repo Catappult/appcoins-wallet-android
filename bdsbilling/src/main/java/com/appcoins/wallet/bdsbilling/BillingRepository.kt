@@ -34,7 +34,7 @@ interface BillingRepository {
                                  entityOemId: String?, entityDomainId: String?,
                                  origin: String, type: String, developerPayload: String?,
                                  callback: String?, orderReference: String?,
-                                 referrerUrl: String?): Single<String>
+                                 referrerUrl: String?): Single<Transaction>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable

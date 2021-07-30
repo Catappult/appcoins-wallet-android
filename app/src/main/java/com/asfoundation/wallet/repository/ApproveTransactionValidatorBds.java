@@ -2,10 +2,10 @@ package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.bdsbilling.AuthorizationProof;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.billing.partners.AttributionEntity;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
-import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 
@@ -22,7 +22,7 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
     this.partnerAddressService = partnerAddressService;
   }
 
-  @Override public Completable validate(PaymentTransaction paymentTransaction) {
+  @Override public Single<Transaction> validate(PaymentTransaction paymentTransaction) {
     String packageName = paymentTransaction.getPackageName();
     String developerAddress = paymentTransaction.getTransactionBuilder()
         .toAddress();
@@ -46,6 +46,6 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
             paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
             .getOrderReference(), paymentTransaction.getTransactionBuilder()
             .getReferrerUrl()))
-        .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
+        .flatMap(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }

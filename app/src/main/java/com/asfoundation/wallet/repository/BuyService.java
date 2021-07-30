@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
+import com.appcoins.wallet.bdsbilling.repository.entity.WalletsResponse;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -43,16 +44,27 @@ public class BuyService {
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
-    return Single.zip(countryCodeProvider.getCountryCode(), defaultTokenProvider.getDefaultToken(),
-        partnerAddressService.getStoreAddressForPackage(paymentTransaction.getPackageName()),
-        partnerAddressService.getOemAddressForPackage(paymentTransaction.getPackageName()),
-        (countryCode, tokenInfo, storeAddress, oemAddress) -> transactionBuilder.appcoinsData(
-            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
-                countryCode, storeAddress, oemAddress)))
-        .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
-        .flatMapCompletable(
-            payment -> Completable.defer(() -> transactionValidator.validate(payment))
-                .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
+    return transactionValidator.validate(paymentTransaction)
+        .flatMapCompletable(validationTransaction -> {
+          WalletsResponse wallets = validationTransaction.getWallets();
+          String tmpStoreAddress = null;
+          String tmpOemAddress = null;
+          if (wallets != null) {
+            tmpStoreAddress = wallets.getStore();
+            tmpOemAddress = wallets.getOem();
+          }
+          final String storeAddress = partnerAddressService.getStoreAddress(tmpStoreAddress);
+          final String oemAddress = partnerAddressService.getOemAddress(tmpOemAddress);
+
+          return Single.zip(countryCodeProvider.getCountryCode(),
+              defaultTokenProvider.getDefaultToken(),
+              (countryCode, tokenInfo) -> transactionBuilder.appcoinsData(
+                  getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                      countryCode, storeAddress, oemAddress)))
+              .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
+              .flatMapCompletable(payment -> transactionService.sendTransaction(key,
+                  payment.getTransactionBuilder()));
+        });
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {
