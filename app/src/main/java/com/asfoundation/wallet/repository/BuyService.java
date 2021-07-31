@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
-import com.appcoins.wallet.bdsbilling.repository.entity.WalletsResponse;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -25,17 +25,20 @@ public class BuyService {
   private final CountryCodeProvider countryCodeProvider;
   private final DataMapper dataMapper;
   private final AddressService partnerAddressService;
+  private final BillingPaymentProofSubmission billingPaymentProofSubmission;
 
   public BuyService(WatchedTransactionService transactionService,
       TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider,
       CountryCodeProvider countryCodeProvider, DataMapper dataMapper,
-      AddressService partnerAddressService) {
+      AddressService partnerAddressService,
+      BillingPaymentProofSubmission billingPaymentProofSubmission) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
     this.defaultTokenProvider = defaultTokenProvider;
     this.countryCodeProvider = countryCodeProvider;
     this.dataMapper = dataMapper;
     this.partnerAddressService = partnerAddressService;
+    this.billingPaymentProofSubmission = billingPaymentProofSubmission;
   }
 
   public void start() {
@@ -44,27 +47,39 @@ public class BuyService {
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
-    return transactionValidator.validate(paymentTransaction)
-        .flatMapCompletable(validationTransaction -> {
-          WalletsResponse wallets = validationTransaction.getWallets();
-          String tmpStoreAddress = null;
-          String tmpOemAddress = null;
-          if (wallets != null) {
-            tmpStoreAddress = wallets.getStore();
-            tmpOemAddress = wallets.getOem();
-          }
-          final String storeAddress = partnerAddressService.getStoreAddress(tmpStoreAddress);
-          final String oemAddress = partnerAddressService.getOemAddress(tmpOemAddress);
+    com.appcoins.wallet.bdsbilling.repository.entity.Transaction cachedTransaction =
+        billingPaymentProofSubmission.getTransactionFromUid(key);
+    String storeAddress = getStoreAddress(cachedTransaction);
+    String oemAddress = getOemAddress(cachedTransaction);
+    return Single.zip(countryCodeProvider.getCountryCode(), defaultTokenProvider.getDefaultToken(),
+        (countryCode, tokenInfo) -> transactionBuilder.appcoinsData(
+            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                countryCode, storeAddress, oemAddress)))
+        .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
+        .flatMap(payment -> transactionValidator.validate(paymentTransaction)
+            .map(__ -> payment))
+        .flatMapCompletable(
+            payment -> transactionService.sendTransaction(key, payment.getTransactionBuilder()));
+  }
 
-          return Single.zip(countryCodeProvider.getCountryCode(),
-              defaultTokenProvider.getDefaultToken(),
-              (countryCode, tokenInfo) -> transactionBuilder.appcoinsData(
-                  getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
-                      countryCode, storeAddress, oemAddress)))
-              .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
-              .flatMapCompletable(payment -> transactionService.sendTransaction(key,
-                  payment.getTransactionBuilder()));
-        });
+  private String getStoreAddress(
+      com.appcoins.wallet.bdsbilling.repository.entity.Transaction transaction) {
+    String tmpStoreAddress = null;
+    if (transaction != null && transaction.getWallets() != null) {
+      tmpStoreAddress = transaction.getWallets()
+          .getStore();
+    }
+    return partnerAddressService.getStoreAddress(tmpStoreAddress);
+  }
+
+  private String getOemAddress(
+      com.appcoins.wallet.bdsbilling.repository.entity.Transaction transaction) {
+    String tmpOemAddress = null;
+    if (transaction != null && transaction.getWallets() != null) {
+      tmpOemAddress = transaction.getWallets()
+          .getOem();
+    }
+    return partnerAddressService.getOemAddress(tmpOemAddress);
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {

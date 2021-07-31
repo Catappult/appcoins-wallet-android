@@ -88,6 +88,10 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     transactionFromApprove[transaction.uid] = transaction
   }
 
+  override fun getTransactionFromUid(uid: String): Transaction? {
+    return transactionFromApprove[uid]
+  }
+
   override fun getTransactionId(buyHash: String): String? {
     return transactionIdsFromBuy[buyHash]
   }

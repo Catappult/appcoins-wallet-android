@@ -80,14 +80,15 @@ class ServiceModule {
                                pendingTransactionService: TrackTransactionService,
                                defaultTokenProvider: DefaultTokenProvider,
                                countryCodeProvider: CountryCodeProvider, dataMapper: DataMapper,
-                               addressService: AddressService): BuyService {
+                               addressService: AddressService,
+                               billingPaymentProofSubmission: BillingPaymentProofSubmission): BuyService {
     return BuyService(WatchedTransactionService(object : TransactionSender {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
       }
     }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
         pendingTransactionService), NoValidateTransactionValidator(), defaultTokenProvider,
-        countryCodeProvider, dataMapper, addressService)
+        countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission)
   }
 
   @Provides
@@ -107,7 +108,7 @@ class ServiceModule {
         bdsPendingTransactionService),
         BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider, addressService), defaultTokenProvider, countryCodeProvider,
-        dataMapper, addressService)
+        dataMapper, addressService, billingPaymentProofSubmission)
   }
 
   @Provides

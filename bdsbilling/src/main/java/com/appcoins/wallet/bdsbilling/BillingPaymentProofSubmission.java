@@ -21,5 +21,7 @@ public interface BillingPaymentProofSubmission {
 
   void saveTransactionId(Transaction transaction);
 
+  Transaction getTransactionFromUid(String uid);
+
   @Nullable String getTransactionId(String buyHash);
 }
