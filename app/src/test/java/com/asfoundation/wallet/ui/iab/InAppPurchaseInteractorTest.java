@@ -42,7 +42,6 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
@@ -113,6 +112,9 @@ public class InAppPurchaseInteractorTest {
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
     MockitoAnnotations.initMocks(this);
+    BillingPaymentProofSubmission billingPaymentProofSubmission =
+        Mockito.mock(BillingPaymentProofSubmission.class);
+
     balance = PublishSubject.create();
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
         Single.just(new GasSettings(new BigDecimal(1), new BigDecimal(2))));
@@ -154,11 +156,8 @@ public class InAppPurchaseInteractorTest {
             new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
             new ErrorMapper(), scheduler, pendingTransactionService);
 
-    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
-
-    when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
-
-    when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
+    when(transactionValidator.validate(any())).thenReturn(
+        Single.just(Transaction.Companion.notFound()));
 
     when(allowanceService.checkAllowance(any(), any(), any())).thenReturn(
         Single.just(BigDecimal.ZERO));
@@ -167,8 +166,8 @@ public class InAppPurchaseInteractorTest {
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator), allowanceService,
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
-                countryCodeProvider, new DataMapper(), addressService), balanceService, scheduler,
-            new ErrorMapper());
+                countryCodeProvider, new DataMapper(), addressService,
+                billingPaymentProofSubmission), balanceService, scheduler, new ErrorMapper());
 
     when(proofOfAttentionService.get()).thenReturn(PublishSubject.create());
 
@@ -180,14 +179,15 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null)),
-        Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null)));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null,
+            null)), Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
+        new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null, null)));
 
     when(billing.getSkuTransaction(anyString(), anyString(), anyString(),
         any(Scheduler.class))).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null)));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null,
+            null)));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
@@ -211,9 +211,6 @@ public class InAppPurchaseInteractorTest {
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
                 new CompositeDisposable(), transactionService), scheduler);
-
-    BillingPaymentProofSubmission billingPaymentProofSubmission =
-        Mockito.mock(BillingPaymentProofSubmission.class);
 
     inAppPurchaseInteractor =
         new BdsInAppPurchaseInteractor(asfInAppPurchaseInteractor, billingPaymentProofSubmission,
