@@ -529,6 +529,16 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             "network_error")
         view.showNetworkError()
       }
+      paymentModel.error.errorType == Error.ErrorType.INVALID_CARD -> view.showInvalidCardError()
+
+      paymentModel.error.errorType == Error.ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+
+      paymentModel.error.errorType == Error.ErrorType.TIMEOUT -> view.showTimeoutError()
+
+      paymentModel.error.errorType == Error.ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+
+      paymentModel.error.errorType == Error.ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+
       paymentModel.error.code != null -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
             paymentModel.error.code.toString(),

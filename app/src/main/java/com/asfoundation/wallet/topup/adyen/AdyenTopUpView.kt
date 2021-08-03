@@ -20,6 +20,16 @@ interface AdyenTopUpView {
 
   fun showNetworkError()
 
+  fun showInvalidCardError()
+
+  fun showSecurityValidationError()
+
+  fun showTimeoutError()
+
+  fun showAlreadyProcessedError()
+
+  fun showPaymentError()
+
   fun updateTopUpButton(valid: Boolean)
 
   fun cancelPayment()
