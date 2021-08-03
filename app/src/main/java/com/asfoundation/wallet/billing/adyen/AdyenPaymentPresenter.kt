@@ -667,6 +667,17 @@ class AdyenPaymentPresenter(
   private fun handleErrors(error: Error) {
     when {
       error.isNetworkError -> view.showNetworkError()
+
+      error.errorType == Error.ErrorType.INVALID_CARD -> view.showInvalidCardError()
+
+      error.errorType == Error.ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+
+      error.errorType == Error.ErrorType.TIMEOUT -> view.showTimeoutError()
+
+      error.errorType == Error.ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+
+      error.errorType == Error.ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+
       error.code != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.code!!)
         if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
