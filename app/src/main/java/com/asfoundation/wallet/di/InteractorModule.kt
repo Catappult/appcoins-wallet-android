@@ -245,17 +245,15 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideAdyenPaymentInteractor(
-      context: Context,
-      adyenPaymentRepository: AdyenPaymentRepository,
-      inAppPurchaseInteractor: InAppPurchaseInteractor,
-      partnerAddressService: AddressService, billing: Billing,
-      walletService: WalletService,
-      supportInteractor: SupportInteractor,
-      walletBlockedInteract: WalletBlockedInteract,
-      walletVerificationInteractor: WalletVerificationInteractor,
-      billingAddressRepository: BillingAddressRepository
-  ): AdyenPaymentInteractor {
+  fun provideAdyenPaymentInteractor(context: Context,
+                                    adyenPaymentRepository: AdyenPaymentRepository,
+                                    inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                    partnerAddressService: AddressService, billing: Billing,
+                                    walletService: WalletService,
+                                    supportInteractor: SupportInteractor,
+                                    walletBlockedInteract: WalletBlockedInteract,
+                                    walletVerificationInteractor: WalletVerificationInteractor,
+                                    billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(
         adyenPaymentRepository,
         inAppPurchaseInteractor,
