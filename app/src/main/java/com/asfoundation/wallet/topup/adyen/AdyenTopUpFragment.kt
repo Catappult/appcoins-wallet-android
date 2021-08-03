@@ -215,6 +215,26 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
     top_up_container.visibility = GONE
   }
 
+  override fun showInvalidCardError() {
+    showSpecificError(R.string.purchase_error_invalid_credit_card)
+  }
+
+  override fun showSecurityValidationError() {
+    showSpecificError(R.string.purchase_error_card_security_validation)
+  }
+
+  override fun showTimeoutError() {
+    showSpecificError(R.string.purchase_error_transaction_timeout)
+  }
+
+  override fun showAlreadyProcessedError() {
+    showSpecificError(R.string.purchase_error_card_already_in_progress)
+  }
+
+  override fun showPaymentError() {
+    showSpecificError(R.string.purchase_error_payment_rejected)
+  }
+
   override fun showRetryAnimation() {
     retry_button.visibility = INVISIBLE
     retry_animation.visibility = VISIBLE

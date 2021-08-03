@@ -30,6 +30,16 @@ interface AdyenPaymentView {
 
   fun showGenericError()
 
+  fun showInvalidCardError()
+
+  fun showSecurityValidationError()
+
+  fun showTimeoutError()
+
+  fun showAlreadyProcessedError()
+
+  fun showPaymentError()
+
   fun getMorePaymentMethodsClicks(): Observable<Any>
 
   fun showMoreMethods()
