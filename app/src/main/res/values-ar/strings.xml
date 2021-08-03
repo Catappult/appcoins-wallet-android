@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">محفظة AppCoins</string>
   <string name="title_send">إرسال</string>
   <string name="title_send_with_token">إرسال %s</string>
   <string name="title_request">استقبال</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">تأكد من أن لديك نسخة احتاطية من هذه المحفظة.</string>
   <string name="action_import">استعادة</string>
   <string name="copy">نسخ إلى الحافظة</string>
+  <string name="copied">Copied!</string>
   <string name="close">إغلاق</string>
   <string name="title_activity_settings">الإعدادات</string>
   <string name="network_label">الشبكة</string>
@@ -27,6 +28,7 @@
   <string name="label_new">جديد</string>
   <string name="got_it_button">مفهوم</string>
   <string name="change_button">تغيير</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
@@ -955,4 +957,10 @@
   <string name="voucher_tooltip">يمكنك الآن شراء القسائم للألعاب!</string>
   <string name="voucher_empty_more_title">بطاقات هدية للألعاب</string>
   <string name="voucher_empty_more_body">احصل على أفضل الصفقات لألعابك المفضلة!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

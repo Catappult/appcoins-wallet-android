@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">अॅपकॉइन्स वॉलेट</string>
   <string name="title_send">पाठवा</string>
   <string name="title_send_with_token">पाठवा %s</string>
   <string name="title_request">मिळवा</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">ह्या वॉलेटचा बॅकअप आपल्याकडे असण्याची खात्री करा.</string>
   <string name="action_import">परत मिळवा</string>
   <string name="copy">क्लिपबोर्डावर कॉपी करा</string>
+  <string name="copied">Copied!</string>
   <string name="close">बंद करा</string>
   <string name="title_activity_settings">सेटिंग्ज</string>
   <string name="network_label">नेटवर्क</string>
@@ -27,6 +28,7 @@
   <string name="label_new">नविन</string>
   <string name="got_it_button">समजल</string>
   <string name="change_button">बदला</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
@@ -939,4 +941,10 @@
   <string name="voucher_tooltip">आता आपण खेळासाठी व्हाऊचर्स खरेदी करु शकता!</string>
   <string name="voucher_empty_more_title">खेळांसाठी व्हाऊचर्स</string>
   <string name="voucher_empty_more_body">आपल्या आवडत्या खेळातील बेस्ट डील्स शोधा!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

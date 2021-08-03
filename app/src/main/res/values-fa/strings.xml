@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">کیف پول AppCoins</string>
   <string name="title_send">ارسال</string>
   <string name="title_send_with_token">ارسال %s</string>
   <string name="title_request">دریافت</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">مطمئن شوید که از این کیف پول بک‌آپ دارید.</string>
   <string name="action_import">بازیابی</string>
   <string name="copy">کپی به کلیپ بورد</string>
+  <string name="copied">Copied!</string>
   <string name="close">بستن</string>
   <string name="title_activity_settings">تنظیمات</string>
   <string name="network_label">شبکه</string>
@@ -27,6 +28,7 @@
   <string name="label_new">جدید</string>
   <string name="got_it_button">متوجه شدم</string>
   <string name="change_button">تغییر</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">اکنون می‌توانید برای بازی‌ها ووچر بخرید!</string>
   <string name="voucher_empty_more_title">ووچر برای بازی‌ها</string>
   <string name="voucher_empty_more_body">بهترین پیشنهادها را برای بازی‌های موردعلاقه خود پیدا کنید!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

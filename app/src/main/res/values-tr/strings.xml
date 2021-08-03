@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins Cüzdan</string>
   <string name="title_send">Gönder</string>
   <string name="title_send_with_token">%s gönder</string>
   <string name="title_request">Al</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Bu cüzdanın yedeğine sahip olduğunuzdan emin olun.</string>
   <string name="action_import">Geri yükle</string>
   <string name="copy">Panoya kopyala</string>
+  <string name="copied">Copied!</string>
   <string name="close">Kapat</string>
   <string name="title_activity_settings">Ayarlar</string>
   <string name="network_label">Ağ</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Yeni</string>
   <string name="got_it_button">ANLADIM</string>
   <string name="change_button">CHANGE</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
   <string name="no_camera_permission_title">Kamera İzni</string>
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
@@ -452,7 +454,7 @@
   <string name="verification_insert_phone_field_region_error">Bu bölge henüz desteklenmiyor.</string>
   <string name="verification_insert_phone_field_landline_error">Sabit telefonlar desteklenmiyor.</string>
   <string name="verification_insert_phone_security_disclaimer">Bu sadece güvenlik içindir, herhangi bir kişisel verinizi saklamayız.</string>
-  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_title">AppCoins Cüzdan</string>
   <string name="verification_notification_code_body">Doğrulama kodunuz %s. AppCoins Wallet adresinizi doğrulamak için bu kodu kullanın.</string>
   <string name="verification_insert_code_title">Doğrulama kodunuzu girin</string>
   <string name="verification_insert_code_error">Geçersiz kod</string>
@@ -721,10 +723,10 @@
   <string name="subscriptions_cancel_confirmation_body">Bu abonelik için artık sizden ücret alınmayacak. Paketi %s tarihine kadar kullanabilirsiniz.</string>
   <string name="subscriptions_category_title">Abonelik</string>
   <string name="subscriptions_bonus_body">Her bir ödeme için bu bonusu alacaksınız.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_day">%1$s/gün</string>
+  <string name="subscriptions_per_week">%1$s/hafta</string>
+  <string name="subscriptions_per_month">%1$s/ay</string>
+  <string name="subscriptions_per_year">%1$s/yıl</string>
   <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
   <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
   <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">Artık oyunlar için kupon satın alabilirsiniz!</string>
   <string name="voucher_empty_more_title">Vouchers for Games</string>
   <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

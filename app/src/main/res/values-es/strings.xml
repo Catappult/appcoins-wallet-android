@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Asegúrate de tener una copia de seguridad de esta wallet.</string>
   <string name="action_import">Recuperar</string>
   <string name="copy">Copiar</string>
+  <string name="copied">¡Copiado!</string>
   <string name="close">Cerrar</string>
   <string name="title_activity_settings">Ajustes</string>
   <string name="network_label">Red</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Nuevo</string>
   <string name="got_it_button">OK</string>
   <string name="change_button">CAMBIAR</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">No hay suficiente espacio de almacenamiento</string>
   <string name="no_camera_permission_title">Acceso a la cámara</string>
   <string name="no_camera_permission">AppCoins BDS Wallet necesita permiso para acceder a la cámara para poder escanear códigos QR.</string>
@@ -97,7 +99,7 @@
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Procesando…</string>
   <string name="title_dialog_add_account">Añadir wallet</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">¿Cómo quieres comprar?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Establece una contraseña para encriptar tu wallet</string>
@@ -243,8 +245,8 @@
   <string name="transaction_type_reverted_purchase_title">Devolución de compra</string>
   <string name="transaction_type_reverted_purchase_body">La compra que hiciste el %s ha sido revertida. Ponte en contacto con nosotros para más información.</string>
   <string name="transaction_reverted_view_original_header">Transacción original</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_onchain_completed_title">¡La compra está en camino!</string>
+  <string name="transaction_onchain_completed_body">Puedes seguirla desde Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -278,7 +280,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">proceder</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Usa tus AppCoins</string>
@@ -321,7 +323,7 @@
   <string name="gamification_star_subtitle">¡Brillante, enorme y lleno de vida!</string>
   <string name="gamification_galaxy_subtitle">¡El sistema más grande de ahí fuera!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">¡Esta compra tiene un bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus de Compra:</string>
   <string name="gamification_purchase_header_part_2">%s en APPC Credits</string>
   <string name="gamification_purchase_body">Puedes usar este bonus en tu próxima compra.</string>
@@ -591,7 +593,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Haz un Backup de tu Wallet</string>
   <string name="backup_home_notification_body">¿Alguna vez perdiste tu dispositivo? ¡Haz un backup!</string>
-  <string name="backup_button">BACKUP</string>
+  <string name="backup_button">HACER COPIA</string>
   <string name="backup_title">Backup de la Wallet</string>
   <string name="backup_password_title">Encripta tu wallet (opcional)</string>
   <string name="backup_password">Contraseña</string>
@@ -696,7 +698,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Gestionar subscripciones</string>
   <string name="subscriptions_title">Subscripciones</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">Sucríbete</string>
   <string name="subscriptions_active_title">Activa</string>
   <string name="subscriptions_expired_title">Caducada</string>
   <string name="subscriptions_empty_title">Todavía no tienes subscripciones</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">¡Ahora puedes comprar vouchers para juegos!</string>
   <string name="voucher_empty_more_title">Vouchers para Juegos</string>
   <string name="voucher_empty_more_body">¡Encuentra las mejores ofertas para tus juegos favoritos!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Cambiar moneda</string>
+  <string name="change_currency_settings_title">Moneda</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">¡La compra está en camino!</string>
+  <string name="block_transaction_disclaimer_body">Puedes seguirla desde Etherscan.</string>
 </resources>

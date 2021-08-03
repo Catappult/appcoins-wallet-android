@@ -223,7 +223,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun setWithdrawPreference() {
     val bugReportPreference = findPreference<Preference>("pref_withdraw")
-    bugReportPreference?.isVisible = BuildConfig.DEBUG
     bugReportPreference?.setOnPreferenceClickListener {
       presenter.onWithdrawClicked()
       false

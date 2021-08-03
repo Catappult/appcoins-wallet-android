@@ -33,7 +33,6 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.iab_error_layout.view.*
-import kotlinx.android.synthetic.main.overlay_fragment.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.payment_methods_layout.*
 import kotlinx.android.synthetic.main.payment_methods_layout.error_message
@@ -41,7 +40,6 @@ import kotlinx.android.synthetic.main.selected_payment_method.*
 import kotlinx.android.synthetic.main.support_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.view.error_message
 import java.math.BigDecimal
-import java.util.*
 import javax.inject.Inject
 
 class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
@@ -98,6 +96,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private lateinit var iabView: IabView
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var paymentMethodClick: PublishRelay<Int>
+  private lateinit var topupClick: PublishSubject<String>
   private lateinit var paymentMethodsAdapter: PaymentMethodsAdapter
   private val paymentMethodList: MutableList<PaymentMethod> = ArrayList()
   private var setupSubject: PublishSubject<Boolean>? = null
@@ -117,6 +116,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     super.onCreate(savedInstanceState)
     compositeDisposable = CompositeDisposable()
     setupSubject = PublishSubject.create()
+    topupClick = PublishSubject.create()
     preSelectedPaymentMethod = BehaviorSubject.create()
     paymentMethodClick = PublishRelay.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
@@ -130,6 +130,14 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData,
       taskTimer
     )
+  }
+
+  override fun getTopupClicks(): Observable<String> {
+    return topupClick
+  }
+
+  override fun showTopupFlow() {
+    iabView.showTopupFlow()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -187,7 +195,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     mid_separator?.visibility = View.VISIBLE
     if (paymentMethods.isNotEmpty()) {
       paymentMethodsAdapter =
-        PaymentMethodsAdapter(paymentMethods, paymentMethodId, paymentMethodClick)
+        PaymentMethodsAdapter(paymentMethods, paymentMethodId, paymentMethodClick, topupClick)
       payment_methods_radio_list.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
       paymentMethodList.addAll(paymentMethods)
@@ -418,25 +426,26 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     )
   }
 
-  override fun showAppCoins(gamificationLevel: Int) {
+  override fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder) {
     iabView.showOnChain(
-      transactionBuilder!!.amount(), isBds, bonusMessageValue,
-      gamificationLevel
+        transaction.amount(), isBds, bonusMessageValue,
+        gamificationLevel,
+        transaction
     )
   }
 
-  override fun showCredits(gamificationLevel: Int) {
-    iabView.showAppcoinsCreditsPayment(transactionBuilder!!.amount(), gamificationLevel)
+  override fun showCredits(gamificationLevel: Int, transaction: TransactionBuilder) {
+    iabView.showAppcoinsCreditsPayment(transaction.amount(), gamificationLevel, transaction)
   }
 
   override fun showShareLink(selectedPaymentMethod: String) {
     val isOneStep: Boolean = transactionBuilder!!.type
-      .equals("INAPP_UNMANAGED", ignoreCase = true)
+        .equals("INAPP_UNMANAGED", ignoreCase = true)
     iabView.showShareLinkPayment(
-      transactionBuilder!!.domain, transactionBuilder!!.skuId,
-      if (isOneStep) transactionBuilder!!.originalOneStepValue else null,
-      if (isOneStep) transactionBuilder!!.originalOneStepCurrency else null,
-      transactionBuilder!!.amount(),
+        transactionBuilder!!.domain, transactionBuilder!!.skuId,
+        if (isOneStep) transactionBuilder!!.originalOneStepValue else null,
+        if (isOneStep) transactionBuilder!!.originalOneStepCurrency else null,
+        transactionBuilder!!.amount(),
       transactionBuilder!!.type, selectedPaymentMethod
     )
   }
@@ -497,10 +506,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue) {
+  override fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
+                                  transaction: TransactionBuilder) {
     iabView.showMergedAppcoins(
-      fiatValue.amount, fiatValue.currency, bonusMessageValue,
-      isBds, isDonation, gamificationLevel
+        fiatValue.amount, fiatValue.currency, bonusMessageValue,
+        isBds, isDonation, gamificationLevel, transaction
     )
   }
 

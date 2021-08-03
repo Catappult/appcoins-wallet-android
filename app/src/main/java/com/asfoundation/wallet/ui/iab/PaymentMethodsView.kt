@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
 import java.math.BigDecimal
 
@@ -50,9 +51,9 @@ interface PaymentMethodsView {
 
   fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue)
 
-  fun showAppCoins(gamificationLevel: Int)
+  fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder)
 
-  fun showCredits(gamificationLevel: Int)
+  fun showCredits(gamificationLevel: Int, transaction: TransactionBuilder)
 
   fun showShareLink(selectedPaymentMethod: String)
 
@@ -72,7 +73,8 @@ interface PaymentMethodsView {
 
   fun showBuy()
 
-  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue)
+  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
+                         transaction: TransactionBuilder)
 
   fun lockRotation()
 
@@ -97,6 +99,10 @@ interface PaymentMethodsView {
   fun getSelectedPaymentMethod(hasPreSelectedPaymentMethod: Boolean): PaymentMethod
 
   fun updateProductName()
+
+  fun getTopupClicks(): Observable<String>
+
+  fun showTopupFlow()
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,

@@ -61,7 +61,7 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   }
 
   override fun showInvalidEmailError() {
-    emailEditText.error = getString(R.string.withdraw_invalid_email_error_message)
+    emailEditText.error = getString(R.string.e_skills_withdraw_invalid_email_error_message)
   }
 
   override fun onDestroy() {
@@ -91,11 +91,11 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   }
 
   override fun showNotEnoughBalanceError() {
-    amountEditText.error = getString(R.string.withdraw_not_enough_balance_error_message)
+    amountEditText.error = getString(R.string.e_skills_withdraw_not_enough_balance_error_message)
   }
 
   override fun showNotEnoughEarningsBalanceError() {
-    amountEditText.error = getString(R.string.withdraw_not_enough_earnings_error_message)
+    amountEditText.error = getString(R.string.e_skills_withdraw_not_enough_earnings_error_message)
   }
 
   override fun showLoading() {
