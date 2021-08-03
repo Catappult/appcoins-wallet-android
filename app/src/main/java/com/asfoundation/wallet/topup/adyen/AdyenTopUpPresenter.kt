@@ -82,6 +82,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     handleTryAgainClicks()
     handleAdyen3DSErrors()
     handlePaymentDetails()
+    handleVerificationClick()
   }
 
   private fun handleViewState(savedInstanceState: Bundle?) {
@@ -390,7 +391,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) handleSpecificError(error)
-                      else view.showVerification()
+                      else view.showVerificationError()
                     }
               } else {
                 Single.just(fraudCheckIds)
@@ -496,6 +497,15 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     currentError = message
     waitingResult = false
     view.showSpecificError(message)
+  }
+
+  private fun handleVerificationClick() {
+    disposables.add(view.getVerificationClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showVerification() }
+        .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun hideSpecificError() {

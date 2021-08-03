@@ -39,6 +39,8 @@ interface AdyenTopUpView {
 
   fun showSpecificError(stringRes: Int)
 
+  fun showVerificationError()
+
   fun showCvvError()
 
   fun topUpButtonClicked(): Observable<Any>
@@ -54,6 +56,8 @@ interface AdyenTopUpView {
   fun getTryAgainClicks(): Observable<Any>
 
   fun getSupportClicks(): Observable<Any>
+
+  fun getVerificationClicks(): Observable<Any>
 
   fun lockRotation()
 
