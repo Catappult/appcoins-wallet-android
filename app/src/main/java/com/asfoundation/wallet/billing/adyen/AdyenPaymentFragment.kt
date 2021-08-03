@@ -311,23 +311,23 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showInvalidCardError() {
-    showSpecificError(R.string.codigo_101)
+    showSpecificError(R.string.purchase_error_invalid_credit_card)
   }
 
   override fun showSecurityValidationError() {
-    showSpecificError(R.string.codigo_105)
+    showSpecificError(R.string.purchase_error_card_security_validation)
   }
 
   override fun showTimeoutError() {
-    showSpecificError(R.string.codigo_172)
+    showSpecificError(R.string.purchase_error_transaction_timeout)
   }
 
   override fun showAlreadyProcessedError() {
-    showSpecificError(R.string.codigo_704)
+    showSpecificError(R.string.purchase_error_card_already_in_progress)
   }
 
   override fun showPaymentError() {
-    showSpecificError(R.string.codigo_905)
+    showSpecificError(R.string.purchase_error_payment_rejected)
   }
 
   override fun showVerification() = iabView.showVerification()
