@@ -270,17 +270,15 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideWalletCreatorInteract(
-      accountRepository: WalletRepositoryType,
-      passwordStore: PasswordStore, syncScheduler: ExecutorScheduler
-  ) = WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+  fun provideWalletCreatorInteract(accountRepository: WalletRepositoryType,
+                                   passwordStore: PasswordStore, syncScheduler: ExecutorScheduler) =
+      WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
 
   @Provides
-  fun provideGamificationInteractor(
-      gamification: Gamification,
-      defaultWallet: FindDefaultWalletInteract,
-      conversionService: LocalCurrencyConversionService
-  ) = GamificationInteractor(gamification, defaultWallet, conversionService)
+  fun provideGamificationInteractor(gamification: Gamification,
+                                    defaultWallet: FindDefaultWalletInteract,
+                                    conversionService: LocalCurrencyConversionService) =
+      GamificationInteractor(gamification, defaultWallet, conversionService)
 
   @Provides
   fun providePromotionsInteractor(referralInteractor: ReferralInteractorContract,
