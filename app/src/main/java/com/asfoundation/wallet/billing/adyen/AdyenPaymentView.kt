@@ -58,6 +58,8 @@ interface AdyenPaymentView {
 
   fun showSpecificError(stringRes: Int)
 
+  fun showVerificationError()
+
   fun showCvvError()
 
   fun showProductPrice(amount: String, currencyCode: String)
@@ -81,6 +83,8 @@ interface AdyenPaymentView {
   fun getAdyenSupportLogoClicks(): Observable<Any>
 
   fun getAdyenSupportIconClicks(): Observable<Any>
+
+  fun getVerificationClicks(): Observable<Any>
 
   fun showVerification()
 

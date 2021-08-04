@@ -123,32 +123,30 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     billingAddressInput = PublishSubject.create()
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
-    presenter =
-        AdyenPaymentPresenter(
-            this,
-            compositeDisposable,
-            AndroidSchedulers.mainThread(),
-            Schedulers.io(),
-            RedirectComponent.getReturnUrl(context!!),
-            analytics,
-            domain,
-            origin,
-            adyenPaymentInteractor,
-            skillsPaymentInteractor,
-            inAppPurchaseInteractor.parseTransaction(transactionData, true),
-            navigator,
-            paymentType,
-            transactionType,
-            amount,
-            currency,
-            skills,
-            isPreSelected,
-            AdyenErrorCodeMapper(),
-            servicesErrorMapper,
-            gamificationLevel,
-            formatter,
-            logger
-        )
+    presenter = AdyenPaymentPresenter(this,
+        compositeDisposable,
+        AndroidSchedulers.mainThread(),
+        Schedulers.io(),
+        RedirectComponent.getReturnUrl(context!!),
+        analytics,
+        domain,
+        origin,
+        adyenPaymentInteractor,
+        skillsPaymentInteractor,
+        inAppPurchaseInteractor.parseTransaction(transactionData, true),
+        navigator,
+        paymentType,
+        transactionType,
+        amount,
+        currency,
+        skills,
+        isPreSelected,
+        AdyenErrorCodeMapper(),
+        servicesErrorMapper,
+        gamificationLevel,
+        formatter,
+        logger
+    )
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -366,6 +364,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     fragment_adyen_error_pre_selected?.visibility = VISIBLE
   }
 
+  override fun showVerificationError() {
+    showSpecificError(R.string.purchase_error_verify_wallet)
+    error_verify_wallet_button?.visibility = VISIBLE
+  }
+
   override fun showCvvError() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
@@ -432,6 +435,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun getAdyenSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
   override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
+
+  override fun getVerificationClicks() =
+      RxView.clicks(error_verify_wallet_button)
 
   override fun lockRotation() = iabView.lockRotation()
 
