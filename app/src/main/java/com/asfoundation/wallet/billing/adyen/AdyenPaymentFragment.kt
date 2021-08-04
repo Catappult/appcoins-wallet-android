@@ -366,7 +366,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showVerificationError() {
     showSpecificError(R.string.purchase_error_verify_wallet)
-    fragment_adyen_error?.error_verify_wallet_button?.visibility = VISIBLE
+    error_verify_wallet_button?.visibility = VISIBLE
   }
 
   override fun showCvvError() {
@@ -437,7 +437,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun getVerificationClicks() =
-      RxView.clicks(fragment_adyen_error.error_verify_wallet_button)
+      RxView.clicks(error_verify_wallet_button)
 
   override fun lockRotation() = iabView.lockRotation()
 

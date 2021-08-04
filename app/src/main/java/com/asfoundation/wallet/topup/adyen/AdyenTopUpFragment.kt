@@ -274,8 +274,8 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   override fun showVerificationError() {
     showSpecificError(R.string.purchase_error_verify_wallet)
-    fragment_adyen_error?.error_title?.visibility = VISIBLE
-    fragment_adyen_error?.error_verify_wallet_button?.visibility = VISIBLE
+    error_title?.visibility = VISIBLE
+    error_verify_wallet_button?.visibility = VISIBLE
   }
 
   override fun showCvvError() {
@@ -303,7 +303,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   override fun topUpButtonClicked() = RxView.clicks(button)
 
   override fun getVerificationClicks() =
-      RxView.clicks(fragment_adyen_error.error_verify_wallet_button)
+      RxView.clicks(error_verify_wallet_button)
 
   override fun billingAddressInput(): Observable<Boolean> {
     return billingAddressInput!!
