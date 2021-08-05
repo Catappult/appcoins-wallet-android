@@ -8,8 +8,6 @@ import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.WalletCreatorInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
