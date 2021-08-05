@@ -76,6 +76,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     handleAdyenErrorCancel()
     handleSupportClicks()
     handle3DSErrors()
+    handleVerificationClick()
     if (isPreSelected) handleMorePaymentsClick()
   }
 
@@ -351,7 +352,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) view.showSpecificError(error)
-                      else view.showVerification()
+                      else view.showVerificationError()
                     }
               } else {
                 Single.just(fraudCheckIds)
@@ -372,6 +373,15 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
               view.showSpecificError(error)
               logger.log(TAG, it)
             })
+    )
+  }
+
+  private fun handleVerificationClick() {
+    disposables.add(view.getVerificationClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showVerification() }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
