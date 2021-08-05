@@ -67,21 +67,19 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                   developerWallet: String?,
                   referrerUrl: String?,
                   billingAddress: AdyenBillingAddress? = null): Single<PaymentModel> {
-    return walletService.getAndSignCurrentWalletAddress()
-        .flatMap { address ->
-          Single.zip(
-              partnerAddressService.getStoreAddressForPackage(packageName),
-              partnerAddressService.getOemAddressForPackage(packageName),
-              BiFunction { storeAddress: String, oemAddress: String ->
-                Pair(storeAddress, oemAddress)
-              })
-              .flatMap {
-                adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
-                    supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
-                    address.address, origin, packageName, metadata, sku, callbackUrl,
-                    transactionType, developerWallet, it.first, it.second, address.address,
-                    address.signedAddress, billingAddress, referrerUrl)
-              }
+    return Single.zip(walletService.getAndSignCurrentWalletAddress(),
+        partnerAddressService.getAttributionEntity(packageName),
+        { address, attributionEntity -> Pair(address, attributionEntity) })
+        .flatMap { pair ->
+          val addressModel = pair.first
+          val attrEntity = pair.second
+          adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
+              supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
+              addressModel.address, origin, packageName, metadata, sku, callbackUrl,
+              transactionType, developerWallet, attrEntity.oemId, attrEntity.domain,
+              addressModel.address,
+              addressModel.signedAddress, billingAddress, referrerUrl)
+
         }
   }
 

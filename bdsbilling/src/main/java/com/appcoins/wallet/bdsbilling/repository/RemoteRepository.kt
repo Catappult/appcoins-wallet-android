@@ -78,16 +78,18 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         .toSingle { true }
   }
 
-  fun registerAuthorizationProof(origin: String?, type: String, oemWallet: String, id: String?,
+  fun registerAuthorizationProof(origin: String?, type: String, entityOemId: String?,
+                                 entityDomainId: String?, id: String?,
                                  gateway: String, walletAddress: String, walletSignature: String,
                                  productName: String?, packageName: String, priceValue: BigDecimal,
-                                 developerWallet: String, storeWallet: String,
-                                 developerPayload: String?, callback: String?,
+                                 developerWallet: String, developerPayload: String?,
+                                 callback: String?,
                                  orderReference: String?,
                                  referrerUrl: String?,
                                  productToken: String?): Single<Transaction> {
-    return createTransaction(null, developerWallet, storeWallet, oemWallet, id, developerPayload,
-        callback, orderReference, referrerUrl, productToken, origin, type, gateway,
+    return createTransaction(null, developerWallet, entityOemId, entityDomainId, id,
+        developerPayload, callback, orderReference, referrerUrl, productToken, origin, type,
+        gateway,
         walletAddress, walletSignature, packageName, priceValue.toPlainString(), "APPC",
         productName)
   }
@@ -129,18 +131,19 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   fun createLocalPaymentTransaction(paymentId: String, packageName: String, price: String?,
                                     currency: String?, productName: String?, type: String,
                                     origin: String?, walletsDeveloper: String?,
-                                    walletsStore: String?, walletsOem: String?,
+                                    entityOemId: String?, entityDomain: String?,
                                     developerPayload: String?, callback: String?,
                                     orderReference: String?, referrerUrl: String?,
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
     return api.createTransaction(origin, packageName, price, currency, productName, type,
-        walletAddress, walletsDeveloper, walletsStore, walletsOem, paymentId, developerPayload, callback,
+        walletAddress, walletsDeveloper, entityOemId, entityDomain, paymentId, developerPayload,
+        callback,
         orderReference, referrerUrl, walletAddress, walletSignature)
   }
 
-  private fun createTransaction(userWallet: String?, developerWallet: String?, storeWallet: String?,
-                                oemWallet: String?, token: String?, developerPayload: String?,
+  private fun createTransaction(userWallet: String?, developerWallet: String?, entityOemId: String?,
+                                entityDomain: String?, token: String?, developerPayload: String?,
                                 callback: String?, orderReference: String?, referrerUrl: String?,
                                 productToken: String?, origin: String?, type: String,
                                 gateway: String, walletAddress: String, signature: String,
@@ -149,14 +152,14 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                 productName: String?): Single<Transaction> {
     if (type == ESKILLS) {
       val creditsPurchaseBody =
-        CreditsPurchaseBody(callback, productToken)
+          CreditsPurchaseBody(callback, productToken)
 
       return api.createTransaction(gateway, creditsPurchaseBody, walletAddress, signature)
     } else {
       return api.createTransaction(
-        gateway, origin, packageName, amount, currency, productName,
-        type, userWallet, developerWallet, storeWallet, oemWallet, token, developerPayload,
-        callback, orderReference, referrerUrl, walletAddress, signature
+          gateway, origin, packageName, amount, currency, productName,
+          type, userWallet, developerWallet, entityOemId, entityDomain, token, developerPayload,
+          callback, orderReference, referrerUrl, walletAddress, signature
       )
     }
   }
@@ -282,8 +285,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Field("type") type: String,
                           @Field("wallets.user") userWallet: String?,
                           @Field("wallets.developer") walletsDeveloper: String?,
-                          @Field("wallets.store") walletsStore: String?,
-                          @Field("wallets.oem") walletsOem: String?,
+                          @Field("entity.oemid") entityOemId: String?,
+                          @Field("entity.domain") entityDomain: String?,
                           @Field("token") token: String?,
                           @Field("metadata") developerPayload: String?,
                           @Field("callback_url") callback: String?,
@@ -325,8 +328,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Field("type") type: String,
                           @Field("wallets.user") userWallet: String?,
                           @Field("wallets.developer") walletsDeveloper: String?,
-                          @Field("wallets.store") walletsStore: String?,
-                          @Field("wallets.oem") walletsOem: String?,
+                          @Field("entity.oemid") entityOemId: String?,
+                          @Field("entity.domain") entityDomain: String?,
                           @Field("method") method: String?,
                           @Field("metadata") developerPayload: String?,
                           @Field("callback_url") callback: String?,

@@ -56,8 +56,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
                             private val gamificationLevel: Int,
                             private val formatter: CurrencyFormatUtils,
-                            private val logger: Logger
-) {
+                            private val logger: Logger) {
 
   private var waitingResult = false
   private var cachedUid = ""
@@ -206,10 +205,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 val billingAddressModel = view.retrieveBillingAddressData()
                 val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
                 if (skills) {
-                  skillsPaymentInteractor.makeSkillsPayment(
-                      returnUrl,
-                      domain,
-                      it.productToken,
+                  skillsPaymentInteractor.makeSkillsPayment(returnUrl, it.productToken,
                       adyenCard.cardPaymentMethod.encryptedCardNumber,
                       adyenCard.cardPaymentMethod.encryptedExpiryMonth,
                       adyenCard.cardPaymentMethod.encryptedExpiryYear,

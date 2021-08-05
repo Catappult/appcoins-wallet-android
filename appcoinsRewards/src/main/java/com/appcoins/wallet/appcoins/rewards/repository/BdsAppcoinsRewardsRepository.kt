@@ -24,12 +24,12 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
   }
 
   override fun pay(walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
-                   sku: String?, type: String, developerAddress: String, storeAddress: String,
-                   oemAddress: String, packageName: String, payload: String?, callback: String?,
+                   sku: String?, type: String, developerAddress: String, entityOemId: String?,
+                   entityDomain: String?, packageName: String, payload: String?, callback: String?,
                    orderReference: String?, referrerUrl: String?, productToken: String?)
       : Single<Transaction> {
     return remoteRepository.pay(walletAddress, signature, amount, origin, sku,
-        type, developerAddress, storeAddress, oemAddress, packageName, payload, callback,
+        type, developerAddress, entityOemId, entityDomain, packageName, payload, callback,
         orderReference, referrerUrl, productToken)
   }
 

@@ -41,11 +41,11 @@ public class BdsInAppPurchaseInteractor {
   public Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
       String packageName, String productName, String developerPayload, String type,
       TransactionBuilder transactionBuilder) {
-    return approveKeyProvider.getKey(packageName, productName, type)
+    return approveKeyProvider.getTransaction(packageName, productName, type)
         .doOnSuccess(billingPaymentProofSubmission::saveTransactionId)
         .flatMapCompletable(
-            approveKey -> inAppPurchaseInteractor.resume(uri, transactionType, packageName,
-                productName, approveKey, developerPayload, transactionBuilder));
+            transaction -> inAppPurchaseInteractor.resume(uri, transactionType, packageName,
+                productName, transaction.getUid(), developerPayload, transactionBuilder));
   }
 
   public Observable<Payment> getTransactionState(String uri) {
