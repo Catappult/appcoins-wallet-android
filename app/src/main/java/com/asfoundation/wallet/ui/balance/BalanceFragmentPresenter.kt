@@ -15,7 +15,6 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class BalanceFragmentPresenter(private val view: BalanceFragmentView,
-                               private val activityView: BalanceActivityView?,
                                private val balanceInteractor: BalanceInteractor,
                                private val walletsEventSender: WalletsEventSender,
                                private val networkScheduler: Scheduler,
@@ -78,9 +77,9 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
-        .doOnNext {
+        .doOnNext { walletAddress ->
           balanceInteractor.saveSeenBackupTooltip()
-          activityView?.navigateToBackupView(it)
+          view.navigateToBackup(walletAddress)
           view.dismissTooltip()
         }
         .doOnNext {
@@ -104,7 +103,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   }
 
   private fun handleBackPress() {
-    disposables.add(Observable.merge(view.backPressed(), view.homeBackPressed())
+    disposables.add(view.backPressed()
         .observeOn(viewScheduler)
         .doOnNext { view.handleBackPress() }
         .subscribe({}, { it.printStackTrace() }))
@@ -224,7 +223,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .flatMapSingle { balanceInteractor.requestActiveWalletAddress() }
         .observeOn(viewScheduler)
-        .doOnNext { activityView?.navigateToBackupView(it) }
+        .doOnNext { walletAddress -> view.navigateToBackup(walletAddress) }
         .doOnNext {
           walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
               WalletsAnalytics.CONTEXT_WALLET_BALANCE, WalletsAnalytics.STATUS_SUCCESS)

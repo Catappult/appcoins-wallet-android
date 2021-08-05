@@ -99,10 +99,6 @@ public class ProofOfAttentionServiceTest {
         Single.just(SUBMIT_HASH));
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
 
-    when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
-
-    when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
-
     when(autoUpdateInteract.getAutoUpdateModel(true)).thenReturn(
         Single.just(new AutoUpdateModel()));
   }

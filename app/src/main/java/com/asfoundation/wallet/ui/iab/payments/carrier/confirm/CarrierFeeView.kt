@@ -17,4 +17,5 @@ interface CarrierFeeView {
   fun systemBackEvent(): Observable<Any>
 
   fun nextClickEvent(): Observable<Any>
+
 }

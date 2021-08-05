@@ -170,10 +170,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String,
-                           gamificationLevel: Int) {
+                           gamificationLevel: Int,
+                           transactionBuilder: TransactionBuilder) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
-            intent.data!!.toString(), isBds, transaction, bonus, gamificationLevel))
+            intent.data!!.toString(), isBds, transactionBuilder, bonus, gamificationLevel))
         .commit()
   }
 
@@ -184,7 +185,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
-                bonus, isPreselected, gamificationLevel, getSkuDescription()))
+                bonus, isPreselected, gamificationLevel, getSkuDescription(),
+                transaction!!.productToken))
         .commit()
   }
 
@@ -199,10 +201,11 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int) {
+  override fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int,
+                                          transactionBuilder: TransactionBuilder) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transaction!!, intent.data!!
+            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transactionBuilder, intent.data!!
                 .toString(), isBds, gamificationLevel))
         .commit()
   }
@@ -218,7 +221,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload, getOrigin(isBds), paymentMethodIconUrl, paymentMethodLabel, async, referralUrl,
+                payload, getOrigin(isBds), paymentMethodIconUrl, paymentMethodLabel, async,
+                referralUrl,
                 gamificationLevel))
         .commit()
   }
@@ -265,13 +269,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                                  isBds: Boolean, isDonation: Boolean, gamificationLevel: Int) {
+                                  isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
+                                  transaction: TransactionBuilder) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
-                getSkuDescription(), transaction!!.amount(), isBds,
-                isDonation, transaction!!.skuId, transaction!!.type, gamificationLevel,
-                transaction!!))
+            MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction.domain,
+                getSkuDescription(), transaction.amount(), isBds,
+                isDonation, transaction.skuId, transaction.type, gamificationLevel,
+                transaction))
         .commit()
   }
 
@@ -355,6 +360,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun authenticationResult(success: Boolean) {
     authenticationResultSubject?.onNext(success)
+  }
+
+  override fun showTopupFlow() {
+    startActivity(TopUpActivity.newIntent(this))
   }
 
   override fun onPause() {

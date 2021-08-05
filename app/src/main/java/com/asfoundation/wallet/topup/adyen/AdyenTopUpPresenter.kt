@@ -82,6 +82,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     handleTryAgainClicks()
     handleAdyen3DSErrors()
     handlePaymentDetails()
+    handleVerificationClick()
   }
 
   private fun handleViewState(savedInstanceState: Bundle?) {
@@ -390,7 +391,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                     .observeOn(viewScheduler)
                     .doOnSuccess {
                       if (it) handleSpecificError(error)
-                      else view.showVerification()
+                      else view.showVerificationError()
                     }
               } else {
                 Single.just(fraudCheckIds)
@@ -498,6 +499,15 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     view.showSpecificError(message)
   }
 
+  private fun handleVerificationClick() {
+    disposables.add(view.getVerificationClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showVerification() }
+        .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
   private fun hideSpecificError() {
     currentError = 0
     view.hideErrorViews()
@@ -529,6 +539,16 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             "network_error")
         view.showNetworkError()
       }
+      paymentModel.error.errorType == Error.ErrorType.INVALID_CARD -> view.showInvalidCardError()
+
+      paymentModel.error.errorType == Error.ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+
+      paymentModel.error.errorType == Error.ErrorType.TIMEOUT -> view.showTimeoutError()
+
+      paymentModel.error.errorType == Error.ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+
+      paymentModel.error.errorType == Error.ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+
       paymentModel.error.code != null -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
             paymentModel.error.code.toString(),

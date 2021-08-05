@@ -314,11 +314,13 @@ public class ProofOfAttentionService {
   }
 
   public void setOemAddress(String packageName) {
-    disposables.add(packageName, partnerAddressService.getOemAddressForPackage(packageName)
-        .flatMapCompletable(
-            address -> Completable.fromAction(() -> setOemAddressSync(packageName, address)))
-        .subscribeOn(computationScheduler)
-        .subscribe());
+    // TODO: Currently PoA is disabled and the old roles webservices will be removed soon
+    // TODO: To enable this feature, a replacement for this should be taken into account
+    //disposables.add(packageName, partnerAddressService.getOemAddressForPackage(packageName)
+    //    .flatMapCompletable(
+    //        address -> Completable.fromAction(() -> setOemAddressSync(packageName, address)))
+    //    .subscribeOn(computationScheduler)
+    //    .subscribe());
   }
 
   private void setOemAddressSync(String packageName, String address) {
@@ -334,11 +336,13 @@ public class ProofOfAttentionService {
   }
 
   public void setStoreAddress(String packageName) {
-    disposables.add(packageName, partnerAddressService.getStoreAddressForPackage(packageName)
-        .flatMapCompletable(
-            address -> Completable.fromAction(() -> setStoreAddressSync(packageName, address)))
-        .subscribeOn(computationScheduler)
-        .subscribe());
+    // TODO: Currently PoA is disabled and the old roles webservices will be removed soon
+    // TODO: To enable this feature, a replacement for this should be taken into account
+    //disposables.add(packageName, partnerAddressService.getStoreAddressForPackage(packageName)
+    //    .flatMapCompletable(
+    //        address -> Completable.fromAction(() -> setStoreAddressSync(packageName, address)))
+    //    .subscribeOn(computationScheduler)
+    //    .subscribe());
   }
 
   private void setStoreAddressSync(String packageName, String address) {

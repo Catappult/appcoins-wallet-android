@@ -16,6 +16,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
+import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
@@ -38,6 +39,7 @@ import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.SkillsPaymentInteractor
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.entity.NetworkInfo
@@ -94,7 +96,6 @@ import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Named
 import javax.inject.Singleton
@@ -255,10 +256,19 @@ class InteractorModule {
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
                                     billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
-    return AdyenPaymentInteractor(adyenPaymentRepository, inAppPurchaseInteractor,
+    return AdyenPaymentInteractor(
+        adyenPaymentRepository,
+        inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
         walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
-        billingAddressRepository)
+        billingAddressRepository
+    )
+  }
+
+  @Provides
+  fun provideSkillsPaymentInteractor(skillsPaymentRepository: SkillsPaymentRepository,
+                                     walletService: WalletService): SkillsPaymentInteractor {
+    return SkillsPaymentInteractor(skillsPaymentRepository, walletService)
   }
 
   @Provides

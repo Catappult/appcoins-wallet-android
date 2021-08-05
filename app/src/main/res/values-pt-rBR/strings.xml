@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Certifique-se de que você tenha um backup desta carteira.</string>
   <string name="action_import">Recuperar</string>
   <string name="copy">Copiar para a área de transferência</string>
+  <string name="copied">Copied!</string>
   <string name="close">Fechar</string>
   <string name="title_activity_settings">Configurações</string>
   <string name="network_label">Rede</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Novo</string>
   <string name="got_it_button">ENTENDI</string>
   <string name="change_button">ALTERAR</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Não há espaço de armazenamento livre</string>
   <string name="no_camera_permission_title">Permissão da Câmera</string>
   <string name="no_camera_permission">A BDS da AppCoins Wallet precisa permissão para acessar sua câmera para escanear QR Codes.</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">Você agora pode comprar vouchers para os jogos!</string>
   <string name="voucher_empty_more_title">Vouchers para Jogos</string>
   <string name="voucher_empty_more_body">Encontre as melhores promoções em seus jogos favoritos!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

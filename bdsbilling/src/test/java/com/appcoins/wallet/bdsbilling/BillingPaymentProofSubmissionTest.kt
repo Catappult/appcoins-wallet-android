@@ -75,7 +75,7 @@ class BillingPaymentProofSubmissionTest {
             developerPayload, callback, orderReference, referrerUrl, walletAddress,
             signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
         Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
-        "orderReference", null, "", "")))
+        "orderReference", null, "", null, "")))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.wallets
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,8 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.ui.balance.BalanceActivityView
+import com.asfoundation.wallet.main.MainActivityNavigator
+import com.asfoundation.wallet.my_wallets.MyWalletsNavigator
 import com.asfoundation.wallet.ui.balance.BalanceFragmentView
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -34,34 +34,24 @@ class WalletsFragment : DaggerFragment(), WalletsView {
   @Inject
   lateinit var walletsInteract: WalletsInteract
 
+  lateinit var myWalletsNavigator: MyWalletsNavigator
+
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
 
   @Inject
   lateinit var logger: Logger
   private var uiEventListener: PublishSubject<String>? = null
-  private var onBackPressSubject: PublishSubject<Any>? = null
-  private lateinit var activityView: BalanceActivityView
   private lateinit var adapter: WalletsAdapter
   private lateinit var presenter: WalletsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     uiEventListener = PublishSubject.create()
-    onBackPressSubject = PublishSubject.create()
     presenter = WalletsPresenter(this, walletsInteract, logger, CompositeDisposable(),
         AndroidSchedulers.mainThread(), Schedulers.io(), walletsEventSender)
+    myWalletsNavigator = MyWalletsNavigator(this, MainActivityNavigator(requireContext()))
   }
-
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    if (context !is BalanceActivityView) {
-      throw IllegalStateException(
-          "Wallets Fragment must be attached to Balance Activity")
-    }
-    activityView = context
-  }
-
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -93,7 +83,7 @@ class WalletsFragment : DaggerFragment(), WalletsView {
 
     val adapterList = removeCurrentWallet(walletsBalanceList)
     adapter =
-        WalletsAdapter(context!!, adapterList, uiEventListener!!, currencyFormatter,
+        WalletsAdapter(requireContext(), adapterList, uiEventListener!!, currencyFormatter,
             WalletsViewType.BALANCE)
     other_wallets_cards_recycler.adapter = adapter
     val walletsText =
@@ -112,7 +102,7 @@ class WalletsFragment : DaggerFragment(), WalletsView {
 
   override fun createNewWalletClicked(): Observable<Any> = RxView.clicks(create_new_button_layout)
 
-  override fun navigateToRestoreView() = activityView.navigateToRestoreView()
+  override fun navigateToRestoreView() = myWalletsNavigator.navigateToRestoreView()
 
   override fun showCreatingAnimation() {
     val parentFragment = provideParentFragment()
@@ -124,8 +114,10 @@ class WalletsFragment : DaggerFragment(), WalletsView {
     parentFragment?.showWalletCreatedAnimation()
   }
 
-  override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) =
-      activityView.navigateToWalletDetailView(walletAddress, isActive)
+  override fun navigateToWalletDetailView(walletAddress: String, isActive: Boolean) {
+    myWalletsNavigator.navigateToWalletDetailView(walletAddress, isActive)
+  }
+
 
   override fun onBottomSheetHeaderClicked() = RxView.clicks(bottom_sheet_header)
 
