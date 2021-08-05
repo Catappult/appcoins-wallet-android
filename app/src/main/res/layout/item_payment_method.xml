@@ -72,6 +72,22 @@
       tools:text="You need ETH to pay for the gas."
       />
 
+  <Button
+      android:id="@+id/checkout_topup_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      style="@style/ButtonStyle"
+      app:layout_constraintHorizontal_bias="1"
+      app:iconTint="#ffffff"
+      android:text="@string/topup_home_button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/payment_method_description"
+      app:layout_constraintTop_toTopOf="parent"
+      android:visibility="gone"
+      />
+
   <LinearLayout
       android:id="@+id/payment_method_fee"
       android:layout_width="wrap_content"

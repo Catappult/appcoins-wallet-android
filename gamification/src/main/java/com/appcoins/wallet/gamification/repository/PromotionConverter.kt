@@ -11,8 +11,8 @@ import java.util.*
 class PromotionConverter {
 
   @TypeConverter
-  fun fromString(value: String?): BigDecimal =
-      if (value == null || value.isBlank()) BigDecimal.ZERO else BigDecimal(value)
+  fun fromString(value: String?): BigDecimal? =
+      if (value == null || value.isBlank()) null else BigDecimal(value)
 
   @TypeConverter
   fun toString(bigDecimal: BigDecimal?): String? = bigDecimal?.toPlainString()

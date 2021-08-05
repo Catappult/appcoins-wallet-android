@@ -9,7 +9,6 @@ import com.asfoundation.wallet.billing.partners.AddressService
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 
@@ -21,13 +20,13 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
 
   fun pay(sku: String?, amount: BigDecimal, developerAddress: String, packageName: String,
           origin: String?, type: String, payload: String?, callbackUrl: String?,
-          orderReference: String?, referrerUrl: String?): Completable {
-    return Single.zip(partnerAddressService.getStoreAddressForPackage(packageName),
-        partnerAddressService.getOemAddressForPackage(packageName),
-        BiFunction { storeAddress: String, oemAddress: String -> Pair(storeAddress, oemAddress) })
-        .flatMapCompletable {
-          appcoinsRewards.pay(amount, origin, sku, type, developerAddress, it.first, it.second,
-              packageName, payload, callbackUrl, orderReference, referrerUrl)
+          orderReference: String?, referrerUrl: String?, productToken: String?): Completable {
+    return partnerAddressService.getAttributionEntity(packageName)
+        .flatMapCompletable { attrEntity ->
+          appcoinsRewards.pay(
+              amount, origin, sku, type, developerAddress, attrEntity.oemId, attrEntity.domain,
+              packageName, payload, callbackUrl, orderReference, referrerUrl, productToken
+          )
         }
   }
 

@@ -20,7 +20,7 @@ public class IpCountryCodeProvider implements CountryCodeProvider {
   }
 
   public interface IpApi {
-    @GET("exchange/countrycode") Single<IpResponse> myIp();
+    @GET("appc/countrycode") Single<IpResponse> myIp();
   }
 
   @JsonInclude(JsonInclude.Include.NON_NULL) public class IpResponse {

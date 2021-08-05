@@ -47,8 +47,8 @@ class LocalCurrencyConversionService(
         }
   }
 
-  fun getLocalToAppc(currency: String, value: String, scale: Int): Observable<FiatValue> {
-    return tokenToLocalFiatApi.convertLocalToAppc(currency, value)
+  fun getFiatToAppc(currency: String, value: String, scale: Int): Observable<FiatValue> {
+    return tokenToLocalFiatApi.convertFiatToAppc(currency, value)
         .map { response: ConversionResponseBody ->
           FiatValue(response.appcValue
               .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
@@ -57,27 +57,35 @@ class LocalCurrencyConversionService(
 
   fun getValueToFiat(value: String, currency: String, targetCurrency: String? = null,
                      scale: Int): Observable<FiatValue> {
-    val api = if (targetCurrency != null) tokenToLocalFiatApi.getValueToLocalFiat(currency, value,
-        targetCurrency) else tokenToLocalFiatApi.getValueToLocalFiat(currency, value)
+    val api = if (targetCurrency != null) tokenToLocalFiatApi.getValueToTargetFiat(currency, value,
+        targetCurrency) else tokenToLocalFiatApi.getValueToTargetFiat(currency, value)
     return api.map { response: ConversionResponseBody ->
       FiatValue(response.appcValue
           .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
     }
   }
 
+  fun getFiatToLocalFiat(currency: String, value: String, scale: Int): Observable<FiatValue> {
+    return tokenToLocalFiatApi.getValueToTargetFiat(currency, value)
+      .map { response: ConversionResponseBody ->
+        FiatValue(response.appcValue
+          .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
+      }
+  }
+
   interface TokenToLocalFiatApi {
     @GET("broker/8.20180518/exchanges/{currency}/convert/{value}")
-    fun getValueToLocalFiat(@Path("currency") currency: String,
-                            @Path("value") value: String): Observable<ConversionResponseBody>
+    fun getValueToTargetFiat(@Path("currency") currency: String,
+                             @Path("value") value: String): Observable<ConversionResponseBody>
 
     @GET("broker/8.20180518/exchanges/{currency}/convert/{value}")
-    fun getValueToLocalFiat(@Path("currency") currency: String,
-                            @Path("value") value: String,
-                            @Query("to")
+    fun getValueToTargetFiat(@Path("currency") currency: String,
+                             @Path("value") value: String,
+                             @Query("to")
                             targetCurrency: String): Observable<ConversionResponseBody>
 
     @GET("broker/8.20180518/exchanges/{currency}/convert/{value}?to=APPC")
-    fun convertLocalToAppc(@Path("currency") currency: String,
+    fun convertFiatToAppc(@Path("currency") currency: String,
                            @Path("value") value: String): Observable<ConversionResponseBody>
   }
 

@@ -41,10 +41,18 @@ class LocalCurrencyConversionService(private val tokenToLocalFiatApi: TokenToLoc
         }
   }
 
+  fun getFiatToLocalFiat(value: String?, currency: String, scale: Int,
+                     rounding: RoundingMode? = RoundingMode.FLOOR): Observable<FiatValue> {
+    return tokenToLocalFiatApi.convertLocalToAppc(value, currency)
+      .map { response: ConversionResponseBody ->
+        FiatValue(response.appcValue.setScale(scale, rounding), response.currency, response.symbol)
+      }
+  }
+
   interface TokenToLocalFiatApi {
-    @GET("broker/8.20180518/exchanges/{valueFrom}/convert/{appcValue}")
-    fun getValueToLocalFiat(@Path("appcValue") appcValue: String?,
-                            @Path("valueFrom")
+    @GET("broker/8.20180518/exchanges/{currencyFrom}/convert/{appcValue}")
+    fun getValueToLocalFiat(@Path("value") appcValue: String?,
+                            @Path("currencyFrom")
                             valueFrom: String?): Observable<ConversionResponseBody>
 
     @GET("broker/8.20180518/exchanges/{localCurrency}/convert/{value}?to=APPC")

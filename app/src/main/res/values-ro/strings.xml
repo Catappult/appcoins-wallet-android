@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Asigură-te că ai o copie de rezervă a acestui portofel.</string>
   <string name="action_import">Recuperează</string>
   <string name="copy">Copiază în clipboard</string>
+  <string name="copied">Copied!</string>
   <string name="close">Închide</string>
   <string name="title_activity_settings">Setări</string>
   <string name="network_label">Rețea</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Nou</string>
   <string name="got_it_button">AM ÎNȚELES</string>
   <string name="change_button">MODIFICĂ</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
   <string name="no_camera_permission_title">Permisiune cameră foto</string>
   <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
@@ -927,4 +929,10 @@
   <string name="voucher_tooltip">Acum poți cumpăra vouchere pentru jocuri!</string>
   <string name="voucher_empty_more_title">Vouchere pentru Jocuri</string>
   <string name="voucher_empty_more_body">Găsește cele mai bune oferte pentru jocurile tale favorite!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

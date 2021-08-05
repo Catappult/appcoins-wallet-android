@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Βεβαιωθείτε ότι έχετε ένα αντίγραφο ασφαλείας αυτού του wallet.</string>
   <string name="action_import">Ανάκτηση</string>
   <string name="copy">Αντιγραφή στο πρόχειρο</string>
+  <string name="copied">Copied!</string>
   <string name="close">Κλείσιμο</string>
   <string name="title_activity_settings">Ρυθμίσεις</string>
   <string name="network_label">Δίκτυο</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Νέο</string>
   <string name="got_it_button">ΤΟ ΚΑΤΑΛΑΒΑ</string>
   <string name="change_button">ΑΛΛΑΓΗ</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Ο αποθηκευτικός χώρος δεν είναι επαρκής</string>
   <string name="no_camera_permission_title">Δικαίωμα Κάμερας</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">Τώρα μπορείτε να αγοράσετε voucher για παιχνίδια!</string>
   <string name="voucher_empty_more_title">Voucher για Παιχνίδια</string>
   <string name="voucher_empty_more_body">Ανακαλύψτε τις καλύτερες προσφορές για τα αγαπημένα σας παιχνίδια!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

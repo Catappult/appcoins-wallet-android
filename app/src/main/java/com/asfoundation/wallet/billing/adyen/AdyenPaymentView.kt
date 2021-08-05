@@ -30,6 +30,16 @@ interface AdyenPaymentView {
 
   fun showGenericError()
 
+  fun showInvalidCardError()
+
+  fun showSecurityValidationError()
+
+  fun showTimeoutError()
+
+  fun showAlreadyProcessedError()
+
+  fun showPaymentError()
+
   fun getMorePaymentMethodsClicks(): Observable<Any>
 
   fun showMoreMethods()
@@ -47,6 +57,8 @@ interface AdyenPaymentView {
   fun billingAddressInput(): Observable<Boolean>
 
   fun showSpecificError(stringRes: Int)
+
+  fun showVerificationError()
 
   fun showCvvError()
 
@@ -71,6 +83,8 @@ interface AdyenPaymentView {
   fun getAdyenSupportLogoClicks(): Observable<Any>
 
   fun getAdyenSupportIconClicks(): Observable<Any>
+
+  fun getVerificationClicks(): Observable<Any>
 
   fun showVerification()
 

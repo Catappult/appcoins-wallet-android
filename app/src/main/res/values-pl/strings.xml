@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Portfel AppCoins</string>
   <string name="title_send">Wyślij</string>
   <string name="title_send_with_token">Wyślij %s</string>
   <string name="title_request">Odbierz</string>
@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Upewnij się, że masz kopię zapasową tego portfela.</string>
   <string name="action_import">Odzyskaj</string>
   <string name="copy">Kopiuj do schowka</string>
+  <string name="copied">Copied!</string>
   <string name="close">Zamknij</string>
   <string name="title_activity_settings">Ustawienia</string>
   <string name="network_label">Sieć</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Nowość</string>
   <string name="got_it_button">OK</string>
   <string name="change_button">ZMIEŃ</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
   <string name="no_camera_permission_title">Zezwolenie na używanie aparatu</string>
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
@@ -232,7 +234,7 @@
   <string name="transaction_type_iab">Płatności w aplikacji</string>
   <string name="transaction_type_poa">Nagroda</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
-  <string name="transaction_type_standard">Transfer</string>
+  <string name="transaction_type_standard">Przelewy</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher na %s</string>
@@ -840,8 +842,8 @@
   <plurals name="promotion_ends_hours_short">
     <item quantity="one">Kończy się za %s godzinę.</item>
     <item quantity="few">Kończy się za %s godziny.</item>
-    <item quantity="many">It ends in %s hours.</item>
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="many">Kończy się za %s godziny.</item>
+    <item quantity="other">Kończy się za %s godziny.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Promocja kończy się za %s minutę.</item>
@@ -852,8 +854,8 @@
   <plurals name="promotion_ends_minutes_short">
     <item quantity="one">Kończy się za %s minutę.</item>
     <item quantity="few">Kończy się za %s minut.</item>
-    <item quantity="many">It ends in %s minutes.</item>
-    <item quantity="other">It ends in %s minutes.</item>
+    <item quantity="many">Kończy się za %s minut.</item>
+    <item quantity="other">Kończy się za %s minut.</item>
   </plurals>
   <string name="perks_end_today">Promocja kończy się dzisiaj.</string>
   <string name="perks_end_today_short">Kończy się dzisiaj.</string>
@@ -936,4 +938,10 @@
   <string name="voucher_tooltip">Teraz możesz kupić vouchery na gry!</string>
   <string name="voucher_empty_more_title">Vouchery na Gry</string>
   <string name="voucher_empty_more_body">Znajdź najlepsze okazje do swoich ulubionych gier!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>
