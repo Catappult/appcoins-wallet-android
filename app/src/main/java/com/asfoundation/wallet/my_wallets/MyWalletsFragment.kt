@@ -40,9 +40,6 @@ import kotlinx.android.synthetic.main.layout_unverified.*
 import javax.inject.Inject
 import kotlin.math.abs
 
-/**
- * Placeholder fragment, to be replaced with the actual fragment
- */
 class MyWalletsFragment : BasePageViewFragment(), BalanceFragmentView {
 
   @Inject
