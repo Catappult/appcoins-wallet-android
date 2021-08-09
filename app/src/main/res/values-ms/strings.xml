@@ -520,6 +520,12 @@
   <string name="purchase_error_try_cheaper_item_or_method">Mahal sangat! Cuba beli item lain yang murah sikit atau cuba kaedah bayaran yang lain.</string>
   <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
   <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
+  <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
+  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
+  <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
+  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
+  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
+  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
