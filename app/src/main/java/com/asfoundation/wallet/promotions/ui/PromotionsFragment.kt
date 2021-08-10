@@ -44,14 +44,14 @@ class PromotionsFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    adapter = PromotionsAdapter(emptyList()) { promotionClick ->
-      viewModel.promotionClicked(promotionClick)
-    }
+//    adapter = PromotionsAdapter(emptyList()) { promotionClick ->
+//      viewModel.promotionClicked(promotionClick)
+//    }
     views.rvPromotions.adapter = adapter
     views.rvPromotions.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
             .toInt()))
-    views.gamificationInfoBtn.setOnClickListener { viewModel.gamificationInfoClicked() }
+//    views.gamificationInfoBtn.setOnClickListener { viewModel.gamificationInfoClicked() }
     views.noNetwork.retryButton.setOnClickListener { viewModel.fetchPromotions() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -94,30 +94,30 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun setPromotions(promotionsModel: PromotionsModel, previousModel: PromotionsModel?) {
     hideLoading()
-    if (promotionsModel.hasError() && !promotionsModel.fromCache) {
-      // In the future we should get rid of this previousModel. Here it exists because the offline
-      // first flow emits when it shouldn't (e.g. it emits a network error even if local data exists)
-      if (previousModel == null || previousModel.hasError()) {
-        if (promotionsModel.error == PromotionsModel.Status.NO_NETWORK) {
-          showNetworkErrorView()
-        } else {
-          // In case of error that is not "no network", this screen will be shown. This was already
-          // like this. I think a general error screen was implemented with vouchers, so on merge
-          // we should check this out.
-          showNoPromotionsScreen()
-        }
-      }
-    } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
-      if (!promotionsModel.fromCache) {
-        showLockedPromotionsScreen()
-      }
-    } else {
-      if (promotionsModel.promotions.isEmpty()) {
-        showNoPromotionsScreen()
-      } else {
-        showPromotions(promotionsModel.promotions)
-      }
-    }
+//    if (promotionsModel.hasError() && !promotionsModel.fromCache) {
+//      // In the future we should get rid of this previousModel. Here it exists because the offline
+//      // first flow emits when it shouldn't (e.g. it emits a network error even if local data exists)
+//      if (previousModel == null || previousModel.hasError()) {
+//        if (promotionsModel.error == PromotionsModel.Status.NO_NETWORK) {
+//          showNetworkErrorView()
+//        } else {
+//          // In case of error that is not "no network", this screen will be shown. This was already
+//          // like this. I think a general error screen was implemented with vouchers, so on merge
+//          // we should check this out.
+//          showNoPromotionsScreen()
+//        }
+//      }
+//    } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
+//      if (!promotionsModel.fromCache) {
+//        showLockedPromotionsScreen()
+//      }
+//    } else {
+//      if (promotionsModel.promotions.isEmpty()) {
+//        showNoPromotionsScreen()
+//      } else {
+//        showPromotions(promotionsModel.promotions)
+//      }
+//    }
   }
 
   private fun showPromotions(promotions: List<Promotion>) {

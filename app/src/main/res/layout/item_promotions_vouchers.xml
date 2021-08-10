@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Promotions.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/default_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/promotions_active_background"
+      >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/voucher_main_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+      <ImageView
+          android:id="@+id/voucher_icon"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_marginStart="@dimen/normal_margin"
+          android:layout_marginTop="@dimen/normal_margin"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:srcCompat="@drawable/ic_promotions_default"
+          />
+      <TextView
+          android:id="@+id/voucher_app_name"
+          style="@style/Promotions.TextStyle.AppName"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/normal_margin"
+          android:layout_marginTop="2dp"
+          android:layout_marginEnd="@dimen/normal_margin"
+          app:layout_constraintEnd_toStartOf="@id/voucher_buy_button"
+          app:layout_constraintStart_toEndOf="@id/voucher_icon"
+          app:layout_constraintTop_toTopOf="@+id/voucher_icon"
+          tools:text="Trivial Drive Sample"
+          />
+
+      <LinearLayout
+          android:id="@+id/has_appcoins_view"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/small_margin"
+          android:layout_marginEnd="@dimen/normal_margin"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          app:layout_constraintEnd_toStartOf="@id/voucher_buy_button"
+          app:layout_constraintStart_toStartOf="@id/voucher_app_name"
+          app:layout_constraintTop_toBottomOf="@id/voucher_app_name"
+          >
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_appc"
+            />
+        <TextView
+            style="@style/VoucherAppcText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/appc_token_name"
+            />
+      </LinearLayout>
+
+      <Button
+          android:id="@+id/voucher_buy_button"
+          style="@style/ButtonStyle.Alternative"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/button_height"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:text="@string/action_buy"
+          app:layout_constraintBottom_toBottomOf="@id/voucher_icon"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="@id/voucher_icon"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/dashed_separator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/dashed_line"
+        android:layerType="software"
+        app:layout_constraintTop_toBottomOf="@id/voucher_main_view"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/vouchers_card_bottom_color"
+        app:layout_constraintTop_toBottomOf="@id/dashed_separator"
+        >
+
+      <TextView
+          android:id="@+id/voucher_description"
+          style="@style/VoucherCardBodyText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="@dimen/normal_margin"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="@dimen/normal_margin"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="@string/voucher_card_body_1"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/has_bonus_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="bottom_view, dashed_separator"
+        tools:visibility="visible"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

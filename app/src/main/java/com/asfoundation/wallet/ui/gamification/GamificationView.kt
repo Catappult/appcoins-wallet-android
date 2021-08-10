@@ -5,9 +5,7 @@ import java.util.*
 
 interface GamificationView {
 
-  fun displayGamificationInfo(hiddenLevels: List<LevelItem>,
-                              shownLevels: List<LevelItem>,
-                              updateDate: Date?)
+  fun displayGamificationInfo(updateDate: Date?)
 
   fun showHeaderInformation(totalSpent: String, bonusEarned: String, symbol: String)
 

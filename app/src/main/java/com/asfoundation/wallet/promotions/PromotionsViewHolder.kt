@@ -1,23 +1,25 @@
-package com.asfoundation.wallet.promotions
-
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.PluralsRes
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.promotions.PromotionsGamificationAdapter
+import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.model.*
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import kotlinx.android.synthetic.main.item_promotions_default.view.*
+import com.asfoundation.wallet.util.addBottomItemDecoration
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
-import kotlinx.android.synthetic.main.item_promotions_title.view.*
+import kotlinx.android.synthetic.main.item_promotions_vouchers.view.*
+import kotlinx.android.synthetic.main.perks_content.view.*
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
@@ -26,6 +28,7 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
   companion object {
     const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
+    const val PACKAGE_NAME_EXTRA = "PACKAGE_NAME_EXTRA"
   }
 
   abstract fun bind(promotion: Promotion)
@@ -39,129 +42,114 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
     when {
       days > 3 -> container.visibility = View.GONE
-      days in 1..3 -> updateDate(view, container, days, R.plurals.promotion_ends)
-      hours > 0 -> updateDate(view, container, hours, R.plurals.promotion_ends_hours)
-      else -> updateDate(view, container, minutes, R.plurals.promotion_ends_minutes)
+      days in 1..3 -> updateDate(view, container, days, R.plurals.promotion_ends_short)
+      hours > 0 -> updateDate(view, container, hours, R.plurals.promotion_ends_hours_short)
+      else -> updateDate(view, container, minutes, R.plurals.promotion_ends_minutes_short)
     }
+  }
+
+  protected fun loadIcon(icon: String?, into: ImageView) {
+    GlideApp.with(itemView.context)
+        .load(icon)
+        .error(R.drawable.ic_promotions_default)
+        .circleCrop()
+        .into(into)
+
   }
 
   private fun updateDate(view: TextView, container: LinearLayout, time: Long,
                          @PluralsRes text: Int) {
     container.visibility = View.VISIBLE
-    view.text =
-        itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
+    view.text = itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
-
-}
-
-class TitleViewHolder(itemView: View) : PromotionsViewHolder(itemView) {
-
-  override fun bind(promotion: Promotion) {
-    val titleItem = promotion as TitleItem
-
-    val title = if (titleItem.isGamificationTitle) {
-      val formatter = CurrencyFormatUtils.create()
-      val bonus = formatter.formatGamificationValues(BigDecimal(titleItem.bonus))
-      itemView.context.getString(titleItem.title, bonus)
-    } else itemView.context.getString(titleItem.title)
-    itemView.promotions_title.text = title
-    itemView.promotions_subtitle.setText(titleItem.subtitle)
-  }
-
 }
 
 class ProgressViewHolder(itemView: View,
-                         private val clickListener: (PromotionClick) -> Unit) :
+                         private val clickListener: PublishSubject<PromotionClick>) :
     PromotionsViewHolder(itemView) {
 
   override fun bind(promotion: Promotion) {
     val progressItem = promotion as ProgressItem
 
-    itemView.isClickable = false
+    itemView.isClickable = progressItem.detailsLink != null
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
       progressItem.detailsLink?.let {
         extras[DETAILS_URL_EXTRA] = it
       }
-      clickListener(PromotionClick(promotion.id, extras))
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
-    GlideApp.with(itemView.context)
-        .load(progressItem.icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(itemView.progress_icon)
+    loadIcon(progressItem.icon, itemView.active_icon)
 
-    itemView.progress_title.text = progressItem.description
-    if (progressItem.objective != null) {
-      itemView.progress_current.max = progressItem.objective.toInt()
-      itemView.progress_current.progress = progressItem.current.toInt()
-      val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
-      itemView.progress_label.text = progress
-    } else {
-      itemView.progress_current.max = progressItem.current.toInt()
-      itemView.progress_current.progress = progressItem.current.toInt()
-      itemView.progress_label.text = "${progressItem.current.toInt()}"
-    }
-    handleExpiryDate(itemView.progress_expiry_date, itemView.progress_container_date,
+    itemView.active_title.text = progressItem.description
+
+    if (progressItem.objective != null) setProgressWithObjective(progressItem)
+    else setMaxProgress(progressItem)
+
+    handleExpiryDate(itemView.active_expiry_date, itemView.active_container_date,
         progressItem.endDate)
   }
 
+  private fun setProgressWithObjective(progressItem: ProgressItem) {
+    itemView.progress_current.max = progressItem.objective!!.toInt()
+    itemView.progress_current.progress = progressItem.current.toInt()
+    val progress = "${progressItem.current.toInt()}/${progressItem.objective.toInt()}"
+    itemView.progress_label.text = progress
+  }
+
+  private fun setMaxProgress(progressItem: ProgressItem) {
+    itemView.progress_current.max = progressItem.current.toInt()
+    itemView.progress_current.progress = progressItem.current.toInt()
+    itemView.progress_label.text = "${progressItem.current.toInt()}"
+  }
 }
 
 class DefaultViewHolder(itemView: View,
-                        private val clickListener: (PromotionClick) -> Unit) :
+                        private val clickListener: PublishSubject<PromotionClick>) :
     PromotionsViewHolder(itemView) {
 
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
 
-    itemView.isClickable = false
+    itemView.isClickable = defaultItem.detailsLink != null
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
       defaultItem.detailsLink?.let {
         extras[DETAILS_URL_EXTRA] = it
       }
-      clickListener(PromotionClick(promotion.id, extras))
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
-    GlideApp.with(itemView.context)
-        .load(defaultItem.icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(itemView.default_icon)
+    loadIcon(defaultItem.icon, itemView.active_icon)
 
-    itemView.default_title.text = defaultItem.description
-    handleExpiryDate(itemView.default_expiry_date, itemView.default_container_date,
+    itemView.active_title.text = defaultItem.description
+    handleExpiryDate(itemView.active_expiry_date, itemView.active_container_date,
         defaultItem.endDate)
   }
 
 }
 
 class FutureViewHolder(itemView: View,
-                       private val clickListener: (PromotionClick) -> Unit) :
+                       private val clickListener: PublishSubject<PromotionClick>) :
     PromotionsViewHolder(itemView) {
 
   override fun bind(promotion: Promotion) {
     val futureItem = promotion as FutureItem
 
-    itemView.isClickable = false
+    itemView.isClickable = futureItem.detailsLink != null
 
     itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
       futureItem.detailsLink?.let {
         extras[DETAILS_URL_EXTRA] = it
       }
-      clickListener(PromotionClick(promotion.id, extras))
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
-    GlideApp.with(itemView.context)
-        .load(futureItem.icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(itemView.future_icon)
+    loadIcon(futureItem.icon, itemView.future_icon)
 
     itemView.future_title.text = futureItem.description
   }
@@ -169,7 +157,7 @@ class FutureViewHolder(itemView: View,
 }
 
 class ReferralViewHolder(itemView: View,
-                         private val clickListener: (PromotionClick) -> Unit) :
+                         private val clickListener: PublishSubject<PromotionClick>) :
     PromotionsViewHolder(itemView) {
 
   companion object {
@@ -187,7 +175,7 @@ class ReferralViewHolder(itemView: View,
           Pair(KEY_LINK, referralItem.link),
           Pair(KEY_ACTION, ACTION_DETAILS)
       )
-      clickListener(PromotionClick(promotion.id, extras))
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     itemView.share_container.setOnClickListener {
@@ -195,7 +183,7 @@ class ReferralViewHolder(itemView: View,
           Pair(KEY_LINK, referralItem.link),
           Pair(KEY_ACTION, ACTION_SHARE)
       )
-      clickListener(PromotionClick(promotion.id, extras))
+      clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
     val formatter = CurrencyFormatUtils.create()
@@ -210,13 +198,12 @@ class ReferralViewHolder(itemView: View,
 }
 
 class GamificationViewHolder(itemView: View,
-                             private val clickListener: (PromotionClick) -> Unit) :
+                             private val clickListener: PublishSubject<PromotionClick>) :
     PromotionsViewHolder(itemView) {
 
   init {
-    itemView.linked_perks.addItemDecoration(
-        MarginItemDecoration(itemView.resources.getDimension(R.dimen.promotions_item_margin)
-            .toInt()))
+    itemView.linked_perks.addBottomItemDecoration(
+        itemView.resources.getDimension(R.dimen.promotions_item_margin))
   }
 
   private var mapper = GamificationMapper(itemView.context)
@@ -225,11 +212,10 @@ class GamificationViewHolder(itemView: View,
     val gamificationItem = promotion as GamificationItem
     val formatter = CurrencyFormatUtils.create()
     val df = DecimalFormat("###.#")
+    val bonus = formatter.formatGamificationValues(BigDecimal(gamificationItem.maxBonus))
 
-    itemView.setOnClickListener {
-      clickListener(PromotionClick(promotion.id))
-    }
-
+    itemView.gamification_title.text = itemView.context.getString(R.string.perks_gamif_title, bonus)
+    itemView.setOnClickListener { clickListener.onNext(PromotionClick(promotion.id)) }
     itemView.planet.setImageDrawable(gamificationItem.planet)
     itemView.current_level_bonus.background = mapper.getOvalBackground(gamificationItem.levelColor)
     itemView.current_level_bonus.text =
@@ -242,6 +228,10 @@ class GamificationViewHolder(itemView: View,
       itemView.planet_subtitle.visibility = View.INVISIBLE
     }
 
+    itemView.gamification_info_btn.setOnClickListener {
+      clickListener.onNext(PromotionClick(GAMIFICATION_INFO))
+    }
+
     handleLinks(gamificationItem.links, itemView)
   }
 
@@ -252,6 +242,36 @@ class GamificationViewHolder(itemView: View,
       itemView.linked_perks.visibility = View.VISIBLE
       val adapter = PromotionsGamificationAdapter(links)
       itemView.linked_perks.adapter = adapter
+    }
+  }
+}
+
+class VouchersViewHolder(itemView: View,
+                         private val clickListener: PublishSubject<PromotionClick>) :
+    PromotionsViewHolder(itemView) {
+
+  override fun bind(promotion: Promotion) {
+    val voucher = promotion as VoucherItem
+    itemView.voucher_app_name.text = voucher.title
+    if (voucher.hasAppcoins) itemView.has_appcoins_view.visibility = View.VISIBLE
+    else itemView.has_appcoins_view.visibility = View.GONE
+
+    if (voucher.maxBonus != 0.0) {
+      itemView.has_bonus_group.visibility = View.VISIBLE
+      val formatter = CurrencyFormatUtils.create()
+      val bonus = formatter.formatGamificationValues(BigDecimal(voucher.maxBonus))
+      itemView.voucher_description.text =
+          String.format(itemView.context.getString(R.string.voucher_card_body_1), bonus)
+    } else {
+      itemView.has_bonus_group.visibility = View.GONE
+    }
+
+    loadIcon(voucher.icon, itemView.voucher_icon)
+
+    itemView.setOnClickListener {
+      //TODO add here more info needed to identify app to move to details fragment
+      val extras = mapOf(Pair(PACKAGE_NAME_EXTRA, voucher.packageName))
+      clickListener.onNext(PromotionClick(voucher.id, extras))
     }
   }
 }

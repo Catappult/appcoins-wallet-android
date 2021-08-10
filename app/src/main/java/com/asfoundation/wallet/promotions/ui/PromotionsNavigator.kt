@@ -1,6 +1,9 @@
 package com.asfoundation.wallet.promotions.ui
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -32,5 +35,18 @@ class PromotionsNavigator(private val fragment: Fragment) : Navigator {
         .setType("text/plain")
         .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))
         .startChooser()
+  }
+
+  @Throws(ActivityNotFoundException::class)
+  fun openDetailsLink(detailsLink: String) {
+    val uri = Uri.parse(detailsLink)
+    val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
+    launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    fragment.startActivity(launchBrowser)
+  }
+
+  fun navigateToVoucherDetails(packageName: String) {
+    //TODO
+    Log.d("PromotionsNavigator", "Tried to navigate $packageName")
   }
 }
