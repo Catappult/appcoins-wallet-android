@@ -120,6 +120,11 @@ class BalanceInteractor(
     )
   }
 
+  fun isCurrentWalletValid(): Single<BalanceVerificationModel> {
+    return getSignedCurrentWalletAddress()
+        .flatMap { isWalletValid(it.address, it.signedAddress) }
+  }
+
   fun isWalletValid(address: String, signedAddress: String): Single<BalanceVerificationModel> {
     return verificationRepository.getVerificationStatus(address, signedAddress)
         .map { status -> mapToBalanceVerificationModel(address, status) }

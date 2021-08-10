@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="MyWallets" />
+
+  <style name="MyWallets.Title">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="MyWallets.TotalBalance">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="MyWallets.HeaderShape">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSizeBottomLeft">12dp</item>
+    <item name="cornerSizeBottomRight">12dp</item>
+  </style>
+
+
+  <style name="MyWallets.Shapes" />
+
+  <style name="MyWallets.Shapes.Pill">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">50%</item>
+  </style>
+
+  <style name="MyWallets.Shapes.Rounded8">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">8dp</item>
+  </style>
+
+</resources>

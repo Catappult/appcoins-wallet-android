@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/collapsable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/appbar_background_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/MyWallets.HeaderShape"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/MyWallets.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/wallets_active_wallet_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/action_button_more"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="42dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_more"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        />
+
+    <ImageView
+        android:id="@+id/qr_image"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:src="@drawable/ic_qr_code"
+        />
+
+    <ImageButton
+        android:id="@+id/action_button_copy_address"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="42dp"
+        android:layout_height="46dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_copy_to_clip"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/qr_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/qr_image"
+        app:layout_constraintTop_toTopOf="@+id/qr_image"
+        />
+
+    <ImageButton
+        android:id="@+id/action_button_share_address"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_share_white"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/qr_image"
+        app:layout_constraintEnd_toStartOf="@+id/qr_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/qr_image"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/wallet_address_card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="15dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        app:cardBackgroundColor="@color/light_grey_alpha_73"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qr_image"
+        app:shapeAppearance="@style/MyWallets.Shapes.Pill"
+        >
+      <TextView
+          android:id="@+id/wallet_address_text_view"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:textColor="@color/grey_9d"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/qr_image"
+          tools:text="0x74157826eb67852dbfb4770a5ff9218cca7b312d"
+          />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/total_balance_label_text_view"
+        style="@style/MyWallets.TotalBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/wallet_view_total_balance_title"
+        app:layout_constraintEnd_toStartOf="@+id/qr_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wallet_address_card_view"
+        />
+
+    <TextView
+        android:id="@+id/total_balance_text_view"
+        style="@style/MyWallets.TotalBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/qr_image"
+        app:layout_constraintTop_toBottomOf="@+id/wallet_address_card_view"
+        tools:text="€31,657.13"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/appcoins_credits_card_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="20dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        app:cardBackgroundColor="@color/light_grey_alpha_73"
+        app:layout_constraintEnd_toStartOf="@id/appcoins_card_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_balance_label_text_view"
+        app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+        >
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+
+        <ImageView
+            android:id="@+id/appcc_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_appc_c_token"
+            android:transitionName="token_icon_transition"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/appcc_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:lines="1"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:transitionName="token_name_transition"
+            app:layout_constraintEnd_toEndOf="@id/appcc_icon"
+            app:layout_constraintStart_toStartOf="@id/appcc_icon"
+            app:layout_constraintTop_toBottomOf="@id/appcc_icon"
+            android:text="@string/appc_credits_token_name"
+            />
+
+        <TextView
+            android:id="@+id/appcc_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:lines="1"
+            android:textColor="@color/grey_9d"
+            android:textSize="12sp"
+            android:transitionName="token_name_transition"
+            app:layout_constraintEnd_toEndOf="@id/appcc_icon"
+            app:layout_constraintStart_toStartOf="@id/appcc_icon"
+            app:layout_constraintTop_toBottomOf="@id/appcc_name"
+            tools:text="5244 APPC"
+            />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/appcoins_card_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/light_grey_alpha_73"
+        app:layout_constraintEnd_toStartOf="@+id/eth_card_view"
+        app:layout_constraintStart_toEndOf="@+id/appcoins_credits_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/total_balance_label_text_view"
+        app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+        >
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+
+        <ImageView
+            android:id="@+id/appc_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_appc_token"
+            android:transitionName="token_icon_transition"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/appc_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:lines="1"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:transitionName="token_name_transition"
+            app:layout_constraintEnd_toEndOf="@id/appc_icon"
+            app:layout_constraintStart_toStartOf="@id/appc_icon"
+            app:layout_constraintTop_toBottomOf="@id/appc_icon"
+            android:text="@string/appc_token_name"
+            />
+
+        <TextView
+            android:id="@+id/appc_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:lines="1"
+            android:textColor="@color/grey_9d"
+            android:textSize="12sp"
+            android:transitionName="token_name_transition"
+            app:layout_constraintEnd_toEndOf="@id/appc_icon"
+            app:layout_constraintStart_toStartOf="@id/appc_icon"
+            app:layout_constraintTop_toBottomOf="@id/appc_name"
+            tools:text="5244 APPC-C"
+            />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/eth_card_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="15dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/light_grey_alpha_73"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/appcoins_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/total_balance_label_text_view"
+        app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+        >
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+
+        <ImageView
+            android:id="@+id/eth_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_eth_token"
+            android:transitionName="token_icon_transition"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/eth_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:lines="1"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:transitionName="token_name_transition"
+            app:layout_constraintEnd_toEndOf="@id/eth_icon"
+            app:layout_constraintStart_toStartOf="@id/eth_icon"
+            app:layout_constraintTop_toBottomOf="@id/eth_icon"
+            android:text="@string/ethereum_token_name"
+            />
+
+        <TextView
+            android:id="@+id/eth_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:lines="1"
+            android:textColor="@color/grey_9d"
+            android:textSize="12sp"
+            android:transitionName="token_name_transition"
+            app:layout_constraintEnd_toEndOf="@id/eth_icon"
+            app:layout_constraintStart_toStartOf="@id/eth_icon"
+            app:layout_constraintTop_toBottomOf="@id/eth_name"
+            tools:text="5244 ETH"
+            />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--    <com.google.android.material.card.MaterialCardView-->
+    <!--        android:id="@+id/backup_wallet_card_view"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:cardBackgroundColor="@color/light_grey_alpha_73"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/appcoins_card_view"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"-->
+    <!--        >-->
+    <!--      -->
+    <!--      <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--          android:layout_width="match_parent"-->
+    <!--          android:layout_height="wrap_content">-->
+    <!--        -->
+    <!--        <ImageView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:id="@+id/alert_icon"-->
+    <!--            android:src="@drawable/ic_alert_circle"-->
+    <!--            />-->
+    <!--        -->
+    <!--      </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+    <!--    </com.google.android.material.card.MaterialCardView>-->
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
