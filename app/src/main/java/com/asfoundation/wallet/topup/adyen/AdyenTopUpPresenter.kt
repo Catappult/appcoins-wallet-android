@@ -381,38 +381,25 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
-    disposables.add(
-        adyenPaymentInteractor.isWalletBlocked()
-            .subscribeOn(networkScheduler)
-            .observeOn(networkScheduler)
-            .flatMap { blocked ->
-              if (blocked) {
-                adyenPaymentInteractor.isWalletVerified()
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      if (it) handleSpecificError(error)
-                      else view.showVerificationError()
-                    }
-              } else {
-                Single.just(fraudCheckIds)
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      val paymentMethodRuleBroken = it.contains(PAYMENT_METHOD_CHECK_ID)
-                      val amountRuleBroken = it.contains(HIGH_AMOUNT_CHECK_ID)
-                      val fraudError = when {
-                        paymentMethodRuleBroken && amountRuleBroken -> {
-                          R.string.purchase_error_try_other_amount_or_method
-                        }
-                        paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
-                        amountRuleBroken -> R.string.purchase_error_try_other_amount
-                        else -> error
-                      }
-                      handleSpecificError(fraudError)
-                    }
+    disposables.add(adyenPaymentInteractor.isWalletVerified()
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it) {
+            val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
+            val amountRuleBroken = fraudCheckIds.contains(HIGH_AMOUNT_CHECK_ID)
+            val fraudError = when {
+              paymentMethodRuleBroken && amountRuleBroken -> {
+                R.string.purchase_error_try_other_amount_or_method
               }
+              paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
+              amountRuleBroken -> R.string.purchase_error_try_other_amount
+              else -> error
             }
-            .observeOn(viewScheduler)
-            .subscribe({}, { handleSpecificError(error, it) })
+            handleSpecificError(fraudError)
+
+          } else view.showVerificationError()
+        }
+        .subscribe({}, { handleSpecificError(error, it) })
     )
   }
 

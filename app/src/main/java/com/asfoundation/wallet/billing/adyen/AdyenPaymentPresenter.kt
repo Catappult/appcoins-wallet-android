@@ -346,37 +346,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
-    disposables.add(
-        adyenPaymentInteractor.isWalletBlocked()
-            .subscribeOn(networkScheduler)
-            .observeOn(networkScheduler)
-            .flatMap { blocked ->
-              if (blocked) {
-                adyenPaymentInteractor.isWalletVerified()
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      if (it) view.showSpecificError(error)
-                      else view.showVerificationError()
-                    }
-              } else {
-                Single.just(fraudCheckIds)
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      val fraudError = when {
-                        it.contains(PAYMENT_METHOD_CHECK_ID) -> {
-                          R.string.purchase_error_try_other_method
-                        }
-                        else -> error
-                      }
-                      view.showSpecificError(fraudError)
-                    }
-              }
+    disposables.add(adyenPaymentInteractor.isWalletVerified()
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it) {
+            val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
+            val fraudError = when {
+              paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
+              else -> error
             }
-            .observeOn(viewScheduler)
-            .subscribe({}, {
-              view.showSpecificError(error)
-              logger.log(TAG, it)
-            })
+            view.showSpecificError(fraudError)
+
+          } else view.showVerificationError()
+        }
+        .subscribe({}, { view.showSpecificError(error) })
     )
   }
 
