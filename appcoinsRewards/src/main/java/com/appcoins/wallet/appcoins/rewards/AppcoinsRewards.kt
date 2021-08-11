@@ -26,12 +26,12 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
   }
 
   fun pay(amount: BigDecimal, origin: String?, sku: String?, type: String, developerAddress: String,
-          entityOemId: String?, entityDomainId: String?, packageName: String, payload: String?,
+          storeAddress: String, oemAddress: String, packageName: String, payload: String?,
           callbackUrl: String?, orderReference: String?, referrerUrl: String?,
           productToken: String?): Completable {
     return cache.save(getKey(amount.toString(), sku, packageName),
         Transaction(
-            sku, type, developerAddress, entityOemId, entityDomainId, packageName, amount,
+            sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
             origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference,
             referrerUrl, productToken
         ))
@@ -54,8 +54,8 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
                             repository.pay(
                                 walletAddress, signature, transaction.amount,
                                 getOrigin(transaction), transaction.sku, transaction.type,
-                                transaction.developerAddress, transaction.entityOemId,
-                                transaction.entityDomain, transaction.packageName,
+                                transaction.developerAddress, transaction.storeAddress,
+                                transaction.oemAddress, transaction.packageName,
                                 transaction.payload, transaction.callback,
                                 transaction.orderReference, transaction.referrerUrl,
                                 transaction.productToken

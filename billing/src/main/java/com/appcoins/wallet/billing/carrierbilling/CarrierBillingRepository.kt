@@ -22,14 +22,12 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
   fun makePayment(walletAddress: String, walletSignature: String,
                   phoneNumber: String, packageName: String, origin: String?, sku: String?,
                   reference: String?, transactionType: String, currency: String,
-                  value: String, developerWallet: String?, entityOemId: String?,
-                  entityDomain: String?,
+                  value: String, developerWallet: String?, oemWallet: String?, storeWallet: String?,
                   userWallet: String?, referrerUrl: String?, developerPayload: String?,
                   callbackUrl: String?): Single<CarrierPaymentModel> {
     return api.makePayment(walletAddress, walletSignature,
         CarrierTransactionBody(phoneNumber, RETURN_URL, METHOD, packageName, origin, sku, reference,
-            transactionType, currency, value, developerWallet, entityOemId, entityDomain,
-            userWallet,
+            transactionType, currency, value, developerWallet, oemWallet, storeWallet, userWallet,
             referrerUrl, developerPayload, callbackUrl))
         .map { response -> mapper.mapPayment(response) }
         .onErrorReturn { e -> mapper.mapPaymentError(e) }

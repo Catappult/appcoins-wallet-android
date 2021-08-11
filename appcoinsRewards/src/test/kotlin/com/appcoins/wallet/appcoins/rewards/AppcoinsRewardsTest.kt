@@ -68,7 +68,7 @@ class AppcoinsRewardsTest {
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null, "", null)))
+            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
@@ -76,7 +76,7 @@ class AppcoinsRewardsTest {
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null, "", null)))
+            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, null, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
@@ -84,12 +84,12 @@ class AppcoinsRewardsTest {
         null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null, "", null)))
+            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
     `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null, "", null)))
+            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
     scheduler.advanceTimeBy(1, TimeUnit.DAYS)
     scheduler.triggerActions()

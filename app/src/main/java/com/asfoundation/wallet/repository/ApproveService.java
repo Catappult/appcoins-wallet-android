@@ -29,8 +29,8 @@ public class ApproveService {
 
   public Completable approve(String key, PaymentTransaction paymentTransaction) {
     return approveTransactionSender.validate(paymentTransaction)
-        .flatMapCompletable(__ -> transactionService.sendTransaction(key,
-            paymentTransaction.getTransactionBuilder()));
+        .andThen(
+            transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder()));
   }
 
   public Observable<ApproveTransaction> getApprove(String uri) {
@@ -99,8 +99,7 @@ public class ApproveService {
   }
 
   public enum Status {
-    PENDING, APPROVING, APPROVED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS,
-    NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN
+    PENDING, APPROVING, APPROVED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN
   }
 
   public class ApproveTransaction {

@@ -63,6 +63,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
             transactionBuilder.orderReference, transactionBuilder.referrerUrl,
             transactionBuilder.productToken
         )
+            .subscribeOn(networkScheduler)
             .andThen(rewardsManager.getPaymentStatus(packageName, transactionBuilder.skuId,
                 transactionBuilder.amount()))
             .observeOn(viewScheduler)

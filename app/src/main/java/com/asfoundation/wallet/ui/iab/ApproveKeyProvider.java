@@ -12,8 +12,8 @@ public class ApproveKeyProvider {
     this.billing = billing;
   }
 
-  Single<Transaction> getTransaction(String packageName, String productName,
-      String transactionType) {
-    return billing.getSkuTransaction(packageName, productName, transactionType, Schedulers.io());
+  Single<String> getKey(String packageName, String productName, String transactionType) {
+    return billing.getSkuTransaction(packageName, productName, transactionType, Schedulers.io())
+        .map(Transaction::getUid);
   }
 }
