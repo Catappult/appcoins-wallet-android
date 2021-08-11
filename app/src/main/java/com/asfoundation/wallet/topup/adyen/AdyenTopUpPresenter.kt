@@ -383,8 +383,8 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
     disposables.add(adyenPaymentInteractor.isWalletVerified()
         .observeOn(viewScheduler)
-        .doOnSuccess {
-          if (it) {
+        .doOnSuccess { verified ->
+          if (verified) {
             val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
             val amountRuleBroken = fraudCheckIds.contains(HIGH_AMOUNT_CHECK_ID)
             val fraudError = when {

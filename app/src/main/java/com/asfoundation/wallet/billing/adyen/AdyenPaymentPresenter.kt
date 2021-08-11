@@ -348,8 +348,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
     disposables.add(adyenPaymentInteractor.isWalletVerified()
         .observeOn(viewScheduler)
-        .doOnSuccess {
-          if (it) {
+        .doOnSuccess { verified ->
+          if (verified) {
             val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
             val fraudError = when {
               paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
