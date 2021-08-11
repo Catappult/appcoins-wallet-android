@@ -45,7 +45,9 @@ class MyWalletsViewModel(private val balanceInteractor: BalanceInteractor) :
   }
 
   private fun fetchBalance() {
-
+    balanceInteractor.requestTokenConversion()
+        .asAsyncToState { balance -> copy(balanceAsync = balance) }
+        .scopedSubscribe { e -> e.printStackTrace() }
   }
 
 }

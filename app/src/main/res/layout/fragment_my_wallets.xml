@@ -19,7 +19,7 @@
         android:id="@+id/shapeableImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/appbar_background_large"
+        android:src="@drawable/appbar_background_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -52,14 +52,15 @@
         app:layout_constraintTop_toTopOf="@+id/title"
         />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/qr_image"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
+        app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
         tools:src="@drawable/ic_qr_code"
         />
 
@@ -98,10 +99,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
-        android:paddingStart="5dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="5dp"
+
         app:cardBackgroundColor="@color/light_grey_alpha_73"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +112,10 @@
           android:layout_height="wrap_content"
           android:ellipsize="end"
           android:maxLines="1"
+          android:paddingStart="10dp"
+          android:paddingTop="5dp"
+          android:paddingEnd="10dp"
+          android:paddingBottom="5dp"
           android:textColor="@color/grey_9d"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -146,6 +148,20 @@
         tools:text="€31,657.13"
         />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/total_balance_skeleton"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="visible"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/qr_image"
+        app:layout_constraintTop_toBottomOf="@+id/wallet_address_card_view"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/balance_overall_animation"
+        />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/appcoins_credits_card_view"
         android:layout_width="0dp"
@@ -153,10 +169,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="20dp"
-        android:paddingStart="5dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="5dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/light_grey_alpha_73"
         app:layout_constraintEnd_toStartOf="@id/appcoins_card_view"
         app:layout_constraintStart_toStartOf="parent"
@@ -167,12 +180,14 @@
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
           >
 
         <ImageView
             android:id="@+id/appcc_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_appc_c_token"
             android:transitionName="token_icon_transition"
@@ -191,6 +206,7 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:lines="1"
+            android:layout_marginTop="3dp"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:transitionName="token_name_transition"
@@ -207,8 +223,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
             android:lines="1"
+            android:layout_marginTop="3dp"
+
             android:textColor="@color/grey_9d"
             android:textSize="12sp"
             android:transitionName="token_name_transition"
@@ -216,6 +233,19 @@
             app:layout_constraintStart_toStartOf="@id/appcc_icon"
             app:layout_constraintTop_toBottomOf="@id/appcc_name"
             tools:text="5244 APPC"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/appcc_value_skeleton"
+            android:layout_width="80dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintEnd_toEndOf="@id/appcc_icon"
+            app:layout_constraintStart_toStartOf="@id/appcc_icon"
+            app:layout_constraintTop_toBottomOf="@id/appcc_name"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/balance_token_animation"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -228,11 +258,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:paddingStart="5dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="5dp"
         android:layout_marginTop="20dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/light_grey_alpha_73"
         app:layout_constraintEnd_toStartOf="@+id/eth_card_view"
         app:layout_constraintStart_toEndOf="@+id/appcoins_credits_card_view"
@@ -243,12 +270,14 @@
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
           >
 
         <ImageView
             android:id="@+id/appc_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_appc_token"
             android:transitionName="token_icon_transition"
@@ -265,6 +294,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
+            android:layout_marginTop="3dp"
             android:fontFamily="sans-serif-medium"
             android:lines="1"
             android:textColor="@color/white"
@@ -283,8 +313,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
             android:lines="1"
+            android:layout_marginTop="3dp"
             android:textColor="@color/grey_9d"
             android:textSize="12sp"
             android:transitionName="token_name_transition"
@@ -292,6 +322,19 @@
             app:layout_constraintStart_toStartOf="@id/appc_icon"
             app:layout_constraintTop_toBottomOf="@id/appc_name"
             tools:text="5244 APPC-C"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/appc_value_skeleton"
+            android:layout_width="80dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintEnd_toEndOf="@id/appc_icon"
+            app:layout_constraintStart_toStartOf="@id/appc_icon"
+            app:layout_constraintTop_toBottomOf="@id/appc_name"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/balance_token_animation"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -304,11 +347,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="15dp"
-        android:paddingStart="5dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="5dp"
         android:layout_marginTop="20dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/light_grey_alpha_73"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/appcoins_card_view"
@@ -319,12 +359,15 @@
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
+          android:background="@color/transparent"
           >
 
         <ImageView
             android:id="@+id/eth_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_eth_token"
             android:transitionName="token_icon_transition"
@@ -343,6 +386,7 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:lines="1"
+            android:layout_marginTop="3dp"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:transitionName="token_name_transition"
@@ -359,15 +403,28 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
             android:lines="1"
             android:textColor="@color/grey_9d"
             android:textSize="12sp"
+            android:layout_marginTop="3dp"
             android:transitionName="token_name_transition"
             app:layout_constraintEnd_toEndOf="@id/eth_icon"
             app:layout_constraintStart_toStartOf="@id/eth_icon"
             app:layout_constraintTop_toBottomOf="@id/eth_name"
             tools:text="5244 ETH"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/eth_value_skeleton"
+            android:layout_width="80dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintEnd_toEndOf="@id/eth_icon"
+            app:layout_constraintStart_toStartOf="@id/eth_icon"
+            app:layout_constraintTop_toBottomOf="@id/eth_name"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/balance_token_animation"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
