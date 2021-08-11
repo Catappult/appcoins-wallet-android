@@ -27,13 +27,13 @@ public class CreditsRemoteRepository
   @NotNull @Override
   public Single<Transaction> pay(@NotNull String walletAddress, @NotNull String signature,
       @NotNull BigDecimal amount, @Nullable String origin, @Nullable String sku,
-      @NotNull String type, @NotNull String developerAddress, @Nullable String entityOemId,
-      @Nullable String entityDomain, @NotNull String packageName, @Nullable String payload,
+      @NotNull String type, @NotNull String developerAddress, @NotNull String storeAddress,
+      @NotNull String oemAddress, @NotNull String packageName, @Nullable String payload,
       @Nullable String callback, @Nullable String orderReference, @Nullable String referrerUrl,
       @Nullable String productToken) {
-    return remoteRepository.registerAuthorizationProof(origin, type, entityOemId, entityDomain,
-        null, "appcoins_credits", walletAddress, signature, sku, packageName, amount,
-        developerAddress, payload, callback, orderReference, referrerUrl, productToken);
+    return remoteRepository.registerAuthorizationProof(origin, type, oemAddress, null,
+        "appcoins_credits", walletAddress, signature, sku, packageName, amount, developerAddress,
+        storeAddress, payload, callback, orderReference, referrerUrl, productToken);
   }
 
   @NotNull @Override

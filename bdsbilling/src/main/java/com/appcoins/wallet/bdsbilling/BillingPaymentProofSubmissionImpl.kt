@@ -4,7 +4,6 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -16,30 +15,26 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private val walletService: WalletService,
     private val repository: BillingRepository,
     private val networkScheduler: Scheduler,
-    private val transactionFromApprove: MutableMap<String, Transaction>,
+    private val transactionIdsFromApprove: MutableMap<String, String>,
     private val transactionIdsFromBuy: MutableMap<String, String>) : BillingPaymentProofSubmission {
 
-  override fun processPurchaseProof(paymentProof: PaymentProof): Single<Transaction> {
-    return transactionFromApprove[paymentProof.approveProof]?.let { transaction ->
-      registerPaymentProof(transaction.uid, paymentProof.paymentProof, paymentProof.paymentType)
-          .andThen(Single.just(transaction))
-    } ?: Single.error(
+  override fun processPurchaseProof(paymentProof: PaymentProof): Completable {
+    return transactionIdsFromApprove[paymentProof.approveProof]?.let { paymentId ->
+      registerPaymentProof(paymentId, paymentProof.paymentProof, paymentProof.paymentType)
+    } ?: Completable.error(
         IllegalArgumentException("No payment id for {${paymentProof.approveProof}}"))
   }
 
-  override fun processAuthorizationProof(
-      authorizationProof: AuthorizationProof): Single<Transaction> {
+  override fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
         authorizationProof.priceValue, authorizationProof.developerAddress,
-        authorizationProof.entityOemId, authorizationProof.entityDomain, authorizationProof.origin,
-        authorizationProof.type,
-        authorizationProof.developerPayload,
+        authorizationProof.storeAddress, authorizationProof.origin, authorizationProof.type,
+        authorizationProof.oemAddress, authorizationProof.developerPayload,
         authorizationProof.callback, authorizationProof.orderReference,
         authorizationProof.referrerUrl)
-        .doOnSuccess { transaction ->
-          transactionFromApprove[authorizationProof.id] = transaction
-        }
+        .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
+        .ignoreElement()
   }
 
   override fun registerPaymentProof(paymentId: String, paymentProof: String,
@@ -62,14 +57,14 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                                           packageName: String,
                                           priceValue: BigDecimal,
                                           developerWallet: String,
-                                          entityOemId: String?,
-                                          entityDomain: String?,
+                                          storeWallet: String,
                                           origin: String,
                                           type: String,
+                                          oemWallet: String,
                                           developerPayload: String?,
                                           callback: String?,
                                           orderReference: String?,
-                                          referrerUrl: String?): Single<Transaction> {
+                                          referrerUrl: String?): Single<String> {
     return walletService.getWalletAddress()
         .observeOn(networkScheduler)
         .flatMap { walletAddress ->
@@ -77,19 +72,14 @@ class BillingPaymentProofSubmissionImpl internal constructor(
               .observeOn(networkScheduler)
               .flatMap { signedData ->
                 repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
-                    productName, packageName, priceValue, developerWallet, entityOemId,
-                    entityDomain,
-                    origin, type, developerPayload, callback, orderReference, referrerUrl)
+                    productName, packageName, priceValue, developerWallet, storeWallet, origin,
+                    type, oemWallet, developerPayload, callback, orderReference, referrerUrl)
               }
         }
   }
 
-  override fun saveTransactionId(transaction: Transaction) {
-    transactionFromApprove[transaction.uid] = transaction
-  }
-
-  override fun getTransactionFromUid(uid: String): Transaction? {
-    return transactionFromApprove[uid]
+  override fun saveTransactionId(key: String) {
+    transactionIdsFromApprove[key] = key
   }
 
   override fun getTransactionId(buyHash: String): String? {
@@ -139,8 +129,8 @@ data class AuthorizationProof(val paymentType: String,
                               val productName: String?,
                               val packageName: String,
                               val priceValue: BigDecimal,
-                              val entityOemId: String?,
-                              val entityDomain: String?,
+                              val storeAddress: String,
+                              val oemAddress: String,
                               val developerAddress: String,
                               val type: String,
                               val origin: String,
@@ -154,5 +144,5 @@ data class PaymentProof(val paymentType: String,
                         val paymentProof: String,
                         val productName: String?,
                         val packageName: String,
-                        val entityOemId: String?,
-                        val entityDomain: String?)
+                        val storeAddress: String,
+                        val oemAddress: String)

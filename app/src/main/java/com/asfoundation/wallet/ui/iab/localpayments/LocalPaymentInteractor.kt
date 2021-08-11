@@ -18,6 +18,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 
 class LocalPaymentInteractor(private val walletService: WalletService,
                              private val partnerAddressService: AddressService,
@@ -43,12 +44,16 @@ class LocalPaymentInteractor(private val walletService: WalletService,
                      referrerUrl: String?): Single<String> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletAddressModel ->
-          partnerAddressService.getAttributionEntity(packageName)
-              .flatMap { attributionEntity ->
+          Single.zip(
+              partnerAddressService.getStoreAddressForPackage(packageName),
+              partnerAddressService.getOemAddressForPackage(packageName),
+              BiFunction { storeAddress: String, oemAddress: String ->
+                StoreOemAddresses(storeAddress, oemAddress)
+              })
+              .flatMap {
                 remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
                     fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper,
-                    attributionEntity.oemId, attributionEntity.domain, developerPayload,
-                    callbackUrl, orderReference,
+                    it.storeAddress, it.oemAddress, developerPayload, callbackUrl, orderReference,
                     referrerUrl, walletAddressModel.address, walletAddressModel.signedAddress)
               }
               .map { it.url }

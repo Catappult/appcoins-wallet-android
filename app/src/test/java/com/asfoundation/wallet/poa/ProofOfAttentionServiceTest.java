@@ -8,8 +8,8 @@ import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.WalletCreatorInteract;
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.PreferencesRepositoryType;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
@@ -98,6 +98,10 @@ public class ProofOfAttentionServiceTest {
     when(campaignService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
         Single.just(SUBMIT_HASH));
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
+
+    when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
+
+    when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
 
     when(autoUpdateInteract.getAutoUpdateModel(true)).thenReturn(
         Single.just(new AutoUpdateModel()));

@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
-import io.reactivex.Single;
+import io.reactivex.Completable;
 
 public interface TransactionValidator {
-  Single<Transaction> validate(PaymentTransaction paymentTransaction);
+  Completable validate(PaymentTransaction paymentTransaction);
 }

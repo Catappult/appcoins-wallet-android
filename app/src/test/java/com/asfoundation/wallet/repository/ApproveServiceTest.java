@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.repository;
 
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -54,8 +54,7 @@ public class ApproveServiceTest {
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
         scheduler, trackTransactionService);
 
-    when(transactionValidator.validate(any())).thenReturn(
-        Single.just(Transaction.Companion.notFound()));
+    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
     approveService = new ApproveService(transactionService, transactionValidator);
     approveService.start();
   }

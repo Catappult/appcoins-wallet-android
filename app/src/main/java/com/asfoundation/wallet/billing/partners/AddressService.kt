@@ -3,9 +3,7 @@ package com.asfoundation.wallet.billing.partners
 import io.reactivex.Single
 
 interface AddressService {
-  fun getStoreAddress(suggestedStoreAddress: String?): String
+  fun getStoreAddressForPackage(packageName: String): Single<String>
 
-  fun getOemAddress(suggestedOemAddress: String?): String
-
-  fun getAttributionEntity(packageName: String): Single<AttributionEntity>
+  fun getOemAddressForPackage(packageName: String): Single<String>
 }
