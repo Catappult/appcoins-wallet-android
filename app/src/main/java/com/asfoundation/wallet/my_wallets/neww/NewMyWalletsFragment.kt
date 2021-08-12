@@ -105,26 +105,24 @@ class NewMyWalletsFragment : BasePageViewFragment(),
       tokenBalance = formatter.formatCurrency(balance.token.amount, tokenCurrency)
       fiatBalance = formatter.formatCurrency(balance.fiat.amount)
     }
-    val tokenBalanceValueText = "$tokenBalance ${tokenCurrency.symbol}"
-    val tokenFiatValueText = "$fiatCurrency$fiatBalance"
     if (tokenBalance != "-1" && fiatBalance != "-1") {
       when (tokenCurrency) {
         WalletCurrency.CREDITS -> {
           views.appccValueSkeleton.visibility = View.GONE
           views.appccValueSkeleton.cancelAnimation()
-          views.appccValue.text = tokenBalanceValueText
+          views.appccValue.text = tokenBalance
           views.appccValue.visibility = View.VISIBLE
         }
         WalletCurrency.APPCOINS -> {
           views.appcValueSkeleton.visibility = View.GONE
           views.appcValueSkeleton.cancelAnimation()
-          views.appcValue.text = tokenBalanceValueText
+          views.appcValue.text = tokenBalance
           views.appcValue.visibility = View.VISIBLE
         }
         WalletCurrency.ETHEREUM -> {
           views.ethValueSkeleton.visibility = View.GONE
           views.ethValueSkeleton.cancelAnimation()
-          views.ethValue.text = tokenBalanceValueText
+          views.ethValue.text = tokenBalance
           views.ethValue.visibility = View.VISIBLE
         }
         else -> return
