@@ -15,6 +15,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
+import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -147,7 +148,59 @@ class NewMyWalletsFragment : BasePageViewFragment(),
   }
 
   private fun setVerified(walletVerifiedAsync: Async<BalanceVerificationModel>) {
+    when (walletVerifiedAsync) {
+      is Async.Success -> {
+        val verifiedModel = walletVerifiedAsync()
+        when (verifiedModel.status) {
+          BalanceVerificationStatus.VERIFIED -> setVerifiedWallet(true)
+          BalanceVerificationStatus.UNVERIFIED -> setVerifiedWallet(false)
+          BalanceVerificationStatus.CODE_REQUESTED -> setShowVerifyInsertCode()
+          BalanceVerificationStatus.NO_NETWORK,
+          BalanceVerificationStatus.ERROR -> {
+            // Set cached value
+            when (verifiedModel.cachedStatus) {
+              BalanceVerificationStatus.VERIFIED -> setVerifiedWallet(true)
+              BalanceVerificationStatus.UNVERIFIED -> setVerifiedWallet(verified = false,
+                  disableButton = true)
+              BalanceVerificationStatus.CODE_REQUESTED -> setShowVerifyInsertCode(true)
+              else -> setVerifiedWallet(verified = false, disableButton = true)
+            }
+          }
+          null -> {
+            // Set cached value
+            when (verifiedModel.cachedStatus) {
+              BalanceVerificationStatus.VERIFIED -> setVerifiedWallet(true)
+              BalanceVerificationStatus.UNVERIFIED -> setVerifiedWallet(false)
+              BalanceVerificationStatus.CODE_REQUESTED -> setShowVerifyInsertCode()
+              else -> setVerifiedWallet(false)
+            }
+          }
+        }
+      }
+      else -> Unit
+    }
+  }
 
+  private fun setVerifiedWallet(verified: Boolean, disableButton: Boolean = false) {
+    views.insertCodeWalletCardView.visibility = View.GONE
+    if (verified) {
+      views.verifyWalletCardView.visibility = View.GONE
+      views.verifiedWalletText.visibility = View.VISIBLE
+      views.verifiedWalletIcon.visibility = View.VISIBLE
+    } else {
+      views.verifyButton.isEnabled = !disableButton
+      views.verifyWalletCardView.visibility = View.VISIBLE
+      views.verifiedWalletText.visibility = View.GONE
+      views.verifiedWalletIcon.visibility = View.GONE
+    }
+  }
+
+  private fun setShowVerifyInsertCode(disableButton: Boolean = false) {
+    views.verifyWalletCardView.visibility = View.GONE
+    views.verifiedWalletText.visibility = View.GONE
+    views.verifiedWalletIcon.visibility = View.GONE
+    views.insertCodeWalletCardView.visibility = View.VISIBLE
+    views.insertCodeButton.isEnabled = !disableButton
   }
 
   private fun setQrCode(walletAddress: String) {

@@ -39,7 +39,7 @@ class MyWalletsViewModel(private val balanceInteractor: BalanceInteractor) :
   }
 
   private fun fetchWalletVerified() {
-    balanceInteractor.isCurrentWalletValid()
+    balanceInteractor.observeCurrentWalletVerified()
         .asAsyncToState { verification -> copy(walletVerifiedAsync = verification) }
         .scopedSubscribe { e -> e.printStackTrace() }
   }

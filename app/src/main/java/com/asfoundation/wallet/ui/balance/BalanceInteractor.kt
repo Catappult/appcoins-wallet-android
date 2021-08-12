@@ -120,27 +120,42 @@ class BalanceInteractor(
     )
   }
 
-  fun isCurrentWalletValid(): Single<BalanceVerificationModel> {
+  fun observeCurrentWalletVerified(): Observable<BalanceVerificationModel> {
     return getSignedCurrentWalletAddress()
-        .flatMap { isWalletValid(it.address, it.signedAddress) }
+        .flatMapObservable { addressModel ->
+          Observable.merge(Observable.just(getCachedVerificationStatus(addressModel.address))
+              .map { verificationStatus ->
+                mapToBalanceVerificationModel(addressModel.address, verificationStatus, null)
+              }, isWalletValid(addressModel.address, addressModel.signedAddress).toObservable())
+        }
   }
 
   fun isWalletValid(address: String, signedAddress: String): Single<BalanceVerificationModel> {
     return verificationRepository.getVerificationStatus(address, signedAddress)
-        .map { status -> mapToBalanceVerificationModel(address, status) }
+        .map { status ->
+          mapToBalanceVerificationModel(address, status, getCachedVerificationStatus(address))
+        }
 
   }
 
   private fun mapToBalanceVerificationModel(address: String,
-                                            verificationStatus: VerificationStatus): BalanceVerificationModel {
-    val status = when (verificationStatus) {
+                                            cachedVerificationStatus: VerificationStatus,
+                                            verificationStatus: VerificationStatus?): BalanceVerificationModel {
+    return BalanceVerificationModel(address,
+        mapToBalanceVerificationStatus(cachedVerificationStatus)!!,
+        mapToBalanceVerificationStatus(verificationStatus))
+  }
+
+  private fun mapToBalanceVerificationStatus(
+      verificationStatus: VerificationStatus?): BalanceVerificationStatus? {
+    if (verificationStatus == null) return null
+    return when (verificationStatus) {
       VerificationStatus.CODE_REQUESTED -> BalanceVerificationStatus.CODE_REQUESTED
       VerificationStatus.VERIFIED -> BalanceVerificationStatus.VERIFIED
       VerificationStatus.NO_NETWORK -> BalanceVerificationStatus.NO_NETWORK
       VerificationStatus.ERROR -> BalanceVerificationStatus.ERROR
       else -> BalanceVerificationStatus.UNVERIFIED
     }
-    return BalanceVerificationModel(address, status)
   }
 
 
