@@ -20,8 +20,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 197
-    versionName "1.19.3.3"
+    versionCode 198
+    versionName "1.19.4.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -227,8 +227,6 @@ dependencies {
 
   implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
 
-  implementation "com.romandanylyk:pageindicatorview:$project.pageindicatorview_version"
-
   implementation "org.web3j:core:$project.web3j_version"
 
   implementation "com.github.walleth.kethereum:erc681:$project.erc681_version"
@@ -236,8 +234,6 @@ dependencies {
   implementation "com.airbnb.android:lottie:$project.lottie_version"
 
   implementation "com.hbb20:ccp:$project.cpp_version"
-
-  implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout_version"
 
   implementation "io.sentry:sentry-android:$project.sentry_version"
 
