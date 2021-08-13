@@ -73,7 +73,7 @@ class WalletsPresenter(private val view: WalletsView,
     disposables.add(walletsInteract.retrieveWalletsModel()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { view.setupUi(it.totalWallets, it.totalBalance, it.walletsBalance) }
+        .doOnSuccess { view.setupUi(it.totalWallets, it.totalBalance, it.otherWallets) }
         .subscribe({}, { logger.log("WalletsPresenter", it) }))
   }
 

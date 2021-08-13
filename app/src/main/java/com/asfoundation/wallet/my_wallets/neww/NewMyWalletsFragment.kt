@@ -8,16 +8,18 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsController
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.wallets.WalletBalance
+import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.generateQrCode
@@ -37,8 +39,9 @@ class NewMyWalletsFragment : BasePageViewFragment(),
   lateinit var formatter: CurrencyFormatUtils
 
   private val viewModel: MyWalletsViewModel by viewModels { viewModelFactory }
-
   private val views by viewBinding(FragmentMyWalletsBinding::bind)
+
+  private lateinit var otherWalletsController: OtherWalletsController
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -47,11 +50,13 @@ class NewMyWalletsFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    otherWalletsController = OtherWalletsController()
+    views.otherWalletsRecyclerView.setController(otherWalletsController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   override fun onStateChanged(state: MyWalletsState) {
-    setWalletAddress(state.walletAsync)
+    setWallets(state.walletsAsync)
     setVerified(state.walletVerifiedAsync)
     setBalance(state.balanceAsync)
   }
@@ -60,16 +65,24 @@ class NewMyWalletsFragment : BasePageViewFragment(),
 
   }
 
-  private fun setWalletAddress(walletAsync: Async<WalletAddressModel>) {
+  private fun setWallets(walletAsync: Async<WalletsModel>) {
     when (walletAsync) {
       is Async.Success -> {
-        val walletAddressModel = walletAsync()
-        views.walletAddressTextView.text = walletAddressModel.address
-        setQrCode(walletAddressModel.address)
+        val walletsModel = walletAsync()
+        setCurrentWallet(walletsModel.currentWallet)
+        setOtherWallets(walletsModel.otherWallets)
       }
       else -> Unit
     }
+  }
 
+  private fun setOtherWallets(otherWallets: List<WalletBalance>) {
+    otherWalletsController.setData(otherWallets)
+  }
+
+  private fun setCurrentWallet(currentWallet: WalletBalance) {
+    views.walletAddressTextView.text = currentWallet.walletAddress
+    setQrCode(currentWallet.walletAddress)
   }
 
   private fun setBalance(balanceAsync: Async<BalanceScreenModel>) {
