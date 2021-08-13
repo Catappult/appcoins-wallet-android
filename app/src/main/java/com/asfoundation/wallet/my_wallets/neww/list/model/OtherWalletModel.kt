@@ -8,6 +8,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.google.android.material.card.MaterialCardView
 
 @EpoxyModelClass
 abstract class OtherWalletModel : EpoxyModelWithHolder<OtherWalletModel.OtherWalletHolder>() {
@@ -25,10 +26,13 @@ abstract class OtherWalletModel : EpoxyModelWithHolder<OtherWalletModel.OtherWal
         walletBalance.balance.amount)
     holder.walletAddress.text = walletBalance.walletAddress
     holder.walletBalance.text = balanceText
+
+    holder.cardView.setOnClickListener { }
   }
 
 
   class OtherWalletHolder : BaseViewHolder() {
+    val cardView by bind<MaterialCardView>(R.id.card_view)
     val walletAddress by bind<TextView>(R.id.wallet_address_text_view)
     val walletBalance by bind<TextView>(R.id.wallet_balance_text_view)
   }
