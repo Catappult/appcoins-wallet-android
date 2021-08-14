@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     >
 
   <ImageView
@@ -25,8 +25,8 @@
       android:layout_marginStart="15dp"
       android:layout_marginTop="25dp"
       android:layout_marginEnd="15dp"
-      app:cardElevation="0dp"
       app:cardBackgroundColor="@color/grey_e5"
+      app:cardElevation="0dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/address_icon"
@@ -37,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
         android:maxLines="1"
         android:paddingStart="10dp"
         android:paddingTop="5dp"
@@ -55,8 +56,8 @@
       style="@style/MyWallets.TotalBalance"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
       android:layout_marginStart="34dp"
+      android:layout_marginTop="20dp"
       android:text="@string/wallet_view_total_balance_title"
       android:textColor="@color/blueish_black"
       app:layout_constraintEnd_toStartOf="@+id/total_balance_text_view"

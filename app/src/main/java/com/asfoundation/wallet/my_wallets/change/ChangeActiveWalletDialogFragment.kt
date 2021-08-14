@@ -39,6 +39,7 @@ class ChangeActiveWalletDialogFragment : DaggerBottomSheetDialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    views.changeWalletButton.setOnClickListener { viewModel.changeActiveWallet() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 

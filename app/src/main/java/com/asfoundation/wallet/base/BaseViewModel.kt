@@ -156,6 +156,30 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
   }
 
   /**
+   * Subscribes to the Single source cancelling a previous subscription for the [id], if it
+   * exists. The main purpose of this is to avoid concurrent subscriptions of the same Single
+   * source (e.g. if we want to "refresh" a Single). An alternative would be to use
+   * a "refresh emitting" observable source and use switchMap, however that wouldn't work as nicely
+   * with [asAsyncToState].
+   *
+   * Also subscribes safely to this view model scope. Once the ViewModel is cleared, this
+   * subscription is also cleared.
+   *
+   * @param id Unique identifier for this subscription. Make sure you use different ids for different
+   *           streams.
+   * @param onErrorAction Action block that receives a [Throwable] and is executed at the end of
+   *                      the stream if it isn't caught until then.
+   */
+  protected fun <T> Single<T>.repeatableScopedSubscribe(id: String,
+                                                        onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
+    repeatableSubscriptionMap[id]?.dispose()
+    repeatableSubscriptionMap[id] = subscribe({}, { onErrorAction?.invoke(it) })
+    return repeatableSubscriptionMap[id]!!.apply {
+      compositeDisposable.add(this)
+    }
+  }
+
+  /**
    * Subscribes to the Completable source cancelling a previous subscription for the [id], if it
    * exists. The main purpose of this is to avoid concurrent subscriptions of the same Completable
    * source (e.g. if we want to "refresh" a Completable). An alternative would be to use
