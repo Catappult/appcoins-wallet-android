@@ -38,6 +38,9 @@ class NewMyWalletsFragment : BasePageViewFragment(),
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
+  @Inject
+  lateinit var navigator: NewMyWalletsNavigator
+
   private val viewModel: MyWalletsViewModel by viewModels { viewModelFactory }
   private val views by viewBinding(FragmentMyWalletsBinding::bind)
 
@@ -50,9 +53,16 @@ class NewMyWalletsFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    otherWalletsController = OtherWalletsController()
-    views.otherWalletsRecyclerView.setController(otherWalletsController)
+    initializeView()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun initializeView() {
+    otherWalletsController = OtherWalletsController()
+    otherWalletsController.walletClickListener = { walletBalance ->
+      navigator.navigateToChangeActiveWallet(walletBalance)
+    }
+    views.otherWalletsRecyclerView.setController(otherWalletsController)
   }
 
   override fun onStateChanged(state: MyWalletsState) {

@@ -8,5 +8,20 @@
   <fragment
       android:id="@+id/my_wallets_fragment"
       android:name="com.asfoundation.wallet.my_wallets.neww.NewMyWalletsFragment"
-      tools:layout="@layout/fragment_my_wallets" />
+      tools:layout="@layout/fragment_my_wallets">
+
+    <action
+        android:id="@+id/action_navigate_to_change_active_wallet"
+        app:destination="@id/change_active_wallet_dialog_fragment" />
+  </fragment>
+
+  <dialog
+      android:id="@+id/change_active_wallet_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.change.ChangeActiveWalletDialogFragment"
+      tools:layout="@layout/fragment_change_active_wallet">
+    <argument
+        android:name="wallet_balance"
+        app:argType="com.asfoundation.wallet.ui.wallets.WalletBalance" />
+  </dialog>
+
 </navigation>

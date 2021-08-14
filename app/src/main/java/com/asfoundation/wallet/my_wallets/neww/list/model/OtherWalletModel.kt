@@ -19,6 +19,9 @@ abstract class OtherWalletModel : EpoxyModelWithHolder<OtherWalletModel.OtherWal
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   lateinit var currencyFormatUtils: CurrencyFormatUtils
 
+  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+  var walletClickListener: ((WalletBalance) -> Unit)? = null
+
   override fun getDefaultLayout(): Int = R.layout.item_other_wallet
 
   override fun bind(holder: OtherWalletHolder) {
@@ -27,7 +30,7 @@ abstract class OtherWalletModel : EpoxyModelWithHolder<OtherWalletModel.OtherWal
     holder.walletAddress.text = walletBalance.walletAddress
     holder.walletBalance.text = balanceText
 
-    holder.cardView.setOnClickListener { }
+    holder.cardView.setOnClickListener { walletClickListener?.invoke(walletBalance) }
   }
 
 

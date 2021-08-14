@@ -15,7 +15,8 @@ object MyWalletsSideEffect : SideEffect
 data class MyWalletsState(
     val walletsAsync: Async<WalletsModel> = Async.Uninitialized,
     val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
-    val balanceAsync: Async<BalanceScreenModel> = Async.Uninitialized
+    val balanceAsync: Async<BalanceScreenModel> = Async.Uninitialized,
+    val walletCreationAsync: Async<Unit> = Async.Uninitialized
 ) : ViewState
 
 class MyWalletsViewModel(
@@ -51,5 +52,13 @@ class MyWalletsViewModel(
     balanceInteractor.requestTokenConversion()
         .asAsyncToState { balance -> copy(balanceAsync = balance) }
         .scopedSubscribe { e -> e.printStackTrace() }
+  }
+
+  fun createNewWallet() {
+    walletsInteract.createWallet()
+        .asAsyncToState { copy(walletCreationAsync = it) }
+        .repeatableScopedSubscribe(MyWalletsState::walletCreationAsync.name) { e ->
+          e.printStackTrace()
+        }
   }
 }
