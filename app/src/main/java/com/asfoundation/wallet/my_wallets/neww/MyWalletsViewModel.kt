@@ -10,6 +10,7 @@ import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
+import io.reactivex.schedulers.Schedulers
 
 object MyWalletsSideEffect : SideEffect
 
@@ -53,6 +54,7 @@ class MyWalletsViewModel(
 
   private fun fetchWallets() {
     walletsInteract.getWalletsModel()
+        .subscribeOn(Schedulers.io())
         .asAsyncToState { wallet -> copy(walletsAsync = wallet) }
         .repeatableScopedSubscribe(MyWalletsState::walletsAsync.name) { e ->
           e.printStackTrace()
@@ -61,6 +63,7 @@ class MyWalletsViewModel(
 
   private fun fetchWalletVerified() {
     balanceInteractor.observeCurrentWalletVerified()
+        .subscribeOn(Schedulers.io())
         .asAsyncToState { verification -> copy(walletVerifiedAsync = verification) }
         .repeatableScopedSubscribe(MyWalletsState::walletVerifiedAsync.name) { e ->
           e.printStackTrace()
@@ -69,16 +72,9 @@ class MyWalletsViewModel(
 
   private fun fetchBalance() {
     balanceInteractor.requestTokenConversion()
+        .subscribeOn(Schedulers.io())
         .asAsyncToState { balance -> copy(balanceAsync = balance) }
         .repeatableScopedSubscribe(MyWalletsState::balanceAsync.name) { e ->
-          e.printStackTrace()
-        }
-  }
-
-  fun createNewWallet() {
-    walletsInteract.createWallet()
-        .asAsyncToState { copy(walletCreationAsync = it) }
-        .repeatableScopedSubscribe(MyWalletsState::walletCreationAsync.name) { e ->
           e.printStackTrace()
         }
   }

@@ -13,6 +13,10 @@
     <action
         android:id="@+id/action_navigate_to_change_active_wallet"
         app:destination="@id/change_active_wallet_dialog_fragment" />
+
+    <action
+        android:id="@+id/action_navigate_to_create_wallet"
+        app:destination="@id/create_wallet_dialog_fragment" />
   </fragment>
 
   <dialog
@@ -23,5 +27,10 @@
         android:name="wallet_balance"
         app:argType="com.asfoundation.wallet.ui.wallets.WalletBalance" />
   </dialog>
+
+  <dialog
+      android:id="@+id/create_wallet_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
+      tools:layout="@layout/fragment_create_wallet_dialog_layout" />
 
 </navigation>

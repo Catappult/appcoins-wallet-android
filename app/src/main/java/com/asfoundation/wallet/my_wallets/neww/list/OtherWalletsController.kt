@@ -11,7 +11,7 @@ class OtherWalletsController : TypedEpoxyController<List<WalletBalance>>() {
 
   private val currencyFormatUtils = CurrencyFormatUtils()
 
-  var walletClickListener: ((WalletBalance) -> Unit)? = null
+  var walletClickListener: ((OtherWalletsClick) -> Unit)? = null
 
   override fun buildModels(data: List<WalletBalance>) {
     if (data.isNotEmpty()) {
@@ -28,6 +28,7 @@ class OtherWalletsController : TypedEpoxyController<List<WalletBalance>>() {
       )
     }
     add(CreateNewWalletModel_()
-        .id("create_new_wallet_model"))
+        .id("create_new_wallet_model")
+        .walletClickListener(walletClickListener))
   }
 }

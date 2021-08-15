@@ -11,4 +11,8 @@ class NewMyWalletsNavigator(private val navController: NavController) : Navigato
     navigate(navController,
         NewMyWalletsFragmentDirections.actionNavigateToChangeActiveWallet(walletBalance))
   }
+
+  fun navigateToCreateNewWallet() {
+    navigate(navController, NewMyWalletsFragmentDirections.actionNavigateToCreateWallet())
+  }
 }

@@ -10,6 +10,8 @@ import com.asfoundation.wallet.my_wallets.MyWalletsFragment
 import com.asfoundation.wallet.my_wallets.MyWalletsModule
 import com.asfoundation.wallet.my_wallets.change.ChangeActiveWalletDialogFragment
 import com.asfoundation.wallet.my_wallets.change.ChangeActiveWalletDialogModule
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogModule
 import com.asfoundation.wallet.my_wallets.neww.NewMyWalletsFragment
 import com.asfoundation.wallet.my_wallets.neww.NewMyWalletsModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
@@ -312,4 +314,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [ChangeActiveWalletDialogModule::class])
   abstract fun bindChangeActiveWalletDialogFragment(): ChangeActiveWalletDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [CreateWalletDialogModule::class])
+  abstract fun bindCreateWalletDialogFragment(): CreateWalletDialogFragment
 }

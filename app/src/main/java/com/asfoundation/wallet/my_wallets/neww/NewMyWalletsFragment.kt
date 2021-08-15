@@ -12,6 +12,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsClick
 import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsController
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
@@ -59,8 +60,13 @@ class NewMyWalletsFragment : BasePageViewFragment(),
 
   private fun initializeView() {
     otherWalletsController = OtherWalletsController()
-    otherWalletsController.walletClickListener = { walletBalance ->
-      navigator.navigateToChangeActiveWallet(walletBalance)
+    otherWalletsController.walletClickListener = { click ->
+      when (click) {
+        OtherWalletsClick.CreateNewWallet -> navigator.navigateToCreateNewWallet()
+        is OtherWalletsClick.OtherWalletClick -> navigator.navigateToChangeActiveWallet(
+            click.walletBalance)
+      }
+
     }
     views.otherWalletsRecyclerView.setController(otherWalletsController)
   }
@@ -69,6 +75,7 @@ class NewMyWalletsFragment : BasePageViewFragment(),
     setWallets(state.walletsAsync)
     setVerified(state.walletVerifiedAsync)
     setBalance(state.balanceAsync)
+    setWalletCreation(state.walletCreationAsync)
   }
 
   override fun onSideEffect(sideEffect: MyWalletsSideEffect) {
@@ -117,6 +124,14 @@ class NewMyWalletsFragment : BasePageViewFragment(),
         updateTokenValue(balanceScreenModel.ethBalance, WalletCurrency.ETHEREUM)
         updateOverallBalance(balanceScreenModel.overallFiat)
       }
+    }
+  }
+
+  private fun setWalletCreation(walletCreationAsync: Async<Unit>) {
+    when (walletCreationAsync) {
+      is Async.Loading -> TODO()
+      is Async.Success -> TODO()
+      else -> Unit
     }
   }
 

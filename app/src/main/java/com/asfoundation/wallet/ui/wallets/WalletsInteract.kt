@@ -83,6 +83,7 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
 
   fun createWallet(): Completable {
     return walletCreatorInteract.create()
+        .subscribeOn(Schedulers.io())
         .flatMapCompletable { wallet ->
           walletCreatorInteract.setDefaultWallet(wallet.address)
               .andThen(gamificationRepository.getUserLevel(wallet.address)

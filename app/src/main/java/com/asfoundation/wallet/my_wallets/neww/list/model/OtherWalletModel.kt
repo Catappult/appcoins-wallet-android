@@ -5,6 +5,7 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
+import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsClick
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -20,7 +21,7 @@ abstract class OtherWalletModel : EpoxyModelWithHolder<OtherWalletModel.OtherWal
   lateinit var currencyFormatUtils: CurrencyFormatUtils
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-  var walletClickListener: ((WalletBalance) -> Unit)? = null
+  var walletClickListener: ((OtherWalletsClick) -> Unit)? = null
 
   override fun getDefaultLayout(): Int = R.layout.item_other_wallet
 
@@ -30,7 +31,9 @@ abstract class OtherWalletModel : EpoxyModelWithHolder<OtherWalletModel.OtherWal
     holder.walletAddress.text = walletBalance.walletAddress
     holder.walletBalance.text = balanceText
 
-    holder.cardView.setOnClickListener { walletClickListener?.invoke(walletBalance) }
+    holder.cardView.setOnClickListener {
+      walletClickListener?.invoke(OtherWalletsClick.OtherWalletClick(walletBalance))
+    }
   }
 
 
