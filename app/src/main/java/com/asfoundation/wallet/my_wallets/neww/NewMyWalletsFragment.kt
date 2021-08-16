@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.my_wallets.neww
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +18,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsClick
 import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsController
+import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
@@ -26,6 +31,7 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.generateQrCode
 import com.asfoundation.wallet.util.getDrawableURI
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.qr_code_layout.*
 import java.math.BigDecimal
@@ -129,6 +135,13 @@ class NewMyWalletsFragment : BasePageViewFragment(),
 
   private fun setCurrentWallet(currentWallet: WalletBalance) {
     views.walletAddressTextView.text = currentWallet.walletAddress
+    views.actionButtonShareAddress.setOnClickListener {
+      showShare(currentWallet.walletAddress)
+    }
+    views.actionButtonCopyAddress.setOnClickListener {
+      setAddressToClipBoard(currentWallet.walletAddress)
+    }
+
     setQrCode(currentWallet.walletAddress)
   }
 
@@ -282,5 +295,29 @@ class NewMyWalletsFragment : BasePageViewFragment(),
       Snackbar.make(main_layout, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
           .show()
     }
+  }
+
+  fun setAddressToClipBoard(walletAddress: String) {
+    val clipboard =
+        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+    val clip = ClipData.newPlainText(
+        MyAddressActivity.KEY_ADDRESS, walletAddress)
+    clipboard?.setPrimaryClip(clip)
+    val bottomNavView: BottomNavigationView = requireActivity().findViewById(R.id.bottom_nav)!!
+
+    Snackbar.make(bottomNavView, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
+        .apply {
+          anchorView = bottomNavView
+        }
+        .show()
+  }
+
+  fun showShare(walletAddress: String) {
+    ShareCompat.IntentBuilder.from(requireActivity())
+        .setText(walletAddress)
+        .setType("text/plain")
+        .setChooserTitle(resources.getString(R.string.share_via))
+        .startChooser()
+
   }
 }
