@@ -21,7 +21,6 @@
     <item name="cornerSizeBottomRight">12dp</item>
   </style>
 
-
   <style name="MyWallets.Shapes" />
 
   <style name="MyWallets.Shapes.Pill">
@@ -32,6 +31,20 @@
   <style name="MyWallets.Shapes.Rounded8">
     <item name="cornerFamily">rounded</item>
     <item name="cornerSize">8dp</item>
+  </style>
+
+  <style name="MyWallets.TokenInfo" />
+
+  <style name="MyWallets.TokenInfo.Title">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:textColor">@color/blueish_black</item>
+  </style>
+
+  <style name="MyWallets.TokenInfo.Description">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/blueish_black</item>
   </style>
 
 

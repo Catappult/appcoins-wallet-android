@@ -24,6 +24,7 @@ import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.generateQrCode
+import com.asfoundation.wallet.util.getDrawableURI
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.qr_code_layout.*
@@ -55,6 +56,7 @@ class NewMyWalletsFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     initializeView()
+    setListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -66,9 +68,37 @@ class NewMyWalletsFragment : BasePageViewFragment(),
         is OtherWalletsClick.OtherWalletClick -> navigator.navigateToChangeActiveWallet(
             click.walletBalance)
       }
-
     }
     views.otherWalletsRecyclerView.setController(otherWalletsController)
+  }
+
+  private fun setListeners() {
+    views.appcoinsCardView.setOnClickListener {
+      val title = "${getString(R.string.appc_token_name)} (${
+        getString(R.string.p2p_send_currency_appc)
+      })"
+      val image = requireContext().getDrawableURI(R.drawable.ic_appc)
+      val description = getString(R.string.balance_appcoins_body)
+      navigator.navigateToTokenInfo(title, image, description, false)
+    }
+
+    views.appcoinsCreditsCardView.setOnClickListener {
+      val title = "${getString(R.string.appc_credits_token_name)} (${
+        getString(R.string.p2p_send_currency_appc_c)
+      })"
+      val image = requireContext().getDrawableURI(R.drawable.ic_appc_c_token)
+      val description = getString(R.string.balance_appccreditos_body)
+      navigator.navigateToTokenInfo(title, image, description, true)
+    }
+
+    views.ethCardView.setOnClickListener {
+      val title = "${getString(R.string.ethereum_token_name)} (${
+        getString(R.string.p2p_send_currency_eth)
+      })"
+      val image = requireContext().getDrawableURI(R.drawable.ic_eth_token)
+      val description = getString(R.string.balance_ethereum_body)
+      navigator.navigateToTokenInfo(title, image, description, false)
+    }
   }
 
   override fun onStateChanged(state: MyWalletsState) {

@@ -8,12 +8,14 @@ import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.home.HomeModule
 import com.asfoundation.wallet.my_wallets.MyWalletsFragment
 import com.asfoundation.wallet.my_wallets.MyWalletsModule
-import com.asfoundation.wallet.my_wallets.change.ChangeActiveWalletDialogFragment
-import com.asfoundation.wallet.my_wallets.change.ChangeActiveWalletDialogModule
+import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment
+import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogModule
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogModule
 import com.asfoundation.wallet.my_wallets.neww.NewMyWalletsFragment
 import com.asfoundation.wallet.my_wallets.neww.NewMyWalletsModule
+import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment
+import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -318,4 +320,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [CreateWalletDialogModule::class])
   abstract fun bindCreateWalletDialogFragment(): CreateWalletDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [TokenInfoDialogModule::class])
+  abstract fun bindTokenInfoDialogFragment(): TokenInfoDialogFragment
 }

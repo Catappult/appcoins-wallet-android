@@ -99,8 +99,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/light_grey_alpha_73"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/qr_image"
@@ -174,6 +174,7 @@
         app:layout_constraintEnd_toStartOf="@id/eth_card_view"
         app:layout_constraintStart_toEndOf="@id/appcoins_card_view"
         app:layout_constraintTop_toBottomOf="@+id/total_balance_label_text_view"
+        app:rippleColor="@color/white"
         app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
         >
 
@@ -263,6 +264,7 @@
         app:layout_constraintEnd_toStartOf="@+id/appcoins_credits_card_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/total_balance_label_text_view"
+        app:rippleColor="@color/white"
         app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
         >
 
@@ -352,6 +354,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/appcoins_credits_card_view"
         app:layout_constraintTop_toBottomOf="@+id/total_balance_label_text_view"
+        app:rippleColor="@color/white"
         app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
         >
 
@@ -437,8 +440,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/light_grey_alpha_73"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appcoins_card_view"
@@ -615,8 +618,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/light_grey_alpha_73"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backup_wallet_card_view"

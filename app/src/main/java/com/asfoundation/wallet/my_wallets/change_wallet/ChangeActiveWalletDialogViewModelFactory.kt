@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.my_wallets.change
+package com.asfoundation.wallet.my_wallets.change_wallet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

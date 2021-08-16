@@ -1,0 +1,64 @@
+package com.asfoundation.wallet.my_wallets.token
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.net.toUri
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentTokenInfoBinding
+import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import javax.inject.Inject
+
+class TokenInfoDialogFragment : DaggerBottomSheetDialogFragment(),
+    SingleStateFragment<TokenInfoState, TokenInfoSideEffect> {
+
+  @Inject
+  lateinit var viewModelFactory: TokenInfoDialogViewModelFactory
+
+  private val viewModel: TokenInfoDialogViewModel by viewModels { viewModelFactory }
+  private val views by viewBinding(FragmentTokenInfoBinding::bind)
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
+    return inflater.inflate(R.layout.fragment_token_info, container, false)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  override fun onStart() {
+    val behavior = BottomSheetBehavior.from(requireView().parent as View)
+    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    super.onStart()
+  }
+
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+
+  override fun onStateChanged(state: TokenInfoState) {
+    views.title.text = state.title
+    views.description.text = state.description
+    GlideApp.with(this)
+        .load(state.image.toUri())
+        .into(views.icon)
+
+    views.topUpButton.visibility = if (state.showTopUp) View.VISIBLE else View.GONE
+  }
+
+  override fun onSideEffect(sideEffect: TokenInfoSideEffect) = Unit
+
+  companion object {
+    internal const val TITLE_KEY = "title"
+    internal const val IMAGE_KEY = "image"
+    internal const val DESCRIPTION_KEY = "description"
+    internal const val SHOW_TOP_UP_KEY = "show_topup"
+  }
+}

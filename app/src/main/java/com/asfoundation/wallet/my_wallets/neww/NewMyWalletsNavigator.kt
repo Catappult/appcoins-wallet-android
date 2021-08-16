@@ -15,4 +15,10 @@ class NewMyWalletsNavigator(private val navController: NavController) : Navigato
   fun navigateToCreateNewWallet() {
     navigate(navController, NewMyWalletsFragmentDirections.actionNavigateToCreateWallet())
   }
+
+  fun navigateToTokenInfo(title: String, image: String, description: String, showTopUp: Boolean) {
+    navigate(navController,
+        NewMyWalletsFragmentDirections.actionNavigateToTokenInfo(title, image, description,
+            showTopUp))
+  }
 }

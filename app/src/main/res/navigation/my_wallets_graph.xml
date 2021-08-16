@@ -17,11 +17,14 @@
     <action
         android:id="@+id/action_navigate_to_create_wallet"
         app:destination="@id/create_wallet_dialog_fragment" />
+    <action
+        android:id="@+id/action_navigate_to_token_info"
+        app:destination="@id/token_info_dialog_fragment" />
   </fragment>
 
   <dialog
       android:id="@+id/change_active_wallet_dialog_fragment"
-      android:name="com.asfoundation.wallet.my_wallets.change.ChangeActiveWalletDialogFragment"
+      android:name="com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment"
       tools:layout="@layout/fragment_change_active_wallet">
     <argument
         android:name="wallet_balance"
@@ -33,4 +36,21 @@
       android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
       tools:layout="@layout/fragment_create_wallet_dialog_layout" />
 
+  <dialog
+      android:id="@+id/token_info_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment"
+      tools:layout="@layout/fragment_token_info">
+    <argument
+        android:name="title"
+        app:argType="string" />
+    <argument
+        android:name="image"
+        app:argType="string" />
+    <argument
+        android:name="description"
+        app:argType="string" />
+    <argument
+        android:name="show_topup"
+        app:argType="boolean" />
+  </dialog>
 </navigation>
