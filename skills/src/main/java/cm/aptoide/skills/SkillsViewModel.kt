@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 class SkillsViewModel(
   private val walletAddressObtainer: WalletAddressObtainer,
-  private val createTicketUseCase: CreateTicketUseCase,
+  private val joinQueueUseCase: JoinQueueUseCase,
   private val navigator: SkillsNavigator,
   private val getTicketUseCase: GetTicketUseCase,
   private val getTicketRetryMillis: Long,
@@ -35,8 +35,8 @@ class SkillsViewModel(
     return walletAddressObtainer.getOrCreateWallet()
   }
 
-  fun createTicket(eskillsPaymentData: EskillsPaymentData): Observable<TicketResponse> {
-    return createTicketUseCase.createTicket(eskillsPaymentData)
+  fun joinQueue(eskillsPaymentData: EskillsPaymentData): Observable<TicketResponse> {
+    return joinQueueUseCase.joinQueue(eskillsPaymentData)
       .doOnSuccess { ticketId = it.ticketId }
       .toObservable()
   }
@@ -45,16 +45,21 @@ class SkillsViewModel(
     eskillsPaymentData: EskillsPaymentData, ticketResponse: TicketResponse,
     fragment: Fragment
   ): Observable<UserData> {
-    return navigator.navigateToPayTicket(
-      ticketResponse.ticketId,
-      ticketResponse.callbackUrl,
-      ticketResponse.productToken,
-      ticketResponse.ticketPrice,
-      ticketResponse.priceCurrency,
-      eskillsPaymentData,
-      fragment
-    )
-      .flatMap {
+    return Single.just(ticketResponse).flatMap {
+      if (ticketResponse.ticketStatus == TicketStatus.IN_QUEUE) {
+        Single.just(it)
+      } else {
+        navigator.navigateToPayTicket(
+          ticketResponse.ticketId,
+          ticketResponse.callbackUrl,
+          ticketResponse.productToken,
+          ticketResponse.ticketPrice,
+          ticketResponse.priceCurrency,
+          eskillsPaymentData,
+          fragment
+        )
+      }
+    }.flatMap {
         getTicketUpdates(ticketResponse.ticketId).filter { checkCanProceed(it) }
           .firstOrError()
           .flatMap { ticketResponse ->

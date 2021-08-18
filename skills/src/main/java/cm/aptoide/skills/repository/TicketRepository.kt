@@ -7,7 +7,10 @@ import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
 
-class TicketRepository(private val ticketApi: TicketApi) {
+class TicketRepository(
+  private val ticketApi: TicketApi,
+  private val ticketLocalStorage: TicketLocalStorage
+) {
 
   fun createTicket(
     eskillsPaymentData: EskillsPaymentData, ewt: String,
@@ -38,5 +41,9 @@ class TicketRepository(private val ticketApi: TicketApi) {
 
   private fun buildPayTicketRequest(ticketId: String, callbackUrl: String): PayTicketRequest {
     return PayTicketRequest(ticketId, callbackUrl)
+  }
+
+  fun getInQueueTicket(walletAddress: String): Single<StoredTicket> {
+    return ticketLocalStorage.getTicketInQueue(walletAddress)
   }
 }
