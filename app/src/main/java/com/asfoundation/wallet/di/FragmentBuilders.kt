@@ -12,6 +12,8 @@ import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialog
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogModule
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogModule
+import com.asfoundation.wallet.my_wallets.more.MoreDialogFragment
+import com.asfoundation.wallet.my_wallets.more.MoreDialogModule
 import com.asfoundation.wallet.my_wallets.neww.NewMyWalletsFragment
 import com.asfoundation.wallet.my_wallets.neww.NewMyWalletsModule
 import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment
@@ -324,4 +326,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [TokenInfoDialogModule::class])
   abstract fun bindTokenInfoDialogFragment(): TokenInfoDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [MoreDialogModule::class])
+  abstract fun bindMoreDialogFragment(): MoreDialogFragment
 }

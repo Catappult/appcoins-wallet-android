@@ -9,11 +9,12 @@
       android:id="@+id/my_wallets_fragment"
       android:name="com.asfoundation.wallet.my_wallets.neww.NewMyWalletsFragment"
       tools:layout="@layout/fragment_my_wallets">
-
+    <action
+        android:id="@+id/action_navigate_to_more"
+        app:destination="@id/more_dialog_fragment" />
     <action
         android:id="@+id/action_navigate_to_change_active_wallet"
         app:destination="@id/change_active_wallet_dialog_fragment" />
-
     <action
         android:id="@+id/action_navigate_to_create_wallet"
         app:destination="@id/create_wallet_dialog_fragment" />
@@ -21,6 +22,42 @@
         android:id="@+id/action_navigate_to_token_info"
         app:destination="@id/token_info_dialog_fragment" />
   </fragment>
+
+  <dialog
+      android:id="@+id/more_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.more.MoreDialogFragment"
+      tools:layout="@layout/fragment_my_wallets_more">
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+    <argument
+        android:name="fiat_balance"
+        app:argType="string" />
+    <argument
+        android:name="appc_balance"
+        app:argType="string" />
+    <argument
+        android:name="credits_balance"
+        app:argType="string" />
+    <argument
+        android:name="ethereum_balance"
+        app:argType="string" />
+    <argument
+        android:name="show_delete_wallet"
+        app:argType="boolean" />
+    <action
+        android:id="@+id/action_navigate_to_create_wallet"
+        app:destination="@id/create_wallet_dialog_fragment" />
+    <action
+        android:id="@+id/action_navigate_to_restore_wallet"
+        app:destination="@id/restore_wallet_activity" />
+    <action
+        android:id="@+id/action_navigate_to_backup_wallet"
+        app:destination="@id/backup_wallet_activity" />
+    <action
+        android:id="@+id/action_navigate_to_remove_wallet"
+        app:destination="@id/remove_wallet_activity" />
+  </dialog>
 
   <dialog
       android:id="@+id/change_active_wallet_dialog_fragment"
@@ -53,4 +90,37 @@
         android:name="show_topup"
         app:argType="boolean" />
   </dialog>
+
+  <activity
+      android:id="@+id/restore_wallet_activity"
+      android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
+      tools:layout="@layout/activity_restore_wallet" />
+  <activity
+      android:id="@+id/backup_wallet_activity"
+      android:name="com.asfoundation.wallet.ui.backup.BackupActivity"
+      tools:layout="@layout/activity_backup">
+    <argument
+        android:name="wallet_addr"
+        app:argType="string" />
+  </activity>
+  <activity
+      android:id="@+id/remove_wallet_activity"
+      android:name="com.asfoundation.wallet.ui.wallets.RemoveWalletActivity"
+      tools:layout="@layout/remove_wallet_activity_layout">
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+    <argument
+        android:name="fiat_balance"
+        app:argType="string" />
+    <argument
+        android:name="appc_balance"
+        app:argType="string" />
+    <argument
+        android:name="credits_balance"
+        app:argType="string" />
+    <argument
+        android:name="ethereum_balance"
+        app:argType="string" />
+  </activity>
 </navigation>

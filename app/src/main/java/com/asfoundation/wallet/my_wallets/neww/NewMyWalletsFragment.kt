@@ -26,10 +26,7 @@ import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletsModel
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.generateQrCode
-import com.asfoundation.wallet.util.getDrawableURI
+import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -105,6 +102,8 @@ class NewMyWalletsFragment : BasePageViewFragment(),
       val description = getString(R.string.balance_ethereum_body)
       navigator.navigateToTokenInfo(title, image, description, false)
     }
+
+    views.actionButtonMore.setOnClickListener { navigateToMore() }
   }
 
   override fun onStateChanged(state: MyWalletsState) {
@@ -179,14 +178,8 @@ class NewMyWalletsFragment : BasePageViewFragment(),
   }
 
   private fun updateTokenValue(balance: TokenBalance, tokenCurrency: WalletCurrency) {
-    var tokenBalance = "-1"
-    var fiatBalance = "-1"
-    val fiatCurrency = balance.fiat.symbol
-    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      tokenBalance = formatter.formatCurrency(balance.token.amount, tokenCurrency)
-      fiatBalance = formatter.formatCurrency(balance.fiat.amount)
-    }
-    if (tokenBalance != "-1" && fiatBalance != "-1") {
+    val tokenBalance = getTokenValueText(balance, tokenCurrency)
+    if (tokenBalance != "-1") {
       when (tokenCurrency) {
         WalletCurrency.CREDITS -> {
           views.appccValueSkeleton.visibility = View.GONE
@@ -211,17 +204,32 @@ class NewMyWalletsFragment : BasePageViewFragment(),
     }
   }
 
-  private fun updateOverallBalance(balance: FiatValue) {
+  private fun getFiatBalanceText(balance: FiatValue): String {
     var overallBalance = "-1"
     if (balance.amount.compareTo(BigDecimal("-1")) == 1) {
       overallBalance = formatter.formatCurrency(balance.amount)
     }
-
     if (overallBalance != "-1") {
-      val balanceText = balance.symbol + overallBalance
+      return balance.symbol + overallBalance
+    }
+    return overallBalance
+  }
+
+  private fun getTokenValueText(balance: TokenBalance, tokenCurrency: WalletCurrency): String {
+    var tokenBalance = "-1"
+    val fiatCurrency = balance.fiat.symbol
+    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
+      tokenBalance = formatter.formatCurrency(balance.token.amount, tokenCurrency)
+    }
+    return tokenBalance
+  }
+
+  private fun updateOverallBalance(balance: FiatValue) {
+    val overallBalance = getFiatBalanceText(balance)
+    if (overallBalance != "-1") {
       views.totalBalanceSkeleton.visibility = View.GONE
       views.totalBalanceSkeleton.cancelAnimation()
-      views.totalBalanceTextView.text = balanceText
+      views.totalBalanceTextView.text = overallBalance
       views.totalBalanceTextView.visibility = View.VISIBLE
     }
   }
@@ -271,6 +279,24 @@ class NewMyWalletsFragment : BasePageViewFragment(),
       views.verifyWalletCardView.visibility = View.VISIBLE
       views.verifiedWalletText.visibility = View.GONE
       views.verifiedWalletIcon.visibility = View.GONE
+    }
+  }
+
+  private fun navigateToMore() {
+    safeLet(viewModel.state.balanceAsync(),
+        viewModel.state.walletsAsync()) { balanceScreenModel, walletsModel ->
+      val overallFiatValue = getFiatBalanceText(balanceScreenModel.overallFiat)
+      val appcoinsValue = "${
+        getTokenValueText(balanceScreenModel.appcBalance, WalletCurrency.APPCOINS)
+      } ${balanceScreenModel.appcBalance.token.symbol}"
+      val creditsValue = "${
+        getTokenValueText(balanceScreenModel.creditsBalance, WalletCurrency.CREDITS)
+      } ${balanceScreenModel.creditsBalance.token.symbol}"
+      val ethValue = "${
+        getTokenValueText(balanceScreenModel.ethBalance, WalletCurrency.ETHEREUM)
+      } ${balanceScreenModel.ethBalance.token.symbol}"
+      navigator.navigateToMore(walletsModel.currentWallet.walletAddress, overallFiatValue,
+          appcoinsValue, creditsValue, ethValue, walletsModel.otherWallets.isNotEmpty())
     }
   }
 

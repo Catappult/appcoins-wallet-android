@@ -21,4 +21,12 @@ class NewMyWalletsNavigator(private val navController: NavController) : Navigato
         NewMyWalletsFragmentDirections.actionNavigateToTokenInfo(title, image, description,
             showTopUp))
   }
+
+  fun navigateToMore(walletAddress: String, totalFiatBalance: String,
+                     appcoinsBalance: String, creditsBalance: String,
+                     ethereumBalance: String, showDeleteWallet: Boolean) {
+    navigate(navController,
+        NewMyWalletsFragmentDirections.actionNavigateToMore(walletAddress, totalFiatBalance,
+            appcoinsBalance, creditsBalance, ethereumBalance, showDeleteWallet))
+  }
 }
