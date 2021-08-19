@@ -24,28 +24,35 @@ class JoinQueueUseCase(
       .flatMap { walletAddress ->
         ewtObtainer.getEWT()
           .flatMap { ewt ->
-            ticketRepository.getInQueueTicket(walletAddress).flatMap {
-              when (it) {
-                EmptyStoredTicket -> ticketRepository.createTicket(
-                  eskillsPaymentData,
-                  ewt,
-                  walletAddress
-                )
-                is StoredTicketInQueue -> resumeTicketIfPossible(
-                  ewt, it, eskillsPaymentData, walletAddress
-                )
+            ticketRepository.getInQueueTicket(walletAddress, eskillsPaymentData)
+              .flatMap {
+                when (it) {
+                  EmptyStoredTicket -> ticketRepository.createTicket(
+                    eskillsPaymentData,
+                    ewt,
+                    walletAddress
+                  )
+                  is StoredTicketInQueue -> resumeTicketIfPossible(
+                    ewt, it, eskillsPaymentData, walletAddress
+                  )
+                }
               }
-            }
           }
+      }.doOnSuccess {
+        ticketRepository.cacheTicket(
+          it.walletAddress,
+          it.ticketId,
+          eskillsPaymentData
+        )
       }
   }
 
   private fun resumeTicketIfPossible(
     ewt: String,
-    it: StoredTicketInQueue,
+    ticketInQueue: StoredTicketInQueue,
     eskillsPaymentData: EskillsPaymentData,
     walletAddress: String
-  ) = ticketRepository.getTicket(ewt, it.ticketId)
+  ) = ticketRepository.getTicket(ewt, ticketInQueue.ticketId)
     .flatMap {
       if (it.ticketStatus == TicketStatus.IN_QUEUE) {
         Single.just(it)
@@ -56,6 +63,12 @@ class JoinQueueUseCase(
           walletAddress
         )
       }
+    }.onErrorResumeNext {
+      ticketRepository.createTicket(
+        eskillsPaymentData,
+        ewt,
+        walletAddress
+      )
     }
 }
 

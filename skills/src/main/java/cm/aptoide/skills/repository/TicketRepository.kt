@@ -43,7 +43,18 @@ class TicketRepository(
     return PayTicketRequest(ticketId, callbackUrl)
   }
 
-  fun getInQueueTicket(walletAddress: String): Single<StoredTicket> {
-    return ticketLocalStorage.getTicketInQueue(walletAddress)
+  fun getInQueueTicket(
+    walletAddress: String,
+    eskillsPaymentData: EskillsPaymentData
+  ): Single<StoredTicket> {
+    return ticketLocalStorage.getTicketInQueue(walletAddress, eskillsPaymentData)
+  }
+
+  fun cacheTicket(
+    walletAddress: String,
+    ticketId: String,
+    eskillsPaymentData: EskillsPaymentData
+  ) {
+    ticketLocalStorage.saveTicketInQueue(walletAddress, ticketId, eskillsPaymentData)
   }
 }
