@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
   <style name="MyWallets" />
+
+  <style name="test_theme">
+    <item name="android:windowSharedElementsUseOverlay">false</item>
+  </style>
 
   <style name="MyWallets.Title">
     <item name="android:fontFamily">sans-serif-medium</item>

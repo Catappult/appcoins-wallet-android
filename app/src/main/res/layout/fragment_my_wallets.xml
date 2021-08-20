@@ -61,6 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+        android:transitionName="qr_code_image"
         tools:src="@drawable/ic_qr_code"
         />
 
@@ -528,11 +529,12 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        android:visibility="gone"
         app:cardBackgroundColor="@color/light_grey_alpha_73"
+        app:cardElevation="0dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appcoins_card_view"
+        app:layout_constraintTop_toBottomOf="@id/backup_wallet_card_view"
         app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
         >
 
@@ -716,7 +718,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="verified_wallet_icon, verify_wallet_card_view"
+        app:constraint_referenced_ids="verified_wallet_icon, verify_wallet_card_view, insert_code_wallet_card_view"
         />
 
     <View

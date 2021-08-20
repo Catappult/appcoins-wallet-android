@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.content.SharedPreferences
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Balance
@@ -13,9 +14,7 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.network.VerificationStatus
-import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.Single
+import io.reactivex.*
 import io.reactivex.annotations.Nullable
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
@@ -162,9 +161,26 @@ class BalanceInteractor(
   fun getCachedVerificationStatus(address: String) =
       walletVerificationInteractor.getCachedVerificationStatus(address)
 
-  fun hasSeenBackupTooltip() = backupRestorePreferencesRepository.getSeenBackupTooltip()
+  fun hasBackedUpOnce() = backupRestorePreferencesRepository.getBackedUpOnce()
 
-  fun saveSeenBackupTooltip() = backupRestorePreferencesRepository.saveSeenBackupTooltip()
+  fun saveBackedUpOnce() = backupRestorePreferencesRepository.saveBackedUpOnce()
+
+  fun observeBackedUpOnce(): Observable<Boolean> {
+    return Observable.create(
+        ObservableOnSubscribe { emitter: ObservableEmitter<Boolean> ->
+          val listener =
+              SharedPreferences.OnSharedPreferenceChangeListener { _, key: String ->
+                if (key == BackupRestorePreferencesRepository.BACKED_UP_ONCE) {
+                  emitter.onNext(backupRestorePreferencesRepository.getBackedUpOnce())
+                }
+              }
+          emitter.setCancellable {
+            backupRestorePreferencesRepository.removeChangeListener(listener)
+          }
+          emitter.onNext(backupRestorePreferencesRepository.getBackedUpOnce())
+          backupRestorePreferencesRepository.addChangeListener(listener)
+        } as ObservableOnSubscribe<Boolean>)
+  }
 
   private fun mapOverallBalance(creditsBalance: Pair<Balance, FiatValue>,
                                 appcBalance: Pair<Balance, FiatValue>,
@@ -212,6 +228,14 @@ class BalanceInteractor(
     } else {
       currentValue
     }
+  }
+
+  fun saveSeenBackupTooltip() {
+
+  }
+
+  fun hasSeenBackupTooltip(): Boolean {
+    return true
   }
 
 }

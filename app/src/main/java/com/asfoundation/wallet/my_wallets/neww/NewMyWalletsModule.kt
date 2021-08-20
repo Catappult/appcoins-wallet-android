@@ -20,6 +20,6 @@ class NewMyWalletsModule {
 
   @Provides
   fun providesNewMyWalletsNavigator(fragment: NewMyWalletsFragment): NewMyWalletsNavigator {
-    return NewMyWalletsNavigator(fragment.findNavController())
+    return NewMyWalletsNavigator(fragment, fragment.findNavController())
   }
 }

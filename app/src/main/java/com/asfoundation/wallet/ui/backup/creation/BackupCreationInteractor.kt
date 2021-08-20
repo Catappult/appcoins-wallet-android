@@ -4,12 +4,14 @@ import android.net.Uri
 import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.interact.ExportWalletInteractor
+import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.io.File
 
 class BackupCreationInteractor(private val exportWalletInteractor: ExportWalletInteractor,
-                               private val fileInteractor: FileInteractor) {
+                               private val fileInteractor: FileInteractor,
+                               private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository) {
 
   fun createAndSaveFile(cachedKeystore: String, downloadsPath: File?,
                         fileName: String): Completable {
@@ -40,4 +42,8 @@ class BackupCreationInteractor(private val exportWalletInteractor: ExportWalletI
   fun saveChosenUri(uri: Uri) = fileInteractor.saveChosenUri(uri)
 
   fun deleteFile() = fileInteractor.deleteFile()
+
+  fun saveBackedUpOnce() {
+    backupRestorePreferencesRepository.saveBackedUpOnce()
+  }
 }

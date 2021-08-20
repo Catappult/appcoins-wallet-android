@@ -18,7 +18,8 @@ data class MyWalletsState(
     val walletsAsync: Async<WalletsModel> = Async.Uninitialized,
     val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
     val balanceAsync: Async<BalanceScreenModel> = Async.Uninitialized,
-    val walletCreationAsync: Async<Unit> = Async.Uninitialized
+    val walletCreationAsync: Async<Unit> = Async.Uninitialized,
+    val backedUpOnceAsync: Async<Boolean> = Async.Uninitialized,
 ) : ViewState
 
 class MyWalletsViewModel(
@@ -37,15 +38,20 @@ class MyWalletsViewModel(
     observeCurrentWallet()
   }
 
+  fun refreshData() {
+    fetchWallets()
+    fetchWalletVerified()
+    fetchBalance()
+    observeHasBackedUpWallet()
+  }
+
   private fun observeCurrentWallet() {
     observeDefaultWalletUseCase()
         .doOnNext { wallet ->
           val currentWalletModel = state.walletsAsync()
           if (currentWalletModel == null || currentWalletModel.currentWallet.walletAddress != wallet.address) {
             // Refresh data if our active wallet changed
-            fetchWallets()
-            fetchWalletVerified()
-            fetchBalance()
+            refreshData()
           }
 
         }
@@ -75,6 +81,14 @@ class MyWalletsViewModel(
         .subscribeOn(Schedulers.io())
         .asAsyncToState { balance -> copy(balanceAsync = balance) }
         .repeatableScopedSubscribe(MyWalletsState::balanceAsync.name) { e ->
+          e.printStackTrace()
+        }
+  }
+
+  private fun observeHasBackedUpWallet() {
+    balanceInteractor.observeBackedUpOnce()
+        .asAsyncToState { backedUpOnce -> copy(backedUpOnceAsync = backedUpOnce) }
+        .repeatableScopedSubscribe(MyWalletsState::backedUpOnceAsync.name) { e ->
           e.printStackTrace()
         }
   }

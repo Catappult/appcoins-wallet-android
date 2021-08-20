@@ -104,6 +104,21 @@ class NewMyWalletsFragment : BasePageViewFragment(),
     }
 
     views.actionButtonMore.setOnClickListener { navigateToMore() }
+
+    views.backupButton.setOnClickListener {
+      viewModel.state.walletsAsync()
+          ?.let { walletsModel ->
+            navigator.navigateToBackupWallet(walletsModel.currentWallet.walletAddress)
+          }
+    }
+    views.qrImage.setOnClickListener {
+      viewModel.state.walletsAsync()
+          ?.let { walletsModel ->
+            navigator.navigateToQrCode(views.qrImage)
+          }
+    }
+    views.verifyButton.setOnClickListener { navigator.navigateToVerify() }
+    views.insertCodeButton.setOnClickListener { navigator.navigateToVerify() }
   }
 
   override fun onStateChanged(state: MyWalletsState) {
@@ -111,10 +126,16 @@ class NewMyWalletsFragment : BasePageViewFragment(),
     setVerified(state.walletVerifiedAsync)
     setBalance(state.balanceAsync)
     setWalletCreation(state.walletCreationAsync)
+    setBackupTooltip(state.backedUpOnceAsync)
   }
 
-  override fun onSideEffect(sideEffect: MyWalletsSideEffect) {
+  override fun onSideEffect(sideEffect: MyWalletsSideEffect) = Unit
 
+
+  private fun setBackupTooltip(backedUpOnceAsync: Async<Boolean>) {
+    backedUpOnceAsync()?.let { backedUpOnce ->
+      views.backupWalletCardView.visibility = if (backedUpOnce) View.GONE else View.VISIBLE
+    }
   }
 
   private fun setWallets(walletAsync: Async<WalletsModel>) {
