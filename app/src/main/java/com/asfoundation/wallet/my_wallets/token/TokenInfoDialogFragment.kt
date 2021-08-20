@@ -22,6 +22,9 @@ class TokenInfoDialogFragment : DaggerBottomSheetDialogFragment(),
   @Inject
   lateinit var viewModelFactory: TokenInfoDialogViewModelFactory
 
+  @Inject
+  lateinit var navigator: TokenInfoDialogNavigator
+
   private val viewModel: TokenInfoDialogViewModel by viewModels { viewModelFactory }
   private val views by viewBinding(FragmentTokenInfoBinding::bind)
 
@@ -33,6 +36,7 @@ class TokenInfoDialogFragment : DaggerBottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    views.topUpButton.setOnClickListener { navigator.navigateToTopUp() }
   }
 
   override fun onStart() {

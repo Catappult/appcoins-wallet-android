@@ -92,6 +92,11 @@
       android:id="@+id/token_info_dialog_fragment"
       android:name="com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment"
       tools:layout="@layout/fragment_token_info">
+    <action
+        android:id="@+id/action_navigate_to_top_up"
+        app:destination="@id/top_up_activity"
+        app:popUpTo="@id/token_info_dialog_fragment"
+        app:popUpToInclusive="true" />
     <argument
         android:name="title"
         app:argType="string" />
@@ -146,9 +151,9 @@
   <activity
       android:id="@+id/qr_code_activity"
       android:name="com.asfoundation.wallet.ui.balance.QrCodeActivity"
-      tools:layout="@layout/qr_code_layout"></activity>
-  <fragment
-      android:id="@+id/qr_code_fragment"
-      android:name="com.asfoundation.wallet.my_wallets.qrcode.QrCodeFragment"
-      tools:layout="@layout/fragment_qr_code"></fragment>
+      tools:layout="@layout/qr_code_layout" />
+  <activity
+      android:id="@+id/top_up_activity"
+      android:name="com.asfoundation.wallet.topup.TopUpActivity"
+      tools:layout="@layout/top_up_activity_layout" />
 </navigation>

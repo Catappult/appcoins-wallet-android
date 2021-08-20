@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.my_wallets.token
 
+import androidx.navigation.fragment.findNavController
 import dagger.Module
 import dagger.Provides
 
@@ -10,6 +11,11 @@ class TokenInfoDialogModule {
   fun provideTokenInfoDialogViewModelFactory(
       data: TokenInfoDialogData): TokenInfoDialogViewModelFactory {
     return TokenInfoDialogViewModelFactory(data)
+  }
+
+  @Provides
+  fun provideTokenInfoDialogNavigator(fragment: TokenInfoDialogFragment): TokenInfoDialogNavigator {
+    return TokenInfoDialogNavigator(fragment.findNavController())
   }
 
   @Provides
