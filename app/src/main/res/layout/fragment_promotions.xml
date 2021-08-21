@@ -15,6 +15,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/header"
+          android:layout_width="match_parent"
+          android:layout_height="104dp"
+          android:background="@drawable/appbar_background_color"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          >
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/BottomNav.Header.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/perks_title"
+            app:layout_constraintBottom_toBottomOf="@+id/gamification_info_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gamification_info_btn"
+            />
+
+        <ImageButton
+            android:id="@+id/gamification_info_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="14dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:elevation="10dp"
+            android:focusable="true"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/rv_promotions"
           android:layout_width="match_parent"
@@ -25,7 +64,7 @@
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/header"
           tools:itemCount="1"
           tools:listitem="@layout/item_promotions_gamification"
           />

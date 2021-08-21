@@ -7,14 +7,13 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/normal_margin"
     android:layout_marginEnd="@dimen/normal_margin"
-
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/default_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/activity_background_color"
+      android:background="@drawable/space_background_card"
       android:paddingBottom="@dimen/normal_margin"
       android:clickable="false"
       >

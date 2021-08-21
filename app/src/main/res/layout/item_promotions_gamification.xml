@@ -8,29 +8,6 @@
     android:layout_marginEnd="@dimen/normal_margin"
     >
 
-  <TextView
-      android:id="@+id/gamification_title"
-      style="@style/Promotions.TextStyle.Category.Title"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/normal_margin"
-      android:text="@string/perks_gamif_title"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <TextView
-      android:id="@+id/gamification_subtitle"
-      style="@style/Promotions.TextStyle.Category.Subtitle"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="2dp"
-      android:text="@string/perks_gamif_subtitle"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="@id/gamification_title"
-      app:layout_constraintTop_toBottomOf="@id/gamification_title"
-      />
-
   <androidx.cardview.widget.CardView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -40,7 +17,7 @@
       app:cardCornerRadius="12dp"
       app:cardElevation="2dp"
       app:cardUseCompatPadding="true"
-      app:layout_constraintTop_toBottomOf="@id/gamification_subtitle"
+      app:layout_constraintTop_toTopOf="parent"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gamification_background"
@@ -91,25 +68,11 @@
           android:textColor="@color/white"
           android:textSize="12sp"
           android:textStyle="bold"
-          app:layout_constraintEnd_toStartOf="@id/gamification_info_btn"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           tools:text="14% Bonus"
           />
 
-      <ImageButton
-          android:id="@+id/gamification_info_btn"
-          android:layout_width="48dp"
-          android:layout_height="40dp"
-          android:background="?android:attr/selectableItemBackgroundBorderless"
-          android:clickable="true"
-          android:focusable="true"
-          android:paddingTop="16dp"
-          android:paddingEnd="15dp"
-          android:scaleType="centerInside"
-          android:src="@drawable/ic_info"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
 
       <TextView
           android:id="@+id/planet_title"

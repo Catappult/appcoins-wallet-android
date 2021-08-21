@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.promotions.ui.list
 
-import PromotionsViewHolder
 import androidx.recyclerview.widget.RecyclerView
+import com.asfoundation.wallet.promotions.PromotionsViewHolder
 import com.asfoundation.wallet.promotions.model.*
 
 abstract class PromotionsAdapter : RecyclerView.Adapter<PromotionsViewHolder>() {
@@ -9,6 +9,7 @@ abstract class PromotionsAdapter : RecyclerView.Adapter<PromotionsViewHolder>() 
   internal var currentList: List<Promotion> = emptyList()
 
   companion object {
+    internal const val TITLE_VIEW_TYPE = 0
     internal const val GAMIFICATION_VIEW_TYPE = 1
     internal const val PROGRESS_VIEW_TYPE = 2
     internal const val DEFAULT_VIEW_TYPE = 3
@@ -30,6 +31,7 @@ abstract class PromotionsAdapter : RecyclerView.Adapter<PromotionsViewHolder>() 
       is ProgressItem -> PROGRESS_VIEW_TYPE
       is FutureItem -> FUTURE_VIEW_TYPE
       is VoucherItem -> VOUCHERS_VIEW_TYPE
+      is TitleItem -> TITLE_VIEW_TYPE
       else -> DEFAULT_VIEW_TYPE
     }
   }

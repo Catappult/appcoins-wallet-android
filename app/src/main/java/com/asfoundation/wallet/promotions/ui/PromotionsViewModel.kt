@@ -1,11 +1,14 @@
 package com.asfoundation.wallet.promotions.ui
 
+
+import android.content.ActivityNotFoundException
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.promotions.PromotionsInteractor
+import com.asfoundation.wallet.promotions.PromotionsViewHolder
 import com.asfoundation.wallet.promotions.ReferralViewHolder
 import com.asfoundation.wallet.promotions.model.PromotionClick
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -16,6 +19,8 @@ import io.reactivex.Scheduler
 
 sealed class PromotionsSideEffect : SideEffect {
   data class NavigateToGamification(val cachedBonus: Double) : PromotionsSideEffect()
+  data class NavigateToVoucherDetails(val packageName: String) : PromotionsSideEffect()
+  data class NavigateToOpenDetails(val link: String) : PromotionsSideEffect()
   data class NavigateToShare(val url: String) : PromotionsSideEffect()
   object NavigateToInviteFriends : PromotionsSideEffect()
   object NavigateToInfo : PromotionsSideEffect()
@@ -66,7 +71,11 @@ class PromotionsViewModel(private val getPromotions: GetPromotionsUseCase,
         PromotionsSideEffect.NavigateToGamification(promotionsModelAsync.value?.maxBonus ?: 0.00)
       }
       PromotionsInteractor.REFERRAL_ID -> handleReferralClick(promotionClick.extras)
-      else -> Unit
+      PromotionsInteractor.VOUCHER_ID -> sendSideEffect {
+        PromotionsSideEffect.NavigateToVoucherDetails(promotionClick.extras!!.getValue(
+            PromotionsViewHolder.PACKAGE_NAME_EXTRA))
+      }
+      else -> mapPackagePerkClick(promotionClick.extras)
     }
   }
 
@@ -79,5 +88,24 @@ class PromotionsViewModel(private val getPromotions: GetPromotionsUseCase,
         sendSideEffect { PromotionsSideEffect.NavigateToShare(link) }
       }
     }
+  }
+
+  private fun mapPackagePerkClick(extras: Map<String, String>?) {
+    if (extras != null && extras[PromotionsViewHolder.DETAILS_URL_EXTRA] != null) {
+      val detailsLink = extras[PromotionsViewHolder.DETAILS_URL_EXTRA]
+      try {
+        sendSideEffect { PromotionsSideEffect.NavigateToOpenDetails(detailsLink!!) }
+      } catch (exception: ActivityNotFoundException) {
+        exception.printStackTrace()
+      }
+    }
+  }
+
+  fun perksButtonClick() {
+    sendSideEffect { PromotionsSideEffect.NavigateToInfo }
+  }
+
+  fun vouchersButtonClick() {
+    sendSideEffect { PromotionsSideEffect.NavigateToInfo }
   }
 }

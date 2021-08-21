@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.promotions
 
-import PromotionsViewHolder
-import VouchersViewHolder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.asf.wallet.R

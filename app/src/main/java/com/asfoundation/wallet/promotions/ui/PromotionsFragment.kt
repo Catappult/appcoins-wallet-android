@@ -12,11 +12,15 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPromotionsBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.promotions.model.Promotion
+import com.asfoundation.wallet.promotions.PerksVouchersPageAdapter
+import com.asfoundation.wallet.promotions.PerksVouchersViewHolder
+import com.asfoundation.wallet.promotions.UniquePromotionsAdapter
+import com.asfoundation.wallet.promotions.model.PromotionClick
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.asfoundation.wallet.promotions.ui.list.PromotionsAdapter
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
+import com.asfoundation.wallet.util.addBottomItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.perks_and_vouchers_layout.*
 import javax.inject.Inject
 
 class PromotionsFragment : BasePageViewFragment(),
@@ -27,10 +31,24 @@ class PromotionsFragment : BasePageViewFragment(),
   @Inject
   lateinit var navigator: PromotionsNavigator
 
-  private lateinit var adapter: PromotionsAdapter
+  private lateinit var uniquePromotionsAdapter: UniquePromotionsAdapter
+  private lateinit var perksVouchersPageAdapter: PerksVouchersPageAdapter
+  private lateinit var clickListener: PublishSubject<PromotionClick>
+  private lateinit var pageChangedSubject: PublishSubject<Int>
 
   private val viewModel: PromotionsViewModel by viewModels { promotionsViewModelFactory }
   private val views by viewBinding(FragmentPromotionsBinding::bind)
+
+  companion object {
+    //temporary flag for vouchers feature
+    const val VOUCHERS_FEATURE_ACTIVE = false
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    clickListener = PublishSubject.create()
+    pageChangedSubject = PublishSubject.create()
+  }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -44,16 +62,21 @@ class PromotionsFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-//    adapter = PromotionsAdapter(emptyList()) { promotionClick ->
-//      viewModel.promotionClicked(promotionClick)
-//    }
-    views.rvPromotions.adapter = adapter
-    views.rvPromotions.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
-            .toInt()))
-//    views.gamificationInfoBtn.setOnClickListener { viewModel.gamificationInfoClicked() }
+    setAdapters()
+    views.gamificationInfoBtn.setOnClickListener { viewModel.gamificationInfoClicked() }
     views.noNetwork.retryButton.setOnClickListener { viewModel.fetchPromotions() }
+    views.perksVouchersLayout.vouchersButton.setOnClickListener { checkVouchersRadioButton() }
+    views.perksVouchersLayout.perksButton.setOnClickListener { checkPerksRadioButton() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun setAdapters() {
+    uniquePromotionsAdapter = UniquePromotionsAdapter(emptyList(), clickListener)
+    perksVouchersPageAdapter = PerksVouchersPageAdapter(emptyList(), clickListener)
+    views.rvPromotions.adapter = uniquePromotionsAdapter
+    views.rvPromotions.addBottomItemDecoration(
+        resources.getDimension(R.dimen.promotions_item_margin))
+    views.perksVouchersLayout.vouchersPerksViewpager.adapter = perksVouchersPageAdapter
   }
 
   override fun onStateChanged(state: PromotionsState) {
@@ -68,6 +91,9 @@ class PromotionsFragment : BasePageViewFragment(),
       PromotionsSideEffect.NavigateToInfo -> navigator.navigateToInfo()
       PromotionsSideEffect.NavigateToInviteFriends -> navigator.navigateToInviteFriends()
       PromotionsSideEffect.ShowErrorToast -> showErrorToast()
+      is PromotionsSideEffect.NavigateToOpenDetails -> navigator.openDetailsLink(sideEffect.link)
+      is PromotionsSideEffect.NavigateToVoucherDetails -> navigator.navigateToVoucherDetails(
+          sideEffect.packageName)
     }
   }
 
@@ -94,38 +120,59 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun setPromotions(promotionsModel: PromotionsModel, previousModel: PromotionsModel?) {
     hideLoading()
-//    if (promotionsModel.hasError() && !promotionsModel.fromCache) {
-//      // In the future we should get rid of this previousModel. Here it exists because the offline
-//      // first flow emits when it shouldn't (e.g. it emits a network error even if local data exists)
-//      if (previousModel == null || previousModel.hasError()) {
-//        if (promotionsModel.error == PromotionsModel.Status.NO_NETWORK) {
-//          showNetworkErrorView()
-//        } else {
-//          // In case of error that is not "no network", this screen will be shown. This was already
-//          // like this. I think a general error screen was implemented with vouchers, so on merge
-//          // we should check this out.
-//          showNoPromotionsScreen()
-//        }
-//      }
-//    } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
-//      if (!promotionsModel.fromCache) {
-//        showLockedPromotionsScreen()
-//      }
-//    } else {
-//      if (promotionsModel.promotions.isEmpty()) {
-//        showNoPromotionsScreen()
-//      } else {
-//        showPromotions(promotionsModel.promotions)
-//      }
-//    }
+    if (promotionsModel.hasError() && !promotionsModel.fromCache) {
+      // In the future we should get rid of this previousModel. Here it exists because the offline
+      // first flow emits when it shouldn't (e.g. it emits a network error even if local data exists)
+      if (previousModel == null || previousModel.hasError()) {
+        if (promotionsModel.error == PromotionsModel.Status.NO_NETWORK) {
+          showNetworkErrorView()
+        } else {
+          // In case of error that is not "no network", this screen will be shown. This was already
+          // like this. I think a general error screen was implemented with vouchers, so on merge
+          // we should check this out.
+          showNoPromotionsScreen()
+        }
+      }
+    } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
+      if (!promotionsModel.fromCache) {
+        showLockedPromotionsScreen()
+      }
+    } else {
+      if (promotionsModel.promotions.isEmpty()) {
+        showNoPromotionsScreen()
+      } else {
+        showPromotions(promotionsModel)
+        showPerksVouchers(promotionsModel)
+      }
+    }
   }
 
-  private fun showPromotions(promotions: List<Promotion>) {
-    adapter.setPromotions(promotions)
+  private fun showPromotions(promotionsModel: PromotionsModel) {
+    uniquePromotionsAdapter.setPromotions(promotionsModel.promotions)
     views.rvPromotions.visibility = View.VISIBLE
     views.noNetwork.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.GONE
     views.noPromotions.root.visibility = View.GONE
+  }
+
+  private fun showPerksVouchers(promotionsModel: PromotionsModel) {
+    perksVouchersPageAdapter.setItems(listOf(promotionsModel.vouchers!!, promotionsModel.perks!!))
+    if (VOUCHERS_FEATURE_ACTIVE) {
+      views.perksVouchersLayout.newItemView.referralsCard.visibility = View.VISIBLE
+      views.perksVouchersLayout.vouchersButton.visibility = View.VISIBLE
+      views.perksVouchersLayout.perksButton.visibility = View.VISIBLE
+      views.perksVouchersLayout.vouchersPerksViewpager.visibility=View.VISIBLE
+      if (promotionsModel.vouchers.isEmpty() && promotionsModel.perks.isNotEmpty()) checkPerksRadioButton() else checkVouchersRadioButton()
+    } else {
+      checkPerksRadioButton()
+      views.perksVouchersLayout.newItemView.referralsCard.visibility = View.GONE
+      views.perksVouchersLayout.vouchersButton.visibility = View.GONE
+      views.perksVouchersLayout.perksButton.visibility = View.VISIBLE
+      if (promotionsModel.perks.isEmpty()){
+        views.perksVouchersLayout.vouchersPerksViewpager.visibility=View.GONE
+        views.perksVouchersLayout.perksButton.visibility = View.GONE
+      }
+    }
   }
 
   private fun showNoPromotionsScreen() {
@@ -167,5 +214,17 @@ class PromotionsFragment : BasePageViewFragment(),
     views.noNetwork.retryAnimation.visibility = View.GONE
     views.noPromotions.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.VISIBLE
+  }
+
+  fun checkVouchersRadioButton() {
+    perks_button.isChecked = false
+    vouchers_button.isChecked = true
+    vouchers_perks_viewpager.currentItem = PerksVouchersViewHolder.VOUCHER_POSITION
+  }
+
+  fun checkPerksRadioButton() {
+    vouchers_button.isChecked = false
+    perks_button.isChecked = true
+    vouchers_perks_viewpager.currentItem = PerksVouchersViewHolder.PERKS_POSITION
   }
 }

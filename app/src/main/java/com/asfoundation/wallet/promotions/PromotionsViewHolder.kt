@@ -1,3 +1,5 @@
+package com.asfoundation.wallet.promotions
+
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -6,18 +8,18 @@ import androidx.annotation.PluralsRes
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.promotions.PromotionsGamificationAdapter
-import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_INFO
 import com.asfoundation.wallet.promotions.model.*
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.addBottomItemDecoration
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.item_promotions_default.view.*
 import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
 import kotlinx.android.synthetic.main.item_promotions_referrals.view.*
+import kotlinx.android.synthetic.main.item_promotions_title.view.*
 import kotlinx.android.synthetic.main.item_promotions_vouchers.view.*
 import kotlinx.android.synthetic.main.perks_content.view.*
 import java.math.BigDecimal
@@ -62,6 +64,22 @@ abstract class PromotionsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     container.visibility = View.VISIBLE
     view.text = itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
+}
+
+class TitleViewHolder(itemView: View) : PromotionsViewHolder(itemView) {
+
+  override fun bind(promotion: Promotion) {
+    val titleItem = promotion as TitleItem
+
+    val title = if (titleItem.isGamificationTitle) {
+      val formatter = CurrencyFormatUtils.create()
+      val bonus = formatter.formatGamificationValues(BigDecimal(titleItem.bonus))
+      itemView.context.getString(titleItem.title, bonus)
+    } else itemView.context.getString(titleItem.title)
+    itemView.promotions_title.text = title
+    itemView.promotions_subtitle.setText(titleItem.subtitle)
+  }
+
 }
 
 class ProgressViewHolder(itemView: View,
@@ -112,7 +130,6 @@ class DefaultViewHolder(itemView: View,
 
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
-
     itemView.isClickable = defaultItem.detailsLink != null
 
     itemView.setOnClickListener {
@@ -123,10 +140,10 @@ class DefaultViewHolder(itemView: View,
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
-    loadIcon(defaultItem.icon, itemView.active_icon)
+    loadIcon(defaultItem.icon, itemView.default_icon)
 
-    itemView.active_title.text = defaultItem.description
-    handleExpiryDate(itemView.active_expiry_date, itemView.active_container_date,
+    itemView.default_title.text = defaultItem.description
+    handleExpiryDate(itemView.default_expiry_date, itemView.default_container_date,
         defaultItem.endDate)
   }
 
@@ -212,9 +229,9 @@ class GamificationViewHolder(itemView: View,
     val gamificationItem = promotion as GamificationItem
     val formatter = CurrencyFormatUtils.create()
     val df = DecimalFormat("###.#")
-    val bonus = formatter.formatGamificationValues(BigDecimal(gamificationItem.maxBonus))
+    val bonus = formatter.formatGamificationValues(BigDecimal(gamificationItem.bonus))
 
-    itemView.gamification_title.text = itemView.context.getString(R.string.perks_gamif_title, bonus)
+//    itemView.gamification_title.text = itemView.context.getString(R.string.perks_gamif_title, bonus)
     itemView.setOnClickListener { clickListener.onNext(PromotionClick(promotion.id)) }
     itemView.planet.setImageDrawable(gamificationItem.planet)
     itemView.current_level_bonus.background = mapper.getOvalBackground(gamificationItem.levelColor)
@@ -226,10 +243,6 @@ class GamificationViewHolder(itemView: View,
           formatter.formatGamificationValues(gamificationItem.toNextLevelAmount))
     } else {
       itemView.planet_subtitle.visibility = View.INVISIBLE
-    }
-
-    itemView.gamification_info_btn.setOnClickListener {
-      clickListener.onNext(PromotionClick(GAMIFICATION_INFO))
     }
 
     handleLinks(gamificationItem.links, itemView)
