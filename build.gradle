@@ -47,7 +47,7 @@ project.ext {
   biometrics_version = '1.0.1'
   cardview_version = '1.0.0'
   collapsingtoolbarlayout_version = '1.0.0'
-  constraintlayout_version = '2.0.4'
+  constraintlayout_version = '2.1.0'
   cpp_version = '2.4.0'
   dagger_version = '2.27'
   erc681_version = '0.36'
