@@ -37,6 +37,7 @@ class TokenInfoDialogFragment : DaggerBottomSheetDialogFragment(),
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     views.topUpButton.setOnClickListener { navigator.navigateToTopUp() }
+    views.okButton.setOnClickListener { navigator.navigateBack() }
   }
 
   override fun onStart() {

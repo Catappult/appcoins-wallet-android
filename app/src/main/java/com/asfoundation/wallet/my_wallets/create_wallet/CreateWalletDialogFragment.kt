@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.my_wallets.create_wallet
 
 import android.animation.Animator
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,14 @@ class CreateWalletDialogFragment : DaggerDialogFragment(),
 
   private val viewModel: CreateWalletDialogViewModel by viewModels { viewModelFactory }
   private val views by viewBinding(FragmentCreateWalletDialogLayoutBinding::bind)
+
+  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    return object : Dialog(requireContext(), theme) {
+      override fun onBackPressed() {
+        // Do nothing
+      }
+    }
+  }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {

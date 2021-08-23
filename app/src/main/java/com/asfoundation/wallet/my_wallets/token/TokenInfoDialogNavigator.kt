@@ -9,4 +9,8 @@ class TokenInfoDialogNavigator(private val navController: NavController) : Navig
   fun navigateToTopUp() {
     navigate(navController, TokenInfoDialogFragmentDirections.actionNavigateToTopUp())
   }
+
+  fun navigateBack() {
+    navController.popBackStack()
+  }
 }
