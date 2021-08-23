@@ -70,7 +70,7 @@ class SkillsFragment : DaggerFragment() {
         handleWalletCreationIfNeeded()
             .takeUntil { it != WALLET_CREATING_STATUS }
             .flatMap {
-              viewModel.createTicket(eskillsUri)
+              viewModel.joinQueue(eskillsUri)
                   .observeOn(AndroidSchedulers.mainThread())
                   .doOnSubscribe { showRoomLoading(false) }
                   .flatMap { ticketResponse ->
