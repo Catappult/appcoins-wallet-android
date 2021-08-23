@@ -205,13 +205,16 @@ dependencies {
 
   implementation "com.adyen.checkout:card-ui:$project.adyen_version"
   implementation "com.adyen.checkout:redirect:$project.adyen_version"
-  implementation "com.adyen.checkout:3ds2:$project.adyen_version"
+  implementation("com.adyen.checkout:3ds2:$project.adyen_version"){
+    exclude group: 'io.michaelrocks', module: 'paranoid-core'
+  }
 
   implementation("io.intercom.android:intercom-sdk:$project.intercom_version") {
     exclude group: 'com.google.android', module: 'flexbox'
   }
 
   api "com.google.android.flexbox:flexbox:3.0.0"
+  api "io.michaelrocks:paranoid-core:0.3.3"
 
   implementation "io.rakam:android-sdk:$project.rakam_version"
 
