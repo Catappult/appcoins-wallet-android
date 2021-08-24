@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">Kartennummer</string>
   <string name="dialog_credit_card_expiration">Ablaufdatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Kredit-/Debitkarte</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Ablaufdatum</string>
   <string name="activity_airdrop_title">Um AppCoins zu erhalten, müssen Sie bestätigen Sie, dass Sie ein Mensch sind</string>
   <string name="activity_airdrop_details">Dies ist nur ein Sicherheits-Vorgang.</string>
@@ -809,7 +809,7 @@
   <string name="carrier_billing_terms_button">Allgemeinen Geschäftsbedingungen</string>
   <string name="carrier_billing_privacy_button">Datenschutzrichtlinie</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Kredit-/Debitkarte hinzufügen</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Karten verwalten</string>
   <string name="manage_cards_view_title">Karten verwalten</string>
   <string name="manage_cards_view_manage_subtitle">Verwalten Sie ihre Bezahlkarten</string>
@@ -890,7 +890,7 @@
   <string name="rate_us_back_title">Wollen Sie uns helfen?</string>
   <string name="rate_us_back_body">Bewerten Sie AppCoins Wallet im App-Store damit wir es verbessern können.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Verwenden Sie ihre Kredit-/Debitkarte um ihr Wallet zu verifizieren.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Überprüfen Sie den Code in den Transaktionsdetails</string>
   <string name="card_verification_code_body">Es wird ein einmaliger Code in der Zusammenfassung ihrer Transaktion, die von ihrem Kartenaussteller zur Verfügung gestellt wird, erscheinen.</string>
