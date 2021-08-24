@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">卡号</string>
   <string name="dialog_credit_card_expiration">到期日</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">信用卡/借记卡</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">到期日期</string>
   <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
   <string name="activity_airdrop_details">以保安全。</string>
@@ -808,7 +808,7 @@
   <string name="carrier_billing_terms_button">条款与条件</string>
   <string name="carrier_billing_privacy_button">隐私政策</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">添加信用卡/借记卡</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">管理支付卡</string>
   <string name="manage_cards_view_title">管理支付卡</string>
   <string name="manage_cards_view_manage_subtitle">管理您的支付卡</string>
@@ -883,7 +883,7 @@
   <string name="rate_us_back_title">想帮助我们吗？</string>
   <string name="rate_us_back_body">在应用商店上给AppCoins Wallet评分，以便我们对其进行改进。</string>
   <!--Card verification-->
-  <string name="card_verification_body">使用您的信用卡/借记卡验证钱包。</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">在交易详细信息中查看代码</string>
   <string name="card_verification_code_body">一个唯一代码将出现在发卡银行提供的交易摘要中。</string>
