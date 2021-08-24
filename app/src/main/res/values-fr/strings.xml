@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">Numéro de carte</string>
   <string name="dialog_credit_card_expiration">Date d’expiration</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Carte de crédit/débit</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Date d\'expiration</string>
   <string name="activity_airdrop_title">Confirmez que vous êtes un être humain pour recevoir des AppCoins</string>
   <string name="activity_airdrop_details">Juste par sécurité.</string>
@@ -809,7 +809,7 @@
   <string name="carrier_billing_terms_button">Termes et Conditions</string>
   <string name="carrier_billing_privacy_button">Politique de confidentialité</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Ajouter carte de crédit/débit</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Gérer les cartes</string>
   <string name="manage_cards_view_title">Gérer les cartes</string>
   <string name="manage_cards_view_manage_subtitle">Gérer vos paiements par carte</string>
@@ -890,7 +890,7 @@
   <string name="rate_us_back_title">Vous voulez nous aider ?</string>
   <string name="rate_us_back_body">Evaluez le portefeuille AppCoins sur l\'app store afin que nous puissions l\'améliorer.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Utilisez votre carte de crédit/débit pour vérifier votre portefeuille.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Vérifiez le code dans les détails de la transaction</string>
   <string name="card_verification_code_body">Un code unique apparaîtra dans le résumé de la transaction fourni par l\'émetteur de votre carte.</string>
