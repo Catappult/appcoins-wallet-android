@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.my_wallets.neww.list.model
+package com.asfoundation.wallet.my_wallets.main.list.model
 
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyModelClass

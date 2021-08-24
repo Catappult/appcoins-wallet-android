@@ -7,9 +7,6 @@ import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.TokenValue
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
@@ -26,6 +23,13 @@ class BalanceInteractor(
     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
     private val verificationRepository: VerificationRepository,
     private val networkScheduler: Scheduler) {
+
+  companion object {
+    const val APPC_CURRENCY = "APPC_CURRENCY"
+    const val APPC_C_CURRENCY = "APPC_C_CURRENCY"
+    const val ETH_CURRENCY = "ETH_CURRENCY"
+    val BIG_DECIMAL_MINUS_ONE = BigDecimal("-1")
+  }
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
     return accountWalletService.find()
@@ -185,7 +189,7 @@ class BalanceInteractor(
   private fun mapOverallBalance(creditsBalance: Pair<Balance, FiatValue>,
                                 appcBalance: Pair<Balance, FiatValue>,
                                 ethBalance: Pair<Balance, FiatValue>): FiatValue {
-    var balance = getAddBalanceValue(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE,
+    var balance = getAddBalanceValue(BIG_DECIMAL_MINUS_ONE,
         creditsBalance.second.amount)
     balance = getAddBalanceValue(balance, appcBalance.second.amount)
     balance = getAddBalanceValue(balance, ethBalance.second.amount)
@@ -211,7 +215,7 @@ class BalanceInteractor(
   private fun getOverallBalance(creditsBalance: TokenBalance,
                                 appcBalance: TokenBalance,
                                 ethBalance: TokenBalance): FiatValue {
-    var balance = getAddBalanceValue(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE,
+    var balance = getAddBalanceValue(BIG_DECIMAL_MINUS_ONE,
         creditsBalance.fiat.amount)
     balance = getAddBalanceValue(balance, appcBalance.fiat.amount)
     balance = getAddBalanceValue(balance, ethBalance.fiat.amount)
@@ -219,8 +223,8 @@ class BalanceInteractor(
   }
 
   private fun getAddBalanceValue(currentValue: BigDecimal, value: BigDecimal): BigDecimal {
-    return if (value.compareTo(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE) == 1) {
-      if (currentValue.compareTo(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE) == 1) {
+    return if (value.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
+      if (currentValue.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
         currentValue.add(value)
       } else {
         value

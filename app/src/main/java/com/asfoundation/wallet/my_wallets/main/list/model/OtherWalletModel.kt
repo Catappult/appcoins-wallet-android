@@ -1,11 +1,11 @@
-package com.asfoundation.wallet.my_wallets.neww.list.model
+package com.asfoundation.wallet.my_wallets.main.list.model
 
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
-import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsClick
+import com.asfoundation.wallet.my_wallets.main.list.OtherWalletsClick
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.util.CurrencyFormatUtils

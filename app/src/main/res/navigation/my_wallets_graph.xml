@@ -7,7 +7,7 @@
 
   <fragment
       android:id="@+id/my_wallets_fragment"
-      android:name="com.asfoundation.wallet.my_wallets.neww.NewMyWalletsFragment"
+      android:name="com.asfoundation.wallet.my_wallets.main.MyWalletsFragment"
       tools:layout="@layout/fragment_my_wallets">
     <action
         android:id="@+id/action_navigate_to_more"
@@ -56,6 +56,8 @@
         app:argType="boolean" />
     <action
         android:id="@+id/action_navigate_to_create_wallet"
+        app:popUpTo="@id/more_dialog_fragment"
+        app:popUpToInclusive="true"
         app:destination="@id/create_wallet_dialog_fragment" />
     <action
         android:id="@+id/action_navigate_to_restore_wallet"

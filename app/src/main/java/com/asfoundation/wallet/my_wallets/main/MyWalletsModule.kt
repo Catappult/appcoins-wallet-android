@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.my_wallets.neww
+package com.asfoundation.wallet.my_wallets.main
 
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class NewMyWalletsModule {
+class MyWalletsModule {
 
   @Provides
   fun providesMyWalletsViewModelFactory(balanceInteractor: BalanceInteractor,
@@ -19,7 +19,7 @@ class NewMyWalletsModule {
   }
 
   @Provides
-  fun providesNewMyWalletsNavigator(fragment: NewMyWalletsFragment): NewMyWalletsNavigator {
-    return NewMyWalletsNavigator(fragment, fragment.findNavController())
+  fun providesNewMyWalletsNavigator(fragment: MyWalletsFragment): MyWalletsNavigator {
+    return MyWalletsNavigator(fragment, fragment.findNavController())
   }
 }

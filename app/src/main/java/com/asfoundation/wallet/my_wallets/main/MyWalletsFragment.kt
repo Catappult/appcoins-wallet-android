@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.my_wallets.neww
+package com.asfoundation.wallet.my_wallets.main
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -16,8 +16,8 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsClick
-import com.asfoundation.wallet.my_wallets.neww.list.OtherWalletsController
+import com.asfoundation.wallet.my_wallets.main.list.OtherWalletsClick
+import com.asfoundation.wallet.my_wallets.main.list.OtherWalletsController
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
@@ -34,7 +34,7 @@ import kotlinx.android.synthetic.main.qr_code_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class NewMyWalletsFragment : BasePageViewFragment(),
+class MyWalletsFragment : BasePageViewFragment(),
     SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
 
   @Inject
@@ -44,7 +44,7 @@ class NewMyWalletsFragment : BasePageViewFragment(),
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
-  lateinit var navigator: NewMyWalletsNavigator
+  lateinit var navigator: MyWalletsNavigator
 
   private val viewModel: MyWalletsViewModel by viewModels { viewModelFactory }
   private val views by viewBinding(FragmentMyWalletsBinding::bind)

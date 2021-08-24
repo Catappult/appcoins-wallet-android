@@ -6,16 +6,14 @@ import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.home.HomeModule
-import com.asfoundation.wallet.my_wallets.MyWalletsFragment
-import com.asfoundation.wallet.my_wallets.MyWalletsModule
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogModule
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogModule
+import com.asfoundation.wallet.my_wallets.main.MyWalletsFragment
+import com.asfoundation.wallet.my_wallets.main.MyWalletsModule
 import com.asfoundation.wallet.my_wallets.more.MoreDialogFragment
 import com.asfoundation.wallet.my_wallets.more.MoreDialogModule
-import com.asfoundation.wallet.my_wallets.neww.NewMyWalletsFragment
-import com.asfoundation.wallet.my_wallets.neww.NewMyWalletsModule
 import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment
 import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
@@ -82,9 +80,7 @@ import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragmen
 import com.asfoundation.wallet.ui.transact.TransferFragment
 import com.asfoundation.wallet.ui.transact.TransferFragmentModule
 import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
-import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
-import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.verification.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.code.VerificationCodeModule
 import com.asfoundation.wallet.verification.error.VerificationErrorFragment
@@ -169,14 +165,6 @@ abstract class FragmentBuilders {
 
   @ContributesAndroidInjector
   abstract fun bindIabUpdateRequiredFragment(): IabUpdateRequiredFragment
-
-  @FragmentScope
-  @ContributesAndroidInjector
-  abstract fun bindWalletsFragment(): WalletsFragment
-
-  @FragmentScope
-  @ContributesAndroidInjector
-  abstract fun bindWalletDetailFragment(): WalletDetailsFragment
 
   @FragmentScope
   @ContributesAndroidInjector
@@ -309,11 +297,7 @@ abstract class FragmentBuilders {
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [MyWalletsModule::class])
-  abstract fun bindMyWalletsFragment(): MyWalletsFragment
-
-  @FragmentScope
-  @ContributesAndroidInjector(modules = [NewMyWalletsModule::class])
-  abstract fun bindNewMyWalletsFragment(): NewMyWalletsFragment
+  abstract fun bindNewMyWalletsFragment(): MyWalletsFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [ChangeActiveWalletDialogModule::class])

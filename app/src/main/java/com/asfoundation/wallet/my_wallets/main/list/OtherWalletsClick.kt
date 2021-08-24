@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.my_wallets.neww.list
+package com.asfoundation.wallet.my_wallets.main.list
 
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 

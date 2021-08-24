@@ -11,7 +11,6 @@ import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsView
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletsAdapter
 import com.asfoundation.wallet.ui.wallets.WalletsModel
-import com.asfoundation.wallet.ui.wallets.WalletsViewType
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -62,8 +61,7 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   override fun setupUi(walletsBalance: List<WalletBalance>) {
     val layoutManager = LinearLayoutManager(context)
     layoutManager.orientation = RecyclerView.VERTICAL
-    adapter = WalletsAdapter(context!!, walletsBalance, uiEventListener!!, currencyFormatter,
-        WalletsViewType.SETTINGS)
+    adapter = WalletsAdapter(requireContext(), walletsBalance, uiEventListener!!, currencyFormatter)
     bottom_sheet_wallets_cards.addItemDecoration(MarginItemDecoration(
         resources.getDimension(R.dimen.wallets_card_margin)
             .toInt()))

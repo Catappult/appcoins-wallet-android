@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.my_wallets.neww
+package com.asfoundation.wallet.my_wallets.main
 
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel

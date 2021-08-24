@@ -4,7 +4,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.my_wallets.neww.MyWalletsState
+import com.asfoundation.wallet.my_wallets.main.MyWalletsState
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 
 object CreateWalletSideEffect : SideEffect

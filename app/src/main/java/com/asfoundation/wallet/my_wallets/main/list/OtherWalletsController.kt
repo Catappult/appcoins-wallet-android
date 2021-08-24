@@ -1,9 +1,9 @@
-package com.asfoundation.wallet.my_wallets.neww.list
+package com.asfoundation.wallet.my_wallets.main.list
 
 import com.airbnb.epoxy.TypedEpoxyController
-import com.asfoundation.wallet.my_wallets.neww.list.model.CreateNewWalletModel_
-import com.asfoundation.wallet.my_wallets.neww.list.model.OtherWalletModel_
-import com.asfoundation.wallet.my_wallets.neww.list.model.OtherWalletsTitleModel_
+import com.asfoundation.wallet.my_wallets.main.list.model.CreateNewWalletModel_
+import com.asfoundation.wallet.my_wallets.main.list.model.OtherWalletModel_
+import com.asfoundation.wallet.my_wallets.main.list.model.OtherWalletsTitleModel_
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 

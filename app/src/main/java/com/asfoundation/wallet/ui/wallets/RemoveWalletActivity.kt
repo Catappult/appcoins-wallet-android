@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.asf.wallet.R
-import com.asfoundation.wallet.my_wallets.MyWalletsFragment
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.backup.BackupActivity.Companion.newIntent
@@ -69,10 +68,8 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
         .commit()
   }
 
-  override fun navigateToWalletList() {
-    this.supportFragmentManager.beginTransaction()
-        .replace(R.id.nav_host_container, MyWalletsFragment.newInstance())
-        .commit()
+  override fun finish() {
+    super.finish()
   }
 
   override fun navigateToBackUp(walletAddress: String) =
