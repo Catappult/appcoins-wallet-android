@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">Número do cartão</string>
   <string name="dialog_credit_card_expiration">Data de validade</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Cartão de crédito/débito</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Data de validade</string>
   <string name="activity_airdrop_title">Confirma que não és um robô para receberes AppCoins</string>
   <string name="activity_airdrop_details">Isto é apenas uma questão de segurança.</string>
@@ -809,7 +809,7 @@
   <string name="carrier_billing_terms_button">Termos e Condições</string>
   <string name="carrier_billing_privacy_button">Política de Privacidade</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Adicionar cartão de crédito/débito</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Gerir cartões</string>
   <string name="manage_cards_view_title">Gerir cartões</string>
   <string name="manage_cards_view_manage_subtitle">Gere os teus cartões de pagamento</string>
@@ -890,7 +890,7 @@
   <string name="rate_us_back_title">Queres ajudar-nos?</string>
   <string name="rate_us_back_body">Avalia a AppCoins Wallet na loja de apps para que possamos melhorá-la.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Usa o teu cartão de crédito/débito para verificar a tua wallet.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Verifica o código nos detalhes da transação</string>
   <string name="card_verification_code_body">Um código exclusivo fornecido pelo emissor teu cartão irá aparecer no resumo da transação.</string>
