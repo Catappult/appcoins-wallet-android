@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">رقم البطاقة</string>
   <string name="dialog_credit_card_expiration">تاريخ الانتهاء</string>
   <string name="dialog_credit_card_cvv">الرمز السري</string>
-  <string name="dialog_bank_card">بطاقة تأمين/ائتمان</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">تاريخ الانتهاء</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
   <string name="activity_airdrop_details">هذه أمر أمني محض.</string>
@@ -814,7 +814,7 @@
   <string name="carrier_billing_terms_button">الأحكام والشروط</string>
   <string name="carrier_billing_privacy_button">سياسة الخصوصية</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">أضف بطاقة تأمين/ائتمان</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">إدارة البطاقات</string>
   <string name="manage_cards_view_title">إدارة البطاقات</string>
   <string name="manage_cards_view_manage_subtitle">إدارة بطاقات الدفع لديك</string>
@@ -919,7 +919,7 @@
   <string name="rate_us_back_title">تريد مساعدتنا؟</string>
   <string name="rate_us_back_body">أضف تقيمك لمحفظة AppCoins على متجر التطبيقات لنعمل على تحسينه.</string>
   <!--Card verification-->
-  <string name="card_verification_body">استخدم بطاقة الائتمان للتحقق من محفظتك.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">تفقد الرمز في تفاصيل حركة الدفع</string>
   <string name="card_verification_code_body">سيظهر رمز مميز في ملخص عملية التحويل عن طريق مُصدِر بطاقتك.</string>
