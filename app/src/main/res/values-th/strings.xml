@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">บัตรเครดิต/เดบิต</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
@@ -810,7 +810,7 @@
   <string name="carrier_billing_terms_button">ข้อกำหนดและเงื่อนไข</string>
   <string name="carrier_billing_privacy_button">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">เพิ่มบัตรเครดิต/เดบิต</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
@@ -885,7 +885,7 @@
   <string name="rate_us_back_title">ต้องการความช่วยเหลือไหม</string>
   <string name="rate_us_back_body">ให้คะแนน AppCoins Wallet บนแอพสโตร์เพื่อให้เราปรับปรุง</string>
   <!--Card verification-->
-  <string name="card_verification_body">ใช้บัตรเครดิต / เดบิตเพื่อยืนยันกระเป๋าเงินของคุณ</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">ตรวจสอบรหัสรายละเอียดธุรกรรม</string>
   <string name="card_verification_code_body">รหัสเฉพาะจะแสดงในข้อมูลสรุปธุรกรรมที่ผู้ออกบัตรของคุณให้ไว้</string>
