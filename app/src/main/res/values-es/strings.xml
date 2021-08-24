@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">Número de la tarjeta</string>
   <string name="dialog_credit_card_expiration">Fecha de caducidad</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Tarjeta de crédito/débito</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Fecha de caducidad</string>
   <string name="activity_airdrop_title">Confirma que eres humano para recibir AppCoins</string>
   <string name="activity_airdrop_details">Es solo una medida de seguridad.</string>
@@ -809,7 +809,7 @@
   <string name="carrier_billing_terms_button">Términos y Condiciones</string>
   <string name="carrier_billing_privacy_button">Política de Privacidad</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Añadir tarjeta de crédito/débito</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Gestionar tarjetas</string>
   <string name="manage_cards_view_title">Gestionar tarjetas</string>
   <string name="manage_cards_view_manage_subtitle">Gestiona tus tarjetas de pago</string>
@@ -890,7 +890,7 @@
   <string name="rate_us_back_title">¿Quieres ayudarnos?</string>
   <string name="rate_us_back_body">Puntúa la AppCoins Wallet en la app store para que podamos mejorarla.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Usa tu tarjeta de crédito/débito para verificar tu wallet.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Comprueba el código en los detalles de la trasacción</string>
   <string name="card_verification_code_body">Aparecerá un código único en el resumen de la transacción proporcionado por el emisor de tu tarjeta.</string>
