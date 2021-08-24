@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">Card Number</string>
   <string name="dialog_credit_card_expiration">Expiration Date</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Expiry date</string>
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
@@ -808,7 +808,7 @@
   <string name="carrier_billing_terms_button">Terms and Conditions</string>
   <string name="carrier_billing_privacy_button">Privacy Policy</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Manage cards</string>
   <string name="manage_cards_view_title">Manage cards</string>
   <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
@@ -883,7 +883,7 @@
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Check the code in the transaction details</string>
   <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
