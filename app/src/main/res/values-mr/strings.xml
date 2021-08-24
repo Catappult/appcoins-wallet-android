@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">कार्ड क्रमांक</string>
   <string name="dialog_credit_card_expiration">कालबाह्य तारीख</string>
   <string name="dialog_credit_card_cvv">सीव्हीव्ही</string>
-  <string name="dialog_bank_card">क्रेडीट/डेबीट कार्ड</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">कालबाह्यता तारीख</string>
   <string name="activity_airdrop_title">अॅपकॉइन्स मिळविण्यासाठी आपण मानव आहात याची पुष्टी करा</string>
   <string name="activity_airdrop_details">हे फक्त सुरक्षिततेबाबत आहे.</string>
@@ -813,7 +813,7 @@
   <string name="carrier_billing_terms_button">अटी आणि शर्ती</string>
   <string name="carrier_billing_privacy_button">गोपनीयता धोरण</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">क्रेडीट/डेबीट कार्ड जोडा</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">कार्डांचे व्यवस्थापन करा</string>
   <string name="manage_cards_view_title">कार्डांचे व्यवस्थापन करा</string>
   <string name="manage_cards_view_manage_subtitle">आपल्या पेमेंट कार्डांचे व्यवस्थापन करा</string>
@@ -911,7 +911,7 @@
   <string name="rate_us_back_title">आम्हाला मदत कराल?</string>
   <string name="rate_us_back_body">अॅपस्टोरवरील अॅपकॉइन्स वॉलेट रेट करा म्हणजे आम्ही त्याला सुधारु शकू.</string>
   <!--Card verification-->
-  <string name="card_verification_body">आपले वॉलेट सत्यापित करण्यासाठी आपले क्रेडीट/डेबिट कार्ड वापरा.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">व्यवहार तपशीलात कोड तपासा</string>
   <string name="card_verification_code_body">आपण पुरविलेल्या कार्ड व्यवहार तपशीलात एक अनोखा कोड दिसेल.</string>
