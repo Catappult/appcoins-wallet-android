@@ -25,7 +25,6 @@ class WalletsController :
     add(ActiveWalletModelGroup(walletsAsync, walletVerifiedAsync, balanceAsync, backedUpOnceAsync,
         currencyFormatUtils, walletClickListener))
     addOtherWallets(walletsAsync)
-
   }
 
   private fun addOtherWallets(walletsAsync: Async<WalletsModel>) {
