@@ -71,7 +71,7 @@ project.ext {
   material_version = '1.3.0'
   mockito_version = '3.3.0'
   multidex_version = '2.0.1'
-  viewBindingDelegate = '1.4.4'
+  viewBindingDelegate = '1.4.7'
   okhttp_version = '4.8.1'
   palette_version = '1.0.0'
   pageindicatorview_version = '1.0.3'

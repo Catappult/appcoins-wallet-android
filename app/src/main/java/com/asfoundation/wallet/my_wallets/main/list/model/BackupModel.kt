@@ -9,22 +9,21 @@ import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.google.android.material.button.MaterialButton
 
 @EpoxyModelClass
-abstract class CreateNewWalletModel :
-    EpoxyModelWithHolder<CreateNewWalletModel.CreateNewWalletHolder>() {
+abstract class BackupModel : EpoxyModelWithHolder<BackupModel.BackupHolder>() {
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var walletClickListener: ((WalletsListEvent) -> Unit)? = null
 
-  override fun getDefaultLayout(): Int = R.layout.item_create_new_wallet
+  override fun getDefaultLayout(): Int = R.layout.item_backup_wallet
 
-  override fun bind(holder: CreateNewWalletHolder) {
+  override fun bind(holder: BackupHolder) {
     super.bind(holder)
-    holder.button.setOnClickListener {
-      walletClickListener?.invoke(WalletsListEvent.CreateNewWalletClick)
+    holder.backupButton.setOnClickListener {
+      walletClickListener?.invoke(WalletsListEvent.BackupClick)
     }
   }
 
-  class CreateNewWalletHolder : BaseViewHolder() {
-    val button by bind<MaterialButton>(R.id.create_new_wallet_button)
+  class BackupHolder : BaseViewHolder() {
+    val backupButton by bind<MaterialButton>(R.id.backup_button)
   }
 }

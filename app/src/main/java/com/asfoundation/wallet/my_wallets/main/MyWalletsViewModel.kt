@@ -11,6 +11,7 @@ import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 
 object MyWalletsSideEffect : SideEffect
 
@@ -18,7 +19,6 @@ data class MyWalletsState(
     val walletsAsync: Async<WalletsModel> = Async.Uninitialized,
     val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
     val balanceAsync: Async<BalanceScreenModel> = Async.Uninitialized,
-    val walletCreationAsync: Async<Unit> = Async.Uninitialized,
     val backedUpOnceAsync: Async<Boolean> = Async.Uninitialized,
 ) : ViewState
 
@@ -27,6 +27,8 @@ class MyWalletsViewModel(
     private val walletsInteract: WalletsInteract,
     private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
+
+  private val softRefreshSubject = BehaviorSubject.createDefault(Unit)
 
   companion object {
     fun initialState(): MyWalletsState {
@@ -39,10 +41,9 @@ class MyWalletsViewModel(
   }
 
   fun refreshData() {
-    fetchWallets()
-    fetchWalletVerified()
-    fetchBalance()
-    observeHasBackedUpWallet()
+    // Soft refresh data (meaning we DON'T flush our Async streams)
+    // This way we can avoid flickering since we don't deal with Async.Loading with no previous value
+    softRefreshSubject.onNext(Unit)
   }
 
   private fun observeCurrentWallet() {
@@ -50,17 +51,24 @@ class MyWalletsViewModel(
         .doOnNext { wallet ->
           val currentWalletModel = state.walletsAsync()
           if (currentWalletModel == null || currentWalletModel.currentWallet.walletAddress != wallet.address) {
-            // Refresh data if our active wallet changed
-            refreshData()
+            // Full refresh data if our active wallet changed (meaning we flush our Async streams)
+            // triggering Async.Loading
+            fetchWallets()
+            fetchWalletVerified()
+            fetchBalance()
+            observeHasBackedUpWallet()
           }
-
         }
         .scopedSubscribe { e -> e.printStackTrace() }
   }
 
   private fun fetchWallets() {
-    walletsInteract.getWalletsModel()
-        .subscribeOn(Schedulers.io())
+    softRefreshSubject
+        .switchMap {
+          walletsInteract.getWalletsModel()
+              .subscribeOn(Schedulers.io())
+              .toObservable()
+        }
         .asAsyncToState { wallet -> copy(walletsAsync = wallet) }
         .repeatableScopedSubscribe(MyWalletsState::walletsAsync.name) { e ->
           e.printStackTrace()
@@ -68,8 +76,11 @@ class MyWalletsViewModel(
   }
 
   private fun fetchWalletVerified() {
-    balanceInteractor.observeCurrentWalletVerified()
-        .subscribeOn(Schedulers.io())
+    softRefreshSubject
+        .switchMap {
+          balanceInteractor.observeCurrentWalletVerified()
+              .subscribeOn(Schedulers.io())
+        }
         .asAsyncToState { verification -> copy(walletVerifiedAsync = verification) }
         .repeatableScopedSubscribe(MyWalletsState::walletVerifiedAsync.name) { e ->
           e.printStackTrace()
@@ -77,8 +88,11 @@ class MyWalletsViewModel(
   }
 
   private fun fetchBalance() {
-    balanceInteractor.requestTokenConversion()
-        .subscribeOn(Schedulers.io())
+    softRefreshSubject
+        .switchMap {
+          balanceInteractor.requestTokenConversion()
+              .subscribeOn(Schedulers.io())
+        }
         .asAsyncToState { balance -> copy(balanceAsync = balance) }
         .repeatableScopedSubscribe(MyWalletsState::balanceAsync.name) { e ->
           e.printStackTrace()

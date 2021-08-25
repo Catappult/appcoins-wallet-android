@@ -4,7 +4,6 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.my_wallets.main.MyWalletsState
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 
 object CreateWalletSideEffect : SideEffect
@@ -30,7 +29,7 @@ class CreateWalletDialogViewModel(
   fun createNewWallet() {
     walletsInteract.createWallet()
         .asAsyncToState { copy(walletCreationAsync = it) }
-        .repeatableScopedSubscribe(MyWalletsState::walletCreationAsync.name) { e ->
+        .repeatableScopedSubscribe(CreateWalletState::walletCreationAsync.name) { e ->
           e.printStackTrace()
         }
   }

@@ -9,22 +9,25 @@ import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.google.android.material.button.MaterialButton
 
 @EpoxyModelClass
-abstract class CreateNewWalletModel :
-    EpoxyModelWithHolder<CreateNewWalletModel.CreateNewWalletHolder>() {
+abstract class UnverifiedModel : EpoxyModelWithHolder<UnverifiedModel.UnverifiedHolder>() {
+
+  @EpoxyAttribute
+  var disableButton: Boolean = false
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var walletClickListener: ((WalletsListEvent) -> Unit)? = null
 
-  override fun getDefaultLayout(): Int = R.layout.item_create_new_wallet
+  override fun getDefaultLayout(): Int = R.layout.item_unverified_wallet
 
-  override fun bind(holder: CreateNewWalletHolder) {
+  override fun bind(holder: UnverifiedHolder) {
     super.bind(holder)
-    holder.button.setOnClickListener {
-      walletClickListener?.invoke(WalletsListEvent.CreateNewWalletClick)
+    holder.verifyButton.setOnClickListener {
+      walletClickListener?.invoke(WalletsListEvent.VerifyWalletClick)
     }
+    holder.verifyButton.isEnabled = !disableButton
   }
 
-  class CreateNewWalletHolder : BaseViewHolder() {
-    val button by bind<MaterialButton>(R.id.create_new_wallet_button)
+  class UnverifiedHolder : BaseViewHolder() {
+    val verifyButton by bind<MaterialButton>(R.id.verify_button)
   }
 }
