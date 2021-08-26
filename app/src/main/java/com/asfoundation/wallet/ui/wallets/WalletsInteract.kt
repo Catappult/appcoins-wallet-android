@@ -76,8 +76,11 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
               }
         }
         .toSingle {
-          WalletsModel(getTotalBalance(currentWallet, wallets), wallets.size, currentWallet,
-              wallets)
+          val totalBalance = getTotalBalance(currentWallet, wallets)
+          val balanceComparator = compareByDescending<WalletBalance> { it.balance.amount }
+          val walletsSorted =
+              wallets.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
+          WalletsModel(totalBalance, wallets.size, currentWallet, walletsSorted)
         }
   }
 
