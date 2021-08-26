@@ -61,7 +61,7 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif"
         android:maxLines="2"
-        android:text="Keep a copy of your wallet to keep it safe."
+        android:text="@string/backup_wallet_tooltip"
         android:textColor="@color/grey_9d"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/backup_button"
