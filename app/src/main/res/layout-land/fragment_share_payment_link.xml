@@ -10,6 +10,16 @@
     android:maxHeight="300dp"
     >
 
+  <include
+      android:id="@+id/wallet_logo_layout"
+      layout="@layout/wallet_logo_layout"
+      android:layout_width="0dp"
+      android:layout_height="33dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/share_link_animation"
       android:layout_width="132dp"
@@ -19,7 +29,7 @@
       app:layout_constraintBottom_toTopOf="@id/bottom_separator"
       app:layout_constraintEnd_toStartOf="@id/mid_guideline"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/wallet_logo_layout"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
@@ -46,7 +56,7 @@
       app:layout_constraintBottom_toTopOf="@id/note"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/mid_guideline"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/wallet_logo_layout"
       app:layout_constraintVertical_chainStyle="packed"
       />
 

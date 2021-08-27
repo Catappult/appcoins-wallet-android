@@ -16,6 +16,14 @@
       android:background="@drawable/background_card_grey"
       android:orientation="vertical"
       >
+
+    <include
+        android:id="@+id/wallet_logo_layout"
+        layout="@layout/wallet_logo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        />
+
     <RelativeLayout
         android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
@@ -32,6 +40,7 @@
           layout="@layout/payment_methods_header"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_below="@id/payment_methods_header"
           />
 
       <com.asfoundation.wallet.ui.common.SeparatorView

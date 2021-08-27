@@ -46,19 +46,17 @@
           android:background="@drawable/dashed_vertical_line"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
           />
 
-      <com.asfoundation.wallet.ui.common.SeparatorView
-          android:id="@+id/top_separator"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/big_margin"
+      <include
+          android:id="@+id/wallet_logo_layout"
+          layout="@layout/wallet_logo_layout"
+          android:layout_width="0dp"
+          android:layout_height="33dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:line_orientation="horizontal"
-          app:line_type="solid"
           />
 
       <include
@@ -71,7 +69,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
           />
 
 
@@ -83,7 +81,7 @@
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
           />
       <include
           android:id="@+id/bonus_layout"
@@ -129,7 +127,7 @@
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
           >
 
         <RelativeLayout
@@ -181,7 +179,7 @@
           android:layout_marginTop="227dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
           app:line_orientation="horizontal"
           app:line_type="solid"
           />
