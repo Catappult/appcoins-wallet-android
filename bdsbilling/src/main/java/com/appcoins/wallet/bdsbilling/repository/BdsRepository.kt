@@ -18,17 +18,16 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   override fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
                                           walletSignature: String, productName: String?,
                                           packageName: String, priceValue: BigDecimal,
-                                          developerWallet: String, storeWallet: String,
-                                          origin: String, type: String, oemWallet: String,
-                                          developerPayload: String?, callback: String?,
-                                          orderReference: String?,
-                                          referrerUrl: String?): Single<String> {
+                                          developerWallet: String, entityOemId: String?,
+                                          entityDomainId: String?,
+                                          origin: String, type: String, developerPayload: String?,
+                                          callback: String?, orderReference: String?,
+                                          referrerUrl: String?): Single<Transaction> {
     return remoteRepository.registerAuthorizationProof(
-        origin, type, oemWallet, id, paymentType,
+        origin, type, entityOemId, entityDomainId, id, paymentType,
         walletAddress, walletSignature, productName, packageName, priceValue, developerWallet,
-        storeWallet, developerPayload, callback, orderReference, referrerUrl, null
+        developerPayload, callback, orderReference, referrerUrl, null
     )
-        .map { it.uid }
   }
 
   override fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
