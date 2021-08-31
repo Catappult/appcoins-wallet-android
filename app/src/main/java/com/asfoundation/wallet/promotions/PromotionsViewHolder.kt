@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.promotions.model.*
+import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.addBottomItemDecoration
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.item_promotions_default.view.*
 import kotlinx.android.synthetic.main.item_promotions_future.view.*
 import kotlinx.android.synthetic.main.item_promotions_gamification.view.*
 import kotlinx.android.synthetic.main.item_promotions_progress.view.*
@@ -130,6 +129,7 @@ class DefaultViewHolder(itemView: View,
 
   override fun bind(promotion: Promotion) {
     val defaultItem = promotion as DefaultItem
+
     itemView.isClickable = defaultItem.detailsLink != null
 
     itemView.setOnClickListener {
@@ -140,10 +140,10 @@ class DefaultViewHolder(itemView: View,
       clickListener.onNext(PromotionClick(promotion.id, extras))
     }
 
-    loadIcon(defaultItem.icon, itemView.default_icon)
+    loadIcon(defaultItem.icon, itemView.active_icon)
 
-    itemView.default_title.text = defaultItem.description
-    handleExpiryDate(itemView.default_expiry_date, itemView.default_container_date,
+    itemView.active_title.text = defaultItem.description
+    handleExpiryDate(itemView.active_expiry_date, itemView.active_container_date,
         defaultItem.endDate)
   }
 
@@ -219,8 +219,8 @@ class GamificationViewHolder(itemView: View,
     PromotionsViewHolder(itemView) {
 
   init {
-    itemView.linked_perks.addBottomItemDecoration(
-        itemView.resources.getDimension(R.dimen.promotions_item_margin))
+//    itemView.linked_perks.addBottomItemDecoration(
+//        itemView.resources.getDimension(R.dimen.promotions_item_margin))
   }
 
   private var mapper = GamificationMapper(itemView.context)
@@ -249,13 +249,13 @@ class GamificationViewHolder(itemView: View,
   }
 
   private fun handleLinks(links: List<GamificationLinkItem>, itemView: View) {
-    if (links.isEmpty()) {
-      itemView.linked_perks.visibility = View.GONE
-    } else {
-      itemView.linked_perks.visibility = View.VISIBLE
-      val adapter = PromotionsGamificationAdapter(links)
-      itemView.linked_perks.adapter = adapter
-    }
+//    if (links.isEmpty()) {
+//      itemView.linked_perks.visibility = View.GONE
+//    } else {
+//      itemView.linked_perks.visibility = View.VISIBLE
+//      val adapter = PromotionsGamificationAdapter(links)
+//      itemView.linked_perks.adapter = adapter
+//    }
   }
 }
 

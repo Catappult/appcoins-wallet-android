@@ -23,6 +23,7 @@ class SetSeenPromotionsUseCase(val promotionsRepository: PromotionsRepository) {
         is PerkPromotion -> promotionsRepository.setSeenGenericPromotion(
             getPromotionIdKey(it.id, it.startDate, it.endDate),
             PromotionUpdateScreen.PROMOTIONS.name)
+        else -> Unit
       }
     }
   }

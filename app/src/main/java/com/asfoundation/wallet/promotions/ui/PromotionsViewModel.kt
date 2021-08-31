@@ -10,8 +10,8 @@ import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.PromotionsViewHolder
 import com.asfoundation.wallet.promotions.ReferralViewHolder
-import com.asfoundation.wallet.promotions.model.PromotionClick
 import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase

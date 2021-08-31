@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.promotions.ui
 
-import com.asfoundation.wallet.promotions.model.PromotionClick
 import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import io.reactivex.Observable
 
 interface PromotionsView {

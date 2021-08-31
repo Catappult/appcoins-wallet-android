@@ -3,8 +3,8 @@ package com.asfoundation.wallet.promotions.model
 import com.asfoundation.wallet.entity.Wallet
 
 data class PromotionsModel(val promotions: List<Promotion>,
-                           val vouchers: List<VoucherItem>?,
-                           val perks: List<PerkPromotion>?,
+                           val vouchers: List<VoucherItem>,
+                           val perks: List<PerkPromotion>,
                            val maxBonus: Double,
                            val wallet: Wallet,
                            val walletOrigin: WalletOrigin,

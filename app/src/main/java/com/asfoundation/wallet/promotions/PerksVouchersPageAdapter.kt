@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.model.Promotion
-import com.asfoundation.wallet.promotions.model.PromotionClick
+import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import io.reactivex.subjects.PublishSubject
 
 class PerksVouchersPageAdapter(private var items: List<List<Promotion>>,

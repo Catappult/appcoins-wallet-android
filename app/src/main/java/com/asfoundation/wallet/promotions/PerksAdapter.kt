@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.model.PerkPromotion
-import com.asfoundation.wallet.promotions.model.PromotionClick
+import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.ui.list.PromotionsAdapter
 import io.reactivex.subjects.PublishSubject
 

@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.addBottomItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
@@ -86,16 +86,17 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     gamification_recycler_view.visibility = View.INVISIBLE
     levelsAdapter = LevelsAdapter(formatter, mapper, uiEventListener!!)
     gamification_recycler_view.adapter = levelsAdapter
-    gamification_recycler_view.addBottomItemDecoration(
-        resources.getDimension(R.dimen.gamification_card_margin))
+    gamification_recycler_view.addItemDecoration(
+        MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
+            .toInt()))
     presenter.present(savedInstanceState)
   }
 
-  override fun displayGamificationInfo(updateDate: Date?) {
-    levelsAdapter = LevelsAdapter(formatter, mapper, uiEventListener!!)
-    gamification_recycler_view.addBottomItemDecoration(
-        resources.getDimension(R.dimen.gamification_card_margin))
-    gamification_recycler_view.adapter = levelsAdapter
+  override fun displayGamificationInfo(hiddenLevels: List<LevelItem>,
+                                       shownLevels: List<LevelItem>,
+                                       updateDate: Date?) {
+    gamification_recycler_view.visibility = View.VISIBLE
+    levelsAdapter.setLevelsContent(hiddenLevels, shownLevels)
     handleBonusUpdatedText(updateDate)
   }
 

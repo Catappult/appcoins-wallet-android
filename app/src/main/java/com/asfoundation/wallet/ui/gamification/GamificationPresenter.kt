@@ -91,7 +91,8 @@ class GamificationPresenter(private val view: GamificationView,
     } else {
       activityView.showMainView()
       displayHeaderInformation(gamification)
-      view.displayGamificationInfo(gamification.updateDate)
+      val levels = mapToLevelsList(gamification)
+      view.displayGamificationInfo(levels.first, levels.second, gamification.updateDate)
       viewHasContent = true
     }
   }

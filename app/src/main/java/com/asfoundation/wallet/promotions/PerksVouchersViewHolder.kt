@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.model.PerkPromotion
 import com.asfoundation.wallet.promotions.model.Promotion
-import com.asfoundation.wallet.promotions.model.PromotionClick
-import com.asfoundation.wallet.promotions.model.VoucherItem
+import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.ui.list.PromotionsAdapter
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_page_perk_vouchers.view.*
@@ -23,21 +22,21 @@ class PerksVouchersViewHolder(itemView: View,
 
   fun bind(list: List<Promotion>, position: Int) {
     var adapter: PromotionsAdapter? = null
-    if (position == VOUCHER_POSITION) {
-      val voucherList = list.filterIsInstance<VoucherItem>()
-      if (voucherList.isEmpty()) setVouchersEmptyState()
-      else {
-        itemView.vouchers_empty_screen.visibility = View.INVISIBLE
-        adapter = VouchersAdapter(voucherList, clickSubject)
-      }
-    } else {
-      val perksList = list.filterIsInstance<PerkPromotion>()
-      if (perksList.isEmpty()) setPerksEmptyState()
-      else {
-        itemView.vouchers_empty_screen.visibility = View.INVISIBLE
-        adapter = PerksAdapter(perksList, clickSubject)
-      }
+//    if (position == VOUCHER_POSITION) {
+//      val voucherList = list.filterIsInstance<VoucherItem>()
+//      if (voucherList.isEmpty()) setVouchersEmptyState()
+//      else {
+//        itemView.vouchers_empty_screen.visibility = View.INVISIBLE
+//        adapter = VouchersAdapter(voucherList, clickSubject)
+//      }
+//    } else {
+    val perksList = list.filterIsInstance<PerkPromotion>()
+    if (perksList.isEmpty()) setPerksEmptyState()
+    else {
+      itemView.vouchers_empty_screen.visibility = View.INVISIBLE
+      adapter = PerksAdapter(perksList, clickSubject)
     }
+//    }
     if (adapter != null) {
       itemView.page_recycler.visibility = View.VISIBLE
       itemView.page_recycler.adapter = adapter
