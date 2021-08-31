@@ -45,8 +45,10 @@ class SkillsFragment : DaggerFragment() {
 
   private lateinit var binding: FragmentSkillsBinding
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
     binding = FragmentSkillsBinding.inflate(inflater, container, false)
     return binding.root
   }
@@ -67,26 +69,28 @@ class SkillsFragment : DaggerFragment() {
 
     userId = eskillsUri.userId
     disposable.add(
-        handleWalletCreationIfNeeded()
-            .takeUntil { it != WALLET_CREATING_STATUS }
-            .flatMap {
-              viewModel.joinQueue(eskillsUri)
-                  .observeOn(AndroidSchedulers.mainThread())
-                  .doOnSubscribe { showRoomLoading(false) }
-                  .flatMap { ticketResponse ->
-                    viewModel.getRoom(eskillsUri, ticketResponse, this)
-                      .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { showRoomLoading(true) }
-                        .doOnNext { userData ->
-                          if (userData.refunded) {
-                            showRefunded()
-                          } else {
-                            postbackUserData(SkillsViewModel.RESULT_OK, userData)
-                          }
-                        }
+      handleWalletCreationIfNeeded()
+        .takeUntil { it != WALLET_CREATING_STATUS }
+        .flatMap {
+          viewModel.joinQueue(eskillsUri)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { showRoomLoading(false) }
+            .flatMap { ticketResponse ->
+              viewModel.getRoom(eskillsUri, ticketResponse, this)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext { userData ->
+                  when (userData.status) {
+                    UserData.Status.IN_QUEUE, UserData.Status.PAYING -> showRoomLoading(true)
+                    UserData.Status.REFUNDED -> showRefunded()
+                    UserData.Status.COMPLETED -> postbackUserData(
+                      SkillsViewModel.RESULT_OK,
+                      userData
+                    )
                   }
-            }.ignoreElements().doOnError({ handleError(it) })
-          .onErrorComplete({ t -> isNetworkException(t) }).subscribe()
+                }
+            }
+        }.ignoreElements().doOnError({ handleError(it) })
+        .onErrorComplete({ t -> isNetworkException(t) }).subscribe()
     )
   }
 
@@ -138,17 +142,17 @@ class SkillsFragment : DaggerFragment() {
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
     return viewModel.handleWalletCreationIfNeeded()
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnNext {
-          if (it == WALLET_CREATING_STATUS) {
-            showWalletCreationLoadingAnimation()
-          }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnNext {
+        if (it == WALLET_CREATING_STATUS) {
+          showWalletCreationLoadingAnimation()
         }
-        .filter { it != WALLET_CREATING_STATUS }
-        .map {
-          endWalletCreationLoadingAnimation()
-          it
-        }
+      }
+      .filter { it != WALLET_CREATING_STATUS }
+      .map {
+        endWalletCreationLoadingAnimation()
+        it
+      }
   }
 
   private fun showWalletCreationLoadingAnimation() {
