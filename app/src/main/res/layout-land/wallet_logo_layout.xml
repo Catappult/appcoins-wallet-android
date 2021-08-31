@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="33dp"
-    android:background="@drawable/wallet_logo_background"
+    android:background="#F0F0F0"
     >
 
     <ImageView
