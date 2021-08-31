@@ -17,13 +17,6 @@
       android:orientation="vertical"
       >
 
-    <include
-        android:id="@+id/wallet_logo_layout"
-        layout="@layout/wallet_logo_layout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        />
-
     <RelativeLayout
         android:id="@+id/credit_card_info"
         android:layout_width="match_parent"

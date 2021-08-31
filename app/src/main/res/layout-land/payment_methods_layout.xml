@@ -14,7 +14,6 @@
       android:layout_width="@dimen/payment_methods_width_landscape"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:background="@drawable/background_card"
       >
     <ProgressBar
         android:id="@+id/loading_view"
@@ -71,7 +70,6 @@
         android:id="@+id/payment_methods"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_card"
         android:elevation="2dp"
         >
 
@@ -84,16 +82,6 @@
           />
 
       <include
-          android:id="@+id/wallet_logo_layout"
-          layout="@layout/wallet_logo_layout"
-          android:layout_width="0dp"
-          android:layout_height="33dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
-      <include
           android:id="@+id/payment_methods_header"
           layout="@layout/payment_methods_header"
           android:layout_width="0dp"
@@ -103,7 +91,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
       <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
@@ -129,7 +117,7 @@
           android:background="@drawable/dashed_vertical_line"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
       <androidx.recyclerview.widget.RecyclerView
@@ -146,7 +134,7 @@
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
+          app:layout_constraintTop_toTopOf="parent"
           tools:listitem="@layout/item_payment_method"
           />
 
@@ -160,7 +148,7 @@
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
+          app:layout_constraintTop_toTopOf="parent"
           >
         <include
             layout="@layout/skeleton_payments"
@@ -197,7 +185,7 @@
           app:layout_constraintBottom_toBottomOf="@id/bottom_separator_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/wallet_logo_layout"
+          app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintVertical_bias="0.4"
           />
 
@@ -222,7 +210,7 @@
           android:layout_marginTop="232dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
+          app:layout_constraintTop_toTopOf="parent"
           app:line_orientation="horizontal"
           app:line_type="solid"
           />

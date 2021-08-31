@@ -14,7 +14,6 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
-      android:background="@drawable/background_card"
       >
 
     <ProgressBar
@@ -41,18 +40,6 @@
           app:layout_constraintGuide_percent="0.46"
           />
 
-      <View
-          android:id="@+id/top_separator"
-          android:layout_width="0dp"
-          android:layout_height="1dp"
-          android:layout_marginTop="@dimen/big_margin"
-          android:background="@color/layout_separator_color"
-          app:layout_constraintBottom_toTopOf="@id/payment_methods_header"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
       <include
           android:id="@+id/payment_methods_header"
           layout="@layout/payment_methods_header"
@@ -63,7 +50,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           />
       <include
           android:id="@+id/bonus_layout"
@@ -109,7 +96,7 @@
           android:background="@drawable/dashed_vertical_line"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           />
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/radio_group"
@@ -117,7 +104,7 @@
           android:layout_height="wrap_content"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           >
         <include
             android:id="@+id/appcoins_radio"

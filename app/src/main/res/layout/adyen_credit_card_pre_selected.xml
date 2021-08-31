@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
-    android:background="@drawable/background_card"
     android:theme="@style/AdyenMaterialAppTheme"
     >
   <RelativeLayout
@@ -35,21 +34,10 @@
           android:id="@+id/payment_methods"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@drawable/background_card"
           android:elevation="2dp"
           android:visibility="invisible"
           tools:visibility="visible"
           >
-
-        <include
-            android:id="@+id/wallet_logo_layout"
-            layout="@layout/wallet_logo_layout"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
 
         <include
             android:id="@+id/payment_methods_header"
@@ -61,7 +49,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wallet_logo_layout"
+            app:layout_constraintTop_toTopOf="parent"
             />
         <ScrollView
             android:id="@+id/payment_scroll"
