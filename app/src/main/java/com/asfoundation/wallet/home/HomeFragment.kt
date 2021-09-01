@@ -22,11 +22,9 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
 import com.asfoundation.wallet.ui.transactions.HeaderController
 import com.asfoundation.wallet.ui.transactions.TransactionsController
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RootUtil
@@ -121,9 +119,6 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   override fun onDestroy() {
-    views.balanceSkeleton.removeAllAnimatorListeners()
-    views.balanceSkeleton.removeAllUpdateListeners()
-    views.balanceSkeleton.removeAllLottieOnCompositionLoadedListener()
     emptyTransactionsSubject = null
     emptyView = null
     disposables.dispose()
@@ -131,6 +126,9 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   override fun onDestroyView() {
+    views.balanceSkeleton.removeAllAnimatorListeners()
+    views.balanceSkeleton.removeAllUpdateListeners()
+    views.balanceSkeleton.removeAllLottieOnCompositionLoadedListener()
     super.onDestroyView()
     _views = null
   }
