@@ -10,13 +10,12 @@
         android:id="@+id/appc_icon"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/ic_appc"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/ic_appc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/empty"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="0dp"
