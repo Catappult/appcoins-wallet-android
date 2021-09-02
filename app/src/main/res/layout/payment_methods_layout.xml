@@ -14,7 +14,6 @@
       android:layout_width="@dimen/payment_methods_width"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:background="@drawable/background_card"
       >
 
     <ProgressBar
@@ -80,7 +79,6 @@
           android:id="@+id/payment_methods"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@drawable/background_card"
           android:elevation="2dp"
           >
 
