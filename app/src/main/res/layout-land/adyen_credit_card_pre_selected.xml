@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
-    android:background="@drawable/background_card"
     android:theme="@style/AdyenMaterialAppTheme"
     >
 
@@ -30,7 +29,6 @@
         android:id="@+id/payment_methods"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_card"
         android:elevation="2dp"
         android:visibility="invisible"
         tools:visibility="visible"
@@ -44,18 +42,6 @@
           app:layout_constraintGuide_percent="0.46"
           />
 
-      <View
-          android:id="@+id/top_separator"
-          android:layout_width="0dp"
-          android:layout_height="1dp"
-          android:layout_marginTop="@dimen/big_margin"
-          android:background="@color/layout_separator_color"
-          app:layout_constraintBottom_toTopOf="@id/payment_methods_header"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
       <include
           android:id="@+id/payment_methods_header"
           layout="@layout/payment_methods_header"
@@ -65,7 +51,7 @@
           android:layout_marginTop="19dp"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
       <include
@@ -109,7 +95,7 @@
           app:layout_constraintBottom_toTopOf="@id/more_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -171,7 +157,7 @@
           android:background="@color/layout_separator_color"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
       <androidx.constraintlayout.widget.Guideline
