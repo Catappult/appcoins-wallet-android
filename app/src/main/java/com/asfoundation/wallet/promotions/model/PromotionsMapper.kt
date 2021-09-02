@@ -7,7 +7,6 @@ import com.appcoins.wallet.gamification.repository.entity.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsInteractor
-import com.asfoundation.wallet.promotions.VoucherListModel
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import java.util.concurrent.TimeUnit
 

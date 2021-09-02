@@ -4,10 +4,10 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
-import com.asfoundation.wallet.promotions.Voucher
-import com.asfoundation.wallet.promotions.VoucherListModel
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.model.Voucher
+import com.asfoundation.wallet.promotions.model.VoucherListModel
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Observable
 

@@ -6,8 +6,11 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
-import com.asfoundation.wallet.promotions.ReferralViewHolder
 import com.asfoundation.wallet.promotions.model.ReferralItem
+import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.ACTION_DETAILS
+import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.ACTION_SHARE
+import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.KEY_ACTION
+import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.KEY_LINK
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -30,16 +33,16 @@ abstract class ReferralModel : EpoxyModelWithHolder<ReferralModel.ReferralHolder
 
     holder.itemView.setOnClickListener {
       val extras = mapOf(
-          Pair(ReferralViewHolder.KEY_LINK, referralItem.link),
-          Pair(ReferralViewHolder.KEY_ACTION, ReferralViewHolder.ACTION_DETAILS)
+          Pair(KEY_LINK, referralItem.link),
+          Pair(KEY_ACTION, ACTION_DETAILS)
       )
       clickListener?.invoke(PromotionClick(referralItem.id, extras))
     }
 
     holder.shareContainer.setOnClickListener {
       val extras = mapOf(
-          Pair(ReferralViewHolder.KEY_LINK, referralItem.link),
-          Pair(ReferralViewHolder.KEY_ACTION, ReferralViewHolder.ACTION_SHARE)
+          Pair(KEY_LINK, referralItem.link),
+          Pair(KEY_ACTION, ACTION_SHARE)
       )
       clickListener?.invoke(PromotionClick(referralItem.id, extras))
     }

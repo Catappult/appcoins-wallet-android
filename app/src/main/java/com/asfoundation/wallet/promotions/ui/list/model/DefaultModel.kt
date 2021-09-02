@@ -10,8 +10,8 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.promotions.PromotionsViewHolder
 import com.asfoundation.wallet.promotions.model.DefaultItem
+import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.DETAILS_URL_EXTRA
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import java.util.concurrent.TimeUnit
@@ -34,7 +34,7 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
     holder.itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
       defaultItem.detailsLink?.let {
-        extras[PromotionsViewHolder.DETAILS_URL_EXTRA] = it
+        extras[DETAILS_URL_EXTRA] = it
       }
       clickListener?.invoke(PromotionClick(defaultItem.id, extras))
     }

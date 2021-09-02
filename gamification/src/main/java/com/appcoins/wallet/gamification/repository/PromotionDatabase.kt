@@ -50,7 +50,6 @@ abstract class PromotionDatabase : RoomDatabase() {
       }
     }
 
-    // Adds
     val MIGRATION_4_5: Migration = object : Migration(4, 5) {
       override fun migrate(database: SupportSQLiteDatabase) {
         // Creates new table with two new fields: notification_description, perk_description
