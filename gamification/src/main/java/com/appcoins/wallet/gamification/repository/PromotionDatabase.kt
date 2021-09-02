@@ -12,7 +12,7 @@ import com.appcoins.wallet.gamification.repository.entity.WalletOriginEntity
 
 @Database(
     entities = [PromotionEntity::class, LevelsEntity::class, LevelEntity::class, WalletOriginEntity::class],
-    version = 5)
+    version = 6)
 @TypeConverters(PromotionConverter::class)
 abstract class PromotionDatabase : RoomDatabase() {
 
@@ -50,10 +50,7 @@ abstract class PromotionDatabase : RoomDatabase() {
       }
     }
 
-    // It creates two new field descriptions (notification_description, perk_description)
-    // and copies the old description to both fields. There are cleaner workarounds, like
-    // renaming one of them and copying the contents to the other column but these operations are
-    // not supported in the API we support. It also renames the "title" field to "notification_title"
+    // Adds
     val MIGRATION_4_5: Migration = object : Migration(4, 5) {
       override fun migrate(database: SupportSQLiteDatabase) {
         // Creates new table with two new fields: notification_description, perk_description
@@ -68,6 +65,13 @@ abstract class PromotionDatabase : RoomDatabase() {
         database.execSQL("DROP TABLE PromotionEntity")
         // Renames new table to the old one
         database.execSQL("ALTER TABLE PromotionEntityNew RENAME TO PromotionEntity")
+      }
+    }
+
+    //Adds the app name to the promotions entity object
+    val MIGRATION_5_6: Migration = object : Migration(5, 6) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE PromotionEntity ADD COLUMN app_name TEXT")
       }
     }
   }

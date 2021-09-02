@@ -168,5 +168,6 @@ class PromotionsFragment : BasePageViewFragment(),
     views.noNetwork.retryAnimation.visibility = View.GONE
     views.noPromotions.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.VISIBLE
+    views.rvPromotions.visibility = View.GONE
   }
 }

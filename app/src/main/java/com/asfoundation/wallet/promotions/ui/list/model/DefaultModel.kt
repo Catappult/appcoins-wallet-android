@@ -38,6 +38,7 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
       }
       clickListener?.invoke(PromotionClick(defaultItem.id, extras))
     }
+    holder.activeAppName.text = defaultItem.appName
 
     holder.activeTitle.text = defaultItem.description
     holder.loadIcon(defaultItem.icon)
@@ -76,6 +77,7 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
 
   class DefaultHolder : BaseViewHolder() {
     val activeIcon by bind<ImageView>(R.id.active_icon)
+    val activeAppName by bind<TextView>(R.id.active_app_name)
     val activeTitle by bind<TextView>(R.id.active_title)
     val activeContainerDate by bind<LinearLayout>(R.id.active_container_date)
     val activeExpiryDate by bind<TextView>(R.id.active_expiry_date)

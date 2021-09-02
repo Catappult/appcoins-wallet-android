@@ -42,7 +42,7 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
     holder.activeTitle.text = progressItem.description
     holder.loadIcon(progressItem.icon)
     holder.handleExpiryDate(progressItem.endDate)
-
+    holder.activeAppName.text = progressItem.appName
 
     if (progressItem.objective != null) {
       holder.setProgressWithObjective(progressItem)
@@ -96,6 +96,7 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
   class ProgressHolder : BaseViewHolder() {
     val activeIcon by bind<ImageView>(R.id.active_icon)
     val activeTitle by bind<TextView>(R.id.active_title)
+    val activeAppName by bind<TextView>(R.id.active_app_name)
     val activeContainerDate by bind<LinearLayout>(R.id.active_container_date)
     val activeExpiryDate by bind<TextView>(R.id.active_expiry_date)
     val progressCurrent by bind<ProgressBar>(R.id.progress_current)

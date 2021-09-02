@@ -112,13 +112,15 @@ class PromotionsMapper(private val gamificationMapper: GamificationMapper) {
 
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
     return ProgressItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
-        genericResponse.startDate, genericResponse.endDate, genericResponse.currentProgress!!,
-        genericResponse.objectiveProgress, genericResponse.detailsLink)
+        genericResponse.appName, genericResponse.startDate, genericResponse.endDate,
+        genericResponse.currentProgress!!, genericResponse.objectiveProgress,
+        genericResponse.detailsLink)
   }
 
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
     return DefaultItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
-        genericResponse.startDate, genericResponse.endDate, genericResponse.detailsLink)
+        genericResponse.appName, genericResponse.startDate, genericResponse.endDate,
+        genericResponse.detailsLink)
   }
 
   private fun mapToGamificationItem(
@@ -139,7 +141,8 @@ class PromotionsMapper(private val gamificationMapper: GamificationMapper) {
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
     return FutureItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
-        genericResponse.startDate, genericResponse.endDate, genericResponse.detailsLink)
+        genericResponse.appName, genericResponse.startDate, genericResponse.endDate,
+        genericResponse.detailsLink)
   }
 
   private fun isValidGamificationLink(linkedPromotionId: String?,

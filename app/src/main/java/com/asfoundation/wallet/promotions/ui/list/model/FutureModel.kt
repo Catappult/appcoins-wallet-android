@@ -34,6 +34,7 @@ abstract class FutureModel : EpoxyModelWithHolder<FutureModel.FutureHolder>() {
       clickListener?.invoke(PromotionClick(futureItem.id, extras))
     }
 
+    holder.futureAppName.text = futureItem.appName
     holder.loadIcon(futureItem.icon)
 
     holder.futureTitle.text = futureItem.description

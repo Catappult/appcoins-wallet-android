@@ -22,6 +22,7 @@ data class DefaultItem(
     override val id: String,
     val description: String?,
     val icon: String?,
+    val appName: String?,
     override val startDate: Long?,
     override val endDate: Long,
     override val detailsLink: String?
@@ -31,6 +32,7 @@ data class FutureItem(
     override val id: String,
     val description: String?,
     val icon: String?,
+    val appName: String?,
     override val startDate: Long?,
     override val endDate: Long,
     override val detailsLink: String?
@@ -39,6 +41,7 @@ data class FutureItem(
 data class ProgressItem(
     override val id: String,
     val description: String?,
+    val appName: String?,
     val icon: String?,
     override val startDate: Long?,
     override val endDate: Long,
