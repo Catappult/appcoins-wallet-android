@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">Número de la tarjeta</string>
   <string name="dialog_credit_card_expiration">Fecha de caducidad</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Tarjeta bancaria</string>
   <string name="dialog_expiry_date">Fecha de caducidad</string>
   <string name="activity_airdrop_title">Confirma que eres humano para recibir AppCoins</string>
   <string name="activity_airdrop_details">Es solo una medida de seguridad.</string>
