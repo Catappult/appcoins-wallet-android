@@ -31,22 +31,46 @@
         />
   </FrameLayout>
 
-
-  <FrameLayout
-      android:id="@+id/fragment_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+  <com.google.android.material.card.MaterialCardView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_margin="8dp"
       android:layout_marginStart="@dimen/normal_margin"
       android:layout_marginTop="@dimen/big_margin"
       android:layout_marginEnd="@dimen/normal_margin"
       android:layout_marginBottom="@dimen/normal_margin"
-      android:descendantFocusability="beforeDescendants"
-      android:focusableInTouchMode="true"
+      android:theme="@style/Theme.MaterialComponents"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      />
+      app:cardBackgroundColor="@color/white"
+      app:cardCornerRadius="8dp"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+      <include
+          android:id="@+id/wallet_logo_layout"
+          layout="@layout/wallet_logo_layout"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          app:layout_constraintEnd_toEndOf="@+id/fragment_container"
+          app:layout_constraintStart_toStartOf="@+id/fragment_container"
+          app:layout_constraintBottom_toTopOf="@+id/fragment_container"
+          />
+
+      <FrameLayout
+          android:id="@+id/fragment_container"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:descendantFocusability="beforeDescendants"
+          android:focusableInTouchMode="true"
+          />
+
+    </LinearLayout>
+  </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
