@@ -1,44 +1,46 @@
 package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.gamification.GamificationContext
+import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.UserStats
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
-import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
-import com.appcoins.wallet.gamification.repository.entity.GenericResponse
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
+import com.appcoins.wallet.gamification.repository.entity.*
 import com.asfoundation.wallet.analytics.AnalyticsSetup
-import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.interact.EmptyNotification
+import com.asfoundation.wallet.promotions.model.*
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.functions.Function3
 import io.reactivex.functions.Function4
+import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class PromotionsInteractor(private val referralInteractor: ReferralInteractorContract,
                            private val gamificationInteractor: GamificationInteractor,
                            private val promotionsRepo: PromotionsRepository,
-                           private val findWalletInteract: FindDefaultWalletInteract,
+                           private val findWalletUseCase: FindDefaultWalletUseCase,
                            private val userStatsPreferencesRepository: UserStatsLocalData,
                            private val analyticsSetup: AnalyticsSetup,
-                           private val mapper: GamificationMapper,
-                           private val schedulers: RxSchedulers) {
+                           private val mapper: GamificationMapper) {
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
+    const val GAMIFICATION_INFO = "GAMIFICATION_INFO"
     const val REFERRAL_ID = "REFERRAL"
+    const val VOUCHER_ID = "VOUCHER"
     const val PROGRESS_VIEW_TYPE = "PROGRESS"
   }
 
   fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
-    return findWalletInteract.find()
+    return findWalletUseCase()
         .flatMap { wallet ->
           promotionsRepo.getUserStats(wallet.address, false)
               .lastOrError()
@@ -60,14 +62,14 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                       hasReferralUpdate || hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
                     })
               }
-              .subscribeOn(schedulers.io)
+              .subscribeOn(Schedulers.io())
         }
   }
 
   fun getUnwatchedPromotionNotification(): Single<CardNotification> {
-    return findWalletInteract.find()
+    return findWalletUseCase()
         .flatMap { wallet ->
-          promotionsRepo.getUserStats(wallet.address, false)
+          promotionsRepo.getUserStats(wallet.address)
               .lastOrError()
               .map {
                 val promotionList = it.promotions.filterIsInstance<GenericResponse>()
@@ -76,19 +78,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
               }
         }
   }
-
-  fun dismissNotification(id: String): Completable {
-    return Completable.fromAction {
-      promotionsRepo.setSeenGenericPromotion(id, PromotionUpdateScreen.TRANSACTIONS.name)
-    }
-  }
-
-  fun shouldShowGamificationDisclaimer(): Boolean {
-    return userStatsPreferencesRepository.shouldShowGamificationDisclaimer()
-  }
-
-  fun setGamificationDisclaimerShown() =
-      userStatsPreferencesRepository.setGamificationDisclaimerShown()
 
   private fun getUnWatchedPromotion(promotionList: List<GenericResponse>): GenericResponse? {
     return promotionList.sortedByDescending { list -> list.priority }

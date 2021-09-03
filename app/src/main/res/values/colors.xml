@@ -8,6 +8,7 @@
   <color name="blueish_black">#000508</color>
   <color name="fakeBlack">#313849</color>
   <color name="appc_pink">#fe7073</color>
+  <color name="pink_background">#ff6381</color>
   <color name="wild_watermelon">#FF6381</color>
   <color name="navy_blue">#001726</color>
   <color name="darker_navy_blue">#001523</color>
@@ -66,6 +67,8 @@
   <color name="btn_disable_snd_color">#c9c9c9</color>
   <color name="btn_text_enable_color">#ffffff</color>
   <color name="btn_cancel_text">#8f000000</color>
+  <color name="btn_enabled_dark">#001320</color>
+  <color name="btn_disabled_dark">#f7f7f7</color>
 
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="btn_end_gradient_color">#ff578c</color>
@@ -141,6 +144,13 @@
   <color name="skeleton_dark_base_color">#5cd8d8d8</color>
   <color name="skeleton_light_base_color">#f0f0f0</color>
   <color name="skeleton_higlight_color">#d2d2d2</color>
+
+  <!-- Promotions -->
+
+  <color name="promotions_active_background">#00131f</color>
+  <color name="promotions_future_background">#26a69ead</color>
+  <color name="promotions_future_text_color">#a69ead</color>
+  <color name="vouchers_card_bottom_color">#002b4b</color>
 
   <!-- Gamification -->
 
