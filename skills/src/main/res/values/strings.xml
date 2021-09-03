@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="processing_loading_title">Processing your request</string>
-  <string name="finding_room_loading_title">Finding a room</string>
+  <string name="processing_loading_title">Getting your entry ticket</string>
+  <string name="finding_room_loading_title">Waiting for opponents</string>
   <string name="finding_room_loading_message">This may take a while…</string>
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">OK</string>

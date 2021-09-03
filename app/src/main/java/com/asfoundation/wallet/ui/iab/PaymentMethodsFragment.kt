@@ -19,6 +19,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.Parameters.Companion.ESKILLS
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -365,7 +366,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun updateProductName() {
-    app_sku_description.text = transactionBuilder?.productName
+    if (transactionBuilder?.type == ESKILLS) {
+      app_sku_description.text = getString(R.string.purchase_eskills_sku)
+    } else {
+      app_sku_description.text = transactionBuilder?.productName
+    }
   }
 
   override fun close(bundle: Bundle) {
@@ -428,9 +433,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder) {
     iabView.showOnChain(
-        transaction.amount(), isBds, bonusMessageValue,
-        gamificationLevel,
-        transaction
+      transaction.amount(), isBds, bonusMessageValue,
+      gamificationLevel,
+      transaction
     )
   }
 
@@ -440,12 +445,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showShareLink(selectedPaymentMethod: String) {
     val isOneStep: Boolean = transactionBuilder!!.type
-        .equals("INAPP_UNMANAGED", ignoreCase = true)
+      .equals("INAPP_UNMANAGED", ignoreCase = true)
     iabView.showShareLinkPayment(
-        transactionBuilder!!.domain, transactionBuilder!!.skuId,
-        if (isOneStep) transactionBuilder!!.originalOneStepValue else null,
-        if (isOneStep) transactionBuilder!!.originalOneStepCurrency else null,
-        transactionBuilder!!.amount(),
+      transactionBuilder!!.domain, transactionBuilder!!.skuId,
+      if (isOneStep) transactionBuilder!!.originalOneStepValue else null,
+      if (isOneStep) transactionBuilder!!.originalOneStepCurrency else null,
+      transactionBuilder!!.amount(),
       transactionBuilder!!.type, selectedPaymentMethod
     )
   }
@@ -506,11 +511,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
-                                  transaction: TransactionBuilder) {
+  override fun showMergedAppcoins(
+    gamificationLevel: Int, fiatValue: FiatValue,
+    transaction: TransactionBuilder
+  ) {
     iabView.showMergedAppcoins(
-        fiatValue.amount, fiatValue.currency, bonusMessageValue,
-        isBds, isDonation, gamificationLevel, transaction
+      fiatValue.amount, fiatValue.currency, bonusMessageValue,
+      isBds, isDonation, gamificationLevel, transaction
     )
   }
 

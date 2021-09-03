@@ -59,37 +59,36 @@ class SkillsViewModel(
           fragment
         )
       }
-    }.flatMap {
-        getTicketUpdates(ticketResponse.ticketId).filter { checkCanProceed(it) }
-          .firstOrError()
-          .flatMap { ticketResponse ->
-            if (isRefunded(ticketResponse)) {
-              Single.just(UserData("", "", "", "", true))
-            } else {
-              loginUseCase.login(ticketResponse.roomId!!)
-                .map { session ->
-                  UserData(
-                    ticketResponse.userId, ticketResponse.roomId,
-                    ticketResponse.walletAddress, session
-                  )
-                }
-            }
+    }.flatMapObservable {
+      getTicketUpdates(ticketResponse.ticketId)
+        .flatMap { ticketResponse ->
+          return@flatMap when (ticketResponse.ticketStatus) {
+            TicketStatus.PENDING_PAYMENT -> Observable.just(
+              UserData.fromStatus(UserData.Status.PAYING)
+            )
+
+            TicketStatus.REFUNDED -> Observable.just(
+              UserData.fromStatus(UserData.Status.REFUNDED)
+            )
+            TicketStatus.IN_QUEUE, TicketStatus.REFUNDING -> Observable.just(
+              UserData.fromStatus(UserData.Status.IN_QUEUE)
+            )
+            TicketStatus.COMPLETED -> loginUseCase.login(ticketResponse.roomId!!)
+              .map { session ->
+                return@map UserData(
+                  ticketResponse.userId, ticketResponse.roomId,
+                  ticketResponse.walletAddress, session, UserData.Status.COMPLETED
+                )
+              }.toObservable()
           }
-      }
-      .toObservable()
+        }
+    }
   }
+
 
   private fun getTicketUpdates(ticketId: String): Observable<TicketResponse> {
     return Observable.interval(getTicketRetryMillis, TimeUnit.MILLISECONDS)
       .switchMapSingle { getTicketUseCase.getTicket(ticketId) }
-  }
-
-  private fun isRefunded(ticketResponse: TicketResponse): Boolean {
-    return ticketResponse.ticketStatus == TicketStatus.REFUNDED
-  }
-
-  private fun checkCanProceed(ticketResponse: TicketResponse): Boolean {
-    return ticketResponse.roomId != null || ticketResponse.ticketStatus == TicketStatus.REFUNDED
   }
 
   fun getPayTicketRequestCode(): Int {
@@ -101,8 +100,22 @@ class SkillsViewModel(
     // cancel before actually paying the backend will return a 409 HTTP. this way we allow
     // users to return to the game, without crashing, even if they weren't waiting in queue
     return cancelTicketUseCase.cancelTicket(ticketId)
-      .doOnSuccess { closeView.onNext(Pair(RESULT_USER_CANCELED, UserData("", "", "", "", true)))  }
-      .doOnError { closeView.onNext(Pair(RESULT_ERROR, UserData("", "", "", "", true))) }
+      .doOnSuccess {
+        closeView.onNext(
+          Pair(
+            RESULT_USER_CANCELED,
+            UserData("", "", "", "", UserData.Status.REFUNDED)
+          )
+        )
+      }
+      .doOnError {
+        closeView.onNext(
+          Pair(
+            RESULT_ERROR,
+            UserData("", "", "", "", UserData.Status.REFUNDED)
+          )
+        )
+      }
   }
 
   fun closeView(): Observable<Pair<Int, UserData>> {
