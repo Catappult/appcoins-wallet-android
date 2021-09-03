@@ -10,6 +10,7 @@ class GenericResponse(
     val currentProgress: BigDecimal?,
     @SerializedName("notification_description") val notificationDescription: String?,
     @SerializedName("perk_description") val perkDescription: String?,
+    @SerializedName("app_name") val appName: String?,
     @SerializedName("end_date")
     val endDate: Long,
     val icon: String?,

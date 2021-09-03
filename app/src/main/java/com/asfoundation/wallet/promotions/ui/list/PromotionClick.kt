@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.promotions.model
+package com.asfoundation.wallet.promotions.ui.list
 
 data class PromotionClick(
     val id: String,

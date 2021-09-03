@@ -12,9 +12,8 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPromotionsBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.promotions.model.Promotion
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.asfoundation.wallet.promotions.ui.list.PromotionsAdapter
+import com.asfoundation.wallet.promotions.ui.list.PromotionsController
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
@@ -27,7 +26,7 @@ class PromotionsFragment : BasePageViewFragment(),
   @Inject
   lateinit var navigator: PromotionsNavigator
 
-  private lateinit var adapter: PromotionsAdapter
+  private lateinit var promotionsController: PromotionsController
 
   private val viewModel: PromotionsViewModel by viewModels { promotionsViewModelFactory }
   private val views by viewBinding(FragmentPromotionsBinding::bind)
@@ -44,13 +43,15 @@ class PromotionsFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    adapter = PromotionsAdapter(emptyList()) { promotionClick ->
+    promotionsController = PromotionsController()
+    promotionsController.clickListener = { promotionClick ->
       viewModel.promotionClicked(promotionClick)
     }
-    views.rvPromotions.adapter = adapter
+    views.rvPromotions.setController(promotionsController)
     views.rvPromotions.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
             .toInt()))
+
     views.gamificationInfoBtn.setOnClickListener { viewModel.gamificationInfoClicked() }
     views.noNetwork.retryButton.setOnClickListener { viewModel.fetchPromotions() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -115,13 +116,13 @@ class PromotionsFragment : BasePageViewFragment(),
       if (promotionsModel.promotions.isEmpty()) {
         showNoPromotionsScreen()
       } else {
-        showPromotions(promotionsModel.promotions)
+        showPromotions(promotionsModel)
       }
     }
   }
 
-  private fun showPromotions(promotions: List<Promotion>) {
-    adapter.setPromotions(promotions)
+  private fun showPromotions(promotionsModel: PromotionsModel) {
+    promotionsController.setData(promotionsModel)
     views.rvPromotions.visibility = View.VISIBLE
     views.noNetwork.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.GONE
@@ -167,5 +168,6 @@ class PromotionsFragment : BasePageViewFragment(),
     views.noNetwork.retryAnimation.visibility = View.GONE
     views.noPromotions.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.VISIBLE
+    views.rvPromotions.visibility = View.GONE
   }
 }

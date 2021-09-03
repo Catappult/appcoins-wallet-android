@@ -29,6 +29,7 @@ import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.M
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_2_3
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_3_4
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_4_5
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_5_6
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.WalletOriginDao
 import com.appcoins.wallet.permissions.Permissions
@@ -389,6 +390,7 @@ internal class AppModule {
         .addMigrations(MIGRATION_2_3)
         .addMigrations(MIGRATION_3_4)
         .addMigrations(MIGRATION_4_5)
+        .addMigrations(MIGRATION_5_6)
         .build()
   }
 

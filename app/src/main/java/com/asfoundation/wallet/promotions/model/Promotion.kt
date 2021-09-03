@@ -4,70 +4,81 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
 import java.math.BigDecimal
 
-open class Promotion(val id: String)
+sealed class Promotion(open val id: String)
 
-open class PerkPromotion(id: String, val startDate: Long?, val endDate: Long,
-                         val detailsLink: String?) : Promotion(id)
+sealed class PerkPromotion(override val id: String, open val startDate: Long?,
+                           open val endDate: Long,
+                           open val detailsLink: String?) : Promotion(id)
 
-class TitleItem(
+data class TitleItem(
     @StringRes val title: Int,
     @StringRes val subtitle: Int,
     val isGamificationTitle: Boolean,
     val bonus: String = "0.0",
-    id: String = ""
+    override val id: String = ""
 ) : Promotion(id)
 
-class DefaultItem(
-    id: String,
+data class DefaultItem(
+    override val id: String,
     val description: String?,
     val icon: String?,
-    startDate: Long?,
-    endDate: Long,
-    detailsLink: String?
+    val appName: String?,
+    override val startDate: Long?,
+    override val endDate: Long,
+    override val detailsLink: String?
 ) : PerkPromotion(id, startDate, endDate, detailsLink)
 
-class FutureItem(
-    id: String,
+data class FutureItem(
+    override val id: String,
     val description: String?,
     val icon: String?,
-    startDate: Long?,
-    endDate: Long,
-    detailsLink: String?
+    val appName: String?,
+    override val startDate: Long?,
+    override val endDate: Long,
+    override val detailsLink: String?
 ) : PerkPromotion(id, startDate, endDate, detailsLink)
 
-class ProgressItem(
-    id: String,
+data class ProgressItem(
+    override val id: String,
     val description: String?,
+    val appName: String?,
     val icon: String?,
-    startDate: Long?,
-    endDate: Long,
+    override val startDate: Long?,
+    override val endDate: Long,
     val current: BigDecimal,
     val objective: BigDecimal?,
-    detailsLink: String?
+    override val detailsLink: String?
 ) : PerkPromotion(id, startDate, endDate, detailsLink)
 
-class GamificationItem(
-    id: String,
+data class GamificationItem(
+    override val id: String,
     val planet: Drawable?,
     val level: Int,
     val levelColor: Int,
     val title: String,
     val toNextLevelAmount: BigDecimal?,
-    var bonus: Double,
+    val bonus: Double,
     val links: MutableList<GamificationLinkItem>
 ) : Promotion(id)
 
-class ReferralItem(
-    id: String,
+data class ReferralItem(
+    override val id: String,
     val bonus: BigDecimal,
     val currency: String,
     val link: String
 ) : Promotion(id)
 
-class GamificationLinkItem(
-    id: String,
+data class GamificationLinkItem(
+    override val id: String,
     val description: String?,
     val icon: String?,
-    startDate: Long?,
-    endDate: Long
+    override val startDate: Long?,
+    override val endDate: Long
 ) : PerkPromotion(id, startDate, endDate, null)
+
+data class VoucherItem(override val id: String,
+                       val packageName: String,
+                       val title: String,
+                       val icon: String,
+                       val hasAppcoins: Boolean,
+                       val maxBonus: Double) : Promotion(id)
