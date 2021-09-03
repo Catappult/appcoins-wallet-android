@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingBottom="@dimen/normal_margin"
+      >
+
+    <ImageView
+        android:id="@+id/referral_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_promotions_default"
+        />
+
+
+    <TextView
+        android:id="@+id/referral_title"
+        style="@style/Promotions.TextStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:text="@string/referral_view_title_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/referral_icon"
+        app:layout_constraintTop_toTopOf="@+id/referral_icon"
+        />
+
+    <TextView
+        android:id="@+id/referral_subtitle"
+        style="@style/Promotions.TextStyle.Subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/referral_icon"
+        app:layout_constraintTop_toBottomOf="@id/referral_title"
+        tools:text="You'll receive $2 worth of AppCoins Credits for each friend. Just share the link!"
+        />
+
+    <LinearLayout
+        android:id="@+id/share_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/referral_subtitle"
+        >
+
+      <Button
+          android:id="@+id/details_button"
+          style="?android:attr/borderlessButtonStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:fontFamily="sans-serif-medium"
+          android:minWidth="80dp"
+          android:text="@string/referral_view_share_link_button"
+          android:textColor="@color/text_button_color"
+          android:textSize="12sp"
+          />
+
+      <ImageView
+          android:id="@+id/share_button"
+          style="?android:attr/borderlessButtonStyle"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_gravity="center_vertical"
+          android:src="@drawable/ic_share_selector"
+          />
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

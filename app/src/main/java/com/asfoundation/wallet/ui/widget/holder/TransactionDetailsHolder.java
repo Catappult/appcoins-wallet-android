@@ -1,15 +1,20 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import com.asf.wallet.R;
+import com.asf.wallet.BuildConfig;
+import com.asf.wallet.R.id;
+import com.asf.wallet.R.string;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.ui.widget.OnMoreClickListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static com.asfoundation.wallet.ui.widget.holder.TransactionHolder.DEFAULT_SYMBOL_ADDITIONAL;
 
@@ -18,11 +23,11 @@ import static com.asfoundation.wallet.ui.widget.holder.TransactionHolder.DEFAULT
  * transaction.
  */
 public class TransactionDetailsHolder extends BinderViewHolder<Operation>
-    implements View.OnClickListener {
+    implements OnClickListener {
 
-  public static final int VIEW_TYPE = 1007;
+  private static final int DEFAULT_SCALE = 8;
   /** Tag used to obtain wallet address in used */
-  public static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
+  private static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
   /** The transaction operation item view */
   private final View itemView;
   /** The operation transaction id */
@@ -38,16 +43,16 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
   /** The operation object to be shown */
   private Operation operation;
   /** The listener for the more button click */
-  private OnMoreClickListener onMoreClickListener;
+  private final OnMoreClickListener onMoreClickListener;
 
   public TransactionDetailsHolder(View view, OnMoreClickListener listener) {
     super(view);
     itemView = view;
-    transactionId = findViewById(R.id.transaction_id);
-    peerLabel = findViewById(R.id.peer_addr_label);
-    peerAddress = findViewById(R.id.peer_address);
-    fee = findViewById(R.id.gas_fee);
-    more = findViewById(R.id.more_detail);
+    transactionId = findViewById(id.transaction_id);
+    peerLabel = findViewById(id.peer_addr_label);
+    peerAddress = findViewById(id.peer_address);
+    fee = findViewById(id.gas_fee);
+    more = findViewById(id.more_detail);
     onMoreClickListener = listener;
   }
 
@@ -60,19 +65,27 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
 
     String currency = addition.getString(DEFAULT_SYMBOL_ADDITIONAL);
 
-
     String peer = operation.getFrom();
-    int peerLabel = R.string.label_from;
+    int peerLabel = string.label_from;
     // Check if the from matches the current wallet address, ifo so then we change a label to "To"
     if (peer.toLowerCase()
         .equals(defaultAddress)) {
       peer = operation.getTo();
-      peerLabel = R.string.label_to;
+      peerLabel = string.label_to;
     }
 
     more.setOnClickListener(this);
 
-    fill(operation.getTransactionId(), peerLabel, peer, operation.getFee() + " " + currency.toUpperCase());
+    fill(operation.getTransactionId(), peerLabel, peer, formatFee() + " " + currency.toUpperCase());
+  }
+
+  private String formatFee() {
+    int decimals = BuildConfig.DEBUG ? BuildConfig.ROPSTEN_DEFAULT_TOKEN_DECIMALS
+        : BuildConfig.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS;
+
+    return new BigDecimal(operation.getFee()).divide(BigDecimal.valueOf(Math.pow(10.0, decimals)),
+        DEFAULT_SCALE, RoundingMode.HALF_UP)
+        .toPlainString();
   }
 
   private void fill(String transactionId, @StringRes int peerLabel, String peerAddress,

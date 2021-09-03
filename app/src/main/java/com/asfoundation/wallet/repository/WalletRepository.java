@@ -1,25 +1,35 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.analytics.AmplitudeAnalytics;
+import com.asfoundation.wallet.analytics.AnalyticsSetup;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
+import com.asfoundation.wallet.service.WalletBalanceService;
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.jetbrains.annotations.NotNull;
 
 public class WalletRepository implements WalletRepositoryType {
 
-  private final PreferenceRepositoryType preferenceRepositoryType;
+  private final PreferencesRepositoryType preferencesRepositoryType;
   private final AccountKeystoreService accountKeystoreService;
-  private final Web3jProvider web3jProvider;
+  private final WalletBalanceService walletBalanceService;
+  private final Scheduler networkScheduler;
+  private final AnalyticsSetup analyticsSetUp;
+  private final AmplitudeAnalytics amplitudeAnalytics;
 
-  public WalletRepository(PreferenceRepositoryType preferenceRepositoryType,
-      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
-    this.preferenceRepositoryType = preferenceRepositoryType;
+  public WalletRepository(PreferencesRepositoryType preferencesRepositoryType,
+      AccountKeystoreService accountKeystoreService, WalletBalanceService walletBalanceService,
+      Scheduler networkScheduler, AnalyticsSetup analyticsSetUp,
+      AmplitudeAnalytics amplitudeAnalytics) {
+    this.preferencesRepositoryType = preferencesRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
-    this.web3jProvider = web3jProvider;
+    this.walletBalanceService = walletBalanceService;
+    this.networkScheduler = networkScheduler;
+    this.analyticsSetUp = analyticsSetUp;
+    this.amplitudeAnalytics = amplitudeAnalytics;
   }
 
   @Override public Single<Wallet[]> fetchWallets() {
@@ -42,30 +52,34 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override
-  public Single<Wallet> importKeystoreToWallet(String store, String password, String newPassword) {
-    return accountKeystoreService.importKeystore(store, password, newPassword);
+  public Single<Wallet> restoreKeystoreToWallet(String store, String password, String newPassword) {
+    return accountKeystoreService.restoreKeystore(store, password, newPassword);
   }
 
-  @Override public Single<Wallet> importPrivateKeyToWallet(String privateKey, String newPassword) {
-    return accountKeystoreService.importPrivateKey(privateKey, newPassword);
+  @Override public Single<Wallet> restorePrivateKeyToWallet(String privateKey, String newPassword) {
+    return accountKeystoreService.restorePrivateKey(privateKey, newPassword);
   }
 
-  @Override public Single<String> exportWallet(Wallet wallet, String password, String newPassword) {
-    return accountKeystoreService.exportAccount(wallet, password, newPassword);
+  @Override
+  public Single<String> exportWallet(String address, String password, String newPassword) {
+    return accountKeystoreService.exportAccount(address, password, newPassword);
   }
 
   @Override public Completable deleteWallet(String address, String password) {
     return accountKeystoreService.deleteAccount(address, password);
   }
 
-  @Override public Completable setDefaultWallet(Wallet wallet) {
-    return Completable.fromAction(
-        () -> preferenceRepositoryType.setCurrentWalletAddress(wallet.address));
+  @Override public Completable setDefaultWallet(String address) {
+    return Completable.fromAction(() -> {
+      analyticsSetUp.setUserId(address);
+      amplitudeAnalytics.setUserId(address);
+      preferencesRepositoryType.setCurrentWalletAddress(address);
+    });
   }
 
   @Override public Single<Wallet> getDefaultWallet() {
     return Single.fromCallable(() -> {
-      String currentWalletAddress = preferenceRepositoryType.getCurrentWalletAddress();
+      String currentWalletAddress = preferencesRepositoryType.getCurrentWalletAddress();
       if (currentWalletAddress == null) {
         throw new WalletNotFoundException();
       } else {
@@ -75,12 +89,15 @@ public class WalletRepository implements WalletRepositoryType {
         .flatMap(this::findWallet);
   }
 
-  @Override public Single<BigDecimal> balanceInWei(Wallet wallet) {
-    Web3j web3j = web3jProvider.get();
-    return Single.fromCallable(() -> new BigDecimal(
-        web3j.ethGetBalance(wallet.address, DefaultBlockParameterName.LATEST)
-            .send()
-            .getBalance()))
-        .subscribeOn(Schedulers.io());
+  @NotNull @Override public Single<BigDecimal> getEthBalanceInWei(String address) {
+    return walletBalanceService.getWalletBalance(address)
+        .map(walletBalance -> new BigDecimal(walletBalance.getEth()))
+        .subscribeOn(networkScheduler);
+  }
+
+  @NotNull @Override public Single<BigDecimal> getAppcBalanceInWei(String address) {
+    return walletBalanceService.getWalletBalance(address)
+        .map(walletBalance -> new BigDecimal(walletBalance.getAppc()))
+        .subscribeOn(networkScheduler);
   }
 }

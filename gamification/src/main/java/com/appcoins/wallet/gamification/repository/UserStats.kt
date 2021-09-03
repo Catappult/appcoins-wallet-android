@@ -1,15 +1,18 @@
 package com.appcoins.wallet.gamification.repository
 
-import java.math.BigDecimal
+import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
+import com.google.gson.annotations.SerializedName
 
-data class UserStats(val status: Status, val level: Int = -1,
-                     val nextLevelAmount: BigDecimal? = BigDecimal.ZERO,
-                     val bonus: Double = -1.0,
-                     val totalSpend: BigDecimal = BigDecimal.ZERO,
-                     val totalEarned: BigDecimal =  BigDecimal.ZERO,
-                     val isActive: Boolean = false) {
+data class UserStats(val promotions: List<PromotionsResponse>,
+                     @SerializedName("wallet_origin") val walletOrigin: WalletOrigin,
+                     val error: Status? = null,
+                     val fromCache: Boolean = false) {
 
-  enum class Status {
-    OK, NO_NETWORK, UNKNOWN_ERROR
-  }
+  constructor(error: Status, fromCache: Boolean = false) : this(emptyList(), WalletOrigin.UNKNOWN,
+      error, fromCache)
+}
+
+enum class Status {
+  NO_NETWORK, UNKNOWN_ERROR
 }

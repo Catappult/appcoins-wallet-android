@@ -12,7 +12,7 @@ public class CompletableErrorProxyOperator implements CompletableOperator {
     this.throwable = throwable;
   }
 
-  @Override public CompletableObserver apply(CompletableObserver observer) throws Exception {
+  @Override public CompletableObserver apply(CompletableObserver observer) {
     return new DisposableCompletableObserver() {
       @Override public void onComplete() {
         if (!isDisposed()) {

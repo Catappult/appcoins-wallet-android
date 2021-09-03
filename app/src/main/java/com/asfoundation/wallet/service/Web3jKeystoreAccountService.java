@@ -4,15 +4,14 @@ import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.reactivex.Completable;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
@@ -37,25 +36,22 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   private static final int P = 1;
 
   private final KeyStoreFileManager keyStoreFileManager;
-  private final Scheduler scheduler;
   private final ObjectMapper objectMapper;
 
-  public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager, Scheduler scheduler,
+  public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager,
       ObjectMapper objectMapper) {
     this.keyStoreFileManager = keyStoreFileManager;
-    this.scheduler = scheduler;
     this.objectMapper = objectMapper;
   }
 
   @Override public Single<Wallet> createAccount(String password) {
     return Single.fromCallable(() -> WalletUtils.generateNewWalletFile(password,
         new File(keyStoreFileManager.getKeystoreFolderPath()), false))
-        .map(fileName -> new Wallet(extractAddressFromFileName(fileName)))
-        .subscribeOn(scheduler);
+        .map(fileName -> new Wallet(extractAddressFromFileName(fileName)));
   }
 
   @Override
-  public Single<Wallet> importKeystore(String store, String password, String newPassword) {
+  public Single<Wallet> restoreKeystore(String store, String password, String newPassword) {
     return Single.fromCallable(() -> extractAddressFromStore(store))
         .flatMap(address -> {
           if (hasAccount(address)) {
@@ -65,32 +61,30 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
             return importKeystoreInternal(store, password, newPassword);
           }
         })
-        .subscribeOn(scheduler);
+        .doOnError(Throwable::printStackTrace);
   }
 
-  @Override public Single<Wallet> importPrivateKey(String privateKey, String newPassword) {
+  @Override public Single<Wallet> restorePrivateKey(String privateKey, String newPassword) {
     return Single.fromCallable(() -> {
       BigInteger key = new BigInteger(privateKey, PRIVATE_KEY_RADIX);
       ECKeyPair keypair = ECKeyPair.create(key);
       WalletFile walletFile = create(newPassword, keypair, N, P);
       return new ObjectMapper().writeValueAsString(walletFile);
     })
-        .flatMap(keystore -> importKeystore(keystore, newPassword, newPassword));
+        .flatMap(keystore -> restoreKeystore(keystore, newPassword, newPassword));
   }
 
   @Override
-  public Single<String> exportAccount(Wallet wallet, String password, String newPassword) {
-    return Single.fromCallable(() -> keyStoreFileManager.getKeystore(wallet.address))
+  public Single<String> exportAccount(String address, String password, String newPassword) {
+    return Single.fromCallable(() -> keyStoreFileManager.getKeystore(address))
         .map(keystoreFilePath -> WalletUtils.loadCredentials(password, keystoreFilePath))
         .map(credentials -> objectMapper.writeValueAsString(
-            create(newPassword, credentials.getEcKeyPair(), N, P)))
-        .subscribeOn(scheduler);
+            create(newPassword, credentials.getEcKeyPair(), N, P)));
   }
 
   @Override public Completable deleteAccount(String address, String password) {
-    return exportAccount(new Wallet(address), password, password).doOnSuccess(
+    return exportAccount(address, password, password).doOnSuccess(
         __ -> keyStoreFileManager.delete(keyStoreFileManager.getKeystore(address)))
-        .subscribeOn(scheduler)
         .ignoreElement();
   }
 
@@ -115,8 +109,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
       byte convertedChainId = getChainId(chainId);
       return convertedChainId == ChainId.NONE ? TransactionEncoder.signMessage(transaction,
           credentials) : TransactionEncoder.signMessage(transaction, convertedChainId, credentials);
-    })
-        .subscribeOn(scheduler);
+    });
   }
 
   @Override public boolean hasAccount(String address) {
@@ -134,8 +127,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
         result[i] = new Wallet(account.toLowerCase());
       }
       return result;
-    })
-        .subscribeOn(scheduler);
+    });
   }
 
   private Single<Credentials> loadCredentialsFromKeystore(String keystore, String password) {
@@ -174,12 +166,14 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
     }
   }
 
-  private String extractAddressFromStore(String store) throws Exception {
+  private String extractAddressFromStore(String keystore) throws Exception {
     try {
-      JSONObject jsonObject = new JSONObject(store);
-      return "0x" + jsonObject.getString("address");
-    } catch (JSONException ex) {
-      throw new Exception("Invalid keystore: " + store);
+      JsonObject keyStore = JsonParser.parseString(keystore)
+          .getAsJsonObject();
+      return "0x" + keyStore.get("address")
+          .getAsString();
+    } catch (Exception ex) {
+      throw new Exception("Invalid keystore: " + keystore);
     }
   }
 }

@@ -25,7 +25,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.os.Build;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -33,6 +32,7 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.StringDef;
+import com.asfoundation.wallet.util.Log;
 import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
@@ -122,7 +122,7 @@ public class CameraSource {
    * buffer.  We use byte buffers internally because this is a more efficient way to call into
    * native code later (avoids a potential copy).
    */
-  private Map<byte[], ByteBuffer> mBytesToByteBuffer = new HashMap<>();
+  private final Map<byte[], ByteBuffer> mBytesToByteBuffer = new HashMap<>();
 
   /**
    * Only allow creation via the builder class.
@@ -260,13 +260,8 @@ public class CameraSource {
 
       // SurfaceTexture was introduced in Honeycomb (11), so if we are running and
       // old version of Android. fall back to use SurfaceView.
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-        mDummySurfaceTexture = new SurfaceTexture(DUMMY_TEXTURE_NAME);
-        mCamera.setPreviewTexture(mDummySurfaceTexture);
-      } else {
-        mDummySurfaceView = new SurfaceView(mContext);
-        mCamera.setPreviewDisplay(mDummySurfaceView.getHolder());
-      }
+      mDummySurfaceTexture = new SurfaceTexture(DUMMY_TEXTURE_NAME);
+      mCamera.setPreviewTexture(mDummySurfaceTexture);
       mCamera.startPreview();
 
       mProcessingThread = new Thread(mFrameProcessor);
@@ -338,15 +333,13 @@ public class CameraSource {
         mCamera.setPreviewCallbackWithBuffer(null);
         try {
           // We want to be compatible back to Gingerbread, but SurfaceTexture
-          // wasn't introduced until Honeycomb.  Since the interface cannot use a SurfaceTexture, if the
-          // developer wants to display a preview we must use a SurfaceHolder.  If the developer doesn't
+          // wasn't introduced until Honeycomb.  Since the interface cannot use a SurfaceTexture,
+          // if the
+          // developer wants to display a preview we must use a SurfaceHolder.  If the developer
+          // doesn't
           // want to display a preview we use a SurfaceTexture if we are running at least Honeycomb.
 
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mCamera.setPreviewTexture(null);
-          } else {
-            mCamera.setPreviewDisplay(null);
-          }
+          mCamera.setPreviewTexture(null);
         } catch (Exception e) {
           Log.e(TAG, "Failed to clear camera preview: " + e);
         }
@@ -863,7 +856,7 @@ public class CameraSource {
    */
   public static class Builder {
     private final Detector<?> mDetector;
-    private CameraSource mCameraSource = new CameraSource();
+    private final CameraSource mCameraSource = new CameraSource();
 
     /**
      * Creates a camera source builder with the supplied context and detector.  Camera preview
@@ -882,7 +875,7 @@ public class CameraSource {
     }
 
     /**
-     * Sets the requested frame rate in frames per second.  If the exact requested value is not
+     * Sets the requested frame rate in frames per second.  If the type requested value is not
      * not available, the best matching available value is selected.   Default: 30.
      */
     public Builder setRequestedFps(float fps) {
@@ -904,7 +897,7 @@ public class CameraSource {
     }
 
     /**
-     * Sets the desired width and height of the camera frames in pixels.  If the exact desired
+     * Sets the desired width and height of the camera frames in pixels.  If the type desired
      * values are not available options, the best matching available options are selected.
      * Also, we try to select a preview size which corresponds to the aspect ratio of an
      * associated full picture size, if applicable.  Default: 1024x768.
@@ -950,7 +943,7 @@ public class CameraSource {
    * size is null, then there is no picture size with the same aspect ratio as the preview size.
    */
   private static class SizePair {
-    private Size mPreview;
+    private final Size mPreview;
     private Size mPicture;
 
     public SizePair(Camera.Size previewSize, Camera.Size pictureSize) {
@@ -1055,7 +1048,7 @@ public class CameraSource {
     // This lock guards all of the member variables below.
     private final Object mLock = new Object();
     private Detector<?> mDetector;
-    private long mStartTimeMillis = SystemClock.elapsedRealtime();
+    private final long mStartTimeMillis = SystemClock.elapsedRealtime();
     private boolean mActive = true;
 
     // These pending variables hold the state associated with the new frame awaiting processing.

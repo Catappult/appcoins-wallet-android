@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
   <item
-      android:id="@+id/action_level"
+      android:id="@+id/action_vip_badge"
+      android:icon="@drawable/ic_vip_badge"
       android:orderInCategory="1"
-      android:title="@string/action_level"
-      app:actionLayout="@layout/gamification_highlight_layout"
-      app:showAsAction="always"
-      />
+      android:title="@string/vip"
+      app:actionLayout="@layout/layout_vip_badge"
+      app:showAsAction="ifRoom" />
+
+  <item
+      android:id="@+id/action_support"
+      android:icon="@drawable/ic_settings_support"
+      android:orderInCategory="2"
+      android:title="@string/title_support"
+      app:actionLayout="@layout/intercom_menu_layout"
+      app:showAsAction="ifRoom" />
 
   <item
       android:id="@+id/action_settings"
       android:icon="@drawable/ic_settings_white_24dp"
-      android:orderInCategory="2"
+      android:orderInCategory="3"
       android:title="@string/action_settings"
-      app:showAsAction="always"
-      />
+      app:showAsAction="always" />
 </menu>

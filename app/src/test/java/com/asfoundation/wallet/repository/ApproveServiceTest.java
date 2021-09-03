@@ -1,16 +1,15 @@
 package com.asfoundation.wallet.repository;
 
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
@@ -29,10 +28,10 @@ import static org.mockito.Mockito.when;
  * Created by trinkes on 3/16/18.
  */
 public class ApproveServiceTest {
-  public static final String PACKAGE_NAME = "package_name";
-  public static final String PRODUCT_NAME = "product_name";
-  public static final String APPROVE_HASH = "approve_hash";
-  public static final String DEVELOPER_PAYLOAD = "developer_payload";
+  private static final String PACKAGE_NAME = "package_name";
+  private static final String PRODUCT_NAME = "product_name";
+  private static final String APPROVE_HASH = "approve_hash";
+  private static final String DEVELOPER_PAYLOAD = "developer_payload";
   @Mock TrackTransactionService trackTransactionService;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
@@ -41,14 +40,12 @@ public class ApproveServiceTest {
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
-  private BigInteger nonce;
 
   @Before public void before() {
     MockitoAnnotations.initMocks(this);
     transactionBuilder = new TransactionBuilder("APPC");
 
     pendingTransactionState = PublishSubject.create();
-    nonce = BigInteger.ZERO;
 
     when(transactionSender.send(transactionBuilder)).thenReturn(Single.just(APPROVE_HASH));
 
@@ -57,7 +54,8 @@ public class ApproveServiceTest {
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
         scheduler, trackTransactionService);
 
-    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
+    when(transactionValidator.validate(any())).thenReturn(
+        Single.just(Transaction.Companion.notFound()));
     approveService = new ApproveService(transactionService, transactionValidator);
     approveService.start();
   }

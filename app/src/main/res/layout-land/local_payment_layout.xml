@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
@@ -9,19 +9,19 @@
 
   <FrameLayout
       android:id="@+id/progress_bar"
-      android:layout_width="@dimen/payment_methods_width_landscape"
+      android:layout_width="match_parent"
       android:layout_height="276dp"
       android:background="@drawable/background_card"
       android:gravity="center"
       android:visibility="gone"
-      tools:visibility="visible"
+      tools:visibility="gone"
       >
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:theme="@style/AppTheme"
+        android:indeterminateDrawable="@drawable/gradient_progress"
         />
 
   </FrameLayout>
@@ -29,14 +29,27 @@
   <include
       android:id="@+id/pending_user_payment_view"
       layout="@layout/pending_user_payment_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:visibility="gone"
       />
 
+  <FrameLayout
+      android:id="@+id/complete_payment_view"
+      android:layout_width="match_parent"
+      android:layout_height="276dp"
+      android:background="@drawable/background_card"
+      android:gravity="center"
+      android:visibility="gone"
+      >
+    <include layout="@layout/fragment_iab_transaction_completed" />
+  </FrameLayout>
+
   <include
       android:id="@+id/error_view"
-      layout="@layout/fragment_iab_error"
+      layout="@layout/iab_error_layout"
       android:layout_width="match_parent"
-      android:layout_height="160dp"
+      android:layout_height="match_parent"
       android:layout_gravity="center"
       android:visibility="gone"
       />

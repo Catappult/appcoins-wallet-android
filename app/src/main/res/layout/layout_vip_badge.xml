@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <ImageView
+      android:id="@+id/vip_badge_background"
+      android:layout_width="65dp"
+      android:layout_height="32dp"
+      android:layout_marginStart="15dp"
+      android:layout_marginEnd="15dp"
+      android:foreground="?attr/selectableItemBackground"
+      android:background="@drawable/vip_badge_background"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/vip_badge_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/ic_vip_badge"
+      android:layout_marginTop="2dp"
+      android:layout_marginStart="6dp"
+      app:layout_constraintStart_toStartOf="@id/vip_badge_background"
+      app:layout_constraintTop_toTopOf="@id/vip_badge_background"
+      app:layout_constraintBottom_toBottomOf="@id/vip_badge_background"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/vip"
+      android:textSize="12sp"
+      android:textColor="@color/white"
+      android:layout_marginStart="5dp"
+      android:layout_marginEnd="6dp"
+      app:layout_constraintStart_toEndOf="@id/vip_badge_icon"
+      app:layout_constraintTop_toTopOf="@id/vip_badge_background"
+      app:layout_constraintBottom_toBottomOf="@id/vip_badge_background"
+      />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>

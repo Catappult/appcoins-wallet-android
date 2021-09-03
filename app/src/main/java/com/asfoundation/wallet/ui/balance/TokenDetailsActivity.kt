@@ -9,9 +9,7 @@ import android.view.Window
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper.Companion.APPC_C_SYMBOL
-import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper.Companion.APPC_SYMBOL
-import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper.Companion.ETH_SYMBOL
+import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -24,6 +22,10 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   private lateinit var token: TokenDetailsId
   private lateinit var presenter: TokenDetailsPresenter
 
+  override fun onResume() {
+    super.onResume()
+    sendPageViewEvent()
+  }
 
   enum class TokenDetailsId {
     ETHER, APPC, APPC_CREDITS
@@ -67,19 +69,19 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
       TokenDetailsId.ETHER -> {
         token_icon.setImageResource(R.drawable.ic_eth_token)
         token_name.text = getString(R.string.ethereum_token_name)
-        token_symbol.text = "($ETH_SYMBOL)"
+        token_symbol.text = "(${WalletCurrency.ETHEREUM.symbol})"
         token_description.text = getString(R.string.balance_ethereum_body)
       }
       TokenDetailsId.APPC -> {
         token_icon.setImageResource(R.drawable.ic_appc_token)
         token_name.text = getString(R.string.appc_token_name)
-        token_symbol.text = "($APPC_SYMBOL)"
+        token_symbol.text = "(${WalletCurrency.APPCOINS.symbol})"
         token_description.text = getString(R.string.balance_appcoins_body)
       }
       TokenDetailsId.APPC_CREDITS -> {
         token_icon.setImageResource(R.drawable.ic_appc_c_token)
         token_name.text = getString(R.string.appc_credits_token_name)
-        token_symbol.text = "($APPC_C_SYMBOL)"
+        token_symbol.text = "(${WalletCurrency.CREDITS.symbol})"
         token_description.text = getString(R.string.balance_appccreditos_body)
       }
     }
@@ -142,6 +144,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   override fun getOkClick(): Observable<Any> {
     return RxView.clicks(close_btn)
   }
+
   override fun close() {
     onBackPressed()
   }

@@ -4,16 +4,18 @@
   <color name="red">#d32f2f</color>
   <color name="orange">#ef6c00</color>
   <color name="white">#FFFFFFFF</color>
-  <color name="black">#313849</color>
+  <color name="black">#000000</color>
+  <color name="fakeBlack">#313849</color>
+  <color name="appc_pink">#fe7073</color>
+  <color name="navy_blue">#001726</color>
 
   <color name="colorPrimary">#fc9d48</color>
   <color name="colorPrimaryDark">#e44b46</color>
   <color name="colorAccent">#e44b46</color>
-
+  <color name="primaryColor">#000000</color>
+  <color name="pinkish_orange">#fe6446</color>
   <color name="statusBarColor">#154868</color>
   <color name="activity_background_color">#fafafa</color>
-
-  <color name="secondary_text">#40000000</color>
 
   <color name="bottom_dialog_title">#89000000</color>
   <color name="bottom_dialog_item">#dd000000</color>
@@ -25,18 +27,24 @@
   <color name="iab_activity_gray">#8a000000</color>
   <color name="black_87_alpha">#de000000</color>
   <color name="grey">#757575</color>
+  <color name="grey_f4">#91f4f4f4</color>
+  <color name="grey_5a">#5a5a5a</color>
+  <color name="grey_e5">#e5e5e5</color>
+  <color name="grey_65">#656565</color>
 
   <color name="appbar_start_gradient_color">#000000</color>
   <color name="appbar_end_gradient_color">#012945</color>
+  <color name="grey_alpha_active_54">#8a000000</color>
   <color name="grey_8a_alpha">#8a000000</color>
 
   <color name="gray_alpha_8a">#8a000000</color>
   <color name="gray_alpha_61">#61000000</color>
   <color name="grey_alpha_6b">#6b000000</color>
-  <color name="appbar_subtitle_color">#b8ffffff</color>
 
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>
+  <color name="transaction_orange">#ff7600</color>
+  <color name="transaction_green">#62be00</color>
   <color name="list_separator_color">#f0f0f0</color>
 
   <color name="details_address_text_color">#000000</color>
@@ -54,10 +62,10 @@
   <color name="btn_light_disable_color">#42000000</color>
 
   <color name="dialog_buy_value_text">#4e4e4e</color>
-  <color name="dialog_buy_total_value">#fe677b</color>
   <color name="dialog_buy_fiat_value">#000000</color>
   <color name="dialog_fiat_price">#828282</color>
   <color name="dialog_secondary_price">#828282</color>
+  <color name="button_borderless_ripple_color">#409e9e9e</color>
 
   <color name="rewards_level_main_color">#001727</color>
   <color name="level_icon_bg_color">#001727</color>
@@ -72,17 +80,83 @@
   <color name="color_grey_9e">#9e9e9e</color>
   <color name="top_up_bonus_title">#030303</color>
   <color name="top_up_bonus_text">#727272</color>
-  <color name="top_up_payment_details_text">#4a4a4a</color>
+  <color name="color_title">#4a4a4a</color>
 
   <color name="seekbar_tint">#fe756f</color>
   <color name="seekbar_background_tint">#fe7871</color>
 
-  <color name="transaction_details_button_color">#fe7073</color>
+  <color name="text_button_color">@color/appc_pink</color>
   <color name="purchase_bonus_background_color">#001727</color>
   <color name="layout_separator_color">#eaeaea</color>
 
   <color name="selection_dot_unselected">#d8d8d8</color>
   <color name="selection_dot_selected">#fe647f</color>
 
+  <color name="gamification_how_it_works">#33eaeaea</color>
+
+  <color name="balance_active_wallet_grey">#a6a6a6</color>
+  <color name="balance_verify_chip_background">#f7f7f7</color>
+  <color name="balance_wallet_verified_chip">#57aa00</color>
+
+  <color name="remove_wallet_red">#e44b46</color>
+
+  <color name="faded_background_color">#d9000000</color>
+
   <color name="transparent">#00000000</color>
+  <color name="pending_payment_text_color">#727272</color>
+
+  <color name="edit_text_border">@color/appc_pink</color>
+  <color name="edit_text_label">@color/appc_pink</color>
+  <color name="disable_reason">#fe6e76</color>
+
+  <color name="tooltip_black">#212121</color>
+
+  <color name="adyen_3DS_color">#111B3B</color>
+  
+  <color name="etherscan_transaction_border">#21325B</color>
+  <color name="etherscan_transaction_background">#F8F8F8</color>
+  <color name="etherscan_transaction_clipboard">#FF5F84</color>
+
+  <color name="vip_badge_background_color">#4DEC9B1A</color>
+
+  <!-- Backup -->
+
+  <color name="warning_background_color">#0Ae44b46</color>
+  <color name="warning_text_red">#e44b46</color>
+  <!-- Skeletons -->
+
+  <color name="skeleton_dark_base_color">#5cd8d8d8</color>
+  <color name="skeleton_light_base_color">#f0f0f0</color>
+  <color name="skeleton_higlight_color">#d2d2d2</color>
+
+  <!-- Gamification -->
+
+  <color name="gamification_light_green">#96c562</color>
+  <color name="gamification_light_grey">#a1aec2</color>
+  <color name="gamification_red">#f55151</color>
+  <color name="gamification_blue_grey">#8088af</color>
+  <color name="gamification_orange">#f86d00</color>
+  <color name="gamification_dark_yellow">#d98000</color>
+  <color name="gamification_yellow">#ffb400</color>
+  <color name="gamification_blue_green">#00b2a7</color>
+  <color name="gamification_old_blue">#79b9c8</color>
+  <color name="gamification_blue">#00b3dd</color>
+  <color name="gamification_purple">#9d5aea</color>
+  <color name="gamification_green">#5a9c14</color>
+  <color name="gamification_brown">#c27200</color>
+  <color name="gamification_dark_red">#bc452c</color>
+  <color name="gamification_light_blue">#7acef9</color>
+
+  <color name="color_inactive">#727272</color>
+  <color name="bottom_sheet_translucent_background">#75000000</color>
+
+
+  <!-- Verify Wallet -->
+  <color name="verify_wallet_description">#57aa00</color>
+  <color name="verify_wallet_subtitle">#646464</color>
+  <color name="verify_wallet_description_background">#0F57aa00</color>
+  <color name="verify_wallet_cancel">#707070</color>
+  <color name="verify_wallet_example_background">#2Bd6d6d6</color>
+  <color name="verify_wallet_example_code_background">#707070</color>
+  <color name="verify_wallet_code_background">#afafaf</color>
 </resources>

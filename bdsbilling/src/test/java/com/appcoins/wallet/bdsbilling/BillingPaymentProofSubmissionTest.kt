@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
@@ -21,52 +22,60 @@ import java.math.BigDecimal
 @RunWith(MockitoJUnitRunner::class)
 class BillingPaymentProofSubmissionTest {
   companion object {
-    val walletAddress = "wallet_address"
-    val developerAddress = "developer_address"
-    val oemAddress = "developer_address"
-    val storeAddress = "store_address"
-    val signedContent = "signed $walletAddress"
-    val productName = "product_name"
-    val packageName = "package_name"
-    val paymentId = "payment_id"
-    val paymentToken = "paymentToken"
-    val paymentType = "type"
-    val developerPayload = "developer_payload"
-    val origin = "origin"
-    val priceValue = "1"
-    val currency = "APPC"
-    val type = "APPC"
-    val callback = "callback_url"
-    val orderReference = "order_reference"
+    const val walletAddress = "wallet_address"
+    const val developerAddress = "developer_address"
+    const val oemAddress = "developer_address"
+    const val storeAddress = "store_address"
+    const val signedContent = "signed $walletAddress"
+    const val productName = "product_name"
+    const val packageName = "package_name"
+    const val paymentId = "payment_id"
+    const val paymentToken = "paymentToken"
+    const val paymentType = "type"
+    const val developerPayload = "developer_payload"
+    const val origin = "origin"
+    const val priceValue = "1"
+    const val currency = "APPC"
+    const val type = "APPC"
+    const val callback = "callback_url"
+    const val orderReference = "order_reference"
+    const val referrerUrl = "a_random_url"
   }
 
   @Mock
   lateinit var api: RemoteRepository.BdsApi
   lateinit var billing: BillingPaymentProofSubmission
   lateinit var scheduler: TestScheduler
+
   @Before
   fun setUp() {
     scheduler = TestScheduler()
 
-    billing = BillingPaymentProofSubmissionImpl.Builder().setApi(api).setScheduler(scheduler)
+    billing = BillingPaymentProofSubmissionImpl.Builder()
+        .setApi(api)
+        .setScheduler(scheduler)
         .setWalletService(object : WalletService {
           override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
           override fun signContent(content: String): Single<String> = Single.just(signedContent)
-        }).setBdsApiSecondary(object : BdsApiSecondary {
+          override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
+              Single.just(WalletAddressModel(walletAddress, signedContent))
+          override fun getWalletOrCreate(): Single<String> = Single.just(walletAddress)
+          override fun findWalletOrCreate(): Observable<String> = Observable.just(walletAddress)
+        })
+        .setBdsApiSecondary(object : BdsApiSecondary {
           override fun getWallet(packageName: String): Single<GetWalletResponse> {
             return Single.just(GetWalletResponse(Data("developer_address")))
           }
-        }).build()
+        })
+        .build()
 
     `when`(
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
             type, null, developerAddress, storeAddress, oemAddress, paymentId,
-            developerPayload, callback, orderReference,
-            walletAddress,
-            signedContent)).thenReturn(
-        Single.just(Transaction(paymentId, Transaction.Status.FAILED,
-            Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null, "orderReference",
-            null)))
+            developerPayload, callback, orderReference, referrerUrl, walletAddress,
+            signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
+        Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
+        "orderReference", null, "", null, "")))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())
@@ -78,23 +87,27 @@ class BillingPaymentProofSubmissionTest {
     val purchaseDisposable = TestObserver<Any>()
     billing.processAuthorizationProof(
         AuthorizationProof(paymentType, paymentId, productName, packageName, BigDecimal.ONE,
-            storeAddress,
-            oemAddress, developerAddress, type, origin, developerPayload, callback, orderReference))
+            storeAddress, oemAddress, developerAddress, type, origin, developerPayload, callback,
+            orderReference, referrerUrl))
         .subscribe(authorizationDisposable)
     scheduler.triggerActions()
 
     billing.processPurchaseProof(PaymentProof(paymentType, paymentId, paymentToken, productName,
-        packageName, storeAddress, oemAddress)).subscribe(purchaseDisposable)
+        packageName, storeAddress, oemAddress))
+        .subscribe(purchaseDisposable)
     scheduler.triggerActions()
 
 
-    authorizationDisposable.assertNoErrors().assertComplete()
-    purchaseDisposable.assertNoErrors().assertComplete()
-    verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
-        productName, type, null, developerAddress, storeAddress, oemAddress, paymentId,
-        developerPayload, callback, orderReference, walletAddress, signedContent)
-    verify(api, times(1)).patchTransaction(paymentType, paymentId, walletAddress, signedContent,
-        paymentToken)
+    authorizationDisposable.assertNoErrors()
+        .assertComplete()
+    purchaseDisposable.assertNoErrors()
+        .assertComplete()
+    verify(api, times(1)).createTransaction(paymentType, origin, packageName,
+        priceValue, currency, productName, type, null, developerAddress, storeAddress,
+        oemAddress, paymentId, developerPayload, callback, orderReference, referrerUrl,
+        walletAddress, signedContent)
+    verify(api, times(1)).patchTransaction(paymentType, paymentId,
+        walletAddress, signedContent, paymentToken)
 
   }
 }

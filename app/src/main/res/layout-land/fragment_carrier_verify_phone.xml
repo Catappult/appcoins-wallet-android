@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PaymentMethods.DialogCardStyle.Landscape"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/info_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginTop="16dp"
+      android:animateLayoutChanges="true"
+      android:paddingStart="@dimen/big_margin"
+      android:paddingEnd="@dimen/big_margin"
+      app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/mid_guideline"
+      app:layout_constraintTop_toBottomOf="@id/top_separator"
+      >
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/field_error_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/PaymentMethods.CarrierBilling.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/carrier_billing_insert_phone_body"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        />
+
+    <TextView
+        android:id="@+id/disclaimer"
+        style="@style/PaymentMethods.CarrierBilling.Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/carrier_billing_fees_disclaimer"
+        app:layout_constraintLeft_toLeftOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+
+        />
+
+    <include
+        android:id="@+id/phone_number_skeleton"
+        layout="@layout/skeleton_rounded_rectangle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/phone_number_layout"
+        app:layout_constraintEnd_toEndOf="@id/phone_number_layout"
+        app:layout_constraintStart_toStartOf="@id/phone_number_layout"
+        app:layout_constraintTop_toTopOf="@id/phone_number_layout"
+        />
+
+    <LinearLayout
+        android:id="@+id/phone_number_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_outline_grey_radius_8dp"
+        android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/disclaimer"
+        >
+
+      <com.hbb20.CountryCodePicker
+          android:id="@+id/country_code_picker"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginStart="5dp"
+          app:ccpDialog_background="@drawable/ccp_background"
+          app:ccpDialog_textColor="#000000"
+          app:ccp_arrowColor="@color/black_87_alpha"
+          app:ccp_arrowSize="16dp"
+          app:ccp_autoDetectCountry="true"
+          app:ccp_rememberLastSelection="true"
+          app:ccp_showNameCode="false"
+          app:ccp_textSize="14sp"
+          />
+
+      <com.asfoundation.wallet.ui.common.SeparatorView
+          android:layout_width="1dp"
+          android:layout_height="match_parent"
+          android:layout_marginTop="4dp"
+          android:layout_marginBottom="4dp"
+          app:line_orientation="vertical"
+          app:line_type="solid"
+          />
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/PaymentMethods.Carrier.PhoneNumberLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/phone_number"
+              style="@style/PaymentMethods.Carrier.PhoneNumberEditText"
+              android:layout_width="match_parent"
+              android:layout_height="48dp"
+              android:hint="@string/carrier_billing_phone_field"
+              tools:text="912345678"
+              />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/saved_phone_number_confirmed"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_check_mark"
+            android:visibility="gone"
+            />
+
+      </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/change_phone_number_button"
+        style="@style/ChangeButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_gravity="end"
+        android:layout_marginTop="5dp"
+        android:text="@string/change_button"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
+        app:layout_constraintTop_toBottomOf="@+id/phone_number_layout"
+        />
+
+    <TextView
+        android:id="@+id/field_error_text"
+        style="@style/PaymentMethods.Carrier.PhoneFieldError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/purchase_carrier_error"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
+        app:layout_constraintStart_toStartOf="@+id/phone_number_layout"
+        app:layout_constraintTop_toBottomOf="@+id/change_phone_number_button"
+        />
+
+    <TextView
+        android:id="@+id/other_payments_button"
+        style="@style/PaymentMethods.Error.OtherPaymentsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/purchase_more_payment_methods_button"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
+        app:layout_constraintTop_toBottomOf="@+id/field_error_text"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/mid_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.46"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/bottom_mid_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.5"
+      />
+
+  <com.asfoundation.wallet.ui.iab.payments.common.PaymentsHeaderView
+      android:id="@+id/payment_methods_header"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="19dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/top_separator"
+      />
+
+  <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
+      android:id="@+id/purchase_bonus"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      app:layout_constraintBottom_toTopOf="@+id/bottom_separator"
+      app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
+      />
+
+  <com.asfoundation.wallet.ui.common.SeparatorView
+      android:id="@+id/mid_separator"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:layout_marginTop="7dp"
+      android:layout_marginBottom="8dp"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+      app:layout_constraintStart_toEndOf="@id/mid_guideline"
+      app:layout_constraintTop_toBottomOf="@id/top_separator"
+      app:line_orientation="vertical"
+      app:line_type="dashed"
+      />
+
+  <com.asfoundation.wallet.ui.common.SeparatorView
+      android:id="@+id/top_separator"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/big_margin"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.asfoundation.wallet.ui.common.SeparatorView
+      android:id="@+id/bottom_separator"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="227dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/top_separator"
+      app:line_orientation="horizontal"
+      app:line_type="solid"
+      />
+
+  <include
+      android:id="@+id/dialog_buy_buttons"
+      layout="@layout/dialog_buy_buttons"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

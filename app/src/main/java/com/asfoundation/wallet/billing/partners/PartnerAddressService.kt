@@ -5,22 +5,26 @@ import io.reactivex.Single
 
 
 class PartnerAddressService(private val installerService: InstallerService,
-                            private val walletAddressService: WalletAddressService,
-                            private val deviceInfo: DeviceInfo) :
+                            private val deviceInfo: DeviceInfo,
+                            private val oemIdExtractorService: OemIdExtractorService,
+                            private val defaultStoreAddress: String,
+                            private val defaultOemAddress: String) :
     AddressService {
 
-  override fun getStoreAddressForPackage(packageName: String): Single<String> {
-    return installerService.getInstallerPackageName(packageName)
-        .flatMap { installerPackageName ->
-          walletAddressService.getStoreWalletForPackage(installerPackageName)
-        }.onErrorResumeNext { walletAddressService.getStoreDefaultAddress() }
+  override fun getStoreAddress(suggestedStoreAddress: String?): String {
+    return suggestedStoreAddress?.let { suggestedStoreAddress } ?: defaultStoreAddress
   }
 
-  override fun getOemAddressForPackage(packageName: String): Single<String> {
-    return installerService.getInstallerPackageName(packageName)
-        .flatMap { installerPackageName ->
-          walletAddressService.getOemWalletForPackage(installerPackageName,
-              deviceInfo.manufacturer, deviceInfo.model)
-        }.onErrorResumeNext { walletAddressService.getOemDefaultAddress() }
+  override fun getOemAddress(suggestedOemAddress: String?): String {
+    return suggestedOemAddress?.let { suggestedOemAddress } ?: defaultOemAddress
   }
+
+  override fun getAttributionEntity(packageName: String): Single<AttributionEntity> {
+    return Single.zip(installerService.getInstallerPackageName(packageName),
+        oemIdExtractorService.extractOemId(packageName),
+        { installerPackage, oemId ->
+          AttributionEntity(oemId.ifEmpty { null }, installerPackage.ifEmpty { null })
+        })
+  }
+
 }

@@ -15,11 +15,9 @@ public class AirdropChainIdMapper {
   }
 
   private Integer map(NetworkInfo networkInfo) {
-    switch (networkInfo.chainId) {
-      case 1:
-        return 1;
-      default:
-        return 3;
+    if (networkInfo.chainId == 1) {
+      return 1;
     }
+    return 3;
   }
 }

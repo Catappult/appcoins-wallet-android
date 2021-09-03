@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -16,6 +15,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.router.Result;
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity;
 import com.asfoundation.wallet.ui.iab.IabActivity;
+import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.viewmodel.SendViewModel;
 import com.asfoundation.wallet.viewmodel.SendViewModelFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -33,7 +33,7 @@ public class SendActivity extends BaseActivity {
 
   private static final int BARCODE_READER_REQUEST_CODE = 1;
   @Inject SendViewModelFactory sendViewModelFactory;
-  SendViewModel viewModel;
+  private SendViewModel viewModel;
   private EditText toAddressText;
   private EditText amountText;
   private TextInputLayout toInputLayout;
@@ -48,6 +48,11 @@ public class SendActivity extends BaseActivity {
     return intent;
   }
 
+  @Override protected void onResume() {
+    super.onResume();
+    sendPageViewEvent();
+  }
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
 
@@ -55,7 +60,6 @@ public class SendActivity extends BaseActivity {
 
     setContentView(R.layout.activity_send);
     toolbar();
-
     toInputLayout = findViewById(R.id.to_input_layout);
     toAddressText = findViewById(R.id.send_to_address);
     amountInputLayout = findViewById(R.id.amount_input_layout);
@@ -80,24 +84,6 @@ public class SendActivity extends BaseActivity {
       Intent intent = new Intent(getApplicationContext(), BarcodeCaptureActivity.class);
       startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
     });
-  }
-
-  private void onFinishWithResult(Result result) {
-    if (result.isSuccess()) {
-      setResult(Activity.RESULT_OK, result.getData());
-      finish();
-    }
-  }
-
-  private void onAmount(BigDecimal bigDecimal) {
-    amountText.setText(NumberFormat.getInstance()
-        .format(bigDecimal));
-  }
-
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.send_menu, menu);
-
-    return super.onCreateOptionsMenu(menu);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -134,6 +120,24 @@ public class SendActivity extends BaseActivity {
     }
   }
 
+  private void onFinishWithResult(Result result) {
+    if (result.isSuccess()) {
+      setResult(Activity.RESULT_OK, result.getData());
+      finish();
+    }
+  }
+
+  private void onAmount(BigDecimal bigDecimal) {
+    amountText.setText(NumberFormat.getInstance()
+        .format(bigDecimal));
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.send_menu, menu);
+
+    return super.onCreateOptionsMenu(menu);
+  }
+
   private void onNext() {
     // Validate input fields
     boolean hasError = false;
@@ -155,7 +159,6 @@ public class SendActivity extends BaseActivity {
     if (!hasError) {
       toInputLayout.setErrorEnabled(false);
       amountInputLayout.setErrorEnabled(false);
-
       viewModel.openConfirmation(this);
     }
   }

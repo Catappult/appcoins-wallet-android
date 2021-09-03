@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.analytics;
 
 import android.os.Bundle;
-import android.util.Log;
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.EventLogger;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.util.Log;
 import com.facebook.appevents.AppEventsLogger;
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class FacebookEventLogger implements EventLogger {
 
-  public static final String TAG = AnalyticsManager.class.getSimpleName();
   public static final String EVENT_REVENUE_CURRENCY = "EUR";
+  private static final String TAG = AnalyticsManager.class.getSimpleName();
   private final AppEventsLogger eventLogger;
 
   public FacebookEventLogger(AppEventsLogger eventLogger) {

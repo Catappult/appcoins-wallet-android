@@ -12,57 +12,70 @@ import android.view.ViewGroup
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_top_up_success.*
-import java.math.BigDecimal
-import java.util.*
+import javax.inject.Inject
 
 class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   companion object {
     @JvmStatic
-    fun newInstance(amount: Double, bonus: String, validBonus: Boolean): TopUpSuccessFragment {
-      val fragment = TopUpSuccessFragment()
-      val bundle = Bundle()
-      bundle.putDouble(PARAM_AMOUNT, amount)
-      bundle.putString(BONUS, bonus)
-      bundle.putBoolean(VALID_BONUS, validBonus)
-      fragment.arguments = bundle
-      return fragment
+    fun newInstance(amount: String, currency: String, bonus: String,
+                    currencySymbol: String): TopUpSuccessFragment {
+      return TopUpSuccessFragment().apply {
+        arguments = Bundle().apply {
+          putString(PARAM_AMOUNT, amount)
+          putString(CURRENCY, currency)
+          putString(CURRENCY_SYMBOL, currencySymbol)
+          putString(BONUS, bonus)
+        }
+      }
     }
 
     private const val PARAM_AMOUNT = "amount"
+    private const val CURRENCY = "currency"
+    private const val CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
-    private const val VALID_BONUS = "valid_bonus"
   }
 
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: TopUpSuccessPresenter
-
   private lateinit var topUpActivityView: TopUpActivityView
+
   val amount: String? by lazy {
     if (arguments!!.containsKey(PARAM_AMOUNT)) {
-      arguments!!.getDouble(PARAM_AMOUNT)
-          .toString()
+      arguments!!.getString(PARAM_AMOUNT)
     } else {
       throw IllegalArgumentException("product name not found")
     }
   }
 
-  val bonus: String? by lazy {
+  val currency: String? by lazy {
+    if (arguments!!.containsKey(CURRENCY)) {
+      arguments!!.getString(CURRENCY)
+    } else {
+      throw IllegalArgumentException("currency not found")
+    }
+  }
+
+  val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS)) {
-      arguments!!.getString(BONUS)
+      arguments!!.getString(BONUS, "")
     } else {
       throw IllegalArgumentException("bonus not found")
     }
   }
 
-  val validBonus: Boolean by lazy {
-    if (arguments!!.containsKey(VALID_BONUS)) {
-      arguments!!.getBoolean(VALID_BONUS)
+  private val currencySymbol: String by lazy {
+    if (arguments!!.containsKey(CURRENCY_SYMBOL)) {
+      arguments!!.getString(CURRENCY_SYMBOL, "")
     } else {
-      throw IllegalArgumentException("valid bonus not found")
+      throw IllegalArgumentException("bonus not found")
     }
   }
 
@@ -97,14 +110,15 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    if (validBonus) {
+    if (bonus.isNotEmpty() && bonus != "0") {
       top_up_success_animation.setAnimation(R.raw.top_up_bonus_success_animation)
       setAnimationText()
+      formatBonusSuccessMessage()
     } else {
       top_up_success_animation.setAnimation(R.raw.top_up_success_animation)
+      formatSuccessMessage()
     }
     top_up_success_animation.playAnimation()
-    formatBonusSuccessMessage()
   }
 
   override fun clean() {
@@ -112,7 +126,6 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     top_up_success_animation.removeAllUpdateListeners()
     top_up_success_animation.removeAllLottieOnCompositionLoadedListener()
   }
-
 
   override fun close() {
     topUpActivityView.close()
@@ -123,8 +136,9 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   private fun setAnimationText() {
+    val formattedBonus = formatter.formatCurrency(bonus, WalletCurrency.FIAT)
     val textDelegate = TextDelegate(top_up_success_animation)
-    textDelegate.setText("bonus_value", bonus)
+    textDelegate.setText("bonus_value", "$currencySymbol$formattedBonus")
     textDelegate.setText("bonus_received",
         resources.getString(R.string.gamification_purchase_completed_bonus_received))
     top_up_success_animation.setTextDelegate(textDelegate)
@@ -136,17 +150,31 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   private fun formatBonusSuccessMessage() {
-    val formatter = Formatter()
-    val appcValue = formatter.format(Locale.getDefault(), "%(,.2f",
-        BigDecimal(amount).toDouble())
-        .toString()
-    val formattedInitialString = String.format(
-        resources.getString(R.string.topup_completed_1), appcValue)
-    val topUpString = formattedInitialString + " " + resources.getString(R.string.topup_completed_2_with_bonus)
-    val boldStyle = StyleSpan(Typeface.BOLD)
-    val sb = SpannableString(topUpString)
-    sb.setSpan(boldStyle, 0, formattedInitialString.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-    value.text = sb
+    val formattedInitialString = getFormattedTopUpValue()
+    val topUpString =
+        formattedInitialString + " " + resources.getString(R.string.topup_completed_2_with_bonus)
+    setSpannableString(topUpString, formattedInitialString.length)
+
   }
 
+  private fun formatSuccessMessage() {
+    val formattedInitialString = getFormattedTopUpValue()
+    val secondStringFormat =
+        String.format(resources.getString(R.string.askafriend_notification_received_body),
+            formattedInitialString, "\n")
+    setSpannableString(secondStringFormat, formattedInitialString.length)
+  }
+
+  private fun getFormattedTopUpValue(): String {
+    val fiatValue =
+        formatter.formatCurrency(amount!!, WalletCurrency.FIAT) + " " + currency
+    return String.format(resources.getString(R.string.topup_completed_1), fiatValue)
+  }
+
+  private fun setSpannableString(secondStringFormat: String, firstStringLength: Int) {
+    val boldStyle = StyleSpan(Typeface.BOLD)
+    val sb = SpannableString(secondStringFormat)
+    sb.setSpan(boldStyle, 0, firstStringLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+    value.text = sb
+  }
 }

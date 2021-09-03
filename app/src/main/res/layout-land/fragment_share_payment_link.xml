@@ -36,10 +36,11 @@
 
   <TextView
       android:id="@+id/share_link_title"
+      style="@style/ShareLinkTextStyle.Title.Landscape"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
       android:gravity="start"
       android:text="@string/askafriend_share_body"
       app:layout_constraintBottom_toTopOf="@id/note"
@@ -47,19 +48,21 @@
       app:layout_constraintStart_toEndOf="@id/mid_guideline"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_chainStyle="packed"
-      style="@style/ShareLinkTextStyle.Title.Landscape"
       />
 
   <EditText
       android:id="@+id/note"
+      style="@style/ShareLinkTextStyle"
       android:layout_width="0dp"
       android:layout_height="40dp"
-      android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
       android:background="@null"
       android:gravity="start|center_vertical"
       android:hint="@string/askafriend_share_add_message_body"
+      android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+      android:inputType="text"
       android:maxLength="50"
       android:maxLines="1"
       android:textColorHint="@color/grey_alpha_6b"
@@ -68,8 +71,6 @@
       app:layout_constraintStart_toEndOf="@id/mid_guideline"
       app:layout_constraintTop_toBottomOf="@id/share_link_title"
       app:layout_constraintVertical_chainStyle="packed"
-      style="@style/ShareLinkTextStyle"
-      android:inputType="text"
       />
 
   <View
@@ -85,36 +86,36 @@
 
   <Button
       android:id="@+id/share_btn"
+      style="@style/ButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="36dp"
-      android:layout_marginBottom="@dimen/normal_margin"
-      android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="@dimen/normal_margin"
+      android:drawableStart="@drawable/ic_share_white"
       android:drawablePadding="8dp"
-      android:drawableStart="@drawable/ic_share"
       android:text="@string/askafriend_share_button"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/bottom_separator"
-      style="@style/ButtonStyle"
       />
 
   <Button
       android:id="@+id/close_btn"
+      style="@style/CancelButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="36dp"
-      android:layout_marginBottom="@dimen/normal_margin"
-      android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="@dimen/normal_margin"
       android:text="@string/close"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/share_btn"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/bottom_separator"
-      style="@style/CancelButtonStyle"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_background_color"
     >
 
-  <include layout="@layout/layout_collapsing_app_bar"/>
+  <include layout="@layout/layout_collapsing_app_bar" />
 
   <ImageView
       android:id="@+id/toolbar_layout_logo"
@@ -20,32 +19,12 @@
       app:layout_anchorGravity="start|top"
       />
 
-  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-      android:id="@+id/refresh_layout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginBottom="?android:actionBarSize"
-      android:background="@color/activity_background_color"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      >
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/activity_background_color"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/large_padding"
-        android:visibility="gone"
-        />
-  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-  <com.asfoundation.wallet.widget.SystemView
-      android:id="@+id/system_view"
+  <include
+      layout="@layout/layout_transactions_activity"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/activity_background_color"
+      android:layout_marginBottom="?android:actionBarSize"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      tools:visibility="gone"
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,19 +36,18 @@
       android:clipToPadding="false"
       >
 
-
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/top_up_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/floating_btn_start_gradient_color"
         android:onClick="onClick"
         android:text="@string/topup_home_button"
+        android:textColor="#ffffff"
         app:icon="@drawable/ic_add_white_24dp"
         app:iconTint="#ffffff"
-        android:textColor="#ffffff"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="#00ffffff"
@@ -81,10 +59,21 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/gray_alpha_8a"
+        app:itemRippleColor="@color/button_borderless_ripple_color"
         app:itemTextColor="@color/gray_alpha_8a"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-
+  <FrameLayout
+      android:id="@+id/faded_background"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/faded_background_color"
+      android:clickable="true"
+      android:focusable="true"
+      android:visibility="gone"
+      />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

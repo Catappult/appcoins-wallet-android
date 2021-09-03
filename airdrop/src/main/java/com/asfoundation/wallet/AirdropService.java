@@ -25,7 +25,7 @@ public class AirdropService {
     this.scheduler = scheduler;
   }
 
-  public Single<AirDropResponse> requestAirdrop(String walletAddress, Integer chainId,
+  Single<AirDropResponse> requestAirdrop(String walletAddress, Integer chainId,
       String captchaAnswer) {
     return api.requestCoins(walletAddress, chainId, captchaAnswer)
         .subscribeOn(scheduler)
@@ -46,7 +46,7 @@ public class AirdropService {
         });
   }
 
-  public Single<String> requestCaptcha(String walletAddress) {
+  Single<String> requestCaptcha(String walletAddress) {
     return api.requestCaptcha(walletAddress)
         .map(CaptchaResponse::getUrl);
   }
@@ -72,12 +72,8 @@ public class AirdropService {
     @SerializedName("chain_id") private int chainId;
     @SerializedName("description") private String description;
 
-    private AirDropResponse() {
-      status = Status.OK;
-    }
-
-    public AirDropResponse(Status status, String appcoinsTransaction, String ethTransaction,
-        int chainId, String description) {
+    AirDropResponse(Status status, String appcoinsTransaction, String ethTransaction, int chainId,
+        String description) {
       this.status = status;
       this.appcoinsTransaction = appcoinsTransaction;
       this.ethTransaction = ethTransaction;

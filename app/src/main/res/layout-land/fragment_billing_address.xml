@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/payment_methods_width_landscape"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_card"
+    android:maxHeight="300dp"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/credit_card_info"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:elevation="2dp"
+      >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/mid_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.46"
+        />
+
+    <ImageView
+        android:id="@+id/mid_separator"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/dashed_vertical_line"
+        app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+        app:layout_constraintStart_toEndOf="@id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        />
+
+    <View
+        android:id="@+id/top_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/big_margin"
+        android:background="@color/layout_separator_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <include
+        android:id="@+id/payment_methods_header"
+        layout="@layout/payment_methods_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        />
+    <include
+        android:id="@+id/bonus_layout"
+        layout="@layout/view_purchase_bonus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
+        tools:visibility="visible"
+        />
+
+    <TextView
+        android:id="@+id/bonus_msg"
+        style="@style/TopUpTextStyle.Small.BonusText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginBottom="11dp"
+        android:gravity="center_vertical"
+        android:text="@string/gamification_purchase_body"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+        />
+
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/BillingAddress.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/big_margin"
+        android:text="@string/purchase_address_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        />
+
+    <ScrollView
+        android:id="@+id/info_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        >
+
+      <include
+          android:id="@+id/content_main"
+          layout="@layout/layout_billing_address"
+          android:layout_width="match_parent"
+          android:layout_height="216dp"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="@dimen/normal_margin"
+          android:layout_marginEnd="@dimen/big_margin"
+          />
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/bottom_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="227dp"
+        android:background="@color/layout_separator_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        />
+
+    <include
+        android:id="@+id/dialog_buy_buttons"
+        layout="@layout/dialog_buy_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

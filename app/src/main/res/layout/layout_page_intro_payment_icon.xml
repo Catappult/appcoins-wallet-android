@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="50dp"
+    android:layout_height="40dp"
+    android:background="@color/activity_background_color"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="1dp"
+    app:cardUseCompatPadding="true"
+    >
+  <ImageView
+      android:id="@+id/payment_icon"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:adjustViewBounds="true"
+      android:padding="4dp"
+      android:scaleType="centerInside"
+      tools:src="@drawable/ic_payment_method_paypal"
+      />
+</androidx.cardview.widget.CardView>

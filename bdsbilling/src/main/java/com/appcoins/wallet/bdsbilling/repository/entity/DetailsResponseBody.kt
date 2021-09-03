@@ -12,3 +12,8 @@ data class DetailsResponseBody(val items: List<ResponseProduct>) {
 
   data class PackageResponse(val name: String)
 }
+
+fun DetailsResponseBody.merge(other: DetailsResponseBody): DetailsResponseBody {
+  (items as ArrayList).addAll(other.items)
+  return this
+}

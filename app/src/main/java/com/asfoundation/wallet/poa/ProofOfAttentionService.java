@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.poa;
 
 import androidx.annotation.NonNull;
+import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.commons.Repository;
+import com.asfoundation.wallet.advertise.Advertising;
+import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.billing.partners.AddressService;
-import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -13,9 +13,9 @@ import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 public class ProofOfAttentionService {
   private final Repository<String, Proof> cache;
@@ -29,17 +29,16 @@ public class ProofOfAttentionService {
   private final TaggedCompositeDisposable disposables;
   private final CountryCodeProvider countryCodeProvider;
   private final AddressService partnerAddressService;
-  private final CreateWalletInteract walletInteract;
-  private final FindDefaultWalletInteract findDefaultWalletInteract;
-  private Subject<Boolean> walletValidated;
+  private final Advertising campaignInteract;
+  private final WalletService walletService;
+  private final Subject<Boolean> walletValidated;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
       BackEndErrorMapper errorMapper, TaggedCompositeDisposable disposables,
       CountryCodeProvider countryCodeProvider, AddressService partnerAddressService,
-      CreateWalletInteract createWalletInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
+      WalletService walletService, CampaignInteract campaignInteract) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
@@ -51,9 +50,9 @@ public class ProofOfAttentionService {
     this.disposables = disposables;
     this.countryCodeProvider = countryCodeProvider;
     this.partnerAddressService = partnerAddressService;
+    this.campaignInteract = campaignInteract;
     this.walletValidated = BehaviorSubject.create();
-    this.walletInteract = createWalletInteract;
-    this.findDefaultWalletInteract = findDefaultWalletInteract;
+    this.walletService = walletService;
   }
 
   public void start() {
@@ -71,6 +70,7 @@ public class ProofOfAttentionService {
                 throwable -> handleError(throwable, proof.getPackageName()))
                 .doOnSubscribe(disposable -> updateProofStatus(proof.getPackageName(),
                     ProofStatus.SUBMITTING))))
+        .retry()
         .subscribe());
 
     compositeDisposable.add(getReadyCountryCode().observeOn(computationScheduler)
@@ -87,8 +87,7 @@ public class ProofOfAttentionService {
       cache.saveSync(packageName,
           new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
               walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
-              proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              countryCode));
+              proof.getStoreAddress(), proof.getHash(), countryCode));
     }
   }
 
@@ -127,14 +126,14 @@ public class ProofOfAttentionService {
     Proof completedProof =
         new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
             proof.getWalletPackage(), ProofStatus.SUBMITTING, proof.getChainId(),
-            proof.getOemAddress(), proof.getStoreAddress(), proof.getGasPrice(),
-            proof.getGasLimit(), proof.getHash(), proof.getCountryCode());
+            proof.getOemAddress(), proof.getStoreAddress(), proof.getHash(),
+            proof.getCountryCode());
     return proofWriter.writeProof(completedProof)
         .doOnSuccess(hash -> cache.saveSync(completedProof.getPackageName(),
             new Proof(completedProof.getPackageName(), completedProof.getCampaignId(),
                 completedProof.getProofComponentList(), walletPackage, ProofStatus.COMPLETED,
-                proof.getChainId(), proof.getOemAddress(), proof.getStoreAddress(),
-                proof.getGasPrice(), proof.getGasLimit(), hash, proof.getCountryCode())));
+                proof.getChainId(), proof.getOemAddress(), proof.getStoreAddress(), hash,
+                proof.getCountryCode())));
   }
 
   public void stop() {
@@ -152,11 +151,12 @@ public class ProofOfAttentionService {
   private void setCampaignIdSync(String packageName, String campaignId) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, campaignId, proof.getProofComponentList(), walletPackage,
-              ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
-              proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof) || StringUtils.equals(proof.getCampaignId(), campaignId)) {
+        cache.saveSync(packageName,
+            new Proof(packageName, campaignId, proof.getProofComponentList(), walletPackage,
+                ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
+                proof.getStoreAddress(), proof.getHash(), proof.getCountryCode()));
+      }
     }
   }
 
@@ -168,11 +168,12 @@ public class ProofOfAttentionService {
   private void setChainIdSync(String packageName, int chainId) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              walletPackage, ProofStatus.PROCESSING, chainId, proof.getOemAddress(),
-              proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof) && proof.getChainId() != chainId) {
+        cache.saveSync(packageName,
+            new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+                walletPackage, ProofStatus.PROCESSING, chainId, proof.getOemAddress(),
+                proof.getStoreAddress(), proof.getHash(), proof.getCountryCode()));
+      }
     }
   }
 
@@ -182,8 +183,7 @@ public class ProofOfAttentionService {
       cache.saveSync(packageName,
           new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
               walletPackage, proofStatus, proof.getChainId(), proof.getOemAddress(),
-              proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
+              proof.getStoreAddress(), proof.getHash(), proof.getCountryCode()));
     }
   }
 
@@ -192,8 +192,8 @@ public class ProofOfAttentionService {
       Proof proof = getPreviousProofSync(packageName);
       cache.saveSync(packageName, new Proof(proof.getPackageName(), proof.getCampaignId(),
           createProofComponentList(timeStamp, nonce, proof), walletPackage, ProofStatus.PROCESSING,
-          proof.getChainId(), proof.getOemAddress(), proof.getStoreAddress(), proof.getGasPrice(),
-          proof.getGasLimit(), proof.getHash(), proof.getCountryCode()));
+          proof.getChainId(), proof.getOemAddress(), proof.getStoreAddress(), proof.getHash(),
+          proof.getCountryCode()));
     }
   }
 
@@ -314,72 +314,64 @@ public class ProofOfAttentionService {
   }
 
   public void setOemAddress(String packageName) {
-    disposables.add(packageName, partnerAddressService.getOemAddressForPackage(packageName)
-        .flatMapCompletable(
-            address -> Completable.fromAction(() -> setOemAddressSync(packageName, address)))
-        .subscribeOn(computationScheduler)
-        .subscribe());
+    // TODO: Currently PoA is disabled and the old roles webservices will be removed soon
+    // TODO: To enable this feature, a replacement for this should be taken into account
+    //disposables.add(packageName, partnerAddressService.getOemAddressForPackage(packageName)
+    //    .flatMapCompletable(
+    //        address -> Completable.fromAction(() -> setOemAddressSync(packageName, address)))
+    //    .subscribeOn(computationScheduler)
+    //    .subscribe());
   }
 
   private void setOemAddressSync(String packageName, String address) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              walletPackage, ProofStatus.PROCESSING, proof.getChainId(), address,
-              proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
-    }
-  }
-
-  private void setGasSettingsSync(String packageName, BigDecimal gasPrice, BigDecimal gasLimit) {
-    synchronized (this) {
-      Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
-              proof.getStoreAddress(), gasPrice, gasLimit, proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof) || StringUtils.equals(proof.getOemAddress(), address)) {
+        cache.saveSync(packageName,
+            new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+                walletPackage, ProofStatus.PROCESSING, proof.getChainId(), address,
+                proof.getStoreAddress(), proof.getHash(), proof.getCountryCode()));
+      }
     }
   }
 
   public void setStoreAddress(String packageName) {
-    disposables.add(packageName, partnerAddressService.getStoreAddressForPackage(packageName)
-        .flatMapCompletable(
-            address -> Completable.fromAction(() -> setStoreAddressSync(packageName, address)))
-        .subscribeOn(computationScheduler)
-        .subscribe());
+    // TODO: Currently PoA is disabled and the old roles webservices will be removed soon
+    // TODO: To enable this feature, a replacement for this should be taken into account
+    //disposables.add(packageName, partnerAddressService.getStoreAddressForPackage(packageName)
+    //    .flatMapCompletable(
+    //        address -> Completable.fromAction(() -> setStoreAddressSync(packageName, address)))
+    //    .subscribeOn(computationScheduler)
+    //    .subscribe());
   }
 
   private void setStoreAddressSync(String packageName, String address) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
-              address, proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof) || StringUtils.equals(proof.getStoreAddress(), address)) {
+        cache.saveSync(packageName,
+            new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+                walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
+                address, proof.getHash(), proof.getCountryCode()));
+      }
     }
   }
 
-  public Single<ProofSubmissionFeeData> isWalletReady(int chainId) {
+  public Single<ProofSubmissionData> isWalletReady(int chainId, String packageName,
+      int versionCode) {
     return Single.defer(() -> {
       synchronized (this) {
-        return proofWriter.hasWalletPrepared(chainId);
+        return campaignInteract.hasWalletPrepared(chainId, packageName, versionCode);
       }
     });
   }
 
-  public void setGasSettings(String packageName, BigDecimal gasPrice, BigDecimal gasLimit) {
-    disposables.add(packageName,
-        Completable.fromAction(() -> setGasSettingsSync(packageName, gasPrice, gasLimit))
-            .subscribe());
+  public Single<String> handleCreateWallet() {
+    return walletService.getWalletOrCreate();
   }
 
-  public Single<Wallet> handleCreateWallet() {
-    return findDefaultWalletInteract.find()
-        .onErrorResumeNext(walletInteract.create()
-            .flatMap(wallet -> walletInteract.setDefaultWallet(wallet)
-                .andThen(Single.just(wallet))));
+  public Single<PoaInformationModel> retrievePoaInformation() {
+    return walletService.getWalletAddress()
+        .flatMap(campaignInteract::retrievePoaInformation);
   }
 }

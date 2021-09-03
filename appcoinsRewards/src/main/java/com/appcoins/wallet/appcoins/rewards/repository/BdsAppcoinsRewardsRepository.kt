@@ -13,28 +13,24 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
                            origin: String, type: String,
                            packageName: String): Single<AppcoinsRewardsRepository.Status> {
     return remoteRepository.sendCredits(toAddress, walletAddress, signature, amount, origin, type,
-        packageName).toSingle { AppcoinsRewardsRepository.Status.SUCCESS }.onErrorReturn { map(it) }
+        packageName)
+        .toSingle { AppcoinsRewardsRepository.Status.SUCCESS }
+        .onErrorReturn { map(it) }
   }
 
   override fun getBalance(address: String): Single<BigDecimal> {
-    return remoteRepository.getBalance(address).map { it.balance }
+    return remoteRepository.getBalance(address)
+        .map { it.balance }
   }
 
-  override fun pay(walletAddress: String, signature: String,
-                   amount: BigDecimal,
-                   origin: String?,
-                   sku: String?,
-                   type: String,
-                   developerAddress: String,
-                   storeAddress: String,
-                   oemAddress: String,
-                   packageName: String,
-                   payload: String?,
-                   callback: String?,
-                   orderReference: String?): Single<Transaction> {
+  override fun pay(walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
+                   sku: String?, type: String, developerAddress: String, entityOemId: String?,
+                   entityDomain: String?, packageName: String, payload: String?, callback: String?,
+                   orderReference: String?, referrerUrl: String?, productToken: String?)
+      : Single<Transaction> {
     return remoteRepository.pay(walletAddress, signature, amount, origin, sku,
-        type, developerAddress, storeAddress, oemAddress, packageName, payload, callback,
-        orderReference)
+        type, developerAddress, entityOemId, entityDomain, packageName, payload, callback,
+        orderReference, referrerUrl, productToken)
   }
 
   private fun map(throwable: Throwable): AppcoinsRewardsRepository.Status {

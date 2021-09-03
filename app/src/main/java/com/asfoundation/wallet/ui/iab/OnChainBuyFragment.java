@@ -1,48 +1,36 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import com.airbnb.lottie.FontAssetDelegate;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.TextDelegate;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.logging.Logger;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Locale;
 import javax.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
-import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_APPC;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
@@ -55,38 +43,30 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private static final String APP_PACKAGE = "app_package";
   private static final String TRANSACTION_BUILDER_KEY = "transaction_builder";
   private static final String BONUS_KEY = "bonus";
-  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  private PublishRelay<String> buyButtonClick;
-  private Button buyButton;
-  private Button cancelButton;
+  private static final String GAMIFICATION_LEVEL = "gamification_level";
+  @Inject OnChainBuyInteract onChainBuyInteract;
+  @Inject BillingAnalytics analytics;
+  @Inject Logger logger;
   private Button okErrorButton;
   private OnChainBuyPresenter presenter;
   private View loadingView;
-  private TextView appName;
-  private TextView itemDescription;
-  private TextView itemHeaderDescription;
-  private TextView itemPrice;
-  private TextView itemFinalPrice;
-  private ImageView appIcon;
   private View transactionCompletedLayout;
   private View transactionErrorLayout;
-  private View buyLayout;
   private TextView errorTextView;
   private TextView loadingMessage;
-  private ProgressBar buyDialogLoading;
   private ArrayAdapter<BigDecimal> adapter;
-  private View infoDialog;
-  private TextView walletAddressTextView;
   private IabView iabView;
   private Bundle extras;
   private String data;
   private boolean isBds;
-  @Inject BillingAnalytics analytics;
   private TransactionBuilder transaction;
   private LottieAnimationView lottieTransactionComplete;
+  private View supportIcon;
+  private View supportLogo;
+  private int gamificationLevel;
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap,
-      TransactionBuilder transaction, String bonus) {
+      TransactionBuilder transaction, String bonus, int gamificationLevel) {
     OnChainBuyFragment fragment = new OnChainBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
@@ -94,20 +74,22 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     bundle.putBoolean("isBds", bdsIap);
     bundle.putParcelable(TRANSACTION_BUILDER_KEY, transaction);
     bundle.putString(BONUS_KEY, bonus);
+    bundle.putInt(GAMIFICATION_LEVEL, gamificationLevel);
     fragment.setArguments(bundle);
     return fragment;
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    buyButtonClick = PublishRelay.create();
     extras = getArguments().getBundle("extras");
     data = getArguments().getString("data");
     isBds = getArguments().getBoolean("isBds");
     transaction = getArguments().getParcelable(TRANSACTION_BUILDER_KEY);
+    gamificationLevel = getArguments().getInt(GAMIFICATION_LEVEL);
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+  @Override
+  public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     return inflater.inflate(R.layout.fragment_iab, container, false);
@@ -115,57 +97,36 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-    buyButton = view.findViewById(R.id.buy_button);
-    buyDialogLoading = view.findViewById(R.id.loading_view);
-    cancelButton = view.findViewById(R.id.cancel_button);
-    okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
+    okErrorButton = view.findViewById(R.id.error_dismiss);
     loadingView = view.findViewById(R.id.loading);
     loadingMessage = view.findViewById(R.id.loading_message);
-    appName = view.findViewById(R.id.app_name);
-    errorTextView = view.findViewById(R.id.activity_iab_error_message);
+    errorTextView = view.findViewById(R.id.error_message);
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
-    buyLayout = view.findViewById(R.id.dialog_buy_app);
-    infoDialog = view.findViewById(R.id.info_dialog);
-    transactionErrorLayout = view.findViewById(R.id.activity_iab_error_view);
-    appIcon = view.findViewById(R.id.app_icon);
-    itemDescription = view.findViewById(R.id.sku_description);
-    itemHeaderDescription = view.findViewById(R.id.app_sku_description);
-    itemPrice = view.findViewById(R.id.sku_price);
-    itemFinalPrice = view.findViewById(R.id.total_price);
-    walletAddressTextView = view.findViewById(R.id.wallet_address_footer);
+    transactionErrorLayout = view.findViewById(R.id.generic_purchase_error_layout);
+
+    supportIcon = view.findViewById(R.id.layout_support_icn);
+    supportLogo = view.findViewById(R.id.layout_support_logo);
+    okErrorButton.setText(R.string.ok);
 
     lottieTransactionComplete =
         transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
 
-    presenter =
-        new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-            new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(), isBds,
-            extras.getString(PRODUCT_NAME), analytics, getAppPackage(), data);
+    presenter = new OnChainBuyPresenter(this, AndroidSchedulers.mainThread(), Schedulers.io(),
+        new CompositeDisposable(), onChainBuyInteract.getBillingMessagesMapper(), isBds, analytics,
+        getAppPackage(), data, gamificationLevel, logger, onChainBuyInteract, transaction);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
-    Single.defer(() -> Single.just(getAppPackage()))
-        .observeOn(Schedulers.io())
-        .map(packageName -> new Pair<>(getApplicationName(packageName),
-            getContext().getPackageManager()
-                .getApplicationIcon(packageName)))
-        .onErrorResumeNext(throwable -> getDefaultInfo())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(pair -> {
-          appName.setText(pair.first);
-          appIcon.setImageDrawable(pair.second);
-        }, throwable -> {
-          throwable.printStackTrace();
-          showError();
-        });
 
-    buyButton.setOnClickListener(v -> buyButtonClick.accept(data));
-    presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
+    presenter.present(extras.getString(PRODUCT_NAME, ""),
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
 
-    buyButton.performClick();
-
-    setupTransactionCompleteAnimation();
+    if (StringUtils.isNotBlank(getBonus())) {
+      lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation);
+      setupTransactionCompleteAnimation();
+    } else {
+      lottieTransactionComplete.setAnimation(R.raw.success_animation);
+    }
   }
 
   @Override public void onResume() {
@@ -180,11 +141,11 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void onDestroyView() {
     presenter.stop();
+    lottieTransactionComplete.removeAllAnimatorListeners();
+    lottieTransactionComplete.removeAllUpdateListeners();
+    lottieTransactionComplete.removeAllLottieOnCompositionLoadedListener();
+    lottieTransactionComplete = null;
     super.onDestroyView();
-  }
-
-  @Override public void onDestroy() {
-    super.onDestroy();
   }
 
   @Override public void onDetach() {
@@ -192,26 +153,16 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     iabView = null;
   }
 
-  private Single<Pair<CharSequence, Drawable>> getDefaultInfo() {
-    return inAppPurchaseInteractor.parseTransaction(data, isBds)
-        .map(transaction -> new Pair<>(transaction.getType(),
-            getContext().getDrawable(R.drawable.purchase_placeholder)));
-  }
-
-  @Override public PublishRelay<String> getBuyClick() {
-    return buyButtonClick;
-  }
-
-  @Override public Observable<Object> getCancelClick() {
-    return RxView.clicks(cancelButton);
-  }
-
-  @Override public Observable<Object> getOkErrorClick() {
+  @Override public @NotNull Observable<Object> getOkErrorClick() {
     return RxView.clicks(okErrorButton);
   }
 
-  @Override public void showLoading() {
-    showLoading(R.string.activity_aib_loading_message);
+  @Override public @NotNull Observable<Object> getSupportIconClick() {
+    return RxView.clicks(supportIcon);
+  }
+
+  @Override public @NotNull Observable<Object> getSupportLogoClick() {
+    return RxView.clicks(supportLogo);
   }
 
   @Override public void close(Bundle data) {
@@ -219,8 +170,11 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   }
 
   @Override public void finish(Bundle data) {
-    presenter.sendPaymentEvent(PAYMENT_METHOD_APPC);
+    presenter.sendPaymentEvent();
     presenter.sendRevenueEvent();
+    presenter.sendPaymentSuccessEvent();
+    data.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.APPC.getId());
     iabView.finish(data);
   }
 
@@ -228,34 +182,10 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     showError(R.string.activity_iab_error_message);
   }
 
-  @Override public void setup(String productName, boolean isDonation) {
-    Formatter formatter = new Formatter();
-    String formatedPrice = formatter.format(Locale.getDefault(), "%(,.2f",
-        ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue())
-        .toString() + " APPC";
-    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
-    buyButton.setText(getResources().getString(buyButtonText));
-    itemPrice.setText(formatedPrice);
-    Spannable spannable = new SpannableString(formatedPrice);
-    spannable.setSpan(
-        new ForegroundColorSpan(getResources().getColor(R.color.dialog_buy_total_value)), 0,
-        formatedPrice.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    itemFinalPrice.setText(spannable);
-    if (isDonation) {
-      itemDescription.setText(getResources().getString(R.string.item_donation));
-      itemHeaderDescription.setText(getResources().getString(R.string.item_donation));
-    } else if (productName != null) {
-      itemDescription.setText(productName);
-      itemHeaderDescription.setText(String.format(getString(R.string.buying), productName));
-    }
-    buyDialogLoading.setVisibility(View.GONE);
-    infoDialog.setVisibility(View.VISIBLE);
-  }
-
   @Override public void showTransactionCompleted() {
+    iabView.lockRotation();
     loadingView.setVisibility(View.GONE);
     transactionErrorLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.VISIBLE);
   }
 
@@ -291,54 +221,53 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     showError(R.string.activity_iab_no_funds_message);
   }
 
-  @Override public void showRaidenChannelValues(List<BigDecimal> values) {
+  @Override public void showForbiddenError() {
+    showError(R.string.purchase_error_wallet_block_code_403);
+  }
+
+  @Override public void showRaidenChannelValues(@NotNull List<? extends BigDecimal> values) {
     adapter.clear();
     adapter.addAll(values);
     adapter.notifyDataSetChanged();
-  }
-
-  @Override public void showWallet(String wallet) {
-    walletAddressTextView.setText(wallet);
-  }
-
-  @Override public void onAttach(Context context) {
-    super.onAttach(context);
-    if (!(context instanceof IabView)) {
-      throw new IllegalStateException("Regular buy fragment must be attached to IAB activity");
-    }
-    iabView = ((IabView) context);
   }
 
   @Override public long getAnimationDuration() {
     return lottieTransactionComplete.getDuration();
   }
 
+  @Override public void lockRotation() {
+    iabView.lockRotation();
+  }
+
+  @Override public void showVerification() {
+    iabView.showVerification();
+  }
+
+  @Override public void onAttach(Context context) {
+    super.onAttach(context);
+    if (!(context instanceof IabView)) {
+      throw new IllegalStateException("On chain buy fragment must be attached to IAB activity");
+    }
+    iabView = ((IabView) context);
+  }
+
   private void showLoading(@StringRes int message) {
     loadingView.setVisibility(View.VISIBLE);
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.GONE);
     loadingMessage.setText(message);
     loadingView.requestFocus();
     loadingView.setOnTouchListener((v, event) -> true);
   }
 
-  public void showError(int error_message) {
+  private void showError(int error_message) {
     loadingView.setVisibility(View.GONE);
     transactionErrorLayout.setVisibility(View.VISIBLE);
     transactionCompletedLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.GONE);
     errorTextView.setText(error_message);
   }
 
-  private CharSequence getApplicationName(String appPackage)
-      throws PackageManager.NameNotFoundException {
-    PackageManager packageManager = getContext().getPackageManager();
-    ApplicationInfo packageInfo = packageManager.getApplicationInfo(appPackage, 0);
-    return packageManager.getApplicationLabel(packageInfo);
-  }
-
-  public String getAppPackage() {
+  private String getAppPackage() {
     if (extras.containsKey(APP_PACKAGE)) {
       return extras.getString(APP_PACKAGE);
     }

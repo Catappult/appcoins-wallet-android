@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.01"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/mid_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
+    <TextView
+        android:id="@+id/code_validation_title"
+        style="@style/WalletValidationTextStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_large_margin"
+        android:layout_marginEnd="@dimen/half_large_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/verification_insert_code_title"
+        app:layout_constraintEnd_toStartOf="@+id/mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_guideline"
+        />
+
+    <TextView
+        android:id="@+id/code_validation_subtitle"
+        style="@style/WalletValidationTextStyle.Subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_large_margin"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="@dimen/half_large_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/referral_verification_body"
+        app:layout_constraintEnd_toStartOf="@+id/mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/code_validation_title"
+        />
+
+
+    <include
+        android:id="@+id/text_layout"
+        layout="@layout/sms_text_input_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_large_margin"
+        android:layout_marginEnd="@dimen/half_large_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/top_guideline"
+        />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/resend_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/text_layout"
+        app:layout_constraintVertical_bias="0.10"
+        tools:text="@string/verification_insert_code_error"
+        tools:visibility="visible"
+        />
+
+    <TextView
+        android:id="@+id/resend_code"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/big_margin"
+        android:ellipsize="end"
+        android:text="@string/verification_insert_code_resend_button"
+        android:textAllCaps="true"
+        android:textColor="@color/btn_cancel_text"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/text_layout"
+        />
+
+    <LinearLayout
+        android:id="@+id/disclaimer_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_large_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/half_large_margin"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/resend_code"
+        >
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="3dp"
+          app:srcCompat="@drawable/ic_info_grey"
+          />
+
+      <TextView
+          style="@style/WalletValidationTextStyle.Tooltip"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="start"
+          android:text="@string/verification_insert_phone_security_disclaimer"
+          />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        style="@style/ButtonStyle.Alternative"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/half_large_margin"
+        android:minWidth="120dp"
+        android:text="@string/submit_button"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/disclaimer_layout"
+        />
+
+    <Button
+        android:id="@+id/back_button"
+        style="@style/CancelBorderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:minWidth="120dp"
+        android:text="@string/back_button"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/submit_button"
+        app:layout_constraintEnd_toStartOf="@+id/submit_button"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttons_guideline"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <include
+      android:id="@+id/animation_validating_code"
+      layout="@layout/layout_validation_result"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="@dimen/big_margin"
+      android:visibility="gone"
+      />
+
+  <include
+      android:id="@+id/referral_status"
+      layout="@layout/layout_referral_status"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="@dimen/big_margin"
+      android:visibility="gone"
+      />
+
+  <include
+      android:id="@+id/code_layout_validation_no_internet"
+      layout="@layout/layout_validation_no_internet"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="@dimen/big_margin"
+      android:visibility="gone"
+      />
+
+</RelativeLayout>

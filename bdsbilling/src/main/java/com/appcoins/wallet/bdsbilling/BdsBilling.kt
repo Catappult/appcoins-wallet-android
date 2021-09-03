@@ -1,6 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
@@ -31,76 +32,62 @@ class BdsBilling(private val repository: BillingRepository,
     return repository.getSkuDetails(merchantName, skus)
   }
 
-  override fun getAppcoinsTransaction(uid: String,
-                                      scheduler: Scheduler): Single<Transaction> {
-    return walletService.getWalletAddress()
-        .flatMap { address ->
-          walletService.signContent(address)
-              .observeOn(scheduler)
-              .flatMap { signedContent ->
-                repository.getAppcoinsTransaction(uid, address, signedContent)
-              }
-        }
+  override fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction> {
+    return walletService.getAndSignCurrentWalletAddress()
+        .observeOn(scheduler)
+        .flatMap { repository.getAppcoinsTransaction(uid, it.address, it.signedAddress) }
   }
 
-  override fun getSkuTransaction(merchantName: String, sku: String,
+  override fun getSkuTransaction(merchantName: String, sku: String?,
+                                 transactionType: String,
                                  scheduler: Scheduler): Single<Transaction> {
-    return walletService.getWalletAddress()
-        .flatMap { address ->
-          walletService.signContent(address)
-              .observeOn(scheduler)
-              .flatMap { signedContent ->
-                repository.getSkuTransaction(merchantName, sku, address, signedContent)
-              }
+    return walletService.getAndSignCurrentWalletAddress()
+        .observeOn(scheduler)
+        .flatMap {
+          repository.getSkuTransaction(merchantName, sku, mapTransactionType(transactionType),
+              it.address, it.signedAddress)
         }
   }
 
-  override fun getSkuPurchase(merchantName: String, sku: String,
+  private fun mapTransactionType(transactionType: String): TransactionType {
+    return if (transactionType.equals("INAPP_UNMANAGED", true)) {
+      TransactionType.INAPP_UNMANAGED
+    } else {
+      TransactionType.INAPP
+    }
+  }
+
+  override fun getSkuPurchase(merchantName: String, sku: String?,
                               scheduler: Scheduler): Single<Purchase> {
-    return walletService.getWalletAddress()
-        .flatMap { address ->
-          walletService.signContent(address)
-              .observeOn(scheduler)
-              .flatMap { signedContent ->
-                repository.getSkuPurchase(merchantName, sku, address, signedContent)
-              }
-        }
+    return walletService.getAndSignCurrentWalletAddress()
+        .observeOn(scheduler)
+        .flatMap { repository.getSkuPurchase(merchantName, sku, it.address, it.signedAddress) }
   }
 
-  override fun getPurchases(merchantName: String, type: BillingSupportedType,
+  override fun getPurchases(packageName: String, type: BillingSupportedType,
                             scheduler: Scheduler): Single<List<Purchase>> {
-    return walletService.getWalletAddress()
-        .flatMap { address ->
-          walletService.signContent(address)
-              .observeOn(scheduler)
-              .flatMap { signedContent ->
-                repository.getPurchases(merchantName, address, signedContent,
-                    type)
-              }
+    return walletService.getAndSignCurrentWalletAddress()
+        .observeOn(scheduler)
+        .flatMap {
+          repository.getPurchases(packageName, it.address, it.signedAddress,
+              type)
         }
         .onErrorReturn { ArrayList() }
   }
 
   override fun consumePurchases(merchantName: String, purchaseToken: String,
                                 scheduler: Scheduler): Single<Boolean> {
-    return walletService.getWalletAddress()
-        .flatMap { address ->
-          walletService.signContent(address)
-              .observeOn(scheduler)
-              .flatMap { signedContent ->
-                repository.consumePurchases(merchantName, purchaseToken, address, signedContent)
-              }
+    return walletService.getAndSignCurrentWalletAddress()
+        .observeOn(scheduler)
+        .flatMap {
+          repository.consumePurchases(merchantName, purchaseToken, it.address, it.signedAddress)
         }
-        .onErrorReturn { false }
   }
 
   override fun getPaymentMethods(value: String,
-                                 currency: String): Single<List<PaymentMethodEntity>> {
-    return repository.getPaymentMethods(value, currency)
-        .onErrorReturn {
-          it.printStackTrace()
-          ArrayList()
-        }
+                                 currency: String,
+                                 transactionType: String): Single<List<PaymentMethodEntity>> {
+    return repository.getPaymentMethods(value, currency, transactionType = transactionType)
   }
 
   private fun map(it: Boolean) =

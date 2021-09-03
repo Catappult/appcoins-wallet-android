@@ -1,0 +1,170 @@
+package com.asfoundation.wallet.ui.iab.payments.carrier
+
+import android.net.Uri
+import android.os.Bundle
+import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.billing.carrierbilling.*
+import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
+import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
+import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
+import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.Single
+import io.reactivex.functions.BiFunction
+import java.util.concurrent.TimeUnit
+
+class CarrierInteractor(private val repository: CarrierBillingRepository,
+                        private val walletService: WalletService,
+                        private val partnerAddressService: AddressService,
+                        private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                        private val walletBlockedInteract: WalletBlockedInteract,
+                        private val walletVerificationInteractor: WalletVerificationInteractor,
+                        private val billing: Billing,
+                        private val billingMessagesMapper: BillingMessagesMapper,
+                        private val logger: Logger,
+                        private val ioScheduler: Scheduler) {
+
+  fun createPayment(phoneNumber: String, packageName: String,
+                    origin: String?, transactionData: String, transactionType: String,
+                    currency: String,
+                    value: String): Single<CarrierPaymentModel> {
+    return Single.zip(getAddresses(packageName), getTransactionBuilder(transactionData),
+        BiFunction { addrs: WalletAddresses, builder: TransactionBuilder ->
+          TransactionDataDetails(addrs, builder)
+        })
+        .flatMap { details ->
+          repository.makePayment(details.addrs.userAddress, details.addrs.signedAddress,
+              phoneNumber, packageName, origin, details.builder.skuId,
+              details.builder.orderReference, transactionType, currency, value,
+              details.builder.toAddress(), details.addrs.entityOemId, details.addrs.entityDomain,
+              details.addrs.userAddress, details.builder.referrerUrl, details.builder.payload,
+              details.builder.callbackUrl)
+        }
+        .doOnError { logger.log("CarrierInteractor", it) }
+  }
+
+  fun getFinishedPayment(uri: Uri, packageName: String): Single<CarrierPaymentModel> {
+    return getAddresses(packageName)
+        .flatMapObservable { addresses ->
+          observeTransactionUpdates(getUidFromUri(uri)!!, addresses.userAddress,
+              addresses.signedAddress)
+        }
+        .firstOrError()
+        .map { paymentModel ->
+          if (paymentModel.error == NoError && isErrorStatus(paymentModel.status)) {
+            return@map paymentModel.copy(
+                error = GenericError(false, -1, getErrorReasonFromUri(uri)))
+          }
+          return@map paymentModel
+        }
+  }
+
+  private fun isErrorStatus(status: TransactionStatus) =
+      status == TransactionStatus.FAILED ||
+          status == TransactionStatus.CANCELED ||
+          status == TransactionStatus.INVALID_TRANSACTION
+
+  fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
+                                orderReference: String?, hash: String?,
+                                scheduler: Scheduler): Single<Bundle> {
+    return if (isInApp(type) && sku != null) {
+      billing.getSkuPurchase(merchantName, sku, scheduler)
+          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
+          .map { bundle -> addPreselected(bundle) }
+    } else {
+      Single.just(billingMessagesMapper.successBundle(hash))
+          .map { bundle -> addPreselected(bundle) }
+    }
+  }
+
+  private fun addPreselected(bundle: Bundle): Bundle {
+    bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.CARRIER_BILLING.id)
+    return bundle
+  }
+
+  fun removePreSelectedPaymentMethod() {
+    inAppPurchaseInteractor.removePreSelectedPaymentMethod()
+  }
+
+  private fun getTransactionBuilder(transactionData: String): Single<TransactionBuilder> {
+    return inAppPurchaseInteractor.parseTransaction(transactionData, true)
+        .subscribeOn(ioScheduler)
+  }
+
+  private fun getAddresses(packageName: String): Single<WalletAddresses> {
+    return Single.zip(walletService.getAndSignCurrentWalletAddress()
+        .subscribeOn(ioScheduler), partnerAddressService.getAttributionEntity(packageName)
+        .subscribeOn(ioScheduler), BiFunction { addressModel, attributionEntity ->
+      WalletAddresses(addressModel.address, addressModel.signedAddress, attributionEntity.oemId,
+          attributionEntity.domain)
+    })
+  }
+
+  private fun isInApp(type: String): Boolean {
+    return type.equals("INAPP", ignoreCase = true)
+  }
+
+  private fun observeTransactionUpdates(uid: String, walletAddress: String,
+                                        walletSignature: String): Observable<CarrierPaymentModel> {
+    return Observable.interval(0, 5, TimeUnit.SECONDS, ioScheduler)
+        .timeInterval()
+        .switchMap { repository.getPayment(uid, walletAddress, walletSignature) }
+        .filter { paymentModel -> isEndingState(paymentModel.status) }
+        .distinctUntilChanged { transaction -> transaction.status }
+  }
+
+  private fun isEndingState(status: TransactionStatus) =
+      status == TransactionStatus.COMPLETED ||
+          status == TransactionStatus.FAILED ||
+          status == TransactionStatus.CANCELED ||
+          status == TransactionStatus.INVALID_TRANSACTION
+
+  private fun getUidFromUri(uri: Uri): String? {
+    return uri.getQueryParameter("remote_txid")
+  }
+
+  private fun getErrorReasonFromUri(uri: Uri): String {
+    return uri.getQueryParameter("why") ?: "Unknown Error"
+  }
+
+  fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
+    return inAppPurchaseInteractor.convertToFiat(amount, currency)
+  }
+
+  fun getWalletStatus(): Single<WalletStatus> {
+    return Single.zip(walletBlockedInteract.isWalletBlocked()
+        .subscribeOn(ioScheduler), isWalletVerified().subscribeOn(ioScheduler),
+        BiFunction { blocked, verified -> WalletStatus(blocked, verified) })
+  }
+
+  private fun isWalletVerified(): Single<Boolean> =
+      walletService.getAndSignCurrentWalletAddress()
+          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+          .onErrorReturn { true }
+
+  fun retrieveAvailableCountries(): Single<AvailableCountryListModel> {
+    return repository.retrieveAvailableCountryList()
+  }
+
+  fun savePhoneNumber(phoneNumber: String): Completable {
+    return Completable.fromAction { repository.savePhoneNumber(phoneNumber) }
+  }
+
+  fun forgetPhoneNumber() = repository.forgetPhoneNumber()
+
+  fun retrievePhoneNumber() = repository.retrievePhoneNumber()
+}
+
+data class TransactionDataDetails(val addrs: WalletAddresses, val builder: TransactionBuilder)

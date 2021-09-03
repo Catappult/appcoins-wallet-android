@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <LinearLayout
+      android:id="@+id/bonus_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bonus_img_background"
+      android:gravity="center"
+      android:paddingStart="@dimen/normal_margin"
+      android:paddingTop="6dp"
+      android:paddingEnd="@dimen/normal_margin"
+      android:paddingBottom="6dp"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:visibility="visible"
+      >
+
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="2dp"
+        android:src="@drawable/ic_bonus"
+        />
+
+    <TextView
+        android:id="@+id/bonus_header_1"
+        style="@style/BonusTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="@string/gamification_purchase_header_part_1"
+        />
+
+    <TextView
+        android:id="@+id/bonus_value"
+        style="@style/BonusTextStyle.Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/gamification_purchase_header_part_2"
+        />
+
+  </LinearLayout>
+
+  <TextView
+      android:id="@+id/bonus_msg"
+      style="@style/TopUpTextStyle.Small.BonusText"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="11dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginBottom="11dp"
+      android:gravity="center"
+      android:text="@string/gamification_purchase_body"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+      app:layout_constraintVertical_bias="0"
+      app:layout_constraintWidth_default="wrap"
+      />
+
+  <include
+      android:id="@+id/bonus_layout_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
+      app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+      app:layout_constraintStart_toStartOf="@id/bonus_layout"
+      app:layout_constraintTop_toTopOf="@id/bonus_layout"
+      tools:visibility="invisible"
+
+      />
+  <include
+      android:id="@+id/bonus_msg_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
+      app:layout_constraintEnd_toEndOf="@id/bonus_msg"
+      app:layout_constraintStart_toStartOf="@id/bonus_msg"
+      app:layout_constraintTop_toTopOf="@id/bonus_msg"
+      tools:visibility="invisible"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

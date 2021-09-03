@@ -1,21 +1,71 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.gamification.repository.ForecastBonus
-import com.appcoins.wallet.gamification.repository.GamificationRepository
-import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.UserStats
+import com.appcoins.wallet.gamification.repository.*
+import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
+import java.net.UnknownHostException
 
-class Gamification(private val repository: GamificationRepository) {
-  fun getUserStatus(wallet: String): Single<UserStats> {
-    return repository.getUserStatus(wallet)
+class Gamification(private val repository: PromotionsRepository) {
+
+  companion object {
+    const val GAMIFICATION_ID = "GAMIFICATION"
+    const val REFERRAL_ID = "REFERRAL"
   }
 
-  fun getLevels(): Single<Levels> {
-    return repository.getLevels()
+  fun getUserStats(wallet: String): Observable<GamificationStats> {
+    return repository.getGamificationStats(wallet)
+  }
+
+  fun getUserLevel(wallet: String): Single<Int> {
+    return repository.getGamificationLevel(wallet)
+  }
+
+  fun getLevels(wallet: String, offlineFirst: Boolean = true): Observable<Levels> {
+    return repository.getLevels(wallet, offlineFirst)
+  }
+
+  fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {
+    return repository.getUserStats(wallet, false)
+        .map { map(it) }
+        .lastOrError()
+        .onErrorReturn { mapReferralError(it) }
+  }
+
+  private fun map(userStats: UserStats): ForecastBonusAndLevel {
+    val gamification = userStats.promotions
+        .firstOrNull {
+          it is GamificationResponse && it.id == GAMIFICATION_ID
+        } as GamificationResponse?
+
+    val referral = userStats.promotions
+        .firstOrNull {
+          it is GamificationResponse && it.id == REFERRAL_ID
+        } as ReferralResponse?
+
+    return if (referral == null || referral.pendingAmount.compareTo(BigDecimal.ZERO) == 0) {
+      ForecastBonusAndLevel(status = ForecastBonus.Status.INACTIVE,
+          level = gamification?.level ?: 0)
+    } else {
+      ForecastBonusAndLevel(
+          ForecastBonus.Status.ACTIVE,
+          referral.pendingAmount,
+          minAmount = referral.minAmount,
+          level = gamification?.level ?: 0)
+    }
+  }
+
+  private fun mapReferralError(throwable: Throwable): ForecastBonusAndLevel {
+    throwable.printStackTrace()
+    return when (throwable) {
+      is UnknownHostException -> ForecastBonusAndLevel(ForecastBonus.Status.NO_NETWORK)
+      else -> {
+        ForecastBonusAndLevel(ForecastBonus.Status.UNKNOWN_ERROR)
+      }
+    }
   }
 
   fun getEarningBonus(wallet: String, packageName: String,
@@ -23,18 +73,15 @@ class Gamification(private val repository: GamificationRepository) {
     return repository.getForecastBonus(wallet, packageName, amount)
   }
 
-  fun hasNewLevel(wallet: String): Single<Boolean> {
-    return Single.zip(repository.getLastShownLevel(wallet), getUserStatus(wallet),
-        BiFunction { lastShownLevel: Int, userStats: UserStats ->
-          userStats.status == UserStats.Status.OK && lastShownLevel < userStats.level
-        })
+  fun hasNewLevel(wallet: String, gamificationContext: GamificationContext,
+                  level: Int): Single<Boolean> {
+    return repository.getLastShownLevel(wallet, gamificationContext)
+        .map { lastShownLevel: Int -> lastShownLevel < level }
   }
 
-  fun levelShown(wallet: String, level: Int): Completable {
-    return repository.shownLevel(wallet, level)
+  fun levelShown(wallet: String, level: Int, gamificationContext: GamificationContext):
+      Completable {
+    return Completable.fromAction { repository.shownLevel(wallet, level, gamificationContext) }
   }
 
-  fun getLastShownLevel(wallet: String): Single<Int> {
-    return repository.getLastShownLevel(wallet)
-  }
 }

@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.util;
 
 import android.text.TextUtils;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -20,7 +20,7 @@ import okio.BufferedSource;
 
 public class LogInterceptor implements Interceptor {
   private static final String TAG = "HTTP_TRACE";
-  private static final Charset UTF8 = Charset.forName("UTF-8");
+  private static final Charset UTF8 = StandardCharsets.UTF_8;
 
   private static String requestPath(HttpUrl url) {
     String path = url.encodedPath();
@@ -30,8 +30,8 @@ public class LogInterceptor implements Interceptor {
 
   @Override public Response intercept(@NonNull Chain chain) throws IOException {
     StringBuilder logBuilder = new StringBuilder();
+    Request request = chain.request();
     try {
-      Request request = chain.request();
       RequestBody requestBody = request.body();
       logBuilder.append(
           "<---------------------------BEGIN REQUEST---------------------------------->");
@@ -89,7 +89,7 @@ public class LogInterceptor implements Interceptor {
       if (responseBody != null) {
         BufferedSource source = responseBody.source();
         source.request(Long.MAX_VALUE); // Buffer the entire body.
-        Buffer buffer = source.buffer();
+        Buffer buffer = source.getBuffer();
 
         Charset charset = null;
         MediaType contentType = responseBody.contentType();
@@ -125,9 +125,12 @@ public class LogInterceptor implements Interceptor {
       Log.d(TAG, logBuilder.toString());
       return response;
     } catch (Exception exception) {
-      if (logBuilder.length() > 0) {
-        Log.d(TAG, logBuilder.toString());
-      }
+      logBuilder = new StringBuilder();
+      logBuilder.append("Failed request url: ")
+          .append(request.method())
+          .append(" ")
+          .append(requestPath(request.url()));
+      Log.e(TAG, logBuilder.toString());
       throw exception;
     }
   }

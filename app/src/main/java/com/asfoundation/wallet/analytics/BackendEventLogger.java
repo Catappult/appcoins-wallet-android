@@ -1,15 +1,16 @@
 package com.asfoundation.wallet.analytics;
 
-import android.util.Log;
 import cm.aptoide.analytics.AnalyticsManager;
+import cm.aptoide.analytics.AnalyticsManager.Action;
 import cm.aptoide.analytics.EventLogger;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.util.Log;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Map;
 
 public class BackendEventLogger implements EventLogger {
 
-  public static final String TAG = AnalyticsManager.class.getSimpleName();
+  private static final String TAG = AnalyticsManager.class.getSimpleName();
   private final AnalyticsAPI api;
 
   public BackendEventLogger(AnalyticsAPI api) {
@@ -17,8 +18,7 @@ public class BackendEventLogger implements EventLogger {
   }
 
   @Override
-  public void log(String eventName, Map<String, Object> data, AnalyticsManager.Action action,
-      String context) {
+  public void log(String eventName, Map<String, Object> data, Action action, String context) {
     Log.d(TAG, "log() called with: eventName = ["
         + eventName
         + "], data = ["
@@ -29,10 +29,10 @@ public class BackendEventLogger implements EventLogger {
         + context
         + "]");
 
-    api.registerEvent(action, eventName, new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
+    api.registerEvent(action, eventName,
+        new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
         .subscribeOn(Schedulers.io())
         .subscribe(() -> Log.d(TAG, "event sent"), Throwable::printStackTrace);
-
   }
 
   @Override public void setup() {

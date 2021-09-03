@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/payment_methods_width_landscape"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:animateLayoutChanges="true"
+    android:maxHeight="300dp"
+    android:theme="@style/AdyenMaterialAppTheme"
+    >
+
+  <RelativeLayout
+      android:id="@+id/main_view"
+      android:layout_width="@dimen/payment_methods_width_landscape"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:animateLayoutChanges="true"
+      android:background="@drawable/background_card"
+      android:maxHeight="300dp"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/credit_card_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_card"
+        android:elevation="2dp"
+        android:visibility="visible"
+        >
+
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/mid_guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.46"
+          />
+
+      <ImageView
+          android:id="@+id/mid_separator"
+          android:layout_width="1dp"
+          android:layout_height="0dp"
+          android:layout_marginTop="7dp"
+          android:layout_marginBottom="8dp"
+          android:background="@drawable/dashed_vertical_line"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          />
+
+      <com.asfoundation.wallet.ui.common.SeparatorView
+          android:id="@+id/top_separator"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/big_margin"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:line_orientation="horizontal"
+          app:line_type="solid"
+          />
+
+      <include
+          android:id="@+id/payment_methods_header"
+          layout="@layout/payment_methods_header"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="19dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          />
+
+
+      <ProgressBar
+          android:id="@+id/fragment_credit_card_authorization_progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          />
+      <include
+          android:id="@+id/bonus_layout"
+          layout="@layout/view_purchase_bonus"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="19dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
+          tools:visibility="visible"
+          />
+
+      <TextView
+          android:id="@+id/bonus_msg"
+          style="@style/TopUpTextStyle.Small.BonusText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="11dp"
+          android:gravity="center_vertical"
+          android:text="@string/gamification_purchase_body"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+          />
+
+      <ScrollView
+          android:id="@+id/cc_info_view"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_marginTop="16dp"
+          android:overScrollMode="never"
+          android:paddingStart="@dimen/big_margin"
+          android:paddingEnd="@dimen/big_margin"
+          android:scrollbars="none"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+
+          <include
+              android:id="@+id/adyen_card_form"
+              layout="@layout/selected_payment_method_cc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              />
+
+          <Button
+              android:id="@+id/change_card_button"
+              style="?android:attr/borderlessButtonStyle"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/button_height"
+              android:layout_below="@id/adyen_card_form"
+              android:layout_alignParentEnd="true"
+              android:layout_marginEnd="16dp"
+              android:fontFamily="sans-serif-medium"
+              android:lineSpacingExtra="5sp"
+              android:text="@string/activity_iab_change_card"
+              android:textColor="@color/btn_cancel_text"
+              android:textSize="12sp"
+              android:visibility="gone"
+              />
+
+          <include
+              android:id="@+id/fragment_adyen_error"
+              layout="@layout/support_error_layout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:visibility="gone"
+              />
+
+        </RelativeLayout>
+
+      </ScrollView>
+
+      <com.asfoundation.wallet.ui.common.SeparatorView
+          android:id="@+id/bottom_separator"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="227dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:line_orientation="horizontal"
+          app:line_type="solid"
+          />
+
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/bottom_mid_guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.5"
+          />
+
+      <include
+          android:id="@+id/dialog_buy_buttons"
+          layout="@layout/dialog_buy_buttons"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          />
+
+      <include
+          android:id="@+id/error_buttons"
+          layout="@layout/dialog_buy_buttons_adyen_error"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/fragment_iab_transaction_completed" />
+
+  </RelativeLayout>
+
+  <include
+      android:id="@+id/fragment_iab_error"
+      layout="@layout/iab_error_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      />
+
+</RelativeLayout>

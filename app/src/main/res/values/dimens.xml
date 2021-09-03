@@ -6,6 +6,7 @@
   <dimen name="small_padding">4dp</dimen>
   <dimen name="normal_padding">8dp</dimen>
   <dimen name="big_padding">16dp</dimen>
+  <dimen name="half_large_padding">38dp</dimen>
   <dimen name="large_padding">76dp</dimen>
 
   <dimen name="small_margin">4dp</dimen>
@@ -29,6 +30,7 @@
   <dimen name="transaction_img_size_inside">50dp</dimen>
 
   <dimen name="button_height">36dp</dimen>
+  <dimen name="button_list_height">70dp</dimen>
   <dimen name="payment_methods_width">340dp</dimen>
   <dimen name="payment_methods_width_landscape">544dp</dimen>
 
@@ -40,4 +42,30 @@
 
   <dimen name="topup_main_value_min_size">16sp</dimen>
   <dimen name="card_view_corner_radius">7dp</dimen>
+  <dimen name="adyen_text_input_layout_height">70dp</dimen>
+  <dimen name="wallets_card_margin">10dp</dimen>
+  <dimen name="gamification_card_margin">16dp</dimen>
+  <dimen name="bottom_sheet_corner_radius">8dp</dimen>
+  <dimen name="promotions_item_margin">8dp</dimen>
+  <dimen name="bottom_sheet_peek_height">96dp</dimen>
+  <dimen name="bottom_sheet_small_height">208dp</dimen>
+  <dimen name="bottom_sheet_big_height">309dp</dimen>
+  <dimen name="wallets_button_size">32dp</dimen>
+  <dimen name="item_wallet_addr_height">56dp</dimen>
+  <dimen name="item_wallet_icon_height">31dp</dimen>
+  <dimen name="item_wallet_icon_width">32dp</dimen>
+  <dimen name="backup_success_icon_size">120dp</dimen>
+  <dimen name="backup_success_icon_margin_top">58dp</dimen>
+  <dimen name="backup_success_text_margin_top">24dp</dimen>
+  <dimen name="backup_success_text_box_horizontal_margin">16dp</dimen>
+
+  <!--Backup Entry -->
+  <dimen name="backup_password_padding">12dp</dimen>
+  <dimen name="backup_warning_margin">20dp</dimen>
+  <dimen name="backup_info_padding_top_and_horizontal">16dp</dimen>
+  <dimen name="backup_info_padding_bottom">26dp</dimen>
+  <dimen name="backup_entry_icon_width">56dp</dimen>
+  <dimen name="backup_entry_icon_height">54dp</dimen>
+  <dimen name="backup_description_normal_text_size">14sp</dimen>
+  <dimen name="backup_description_line_spacing_extra">6sp</dimen>
 </resources>

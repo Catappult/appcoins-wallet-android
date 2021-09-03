@@ -24,7 +24,7 @@ public class KeyStoreFileManager {
     }
   }
 
-  public String getKeystore(String accountAddress) {
+  String getKeystore(String accountAddress) {
     return Objects.requireNonNull(
         getFilePath(removeHexIndicator(accountAddress), keystoreFolderPath),
         "Wallet with address: " + accountAddress + " not found");
@@ -53,14 +53,14 @@ public class KeyStoreFileManager {
     return null;
   }
 
-  public String getKeystoreFolderPath() {
+  String getKeystoreFolderPath() {
     return keystoreFolderPath;
   }
 
   /**
    * @return keystore file's absolute path
    */
-  public String saveKeyStoreFile(String keystore, String path) throws IOException {
+  private String saveKeyStoreFile(String keystore, String path) throws IOException {
     WalletFile walletFile = mapper.readValue(keystore, WalletFile.class);
     File keystoreFile = new File(path.concat(getWalletFileName(walletFile)));
     mapper.writeValue(keystoreFile, walletFile);
@@ -70,7 +70,7 @@ public class KeyStoreFileManager {
   /**
    * @return keystore file's absolute path
    */
-  public String saveKeyStoreFile(String keystore) throws IOException {
+  String saveKeyStoreFile(String keystore) throws IOException {
     return saveKeyStoreFile(keystore, keystoreFolderPath);
   }
 
@@ -83,11 +83,11 @@ public class KeyStoreFileManager {
     return dateFormat.format(new Date()) + walletFile.getAddress() + ".json";
   }
 
-  public boolean hasAddress(String address) {
+  boolean hasAddress(String address) {
     return getFilePath(removeHexIndicator(address), keystoreFolderPath) != null;
   }
 
-  public List<String> getAccounts() {
+  List<String> getAccounts() {
     List<String> addresses = new ArrayList<>();
     for (File file : new File(keystoreFolderPath).listFiles()) {
       String address = getAddressFromFileName(file.getName());

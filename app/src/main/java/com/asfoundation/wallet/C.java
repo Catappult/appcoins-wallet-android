@@ -38,9 +38,6 @@ public abstract class C {
   public static final String CHANGELLY_REF_ID = "968d4f0f0bf9";
   public static final String DONATION_ADDRESS = "0x9f8284ce2cf0c8ce10685f537b1fff418104a317";
 
-  public static final String DEFAULT_GAS_PRICE = "30000000000";
-  public static final String DEFAULT_GAS_LIMIT = "90000";
-  public static final String DEFAULT_GAS_LIMIT_FOR_TOKENS = "144000";
   public static final long GAS_LIMIT_MIN = 21000L;
   public static final long GAS_LIMIT_MAX = 300000L;
   public static final long GAS_PRICE_MIN = 1000000000L;
@@ -58,6 +55,7 @@ public abstract class C {
   public interface Key {
     String WALLET = "wallet";
     String TRANSACTION = "transaction";
+    String GLOBAL_BALANCE_CURRENCY = "global_balance_currency";
     String SHOULD_SHOW_SECURITY_WARNING = "should_show_security_warning";
   }
 }

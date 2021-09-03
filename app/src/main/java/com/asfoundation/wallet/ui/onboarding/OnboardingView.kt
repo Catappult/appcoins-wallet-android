@@ -1,20 +1,22 @@
 package com.asfoundation.wallet.ui.onboarding
 
-import android.net.Uri
 import io.reactivex.Observable
 
 interface OnboardingView {
 
-  fun setupUi()
-
   fun showLoading()
 
-  fun finishOnboarding()
+  fun finishOnboarding(showAnimation: Boolean)
 
-  fun getSkipButtonClick(): Observable<Any>
+  fun getNextButtonClick(): Observable<Any>
 
-  fun getLinkClick(): Observable<String>?
+  fun getLinkClick(): Observable<String>
 
-  fun navigateToBrowser(uri: Uri)
+  fun getSkipClicks(): Observable<Any>
 
+  fun showViewPagerLastPage()
+
+  fun setPaymentMethodsIcons(paymentMethodsIcons: List<String>)
+
+  fun showWarningText()
 }

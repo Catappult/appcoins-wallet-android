@@ -11,10 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
-import com.asfoundation.wallet.permissions.AndroidAppDataProvider
 import com.asfoundation.wallet.permissions.PermissionsInteractor
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoModel
+import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.provide_wallet_always_allow_wallet_apps_la
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class PermissionFragment : DaggerFragment(), PermissionFragmentView {
+class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
   companion object {
     private const val CALLING_PACKAGE = "calling_package_key"
     private const val PERMISSION_KEY = "permission_key"
@@ -46,7 +47,8 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     }
   }
 
-  lateinit var appDateProvider: AndroidAppDataProvider
+  private lateinit var appInfoProvider: ApplicationInfoProvider
+
   @Inject
   lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var navigator: PermissionFragmentNavigator
@@ -76,8 +78,8 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
   override fun showAppData(packageName: String) {
     disposable?.dispose()
     disposable = Single.zip(Single.timer(500, TimeUnit.MILLISECONDS),
-        Single.fromCallable { appDateProvider.getAppInfo(packageName) },
-        BiFunction { _: Long, app: AndroidAppDataProvider.ApplicationInfo -> app })
+        Single.fromCallable { appInfoProvider.getAppInfo(packageName) },
+        BiFunction { _: Long, app: ApplicationInfoModel -> app })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess { app ->
@@ -92,13 +94,14 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
                 message.indexOf(walletAppName) + walletAppName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
           }
-          spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(app.appName.toString()),
-              message.indexOf(app.appName.toString()) + app.appName.length,
+          spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(app.appName),
+              message.indexOf(app.appName) + app.appName.length,
               Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
           provide_wallet_always_allow_body.text = spannedMessage
           progress.visibility = View.GONE
           main_view.visibility = View.VISIBLE
-        }.subscribe()
+        }
+        .subscribe()
   }
 
   override fun showWalletAddress(wallet: String) {
@@ -126,7 +129,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     when (context) {
       is PermissionFragmentNavigator -> {
         navigator = context
-        appDateProvider = AndroidAppDataProvider(context)
+        appInfoProvider = ApplicationInfoProvider(context)
       }
       else -> throw IllegalArgumentException(
           "${PermissionFragment::class} has to be attached to an activity that implements ${PermissionFragmentNavigator::class}")

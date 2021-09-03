@@ -12,17 +12,19 @@ public interface WalletRepositoryType {
 
   Single<Wallet> createWallet(String password);
 
-  Single<Wallet> importKeystoreToWallet(String store, String password, String newPassword);
+  Single<Wallet> restoreKeystoreToWallet(String store, String password, String newPassword);
 
-  Single<Wallet> importPrivateKeyToWallet(String privateKey, String newPassword);
+  Single<Wallet> restorePrivateKeyToWallet(String privateKey, String newPassword);
 
-  Single<String> exportWallet(Wallet wallet, String password, String newPassword);
+  Single<String> exportWallet(String address, String password, String newPassword);
 
   Completable deleteWallet(String address, String password);
 
-  Completable setDefaultWallet(Wallet wallet);
+  Completable setDefaultWallet(String address);
 
   Single<Wallet> getDefaultWallet();
 
-  Single<BigDecimal> balanceInWei(Wallet wallet);
+  Single<BigDecimal> getEthBalanceInWei(String address);
+
+  Single<BigDecimal> getAppcBalanceInWei(String address);
 }

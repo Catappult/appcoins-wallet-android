@@ -8,20 +8,24 @@ import com.asf.wallet.R
 
 class EmptyTransactionsPageChangeListener(view: View) : ViewPager.OnPageChangeListener {
 
-  private var lottieView: LottieAnimationView = view.findViewById(R.id.transactions_empty_screen_animation)
+  private var lottieView: LottieAnimationView =
+      view.findViewById(R.id.transactions_empty_screen_animation)
+  private var isAnimationPlaying: Boolean = false
 
 
   override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+    if (positionOffset.compareTo(0.0) != 0) {
+      if (isAnimationPlaying) {
+        lottieView.cancelAnimation()
+        isAnimationPlaying = false
+      }
+    } else if (!isAnimationPlaying) {
+      isAnimationPlaying = true
+      lottieView.resumeAnimation()
+    }
   }
 
   override fun onPageScrollStateChanged(state: Int) {
-    if (state == ViewPager.SCROLL_STATE_DRAGGING) {
-      lottieView.progress = 0f
-      lottieView.cancelAnimation()
-    }
-    if (state == ViewPager.SCROLL_STATE_IDLE) {
-      lottieView.playAnimation()
-    }
   }
 
   override fun onPageSelected(position: Int) {

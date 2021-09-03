@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <ScrollView
+      android:id="@+id/content_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <TextView
+          android:id="@+id/title"
+          style="@style/VerifyWallet.Title"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="27dp"
+          android:text="@string/card_verification_body"
+          app:layout_constraintEnd_toStartOf="@id/guideline_mid"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <RelativeLayout
+          android:id="@+id/cc_container"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/half_large_margin"
+          android:paddingStart="@dimen/normal_margin"
+          android:paddingEnd="@dimen/big_margin"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/guideline_mid"
+          app:layout_constraintTop_toTopOf="parent"
+          >
+
+        <include
+            android:id="@+id/adyen_card_form"
+            layout="@layout/selected_payment_method_cc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:id="@+id/change_card_button"
+            style="@style/VerifyWallet.ChangeCard.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/adyen_card_form"
+            android:layout_alignParentEnd="true"
+            android:text="@string/activity_iab_change_card"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+      </RelativeLayout>
+
+      <TextView
+          android:id="@+id/description"
+          style="@style/VerifyWallet.Description"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:paddingStart="@dimen/big_margin"
+          android:paddingTop="13dp"
+          android:paddingEnd="@dimen/big_margin"
+          android:paddingBottom="@dimen/normal_margin"
+          app:layout_constraintBottom_toBottomOf="@id/cc_container"
+          app:layout_constraintEnd_toStartOf="@id/guideline_mid"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/title"
+          app:layout_constraintVertical_bias="0.15"
+          tools:text="@string/card_verification_charde_disclaimer"
+          />
+
+      <View
+          android:id="@+id/bottom_separator"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginBottom="21dp"
+          android:background="@color/layout_separator_color"
+          app:layout_constraintBottom_toTopOf="@id/cancel"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/cc_container"
+          app:layout_constraintVertical_bias="1"
+          />
+
+      <Button
+          android:id="@+id/submit"
+          style="@style/VerifyWallet.Submit.Button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="24dp"
+          android:enabled="false"
+          android:text="@string/get_code_button"
+          app:layout_constraintBaseline_toBaselineOf="@id/cancel"
+          app:layout_constraintEnd_toEndOf="parent"
+          />
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/cancel"
+          style="@style/VerifyWallet.Cancel.Button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="56dp"
+          android:layout_marginEnd="@dimen/normal_margin"
+          android:layout_marginBottom="22dp"
+          android:text="@string/cancel"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/submit"
+          app:layout_constraintHorizontal_bias="1"
+          app:layout_constraintStart_toStartOf="parent"
+          />
+
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/guideline_mid"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.5"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </ScrollView>
+
+  <ProgressBar
+      android:id="@+id/progress_bar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:indeterminateDrawable="@drawable/gradient_progress"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <include
+      android:id="@+id/no_network"
+      layout="@layout/no_network_retry_only_layout"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <include
+      android:id="@+id/fragment_adyen_error"
+      layout="@layout/error_top_up_layout"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

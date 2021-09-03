@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/address_layout"
+      style="@style/BillingAddressTextInputLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:hint="@string/purchase_address_address_field"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/address"
+        style="@style/BillingAddressInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        tools:text="Amphitheatre Parkway"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/number_layout"
+      style="@style/BillingAddressTextInputLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:hint="@string/purchase_address_apartment_field"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/address_layout"
+      >
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/number"
+        style="@style/BillingAddressInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        tools:text="36"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/city_layout"
+      style="@style/BillingAddressTextInputLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:hint="@string/purchase_address_city_field"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/number_layout"
+      >
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/city"
+        style="@style/BillingAddressInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        tools:text="Mountain View"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/zipcode_layout"
+      style="@style/BillingAddressTextInputLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/small_margin"
+      android:hint="@string/purchase_address_post_code_field"
+      app:layout_constraintEnd_toStartOf="@id/state_layout"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/city_layout"
+      >
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/zipcode"
+        style="@style/BillingAddressInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="number"
+        tools:text="94043"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/state_layout"
+      style="@style/BillingDropDown"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/small_margin"
+      android:hint="@string/purchase_address_state_field"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/zipcode_layout"
+      app:layout_constraintTop_toTopOf="@id/zipcode_layout"
+      >
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/state"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="none"
+        android:textSize="14sp"
+        tools:text="CA"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/country_layout"
+      style="@style/BillingDropDown"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:focusable="false"
+      android:hint="@string/verification_insert_phone_field_country"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/state_layout"
+      >
+
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/country"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="none"
+        android:text="US"
+        android:textSize="14sp"
+        />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

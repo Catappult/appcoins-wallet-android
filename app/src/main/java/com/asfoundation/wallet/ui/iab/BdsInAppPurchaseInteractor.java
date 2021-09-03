@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -33,18 +32,20 @@ public class BdsInAppPurchaseInteractor {
   }
 
   public Completable send(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, BigDecimal channelBudget, String developerPayload) {
+      String packageName, String productName, String developerPayload,
+      TransactionBuilder transactionBuilder) {
     return inAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-        channelBudget, developerPayload);
+        developerPayload, transactionBuilder);
   }
 
   public Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, String developerPayload) {
-    return approveKeyProvider.getKey(packageName, productName)
+      String packageName, String productName, String developerPayload, String type,
+      TransactionBuilder transactionBuilder) {
+    return approveKeyProvider.getTransaction(packageName, productName, type)
         .doOnSuccess(billingPaymentProofSubmission::saveTransactionId)
         .flatMapCompletable(
-            approveKey -> inAppPurchaseInteractor.resume(uri, transactionType, packageName,
-                productName, approveKey, developerPayload));
+            transaction -> inAppPurchaseInteractor.resume(uri, transactionType, packageName,
+                productName, transaction.getUid(), developerPayload, transactionBuilder));
   }
 
   public Observable<Payment> getTransactionState(String uri) {
@@ -75,15 +76,6 @@ public class BdsInAppPurchaseInteractor {
     return inAppPurchaseInteractor.getBillingMessagesMapper();
   }
 
-  public ExternalBillingSerializer getBillingSerializer() {
-    return inAppPurchaseInteractor.getBillingSerializer();
-  }
-
-  public Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(
-      String packageName, TransactionBuilder transactionBuilder) {
-    return inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
-  }
-
   public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return inAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
   }
@@ -92,7 +84,8 @@ public class BdsInAppPurchaseInteractor {
     return billing.getWallet(packageName);
   }
 
-  public Single<List<PaymentMethodEntity>> getPaymentMethods(String value, String currency) {
-    return billing.getPaymentMethods(value, currency);
+  public Single<List<PaymentMethodEntity>> getPaymentMethods(String value, String currency,
+      String transactionType) {
+    return billing.getPaymentMethods(value, currency, transactionType);
   }
 }

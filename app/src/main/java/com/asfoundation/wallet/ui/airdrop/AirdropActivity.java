@@ -3,8 +3,8 @@ package com.asfoundation.wallet.ui.airdrop;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.MenuItem;
+import androidx.annotation.Nullable;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 
@@ -26,10 +26,8 @@ public class AirdropActivity extends BaseActivity implements AirdropFragment.Air
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home: {
-        finish();
-      }
+    if (item.getItemId() == android.R.id.home) {
+      finish();
     }
     return super.onOptionsItemSelected(item);
   }

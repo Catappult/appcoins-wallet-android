@@ -15,15 +15,12 @@ public class EmptyTransactionsView extends FrameLayout {
 
   private static final int MAX_BONUS_STRING_RESOURCE = R.string.gamification_home_body;
   private static final int NUMBER_PAGES = 2;
-  private CompositeDisposable disposables;
-  private final int body[] = { R.string.home_empty_discover_apps_body, MAX_BONUS_STRING_RESOURCE };
+  private final int[] body = { R.string.home_empty_discover_apps_body, MAX_BONUS_STRING_RESOURCE };
 
   public EmptyTransactionsView(@NonNull Context context, @NonNull String bonus,
       PublishSubject<String> emptyTransactionsSubject, TransactionsActivity transactionsActivity,
       CompositeDisposable disposables) {
     super(context);
-
-    this.disposables = disposables;
 
     LayoutInflater.from(getContext())
         .inflate(R.layout.layout_empty_transactions, this, true);
@@ -40,10 +37,7 @@ public class EmptyTransactionsView extends FrameLayout {
     disposables.add(transactionsActivity.getEmptyTransactionsScreenClick()
         .doOnNext(string -> {
           if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_GAMIFICATION)) {
-            transactionsActivity.navigateToGamification();
-          }
-          if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_TOP_APPS)) {
-            transactionsActivity.navigateToTopApps();
+            transactionsActivity.navigateToPromotions(false);
           }
         })
         .subscribe());

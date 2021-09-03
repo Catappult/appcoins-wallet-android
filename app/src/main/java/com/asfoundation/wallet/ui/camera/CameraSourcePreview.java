@@ -18,12 +18,13 @@ package com.asfoundation.wallet.ui.camera;
 import android.Manifest;
 import android.content.Context;
 import android.content.res.Configuration;
-import androidx.annotation.RequiresPermission;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
+import androidx.annotation.RequiresPermission;
+import com.asfoundation.wallet.ui.barcode.CameraResultListener;
+import com.asfoundation.wallet.util.Log;
 import com.google.android.gms.common.images.Size;
 import java.io.IOException;
 
@@ -35,6 +36,7 @@ public class CameraSourcePreview extends ViewGroup {
   private boolean mStartRequested;
   private boolean mSurfaceAvailable;
   private CameraSource mCameraSource;
+  private CameraResultListener cameraResultListener;
 
   public CameraSourcePreview(Context context, AttributeSet attrs) {
     super(context, attrs);
@@ -46,6 +48,10 @@ public class CameraSourcePreview extends ViewGroup {
     mSurfaceView.getHolder()
         .addCallback(new SurfaceCallback());
     addView(mSurfaceView);
+  }
+
+  public void addCameraResultListener(CameraResultListener cameraResultListener) {
+    this.cameraResultListener = cameraResultListener;
   }
 
   @RequiresPermission(Manifest.permission.CAMERA) public void start(CameraSource cameraSource)
@@ -162,8 +168,13 @@ public class CameraSourcePreview extends ViewGroup {
         startIfReady();
       } catch (SecurityException se) {
         Log.e(TAG, "Do not have permission to start the camera", se);
+        cameraResultListener.onCameraError();
       } catch (IOException e) {
         Log.e(TAG, "Could not start camera source.", e);
+        cameraResultListener.onCameraError();
+      } catch (Exception e) {
+        Log.e(TAG, "Unknown error.", e);
+        cameraResultListener.onCameraError();
       }
     }
 

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.widget.entity;
 
-import android.text.format.DateUtils;
 import com.asfoundation.wallet.transactions.Transaction;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +27,7 @@ public class TransactionSortedItem extends TimestampSortedItem<Transaction> {
 
   @Override public Date getTimestamp() {
     Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-    calendar.setTimeInMillis(value.getTimeStamp() * DateUtils.SECOND_IN_MILLIS);
+    calendar.setTimeInMillis(value.getTimeStamp());
     return calendar.getTime();
   }
 

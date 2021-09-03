@@ -1,12 +1,6 @@
 package com.asfoundation.wallet.widget;
 
 import android.content.Context;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -16,7 +10,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.asf.wallet.R;
+import com.google.android.material.snackbar.Snackbar;
 
 public class SystemView extends FrameLayout implements View.OnClickListener {
   private ProgressBar progress;
@@ -66,7 +65,7 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     this.recyclerView = recyclerView;
   }
 
-  public void hide() {
+  private void hide() {
     hideAllComponents();
     setVisibility(GONE);
   }
@@ -130,10 +129,6 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
       messageTxt.setVisibility(TextUtils.isEmpty(message) ? GONE : VISIBLE);
       tryAgain.setVisibility(this.onTryAgainClickListener == null ? GONE : VISIBLE);
     }
-  }
-
-  public void showEmpty(@NonNull String message) {
-    showError(message, null);
   }
 
   public void showEmpty(View view) {

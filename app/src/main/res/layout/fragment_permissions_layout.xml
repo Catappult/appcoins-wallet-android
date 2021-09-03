@@ -3,14 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <androidx.constraintlayout.widget.ConstraintLayout
-      xmlns:app="http://schemas.android.com/apk/res-auto"
+  <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:layout_marginEnd="32dp"
       android:layout_marginStart="32dp"
+      android:layout_marginEnd="32dp"
       android:background="@drawable/background_card"
       >
 
@@ -20,9 +19,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_card"
         android:elevation="2dp"
-        android:paddingEnd="16dp"
         android:paddingStart="16dp"
         android:paddingTop="32dp"
+        android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,6 +34,7 @@
 
       <TextView
           android:id="@+id/provide_wallet_always_allow_body"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
@@ -46,11 +46,11 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_wallet_icon"
-          style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
           />
 
       <Button
           android:id="@+id/provide_wallet_always_allow_button"
+          style="@style/ButtonStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
@@ -59,10 +59,10 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_body"
-          style="@style/ButtonStyle"
           />
       <Button
           android:id="@+id/provide_wallet_allow_once_button"
+          style="@style/ButtonStyle.Light"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
@@ -71,22 +71,20 @@
           app:layout_constraintEnd_toEndOf="@id/provide_wallet_always_allow_button"
           app:layout_constraintStart_toStartOf="@id/provide_wallet_always_allow_button"
           app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_button"
-          style="@style/ButtonStyle.Light"
           />
 
       <Button
           android:id="@+id/provide_wallet_cancel"
+          style="@style/CancelButtonStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="8dp"
           android:layout_marginTop="16dp"
+          android:layout_marginEnd="8dp"
           android:text="@string/provide_wallet_cancel"
-          app:layout_constraintBottom_toTopOf="@id/footer_layout"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="1"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/provide_wallet_allow_once_button"
-          style="@style/CancelButtonStyle"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,9 +109,9 @@
           android:id="@+id/logo_wallet"
           android:layout_width="76dp"
           android:layout_height="16dp"
-          android:layout_marginBottom="10dp"
           android:layout_marginStart="16dp"
           android:layout_marginTop="7dp"
+          android:layout_marginBottom="10dp"
           android:src="@drawable/logo_appc_wallet"
           />
 
@@ -121,14 +119,14 @@
           android:id="@+id/provide_wallet_always_allow_app_wallet_address"
           android:layout_width="match_parent"
           android:layout_height="24dp"
-          android:layout_marginEnd="16dp"
           android:layout_marginStart="16dp"
           android:layout_marginTop="4dp"
+          android:layout_marginEnd="16dp"
           android:layout_toEndOf="@id/logo_wallet"
           android:ellipsize="end"
           android:gravity="center_vertical"
           android:maxLines="1"
-          android:textColor="@color/grey_8a_alpha"
+          android:textColor="@color/grey_alpha_active_54"
           android:textSize="12sp"
           tools:text="0x0eebe100e4866204497d78d93a1071941dce70a4"
           />
@@ -139,6 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="2dp"
+        android:indeterminateDrawable="@drawable/gradient_progress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

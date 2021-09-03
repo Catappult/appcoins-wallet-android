@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Promotions.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/normal_margin"
+    android:layout_marginEnd="@dimen/normal_margin"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/progress_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/activity_background_color"
+      android:paddingBottom="@dimen/normal_margin"
+      android:clickable="false"
+      >
+
+    <ImageView
+        android:id="@+id/progress_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_promotions_default"
+        />
+
+    <TextView
+        android:id="@+id/progress_title"
+        style="@style/Promotions.TextStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/progress_icon"
+        app:layout_constraintTop_toTopOf="@+id/progress_icon"
+        tools:text="Spend 200 Appcoins in 5 days and earn a bonus of 120 AppCoins Credits"
+        />
+
+    <ProgressBar
+        android:id="@+id/progress_current"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:progressDrawable="@drawable/promotions_progress_bar"
+        app:layout_constraintEnd_toStartOf="@id/progress_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_icon"
+        />
+
+    <TextView
+        android:id="@+id/progress_label"
+        style="@style/Promotions.TextStyle.Progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:gravity="end|center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/progress_current"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/progress_current"
+        app:layout_constraintTop_toTopOf="@id/progress_current"
+        tools:text="200/200"
+        />
+
+    <LinearLayout
+        android:id="@+id/progress_container_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:background="@drawable/promotions_date_background"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_current"
+        >
+
+      <ImageView
+          android:layout_width="12dp"
+          android:layout_height="12dp"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="@dimen/normal_margin"
+          android:layout_marginTop="@dimen/small_margin"
+          android:layout_marginEnd="6dp"
+          android:layout_marginBottom="@dimen/small_margin"
+          app:srcCompat="@drawable/ic_info_grey"
+          />
+
+      <TextView
+          android:id="@+id/progress_expiry_date"
+          style="@style/Promotions.TextStyle.Date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginEnd="@dimen/big_margin"
+          tools:text="The promotion ends in 2 days"
+          />
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

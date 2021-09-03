@@ -1,154 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/background_card_grey"
+    android:paddingBottom="16dp"
     >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <TextView
+      android:id="@+id/title"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingBottom="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="34dp"
+      android:layout_marginEnd="16dp"
+      android:ellipsize="end"
+      android:fontFamily="sans-serif"
+      android:gravity="center"
+      android:text="@string/verification_insert_phone_title"
+      android:textColor="@color/color_title"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/subtitle"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:text="@string/verification_insert_phone_body"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title"
+      />
+
+  <com.hbb20.CountryCodePicker
+      android:id="@+id/country_code_picker"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_marginStart="40dp"
+      android:layout_marginTop="22dp"
+      android:layout_marginEnd="40dp"
+      app:ccpDialog_background="@drawable/ccp_background"
+      app:ccpDialog_textColor="#000000"
+      app:ccp_arrowColor="@color/colorAccent"
+      app:ccp_arrowSize="30dp"
+      app:ccp_autoDetectCountry="true"
+      app:ccp_textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/subtitle"
+      />
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/phone_number_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="40dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="40dp"
+      android:hint="@string/verification_insert_phone_field_number"
+      android:theme="@style/TextInputLayoutAppearance"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/country_code_picker"
+      >
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+        android:inputType="phone"
+        android:maxLines="1"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <LinearLayout
+      android:id="@+id/disclaimer_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="40dp"
+      android:layout_marginTop="4dp"
+      android:layout_marginEnd="40dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/phone_number_layout"
       >
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="16dp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:text="@string/verification_insert_phone_title"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="3dp"
+        app:srcCompat="@drawable/ic_info_grey"
         />
 
     <TextView
-        android:id="@+id/subtitle"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:text="@string/verification_insert_phone_body"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        />
-
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/ccp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="40dp"
-        app:ccpDialog_backgroundColor="#FAFAFA"
-        app:ccpDialog_textColor="#000000"
-        app:ccp_arrowColor="@color/colorAccent"
-        app:ccp_arrowSize="30dp"
-        app:ccp_autoDetectCountry="true"
-        app:ccp_textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subtitle"
-        />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/phone_number_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:hint="@string/verification_insert_phone_field_number"
-        android:theme="@style/TextInputLayoutAppearance"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ccp"
-        >
-      <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/phone_number"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:inputType="phone"
-          android:maxLines="1"
-          android:textColor="#000000"
-          android:textSize="16sp"
-          />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:id="@+id/disclaimer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone_number_layout"
-        >
-
-      <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:layout_marginEnd="3dp"
-          app:srcCompat="@drawable/ic_info_grey"
-          />
-
-      <TextView
-          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/verification_insert_phone_security_disclaimer"
-          android:textSize="10sp"
-          />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/cancel_button"
-        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginEnd="8dp"
-        android:maxWidth="126dp"
-        android:minWidth="80dp"
-        android:text="@string/cancel"
-        android:textColor="@color/btn_cancel_text"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/submit_button"
-        app:layout_constraintEnd_toStartOf="@id/submit_button"
-        app:layout_constraintTop_toTopOf="@+id/submit_button"
+        android:layout_height="wrap_content"
+        android:text="@string/verification_insert_phone_security_disclaimer"
+        android:textSize="10sp"
         />
 
-    <Button
-        android:id="@+id/submit_button"
-        style="@style/ButtonStyle.Alternative"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:maxWidth="126dp"
-        android:minWidth="80dp"
-        android:text="@string/submit_button"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/disclaimer_layout"
-        />
+  </LinearLayout>
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <Button
+      android:id="@+id/cancel_button"
+      style="@style/CancelBorderlessButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_height"
+      android:layout_marginEnd="8dp"
+      android:maxWidth="126dp"
+      android:minWidth="80dp"
+      android:text="@string/cancel"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@+id/submit_button"
+      app:layout_constraintEnd_toStartOf="@id/submit_button"
+      app:layout_constraintTop_toTopOf="@+id/submit_button"
+      />
 
-</RelativeLayout>
+  <Button
+      android:id="@+id/submit_button"
+      style="@style/ButtonStyle.Alternative"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_height"
+      android:layout_marginTop="36dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:maxWidth="126dp"
+      android:minWidth="80dp"
+      android:text="@string/submit_button"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/disclaimer_layout"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

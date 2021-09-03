@@ -11,8 +11,8 @@ public class AirdropPresenter {
   private final AirdropInteractor airdrop;
   private final Scheduler scheduler;
 
-  public AirdropPresenter(AirdropView view, CompositeDisposable disposables,
-      AirdropInteractor airdrop, Scheduler scheduler) {
+  AirdropPresenter(AirdropView view, CompositeDisposable disposables, AirdropInteractor airdrop,
+      Scheduler scheduler) {
     this.view = view;
     this.disposables = disposables;
     this.airdrop = airdrop;
@@ -60,7 +60,7 @@ public class AirdropPresenter {
     return airdrop.requestCaptcha()
         .observeOn(scheduler)
         .doOnSuccess(view::showCaptcha)
-        .doOnError(throwable -> throwable.printStackTrace());
+        .doOnError(Throwable::printStackTrace);
   }
 
   private void onAirdropStatusChange() {

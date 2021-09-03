@@ -2,6 +2,8 @@ package com.asfoundation.wallet.util
 
 import android.net.Uri
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.util.Parameters.Companion.HOST
+import com.asfoundation.wallet.util.Parameters.Companion.LEGACY_HOST
 
 class Parameters {
   companion object {
@@ -12,19 +14,22 @@ class Parameters {
     const val DATA = "data"
     const val CURRENCY = "currency"
     const val CALLBACK_URL = "callback_url"
+    const val PRODUCT_TOKEN = "product_token"
+    const val SKILLS = "skills"
     const val SCHEME = "https"
+    const val LEGACY_HOST = BuildConfig.LEGACY_PAYMENT_HOST
     const val HOST = BuildConfig.PAYMENT_HOST
-    const val SECOND_HOST = BuildConfig.SECOND_PAYMENT_HOST
     const val PATH = "/transaction"
-    const val PAYMENT_TYPE_INAPP_UNMANAGED = "inapp_unmanaged"
+    const val PAYMENT_TYPE_INAPP_UNMANAGED = "INAPP_UNMANAGED"
+    const val ESKILLS = "ESKILLS"
     const val NETWORK_ID_ROPSTEN = 3L
     const val NETWORK_ID_MAIN = 1L
   }
 }
 
 fun Uri.isOneStepURLString() =
-    scheme == Parameters.SCHEME && (host == Parameters.HOST || host == Parameters.SECOND_HOST)
-        && path.startsWith(Parameters.PATH)
+    scheme == Parameters.SCHEME && (host == HOST || host == LEGACY_HOST)
+        && (path?.startsWith(Parameters.PATH) ?: false)
 
 fun parseOneStep(uri: Uri): OneStepUri {
   val scheme = uri.scheme
@@ -33,9 +38,12 @@ fun parseOneStep(uri: Uri): OneStepUri {
   val parameters = mutableMapOf<String, String>()
   parameters.apply {
     for (key in uri.queryParameterNames) {
-      this[key] = uri.getQueryParameter(key)
+      uri.getQueryParameter(key)
+          ?.let { parameter ->
+            this[key] = parameter
+          }
     }
   }
-  return OneStepUri(scheme, host, path, parameters)
+  return OneStepUri(scheme ?: "", host ?: "", path ?: "", parameters)
 }
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/no_network_animation"
+      android:layout_width="160dp"
+      android:layout_height="160dp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/no_network_animation"
+      tools:src="@drawable/ic_topup_error"
+      />
+
+  <TextView
+      android:id="@+id/no_network_message"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="44dp"
+      android:layout_marginTop="32dp"
+      android:layout_marginEnd="44dp"
+      android:fontFamily="sans-serif"
+      android:gravity="center"
+      android:lineSpacingExtra="4sp"
+      android:text="@string/connectoin_error_body"
+      android:textColor="@color/grey_alpha_active_54"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/no_network_animation"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

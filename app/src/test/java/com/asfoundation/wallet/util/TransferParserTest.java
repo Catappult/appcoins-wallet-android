@@ -1,37 +1,32 @@
 package com.asfoundation.wallet.util;
 
-import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import java.math.BigDecimal;
 import org.junit.Test;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TransferParserTest {
+
   @Test public void parse() {
-    TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
+    mock(TokenRepositoryType.class);
+    DefaultTokenProvider defaultTokenProvider = mock(DefaultTokenProvider.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
-    EIPTransactionParser eipTransactionParser =
-        new EIPTransactionParser(findDefaultWalletInteract, tokenRepositoryType);
+    EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
     OneStepTransactionParser oneStepTransactionParser = mock(OneStepTransactionParser.class);
 
     String contractAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
     when(findDefaultWalletInteract.find()).thenReturn(Single.just(new Wallet(contractAddress)));
-    Token token = new Token(new TokenInfo(contractAddress, "AppCoins", "APPC", 18, true, true),
-        new BigDecimal(10), 32L);
-    Token[] tokens = new Token[1];
-    tokens[0] = token;
-
-    when(tokenRepositoryType.fetchAll(any())).thenReturn(Observable.just(tokens));
+    TokenInfo tokenInfo = new TokenInfo(contractAddress, "AppCoins", "APPC", 18);
+    when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
 
     TransferParser transferParser =
         new TransferParser(eipTransactionParser, oneStepTransactionParser);
@@ -50,20 +45,17 @@ public class TransferParserTest {
   }
 
   @Test public void parseWithData() {
-    TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
+    mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
-    EIPTransactionParser eipTransactionParser =
-        new EIPTransactionParser(findDefaultWalletInteract, tokenRepositoryType);
+    DefaultTokenProvider defaultTokenProvider = mock(DefaultTokenProvider.class);
+    EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
     OneStepTransactionParser oneStepTransactionParser = mock(OneStepTransactionParser.class);
 
     String contractAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
     when(findDefaultWalletInteract.find()).thenReturn(Single.just(new Wallet(contractAddress)));
-    Token token = new Token(new TokenInfo(contractAddress, "AppCoins", "APPC", 18, true, true),
-        new BigDecimal(10), 32L);
-    Token[] tokens = new Token[1];
-    tokens[0] = token;
 
-    when(tokenRepositoryType.fetchAll(any())).thenReturn(Observable.just(tokens));
+    TokenInfo tokenInfo = new TokenInfo(contractAddress, "AppCoins", "APPC", 18);
+    when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
 
     TransferParser transferParser =
         new TransferParser(eipTransactionParser, oneStepTransactionParser);
@@ -81,26 +73,22 @@ public class TransferParserTest {
         .equals("0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be"));
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
         .equals("0xab949343e6c369c6b17c7ae302c1debd4b7b61c3"));
-    test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == true);
+    test.assertValue(TransactionBuilder::shouldSendToken);
     test.assertValue(transactionBuilder -> transactionBuilder.getIabContract()
         .equals("0xb015D9bBabc472BBfC990ED6A0C961a90a482C57"));
   }
 
   @Test public void parseTransferToken() {
-    TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
+    mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
-    EIPTransactionParser eipTransactionParser =
-        new EIPTransactionParser(findDefaultWalletInteract, tokenRepositoryType);
+    DefaultTokenProvider defaultTokenProvider = mock(DefaultTokenProvider.class);
+    EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
     OneStepTransactionParser oneStepTransactionParser = mock(OneStepTransactionParser.class);
 
     String contractAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
     when(findDefaultWalletInteract.find()).thenReturn(Single.just(new Wallet(contractAddress)));
-    Token token = new Token(new TokenInfo(contractAddress, "AppCoins", "APPC", 18, true, true),
-        new BigDecimal(10), 32L);
-    Token[] tokens = new Token[1];
-    tokens[0] = token;
-
-    when(tokenRepositoryType.fetchAll(any())).thenReturn(Observable.just(tokens));
+    TokenInfo tokenInfo = new TokenInfo(contractAddress, "AppCoins", "APPC", 18);
+    when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
 
     TransferParser transferParser =
         new TransferParser(eipTransactionParser, oneStepTransactionParser);
@@ -119,14 +107,12 @@ public class TransferParserTest {
         .equals(toAddress));
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
         .equals(contractAddress));
-    test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == true);
+    test.assertValue(TransactionBuilder::shouldSendToken);
   }
 
   @Test public void parseEthTransaction() {
-    TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
-    FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
-    EIPTransactionParser eipTransactionParser =
-        new EIPTransactionParser(findDefaultWalletInteract, tokenRepositoryType);
+    DefaultTokenProvider defaultTokenProvider = mock(DefaultTokenProvider.class);
+    EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
     OneStepTransactionParser oneStepTransactionParser = mock(OneStepTransactionParser.class);
 
     String toAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
@@ -141,6 +127,6 @@ public class TransferParserTest {
         .equals(new BigDecimal(1).setScale(18)));
     test.assertValue(transactionBuilder -> transactionBuilder.toAddress()
         .equals(toAddress));
-    test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
+    test.assertValue(transactionBuilder -> !transactionBuilder.shouldSendToken());
   }
 }

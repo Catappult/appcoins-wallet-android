@@ -36,11 +36,12 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     createWalletCompleteEvent = BehaviorRelay.create()
     try {
       val permissionName = getPermission()
-      presenter =
-          PermissionsActivityPresenter(this, permissionsInteractor, callingPackage,
-              getSignature(callingPackage), permissionName, CompositeDisposable(),
-              AndroidSchedulers.mainThread())
-      presenter?.present(savedInstanceState == null)
+      callingPackage?.let {
+        presenter =
+            PermissionsActivityPresenter(this, permissionsInteractor, it,
+                getSignature(it), permissionName, CompositeDisposable(),
+                AndroidSchedulers.mainThread(), savedInstanceState == null)
+      } ?: closeError("Null calling package")
     } catch (e: IllegalArgumentException) {
       closeError(
           "Unknown permission name. \nKnown permissions: " + PermissionName.WALLET_ADDRESS.name)
@@ -51,9 +52,14 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     return createWalletCompleteEvent
   }
 
-  override fun onDestroy() {
+  override fun onResume() {
+    super.onResume()
+    presenter?.present()
+  }
+
+  override fun onPause() {
     presenter?.stop()
-    super.onDestroy()
+    super.onPause()
   }
 
   private fun getSignature(callingPackage: String): String {
@@ -87,7 +93,7 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
 
   @Throws(IllegalArgumentException::class)
   private fun getPermission(): PermissionName {
-    return PermissionName.valueOf(intent.extras[PERMISSION_NAME_KEY] as String)
+    return PermissionName.valueOf(intent.extras?.get(PERMISSION_NAME_KEY) as String)
   }
 
   override fun showPermissionFragment(callingPackage: String,
@@ -100,7 +106,9 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
   }
 
   private fun showFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, fragment)
+        .commit()
   }
 
   override fun closeSuccess() {

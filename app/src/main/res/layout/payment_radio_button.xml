@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatRadioButton
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/appc_credits"
-    style="@style/PaymentMethodsRadioButton"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />

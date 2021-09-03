@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.util.List;
@@ -22,10 +23,14 @@ public class ApproveService {
     transactionService.start();
   }
 
+  public Completable approveWithoutValidation(String key, TransactionBuilder transactionBuilder) {
+    return transactionService.sendTransaction(key, transactionBuilder);
+  }
+
   public Completable approve(String key, PaymentTransaction paymentTransaction) {
     return approveTransactionSender.validate(paymentTransaction)
-        .andThen(
-            transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder()));
+        .flatMapCompletable(__ -> transactionService.sendTransaction(key,
+            paymentTransaction.getTransactionBuilder()));
   }
 
   public Observable<ApproveTransaction> getApprove(String uri) {
@@ -75,6 +80,9 @@ public class ApproveService {
       case NO_INTERNET:
         toReturn = Status.NO_INTERNET;
         break;
+      case FORBIDDEN:
+        toReturn = Status.FORBIDDEN;
+        break;
     }
     return toReturn;
   }
@@ -91,7 +99,8 @@ public class ApproveService {
   }
 
   public enum Status {
-    PENDING, APPROVING, APPROVED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET
+    PENDING, APPROVING, APPROVED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS,
+    NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN
   }
 
   public class ApproveTransaction {

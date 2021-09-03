@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.entity;
 
+import java.util.Objects;
+
 /**
  * Created by trinkes on 28/02/2018.
  */
@@ -26,8 +28,8 @@ public class PendingTransaction {
 
     PendingTransaction that = (PendingTransaction) o;
 
-    if (hash != null ? !hash.equals(that.hash) : that.hash != null) return false;
-    return pending != null ? pending.equals(that.pending) : that.pending == null;
+    if (!Objects.equals(hash, that.hash)) return false;
+    return Objects.equals(pending, that.pending);
   }
 
   @Override public String toString() {

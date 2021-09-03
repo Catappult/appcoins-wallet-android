@@ -3,10 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.asf.wallet">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.VIBRATE"/>
-  <uses-permission android:name="android.permission.CAMERA"/>
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.VIBRATE" />
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission
+      android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+      android:maxSdkVersion="28" />
+  <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
   <application
       android:name="com.asfoundation.wallet.App"
@@ -18,205 +26,299 @@
       android:testOnly="false"
       android:theme="@style/AppTheme.NoActionBar"
       tools:replace="android:name, android:theme, android:allowBackup">
+
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_channel_id"
+        android:value="Support notification channel" />
+
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/ic_launcher_foreground" />
+
+    <receiver
+        android:name="com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
+    <receiver
+        android:name="com.asfoundation.wallet.backup.BackupBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
+    <receiver
+        android:name="com.asfoundation.wallet.support.BootCompletedBroadcastReceiver"
+        android:enabled="true">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+
+    <receiver
+        android:name="com.asfoundation.wallet.wallet_validation.dialog.WalletValidationBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
+    <receiver
+        android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
+        android:enabled="true"
+        android:exported="false" />
+
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
-        android:value="@string/facebook_app_id"/>
+        android:value="@string/facebook_app_id" />
 
     <activity
-        android:name="com.asfoundation.wallet.ui.SplashActivity"
+        android:name="com.asfoundation.wallet.ui.splash.SplashActivity"
         android:theme="@style/SplashTheme">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
+        <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
-    <activity
-        android:name="com.asfoundation.wallet.ui.WalletsActivity"
-        android:label="@string/title_account_list"/>
-
     <activity
         android:name="com.asfoundation.wallet.ui.onboarding.OnboardingActivity"
-        android:label=""
-        android:screenOrientation="portrait"/>
-
+        android:label="" />
     <activity
-        android:name="com.asfoundation.wallet.ui.ImportWalletActivity"
-        android:label="@string/title_import"
-        android:windowSoftInputMode="stateAlwaysVisible|adjustResize"/>
+        android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
 
+        android:label="@string/title_import"
+        android:windowSoftInputMode="stateHidden" />
     <activity
         android:name="com.asfoundation.wallet.ui.TransactionsActivity"
         android:label="@string/app_name"
-        android:theme="@style/MaterialAppTheme"/>
-
+        android:theme="@style/MaterialAppTheme" />
     <activity
-        android:name="com.asfoundation.wallet.ui.SettingsActivity"
-        android:label="@string/title_activity_settings"/>
+        android:name="com.asfoundation.wallet.ui.settings.SettingsActivity"
+        android:label="@string/title_activity_settings" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TransactionDetailActivity"
-        android:label=""/>
-
+        android:label="" />
     <activity
         android:name="com.asfoundation.wallet.ui.MyAddressActivity"
-        android:label="@string/title_my_address"/>
+        android:label="@string/title_my_address" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
-        android:label="@string/balance_title"/>
+        android:label="@string/bottom_navigation_my_wallets" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
-        android:theme="@style/AppTheme.Transparent"
-        android:label="@string/balance_title"/>
-
+        android:label="@string/bottom_navigation_my_wallets"
+        android:theme="@style/AppTheme.Transparent" />
     <activity
         android:name="com.asfoundation.wallet.ui.SendActivity"
-        android:label="@string/title_activity_send"/>
-
+        android:label="@string/title_activity_send" />
     <activity
-        android:name="com.asfoundation.wallet.ui.ConfirmationActivity"
-        android:label="@string/title_activity_confirmation"/>
-
+        android:name="com.asfoundation.wallet.transfers.TransferConfirmationActivity"
+        android:label="@string/title_activity_confirmation" />
     <activity
         android:name="com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity"
-        android:label="@string/title_activity_barcode"/>
-
+        android:label="@string/title_activity_barcode" />
     <activity
         android:name="com.asfoundation.wallet.ui.GasSettingsActivity"
-        android:label="@string/title_send_settings"/>
-
+        android:label="@string/title_send_settings" />
     <activity
         android:name="com.asfoundation.wallet.ui.Erc681Receiver"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <data android:scheme="ethereum"/>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data android:scheme="ethereum" />
       </intent-filter>
     </activity>
-
     <activity
         android:name="com.asfoundation.wallet.ui.OneStepPaymentReceiver"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
+        <action android:name="android.intent.action.VIEW" />
 
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
 
-        <data android:scheme="https"/>
-        <data android:host="${paymentHost}"/>
-        <data android:host="${secondPaymentHost}"/>
-        <data android:pathPrefix="/transaction"/>
+        <data android:scheme="https" />
+        <data android:host="${legacyPaymentHost}" />
+        <data android:host="${paymentHost}" />
+        <data android:pathPrefix="/transaction" />
       </intent-filter>
     </activity>
-
     <activity
         android:name="com.asfoundation.wallet.ui.iab.WebViewActivity"
-        android:theme="@style/Theme.AppCompat.Transparent"/>
-
+        android:theme="@style/Theme.AppCompat.Transparent.WebActivity" />
     <activity
         android:name="com.asfoundation.wallet.permissions.request.view.PermissionsActivity"
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating">
       <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+
         <data
             android:host="wallet"
             android:path="/permissions/1"
-            android:scheme="appcoins"/>
+            android:scheme="appcoins" />
       </intent-filter>
     </activity>
-
-    <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity"/>
-
+    <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity" />
     <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
         android:launchMode="singleInstance"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"
-        >
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
       <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
+        <action android:name="android.intent.action.VIEW" />
 
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
 
         <data
-            android:host="aptoide.com"
-            android:pathPrefix="/adyen"
-            android:scheme="billing2"/>
-        <data
-            android:host="aptoide.com"
-            android:pathPrefix="/adyen"
-            android:scheme="billing"/>
+            android:host="${applicationId}"
+            android:scheme="adyencheckout" />
       </intent-filter>
     </activity>
-
+    <activity
+        android:name="com.asfoundation.wallet.rating.RatingActivity"
+        android:launchMode="singleInstance"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow" />
     <activity
         android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
         android:label="@string/title_airdrop"
-        android:screenOrientation="portrait"/>
-
-    <activity
-        android:name="com.asfoundation.wallet.ui.gamification.RewardsLevelActivity"
-        android:label="@string/gamification_level_title"
-        android:screenOrientation="portrait"/>
-
+        android:screenOrientation="portrait" />
+    <activity android:name="com.asfoundation.wallet.ui.gamification.GamificationActivity" />
     <activity
         android:name="com.asfoundation.wallet.ui.transact.TransferActivity"
-        android:label="@string/title_activity_send"/>
-
+        android:label="@string/title_activity_send" />
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:label="@string/topup_title">
       <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
         <data
-            android:host="aptoide.com"
-            android:pathPrefix="/adyen"
-            android:scheme="billing2"/>
-        <data
-            android:host="aptoide.com"
-            android:pathPrefix="/adyen"
-            android:scheme="billing"/>
+            android:host="${applicationId}"
+            android:scheme="adyencheckout" />
       </intent-filter>
     </activity>
+    <activity
+        android:name="com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity"
+        android:launchMode="singleInstance"
+        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data
+            android:host="wallet"
+            android:path="/validation/1"
+            android:scheme="appcoins" />
+      </intent-filter>
+    </activity>
+    <activity
+        android:name="com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity"
+        android:label="" />
+    <activity
+        android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
+        android:label="@string/promotions_title" />
+    <activity
+        android:name="com.asfoundation.wallet.referrals.InviteFriendsActivity"
+        android:label="@string/referral_view_title"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name="com.asfoundation.wallet.ui.UpdateRequiredActivity"
+        android:label=""
+        android:screenOrientation="portrait" />
 
     <activity
-        android:name="com.asfoundation.wallet.wallet_validation.WalletValidationActivity"
-        android:launchMode="singleInstance"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"
-        />
+        android:name="com.asfoundation.wallet.ui.balance.QrCodeActivity"
+        android:label=""
+        android:theme="@style/AppTheme.Transparent" />
 
-    <meta-data
-        android:name="io.fabric.ApiKey"
-        android:value="${fabricApiKey}"/>
+    <activity
+        android:name="com.asfoundation.wallet.ui.wallets.RemoveWalletActivity"
+        android:label="@string/remove_wallet_title" />
+
+    <activity
+        android:name="com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity"
+        android:launchMode="singleInstance"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.Transparent.WebActivity" />
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.backup.BackupActivity"
+        android:label="@string/backup_title"
+        android:theme="@style/MaterialAppTheme" />
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.AuthenticationPromptActivity"
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.AppCompat.Transparent.NoFloating" />
+
+    <activity
+        android:name="com.asfoundation.wallet.verification.VerificationActivity"
+        android:label="@string/verification_settings_unverified_title"
+        android:windowSoftInputMode="stateHidden" />
+    <activity
+        android:name="com.asfoundation.wallet.withdraw.ui.WithdrawActivity"
+        android:label="@string/e_skills_withdraw_title" />
+
+    <service
+        android:name="com.asfoundation.wallet.support.SupportMessagingService"
+        android:enabled="true"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+      </intent-filter>
+    </service>
 
     <service
         android:name="com.asfoundation.wallet.advertise.WalletPoAService"
         android:enabled="true"
         android:exported="true">
       <intent-filter>
-        <action android:name="com.asf.appcoins.service.ACTION_BIND"/>
+        <action android:name="com.asf.appcoins.service.ACTION_BIND" />
       </intent-filter>
     </service>
-
     <service
         android:name="com.asfoundation.wallet.advertise.AdvertisingService"
         android:enabled="true"
         android:exported="true">
       <intent-filter>
-        <action android:name="com.appcoins.wallet.advertising.action.BIND"/>
+        <action android:name="com.appcoins.wallet.advertising.action.BIND" />
       </intent-filter>
     </service>
+
+    <service
+        android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"
+        android:exported="false" />
 
     <receiver
         android:name="com.asfoundation.wallet.advertise.PoAHandshakeReceiver"
         android:enabled="true"
         android:exported="true">
       <intent-filter>
-        <action android:name="com.asf.appcoins.service.ACTION_START_HANDSHAKE"/>
+        <action android:name="com.asf.appcoins.service.ACTION_START_HANDSHAKE" />
       </intent-filter>
     </receiver>
 
+    <provider
+        android:name="androidx.work.impl.WorkManagerInitializer"
+        android:authorities="${applicationId}.workmanager-init"
+        android:exported="false"
+        tools:node="remove" />
+    <!--Needed to share file in android P and above -->
+    <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/file_provider_paths" />
+    </provider>
   </application>
+
 </manifest>

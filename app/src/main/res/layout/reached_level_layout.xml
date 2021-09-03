@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wallet_card"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
+    android:background="@drawable/rectangle_solid_white"
+    android:elevation="2dp"
+    >
+
+  <ImageView
+      android:id="@+id/level_icon"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginStart="16dp"
+      android:src="@drawable/gamification_unknown_planet_purple_reached"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <TextView
+      android:id="@+id/level_title"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="15dp"
+      android:layout_marginEnd="8dp"
+      android:ellipsize="end"
+      android:fontFamily="sans-serif-medium"
+      android:textColor="#00121f"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/level_icon"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="AWESOME TITLE"
+      />
+  <TextView
+      android:id="@+id/level_description"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:layout_marginEnd="8dp"
+      android:ellipsize="end"
+      android:fontFamily="sans-serif"
+      android:lineSpacingExtra="9sp"
+      android:textColor="#99000f19"
+      android:textSize="11sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/level_title"
+      app:layout_constraintTop_toBottomOf="@id/level_title"
+      tools:text="AWESOME DESCRIPTION"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

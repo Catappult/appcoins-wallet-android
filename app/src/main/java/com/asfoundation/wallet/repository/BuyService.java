@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -24,17 +25,20 @@ public class BuyService {
   private final CountryCodeProvider countryCodeProvider;
   private final DataMapper dataMapper;
   private final AddressService partnerAddressService;
+  private final BillingPaymentProofSubmission billingPaymentProofSubmission;
 
   public BuyService(WatchedTransactionService transactionService,
       TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider,
       CountryCodeProvider countryCodeProvider, DataMapper dataMapper,
-      AddressService partnerAddressService) {
+      AddressService partnerAddressService,
+      BillingPaymentProofSubmission billingPaymentProofSubmission) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
     this.defaultTokenProvider = defaultTokenProvider;
     this.countryCodeProvider = countryCodeProvider;
     this.dataMapper = dataMapper;
     this.partnerAddressService = partnerAddressService;
+    this.billingPaymentProofSubmission = billingPaymentProofSubmission;
   }
 
   public void start() {
@@ -43,16 +47,39 @@ public class BuyService {
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
+    com.appcoins.wallet.bdsbilling.repository.entity.Transaction cachedTransaction =
+        billingPaymentProofSubmission.getTransactionFromUid(key);
+    String storeAddress = getStoreAddress(cachedTransaction);
+    String oemAddress = getOemAddress(cachedTransaction);
     return Single.zip(countryCodeProvider.getCountryCode(), defaultTokenProvider.getDefaultToken(),
-        partnerAddressService.getStoreAddressForPackage(paymentTransaction.getPackageName()),
-        partnerAddressService.getOemAddressForPackage(paymentTransaction.getPackageName()),
-        (countryCode, tokenInfo, storeAddress, oemAddress) -> transactionBuilder.appcoinsData(
-              getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
-                  countryCode, storeAddress, oemAddress)))
-        .map(transaction -> updateTransactionBuilderData(paymentTransaction,
-        transaction)).flatMapCompletable(
-        payment -> Completable.defer(() -> transactionValidator.validate(payment))
-            .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
+        (countryCode, tokenInfo) -> transactionBuilder.appcoinsData(
+            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                countryCode, storeAddress, oemAddress)))
+        .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
+        .flatMap(payment -> transactionValidator.validate(paymentTransaction)
+            .map(__ -> payment))
+        .flatMapCompletable(
+            payment -> transactionService.sendTransaction(key, payment.getTransactionBuilder()));
+  }
+
+  private String getStoreAddress(
+      com.appcoins.wallet.bdsbilling.repository.entity.Transaction transaction) {
+    String tmpStoreAddress = null;
+    if (transaction != null && transaction.getWallets() != null) {
+      tmpStoreAddress = transaction.getWallets()
+          .getStore();
+    }
+    return partnerAddressService.getStoreAddress(tmpStoreAddress);
+  }
+
+  private String getOemAddress(
+      com.appcoins.wallet.bdsbilling.repository.entity.Transaction transaction) {
+    String tmpOemAddress = null;
+    if (transaction != null && transaction.getWallets() != null) {
+      tmpOemAddress = transaction.getWallets()
+          .getOem();
+    }
+    return partnerAddressService.getOemAddress(tmpOemAddress);
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {
@@ -79,7 +106,8 @@ public class BuyService {
         paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId(),
         paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl(),
-        paymentTransaction.getOrderReference());
+        paymentTransaction.getOrderReference(), paymentTransaction.getErrorCode(),
+        paymentTransaction.getErrorMessage());
   }
 
   private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
@@ -132,13 +160,16 @@ public class BuyService {
       case NO_INTERNET:
         toReturn = Status.NO_INTERNET;
         break;
+      case FORBIDDEN:
+        toReturn = Status.FORBIDDEN;
+        break;
     }
     return toReturn;
   }
 
   public enum Status {
-    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, PENDING
-
+    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER,
+    NO_FUNDS, NO_INTERNET, PENDING, FORBIDDEN
   }
 
   public static class BuyTransaction {

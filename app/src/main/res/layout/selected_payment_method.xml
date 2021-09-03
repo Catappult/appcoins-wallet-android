@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/payment_method_background"
+    >
+
+  <ImageView
+      android:id="@+id/payment_method_ic"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="24dp"
+      android:layout_marginBottom="24dp"
+      android:scaleType="fitCenter"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/ic_payment_method_paypal"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_description_single"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
+      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      app:layout_constraintTop_toTopOf="@id/payment_method_ic"
+      tools:text="APPC"
+      tools:visibility="gone"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_description"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="2dp"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toTopOf="@+id/payment_method_secondary"
+      app:layout_constraintStart_toEndOf="@+id/payment_method_ic"
+      app:layout_constraintTop_toTopOf="@+id/payment_method_ic"
+      app:layout_constraintVertical_bias="1.0"
+      tools:text="Paypal"
+      />
+  <TextView
+      android:id="@+id/payment_method_secondary"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:text="@string/purchase_appcoins_credits_default_body"
+      android:textColor="#727272"
+      app:layout_constraintBottom_toBottomOf="@+id/payment_method_ic"
+      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
+      app:layout_constraintStart_toStartOf="@+id/payment_method_description"
+      app:layout_constraintTop_toBottomOf="@+id/payment_method_description_single"
+      />
+
+  <LinearLayout
+      android:id="@+id/payment_method_fee"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:orientation="vertical"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintTop_toTopOf="@+id/payment_method_ic"
+      tools:visibility="visible"
+      >
+
+    <TextView
+        android:id="@+id/payment_method_fee_value"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="end"
+        android:textColor="@color/appc_pink"
+        android:textSize="11sp"
+        tools:text="23 €"
+        />
+
+    <TextView
+        android:id="@+id/payment_method_fee_label"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="end"
+        android:text="@string/activity_iab_fees"
+        android:textColor="@color/top_up_bonus_text"
+        android:textSize="11sp"
+        />
+
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,55 +2,58 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion 27
-
-
+  compileSdkVersion 28
 
   defaultConfig {
     minSdkVersion 15
-    targetSdkVersion 27
+    targetSdkVersion 28
     versionCode 1
     versionName "1.0"
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    lintOptions {
+      abortOnError false
+    }
   }
 
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      buildConfigField 'String', 'BASE_HOST',
-          "\"" + project.BASE_HOST_PROD + "\""
+      buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_PROD
       buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
     }
-
+    staging {
+      initWith release
+    }
     debug {
       minifyEnabled false
-      buildConfigField 'String', 'BASE_HOST',
-          "\"" + project.BASE_HOST_DEV + "\""
+      buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_DEV
       buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_DEV
     }
   }
+}
+repositories {
+  mavenCentral()
+  maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots" }
+  jcenter()
 }
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-  testImplementation "junit:junit:$project.junitVersion"
-  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
-  androidTestImplementation 'androidx.test:runner:1.1.0'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
-  implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
-  implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
-  implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
-  implementation "com.google.code.gson:gson:$project.gsonVersion"
-  implementation "com.fasterxml.jackson.core:jackson-annotations:$project.jacksonVersion"
-  implementation "com.fasterxml.jackson.core:jackson-databind:$project.jacksonVersion"
-  implementation "com.madgag.spongycastle:core:1.58.0.0@jar"
   api project(path: ':bdsbilling')
-}
-repositories {
-  mavenCentral()
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofit_version"
+  implementation "com.squareup.retrofit2:converter-gson:$project.retrofit_version"
+  implementation "com.squareup.retrofit2:retrofit:$project.retrofit_version"
+  implementation "com.google.code.gson:gson:$project.gson_version"
+  implementation "com.fasterxml.jackson.core:jackson-annotations:$project.jackson_version"
+  implementation "com.fasterxml.jackson.core:jackson-databind:$project.jackson_version"
+  implementation "com.madgag.spongycastle:core:$project.spongycastle_version"
+  implementation "com.adyen.checkout:redirect:$project.adyen_version"
+  implementation "io.catappult:communication:$project.appcoins_sdk_version"
 }

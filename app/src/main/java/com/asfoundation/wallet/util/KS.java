@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.util.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import java.io.ByteArrayOutputStream;
@@ -42,7 +41,7 @@ import static com.asfoundation.wallet.entity.ServiceErrorException.USER_NOT_AUTH
 @TargetApi(23) public class KS {
   private static final String TAG = "KS";
 
-  private static final String ANDROID_KEY_STORE = "AndroidKeyStore";
+  public static final String ANDROID_KEY_STORE = "AndroidKeyStore";
   private static final String BLOCK_MODE = KeyProperties.BLOCK_MODE_CBC;
   private static final String PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7;
   private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS7Padding";
@@ -123,7 +122,7 @@ import static com.asfoundation.wallet.entity.ServiceErrorException.USER_NOT_AUTH
       keyStore.load(null);
       SecretKey secretKey = (SecretKey) keyStore.getKey(alias, null);
       if (secretKey == null) {
-                /* no such key, the key is just simply not there */
+        /* no such key, the key is just simply not there */
         boolean fileExists = new File(encryptedDataFilePath).exists();
         if (!fileExists) {
           return null;/* file also not there, fine then */

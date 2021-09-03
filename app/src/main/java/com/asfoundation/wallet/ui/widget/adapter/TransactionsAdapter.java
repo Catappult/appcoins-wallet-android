@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.ui.widget.adapter;
 
 import android.os.Bundle;
-import androidx.recyclerview.widget.SortedList;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SortedList;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.promotions.PromotionNotification;
+import com.asfoundation.wallet.referrals.CardNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
@@ -14,13 +16,20 @@ import com.asfoundation.wallet.ui.widget.entity.DateSortedItem;
 import com.asfoundation.wallet.ui.widget.entity.SortedItem;
 import com.asfoundation.wallet.ui.widget.entity.TimestampSortedItem;
 import com.asfoundation.wallet.ui.widget.entity.TransactionSortedItem;
+import com.asfoundation.wallet.ui.widget.entity.TransactionsModel;
 import com.asfoundation.wallet.ui.widget.holder.AppcoinsApplicationListViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction;
+import com.asfoundation.wallet.ui.widget.holder.CardNotificationsListViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.PerkBonusViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
-import java.util.Collections;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import java.util.List;
-import rx.functions.Action1;
+import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
+import rx.functions.Action2;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> {
 
@@ -55,34 +64,47 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
         }
       });
   private final OnTransactionClickListener onTransactionClickListener;
-  private final Action1<AppcoinsApplication> applicationClickListener;
-
+  private final Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener;
+  private final Action2<CardNotification, CardNotificationAction> referralNotificationClickListener;
+  private final CurrencyFormatUtils formatter;
   private Wallet wallet;
   private NetworkInfo network;
 
   public TransactionsAdapter(OnTransactionClickListener onTransactionClickListener,
-      Action1<AppcoinsApplication> applicationClickListener) {
+      Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener,
+      Action2<CardNotification, CardNotificationAction> referralNotificationClickListener,
+      CurrencyFormatUtils formatter) {
     this.onTransactionClickListener = onTransactionClickListener;
     this.applicationClickListener = applicationClickListener;
+    this.referralNotificationClickListener = referralNotificationClickListener;
+    this.formatter = formatter;
   }
 
-  @Override public BinderViewHolder<?> onCreateViewHolder(ViewGroup parent, int viewType) {
+  @NotNull @Override
+  public BinderViewHolder<?> onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
     BinderViewHolder holder = null;
     switch (viewType) {
-      case TransactionHolder.VIEW_TYPE: {
-        TransactionHolder transactionHolder =
-            new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener);
-        holder = transactionHolder;
-      }
-      break;
-      case TransactionDateHolder.VIEW_TYPE: {
+      case TransactionHolder.VIEW_TYPE:
+        holder =
+            new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener,
+                formatter);
+        break;
+      case TransactionDateHolder.VIEW_TYPE:
         holder = new TransactionDateHolder(R.layout.item_transactions_date_head, parent);
-      }
-      break;
+        break;
       case AppcoinsApplicationListViewHolder.VIEW_TYPE:
         holder =
             new AppcoinsApplicationListViewHolder(R.layout.item_appcoins_application_list, parent,
                 applicationClickListener);
+        break;
+      case CardNotificationsListViewHolder.VIEW_TYPE:
+        holder = new CardNotificationsListViewHolder(R.layout.item_card_notifications_list, parent,
+            referralNotificationClickListener);
+        break;
+      case PerkBonusViewHolder.VIEW_TYPE:
+        holder = new PerkBonusViewHolder(R.layout.item_transaction_perk_bonus, parent,
+            onTransactionClickListener);
+        break;
     }
     return holder;
   }
@@ -102,6 +124,26 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     return items.size();
   }
 
+  public int getTransactionsCount() {
+    int counter = 0;
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i) instanceof TransactionSortedItem) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  public int getNotificationsCount() {
+    int counter = 0;
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i) instanceof CardNotificationSortedItem) {
+        counter += ((CardNotificationSortedItem) items.get(i)).value.size();
+      }
+    }
+    return counter;
+  }
+
   public void setDefaultWallet(Wallet wallet) {
     this.wallet = wallet;
     notifyDataSetChanged();
@@ -112,16 +154,23 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     notifyDataSetChanged();
   }
 
-  public void addTransactions(List<Transaction> transactions) {
+  public void addItems(TransactionsModel transactionsModel) {
     items.beginBatchedUpdates();
-    if (items.size() == 0) {
-      items.add(new ApplicationSortedItem(Collections.emptyList(),
-          AppcoinsApplicationListViewHolder.VIEW_TYPE));
+
+    List<CardNotification> notifications = transactionsModel.getNotifications();
+    if (!notifications.isEmpty()) {
+      removeApps();
+      items.add(
+          new CardNotificationSortedItem(notifications, CardNotificationsListViewHolder.VIEW_TYPE));
     }
-    for (Transaction transaction : transactions) {
+
+    for (Transaction transaction : transactionsModel.getTransactions()) {
+      int viewType = TransactionHolder.VIEW_TYPE;
+      if (transaction.getSubType() == Transaction.SubType.PERK_PROMOTION) {
+        viewType = PerkBonusViewHolder.VIEW_TYPE;
+      }
       TransactionSortedItem sortedItem =
-          new TransactionSortedItem(TransactionHolder.VIEW_TYPE, transaction,
-              TimestampSortedItem.DESC);
+          new TransactionSortedItem(viewType, transaction, TimestampSortedItem.DESC);
       items.add(sortedItem);
       items.add(DateSortedItem.round(transaction.getTimeStamp()));
     }
@@ -132,7 +181,30 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     items.clear();
   }
 
-  public void setApps(List<AppcoinsApplication> apps) {
-    items.add(new ApplicationSortedItem(apps, AppcoinsApplicationListViewHolder.VIEW_TYPE));
+  public void removeApps() {
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i) instanceof ApplicationSortedItem) {
+        items.removeItemAt(i);
+        this.notifyItemChanged(i);
+      }
+    }
+  }
+
+  public boolean removeItem(CardNotification cardNotification) {
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i) instanceof CardNotificationSortedItem) {
+        CardNotificationSortedItem cardNotificationSortedItem =
+            (CardNotificationSortedItem) items.get(i);
+        List<CardNotification> card = (List<CardNotification>) cardNotificationSortedItem.value;
+        for (int j = 0; j < card.size(); j++) {
+          if (Objects.equals(card.get(j), cardNotification)) {
+            card.remove(j);
+            this.notifyItemChanged(i);
+            return card.size() == 0 || cardNotification instanceof PromotionNotification;
+          }
+        }
+      }
+    }
+    return false;
   }
 }

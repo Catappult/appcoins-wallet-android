@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="14dp"
+    android:layout_marginEnd="14dp"
+    android:background="@drawable/promotions_future_background"
+    android:paddingBottom="@dimen/normal_margin"
+    android:clickable="false"
+    >
+
+  <ImageView
+      android:id="@+id/future_icon"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginStart="@dimen/small_margin"
+      android:layout_marginTop="@dimen/small_margin"
+      android:alpha="0.55"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:srcCompat="@drawable/ic_promotions_default"
+      />
+
+  <TextView
+      android:id="@+id/future_title"
+      style="@style/Promotions.TextStyle.Title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:alpha="0.55"
+      app:layout_constraintBottom_toBottomOf="@+id/future_icon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/future_icon"
+      app:layout_constraintTop_toTopOf="@+id/future_icon"
+      tools:text="Spend 200 Appcoins in 5 days and earn a bonus of 120 AppCoins Credits"
+      />
+
+  <LinearLayout
+      android:id="@+id/future_container_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/small_margin"
+      android:layout_marginTop="12dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:background="@drawable/promotions_date_background"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/future_icon"
+      >
+
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="@dimen/small_margin"
+        app:srcCompat="@drawable/ic_clock"
+        />
+
+    <TextView
+        android:id="@+id/future_expiry_date"
+        style="@style/Promotions.TextStyle.Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:text="@string/perks_available_soon"
+        />
+
+  </LinearLayout>
+
+  <ImageView
+      android:id="@+id/future_locked"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginEnd="@dimen/small_margin"
+      app:layout_constraintBottom_toBottomOf="@+id/future_container_date"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toEndOf="@+id/future_container_date"
+      app:layout_constraintTop_toTopOf="@+id/future_container_date"
+      app:srcCompat="@drawable/ic_promotions_lock"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

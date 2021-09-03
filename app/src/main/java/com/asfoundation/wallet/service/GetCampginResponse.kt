@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.service
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.google.gson.annotations.SerializedName
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class GetCampaignResponse(@JsonProperty("status") val status: EligibleResponseStatus, @JsonProperty("bid_id") val bidId: String?) {
+data class GetCampaignResponse(@SerializedName("status") val status: EligibleResponseStatus,
+                               @SerializedName("bid_id") val bidId: String?, val hours: Int,
+                               val minutes: Int) {
 
   enum class EligibleResponseStatus {
     ELIGIBLE, NOT_ELIGIBLE, REQUIRES_VALIDATION

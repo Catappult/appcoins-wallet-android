@@ -1,6 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
@@ -15,11 +16,11 @@ interface BillingRepository {
 
   fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>>
 
-  fun getSkuPurchase(packageName: String, skuId: String, walletAddress: String,
+  fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                      walletSignature: String): Single<Purchase>
 
-  fun getSkuTransaction(packageName: String, skuId: String, walletAddress: String,
-                        walletSignature: String): Single<Transaction>
+  fun getSkuTransaction(packageName: String, skuId: String?, transactionType: TransactionType,
+                        walletAddress: String, walletSignature: String): Single<Transaction>
 
   fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
                    type: BillingSupportedType): Single<List<Purchase>>
@@ -29,17 +30,19 @@ interface BillingRepository {
 
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
                                  walletSignature: String, productName: String?, packageName: String,
-                                 priceValue: BigDecimal,
-                                 developerWallet: String, storeWallet: String, origin: String,
-                                 type: String, oemWallet: String,
-                                 developerPayload: String?, callback: String?,
-                                 orderReference: String?): Single<String>
+                                 priceValue: BigDecimal, developerWallet: String,
+                                 entityOemId: String?, entityDomainId: String?,
+                                 origin: String, type: String, developerPayload: String?,
+                                 callback: String?, orderReference: String?,
+                                 referrerUrl: String?): Single<Transaction>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable
 
   fun getPaymentMethods(value: String? = null, currency: String? = null,
-                        type: String? = null): Single<List<PaymentMethodEntity>>
+                        currencyType: String? = null,
+                        direct: Boolean? = null,
+                        transactionType: String? = null): Single<List<PaymentMethodEntity>>
 
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction>

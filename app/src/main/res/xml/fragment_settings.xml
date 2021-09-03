@@ -1,126 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
   <Preference
-      android:icon="@mipmap/settings_backup"
-      android:key="pref_wallet"
-      android:title="@string/action_wallets"
-      />
-
-  <Preference
       android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"
-      android:title="@string/permissions_title"
-      />
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/permissions_title" />
+
+  <Preference
+      android:icon="@drawable/ic_withdraw"
+      android:key="pref_withdraw"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/e_skills_withdraw_settings_title" />
+
   <Preference
       android:icon="@drawable/ic_settings_redeem"
       android:key="pref_redeem"
-      android:title="@string/title_redeem"
-      >
-  </Preference>
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/title_redeem" />
+
+  <Preference
+      android:icon="@drawable/ic_backup_black"
+      android:key="pref_backup"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/backup_title" />
+  <Preference
+      android:icon="@drawable/ic_restore_black"
+      android:key="pref_restore"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/import_wallet_title" />
+
+  <SwitchPreferenceCompat
+      android:id="@+id/preference_fingerprint"
+      android:icon="@drawable/ic_settings_fingerprint"
+      android:key="pref_fingerprint"
+      android:title="@string/fingerprint_settings" />
+
   <PreferenceCategory
       android:key="pref_opensource_links"
-      android:title="@string/title_opensource">
+      android:layout="@layout/preference_category_layout"
+      android:title="@string/title_opensource"
+      app:allowDividerAbove="false">
 
     <Preference
-        android:icon="@mipmap/settings_open_source"
-        android:title="@string/title_source_code">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://github.com/Aptoide/appcoins-wallet-android"/>
-    </Preference>
+        android:icon="@drawable/ic_settings_sourcecode"
+        android:key="pref_source_code"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/title_source_code" />
 
     <Preference
-        android:icon="@mipmap/settings_bug"
-        android:title="@string/title_report_bug">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://github.com/Aptoide/appcoins-wallet-android/issues/new"/>
-    </Preference>
+        android:icon="@drawable/ic_issue_report"
+        android:key="pref_contact_support"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/settings_item_support" />
 
   </PreferenceCategory>
 
-  <!--<PreferenceCategory-->
-  <!--android:title="@string/title_security"-->
-  <!--android:key="pref_security" >-->
-
-  <!--<SwitchPreference-->
-  <!--android:key="pref_pincode"-->
-  <!--android:title="@string/title_pincode"-->
-  <!--android:icon="@mipmap/settings_lock">-->
-  <!--</SwitchPreference>-->
-
-  <!--</PreferenceCategory>-->
-
   <PreferenceCategory
       android:key="pref_community_links"
-      android:title="@string/title_community">
+      android:layout="@layout/preference_category_layout"
+      android:title="@string/title_community"
+      app:allowDividerAbove="false">
 
     <Preference
-        android:icon="@mipmap/settings_twitter"
+        android:icon="@drawable/ic_settings_twt"
         android:key="pref_twitter"
-        android:title="@string/twitter">
-
-    </Preference>
-
-    <Preference
-        android:icon="@mipmap/settings_telegram"
-        android:title="@string/telegram">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://t.me/appcoinsofficial"/>
-    </Preference>
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/twitter" />
 
     <Preference
-        android:icon="@drawable/ic_facebook"
+        android:icon="@drawable/ic_settings_telegram"
+        android:key="pref_telegram"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/telegram" />
+
+    <Preference
+        android:icon="@drawable/ic_settings_fb"
         android:key="pref_facebook"
-        android:title="@string/facebook">
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/facebook" />
 
-    </Preference>
   </PreferenceCategory>
 
   <PreferenceCategory
       android:key="pref_support"
+      android:layout="@layout/preference_category_layout"
       android:title="@string/title_support"
-      >
+      app:allowDividerAbove="false">
 
     <Preference
-        android:icon="@mipmap/settings_email"
+        android:icon="@drawable/ic_settings_email"
         android:key="pref_email"
-        android:title="@string/title_email"/>
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/title_email" />
 
     <Preference
-        android:icon="@mipmap/settings_privacy_policy"
-        android:title="@string/title_privacy_policy">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://catappult.io/appcoins-wallet/privacy-policy"/>
-    </Preference>
+        android:icon="@drawable/ic_settings_privacypolicy"
+        android:key="pref_privacy_policy"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/title_privacy_policy" />
 
     <Preference
-        android:icon="@mipmap/settings_terms"
-        android:title="@string/title_terms">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://catappult.io/appcoins-wallet/terms-conditions"/>
-    </Preference>
-
-
+        android:icon="@drawable/ic_settings_termsconditions"
+        android:key="pref_terms_condition"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/title_terms" />
   </PreferenceCategory>
-  <PreferenceCategory android:title="@string/credits">
+
+  <PreferenceCategory
+      android:layout="@layout/preference_category_layout"
+      android:title="@string/credits"
+      app:allowDividerAbove="false">
     <Preference
-        android:icon="@drawable/ic_description_black_24dp"
+        android:icon="@drawable/ic_settings_credits"
         android:iconSpaceReserved="true"
         android:key="pref_credits"
-        android:title="@string/credits"/>
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/credits" />
   </PreferenceCategory>
   <Preference
+      android:icon="@drawable/ic_check_for_update"
       android:iconSpaceReserved="true"
       android:key="pref_version"
-      android:title="@string/title_version">
-  </Preference>
+      android:layout="@layout/preference_with_summary_layout"
+      android:title="@string/check_updates_settings_title" />
 
 </PreferenceScreen>

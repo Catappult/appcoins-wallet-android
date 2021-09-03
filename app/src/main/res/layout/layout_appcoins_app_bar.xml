@@ -1,0 +1,46 @@
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_bar_height"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    >
+
+  <com.google.android.material.appbar.CollapsingToolbarLayout
+      android:id="@+id/toolbar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/appbar_background_color"
+      android:fitsSystemWindows="false"
+      app:layout_scrollFlags="scroll|exitUntilCollapsed"
+      app:toolbarId="@+id/toolbar"
+      >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:fitsSystemWindows="false"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        >
+      <TextView
+          android:id="@+id/transaction_timestamp"
+          style="@style/TransactionDetailsTextStyle.AppBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="end"
+          android:layout_marginTop="20dp"
+          android:layout_marginEnd="16dp"
+          android:visibility="gone"
+          />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground
+        android:id="@+id/toolbar_background_arc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+  </com.google.android.material.appbar.CollapsingToolbarLayout>
+</com.google.android.material.appbar.AppBarLayout>

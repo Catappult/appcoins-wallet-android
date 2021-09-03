@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="296dp"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
-    android:layout_gravity="center"
     >
 
-  <include layout="@layout/fragment_iab_loading"/>
-  <include layout="@layout/fragment_iab_transaction_completed"/>
-  <include layout="@layout/fragment_iab_error"/>
-  <include layout="@layout/fragment_express_checkout_buy"/>
+  <include layout="@layout/fragment_iab_loading" />
+  <include layout="@layout/fragment_iab_transaction_completed" />
+  <include
+      layout="@layout/iab_error_layout"
+      android:visibility="gone"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

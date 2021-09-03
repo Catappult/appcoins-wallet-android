@@ -37,7 +37,7 @@
         />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/balance_skeloton"
+        android:id="@+id/balance_skeleton"
         android:layout_width="wrap_content"
         android:layout_height="57dp"
         android:layout_gravity="center"
@@ -57,7 +57,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="55dp"
         android:onClick="onClick"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
     <androidx.appcompat.widget.Toolbar
@@ -66,6 +66,7 @@
         android:layout_height="?android:attr/actionBarSize"
         android:fitsSystemWindows="false"
         app:layout_collapseMode="pin"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
         >
       <TextView
           android:id="@+id/transaction_timestamp"

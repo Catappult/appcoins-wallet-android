@@ -7,10 +7,11 @@ import com.appcoins.wallet.bdsbilling.BdsBilling
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingFactory
 import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
+import io.reactivex.schedulers.Schedulers
 
 class BillingService : Service() {
   override fun onCreate() {
@@ -23,18 +24,18 @@ class BillingService : Service() {
 
   override fun onBind(intent: Intent): IBinder {
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
-    return AppcoinsBillingBinder(dependenciesProvider.getSupportedVersion(),
-        dependenciesProvider.getBillingMessagesMapper(),
+    return AppcoinsBillingBinder(dependenciesProvider.supportedVersion(),
+        dependenciesProvider.billingMessagesMapper(),
         packageManager,
         object : BillingFactory {
           override fun getBilling(): Billing {
             return BdsBilling(BdsRepository(
-                RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper(),
-                    dependenciesProvider.getBdsApiSecondary())),
-                dependenciesProvider.getWalletService(),
+                RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(),
+                    dependenciesProvider.bdsApiSecondary())),
+                dependenciesProvider.walletService(),
                 BillingThrowableCodeMapper())
           }
-        }, ExternalBillingSerializer(), dependenciesProvider.getProxyService(),
-        BillingIntentBuilder(applicationContext))
+        }, ExternalBillingSerializer(), dependenciesProvider.proxyService(),
+        BillingIntentBuilder(applicationContext), Schedulers.io())
   }
 }

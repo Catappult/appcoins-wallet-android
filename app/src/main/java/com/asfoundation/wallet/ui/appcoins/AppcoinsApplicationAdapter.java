@@ -1,23 +1,24 @@
 package com.asfoundation.wallet.ui.appcoins;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.widget.holder.AppcoinsApplicationViewHolder;
+import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
-import rx.functions.Action1;
+import rx.functions.Action2;
 
 public class AppcoinsApplicationAdapter
     extends RecyclerView.Adapter<AppcoinsApplicationViewHolder> {
-  private static final String TAG = AppcoinsApplicationAdapter.class.getSimpleName();
-  private final Action1<AppcoinsApplication> applicationClickListener;
+  private final Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener;
   private List<AppcoinsApplication> applications;
 
-  public AppcoinsApplicationAdapter(Action1<AppcoinsApplication> applicationClickListener,
+  public AppcoinsApplicationAdapter(
+      Action2<AppcoinsApplication, ApplicationClickAction> applicationClickListener,
       @NotNull List<AppcoinsApplication> applications) {
     this.applicationClickListener = applicationClickListener;
     this.applications = applications;

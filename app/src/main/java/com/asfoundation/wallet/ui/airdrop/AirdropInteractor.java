@@ -20,24 +20,24 @@ public class AirdropInteractor {
     this.airdropChainIdMapper = airdropChainIdMapper;
   }
 
-  public Single<String> requestCaptcha() {
+  Single<String> requestCaptcha() {
     return findDefaultWalletInteract.find()
         .observeOn(Schedulers.io())
         .flatMap(wallet -> airdrop.requestCaptcha(wallet.address));
   }
 
-  public Completable requestAirdrop(String captchaAnswer) {
+  Completable requestAirdrop(String captchaAnswer) {
     return findDefaultWalletInteract.find()
         .flatMap(wallet -> airdropChainIdMapper.getAirdropChainId()
             .doOnSuccess(chainId -> airdrop.request(wallet.address, chainId, captchaAnswer)))
-        .toCompletable();
+        .ignoreElement();
   }
 
   public Observable<AirdropData> getStatus() {
     return airdrop.getStatus();
   }
 
-  public void terminateStateConsumed() {
+  void terminateStateConsumed() {
     airdrop.resetState();
   }
 }

@@ -4,10 +4,16 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.exceptions.ApiException
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
+import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_DATA_SIGNATURE
+import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_DATA
+import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_ID
 import com.appcoins.wallet.billing.exceptions.ServiceUnavailableException
 import com.appcoins.wallet.billing.exceptions.UnknownException
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -16,6 +22,8 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
   companion object {
     internal const val TRANSACTION_HASH = "transaction_hash"
     internal const val TOP_UP_AMOUNT = "top_up_amount"
+    internal const val TOP_UP_CURRENCY = "currency"
+    internal const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
     internal const val BONUS = "bonus"
     internal const val VALID_BONUS = "valid_bonus"
   }
@@ -80,9 +88,9 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
   fun mapPurchase(purchaseId: String, signature: String, signatureData: String,
                   orderReference: String?): Bundle {
     val intent = Bundle()
-    intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_ID, purchaseId)
-    intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_DATA, signatureData)
-    intent.putString(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE, signature)
+    intent.putString(INAPP_PURCHASE_ID, purchaseId)
+    intent.putString(INAPP_PURCHASE_DATA, signatureData)
+    intent.putString(INAPP_DATA_SIGNATURE, signature)
     intent.putString(AppcoinsBillingBinder.INAPP_ORDER_REFERENCE, orderReference)
     intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     return intent
@@ -117,7 +125,7 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun successBundle(uid: String): Bundle {
+  fun successBundle(uid: String?): Bundle {
     val bundle = Bundle()
     bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
 
@@ -126,12 +134,35 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun topUpBundle(amount: Double, bonus: String, validBonus: Boolean): Bundle {
+  fun topUpBundle(amount: String, currency: String, bonus: String, fiatCurrencySymbol: String): Bundle {
+    return Bundle().apply {
+      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+      putString(TOP_UP_AMOUNT, amount)
+      putString(TOP_UP_CURRENCY, currency)
+      putString(BONUS, bonus)
+      putString(TOP_UP_CURRENCY_SYMBOL, fiatCurrencySymbol)
+    }
+  }
+
+  fun mapFinishedPurchase(purchase: Purchase, itemAlreadyOwned: Boolean): Bundle {
     val bundle = Bundle()
-    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-    bundle.putDouble(TOP_UP_AMOUNT, amount)
-    bundle.putString(BONUS, bonus)
-    bundle.putBoolean(VALID_BONUS, validBonus)
+    bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase))
+    bundle.putString(INAPP_DATA_SIGNATURE, purchase.signature
+        .value)
+    bundle.putString(INAPP_PURCHASE_ID, purchase.uid)
+    if (itemAlreadyOwned) {
+      bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE,
+          AppcoinsBillingBinder.RESULT_ITEM_ALREADY_OWNED)
+    }
     return bundle
+  }
+
+  @Throws(IOException::class)
+  private fun serializeJson(purchase: Purchase): String {
+    val objectMapper = ObjectMapper()
+    val developerPurchase = objectMapper.readValue(Gson().toJson(
+        purchase.signature
+            .message), DeveloperPurchase::class.java)
+    return objectMapper.writeValueAsString(developerPurchase)
   }
 }

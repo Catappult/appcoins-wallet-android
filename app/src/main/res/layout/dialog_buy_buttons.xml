@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
@@ -9,33 +7,33 @@
     android:gravity="end"
     android:orientation="horizontal"
     android:padding="@dimen/normal_margin"
-    tools:showIn="@layout/fragment_express_checkout_buy"
     >
   <Button
       android:id="@+id/cancel_button"
+      style="@style/CancelBorderlessButtonStyle"
       android:layout_width="wrap_content"
-      android:layout_height="35dp"
+      android:layout_height="@dimen/button_height"
       android:layout_gravity="center_vertical"
       android:layout_marginEnd="@dimen/big_margin"
-      android:maxWidth="126dp"
+      android:maxWidth="150dp"
       android:minWidth="80dp"
       android:text="@string/cancel"
       android:textColor="@color/dialog_buy_value_text"
       android:textSize="14sp"
       android:visibility="gone"
-      style="?android:attr/borderlessButtonStyle"
       />
 
   <Button
       android:id="@+id/buy_button"
+      style="@style/ButtonStyle.Alternative"
       android:layout_width="wrap_content"
       android:layout_height="35dp"
       android:layout_gravity="center_vertical"
-      android:maxWidth="126dp"
+      android:enabled="false"
+      android:maxWidth="150dp"
       android:minWidth="80dp"
       android:textColor="@color/white"
       android:textSize="14sp"
       android:visibility="gone"
-      style="@style/ButtonStyle"
       />
 </LinearLayout>

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="15dp"
     android:layout_marginStart="15dp"
     android:layout_marginTop="14dp"
-    tools:showIn="@layout/fragment_express_checkout_buy"
+    android:layout_marginEnd="15dp"
     >
   <ImageView
       android:id="@+id/app_icon"
@@ -38,7 +35,7 @@
       android:layout_toEndOf="@id/app_icon"
       android:ellipsize="end"
       android:maxLines="1"
-      android:textColor="@color/grey_8a_alpha"
+      android:textColor="@color/grey_alpha_active_54"
       android:textSize="12sp"
       tools:text="Buying gas"
       />

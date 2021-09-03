@@ -1,24 +1,27 @@
 package com.appcoins.wallet.bdsbilling;
 
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 import org.jetbrains.annotations.Nullable;
 
 public interface BillingPaymentProofSubmission {
-  Completable processPurchaseProof(PaymentProof paymentProof);
+  Single<Transaction> processPurchaseProof(PaymentProof paymentProof);
 
-  Completable processAuthorizationProof(AuthorizationProof authorizationProof);
+  Single<Transaction> processAuthorizationProof(AuthorizationProof authorizationProof);
 
   Completable registerPaymentProof(String paymentId, String paymentProof, String paymentType);
 
-  Single<String> registerAuthorizationProof(String id, String paymentType,
+  Single<Transaction> registerAuthorizationProof(String id, String paymentType,
       @Nullable String productName, String packageName, BigDecimal priceValue,
       String developerWallet, String storeWallet, String origin, String type, String oemWallet,
-      @Nullable String developerPayload, @Nullable String callback,
-      @Nullable String orderReference);
+      @Nullable String developerPayload, @Nullable String callback, @Nullable String orderReference,
+      @Nullable String referrerUrl);
 
-  void saveTransactionId(String key);
+  void saveTransactionId(Transaction transaction);
+
+  Transaction getTransactionFromUid(String uid);
 
   @Nullable String getTransactionId(String buyHash);
 }

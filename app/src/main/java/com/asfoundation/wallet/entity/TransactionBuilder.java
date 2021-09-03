@@ -21,6 +21,7 @@ public class TransactionBuilder implements Parcelable {
       return new TransactionBuilder[size];
     }
   };
+  private final long chainId;
   private String contractAddress;
   private int decimals;
   private String symbol;
@@ -31,7 +32,6 @@ public class TransactionBuilder implements Parcelable {
   private byte[] data;
   private byte[] appcoinsData;
   private GasSettings gasSettings;
-  private long chainId;
   private String skuId;
   private String type;
   private String origin;
@@ -42,6 +42,36 @@ public class TransactionBuilder implements Parcelable {
   private String orderReference;
   private String originalOneStepValue;
   private String originalOneStepCurrency;
+  private String referrerUrl;
+  private String productName;
+  private String productToken;
+
+  public TransactionBuilder(TransactionBuilder transactionBuilder) {
+    this.contractAddress = transactionBuilder.contractAddress;
+    this.decimals = transactionBuilder.decimals;
+    this.symbol = transactionBuilder.symbol;
+    this.shouldSendToken = transactionBuilder.shouldSendToken;
+    this.toAddress = transactionBuilder.toAddress;
+    this.fromAddress = transactionBuilder.fromAddress;
+    this.amount = transactionBuilder.amount;
+    this.data = transactionBuilder.data;
+    this.appcoinsData = transactionBuilder.appcoinsData;
+    this.gasSettings = transactionBuilder.gasSettings;
+    this.chainId = transactionBuilder.chainId;
+    this.skuId = transactionBuilder.skuId;
+    this.type = transactionBuilder.type;
+    this.origin = transactionBuilder.origin;
+    this.domain = transactionBuilder.domain;
+    this.payload = transactionBuilder.payload;
+    this.iabContract = transactionBuilder.iabContract;
+    this.callbackUrl = transactionBuilder.callbackUrl;
+    this.orderReference = transactionBuilder.orderReference;
+    this.originalOneStepValue = transactionBuilder.originalOneStepValue;
+    this.originalOneStepCurrency = transactionBuilder.originalOneStepCurrency;
+    this.referrerUrl = transactionBuilder.referrerUrl;
+    this.productName = transactionBuilder.productName;
+    this.productToken = transactionBuilder.productToken;
+  }
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
@@ -75,11 +105,15 @@ public class TransactionBuilder implements Parcelable {
     orderReference = in.readString();
     originalOneStepValue = in.readString();
     originalOneStepCurrency = in.readString();
+    referrerUrl = in.readString();
+    productName = in.readString();
+    productToken = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
       BigDecimal amount, String skuId, int decimals, String type, String origin, String domain,
-      String payload, String callbackUrl, String orderReference) {
+      String payload, String callbackUrl, String orderReference, String referrerUrl,
+      String productName) {
     this.symbol = symbol;
     this.contractAddress = contractAddress;
     this.chainId = chainId == null ? NO_CHAIN_ID : chainId;
@@ -94,21 +128,36 @@ public class TransactionBuilder implements Parcelable {
     this.payload = payload;
     this.callbackUrl = callbackUrl;
     this.orderReference = orderReference;
+    this.referrerUrl = referrerUrl;
+    this.productName = productName;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
       String iabContract, String type, String origin, String domain, String payload,
-      String callbackUrl, String orderReference) {
+      String callbackUrl, String orderReference, String referrerUrl, String productName) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
-        type, origin, domain, payload, callbackUrl, orderReference);
+        type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
     this.iabContract = iabContract;
+  }
+
+  public TransactionBuilder(String symbol, String contractAddress, Long chainId,
+      String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
+      String iabContract, String type, String origin, String domain, String payload,
+      String callbackUrl, String orderReference, String productToken, String originValue,
+      String originCurrency, String referrerUrl, String productName) {
+    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
+        type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
+    this.iabContract = iabContract;
+    this.productToken = productToken;
+    this.originalOneStepValue = originValue;
+    this.originalOneStepCurrency = originCurrency;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
-        null, "", "", "", "");
+        null, "", "", "", "", null, null);
   }
 
   public String getIabContract() {
@@ -144,10 +193,6 @@ public class TransactionBuilder implements Parcelable {
 
   public int decimals() {
     return decimals;
-  }
-
-  public void setDomain(String domain) {
-    this.domain = domain;
   }
 
   public TransactionBuilder shouldSendToken(boolean shouldSendToken) {
@@ -241,33 +286,27 @@ public class TransactionBuilder implements Parcelable {
     return domain;
   }
 
+  public void setDomain(String domain) {
+    this.domain = domain;
+  }
+
+  public String getProductName() {
+    return productName;
+  }
+
+  public void setProductName(String productName) {
+    this.productName = productName;
+  }
+
   public String getPayload() {
     return payload;
   }
 
-  public String getCallbackUrl() {
-    return callbackUrl;
-  }
-
-  public String getOriginalOneStepValue() {
-    return originalOneStepValue;
-  }
-
-  public void setOriginalOneStepValue(String originalOneStepValue) {
-    this.originalOneStepValue = originalOneStepValue;
-  }
-
-  public String getOriginalOneStepCurrency() {
-    return originalOneStepCurrency;
-  }
-
-  public void setOriginalOneStepCurrency(String originalOneStepCurrency) {
-    this.originalOneStepCurrency = originalOneStepCurrency;
-  }
-
   @Override public String toString() {
     return "TransactionBuilder{"
-        + "contractAddress='"
+        + "chainId="
+        + chainId
+        + ", contractAddress='"
         + contractAddress
         + '\''
         + ", decimals="
@@ -291,13 +330,14 @@ public class TransactionBuilder implements Parcelable {
         + Arrays.toString(appcoinsData)
         + ", gasSettings="
         + gasSettings
-        + ", chainId="
-        + chainId
         + ", skuId='"
         + skuId
         + '\''
         + ", type='"
         + type
+        + '\''
+        + ", origin='"
+        + origin
         + '\''
         + ", domain='"
         + domain
@@ -305,13 +345,60 @@ public class TransactionBuilder implements Parcelable {
         + ", payload='"
         + payload
         + '\''
-        + ", callbackUrl='"
-        + callbackUrl
-        + '\''
         + ", iabContract='"
         + iabContract
         + '\''
+        + ", callbackUrl='"
+        + callbackUrl
+        + '\''
+        + ", orderReference='"
+        + orderReference
+        + '\''
+        + ", originalOneStepValue='"
+        + originalOneStepValue
+        + '\''
+        + ", originalOneStepCurrency='"
+        + originalOneStepCurrency
+        + '\''
+        + ", referrerUrl='"
+        + referrerUrl
+        + '\''
+        + ", productName='"
+        + productName
+        + '\''
         + '}';
+  }
+
+  public String getReferrerUrl() {
+    return referrerUrl;
+  }
+
+  public void setReferrerUrl(String referrerUrl) {
+    this.referrerUrl = referrerUrl;
+  }
+
+  public String getCallbackUrl() {
+    return callbackUrl;
+  }
+
+  public String getOriginalOneStepValue() {
+    return originalOneStepValue;
+  }
+
+  public void setOriginalOneStepValue(String originalOneStepValue) {
+    this.originalOneStepValue = originalOneStepValue;
+  }
+
+  public String getOriginalOneStepCurrency() {
+    return originalOneStepCurrency;
+  }
+
+  public void setOriginalOneStepCurrency(String originalOneStepCurrency) {
+    this.originalOneStepCurrency = originalOneStepCurrency;
+  }
+
+  public String getProductToken() {
+    return productToken;
   }
 
   @Override public int describeContents() {
@@ -338,6 +425,9 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(orderReference);
     dest.writeString(originalOneStepValue);
     dest.writeString(originalOneStepCurrency);
+    dest.writeString(referrerUrl);
+    dest.writeString(productName);
+    dest.writeString(productToken);
   }
 
   public byte[] approveData() {

@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:weightSum="6"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/title"
+    >
+
+  <include
+      android:id="@+id/code_1"
+      layout="@layout/single_sms_input_layout"
+      />
+
+  <include
+      android:id="@+id/code_2"
+      layout="@layout/single_sms_input_layout"
+      />
+
+  <include
+      android:id="@+id/code_3"
+      layout="@layout/single_sms_input_layout"
+      />
+
+  <include
+      android:id="@+id/code_4"
+      layout="@layout/single_sms_input_layout"
+      />
+
+  <include
+      android:id="@+id/code_5"
+      layout="@layout/single_sms_input_layout"
+      />
+
+  <include
+      android:id="@+id/code_6"
+      layout="@layout/single_sms_input_layout"
+      />
+
+</LinearLayout>

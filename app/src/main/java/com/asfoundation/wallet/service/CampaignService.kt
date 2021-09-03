@@ -3,17 +3,18 @@ package com.asfoundation.wallet.service
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.SubmitPoAException
 import com.asfoundation.wallet.entity.SubmitPoAResponse
+import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofComponent
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import org.jetbrains.annotations.NotNull
 import retrofit2.http.*
 
 class CampaignService(
-    private val campaignApi: @NotNull CampaignApi,
-    private val versionCode: Int) {
+    private val campaignApi: CampaignApi,
+    private val versionCode: Int,
+    private val scheduler: Scheduler) {
 
   companion object {
     const val SERVICE_HOST = BuildConfig.BACKEND_HOST
@@ -24,14 +25,28 @@ class CampaignService(
         SerializedProof(proof.campaignId, proof.packageName, wallet, proof.proofComponentList,
             proof.storeAddress, proof.oemAddress), versionCode)
         .map { response -> handleResponse(response) }
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(scheduler)
         .singleOrError()
   }
 
-  fun getCampaign(address: String, packageName: String, packageVersionCode: Int): Single<String> {
+  fun getCampaign(address: String, packageName: String,
+                  packageVersionCode: Int): Single<Campaign> {
     return campaignApi.getCampaign(address, packageName, packageVersionCode)
         .map { response -> handleResponse(response) }
-        .subscribeOn(Schedulers.io()).singleOrError()
+        .subscribeOn(scheduler)
+        .singleOrError()
+  }
+
+  fun retrievePoaInformation(address: String): Single<PoaInformationModel> {
+    return campaignApi.getPoaInformation(address)
+        .map { handleResponse(it) }
+        .subscribeOn(scheduler)
+        .singleOrError()
+  }
+
+  private fun handleResponse(response: PoaInformationResponse): PoaInformationModel {
+    return PoaInformationModel(response.remainingPoa, response.hoursRemaining,
+        response.minutesRemaining)
   }
 
   private fun handleResponse(response: SubmitPoAResponse): String {
@@ -42,15 +57,13 @@ class CampaignService(
     }
   }
 
-  private fun handleResponse(response: GetCampaignResponse): String {
-    return if (!response.status.equals(GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE)
-        && response.bidId != null) {
-      response.bidId
+  private fun handleResponse(response: GetCampaignResponse): Campaign {
+    return if (response.status != GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE && response.bidId != null) {
+      Campaign(response.bidId, CampaignStatus.AVAILABLE)
     } else {
-      ""
+      Campaign("", CampaignStatus.NOT_ELIGIBLE, response.hours, response.minutes)
     }
   }
-
 
   interface CampaignApi {
     @Headers("Content-Type: application/json")
@@ -58,6 +71,8 @@ class CampaignService(
     fun submitProof(@Body body: SerializedProof?, @Query("version_code")
     versionCode: Int): Observable<SubmitPoAResponse>
 
+    @GET("/campaign/remaining_poa")
+    fun getPoaInformation(@Query("address") address: String): Observable<PoaInformationResponse>
 
     @GET("/campaign/eligible")
     fun getCampaign(@Query("address") address: String,
@@ -72,3 +87,10 @@ class SerializedProof(val bid_id: String?,
                       val nonces: List<ProofComponent>,
                       val store: String,
                       val oem: String)
+
+enum class CampaignStatus {
+  AVAILABLE, NOT_ELIGIBLE
+}
+
+data class Campaign(val campaignId: String, val campaignStatus: CampaignStatus,
+                    val hoursRemaining: Int = 0, val minutesRemaining: Int = 0)

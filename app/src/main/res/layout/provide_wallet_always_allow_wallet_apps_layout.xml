@@ -70,6 +70,5 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/dot4"
       app:layout_constraintTop_toTopOf="@id/provide_wallet_always_allow_wallet_icon"
-      tools:src="@drawable/bt_ic_camera"
       />
 </merge>

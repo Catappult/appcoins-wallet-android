@@ -1,5 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/payment_methods_width_landscape"
@@ -8,118 +8,151 @@
     android:background="@drawable/background_card"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:maxHeight="300dp"
     >
 
   <TextView
-      android:id="@+id/in_progress_text"
+      android:id="@+id/next_steps_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="22dp"
-      android:layout_marginTop="71dp"
+      android:layout_marginTop="@dimen/big_margin"
       android:fontFamily="sans-serif-medium"
       android:gravity="center_horizontal"
-      android:text="@string/local_payments_inprogress_header"
+      android:text="@string/async_steps_title"
       android:textColor="@color/black_87_alpha"
       android:textSize="16sp"
-      app:layout_constraintStart_toStartOf="@id/mid_guideline"
-      app:layout_constraintTop_toBottomOf="@id/top_separator"
-      tools:text="In Progress!"
-      />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/mid_guideline"
-      android:layout_width="1dp"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.46"
-      />
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/in_progress_animation"
-      android:layout_width="224dp"
-      android:layout_height="112dp"
-      android:layout_marginTop="59dp"
-      android:layout_marginEnd="10dp"
-      android:visibility="invisible"
-      app:layout_constraintEnd_toStartOf="@id/mid_guideline"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/top_separator"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/transact_loading_animation"
-      />
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/completed_bonus_animation"
-      android:layout_width="260dp"
-      android:layout_height="188dp"
-      android:layout_marginEnd="10dp"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toTopOf="@id/bottom_separator"
-      app:layout_constraintEnd_toStartOf="@id/mid_guideline"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/top_separator"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/transaction_complete_bonus_animation"
-      />
-
-
-  <TextView
-      android:id="@+id/explanation_text"
-      android:layout_width="256dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="22dp"
-      android:layout_marginTop="8dp"
-      android:fontFamily="sans-serif"
-      android:text="@string/local_payments_inprogress_body"
-      android:textColor="#727272"
-      android:textSize="12sp"
-      app:layout_constraintStart_toEndOf="@id/mid_guideline"
-      app:layout_constraintTop_toBottomOf="@id/in_progress_text"
-      tools:text="Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!"
-      />
-
-  <View
-      android:id="@+id/top_separator"
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginTop="16dp"
-      android:background="@color/layout_separator_color"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
 
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/in_progress_animation"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="@id/guideline_right"
+      app:layout_constraintStart_toStartOf="@id/guideline_left"
+      app:layout_constraintTop_toBottomOf="@+id/next_steps_title"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/async_payment_progress"
+      />
+
+  <TextView
+      android:id="@+id/step_one"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="top|end"
+      android:layout_marginStart="@dimen/big_margin"
+      android:adjustViewBounds="true"
+      android:background="@drawable/circle_background"
+      android:gravity="center"
+      android:text="1"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="@id/step_one_desc"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/step_one_desc"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/step_one_desc"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:textColor="@color/pending_payment_text_color"
+      android:textSize="12sp"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/step_one"
+      app:layout_constraintTop_toBottomOf="@id/in_progress_animation"
+      tools:text="@string/async_steps_1_no_notification"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/step_two"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="top|end"
+      android:layout_marginStart="@dimen/big_margin"
+      android:adjustViewBounds="true"
+      android:background="@drawable/circle_background"
+      android:gravity="center"
+      android:text="2"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="@id/step_two_desc"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/step_two_desc"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/step_two_desc"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="4dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:text="@string/async_steps_2_no_notification"
+      android:textColor="@color/pending_payment_text_color"
+      android:textSize="12sp"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@id/step_two"
+      app:layout_constraintTop_toBottomOf="@id/step_one_desc"
+      tools:visibility="visible"
+      />
   <View
       android:id="@+id/bottom_separator"
       android:layout_width="match_parent"
       android:layout_height="1dp"
-      android:layout_marginTop="40dp"
-      android:layout_marginBottom="7dp"
+      android:layout_marginTop="32dp"
       android:background="@color/layout_separator_color"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/in_progress_animation"
+      app:layout_constraintTop_toBottomOf="@id/step_two_desc"
       />
 
   <Button
-      android:id="@+id/buy_button"
+      android:id="@+id/got_it_button"
       style="@style/ButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/button_height"
       android:layout_gravity="center_vertical"
-      android:layout_marginTop="7dp"
+      android:layout_marginTop="8dp"
       android:layout_marginEnd="16dp"
       android:layout_marginBottom="8dp"
+      android:alpha="0.2"
       android:maxWidth="126dp"
       android:minWidth="80dp"
-      android:text="@string/dismiss_button"
+      android:text="@string/got_it_button"
       android:textColor="@color/white"
       android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline_left"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.3"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline_right"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.7"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

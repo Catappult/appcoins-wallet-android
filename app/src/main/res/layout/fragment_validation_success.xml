@@ -25,18 +25,18 @@
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/validation_success_animation"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="124dp"
-      android:layout_marginTop="41dp"
-      android:layout_marginEnd="124dp"
-      android:layout_marginBottom="93dp"
+      android:layout_height="120dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="16dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/validation_done"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/top_up_success_animation"
+      app:lottie_rawRes="@raw/success_animation"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

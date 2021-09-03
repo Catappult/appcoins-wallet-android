@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.util;
 
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
+import androidx.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity.ERROR_CODE;
 
 /**
  * Created by marat on 10/11/17.
@@ -24,12 +26,10 @@ import java.util.Map;
 public class QRUri {
   private static final int ADDRESS_LENGTH = 42;
 
-  private final String protocol;
   private final String address;
   private final Map<String, String> parameters;
 
-  private QRUri(String protocol, String address, Map<String, String> parameters) {
-    this.protocol = protocol;
+  private QRUri(String address, Map<String, String> parameters) {
     this.address = address;
     this.parameters = Collections.unmodifiableMap(parameters);
   }
@@ -48,16 +48,15 @@ public class QRUri {
     return isValidAddress(address) ? address : null;
   }
 
-  @Nullable public static QRUri parse(String url) {
+  public static QRUri parse(String url) {
     String[] parts = url.split(":");
-    QRUri result = null;
+    QRUri result = new QRUri(ERROR_CODE, Collections.emptyMap());
     if (parts.length == 1) {
       String address = extractAddress(parts[0]);
       if (!TextUtils.isEmpty(address)) {
-        result = new QRUri("", address.toLowerCase(), Collections.emptyMap());
+        result = new QRUri(address.toLowerCase(), Collections.emptyMap());
       }
     } else if (parts.length == 2) {
-      String protocol = parts[0];
       String address = extractAddress(parts[1]);
       if (!TextUtils.isEmpty(address)) {
         Map<String, String> params = new HashMap<>();
@@ -67,7 +66,7 @@ public class QRUri {
           List<String> paramParts = Arrays.asList(paramString.split("&"));
           params = parseParamsFromParamParts(paramParts);
         }
-        result = new QRUri(protocol, address, params);
+        result = new QRUri(address, params);
       }
     }
     return result;
@@ -87,10 +86,6 @@ public class QRUri {
       }
     }
     return params;
-  }
-
-  public String getProtocol() {
-    return protocol;
   }
 
   public String getAddress() {

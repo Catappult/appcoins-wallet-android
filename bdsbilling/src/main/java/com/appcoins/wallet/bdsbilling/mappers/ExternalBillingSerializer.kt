@@ -1,4 +1,4 @@
-package com.appcoins.wallet.billing.mappers
+package com.appcoins.wallet.bdsbilling.mappers
 
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.PurchaseSignatureSerializer
@@ -22,11 +22,11 @@ class ExternalBillingSerializer {
     return serializedProducts
   }
 
-  fun mapProduct(product: Product): SKU {
-      return SKU(product.sku, "inapp", getBasePrice(product), getBaseCurrency(product),
-              getBasePriceInMicro(product), getAppcPrice(product), APPC,
-              getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
-              getFiatPriceInMicro(product), product.title, product.description)
+  private fun mapProduct(product: Product): SKU {
+    return SKU(product.sku, "inapp", getBasePrice(product), getBaseCurrency(product),
+        getBasePriceInMicro(product), getAppcPrice(product), APPC,
+        getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
+        getFiatPriceInMicro(product), product.title, product.description)
   }
 
   private fun getBasePrice(product: Product): String {
@@ -36,7 +36,7 @@ class ExternalBillingSerializer {
       getFiatPrice(product)
   }
 
-  private fun getBasePriceInMicro(product: Product): Int {
+  private fun getBasePriceInMicro(product: Product): Long {
     return if ((APPC.equals(product.price.base, true)) && product.price.base != null)
       getAppcPriceInMicro(product)
     else
@@ -56,24 +56,23 @@ class ExternalBillingSerializer {
         .amount)
   }
 
-  private fun getFiatPriceInMicro(product: Product): Int {
-    return (product.price.amount * 1000000).toInt()
+  private fun getFiatPriceInMicro(product: Product): Long {
+    return (product.price.amount * 1000000).toLong()
   }
 
   private fun getAppcPrice(product: Product): String {
     return String.format("%s %s", APPC, product.price.appcoinsAmount)
   }
 
-  private fun getAppcPriceInMicro(product: Product): Int {
-    return (product.price.appcoinsAmount * 1000000).toInt()
+  private fun getAppcPriceInMicro(product: Product): Long {
+    return (product.price.appcoinsAmount * 1000000).toLong()
   }
 
   fun serializeSignatureData(purchase: Purchase): String {
-    val gson =
-        GsonBuilder().registerTypeAdapter(Purchase::class.java, PurchaseSignatureSerializer())
-            .disableHtmlEscaping()
-            .create()
-    return gson.toJson(purchase)
+    return GsonBuilder().registerTypeAdapter(Purchase::class.java, PurchaseSignatureSerializer())
+        .disableHtmlEscaping()
+        .create()
+        .toJson(purchase)
   }
 
 }

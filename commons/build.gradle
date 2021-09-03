@@ -3,10 +3,10 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
+  implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  testImplementation "junit:junit:$project.junitVersion"
-  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
+  testImplementation "junit:junit:$project.junit_version"
+  testImplementation "org.mockito:mockito-core:$project.mockito_version"
 }
 
 sourceCompatibility = 1.8

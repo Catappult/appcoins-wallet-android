@@ -1,7 +1,10 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,16 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.C;
+import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
-import com.asfoundation.wallet.widget.CircleTransformation;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.asfoundation.wallet.util.CurrencyFormatUtils;
+import com.asfoundation.wallet.util.WalletCurrency;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import static com.asfoundation.wallet.C.ETHER_DECIMALS;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class TransactionHolder extends BinderViewHolder<Transaction>
     implements View.OnClickListener {
@@ -31,25 +41,31 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private final View typeIcon;
   private final TextView address;
   private final TextView description;
+  private final TextView paidValue;
+  private final TextView paidCurrency;
   private final TextView value;
   private final TextView currency;
-  private final TextView status;
-
+  private final OnTransactionClickListener onTransactionClickListener;
+  private final CurrencyFormatUtils formatter;
+  private final TextView revertMessage;
   private Transaction transaction;
   private String defaultAddress;
-  private OnTransactionClickListener onTransactionClickListener;
 
-  public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener) {
+  public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener,
+      CurrencyFormatUtils formatter) {
     super(resId, parent);
 
     srcImage = findViewById(R.id.img);
     typeIcon = findViewById(R.id.type_icon);
     address = findViewById(R.id.address);
     description = findViewById(R.id.description);
+    paidValue = findViewById(R.id.paid_value);
+    paidCurrency = findViewById(R.id.paid_currency);
     value = findViewById(R.id.value);
     currency = findViewById(R.id.currency);
-    status = findViewById(R.id.status);
+    revertMessage = findViewById(R.id.revert_message);
     onTransactionClickListener = listener;
+    this.formatter = formatter;
 
     itemView.setOnClickListener(this);
   }
@@ -67,47 +83,18 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       currency = transaction.getCurrency();
     }
 
-    String to = extractTo(transaction);
-    String from = extractFrom(transaction);
-
-    fill(from, to, currency, transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(),
+    fill(transaction.getFrom(), transaction.getTo(), currency, transaction.getValue(),
+        transaction.getPaidAmount(), transaction.getPaidCurrency(),
         transaction.getDetails());
   }
 
-  private String extractTo(Transaction transaction) {
-    if (transaction.getOperations() != null
-        && transaction.getOperations()
-        .get(0) != null
-        && transaction.getOperations()
-        .get(0)
-        .getTo() != null) {
-      return transaction.getOperations()
-          .get(0)
-          .getTo();
-    } else {
-      return transaction.getTo();
-    }
-  }
-
-  private String extractFrom(Transaction transaction) {
-    if (transaction.getOperations() != null
-        && transaction.getOperations()
-        .get(0) != null
-        && transaction.getOperations()
-        .get(0)
-        .getFrom() != null) {
-      return transaction.getOperations()
-          .get(0)
-          .getFrom();
-    } else {
-      return transaction.getFrom();
-    }
-  }
-
-  private void fill(String from, String to, String currencySymbol, String valueStr, long decimals,
-      Transaction.TransactionStatus transactionStatus, TransactionDetails details) {
+  private void fill(String from, String to, String currencySymbol, String valueStr,
+      String paidAmount, String paidCurrency,
+      TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
+
+    revertMessage.setVisibility(View.GONE);
 
     TransactionDetails.Icon icon;
     String uri = null;
@@ -125,31 +112,43 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     int transactionTypeIcon;
     switch (transaction.getType()) {
-      case IAB:
+      case IAP:
       case IAP_OFFCHAIN:
         transactionTypeIcon = R.drawable.ic_transaction_iab;
         setTypeIconVisibilityBasedOnDescription(details, uri);
+        break;
+      case BONUS_REVERT:
+      case TOP_UP_REVERT:
+        transactionTypeIcon = R.drawable.ic_transaction_revert;
+        typeIcon.setVisibility(View.VISIBLE);
+        setRevertMessage();
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
+        break;
+      case IAP_REVERT:
+        transactionTypeIcon = R.drawable.ic_transaction_revert;
+        typeIcon.setVisibility(View.VISIBLE);
+        setRevertMessage();
         break;
       case ADS:
       case ADS_OFFCHAIN:
         transactionTypeIcon = R.drawable.ic_transaction_poa;
         setTypeIconVisibilityBasedOnDescription(details, uri);
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
       case BONUS:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.ic_transaction_peer;
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
       case TOP_UP:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.transaction_type_top_up;
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
       case TRANSFER_OFF_CHAIN:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain;
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
       default:
         transactionTypeIcon = R.drawable.ic_transaction_peer;
@@ -166,8 +165,18 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       } else if (transaction.getType()
           .equals(Transaction.TransactionType.TRANSFER_OFF_CHAIN)) {
         address.setText(R.string.transaction_type_p2p);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.TOP_UP_REVERT)) {
+        address.setText(R.string.transaction_type_reverted_topup_title);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.BONUS_REVERT)) {
+        address.setText(R.string.transaction_type_reverted_bonus_title);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.IAP_REVERT)) {
+        address.setText(R.string.transaction_type_reverted_purchase_title);
       } else {
-        address.setText(details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
+        address.setText(
+            details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
       }
       description.setText(details.getDescription() == null ? "" : details.getDescription());
     } else {
@@ -176,49 +185,89 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     int finalTransactionTypeIcon = transactionTypeIcon;
-    Picasso.with(getContext())
+
+    GlideApp.with(getContext())
         .load(uri)
-        .transform(new CircleTransformation())
-        .placeholder(finalTransactionTypeIcon)
-        .error(transactionTypeIcon)
-        .fit()
-        .into(srcImage, new Callback() {
-          @Override public void onSuccess() {
+        .apply(RequestOptions.bitmapTransform(new CircleCrop())
+            .placeholder(finalTransactionTypeIcon)
+            .error(transactionTypeIcon))
+        .listener(new RequestListener<Drawable>() {
+
+          @Override public boolean onLoadFailed(@Nullable GlideException e, Object model,
+              Target<Drawable> target, boolean isFirstResource) {
+            typeIcon.setVisibility(View.GONE);
+            return false;
+          }
+
+          @Override
+          public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
+              DataSource dataSource, boolean isFirstResource) {
             ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
                 finalTransactionTypeIcon);
+            return false;
           }
-
-          @Override public void onError() {
-            typeIcon.setVisibility(View.GONE);
-          }
-        });
-
-    int statusText = R.string.transaction_status_success;
-    int statusColor = R.color.green;
-
-    switch (transactionStatus) {
-      case PENDING:
-        statusText = R.string.transaction_status_pending;
-        statusColor = R.color.orange;
-        break;
-      case FAILED:
-        statusText = R.string.transaction_status_failed;
-        statusColor = R.color.red;
-        break;
-    }
-
-    status.setText(statusText);
-    status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
+        })
+        .into(srcImage);
 
     if (valueStr.equals("0")) {
       valueStr = "0 ";
+    } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
+      valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
     } else {
-      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, decimals);
+      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
     }
 
-    currency.setText(currencySymbol);
+    if (shouldShowFiat(paidAmount, paidCurrency)) {
+      paidAmount = (isSent ? "-" : "+") + getScaledValue(paidAmount, 0, "");
+      this.paidValue.setText(paidAmount);
+      this.paidCurrency.setText(paidCurrency);
+      this.value.setVisibility(View.VISIBLE);
+      this.currency.setVisibility(View.VISIBLE);
+      this.value.setText(valueStr);
+      this.currency.setText(currencySymbol);
+    } else {
+      this.paidValue.setText(valueStr);
+      this.paidCurrency.setText(currencySymbol);
+      this.value.setVisibility(View.GONE);
+      this.currency.setVisibility(View.GONE);
+    }
+  }
 
-    this.value.setText(valueStr);
+  private boolean shouldShowFiat(String paidAmount, String paidCurrency) {
+    return paidAmount != null
+        && !paidCurrency.equals("APPC")
+        && !paidCurrency.equals("APPC-C")
+        && !paidCurrency.equals("ETH");
+  }
+
+  private void setRevertMessage() {
+    String message = null;
+    List<Transaction> links = transaction.getLinkedTx();
+    if (links == null || links.isEmpty()) {
+      revertMessage.setVisibility(View.GONE);
+    } else {
+      Transaction linkedTx = links.get(0);
+      if (transaction.getType() == Transaction.TransactionType.BONUS_REVERT) {
+        message = getString(R.string.transaction_type_reverted_bonus_body,
+            getDate(linkedTx.getTimeStamp()));
+      } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
+        message = getString(R.string.transaction_type_reverted_purchase_body,
+            getDate(linkedTx.getTimeStamp()));
+      } else if (transaction.getType() == Transaction.TransactionType.TOP_UP_REVERT) {
+        message = getString(R.string.transaction_type_reverted_topup_body,
+            getDate(linkedTx.getTimeStamp()));
+      }
+
+      revertMessage.setText(message);
+      revertMessage.setVisibility(View.VISIBLE);
+    }
+  }
+
+  private String getDate(long timeStampInSec) {
+    Calendar cal = Calendar.getInstance(Locale.getDefault());
+    cal.setTimeInMillis(timeStampInSec);
+    return DateFormat.format("MMM, dd yyyy", cal.getTime())
+        .toString();
   }
 
   private String getSourceText(Transaction transaction) {
@@ -240,17 +289,20 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
   }
 
-  private String getScaledValue(String valueStr, long decimals) {
-    // Perform decimal conversion
+  private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
+    WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
     value = value.divide(new BigDecimal(Math.pow(10, decimals)));
-    int scale = 4; //SIGNIFICANT_FIGURES - value.precision() + value.scale();
-    return value.setScale(scale, RoundingMode.HALF_UP)
-        .stripTrailingZeros()
-        .toPlainString();
+    return formatter.formatCurrency(value, walletCurrency);
   }
 
   @Override public void onClick(View view) {
     onTransactionClickListener.onTransactionClick(view, transaction);
+  }
+
+  private boolean isRevertedType(Transaction.TransactionType type) {
+    return type == Transaction.TransactionType.BONUS_REVERT
+        || type == Transaction.TransactionType.IAP_REVERT
+        || type == Transaction.TransactionType.TOP_UP_REVERT;
   }
 }

@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/iab_activity_transaction_completed"
     android:layout_width="match_parent"
-    android:layout_height="280dp"
-    android:layout_marginStart="32dp"
-    android:layout_marginEnd="32dp"
+    android:layout_height="260dp"
+    android:layout_marginStart="80dp"
+    android:layout_marginEnd="80dp"
     android:visibility="gone"
     tools:visibility="visible"
     >
@@ -24,13 +24,14 @@
       />
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/lottie_transaction_success"
-      android:layout_width="260dp"
-      android:layout_height="188dp"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_width="195dp"
+      android:layout_height="140dp"
+      android:layout_marginTop="24dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/transaction_success_text"
       app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="false"
       app:lottie_rawRes="@raw/transaction_complete_bonus_animation"
       />

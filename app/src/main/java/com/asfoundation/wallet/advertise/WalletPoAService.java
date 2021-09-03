@@ -7,23 +7,28 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.core.app.NotificationCompat;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
+import com.asfoundation.wallet.interact.AutoUpdateInteract;
+import com.asfoundation.wallet.logging.Logger;
+import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
-import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
+import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
-import com.asfoundation.wallet.wallet_validation.WalletValidationActivity;
+import com.asfoundation.wallet.util.Log;
+import com.asfoundation.wallet.verification.VerificationBroadcastReceiver;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -41,6 +46,9 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKA
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_NETWORK_ID;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PACKAGE_NAME;
+import static com.asfoundation.wallet.verification.VerificationBroadcastReceiver.ACTION_DISMISS;
+import static com.asfoundation.wallet.verification.VerificationBroadcastReceiver.ACTION_KEY;
+import static com.asfoundation.wallet.verification.VerificationBroadcastReceiver.ACTION_START_VERIFICATION;
 
 /**
  * Created by Joao Raimundo on 29/03/2018.
@@ -51,31 +59,33 @@ public class WalletPoAService extends Service {
   public static final int SERVICE_ID = 77784;
   public static final int VERIFICATION_SERVICE_ID = 77785;
 
-  static final String TAG = WalletPoAService.class.getSimpleName();
+  private static final String TAG = WalletPoAService.class.getSimpleName();
   /**
    * Target we publish for clients to send messages to IncomingHandler.Note
    * that calls to its binder are sequential!
    */
   final Messenger serviceMessenger = new Messenger(new IncomingHandler());
-
-  /** Boolean indicating that we are already bound */
-  boolean isBound = false;
-
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents;
   @Inject Logger logger;
   @Inject PoaAnalytics analytics;
   @Inject PoaAnalyticsController analyticsController;
+  @Inject NotificationManager notificationManager;
+  @Inject PackageManager packageManager;
+  @Inject CampaignInteract campaignInteract;
+  @Inject AutoUpdateInteract autoUpdateInteract;
+  @Inject @Named("heads_up") NotificationCompat.Builder headsUpNotificationBuilder;
+  /** Boolean indicating that we are already bound */
+  private boolean isBound = false;
   private Disposable disposable;
-  private NotificationManager notificationManager;
   private Disposable timerDisposable;
   private Disposable requirementsDisposable;
   private Disposable startedEventDisposable;
   private Disposable completedEventDisposable;
+  private String appName;
 
   @Override public void onCreate() {
     super.onCreate();
-    notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     AndroidInjection.inject(this);
   }
 
@@ -88,22 +98,26 @@ public class WalletPoAService extends Service {
       if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
+        try {
+          ApplicationInfo appInfo = packageManager.getApplicationInfo(packageName, 0);
+          appName = packageManager.getApplicationLabel(appInfo)
+              .toString();
+        } catch (PackageManager.NameNotFoundException e) {
+          e.printStackTrace();
+        }
+        int versionCode = getVersionCode(packageName);
 
         requirementsDisposable = proofOfAttentionService.handleCreateWallet()
-            .flatMap(aBoolean -> proofOfAttentionService.isWalletReady(
-                intent.getIntExtra(PARAM_NETWORK_ID, -1))
+            .flatMap(__ -> proofOfAttentionService.isWalletReady(
+                intent.getIntExtra(PARAM_NETWORK_ID, -1), packageName, versionCode)
                 // network chain id
-                .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
+                .doOnSuccess(proof -> proofOfAttentionService.setChainId(packageName,
                     intent.getIntExtra(PARAM_NETWORK_ID, -1)))
-                .doOnSuccess(
-                    proofSubmissionFeeData -> proofOfAttentionService.setGasSettings(packageName,
-                        proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
-                .doOnSuccess(
-                    requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
-                        intent)))
+                .doOnSuccess(proof -> processWalletState(proof, intent, packageName)))
             .subscribe(requirementsStatus -> {
             }, throwable -> {
-              logger.log(throwable);
+              analytics.sendRakamProofEvent(packageName, "fail", throwable.toString());
+              logger.log(TAG, throwable);
               showGenericErrorNotificationAndStopForeground();
             });
       }
@@ -133,14 +147,13 @@ public class WalletPoAService extends Service {
 
   private void showGenericErrorNotificationAndStopForeground() {
     notificationManager.notify(SERVICE_ID,
-        createDefaultNotificationBuilder(R.string.notification_generic_error).build());
+        createDefaultNotificationBuilder(getString(R.string.notification_generic_error)).build());
     stopForeground(false);
     stopTimeout();
   }
 
-  private void processWalletState(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
-      Intent intent) {
-    switch (requirementsStatus) {
+  private void processWalletState(ProofSubmissionData proof, Intent intent, String packageName) {
+    switch (proof.getStatus()) {
       case READY:
         // send intent to confirm that we receive the broadcast and we want to finish the handshake
         String appPackageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
@@ -157,45 +170,94 @@ public class WalletPoAService extends Service {
         break;
       case NO_FUNDS:
         // show notification mentioning that we have no fund to register the PoA
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_no_funds_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_no_funds_poa)).build());
         stopForeground(false);
         stopTimeout();
         break;
       case NO_WALLET:
         // Show notification mentioning that we have no wallet configured on the app
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_no_wallet_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_no_wallet_poa)).build());
         stopForeground(false);
         stopTimeout();
         break;
       case NO_NETWORK:
         // Show notification mentioning that we have no wallet configured on the app
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_no_network_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_no_network_poa)).build());
         stopForeground(false);
+        stopTimeout();
+        break;
+      case NOT_ELIGIBLE:
+        //No campaign or already rewarded so there is no need to notify the user of anything
+        proofOfAttentionService.remove(packageName);
+        if (proof.hasReachedPoaLimit()) {
+          if (campaignInteract.hasSeenPoaNotificationTimePassed()) {
+            showPoaLimitNotification(proof);
+            campaignInteract.saveSeenPoaNotification();
+            stopForeground(false);
+          } else {
+            stopForeground(true);
+          }
+        } else {
+          campaignInteract.clearSeenPoaNotification();
+          stopForeground(true);
+        }
         stopTimeout();
         break;
       case WRONG_NETWORK:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_wrong_network_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_wrong_network_poa)).build());
         stopForeground(false);
         stopTimeout();
-        logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
+        logger.log(TAG, new Throwable(new WrongNetworkException("Not on the correct network")));
+        break;
+      case UPDATE_REQUIRED:
+        if (autoUpdateInteract.shouldShowNotification()) {
+          showUpdateRequiredNotification();
+          autoUpdateInteract.saveSeenUpdateNotification();
+        }
+        stopForeground(false);
+        stopTimeout();
         break;
       case UNKNOWN_NETWORK:
-        logger.log(new Throwable(new WrongNetworkException("Unknown network")));
+        logger.log(TAG, new Throwable(new WrongNetworkException("Unknown network")));
         break;
     }
+  }
+
+  private void showUpdateRequiredNotification() {
+    Intent intent = autoUpdateInteract.buildUpdateIntent();
+    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+    notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setStyle(
+        new NotificationCompat.BigTextStyle().setBigContentTitle(
+            getString(R.string.update_wallet_poa_notification_title))
+            .bigText(getString(R.string.update_wallet_poa_notification_body)))
+        .setContentIntent(pendingIntent)
+        .build());
+  }
+
+  private void showPoaLimitNotification(ProofSubmissionData proof) {
+    String minutes = String.format("%02d", proof.getMinutesRemaining());
+    String message = getString(R.string.notification_poa_limit_reached,
+        String.valueOf(proof.getHoursRemaining()), minutes);
+    NotificationCompat.Builder builder =
+        headsUpNotificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
+    if (appName != null) {
+      builder.setContentTitle(appName)
+          .setContentText(message);
+    }
+    notificationManager.notify(SERVICE_ID, builder.build());
   }
 
   private void stopTimeout() {
     disposeDisposable(timerDisposable);
   }
 
-  public void startNotifications() {
+  private void startNotifications() {
     startForeground(SERVICE_ID,
-        createDefaultNotificationBuilder(R.string.notification_ongoing_poa).build());
+        createDefaultNotificationBuilder(getString(R.string.notification_ongoing_poa)).build());
     if (disposable == null || disposable.isDisposed()) {
       disposable = proofOfAttentionService.get()
           .flatMapIterable(proofs -> proofs)
@@ -215,58 +277,73 @@ public class WalletPoAService extends Service {
   private void updateNotification(Proof proof) {
     switch (proof.getProofStatus()) {
       case SUBMITTING:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_submitting_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_submitting_poa)).build());
+        stopTimeout();
         break;
       case COMPLETED:
+        PoaInformationModel poaInformation = proofOfAttentionService.retrievePoaInformation()
+            .blockingGet();
         Intent intent = TransactionsActivity.newIntent(this);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        String completed = getString(R.string.verification_notification_reward_received_body);
+        if (!poaInformation.hasRemainingPoa()) {
+          completed = buildNoPoaRemainingString(poaInformation);
+        }
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        notificationManager.notify(SERVICE_ID, createHeadsUpNotificationBuilder(
-            R.string.verification_notification_reward_received_body).setContentIntent(pendingIntent)
-            .build());
+        NotificationCompat.Builder notificationBuilder = headsUpNotificationBuilder.setStyle(
+            new NotificationCompat.BigTextStyle().bigText(completed))
+            .setContentText(completed)
+            .setContentIntent(pendingIntent);
+        if (appName != null) {
+          notificationBuilder.setContentTitle(appName);
+        }
+        notificationManager.notify(SERVICE_ID, notificationBuilder.build());
+        campaignInteract.clearSeenPoaNotification();
         break;
       case NO_INTERNET:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_no_network_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_no_network_poa)).build());
         break;
       case GENERAL_ERROR:
         notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_error_poa).build());
+            createDefaultNotificationBuilder(getString(R.string.notification_error_poa)).build());
         break;
       case NO_WALLET:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_no_wallet_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_no_wallet_poa)).build());
         break;
       case CANCELLED:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_cancelled_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_cancelled_poa)).build());
         break;
       case NOT_AVAILABLE:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_not_available_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_not_available_poa)).build());
         break;
       case NOT_AVAILABLE_ON_COUNTRY:
         notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
-            R.string.notification_not_available_for_country_poa).build());
+            getString(R.string.notification_not_available_for_country_poa)).build());
         break;
       case ALREADY_REWARDED:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_already_rewarded_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_already_rewarded_poa)).build());
         break;
       case INVALID_DATA:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_submit_error_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_submit_error_poa)).build());
         break;
       default:
       case PROCESSING:
         int progress = calculateProgress(proof);
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_ongoing_poa).setProgress(100,
-                progress, progress == 0 || progress == 100)
-                .build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            getString(R.string.notification_ongoing_poa)).setProgress(100, progress,
+            progress == 0 || progress == 100)
+            .build());
         break;
       case PHONE_NOT_VERIFIED:
+        stopForeground(true);
+        notificationManager.cancel(SERVICE_ID);
         notificationManager.notify(VERIFICATION_SERVICE_ID,
             createVerificationNotification().build());
         break;
@@ -277,6 +354,12 @@ public class WalletPoAService extends Service {
       stopForeground(false);
       stopTimeout();
     }
+  }
+
+  private String buildNoPoaRemainingString(PoaInformationModel poaInformation) {
+    String minutesRemaining = String.format("%02d", poaInformation.getRemainingMinutes());
+    return getString(R.string.notification_completed_poa,
+        String.valueOf(poaInformation.getRemainingHours()), minutesRemaining);
   }
 
   private @IntRange(from = 0, to = 100) int calculateProgress(Proof proof) {
@@ -293,30 +376,6 @@ public class WalletPoAService extends Service {
       progress++;
     }
     return progress * 100 / (maxNumberProofComponents + 3);
-  }
-
-  private NotificationCompat.Builder createHeadsUpNotificationBuilder(int notificationText) {
-    NotificationCompat.Builder builder;
-    String channelId = "notification_channel_heads_up_id";
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-      CharSequence channelName = "Notification channel";
-      int importance = NotificationManager.IMPORTANCE_HIGH;
-      NotificationChannel notificationChannel =
-          new NotificationChannel(channelId, channelName, importance);
-      builder = new NotificationCompat.Builder(this, channelId);
-
-      NotificationManager notificationManager =
-          (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-      notificationManager.createNotificationChannel(notificationChannel);
-    } else {
-      builder = new NotificationCompat.Builder(this, channelId);
-      builder.setVibrate(new long[0]);
-    }
-
-    return builder.setContentTitle(getString(R.string.app_name))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setPriority(NotificationCompat.PRIORITY_MAX)
-        .setContentText(getString(notificationText));
   }
 
   private NotificationCompat.Builder createVerificationNotification() {
@@ -337,21 +396,29 @@ public class WalletPoAService extends Service {
       builder.setVibrate(new long[0]);
     }
 
-    Intent intent = WalletValidationActivity.newIntent(this);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+    Intent okIntent = VerificationBroadcastReceiver.newIntent(this);
+    okIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    okIntent.putExtra(ACTION_KEY, ACTION_START_VERIFICATION);
+    PendingIntent okPendingIntent = PendingIntent.getBroadcast(this, 0, okIntent, 0);
+
+    Intent dismissIntent = VerificationBroadcastReceiver.newIntent(this);
+    dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    dismissIntent.putExtra(ACTION_KEY, ACTION_DISMISS);
+    PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(this, 1, dismissIntent, 0);
 
     return builder.setContentTitle(
         getString(R.string.verification_notification_verification_needed_title))
-        .setContentIntent(pendingIntent)
-        .setAutoCancel(false)
+        .setContentIntent(okPendingIntent)
+        .setAutoCancel(true)
         .setOngoing(true)
+        .addAction(0, getString(R.string.ok), okPendingIntent)
+        .addAction(0, getString(R.string.dismiss_button), dismissPendingIntent)
         .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setContentText(getString(R.string.verification_notification_verification_needed_body));
   }
 
-  private NotificationCompat.Builder createDefaultNotificationBuilder(int notificationText) {
+  private NotificationCompat.Builder createDefaultNotificationBuilder(String notificationText) {
     NotificationCompat.Builder builder;
     String channelId = "notification_channel_id";
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -368,12 +435,16 @@ public class WalletPoAService extends Service {
       builder = new NotificationCompat.Builder(this, channelId);
     }
 
-    return builder.setContentTitle(getString(R.string.app_name))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentText(getString(notificationText));
+    if (appName != null) {
+      builder.setContentTitle(appName);
+    } else {
+      builder.setContentTitle(getString(R.string.app_name));
+    }
+    return builder.setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setContentText(notificationText);
   }
 
-  public void setTimeout(String packageName) {
+  private void setTimeout(String packageName) {
     disposeDisposable(timerDisposable);
     timerDisposable = Observable.timer(3, TimeUnit.MINUTES)
         .subscribe(__ -> {
@@ -382,13 +453,13 @@ public class WalletPoAService extends Service {
         });
   }
 
-  public void disposeDisposable(Disposable disposable) {
+  private void disposeDisposable(Disposable disposable) {
     if (disposable != null && !disposable.isDisposed()) {
       disposable.dispose();
     }
   }
 
-  public void handlePoaStartToSendEvent() {
+  private void handlePoaStartToSendEvent() {
     if (startedEventDisposable == null || startedEventDisposable.isDisposed()) {
       startedEventDisposable = proofOfAttentionService.get()
           .flatMap(proofs -> Observable.fromIterable(proofs)
@@ -416,26 +487,52 @@ public class WalletPoAService extends Service {
         && proof.getChainId() > 0;
   }
 
-  public void handlePoaCompletedToSendEvent() {
+  private void handlePoaCompletedToSendEvent() {
     if (completedEventDisposable == null || completedEventDisposable.isDisposed()) {
       completedEventDisposable = proofOfAttentionService.get()
           .flatMapIterable(proofs -> proofs)
+          .doOnNext(this::handlePoaCompletedAnalytics)
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
-          .doOnNext(proof -> {
-            analyticsController.cleanStateFor(proof.getPackageName());
-            if (proof.getProofStatus()
-                .equals(ProofStatus.COMPLETED)) {
-              analytics.sendPoaCompletedEvent(proof.getPackageName(), proof.getCampaignId(),
-                  Integer.toString(proof.getChainId()));
-            }
-          })
+          .doOnNext(proof -> analyticsController.cleanStateFor(proof.getPackageName()))
           .flatMapSingle(proof -> proofOfAttentionService.get()
               .firstOrError())
           .filter(List::isEmpty)
           .take(1)
           .subscribe();
     }
+  }
+
+  private void handlePoaCompletedAnalytics(Proof proof) {
+    if (proof.getProofStatus()
+        .equals(ProofStatus.PHONE_NOT_VERIFIED)) {
+      analytics.sendRakamProofEvent(proof.getPackageName(), "fail", proof.getProofStatus()
+          .name());
+    } else if (proof.getProofStatus()
+        .isTerminate()) {
+      if (proof.getProofStatus()
+          .equals(ProofStatus.COMPLETED)) {
+        analytics.sendPoaCompletedEvent(proof.getPackageName(), proof.getCampaignId(),
+            Integer.toString(proof.getChainId()));
+        analytics.sendRakamProofEvent(proof.getPackageName(), "success", "");
+      } else {
+        analytics.sendRakamProofEvent(proof.getPackageName(), "fail", proof.getProofStatus()
+            .name());
+      }
+    }
+  }
+
+  private int getVersionCode(String packageName) {
+    PackageInfo packageInfo;
+    int versionCode = -1;
+    try {
+      packageInfo = getPackageManager().getPackageInfo(packageName, 0);
+      versionCode = packageInfo.versionCode;
+    } catch (PackageManager.NameNotFoundException e) {
+      logger.log(TAG, new Throwable("Package not found exception"));
+      e.printStackTrace();
+    }
+    return versionCode;
   }
 
   /**

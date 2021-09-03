@@ -8,37 +8,78 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.entity.TransactionsDetailsModel;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
+import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
+import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import com.asfoundation.wallet.ui.iab.FiatValue;
+import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
-
-  private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
-  private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
+  private final SupportInteractor supportInteractor;
+  private final TransactionDetailRouter transactionDetailRouter;
+  private final LocalCurrencyConversionService conversionService;
+  private final FindDefaultNetworkInteract findDefaultNetworkInteract;
+  private final FindDefaultWalletInteract findDefaultWalletInteract;
+  private final MutableLiveData<TransactionsDetailsModel> transactionsDetailsModel =
+      new MutableLiveData<>();
+  private final CompositeDisposable disposables;
 
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter) {
+      ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,
+      SupportInteractor supportInteractor, TransactionDetailRouter transactionDetailRouter,
+      LocalCurrencyConversionService conversionService) {
     this.externalBrowserRouter = externalBrowserRouter;
-    findDefaultNetworkInteract.find()
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(defaultNetwork::postValue, t -> {
-        });
-    disposable = findDefaultWalletInteract.find()
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(defaultWallet::postValue, t -> {
-        });
+    this.disposables = compositeDisposable;
+    this.supportInteractor = supportInteractor;
+    this.transactionDetailRouter = transactionDetailRouter;
+    this.conversionService = conversionService;
+    this.findDefaultNetworkInteract = findDefaultNetworkInteract;
+    this.findDefaultWalletInteract = findDefaultWalletInteract;
   }
 
-  public LiveData<NetworkInfo> defaultNetwork() {
-    return defaultNetwork;
+  @Override protected void onCleared() {
+    disposables.clear();
+    super.onCleared();
+  }
+
+  public void initializeView(String paidValue, String paidCurrency, String targetCurrency) {
+    Single<FiatValue> fiatValueSingle =
+        (paidValue != null) ? convertValueToTargetCurrency(paidValue, paidCurrency, targetCurrency)
+            : Single.just(new FiatValue());
+    disposables.add(Single.zip(findDefaultNetworkInteract.find(), findDefaultWalletInteract.find(),
+        fiatValueSingle, TransactionsDetailsModel::new)
+        .subscribe(transactionsDetailsModel::postValue, t -> {
+        }));
+  }
+
+  public void showSupportScreen() {
+    supportInteractor.displayChatScreen();
+  }
+
+  private Single<FiatValue> convertValueToTargetCurrency(String paidValue, String paidCurrency,
+      String targetCurrency) {
+    return conversionService.getValueToFiat(paidValue, paidCurrency, targetCurrency, 2)
+        .subscribeOn(Schedulers.io())
+        .firstOrError();
+  }
+
+  public LiveData<TransactionsDetailsModel> transactionsDetailsModel() {
+    return transactionsDetailsModel;
+  }
+
+  public void showDetails(Context context, Transaction transaction, String globalBalanceCurrency) {
+    transactionDetailRouter.open(context, transaction, globalBalanceCurrency);
   }
 
   public void showMoreDetails(Context context, Operation transaction) {
@@ -49,7 +90,8 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   @Nullable private Uri buildEtherscanUri(Operation operation) {
-    NetworkInfo networkInfo = defaultNetwork.getValue();
+    NetworkInfo networkInfo = transactionsDetailsModel.getValue()
+        .getNetworkInfo();
     if (networkInfo != null && !TextUtils.isEmpty(networkInfo.etherscanUrl)) {
       return Uri.parse(networkInfo.etherscanUrl)
           .buildUpon()
@@ -57,10 +99,6 @@ public class TransactionDetailViewModel extends BaseViewModel {
           .build();
     }
     return null;
-  }
-
-  public LiveData<Wallet> defaultWallet() {
-    return defaultWallet;
   }
 
   public void showMoreDetailsBds(Context context, Transaction transaction) {
@@ -71,7 +109,8 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   private Uri buildBdsUri(Transaction transaction) {
-    NetworkInfo networkInfo = defaultNetwork.getValue();
+    NetworkInfo networkInfo = transactionsDetailsModel.getValue()
+        .getNetworkInfo();
     String url = networkInfo.chainId == 3 ? BuildConfig.TRANSACTION_DETAILS_HOST_ROPSTEN
         : BuildConfig.TRANSACTION_DETAILS_HOST;
     return Uri.parse(url)

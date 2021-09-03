@@ -5,18 +5,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
     >
-  <androidx.constraintlayout.widget.ConstraintLayout
-      xmlns:app="http://schemas.android.com/apk/res-auto"
+  <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       >
     <TextView
         android:id="@+id/title"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="95dp"
+        android:layout_marginEnd="32dp"
         android:ellipsize="end"
         android:gravity="center"
         android:text="@string/p2p_send_body"
@@ -25,16 +25,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
         />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/transact_fragment_recipient_address_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
@@ -44,6 +43,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/hint_recipient_address"
+          android:imeOptions="flagNoExtractUi|flagNoFullscreen"
           android:inputType="text"
           android:maxLines="1"
           android:paddingEnd="45dp"
@@ -56,7 +56,7 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/scan_qr"
         android:padding="@dimen/big_padding"
-        android:src="@mipmap/qr_code_icon"
+        android:src="@drawable/ic_qr_code"
         app:layout_constraintBottom_toBottomOf="@+id/transact_fragment_recipient_address_layout"
         app:layout_constraintEnd_toEndOf="@+id/transact_fragment_recipient_address_layout"
         app:layout_constraintHorizontal_bias="1"
@@ -68,9 +68,9 @@
         android:id="@+id/transact_fragment_amount_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transact_fragment_recipient_address_layout"
@@ -80,41 +80,39 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/hint_amount"
-          android:imeOptions="actionDone"
+          android:imeOptions="actionDone|flagNoExtractUi|flagNoFullscreen"
           android:inputType="numberDecimal"
           />
     </com.google.android.material.textfield.TextInputLayout>
-    <include
-        layout="@layout/currency_choose_layout"
-        />
+    <include layout="@layout/currency_choose_layout" />
 
     <TextView
         android:id="@+id/transact_fragment_balance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintBottom_toTopOf="@id/send_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currency_selector"
+        app:layout_constraintTop_toBottomOf="@id/currency_selector"
         tools:text="Current balance: 867 APPC-C"
         />
     <Button
         android:id="@+id/send_button"
+        style="@style/ButtonStyle"
         android:layout_width="0dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/action_send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transact_fragment_balance"
-        style="@style/ButtonStyle"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

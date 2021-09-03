@@ -6,20 +6,22 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.textfield.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.GlideApp;
+import com.asfoundation.wallet.util.Log;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.squareup.picasso.Picasso;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -103,10 +105,10 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
 
   @Override public void showCaptcha(String captchaUrl) {
     Log.d(TAG, "showCaptcha() called with: captchaUrl = [" + captchaUrl + "]");
-    Picasso.with(getContext())
-        .invalidate(captchaUrl);
-    Picasso.with(getContext())
+    GlideApp.with(getContext())
         .load(captchaUrl)
+        .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true))
         .into(captchaView);
   }
 

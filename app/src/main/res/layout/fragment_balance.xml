@@ -1,197 +1,371 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-  <com.google.android.material.appbar.AppBarLayout
-      android:id="@+id/app_bar"
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:layout_width="match_parent"
-      android:layout_height="184dp"
-      android:theme="@style/AppTheme.AppBarOverlay"
+      android:layout_height="match_parent"
       >
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
-        android:id="@+id/toolbar_layout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/appbar_background_color"
-        android:elevation="2dp"
-        android:fitsSystemWindows="false"
+        android:layout_height="184dp"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:titleEnabled="false"
-        app:toolbarId="@+id/toolbar"
         >
 
-      <androidx.appcompat.widget.Toolbar
-          android:id="@+id/toolbar"
-          android:layout_width="match_parent"
-          android:layout_height="?android:attr/actionBarSize"
-          android:elevation="2dp"
-          android:fitsSystemWindows="false"
-          app:layout_collapseMode="pin"
-          app:popupTheme="@style/AppTheme.PopupOverlay"
-          />
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
-  </com.google.android.material.appbar.AppBarLayout>
-
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/balance_container"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:layout_marginStart="16dp"
-      app:layout_anchor="@+id/content_container"
-      app:layout_anchorGravity="top"
-      >
-    <TextView
-        android:id="@+id/balance_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="start"
-        style="@style/BalanceTitleStyle"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/balance_value"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1"
-        tools:text="Total Balance"
-        />
-
-    <TextView
-        android:id="@+id/balance_value"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:gravity="end"
-        style="@style/BalanceTitleStyle.Large"
-        tools:text="$1328"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/balance_label"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/balance_label_placeholder"
-        android:layout_width="120dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="68dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/balance_value_placeholder"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintHorizontal_bias="0"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/balance_label_animation"
-        android:scaleType="fitStart"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/balance_value_placeholder"
-        android:layout_width="120dp"
-        android:layout_height="39dp"
-        android:layout_marginBottom="64dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toEndOf="@id/balance_label_placeholder"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/balance_overall_animation"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-  <androidx.core.widget.NestedScrollView
-      android:id="@+id/content_container"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:behavior_overlapTop="63dp"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      >
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:padding="16dp"
-        >
-      <LinearLayout
-          android:id="@+id/tokens_container"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="@drawable/background_card"
-          android:elevation="4dp"
-          android:orientation="vertical"
-          android:paddingBottom="16dp"
-          android:paddingTop="16dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0"
-          app:layout_constraintVertical_chainStyle="spread_inside"
-          >
-        <include
-            layout="@layout/balance_token_item"
-            android:id="@+id/appcoins_credits_token"
-            />
-        <include
-            layout="@layout/balance_token_item"
-            android:id="@+id/appcoins_token"
-            />
-        <include
-            layout="@layout/balance_token_item"
-            android:id="@+id/ether_token"
-            />
-      </LinearLayout>
-
-      <LinearLayout
+      <com.google.android.material.appbar.CollapsingToolbarLayout
+          android:id="@+id/toolbar_layout"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:layout_marginTop="32dp"
-          android:gravity="center"
-          android:orientation="vertical"
+          android:background="@drawable/appbar_background_color"
+          android:elevation="2dp"
+          android:fitsSystemWindows="false"
+          android:theme="@style/AppTheme.AppBarOverlay"
+          app:layout_scrollFlags="scroll|exitUntilCollapsed"
+          app:titleEnabled="false"
+          app:toolbarId="@+id/toolbar"
+          >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:elevation="2dp"
+            android:fitsSystemWindows="false"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            />
+      </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/balance_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_anchor="@+id/content_container"
+        app:layout_anchorGravity="top"
+        >
+
+      <TextView
+          android:id="@+id/balance_label"
+          style="@style/BalanceTitleStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:gravity="start"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="@id/balance_value"
+          app:layout_constraintEnd_toStartOf="@id/balance_value"
+          app:layout_constraintStart_toStartOf="@id/balance_value"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="Total Balance"
+          />
+
+      <TextView
+          android:id="@+id/balance_value"
+          style="@style/BalanceTitleStyle.Large"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="64dp"
+          android:gravity="end|center_vertical"
+          android:maxLines="1"
+          android:visibility="invisible"
+          app:autoSizeMinTextSize="16sp"
+          app:autoSizeTextType="uniform"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/balance_label"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="$1,000,000,000,000.00"
+          />
+
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/balance_label_placeholder"
+          android:layout_width="120dp"
+          android:layout_height="20dp"
+          android:layout_marginBottom="68dp"
+          android:scaleType="fitStart"
+          android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/balance_value_placeholder"
+          app:layout_constraintHorizontal_bias="0"
+          app:layout_constraintHorizontal_chainStyle="spread_inside"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/tokens_container"
+          app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintVertical_bias="1"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/balance_label_animation"
+          />
+
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/balance_value_placeholder"
+          android:layout_width="120dp"
+          android:layout_height="39dp"
+          android:layout_marginBottom="64dp"
+          android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="1"
+          app:layout_constraintStart_toEndOf="@id/balance_label_placeholder"
+          app:layout_constraintTop_toTopOf="parent"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/balance_overall_animation"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_overlapTop="63dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/wallet_details_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:clipToPadding="false"
+          android:padding="16dp"
           >
-        <Button
-            android:id="@+id/top_up_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="8dp"
-            android:text="@string/topup_home_button"
-            style="@style/ButtonStyle"
+        <include
+            android:id="@+id/tooltip"
+            layout="@layout/backup_tooltip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_details_card"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".747"
             />
-        <TextView
-            android:id="@+id/top_up_msg"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/wallet_details_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            android:gravity="center"
-            android:text="@string/balance_topup_body"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_card"
+            android:elevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:id="@+id/active_wallet_info"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingBottom="8dp"
+              >
 
+            <ImageView
+                android:id="@+id/wallet_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/ic_wallet_black"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:id="@+id/active_wallet_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/wallet_icon"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_medium"
+                android:maxLines="2"
+                android:text="@string/wallets_active_wallet_title"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/wallet_icon"
+                app:layout_constraintEnd_toStartOf="@id/copy_address"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@id/wallet_icon"
+                app:layout_constraintTop_toTopOf="@id/wallet_icon"
+                app:layout_constraintWidth_default="wrap"
+                />
+
+            <TextView
+                android:id="@+id/active_wallet_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_medium"
+                android:maxLines="1"
+                android:textColor="@color/fakeBlack"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@id/copy_address"
+                app:layout_constraintStart_toStartOf="@id/wallet_icon"
+                app:layout_constraintTop_toBottomOf="@id/wallet_icon"
+                tools:text="0x8Eb48d1368bbc7731ac5c98Eb48d1368bbc7731ac5c9"
+                />
+
+            <ImageView
+                android:id="@+id/copy_address"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/borderless_button_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_copy_to_clip"
+                app:layout_constraintEnd_toStartOf="@id/wallet_qr_code"
+                app:layout_constraintTop_toTopOf="@id/wallet_icon"
+                />
+            <ImageView
+                android:id="@+id/wallet_qr_code"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/borderless_button_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="3dp"
+                android:src="@drawable/ic_qr_code"
+                app:layout_constraintEnd_toStartOf="@id/backup_active_button"
+                app:layout_constraintTop_toTopOf="@id/wallet_icon"
+                />
+            <ImageView
+                android:id="@+id/backup_active_button"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/borderless_button_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_backup_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/wallet_icon"
+                />
+
+            <TextView
+                android:id="@+id/verified_wallet_chip"
+                style="@style/BalanceVerifyWalletChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/verified_tag"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_wallet_verified_chip"
+                app:layout_constraintStart_toStartOf="@id/active_wallet_address"
+                app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
+                tools:visibility="visible"
+                />
+
+            <include
+                android:id="@+id/unverified_wallet_layout"
+                layout="@layout/layout_unverified"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
+                />
+
+            <include
+                android:id="@+id/code_requested_layout"
+                layout="@layout/layout_code_requested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/active_wallet_address"
+                tools:visibility="visible"
+                />
+          </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:id="@+id/tokens_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/background_card"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wallet_details_card"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            >
+          <include
+              android:id="@+id/appcoins_credits_token"
+              layout="@layout/balance_token_item"
+              />
+          <include
+              android:id="@+id/appcoins_token"
+              layout="@layout/balance_token_item"
+              />
+          <include
+              android:id="@+id/ether_token"
+              layout="@layout/balance_token_item"
+              />
+        </LinearLayout>
+
+        <!-- empty view to add margin due to the bottom sheet and scroll -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tokens_container"
             />
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="?attr/actionBarSize"
+      >
+    <View
+        android:id="@+id/bottomsheet_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@drawable/bottomsheet_top_shadow"
+        app:layout_anchor="@id/bottom_sheet_fragment_container"
+        />
 
-      </LinearLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-  </androidx.core.widget.NestedScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <FrameLayout
+        android:id="@+id/bottom_sheet_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        />
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+  <FrameLayout
+      android:id="@+id/faded_background"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/faded_background_color"
+      android:clickable="true"
+      android:focusable="true"
+      android:visibility="gone"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

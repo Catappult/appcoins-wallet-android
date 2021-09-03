@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 /**
@@ -19,11 +20,13 @@ public class PaymentTransaction {
   private final String developerPayload;
   private final String callbackUrl;
   private final String orderReference;
+  private final Integer errorCode;
+  private final String errorMessage;
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, @Nullable String buyHash, String packageName,
       String productName, String productId, String developerPayload, String callbackUrl,
-      @Nullable String orderReference) {
+      @Nullable String orderReference, @Nullable Integer errorCode, @Nullable String errorMessage) {
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
@@ -35,6 +38,8 @@ public class PaymentTransaction {
     this.developerPayload = developerPayload;
     this.callbackUrl = callbackUrl;
     this.orderReference = orderReference;
+    this.errorCode = errorCode;
+    this.errorMessage = errorMessage;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state) {
@@ -42,7 +47,17 @@ public class PaymentTransaction {
         paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
         paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
         paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
-        paymentTransaction.getCallbackUrl(), paymentTransaction.getOrderReference());
+        paymentTransaction.getCallbackUrl(), paymentTransaction.getOrderReference(), null, null);
+  }
+
+  public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
+      Integer errorCode, String errorMessage) {
+    this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
+        paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
+        paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
+        paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
+        paymentTransaction.getCallbackUrl(), paymentTransaction.getOrderReference(), errorCode,
+        errorMessage);
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
@@ -59,6 +74,8 @@ public class PaymentTransaction {
     this.developerPayload = developerPayload;
     this.callbackUrl = callbackUrl;
     this.orderReference = orderReference;
+    this.errorCode = null;
+    this.errorMessage = null;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
@@ -66,7 +83,7 @@ public class PaymentTransaction {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         approveHash, null, paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
         paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
-        paymentTransaction.getCallbackUrl(), paymentTransaction.getOrderReference());
+        paymentTransaction.getCallbackUrl(), paymentTransaction.getOrderReference(), null, null);
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
@@ -75,7 +92,7 @@ public class PaymentTransaction {
         approveHash, buyHash, paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId(),
         paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl(),
-        paymentTransaction.getOrderReference());
+        paymentTransaction.getOrderReference(), null, null);
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, String packageName,
@@ -83,6 +100,23 @@ public class PaymentTransaction {
       String orderReference) {
     this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName, productId,
         developerPayload, callbackUrl, orderReference);
+  }
+
+  public PaymentTransaction(PaymentTransaction paymentTransaction,
+      TransactionBuilder transactionBuilder) {
+    this.uri = paymentTransaction.uri;
+    this.approveHash = paymentTransaction.approveHash;
+    this.buyHash = paymentTransaction.buyHash;
+    this.transactionBuilder = transactionBuilder;
+    this.state = paymentTransaction.state;
+    this.packageName = paymentTransaction.packageName;
+    this.productName = paymentTransaction.productName;
+    this.productId = paymentTransaction.productId;
+    this.developerPayload = paymentTransaction.developerPayload;
+    this.callbackUrl = paymentTransaction.callbackUrl;
+    this.orderReference = paymentTransaction.orderReference;
+    this.errorCode = null;
+    this.errorMessage = null;
   }
 
   public String getOrderReference() {
@@ -128,18 +162,21 @@ public class PaymentTransaction {
     PaymentTransaction that = (PaymentTransaction) o;
 
     if (!uri.equals(that.uri)) return false;
-    if (approveHash != null ? !approveHash.equals(that.approveHash) : that.approveHash != null) {
+    if (!Objects.equals(approveHash, that.approveHash)) {
       return false;
     }
-    if (transactionBuilder != null ? !transactionBuilder.equals(that.transactionBuilder)
-        : that.transactionBuilder != null) {
+    if (!Objects.equals(transactionBuilder, that.transactionBuilder)) {
       return false;
     }
     return state == that.state;
   }
 
   @Override public String toString() {
-    return "PaymentTransaction{" + "uri='" + uri + '\'' + ", approveHash='"
+    return "PaymentTransaction{"
+        + "uri='"
+        + uri
+        + '\''
+        + ", approveHash='"
         + approveHash
         + '\''
         + ", buyHash='"
@@ -183,8 +220,16 @@ public class PaymentTransaction {
     return callbackUrl;
   }
 
+  public Integer getErrorCode() {
+    return errorCode;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
   public enum PaymentState {
     PENDING, APPROVING, APPROVED, BUYING, BOUGHT, COMPLETED, ERROR, WRONG_NETWORK, NONCE_ERROR,
-    UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET
+    UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN
   }
 }

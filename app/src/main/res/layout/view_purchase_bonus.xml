@@ -1,6 +1,5 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bonus_layout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bonus_placeholder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bonus_img_background"
@@ -38,3 +37,4 @@
       />
 
 </LinearLayout>
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/payment_methods_width"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/background_card"
+    android:clickable="true"
+    android:elevation="2dp"
+    android:focusable="true"
+    android:padding="16dp"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <include
+      android:id="@+id/payment_methods_header"
+      layout="@layout/payment_methods_header"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
+
+  <TextView
+      android:id="@+id/title"
+      style="@style/BillingAddress.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/payment_methods_header"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/big_margin"
+      android:text="@string/purchase_address_title"
+      />
+
+  <ScrollView
+      android:id="@+id/info_view"
+      android:layout_width="match_parent"
+      android:layout_height="216dp"
+      android:layout_below="@id/title"
+      android:overScrollMode="never"
+      android:scrollbars="none"
+      >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <include
+          android:id="@+id/content_main"
+          layout="@layout/layout_billing_address"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/big_margin"
+          />
+
+      <ProgressBar
+          android:id="@+id/progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:indeterminateDrawable="@drawable/gradient_progress"
+          android:visibility="gone"
+          />
+
+    </RelativeLayout>
+
+  </ScrollView>
+
+  <View
+      android:id="@+id/bottom_separator_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_below="@id/info_view"
+      android:layout_marginTop="@dimen/big_margin"
+      android:background="@color/layout_separator_color"
+      />
+
+  <include
+      android:id="@+id/dialog_buy_buttons"
+      layout="@layout/dialog_buy_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/bottom_separator_buttons"
+      android:layout_marginTop="10dp"
+      />
+
+</RelativeLayout>

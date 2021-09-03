@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    android:layout_marginStart="@dimen/normal_margin"
-    android:layout_marginTop="@dimen/normal_margin"
-    android:layout_marginEnd="@dimen/normal_margin"
-    android:layout_marginBottom="@dimen/normal_margin"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
-    />
+    >
+
+  <include
+      android:id="@+id/wallet_validation_toolbar"
+      layout="@layout/layout_app_bar"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ScrollView
+      android:id="@+id/scrollView"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:fillViewport="true"
+      android:overScrollMode="never"
+      android:scrollbarSize="0dp"
+      android:scrollbars="vertical"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/wallet_validation_toolbar"
+      >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/validation_progress_animation"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="80dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="80dp"
+          android:scaleType="centerInside"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_rawRes="@raw/validation_progress"
+          />
+
+      <FrameLayout
+          android:id="@+id/fragment_container"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_below="@id/validation_progress_animation"
+          />
+
+    </RelativeLayout>
+  </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

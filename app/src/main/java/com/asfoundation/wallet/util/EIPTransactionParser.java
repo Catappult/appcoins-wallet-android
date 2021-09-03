@@ -2,26 +2,21 @@ package com.asfoundation.wallet.util;
 
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.repository.TokenRepositoryType;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import org.kethereum.erc681.ERC681;
 import org.spongycastle.util.encoders.Hex;
 
 public class EIPTransactionParser {
-  private final FindDefaultWalletInteract findDefaultWalletInteract;
-  private final TokenRepositoryType tokenRepository;
+  private final DefaultTokenProvider defaultTokenProvider;
 
-  public EIPTransactionParser(FindDefaultWalletInteract findDefaultWalletInteract,
-      TokenRepositoryType tokenRepository) {
-    this.findDefaultWalletInteract = findDefaultWalletInteract;
-    this.tokenRepository = tokenRepository;
+  public EIPTransactionParser(DefaultTokenProvider defaultTokenProvider) {
+    this.defaultTokenProvider = defaultTokenProvider;
   }
 
   public Single<TransactionBuilder> buildTransaction(ERC681 erc681) {
@@ -44,43 +39,35 @@ public class EIPTransactionParser {
   }
 
   private Single<TransactionBuilder> buildTokenTransaction(ERC681 payment) {
-    return findDefaultWalletInteract.find()
-        .flatMap(wallet -> tokenRepository.fetchAll(wallet.address)
-            .flatMapIterable(Arrays::asList)
-            .filter(token -> token.tokenInfo.address.equalsIgnoreCase(payment.getAddress()))
-            .toList())
-        .flatMap(tokens -> {
-          if (tokens.isEmpty()) {
-            return Single.error(new UnknownTokenException());
+    return defaultTokenProvider.getDefaultToken()
+        .flatMap(tokenInfo -> {
+          if (tokenInfo.address.equalsIgnoreCase(payment.getAddress())) {
+            return Single.just(tokenInfo);
           } else {
-            return Single.just(tokens.get(0));
+            return Single.error(new UnknownTokenException());
           }
         })
-        .map(token -> new TransactionBuilder(token.tokenInfo.symbol, token.tokenInfo.address,
+        .map(tokenInfo -> new TransactionBuilder(tokenInfo.symbol, tokenInfo.address,
             payment.getChainId(), getReceiverAddress(payment),
-            getTokenTransferAmount(payment, token.tokenInfo.decimals),
-            token.tokenInfo.decimals).shouldSendToken(true));
+            getTokenTransferAmount(payment, tokenInfo.decimals),
+            tokenInfo.decimals).shouldSendToken(true));
   }
 
   private Single<TransactionBuilder> buildAppcTransaction(ERC681 payment) {
-    return findDefaultWalletInteract.find()
-        .flatMap(wallet -> tokenRepository.fetchAll(wallet.address)
-            .flatMapIterable(Arrays::asList)
-            .filter(token -> token.tokenInfo.address.equalsIgnoreCase(payment.getAddress()))
-            .toList())
-        .flatMap(tokens -> {
-          if (tokens.isEmpty()) {
-            return Single.error(new UnknownTokenException());
+    return defaultTokenProvider.getDefaultToken()
+        .flatMap(tokenInfo -> {
+          if (tokenInfo.address.equalsIgnoreCase(payment.getAddress())) {
+            return Single.just(tokenInfo);
           } else {
-            return Single.just(tokens.get(0));
+            return Single.error(new UnknownTokenException());
           }
         })
-        .map(token -> new TransactionBuilder(token.tokenInfo.symbol, getIabContractAddress(payment),
+        .map(tokenInfo -> new TransactionBuilder(tokenInfo.symbol, getIabContractAddress(payment),
             payment.getChainId(), getReceiverAddress(payment),
-            getTokenTransferAmount(payment, token.tokenInfo.decimals), getSkuId(payment),
-            token.tokenInfo.decimals, getIabContract(payment), getType(payment), getOrigin(payment),
-            getDomain(payment), getPayload(payment), null,
-            getOrderReference(payment)).shouldSendToken(true));
+            getTokenTransferAmount(payment, tokenInfo.decimals), getSkuId(payment),
+            tokenInfo.decimals, getIabContract(payment), getType(payment), getOrigin(payment),
+            getDomain(payment), getPayload(payment), null, getOrderReference(payment), null,
+            null).shouldSendToken(true));
   }
 
   private String getOrigin(ERC681 payment) {

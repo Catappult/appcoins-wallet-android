@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.ActivityResultSharer
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.transact_success_fragment_layout.*
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class AppcoinsCreditsTransferSuccessFragment : DaggerFragment(),
+class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
     AppcoinsCreditsTransactSuccessView {
   companion object {
     private const val AMOUNT_SENT_KEY = "AMOUNT_SENT"
@@ -32,6 +34,8 @@ class AppcoinsCreditsTransferSuccessFragment : DaggerFragment(),
         }
   }
 
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: AppcoinsCreditsTransactSuccessPresenter
   private lateinit var navigator: TransactNavigator
 
@@ -41,7 +45,7 @@ class AppcoinsCreditsTransferSuccessFragment : DaggerFragment(),
     val currency = arguments!!.getString(CURRENCY_KEY)!!
     val toAddress = arguments!!.getString(TO_ADDRESS_KEY)!!
     presenter = AppcoinsCreditsTransactSuccessPresenter(this, amount, currency, toAddress,
-        CompositeDisposable())
+        CompositeDisposable(), formatter)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +75,7 @@ class AppcoinsCreditsTransferSuccessFragment : DaggerFragment(),
     navigator.closeScreen()
   }
 
-  override fun setup(amount: BigDecimal, currency: String, toAddress: String) {
+  override fun setup(amount: String, currency: String, toAddress: String) {
     transfer_success_wallet.text = toAddress
     transfer_success_message.text =
         getString(R.string.p2p_send_confirmation_message, amount, currency)

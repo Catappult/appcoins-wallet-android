@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Rating.DialogCardStyle"
+    android:layout_width="478dp"
+    android:layout_height="221dp"
+    android:animateLayoutChanges="true"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/animation"
+      android:layout_width="102dp"
+      android:layout_height="102dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/rateus_feedback_animation"
+      />
+
+  <TextView
+      android:id="@+id/title"
+      style="@style/Rating.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:gravity="center"
+      android:text="@string/rate_us_possitive_thanks_title"
+      app:layout_constraintBottom_toTopOf="@id/description"
+      app:layout_constraintStart_toEndOf="@+id/animation"
+      app:layout_constraintTop_toTopOf="@+id/animation"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+
+  <TextView
+      android:id="@+id/description"
+      android:layout_width="280dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:text="@string/rate_us_possitive_thanks_body"
+      app:layout_constraintBottom_toBottomOf="@+id/animation"
+      app:layout_constraintStart_toStartOf="@+id/title"
+      app:layout_constraintTop_toBottomOf="@+id/title"
+      />
+
+  <Button
+      android:id="@+id/rate_app_button"
+      style="@style/CancelBorderlessHighlightButtonStyle"
+      android:layout_width="155dp"
+      android:layout_height="wrap_content"
+      android:text="@string/rate_us_possitive_rate_button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/remind_me_later_button"
+
+      />
+
+
+  <Button
+      android:id="@+id/remind_me_later_button"
+      style="@style/CancelBorderlessButtonStyle"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      android:text="@string/remind_later_button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/rate_app_button"
+      app:layout_constraintStart_toEndOf="@id/no_button"
+      />
+
+  <Button
+      android:id="@+id/no_button"
+      style="@style/CancelBorderlessButtonStyle"
+      android:layout_width="130dp"
+      android:layout_height="wrap_content"
+      android:text="@string/no_thanks_button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/remind_me_later_button"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,13 +58,15 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home: {
-        viewModel.showTransactions(this);
-        break;
-      }
+    if (item.getItemId() == android.R.id.home) {
+      viewModel.showTransactions(this);
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    sendPageViewEvent();
   }
 
   private Bitmap createQRImage(String address) {
@@ -91,7 +93,7 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
     if (clipboard != null) {
       clipboard.setPrimaryClip(clip);
     }
-    Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT)
+    Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT)
         .show();
   }
 

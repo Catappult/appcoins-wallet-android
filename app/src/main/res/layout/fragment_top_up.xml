@@ -1,276 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:fillViewport="true"
+    android:background="@drawable/background_card"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <ScrollView
+      android:id="@+id/top_up_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
+      android:descendantFocusability="beforeDescendants"
+      android:fillViewport="true"
+      app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+      app:layout_constraintTop_toTopOf="parent"
       >
-    <TextView
-        android:id="@+id/main_currency_code"
-        style="@style/TopUpTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:text="--"
-        app:autoSizeStepGranularity="2sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <com.asfoundation.wallet.ui.widget.AutoFitEditText
-        android:id="@+id/main_value"
-        style="@style/TopUpTextStyle.MainValue"
-        android:layout_width="152dp"
-        android:layout_height="55dp"
-        android:background="@drawable/edit_text_background"
-        android:enabled="false"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="start|center_vertical"
-        android:hint="0"
-        android:inputType="numberDecimal"
-        android:maxWidth="152dp"
-        android:maxLength="152"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_currency_code"
-        />
-
-    <TextView
-        android:id="@+id/main_value_currency"
-        style="@style/TopUpTextStyle.MainValueCurrency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="@id/main_value"
-        app:layout_constraintEnd_toStartOf="@id/main_value"
-        app:layout_constraintTop_toTopOf="@id/main_value"
-        />
-
-    <TextView
-        android:id="@+id/converted_value"
-        style="@style/TopUpTextStyle.ConvertedValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="--"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_value"
-        />
-
-    <ImageButton
-        android:id="@+id/swap_value_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:enabled="false"
-        android:src="@drawable/ic_swap"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/main_value"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toStartOf="@id/main_value"
-        app:layout_constraintTop_toTopOf="@id/main_value"
-        />
-
-    <TextView
-        android:id="@+id/swap_value_label"
-        style="@style/TopUpTextStyle.SwapCurrency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="--"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@id/swap_value_button"
-        app:layout_constraintStart_toStartOf="@id/swap_value_button"
-        app:layout_constraintTop_toBottomOf="@id/swap_value_button"
-        />
-
-    <View
-        android:id="@+id/top_separator"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="32dp"
-        android:background="#eaeaea"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/converted_value"
-        />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/payment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:paddingStart="25dp"
-        android:paddingEnd="25dp"
-        app:layout_constraintTop_toBottomOf="@id/top_separator"
         >
-
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/credit_card_info_container"
-          android:layout_width="match_parent"
+      <TextView
+          android:id="@+id/main_currency_code"
+          style="@style/TopUpTextStyle"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:visibility="gone"
+          android:layout_marginTop="33dp"
+          android:text="--"
+          app:autoSizeStepGranularity="2sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <com.asfoundation.wallet.ui.widget.AutoFitEditText
+          android:id="@+id/main_value"
+          style="@style/TopUpTextStyle.MainValue"
+          android:layout_width="152dp"
+          android:layout_height="55dp"
+          android:layout_marginTop="5dp"
+          android:background="@null"
+          android:enabled="false"
+          android:focusable="true"
+          android:focusableInTouchMode="true"
+          android:gravity="center"
+          android:hint="0"
+          android:imeOptions="flagNoExtractUi|flagNoFullscreen|actionNext"
+          android:inputType="numberDecimal"
+          android:maxWidth="152dp"
+          android:maxLength="152"
+          android:maxLines="1"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/main_currency_code"
+          />
+
+      <TextView
+          android:id="@+id/converted_value"
+          style="@style/TopUpTextStyle.ConvertedValue"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:text="--"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/main_value"
+          />
+
+      <ImageButton
+          android:id="@+id/swap_value_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="40dp"
+          android:layout_marginEnd="40dp"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          android:enabled="false"
+          android:src="@drawable/ic_swap"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="@id/main_value"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="1"
+          app:layout_constraintStart_toStartOf="@id/main_value"
+          app:layout_constraintTop_toTopOf="@id/main_value"
+          />
+
+      <TextView
+          android:id="@+id/swap_value_label"
+          style="@style/TopUpTextStyle.SwapCurrency"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="--"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="@id/swap_value_button"
+          app:layout_constraintStart_toStartOf="@id/swap_value_button"
+          app:layout_constraintTop_toBottomOf="@id/swap_value_button"
+          />
+
+      <ImageView
+          android:id="@+id/value_warning_icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="40dp"
+          android:layout_marginEnd="40dp"
+          android:src="@drawable/ic_topup_error"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="@id/main_value"
+          app:layout_constraintEnd_toStartOf="@id/main_value"
+          app:layout_constraintHorizontal_bias="1"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@id/main_value"
+          />
+
+      <View
+          android:id="@+id/top_separator_topup"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginStart="32dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="32dp"
+          android:background="#eaeaea"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/value_warning_text"
+          />
+
+      <TextView
+          android:id="@+id/value_warning_text"
+          style="@style/TopUpTextStyle.ValueWarning"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="13dp"
+          android:text="@string/topup_minimum_value"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/converted_value"
+          />
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/payment_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingStart="25dp"
+          android:paddingEnd="25dp"
+          app:layout_constraintTop_toBottomOf="@id/top_separator_topup"
           >
 
-        <TextView
-            android:id="@+id/card_details"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/payment_methods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="end"
-            android:text="****8500"
+            android:clipToPadding="false"
+            android:focusable="true"
+            android:overScrollMode="never"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-
-        <com.braintreepayments.cardform.view.CardForm
-            android:id="@+id/fragment_braintree_credit_card_form"
+        <LinearLayout
+            android:id="@+id/payments_skeleton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/TopUpTextStyle.PaymentDetails"
-            android:visibility="visible"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_details"
-            />
-
-        <CheckBox
-            android:id="@+id/remember_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:checked="true"
-            android:text="@string/dialog_credit_card_remember"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
-            />
-
-        <Button
-            android:id="@+id/change_card_button"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="126dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/fragment_braintree_credit_card_form"
-            android:gravity="center_vertical"
-            android:paddingStart="7dp"
-            android:text="@string/activity_iab_change_card"
-            android:textColor="@color/dialog_buy_value_text"
-            android:textSize="11sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            >
+          <include
+              layout="@layout/skeleton_payments"
+              android:layout_width="match_parent"
+              android:layout_height="48dp"
+              />
+          <include
+              layout="@layout/skeleton_payments"
+              android:layout_width="match_parent"
+              android:layout_height="48dp"
+              android:layout_marginTop="4dp"
+              />
+        </LinearLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
 
+      <View
+          android:id="@+id/bot_separator"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginStart="32dp"
+          android:layout_marginEnd="32dp"
+          android:background="#eaeaea"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/payment_container"
+          />
 
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/payment_methods"
+      <include
+          android:id="@+id/bonus_layout"
+          layout="@layout/view_purchase_bonus"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="36dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bot_separator"
+          app:layout_constraintVertical_bias="0"
+          app:layout_constraintVertical_chainStyle="packed"
+          />
+
+      <TextView
+          android:id="@+id/bonus_msg"
+          style="@style/TopUpTextStyle.Small.BonusText"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:focusable="true"
-          android:overScrollMode="never"
-          android:visibility="visible"
-          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="21dp"
+          android:gravity="center"
+          android:text="@string/gamification_purchase_body"
+          android:visibility="invisible"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+          app:layout_constraintVertical_bias="0"
           />
 
-      <ProgressBar
-          android:id="@+id/loading"
-          android:layout_width="50dp"
-          android:layout_height="50dp"
-          android:layout_marginTop="50dp"
-          android:layout_marginBottom="50dp"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
+      <include
+          android:id="@+id/bonus_layout_skeleton"
+          layout="@layout/skeleton_rounded_rectangle"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
+          app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="@id/bonus_layout"
+          app:layout_constraintTop_toTopOf="@id/bonus_layout"
           />
+      <include
+          android:id="@+id/bonus_msg_skeleton"
+          layout="@layout/skeleton_rounded_rectangle"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_marginStart="80dp"
+          android:layout_marginEnd="80dp"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
+          app:layout_constraintTop_toTopOf="@id/bonus_msg"
+          />
+
+      <Button
+          android:id="@+id/button"
+          style="@style/ButtonStyle.Alternative"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/button_height"
+          android:layout_marginStart="40dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="40dp"
+          android:layout_marginBottom="80dp"
+          android:enabled="false"
+          android:text="@string/action_next"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+          app:layout_constraintVertical_bias="1.0"
+          />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/bot_separator"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="32dp"
-        android:background="#eaeaea"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/payment_container"
-        />
+  </ScrollView>
 
-    <include
-        android:id="@+id/bonus_layout"
-        layout="@layout/view_purchase_bonus"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bot_separator"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintVertical_chainStyle="packed"
-        />
+  <include
+      android:id="@+id/no_network"
+      layout="@layout/no_network_retry_only_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
-    <TextView
-        android:id="@+id/bonus_msg"
-        style="@style/TopUpTextStyle.Small.BonusText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:layout_marginBottom="21dp"
-        android:gravity="center"
-        android:text="@string/gamification_purchase_body"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-        app:layout_constraintVertical_bias="0"
-        />
+  <View
+      android:id="@+id/bottom_separator"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginBottom="8dp"
+      android:background="@color/layout_separator_color"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/rv_default_values"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
 
-    <Button
-        android:id="@+id/button"
-        style="@style/ButtonStyle.Alternative"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="80dp"
-        android:enabled="false"
-        android:text="@string/action_next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bonus_msg"
-        app:layout_constraintVertical_bias="1.0"
-        />
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rv_default_values"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:orientation="horizontal"
+      android:overScrollMode="never"
+      android:visibility="gone"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:listitem="@layout/item_top_value"
+      />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

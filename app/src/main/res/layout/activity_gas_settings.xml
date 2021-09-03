@@ -34,7 +34,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:text="@string/label_gas_price"
             android:textAppearance="?android:textAppearanceListItem"
@@ -46,7 +45,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:text="--"
             tools:text="30 (Gwei)"
             style="@style/DialogTitleStyle"
@@ -89,7 +87,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:text="@string/label_gas_limit"
             android:textAppearance="?android:textAppearanceListItem"
@@ -101,7 +98,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:text="--"
             tools:text="90000"
             style="@style/DialogTitleStyle"
@@ -144,7 +140,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:text="@string/label_network_fee"
             android:textAppearance="?android:textAppearanceListItem"
@@ -156,7 +151,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:text="--"
             tools:text="0.0027 ETH"
             style="@style/DialogTitleStyle"

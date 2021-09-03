@@ -26,21 +26,8 @@ public class AutoFitEditText extends AppCompatEditText {
   private int _widthLimit;
   private int _maxLines;
   private boolean _enableSizeCache = true;
-  private boolean _initiallized = false;
+  private boolean _initialized;
   private TextPaint paint;
-
-  private interface SizeTester {
-    /**
-     * AutoFitEditText
-     *
-     * @param suggestedSize  Size of text to be tested
-     * @param availableSpace available space in which text must fit
-     * @return an integer < 0 if after applying {@code suggestedSize} to
-     * text, it takes less space than {@code availableSpace}, > 0
-     * otherwise
-     */
-    public int onTestSize(int suggestedSize, RectF availableSpace);
-  }
 
   public AutoFitEditText(final Context context) {
     this(context, null, 0);
@@ -50,24 +37,23 @@ public class AutoFitEditText extends AppCompatEditText {
     this(context, attrs, 0);
   }
 
-  public AutoFitEditText(final Context context, final AttributeSet attrs,
-      final int defStyle) {
+  public AutoFitEditText(final Context context, final AttributeSet attrs, final int defStyle) {
     super(context, attrs, defStyle);
     // using the minimal recommended font size
-    _minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-        12, getResources().getDisplayMetrics());
+    _minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12,
+        getResources().getDisplayMetrics());
     _maxTextSize = getTextSize();
     if (_maxLines == 0)
-      // no value was assigned during construction
+    // no value was assigned during construction
+    {
       _maxLines = NO_LINE_LIMIT;
+    }
     // prepare size tester:
     _sizeTester = new SizeTester() {
       final RectF textRect = new RectF();
 
-      @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-      @Override
-      public int onTestSize(final int suggestedSize,
-          final RectF availableSPace) {
+      @TargetApi(Build.VERSION_CODES.JELLY_BEAN) @Override
+      public int onTestSize(final int suggestedSize, final RectF availableSPace) {
         paint.setTextSize(suggestedSize);
         final String text = getText().toString();
         final boolean singleline = getMaxLines() == 1;
@@ -75,100 +61,52 @@ public class AutoFitEditText extends AppCompatEditText {
           textRect.bottom = paint.getFontSpacing();
           textRect.right = paint.measureText(text);
         } else {
-          final StaticLayout layout = new StaticLayout(text, paint,
-              _widthLimit, Layout.Alignment.ALIGN_NORMAL, _spacingMult,
-              _spacingAdd, true);
-          if (getMaxLines() != NO_LINE_LIMIT
-              && layout.getLineCount() > getMaxLines())
-            return 1;
+          final StaticLayout layout =
+              new StaticLayout(text, paint, _widthLimit, Layout.Alignment.ALIGN_NORMAL,
+                  _spacingMult, _spacingAdd, true);
+          if (getMaxLines() != NO_LINE_LIMIT && layout.getLineCount() > getMaxLines()) return 1;
           textRect.bottom = layout.getHeight();
           int maxWidth = -1;
           for (int i = 0; i < layout.getLineCount(); i++)
-            if (maxWidth < layout.getLineWidth(i))
-              maxWidth = (int) layout.getLineWidth(i);
+            if (maxWidth < layout.getLineWidth(i)) maxWidth = (int) layout.getLineWidth(i);
           textRect.right = maxWidth;
         }
         textRect.offsetTo(0, 0);
         if (availableSPace.contains(textRect))
-          // may be too small, don't worry we will find the best match
+        // may be too small, don't worry we will find the best match
+        {
           return -1;
+        }
         // else, too big
         return 1;
       }
     };
-    _initiallized = true;
+    _initialized = true;
   }
 
-  @Override
-  public void setTypeface(final Typeface tf) {
-    if (paint == null)
-      paint = new TextPaint(getPaint());
-    paint.setTypeface(tf);
-    super.setTypeface(tf);
-  }
-
-  @Override
-  public void setTextSize(final float size) {
+  @Override public void setTextSize(final float size) {
     _maxTextSize = size;
     _textCachedSizes.clear();
     adjustTextSize();
   }
 
-  @Override
-  public void setMaxLines(final int maxlines) {
-    super.setMaxLines(maxlines);
-    _maxLines = maxlines;
-    reAdjust();
-  }
-
-  @Override
-  public int getMaxLines() {
-    return _maxLines;
-  }
-
-  @Override
-  public void setSingleLine() {
-    super.setSingleLine();
-    _maxLines = 1;
-    reAdjust();
-  }
-
-  @Override
-  public void setSingleLine(final boolean singleLine) {
-    super.setSingleLine(singleLine);
-    if (singleLine)
-      _maxLines = 1;
-    else
-      _maxLines = NO_LINE_LIMIT;
-    reAdjust();
-  }
-
-  @Override
-  public void setLines(final int lines) {
-    super.setLines(lines);
-    _maxLines = lines;
-    reAdjust();
-  }
-
-  @Override
-  public void setTextSize(final int unit, final float size) {
+  @Override public void setTextSize(final int unit, final float size) {
     final Context c = getContext();
     Resources r;
-    if (c == null)
+    if (c == null) {
       r = Resources.getSystem();
-    else
+    } else {
       r = c.getResources();
-    _maxTextSize = TypedValue.applyDimension(unit, size,
-        r.getDisplayMetrics());
+    }
+    _maxTextSize = TypedValue.applyDimension(unit, size, r.getDisplayMetrics());
     _textCachedSizes.clear();
     adjustTextSize();
   }
 
-  @Override
-  public void setLineSpacing(final float add, final float mult) {
-    super.setLineSpacing(add, mult);
-    _spacingMult = mult;
-    _spacingAdd = add;
+  @Override public void setTypeface(final Typeface tf) {
+    if (paint == null) paint = new TextPaint(getPaint());
+    paint.setTypeface(tf);
+    super.setTypeface(tf);
   }
 
   /**
@@ -183,6 +121,10 @@ public class AutoFitEditText extends AppCompatEditText {
 
   public Float get_minTextSize() {
     return _minTextSize;
+  }  @Override public void setMaxLines(final int maxlines) {
+    super.setMaxLines(maxlines);
+    _maxLines = maxlines;
+    reAdjust();
   }
 
   private void reAdjust() {
@@ -190,21 +132,18 @@ public class AutoFitEditText extends AppCompatEditText {
   }
 
   private void adjustTextSize() {
-    if (!_initiallized)
-      return;
-    final int startSize =  Math.round(_minTextSize);
-    final int heightLimit = getMeasuredHeight()
-        - getCompoundPaddingBottom() - getCompoundPaddingTop();
-    _widthLimit = getMeasuredWidth() - getCompoundPaddingLeft()
-        - getCompoundPaddingRight();
-    if (_widthLimit <= 0)
-      return;
+    if (!_initialized) return;
+    final int startSize = Math.round(_minTextSize);
+    final int heightLimit =
+        getMeasuredHeight() - getCompoundPaddingBottom() - getCompoundPaddingTop();
+    _widthLimit = getMeasuredWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight();
+    if (_widthLimit <= 0) return;
     _availableSpaceRect.right = _widthLimit;
     _availableSpaceRect.bottom = heightLimit;
-    super.setTextSize(
-        TypedValue.COMPLEX_UNIT_PX,
-        efficientTextSizeSearch(startSize, (int) _maxTextSize,
-            _sizeTester, _availableSpaceRect));
+    super.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+        efficientTextSizeSearch(startSize, (int) _maxTextSize, _sizeTester, _availableSpaceRect));
+  }  @Override public int getMaxLines() {
+    return _maxLines;
   }
 
   /**
@@ -221,22 +160,24 @@ public class AutoFitEditText extends AppCompatEditText {
     adjustTextSize();
   }
 
-  private int efficientTextSizeSearch(final int start, final int end,
-      final SizeTester sizeTester, final RectF availableSpace) {
-    if (!_enableSizeCache)
-      return binarySearch(start, end, sizeTester, availableSpace);
+  private int efficientTextSizeSearch(final int start, final int end, final SizeTester sizeTester,
+      final RectF availableSpace) {
+    if (!_enableSizeCache) return binarySearch(start, end, sizeTester, availableSpace);
     final String text = getText().toString();
     final int key = text == null ? 0 : text.length();
     int size = _textCachedSizes.get(key);
-    if (size != 0)
-      return size;
+    if (size != 0) return size;
     size = binarySearch(start, end, sizeTester, availableSpace);
     _textCachedSizes.put(key, size);
     return size;
+  }  @Override public void setSingleLine() {
+    super.setSingleLine();
+    _maxLines = 1;
+    reAdjust();
   }
 
-  private int binarySearch(final int start, final int end,
-      final SizeTester sizeTester, final RectF availableSpace) {
+  private int binarySearch(final int start, final int end, final SizeTester sizeTester,
+      final RectF availableSpace) {
     int lastBest = start;
     int lo = start;
     int hi = end - 1;
@@ -250,27 +191,67 @@ public class AutoFitEditText extends AppCompatEditText {
       } else if (midValCmp > 0) {
         hi = mid - 1;
         lastBest = hi;
-      } else
+      } else {
         return mid;
+      }
     }
     // make sure to return last best
     // this is what should always be returned
     return lastBest;
   }
 
-  @Override
-  protected void onTextChanged(final CharSequence text, final int start,
-      final int before, final int after) {
-    super.onTextChanged(text, start, before, after);
+  @Override protected void onSizeChanged(final int width, final int height, final int oldwidth,
+      final int oldheight) {
+    _textCachedSizes.clear();
+    super.onSizeChanged(width, height, oldwidth, oldheight);
+    if (width != oldwidth || height != oldheight) reAdjust();
+  }  @Override public void setSingleLine(final boolean singleLine) {
+    super.setSingleLine(singleLine);
+    if (singleLine) {
+      _maxLines = 1;
+    } else {
+      _maxLines = NO_LINE_LIMIT;
+    }
     reAdjust();
   }
 
-  @Override
-  protected void onSizeChanged(final int width, final int height,
-      final int oldwidth, final int oldheight) {
-    _textCachedSizes.clear();
-    super.onSizeChanged(width, height, oldwidth, oldheight);
-    if (width != oldwidth || height != oldheight)
-      reAdjust();
+  private interface SizeTester {
+    /**
+     * AutoFitEditText
+     *
+     * @param suggestedSize Size of text to be tested
+     * @param availableSpace available space in which text must fit
+     *
+     * @return an integer < 0 if after applying {@code suggestedSize} to
+     * text, it takes less space than {@code availableSpace}, > 0
+     * otherwise
+     */
+    int onTestSize(int suggestedSize, RectF availableSpace);
+  }
+
+  @Override public void setLines(final int lines) {
+    super.setLines(lines);
+    _maxLines = lines;
+    reAdjust();
+  }
+
+
+
+
+
+  @Override public void setLineSpacing(final float add, final float mult) {
+    super.setLineSpacing(add, mult);
+    _spacingMult = mult;
+    _spacingAdd = add;
+  }
+
+
+
+
+
+  @Override protected void onTextChanged(final CharSequence text, final int start, final int before,
+      final int after) {
+    super.onTextChanged(text, start, before, after);
+    reAdjust();
   }
 }

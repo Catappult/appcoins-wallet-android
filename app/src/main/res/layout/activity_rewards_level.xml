@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/onboarding_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <include layout="@layout/layout_app_bar"/>
+  <include
+      android:id="@+id/app_bar"
+      layout="@layout/layout_app_bar_large_size"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
   <FrameLayout
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
+      android:layout_height="0dp"
+      android:layout_marginTop="?attr/actionBarSize"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+  <FrameLayout
+      android:id="@+id/gamification_no_network"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="?attr/actionBarSize"
+      android:background="@drawable/background_card"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <include
+        layout="@layout/no_network_retry_only_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+  </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

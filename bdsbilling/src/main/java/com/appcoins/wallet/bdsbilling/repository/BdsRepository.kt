@@ -15,24 +15,19 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
         .map { it.data.address }
   }
 
-  override fun registerAuthorizationProof(id: String, paymentType: String,
-                                          walletAddress: String,
-                                          walletSignature: String,
-                                          productName: String?,
-                                          packageName: String,
-                                          priceValue: BigDecimal,
-                                          developerWallet: String,
-                                          storeWallet: String,
-                                          origin: String,
-                                          type: String,
-                                          oemWallet: String,
-                                          developerPayload: String?,
-                                          callback: String?,
-                                          orderReference: String?): Single<String> {
-    return remoteRepository.registerAuthorizationProof(origin, type, oemWallet, id, paymentType,
+  override fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
+                                          walletSignature: String, productName: String?,
+                                          packageName: String, priceValue: BigDecimal,
+                                          developerWallet: String, entityOemId: String?,
+                                          entityDomainId: String?,
+                                          origin: String, type: String, developerPayload: String?,
+                                          callback: String?, orderReference: String?,
+                                          referrerUrl: String?): Single<Transaction> {
+    return remoteRepository.registerAuthorizationProof(
+        origin, type, entityOemId, entityDomainId, id, paymentType,
         walletAddress, walletSignature, productName, packageName, priceValue, developerWallet,
-        storeWallet, developerPayload, callback, orderReference)
-        .map { it.uid }
+        developerPayload, callback, orderReference, referrerUrl, null
+    )
   }
 
   override fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -49,17 +44,19 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     return remoteRepository.getSkuDetails(packageName, skus)
   }
 
-  override fun getSkuPurchase(packageName: String, skuId: String, walletAddress: String,
+  override fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
     return remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
 
   }
 
-  override fun getSkuTransaction(packageName: String, skuId: String, walletAddress: String,
+  override fun getSkuTransaction(packageName: String, skuId: String?,
+                                 transactionType: TransactionType, walletAddress: String,
                                  walletSignature: String): Single<Transaction> {
-    return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature)
+    return remoteRepository.getSkuTransaction(packageName, skuId, transactionType, walletAddress,
+        walletSignature)
         .flatMap {
-          if (!it.items.isEmpty()) {
+          if (it.items.isNotEmpty()) {
             return@flatMap Single.just(it.items[0])
           }
           return@flatMap Single.just(Transaction.notFound())
@@ -77,11 +74,17 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
         walletSignature)
   }
 
-  override fun getPaymentMethods(value: String?, currency: String?,
-                                 type: String?): Single<List<PaymentMethodEntity>> {
-    return if (type.isNullOrEmpty())
-      remoteRepository.getPaymentMethods(value,
-          currency) else remoteRepository.getPaymentMethodsForType(type)
+  override fun getPaymentMethods(value: String?,
+                                 currency: String?,
+                                 currencyType: String?,
+                                 direct: Boolean?,
+                                 transactionType: String?): Single<List<PaymentMethodEntity>> {
+    return remoteRepository.getPaymentMethods(value, currency, currencyType,
+        direct, transactionType)
+        .onErrorReturn {
+          it.printStackTrace()
+          ArrayList()
+        }
   }
 
   override fun getAppcoinsTransaction(uid: String, address: String,
