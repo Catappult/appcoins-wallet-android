@@ -67,6 +67,7 @@ android {
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
     buildConfigField 'String', 'VIP_PROGRAM_BADGE_URL', project.VIP_PROGRAM_BADGE_URL
+    buildConfigField 'String', 'APPSFLYER_KEY', project.APPSFLYER_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 
@@ -246,6 +247,8 @@ dependencies {
 
   implementation "androidx.work:work-runtime-ktx:$project.work_version"
   implementation "androidx.work:work-rxjava2:$project.work_version"
+
+  implementation "com.appsflyer:af-android-sdk:6.3.2"
 
   //Amplitude
   implementation "com.amplitude:android-sdk:$project.amplitude_version"
