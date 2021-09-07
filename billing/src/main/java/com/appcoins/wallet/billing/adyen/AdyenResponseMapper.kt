@@ -84,7 +84,7 @@ class AdyenResponseMapper(private val gson: Gson) {
     var error =
         Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second)
 
-    if (throwable is HttpException) {
+    if (error.message?.contains("payment.billing_address") == false && throwable is HttpException) {
       val adyenErrorResponse = gson.fromJson(codeAndMessage.second, AdyenErrorResponse::class.java)
       if (adyenErrorResponse.code == "AdyenV2.Error") {
         when (adyenErrorResponse.data) {
