@@ -526,6 +526,7 @@
   <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
   <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
   <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
+  <string name="purchase_eskills_sku">Entry ticket</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
