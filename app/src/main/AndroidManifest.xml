@@ -84,8 +84,9 @@
 
         android:label="@string/title_import"
         android:windowSoftInputMode="stateHidden" />
+
     <activity
-        android:name="com.asfoundation.wallet.ui.TransactionsActivity"
+        android:name="com.asfoundation.wallet.main.MainActivity"
         android:label="@string/app_name"
         android:theme="@style/MaterialAppTheme" />
     <activity
@@ -97,9 +98,6 @@
     <activity
         android:name="com.asfoundation.wallet.ui.MyAddressActivity"
         android:label="@string/title_my_address" />
-    <activity
-        android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
-        android:label="@string/bottom_navigation_my_wallets" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
         android:label="@string/bottom_navigation_my_wallets"

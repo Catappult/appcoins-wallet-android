@@ -19,8 +19,8 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.backup.NotificationNeeded;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.util.BalanceUtils;
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -367,9 +367,11 @@ public class InAppPurchaseInteractor {
   private List<PaymentMethod> buildMergedList(List<PaymentMethod> paymentMethods,
       PaymentMethod appcMethod, PaymentMethod creditsMethod) {
     List<PaymentMethod> mergedList = new ArrayList<>();
+    boolean addedMergedAppc = false;
     for (PaymentMethod paymentMethod : paymentMethods) {
-      if (paymentMethod.getId()
-          .equals(APPC_ID)) {
+      if ((paymentMethod.getId()
+          .equals(APPC_ID) || paymentMethod.getId()
+          .equals(CREDITS_ID)) && !addedMergedAppc) {
         String mergedId = "merged_appcoins";
         String mergedLabel = appcMethod.getLabel() + " / " + creditsMethod.getLabel();
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
@@ -378,9 +380,10 @@ public class InAppPurchaseInteractor {
             isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled(),
             appcMethod.getLabel(), creditsMethod.getLabel(), creditsMethod.getIconUrl(),
             disableReason, appcMethod.getDisabledReason(), creditsMethod.getDisabledReason()));
+        addedMergedAppc = true;
       } else if (!paymentMethod.getId()
-          .equals(CREDITS_ID)) {
-        //Don't add the credits method to this list
+          .equals(CREDITS_ID) && !paymentMethod.getId()
+          .equals(APPC_ID)) {
         mergedList.add(paymentMethod);
       }
     }

@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.backup
 
 import com.asf.wallet.R
+import com.asfoundation.wallet.home.usecases.FetchTransactionsUseCase
 import com.asfoundation.wallet.interact.EmptyNotification
-import com.asfoundation.wallet.interact.FetchTransactionsInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.Function4
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 class BackupInteract(
     private val sharedPreferencesRepository: PreferencesRepositoryType,
     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-    private val fetchTransactionsInteract: FetchTransactionsInteract,
+    private val fetchTransactionsUseCase: FetchTransactionsUseCase,
     private val balanceInteractor: BalanceInteractor,
     private val gamificationInteractor: GamificationInteractor,
     private val findDefaultWalletInteract: FindDefaultWalletInteract
@@ -96,8 +96,7 @@ class BackupInteract(
   }
 
   private fun meetsTransactionsCountConditions(walletAddress: String): Single<Boolean> {
-    return fetchTransactionsInteract.fetch(walletAddress)
-        .doAfterTerminate { fetchTransactionsInteract.stop() }
+    return fetchTransactionsUseCase(walletAddress)
         .map { it.size >= TRANSACTION_COUNT_THRESHOLD }
         .firstOrError()
         .onErrorReturn { false }

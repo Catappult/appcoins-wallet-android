@@ -3,6 +3,7 @@ package com.asfoundation.wallet.support
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.gamification.Gamification
 import io.intercom.android.sdk.Intercom
+import io.intercom.android.sdk.UnreadConversationCountListener
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -80,12 +81,15 @@ class SupportInteractor(private val supportRepository: SupportRepository,
       supportRepository.updateUnreadConversations(Intercom.client().unreadConversationCount)
 
   fun getUnreadConversationCountEvents() = Observable.create<Int> {
+    it.onNext(Intercom.client().unreadConversationCount)
+    val unreadListener = UnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
     Intercom.client()
-        .addUnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
+        .addUnreadConversationCountListener(unreadListener)
+    it.setCancellable {
+      Intercom.client()
+          .removeUnreadConversationCountListener(unreadListener)
+    }
   }
 
-  fun getUnreadConversationCount() = Observable.just(Intercom.client().unreadConversationCount)
-
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
-
 }

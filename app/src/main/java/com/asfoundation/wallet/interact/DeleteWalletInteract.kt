@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.interact
 
+import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PasswordStore
@@ -22,6 +23,18 @@ class DeleteWalletInteract(private val walletRepository: WalletRepositoryType,
         .andThen(walletVerificationInteractor.removeWalletVerificationStatus(address))
         .andThen(backupRestorePreferencesRepository.removeWalletRestoreBackup(address))
         .andThen(backupRestorePreferencesRepository.removeBackupNotificationSeenTime(address))
+        .andThen(setNewWallet())
+  }
+
+  fun setNewWallet(): Completable {
+    return walletRepository.fetchWallets()
+        .filter { wallets -> wallets.isNotEmpty() }
+        .map { wallets: Array<Wallet> ->
+          wallets[0]
+        }
+        .flatMapCompletable { wallet: Wallet ->
+          walletRepository.setDefaultWallet(wallet.address)
+        }
   }
 
   fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()

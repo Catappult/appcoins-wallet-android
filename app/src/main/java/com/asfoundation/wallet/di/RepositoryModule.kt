@@ -34,7 +34,6 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.rating.RatingRepository
@@ -67,6 +66,7 @@ import com.asfoundation.wallet.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.withdraw.repository.WithdrawApiMapper
 import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
 import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson

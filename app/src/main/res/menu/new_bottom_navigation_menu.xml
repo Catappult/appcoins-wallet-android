@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/home"
+      android:icon="@drawable/ic_home"
+      android:title="Home" />
+  <item
+      android:id="@+id/promotions"
+      android:icon="@drawable/ic_promotions_v2"
+      android:title="@string/bottom_navigation_promotions" />
+  <item
+      android:id="@+id/balance"
+      android:icon="@drawable/ic_balance"
+      android:title="@string/bottom_navigation_my_wallets" />
+  <item
+      android:id="@+id/top_up"
+      android:actionLayout="@layout/bottom_nav_top_up_item"
+      android:checkable="false"
+      android:enabled="false"
+      android:icon="@drawable/ic_bottom_nav_tokens"
+      android:title="@string/topup_title" />
+</menu>
+

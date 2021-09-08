@@ -4,11 +4,24 @@ import cm.aptoide.skills.SkillsFragment
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.home.HomeFragment
+import com.asfoundation.wallet.home.HomeModule
+import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment
+import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogModule
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogModule
+import com.asfoundation.wallet.my_wallets.main.MyWalletsFragment
+import com.asfoundation.wallet.my_wallets.main.MyWalletsModule
+import com.asfoundation.wallet.my_wallets.more.MoreDialogFragment
+import com.asfoundation.wallet.my_wallets.more.MoreDialogModule
+import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment
+import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
-import com.asfoundation.wallet.promotions.PromotionsFragment
-import com.asfoundation.wallet.promotions.PromotionsModule
+import com.asfoundation.wallet.promotions.info.PromotionsInfoDialogFragment
+import com.asfoundation.wallet.promotions.ui.PromotionsFragment
+import com.asfoundation.wallet.promotions.ui.PromotionsModuleNew
 import com.asfoundation.wallet.rating.entry.RatingEntryFragment
 import com.asfoundation.wallet.rating.entry.RatingEntryModule
 import com.asfoundation.wallet.rating.finish.RatingFinishFragment
@@ -42,7 +55,6 @@ import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletModule
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessModule
-import com.asfoundation.wallet.ui.balance.BalanceFragment
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
 import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
@@ -68,9 +80,7 @@ import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragmen
 import com.asfoundation.wallet.ui.transact.TransferFragment
 import com.asfoundation.wallet.ui.transact.TransferFragmentModule
 import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
-import com.asfoundation.wallet.ui.wallets.WalletDetailsFragment
 import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
-import com.asfoundation.wallet.ui.wallets.WalletsFragment
 import com.asfoundation.wallet.verification.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.code.VerificationCodeModule
 import com.asfoundation.wallet.verification.error.VerificationErrorFragment
@@ -133,12 +143,13 @@ abstract class FragmentBuilders {
   @ContributesAndroidInjector
   abstract fun bindMergedAppcoinsFragment(): MergedAppcoinsFragment
 
-  @ContributesAndroidInjector
-  abstract fun bindBalanceFragment(): BalanceFragment
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [PromotionsModuleNew::class])
+  abstract fun bindPromotionsFragment(): PromotionsFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(modules = [PromotionsModule::class])
-  abstract fun bindPromotionsFragment(): PromotionsFragment
+  @ContributesAndroidInjector
+  abstract fun bindPromotionsInfoDialogFragment(): PromotionsInfoDialogFragment
 
   @ContributesAndroidInjector
   abstract fun bindInviteFriendsVerificationFragment(): InviteFriendsVerificationFragment
@@ -154,14 +165,6 @@ abstract class FragmentBuilders {
 
   @ContributesAndroidInjector
   abstract fun bindIabUpdateRequiredFragment(): IabUpdateRequiredFragment
-
-  @FragmentScope
-  @ContributesAndroidInjector
-  abstract fun bindWalletsFragment(): WalletsFragment
-
-  @FragmentScope
-  @ContributesAndroidInjector
-  abstract fun bindWalletDetailFragment(): WalletDetailsFragment
 
   @FragmentScope
   @ContributesAndroidInjector
@@ -287,4 +290,28 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector
   abstract fun bindWithdrawFragment(): WithdrawFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [HomeModule::class])
+  abstract fun bindHomeFragment(): HomeFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [MyWalletsModule::class])
+  abstract fun bindNewMyWalletsFragment(): MyWalletsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [ChangeActiveWalletDialogModule::class])
+  abstract fun bindChangeActiveWalletDialogFragment(): ChangeActiveWalletDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [CreateWalletDialogModule::class])
+  abstract fun bindCreateWalletDialogFragment(): CreateWalletDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [TokenInfoDialogModule::class])
+  abstract fun bindTokenInfoDialogFragment(): TokenInfoDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [MoreDialogModule::class])
+  abstract fun bindMoreDialogFragment(): MoreDialogFragment
 }

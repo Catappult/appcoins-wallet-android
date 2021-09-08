@@ -16,7 +16,6 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
-      android:background="@drawable/background_card"
       android:maxHeight="300dp"
       >
 
@@ -24,7 +23,6 @@
         android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_card"
         android:elevation="2dp"
         android:visibility="visible"
         >
@@ -46,19 +44,7 @@
           android:background="@drawable/dashed_vertical_line"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
-          />
-
-      <com.asfoundation.wallet.ui.common.SeparatorView
-          android:id="@+id/top_separator"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/big_margin"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:line_orientation="horizontal"
-          app:line_type="solid"
           />
 
       <include
@@ -71,7 +57,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
 
@@ -83,7 +69,7 @@
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           />
       <include
           android:id="@+id/bonus_layout"
@@ -129,7 +115,7 @@
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           >
 
         <RelativeLayout
@@ -181,7 +167,7 @@
           android:layout_marginTop="227dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           app:line_orientation="horizontal"
           app:line_type="solid"
           />

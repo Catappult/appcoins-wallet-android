@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.di
 
+import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.main.MainActivityModule
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
@@ -36,10 +38,6 @@ abstract class ActivityBuilders {
   @ActivityScope
   @ContributesAndroidInjector
   internal abstract fun bindBaseActivityModule(): BaseActivity
-
-  @ActivityScope
-  @ContributesAndroidInjector(modules = [TransactionsModule::class])
-  internal abstract fun bindTransactionsModule(): TransactionsActivity
 
   @ActivityScope
   @ContributesAndroidInjector(modules = [TransactionDetailModule::class])
@@ -130,4 +128,8 @@ abstract class ActivityBuilders {
   @ActivityScope
   @ContributesAndroidInjector(modules = [VerificationActivityModule::class])
   internal abstract fun bindVerificationActivity(): VerificationActivity
+
+  @ActivityScope
+  @ContributesAndroidInjector(modules = [MainActivityModule::class])
+  abstract fun bindMainActivity(): MainActivity
 }

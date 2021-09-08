@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/PaymentMethods.DialogCardStyle.Landscape"
     android:theme="@style/MaterialAppTheme"
+    tools:viewBindingIgnore="true"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +17,7 @@
       app:layout_constraintBottom_toTopOf="@id/bottom_separator"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/mid_guideline"
-      app:layout_constraintTop_toBottomOf="@id/top_separator"
+      app:layout_constraintTop_toTopOf="parent"
       >
 
     <ImageView
@@ -101,7 +102,7 @@
       android:layout_marginEnd="@dimen/big_margin"
       app:layout_constraintEnd_toEndOf="@id/mid_guideline"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/top_separator"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
@@ -124,19 +125,9 @@
       android:layout_marginBottom="8dp"
       app:layout_constraintBottom_toTopOf="@id/bottom_separator"
       app:layout_constraintStart_toEndOf="@id/mid_guideline"
-      app:layout_constraintTop_toBottomOf="@id/top_separator"
+      app:layout_constraintTop_toTopOf="parent"
       app:line_orientation="vertical"
       app:line_type="dashed"
-      />
-
-  <com.asfoundation.wallet.ui.common.SeparatorView
-      android:id="@+id/top_separator"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/big_margin"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       />
 
   <com.asfoundation.wallet.ui.common.SeparatorView
@@ -146,7 +137,7 @@
       android:layout_marginTop="227dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/top_separator"
+      app:layout_constraintTop_toTopOf="parent"
       app:line_orientation="horizontal"
       app:line_type="solid"
       />

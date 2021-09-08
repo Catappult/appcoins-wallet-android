@@ -63,7 +63,7 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
 
   override fun showRemoveWalletAnimation() = activityView.showRemoveWalletAnimation()
 
-  override fun finish() = activityView.navigateToWalletList()
+  override fun finish() = activityView.finish()
 
   override fun showAuthentication() = activityView.showAuthentication()
 
