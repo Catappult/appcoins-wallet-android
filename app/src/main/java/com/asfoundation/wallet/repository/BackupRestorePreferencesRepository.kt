@@ -10,7 +10,7 @@ class BackupRestorePreferencesRepository(private val pref: SharedPreferences) {
     private const val WALLET_IMPORT_BACKUP = "wallet_import_backup_"
     private const val HAS_SHOWN_BACKUP = "has_shown_backup_"
     private const val KEYSTORE_DIRECTORY = "keystore_directory"
-    private const val SEEN_BACKUP_TOOLTIP = "seen_backup_tooltip"
+    const val BACKED_UP_ONCE = "backed_up_once"
     private const val SEEN_BACKUP_SYSTEM_NOTIFICATION = "seen_backup_system_notification_"
   }
 
@@ -66,11 +66,11 @@ class BackupRestorePreferencesRepository(private val pref: SharedPreferences) {
 
   fun getChosenUri() = pref.getString(KEYSTORE_DIRECTORY, null)
 
-  fun getSeenBackupTooltip() = pref.getBoolean(SEEN_BACKUP_TOOLTIP, false)
+  fun getBackedUpOnce() = pref.getBoolean(BACKED_UP_ONCE, false)
 
-  fun saveSeenBackupTooltip() {
+  fun saveBackedUpOnce() {
     pref.edit()
-        .putBoolean(SEEN_BACKUP_TOOLTIP, true)
+        .putBoolean(BACKED_UP_ONCE, true)
         .apply()
   }
 
@@ -82,4 +82,13 @@ class BackupRestorePreferencesRepository(private val pref: SharedPreferences) {
           .putBoolean(SEEN_BACKUP_SYSTEM_NOTIFICATION + walletAddress, true)
           .apply()
 
+  fun removeChangeListener(
+      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener) {
+    pref.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+  }
+
+  fun addChangeListener(
+      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener) {
+    pref.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+  }
 }

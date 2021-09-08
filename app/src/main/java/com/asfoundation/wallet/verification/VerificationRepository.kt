@@ -7,6 +7,7 @@ import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.verification.network.VerificationStatus
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 class VerificationRepository(private val verificationApi: VerificationApi,
                              private val verificationStateApi: VerificationStateApi,
@@ -19,6 +20,7 @@ class VerificationRepository(private val verificationApi: VerificationApi,
   fun getVerificationStatus(walletAddress: String,
                             walletSignature: String): Single<VerificationStatus> {
     return verificationApi.isUserVerified(walletAddress)
+        .subscribeOn(Schedulers.io())
         .flatMap { verificationResponse ->
           if (verificationResponse.verified) {
             Single.just(VerificationStatus.VERIFIED)

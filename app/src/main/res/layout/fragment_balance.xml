@@ -378,7 +378,7 @@
       android:focusable="true"
       android:gravity="center"
       android:orientation="vertical"
-      android:visibility="gone"
+      android:visibility="visible"
       >
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/create_wallet_animation"

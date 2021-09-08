@@ -7,6 +7,7 @@ import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.ExportWalletInteractor
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.ui.backup.BackupActivityNavigator
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment.Companion.PASSWORD_KEY
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment.Companion.WALLET_ADDRESS_KEY
@@ -45,8 +46,10 @@ class BackupCreationModule {
 
   @Provides
   fun providesBackupCreationInteractor(exportWalletInteractor: ExportWalletInteractor,
-                                       fileInteractor: FileInteractor): BackupCreationInteractor {
-    return BackupCreationInteractor(exportWalletInteractor, fileInteractor)
+                                       fileInteractor: FileInteractor,
+                                       backupRestorePreferencesRepository: BackupRestorePreferencesRepository): BackupCreationInteractor {
+    return BackupCreationInteractor(exportWalletInteractor, fileInteractor,
+        backupRestorePreferencesRepository)
   }
 
   @Provides

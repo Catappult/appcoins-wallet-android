@@ -35,10 +35,13 @@
   <color name="iab_activity_gray">#8a000000</color>
   <color name="black_87_alpha">#de000000</color>
   <color name="grey">#757575</color>
+  <color name="grey_86">#868686</color>
+  <color name="grey_8B">#8B959B</color>
   <color name="grey_f4">#91f4f4f4</color>
   <color name="grey_5a">#5a5a5a</color>
   <color name="grey_e5">#e5e5e5</color>
   <color name="grey_65">#656565</color>
+  <color name="grey_9d">#9DA3A8</color>
   <color name="white_99">#99FFFFFF</color>
 
   <color name="appbar_start_gradient_color">#000000</color>
@@ -50,6 +53,7 @@
   <color name="gray_alpha_61">#61000000</color>
   <color name="grey_alpha_6b">#6b000000</color>
   <color name="light_grey_alpha_8d">#8d393939</color>
+  <color name="light_grey_alpha_73">#73393939</color>
 
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>
