@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.referrals
 
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.util.isNoNetworkException
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/promotions"
+    app:startDestination="@id/promotions_fragment">
+
+  <fragment
+      android:id="@+id/promotions_fragment"
+      android:name="com.asfoundation.wallet.promotions.ui.PromotionsFragment"
+      tools:layout="@layout/fragment_promotions">
+
+    <action
+        android:id="@+id/action_navigate_to_info"
+        app:destination="@id/promotions_info_dialog_fragment" />
+  </fragment>
+
+  <dialog
+      android:id="@+id/promotions_info_dialog_fragment"
+      android:name="com.asfoundation.wallet.promotions.info.PromotionsInfoDialogFragment"
+      tools:layout="@layout/gamification_info_bottom_sheet" />
+</navigation>

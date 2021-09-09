@@ -45,6 +45,8 @@ data class PromotionEntity(
     val notificationDescription: String? = null,
     @ColumnInfo(name = "perk_description")
     val perkDescription: String? = null,
+    @ColumnInfo(name = "app_name")
+    val appName: String? = null,
     @ColumnInfo(name = "end_date")
     val endDate: Long? = null,
     val icon: String? = null,

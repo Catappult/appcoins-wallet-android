@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
   buildToolsVersion '29.0.3'
@@ -146,6 +147,9 @@ android {
     targetCompatibility 1.8
     sourceCompatibility 1.8
   }
+  buildFeatures {
+    viewBinding true
+  }
   kotlinOptions {
     jvmTarget = "1.8"
   }
@@ -164,6 +168,11 @@ dependencies {
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+  implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$project.viewBindingDelegate"
+  implementation "androidx.navigation:navigation-fragment-ktx:$project.nav_version"
+  implementation "androidx.navigation:navigation-ui-ktx:$project.nav_version"
+  implementation "androidx.fragment:fragment:$project.fragment_version"
+  implementation "androidx.fragment:fragment-ktx:$project.fragment_version"
   implementation "androidx.appcompat:appcompat:$project.appcompat_version"
   implementation "androidx.vectordrawable:vectordrawable:$project.vector_drawable_version"
   implementation "androidx.recyclerview:recyclerview:$project.recyclerview_version"
@@ -179,6 +188,10 @@ dependencies {
 
   implementation "android.arch.lifecycle:runtime:$project.lifecycle_version"
   implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.ktx_lifecycle_version}"
+  implementation "androidx.lifecycle:lifecycle-runtime-ktx:$project.ktx_lifecycle_version"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$project.ktx_lifecycle_version"
+  implementation "androidx.lifecycle:lifecycle-common-java8:$project.ktx_lifecycle_version"
 
   implementation "com.squareup.retrofit2:retrofit:$project.retrofit_version"
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofit_version"
@@ -247,6 +260,9 @@ dependencies {
 
   implementation "androidx.work:work-runtime-ktx:$project.work_version"
   implementation "androidx.work:work-rxjava2:$project.work_version"
+
+  implementation "com.airbnb.android:epoxy:$project.epoxy_version"
+  kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
 
   implementation "com.appsflyer:af-android-sdk:6.3.2"
 

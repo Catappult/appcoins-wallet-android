@@ -6,7 +6,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.ui.TransactionsActivity;
+import com.asfoundation.wallet.home.HomeFragment;
 import com.asfoundation.wallet.ui.widget.adapter.EmptyTransactionPagerAdapter;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
@@ -18,7 +18,7 @@ public class EmptyTransactionsView extends FrameLayout {
   private final int[] body = { R.string.home_empty_discover_apps_body, MAX_BONUS_STRING_RESOURCE };
 
   public EmptyTransactionsView(@NonNull Context context, @NonNull String bonus,
-      PublishSubject<String> emptyTransactionsSubject, TransactionsActivity transactionsActivity,
+      PublishSubject<String> emptyTransactionsSubject, HomeFragment homeFragment,
       CompositeDisposable disposables) {
     super(context);
 
@@ -34,10 +34,11 @@ public class EmptyTransactionsView extends FrameLayout {
     pageAdapter.randomizeCarouselContent();
     viewPager.setAdapter(pageAdapter);
 
-    disposables.add(transactionsActivity.getEmptyTransactionsScreenClick()
+    disposables.add(homeFragment.getEmptyTransactionsScreenClick()
         .doOnNext(string -> {
           if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_GAMIFICATION)) {
-            transactionsActivity.navigateToPromotions(false);
+            homeFragment.getNavigator()
+                .navigateToPromotions();
           }
         })
         .subscribe());

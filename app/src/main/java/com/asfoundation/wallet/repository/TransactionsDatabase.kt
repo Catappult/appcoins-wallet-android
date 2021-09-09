@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.asfoundation.wallet.repository.entity.LastUpdatedWalletEntity
 import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
@@ -14,9 +15,10 @@ import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
       TransactionEntity::class,
       TransactionDetailsEntity::class,
       TransactionDetailsEntity.Icon::class,
-      TransactionLinkIdEntity::class
+      TransactionLinkIdEntity::class,
+      LastUpdatedWalletEntity::class
     ],
-    version = 6)
+    version = 7)
 @TypeConverters(TransactionTypeConverter::class)
 abstract class TransactionsDatabase : RoomDatabase() {
 
@@ -83,6 +85,13 @@ abstract class TransactionsDatabase : RoomDatabase() {
         database.execSQL("DELETE FROM TransactionEntity")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN paidAmount TEXT")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN paidCurrency TEXT")
+      }
+    }
+
+    val MIGRATION_6_7: Migration = object : Migration(6, 7) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL(
+            "CREATE TABLE IF NOT EXISTS LastUpdatedWalletEntity (wallet TEXT NOT NULL, transactionsUpdateTimestamp INTEGER NOT NULL, PRIMARY KEY(wallet))")
       }
     }
   }

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <Transition
+      android:id="@+id/toolbar_transition"
+      app:constraintSetEnd="@+id/collapsed"
+      app:constraintSetStart="@id/expanded"
+      app:layoutDuringTransition="honorRequest">
+    <OnSwipe
+        app:dragDirection="dragUp"
+        app:moveWhenScrollAtTop="true"
+        app:touchAnchorId="@id/refresh_layout"
+        app:touchAnchorSide="top" />
+    <KeyFrameSet>
+      <KeyAttribute
+          android:alpha="1"
+          app:framePosition="0"
+          app:motionTarget="@id/toolbar_layout_logo" />
+      <KeyAttribute
+          android:alpha="0"
+          app:framePosition="50"
+          app:motionTarget="@id/toolbar_layout_logo" />
+      <KeyAttribute
+          android:alpha="0"
+          app:framePosition="100"
+          app:motionProgress="1"
+          app:motionTarget="@id/toolbar_layout_logo" />
+      <KeyAttribute
+          android:alpha="1"
+          app:framePosition="0"
+          app:motionTarget="@id/balance_subtitle" />
+      <KeyAttribute
+          android:alpha="0"
+          app:framePosition="50"
+          app:motionTarget="@id/balance_subtitle" />
+      <KeyAttribute
+          android:alpha="0"
+          app:framePosition="100"
+          app:motionTarget="@id/balance_subtitle" />
+      <KeyPosition
+          app:drawPath="pathRelative"
+          app:framePosition="50"
+          app:motionTarget="@id/balance"
+          app:percentX="1"
+          app:percentY="1" />
+      <KeyAttribute
+          android:scaleX="0.75"
+          android:scaleY="0.75"
+          app:framePosition="50"
+          app:motionTarget="@id/balance" />
+    </KeyFrameSet>
+  </Transition>
+
+  <ConstraintSet android:id="@+id/expanded">
+    <Constraint
+        android:id="@+id/collapsable_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="186dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <Constraint
+        android:id="@+id/balance"
+        style="@style/ToolbarTextAppearance.Title.Expanded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="77dp"
+        android:scaleX="1.0"
+        android:scaleY="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Constraint android:id="@+id/system_view"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/refresh_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        app:layout_constraintTop_toBottomOf="@id/collapsable_bar">
+      <PropertySet
+          app:applyMotionScene="false"
+          app:visibilityMode="ignore" />
+    </Constraint>
+    <Constraint android:id="@+id/refresh_layout">
+      <PropertySet
+          app:applyMotionScene="false"
+          app:visibilityMode="ignore" />
+    </Constraint>
+
+    <Constraint
+        android:id="@+id/balance_subtitle"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="124dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Constraint
+        android:id="@+id/balance_skeleton"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_marginTop="85dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/balance_skeleton"
+        app:visibilityMode="ignore" />
+
+    <Constraint
+        android:id="@+id/action_button_vip"
+        layout="@layout/layout_vip_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/action_button_support"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:visibilityMode="ignore" />
+
+    <Constraint android:id="@+id/faded_background">
+      <PropertySet
+          app:applyMotionScene="false"
+          app:visibilityMode="ignore" />
+    </Constraint>
+  </ConstraintSet>
+
+  <ConstraintSet android:id="@+id/collapsed">
+    <Constraint
+        android:id="@+id/collapsable_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <Constraint
+        android:id="@+id/balance"
+        style="@style/ToolbarTextAppearance.Title.Expanded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
+    <Constraint android:id="@+id/system_view">
+      <PropertySet
+          app:applyMotionScene="false"
+          app:visibilityMode="ignore" />
+    </Constraint>
+    <Constraint android:id="@+id/refresh_layout">
+      <PropertySet
+          app:applyMotionScene="false"
+          app:visibilityMode="ignore" />
+    </Constraint>
+
+    <Constraint
+        android:id="@+id/balance_subtitle"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Constraint
+        android:id="@+id/balance_skeleton"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_marginTop="85dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/balance_skeleton"
+        app:visibilityMode="ignore" />
+
+    <Constraint
+        android:id="@+id/action_button_vip"
+        layout="@layout/layout_vip_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/action_button_support"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:visibilityMode="ignore" />
+
+    <Constraint android:id="@+id/faded_background">
+      <PropertySet
+          app:applyMotionScene="false"
+          app:visibilityMode="ignore" />
+    </Constraint>
+  </ConstraintSet>
+
+</MotionScene>

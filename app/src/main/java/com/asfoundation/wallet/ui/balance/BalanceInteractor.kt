@@ -1,21 +1,17 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.content.SharedPreferences
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.TokenValue
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_CURRENCY
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.APPC_C_CURRENCY
-import com.asfoundation.wallet.ui.balance.BalanceFragmentPresenter.Companion.ETH_CURRENCY
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.network.VerificationStatus
-import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.Single
+import io.reactivex.*
 import io.reactivex.annotations.Nullable
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
@@ -27,6 +23,13 @@ class BalanceInteractor(
     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
     private val verificationRepository: VerificationRepository,
     private val networkScheduler: Scheduler) {
+
+  companion object {
+    const val APPC_CURRENCY = "APPC_CURRENCY"
+    const val APPC_C_CURRENCY = "APPC_C_CURRENCY"
+    const val ETH_CURRENCY = "ETH_CURRENCY"
+    val BIG_DECIMAL_MINUS_ONE = BigDecimal("-1")
+  }
 
   fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
     return accountWalletService.find()
@@ -120,36 +123,73 @@ class BalanceInteractor(
     )
   }
 
+  fun observeCurrentWalletVerified(): Observable<BalanceVerificationModel> {
+    return getSignedCurrentWalletAddress()
+        .flatMapObservable { addressModel ->
+          Observable.merge(Observable.just(getCachedVerificationStatus(addressModel.address))
+              .map { verificationStatus ->
+                mapToBalanceVerificationModel(addressModel.address, verificationStatus, null)
+              }, isWalletValid(addressModel.address, addressModel.signedAddress).toObservable())
+        }
+  }
+
   fun isWalletValid(address: String, signedAddress: String): Single<BalanceVerificationModel> {
     return verificationRepository.getVerificationStatus(address, signedAddress)
-        .map { status -> mapToBalanceVerificationModel(address, status) }
+        .map { status ->
+          mapToBalanceVerificationModel(address, status, getCachedVerificationStatus(address))
+        }
 
   }
 
   private fun mapToBalanceVerificationModel(address: String,
-                                            verificationStatus: VerificationStatus): BalanceVerificationModel {
-    val status = when (verificationStatus) {
+                                            cachedVerificationStatus: VerificationStatus,
+                                            verificationStatus: VerificationStatus?): BalanceVerificationModel {
+    return BalanceVerificationModel(address,
+        mapToBalanceVerificationStatus(cachedVerificationStatus)!!,
+        mapToBalanceVerificationStatus(verificationStatus))
+  }
+
+  private fun mapToBalanceVerificationStatus(
+      verificationStatus: VerificationStatus?): BalanceVerificationStatus? {
+    if (verificationStatus == null) return null
+    return when (verificationStatus) {
       VerificationStatus.CODE_REQUESTED -> BalanceVerificationStatus.CODE_REQUESTED
       VerificationStatus.VERIFIED -> BalanceVerificationStatus.VERIFIED
       VerificationStatus.NO_NETWORK -> BalanceVerificationStatus.NO_NETWORK
       VerificationStatus.ERROR -> BalanceVerificationStatus.ERROR
       else -> BalanceVerificationStatus.UNVERIFIED
     }
-    return BalanceVerificationModel(address, status)
   }
 
 
   fun getCachedVerificationStatus(address: String) =
       walletVerificationInteractor.getCachedVerificationStatus(address)
 
-  fun hasSeenBackupTooltip() = backupRestorePreferencesRepository.getSeenBackupTooltip()
+  fun hasBackedUpOnce() = backupRestorePreferencesRepository.getBackedUpOnce()
 
-  fun saveSeenBackupTooltip() = backupRestorePreferencesRepository.saveSeenBackupTooltip()
+  fun saveBackedUpOnce() = backupRestorePreferencesRepository.saveBackedUpOnce()
+
+  fun observeBackedUpOnce(): Observable<Boolean> {
+    return Observable.create(
+        ObservableOnSubscribe { emitter: ObservableEmitter<Boolean> ->
+          val listener =
+              SharedPreferences.OnSharedPreferenceChangeListener { _, key: String ->
+                if (key == BackupRestorePreferencesRepository.BACKED_UP_ONCE) {
+                  emitter.onNext(backupRestorePreferencesRepository.getBackedUpOnce())
+                }
+              }
+          emitter.setCancellable {
+            backupRestorePreferencesRepository.removeChangeListener(listener)
+          }
+          emitter.onNext(backupRestorePreferencesRepository.getBackedUpOnce())
+          backupRestorePreferencesRepository.addChangeListener(listener)
+        } as ObservableOnSubscribe<Boolean>)
+  }
 
   private fun mapOverallBalance(creditsBalance: Pair<Balance, FiatValue>,
                                 appcBalance: Pair<Balance, FiatValue>,
                                 ethBalance: Pair<Balance, FiatValue>): FiatValue {
-    var balance = getAddBalanceValue(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE,
+    var balance = getAddBalanceValue(BIG_DECIMAL_MINUS_ONE,
         creditsBalance.second.amount)
     balance = getAddBalanceValue(balance, appcBalance.second.amount)
     balance = getAddBalanceValue(balance, ethBalance.second.amount)
@@ -175,7 +215,7 @@ class BalanceInteractor(
   private fun getOverallBalance(creditsBalance: TokenBalance,
                                 appcBalance: TokenBalance,
                                 ethBalance: TokenBalance): FiatValue {
-    var balance = getAddBalanceValue(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE,
+    var balance = getAddBalanceValue(BIG_DECIMAL_MINUS_ONE,
         creditsBalance.fiat.amount)
     balance = getAddBalanceValue(balance, appcBalance.fiat.amount)
     balance = getAddBalanceValue(balance, ethBalance.fiat.amount)
@@ -183,8 +223,8 @@ class BalanceInteractor(
   }
 
   private fun getAddBalanceValue(currentValue: BigDecimal, value: BigDecimal): BigDecimal {
-    return if (value.compareTo(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE) == 1) {
-      if (currentValue.compareTo(BalanceFragmentPresenter.BIG_DECIMAL_MINUS_ONE) == 1) {
+    return if (value.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
+      if (currentValue.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
         currentValue.add(value)
       } else {
         value
@@ -192,6 +232,14 @@ class BalanceInteractor(
     } else {
       currentValue
     }
+  }
+
+  fun saveSeenBackupTooltip() {
+
+  }
+
+  fun hasSeenBackupTooltip(): Boolean {
+    return true
   }
 
 }

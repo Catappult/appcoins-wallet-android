@@ -9,9 +9,9 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

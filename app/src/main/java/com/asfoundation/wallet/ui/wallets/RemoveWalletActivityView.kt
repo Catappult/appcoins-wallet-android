@@ -6,7 +6,7 @@ interface RemoveWalletActivityView {
 
   fun navigateToWalletRemoveConfirmation()
 
-  fun navigateToWalletList()
+  fun finish()
 
   fun navigateToBackUp(walletAddress: String)
 
