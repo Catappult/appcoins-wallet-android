@@ -53,16 +53,7 @@ public class ApkOriginVerification {
 
     AppsFlyerConversionListener conversionListener = new AppsFlyerConversionListener() {
       @Override public void onConversionDataSuccess(Map<String, Object> conversionDataMap) {
-        //Get information from the appsflyer install data. So it will only send the data to the
-        // appsflyer
-        //if the device is launching the app for the first time.
-        Log.d("APPC-2681", "TempApkOriginJava init before if");
-        if (Objects.requireNonNull(conversionDataMap.get("is_first_launch"))
-            .toString()
-            .equals("true")) {
-          Log.d("APPC-2681", "TempApkOriginJava init inside if.. ");
-          getDataNewInstall();
-        }
+        getDataNewInstall();
       }
 
       @Override public void onConversionDataFail(String errorMessage) {
@@ -158,7 +149,6 @@ public class ApkOriginVerification {
   */
   private void sendDataNewInstall(String deviceIdentifier, String packageName, String apkMd5sum,
       String installedFromMarket, String deviceManufacturer, List<String> deviceInstalledMarkets) {
-    Log.d("APPC-2681", "TempApkOriginJava getDataNewInstall");
     ApkOriginService apkOriginService = provideService();
 
     //Create a Call object to call the function defined in the retrofitAPI interface.
@@ -203,8 +193,6 @@ public class ApkOriginVerification {
           - apkMd5sum (String) -> The value of this app MD5 hash code.
   */
   private void getDataNewInstall() {
-
-    Log.d("APPC-2681", "TempApkOriginJava getDataNewInstall");
     ApkOriginService apkOriginService = provideService();
     Call<List<String>> call = apkOriginService.getData("newInstall");
 
