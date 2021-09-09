@@ -68,6 +68,7 @@ android {
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
     buildConfigField 'String', 'VIP_PROGRAM_BADGE_URL', project.VIP_PROGRAM_BADGE_URL
+    buildConfigField 'String', 'APPSFLYER_KEY', project.APPSFLYER_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 
@@ -262,6 +263,8 @@ dependencies {
 
   implementation "com.airbnb.android:epoxy:$project.epoxy_version"
   kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
+
+  implementation "com.appsflyer:af-android-sdk:6.3.2"
 
   //Amplitude
   implementation "com.amplitude:android-sdk:$project.amplitude_version"
