@@ -118,17 +118,13 @@ class HomeFragment : BasePageViewFragment(),
     }
   }
 
-  override fun onDestroy() {
+  override fun onDestroyView() {
     views.balanceSkeleton.removeAllAnimatorListeners()
     views.balanceSkeleton.removeAllUpdateListeners()
     views.balanceSkeleton.removeAllLottieOnCompositionLoadedListener()
     emptyTransactionsSubject = null
     emptyView = null
     disposables.dispose()
-    super.onDestroy()
-  }
-
-  override fun onDestroyView() {
     super.onDestroyView()
     _views = null
   }

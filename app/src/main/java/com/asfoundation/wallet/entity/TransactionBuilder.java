@@ -144,12 +144,14 @@ public class TransactionBuilder implements Parcelable {
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
       String iabContract, String type, String origin, String domain, String payload,
-      String callbackUrl, String orderReference, String productToken, String referrerUrl,
-      String productName) {
+      String callbackUrl, String orderReference, String productToken, String originValue,
+      String originCurrency, String referrerUrl, String productName) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
         type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
     this.iabContract = iabContract;
     this.productToken = productToken;
+    this.originalOneStepValue = originValue;
+    this.originalOneStepCurrency = originCurrency;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
@@ -302,7 +304,9 @@ public class TransactionBuilder implements Parcelable {
 
   @Override public String toString() {
     return "TransactionBuilder{"
-        + "contractAddress='"
+        + "chainId="
+        + chainId
+        + ", contractAddress='"
         + contractAddress
         + '\''
         + ", decimals="
@@ -326,8 +330,6 @@ public class TransactionBuilder implements Parcelable {
         + Arrays.toString(appcoinsData)
         + ", gasSettings="
         + gasSettings
-        + ", chainId="
-        + chainId
         + ", skuId='"
         + skuId
         + '\''

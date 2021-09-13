@@ -6,8 +6,8 @@ import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 
-class WithdrawActivity: BaseActivity() {
-  companion object{
+class WithdrawActivity : BaseActivity() {
+  companion object {
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, WithdrawActivity::class.java)

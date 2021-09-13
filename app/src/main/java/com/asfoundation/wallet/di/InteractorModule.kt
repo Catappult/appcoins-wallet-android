@@ -46,6 +46,7 @@ import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.home.usecases.FetchTransactionsUseCase
+import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.interact.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
@@ -98,7 +99,6 @@ import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Named
 import javax.inject.Singleton
@@ -258,8 +258,7 @@ class InteractorModule {
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
-                                    billingAddressRepository: BillingAddressRepository
-  ): AdyenPaymentInteractor {
+                                    billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(
         adyenPaymentRepository,
         inAppPurchaseInteractor,
@@ -270,45 +269,34 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideSkillsPaymentInteractor(
-      skillsPaymentRepository: SkillsPaymentRepository,
-      partnerAddressService: AddressService,
-      walletService: WalletService
-  ): SkillsPaymentInteractor {
-    return SkillsPaymentInteractor(
-        skillsPaymentRepository,
-        partnerAddressService,
-        walletService
-    )
+  fun provideSkillsPaymentInteractor(skillsPaymentRepository: SkillsPaymentRepository,
+                                     walletService: WalletService): SkillsPaymentInteractor {
+    return SkillsPaymentInteractor(skillsPaymentRepository, walletService)
   }
 
   @Provides
-  fun provideWalletCreatorInteract(
-      accountRepository: WalletRepositoryType,
-      passwordStore: PasswordStore, syncScheduler: ExecutorScheduler
-  ) =
-      WalletCreatorInteract(accountRepository, passwordStore, syncScheduler)
+  fun provideWalletCreatorInteract(accountRepository: WalletRepositoryType,
+                                   passwordStore: PasswordStore, syncScheduler: ExecutorScheduler) =
+      WalletCreatorInteract(accountRepository,
+          passwordStore, syncScheduler)
 
   @Provides
-  fun provideGamificationInteractor(
-      gamification: Gamification,
-      defaultWallet: FindDefaultWalletInteract,
-      conversionService: LocalCurrencyConversionService
-  ) =
+  fun provideGamificationInteractor(gamification: Gamification,
+                                    defaultWallet: FindDefaultWalletInteract,
+                                    conversionService: LocalCurrencyConversionService) =
       GamificationInteractor(gamification, defaultWallet, conversionService)
 
   @Provides
   fun providePromotionsInteractor(referralInteractor: ReferralInteractorContract,
                                   gamificationInteractor: GamificationInteractor,
                                   promotionsRepository: PromotionsRepository,
-                                  findDefaultWalletInteract: FindDefaultWalletInteract,
+                                  findWalletUseCase: FindDefaultWalletUseCase,
                                   rakamAnalytics: RakamAnalytics,
                                   userStatsLocalData: UserStatsLocalData,
-                                  gamificationMapper: GamificationMapper,
-                                  schedulers: RxSchedulers): PromotionsInteractor {
+                                  gamificationMapper: GamificationMapper, ): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findDefaultWalletInteract, userStatsLocalData, rakamAnalytics,
-        gamificationMapper, schedulers)
+        promotionsRepository, findWalletUseCase, userStatsLocalData, rakamAnalytics,
+        gamificationMapper)
   }
 
   @Provides

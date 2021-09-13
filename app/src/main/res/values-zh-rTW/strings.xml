@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">請確保您已備份此錢包。</string>
   <string name="action_import">恢復</string>
   <string name="copy">複製到剪貼簿</string>
+  <string name="copied">Copied!</string>
   <string name="close">關閉</string>
   <string name="title_activity_settings">設定</string>
   <string name="network_label">網絡</string>
@@ -27,6 +28,7 @@
   <string name="label_new">新</string>
   <string name="got_it_button">了解</string>
   <string name="change_button">更改</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">儲存空間不足</string>
   <string name="no_camera_permission_title">相機取用權限</string>
   <string name="no_camera_permission">AppCoins BDS錢包需要取得您相機的權限以掃描QR碼。</string>
@@ -909,4 +911,10 @@
   <string name="voucher_tooltip">您現在可以購買遊戲兌換券啦！</string>
   <string name="voucher_empty_more_title">Vouchers for Games</string>
   <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

@@ -7,20 +7,25 @@ import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
 
-class TicketRepository(private val ticketApi: TicketApi) {
+class TicketRepository(
+  private val ticketApi: TicketApi,
+  private val ticketLocalStorage: TicketLocalStorage
+) {
 
-  fun createTicket(eskillsPaymentData: EskillsPaymentData, ewt: String,
-                   walletAddress: String): Single<TicketResponse> {
+  fun createTicket(
+    eskillsPaymentData: EskillsPaymentData, ewt: String,
+    walletAddress: String
+  ): Single<TicketResponse> {
     return ticketApi.postTicket(ewt, buildTicketRequest(eskillsPaymentData, walletAddress))
   }
 
   private fun buildTicketRequest(eskillsPaymentData: EskillsPaymentData, walletAddress: String) =
-      TicketRequest(
-          eskillsPaymentData.packageName, eskillsPaymentData.userId, eskillsPaymentData.userName,
-          walletAddress, eskillsPaymentData.metadata, eskillsPaymentData.environment,
-          eskillsPaymentData.numberOfUsers, eskillsPaymentData.price, eskillsPaymentData.currency,
-          eskillsPaymentData.product
-      )
+    TicketRequest(
+      eskillsPaymentData.packageName, eskillsPaymentData.userId, eskillsPaymentData.userName,
+      walletAddress, eskillsPaymentData.metadata, eskillsPaymentData.environment,
+      eskillsPaymentData.numberOfUsers, eskillsPaymentData.price, eskillsPaymentData.currency,
+      eskillsPaymentData.product, eskillsPaymentData.timeout
+    )
 
   fun getTicket(ewt: String, ticketId: String): Single<TicketResponse> {
     return ticketApi.getTicket(ewt, ticketId)
@@ -36,5 +41,20 @@ class TicketRepository(private val ticketApi: TicketApi) {
 
   private fun buildPayTicketRequest(ticketId: String, callbackUrl: String): PayTicketRequest {
     return PayTicketRequest(ticketId, callbackUrl)
+  }
+
+  fun getInQueueTicket(
+    walletAddress: String,
+    eskillsPaymentData: EskillsPaymentData
+  ): Single<StoredTicket> {
+    return ticketLocalStorage.getTicketInQueue(walletAddress, eskillsPaymentData)
+  }
+
+  fun cacheTicket(
+    walletAddress: String,
+    ticketId: String,
+    eskillsPaymentData: EskillsPaymentData
+  ) {
+    ticketLocalStorage.saveTicketInQueue(walletAddress, ticketId, eskillsPaymentData)
   }
 }

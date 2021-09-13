@@ -14,7 +14,7 @@
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/normal_margin"
       android:text="@string/unferified_tag"
-      app:drawableStartCompat="@drawable/ic_wallet_unverified_chip"
+      app:drawableStartCompat="@drawable/ic_alert_circle"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/verify_wallet_button"
       app:layout_constraintStart_toStartOf="parent"

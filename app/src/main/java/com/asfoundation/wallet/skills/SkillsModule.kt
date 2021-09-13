@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.skills
 
+import android.content.SharedPreferences
 import cm.aptoide.skills.BuildConfig
 import cm.aptoide.skills.SkillsViewModel
 import cm.aptoide.skills.api.RoomApi
@@ -8,6 +9,7 @@ import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.repository.LoginRepository
 import cm.aptoide.skills.repository.RoomRepository
+import cm.aptoide.skills.repository.SharedPreferencesTicketLocalStorage
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsUriParser
@@ -17,6 +19,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -33,16 +36,18 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesSkillsViewModel(walletObtainer: WalletAddressObtainer,
-                              createTicketUseCase: CreateTicketUseCase,
-                              payTicketUseCase: SkillsNavigator,
-                              getTicketUseCase: GetTicketUseCase,
-                              loginUseCase: LoginUseCase,
-                              cancelUseCase: CancelTicketUseCase): SkillsViewModel {
+  fun providesSkillsViewModel(
+    walletObtainer: WalletAddressObtainer,
+    joinQueueUseCase: JoinQueueUseCase,
+    payTicketUseCase: SkillsNavigator,
+    getTicketUseCase: GetTicketUseCase,
+    loginUseCase: LoginUseCase,
+    cancelUseCase: CancelTicketUseCase
+  ): SkillsViewModel {
     return SkillsViewModel(
-        walletObtainer, createTicketUseCase, payTicketUseCase, getTicketUseCase,
-        GET_ROOM_RETRY_MILLIS,
-        loginUseCase, cancelUseCase
+      walletObtainer, joinQueueUseCase, payTicketUseCase, getTicketUseCase,
+      GET_ROOM_RETRY_MILLIS,
+      loginUseCase, cancelUseCase,PublishSubject.create()
     )
   }
 
@@ -92,12 +97,12 @@ class SkillsModule {
   @Provides
   fun providesCreateTicketUseCase(walletAddressObtainer: WalletAddressObtainer,
                                   ewtObtainer: EwtObtainer,
-                                  ticketRepository: TicketRepository): CreateTicketUseCase {
-    return CreateTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository, Schedulers.io())
+                                  ticketRepository: TicketRepository): JoinQueueUseCase {
+    return JoinQueueUseCase(walletAddressObtainer, ewtObtainer, ticketRepository, Schedulers.io())
   }
 
   @Provides
-  fun providesTicketsRepository(@Named("default") client: OkHttpClient): TicketRepository {
+  fun providesTicketsRepository(@Named("default") client: OkHttpClient,sharedPreferences: SharedPreferences): TicketRepository {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
         .create()
@@ -110,7 +115,7 @@ class SkillsModule {
         .build()
         .create(TicketApi::class.java)
 
-    return TicketRepository(api)
+    return TicketRepository(api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson))
   }
 
   @Provides
@@ -120,9 +125,9 @@ class SkillsModule {
 
   @Provides
   fun providesCancelTicketUseCase(
-      walletAddressObtainer: WalletAddressObtainer,
-      ewtObtainer: EwtObtainer,
-      ticketRepository: TicketRepository
+    walletAddressObtainer: WalletAddressObtainer,
+    ewtObtainer: EwtObtainer,
+    ticketRepository: TicketRepository
   ): CancelTicketUseCase {
     return CancelTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
   }

@@ -21,8 +21,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 193
-    versionName "1.19.2.1"
+    versionCode 200
+    versionName "2.0.0.0.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -68,6 +68,7 @@ android {
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
     buildConfigField 'String', 'VIP_PROGRAM_BADGE_URL', project.VIP_PROGRAM_BADGE_URL
+    buildConfigField 'String', 'APPSFLYER_KEY', project.APPSFLYER_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 
@@ -218,9 +219,16 @@ dependencies {
 
   implementation "com.adyen.checkout:card-ui:$project.adyen_version"
   implementation "com.adyen.checkout:redirect:$project.adyen_version"
-  implementation "com.adyen.checkout:3ds2:$project.adyen_version"
+  implementation("com.adyen.checkout:3ds2:$project.adyen_version"){
+    exclude group: 'io.michaelrocks', module: 'paranoid-core'
+  }
 
-  implementation "io.intercom.android:intercom-sdk:$project.intercom_version"
+  implementation("io.intercom.android:intercom-sdk:$project.intercom_version") {
+    exclude group: 'com.google.android', module: 'flexbox'
+  }
+
+  api "com.google.android.flexbox:flexbox:3.0.0"
+  api "io.michaelrocks:paranoid-core:0.3.3"
 
   implementation "io.rakam:android-sdk:$project.rakam_version"
 
@@ -238,8 +246,6 @@ dependencies {
 
   implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
 
-  implementation "com.romandanylyk:pageindicatorview:$project.pageindicatorview_version"
-
   implementation "org.web3j:core:$project.web3j_version"
 
   implementation "com.github.walleth.kethereum:erc681:$project.erc681_version"
@@ -247,8 +253,6 @@ dependencies {
   implementation "com.airbnb.android:lottie:$project.lottie_version"
 
   implementation "com.hbb20:ccp:$project.cpp_version"
-
-  implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:$project.collapsingtoolbarlayout_version"
 
   implementation "io.sentry:sentry-android:$project.sentry_version"
 
@@ -261,6 +265,8 @@ dependencies {
 
   implementation "com.airbnb.android:epoxy:$project.epoxy_version"
   kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
+
+  implementation "com.appsflyer:af-android-sdk:6.3.2"
 
   //Amplitude
   implementation "com.amplitude:android-sdk:$project.amplitude_version"

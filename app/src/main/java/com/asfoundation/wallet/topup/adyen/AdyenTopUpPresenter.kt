@@ -82,6 +82,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     handleTryAgainClicks()
     handleAdyen3DSErrors()
     handlePaymentDetails()
+    handleVerificationClick()
   }
 
   private fun handleViewState(savedInstanceState: Bundle?) {
@@ -380,38 +381,25 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
-    disposables.add(
-        adyenPaymentInteractor.isWalletBlocked()
-            .subscribeOn(networkScheduler)
-            .observeOn(networkScheduler)
-            .flatMap { blocked ->
-              if (blocked) {
-                adyenPaymentInteractor.isWalletVerified()
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      if (it) handleSpecificError(error)
-                      else view.showVerification()
-                    }
-              } else {
-                Single.just(fraudCheckIds)
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      val paymentMethodRuleBroken = it.contains(PAYMENT_METHOD_CHECK_ID)
-                      val amountRuleBroken = it.contains(HIGH_AMOUNT_CHECK_ID)
-                      val fraudError = when {
-                        paymentMethodRuleBroken && amountRuleBroken -> {
-                          R.string.purchase_error_try_other_amount_or_method
-                        }
-                        paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
-                        amountRuleBroken -> R.string.purchase_error_try_other_amount
-                        else -> error
-                      }
-                      handleSpecificError(fraudError)
-                    }
+    disposables.add(adyenPaymentInteractor.isWalletVerified()
+        .observeOn(viewScheduler)
+        .doOnSuccess { verified ->
+          if (verified) {
+            val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
+            val amountRuleBroken = fraudCheckIds.contains(HIGH_AMOUNT_CHECK_ID)
+            val fraudError = when {
+              paymentMethodRuleBroken && amountRuleBroken -> {
+                R.string.purchase_error_try_other_amount_or_method
               }
+              paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
+              amountRuleBroken -> R.string.purchase_error_try_other_amount
+              else -> error
             }
-            .observeOn(viewScheduler)
-            .subscribe({}, { handleSpecificError(error, it) })
+            handleSpecificError(fraudError)
+
+          } else view.showVerificationError()
+        }
+        .subscribe({}, { handleSpecificError(error, it) })
     )
   }
 
@@ -498,6 +486,15 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     view.showSpecificError(message)
   }
 
+  private fun handleVerificationClick() {
+    disposables.add(view.getVerificationClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showVerification() }
+        .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
   private fun hideSpecificError() {
     currentError = 0
     view.hideErrorViews()
@@ -529,6 +526,16 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
             "network_error")
         view.showNetworkError()
       }
+      paymentModel.error.errorType == Error.ErrorType.INVALID_CARD -> view.showInvalidCardError()
+
+      paymentModel.error.errorType == Error.ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+
+      paymentModel.error.errorType == Error.ErrorType.TIMEOUT -> view.showTimeoutError()
+
+      paymentModel.error.errorType == Error.ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+
+      paymentModel.error.errorType == Error.ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+
       paymentModel.error.code != null -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
             paymentModel.error.code.toString(),

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.wallets
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -69,9 +68,8 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
         .commit()
   }
 
-  override fun navigateToWalletList() {
-    setResult(Activity.RESULT_OK)
-    finish()
+  override fun finish() {
+    super.finish()
   }
 
   override fun navigateToBackUp(walletAddress: String) =

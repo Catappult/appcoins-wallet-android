@@ -13,6 +13,8 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.recyclerview.widget.RecyclerView
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -154,4 +156,8 @@ fun String.convertToBase64(): String {
 fun String?.isEmailValid(): Boolean {
   return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
       .matches()
+}
+
+fun RecyclerView.addBottomItemDecoration(dimension: Float) {
+  this.addItemDecoration(MarginItemDecoration(dimension.toInt()))
 }

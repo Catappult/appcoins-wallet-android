@@ -13,7 +13,6 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
-      android:background="@drawable/background_card"
       android:orientation="vertical"
       >
     <ProgressBar
@@ -33,7 +32,6 @@
           android:id="@+id/payment_methods"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:background="@drawable/background_card"
           android:elevation="2dp"
           >
         <include
@@ -67,9 +65,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/top_separator"
             >
+
           <include
-              android:id="@+id/appcoins_radio"
-              layout="@layout/appcoins_radio_button"
+              android:id="@+id/credits_radio"
+              layout="@layout/credits_radio_button"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginStart="24dp"
@@ -78,9 +77,11 @@
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
+
               />
           <include
-              layout="@layout/skeleton_appcoins_layout"
+              android:id="@+id/skeleton_credits"
+              layout="@layout/skeleton_credits"
               android:layout_width="match_parent"
               android:layout_height="0dp"
               android:layout_marginStart="10dp"
@@ -97,14 +98,16 @@
               android:id="@+id/radio_middle_separator"
               android:layout_width="match_parent"
               android:layout_height="1dp"
+              android:layout_marginTop="24dp"
               android:background="@color/layout_separator_color"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/appcoins_radio"
+              app:layout_constraintTop_toBottomOf="@id/credits_radio"
               />
+
           <include
-              android:id="@+id/credits_radio"
-              layout="@layout/credits_radio_button"
+              android:id="@+id/appcoins_radio"
+              layout="@layout/appcoins_radio_button"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginStart="24dp"
@@ -115,8 +118,7 @@
               app:layout_constraintTop_toBottomOf="@id/radio_middle_separator"
               />
           <include
-              android:id="@+id/skeleton_credits"
-              layout="@layout/skeleton_credits"
+              layout="@layout/skeleton_appcoins_layout"
               android:layout_width="match_parent"
               android:layout_height="0dp"
               android:layout_marginStart="10dp"
@@ -137,7 +139,7 @@
               android:background="@color/layout_separator_color"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/credits_radio"
+              app:layout_constraintTop_toBottomOf="@id/appcoins_radio"
               />
           <androidx.constraintlayout.widget.Group
               android:id="@+id/payment_methods_group"

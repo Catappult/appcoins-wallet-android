@@ -15,27 +15,27 @@ class WithdrawPresenter(
 
   fun present() {
     compositeDisposable.add(view.getWithdrawClicks()
-        .doOnNext { view.showLoading() }
-        .observeOn(scheduler)
-        .flatMapSingle { withdrawUseCase.execute(it.first, it.second) }
-        .observeOn(viewScheduler)
-        .doOnError {
-          it.printStackTrace()
-          view.showError(it)
-          view.hideLoading()
+      .doOnNext { view.showLoading() }
+      .observeOn(scheduler)
+      .flatMapSingle { withdrawUseCase.execute(it.first, it.second) }
+      .observeOn(viewScheduler)
+      .doOnError {
+        it.printStackTrace()
+        view.showError(it)
+        view.hideLoading()
+      }
+      .doOnNext {
+        when (it.status) {
+          WithdrawResult.Status.SUCCESS -> view.showWithdrawSuccessMessage()
+          WithdrawResult.Status.NOT_ENOUGH_EARNING -> view.showNotEnoughEarningsBalanceError()
+          WithdrawResult.Status.NOT_ENOUGH_BALANCE -> view.showNotEnoughBalanceError()
+          WithdrawResult.Status.NO_NETWORK -> view.showNoNetworkError()
+          WithdrawResult.Status.INVALID_EMAIL -> view.showInvalidEmailError()
         }
-        .doOnNext {
-          when (it.status) {
-            WithdrawResult.Status.SUCCESS -> view.showWithdrawSuccessMessage()
-            WithdrawResult.Status.NOT_ENOUGH_EARNING -> view.showNotEnoughEarningsBalanceError()
-            WithdrawResult.Status.NOT_ENOUGH_BALANCE -> view.showNotEnoughBalanceError()
-            WithdrawResult.Status.NO_NETWORK -> view.showNoNetworkError()
-            WithdrawResult.Status.INVALID_EMAIL -> view.showInvalidEmailError()
-          }
-        }
-        .doOnNext { view.hideLoading() }
-        .retry()
-        .subscribe())
+      }
+      .doOnNext { view.hideLoading() }
+      .retry()
+      .subscribe())
 
   }
 

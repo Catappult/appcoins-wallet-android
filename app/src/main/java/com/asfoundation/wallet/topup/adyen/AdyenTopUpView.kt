@@ -20,6 +20,16 @@ interface AdyenTopUpView {
 
   fun showNetworkError()
 
+  fun showInvalidCardError()
+
+  fun showSecurityValidationError()
+
+  fun showTimeoutError()
+
+  fun showAlreadyProcessedError()
+
+  fun showPaymentError()
+
   fun updateTopUpButton(valid: Boolean)
 
   fun cancelPayment()
@@ -39,6 +49,8 @@ interface AdyenTopUpView {
 
   fun showSpecificError(stringRes: Int)
 
+  fun showVerificationError()
+
   fun showCvvError()
 
   fun topUpButtonClicked(): Observable<Any>
@@ -54,6 +66,8 @@ interface AdyenTopUpView {
   fun getTryAgainClicks(): Observable<Any>
 
   fun getSupportClicks(): Observable<Any>
+
+  fun getVerificationClicks(): Observable<Any>
 
   fun lockRotation()
 

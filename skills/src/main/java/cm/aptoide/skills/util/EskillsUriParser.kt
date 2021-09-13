@@ -21,12 +21,15 @@ class EskillsUriParser {
     val product = parameters[EskillsParameters.PRODUCT]
     val price = parameters[EskillsParameters.VALUE]?.toBigDecimal()
     val currency = parameters[EskillsParameters.CURRENCY]
+    val timeout = parameters[EskillsParameters.TIMEOUT]?.toInt()
     val environment = getEnvironment(parameters)
     val metadata = getMetadata(parameters)
     val numberOfUsers = parameters[EskillsParameters.NUMBER_OF_USERS]?.toInt()
-    return EskillsPaymentData(scheme!!, host!!, path!!, parameters, userId, userName, domain,
-        product,
-        price, currency, environment, metadata, numberOfUsers)
+    return EskillsPaymentData(
+      scheme!!, host!!, path!!, parameters, userId, userName, domain,
+      product,
+      price, currency, environment, metadata, numberOfUsers, timeout
+    )
   }
 
   fun getMetadata(parameters: MutableMap<String, String?>): Map<String, String> {
@@ -38,9 +41,9 @@ class EskillsUriParser {
     }
   }
 
-
   fun getEnvironment(
-      parameters: MutableMap<String, String?>): EskillsPaymentData.MatchEnvironment? {
+    parameters: MutableMap<String, String?>
+  ): EskillsPaymentData.MatchEnvironment? {
     return try {
       val value = parameters[EskillsParameters.ENVIRONMENT]
       if (value != null) {

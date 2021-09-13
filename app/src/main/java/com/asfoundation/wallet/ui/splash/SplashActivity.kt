@@ -17,6 +17,20 @@ class SplashActivity : BaseActivity(), SplashView {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     presenter.present(savedInstanceState)
+
+    checkFirstRun()
+  }
+
+  fun checkFirstRun() {
+    val isFirstRun = getSharedPreferences("PREFERENCE", 0)
+        .getBoolean("isFirstRun", true)
+    if (isFirstRun) {
+      ApkOriginVerification(this)
+      getSharedPreferences("PREFERENCE", 0)
+          .edit()
+          .putBoolean("isFirstRun", false)
+          .apply()
+    }
   }
 
   public override fun onActivityResult(requestCode: Int, resultCode: Int,

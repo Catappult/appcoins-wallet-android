@@ -20,6 +20,7 @@
   <string name="confirm_delete_account">Certifique-se que tem uma cópia de segurança desta wallet.</string>
   <string name="action_import">Recuperar</string>
   <string name="copy">Copiar para a área de transferência</string>
+  <string name="copied">Copiado!</string>
   <string name="close">Fechar</string>
   <string name="title_activity_settings">Definições</string>
   <string name="network_label">Rede</string>
@@ -27,6 +28,7 @@
   <string name="label_new">Novo</string>
   <string name="got_it_button">JÁ PERCEBI</string>
   <string name="change_button">MUDAR</string>
+  <string name="vip" comment="vip" maxLength="5">VIP</string>
   <string name="low_storage_error">Espaço de armazenamento insuficiente</string>
   <string name="no_camera_permission_title">Permitir câmara</string>
   <string name="no_camera_permission">A AppCoins BDS Wallet precisa de permissão para aceder à tua câmera e digitalizar códigos QR.</string>
@@ -278,7 +280,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">continuar</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Gasta as tuas AppCoins</string>
@@ -321,7 +323,7 @@
   <string name="gamification_star_subtitle">Grande, brilhante e cheio de vida!</string>
   <string name="gamification_galaxy_subtitle">O maior sistema de todos!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">Esta compra tem um bónus!</string>
   <string name="gamification_purchase_header_part_1">Bónus de compra:</string>
   <string name="gamification_purchase_header_part_2">%s em APPC Credits</string>
   <string name="gamification_purchase_body">Podes usar este bónus na tua próxima compra.</string>
@@ -696,7 +698,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Gerir subscrições</string>
   <string name="subscriptions_title">Subscrições</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">Subscreve</string>
   <string name="subscriptions_active_title">Ativas</string>
   <string name="subscriptions_expired_title">Expirado</string>
   <string name="subscriptions_empty_title">Ainda Sem Subscrições</string>
@@ -918,4 +920,10 @@
   <string name="voucher_tooltip">Podes comprar agora vouchers para jogos!</string>
   <string name="voucher_empty_more_title">Vouchers para Jogos</string>
   <string name="voucher_empty_more_body">Encontra as melhores ofertas para os teus jogos favoritos!</string>
+  <!--Change Currency-->
+  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_settings_title">Currency</string>
+  <!--Blockchain transactions-->
+  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 </resources>

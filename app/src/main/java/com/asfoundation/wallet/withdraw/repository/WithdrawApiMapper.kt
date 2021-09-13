@@ -11,10 +11,10 @@ class WithdrawApiMapper(private val jsonMapper: Gson) {
       return WithdrawResult(WithdrawResult.Status.NO_NETWORK)
     }
     val response = jsonMapper.fromJson(
-        (error as HttpException).response()
-            ?.errorBody()
-            ?.charStream(),
-        Response::class.java
+      (error as HttpException).response()
+        ?.errorBody()
+        ?.charStream(),
+      Response::class.java
     )
     return when (response.code) {
       Status.AMOUNT_NOT_WON -> WithdrawResult(WithdrawResult.Status.NOT_ENOUGH_EARNING)

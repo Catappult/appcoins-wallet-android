@@ -38,15 +38,15 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = WithdrawPresenter(
-        this, withdrawUseCase, CompositeDisposable(), Schedulers.io(),
-        AndroidSchedulers.mainThread()
+      this, withdrawUseCase, CompositeDisposable(), Schedulers.io(),
+      AndroidSchedulers.mainThread()
     )
   }
 
   override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View? {
     return inflater.inflate(R.layout.fragment_withdraw, container, false)
   }
@@ -61,7 +61,7 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   }
 
   override fun showInvalidEmailError() {
-    emailEditText.error = getString(R.string.withdraw_invalid_email_error_message)
+    emailEditText.error = getString(R.string.e_skills_withdraw_invalid_email_error_message)
   }
 
   override fun onDestroy() {
@@ -72,30 +72,30 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   override fun showError(error: Throwable) {
     val builder = AlertDialog.Builder(context)
     builder.setMessage(R.string.unknown_error)
-        .setPositiveButton(
-            R.string.ok
-        ) { dialog, _ -> dialog.dismiss() }
-        .show()
+      .setPositiveButton(
+        R.string.ok
+      ) { dialog, _ -> dialog.dismiss() }
+      .show()
   }
 
   override fun showWithdrawSuccessMessage() {
     val builder = AlertDialog.Builder(context)
     builder.setMessage(R.string.transaction_status_success)
-        .setPositiveButton(
-            R.string.ok
-        ) { dialog, _ ->
-          dialog.dismiss()
-          activity?.onBackPressed()
-        }
-        .show()
+      .setPositiveButton(
+        R.string.ok
+      ) { dialog, _ ->
+        dialog.dismiss()
+        activity?.onBackPressed()
+      }
+      .show()
   }
 
   override fun showNotEnoughBalanceError() {
-    amountEditText.error = getString(R.string.withdraw_not_enough_balance_error_message)
+    amountEditText.error = getString(R.string.e_skills_withdraw_not_enough_balance_error_message)
   }
 
   override fun showNotEnoughEarningsBalanceError() {
-    amountEditText.error = getString(R.string.withdraw_not_enough_earnings_error_message)
+    amountEditText.error = getString(R.string.e_skills_withdraw_not_enough_earnings_error_message)
   }
 
   override fun showLoading() {
@@ -112,20 +112,20 @@ class WithdrawFragment : DaggerFragment(), WithdrawView {
   override fun showNoNetworkError() {
     val builder = AlertDialog.Builder(context)
     builder.setMessage(R.string.activity_iab_no_network_message)
-        .setPositiveButton(
-            R.string.ok
-        ) { dialog, _ -> dialog.dismiss() }
-        .show()
+      .setPositiveButton(
+        R.string.ok
+      ) { dialog, _ -> dialog.dismiss() }
+      .show()
   }
 
   override fun getWithdrawClicks(): Observable<Pair<String, BigDecimal>> {
     return RxView.clicks(withdrawButton)
-        .map {
-          Pair(
-              emailEditText.text.toString(),
-              BigDecimal(amountEditText.text.toString())
-          )
-        }
+      .map {
+        Pair(
+          emailEditText.text.toString(),
+          BigDecimal(amountEditText.text.toString())
+        )
+      }
   }
 
 }

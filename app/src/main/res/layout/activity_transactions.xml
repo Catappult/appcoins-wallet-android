@@ -8,6 +8,17 @@
     app:layoutDescription="@xml/activity_transactions_scene"
     >
 
+  <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/background_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:src="@drawable/appbar_background_large"
+      app:layout_constraintBottom_toBottomOf="@id/collapsable_bar"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:shapeAppearance="@style/Home.HeaderShape"
+      />
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/collapsable_bar"
       android:layout_width="0dp"
@@ -23,6 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/appbar_background_large"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

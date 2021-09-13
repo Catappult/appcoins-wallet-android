@@ -99,9 +99,6 @@
         android:name="com.asfoundation.wallet.ui.MyAddressActivity"
         android:label="@string/title_my_address" />
     <activity
-        android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
-        android:label="@string/bottom_navigation_my_wallets" />
-    <activity
         android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
         android:label="@string/bottom_navigation_my_wallets"
         android:theme="@style/AppTheme.Transparent" />
@@ -263,7 +260,7 @@
         android:windowSoftInputMode="stateHidden" />
     <activity
         android:name="com.asfoundation.wallet.withdraw.ui.WithdrawActivity"
-        android:label="@string/withdraw_title" />
+        android:label="@string/e_skills_withdraw_title" />
 
     <service
         android:name="com.asfoundation.wallet.support.SupportMessagingService"

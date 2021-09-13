@@ -33,7 +33,7 @@
   <string name="iab_purchase_done_title_long">Achat terminé !</string>
   <string name="iab_purchase_change_payment_method_button">PLUS DE METHODES DE PAIEMENT</string>
   <string name="iab_purchase_support_1">Besoin d\'aide ?</string>
-  <string name="iab_purchase_support_2_link">Contact Support.</string>
+  <string name="iab_purchase_support_2_link">Contacter le Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">SUIVANT</string>
   <string name="cancel_button">ANNULER</string>

@@ -16,7 +16,6 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.*
-import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
@@ -30,6 +29,7 @@ import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.M
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_2_3
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_3_4
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_4_5
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_5_6
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.WalletOriginDao
 import com.appcoins.wallet.permissions.Permissions
@@ -102,12 +102,10 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.math.BigDecimal
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
-import kotlin.collections.HashMap
 
 
 @Module
@@ -393,6 +391,7 @@ internal class AppModule {
         .addMigrations(MIGRATION_2_3)
         .addMigrations(MIGRATION_3_4)
         .addMigrations(MIGRATION_4_5)
+        .addMigrations(MIGRATION_5_6)
         .build()
   }
 
