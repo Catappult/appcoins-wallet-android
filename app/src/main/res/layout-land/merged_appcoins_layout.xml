@@ -107,8 +107,8 @@
           app:layout_constraintTop_toTopOf="parent"
           >
         <include
-            android:id="@+id/appcoins_radio"
-            layout="@layout/appcoins_radio_button"
+            android:id="@+id/credits_radio"
+            layout="@layout/credits_radio_button"
             android:layout_width="match_parent"
             android:layout_height="102dp"
             android:layout_marginStart="10dp"
@@ -140,11 +140,11 @@
             android:background="@color/layout_separator_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appcoins_radio"
+            app:layout_constraintTop_toBottomOf="@id/credits_radio"
             />
         <include
-            android:id="@+id/credits_radio"
-            layout="@layout/credits_radio_button"
+            android:id="@+id/appcoins_radio"
+            layout="@layout/appcoins_radio_button"
             android:layout_width="match_parent"
             android:layout_height="108dp"
             android:layout_marginStart="10dp"
