@@ -373,7 +373,7 @@ public class InAppPurchaseInteractor {
           .equals(APPC_ID) || paymentMethod.getId()
           .equals(CREDITS_ID)) && !addedMergedAppc) {
         String mergedId = "merged_appcoins";
-        String mergedLabel = appcMethod.getLabel() + " / " + creditsMethod.getLabel();
+        String mergedLabel = creditsMethod.getLabel() + " / " + appcMethod.getLabel();
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
         Integer disableReason = mergeDisableReason(appcMethod, creditsMethod);
         mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
