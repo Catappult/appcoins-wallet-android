@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.base.Navigator
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.rating.RatingActivity
@@ -25,14 +26,14 @@ class HomeNavigator(private val fragment: Fragment,
 
   fun navigateToRateUs(shouldNavigate: Boolean) {
     if (shouldNavigate) {
-      fragment.requireContext()
-          .startActivity(RatingActivity.newIntent(fragment.requireContext()))
+      val intent = RatingActivity.newIntent(fragment.requireContext())
+      openIntent(intent)
     }
   }
 
   fun navigateToSettings(turnOnFingerprint: Boolean = false) {
-    fragment.requireContext()
-        .startActivity(SettingsActivity.newIntent(fragment.requireContext(), turnOnFingerprint))
+    val intent = SettingsActivity.newIntent(fragment.requireContext(), turnOnFingerprint)
+    openIntent(intent)
   }
 
   fun navigateToMyWallets() {
@@ -46,8 +47,7 @@ class HomeNavigator(private val fragment: Fragment,
   fun navigateToSend() {
     val intent = newIntent(fragment.requireContext())
     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    fragment.requireContext()
-        .startActivity(intent)
+    openIntent(intent)
   }
 
   fun navigateToReceive(wallet: Wallet?) {
@@ -55,8 +55,7 @@ class HomeNavigator(private val fragment: Fragment,
       val intent = Intent(fragment.requireContext(), MyAddressActivity::class.java)
       intent.putExtra(C.Key.WALLET, wallet)
       intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-      fragment.requireContext()
-          .startActivity(intent)
+      openIntent(intent)
     }
   }
 
@@ -97,8 +96,16 @@ class HomeNavigator(private val fragment: Fragment,
         .apply {
           flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
-    fragment.requireContext()
-        .startActivity(intent)
+    openIntent(intent)
+  }
+
+
+  fun navigateToCurrencySelector() {
+    val intent = ChangeFiatCurrencyActivity.newIntent(fragment.requireContext())
+        .apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
+    openIntent(intent)
   }
 
   fun openIntent(intent: Intent) = fragment.requireContext()

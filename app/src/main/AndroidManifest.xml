@@ -158,6 +158,7 @@
       </intent-filter>
     </activity>
     <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity" />
+    <activity android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity" />
     <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
         android:launchMode="singleInstance"

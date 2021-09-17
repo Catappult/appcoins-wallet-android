@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -36,9 +37,11 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    (requireActivity() as AppCompatActivity).supportActionBar?.title =
+        resources.getString(R.string.change_currency_title)
     changeFiatCurrencyController.clickListener = { fiatCurrency ->
       ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
-          .show(this.requireFragmentManager(), "ChooseCurrencyBottomSheet")
+          .show(childFragmentManager, "ChooseCurrencyBottomSheet")
     }
     views.fragmentChangeFiatCurrencyList.setController(changeFiatCurrencyController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)

@@ -89,6 +89,7 @@ class HomeFragment : BasePageViewFragment(),
     views.sendButton.setOnClickListener { viewModel.onSendClick() }
     views.receiveButton.setOnClickListener { viewModel.onReceiveClick() }
     views.emptyClickableView.setOnClickListener { viewModel.onBalanceClick() }
+    views.currencySelector!!.setOnClickListener { viewModel.onCurrencySelectorClick() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -167,6 +168,7 @@ class HomeFragment : BasePageViewFragment(),
       is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
       HomeSideEffect.ShowFingerprintTooltip -> setFingerprintTooltip()
+      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
     }
   }
 

@@ -155,8 +155,8 @@
       layout="@layout/layout_vip_badge"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:visibility="gone"
       android:layout_marginEnd="8dp"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="@id/toolbar"
       app:layout_constraintEnd_toStartOf="@id/action_button_support"
       app:layout_constraintTop_toTopOf="@id/toolbar"
@@ -234,6 +234,19 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
+
+
+  <ImageView
+      android:id="@+id/currency_selector"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="12dp"
+      android:layout_marginTop="3dp"
+      app:layout_constraintStart_toEndOf="@id/balance"
+      app:layout_constraintTop_toTopOf="@id/balance"
+      android:src="@drawable/ic_home_currency_selection"
+      />
+
   <TextView
       android:id="@+id/balance_subtitle"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"

@@ -207,6 +207,14 @@
           app:applyMotionScene="false"
           app:visibilityMode="ignore" />
     </Constraint>
+    <Constraint
+        android:id="@+id/currency_selector"
+        app:layout_constraintStart_toEndOf="@id/balance"
+        app:layout_constraintTop_toTopOf="@id/balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="3dp"/>
   </ConstraintSet>
 
 </MotionScene>
