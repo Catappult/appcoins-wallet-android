@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -56,7 +57,8 @@ public class ApproveServiceTest {
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new PaymentErrorMapper(gson),
         scheduler, trackTransactionService);
 
-    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
+    when(transactionValidator.validate(any())).thenReturn(
+        Single.just(Transaction.Companion.notFound()));
     approveService = new ApproveService(transactionService, transactionValidator);
     approveService.start();
   }

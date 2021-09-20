@@ -2,17 +2,18 @@ package com.asfoundation.wallet.ui.wallets
 
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FetchWalletsInteract
-import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.sumByBigDecimal
+import com.asfoundation.wallet.wallets.FetchWalletsInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 class WalletsInteract(private val balanceInteractor: BalanceInteractor,
                       private val fetchWalletsInteract: FetchWalletsInteract,
@@ -23,6 +24,7 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
                       private val logger: Logger) {
 
   fun retrieveWalletsModel(): Single<WalletsModel> {
+    lateinit var currentWallet: WalletBalance
     val wallets = ArrayList<WalletBalance>()
     val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
     return retrieveWallets().filter { it.isNotEmpty() }
@@ -32,6 +34,10 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
                 balanceInteractor.getTotalBalance(wallet.address)
                     .firstOrError()
                     .doOnSuccess { fiatValue ->
+                      if (currentWalletAddress == wallet.address) {
+                        currentWallet = WalletBalance(wallet.address, fiatValue,
+                            currentWalletAddress == wallet.address)
+                      }
                       wallets.add(WalletBalance(wallet.address, fiatValue,
                           currentWalletAddress == wallet.address))
                     }
@@ -40,12 +46,47 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
               }
         }
         .toSingle {
-          WalletsModel(getTotalBalance(wallets), wallets.size, wallets)
+          WalletsModel(getTotalBalance(currentWallet, wallets), wallets.size, currentWallet,
+              wallets)
+        }
+  }
+
+  fun getWalletsModel(): Single<WalletsModel> {
+    lateinit var currentWallet: WalletBalance
+    val wallets = ArrayList<WalletBalance>()
+    val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
+    return retrieveWallets().filter { it.isNotEmpty() }
+        .flatMapCompletable { list ->
+          Observable.fromIterable(list)
+              .flatMapCompletable { wallet ->
+                balanceInteractor.getTotalBalance(wallet.address)
+                    .subscribeOn(Schedulers.io())
+                    .firstOrError()
+                    .doOnSuccess { fiatValue ->
+                      if (currentWalletAddress == wallet.address) {
+                        currentWallet = WalletBalance(wallet.address, fiatValue,
+                            currentWalletAddress == wallet.address)
+                      } else {
+                        wallets.add(WalletBalance(wallet.address, fiatValue,
+                            currentWalletAddress == wallet.address))
+                      }
+                    }
+                    .doOnError { logger.log("WalletsInteract", it) }
+                    .ignoreElement()
+              }
+        }
+        .toSingle {
+          val totalBalance = getTotalBalance(currentWallet, wallets)
+          val balanceComparator = compareByDescending<WalletBalance> { it.balance.amount }
+          val walletsSorted =
+              wallets.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
+          WalletsModel(totalBalance, wallets.size, currentWallet, walletsSorted)
         }
   }
 
   fun createWallet(): Completable {
     return walletCreatorInteract.create()
+        .subscribeOn(Schedulers.io())
         .flatMapCompletable { wallet ->
           walletCreatorInteract.setDefaultWallet(wallet.address)
               .andThen(gamificationRepository.getUserLevel(wallet.address)
@@ -54,14 +95,15 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
         }
   }
 
-  private fun getTotalBalance(walletBalance: List<WalletBalance>): FiatValue {
+  private fun getTotalBalance(currentWallet: WalletBalance,
+                              walletBalance: List<WalletBalance>): FiatValue {
     val totalBalance = walletBalance.sumByBigDecimal { it.balance.amount }
-    return FiatValue(totalBalance, walletBalance[0].balance.currency,
-        walletBalance[0].balance.symbol)
+    return FiatValue(totalBalance, currentWallet.balance.currency, currentWallet.balance.symbol)
   }
 
   private fun retrieveWallets(): Observable<List<Wallet>> {
     return fetchWalletsInteract.fetch()
+        .subscribeOn(Schedulers.io())
         .map { it.toList() }
         .toObservable()
   }

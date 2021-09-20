@@ -134,8 +134,10 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun navigateToPayment(selectedPaymentId: String) {
     when (paymentMethodsMapper.map(selectedPaymentId)) {
-      PaymentMethodsView.SelectedPaymentMethod.APPC -> view.navigateToAppcPayment()
-      PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.navigateToCreditsPayment()
+      PaymentMethodsView.SelectedPaymentMethod.APPC -> view.navigateToAppcPayment(
+          transactionBuilder)
+      PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.navigateToCreditsPayment(
+          transactionBuilder)
       else -> {
         view.showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
@@ -213,8 +215,8 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleBuyClickSelection(selection: String) {
     when (selection) {
-      APPC -> view.navigateToAppcPayment()
-      CREDITS -> view.navigateToCreditsPayment()
+      APPC -> view.navigateToAppcPayment(transactionBuilder)
+      CREDITS -> view.navigateToCreditsPayment(transactionBuilder)
       else -> Log.w(TAG, "No appcoins payment method selected")
     }
   }

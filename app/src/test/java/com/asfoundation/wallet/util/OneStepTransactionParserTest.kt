@@ -6,10 +6,10 @@ import com.appcoins.wallet.commons.MemoryCache
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.TokenRepositoryType
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
@@ -149,7 +149,7 @@ class OneStepTransactionParserTest {
 
   @Test
   @Throws(InterruptedException::class)
-  fun parseTransactionWithConversion() {
+  fun parseTransactionWithFiatValue() {
 
     val oneStepTransactionParser =
         OneStepTransactionParser(proxyService,
@@ -169,8 +169,7 @@ class OneStepTransactionParserTest {
         .await()
 
     test.assertValue { transactionBuilder ->
-      transactionBuilder.amount() == BigDecimal(
-          "32.857142857142857143")
+      transactionBuilder.amount() == BigDecimal.ZERO
     }
     test.assertValue { transactionBuilder ->
       transactionBuilder.toAddress()

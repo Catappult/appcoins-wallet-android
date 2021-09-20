@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import androidx.annotation.StringRes
+import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
 
 interface MergedAppcoinsView {
@@ -19,9 +20,9 @@ interface MergedAppcoinsView {
 
   fun backPressed(): Observable<PaymentInfoWrapper>
 
-  fun navigateToAppcPayment()
+  fun navigateToAppcPayment(transactionBuilder: TransactionBuilder)
 
-  fun navigateToCreditsPayment()
+  fun navigateToCreditsPayment(transactionBuilder: TransactionBuilder)
 
   fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String)
 

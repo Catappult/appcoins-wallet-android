@@ -29,16 +29,19 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                   currency: String, reference: String?, paymentType: String, walletAddress: String,
                   origin: String?, packageName: String?, metadata: String?, sku: String?,
                   callbackUrl: String?, transactionType: String, developerWallet: String?,
-                  storeWallet: String?, oemWallet: String?, userWallet: String?,
-                  walletSignature: String, billingAddress: AdyenBillingAddress?,
+                  entityOemId: String?, entityDomain: String?, userWallet: String?,
+                  walletSignature: String,
+                  billingAddress: AdyenBillingAddress?,
                   referrerUrl: String?): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
-    return makePayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-        callbackUrl, packageName, metadata, paymentType, origin, sku, reference, transactionType,
-        currency, value, developerWallet, storeWallet, oemWallet, userWallet, walletAddress,
-        walletSignature, billingAddress, referrerUrl)
+    return adyenApi.makePayment(walletAddress, walletSignature,
+        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+            billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku, reference,
+            transactionType, currency, value, developerWallet, entityOemId, entityDomain,
+            userWallet,
+            referrerUrl))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -182,6 +185,28 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                      @Query("wallet.signature") walletSignature: String,
                      @Body code: String): Completable
   }
+
+  data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
+                     @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
+                     @SerializedName("payment.return_url") val returnUrl: String,
+                     @SerializedName("payment.shopper_interaction") val shopperInteraction: String?,
+                     @SerializedName("payment.billing_address")
+                     val billingAddress: AdyenBillingAddress?,
+                     @SerializedName("callback_url") val callbackUrl: String?,
+                     @SerializedName("domain") val domain: String?,
+                     @SerializedName("metadata") val metadata: String?,
+                     @SerializedName("method") val method: String?,
+                     @SerializedName("origin") val origin: String?,
+                     @SerializedName("product") val sku: String?,
+                     @SerializedName("reference") val reference: String?,
+                     @SerializedName("type") val type: String?,
+                     @SerializedName("price.currency") val currency: String?,
+                     @SerializedName("price.value") val value: String?,
+                     @SerializedName("wallets.developer") val developer: String?,
+                     @SerializedName("entity.oemid") val entityOemId: String?,
+                     @SerializedName("entity.domain") val entityDomain: String?,
+                     @SerializedName("wallets.user") val user: String?,
+                     @SerializedName("referrer_url") val referrerUrl: String?)
 
   data class VerificationPayment(
       @SerializedName("payment.method") val adyenPaymentMethod: ModelObject,

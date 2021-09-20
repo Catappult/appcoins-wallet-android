@@ -29,8 +29,8 @@ public class ApproveService {
 
   public Completable approve(String key, PaymentTransaction paymentTransaction) {
     return approveTransactionSender.validate(paymentTransaction)
-        .andThen(
-            transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder()));
+        .flatMapCompletable(__ -> transactionService.sendTransaction(key,
+            paymentTransaction.getTransactionBuilder()));
   }
 
   public Observable<ApproveTransaction> getApprove(String uri) {

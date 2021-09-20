@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.repository;
 
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.PendingTransaction;
@@ -49,6 +51,7 @@ import static org.mockito.Mockito.when;
   @Mock DefaultTokenProvider defaultTokenProvider;
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock AddressService addressService;
+  @Mock BillingPaymentProofSubmission billingPaymentProofSubmission;
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
@@ -60,9 +63,10 @@ import static org.mockito.Mockito.when;
 
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-        new PaymentErrorMapper(new Gson()), scheduler, trackTransactionService);
-    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
+        scheduler, trackTransactionService);
+    when(transactionValidator.validate(any())).thenReturn(
+        Single.just(Transaction.Companion.notFound()));
     TokenInfo tokenInfo =
         new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18);
     transactionBuilder =
@@ -82,11 +86,11 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
-    when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
-    when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
+    when(addressService.getStoreAddress(any())).thenReturn(STORE_ADDRESS);
+    when(addressService.getOemAddress(any())).thenReturn(OEM_ADDRESS);
 
     buyService = new BuyService(transactionService, transactionValidator, defaultTokenProvider,
-        countryCodeProvider, dataMapper, addressService);
+        countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission);
     uri = "uri";
   }
 
@@ -120,7 +124,7 @@ import static org.mockito.Mockito.when;
 
     BuyService buyService =
         new BuyService(transactionService, transactionValidator, defaultTokenProvider,
-            countryCodeProvider, dataMapper, addressService);
+            countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission);
     buyService.start();
     TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)

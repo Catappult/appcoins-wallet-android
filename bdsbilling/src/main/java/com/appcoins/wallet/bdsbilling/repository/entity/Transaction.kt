@@ -9,14 +9,15 @@ data class Transaction(val uid: String,
                        var hash: String?,
                        val metadata: Metadata?,
                        val orderReference: String?,
-                       val price: TransactionPrice?,
+                       val price: Price?,
                        val type: String,
+                       val wallets: WalletsResponse?,
                        val url: String? = null) {
 
   companion object {
     fun notFound(): Transaction {
-      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, null,
-          "", "")
+      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, "",
+          null, "")
     }
 
   }
@@ -30,4 +31,7 @@ data class Transaction(val uid: String,
 
 data class Metadata(@SerializedName("purchase_uid") val purchaseUid: String)
 
-data class TransactionPrice(val currency: String, val value: String, val appc: String)
+data class WalletsResponse(val developer: String?, val store: String?, val oem: String?,
+                           val user: String?)
+
+data class Price(val currency: String, val value: String, val appc: String)

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/backup_wallet_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginEnd="15dp"
+    app:cardBackgroundColor="@color/light_grey_alpha_73"
+    app:cardElevation="0dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/appcoins_card_view"
+    app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="13dp"
+      android:layout_marginBottom="13dp"
+      >
+
+    <ImageView
+        android:id="@+id/backup_alert_icon"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/ic_alert_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/backup_wallet_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="2dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:text="@string/backup_title"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backup_alert_icon"
+        app:layout_constraintEnd_toStartOf="@+id/backup_button"
+        app:layout_constraintStart_toEndOf="@+id/backup_alert_icon"
+        app:layout_constraintTop_toTopOf="@+id/backup_alert_icon"
+        />
+
+    <TextView
+        android:id="@+id/backup_wallet_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:maxLines="2"
+        android:text="@string/backup_wallet_tooltip"
+        android:textColor="@color/grey_9d"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/backup_button"
+        app:layout_constraintStart_toEndOf="@+id/backup_alert_icon"
+        app:layout_constraintTop_toBottomOf="@+id/backup_wallet_title"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/backup_button"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:text="@string/backup_button"
+        android:textColor="@color/white"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/wild_watermelon"
+        app:strokeColor="@color/wild_watermelon"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

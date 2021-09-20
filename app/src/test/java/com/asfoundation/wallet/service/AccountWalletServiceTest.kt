@@ -2,10 +2,10 @@ package com.asfoundation.wallet.service
 
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer
 import com.asfoundation.wallet.repository.WalletRepositoryType
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.observers.TestObserver
@@ -46,7 +46,7 @@ class AccountWalletServiceTest {
 
   @Before
   fun setUp() {
-    `when`(walletRepository.defaultWallet).thenReturn(
+    `when`(walletRepository.getDefaultWallet()).thenReturn(
         Single.just(Wallet(ADDRESS)))
     `when`(passwordStore.getPassword(any())).thenReturn(Single.just(PASSWORD))
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))

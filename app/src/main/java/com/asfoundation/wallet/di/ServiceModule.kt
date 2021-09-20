@@ -23,9 +23,7 @@ import com.asfoundation.wallet.billing.partners.*
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
-import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.poa.*
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
@@ -45,6 +43,9 @@ import com.asfoundation.wallet.util.DeviceInfo
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
+import com.asfoundation.wallet.withdraw.repository.WithdrawApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -77,14 +78,15 @@ class ServiceModule {
                                pendingTransactionService: TrackTransactionService,
                                defaultTokenProvider: DefaultTokenProvider,
                                countryCodeProvider: CountryCodeProvider, dataMapper: DataMapper,
-                               addressService: AddressService): BuyService {
+                               addressService: AddressService,
+                               billingPaymentProofSubmission: BillingPaymentProofSubmission): BuyService {
     return BuyService(WatchedTransactionService(object : TransactionSender {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
       }
     }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
         pendingTransactionService), NoValidateTransactionValidator(), defaultTokenProvider,
-        countryCodeProvider, dataMapper, addressService)
+        countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission)
   }
 
   @Provides
@@ -104,7 +106,7 @@ class ServiceModule {
         bdsPendingTransactionService),
         BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider, addressService), defaultTokenProvider, countryCodeProvider,
-        dataMapper, addressService)
+        dataMapper, addressService, billingPaymentProofSubmission)
   }
 
   @Provides
@@ -264,23 +266,15 @@ class ServiceModule {
   @Singleton
   @Provides
   fun providesAddressService(installerService: InstallerService,
-                             addressService: WalletAddressService,
                              oemIdExtractorService: OemIdExtractorService): AddressService {
-    return PartnerAddressService(installerService, addressService,
-        DeviceInfo(Build.MANUFACTURER, Build.MODEL), oemIdExtractorService)
+    return PartnerAddressService(installerService, DeviceInfo(Build.MANUFACTURER, Build.MODEL),
+        oemIdExtractorService, BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS)
   }
 
   @Singleton
   @Provides
   fun providesInstallerService(context: Context): InstallerService {
     return InstallerSourceService(context)
-  }
-
-  @Singleton
-  @Provides
-  fun providesWalletAddressService(api: BdsPartnersApi): WalletAddressService {
-    return PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
-        BuildConfig.DEFAULT_OEM_ADDRESS)
   }
 
   @Singleton
@@ -439,19 +433,6 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsPartnersApi(@Named("default") client: OkHttpClient, gson: Gson): BdsPartnersApi {
-    val baseUrl = BuildConfig.BASE_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(BdsPartnersApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun provideAnalyticsAPI(@Named("default") client: OkHttpClient,
                           objectMapper: ObjectMapper): AnalyticsAPI {
     return Retrofit.Builder()
@@ -511,6 +492,7 @@ class ServiceModule {
   @Provides
   fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
+
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -577,7 +559,8 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideWalletValidationApi(@Named("default") client: OkHttpClient,
-                                 gson: Gson): VerificationStateApi {
+                                 gson: Gson
+  ): VerificationStateApi {
     val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -587,6 +570,23 @@ class ServiceModule {
         .build()
         .create(VerificationStateApi::class.java)
   }
+
+  @Singleton
+  @Provides
+  fun provideWithdrawApi(
+      @Named("default") client: OkHttpClient,
+      gson: Gson
+  ): WithdrawApi {
+    val baseUrl = BuildConfig.BACKEND_HOST
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(WithdrawApi::class.java)
+  }
+
 
   @Provides
   fun providesSubscriptionBillingApi(@Named("blockchain") client: OkHttpClient,

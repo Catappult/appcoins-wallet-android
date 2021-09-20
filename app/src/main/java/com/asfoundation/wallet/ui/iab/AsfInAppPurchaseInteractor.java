@@ -9,14 +9,14 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import com.asfoundation.wallet.util.TransferParser;
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -63,10 +63,10 @@ public class AsfInAppPurchaseInteractor {
   }
 
   public Completable send(String uri, TransactionType transactionType, String packageName,
-      String productName, String developerPayload) {
+      String productName, String developerPayload, TransactionBuilder transactionBuilder) {
     if (transactionType == TransactionType.NORMAL) {
-      return buildPaymentTransaction(uri, packageName, productName,
-          developerPayload).flatMapCompletable(
+      return buildPaymentTransaction(uri, packageName, productName, developerPayload,
+          transactionBuilder.amount()).flatMapCompletable(
           paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
               paymentTransaction));
     }
@@ -75,10 +75,11 @@ public class AsfInAppPurchaseInteractor {
   }
 
   Completable resume(String uri, TransactionType transactionType, String packageName,
-      String productName, String approveKey, String developerPayload) {
+      String productName, String approveKey, String developerPayload,
+      TransactionBuilder transactionBuilder) {
     if (transactionType == TransactionType.NORMAL) {
-      return buildPaymentTransaction(uri, packageName, productName,
-          developerPayload).flatMapCompletable(
+      return buildPaymentTransaction(uri, packageName, productName, developerPayload,
+          transactionBuilder.amount()).flatMapCompletable(
           paymentTransaction -> getSkuTransaction(paymentTransaction, packageName, approveKey));
     }
     return Completable.error(new UnsupportedOperationException(
@@ -192,13 +193,16 @@ public class AsfInAppPurchaseInteractor {
   }
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
-      String productName, String developerPayload) {
+      String productName, String developerPayload, BigDecimal amount) {
     return Single.zip(parseTransaction(uri).observeOn(scheduler), defaultWalletInteract.find()
         .observeOn(scheduler), (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
-            .map(gasSettings -> transactionBuilder.gasSettings(
-                new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
-                    paymentGasLimit))))
+            .map(gasSettings -> {
+              transactionBuilder.gasSettings(new GasSettings(
+                  gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                  paymentGasLimit));
+              return transactionBuilder.amount(amount);
+            }))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
             productName, transactionBuilder.getSkuId(), developerPayload,
             transactionBuilder.getCallbackUrl(), transactionBuilder.getOrderReference()));
@@ -304,6 +308,14 @@ public class AsfInAppPurchaseInteractor {
 
   Single<FiatValue> convertToLocalFiat(double appcValue) {
     return currencyConversionService.getLocalFiatAmount(Double.toString(appcValue));
+  }
+
+  Single<FiatValue> convertFiatToLocalFiat(double value, String currency) {
+    return currencyConversionService.getLocalFiatAmount(Double.toString(value), currency);
+  }
+
+  Single<FiatValue> convertFiatToAppc(double value, String currency) {
+    return currencyConversionService.getFiatToAppcAmount(Double.toString(value), currency);
   }
 
   private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {

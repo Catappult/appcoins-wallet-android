@@ -20,8 +20,8 @@ import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.backup.NotificationNeeded;
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.util.BalanceUtils;
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -92,21 +92,23 @@ public class InAppPurchaseInteractor {
   }
 
   public Completable send(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, String developerPayload, boolean isBds) {
+      String packageName, String productName, String developerPayload, boolean isBds,
+      TransactionBuilder transactionBuilder) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-          developerPayload);
+          developerPayload, transactionBuilder);
     } else {
       return asfInAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-          developerPayload);
+          developerPayload, transactionBuilder);
     }
   }
 
   Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, String developerPayload, boolean isBds, String type) {
+      String packageName, String productName, String developerPayload, boolean isBds, String type,
+      TransactionBuilder transactionBuilder) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-          developerPayload, type);
+          developerPayload, type, transactionBuilder);
     } else {
       return Completable.error(new UnsupportedOperationException("Asf doesn't support resume."));
     }
@@ -151,6 +153,14 @@ public class InAppPurchaseInteractor {
 
   public Single<FiatValue> convertToLocalFiat(double appcValue) {
     return asfInAppPurchaseInteractor.convertToLocalFiat(appcValue);
+  }
+
+  public Single<FiatValue> convertFiatToLocalFiat(double value, String currency) {
+    return asfInAppPurchaseInteractor.convertFiatToLocalFiat(value, currency);
+  }
+
+  public Single<FiatValue> convertFiatToAppc(double value, String currency) {
+    return asfInAppPurchaseInteractor.convertFiatToAppc(value, currency);
   }
 
   public BillingMessagesMapper getBillingMessagesMapper() {
@@ -256,7 +266,33 @@ public class InAppPurchaseInteractor {
                 .flatMap(paymentMethod -> retrieveDisableReason(paymentMethod, transaction))
                 .toList())
             .map(this::removePaymentMethods))
-        .map(this::swapDisabledPositions);
+        .map(this::swapDisabledPositions)
+        .map(this::showTopup);
+  }
+
+  private List<PaymentMethod> showTopup(List<PaymentMethod> paymentMethods) {
+    if (paymentMethods.size() == 0) {
+      return paymentMethods;
+    }
+
+    int appcCreditPaymentIndex = 0;
+    for (int i = 0; i < paymentMethods.size(); i++) {
+      PaymentMethod paymentMethod = paymentMethods.get(i);
+      if (paymentMethod.isEnabled()) {
+        return paymentMethods;
+      }
+      if (paymentMethod.getId()
+          .equals(CREDITS_ID)) {
+        appcCreditPaymentIndex = i;
+      }
+    }
+    PaymentMethod appcPaymentMethod = paymentMethods.get(appcCreditPaymentIndex);
+    paymentMethods.set(appcCreditPaymentIndex,
+        new PaymentMethod(appcPaymentMethod.getId(), appcPaymentMethod.getLabel(),
+            appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
+            appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
+            appcPaymentMethod.getDisabledReason(), true));
+    return paymentMethods;
   }
 
   private Observable<PaymentMethod> retrieveDisableReason(PaymentMethod paymentMethod,
@@ -338,20 +374,23 @@ public class InAppPurchaseInteractor {
   private List<PaymentMethod> buildMergedList(List<PaymentMethod> paymentMethods,
       PaymentMethod appcMethod, PaymentMethod creditsMethod) {
     List<PaymentMethod> mergedList = new ArrayList<>();
+    boolean addedMergedAppc = false;
     for (PaymentMethod paymentMethod : paymentMethods) {
-      if (paymentMethod.getId()
-          .equals(APPC_ID)) {
+      if ((paymentMethod.getId()
+          .equals(APPC_ID) || paymentMethod.getId()
+          .equals(CREDITS_ID)) && !addedMergedAppc) {
         String mergedId = "merged_appcoins";
-        String mergedLabel = appcMethod.getLabel() + " / " + creditsMethod.getLabel();
+        String mergedLabel = creditsMethod.getLabel() + " / " + appcMethod.getLabel();
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
         Integer disableReason = mergeDisableReason(appcMethod, creditsMethod);
         mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
             isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled(),
             appcMethod.getLabel(), creditsMethod.getLabel(), creditsMethod.getIconUrl(),
             disableReason, appcMethod.getDisabledReason(), creditsMethod.getDisabledReason()));
+        addedMergedAppc = true;
       } else if (!paymentMethod.getId()
-          .equals(CREDITS_ID)) {
-        //Don't add the credits method to this list
+          .equals(CREDITS_ID) && !paymentMethod.getId()
+          .equals(APPC_ID)) {
         mergedList.add(paymentMethod);
       }
     }
@@ -458,12 +497,13 @@ public class InAppPurchaseInteractor {
           .equals(availablePaymentMethod.getId())) {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null);
+            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
+            false);
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null);
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false);
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {

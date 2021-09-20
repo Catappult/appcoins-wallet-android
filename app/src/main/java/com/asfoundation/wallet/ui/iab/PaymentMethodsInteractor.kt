@@ -5,6 +5,8 @@ import com.appcoins.wallet.appcoins.rewards.ErrorInfo
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.billing.repository.entity.Product
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.Balance
@@ -60,12 +62,19 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
 
   fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
              packageName: String, productName: String?, developerPayload: String?,
-             isBds: Boolean, type: String): Completable =
+             isBds: Boolean, type: String, transaction: TransactionBuilder): Completable =
       inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-          developerPayload, isBds, type)
+          developerPayload, isBds, type, transaction)
 
-  fun convertToLocalFiat(appcValue: Double): Single<FiatValue> =
+  fun convertAppcToLocalFiat(appcValue: Double): Single<FiatValue> =
       inAppPurchaseInteractor.convertToLocalFiat(appcValue)
+
+  fun convertCurrencyToLocalFiat(value: Double, currency: String): Single<FiatValue> =
+    inAppPurchaseInteractor.convertFiatToLocalFiat(value, currency)
+
+  fun convertCurrencyToAppc(value: Double, currency: String): Single<FiatValue> =
+    inAppPurchaseInteractor.convertFiatToAppc(value, currency)
+
 
   fun hasAsyncLocalPayment() = inAppPurchaseInteractor.hasAsyncLocalPayment()
 
@@ -104,6 +113,13 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
     return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, appPackage, skuId, purchaseUid,
         orderReference, hash, networkThread)
   }
+
+  fun getSkuDetails(domain: String, sku: String): Single<Product> {
+    return billing.getProducts(domain, mutableListOf(sku)).map { products -> products.first() }
+  }
+
+  private fun isInApp(type: String) =
+      type.equals(INAPP_TRANSACTION_TYPE, ignoreCase = true)
 
   fun getPurchases(appPackage: String, inapp: BillingSupportedType, networkThread: Scheduler) =
       billing.getPurchases(appPackage, inapp, networkThread)

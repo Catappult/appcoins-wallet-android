@@ -1,8 +1,10 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.bdsbilling.repository.*
-import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
+import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -14,26 +16,30 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private val walletService: WalletService,
     private val repository: BillingRepository,
     private val networkScheduler: Scheduler,
-    private val transactionIdsFromApprove: MutableMap<String, String>,
+    private val transactionFromApprove: MutableMap<String, Transaction>,
     private val transactionIdsFromBuy: MutableMap<String, String>) : BillingPaymentProofSubmission {
 
-  override fun processPurchaseProof(paymentProof: PaymentProof): Completable {
-    return transactionIdsFromApprove[paymentProof.approveProof]?.let { paymentId ->
-      registerPaymentProof(paymentId, paymentProof.paymentProof, paymentProof.paymentType)
-    } ?: Completable.error(
+  override fun processPurchaseProof(paymentProof: PaymentProof): Single<Transaction> {
+    return transactionFromApprove[paymentProof.approveProof]?.let { transaction ->
+      registerPaymentProof(transaction.uid, paymentProof.paymentProof, paymentProof.paymentType)
+          .andThen(Single.just(transaction))
+    } ?: Single.error(
         IllegalArgumentException("No payment id for {${paymentProof.approveProof}}"))
   }
 
-  override fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
+  override fun processAuthorizationProof(
+      authorizationProof: AuthorizationProof): Single<Transaction> {
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
         authorizationProof.priceValue, authorizationProof.developerAddress,
-        authorizationProof.storeAddress, authorizationProof.origin, authorizationProof.type,
-        authorizationProof.oemAddress, authorizationProof.developerPayload,
+        authorizationProof.entityOemId, authorizationProof.entityDomain, authorizationProof.origin,
+        authorizationProof.type,
+        authorizationProof.developerPayload,
         authorizationProof.callback, authorizationProof.orderReference,
         authorizationProof.referrerUrl)
-        .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
-        .ignoreElement()
+        .doOnSuccess { transaction ->
+          transactionFromApprove[authorizationProof.id] = transaction
+        }
   }
 
   override fun registerPaymentProof(paymentId: String, paymentProof: String,
@@ -51,13 +57,19 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         .andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
   }
 
-  override fun registerAuthorizationProof(id: String, paymentType: String, productName: String?,
-                                          packageName: String, priceValue: BigDecimal,
-                                          developerWallet: String, storeWallet: String,
-                                          origin: String, type: String, oemWallet: String,
-                                          developerPayload: String?, callback: String?,
+  override fun registerAuthorizationProof(id: String, paymentType: String,
+                                          productName: String?,
+                                          packageName: String,
+                                          priceValue: BigDecimal,
+                                          developerWallet: String,
+                                          entityOemId: String?,
+                                          entityDomain: String?,
+                                          origin: String,
+                                          type: String,
+                                          developerPayload: String?,
+                                          callback: String?,
                                           orderReference: String?,
-                                          referrerUrl: String?): Single<String> {
+                                          referrerUrl: String?): Single<Transaction> {
     return walletService.getWalletAddress()
         .observeOn(networkScheduler)
         .flatMap { walletAddress ->
@@ -65,14 +77,19 @@ class BillingPaymentProofSubmissionImpl internal constructor(
               .observeOn(networkScheduler)
               .flatMap { signedData ->
                 repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
-                    productName, packageName, priceValue, developerWallet, storeWallet, origin,
-                    type, oemWallet, developerPayload, callback, orderReference, referrerUrl)
+                    productName, packageName, priceValue, developerWallet, entityOemId,
+                    entityDomain,
+                    origin, type, developerPayload, callback, orderReference, referrerUrl)
               }
         }
   }
 
-  override fun saveTransactionId(key: String) {
-    transactionIdsFromApprove[key] = key
+  override fun saveTransactionId(transaction: Transaction) {
+    transactionFromApprove[transaction.uid] = transaction
+  }
+
+  override fun getTransactionFromUid(uid: String): Transaction? {
+    return transactionFromApprove[uid]
   }
 
   override fun getTransactionId(buyHash: String): String? {
@@ -127,8 +144,8 @@ data class AuthorizationProof(val paymentType: String,
                               val productName: String?,
                               val packageName: String,
                               val priceValue: BigDecimal,
-                              val storeAddress: String,
-                              val oemAddress: String,
+                              val entityOemId: String?,
+                              val entityDomain: String?,
                               val developerAddress: String,
                               val type: String,
                               val origin: String,
@@ -142,5 +159,5 @@ data class PaymentProof(val paymentType: String,
                         val paymentProof: String,
                         val productName: String?,
                         val packageName: String,
-                        val storeAddress: String,
-                        val oemAddress: String)
+                        val entityOemId: String?,
+                        val entityDomain: String?)

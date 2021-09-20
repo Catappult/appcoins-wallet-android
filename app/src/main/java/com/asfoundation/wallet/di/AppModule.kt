@@ -30,6 +30,7 @@ import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.M
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_2_3
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_3_4
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_4_5
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_5_6
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.WalletOriginDao
 import com.appcoins.wallet.permissions.Permissions
@@ -46,13 +47,15 @@ import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.analytics.TaskTimer
+import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.base.RxSchedulersImpl
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.LogReceiver
 import com.asfoundation.wallet.logging.Logger
@@ -60,6 +63,7 @@ import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
+import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
 import com.asfoundation.wallet.router.GasSettingsRouter
@@ -83,9 +87,11 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils.Companion.create
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -98,18 +104,22 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.math.BigDecimal
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
-import kotlin.collections.HashMap
 
 
 @Module
 internal class AppModule {
   @Provides
   fun provideContext(application: App): Context = application.applicationContext
+
+  @Provides
+  @Singleton
+  fun provideRxSchedulers(): RxSchedulers {
+    return RxSchedulersImpl()
+  }
 
   @Singleton
   @Provides
@@ -385,6 +395,7 @@ internal class AppModule {
         .addMigrations(MIGRATION_2_3)
         .addMigrations(MIGRATION_3_4)
         .addMigrations(MIGRATION_4_5)
+        .addMigrations(MIGRATION_5_6)
         .build()
   }
 
@@ -539,6 +550,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  fun providesPromotionsMapper(gamificationMapper: GamificationMapper) =
+      PromotionsMapper(gamificationMapper)
+
+  @Singleton
+  @Provides
   fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 
   @Singleton
@@ -556,7 +572,8 @@ internal class AppModule {
             TransactionsDatabase.MIGRATION_2_3,
             TransactionsDatabase.MIGRATION_3_4,
             TransactionsDatabase.MIGRATION_4_5,
-            TransactionsDatabase.MIGRATION_5_6
+            TransactionsDatabase.MIGRATION_5_6,
+            TransactionsDatabase.MIGRATION_6_7
         )
         .build()
   }
@@ -649,5 +666,12 @@ internal class AppModule {
   @Provides
   fun provideTaskTimer(): TaskTimer {
     return TaskTimer()
+  }
+
+  @Provides
+  fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {
+    val headerJson = JsonObject()
+    headerJson.addProperty("typ", "EWT")
+    return EwtAuthenticatorService(walletService, headerJson.toString())
   }
 }

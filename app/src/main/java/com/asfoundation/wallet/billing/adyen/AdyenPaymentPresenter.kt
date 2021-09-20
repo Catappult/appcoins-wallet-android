@@ -44,12 +44,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                             private val domain: String,
                             private val origin: String?,
                             private val adyenPaymentInteractor: AdyenPaymentInteractor,
+                            private val skillsPaymentInteractor: SkillsPaymentInteractor,
                             private val transactionBuilder: Single<TransactionBuilder>,
                             private val navigator: Navigator,
                             private val paymentType: String,
                             private val transactionType: String,
                             private val amount: BigDecimal,
                             private val currency: String,
+                            private val skills: Boolean,
                             private val isPreSelected: Boolean,
                             private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
                             private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
@@ -75,6 +77,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     handleAdyenErrorCancel()
     handleSupportClicks()
     handle3DSErrors()
+    handleVerificationClick()
     if (isPreSelected) handleMorePaymentsClick()
   }
 
@@ -202,12 +205,22 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                 handleBuyAnalytics(it)
                 val billingAddressModel = view.retrieveBillingAddressData()
                 val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
-                adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
-                    shouldStore, adyenCard.hasCvc, adyenCard.supportedShopperInteractions,
-                    returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
-                    mapPaymentToService(paymentType).transactionType, origin, domain,
-                    it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(), it.referrerUrl,
-                    mapToAdyenBillingAddress(billingAddressModel))
+                if (skills) {
+                  skillsPaymentInteractor.makeSkillsPayment(returnUrl, it.productToken,
+                      adyenCard.cardPaymentMethod.encryptedCardNumber,
+                      adyenCard.cardPaymentMethod.encryptedExpiryMonth,
+                      adyenCard.cardPaymentMethod.encryptedExpiryYear,
+                      adyenCard.cardPaymentMethod.encryptedSecurityCode!!
+                  )
+                } else {
+                  adyenPaymentInteractor.makePayment(adyenCard.cardPaymentMethod,
+                      shouldStore, adyenCard.hasCvc, adyenCard.supportedShopperInteractions,
+                      returnUrl, priceAmount.toString(), priceCurrency, it.orderReference,
+                      mapPaymentToService(paymentType).transactionType, origin, domain,
+                      it.payload, it.skuId, it.callbackUrl, it.type, it.toAddress(),
+                      it.referrerUrl,
+                      mapToAdyenBillingAddress(billingAddressModel))
+                }
               }
         }
         .observeOn(viewScheduler)
@@ -330,37 +343,29 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
-    disposables.add(
-        adyenPaymentInteractor.isWalletBlocked()
-            .subscribeOn(networkScheduler)
-            .observeOn(networkScheduler)
-            .flatMap { blocked ->
-              if (blocked) {
-                adyenPaymentInteractor.isWalletVerified()
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      if (it) view.showSpecificError(error)
-                      else view.showVerification()
-                    }
-              } else {
-                Single.just(fraudCheckIds)
-                    .observeOn(viewScheduler)
-                    .doOnSuccess {
-                      val fraudError = when {
-                        it.contains(PAYMENT_METHOD_CHECK_ID) -> {
-                          R.string.purchase_error_try_other_method
-                        }
-                        else -> error
-                      }
-                      view.showSpecificError(fraudError)
-                    }
-              }
+    disposables.add(adyenPaymentInteractor.isWalletVerified()
+        .observeOn(viewScheduler)
+        .doOnSuccess { verified ->
+          if (verified) {
+            val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
+            val fraudError = when {
+              paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
+              else -> error
             }
-            .observeOn(viewScheduler)
-            .subscribe({}, {
-              view.showSpecificError(error)
-              logger.log(TAG, it)
-            })
+            view.showSpecificError(fraudError)
+
+          } else view.showVerificationError()
+        }
+        .subscribe({}, { view.showSpecificError(error) })
+    )
+  }
+
+  private fun handleVerificationClick() {
+    disposables.add(view.getVerificationClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showVerification() }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -656,10 +661,20 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun handleErrors(error: Error) {
     when {
       error.isNetworkError -> view.showNetworkError()
-      error.info?.errorType != null -> {
-        val errorType = error.info!!.errorType
-        val resId = servicesErrorCodeMapper.mapError(errorType)
-        if (errorType == ErrorType.BLOCKED) handleFraudFlow(resId, emptyList())
+
+      error.errorType == Error.ErrorType.INVALID_CARD -> view.showInvalidCardError()
+
+      error.errorType == Error.ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+
+      error.errorType == Error.ErrorType.TIMEOUT -> view.showTimeoutError()
+
+      error.errorType == Error.ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+
+      error.errorType == Error.ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+
+      error.code != null -> {
+        val resId = servicesErrorCodeMapper.mapError(error.code!!)
+        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
       else -> view.showGenericError()

@@ -8,10 +8,13 @@ import android.graphics.Matrix
 import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.Base64
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.recyclerview.widget.RecyclerView
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -145,6 +148,19 @@ inline fun View.withNoLayoutTransition(block: () -> Unit) {
   lt.enableTransitionType(LayoutTransition.CHANGE_APPEARING)
   lt.enableTransitionType(LayoutTransition.DISAPPEARING)
   lt.enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING)
+}
+
+fun String.convertToBase64(): String {
+  return Base64.encodeToString(this.toByteArray(), Base64.NO_WRAP)
+}
+
+fun String?.isEmailValid(): Boolean {
+  return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
+      .matches()
+}
+
+fun RecyclerView.addBottomItemDecoration(dimension: Float) {
+  this.addItemDecoration(MarginItemDecoration(dimension.toInt()))
 }
 
 inline fun String.convertToDate(date: String): Date? {

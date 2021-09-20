@@ -29,9 +29,9 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                           private val uriString: String?,
                           private val gamificationLevel: Int,
                           private val logger: Logger,
-                          private val onChainBuyInteract: OnChainBuyInteract) {
+                          private val onChainBuyInteract: OnChainBuyInteract,
+                          private val transactionBuilder: TransactionBuilder) {
 
-  private val transactionBuilder = onChainBuyInteract.parseTransaction(uriString, isBds)
   private var statusDisposable: Disposable? = null
 
   fun present(productName: String?, amount: BigDecimal, developerPayload: String?) {
@@ -55,7 +55,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
     showTransactionState()
     disposables.add(
         onChainBuyInteract.send(uriString, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-            appPackage, productName, developerPayload, isBds)
+            appPackage, productName, developerPayload, isBds, transactionBuilder)
             .observeOn(viewScheduler)
             .doOnError { showError(it) }
             .subscribe({}, { showError(it) }))
@@ -83,7 +83,8 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
                 when (currentPaymentStep) {
                   CurrentPaymentStep.PAUSED_ON_CHAIN -> onChainBuyInteract.resume(uriString,
                       AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage,
-                      transaction.skuId, developerPayload, isBds, transaction.type)
+                      transaction.skuId, developerPayload, isBds, transaction.type,
+                      transactionBuilder)
 
                   CurrentPaymentStep.READY -> Completable.fromAction { setup(appcAmount) }
                       .subscribeOn(viewScheduler)
@@ -188,11 +189,9 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       view.showRaidenChannelValues(onChainBuyInteract.getTopUpChannelSuggestionValues(amount))
 
   fun sendPaymentEvent() {
-    disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
-      analytics.sendPaymentEvent(appPackage, transactionBuilder.skuId,
-          transactionBuilder.amount()
-              .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.type)
-    })
+    analytics.sendPaymentEvent(appPackage, transactionBuilder.skuId,
+        transactionBuilder.amount()
+            .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.type)
   }
 
   fun resume() = showTransactionState()
@@ -200,40 +199,34 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
   fun pause() = statusDisposable?.dispose()
 
   fun sendRevenueEvent() {
-    disposables.add(transactionBuilder.flatMap { transaction ->
-      onChainBuyInteract.convertToFiat(transaction.amount()
-          .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
-    }
-        .doOnSuccess { (amount) -> analytics.sendRevenueEvent(amount.toString()) }
-        .subscribe({ }, { it.printStackTrace() }))
+    disposables.add(
+        onChainBuyInteract.convertToFiat(transactionBuilder.amount()
+            .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+            .doOnSuccess { (amount) -> analytics.sendRevenueEvent(amount.toString()) }
+            .subscribe({ }, { it.printStackTrace() }))
   }
 
   fun sendPaymentSuccessEvent() {
-    disposables.add(transactionBuilder.observeOn(networkScheduler)
-        .subscribe { transaction ->
-          analytics.sendPaymentSuccessEvent(appPackage, transaction.skuId, transaction.amount()
-              .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transaction.type)
-        })
+    analytics.sendPaymentSuccessEvent(appPackage, transactionBuilder.skuId,
+        transactionBuilder.amount()
+            .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.type)
   }
 
   private fun sendPaymentErrorEvent(payment: Payment) {
     val status = payment.status
     if (isError(status)) {
       if (payment.errorCode == null && payment.errorMessage == null) {
-        disposables.add(transactionBuilder.observeOn(networkScheduler)
-            .subscribe { transaction ->
-              analytics.sendPaymentErrorEvent(appPackage, transaction.skuId, transaction.amount()
-                  .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transaction.type,
-                  status.name)
-            })
+        analytics.sendPaymentErrorEvent(appPackage, transactionBuilder.skuId,
+            transactionBuilder.amount()
+                .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.type,
+            status.name)
+
       } else {
-        disposables.add(transactionBuilder.observeOn(networkScheduler)
-            .subscribe { transaction ->
-              analytics.sendPaymentErrorWithDetailsEvent(appPackage, transaction.skuId,
-                  transaction.amount()
-                      .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transaction.type,
-                  payment.errorCode.toString(), payment.errorMessage.toString())
-            })
+        analytics.sendPaymentErrorWithDetailsEvent(appPackage, transactionBuilder.skuId,
+            transactionBuilder.amount()
+                .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.type,
+            payment.errorCode.toString(), payment.errorMessage.toString())
+
       }
     }
   }

@@ -3,8 +3,8 @@ package com.asfoundation.wallet.repository;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState;
 import com.asfoundation.wallet.repository.ApproveService.Status;
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract.BalanceState;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -12,7 +12,7 @@ import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract.BalanceState.OK;
+import static com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract.BalanceState.OK;
 
 /**
  * Created by trinkes on 13/03/2018.

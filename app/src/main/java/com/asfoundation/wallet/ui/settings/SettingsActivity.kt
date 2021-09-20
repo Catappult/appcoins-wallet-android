@@ -52,7 +52,7 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      TransactionsRouter().open(this, true)
+      onBackPressed()
       finish()
       return true
     }

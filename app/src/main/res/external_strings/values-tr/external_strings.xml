@@ -2,7 +2,7 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">Bu ürünü satın almak için öncelikle %s edinmeniz gerekiyor.</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">AppCoins Cüzdan</string>
   <string name="iab_wallet_not_installed_popup_close_button">KAPAT</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">Bu satın alma işlemini gerçekleştirmek için AppCoins Wallet\'a ihtiyacınız var. Aptoide veya Play Store\'dan indirin ve satın alma işleminizi tamamlamak için tekrar buraya dönün!</string>
