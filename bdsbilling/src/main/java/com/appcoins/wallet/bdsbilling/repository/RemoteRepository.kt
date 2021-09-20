@@ -1,6 +1,6 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.BdsApi
+
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import retrofit2.http.*
 import java.math.BigDecimal
 import java.util.*
 
@@ -77,7 +78,6 @@ class RemoteRepository(private val inAppApi: BdsApi,
   internal fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
     return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
-        .map { responseMapper.map(packageName, it) }
   }
 
   internal fun getSkuPurchaseSubs(packageName: String, purchaseUid: String, walletAddress: String,
@@ -189,7 +189,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                     orderReference: String?, referrerUrl: String?,
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
-    return api.createTransaction(origin, packageName, price, currency, productName, type,
+    return inAppApi.createTransaction(origin, packageName, price, currency, productName, type,
         walletAddress, walletsDeveloper, entityOemId, entityDomain, paymentId, developerPayload,
         callback,
         orderReference, referrerUrl, walletAddress, walletSignature)
@@ -219,9 +219,9 @@ class RemoteRepository(private val inAppApi: BdsApi,
       val creditsPurchaseBody =
           CreditsPurchaseBody(callback, productToken)
 
-      return api.createTransaction(gateway, creditsPurchaseBody, walletAddress, signature)
+      return inAppApi.createTransaction(gateway, creditsPurchaseBody, walletAddress, signature)
     } else {
-      return api.createTransaction(
+      return inAppApi.createTransaction(
           gateway, origin, packageName, amount, currency, productName,
           type, userWallet, developerWallet, entityOemId, entityDomain, token, developerPayload,
           callback, orderReference, referrerUrl, walletAddress, signature
@@ -250,7 +250,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
         @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String,
         @Query("cursor") cursor: Long,
-        @Query("type") type: TransactionType,
+        @Query("type") type: BillingSupportedType,
         @Query("limit") limit: Long,
         @Query("sort.name") sort: String,
         @Query("sort.reverse") isReverse: Boolean,

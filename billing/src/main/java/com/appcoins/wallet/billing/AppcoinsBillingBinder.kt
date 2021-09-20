@@ -169,7 +169,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
             }
             intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress, iabContractAddress,
                 developerPayload, true, packageName, developerAddress, skuDetails[0].sku,
-                BigDecimal(product.price.appcoinsAmount), product.title, product.subscriptionPeriod,
+                BigDecimal(product.transactionPrice.appcoinsAmount), product.title, product.subscriptionPeriod,
                 product.trialPeriod)
           } catch (exception: Exception) {
             if (skuDetails.isEmpty()) {

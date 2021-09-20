@@ -7,7 +7,7 @@ class InAppMapper(private val serializer: ExternalBillingSerializer) {
   fun map(productDetails: DetailsResponseBody): List<Product> {
     return ArrayList(productDetails.items.map {
       InAppProduct(it.name, it.label, it.description,
-          Price(it.price.base, it.price.appc, it.price.fiat.value, it.price.fiat.currency.code,
+          TransactionPrice(it.price.base, it.price.appc, it.price.fiat.value, it.price.fiat.currency.code,
               it.price.fiat.currency.symbol), BillingSupportedType.INAPP.name)
     })
   }

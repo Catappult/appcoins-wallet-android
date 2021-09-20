@@ -25,48 +25,48 @@ class ExternalBillingSerializer {
   private fun mapProduct(product: Product): SKU {
     return SKU(product.sku, product.billingType, getBasePrice(product), getBaseCurrency(product),
         getBasePriceInMicro(product), getAppcPrice(product), APPC,
-        getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
+        getAppcPriceInMicro(product), getFiatPrice(product), product.transactionPrice.currency,
         getFiatPriceInMicro(product), product.title, product.description,
         product.subscriptionPeriod, product.trialPeriod)
   }
 
   private fun getBasePrice(product: Product): String {
-    return if ((APPC.equals(product.price.base, true)) && product.price.base != null)
+    return if ((APPC.equals(product.transactionPrice.base, true)) && product.transactionPrice.base != null)
       getAppcPrice(product)
     else
       getFiatPrice(product)
   }
 
   private fun getBasePriceInMicro(product: Product): Long {
-    return if ((APPC.equals(product.price.base, true)) && product.price.base != null)
+    return if ((APPC.equals(product.transactionPrice.base, true)) && product.transactionPrice.base != null)
       getAppcPriceInMicro(product)
     else
       getFiatPriceInMicro(product)
   }
 
   private fun getBaseCurrency(product: Product): String {
-    return if ((APPC.equals(product.price.base, true)) && product.price.base != null)
+    return if ((APPC.equals(product.transactionPrice.base, true)) && product.transactionPrice.base != null)
       APPC
     else
-      product.price.currency
+      product.transactionPrice.currency
   }
 
   private fun getFiatPrice(product: Product): String {
-    return String.format(Locale.US, "%s %s", product.price
-        .currencySymbol, product.price
+    return String.format(Locale.US, "%s %s", product.transactionPrice
+        .currencySymbol, product.transactionPrice
         .amount)
   }
 
   private fun getFiatPriceInMicro(product: Product): Long {
-    return (product.price.amount * 1000000).toLong()
+    return (product.transactionPrice.amount * 1000000).toLong()
   }
 
   private fun getAppcPrice(product: Product): String {
-    return String.format("%s %s", APPC, product.price.appcoinsAmount)
+    return String.format("%s %s", APPC, product.transactionPrice.appcoinsAmount)
   }
 
   private fun getAppcPriceInMicro(product: Product): Long {
-    return (product.price.appcoinsAmount * 1000000).toLong()
+    return (product.transactionPrice.appcoinsAmount * 1000000).toLong()
   }
 
   fun serializeSignatureData(purchase: InappPurchaseResponse): String {

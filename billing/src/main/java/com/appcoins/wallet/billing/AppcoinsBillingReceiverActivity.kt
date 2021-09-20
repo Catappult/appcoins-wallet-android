@@ -159,7 +159,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
                 val product = skuDetails[0]
                 intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress,
                     iabContractAddress, developerPayload, true, packageName, developerAddress,
-                    product.sku, BigDecimal(product.price.appcoinsAmount), product.title,
+                    product.sku, BigDecimal(product.transactionPrice.appcoinsAmount), product.title,
                     product.subscriptionPeriod, product.trialPeriod)
               } catch (exception: Exception) {
                 if (skuDetails.isEmpty()) {

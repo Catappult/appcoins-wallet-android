@@ -16,8 +16,8 @@ data class Transaction(val uid: String,
 
   companion object {
     fun notFound(): Transaction {
-      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, "",
-          null, "")
+      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null, null,
+          "", null, null)
     }
 
   }

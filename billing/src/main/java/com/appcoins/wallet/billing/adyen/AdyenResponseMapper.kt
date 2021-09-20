@@ -130,24 +130,24 @@ class AdyenResponseMapper(private val gson: Gson,
         when (adyenErrorResponse.data) {
           101 -> {
             error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, Error.ErrorType.INVALID_CARD)
+                codeAndMessage.second, ErrorInfo.ErrorType.INVALID_CARD)
           }
           105 -> {
             error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, Error.ErrorType.CARD_SECURITY_VALIDATION)
+                codeAndMessage.second, ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION)
           }
           172 -> {
 
             error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, Error.ErrorType.TIMEOUT)
+                codeAndMessage.second, ErrorInfo.ErrorType.TIMEOUT)
           }
           704 -> {
             error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, Error.ErrorType.ALREADY_PROCESSED)
+                codeAndMessage.second, ErrorInfo.ErrorType.ALREADY_PROCESSED)
           }
           905 -> {
             error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, Error.ErrorType.PAYMENT_ERROR)
+                codeAndMessage.second, ErrorInfo.ErrorType.PAYMENT_ERROR)
           }
         }
       }
