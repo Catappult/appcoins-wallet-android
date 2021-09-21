@@ -11,12 +11,13 @@ class BillingErrorMapper(private val gson: Gson) {
     internal const val NOT_ALLOWED_CODE = "NotAllowed"
     internal const val FORBIDDEN_CODE = "Authorization.Forbidden"
     internal const val FIELDS_MISSING_CODE = "Body.Fields.Missing"
+    internal const val ADYEN_V2_ERROR = "AdyenV2.Error"
     internal const val CONFLICT_HTTP_CODE = 409
   }
 
   fun mapErrorInfo(httpCode: Int?, message: String?): ErrorInfo {
     val messageGson = gson.fromJson(message, ResponseErrorBaseBody::class.java)
-    val errorType = getErrorType(httpCode, messageGson.code, messageGson.text)
+    val errorType = getErrorType(httpCode, messageGson.code, messageGson.text, messageGson.data)
     return ErrorInfo(httpCode, messageGson.code, messageGson.text, errorType)
   }
 
@@ -29,13 +30,33 @@ class BillingErrorMapper(private val gson: Gson) {
   }
 
   private fun getErrorType(httpCode: Int?, messageCode: String?,
-                           text: String?): ErrorInfo.ErrorType {
+                           text: String?, data: Any?): ErrorInfo.ErrorType {
     return when {
       httpCode != null && httpCode == 400 && messageCode == FIELDS_MISSING_CODE
           && text?.contains("payment.billing") == true -> ErrorInfo.ErrorType.BILLING_ADDRESS
       messageCode == NOT_ALLOWED_CODE -> ErrorInfo.ErrorType.SUB_ALREADY_OWNED
       messageCode == FORBIDDEN_CODE -> ErrorInfo.ErrorType.BLOCKED
       httpCode == CONFLICT_HTTP_CODE -> ErrorInfo.ErrorType.CONFLICT
+      messageCode == ADYEN_V2_ERROR && data is Int -> {
+        when (data) {
+          101 -> {
+            ErrorInfo.ErrorType.INVALID_CARD
+          }
+          105 -> {
+            ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION
+          }
+          172 -> {
+            ErrorInfo.ErrorType.TIMEOUT
+          }
+          704 -> {
+            ErrorInfo.ErrorType.ALREADY_PROCESSED
+          }
+          905 -> {
+            ErrorInfo.ErrorType.PAYMENT_ERROR
+          }
+          else -> ErrorInfo.ErrorType.UNKNOWN
+        }
+      }
       else -> ErrorInfo.ErrorType.UNKNOWN
     }
   }

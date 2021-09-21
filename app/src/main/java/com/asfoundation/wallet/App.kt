@@ -3,10 +3,10 @@ package com.asfoundation.wallet
 import androidx.multidex.MultiDexApplication
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
-import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -54,7 +54,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
 
   @Inject
-  lateinit var bdsApi: BdsApi
+  lateinit var bdsApi: RemoteRepository.BdsApi
 
   @Inject
   lateinit var walletService: WalletService

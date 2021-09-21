@@ -240,7 +240,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            getSkuDescription(), isBds, isDonation, developerPayload, uri,
+            getSkuDescription(), isBds, isDonation, developerPayload, uri, intent.dataString,
             isSubscription, transaction?.subscriptionPeriod))
         .commit()
   }
@@ -282,7 +282,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction.domain,
                 getSkuDescription(), transaction.amount(), isBds,
                 isDonation, transaction.skuId, transaction.type, gamificationLevel,
-                transaction, isSubscription: Boolean, frequency: String?))
+                transaction, isSubscription, frequency))
         .commit()
   }
 

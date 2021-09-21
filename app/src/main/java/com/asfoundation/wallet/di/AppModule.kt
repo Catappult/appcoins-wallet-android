@@ -185,7 +185,8 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBillingPaymentProofSubmission(api: BdsApi, walletService: WalletService,
+  fun providesBillingPaymentProofSubmission(api: RemoteRepository.BdsApi,
+                                            walletService: WalletService,
                                             subscriptionBillingApi: SubscriptionBillingApi,
                                             bdsApi: BdsApiSecondary): BillingPaymentProofSubmission {
     return BillingPaymentProofSubmissionImpl.Builder()

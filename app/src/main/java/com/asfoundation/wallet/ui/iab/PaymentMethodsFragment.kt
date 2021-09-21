@@ -51,6 +51,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     private const val IS_BDS = "isBds"
     private const val APP_PACKAGE = "app_package"
     private const val TRANSACTION = "transaction"
+    private const val ITEM_ALREADY_OWNED = "item_already_owned"
     private const val IS_DONATION = "is_donation"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
@@ -72,6 +73,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         putString(IabActivity.URI, uri)
         putBoolean(IS_BDS, isBds)
         putBoolean(IS_DONATION, isDonation)
+        putString(IabActivity.TRANSACTION_DATA, transactionData)
         putString(FREQUENCY, frequency)
         putBoolean(IS_SUBSCRIPTION, isSubscription)
       }
@@ -107,6 +109,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   private var setupSubject: PublishSubject<Boolean>? = null
   private var preSelectedPaymentMethod: BehaviorSubject<PaymentMethod>? = null
   private var isPreSelected = false
+  private var itemAlreadyOwnedError = false
   private var bonusMessageValue = ""
   private var bonusValue: BigDecimal? = null
 
@@ -215,7 +218,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription) {
       val period = Period.parse(frequency!!)
-      period?.mapToSubsFrequency(context!!, fiatPrice)
+      period?.mapToSubsFrequency(requireContext(), fiatPrice)
         ?.let { fiatPrice = it }
       appcPrice = "~$appcPrice"
     }
@@ -597,7 +600,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         .map { packageName ->
           Pair(
             getApplicationName(packageName),
-            context!!.packageManager.getApplicationIcon(packageName)
+              requireContext().packageManager.getApplicationIcon(packageName)
           )
         }
         .observeOn(AndroidSchedulers.mainThread())
@@ -612,63 +615,63 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   private fun getApplicationName(packageName: String): String {
-    val packageManager = context!!.packageManager
+    val packageManager = requireContext().packageManager
     val packageInfo = packageManager.getApplicationInfo(packageName, 0)
     return packageManager.getApplicationLabel(packageInfo)
       .toString()
   }
 
   private val isBds: Boolean by lazy {
-    if (arguments!!.containsKey(IS_BDS)) {
-      arguments!!.getBoolean(IS_BDS)
+    if (requireArguments().containsKey(IS_BDS)) {
+      requireArguments().getBoolean(IS_BDS)
     } else {
       throw IllegalArgumentException("isBds data not found")
     }
   }
 
   private val isDonation: Boolean by lazy {
-    if (arguments!!.containsKey(IS_DONATION)) {
-      arguments!!.getBoolean(IS_DONATION)
+    if (requireArguments().containsKey(IS_DONATION)) {
+      requireArguments().getBoolean(IS_DONATION)
     } else {
       throw IllegalArgumentException("isDonation data not found")
     }
   }
 
   private val transactionBuilder: TransactionBuilder? by lazy {
-    if (arguments!!.containsKey(TRANSACTION)) {
-      arguments!!.getParcelable(TRANSACTION) as TransactionBuilder?
+    if (requireArguments().containsKey(TRANSACTION)) {
+      requireArguments().getParcelable(TRANSACTION) as TransactionBuilder?
     } else {
       throw IllegalArgumentException("transaction data not found")
     }
   }
 
   private val appPackage: String by lazy {
-    if (arguments!!.containsKey(IabActivity.APP_PACKAGE)) {
-      arguments!!.getString(IabActivity.APP_PACKAGE, "")
+    if (requireArguments().containsKey(IabActivity.APP_PACKAGE)) {
+      requireArguments().getString(IabActivity.APP_PACKAGE, "")
     } else {
       throw IllegalArgumentException("appPackage data not found")
     }
   }
 
   private fun getDeveloperPayload(): String? {
-    return if (arguments!!.containsKey(IabActivity.DEVELOPER_PAYLOAD)) {
-      arguments!!.getString(IabActivity.DEVELOPER_PAYLOAD, "")
+    return if (requireArguments().containsKey(IabActivity.DEVELOPER_PAYLOAD)) {
+      requireArguments().getString(IabActivity.DEVELOPER_PAYLOAD, "")
     } else {
       throw IllegalArgumentException("developer payload data not found")
     }
   }
 
   private fun getUri(): String? {
-    return if (arguments!!.containsKey(IabActivity.URI)) {
-      arguments!!.getString(IabActivity.URI, "")
+    return if (requireArguments().containsKey(IabActivity.URI)) {
+      requireArguments().getString(IabActivity.URI, "")
     } else {
       throw IllegalArgumentException("uri data not found")
     }
   }
 
   private fun getTransactionValue(): BigDecimal {
-    return if (arguments!!.containsKey(IabActivity.TRANSACTION_AMOUNT)) {
-      arguments!!.getSerializable(IabActivity.TRANSACTION_AMOUNT) as BigDecimal
+    return if (requireArguments().containsKey(IabActivity.TRANSACTION_AMOUNT)) {
+      requireArguments().getSerializable(IabActivity.TRANSACTION_AMOUNT) as BigDecimal
     } else {
       throw java.lang.IllegalArgumentException("transaction value not found")
     }
@@ -681,16 +684,16 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   private fun getIsSubscription(): Boolean {
-    return if (arguments!!.containsKey(IS_SUBSCRIPTION)) {
-      arguments!!.getBoolean(IS_SUBSCRIPTION, false)
+    return if (requireArguments().containsKey(IS_SUBSCRIPTION)) {
+      requireArguments().getBoolean(IS_SUBSCRIPTION, false)
     } else {
       throw IllegalArgumentException("productName data not found")
     }
   }
 
   private fun getFrequency(): String? {
-    return if (arguments!!.containsKey(FREQUENCY)) {
-      arguments!!.getString(FREQUENCY, "")
+    return if (requireArguments().containsKey(FREQUENCY)) {
+      requireArguments().getString(FREQUENCY, "")
     } else {
       throw IllegalArgumentException("productName data not found")
     }

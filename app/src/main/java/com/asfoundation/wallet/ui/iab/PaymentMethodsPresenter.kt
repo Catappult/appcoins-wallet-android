@@ -115,13 +115,14 @@ class PaymentMethodsPresenter(
         .doOnNext { handleBuyAnalytics(it) }
         .doOnNext { selectedPaymentMethod ->
           when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-           APPC_CREDITS -> {
+            APPC_CREDITS -> {
               view.showProgressBarLoading()
               handleWalletBlockStatus(selectedPaymentMethod)
             }
-            SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins(
+            MERGED_APPC -> view.showMergedAppcoins(
                 cachedGamificationLevel,
-                cachedFiatValue!!, transaction, paymentMethodsData.frequency, paymentMethodsData.subscription
+                cachedFiatValue!!, transaction, paymentMethodsData.frequency,
+                paymentMethodsData.subscription
             )
 
             else -> {
@@ -132,26 +133,26 @@ class PaymentMethodsPresenter(
                 )
               } else {
                 when (paymentMethodsMapper.map(selectedPaymentMethod.id)) {
-                  SelectedPaymentMethod.PAYPAL -> view.showPaypal(
+                  PAYPAL -> view.showPaypal(
                       cachedGamificationLevel,
                       cachedFiatValue!!, paymentMethodsData.frequency,
-                    paymentMethodsData.subscription
+                      paymentMethodsData.subscription
                   )
-                  SelectedPaymentMethod.CREDIT_CARD -> view.showCreditCard(
+                  CREDIT_CARD -> view.showCreditCard(
                       cachedGamificationLevel,
                       cachedFiatValue!!, paymentMethodsData.frequency,
-                    paymentMethodsData.subscription
+                      paymentMethodsData.subscription
                   )
-                  SelectedPaymentMethod.APPC -> view.showAppCoins(cachedGamificationLevel,
+                  APPC -> view.showAppCoins(cachedGamificationLevel,
                       transaction)
-                  SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(selectedPaymentMethod.id)
-                  SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
+                  SHARE_LINK -> view.showShareLink(selectedPaymentMethod.id)
+                  LOCAL_PAYMENTS -> view.showLocalPayment(
                       selectedPaymentMethod.id, selectedPaymentMethod.iconUrl,
                       selectedPaymentMethod.label, selectedPaymentMethod.async,
                       cachedFiatValue!!.amount.toString(), cachedFiatValue!!.currency,
                       cachedGamificationLevel
                   )
-                  SelectedPaymentMethod.CARRIER_BILLING -> view.showCarrierBilling(
+                  CARRIER_BILLING -> view.showCarrierBilling(
                       cachedFiatValue!!, false
                   )
                   else -> return@doOnNext
@@ -236,14 +237,16 @@ class PaymentMethodsPresenter(
         if (paymentNavigationData.isPreselected) {
           view.showAdyen(
               cachedFiatValue!!.amount, cachedFiatValue!!.currency, PaymentType.CARD,
-              paymentNavigationData.paymentIconUrl, cachedGamificationLevel, paymentMethodsData.frequency, paymentMethodsData.subscription
+              paymentNavigationData.paymentIconUrl, cachedGamificationLevel,
+              paymentMethodsData.frequency, paymentMethodsData.subscription
           )
-        } else view.showCreditCard(cachedGamificationLevel, cachedFiatValue!!)
+        } else view.showCreditCard(cachedGamificationLevel, cachedFiatValue!!,
+            paymentMethodsData.frequency, paymentMethodsData.subscription)
       }
-      SelectedPaymentMethod.APPC -> view.showAppCoins(cachedGamificationLevel, transaction)
-      SelectedPaymentMethod.APPC_CREDITS -> view.showCredits(cachedGamificationLevel, transaction)
-      SelectedPaymentMethod.SHARE_LINK -> view.showShareLink(paymentNavigationData.paymentId)
-      SelectedPaymentMethod.LOCAL_PAYMENTS -> {
+      APPC -> view.showAppCoins(cachedGamificationLevel, transaction)
+      APPC_CREDITS -> view.showCredits(cachedGamificationLevel, transaction)
+      SHARE_LINK -> view.showShareLink(paymentNavigationData.paymentId)
+      LOCAL_PAYMENTS -> {
         view.showLocalPayment(
             paymentNavigationData.paymentId, paymentNavigationData.paymentIconUrl,
             paymentNavigationData.paymentLabel, paymentNavigationData.async,
@@ -269,21 +272,21 @@ class PaymentMethodsPresenter(
 
   private fun waitForUi(skuId: String?, type: BillingSupportedType): Completable {
     return Completable.mergeArray(
-        checkProcessing(skuId).subscribeOn(networkThread),
-      checkForOwnedItems(skuId, type).subscribeOn(networkThread),
+        checkProcessing(skuId, type).subscribeOn(networkThread),
+        checkForOwnedItems(skuId, type).subscribeOn(networkThread),
         isSetupCompleted().subscribeOn(networkThread)
     )
   }
 
   private fun checkForOwnedItems(skuId: String?, type: BillingSupportedType): Completable {
     return Single.zip(checkAndConsumePrevious(skuId, type).subscribeOn(networkThread),
-      checkSubscriptionOwned(skuId, type).subscribeOn(networkThread),
-      BiFunction { itemOwned: Boolean, subStatus: SubscriptionStatus ->
-        Pair(itemOwned, subStatus)
-      })
-      .observeOn(viewScheduler)
-      .doOnSuccess { handleItemsOwned(it.first, it.second) }
-      .ignoreElement()
+        checkSubscriptionOwned(skuId, type).subscribeOn(networkThread),
+        BiFunction { itemOwned: Boolean, subStatus: SubscriptionStatus ->
+          Pair(itemOwned, subStatus)
+        })
+        .observeOn(viewScheduler)
+        .doOnSuccess { handleItemsOwned(it.first, it.second) }
+        .ignoreElement()
   }
 
   private fun handleItemsOwned(itemOwned: Boolean, subStatus: SubscriptionStatus) {
@@ -299,7 +302,7 @@ class PaymentMethodsPresenter(
                                      type: BillingSupportedType): Single<SubscriptionStatus> {
     return if (type == BillingSupportedType.INAPP_SUBSCRIPTION && skuId != null) {
       interactor.isAbleToSubscribe(paymentMethodsData.appPackage, skuId, networkThread)
-        .subscribeOn(networkThread)
+          .subscribeOn(networkThread)
     } else {
       Single.just(SubscriptionStatus(true))
     }
@@ -317,8 +320,7 @@ class PaymentMethodsPresenter(
 
   private fun checkProcessing(skuId: String?, type: BillingSupportedType): Completable {
     return interactor.getSkuTransaction(
-        paymentMethodsData.appPackage, skuId, transaction.type,
-        networkThread, type
+        paymentMethodsData.appPackage, skuId, networkThread, type
     )
         .subscribeOn(networkThread)
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
@@ -330,7 +332,8 @@ class PaymentMethodsPresenter(
           interactor.checkTransactionStateFromTransactionId(it.uid)
               .ignoreElements()
               .andThen(
-                  finishProcess(skuId, it.orderReference, it.hash, it.metadata?.purchaseUid))
+                  finishProcess(skuId, it.type, it.orderReference, it.hash,
+                      it.metadata?.purchaseUid))
         }
   }
 
@@ -419,6 +422,16 @@ class PaymentMethodsPresenter(
     )
   }
 
+  private fun showError(t: Throwable) {
+    t.printStackTrace()
+    logger.log(TAG, t)
+    when {
+      t.isNoNetworkException() -> view.showError(R.string.notification_no_network_poa)
+      isItemAlreadyOwnedError(t) -> view.showItemAlreadyOwnedError()
+      else -> view.showError(R.string.activity_iab_error_message)
+    }
+  }
+
   private fun startMeasure(id: String, firstRun: Boolean) {
     if (firstRun) {
       taskTimer.start(id)
@@ -474,13 +487,13 @@ class PaymentMethodsPresenter(
       if (paymentMethod == null || !paymentMethod.isEnabled) {
         showPaymentMethods(
             fiatValue, paymentMethods,
-            PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id, fiatAmount, appcAmount,
-          paymentMethodsData.frequency
+            PaymentMethodId.CREDIT_CARD.id, fiatAmount, appcAmount,
+            paymentMethodsData.frequency
         )
       } else {
         when (paymentMethod.id) {
-          PaymentMethodsView.PaymentMethodId.CARRIER_BILLING.id,
-          PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> {
+          PaymentMethodId.CARRIER_BILLING.id,
+          PaymentMethodId.CREDIT_CARD.id -> {
             analytics.sendPurchaseDetailsEvent(
                 paymentMethodsData.appPackage, transaction.skuId,
                 transaction.amount()
@@ -492,22 +505,20 @@ class PaymentMethodsPresenter(
                 hasStartedAuth = true
               }
             } else {
-              if (paymentMethod.id == PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id) {
+              if (paymentMethod.id == PaymentMethodId.CREDIT_CARD.id) {
                 view.showAdyen(
                     fiatValue.amount, fiatValue.currency, PaymentType.CARD,
-                    paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency, paymentMethodsData.subscription
+                    paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency,
+                    paymentMethodsData.subscription
                 )
-              } else if (paymentMethod.id == PaymentMethodsView.PaymentMethodId.CARRIER_BILLING.id) {
+              } else if (paymentMethod.id == PaymentMethodId.CARRIER_BILLING.id) {
                 view.showCarrierBilling(fiatValue, true)
               }
 
-              }
             }
           }
-          else -> showPreSelectedPaymentMethod(
-              fiatValue, paymentMethod, fiatAmount, appcAmount,
-              isBonusActive, paymentMethodsData.frequency
-          )
+          else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,
+              isBonusActive, paymentMethodsData.frequency)
         }
       }
     } else {
@@ -665,19 +676,6 @@ class PaymentMethodsPresenter(
     }
   }
 
-  private fun showError(t: Throwable) {
-    t.printStackTrace()
-    logger.log(TAG, t)
-    when {
-      t.isNoNetworkException() -> showError(R.string.notification_no_network_poa)
-      isItemAlreadyOwnedError(t) -> {
-        viewState = ViewState.ITEM_ALREADY_OWNED
-        view.showItemAlreadyOwnedError()
-      }
-      else -> showError(R.string.activity_iab_error_message)
-    }
-  }
-
   private fun isItemAlreadyOwnedError(throwable: Throwable): Boolean {
     return throwable is HttpException && throwable.code() == 409
   }
@@ -819,11 +817,7 @@ class PaymentMethodsPresenter(
 
   private fun handlePositiveButtonText(selectedPaymentMethod: String) {
     if (selectedPaymentMethod == paymentMethodsMapper.map(
-            SelectedPaymentMethod.MERGED_APPC
-        ) || selectedPaymentMethod == paymentMethodsMapper.map(
-            SelectedPaymentMethod.EARN_APPC
-        )
-    ) {
+            MERGED_APPC) || selectedPaymentMethod == paymentMethodsMapper.map(EARN_APPC)) {
       view.showNext()
     } else {
       if (paymentMethodsData.subscription) {
@@ -832,11 +826,6 @@ class PaymentMethodsPresenter(
         view.showBuy()
       }
     }
-  }
-
-  private fun isMergedAppCoins(selectedPaymentMethod: String): Boolean {
-    return selectedPaymentMethod == paymentMethodsMapper.map(MERGED_APPC)
-        || selectedPaymentMethod == paymentMethodsMapper.map(EARN_APPC)
   }
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
@@ -902,9 +891,11 @@ class PaymentMethodsPresenter(
   private fun getPurchaseFiatValue(): Single<FiatValue> {
     // TODO when adding new currency configurable on the settings we need to update this logic to be
     //  aligned with the currency the user chooses
-    return interactor.getSkuDetails(paymentMethodsData.appPackage, paymentMethodsData.sku)
+    val billingSupportedType = BillingSupportedType.valueOfInsensitive(transaction.type)
+    return interactor.getSkuDetails(paymentMethodsData.appPackage, paymentMethodsData.sku,
+        billingSupportedType)
         .map { product ->
-          val price = product.price
+          val price = product.transactionPrice
           // NOTE we need to convert a double to a string in order to create the big decimal since the
           // direct use of double won't result in the value you expect changing this will be a bad
           // idea ate least for now

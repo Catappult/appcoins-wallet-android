@@ -16,8 +16,8 @@ data class TokenPayment(@SerializedName("payment.method") val adyenPaymentMethod
                         @SerializedName("origin") val origin: String?,
                         @SerializedName("reference") val reference: String?,
                         @SerializedName("wallets.developer") val developer: String?,
-                        @SerializedName("wallets.store") val store: String?,
-                        @SerializedName("wallets.oem") val oem: String?,
+                        @SerializedName("entity.oemid") val entityOemId: String?,
+                        @SerializedName("entity.domain") val entityDomain: String?,
                         @SerializedName("wallets.user") val user: String?,
                         @SerializedName("referrer_url") val referrerUrl: String?,
                         @SerializedName("product_token") val token: String? = null)

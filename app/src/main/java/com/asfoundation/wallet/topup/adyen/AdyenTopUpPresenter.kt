@@ -245,7 +245,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
                   if (it.error.isNetworkError) view.showNetworkError()
                   else {
                     handleSpecificError(R.string.unknown_error,
-                        logMessage = "Message: ${it.error.info?.text}, code: ${it.error.info?.httpCode}")
+                        logMessage = "Message: ${it.error.errorInfo?.text}, code: ${it.error.errorInfo?.httpCode}")
                   }
                 } else {
                   view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true, null)
@@ -367,7 +367,7 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
   }
 
   private fun isBillingAddressError(error: Error): Boolean {
-    return error.info?.errorType == ErrorType.BILLING_ADDRESS
+    return error.errorInfo?.errorType == ErrorType.BILLING_ADDRESS
   }
 
   private fun handleSuccessTransaction(): Completable {
@@ -521,32 +521,32 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
     when {
       paymentModel.error.isNetworkError -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
-            paymentModel.error.info?.httpCode.toString(), "network_error")
+            paymentModel.error.errorInfo?.httpCode.toString(), "network_error")
         view.showNetworkError()
       }
-      paymentModel.error.errorType == Error.ErrorType.INVALID_CARD -> view.showInvalidCardError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.INVALID_CARD -> view.showInvalidCardError()
 
-      paymentModel.error.errorType == Error.ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
 
-      paymentModel.error.errorType == Error.ErrorType.TIMEOUT -> view.showTimeoutError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.TIMEOUT -> view.showTimeoutError()
 
-      paymentModel.error.errorType == Error.ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
 
-      paymentModel.error.errorType == Error.ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.PAYMENT_ERROR -> view.showPaymentError()
 
-      paymentModel.error.code != null -> {
+      paymentModel.error.errorInfo?.httpCode != null -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
-            paymentModel.error.info?.httpCode.toString(),
-            buildRefusalReason(paymentModel.status, paymentModel.error.info?.text))
-        val resId = servicesErrorMapper.mapError(paymentModel.error.info?.errorType)
-        if (paymentModel.error.info?.errorType == ErrorType.BLOCKED) handleFraudFlow(resId,
+            paymentModel.error.errorInfo?.httpCode.toString(),
+            buildRefusalReason(paymentModel.status, paymentModel.error.errorInfo?.text))
+        val resId = servicesErrorMapper.mapError(paymentModel.error.errorInfo?.errorType)
+        if (paymentModel.error.errorInfo?.errorType == ErrorType.BLOCKED) handleFraudFlow(resId,
             emptyList())
         else view.showSpecificError(resId)
       }
       else -> {
         topUpAnalytics.sendErrorEvent(value, paymentType, "error",
-            paymentModel.error.info?.httpCode.toString(),
-            buildRefusalReason(paymentModel.status, paymentModel.error.info?.text))
+            paymentModel.error.errorInfo?.httpCode.toString(),
+            buildRefusalReason(paymentModel.status, paymentModel.error.errorInfo?.text))
         handleSpecificError(R.string.unknown_error)
       }
     }

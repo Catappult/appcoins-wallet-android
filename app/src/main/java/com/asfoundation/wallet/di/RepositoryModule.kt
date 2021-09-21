@@ -3,7 +3,6 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
@@ -69,11 +68,11 @@ import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.withdraw.repository.WithdrawApiMapper
 import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
 import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -127,7 +126,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideRemoteRepository(subscriptionBillingApi: SubscriptionBillingApi,
-                              bdsApi: BdsApi, api: BdsApiSecondary): RemoteRepository {
+                              bdsApi: RemoteRepository.BdsApi,
+                              api: BdsApiSecondary): RemoteRepository {
     return RemoteRepository(bdsApi, BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(
         ExternalBillingSerializer())), api, subscriptionBillingApi)
   }
@@ -138,7 +138,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient, bdsApi: BdsApi,
+  fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient,
+                                    bdsApi: RemoteRepository.BdsApi,
                                     subscriptionBillingApi: SubscriptionBillingApi, gson: Gson,
                                     billingErrorMapper: BillingErrorMapper): AdyenPaymentRepository {
     val api = Retrofit.Builder()
@@ -155,7 +156,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideSkillsPaymentRepository(
-      @Named("default") client: OkHttpClient, gson: Gson): SkillsPaymentRepository {
+      @Named("default") client: OkHttpClient, gson: Gson,
+      billingErrorMapper: BillingErrorMapper): SkillsPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20210201/gateways/adyen_v2/")
         .client(client)
@@ -163,7 +165,8 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SkillsPaymentRepository.AdyenApi::class.java)
-    return SkillsPaymentRepository(api, AdyenResponseMapper(gson))
+    return SkillsPaymentRepository(api,
+        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()))
   }
 
   @Singleton
@@ -354,6 +357,7 @@ class RepositoryModule {
                                logger: Logger): RatingRepository {
     return RatingRepository(sharedPreferences, walletFeedbackApi, logger)
   }
+
   @Singleton
   @Provides
   fun providesCarrierBillingPreferencesRepository(
@@ -364,9 +368,9 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideWalletVerificationRepository(
-    verificationApi: VerificationApi,
-    verificationStateApi: VerificationStateApi,
-    sharedPreferences: SharedPreferences
+      verificationApi: VerificationApi,
+      verificationStateApi: VerificationStateApi,
+      sharedPreferences: SharedPreferences
   ): VerificationRepository {
     return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
   }
@@ -396,8 +400,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesWithdrawUseCase(
-    ewt: EwtAuthenticatorService,
-    withdrawRepository: WithdrawRepository
+      ewt: EwtAuthenticatorService,
+      withdrawRepository: WithdrawRepository
   ): WithdrawFiatUseCase {
     return WithdrawFiatUseCase(ewt, withdrawRepository)
   }

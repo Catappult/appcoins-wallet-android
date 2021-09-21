@@ -121,37 +121,8 @@ class AdyenResponseMapper(private val gson: Gson,
   fun mapPaymentModelError(throwable: Throwable): PaymentModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
-    var error =
-        Error(true, throwable.isNoNetworkException(), codeAndMessage.first, codeAndMessage.second)
-
-    if (error.message?.contains("payment.billing_address") == false && throwable is HttpException) {
-      val adyenErrorResponse = gson.fromJson(codeAndMessage.second, AdyenErrorResponse::class.java)
-      if (adyenErrorResponse.code == "AdyenV2.Error") {
-        when (adyenErrorResponse.data) {
-          101 -> {
-            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, ErrorInfo.ErrorType.INVALID_CARD)
-          }
-          105 -> {
-            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION)
-          }
-          172 -> {
-
-            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, ErrorInfo.ErrorType.TIMEOUT)
-          }
-          704 -> {
-            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, ErrorInfo.ErrorType.ALREADY_PROCESSED)
-          }
-          905 -> {
-            error = Error(true, throwable.isNoNetworkException(), codeAndMessage.first,
-                codeAndMessage.second, ErrorInfo.ErrorType.PAYMENT_ERROR)
-          }
-        }
-      }
-    }
+    val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
+    var error = Error(true, throwable.isNoNetworkException(), errorInfo)
     return PaymentModel(error)
   }
 
@@ -195,12 +166,12 @@ class AdyenResponseMapper(private val gson: Gson,
       }
       val errorInfo = billingErrorMapper.mapErrorInfo(throwable.code(), body)
       return VerificationCodeResult(false, errorType, Error(hasError = true,
-          isNetworkError = throwable.isNoNetworkException(), info = errorInfo))
+          isNetworkError = throwable.isNoNetworkException(), errorInfo = errorInfo))
     }
     return VerificationCodeResult(success = false,
         errorType = VerificationCodeResult.ErrorType.OTHER,
         error = Error(hasError = true, isNetworkError = throwable.isNoNetworkException(),
-            info = ErrorInfo(text = throwable.message)))
+            errorInfo = ErrorInfo(text = throwable.message)))
   }
 
   private fun findPaymentMethod(paymentMethods: List<PaymentMethod>?,

@@ -5,8 +5,7 @@ import com.appcoins.wallet.appcoins.rewards.ErrorInfo
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.Balance
@@ -70,10 +69,10 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
       inAppPurchaseInteractor.convertToLocalFiat(appcValue)
 
   fun convertCurrencyToLocalFiat(value: Double, currency: String): Single<FiatValue> =
-    inAppPurchaseInteractor.convertFiatToLocalFiat(value, currency)
+      inAppPurchaseInteractor.convertFiatToLocalFiat(value, currency)
 
   fun convertCurrencyToAppc(value: Double, currency: String): Single<FiatValue> =
-    inAppPurchaseInteractor.convertFiatToAppc(value, currency)
+      inAppPurchaseInteractor.convertFiatToAppc(value, currency)
 
 
   fun hasAsyncLocalPayment() = inAppPurchaseInteractor.hasAsyncLocalPayment()
@@ -103,23 +102,21 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
   fun checkTransactionStateFromTransactionId(uid: String): Observable<PendingTransaction> =
       bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
 
-  fun getSkuTransaction(appPackage: String, skuId: String?, networkThread: Scheduler,
-                        type: BillingSupportedType) =
+  fun getSkuTransaction(appPackage: String, skuId: String?,
+                        networkThread: Scheduler, type: BillingSupportedType) =
       billing.getSkuTransaction(appPackage, skuId, networkThread, type)
 
-  fun getSkuPurchase(appPackage: String, skuId: String?, purchaseUid: String?,
-                     type: String, orderReference: String?, hash: String?,
-                     networkThread: Scheduler): Single<PurchaseBundleModel> {
+  fun getSkuPurchase(appPackage: String, skuId: String?, purchaseUid: String?, type: String,
+                     orderReference: String?,
+                     hash: String?, networkThread: Scheduler): Single<PurchaseBundleModel> {
     return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, appPackage, skuId, purchaseUid,
         orderReference, hash, networkThread)
   }
 
-  fun getSkuDetails(domain: String, sku: String): Single<Product> {
-    return billing.getProducts(domain, mutableListOf(sku)).map { products -> products.first() }
+  fun getSkuDetails(domain: String, sku: String, type: BillingSupportedType): Single<Product> {
+    return billing.getProducts(domain, mutableListOf(sku), type)
+        .map { products -> products.first() }
   }
-
-  private fun isInApp(type: String) =
-      type.equals(INAPP_TRANSACTION_TYPE, ignoreCase = true)
 
   fun getPurchases(appPackage: String, inapp: BillingSupportedType, networkThread: Scheduler) =
       billing.getPurchases(appPackage, inapp, networkThread)

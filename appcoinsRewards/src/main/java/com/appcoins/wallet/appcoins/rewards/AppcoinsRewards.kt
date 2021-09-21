@@ -32,7 +32,7 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
     return cache.save(getKey(amount.toString(), sku, packageName),
         Transaction(
             sku, type, developerAddress, entityOemId, entityDomainId, packageName, amount,
-            origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference,
+            origin, Transaction.Status.PENDING, null, null, payload, callbackUrl, orderReference,
             referrerUrl, productToken
         ))
   }

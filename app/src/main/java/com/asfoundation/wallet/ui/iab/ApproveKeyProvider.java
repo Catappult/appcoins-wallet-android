@@ -15,7 +15,7 @@ public class ApproveKeyProvider {
 
   Single<Transaction> getTransaction(String packageName, String productName,
       String transactionType) {
-    BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(type);
+    BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(transactionType);
     return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType);
   }
 }

@@ -113,7 +113,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                   .doOnSuccess { result ->
                     handleCodeConfirmationStatus(result)
                     analytics.sendConclusionEvent(result.success,
-                        result.error.info?.httpCode?.toString(), result.error.info?.text)
+                        result.error.errorInfo?.httpCode?.toString(), result.error.errorInfo?.text)
                   }
             }
             .subscribe({}, { it.printStackTrace() })

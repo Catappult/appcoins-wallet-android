@@ -36,14 +36,28 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
-    return adyenApi.makePayment(walletAddress, walletSignature,
-        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-            billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku, reference,
-            transactionType, currency, value, developerWallet, entityOemId, entityDomain,
-            userWallet,
-            referrerUrl))
-        .map { adyenResponseMapper.map(it) }
-        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+    return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
+      subscriptionsApi.getSkuSubscriptionToken(packageName!!, sku!!, currency, walletAddress,
+          walletSignature)
+          .map {
+            TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+                billingAddress, callbackUrl, metadata, paymentType, origin, reference,
+                developerWallet, entityOemId, entityDomain, userWallet, referrerUrl, it)
+          }
+          .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
+          .map { adyenResponseMapper.map(it) }
+          .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+    } else {
+      return adyenApi.makePayment(walletAddress, walletSignature,
+          Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+              billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku,
+              reference,
+              transactionType, currency, value, developerWallet, entityOemId, entityDomain,
+              userWallet,
+              referrerUrl))
+          .map { adyenResponseMapper.map(it) }
+          .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+    }
   }
 
   fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
@@ -88,38 +102,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     return bdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
-  }
-
-  private fun makePayment(adyenPaymentMethod: ModelObject,
-                          shouldStoreMethod: Boolean, returnUrl: String,
-                          shopperInteraction: String,
-                          callbackUrl: String?, packageName: String?,
-                          metadata: String?, paymentType: String,
-                          origin: String?, sku: String?,
-                          reference: String?, transactionType: String,
-                          currency: String, value: String,
-                          developerWallet: String?, storeWallet: String?,
-                          oemWallet: String?, userWallet: String?,
-                          walletAddress: String,
-                          walletSignature: String,
-                          billingAddress: AdyenBillingAddress?,
-                          referrerUrl: String?): Single<AdyenTransactionResponse> {
-    return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
-      subscriptionsApi.getSkuSubscriptionToken(packageName!!, sku!!, currency, walletAddress,
-          walletSignature)
-          .map {
-            TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-                billingAddress, callbackUrl, metadata, paymentType, origin, reference,
-                developerWallet, storeWallet, oemWallet, userWallet, referrerUrl, it)
-          }
-          .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
-    } else {
-      adyenApi.makePayment(walletAddress, walletSignature,
-          Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-              billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku,
-              reference, transactionType, currency, value, developerWallet, storeWallet, oemWallet,
-              userWallet, referrerUrl))
-    }
   }
 
   //This method is used to avoid the nameValuePairs key problem that occurs when we pass a JSONObject trough a GSON converter

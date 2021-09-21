@@ -131,7 +131,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               if (it.error.hasError) {
-                sendPaymentErrorEvent(it.error.info?.httpCode, it.error.info?.text)
+                sendPaymentErrorEvent(it.error.errorInfo?.httpCode, it.error.errorInfo?.text)
                 view.hideLoadingAndShowView()
                 handleErrors(it.error)
               } else {
@@ -256,16 +256,16 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                     retrieveFailedReason(paymentModel.uid)
                   } else {
                     Completable.fromAction {
-                      sendPaymentErrorEvent(it.error.info?.httpCode,
-                          buildRefusalReason(it.status, it.error.info?.text))
+                      sendPaymentErrorEvent(it.error.errorInfo?.httpCode,
+                          buildRefusalReason(it.status, it.error.errorInfo?.text))
                       handleErrors(it.error)
                     }
                         .subscribeOn(viewScheduler)
                   }
                 }
                 else -> {
-                  sendPaymentErrorEvent(it.error.info?.httpCode,
-                      it.status.toString() + it.error.info?.text)
+                  sendPaymentErrorEvent(it.error.errorInfo?.httpCode,
+                      it.status.toString() + it.error.errorInfo?.text)
                   Completable.fromAction { handleErrors(it.error) }
                 }
               }
@@ -297,7 +297,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         if (isBillingAddressError(paymentModel.error, priceAmount, priceCurrency)) {
           view.showBillingAddress(priceAmount!!, priceCurrency!!)
         } else {
-          sendPaymentErrorEvent(paymentModel.error.info?.httpCode, paymentModel.error.info?.text)
+          sendPaymentErrorEvent(paymentModel.error.errorInfo?.httpCode,
+              paymentModel.error.errorInfo?.text)
           handleErrors(paymentModel.error)
         }
       }
@@ -306,8 +307,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       }
       paymentModel.status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
-        sendPaymentErrorEvent(paymentModel.error.info?.httpCode,
-            "${paymentModel.status} ${paymentModel.error.info?.text}")
+        sendPaymentErrorEvent(paymentModel.error.errorInfo?.httpCode,
+            "${paymentModel.status} ${paymentModel.error.errorInfo?.text}")
         view.showGenericError()
       }
     }
@@ -316,7 +317,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun isBillingAddressError(error: Error,
                                     priceAmount: BigDecimal?,
                                     priceCurrency: String?): Boolean {
-    return error.info?.errorType == ErrorType.BILLING_ADDRESS
+    return error.errorInfo?.errorType == ErrorType.BILLING_ADDRESS
         && priceAmount != null
         && priceCurrency != null
   }
@@ -652,6 +653,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   companion object {
 
     private const val WAITING_RESULT = "WAITING_RESULT"
+    private const val HTTP_FRAUD_CODE = 403
     private const val UID = "UID"
     private const val PAYMENT_DATA = "payment_data"
     private const val CHALLENGE_CANCELED = "Challenge canceled."
@@ -662,19 +664,19 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     when {
       error.isNetworkError -> view.showNetworkError()
 
-      error.errorType == Error.ErrorType.INVALID_CARD -> view.showInvalidCardError()
+      error.errorInfo?.errorType == ErrorType.INVALID_CARD -> view.showInvalidCardError()
 
-      error.errorType == Error.ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+      error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
 
-      error.errorType == Error.ErrorType.TIMEOUT -> view.showTimeoutError()
+      error.errorInfo?.errorType == ErrorType.TIMEOUT -> view.showTimeoutError()
 
-      error.errorType == Error.ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+      error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
 
-      error.errorType == Error.ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+      error.errorInfo?.errorType == ErrorType.PAYMENT_ERROR -> view.showPaymentError()
 
-      error.code != null -> {
-        val resId = servicesErrorCodeMapper.mapError(error.code!!)
-        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
+      error.errorInfo?.httpCode != null -> {
+        val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
+        if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
       else -> view.showGenericError()

@@ -3,8 +3,12 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.os.Build
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
-import com.appcoins.wallet.bdsbilling.*
+import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
+import com.appcoins.wallet.bdsbilling.ProxyService
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.repository.GamificationApi
@@ -490,7 +494,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
+  fun provideBdsApi(@Named("blockchain") client: OkHttpClient,
+                    gson: Gson): RemoteRepository.BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
 
     return Retrofit.Builder()
@@ -499,7 +504,7 @@ class ServiceModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(BdsApi::class.java)
+        .create(RemoteRepository.BdsApi::class.java)
   }
 
   @Singleton
