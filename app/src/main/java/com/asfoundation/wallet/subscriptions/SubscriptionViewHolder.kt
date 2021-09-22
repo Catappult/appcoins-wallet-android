@@ -59,7 +59,7 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
     view.recurrence_value.visibility = View.GONE
     view.expires_on.visibility = View.VISIBLE
 
-    val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
+    val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
 
     item.expiry?.let {
       view.expires_on.text = view.context.getString(R.string.subscriptions_expiration_body,

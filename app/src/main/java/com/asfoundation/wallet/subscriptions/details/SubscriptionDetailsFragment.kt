@@ -120,7 +120,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     next_payment_value.text = getString(R.string.subscriptions_canceled_body)
     next_payment_value.setTextColor(ResourcesCompat.getColor(resources, R.color.red, null))
 
-    val dateFormat = SimpleDateFormat("MMM yy", Locale.getDefault())
+    val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
 
     subscriptionItem.expiry?.let {
       expires_on.text = getString(R.string.subscriptions_details_cancelled_body,

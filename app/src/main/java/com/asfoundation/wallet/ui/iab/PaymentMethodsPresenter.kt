@@ -427,7 +427,10 @@ class PaymentMethodsPresenter(
     logger.log(TAG, t)
     when {
       t.isNoNetworkException() -> view.showError(R.string.notification_no_network_poa)
-      isItemAlreadyOwnedError(t) -> view.showItemAlreadyOwnedError()
+      isItemAlreadyOwnedError(t) -> {
+        viewState = ViewState.ITEM_ALREADY_OWNED
+        view.showItemAlreadyOwnedError()
+      }
       else -> view.showError(R.string.activity_iab_error_message)
     }
   }
@@ -494,27 +497,28 @@ class PaymentMethodsPresenter(
         when (paymentMethod.id) {
           PaymentMethodId.CARRIER_BILLING.id,
           PaymentMethodId.CREDIT_CARD.id -> {
-            analytics.sendPurchaseDetailsEvent(
-                paymentMethodsData.appPackage, transaction.skuId,
-                transaction.amount()
-                    .toString(), transaction.type
-            )
-            if (interactor.hasAuthenticationPermission()) {
-              if (!hasStartedAuth) {
-                showAuthenticationActivity(paymentMethod, true)
-                hasStartedAuth = true
+            if (viewState == ViewState.DEFAULT) {
+              analytics.sendPurchaseDetailsEvent(
+                  paymentMethodsData.appPackage, transaction.skuId,
+                  transaction.amount()
+                      .toString(), transaction.type
+              )
+              if (interactor.hasAuthenticationPermission()) {
+                if (!hasStartedAuth) {
+                  showAuthenticationActivity(paymentMethod, true)
+                  hasStartedAuth = true
+                }
+              } else {
+                if (paymentMethod.id == PaymentMethodId.CREDIT_CARD.id) {
+                  view.showAdyen(
+                      fiatValue.amount, fiatValue.currency, PaymentType.CARD,
+                      paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency,
+                      paymentMethodsData.subscription
+                  )
+                } else if (paymentMethod.id == PaymentMethodId.CARRIER_BILLING.id) {
+                  view.showCarrierBilling(fiatValue, true)
+                }
               }
-            } else {
-              if (paymentMethod.id == PaymentMethodId.CREDIT_CARD.id) {
-                view.showAdyen(
-                    fiatValue.amount, fiatValue.currency, PaymentType.CARD,
-                    paymentMethod.iconUrl, cachedGamificationLevel, paymentMethodsData.frequency,
-                    paymentMethodsData.subscription
-                )
-              } else if (paymentMethod.id == PaymentMethodId.CARRIER_BILLING.id) {
-                view.showCarrierBilling(fiatValue, true)
-              }
-
             }
           }
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod, fiatAmount, appcAmount,
