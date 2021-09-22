@@ -427,6 +427,9 @@
   <string name="get_code_button">कोड मिळवा</string>
   <string name="confirm_button">पुष्टी करा</string>
   <string name="withdraw_button">withdraw</string>
+  <string name="active_tag">Active</string>
+  <string name="expired_tag">Expired</string>
+  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -437,7 +440,7 @@
   <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">रिडीम कोड</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
   <string name="settings_subheader_support">सपोर्ट</string>
   <string name="settings_subheader_about_us">आमच्याविषयी</string>
@@ -970,4 +973,10 @@
   <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
   <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
   <string name="e_skills_more_info_button">More info.</string>
+  <!--Promo Code-->
+  <string name="promo_code_settings_title">Promo Code</string>
+  <string name="promo_code_view_title">Promo Code</string>
+  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
+  <string name="promo_code_view_field">Promo Code here...</string>
+  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
 </resources>
