@@ -428,6 +428,9 @@
   <string name="get_code_button">コードを入手</string>
   <string name="confirm_button">承認する</string>
   <string name="withdraw_button">withdraw</string>
+  <string name="active_tag">Active</string>
+  <string name="expired_tag">Expired</string>
+  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -438,7 +441,7 @@
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">コードを利用</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
   <string name="settings_subheader_support">サポート</string>
   <string name="settings_subheader_about_us">About Us</string>
@@ -941,4 +944,10 @@
   <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
   <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
   <string name="e_skills_more_info_button">More info.</string>
+  <!--Promo Code-->
+  <string name="promo_code_settings_title">Promo Code</string>
+  <string name="promo_code_view_title">Promo Code</string>
+  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
+  <string name="promo_code_view_field">Promo Code here...</string>
+  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
 </resources>
