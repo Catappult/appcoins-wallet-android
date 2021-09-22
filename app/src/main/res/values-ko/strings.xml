@@ -427,6 +427,9 @@
   <string name="get_code_button">코드 받기</string>
   <string name="confirm_button">확인</string>
   <string name="withdraw_button">withdraw</string>
+  <string name="active_tag">Active</string>
+  <string name="expired_tag">Expired</string>
+  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -437,7 +440,7 @@
   <string name="home_empty_discover_apps_button">최고의 앱 찾아보기</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">리딤 코드</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">지원 팀으로 연락하기</string>
   <string name="settings_subheader_support">지원</string>
   <string name="settings_subheader_about_us">당사 소개</string>
@@ -940,4 +943,10 @@
   <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
   <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
   <string name="e_skills_more_info_button">More info.</string>
+  <!--Promo Code-->
+  <string name="promo_code_settings_title">Promo Code</string>
+  <string name="promo_code_view_title">Promo Code</string>
+  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
+  <string name="promo_code_view_field">Promo Code here...</string>
+  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
 </resources>
