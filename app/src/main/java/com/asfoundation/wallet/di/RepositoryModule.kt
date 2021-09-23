@@ -28,6 +28,10 @@ import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
+import com.asfoundation.wallet.change_currency.FiatCurrenciesMapper
+import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
+import com.asfoundation.wallet.change_currency.RoomFiatCurrenciesPersistence
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
@@ -57,19 +61,16 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPreferencesRepository
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
-import com.asfoundation.wallet.change_currency.FiatCurrenciesMapper
-import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
-import com.asfoundation.wallet.change_currency.RoomFiatCurrenciesPersistence
 import com.asfoundation.wallet.verification.VerificationRepository
 import com.asfoundation.wallet.verification.network.VerificationApi
 import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.withdraw.repository.WithdrawApiMapper
 import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
 import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -240,14 +241,15 @@ class RepositoryModule {
   fun provideBalanceRepository(context: Context,
                                localCurrencyConversionService: LocalCurrencyConversionService,
                                getDefaultWalletBalanceInteract: GetDefaultWalletBalanceInteract,
-                               fiatCurrenciesRepository: FiatCurrenciesRepository): BalanceRepository {
+                               getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): BalanceRepository {
     return AppcoinsBalanceRepository(getDefaultWalletBalanceInteract,
         localCurrencyConversionService,
         Room.databaseBuilder(context.applicationContext,
             BalanceDetailsDatabase::class.java,
             "balance_details")
             .build()
-            .balanceDetailsDao(), BalanceDetailsMapper(), Schedulers.io(), fiatCurrenciesRepository)
+            .balanceDetailsDao(), BalanceDetailsMapper(), Schedulers.io(),
+        getSelectedCurrencyUseCase)
   }
 
   @Provides
