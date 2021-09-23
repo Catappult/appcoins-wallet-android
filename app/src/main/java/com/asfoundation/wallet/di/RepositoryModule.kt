@@ -239,14 +239,15 @@ class RepositoryModule {
   @Provides
   fun provideBalanceRepository(context: Context,
                                localCurrencyConversionService: LocalCurrencyConversionService,
-                               getDefaultWalletBalanceInteract: GetDefaultWalletBalanceInteract): BalanceRepository {
+                               getDefaultWalletBalanceInteract: GetDefaultWalletBalanceInteract,
+                               fiatCurrenciesRepository: FiatCurrenciesRepository): BalanceRepository {
     return AppcoinsBalanceRepository(getDefaultWalletBalanceInteract,
         localCurrencyConversionService,
         Room.databaseBuilder(context.applicationContext,
             BalanceDetailsDatabase::class.java,
             "balance_details")
             .build()
-            .balanceDetailsDao(), BalanceDetailsMapper(), Schedulers.io())
+            .balanceDetailsDao(), BalanceDetailsMapper(), Schedulers.io(), fiatCurrenciesRepository)
   }
 
   @Provides
@@ -353,9 +354,9 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun provideWalletVerificationRepository(
-    verificationApi: VerificationApi,
-    verificationStateApi: VerificationStateApi,
-    sharedPreferences: SharedPreferences
+      verificationApi: VerificationApi,
+      verificationStateApi: VerificationStateApi,
+      sharedPreferences: SharedPreferences
   ): VerificationRepository {
     return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
   }

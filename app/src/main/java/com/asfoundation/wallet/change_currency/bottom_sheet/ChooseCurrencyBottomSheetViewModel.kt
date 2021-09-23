@@ -6,7 +6,7 @@ import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
-import io.reactivex.Observable
+import io.reactivex.Completable
 import io.reactivex.Scheduler
 
 
@@ -33,12 +33,15 @@ class ChooseCurrencyBottomSheetViewModel(data: ChooseCurrencyBottomSheetData,
   }
 
   fun currencyConfirmationClick() {
-    Observable.just(setSelectedCurrencyUseCase(state.selectedCurrency))
+    Completable.fromAction { setSelectedCurrencyUseCase(state.selectedCurrency) }
         .subscribeOn(networkScheduler)
         .asAsyncToState() {
           Log.d("APPC-2472",
               "showChangeFiatCurrency: currencyConfirmationClick ${state.selectedConfirmationAsync} ... $it")
           copy(selectedConfirmationAsync = it)
+        }
+        .scopedSubscribe { e ->
+          e.printStackTrace()
         }
   }
 }

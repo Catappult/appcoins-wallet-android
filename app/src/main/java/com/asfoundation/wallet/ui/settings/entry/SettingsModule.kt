@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.ui.settings.entry
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
-import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import dagger.Module
@@ -23,17 +23,18 @@ class SettingsModule {
                                 navigator: SettingsNavigator,
                                 interactor: SettingsInteractor,
                                 data: SettingsData,
-                                selectedCurrencyInteract: SelectedCurrencyInteract): SettingsPresenter {
+                                getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data,
-        selectedCurrencyInteract)
+        getSelectedCurrencyUseCase)
   }
 
   @Provides
   fun providesSettingsData(settingsFragment: SettingsFragment): SettingsData {
-    settingsFragment.requireArguments().apply {
-      return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
-    }
+    settingsFragment.requireArguments()
+        .apply {
+          return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
+        }
   }
 
   @Provides
@@ -52,6 +53,7 @@ class SettingsModule {
 
   @Provides
   fun providesSettingsNavigator(settingsFragment: SettingsFragment): SettingsNavigator {
-    return SettingsNavigator(settingsFragment.requireFragmentManager(), settingsFragment.requireActivity())
+    return SettingsNavigator(settingsFragment.requireFragmentManager(),
+        settingsFragment.requireActivity())
   }
 }

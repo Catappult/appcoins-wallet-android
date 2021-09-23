@@ -116,25 +116,25 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
       }
       is Async.Loading -> {
         if (selectedConfirmationAsync.value == null) {
-          showLoading(shouldShow = true)
+          showLoading()
         }
       }
       is Async.Fail -> {
       }
       is Async.Success -> {
-        showLoading(shouldShow = false)
         navigator.navigateBack()
       }
     }
   }
 
-  override fun showLoading(shouldShow: Boolean) {
-    Log.d("APPC-2472", "ChooseCurrencyBottomSheetFragment: showLoading: $shouldShow")
-    views.chooseCurrencyFlag.visibility = if (shouldShow) View.GONE else View.VISIBLE
-    views.chooseCurrencyShort.visibility = if (shouldShow) View.GONE else View.VISIBLE
-    views.chooseCurrencyLabel.visibility = if (shouldShow) View.GONE else View.VISIBLE
-    views.chooseCurrencyConfirmationButton.visibility = if (shouldShow) View.GONE else View.VISIBLE
-    views.chooseCurrencySystemView.showOnlyProgress()
-    views.chooseCurrencySystemView.visibility = if (shouldShow) View.VISIBLE else View.GONE
+  override fun showLoading() {
+    Log.d("APPC-2472", "ChooseCurrencyBottomSheetFragment: showLoading")
+    views.chooseCurrencyFlag.visibility = View.GONE
+    views.chooseCurrencyShort.visibility = View.GONE
+    views.chooseCurrencyLabel.visibility = View.GONE
+    views.chooseCurrencyConfirmationButton.visibility = View.GONE
+
+    views.chooseCurrencySystemView.visibility = View.VISIBLE
+    views.chooseCurrencySystemView.showProgress(true)
   }
 }

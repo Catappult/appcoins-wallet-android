@@ -41,7 +41,7 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
         resources.getString(R.string.change_currency_title)
     changeFiatCurrencyController.clickListener = { fiatCurrency ->
       ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
-          .show(childFragmentManager, "ChooseCurrencyBottomSheet")
+          .show(parentFragmentManager, "ChooseCurrencyBottomSheet")
     }
     views.fragmentChangeFiatCurrencyList.setController(changeFiatCurrencyController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -73,13 +73,9 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
 
   private fun showLoading() {
     views.fragmentChangeFiatCurrencyList.visibility = View.INVISIBLE
-    views.changeFiatSystemView.showOnlyProgress()
+    views.changeFiatSystemView.showProgress(true)
     views.changeFiatSystemView.visibility = View.VISIBLE
 
-    changeFiatCurrencyController.clickListener = { fiatCurrency ->
-      ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
-          .show(this.requireFragmentManager(), "ChooseCurrencyBottomSheet")
-    }
     views.fragmentChangeFiatCurrencyList.setController(changeFiatCurrencyController)
   }
 

@@ -8,5 +8,5 @@ interface ChooseCurrencyBottomSheetView {
 
   fun setCurrencyLabel(currencyLabel: String)
 
-  fun showLoading(shouldShow: Boolean)
+  fun showLoading()
 }
