@@ -4,7 +4,7 @@ import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import android.util.Log
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -17,7 +17,7 @@ class SettingsPresenter(private val view: SettingsView,
                         private val disposables: CompositeDisposable,
                         private val settingsInteractor: SettingsInteractor,
                         private val settingsData: SettingsData,
-                        private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase) {
+                        private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -161,7 +161,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   fun setCurrencyPreference() {
-    disposables.add(getSelectedCurrencyUseCase(shouldCheckFirstTime = true)
+    disposables.add(getChangeFiatCurrencyModelUseCase()
         .observeOn(viewScheduler)
         .doOnSuccess {
           for (fiatCurrency in it.list) {

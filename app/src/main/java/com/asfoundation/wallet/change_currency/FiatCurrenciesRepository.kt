@@ -18,7 +18,7 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
     const val CONVERSION_HOST = BuildConfig.BASE_HOST
   }
 
-  fun mapAndSaveFiatCurrency(): Single<List<FiatCurrency>> {
+  fun saveAndGetCurrenciesList(): Single<List<FiatCurrency>> {
     return fiatCurrenciesApi.getFiatCurrencies()
         .map { response: FiatCurrenciesResponse ->
           fiatCurrenciesMapper.mapResponseToCurrencyList(response)
@@ -28,21 +28,27 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
               .toSingle { it }
         }
         .subscribeOn(Schedulers.io())
-        .doOnError {
-          Log.d("APPC-2472",
-              "getApiToFiatCurrency: error : ${it.message}")
-        }
   }
 
-  fun checkFirstTime(): Single<List<FiatCurrency>> {
-    return if (pref.getBoolean("first_time", true)) {
+  fun getCurrenciesListFirstTimeCheck(): Single<List<FiatCurrency>> {
+    return if (pref.getBoolean("currency_list_first_time", true)) {
       pref.edit()
-          .putBoolean("first_time", false)
-          .apply();
-      mapAndSaveFiatCurrency()
+          .putBoolean("currency_list_first_time", false)
+          .apply()
+      saveAndGetCurrenciesList()
     } else {
       roomFiatCurrenciesPersistence.getFiatCurrencies()
     }
+  }
+
+  fun getSelectedCurrencyFirstTimeCheck(currency: String): Single<String> {
+    if (pref.getBoolean("selected_first_time", true)) {
+      pref.edit()
+          .putBoolean("selected_first_time", false)
+          .apply()
+      setSelectedCurrency(currency)
+    }
+    return getSelectedCurrency()
   }
 
   fun getSelectedCurrency(): Single<String> {

@@ -7,9 +7,10 @@ import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import com.asfoundation.wallet.backup.BackupInteractContract
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
@@ -241,6 +242,13 @@ class UseCaseModule {
   fun providesSetSelectedCurrencyUseCase(
       fiatCurrenciesRepository: FiatCurrenciesRepository): SetSelectedCurrencyUseCase {
     return SetSelectedCurrencyUseCase(fiatCurrenciesRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository,
+                                         conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
+    return GetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository, conversionService)
   }
 
   @Singleton

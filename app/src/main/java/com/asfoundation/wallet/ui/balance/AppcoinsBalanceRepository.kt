@@ -34,12 +34,11 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
       ethBalanceDisposable = balanceGetter.getEthereumBalance(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            getSelectedCurrencyUseCase(shouldCheckFirstTime = true)
+            getSelectedCurrencyUseCase()
                 .observeOn(networkScheduler)
                 .flatMapObservable { targetCurrency ->
                   localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "ETH",
-                      targetCurrency.selectedCurrency,
-                      SUM_FIAT_SCALE)
+                      targetCurrency, SUM_FIAT_SCALE)
                       .map { fiatValue ->
                         balanceDetailsDao.updateEthBalance(address, balance.getStringValue(),
                             fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
@@ -58,12 +57,11 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
       balanceGetter.getAppcBalance(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            getSelectedCurrencyUseCase(shouldCheckFirstTime = true)
+            getSelectedCurrencyUseCase()
                 .observeOn(networkScheduler)
                 .flatMapObservable { targetCurrency ->
                   localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "APPC",
-                      targetCurrency.selectedCurrency,
-                      SUM_FIAT_SCALE)
+                      targetCurrency, SUM_FIAT_SCALE)
                       .map { fiatValue ->
                         balanceDetailsDao.updateAppcBalance(address, balance.getStringValue(),
                             fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
@@ -82,12 +80,11 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
       balanceGetter.getCredits(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            getSelectedCurrencyUseCase(shouldCheckFirstTime = true)
+            getSelectedCurrencyUseCase()
                 .observeOn(networkScheduler)
                 .flatMapObservable { targetCurrency ->
                   localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "APPC",
-                      targetCurrency.selectedCurrency,
-                      SUM_FIAT_SCALE)
+                      targetCurrency, SUM_FIAT_SCALE)
                       .map { fiatValue ->
                         balanceDetailsDao.updateCreditsBalance(address, balance.getStringValue(),
                             fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)

@@ -4,7 +4,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 
 object ChangeFiatCurrencySideEffect : SideEffect
 
@@ -13,7 +13,7 @@ data class ChangeFiatCurrencyState(
     ViewState
 
 class ChangeFiatCurrencyViewModel(
-    private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase) :
+    private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase) :
     BaseViewModel<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect>(
         initialState()) {
 
@@ -28,7 +28,7 @@ class ChangeFiatCurrencyViewModel(
   }
 
   private fun showChangeFiatCurrency() {
-    getSelectedCurrencyUseCase(shouldCheckFirstTime = false)
+    getChangeFiatCurrencyModelUseCase()
         .asAsyncToState(ChangeFiatCurrencyState::changeFiatCurrencyAsync) {
           copy(changeFiatCurrencyAsync = it)
         }

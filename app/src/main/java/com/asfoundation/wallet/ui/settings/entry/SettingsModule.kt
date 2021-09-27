@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.settings.entry
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -23,10 +23,10 @@ class SettingsModule {
                                 navigator: SettingsNavigator,
                                 interactor: SettingsInteractor,
                                 data: SettingsData,
-                                getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): SettingsPresenter {
+                                getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data,
-        getSelectedCurrencyUseCase)
+        getChangeFiatCurrencyModelUseCase)
   }
 
   @Provides

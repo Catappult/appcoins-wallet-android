@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.change_currency
 
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -9,7 +9,7 @@ class ChangeFiatCurrencyModule {
 
   @Provides
   fun providesChangeFiatCurrencyViewModelFactory(
-      getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): ChangeFiatCurrencyViewModelFactory {
-    return ChangeFiatCurrencyViewModelFactory(getSelectedCurrencyUseCase)
+      getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase): ChangeFiatCurrencyViewModelFactory {
+    return ChangeFiatCurrencyViewModelFactory(getChangeFiatCurrencyModelUseCase)
   }
 }

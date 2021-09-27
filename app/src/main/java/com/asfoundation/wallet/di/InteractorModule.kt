@@ -36,7 +36,6 @@ import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
-import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.SkillsPaymentInteractor
@@ -78,8 +77,6 @@ import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
-import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
-import com.asfoundation.wallet.change_currency.SelectedCurrencyInteract
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
@@ -287,13 +284,15 @@ class InteractorModule {
       GamificationInteractor(gamification, defaultWallet, conversionService)
 
   @Provides
-  fun providePromotionsInteractor(referralInteractor: ReferralInteractorContract,
-                                  gamificationInteractor: GamificationInteractor,
-                                  promotionsRepository: PromotionsRepository,
-                                  findWalletUseCase: FindDefaultWalletUseCase,
-                                  rakamAnalytics: RakamAnalytics,
-                                  userStatsLocalData: UserStatsLocalData,
-                                  gamificationMapper: GamificationMapper, ): PromotionsInteractor {
+  fun providePromotionsInteractor(
+      referralInteractor: ReferralInteractorContract,
+      gamificationInteractor: GamificationInteractor,
+      promotionsRepository: PromotionsRepository,
+      findWalletUseCase: FindDefaultWalletUseCase,
+      rakamAnalytics: RakamAnalytics,
+      userStatsLocalData: UserStatsLocalData,
+      gamificationMapper: GamificationMapper,
+  ): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
         promotionsRepository, findWalletUseCase, userStatsLocalData, rakamAnalytics,
         gamificationMapper)
@@ -555,13 +554,5 @@ class InteractorModule {
                                            walletService: WalletService): WalletVerificationInteractor {
     return WalletVerificationInteractor(verificationRepository, adyenPaymentRepository,
         walletService)
-  }
-
-  @Singleton
-  @Provides
-  fun providesSelectedCurrencyInteract(fiatCurrenciesRepository: FiatCurrenciesRepository,
-                                       localCurrencyConversionService: LocalCurrencyConversionService
-  ): SelectedCurrencyInteract {
-    return SelectedCurrencyInteract(fiatCurrenciesRepository, localCurrencyConversionService)
   }
 }
