@@ -177,7 +177,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   ) {
     updateHeaderInfo(currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
-
+    if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
+      hideBonus()
+    }
     setupSubject!!.onNext(true)
   }
 
