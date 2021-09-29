@@ -3,12 +3,14 @@ package com.asfoundation.wallet.verification.code
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.verification.VerificationActivityData
 import com.asfoundation.wallet.verification.VerificationAnalytics
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class VerificationCodePresenter(private val view: VerificationCodeView,
                                 private var data: VerificationCodeData,
+                                private val activityData: VerificationActivityData,
                                 private val disposable: CompositeDisposable,
                                 private val viewScheduler: Scheduler,
                                 private val ioScheduler: Scheduler,
@@ -32,7 +34,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   private fun initializeView(savedInstanceState: Bundle?) {
     if (data.loaded) {
       view.setupUi(data.currency!!, data.symbol!!, data.amount!!, data.digits!!, data.format!!,
-          data.period!!, data.date!!, savedInstanceState)
+          data.period!!, data.date!!, activityData.isWalletVerified, savedInstanceState)
       hideLoading()
     } else {
       loadInfo(savedInstanceState)
@@ -60,7 +62,8 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                 navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, null, null)
               } else {
                 view.setupUi(model.currency!!, model.symbol!!, model.amount!!, model.digits!!,
-                    model.format!!, model.period!!, model.date!!, savedInstance)
+                    model.format!!, model.period!!, model.date!!, activityData.isWalletVerified,
+                    savedInstance)
                 data = VerificationCodeData(true, model.date, model.format, model.amount,
                     model.currency, model.symbol, model.period, model.digits)
               }
