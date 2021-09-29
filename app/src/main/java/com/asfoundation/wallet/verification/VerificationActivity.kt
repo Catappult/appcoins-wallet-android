@@ -21,7 +21,7 @@ import javax.inject.Inject
 class VerificationActivity : BaseActivity(), VerificationActivityView {
 
   companion object {
-    private const val IS_WALLET_VERIFIED = "is_wallet_verified"
+    const val IS_WALLET_VERIFIED = "is_wallet_verified"
 
     @JvmStatic
     fun newIntent(context: Context, isWalletVerified: Boolean = false) =

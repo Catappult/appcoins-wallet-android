@@ -102,7 +102,8 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
 
 
   override fun setupUi(currency: String, symbol: String, amount: String, digits: Int,
-                       format: String, period: String, date: Long, savedInstance: Bundle?) {
+                       format: String, period: String, date: Long, isWalletVerified: Boolean,
+                       savedInstance: Bundle?) {
     val amountFormat = formatter.formatCurrency(amount, WalletCurrency.FIAT)
     val amountWithCurrency = "${symbol}$amountFormat"
     val amountWithCurrencyAndSign = "${symbol}-$amountFormat"
@@ -140,6 +141,9 @@ class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
     layout_example.arrow_desc.text = periodFormat
     code_title.text = codeTitle
     code_disclaimer.text = codeDisclaimer
+    success_message.text =
+        if (isWalletVerified) getString(R.string.verification_settings_card_verified_title)
+        else getString(R.string.verification_settings_verified_title)
 
     success_animation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator?) = Unit
