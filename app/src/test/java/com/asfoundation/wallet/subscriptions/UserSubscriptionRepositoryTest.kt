@@ -97,15 +97,18 @@ class UserSubscriptionRepositoryTest {
     listResponse = UserSubscriptionsListResponse(userSubList)
     expiredListResponse = UserSubscriptionsListResponse(listOf(expiredSubResponse))
     activeItem =
-        SubscriptionItem(TEST_NAME, Period(0, 0, 1, 0), Status.ACTIVE, null, null, null, null,
+        SubscriptionItem("sku", TEST_NAME, Period(0, 0, 1, 0), Status.ACTIVE, null, null, null,
+            null,
             TEST_PACKAGE_NAME, TEST_NAME, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
             TEST_PAYMENT_METHOD, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
     expiredItem =
-        SubscriptionItem(TEST_NAME, Period(0, 0, 1, 0), Status.EXPIRED, null, null, null, null,
+        SubscriptionItem("sku", TEST_NAME, Period(0, 0, 1, 0), Status.EXPIRED, null, null, null,
+            null,
             TEST_PACKAGE_NAME, TEST_NAME, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
             TEST_PAYMENT_METHOD, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
     pendingItem =
-        SubscriptionItem(TEST_NAME, Period(0, 0, 1, 0), Status.PENDING, null, null, null, null,
+        SubscriptionItem("sku", TEST_NAME, Period(0, 0, 1, 0), Status.PENDING, null, null, null,
+            null,
             TEST_PACKAGE_NAME, TEST_NAME, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
             TEST_PAYMENT_METHOD, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
     userSubscriptionRepository = UserSubscriptionRepository(api, localData, walletService, mapper)

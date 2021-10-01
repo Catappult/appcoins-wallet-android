@@ -11,7 +11,6 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.google.gson.Gson;
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -63,8 +62,8 @@ import static org.mockito.Mockito.when;
 
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
-        scheduler, trackTransactionService);
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
+        new PaymentErrorMapper(new Gson()), scheduler, trackTransactionService);
     when(transactionValidator.validate(any())).thenReturn(
         Single.just(Transaction.Companion.notFound()));
     TokenInfo tokenInfo =

@@ -9,7 +9,6 @@ import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Metadata
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.common.response.TransactionMetadata
@@ -251,7 +250,7 @@ class AdyenResponseMapperTest {
         TEST_UID, Transaction.Status.COMPLETED,
         Gateway(Gateway.Name.adyen_v2, "label", "icon"),
         TEST_HASH, Metadata("purchase_uid"),
-        TEST_REFERENCE, TransactionPrice(
+        TEST_REFERENCE, com.appcoins.wallet.bdsbilling.repository.entity.Price(
         TEST_FIAT_CURRENCY,
         TEST_FIAT_VALUE, "20"), "INAPP", null)
     val expectedModel = PaymentModel("", null, null, null, "", "",

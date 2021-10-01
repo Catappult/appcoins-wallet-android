@@ -30,11 +30,13 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -278,13 +280,25 @@ class AdyenTopUpPresenter(private val view: AdyenTopUpView,
         .throttleLast(2, TimeUnit.SECONDS)
         .observeOn(networkScheduler)
         .flatMapSingle {
-          adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!,
+          adyenPaymentInteractor.submitRedirect(cachedUid, convertToJson(it.details!!),
               it.paymentData ?: cachedPaymentData)
         }
         .observeOn(viewScheduler)
         .flatMapCompletable { handlePaymentResult(it) }
         .subscribe({}, { handleSpecificError(R.string.unknown_error, it) }))
   }
+
+  private fun convertToJson(details: JSONObject): JsonObject {
+    val json = JsonObject()
+    val keys = details.keys()
+    while (keys.hasNext()) {
+      val key = keys.next()
+      val value = details.get(key)
+      if (value is String) json.addProperty(key, value)
+    }
+    return json
+  }
+
 
   private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
     return when {

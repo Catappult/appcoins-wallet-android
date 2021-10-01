@@ -11,17 +11,18 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
+import com.asfoundation.wallet.billing.partners.AttributionEntity
 import com.asfoundation.wallet.billing.partners.PartnerAddressService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
-import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -172,10 +173,8 @@ class AdyenPaymentInteractorTest {
     val payment = CardPaymentMethod()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
         .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
-    Mockito.`when`(partnerAddressService.getStoreAddressForPackage("package"))
-        .thenReturn(Single.just("store_address"))
-    Mockito.`when`(partnerAddressService.getOemAddressForPackage("package"))
-        .thenReturn(Single.just("oem_address"))
+    Mockito.`when`(partnerAddressService.getAttributionEntity("package"))
+        .thenReturn(Single.just(AttributionEntity("store_address", "oem_address")))
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
         "INAPP", null, "store_address", "oem_address", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE,
@@ -215,7 +214,7 @@ class AdyenPaymentInteractorTest {
   @Test
   fun submitRedirectTest() {
     val testObserver = TestObserver<PaymentModel>()
-    val json = JSONObject()
+    val json = JsonObject()
     val expectedModel =
         PaymentModel(null, null, null, null, null, "", "uid", null, null, null, emptyList(),
             PaymentModel.Status.COMPLETED, null, null)

@@ -7,21 +7,21 @@ import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.google.gson.JsonObject
 import org.json.JSONObject
 
-class AdyenSerializer {
+open class AdyenSerializer {
 
-  fun deserializePaymentMethods(response: PaymentMethodsResponse): PaymentMethodsApiResponse {
+  open fun deserializePaymentMethods(response: PaymentMethodsResponse): PaymentMethodsApiResponse {
     return PaymentMethodsApiResponse.SERIALIZER.deserialize(JSONObject(response.payment.toString()))
   }
 
-  fun deserializeRedirectAction(jsonAction: JsonObject): RedirectAction {
+  open fun deserializeRedirectAction(jsonAction: JsonObject): RedirectAction {
     return RedirectAction.SERIALIZER.deserialize(JSONObject(jsonAction.toString()))
   }
 
-  fun deserialize3DSFingerprint(jsonAction: JsonObject): Threeds2FingerprintAction {
+  open fun deserialize3DSFingerprint(jsonAction: JsonObject): Threeds2FingerprintAction {
     return Threeds2FingerprintAction.SERIALIZER.deserialize(JSONObject(jsonAction.toString()))
   }
 
-  fun deserialize3DSChallenge(jsonAction: JsonObject): Threeds2ChallengeAction {
+  open fun deserialize3DSChallenge(jsonAction: JsonObject): Threeds2ChallengeAction {
     return Threeds2ChallengeAction.SERIALIZER.deserialize(JSONObject(jsonAction.toString()))
   }
 }

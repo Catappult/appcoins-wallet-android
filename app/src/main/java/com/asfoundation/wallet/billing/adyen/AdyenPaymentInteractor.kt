@@ -16,12 +16,12 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRepository,
@@ -94,7 +94,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
         }
   }
 
-  fun submitRedirect(uid: String, details: JSONObject,
+  fun submitRedirect(uid: String, details: JsonObject,
                      paymentData: String?): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap {

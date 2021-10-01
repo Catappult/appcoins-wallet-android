@@ -5,7 +5,7 @@ android {
   compileSdkVersion 28
 
   defaultConfig {
-    minSdkVersion 15
+    minSdkVersion 21
     targetSdkVersion 28
     versionCode 1
     versionName "1.0"
@@ -56,4 +56,7 @@ dependencies {
   implementation "com.madgag.spongycastle:core:$project.spongycastle_version"
   implementation "com.adyen.checkout:redirect:$project.adyen_version"
   implementation "io.catappult:communication:$project.appcoins_sdk_version"
+
+  testImplementation "junit:junit:$project.junit_version"
+  testImplementation "org.mockito:mockito-core:$project.mockito_version"
 }

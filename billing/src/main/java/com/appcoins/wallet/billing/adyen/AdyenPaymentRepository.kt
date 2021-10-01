@@ -9,7 +9,6 @@ import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
-import org.json.JSONObject
 import retrofit2.http.*
 
 class AdyenPaymentRepository(private val adyenApi: AdyenApi,
@@ -77,10 +76,9 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
   }
 
   fun submitRedirect(uid: String, walletAddress: String, walletSignature: String,
-                     details: JSONObject, paymentData: String?): Single<PaymentModel> {
-    val json = convertToJson(details)
+                     details: JsonObject, paymentData: String?): Single<PaymentModel> {
     return adyenApi.submitRedirect(uid, walletAddress, walletSignature,
-        AdyenPayment(json, paymentData))
+        AdyenPayment(details, paymentData))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -102,18 +100,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     return bdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
-  }
-
-  //This method is used to avoid the nameValuePairs key problem that occurs when we pass a JSONObject trough a GSON converter
-  private fun convertToJson(details: JSONObject): JsonObject {
-    val json = JsonObject()
-    val keys = details.keys()
-    while (keys.hasNext()) {
-      val key = keys.next()
-      val value = details.get(key)
-      if (value is String) json.addProperty(key, value)
-    }
-    return json
   }
 
   interface AdyenApi {

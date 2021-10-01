@@ -68,20 +68,4 @@ class UserSubscriptionsInteractorTest {
 
     observer.assertComplete()
   }
-
-  @Test
-  fun activateSubscriptionTest() {
-    Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS)))
-    Mockito.`when`(remoteRepository.activateSubscription("packageName", "uid", TEST_WALLET_ADDRESS,
-        TEST_WALLET_ADDRESS))
-        .thenReturn(Single.just(true))
-    val observer = TestObserver<Boolean>()
-
-    interactor.activateSubscription("packageName", "uid")
-        .subscribe(observer)
-
-    observer.assertNoErrors()
-        .assertValue { it }
-  }
 }

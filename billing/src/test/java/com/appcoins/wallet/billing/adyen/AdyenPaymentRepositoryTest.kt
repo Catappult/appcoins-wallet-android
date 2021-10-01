@@ -1,8 +1,8 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
-import com.appcoins.wallet.bdsbilling.BdsApi
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
@@ -12,7 +12,6 @@ import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import org.json.JSONObject
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -20,7 +19,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import org.spongycastle.util.Arrays
 import java.math.BigDecimal
 
 @RunWith(MockitoJUnitRunner::class)
@@ -30,16 +28,13 @@ class AdyenPaymentRepositoryTest {
   lateinit var adyenApi: AdyenPaymentRepository.AdyenApi
 
   @Mock
-  lateinit var bdsApi: BdsApi
+  lateinit var bdsApi: RemoteRepository.BdsApi
 
   @Mock
   lateinit var subscriptionsApi: SubscriptionBillingApi
 
   @Mock
   lateinit var mapper: AdyenResponseMapper
-
-  @Mock
-  lateinit var jsonObject: JSONObject
 
   private lateinit var adyenRepo: AdyenPaymentRepository
 
@@ -231,8 +226,6 @@ class AdyenPaymentRepositoryTest {
     val expectedModel = PaymentModel(null, null, null, null, null, null,
         TEST_UID, null, null, null,
         emptyList(), PaymentModel.Status.COMPLETED, null, null)
-    Mockito.`when`(jsonObject.keys())
-        .thenReturn(Arrays.Iterator(emptyArray()))
     Mockito.`when`(
         adyenApi.submitRedirect(
             TEST_UID,
@@ -245,7 +238,7 @@ class AdyenPaymentRepositoryTest {
     adyenRepo.submitRedirect(
         TEST_UID,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE, jsonObject, null)
+        TEST_WALLET_SIGNATURE, JsonObject(), null)
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -257,8 +250,6 @@ class AdyenPaymentRepositoryTest {
     val testObserver = TestObserver<PaymentModel>()
     val throwable = Throwable("Error")
     val expectedModel = PaymentModel(Error())
-    Mockito.`when`(jsonObject.keys())
-        .thenReturn(Arrays.Iterator(emptyArray()))
     Mockito.`when`(adyenApi.submitRedirect(
         TEST_UID,
         TEST_WALLET_ADDRESS,
@@ -270,7 +261,7 @@ class AdyenPaymentRepositoryTest {
     adyenRepo.submitRedirect(
         TEST_UID,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE, jsonObject, null)
+        TEST_WALLET_SIGNATURE, JsonObject(), null)
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -377,7 +368,8 @@ class AdyenPaymentRepositoryTest {
         adyenApi.makePayment(
             TEST_WALLET_ADDRESS,
             TEST_WALLET_SIGNATURE,
-            Payment(modelObject, false, "", "Ecommerce", null, null, null, null, paymentType, null,
+            AdyenPaymentRepository.Payment(modelObject, false, "", "Ecommerce", null, null, null,
+                null, paymentType, null,
                 null, null, BillingSupportedType.INAPP.name,
                 TEST_FIAT_CURRENCY,
                 TEST_FIAT_VALUE,

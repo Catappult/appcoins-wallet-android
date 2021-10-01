@@ -17,12 +17,12 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.HttpException
 
-class AdyenResponseMapper(private val gson: Gson,
-                          private val billingErrorMapper: BillingErrorMapper,
-                          private val adyenSerializer: AdyenSerializer) {
+open class AdyenResponseMapper(private val gson: Gson,
+                               private val billingErrorMapper: BillingErrorMapper,
+                               private val adyenSerializer: AdyenSerializer) {
 
-  fun map(response: PaymentMethodsResponse,
-          method: AdyenPaymentRepository.Methods): PaymentInfoModel {
+  open fun map(response: PaymentMethodsResponse,
+               method: AdyenPaymentRepository.Methods): PaymentInfoModel {
     //This was done due to the fact that using the PaymentMethodsApiResponse to map the response
     // directly with retrofit was breaking when the response came with a configuration object
     // since the Adyen lib considers configuration a string.
@@ -37,7 +37,7 @@ class AdyenResponseMapper(private val gson: Gson,
     }
   }
 
-  fun map(response: AdyenTransactionResponse): PaymentModel {
+  open fun map(response: AdyenTransactionResponse): PaymentModel {
     val adyenResponse = response.payment
     var actionType: String? = null
     var jsonAction: JsonObject? = null
@@ -71,7 +71,7 @@ class AdyenResponseMapper(private val gson: Gson,
         map(response.status), response.metadata?.errorMessage, response.metadata?.errorCode)
   }
 
-  fun map(response: TransactionResponse): PaymentModel {
+  open fun map(response: TransactionResponse): PaymentModel {
     return PaymentModel(response, map(response.status))
   }
 
@@ -90,7 +90,7 @@ class AdyenResponseMapper(private val gson: Gson,
     }
   }
 
-  fun map(response: Transaction): PaymentModel {
+  open fun map(response: Transaction): PaymentModel {
     return PaymentModel("", null, null, null, "", "", response.uid, response.metadata?.purchaseUid,
         response.hash, response.orderReference, emptyList(), map(response.status))
   }
@@ -110,7 +110,7 @@ class AdyenResponseMapper(private val gson: Gson,
     }
   }
 
-  fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
+  open fun mapInfoModelError(throwable: Throwable): PaymentInfoModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
     val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
@@ -118,7 +118,7 @@ class AdyenResponseMapper(private val gson: Gson,
         Error(true, throwable.isNoNetworkException(), errorInfo))
   }
 
-  fun mapPaymentModelError(throwable: Throwable): PaymentModel {
+  open fun mapPaymentModelError(throwable: Throwable): PaymentModel {
     throwable.printStackTrace()
     val codeAndMessage = throwable.getErrorCodeAndMessage()
     val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
@@ -126,11 +126,11 @@ class AdyenResponseMapper(private val gson: Gson,
     return PaymentModel(error)
   }
 
-  fun mapVerificationPaymentModelSuccess(): VerificationPaymentModel {
+  open fun mapVerificationPaymentModelSuccess(): VerificationPaymentModel {
     return VerificationPaymentModel(true)
   }
 
-  fun mapVerificationPaymentModelError(throwable: Throwable): VerificationPaymentModel {
+  open fun mapVerificationPaymentModelError(throwable: Throwable): VerificationPaymentModel {
     throwable.printStackTrace()
     return if (throwable is HttpException) {
       val body = throwable.getMessage()
@@ -153,7 +153,7 @@ class AdyenResponseMapper(private val gson: Gson,
     }
   }
 
-  fun mapVerificationCodeError(throwable: Throwable): VerificationCodeResult {
+  open fun mapVerificationCodeError(throwable: Throwable): VerificationCodeResult {
     throwable.printStackTrace()
     if (throwable is HttpException) {
       val body = throwable.getMessage()

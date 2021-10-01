@@ -5,7 +5,7 @@ import com.appcoins.wallet.billing.carrierbilling.ForbiddenError
 import com.appcoins.wallet.billing.repository.ResponseErrorBaseBody
 import com.google.gson.Gson
 
-class BillingErrorMapper(private val gson: Gson) {
+open class BillingErrorMapper(private val gson: Gson) {
 
   internal companion object {
     internal const val NOT_ALLOWED_CODE = "NotAllowed"
@@ -15,13 +15,13 @@ class BillingErrorMapper(private val gson: Gson) {
     internal const val CONFLICT_HTTP_CODE = 409
   }
 
-  fun mapErrorInfo(httpCode: Int?, message: String?): ErrorInfo {
+  open fun mapErrorInfo(httpCode: Int?, message: String?): ErrorInfo {
     val messageGson = gson.fromJson(message, ResponseErrorBaseBody::class.java)
     val errorType = getErrorType(httpCode, messageGson.code, messageGson.text, messageGson.data)
     return ErrorInfo(httpCode, messageGson.code, messageGson.text, errorType)
   }
 
-  fun mapForbiddenCode(responseCode: String?): ForbiddenError.ForbiddenType? {
+  open fun mapForbiddenCode(responseCode: String?): ForbiddenError.ForbiddenType? {
     return when (responseCode) {
       NOT_ALLOWED_CODE -> ForbiddenError.ForbiddenType.SUB_ALREADY_OWNED
       FORBIDDEN_CODE -> ForbiddenError.ForbiddenType.BLOCKED

@@ -44,7 +44,6 @@ import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import com.google.gson.Gson;
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
@@ -172,7 +171,8 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
             new ApproveService(approveTransactionService, transactionValidator), allowanceService,
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
                 countryCodeProvider, new DataMapper(), addressService,
-                billingPaymentProofSubmission), balanceService, scheduler, new ErrorMapper());
+                billingPaymentProofSubmission), balanceService, scheduler,
+            new PaymentErrorMapper(new Gson()));
 
     when(proofOfAttentionService.get()).thenReturn(PublishSubject.create());
 
@@ -184,15 +184,16 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null,
-            null)), Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
-        new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null, null)));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, null, "orderReference", null, "",
+            null, null)), Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
+        new Gateway(Gateway.Name.appcoins, "", ""), null, null, "orderReference", null, "", null,
+        null)));
 
     when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class),
         any(BillingSupportedType.class))).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "", null,
-            null)));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, null, "orderReference", null, "",
+            null, null)));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
