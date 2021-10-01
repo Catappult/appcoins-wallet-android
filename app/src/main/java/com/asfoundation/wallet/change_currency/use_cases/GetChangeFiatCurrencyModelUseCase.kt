@@ -1,13 +1,13 @@
 package com.asfoundation.wallet.change_currency.use_cases
 
-import android.util.Log
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrency
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import io.reactivex.Single
 
-class GetChangeFiatCurrencyModelUseCase(private val fiatCurrenciesRepository: FiatCurrenciesRepository,
-                                        private val conversionService: LocalCurrencyConversionService) {
+class GetChangeFiatCurrencyModelUseCase(
+    private val fiatCurrenciesRepository: FiatCurrenciesRepository,
+    private val conversionService: LocalCurrencyConversionService) {
 
   operator fun invoke(): Single<ChangeFiatCurrency> {
     return Single.zip(fiatCurrenciesRepository.getCurrenciesListFirstTimeCheck(),

@@ -9,8 +9,9 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.change_currency.FiatCurrency
+import com.asfoundation.wallet.ui.common.BaseViewHolder
 
 @EpoxyModelClass
 abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCurrencyHolder>() {
@@ -25,12 +26,11 @@ abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCu
   var clickListener: ((FiatCurrency) -> Unit)? = null
 
   override fun bind(holder: FiatCurrencyHolder) {
-//    GlideToVectorYou
-//        .init()
-//        .with(holder.itemView.context)
-//        .setPlaceHolder(R.drawable.ic_currency, R.drawable.ic_currency)
-//        .load(Uri.parse(fiatCurrency.flag), holder.fiatFlag)
-    //TODO
+    GlideApp
+        .with(holder.itemView.context)
+        .load(Uri.parse(fiatCurrency.flag))
+        .circleCrop()
+        .into(holder.fiatFlag)
 
     holder.shortCurrency.text = fiatCurrency.currency
     holder.longCurrency.text = fiatCurrency.label

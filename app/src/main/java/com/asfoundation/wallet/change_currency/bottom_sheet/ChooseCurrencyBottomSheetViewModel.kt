@@ -36,8 +36,6 @@ class ChooseCurrencyBottomSheetViewModel(data: ChooseCurrencyBottomSheetData,
     Completable.fromAction { setSelectedCurrencyUseCase(state.selectedCurrency) }
         .subscribeOn(networkScheduler)
         .asAsyncToState() {
-          Log.d("APPC-2472",
-              "showChangeFiatCurrency: currencyConfirmationClick ${state.selectedConfirmationAsync} ... $it")
           copy(selectedConfirmationAsync = it)
         }
         .scopedSubscribe { e ->

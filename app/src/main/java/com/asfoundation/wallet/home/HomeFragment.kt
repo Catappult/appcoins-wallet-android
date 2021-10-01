@@ -271,6 +271,8 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   private fun showSkeleton() {
+    views.balance.visibility = View.GONE
+    views.balanceSubtitle.visibility = View.GONE
     views.balanceSkeleton.visibility = View.VISIBLE
     views.balanceSkeleton.playAnimation()
   }
@@ -278,6 +280,8 @@ class HomeFragment : BasePageViewFragment(),
   private fun setWalletBalance(globalBalance: GlobalBalance) {
     if (globalBalance.fiatValue.isNotEmpty() && globalBalance.fiatSymbol.isNotEmpty()) {
       views.balanceSkeleton.visibility = View.GONE
+      views.balance.visibility = View.VISIBLE
+      views.balanceSubtitle.visibility = View.VISIBLE
       views.balance.text = globalBalance.fiatSymbol + globalBalance.fiatValue
       setSubtitle(globalBalance)
     }

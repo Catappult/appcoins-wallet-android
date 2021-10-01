@@ -3,13 +3,14 @@ package com.asfoundation.wallet.change_currency
 import android.content.Context
 import android.net.Uri
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.asf.wallet.R
+import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.util.safeLet
 
 class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
     Preference(context, attrs) {
@@ -31,7 +32,6 @@ class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
   }
 
   fun setCurrency(selectedCurrency: FiatCurrency) {
-    Log.d("APPC-2472", "SettingsCurrencyPreference: setCurrency: $selectedCurrency")
     this.selectedCurrency = selectedCurrency
     setCurrencyTextView()
     setFlagImageView()
@@ -42,20 +42,11 @@ class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
   }
 
   private fun setFlagImageView() {
-    Log.d("APPC-2472", "SettingsCurrencyPreference: setFlagImageView: ${selectedCurrency?.flag}")
-//    GlideToVectorYou
-//        .init()
-//        .with(context)
-//        .load(Uri.parse(selectedCurrency?.flag), flag)
-
-//    flag?.let {
-//      GlideApp.with(context)
-//          .`as`(PictureDrawable::class.java)
-//          .transition(withCrossFade())
-//          .listener(SvgSoftwareLayerSetter())
-//          .load(Uri.parse(selectedCurrency?.flag))
-//          .into(it)
-//    }
-    //TODO
+    safeLet(flag, selectedCurrency?.flag) { flagView, flagUrl ->
+      GlideApp.with(context)
+          .load(Uri.parse(flagUrl))
+          .circleCrop()
+          .into(flagView)
+    }
   }
 }

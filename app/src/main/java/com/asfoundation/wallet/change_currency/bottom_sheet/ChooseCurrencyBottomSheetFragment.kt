@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.change_currency.bottom_sheet
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ChooseCurrencyBottomSheetBinding
+import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.change_currency.FiatCurrency
@@ -95,11 +97,11 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   }
 
   override fun setCurrencyFlag(currencyFlag: String) {
-//    GlideToVectorYou
-//        .init()
-//        .with(context)
-//        .load(Uri.parse(currencyFlag), views.chooseCurrencyFlag)
-    //TODO
+    GlideApp
+        .with(requireContext())
+        .load(Uri.parse(currencyFlag))
+        .circleCrop()
+        .into(views.chooseCurrencyFlag)
   }
 
   override fun setCurrencyShort(currencyShort: String) {

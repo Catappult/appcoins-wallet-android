@@ -66,7 +66,7 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
   }
 
   interface FiatCurrenciesApi {
-    @GET("broker/8.20210201/currencies?type=FIAT")
+    @GET("broker/8.20210201/currencies?type=FIAT&icon.height=128")
     fun getFiatCurrencies(): Single<FiatCurrenciesResponse>
   }
 

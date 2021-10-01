@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -122,7 +121,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val settingsCurrencyPreference = findPreference<SettingsCurrencyPreference>("pref_currency")
     settingsCurrencyPreference?.setCurrency(selectedCurrency)
     settingsCurrencyPreference?.setOnPreferenceClickListener {
-      Log.d("APPC-2472", "setCurrencyPreference: click")
       context?.let {
         val intent = ChangeFiatCurrencyActivity.newIntent(it)
             .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }

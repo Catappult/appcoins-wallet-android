@@ -3,6 +3,7 @@ package com.asfoundation.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import android.util.Log
 import android.util.Pair
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.BuildConfig
@@ -12,6 +13,7 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
@@ -65,6 +67,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
                     private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
                     private val getLevelsUseCase: GetLevelsUseCase,
                     private val getUserLevelUseCase: GetUserLevelUseCase,
+                    private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
                     private val getAppcBalanceUseCase: GetAppcBalanceUseCase,
                     private val getEthBalanceUseCase: GetEthBalanceUseCase,
                     private val getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
@@ -161,7 +164,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
    * Balance is refreshed every [.UPDATE_INTERVAL] seconds, and stops while
    * [.refreshData] is false
    */
-  private fun updateBalance(): Completable {
+  private fun updateBalance1(): Completable {
     return Completable.fromObservable(
         Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
             .flatMap { observeRefreshData() }
@@ -173,6 +176,31 @@ class HomeViewModel(private val analytics: HomeAnalytics,
                   })
                   .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
                     copy(defaultWalletBalanceAsync = it)
+                  }
+            })
+  }
+
+  private fun updateBalance(): Completable {
+    return Completable.fromObservable(
+        Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
+            .flatMap { observeRefreshData() }
+            .switchMap {
+              getSelectedCurrencyUseCase()
+                  .flatMapObservable { selectedCurrency ->
+                    val currencyChanged =
+                        selectedCurrency != state.defaultWalletBalanceAsync.value?.fiatCurrency
+                    Log.d("APPC-2472",
+                        "HomeViewModel: updateBalance: changed? -> $currencyChanged ")
+                    val retainValue =
+                        if (currencyChanged) null else HomeState::defaultWalletBalanceAsync
+                    Observable.zip(
+                        getAppcBalance(), getCreditsBalance(), getEthereumBalance(),
+                        { tokenBalance, creditsBalance, ethereumBalance ->
+                          this.mapWalletValue(tokenBalance, creditsBalance, ethereumBalance)
+                        })
+                        .asAsyncToState(retainValue) {
+                          copy(defaultWalletBalanceAsync = it)
+                        }
                   }
             })
   }
