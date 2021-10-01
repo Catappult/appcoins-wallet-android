@@ -66,14 +66,41 @@
           />
 
       <TextView
+          android:id="@+id/sku_name"
+          style="@style/TransactionDetailsTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="5dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/app_name"
+          tools:text="Gas Reserve (1 week)"
+          />
+
+
+      <ImageView
+          android:id="@+id/status_icon"
+          android:layout_width="14dp"
+          android:layout_height="14dp"
+          android:layout_marginTop="5dp"
+          app:layout_constraintEnd_toStartOf="@+id/status"
+          app:layout_constraintStart_toStartOf="@+id/app_name"
+          app:layout_constraintTop_toBottomOf="@+id/sku_name"
+          app:layout_constraintHorizontal_chainStyle="packed"
+          />
+      <TextView
           android:id="@+id/status"
-          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textColor="@color/green"
+          android:layout_marginStart="5dp"
+          android:textSize="12sp"
+          app:layout_constraintBottom_toBottomOf="@+id/status_icon"
           app:layout_constraintEnd_toEndOf="@id/app_name"
-          app:layout_constraintStart_toStartOf="@id/app_name"
-          app:layout_constraintTop_toBottomOf="@id/app_name"
+          app:layout_constraintStart_toEndOf="@id/status_icon"
+          app:layout_constraintTop_toTopOf="@+id/status_icon"
           tools:text="active"
           />
 
@@ -90,8 +117,8 @@
           android:paddingBottom="4dp"
           android:textColor="@color/red"
           android:visibility="gone"
-          app:layout_constraintEnd_toEndOf="@id/status"
-          app:layout_constraintStart_toStartOf="@id/status"
+          app:layout_constraintEnd_toEndOf="@id/app_name"
+          app:layout_constraintStart_toStartOf="@id/app_name"
           app:layout_constraintTop_toBottomOf="@id/status"
           tools:text="Canceled — It expires on 19 Jan"
           tools:visibility="visible"
@@ -196,11 +223,30 @@
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="24dp"
+      android:layout_marginBottom="15dp"
       android:minWidth="64dp"
       android:minHeight="36dp"
       android:orientation="vertical"
       android:text="@string/subscriptions_cancel_button"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/renew_subscription"
+      tools:visibility="visible"
+      />
+
+  <Button
+      android:id="@+id/renew_subscription"
+      style="@style/ButtonStyle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="24dp"
+      android:minWidth="64dp"
+      android:minHeight="36dp"
+      android:orientation="vertical"
+      android:text="@string/subscriptions_renew_subscription_button"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       tools:visibility="visible"
@@ -212,6 +258,39 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       app:layout_constraintGuide_percent="0.68"
+      />
+
+  <include
+      android:id="@+id/no_network_retry_only_layout"
+      layout="@layout/no_network_retry_only_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
+      />
+
+  <include
+      android:id="@+id/generic_error_retry_only_layout"
+      layout="@layout/generic_error_retry_only_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="140dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      android:visibility="gone"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/transact_loading_animation"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

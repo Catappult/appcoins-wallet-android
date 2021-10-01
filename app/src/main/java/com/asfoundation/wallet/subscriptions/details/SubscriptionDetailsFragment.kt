@@ -23,10 +23,13 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_subscription_details.*
+import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
 import kotlinx.android.synthetic.main.layout_active_subscription_content.*
 import kotlinx.android.synthetic.main.layout_expired_subscription_content.*
 import kotlinx.android.synthetic.main.layout_expired_subscription_content.view.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -57,8 +60,48 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
   override fun getCancelClicks() = RxView.clicks(cancel_subscription)
 
+  override fun getRenewSubscriptionClicks() = RxView.clicks(renew_subscription)
+
+  override fun getRetryClicks() =
+      Observable.merge(RxView.clicks(generic_retry_button), RxView.clicks(retry_button))
+
   override fun retrieveSharedElement(): View {
     return app_icon
+  }
+
+  override fun showNoNetworkError() {
+    retry_animation.visibility = View.GONE
+    main_layout.visibility = View.GONE
+    retry_button.visibility = View.VISIBLE
+    loading_animation.visibility = View.GONE
+    no_network_retry_only_layout.visibility = View.VISIBLE
+    cancel_subscription.visibility = View.GONE
+    renew_subscription.visibility = View.GONE
+  }
+
+  override fun showRenewError() {
+    cancel_subscription.visibility = View.GONE
+    renew_subscription.visibility = View.GONE
+    no_network_retry_only_layout.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.VISIBLE
+    loading_animation.visibility = View.GONE
+    main_layout.visibility = View.GONE
+  }
+
+  override fun showDetails() {
+    cancel_subscription.visibility = View.GONE
+    renew_subscription.visibility = View.GONE
+    no_network_retry_only_layout.visibility = View.GONE
+    generic_error_retry_only_layout.visibility = View.GONE
+    loading_animation.visibility = View.GONE
+    main_layout.visibility = View.VISIBLE
+  }
+
+  override fun showLoading() {
+    cancel_subscription.visibility = View.GONE
+    renew_subscription.visibility = View.GONE
+    main_layout.visibility = View.GONE
+    loading_animation.visibility = View.VISIBLE
   }
 
   override fun setupTransitionName(transitionName: String) {
@@ -72,14 +115,17 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     layout_active_subscription_content.visibility = View.VISIBLE
 
     status.text = getString(R.string.subscriptions_active_title)
+    status_icon.setImageResource(R.drawable.ic_active)
     layout_active_subscription_content.payment_method_value.text = subscriptionItem.paymentMethod
     status.setTextColor(ResourcesCompat.getColor(resources, R.color.green, null))
 
+    sku_name.text = subscriptionItem.itemName
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
     setBillingInfo(subscriptionItem)
 
     if (subscriptionItem.status == Status.CANCELED) {
       setCanceledInfo(subscriptionItem)
+      renew_subscription.visibility = View.VISIBLE
     } else {
       cancel_subscription.visibility = View.VISIBLE
       subscriptionItem.renewal?.let { next_payment_value.text = formatDate(it) }
@@ -97,6 +143,7 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
   override fun setExpiredDetails(subscriptionItem: SubscriptionItem) {
     app_name.text = subscriptionItem.appName
+    sku_name.text = subscriptionItem.itemName
 
     layout_active_subscription_content.visibility = View.GONE
     layout_expired_subscription_content.visibility = View.VISIBLE
@@ -104,8 +151,10 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
     info_text.visibility = View.GONE
     cancel_subscription.visibility = View.GONE
 
-    status.setTextColor(ResourcesCompat.getColor(resources, R.color.red, null))
-    status.text = getString(R.string.subscriptions_expired_title)
+    renew_subscription.visibility = View.GONE
+    status_icon.setImageResource(R.drawable.ic_forbidden)
+    status.setTextColor(ResourcesCompat.getColor(resources, R.color.grey_7f, null))
+    status.text = getString(R.string.subscriptions_inactive_title)
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
 
     subscriptionItem.ended?.let { last_bill_value.text = formatDate(it) }
@@ -126,9 +175,6 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
       expires_on.text = getString(R.string.subscriptions_details_cancelled_body,
           dateFormat.format(it))
     }
-
-    info.visibility = View.GONE
-    info_text.visibility = View.GONE
   }
 
   override fun onDestroyView() {
@@ -172,9 +218,9 @@ class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
 
     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
       startPostponedEnterTransition()
-      app_icon.visibility = View.VISIBLE
-      app_icon_skeleton.visibility = View.INVISIBLE
-      app_icon.setImageBitmap(resource)
+      app_icon?.visibility = View.VISIBLE
+      app_icon_skeleton?.visibility = View.INVISIBLE
+      app_icon?.setImageBitmap(resource)
     }
 
     override fun getRequest(): Request? = null

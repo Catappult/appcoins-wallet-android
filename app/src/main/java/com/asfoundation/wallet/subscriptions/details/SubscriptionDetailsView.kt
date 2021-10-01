@@ -8,6 +8,10 @@ interface SubscriptionDetailsView {
 
   fun getCancelClicks(): Observable<Any>
 
+  fun getRenewSubscriptionClicks(): Observable<Any>
+
+  fun getRetryClicks(): Observable<Any>
+
   fun setActiveDetails(subscriptionItem: SubscriptionItem)
 
   fun setExpiredDetails(subscriptionItem: SubscriptionItem)
@@ -15,4 +19,12 @@ interface SubscriptionDetailsView {
   fun retrieveSharedElement(): View
 
   fun setupTransitionName(transitionName: String)
+
+  fun showLoading()
+
+  fun showNoNetworkError()
+
+  fun showRenewError()
+
+  fun showDetails()
 }

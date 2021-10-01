@@ -76,6 +76,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
     loadImage(subscriptionItem.appIcon)
 
     app_name.text = subscriptionItem.appName
+    sku_name.text = subscriptionItem.itemName
 
     val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
     total_value.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
@@ -105,7 +106,7 @@ class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
       override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
         startPostponedEnterTransition()
         app_icon?.visibility = View.VISIBLE
-        app_icon_skeleton.visibility = View.INVISIBLE
+        app_icon_skeleton?.visibility = View.INVISIBLE
         app_icon?.setImageBitmap(resource)
       }
 

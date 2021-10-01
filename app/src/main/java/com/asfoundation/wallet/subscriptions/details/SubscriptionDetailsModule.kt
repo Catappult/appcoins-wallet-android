@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.subscriptions.details
 
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
+import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,9 +13,10 @@ class SubscriptionDetailsModule {
   @Provides
   fun providesSubscriptionDetailsPresenter(fragment: SubscriptionDetailsFragment,
                                            navigator: SubscriptionDetailsNavigator,
+                                           userSubscriptionsInteractor: UserSubscriptionsInteractor,
                                            data: SubscriptionDetailsData): SubscriptionDetailsPresenter {
     return SubscriptionDetailsPresenter(fragment as SubscriptionDetailsView, navigator, data,
-        CompositeDisposable(), AndroidSchedulers.mainThread())
+        userSubscriptionsInteractor, CompositeDisposable(), AndroidSchedulers.mainThread())
   }
 
   @Provides

@@ -196,10 +196,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   fun activateSubscription(packageName: String, uid: String, walletAddress: String,
-                           walletSignature: String): Single<Boolean> {
+                           walletSignature: String): Completable {
     return subsApi.activateSubscription(packageName, uid, walletAddress, walletSignature)
-      .toSingle { true }
-      .onErrorReturn { false }
   }
 
   fun cancelSubscription(packageName: String, uid: String, walletAddress: String,

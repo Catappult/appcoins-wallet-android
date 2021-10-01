@@ -5,7 +5,8 @@ import java.io.Serializable
 import java.math.BigDecimal
 import java.util.*
 
-data class SubscriptionItem(val itemName: String, val period: Period?, val status: Status,
+data class SubscriptionItem(val sku: String, val itemName: String, val period: Period?,
+                            val status: Status,
                             val started: Date?, val renewal: Date?, val expiry: Date?,
                             val ended: Date?, val packageName: String, val appName: String,
                             val appIcon: String, val fiatAmount: BigDecimal, val fiatSymbol: String,

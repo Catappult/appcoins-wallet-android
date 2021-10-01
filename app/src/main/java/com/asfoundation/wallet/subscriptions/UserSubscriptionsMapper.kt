@@ -19,7 +19,8 @@ class UserSubscriptionsMapper {
     return subscriptionList.items.map {
       val application = it.application
       val order = it.order
-      SubscriptionItem(it.title, mapPeriod(it.period), mapStatus(it.subStatus),
+
+      SubscriptionItem(it.sku, it.title, mapPeriod(it.period), mapStatus(it.subStatus),
           mapDate(it.started), mapDate(it.renewal), mapDate(it.expiry), mapDate(it.ended),
           application.name, application.title, application.icon, order.value, order.symbol,
           order.currency, order.method.title, order.method.logo, order.appc.value,

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.subscriptions.cancelsuccess
+package com.asfoundation.wallet.subscriptions.success
 
 import android.content.Context
 import android.os.Bundle
@@ -13,10 +13,10 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_subscription_cancel_success.*
 import javax.inject.Inject
 
-class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSuccessView {
+class SubscriptionSuccessFragment : DaggerFragment(), SubscriptionSuccessView {
 
   @Inject
-  lateinit var presenter: SubscriptionCancelSuccessPresenter
+  lateinit var presenter: SubscriptionSuccessPresenter
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -27,6 +27,19 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
     super.onViewCreated(view, savedInstanceState)
     setBackListener(view)
     presenter.present()
+  }
+
+  override fun setupUi(successType: SubscriptionSuccess) {
+    when (successType) {
+      SubscriptionSuccess.CANCEL -> {
+        success_animation.setAnimation(R.raw.subscription_cancel_success)
+        update_title.text = getString(R.string.subscriptions_cancel_confirmation_title)
+      }
+      SubscriptionSuccess.RENEW -> {
+        success_animation.setAnimation(R.raw.success_animation)
+        update_title.text = getString(R.string.subscriptions_renewed_confirmation_title)
+      }
+    }
   }
 
   private fun setBackListener(view: View) {
@@ -54,10 +67,17 @@ class SubscriptionCancelSuccessFragment : DaggerFragment(), SubscriptionCancelSu
     super.onDestroyView()
   }
 
-  companion object {
+  enum class SubscriptionSuccess { CANCEL, RENEW }
 
-    fun newInstance(): SubscriptionCancelSuccessFragment {
-      return SubscriptionCancelSuccessFragment()
+  companion object {
+    const val SUCCESS_TYPE_KEY = "subscription_success_key"
+
+    fun newInstance(successType: SubscriptionSuccess): SubscriptionSuccessFragment {
+      return SubscriptionSuccessFragment().apply {
+        arguments = Bundle().apply {
+          putSerializable(SUCCESS_TYPE_KEY, successType)
+        }
+      }
     }
   }
 }

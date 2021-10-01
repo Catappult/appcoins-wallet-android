@@ -41,7 +41,7 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
 
   private fun onSubscriptions(subscriptionModel: SubscriptionModel) {
     val activeSubs = filterActive(subscriptionModel.allSubscriptions)
-    val expiredSubs = subscriptionModel.expiredSubscriptions
+    val expiredSubs = filterExpired(activeSubs, subscriptionModel.expiredSubscriptions)
     val bothEmpty = activeSubs.isEmpty() && expiredSubs.isEmpty()
     when {
       subscriptionModel.error == SubscriptionModel.Error.NO_NETWORK -> {
@@ -52,11 +52,21 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
       bothEmpty.not() -> {
         //Both from cache and not from cache
         view.onActiveSubscriptions(activeSubs)
-        view.onExpiredSubscriptions(subscriptionModel.expiredSubscriptions)
+        view.onExpiredSubscriptions(expiredSubs)
         view.showSubscriptions()
       }
       else -> Unit //When both empty and fromCache we should not do anything and wait for the API
     }
+  }
+
+  private fun filterExpired(activeSubs: List<SubscriptionItem>,
+                            expiredSubscriptions: List<SubscriptionItem>): List<SubscriptionItem> {
+    return expiredSubscriptions
+        .filter { expiredItem ->
+          activeSubs.none { activeItem ->
+            activeItem.packageName == expiredItem.packageName && activeItem.sku == expiredItem.sku
+          }
+        }
   }
 
   private fun handleNoNetworkRetryClicks() {
@@ -94,6 +104,7 @@ class SubscriptionListPresenter(private val view: SubscriptionListView,
 
   private fun filterActive(userSubscriptionItems: List<SubscriptionItem>): List<SubscriptionItem> {
     return userSubscriptionItems.filter { it.isActiveSubscription() }
+        .distinctBy { item -> item.packageName to item.sku }
   }
 
   fun stop() = disposables.clear()

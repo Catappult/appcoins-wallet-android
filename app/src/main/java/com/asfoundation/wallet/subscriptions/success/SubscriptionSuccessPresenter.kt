@@ -1,15 +1,17 @@
-package com.asfoundation.wallet.subscriptions.cancelsuccess
+package com.asfoundation.wallet.subscriptions.success
 
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class SubscriptionCancelSuccessPresenter(private val view: SubscriptionCancelSuccessView,
-                                         private val navigator: SubscriptionCancelSuccessNavigator,
-                                         private val disposables: CompositeDisposable,
-                                         private val viewScheduler: Scheduler
+class SubscriptionSuccessPresenter(private val view: SubscriptionSuccessView,
+                                   private val data: SubscriptionSuccessData,
+                                   private val navigator: SubscriptionSuccessNavigator,
+                                   private val disposables: CompositeDisposable,
+                                   private val viewScheduler: Scheduler
 ) {
 
   fun present() {
+    view.setupUi(data.successType)
     handleContinueCLicks()
   }
 

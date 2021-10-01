@@ -1,10 +1,10 @@
-package com.asfoundation.wallet.subscriptions.cancelsuccess
+package com.asfoundation.wallet.subscriptions.success
 
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 
-class SubscriptionCancelSuccessNavigator(private val fragmentManager: FragmentManager) {
+class SubscriptionSuccessNavigator(private val fragmentManager: FragmentManager) {
 
   fun navigateToSubscriptionList() {
     for (i in 0 until fragmentManager.backStackEntryCount) fragmentManager.popBackStack()

@@ -26,6 +26,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="sans-serif"
+      android:textStyle="bold"
       android:textColor="@color/black_87_alpha"
       android:textSize="16sp"
       app:layout_constraintBottom_toBottomOf="@id/billing_title"

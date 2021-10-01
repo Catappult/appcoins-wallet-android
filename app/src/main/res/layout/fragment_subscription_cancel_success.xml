@@ -24,7 +24,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
-      android:text="Subscription Canceled"
+      android:text="@string/subscriptions_cancel_confirmation_title"
       android:textColor="@color/black_87_alpha"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="@id/success_animation"

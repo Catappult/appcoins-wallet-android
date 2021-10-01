@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import com.asf.wallet.R
-import com.asfoundation.wallet.subscriptions.cancelsuccess.SubscriptionCancelSuccessFragment
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
+import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
 import com.asfoundation.wallet.ui.BaseActivity
 
 class SubscriptionActivity : BaseActivity() {
@@ -34,7 +34,7 @@ class SubscriptionActivity : BaseActivity() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
       if (supportFragmentManager.backStackEntryCount > 1) {
-        if (supportFragmentManager.fragments.last() is SubscriptionCancelSuccessFragment) {
+        if (supportFragmentManager.fragments.last() is SubscriptionSuccessFragment) {
           endCancelSubscription()
         } else {
           close()
