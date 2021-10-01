@@ -253,9 +253,8 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun providesGetSelectedCurrencyUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository,
-                                         conversionService: LocalCurrencyConversionService): GetSelectedCurrencyUseCase {
-    return GetSelectedCurrencyUseCase(fiatCurrenciesRepository, conversionService)
+  fun providesGetSelectedCurrencyUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
+    return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
   }
 
 }

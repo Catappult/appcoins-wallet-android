@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.service.currencies.FiatCurrenciesResponse
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
@@ -11,7 +12,8 @@ import retrofit2.http.GET
 class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
                                private val pref: SharedPreferences,
                                private val fiatCurrenciesMapper: FiatCurrenciesMapper,
-                               private val roomFiatCurrenciesPersistence: RoomFiatCurrenciesPersistence) {
+                               private val roomFiatCurrenciesPersistence: RoomFiatCurrenciesPersistence,
+                               private val conversionService: LocalCurrencyConversionService) {
 
   companion object {
     private const val FIAT_CURRENCY = "fiat_currency"
@@ -41,18 +43,21 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
     }
   }
 
-  fun getSelectedCurrencyFirstTimeCheck(currency: String): Single<String> {
+  fun getSelectedCurrency(): Single<String> {
     if (pref.getBoolean("selected_first_time", true)) {
       pref.edit()
           .putBoolean("selected_first_time", false)
           .apply()
-      setSelectedCurrency(currency)
+      conversionService.localCurrency.doOnSuccess {
+        setSelectedCurrency(it.currency)
+      }
+          .subscribe()
     }
-    return getSelectedCurrency()
+    return getCachedSelectedCurrency()
   }
 
-  fun getSelectedCurrency(): Single<String> {
-    Log.d("APPC-2472", "FiatCurrenciesRepository: getSelectedCurrency: ${
+  fun getCachedSelectedCurrency(): Single<String> {
+    Log.d("APPC-2472", "FiatCurrenciesRepository: getCachedSelectedCurrency: ${
       pref.getString(FIAT_CURRENCY, "")
     }")
     return Single.just(pref.getString(FIAT_CURRENCY, ""))

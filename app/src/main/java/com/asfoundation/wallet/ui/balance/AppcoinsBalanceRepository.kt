@@ -34,7 +34,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
       ethBalanceDisposable = balanceGetter.getEthereumBalance(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            getSelectedCurrencyUseCase()
+            getSelectedCurrencyUseCase(bypass = false)
                 .observeOn(networkScheduler)
                 .flatMapObservable { targetCurrency ->
                   localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "ETH",
@@ -57,7 +57,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
       balanceGetter.getAppcBalance(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            getSelectedCurrencyUseCase()
+            getSelectedCurrencyUseCase(bypass = false)
                 .observeOn(networkScheduler)
                 .flatMapObservable { targetCurrency ->
                   localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "APPC",
@@ -80,7 +80,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
       balanceGetter.getCredits(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            getSelectedCurrencyUseCase()
+            getSelectedCurrencyUseCase(bypass = false)
                 .observeOn(networkScheduler)
                 .flatMapObservable { targetCurrency ->
                   localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "APPC",

@@ -383,7 +383,8 @@ class RepositoryModule {
   fun providesFiatCurrenciesRepository(@Named("default") client: OkHttpClient,
                                        objectMapper: ObjectMapper,
                                        sharedPreferences: SharedPreferences,
-                                       roomFiatCurrenciesPersistence: RoomFiatCurrenciesPersistence): FiatCurrenciesRepository {
+                                       roomFiatCurrenciesPersistence: RoomFiatCurrenciesPersistence,
+                                       conversionService: LocalCurrencyConversionService): FiatCurrenciesRepository {
     val baseUrl = FiatCurrenciesRepository.CONVERSION_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -393,7 +394,7 @@ class RepositoryModule {
         .build()
         .create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
     return FiatCurrenciesRepository(api, sharedPreferences, FiatCurrenciesMapper(),
-        roomFiatCurrenciesPersistence)
+        roomFiatCurrenciesPersistence, conversionService)
 
   }
 }

@@ -185,7 +185,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
         Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
             .flatMap { observeRefreshData() }
             .switchMap {
-              getSelectedCurrencyUseCase()
+              getSelectedCurrencyUseCase(bypass = true)
                   .flatMapObservable { selectedCurrency ->
                     val currencyChanged =
                         selectedCurrency != state.defaultWalletBalanceAsync.value?.fiatCurrency
