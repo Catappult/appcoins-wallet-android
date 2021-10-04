@@ -3,7 +3,6 @@ package com.asfoundation.wallet.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,7 +20,6 @@ class HomeViewModelFactory(private val analytics: HomeAnalytics,
                            private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
                            private val getLevelsUseCase: GetLevelsUseCase,
                            private val getUserLevelUseCase: GetUserLevelUseCase,
-                           private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
                            private val getAppcBalanceUseCase: GetAppcBalanceUseCase,
                            private val getEthBalanceUseCase: GetEthBalanceUseCase,
                            private val getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
@@ -41,7 +39,7 @@ class HomeViewModelFactory(private val analytics: HomeAnalytics,
         fetchTransactionsUseCase, findDefaultWalletUseCase,
         observeDefaultWalletUseCase, dismissCardNotificationUseCase,
         shouldShowFingerprintTooltipUseCase, setSeenFingerprintTooltipUseCase, getLevelsUseCase,
-        getUserLevelUseCase, getSelectedCurrencyUseCase, getAppcBalanceUseCase,
+        getUserLevelUseCase, getAppcBalanceUseCase,
         getEthBalanceUseCase, getCreditsBalanceUseCase,
         getCardNotificationsUseCase, registerSupportUserUseCase,
         getUnreadConversationsCountEventsUseCase, displayChatUseCase,

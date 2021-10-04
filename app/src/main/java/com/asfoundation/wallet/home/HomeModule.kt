@@ -2,7 +2,6 @@ package com.asfoundation.wallet.home
 
 import android.content.Context
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -35,7 +34,6 @@ class HomeModule {
                                    setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
                                    getLevelsUseCase: GetLevelsUseCase,
                                    getUserLevelUseCase: GetUserLevelUseCase,
-                                   getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
                                    getAppcBalanceUseCase: GetAppcBalanceUseCase,
                                    getEthBalanceUseCase: GetEthBalanceUseCase,
                                    getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
@@ -52,7 +50,6 @@ class HomeModule {
         findDefaultWalletUseCase, observeDefaultWalletUseCase, dismissCardNotificationUseCase,
         shouldShowFingerprintTooltipUseCase,
         setSeenFingerprintTooltipUseCase, getLevelsUseCase, getUserLevelUseCase,
-        getSelectedCurrencyUseCase,
         getAppcBalanceUseCase, getEthBalanceUseCase, getCreditsBalanceUseCase,
         getCardNotificationsUseCase, registerSupportUserUseCase,
         getUnreadConversationsCountEventsUseCase, displayChatUseCase,
