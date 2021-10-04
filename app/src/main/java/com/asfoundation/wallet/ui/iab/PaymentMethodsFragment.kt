@@ -177,7 +177,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   ) {
     updateHeaderInfo(currency, fiatAmount, appcAmount)
     setupPaymentMethods(paymentMethods, paymentMethodId)
-
+    if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
+      hideBonus()
+    }
     setupSubject!!.onNext(true)
   }
 
@@ -191,6 +193,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     paymentMethods: MutableList<PaymentMethod>,
     paymentMethodId: String
   ) {
+    if (paymentMethods.size == 1 && paymentMethods[0].showTopup) {
+      buy_button.tag = !paymentMethods[0].showTopup
+    } else {
+      buy_button.tag = null
+    }
     isPreSelected = false
     pre_selected_payment_method_group.visibility = View.GONE
     mid_separator?.visibility = View.VISIBLE
@@ -238,6 +245,13 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     paymentMethod: PaymentMethod,
     isBonusActive: Boolean
   ) {
+
+    if (paymentMethod.showTopup) {
+      buy_button.tag = !paymentMethod.showTopup
+    } else {
+      buy_button.tag = null
+    }
+
     isPreSelected = true
     mid_separator?.visibility = View.INVISIBLE
     payment_method_description.visibility = View.VISIBLE
@@ -334,7 +348,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     if (processing_loading.visibility != View.VISIBLE) {
       payment_methods.visibility = View.VISIBLE
       removeSkeletons()
-      buy_button.isEnabled = true
+      if (buy_button.tag != null && buy_button.tag is Boolean) {
+        buy_button.isEnabled = buy_button.tag as Boolean
+      } else {
+        buy_button.isEnabled = true
+      }
       if (isPreSelected) {
         pre_selected_payment_method_group.visibility = View.VISIBLE
         payment_methods_list_group.visibility = View.GONE
