@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Persian\n"
 "Language: fa_IR\n"
-"PO-Revision-Date: 2021-05-17 10:26\n"
+"PO-Revision-Date: 2021-08-24 10:53\n"
 
 #. Card Title
 #:
@@ -19,8 +19,8 @@ msgstr "کسب اعتبار AppCoins!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr "{0}% پاداش اضافی در همه خریدهای خود غیر از AppCoins Credits در {1} دریافت کنید."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
+msgstr ""
 
 #. Card - Purchase Promotion.
 #:
@@ -54,8 +54,8 @@ msgstr "زیرا به مرحله بعد رسیده‌اید."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
-msgstr "{0}% پاداش اضافی در همه خریدهای خود غیر از AppCoins Credits در {1} دریافت کنید."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -109,8 +109,8 @@ msgstr "زیرا شما {0} {1} در اپلیکیشن‌های AppCoins خرج �
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
-msgstr "{0}% پاداش اضافی در همه خریدهای خود غیر از AppCoins Credits دریافت کنید."
+msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
+msgstr ""
 
 #. Card - Title - Common
 #:

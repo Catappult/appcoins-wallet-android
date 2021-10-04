@@ -28,7 +28,7 @@
   <string name="label_new">ใหม่</string>
   <string name="got_it_button">เข้าใจล่ะ</string>
   <string name="change_button">เปลี่ยนแปลง</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
@@ -263,7 +263,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">บัตรเครดิต/เดบิต</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
@@ -426,6 +426,10 @@
   <string name="remind_later_button">เตือนฉันภายหลัง</string>
   <string name="get_code_button">รับรหัส</string>
   <string name="confirm_button">ยืนยัน</string>
+  <string name="withdraw_button">withdraw</string>
+  <string name="active_tag">Active</string>
+  <string name="expired_tag">Expired</string>
+  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -436,7 +440,7 @@
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">แลกใช้รหัส</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
   <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
@@ -517,6 +521,15 @@
   <string name="purchase_error_try_other_amount_or_method">อ๊ะ &#8230; มีบางอย่างเกิดขึ้น! โปรดลองใช้วิธีการชำระเงินอื่นหรือลองจำนวนอื่น</string>
   <string name="purchase_error_try_cheaper_item">ราคาสูงไป! โปรดลองซื้อสินค้าที่มีมูลค่าต่ำกว่า</string>
   <string name="purchase_error_try_cheaper_item_or_method">แพงทีเดียว! โปรดลองซื้อสินค้าที่ถูกกว่าหรือลองใช้วิธีการชำระเงินแบบอื่น</string>
+  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
+  <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
+  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
+  <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
+  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
+  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
+  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
+  <string name="purchase_eskills_sku">Entry ticket</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -801,7 +814,7 @@
   <string name="carrier_billing_terms_button">ข้อกำหนดและเงื่อนไข</string>
   <string name="carrier_billing_privacy_button">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">เพิ่มบัตรเครดิต/เดบิต</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
@@ -876,8 +889,8 @@
   <string name="rate_us_back_title">ต้องการความช่วยเหลือไหม</string>
   <string name="rate_us_back_body">ให้คะแนน AppCoins Wallet บนแอพสโตร์เพื่อให้เราปรับปรุง</string>
   <!--Card verification-->
-  <string name="card_verification_body">ใช้บัตรเครดิต / เดบิตเพื่อยืนยันกระเป๋าเงินของคุณ</string>
-  <string name="card_verification_charde_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณและเราจะคืนเงินให้ เมื่อคุณยืนยันรหัส</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">ตรวจสอบรหัสรายละเอียดธุรกรรม</string>
   <string name="card_verification_code_body">รหัสเฉพาะจะแสดงในข้อมูลสรุปธุรกรรมที่ผู้ออกบัตรของคุณให้ไว้</string>
   <string name="card_verification_code_example_title">ตัวอย่างสรุปธุรกรรม</string>
@@ -916,7 +929,38 @@
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
   <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_choose_button">Choose currency</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+  <string name="e_skills_withdraw_amount">Amount (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
+  <string name="e_skills_more_info_button">More info.</string>
+  <!--Promo Code-->
+  <string name="promo_code_settings_title">Promo Code</string>
+  <string name="promo_code_view_title">Promo Code</string>
+  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
+  <string name="promo_code_view_field">Promo Code here...</string>
+  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
+  <!--AppCoins Info Page-->
+  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
+  <string name="appcoins_info_title_1">What are AppCoins?</string>
+  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
+  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
+  <string name="appcoins_info_title_2">What are AppCoins for?</string>
+  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
+  <string name="appcoins_info_website_title">Website</string>
+  <string name="appcoins_info_explorer_title">Explorer</string>
+  <string name="appcoins_info_market_cap_title">Market Cap</string>
+  <string name="appcoins_info_volume_title">Volume (24h)</string>
 </resources>
