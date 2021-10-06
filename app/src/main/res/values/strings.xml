@@ -408,7 +408,7 @@
   <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
 
-  <string name="verify_card_title">Verify card</string>
+  <string name="verify_card_title">Verify Card</string>
 
 
   <!--Ask a friend for funds-->
