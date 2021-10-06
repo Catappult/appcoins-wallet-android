@@ -76,4 +76,8 @@
   <dimen name="design_bottom_navigation_label_padding" tools:override="true">15dp</dimen>
   <dimen name="design_bottom_navigation_item_max_width" tools:override="true">5000dp</dimen>
   <dimen name="design_bottom_navigation_active_item_max_width" tools:override="true">5000dp</dimen>
+
+  <!--Subscriptions -->
+
+  <dimen name="subscriptions_image_size">64dp</dimen>
 </resources>

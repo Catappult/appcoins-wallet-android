@@ -10,9 +10,12 @@ import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+
 
 @Module
 class TransactionDetailModule {
+
   @Provides
   fun provideTransactionDetailViewModelFactory(findDefaultWalletUseCase: FindDefaultWalletUseCase,
                                                findNetworkInfoUseCase: FindNetworkInfoUseCase,

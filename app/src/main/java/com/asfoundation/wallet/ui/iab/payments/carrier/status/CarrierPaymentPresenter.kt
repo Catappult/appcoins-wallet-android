@@ -95,9 +95,9 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun finishPayment(payment: CarrierPaymentModel): Completable {
     return carrierInteractor.getCompletePurchaseBundle(data.transactionType, data.domain,
-        data.skuId, payment.reference, payment.hash, ioScheduler)
+        data.skuId, payment.purchaseUid, payment.reference, payment.hash, ioScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { bundle -> navigator.finishPayment(bundle) }
+        .doOnSuccess { bundleModel -> navigator.finishPayment(bundleModel.bundle) }
         .subscribeOn(ioScheduler)
         .ignoreElement()
   }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
@@ -20,6 +21,7 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Parameters.Companion.ESKILLS
+import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -51,13 +53,15 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     private const val TRANSACTION = "transaction"
     private const val ITEM_ALREADY_OWNED = "item_already_owned"
     private const val IS_DONATION = "is_donation"
+    private const val IS_SUBSCRIPTION = "is_subscription"
+    private const val FREQUENCY = "frequency"
 
     @JvmStatic
     fun newInstance(
       transaction: TransactionBuilder?, productName: String?,
       isBds: Boolean, isDonation: Boolean,
       developerPayload: String?, uri: String?,
-      transactionData: String?
+      transactionData: String?, isSubscription: Boolean, frequency: String?
     ): Fragment {
       val bundle = Bundle()
       bundle.apply {
@@ -70,6 +74,8 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         putBoolean(IS_BDS, isBds)
         putBoolean(IS_DONATION, isDonation)
         putString(IabActivity.TRANSACTION_DATA, transactionData)
+        putString(FREQUENCY, frequency)
+        putBoolean(IS_SUBSCRIPTION, isSubscription)
       }
       return PaymentMethodsFragment().apply { arguments = bundle }
     }
@@ -123,7 +129,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
     val paymentMethodsData = PaymentMethodsData(
       appPackage, isBds, getDeveloperPayload(), getUri(),
-      transactionBuilder!!.skuId
+      transactionBuilder!!.skuId, getFrequency(), getIsSubscription()
     )
     presenter = PaymentMethodsPresenter(
       this, AndroidSchedulers.mainThread(),
@@ -160,7 +166,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError)
     presenter.onSavedInstance(outState)
   }
 
@@ -173,9 +178,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>, currency: String,
     paymentMethodId: String, fiatAmount: String, appcAmount: String,
-    appcEnabled: Boolean, creditsEnabled: Boolean
+    appcEnabled: Boolean, creditsEnabled: Boolean,
+    frequency: String?, isSubscription: Boolean
   ) {
-    updateHeaderInfo(currency, fiatAmount, appcAmount)
+    updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
     setupPaymentMethods(paymentMethods, paymentMethodId)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
       hideBonus()
@@ -211,9 +217,18 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     }
   }
 
-  private fun updateHeaderInfo(currency: String, fiatAmount: String, appcAmount: String) {
-    val appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
-    val fiatPrice = "$fiatAmount $currency"
+  private fun updateHeaderInfo(
+    currency: String, fiatAmount: String, appcAmount: String,
+    frequency: String?, isSubscription: Boolean
+  ) {
+    var appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
+    var fiatPrice = "$fiatAmount $currency"
+    if (isSubscription) {
+      val period = Period.parse(frequency!!)
+      period?.mapToSubsFrequency(requireContext(), fiatPrice)
+        ?.let { fiatPrice = it }
+      appcPrice = "~$appcPrice"
+    }
     appc_price.text = appcPrice
     fiat_price.text = fiatPrice
     fiat_price_skeleton.visibility = View.GONE
@@ -231,19 +246,20 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showPreSelectedPaymentMethod(
     paymentMethod: PaymentMethod, currency: String,
     fiatAmount: String, appcAmount: String,
-    isBonusActive: Boolean
+    isBonusActive: Boolean, frequency: String?,
+    isSubscription: Boolean
   ) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
-    updateHeaderInfo(currency, fiatAmount, appcAmount)
+    updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
 
-    setupPaymentMethod(paymentMethod, isBonusActive)
+    setupPaymentMethod(paymentMethod, isBonusActive, isSubscription)
 
     setupSubject!!.onNext(true)
   }
 
   private fun setupPaymentMethod(
     paymentMethod: PaymentMethod,
-    isBonusActive: Boolean
+    isBonusActive: Boolean, isSubscription: Boolean
   ) {
 
     if (paymentMethod.showTopup) {
@@ -262,7 +278,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
       if (isBonusActive) hideBonus()
     } else {
       payment_method_secondary.visibility = View.GONE
-      if (isBonusActive) showBonus()
+      if (isBonusActive) {
+        if (isSubscription) showBonus(R.string.subscriptions_bonus_body)
+        else showBonus(R.string.gamification_purchase_body)
+      }
     }
     setupFee(paymentMethod.fee)
     loadIcons(paymentMethod, payment_method_ic)
@@ -299,17 +318,14 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun showError(message: Int) {
-    if (!itemAlreadyOwnedError) {
-      payment_method_main_view.visibility = View.GONE
-      error_message.error_dismiss.text = getString(R.string.ok)
-      error_message.visibility = View.VISIBLE
-      error_message.generic_error_layout.error_message.setText(message)
-    }
+    payment_method_main_view.visibility = View.GONE
+    error_message.error_dismiss.text = getString(R.string.ok)
+    error_message.visibility = View.VISIBLE
+    error_message.generic_error_layout.error_message.setText(message)
   }
 
   override fun showItemAlreadyOwnedError() {
     payment_method_main_view.visibility = View.GONE
-    itemAlreadyOwnedError = true
     iabView.disableBack()
     error_dismiss.text = getString(R.string.ok)
     error_message.visibility = View.VISIBLE
@@ -395,7 +411,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     iabView.close(bundle)
   }
 
-  override fun errorDismisses(): Observable<Boolean> {
+  override fun errorDismisses(): Observable<Any> {
     return RxView.clicks(error_dismiss)
       .map { itemAlreadyOwnedError }
   }
@@ -421,10 +437,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
   }
 
-  override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue) {
+  override fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                          isSubscription: Boolean) {
     iabView.showAdyenPayment(
       fiatValue.amount, fiatValue.currency, isBds,
-      PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel
+      PaymentType.PAYPAL, bonusMessageValue, false, null, gamificationLevel, isSubscription,
+      frequency
     )
   }
 
@@ -432,20 +450,22 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   override fun showAdyen(
     fiatAmount: BigDecimal, fiatCurrency: String, paymentType: PaymentType,
     iconUrl: String?,
-    gamificationLevel: Int
+    gamificationLevel: Int, frequency: String?,
+    isSubscription: Boolean
   ) {
     if (!itemAlreadyOwnedError) {
       iabView.showAdyenPayment(
         fiatAmount, fiatCurrency, isBds, paymentType, bonusMessageValue,
-        true, iconUrl, gamificationLevel
+        true, iconUrl, gamificationLevel, isSubscription, frequency
       )
     }
   }
 
-  override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue) {
+  override fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                              isSubscription: Boolean) {
     iabView.showAdyenPayment(
       fiatValue.amount, fiatValue.currency, isBds,
-      PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel
+      PaymentType.CARD, bonusMessageValue, false, null, gamificationLevel, isSubscription, frequency
     )
   }
 
@@ -459,6 +479,10 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showCredits(gamificationLevel: Int, transaction: TransactionBuilder) {
     iabView.showAppcoinsCreditsPayment(transaction.amount(), gamificationLevel, transaction)
+  }
+
+  override fun showSubscribe() {
+    buy_button.text = getString(R.string.subscriptions_subscribe_button)
   }
 
   override fun showShareLink(selectedPaymentMethod: String) {
@@ -501,7 +525,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     )
   }
 
-  override fun setBonus(bonus: BigDecimal, currency: String) {
+  override fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int) {
     var scaledBonus = bonus.stripTrailingZeros()
       .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
     var newCurrencyString = currency
@@ -515,7 +539,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     bonus_view.setPurchaseBonusHeaderValue(bonus, currency)
   }
 
-  override fun onBackPressed(): Observable<Boolean> {
+  override fun onBackPressed(): Observable<Any> {
     return iabView.backButtonPress()
       .map { itemAlreadyOwnedError }
   }
@@ -531,11 +555,12 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showMergedAppcoins(
     gamificationLevel: Int, fiatValue: FiatValue,
-    transaction: TransactionBuilder
+    transaction: TransactionBuilder, frequency: String?,
+    isSubscription: Boolean
   ) {
     iabView.showMergedAppcoins(
       fiatValue.amount, fiatValue.currency, bonusMessageValue,
-      isBds, isDonation, gamificationLevel, transaction
+      isBds, isDonation, gamificationLevel, transaction, isSubscription, frequency
     )
   }
 
@@ -548,10 +573,11 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     )
   }
 
-  override fun showBonus() {
+  override fun showBonus(@StringRes bonusText: Int) {
     bonus_view.visibility = View.VISIBLE
-    bonus_view.setPurchaseBonusDescription(getString(R.string.gamification_purchase_body))
+    bonus_view.setPurchaseBonusDescription(R.string.gamification_purchase_body)
     bonus_view.showPurchaseBonusHeader()
+    bonus_view.setPurchaseBonusDescription(bonusText)
     bottom_separator?.visibility = View.VISIBLE
     bonus_view.hideSkeleton()
   }
@@ -571,9 +597,9 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun replaceBonus() {
-    bonus_view.visibility = View.VISIBLE
+    bonus_view.visibility = View.INVISIBLE
     bottom_separator?.visibility = View.VISIBLE
-    bonus_view.setPurchaseBonusDescription(getString(R.string.purchase_poa_body))
+    bonus_view.setPurchaseBonusDescription(R.string.purchase_poa_body)
     bonus_view.hidePurchaseBonusHeader()
     bonus_view.hideSkeleton()
   }
@@ -592,7 +618,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         .map { packageName ->
           Pair(
             getApplicationName(packageName),
-            context!!.packageManager.getApplicationIcon(packageName)
+              requireContext().packageManager.getApplicationIcon(packageName)
           )
         }
         .observeOn(AndroidSchedulers.mainThread())
@@ -607,63 +633,63 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   private fun getApplicationName(packageName: String): String {
-    val packageManager = context!!.packageManager
+    val packageManager = requireContext().packageManager
     val packageInfo = packageManager.getApplicationInfo(packageName, 0)
     return packageManager.getApplicationLabel(packageInfo)
       .toString()
   }
 
   private val isBds: Boolean by lazy {
-    if (arguments!!.containsKey(IS_BDS)) {
-      arguments!!.getBoolean(IS_BDS)
+    if (requireArguments().containsKey(IS_BDS)) {
+      requireArguments().getBoolean(IS_BDS)
     } else {
       throw IllegalArgumentException("isBds data not found")
     }
   }
 
   private val isDonation: Boolean by lazy {
-    if (arguments!!.containsKey(IS_DONATION)) {
-      arguments!!.getBoolean(IS_DONATION)
+    if (requireArguments().containsKey(IS_DONATION)) {
+      requireArguments().getBoolean(IS_DONATION)
     } else {
       throw IllegalArgumentException("isDonation data not found")
     }
   }
 
   private val transactionBuilder: TransactionBuilder? by lazy {
-    if (arguments!!.containsKey(TRANSACTION)) {
-      arguments!!.getParcelable(TRANSACTION) as TransactionBuilder?
+    if (requireArguments().containsKey(TRANSACTION)) {
+      requireArguments().getParcelable(TRANSACTION) as TransactionBuilder?
     } else {
       throw IllegalArgumentException("transaction data not found")
     }
   }
 
   private val appPackage: String by lazy {
-    if (arguments!!.containsKey(IabActivity.APP_PACKAGE)) {
-      arguments!!.getString(IabActivity.APP_PACKAGE, "")
+    if (requireArguments().containsKey(IabActivity.APP_PACKAGE)) {
+      requireArguments().getString(IabActivity.APP_PACKAGE, "")
     } else {
       throw IllegalArgumentException("appPackage data not found")
     }
   }
 
   private fun getDeveloperPayload(): String? {
-    return if (arguments!!.containsKey(IabActivity.DEVELOPER_PAYLOAD)) {
-      arguments!!.getString(IabActivity.DEVELOPER_PAYLOAD, "")
+    return if (requireArguments().containsKey(IabActivity.DEVELOPER_PAYLOAD)) {
+      requireArguments().getString(IabActivity.DEVELOPER_PAYLOAD, "")
     } else {
       throw IllegalArgumentException("developer payload data not found")
     }
   }
 
   private fun getUri(): String? {
-    return if (arguments!!.containsKey(IabActivity.URI)) {
-      arguments!!.getString(IabActivity.URI, "")
+    return if (requireArguments().containsKey(IabActivity.URI)) {
+      requireArguments().getString(IabActivity.URI, "")
     } else {
       throw IllegalArgumentException("uri data not found")
     }
   }
 
   private fun getTransactionValue(): BigDecimal {
-    return if (arguments!!.containsKey(IabActivity.TRANSACTION_AMOUNT)) {
-      arguments!!.getSerializable(IabActivity.TRANSACTION_AMOUNT) as BigDecimal
+    return if (requireArguments().containsKey(IabActivity.TRANSACTION_AMOUNT)) {
+      requireArguments().getSerializable(IabActivity.TRANSACTION_AMOUNT) as BigDecimal
     } else {
       throw java.lang.IllegalArgumentException("transaction value not found")
     }
@@ -673,5 +699,21 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     fiat_price_skeleton.visibility = View.GONE
     appc_price_skeleton.visibility = View.GONE
     payments_skeleton.visibility = View.GONE
+  }
+
+  private fun getIsSubscription(): Boolean {
+    return if (requireArguments().containsKey(IS_SUBSCRIPTION)) {
+      requireArguments().getBoolean(IS_SUBSCRIPTION, false)
+    } else {
+      throw IllegalArgumentException("productName data not found")
+    }
+  }
+
+  private fun getFrequency(): String? {
+    return if (requireArguments().containsKey(FREQUENCY)) {
+      requireArguments().getString(FREQUENCY, "")
+    } else {
+      throw IllegalArgumentException("productName data not found")
+    }
   }
 }

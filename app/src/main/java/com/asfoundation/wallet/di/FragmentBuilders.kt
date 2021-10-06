@@ -38,6 +38,14 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletModule
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
 import com.asfoundation.wallet.skills.SkillsModule
+import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelFragment
+import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelModule
+import com.asfoundation.wallet.subscriptions.details.SubscriptionDetailsFragment
+import com.asfoundation.wallet.subscriptions.details.SubscriptionDetailsModule
+import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
+import com.asfoundation.wallet.subscriptions.list.SubscriptionListModule
+import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
+import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessModule
 import com.asfoundation.wallet.topup.TopUpFragment
 import com.asfoundation.wallet.topup.TopUpSuccessFragment
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
@@ -314,4 +322,20 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [MoreDialogModule::class])
   abstract fun bindMoreDialogFragment(): MoreDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [SubscriptionListModule::class])
+  abstract fun bindSubscriptionListFragment(): SubscriptionListFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [SubscriptionDetailsModule::class])
+  abstract fun bindSubscriptionDetailsFragment(): SubscriptionDetailsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [SubscriptionCancelModule::class])
+  abstract fun bindSubscriptionCancelFragment(): SubscriptionCancelFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [SubscriptionSuccessModule::class])
+  abstract fun bindSubscriptionCancelSuccessFragment(): SubscriptionSuccessFragment
 }

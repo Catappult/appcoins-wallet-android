@@ -139,9 +139,7 @@ class IabPresenter(private val view: IabView,
 
   fun savePreselectedPaymentMethod(bundle: Bundle) {
     bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY)
-        ?.let {
-          iabInteract.savePreSelectedPaymentMethod(it)
-        }
+        ?.let { iabInteract.savePreSelectedPaymentMethod(it) }
   }
 
   private fun sendPayPalConfirmationEvent(action: String) {

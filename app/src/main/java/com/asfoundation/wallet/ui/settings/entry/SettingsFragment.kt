@@ -16,6 +16,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
@@ -106,6 +107,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     context?.let {
       val intent = ManagePermissionsActivity.newIntent(it)
           .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+      startActivity(intent)
+    }
+    return true
+  }
+
+  private fun openSubscriptionsScreen(): Boolean {
+    context?.let {
+      val intent = SubscriptionActivity.newIntent(it)
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
       startActivity(intent)
     }
     return true
@@ -210,6 +222,13 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     sourceCodePreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://github.com/Catappult/appcoins-wallet-android"), false)
       false
+    }
+  }
+
+  override fun setManageSubscriptionsPreference() {
+    val subscriptionsPreference = findPreference<Preference>("pref_manage_subscriptions")
+    subscriptionsPreference?.setOnPreferenceClickListener {
+      openSubscriptionsScreen()
     }
   }
 

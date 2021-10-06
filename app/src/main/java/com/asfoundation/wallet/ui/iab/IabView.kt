@@ -35,7 +35,8 @@ interface IabView {
 
   fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                       iconUrl: String?, gamificationLevel: Int)
+                       iconUrl: String?, gamificationLevel: Int, isSubscription: Boolean,
+                       frequency: String?)
 
   fun showCarrierBilling(currency: String?, amount: BigDecimal, bonus: BigDecimal?,
                          isPreselected: Boolean)
@@ -58,7 +59,7 @@ interface IabView {
 
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                          isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
-                         transaction: TransactionBuilder)
+                         transaction: TransactionBuilder, isSubscription: Boolean, frequency: String?)
 
   fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
                          appcAmount: BigDecimal, targetFragment: Fragment, shouldStoreCard: Boolean,

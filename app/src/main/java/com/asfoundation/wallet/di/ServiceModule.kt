@@ -8,7 +8,8 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.repository.GamificationApi
 import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
@@ -37,6 +38,7 @@ import com.asfoundation.wallet.service.TokenRateService.TokenToFiatApi
 import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService.TokenToLocalFiatApi
+import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
@@ -75,7 +77,7 @@ class ServiceModule {
   @Provides
   @Named("BUY_SERVICE_ON_CHAIN")
   fun provideBuyServiceOnChain(sendTransactionInteract: SendTransactionInteract,
-                               errorMapper: ErrorMapper,
+                               paymentErrorMapper: PaymentErrorMapper,
                                @Named("wait_pending_transaction")
                                pendingTransactionService: TrackTransactionService,
                                defaultTokenProvider: DefaultTokenProvider,
@@ -86,7 +88,7 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
         pendingTransactionService), NoValidateTransactionValidator(), defaultTokenProvider,
         countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission)
   }
@@ -94,7 +96,7 @@ class ServiceModule {
   @Provides
   @Named("BUY_SERVICE_BDS")
   fun provideBuyServiceBds(sendTransactionInteract: SendTransactionInteract,
-                           errorMapper: ErrorMapper,
+                           paymentErrorMapper: PaymentErrorMapper,
                            bdsPendingTransactionService: BdsPendingTransactionService,
                            billingPaymentProofSubmission: BillingPaymentProofSubmission,
                            defaultTokenProvider: DefaultTokenProvider,
@@ -104,7 +106,7 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
         bdsPendingTransactionService),
         BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider, addressService), defaultTokenProvider, countryCodeProvider,
@@ -124,9 +126,9 @@ class ServiceModule {
                                   allowanceService: AllowanceService,
                                   @Named("BUY_SERVICE_BDS") buyService: BuyService,
                                   balanceService: BalanceService,
-                                  errorMapper: ErrorMapper): InAppPurchaseService {
+                                  paymentErrorMapper: PaymentErrorMapper): InAppPurchaseService {
     return InAppPurchaseService(MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
-        allowanceService, buyService, balanceService, Schedulers.io(), errorMapper)
+        allowanceService, buyService, balanceService, Schedulers.io(), paymentErrorMapper)
   }
 
   @Singleton
@@ -135,9 +137,9 @@ class ServiceModule {
   fun provideInAppPurchaseServiceAsf(
       @Named("APPROVE_SERVICE_ON_CHAIN") approveService: ApproveService,
       allowanceService: AllowanceService, @Named("BUY_SERVICE_ON_CHAIN") buyService: BuyService,
-      balanceService: BalanceService, errorMapper: ErrorMapper): InAppPurchaseService {
+      balanceService: BalanceService, paymentErrorMapper: PaymentErrorMapper): InAppPurchaseService {
     return InAppPurchaseService(MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
-        allowanceService, buyService, balanceService, Schedulers.io(), errorMapper)
+        allowanceService, buyService, balanceService, Schedulers.io(), paymentErrorMapper)
   }
 
   @Singleton
@@ -331,7 +333,7 @@ class ServiceModule {
   @Provides
   @Named("APPROVE_SERVICE_BDS")
   fun provideApproveServiceBds(sendTransactionInteract: SendTransactionInteract,
-                               errorMapper: ErrorMapper, @Named("no_wait_transaction")
+                               paymentErrorMapper: PaymentErrorMapper, @Named("no_wait_transaction")
                                noWaitPendingTransactionService: TrackTransactionService,
                                billingPaymentProofSubmission: BillingPaymentProofSubmission,
                                addressService: AddressService): ApproveService {
@@ -339,7 +341,7 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.approve(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
         noWaitPendingTransactionService),
         ApproveTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             addressService))
@@ -492,7 +494,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideBdsApi(@Named("blockchain") client: OkHttpClient, gson: Gson): BdsApi {
+  fun provideBdsApi(@Named("blockchain") client: OkHttpClient,
+                    gson: Gson): RemoteRepository.BdsApi {
     val baseUrl = BuildConfig.BASE_HOST
 
     return Retrofit.Builder()
@@ -501,7 +504,7 @@ class ServiceModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(BdsApi::class.java)
+        .create(RemoteRepository.BdsApi::class.java)
   }
 
   @Singleton
@@ -589,4 +592,30 @@ class ServiceModule {
         .create(WithdrawApi::class.java)
   }
 
+
+  @Provides
+  fun providesSubscriptionBillingApi(@Named("blockchain") client: OkHttpClient,
+                                     gson: Gson): SubscriptionBillingApi {
+    val baseUrl = BuildConfig.SUBS_BASE_HOST + "/productv2/8.20200701/applications/"
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(SubscriptionBillingApi::class.java)
+  }
+
+  @Provides
+  fun providesUserSubscriptionApi(@Named("default") client: OkHttpClient,
+                                  gson: Gson): UserSubscriptionApi {
+    val baseUrl = BuildConfig.SUBS_BASE_HOST + "/productv2/8.20200701/application/"
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(UserSubscriptionApi::class.java)
+  }
 }

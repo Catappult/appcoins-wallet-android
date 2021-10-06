@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.appcoins.rewards.Transaction
-import com.appcoins.wallet.billing.repository.entity.TransactionData
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -91,9 +91,9 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     return when (transaction.status) {
       Status.PROCESSING -> Completable.fromAction { view.showLoading() }
       Status.COMPLETED -> {
-        if (isBds && transactionBuilder.type.equals(TransactionData.TransactionType.INAPP.name,
-                ignoreCase = true)) {
-          rewardsManager.getPaymentCompleted(packageName, sku)
+        if (isBds && isManagedPaymentType(transactionBuilder.type)) {
+          val billingType = BillingSupportedType.valueOfProductType(transactionBuilder.type)
+          rewardsManager.getPaymentCompleted(packageName, sku, transaction.purchaseUid, billingType)
               .flatMapCompletable { purchase ->
                 Completable.fromAction { view.showTransactionCompleted() }
                     .subscribeOn(viewScheduler)
@@ -129,7 +129,12 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         view.showError(null)
       }
       Status.FORBIDDEN -> Completable.fromAction {
+        logger.log(TAG, "Forbidden")
         handleFraudFlow()
+      }
+      Status.SUB_ALREADY_OWNED -> Completable.fromAction {
+        logger.log(TAG, "Sub already owned")
+        view.showError(R.string.subscriptions_error_already_subscribed)
       }
       Status.NO_NETWORK -> Completable.fromAction {
         view.showNoNetworkError()
@@ -190,7 +195,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
 
   private fun sendPaymentErrorEvent(transaction: RewardPayment) {
     val status = transaction.status
-    if (status === Status.ERROR || status === Status.NO_NETWORK || status === Status.FORBIDDEN) {
+    if (isErrorStatus(status)) {
       if (transaction.errorCode == null && transaction.errorMessage == null) {
         analytics.sendPaymentErrorEvent(packageName, transactionBuilder.skuId,
             transactionBuilder.amount()
@@ -205,6 +210,11 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
     }
   }
 
+  private fun isErrorStatus(status: Status): Boolean {
+    return status === Status.ERROR || status === Status.NO_NETWORK ||
+        status === Status.FORBIDDEN || status === Status.SUB_ALREADY_OWNED
+  }
+
   private fun handleSupportClicks() {
     disposables.add(Observable.merge(view.getSupportIconClick(),
         view.getSupportLogoClick())
@@ -212,5 +222,9 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         .observeOn(viewScheduler)
         .flatMapCompletable { appcoinsRewardsBuyInteract.showSupport(gamificationLevel) }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun isManagedPaymentType(type: String): Boolean {
+    return type == BillingSupportedType.INAPP.name || type == BillingSupportedType.INAPP_SUBSCRIPTION.name
   }
 }

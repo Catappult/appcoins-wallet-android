@@ -1,10 +1,9 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
+import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -107,10 +106,14 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var networkScheduler: Scheduler = Schedulers.io()
     private var api: RemoteRepository.BdsApi? = null
     private var bdsApiSecondary: BdsApiSecondary? = null
+    private var subscriptionApi: SubscriptionBillingApi? = null
 
     fun setApi(bdsApi: RemoteRepository.BdsApi) = apply { api = bdsApi }
 
     fun setBdsApiSecondary(bdsApi: BdsApiSecondary) = apply { bdsApiSecondary = bdsApi }
+
+    fun setSubscriptionBillingService(subscriptionBillingApi: SubscriptionBillingApi) =
+        apply { subscriptionApi = subscriptionBillingApi }
 
     fun setScheduler(scheduler: Scheduler) = apply { this.networkScheduler = scheduler }
 
@@ -121,11 +124,14 @@ class BillingPaymentProofSubmissionImpl internal constructor(
       return walletService?.let { walletService ->
         api?.let { api ->
           bdsApiSecondary?.let { bdsApiSecondary ->
-            BillingPaymentProofSubmissionImpl(
-                walletService, BdsRepository(
-                RemoteRepository(api, BdsApiResponseMapper(), bdsApiSecondary)), networkScheduler,
-                ConcurrentHashMap(),
-                ConcurrentHashMap())
+            subscriptionApi?.let { subscriptionApi ->
+              BillingPaymentProofSubmissionImpl(walletService, BdsRepository(
+                  RemoteRepository(api, BdsApiResponseMapper(
+                    SubscriptionsMapper(), InAppMapper(
+                      ExternalBillingSerializer()
+                    )), bdsApiSecondary, subscriptionApi)),
+                  networkScheduler, ConcurrentHashMap(), ConcurrentHashMap())
+            } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
           } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
         } ?: throw IllegalArgumentException("BdsApi not defined")
       } ?: throw IllegalArgumentException("WalletService not defined")

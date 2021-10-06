@@ -32,7 +32,7 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
     return cache.save(getKey(amount.toString(), sku, packageName),
         Transaction(
             sku, type, developerAddress, entityOemId, entityDomainId, packageName, amount,
-            origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference,
+            origin, Transaction.Status.PENDING, null, null, payload, callbackUrl, orderReference,
             referrerUrl, productToken
         ))
   }
@@ -65,21 +65,31 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
                             waitTransactionCompletion(transaction1).andThen {
                               val tx = Transaction(transaction, Transaction.Status.COMPLETED)
                               tx.txId = transaction1.hash
+                              tx.purchaseUid = transaction1.metadata?.purchaseUid
                               cache.saveSync(getKey(tx), tx)
                             }
                           }
                     }
                     .onErrorResumeNext { t ->
                       t.printStackTrace()
-                      val transactionError = errorMapper.map(t)
+                      val error = errorMapper.map(t)
+                      val transactionStatus = mapToTransactionStatus(error.errorType)
                       cache.save(getKey(transaction),
-                          Transaction(transaction, transactionError.status,
-                              transactionError.errorCode,
-                              transactionError.errorMessage))
+                          Transaction(transaction, transactionStatus, error.errorCode,
+                              error.errorMessage))
                     }
               }
         }
         .subscribe()
+  }
+
+  private fun mapToTransactionStatus(errorType: ErrorInfo.ErrorType): Transaction.Status {
+    return when (errorType) {
+      ErrorInfo.ErrorType.SUB_ALREADY_OWNED -> Transaction.Status.SUB_ALREADY_OWNED
+      ErrorInfo.ErrorType.BLOCKED -> Transaction.Status.FORBIDDEN
+      ErrorInfo.ErrorType.NO_NETWORK -> Transaction.Status.NO_NETWORK
+      else -> Transaction.Status.ERROR
+    }
   }
 
   private fun getOrigin(transaction: Transaction) =

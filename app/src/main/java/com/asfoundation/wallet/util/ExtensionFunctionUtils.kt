@@ -23,6 +23,7 @@ import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -165,4 +166,9 @@ fun String?.isEmailValid(): Boolean {
 
 fun RecyclerView.addBottomItemDecoration(dimension: Float) {
   this.addItemDecoration(MarginItemDecoration(dimension.toInt()))
+}
+
+inline fun String.convertToDate(date: String): Date? {
+  val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+  return dateFormat.parse(date)
 }

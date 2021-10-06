@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import androidx.room.Room
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.*
@@ -20,7 +21,7 @@ import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
@@ -72,6 +73,8 @@ import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesDatabase
 import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
 import com.asfoundation.wallet.service.currencies.RoomCurrencyConversionRatesPersistence
+import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
+import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDatabase
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -182,19 +185,21 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBillingPaymentProofSubmission(api: BdsApi,
+  fun providesBillingPaymentProofSubmission(api: RemoteRepository.BdsApi,
                                             walletService: WalletService,
+                                            subscriptionBillingApi: SubscriptionBillingApi,
                                             bdsApi: BdsApiSecondary): BillingPaymentProofSubmission {
     return BillingPaymentProofSubmissionImpl.Builder()
         .setApi(api)
         .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
+        .setSubscriptionBillingService(subscriptionBillingApi)
         .build()
   }
 
   @Singleton
   @Provides
-  fun provideErrorMapper() = ErrorMapper()
+  fun providePaymentErrorMapper(gson: Gson) = PaymentErrorMapper(gson)
 
   @Provides
   fun provideGasSettingsRouter() = GasSettingsRouter()
@@ -316,7 +321,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideAppcoinsRewards(walletService: WalletService, billing: Billing, backendApi: BackendApi,
-                             remoteRepository: RemoteRepository): AppcoinsRewards {
+                             remoteRepository: RemoteRepository,
+                             errorMapper: ErrorMapper): AppcoinsRewards {
     return AppcoinsRewards(
         BdsAppcoinsRewardsRepository(CreditsRemoteRepository(backendApi, remoteRepository)),
         object : com.appcoins.wallet.appcoins.rewards.repository.WalletService {
@@ -324,7 +330,7 @@ internal class AppModule {
 
           override fun signContent(content: String) = walletService.signContent(content)
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), Schedulers.io(), billing,
-        com.appcoins.wallet.appcoins.rewards.ErrorMapper())
+        errorMapper)
   }
 
   @Singleton
@@ -413,6 +419,21 @@ internal class AppModule {
   @Provides
   fun providesWalletOriginDao(promotionDatabase: PromotionDatabase): WalletOriginDao {
     return promotionDatabase.walletOriginDao()
+  }
+
+  @Singleton
+  @Provides
+  fun providesUserSubscriptionsDatabase(context: Context): UserSubscriptionsDatabase {
+    return Room.databaseBuilder(context, UserSubscriptionsDatabase::class.java,
+        "user_subscription_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providesUserSubscriptionDao(
+      userSubscriptionsDatabase: UserSubscriptionsDatabase): UserSubscriptionsDao {
+    return userSubscriptionsDatabase.subscriptionsDao()
   }
 
   @Provides
@@ -621,10 +642,17 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  fun providesErrorMapper(gson: Gson): ErrorMapper {
+    return ErrorMapper(gson)
+  }
+
+
+  @Singleton
+  @Provides
   fun provideCurrencyConversionRatesDatabase(context: Context): CurrencyConversionRatesDatabase {
     return Room.databaseBuilder(context, CurrencyConversionRatesDatabase::class.java,
-        "currency_conversion_rates_database")
-        .build()
+      "currency_conversion_rates_database")
+      .build()
   }
 
   @Singleton

@@ -221,6 +221,10 @@
         android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
         android:label="@string/promotions_title" />
     <activity
+        android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
+        android:label="@string/subscriptions_title"/>
+
+    <activity
         android:name="com.asfoundation.wallet.referrals.InviteFriendsActivity"
         android:label="@string/referral_view_title"
         android:screenOrientation="portrait" />

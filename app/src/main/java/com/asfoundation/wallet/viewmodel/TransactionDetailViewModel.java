@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.viewmodel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
@@ -15,6 +16,8 @@ import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity;
+import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.iab.FiatValue;
@@ -117,5 +120,10 @@ public class TransactionDetailViewModel extends BaseViewModel {
         .buildUpon()
         .appendEncodedPath(transaction.getTransactionId())
         .build();
+  }
+
+  public void showManageSubscriptions(Context context) {
+    Intent intent = SubscriptionActivity.newIntent(context);
+    context.startActivity(intent);
   }
 }

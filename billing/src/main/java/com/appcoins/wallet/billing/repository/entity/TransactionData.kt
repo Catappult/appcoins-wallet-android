@@ -12,7 +12,11 @@ class TransactionData @JvmOverloads constructor(@SerializedName("type")
                                                 @SerializedName("order_reference")
                                                 private val _orderReference: String? = null,
                                                 @SerializedName("origin")
-                                                private val _origin: String? = null) {
+                                                private val _origin: String? = null,
+                                                @SerializedName("period")
+                                                private val _period: String? = null,
+                                                @SerializedName("trial_period")
+                                                private val _trialPeriod: String? = null) {
 
   val type get() = _type ?: UNKNOWN
   val domain get() = _domain ?: UNKNOWN
@@ -20,6 +24,8 @@ class TransactionData @JvmOverloads constructor(@SerializedName("type")
   val payload get() = _payload
   val orderReference get() = _orderReference
   val origin get() = _origin
+  val period get() = _period
+  val trialPeriod get() = _trialPeriod
 
   companion object {
     const val UNKNOWN = "unknown"
@@ -28,6 +34,8 @@ class TransactionData @JvmOverloads constructor(@SerializedName("type")
   enum class TransactionType {
     DONATION,
     INAPP,
+    INAPP_SUBSCRIPTION,
+    SUBS_UNMANAGED,
     INAPP_UNMANAGED;
   }
 }

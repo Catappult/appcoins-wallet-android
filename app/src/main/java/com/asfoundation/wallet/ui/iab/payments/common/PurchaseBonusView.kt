@@ -56,8 +56,8 @@ class PurchaseBonusView : FrameLayout {
     bonus_layout.visibility = View.VISIBLE
   }
 
-  fun setPurchaseBonusDescription(description: String) {
-    bonus_msg.text = description
+  fun setPurchaseBonusDescription(description: Int) {
+    bonus_msg.text = context.getString(description)
     bonus_msg.visibility = View.VISIBLE
     bonus_layout.visibility = View.INVISIBLE
   }

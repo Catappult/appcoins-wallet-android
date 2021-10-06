@@ -123,14 +123,14 @@
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/payment_methods_radio_list"
           android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:layout_centerInParent="true"
+          android:layout_height="wrap_content"
           android:orientation="vertical"
           android:overScrollMode="never"
           android:paddingStart="16dp"
           android:paddingTop="8dp"
           android:paddingEnd="16dp"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          app:layout_constrainedHeight="true"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
@@ -241,6 +241,7 @@
           android:layout_height="wrap_content"
           android:visibility="invisible"
           app:constraint_referenced_ids="payment_methods_radio_list"
+          tools:visibility="visible"
           />
 
       <androidx.constraintlayout.widget.Group

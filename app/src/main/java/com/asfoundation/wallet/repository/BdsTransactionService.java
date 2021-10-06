@@ -50,8 +50,9 @@ public class BdsTransactionService {
   }
 
   public Completable trackTransaction(String key, String packageName, String skuId, String uid,
-      String orderReference) {
-    return cache.save(key, new BdsTransaction(uid, key, packageName, skuId, orderReference));
+      String purchaseUid, String orderReference) {
+    return cache.save(key,
+        new BdsTransaction(uid, purchaseUid, key, packageName, skuId, orderReference));
   }
 
   public Completable remove(String uri) {
@@ -64,11 +65,13 @@ public class BdsTransactionService {
     private final String packageName;
     private final Status status;
     private final String uid;
+    private final String purchaseUid;
     private final String orderReference;
 
-    public BdsTransaction(String uid, String key, String packageName, String skuId,
-        String orderReference) {
+    public BdsTransaction(String uid, String purchaseUid, String key, String packageName,
+        String skuId, String orderReference) {
       this.uid = uid;
+      this.purchaseUid = purchaseUid;
       this.key = key;
       this.packageName = packageName;
       this.skuId = skuId;
@@ -81,6 +84,7 @@ public class BdsTransactionService {
       this.skuId = transaction.getSkuId();
       this.packageName = transaction.getPackageName();
       this.uid = transaction.getUid();
+      this.purchaseUid = transaction.getPurchaseUid();
       this.status = status;
       this.orderReference = transaction.orderReference;
     }
@@ -143,6 +147,10 @@ public class BdsTransactionService {
 
     public String getUid() {
       return uid;
+    }
+
+    public String getPurchaseUid() {
+      return purchaseUid;
     }
 
     public enum Status {

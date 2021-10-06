@@ -178,8 +178,15 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     iabView.finish(data);
   }
 
-  @Override public void showError() {
-    showError(R.string.activity_iab_error_message);
+  @Override public void showError(@StringRes Integer message) {
+    int errorMessage = R.string.activity_iab_error_message;
+    if (message != null) {
+      errorMessage = message;
+    }
+    loadingView.setVisibility(View.GONE);
+    transactionErrorLayout.setVisibility(View.VISIBLE);
+    transactionCompletedLayout.setVisibility(View.GONE);
+    errorTextView.setText(errorMessage);
   }
 
   @Override public void showTransactionCompleted() {
@@ -258,13 +265,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     loadingMessage.setText(message);
     loadingView.requestFocus();
     loadingView.setOnTouchListener((v, event) -> true);
-  }
-
-  private void showError(int error_message) {
-    loadingView.setVisibility(View.GONE);
-    transactionErrorLayout.setVisibility(View.VISIBLE);
-    transactionCompletedLayout.setVisibility(View.GONE);
-    errorTextView.setText(error_message);
   }
 
   private String getAppPackage() {

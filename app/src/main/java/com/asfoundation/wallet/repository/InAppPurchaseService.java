@@ -26,18 +26,18 @@ public class InAppPurchaseService {
   private final BuyService buyService;
   private final BalanceService balanceService;
   private final Scheduler scheduler;
-  private final ErrorMapper errorMapper;
+  private final PaymentErrorMapper paymentErrorMapper;
 
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
       ApproveService approveService, AllowanceService allowanceService, BuyService buyService,
-      BalanceService balanceService, Scheduler scheduler, ErrorMapper errorMapper) {
+      BalanceService balanceService, Scheduler scheduler, PaymentErrorMapper paymentErrorMapper) {
     this.cache = cache;
     this.approveService = approveService;
     this.allowanceService = allowanceService;
     this.buyService = buyService;
     this.balanceService = balanceService;
     this.scheduler = scheduler;
-    this.errorMapper = errorMapper;
+    this.paymentErrorMapper = paymentErrorMapper;
   }
 
   public Completable send(String key, PaymentTransaction paymentTransaction) {
@@ -112,7 +112,7 @@ public class InAppPurchaseService {
               }
             }))
         .onErrorResumeNext(throwable -> {
-          PaymentError paymentError = errorMapper.map(throwable);
+          PaymentError paymentError = paymentErrorMapper.map(throwable);
           return cache.save(paymentTransaction.getUri(),
               new PaymentTransaction(paymentTransaction, paymentError.getPaymentState(),
                   paymentError.getErrorCode(), paymentError.getErrorMessage()));
@@ -167,6 +167,9 @@ public class InAppPurchaseService {
       case FORBIDDEN:
         toReturn = PaymentTransaction.PaymentState.FORBIDDEN;
         break;
+      case SUB_ALREADY_OWNED:
+        toReturn = PaymentTransaction.PaymentState.SUB_ALREADY_OWNED;
+        break;
     }
     return toReturn;
   }
@@ -217,6 +220,9 @@ public class InAppPurchaseService {
       case FORBIDDEN:
         paymentState = PaymentTransaction.PaymentState.FORBIDDEN;
         break;
+      case SUB_ALREADY_OWNED:
+        paymentState = PaymentTransaction.PaymentState.SUB_ALREADY_OWNED;
+        break;
     }
     return paymentState;
   }
@@ -240,7 +246,7 @@ public class InAppPurchaseService {
                       : approveService.remove(uri)
                           .andThen(buyService.buy(uri, transaction)
                               .onErrorResumeNext(throwable -> {
-                                PaymentError paymentError = errorMapper.map(throwable);
+                                PaymentError paymentError = paymentErrorMapper.map(throwable);
                                 return cache.save(uri, new PaymentTransaction(transaction,
                                     paymentError.getPaymentState(), paymentError.getErrorCode(),
                                     paymentError.getErrorMessage()));

@@ -5,6 +5,12 @@
     android:layout_height="match_parent">
 
   <Preference
+      android:icon="@drawable/ic_manage_subscriptions"
+      android:key="pref_manage_subscriptions"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="Manage Subscriptions" />
+
+  <Preference
       android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"
       android:layout="@layout/preference_without_summary_layout"
@@ -108,19 +114,23 @@
         android:key="pref_terms_condition"
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/title_terms" />
+
   </PreferenceCategory>
 
   <PreferenceCategory
       android:layout="@layout/preference_category_layout"
       android:title="@string/credits"
       app:allowDividerAbove="false">
+
     <Preference
         android:icon="@drawable/ic_settings_credits"
         android:iconSpaceReserved="true"
         android:key="pref_credits"
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/credits" />
+
   </PreferenceCategory>
+
   <Preference
       android:icon="@drawable/ic_check_for_update"
       android:iconSpaceReserved="true"

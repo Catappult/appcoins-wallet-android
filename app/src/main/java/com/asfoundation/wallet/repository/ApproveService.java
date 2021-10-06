@@ -83,6 +83,9 @@ public class ApproveService {
       case FORBIDDEN:
         toReturn = Status.FORBIDDEN;
         break;
+      case SUB_ALREADY_OWNED:
+        toReturn = Status.SUB_ALREADY_OWNED;
+        break;
     }
     return toReturn;
   }
@@ -100,7 +103,7 @@ public class ApproveService {
 
   public enum Status {
     PENDING, APPROVING, APPROVED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS,
-    NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN
+    NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN, SUB_ALREADY_OWNED
   }
 
   public class ApproveTransaction {
