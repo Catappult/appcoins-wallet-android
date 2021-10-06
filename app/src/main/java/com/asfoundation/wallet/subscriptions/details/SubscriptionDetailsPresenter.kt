@@ -29,12 +29,7 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
             .observeOn(viewScheduler)
             .doOnEach {
               view.showDetails()
-              val item = data.subscriptionItem
-              if (item.isActiveSubscription()) {
-                view.setActiveDetails(item)
-              } else if (item.status == Status.EXPIRED) {
-                view.setExpiredDetails(item)
-              }
+              setupUi()
             }
             .subscribe({}, { it.printStackTrace() })
     )
