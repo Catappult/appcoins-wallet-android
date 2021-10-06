@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.settings.entry
 import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
-import android.util.Log
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
@@ -166,17 +165,12 @@ class SettingsPresenter(private val view: SettingsView,
         .doOnSuccess {
           for (fiatCurrency in it.list) {
             if (fiatCurrency.currency == it.selectedCurrency) {
-              Log.d("APPC-2472",
-                  "SettingsPresenter: setCurrencyPreference: fiatCurrency $fiatCurrency")
               view.setCurrencyPreference(fiatCurrency)
               break
             }
           }
         }
         .subscribeOn(networkScheduler)
-        .doOnError {
-          Log.d("APPC-2472", "SettingsPresenter: setCurrencyPreference: error ${it.message}")
-        }
         .subscribe())
   }
 }

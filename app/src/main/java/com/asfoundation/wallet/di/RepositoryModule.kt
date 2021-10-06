@@ -28,9 +28,9 @@ import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
+import com.asfoundation.wallet.change_currency.FiatCurrenciesDao
 import com.asfoundation.wallet.change_currency.FiatCurrenciesMapper
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
-import com.asfoundation.wallet.change_currency.RoomFiatCurrenciesPersistence
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
@@ -383,9 +383,9 @@ class RepositoryModule {
   fun providesFiatCurrenciesRepository(@Named("default") client: OkHttpClient,
                                        objectMapper: ObjectMapper,
                                        sharedPreferences: SharedPreferences,
-                                       roomFiatCurrenciesPersistence: RoomFiatCurrenciesPersistence,
+                                       fiatCurrenciesDao: FiatCurrenciesDao,
                                        conversionService: LocalCurrencyConversionService): FiatCurrenciesRepository {
-    val baseUrl = FiatCurrenciesRepository.CONVERSION_HOST
+    val baseUrl = BuildConfig.BASE_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
@@ -394,7 +394,7 @@ class RepositoryModule {
         .build()
         .create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
     return FiatCurrenciesRepository(api, sharedPreferences, FiatCurrenciesMapper(),
-        roomFiatCurrenciesPersistence, conversionService)
+        fiatCurrenciesDao, conversionService)
 
   }
 }

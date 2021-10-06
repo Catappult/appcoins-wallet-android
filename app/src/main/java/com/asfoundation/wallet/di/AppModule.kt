@@ -50,7 +50,7 @@ import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.RxSchedulersImpl
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.change_currency.RoomFiatCurrenciesPersistence
+import com.asfoundation.wallet.change_currency.FiatCurrenciesDao
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.interact.BalanceGetter
@@ -640,9 +640,9 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideFiatCurrenciesPersistence(
-      database: CurrenciesDatabase): RoomFiatCurrenciesPersistence {
-    return RoomFiatCurrenciesPersistence(database.fiatCurrenciesDao())
+  fun provideFiatCurrenciesDao(
+      database: CurrenciesDatabase): FiatCurrenciesDao {
+    return database.fiatCurrenciesDao()
   }
 
 

@@ -15,7 +15,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
-import com.asfoundation.wallet.change_currency.FiatCurrency
+import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
@@ -84,8 +84,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     presenter.onResume()
   }
 
-  override fun onDestroy() {
+  override fun onDestroyView() {
     presenter.stop()
+    super.onDestroyView()
+  }
+
+  override fun onDestroy() {
     switchSubject = null
     super.onDestroy()
   }
@@ -117,7 +121,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setCurrencyPreference(selectedCurrency: FiatCurrency) {
+  override fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity) {
     val settingsCurrencyPreference = findPreference<SettingsCurrencyPreference>("pref_currency")
     settingsCurrencyPreference?.setCurrency(selectedCurrency)
     settingsCurrencyPreference?.setOnPreferenceClickListener {

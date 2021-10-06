@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.change_currency.bottom_sheet
 
-import android.util.Log
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
-import io.reactivex.Completable
 import io.reactivex.Scheduler
 
 
@@ -28,12 +26,12 @@ class ChooseCurrencyBottomSheetViewModel(data: ChooseCurrencyBottomSheetData,
 
   companion object {
     fun initialState(data: ChooseCurrencyBottomSheetData): ChooseCurrencyBottomSheetState {
-      return ChooseCurrencyBottomSheetState(data.currency!!, data.flag!!, data.label!!)
+      return ChooseCurrencyBottomSheetState(data.currency, data.flag, data.label)
     }
   }
 
   fun currencyConfirmationClick() {
-    Completable.fromAction { setSelectedCurrencyUseCase(state.selectedCurrency) }
+    setSelectedCurrencyUseCase(state.selectedCurrency)
         .subscribeOn(networkScheduler)
         .asAsyncToState() {
           copy(selectedConfirmationAsync = it)

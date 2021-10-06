@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "7f0fb7c70cb3a212e7ac0a39e05f1c6f",
+    "identityHash": "2bd3c5d32dd36acaa0396f0a75431807",
     "entities": [
       {
         "tableName": "currency_conversion_rates",
@@ -43,7 +43,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "fiat_currencies",
+        "tableName": "FiatCurrencyEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`currency` TEXT NOT NULL, `flag` TEXT, `label` TEXT, `sign` TEXT, PRIMARY KEY(`currency`))",
         "fields": [
           {
@@ -84,7 +84,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7f0fb7c70cb3a212e7ac0a39e05f1c6f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2bd3c5d32dd36acaa0396f0a75431807')"
     ]
   }
 }

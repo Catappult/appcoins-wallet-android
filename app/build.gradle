@@ -235,8 +235,6 @@ dependencies {
   implementation "com.github.bumptech.glide:glide:$project.glide_version"
   kapt "com.github.bumptech.glide:compiler:$project.glide_version"
 
-//  implementation 'com.caverock:androidsvg-aar:1.4'
-
   implementation "com.flurry.android:analytics:$project.flurry_version"
 
   implementation "com.facebook.android:facebook-android-sdk:$project.facebook_sdk_version"

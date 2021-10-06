@@ -2,7 +2,6 @@ package com.asfoundation.wallet.change_currency.bottom_sheet
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +13,13 @@ import com.asf.wallet.databinding.ChooseCurrencyBottomSheetBinding
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.change_currency.FiatCurrency
+import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject
 
 class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
-    ChooseCurrencyBottomSheetView,
     SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
 
 
@@ -41,7 +40,7 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     const val SIGN = "sign"
 
     @JvmStatic
-    fun newInstance(fiatCurrency: FiatCurrency): ChooseCurrencyBottomSheetFragment {
+    fun newInstance(fiatCurrency: FiatCurrencyEntity): ChooseCurrencyBottomSheetFragment {
       return ChooseCurrencyBottomSheetFragment()
           .apply {
             arguments = Bundle().apply {
@@ -77,7 +76,6 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
 
   override fun onStateChanged(state: ChooseCurrencyBottomSheetState) {
-    Log.d("APPC-2472", "ChooseCurrencyBottomSheetFragment: onStateChanged: $state")
     setChooseCurrencyBottomSheetData(state.selectedCurrency, state.selectedFlag,
         state.selectedLabel)
     setSelectedConfirmation(state.selectedConfirmationAsync)
@@ -96,19 +94,20 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     setCurrencyLabel(selectedLabel)
   }
 
-  override fun setCurrencyFlag(currencyFlag: String) {
+  fun setCurrencyFlag(currencyFlag: String) {
     GlideApp
         .with(requireContext())
         .load(Uri.parse(currencyFlag))
+        .transition(DrawableTransitionOptions.withCrossFade())
         .circleCrop()
         .into(views.chooseCurrencyFlag)
   }
 
-  override fun setCurrencyShort(currencyShort: String) {
+  fun setCurrencyShort(currencyShort: String) {
     views.chooseCurrencyShort.text = currencyShort
   }
 
-  override fun setCurrencyLabel(currencyLabel: String) {
+  fun setCurrencyLabel(currencyLabel: String) {
     views.chooseCurrencyLabel.text = currencyLabel
   }
 
@@ -129,8 +128,7 @@ class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     }
   }
 
-  override fun showLoading() {
-    Log.d("APPC-2472", "ChooseCurrencyBottomSheetFragment: showLoading")
+  fun showLoading() {
     views.chooseCurrencyFlag.visibility = View.GONE
     views.chooseCurrencyShort.visibility = View.GONE
     views.chooseCurrencyLabel.visibility = View.GONE

@@ -1,27 +1,30 @@
 package com.asfoundation.wallet.change_currency
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Single
 
 @Dao
 interface FiatCurrenciesDao {
   @Query(
-      "SELECT * FROM fiat_currencies WHERE currency = :currency LIMIT 1")
-  fun getFiatCurrency(currency: String): Single<FiatCurrency>
+      "SELECT * FROM FiatCurrencyEntity WHERE currency = :currency LIMIT 1")
+  fun getFiatCurrency(currency: String): Single<FiatCurrencyEntity>
 
-  @Query("SELECT *  FROM fiat_currencies")
-  fun getFiatCurrencies(): Single<List<FiatCurrency>>
-
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun saveCurrency(fiatCurrency: FiatCurrency) : Completable
+  @Query("SELECT *  FROM FiatCurrencyEntity")
+  fun getFiatCurrencies(): Single<List<FiatCurrencyEntity>>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun saveAll(fiatCurrencyList: List<FiatCurrency>)
+  fun saveCurrency(fiatCurrency: FiatCurrencyEntity): Completable
 
-  @Query("DELETE FROM fiat_currencies")
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun saveAll(fiatCurrencyList: List<FiatCurrencyEntity>)
+
+  @Query("DELETE FROM FiatCurrencyEntity")
   fun removeAll()
+
+  @Transaction
+  fun replaceAllBy(currencies: List<FiatCurrencyEntity>) {
+    removeAll()
+    saveAll(currencies)
+  }
 }

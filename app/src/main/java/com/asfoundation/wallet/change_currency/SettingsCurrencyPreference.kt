@@ -11,10 +11,11 @@ import androidx.preference.PreferenceViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.util.safeLet
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
     Preference(context, attrs) {
-  private var selectedCurrency: FiatCurrency? = null
+  private var selectedCurrency: FiatCurrencyEntity? = null
   private var currency: TextView? = null
   private var flag: ImageView? = null
   var preferenceClickListener: View.OnClickListener? = null
@@ -31,7 +32,7 @@ class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
     setFlagImageView()
   }
 
-  fun setCurrency(selectedCurrency: FiatCurrency) {
+  fun setCurrency(selectedCurrency: FiatCurrencyEntity) {
     this.selectedCurrency = selectedCurrency
     setCurrencyTextView()
     setFlagImageView()
@@ -45,6 +46,7 @@ class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
     safeLet(flag, selectedCurrency?.flag) { flagView, flagUrl ->
       GlideApp.with(context)
           .load(Uri.parse(flagUrl))
+          .transition(DrawableTransitionOptions.withCrossFade())
           .circleCrop()
           .into(flagView)
     }

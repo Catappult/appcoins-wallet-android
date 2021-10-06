@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.settings.entry
 
 import android.content.Intent
-import com.asfoundation.wallet.change_currency.FiatCurrency
+import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import io.reactivex.Observable
 
 
@@ -41,7 +41,7 @@ interface SettingsView {
 
   fun setVersionPreference()
 
-  fun setCurrencyPreference(selectedCurrency: FiatCurrency)
+  fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity)
 
   fun setRestorePreference()
 

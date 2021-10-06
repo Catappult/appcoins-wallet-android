@@ -1,10 +1,9 @@
 package com.asfoundation.wallet.change_currency
 
 import android.content.SharedPreferences
-import android.util.Log
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.service.currencies.FiatCurrenciesResponse
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
@@ -12,41 +11,45 @@ import retrofit2.http.GET
 class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
                                private val pref: SharedPreferences,
                                private val fiatCurrenciesMapper: FiatCurrenciesMapper,
-                               private val roomFiatCurrenciesPersistence: RoomFiatCurrenciesPersistence,
+                               private val fiatCurrenciesDao: FiatCurrenciesDao,
                                private val conversionService: LocalCurrencyConversionService) {
 
   companion object {
     private const val FIAT_CURRENCY = "fiat_currency"
-    const val CONVERSION_HOST = BuildConfig.BASE_HOST
+    private const val SELECTED_FIRST_TIME = "selected_first_time"
+    private const val CURRENCY_LIST_FIRST_TIME = "currency_list_first_time"
   }
 
-  fun saveAndGetCurrenciesList(): Single<List<FiatCurrency>> {
+  private fun fetchCurrenciesList(): Single<List<FiatCurrencyEntity>> {
     return fiatCurrenciesApi.getFiatCurrencies()
         .map { response: FiatCurrenciesResponse ->
           fiatCurrenciesMapper.mapResponseToCurrencyList(response)
         }
         .flatMap {
-          return@flatMap roomFiatCurrenciesPersistence.replaceAllBy(it)
+          return@flatMap Completable.fromAction {
+            fiatCurrenciesDao.replaceAllBy(it)
+          }
               .toSingle { it }
         }
         .subscribeOn(Schedulers.io())
   }
 
-  fun getCurrenciesListFirstTimeCheck(): Single<List<FiatCurrency>> {
-    return if (pref.getBoolean("currency_list_first_time", true)) {
+  fun getCurrenciesList(): Single<List<FiatCurrencyEntity>> {
+    return if (pref.getBoolean(CURRENCY_LIST_FIRST_TIME, true)) {
       pref.edit()
-          .putBoolean("currency_list_first_time", false)
+          .putBoolean(CURRENCY_LIST_FIRST_TIME, false)
           .apply()
-      saveAndGetCurrenciesList()
+      fetchCurrenciesList()
     } else {
-      roomFiatCurrenciesPersistence.getFiatCurrencies()
+      fiatCurrenciesDao.getFiatCurrencies()
+          .subscribeOn(Schedulers.io())
     }
   }
 
   fun getSelectedCurrency(): Single<String> {
-    if (pref.getBoolean("selected_first_time", true)) {
+    if (pref.getBoolean(SELECTED_FIRST_TIME, true)) {
       pref.edit()
-          .putBoolean("selected_first_time", false)
+          .putBoolean(SELECTED_FIRST_TIME, false)
           .apply()
       conversionService.localCurrency.doOnSuccess {
         setSelectedCurrency(it.currency)
@@ -57,14 +60,10 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
   }
 
   fun getCachedSelectedCurrency(): Single<String> {
-    Log.d("APPC-2472", "FiatCurrenciesRepository: getCachedSelectedCurrency: ${
-      pref.getString(FIAT_CURRENCY, "")
-    }")
     return Single.just(pref.getString(FIAT_CURRENCY, ""))
   }
 
   fun setSelectedCurrency(currency: String) {
-    Log.d("APPC-2472", "FiatCurrenciesRepository: setSelectedCurrency: $currency")
     pref.edit()
         .putString(FIAT_CURRENCY, currency)
         .apply()

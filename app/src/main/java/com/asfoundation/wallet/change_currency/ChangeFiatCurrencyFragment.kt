@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -13,7 +12,6 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentChangeFiatCurrencyBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
 import com.asfoundation.wallet.change_currency.list.ChangeFiatCurrencyController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
@@ -23,6 +21,9 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var changeFiatCurrencyViewModelFactory: ChangeFiatCurrencyViewModelFactory
+
+  @Inject
+  lateinit var changeFiatCurrencyNavigator: ChangeFiatCurrencyNavigator
 
   private val viewModel: ChangeFiatCurrencyViewModel by viewModels { changeFiatCurrencyViewModelFactory }
   private val views by viewBinding(FragmentChangeFiatCurrencyBinding::bind)
@@ -37,11 +38,8 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    (requireActivity() as AppCompatActivity).supportActionBar?.title =
-        resources.getString(R.string.change_currency_title)
     changeFiatCurrencyController.clickListener = { fiatCurrency ->
-      ChooseCurrencyBottomSheetFragment.newInstance(fiatCurrency)
-          .show(parentFragmentManager, "ChooseCurrencyBottomSheet")
+      changeFiatCurrencyNavigator.openBottomSheet(fiatCurrency)
     }
     views.fragmentChangeFiatCurrencyList.setController(changeFiatCurrencyController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -51,9 +49,7 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
     setChangeFiatCurrencyModel(state.changeFiatCurrencyAsync)
   }
 
-  override fun onSideEffect(sideEffect: ChangeFiatCurrencySideEffect) {
-    TODO("Not yet implemented")
-  }
+  override fun onSideEffect(sideEffect: ChangeFiatCurrencySideEffect) = Unit
 
   fun setChangeFiatCurrencyModel(asyncChangeFiatCurrency: Async<ChangeFiatCurrency>) {
     when (asyncChangeFiatCurrency) {

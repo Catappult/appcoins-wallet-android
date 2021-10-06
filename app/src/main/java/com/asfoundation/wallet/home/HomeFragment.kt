@@ -89,7 +89,7 @@ class HomeFragment : BasePageViewFragment(),
     views.sendButton.setOnClickListener { viewModel.onSendClick() }
     views.receiveButton.setOnClickListener { viewModel.onReceiveClick() }
     views.emptyClickableView.setOnClickListener { viewModel.onBalanceClick() }
-    views.currencySelector!!.setOnClickListener { viewModel.onCurrencySelectorClick() }
+    views.currencySelector.setOnClickListener { viewModel.onCurrencySelectorClick() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -273,7 +273,7 @@ class HomeFragment : BasePageViewFragment(),
   private fun showSkeleton() {
     views.balance.visibility = View.GONE
     views.balanceSubtitle.visibility = View.GONE
-    views.currencySelector?.visibility = View.GONE
+    views.currencySelector.visibility = View.GONE
     views.balanceSkeleton.visibility = View.VISIBLE
     views.balanceSkeleton.playAnimation()
   }
@@ -283,7 +283,7 @@ class HomeFragment : BasePageViewFragment(),
       views.balanceSkeleton.visibility = View.GONE
       views.balance.visibility = View.VISIBLE
       views.balanceSubtitle.visibility = View.VISIBLE
-      views.currencySelector?.visibility = View.VISIBLE
+      views.currencySelector.visibility = View.VISIBLE
       views.balance.text = globalBalance.fiatSymbol + globalBalance.fiatValue
       setSubtitle(globalBalance)
     }

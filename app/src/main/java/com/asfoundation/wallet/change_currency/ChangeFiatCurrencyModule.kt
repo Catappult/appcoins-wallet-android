@@ -12,4 +12,10 @@ class ChangeFiatCurrencyModule {
       getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase): ChangeFiatCurrencyViewModelFactory {
     return ChangeFiatCurrencyViewModelFactory(getChangeFiatCurrencyModelUseCase)
   }
+
+  @Provides
+  fun providesChangeFiatCurrencyNavigator(
+      fragment: ChangeFiatCurrencyFragment): ChangeFiatCurrencyNavigator {
+    return ChangeFiatCurrencyNavigator(fragment)
+  }
 }

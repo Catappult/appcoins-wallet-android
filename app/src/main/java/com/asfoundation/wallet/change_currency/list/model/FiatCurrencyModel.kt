@@ -10,25 +10,27 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.change_currency.FiatCurrency
+import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 @EpoxyModelClass
 abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCurrencyHolder>() {
 
   @EpoxyAttribute
-  lateinit var fiatCurrency: FiatCurrency
+  lateinit var fiatCurrency: FiatCurrencyEntity
 
   @EpoxyAttribute
   var selected: Boolean = false
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-  var clickListener: ((FiatCurrency) -> Unit)? = null
+  var clickListener: ((FiatCurrencyEntity) -> Unit)? = null
 
   override fun bind(holder: FiatCurrencyHolder) {
     GlideApp
         .with(holder.itemView.context)
         .load(Uri.parse(fiatCurrency.flag))
+        .transition(DrawableTransitionOptions.withCrossFade())
         .circleCrop()
         .into(holder.fiatFlag)
 

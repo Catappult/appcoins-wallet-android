@@ -10,7 +10,7 @@ class GetChangeFiatCurrencyModelUseCase(
     private val conversionService: LocalCurrencyConversionService) {
 
   operator fun invoke(): Single<ChangeFiatCurrency> {
-    return Single.zip(fiatCurrenciesRepository.getCurrenciesListFirstTimeCheck(),
+    return Single.zip(fiatCurrenciesRepository.getCurrenciesList(),
         fiatCurrenciesRepository.getSelectedCurrency(),
         { list, selectedCurrency -> ChangeFiatCurrency(list, selectedCurrency) })
         .flatMap { changeFiatCurrencyModel ->
