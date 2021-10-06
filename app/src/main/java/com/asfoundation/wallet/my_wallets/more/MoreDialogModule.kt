@@ -22,6 +22,7 @@ class MoreDialogModule {
               getString(MoreDialogFragment.APPC_BALANCE_KEY)!!,
               getString(MoreDialogFragment.CREDITS_BALANCE_KEY)!!,
               getString(MoreDialogFragment.ETHEREUM_BALANCE_KEY)!!,
+              getBoolean(MoreDialogFragment.SHOW_VERIFY_CARD_KEY),
               getBoolean(MoreDialogFragment.SHOW_DELETE_WALLET_KEY),
           )
         }

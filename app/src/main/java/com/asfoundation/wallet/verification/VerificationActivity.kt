@@ -21,8 +21,13 @@ import javax.inject.Inject
 class VerificationActivity : BaseActivity(), VerificationActivityView {
 
   companion object {
+    const val IS_WALLET_VERIFIED = "is_wallet_verified"
+
     @JvmStatic
-    fun newIntent(context: Context) = Intent(context, VerificationActivity::class.java)
+    fun newIntent(context: Context, isWalletVerified: Boolean = false) =
+        Intent(context, VerificationActivity::class.java).apply {
+          putExtra(IS_WALLET_VERIFIED, isWalletVerified)
+        }
   }
 
   @Inject
@@ -34,6 +39,10 @@ class VerificationActivity : BaseActivity(), VerificationActivityView {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_verification)
+    val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
+    val title =
+        if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
+    setTitle(title)
     toolbar()
     presenter.present(savedInstanceState)
   }

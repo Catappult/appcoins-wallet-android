@@ -17,6 +17,7 @@ import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.main.list.WalletsController
 import com.asfoundation.wallet.my_wallets.main.list.WalletsListEvent
 import com.asfoundation.wallet.ui.MyAddressActivity
+import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -168,7 +169,10 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   private fun navigateToMore() {
     safeLet(viewModel.state.balanceAsync(),
-        viewModel.state.walletsAsync()) { balanceScreenModel, walletsModel ->
+        viewModel.state.walletsAsync(),
+        viewModel.state.walletVerifiedAsync()) { balanceScreenModel, walletsModel, verifyModel ->
+      val verifyStatus = verifyModel.status ?: verifyModel.cachedStatus
+      val verified = verifyStatus == BalanceVerificationStatus.VERIFIED
       val overallFiatValue = getFiatBalanceText(balanceScreenModel.overallFiat)
       val appcoinsValue = "${
         getTokenValueText(balanceScreenModel.appcBalance, WalletCurrency.APPCOINS)
@@ -180,7 +184,7 @@ class MyWalletsFragment : BasePageViewFragment(),
         getTokenValueText(balanceScreenModel.ethBalance, WalletCurrency.ETHEREUM)
       } ${balanceScreenModel.ethBalance.token.symbol}"
       navigator.navigateToMore(walletsModel.currentWallet.walletAddress, overallFiatValue,
-          appcoinsValue, creditsValue, ethValue, walletsModel.otherWallets.isNotEmpty())
+          appcoinsValue, creditsValue, ethValue, verified, walletsModel.otherWallets.isNotEmpty())
     }
   }
 
