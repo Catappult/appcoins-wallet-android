@@ -50,6 +50,7 @@
   <string name="error_import">Anahtar deposu aktarılırken hata oluştu</string>
   <string name="message_this_is_your_address">Herkese açık Ethereum cüzdanı adresim</string>
   <string name="backup_warning_text">Paranızı sadece siz kontrol edebileceğinizden, bu uygulamanın silinmesi ihtimaline karşı anahtar deponuzun bir yedeğini saklamanız gerekir.\n\nCüzdanınız asla bulut deposuna veya standart cihaz yedeklemelerine kaydedilmez.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">Yedekleme yoksa Ethereum da yok</string>
   <string name="error_deleting_account">Cüzdan silinirken hata oluştu</string>
   <string name="title_privacy_policy">Gizlilik Politikası</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">Kart Numarası</string>
   <string name="dialog_credit_card_expiration">Son Kullanma Tarihi</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Son kullanma tarihi</string>
   <string name="activity_airdrop_title">AppCoin\'leri almak için insan olduğunuzu doğrulayın</string>
   <string name="activity_airdrop_details">Bu sadece güvenlik içindir.</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum, AppCoins\'i temel alan bir kripto para birimidir. Çok popüler olduğundan bunları birçok borsada alıp satabilirsiniz!</string>
   <string name="balance_appcoins_body">AppCoins, uygulama ekonomisinin kripto para birimidir. Birçok borsada alıp satabilir ve uygulama içi öğeleri satın almak için kullanabilirsiniz.</string>
   <string name="balance_appccreditos_body">Uygulama içi öğe satın alma jetonu! Cüzdanınızdan APPC-C yükleyin veya uygulama kullanarak ücretsiz edinin. Arkadaşlar arasında da transfer edilebilir!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Birinden ödemesini isteyin</string>
   <string name="askafriend_generating_link_message">Ödemenizi oluşturuyoruz&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">Kod al</string>
   <string name="confirm_button">Doğrula</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Destek Ekibiyle iletişime geçin</string>
   <string name="settings_subheader_support">Destek</string>
   <string name="settings_subheader_about_us">Hakkımızda</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">Cüzdanı Doğrulayın</string>
   <string name="verification_settings_unverified_body">Ödül kazanın ve arkadaşlarınızı davet edin</string>
   <string name="verification_settings_verified_title">Cüzdan Doğrulandı</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">İnternete bağlı olmanız gerekiyor</string>
   <string name="verification_error_time_expired">Hay aksi, süreniz doldu. Tekrar başlayın!</string>
   <string name="verification_error_attempts_reached">Deneme limitine ulaşmışsınız gibi görünüyor. Tekrar denemek için lütfen bekleyin.</string>
@@ -714,6 +719,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Aktif</string>
   <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">Henüz Abonelik Yok</string>
   <string name="subscriptions_empty_body">En sevdiğiniz uygulama ve oyunlardaki hizmetlere abone olun ve periyodik ödemelerle biz ilgilenelim.</string>
   <string name="subscriptions_details_billing_title">Faturalandırma:</string>
@@ -728,6 +734,8 @@
   <string name="subscriptions_details_button">AYRINTILAR</string>
   <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ABONELİĞİ İPTAL EDİN</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Aboneliği İptal Edin</string>
   <string name="subscriptions_cancel_body">Bu aboneliği iptal etmek istediğinizden emin misiniz?</string>
   <string name="subscriptions_cancel_no_button">HAYIR, GERİ GİT</string>
@@ -813,7 +821,7 @@
   <string name="carrier_billing_terms_button">Şartlar ve Koşullar</string>
   <string name="carrier_billing_privacy_button">Gizlilik Politikası</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Kartları yönetin</string>
   <string name="manage_cards_view_title">Kartları yönetin</string>
   <string name="manage_cards_view_manage_subtitle">Ödeme kartlarınızı yönetin</string>
@@ -894,7 +902,7 @@
   <string name="rate_us_back_title">Bize yardımcı olmak ister misiniz?</string>
   <string name="rate_us_back_body">AppCoins Wallet\'ı iyileştirebilmemiz için uygulama mağazasında değerlendirin.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">İşlem bilgilerin bilgilerinden kodu kontrol edin</string>
   <string name="card_verification_code_body">Kart sağlayıcınız tarafından sağlanan işlem özetinde eşsiz bir kod görünür.</string>
