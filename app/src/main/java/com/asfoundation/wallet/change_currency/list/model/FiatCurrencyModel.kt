@@ -13,6 +13,7 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.android.material.card.MaterialCardView
 
 @EpoxyModelClass
 abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCurrencyHolder>() {
@@ -50,7 +51,7 @@ abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCu
       holder.fiatCheckmark.visibility = View.VISIBLE
     }
 
-    holder.itemView.setOnClickListener { clickListener?.invoke(fiatCurrency) }
+    holder.cardContainer.setOnClickListener { clickListener?.invoke(fiatCurrency) }
   }
 
   override fun getDefaultLayout(): Int = R.layout.item_change_fiat_currency
@@ -61,5 +62,6 @@ abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCu
     val longCurrency by bind<TextView>(R.id.fiat_currency_long)
     val fiatCheckmark by bind<ImageView>(R.id.fiat_check_mark)
     val currencyItem by bind<ConstraintLayout>(R.id.fiat_currency_item)
+    val cardContainer by bind<MaterialCardView>(R.id.card_container)
   }
 }
