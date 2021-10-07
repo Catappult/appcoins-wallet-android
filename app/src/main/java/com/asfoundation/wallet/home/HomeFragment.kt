@@ -75,7 +75,8 @@ class HomeFragment : BasePageViewFragment(),
     disposables = CompositeDisposable()
 
     tooltip = layoutInflater.inflate(R.layout.fingerprint_tooltip, null)
-    views.emptyClickableView.visibility = View.VISIBLE
+    views.balanceEmptyClickableView.visibility = View.VISIBLE
+    views.currencyEmptyClickableView.visibility = View.VISIBLE
 
     emptyTransactionsSubject = PublishSubject.create()
     views.systemView.visibility = View.GONE
@@ -88,7 +89,8 @@ class HomeFragment : BasePageViewFragment(),
     views.actionButtonSettings.setOnClickListener { viewModel.onSettingsClick() }
     views.sendButton.setOnClickListener { viewModel.onSendClick() }
     views.receiveButton.setOnClickListener { viewModel.onReceiveClick() }
-    views.emptyClickableView.setOnClickListener { viewModel.onBalanceClick() }
+    views.balanceEmptyClickableView.setOnClickListener { viewModel.onBalanceClick() }
+    views.currencyEmptyClickableView.setOnClickListener { viewModel.onCurrencySelectorClick() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -167,6 +169,7 @@ class HomeFragment : BasePageViewFragment(),
       is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
       HomeSideEffect.ShowFingerprintTooltip -> setFingerprintTooltip()
+      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
     }
   }
 
@@ -269,6 +272,9 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   private fun showSkeleton() {
+    views.balance.visibility = View.GONE
+    views.balanceSubtitle.visibility = View.GONE
+    views.currencySelector.visibility = View.GONE
     views.balanceSkeleton.visibility = View.VISIBLE
     views.balanceSkeleton.playAnimation()
   }
@@ -276,6 +282,9 @@ class HomeFragment : BasePageViewFragment(),
   private fun setWalletBalance(globalBalance: GlobalBalance) {
     if (globalBalance.fiatValue.isNotEmpty() && globalBalance.fiatSymbol.isNotEmpty()) {
       views.balanceSkeleton.visibility = View.GONE
+      views.balance.visibility = View.VISIBLE
+      views.balanceSubtitle.visibility = View.VISIBLE
+      views.currencySelector.visibility = View.VISIBLE
       views.balance.text = globalBalance.fiatSymbol + globalBalance.fiatValue
       setSubtitle(globalBalance)
     }

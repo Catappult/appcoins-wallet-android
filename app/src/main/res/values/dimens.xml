@@ -71,6 +71,12 @@
   <dimen name="backup_description_normal_text_size">14sp</dimen>
   <dimen name="backup_description_line_spacing_extra">6sp</dimen>
 
+  <!--Change fiat currency -->
+  <dimen name="change_fiat_item_height">72dp</dimen>
+  <dimen name="currency_flag_img_size">40dp</dimen>
+  <dimen name="check_mark_img_height">14dp</dimen>
+  <dimen name="check_mark_img_width">19dp</dimen>
+
   <dimen name="design_bottom_navigation_height" tools:override="true">69dp</dimen>
   <dimen name="design_bottom_navigation_margin" tools:override="true">15dp</dimen>
   <dimen name="design_bottom_navigation_label_padding" tools:override="true">15dp</dimen>

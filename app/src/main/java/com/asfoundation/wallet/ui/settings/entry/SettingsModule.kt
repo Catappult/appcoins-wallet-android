@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.settings.entry
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -21,16 +22,19 @@ class SettingsModule {
   fun providesSettingsPresenter(settingsFragment: SettingsFragment,
                                 navigator: SettingsNavigator,
                                 interactor: SettingsInteractor,
-                                data: SettingsData): SettingsPresenter {
+                                data: SettingsData,
+                                getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
-        AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data)
+        AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data,
+        getChangeFiatCurrencyModelUseCase)
   }
 
   @Provides
   fun providesSettingsData(settingsFragment: SettingsFragment): SettingsData {
-    settingsFragment.arguments!!.apply {
-      return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
-    }
+    settingsFragment.requireArguments()
+        .apply {
+          return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
+        }
   }
 
   @Provides
@@ -49,6 +53,7 @@ class SettingsModule {
 
   @Provides
   fun providesSettingsNavigator(settingsFragment: SettingsFragment): SettingsNavigator {
-    return SettingsNavigator(settingsFragment.requireFragmentManager(), settingsFragment.activity!!)
+    return SettingsNavigator(settingsFragment.requireFragmentManager(),
+        settingsFragment.requireActivity())
   }
 }

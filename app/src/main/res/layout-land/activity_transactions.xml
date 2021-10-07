@@ -206,17 +206,16 @@
       />
 
   <FrameLayout
-      android:id="@+id/empty_clickable_view"
-      android:layout_width="200dp"
-      android:layout_height="100dp"
-      android:layout_marginTop="50dp"
-      android:layout_marginBottom="55dp"
+      android:id="@+id/balance_empty_clickable_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
       android:onClick="onClick"
       android:visibility="gone"
       app:layout_constraintHorizontal_bias="0.25"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="@id/balance"
+      app:layout_constraintStart_toStartOf="@id/balance"
+      app:layout_constraintTop_toTopOf="@id/balance"
+      app:layout_constraintBottom_toBottomOf="@id/balance"
       />
 
   <TextView
@@ -228,6 +227,30 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
+
+  <FrameLayout
+      android:id="@+id/currency_empty_clickable_view"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:onClick="onClick"
+      android:visibility="gone"
+      app:layout_constraintStart_toEndOf="@id/currency_selector"
+      app:layout_constraintEnd_toEndOf="@id/currency_selector"
+      app:layout_constraintTop_toTopOf="@id/currency_selector"
+      app:layout_constraintBottom_toBottomOf="@id/currency_selector"
+      />
+
+  <ImageView
+      android:id="@+id/currency_selector"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="12dp"
+      android:layout_marginTop="3dp"
+      app:layout_constraintStart_toEndOf="@id/balance"
+      app:layout_constraintTop_toTopOf="@id/balance"
+      android:src="@drawable/ic_home_currency_selection"
+      />
+
   <TextView
       android:id="@+id/balance_subtitle"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"

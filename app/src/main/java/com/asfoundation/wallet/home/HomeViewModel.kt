@@ -44,6 +44,7 @@ sealed class HomeSideEffect : SideEffect {
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
   object NavigateToMyWallets : HomeSideEffect()
   object NavigateToSend : HomeSideEffect()
+  object NavigateToChangeCurrency : HomeSideEffect()
   object ShowFingerprintTooltip : HomeSideEffect()
 }
 
@@ -371,6 +372,10 @@ class HomeViewModel(private val analytics: HomeAnalytics,
     } else {
       displayChatUseCase()
     }
+  }
+
+  fun onCurrencySelectorClick() {
+    sendSideEffect { HomeSideEffect.NavigateToChangeCurrency }
   }
 
   fun onSettingsClick() {

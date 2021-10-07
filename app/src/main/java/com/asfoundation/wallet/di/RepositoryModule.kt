@@ -29,6 +29,10 @@ import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
+import com.asfoundation.wallet.change_currency.FiatCurrenciesDao
+import com.asfoundation.wallet.change_currency.FiatCurrenciesMapper
+import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
@@ -254,14 +258,16 @@ class RepositoryModule {
   @Provides
   fun provideBalanceRepository(context: Context,
                                localCurrencyConversionService: LocalCurrencyConversionService,
-                               getDefaultWalletBalanceInteract: GetDefaultWalletBalanceInteract): BalanceRepository {
+                               getDefaultWalletBalanceInteract: GetDefaultWalletBalanceInteract,
+                               getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): BalanceRepository {
     return AppcoinsBalanceRepository(getDefaultWalletBalanceInteract,
         localCurrencyConversionService,
         Room.databaseBuilder(context.applicationContext,
             BalanceDetailsDatabase::class.java,
             "balance_details")
             .build()
-            .balanceDetailsDao(), BalanceDetailsMapper(), Schedulers.io())
+            .balanceDetailsDao(), BalanceDetailsMapper(), Schedulers.io(),
+        getSelectedCurrencyUseCase)
   }
 
   @Provides
@@ -406,4 +412,23 @@ class RepositoryModule {
     return WithdrawFiatUseCase(ewt, withdrawRepository)
   }
 
+  @Singleton
+  @Provides
+  fun providesFiatCurrenciesRepository(@Named("default") client: OkHttpClient,
+                                       objectMapper: ObjectMapper,
+                                       sharedPreferences: SharedPreferences,
+                                       fiatCurrenciesDao: FiatCurrenciesDao,
+                                       conversionService: LocalCurrencyConversionService): FiatCurrenciesRepository {
+    val baseUrl = BuildConfig.BASE_HOST
+    val api = Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
+    return FiatCurrenciesRepository(api, sharedPreferences, FiatCurrenciesMapper(),
+        fiatCurrenciesDao, conversionService)
+
+  }
 }

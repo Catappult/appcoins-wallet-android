@@ -183,4 +183,11 @@
   <color name="verify_wallet_example_background">#2Bd6d6d6</color>
   <color name="verify_wallet_example_code_background">#707070</color>
   <color name="verify_wallet_code_background">#afafaf</color>
+
+
+  <!--Change fiat currency -->
+  <color name="change_fiat_unselected_item_text">#000000</color>
+  <color name="change_fiat_selected_item_short">#FFFFFF</color>
+  <color name="change_fiat_selected_item_long">#BABABA</color>
+  <color name="change_fiat_selected_item">#192933</color>
 </resources>

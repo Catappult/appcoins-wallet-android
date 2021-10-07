@@ -78,6 +78,10 @@ import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyModule
+import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
+import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.ui.settings.entry.SettingsModule
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
@@ -322,6 +326,14 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [MoreDialogModule::class])
   abstract fun bindMoreDialogFragment(): MoreDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [ChangeFiatCurrencyModule::class])
+  abstract fun bindChangeFiatCurrencyFragment(): ChangeFiatCurrencyFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [ChooseCurrencyBottomSheetModule::class])
+  abstract fun bindChooseCurrencyBottomSheetFragment(): ChooseCurrencyBottomSheetFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [SubscriptionListModule::class])

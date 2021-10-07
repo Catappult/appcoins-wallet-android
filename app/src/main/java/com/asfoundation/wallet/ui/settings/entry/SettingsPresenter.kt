@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.settings.entry
 import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
+import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -14,7 +15,8 @@ class SettingsPresenter(private val view: SettingsView,
                         private val viewScheduler: Scheduler,
                         private val disposables: CompositeDisposable,
                         private val settingsInteractor: SettingsInteractor,
-                        private val settingsData: SettingsData) {
+                        private val settingsData: SettingsData,
+                        private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -45,6 +47,7 @@ class SettingsPresenter(private val view: SettingsView,
     view.setRestorePreference()
     view.setBackupPreference()
     view.setManageSubscriptionsPreference()
+    setCurrencyPreference()
   }
 
   fun setFingerPrintPreference() {
@@ -148,13 +151,28 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun onFingerPrintPreferenceChange() {
     disposables.add(view.switchPreferenceChange()
-      .doOnNext { navigator.showAuthentication() }
-      .subscribe({}, { it.printStackTrace() })
+        .doOnNext { navigator.showAuthentication() }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
   fun onWithdrawClicked() {
     navigator.navigateToWithdrawScreen()
+  }
+
+  fun setCurrencyPreference() {
+    disposables.add(getChangeFiatCurrencyModelUseCase()
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          for (fiatCurrency in it.list) {
+            if (fiatCurrency.currency == it.selectedCurrency) {
+              view.setCurrencyPreference(fiatCurrency)
+              break
+            }
+          }
+        }
+        .subscribeOn(networkScheduler)
+        .subscribe())
   }
 }
 

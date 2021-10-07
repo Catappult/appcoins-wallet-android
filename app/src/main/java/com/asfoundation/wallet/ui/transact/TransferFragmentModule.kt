@@ -28,7 +28,7 @@ class TransferFragmentModule {
 
   @Provides
   fun providesTransferFragmentData(transferFragment: TransferFragment): TransferFragmentData {
-    return TransferFragmentData(transferFragment.context!!.packageName)
+    return TransferFragmentData(transferFragment.requireContext().packageName)
   }
 
   @Provides
@@ -43,6 +43,6 @@ class TransferFragmentModule {
   fun providesTransferFragmentNavigator(transferFragment: TransferFragment,
                                         defaultTokenProvider: DefaultTokenProvider): TransferFragmentNavigator {
     return TransferFragmentNavigator(transferFragment.requireFragmentManager(), transferFragment,
-        transferFragment.activity!!, defaultTokenProvider)
+        transferFragment.requireActivity(), defaultTokenProvider)
   }
 }

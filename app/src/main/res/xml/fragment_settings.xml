@@ -16,6 +16,13 @@
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/permissions_title" />
 
+
+  <com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
+      android:icon="@drawable/ic_currency"
+      android:key="pref_currency"
+      android:layout="@layout/preferences_with_active_currency_layout"
+      android:title="@string/change_currency_settings_title"/>
+
   <Preference
       android:icon="@drawable/ic_withdraw"
       android:key="pref_withdraw"

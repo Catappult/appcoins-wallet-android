@@ -100,6 +100,26 @@
       android:visibility="invisible"
       />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/share_button"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="10dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/ic_share_black"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="@color/darker_navy_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/app_icon"
+        app:rippleColor="@color/grey"
+        app:shapeAppearance="@style/Home.PillShape"
+        />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
 

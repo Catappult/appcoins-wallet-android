@@ -6,7 +6,11 @@ import androidx.biometric.BiometricManager
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
+import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
+import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
+import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import com.asfoundation.wallet.backup.BackupInteractContract
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
@@ -19,6 +23,8 @@ import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
+import com.asfoundation.wallet.repository.WalletRepositoryType
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
@@ -229,6 +235,26 @@ class UseCaseModule {
   fun providesDisplayConversationListOrChatUseCase(
       supportRepository: SupportRepository): DisplayConversationListOrChatUseCase {
     return DisplayConversationListOrChatUseCase(supportRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSetSelectedCurrencyUseCase(
+      fiatCurrenciesRepository: FiatCurrenciesRepository): SetSelectedCurrencyUseCase {
+    return SetSelectedCurrencyUseCase(fiatCurrenciesRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository,
+                                         conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
+    return GetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository, conversionService)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetSelectedCurrencyUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
+    return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
   }
 
 }
