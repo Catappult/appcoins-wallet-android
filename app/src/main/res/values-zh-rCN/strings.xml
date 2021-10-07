@@ -50,6 +50,7 @@
   <string name="error_import">导入密钥库时出错</string>
   <string name="message_this_is_your_address">我的公共以太币钱包地址</string>
   <string name="backup_warning_text">因为只有你能控制自己的资产，你需要保存你的密钥库备份，以防这个应用被删除。\n\n你的钱包永远不会保存到云存储空间或标准设备备份空间。</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">没有备份，就没有以太坊</string>
   <string name="error_deleting_account">删除钱包时出错</string>
   <string name="title_privacy_policy">隐私政策</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">卡号</string>
   <string name="dialog_credit_card_expiration">到期日</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">到期日期</string>
   <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
   <string name="activity_airdrop_details">以保安全。</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">以太币是AppCoins采用的加密货币。你可以在大多数交易平台交易以太币，以太币是现今非常热门的加密货币！</string>
   <string name="balance_appcoins_body">AppCoins是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
   <string name="balance_appccreditos_body">购买应用内物品的代币！从钱包充值APPC-C或使用应用免费获取。好友之间也可交易！</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">请求他人支付</string>
   <string name="askafriend_generating_link_message">我们正在生成支付链接&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">获取代码</string>
   <string name="confirm_button">确认</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">联系支持团队</string>
   <string name="settings_subheader_support">支持</string>
   <string name="settings_subheader_about_us">关于我们</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">验证钱包</string>
   <string name="verification_settings_unverified_body">获取奖励和邀请好友</string>
   <string name="verification_settings_verified_title">已验证钱包</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">你需要连接到互联网</string>
   <string name="verification_error_time_expired">糟糕，您的时间已到。请重新开始！</string>
   <string name="verification_error_attempts_reached">您似乎已达到尝试次数限制。请稍后重试。</string>
@@ -713,6 +718,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">激活</string>
   <string name="subscriptions_expired_title">已到期</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">尚无订购</string>
   <string name="subscriptions_empty_body">订购最喜欢的应用和游戏的服务，我们将处理定期付款。</string>
   <string name="subscriptions_details_billing_title">支付：</string>
@@ -727,6 +733,8 @@
   <string name="subscriptions_details_button">详情</string>
   <string name="subscriptions_manage_button">管理订购</string>
   <string name="subscriptions_cancel_button">取消订购</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">取消订购</string>
   <string name="subscriptions_cancel_body">是否确定要取消此订购？</string>
   <string name="subscriptions_cancel_no_button">否，返回</string>
@@ -812,7 +820,7 @@
   <string name="carrier_billing_terms_button">条款与条件</string>
   <string name="carrier_billing_privacy_button">隐私政策</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">管理支付卡</string>
   <string name="manage_cards_view_title">管理支付卡</string>
   <string name="manage_cards_view_manage_subtitle">管理您的支付卡</string>
@@ -887,7 +895,7 @@
   <string name="rate_us_back_title">想帮助我们吗？</string>
   <string name="rate_us_back_body">在应用商店上给AppCoins Wallet评分，以便我们对其进行改进。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">在交易详细信息中查看代码</string>
   <string name="card_verification_code_body">一个唯一代码将出现在发卡银行提供的交易摘要中。</string>
