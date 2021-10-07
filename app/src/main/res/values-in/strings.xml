@@ -50,6 +50,7 @@
   <string name="error_import">Kesalahan mengimpor keystore</string>
   <string name="message_this_is_your_address">Alamat dompet Ethereum umum saya</string>
   <string name="backup_warning_text">Karena hanya Anda yang mengendalikan uang Anda, maka Anda perlu menyimpan cadangan keystore untuk mengantisipasi jika aplikasi ini dihapus.\n\nDompet Anda tidak pernah disimpan ke penyimpanan cloud atau cadangan perangkat standar.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">Tidak ada cadangan, tidak ada Ethereum</string>
   <string name="error_deleting_account">Kesalalahan menghapus dompet</string>
   <string name="title_privacy_policy">Kebijakan Privasi</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">Nomor Kartu</string>
   <string name="dialog_credit_card_expiration">Tanggal Kedaluwarsa</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Tanggal kedaluwarsa</string>
   <string name="activity_airdrop_title">Untuk menerima AppCoin, konfirmasikan bahwa Anda manusia</string>
   <string name="activity_airdrop_details">Ini hanya soal keamanan.</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum adalah mata uang kripto yang menjadi landasan AppCoins. Anda dapat memperjualbelikannya di mayoritas bursa, Ethereum itu sangat populer!</string>
   <string name="balance_appcoins_body">AppCoins adalah mata uang kripto bagi perekonomian aplikasi. Anda dapat memperjualbelikannya di beberapa bursa dan menggunakannya untuk membeli barang in-app.</string>
   <string name="balance_appccreditos_body">Token untuk membeli barang in-app! Isi ulang APPC-C dari dompet Anda atau dapatkan secara gratis dengan menggunakan aplikasi. Token juga dapat ditransfer di antara teman!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang untuk membayar</string>
   <string name="askafriend_generating_link_message">Kami sedang membuat tautan pembayaran Anda &#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">Dapatkan kode</string>
   <string name="confirm_button">Konfirmasi</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
   <string name="settings_subheader_support">Dukungan</string>
   <string name="settings_subheader_about_us">Tentang Kami</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">Verifikasi Dompet</string>
   <string name="verification_settings_unverified_body">Dapatkan hadiah dan undang teman</string>
   <string name="verification_settings_verified_title">Dompet Terverifikasi</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">Anda harus terhubung ke internet</string>
   <string name="verification_error_time_expired">Ups, waktu Anda sudah habis. Mulai lagi!</string>
   <string name="verification_error_attempts_reached">Sepertinya Anda sudah mencapai batas percobaan. Harap tunggu untuk mencoba lagi.</string>
@@ -713,6 +718,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Aktif</string>
   <string name="subscriptions_expired_title">Kedaluwarsa</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">Belum Berlangganan</string>
   <string name="subscriptions_empty_body">Berlangganan layanan di aplikasi dan game favorit Anda, nanti kami akan menangani pembayaran berkala.</string>
   <string name="subscriptions_details_billing_title">Tagihan:</string>
@@ -727,6 +733,8 @@
   <string name="subscriptions_details_button">RINCIAN</string>
   <string name="subscriptions_manage_button">KELOLA LANGGANAN</string>
   <string name="subscriptions_cancel_button">BATALKAN LANGGANAN</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Batalkan Langganan</string>
   <string name="subscriptions_cancel_body">Apakah Anda yakin ingin membatalkan langganan ini?</string>
   <string name="subscriptions_cancel_no_button">TIDAK, KEMBALI SAJA</string>
@@ -812,7 +820,7 @@
   <string name="carrier_billing_terms_button">Syarat dan Ketentuan</string>
   <string name="carrier_billing_privacy_button">Kebijakan Privasi</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Kelola kartu</string>
   <string name="manage_cards_view_title">Kelola kartu</string>
   <string name="manage_cards_view_manage_subtitle">Kelola kartu pembayaran Anda</string>
@@ -887,7 +895,7 @@
   <string name="rate_us_back_title">Ingin membantu kami?</string>
   <string name="rate_us_back_body">Beri nilai Dompet AppCoins di toko aplikasi agar kami bisa meningkatkannya.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Periksa kode di rincian transaksi</string>
   <string name="card_verification_code_body">Kode unik akan muncul pada ringkasan transaksi yang diberikan oleh penerbit kartu Anda.</string>
