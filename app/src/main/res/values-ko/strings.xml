@@ -50,6 +50,7 @@
   <string name="error_import">키스토어 불러오기 오류</string>
   <string name="message_this_is_your_address">나의 공개 이더리움 지갑 주소</string>
   <string name="backup_warning_text">귀하만이 귀하의 돈을 관리할 수 있기때문에, 이 앱이 삭제된 경우를 대비하여 키스토어를 백업하실 필요가 있습니다.\n\n 귀하의 지갑은 클라우드 저장공간이나 표준 기기 백업에 절대로 저장되지 않습니다.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">백업하지 않으면, 이더리움도 없습니다</string>
   <string name="error_deleting_account">지갑 삭제시 오류</string>
   <string name="title_privacy_policy">개인정보 보호정책</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">카드번호</string>
   <string name="dialog_credit_card_expiration">만료일</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">만료일</string>
   <string name="activity_airdrop_title">AppCoins를 받으려면 귀하가 사람인지 확인해주십시오</string>
   <string name="activity_airdrop_details">이것은 보안일 뿐입니다.</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">이더리움은 AppCoins의 기반이 되는 암호화폐입니다. 대부분의 거래소에서 매수와 매도를 하실 수 있는 매우 인기있는 암호화폐입니다.</string>
   <string name="balance_appcoins_body">AppCoins 은 앱 경제를 위한 암호화폐 입니다. 몇 개의 거래소에서 매수와 매도를 할 수 있으며 AppCoins로 앱내 아이템을 구매 할 수 있습니다.</string>
   <string name="balance_appccreditos_body">앱내 아이템 구매를 위한 토큰입니다! 지갑에서 APPC-C를 충전하거나 앱을 사용하여 무료로 얻을 수 있습니다. 또한 친구들 간에 전송할 수 있습니다.</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">누군가에게 지불하라고 하세요</string>
   <string name="askafriend_generating_link_message">귀하의 지불 링크를 생성하고 있습니다&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">코드 받기</string>
   <string name="confirm_button">확인</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">최고의 앱 찾아보기</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">지원 팀으로 연락하기</string>
   <string name="settings_subheader_support">지원</string>
   <string name="settings_subheader_about_us">당사 소개</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">지갑 확인</string>
   <string name="verification_settings_unverified_body">보상을 받고 친구를 초대하세요</string>
   <string name="verification_settings_verified_title">지갑 확인됨</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">인터넷 연결이 필요합니다</string>
   <string name="verification_error_time_expired">이런, 시간이 만료되었습니다. 다시 시작해 주세요!</string>
   <string name="verification_error_attempts_reached">최대 시도 횟수를 초과했습니다. 다시 시도해 주세요.</string>
@@ -713,6 +718,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">활성</string>
   <string name="subscriptions_expired_title">만료됨</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">아직 구독이 없습니다</string>
   <string name="subscriptions_empty_body">자주사용하는 앱과 게임의 서비스에 가입하시면 정기 결제를 처리해 드립니다.</string>
   <string name="subscriptions_details_billing_title">빌링:</string>
@@ -727,6 +733,8 @@
   <string name="subscriptions_details_button">상세내용</string>
   <string name="subscriptions_manage_button">구독 관리</string>
   <string name="subscriptions_cancel_button">구독 취소</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">구독 취소</string>
   <string name="subscriptions_cancel_body">이 구독을 취소하시겠습니까?</string>
   <string name="subscriptions_cancel_no_button">아니오, 뒤로</string>
@@ -812,7 +820,7 @@
   <string name="carrier_billing_terms_button">이용약관</string>
   <string name="carrier_billing_privacy_button">개인정보 보호정책</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">카드 관리</string>
   <string name="manage_cards_view_title">카드 관리</string>
   <string name="manage_cards_view_manage_subtitle">지불 카드 관리</string>
@@ -887,7 +895,7 @@
   <string name="rate_us_back_title">도와주시겠어요?</string>
   <string name="rate_us_back_body">AppCoins 지갑을 평가해서 개선할 수 있도록 해 주세요.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">거래 상세에서 이 코드를 확인하세요</string>
   <string name="card_verification_code_body">카드 발급사에서 제공한 거래 요약정보에 이 유일한 코드가 표시됩니다.</string>
