@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification
 
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.asfoundation.wallet.verification.VerificationActivity.Companion.IS_WALLET_VERIFIED
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,6 +10,11 @@ import io.reactivex.schedulers.Schedulers
 
 @Module
 class VerificationActivityModule {
+
+  @Provides
+  fun providesVerificationActivityData(activity: VerificationActivity): VerificationActivityData {
+    return VerificationActivityData(activity.intent.getBooleanExtra(IS_WALLET_VERIFIED, false))
+  }
 
   @Provides
   fun providesWalletVerificationActivityPresenter(activity: VerificationActivity,

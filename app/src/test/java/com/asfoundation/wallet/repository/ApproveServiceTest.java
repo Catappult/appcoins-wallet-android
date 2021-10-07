@@ -4,6 +4,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.google.gson.Gson;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -35,6 +37,7 @@ public class ApproveServiceTest {
   @Mock TrackTransactionService trackTransactionService;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
+  @Mock Gson gson;
   private ApproveService approveService;
   private PublishSubject<PendingTransaction> pendingTransactionState;
   private TestScheduler scheduler;
@@ -51,7 +54,7 @@ public class ApproveServiceTest {
 
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new PaymentErrorMapper(gson),
         scheduler, trackTransactionService);
 
     when(transactionValidator.validate(any())).thenReturn(

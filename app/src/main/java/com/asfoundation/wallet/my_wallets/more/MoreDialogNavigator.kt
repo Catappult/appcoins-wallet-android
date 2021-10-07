@@ -27,4 +27,7 @@ class MoreDialogNavigator(private val navController: NavController) : Navigator 
             appcoinsBalance, creditsBalance, ethereumBalance))
   }
 
+  fun navigateToVerify() {
+    navigate(navController, MoreDialogFragmentDirections.actionNavigateToVerify(true))
+  }
 }

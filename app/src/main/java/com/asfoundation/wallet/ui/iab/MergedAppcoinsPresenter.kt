@@ -34,7 +34,8 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val navigator: Navigator,
                               private val logger: Logger,
                               private val transactionBuilder: TransactionBuilder,
-                              private val paymentMethodsMapper: PaymentMethodsMapper) {
+                              private val paymentMethodsMapper: PaymentMethodsMapper,
+                              private val isSubscription: Boolean) {
 
   private var cachedSelectedPaymentId: String? = null
 
@@ -51,6 +52,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     handleSupportClicks()
     handleErrorDismiss()
     handleAuthenticationResult()
+    if (isSubscription) view.showVolatilityInfo()
   }
 
   fun onResume() {
@@ -80,7 +82,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
         .observeOn(networkScheduler)
         .flatMapSingle {
           Single.zip(hasEnoughCredits(it.creditsAppcAmount),
-              mergedAppcoinsInteractor.hasAppcFunds(transactionBuilder),
+              mergedAppcoinsInteractor.retrieveAppcAvailability(transactionBuilder, isSubscription),
               BiFunction { hasCredits: Availability, hasAppc: Availability ->
                 Pair(hasCredits, hasAppc)
               })
@@ -221,8 +223,17 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun handleSelection(selection: String) {
     when (selection) {
-      APPC -> view.showBonus()
-      CREDITS -> view.hideBonus()
+      APPC -> {
+        view.hideVolatilityInfo()
+        view.showBonus(R.string.subscriptions_bonus_body.takeIf { isSubscription }
+            ?: R.string.gamification_purchase_body)
+      }
+      CREDITS -> {
+        view.hideBonus()
+        if (isSubscription) {
+          view.showVolatilityInfo()
+        }
+      }
       else -> Log.w(TAG, "Error creating PublishSubject")
     }
   }

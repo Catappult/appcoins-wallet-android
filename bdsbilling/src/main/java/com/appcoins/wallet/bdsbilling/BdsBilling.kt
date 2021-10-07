@@ -1,11 +1,11 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.TransactionType
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Scheduler
 import io.reactivex.Single
 
@@ -23,13 +23,14 @@ class BdsBilling(private val repository: BillingRepository,
   }
 
   override fun isSubsSupported(merchantName: String): Single<Billing.BillingSupportType> {
-    return repository.isSupported(merchantName, BillingSupportedType.SUBS)
+    return repository.isSupported(merchantName, BillingSupportedType.INAPP_SUBSCRIPTION)
         .map { map(it) }
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun getProducts(merchantName: String, skus: List<String>): Single<List<Product>> {
-    return repository.getSkuDetails(merchantName, skus)
+  override fun getProducts(merchantName: String, skus: List<String>,
+                           type: BillingSupportedType): Single<List<Product>> {
+    return repository.getSkuDetails(merchantName, skus, type)
   }
 
   override fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction> {
@@ -39,48 +40,54 @@ class BdsBilling(private val repository: BillingRepository,
   }
 
   override fun getSkuTransaction(merchantName: String, sku: String?,
-                                 transactionType: String,
-                                 scheduler: Scheduler): Single<Transaction> {
+                                 scheduler: Scheduler,
+                                 type: BillingSupportedType): Single<Transaction> {
     return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
-          repository.getSkuTransaction(merchantName, sku, mapTransactionType(transactionType),
-              it.address, it.signedAddress)
+          repository.getSkuTransaction(merchantName, sku, it.address, it.signedAddress, type)
         }
   }
 
-  private fun mapTransactionType(transactionType: String): TransactionType {
-    return if (transactionType.equals("INAPP_UNMANAGED", true)) {
-      TransactionType.INAPP_UNMANAGED
-    } else {
-      TransactionType.INAPP
-    }
-  }
-
-  override fun getSkuPurchase(merchantName: String, sku: String?,
-                              scheduler: Scheduler): Single<Purchase> {
+  override fun getSkuPurchase(merchantName: String, sku: String?, purchaseUid: String?,
+                              scheduler: Scheduler, type: BillingSupportedType): Single<Purchase> {
     return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
-        .flatMap { repository.getSkuPurchase(merchantName, sku, it.address, it.signedAddress) }
+        .flatMap {
+          repository.getSkuPurchase(merchantName, sku, purchaseUid, it.address, it.signedAddress,
+              type)
+        }
   }
 
   override fun getPurchases(packageName: String, type: BillingSupportedType,
                             scheduler: Scheduler): Single<List<Purchase>> {
-    return walletService.getAndSignCurrentWalletAddress()
-        .observeOn(scheduler)
-        .flatMap {
-          repository.getPurchases(packageName, it.address, it.signedAddress,
-              type)
-        }
-        .onErrorReturn { ArrayList() }
+    return if (isManagedType(type)) {
+      walletService.getAndSignCurrentWalletAddress()
+          .observeOn(scheduler)
+          .flatMap {
+            repository.getPurchases(packageName, it.address, it.signedAddress, type)
+          }
+          .onErrorReturn { emptyList() }
+    } else Single.just(emptyList())
   }
 
   override fun consumePurchases(merchantName: String, purchaseToken: String,
-                                scheduler: Scheduler): Single<Boolean> {
+                                scheduler: Scheduler,
+                                type: BillingSupportedType?): Single<Boolean> {
     return walletService.getAndSignCurrentWalletAddress()
         .observeOn(scheduler)
         .flatMap {
-          repository.consumePurchases(merchantName, purchaseToken, it.address, it.signedAddress)
+          repository.consumePurchases(merchantName, purchaseToken, it.address, it.signedAddress,
+              type)
+        }
+  }
+
+  override fun getSubscriptionToken(packageName: String, skuId: String,
+                                    networkThread: Scheduler): Single<String> {
+    return walletService.getAndSignCurrentWalletAddress()
+        .observeOn(networkThread)
+        .flatMap {
+          repository.getSubscriptionToken(packageName, skuId, it.address, it.signedAddress)
         }
   }
 
@@ -92,6 +99,4 @@ class BdsBilling(private val repository: BillingRepository,
 
   private fun map(it: Boolean) =
       if (it) Billing.BillingSupportType.SUPPORTED else Billing.BillingSupportType.MERCHANT_NOT_FOUND
-
-
 }

@@ -128,7 +128,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.OneStepPaymentReceiver"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
-      <intent-filter>
+      <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW" />
 
         <category android:name="android.intent.category.DEFAULT" />
@@ -224,6 +224,10 @@
     <activity
         android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
         android:label="@string/promotions_title" />
+    <activity
+        android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
+        android:label="@string/subscriptions_title"/>
+
     <activity
         android:name="com.asfoundation.wallet.referrals.InviteFriendsActivity"
         android:label="@string/referral_view_title"

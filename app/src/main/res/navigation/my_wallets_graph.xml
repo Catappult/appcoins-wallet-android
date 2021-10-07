@@ -52,6 +52,9 @@
         android:name="ethereum_balance"
         app:argType="string" />
     <argument
+        android:name="show_verify_card"
+        app:argType="boolean" />
+    <argument
         android:name="show_delete_wallet"
         app:argType="boolean" />
     <action
@@ -74,6 +77,9 @@
         app:destination="@id/remove_wallet_activity"
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_navigate_to_verify"
+        app:destination="@id/verify_wallet_activity" />
   </dialog>
 
   <dialog
@@ -116,7 +122,11 @@
   <activity
       android:id="@+id/verify_wallet_activity"
       android:name="com.asfoundation.wallet.verification.VerificationActivity"
-      tools:layout="@layout/activity_wallet_verification" />
+      tools:layout="@layout/activity_wallet_verification">
+    <argument
+        android:name="is_wallet_verified"
+        app:argType="boolean" />
+  </activity>
   <activity
       android:id="@+id/restore_wallet_activity"
       android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"

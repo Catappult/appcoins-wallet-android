@@ -1,15 +1,19 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.core.model.ModelObject
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
-import org.json.JSONObject
 import retrofit2.http.*
 
 class AdyenPaymentRepository(private val adyenApi: AdyenApi,
+                             private val bdsApi: RemoteRepository.BdsApi,
+                             private val subscriptionsApi: SubscriptionBillingApi,
                              private val adyenResponseMapper: AdyenResponseMapper) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
@@ -31,14 +35,28 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
-    return adyenApi.makePayment(walletAddress, walletSignature,
-        Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-            billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku, reference,
-            transactionType, currency, value, developerWallet, entityOemId, entityDomain,
-            userWallet,
-            referrerUrl))
-        .map { adyenResponseMapper.map(it) }
-        .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+    return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
+      subscriptionsApi.getSkuSubscriptionToken(packageName!!, sku!!, currency, walletAddress,
+          walletSignature)
+          .map {
+            TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+                billingAddress, callbackUrl, metadata, paymentType, origin, reference,
+                developerWallet, entityOemId, entityDomain, userWallet, referrerUrl, it)
+          }
+          .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
+          .map { adyenResponseMapper.map(it) }
+          .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+    } else {
+      return adyenApi.makePayment(walletAddress, walletSignature,
+          Payment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
+              billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku,
+              reference,
+              transactionType, currency, value, developerWallet, entityOemId, entityDomain,
+              userWallet,
+              referrerUrl))
+          .map { adyenResponseMapper.map(it) }
+          .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
+    }
   }
 
   fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
@@ -46,7 +64,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                               walletSignature: String): Single<VerificationPaymentModel> {
     return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        .toSingle { adyenResponseMapper.mapVerificationPaymentModeSuccess() }
+        .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
         .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
   }
 
@@ -58,10 +76,9 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
   }
 
   fun submitRedirect(uid: String, walletAddress: String, walletSignature: String,
-                     details: JSONObject, paymentData: String?): Single<PaymentModel> {
-    val json = convertToJson(details)
+                     details: JsonObject, paymentData: String?): Single<PaymentModel> {
     return adyenApi.submitRedirect(uid, walletAddress, walletSignature,
-        AdyenPayment(json, paymentData))
+        AdyenPayment(details, paymentData))
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
   }
@@ -80,21 +97,9 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun getTransaction(uid: String, walletAddress: String,
                      signedWalletAddress: String): Single<PaymentModel> {
-    return adyenApi.getTransaction(uid, walletAddress, signedWalletAddress)
+    return bdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn { adyenResponseMapper.mapPaymentModelError(it) }
-  }
-
-  //This method is used to avoid the nameValuePairs key problem that occurs when we pass a JSONObject trough a GSON converter
-  private fun convertToJson(details: JSONObject): JsonObject {
-    val json = JsonObject()
-    val keys = details.keys()
-    while (keys.hasNext()) {
-      val key = keys.next()
-      val value = details.get(key)
-      if (value is String) json.addProperty(key, value)
-    }
-    return json
   }
 
   interface AdyenApi {
@@ -116,6 +121,12 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     fun makePayment(@Query("wallet.address") walletAddress: String,
                     @Query("wallet.signature") walletSignature: String,
                     @Body payment: Payment): Single<AdyenTransactionResponse>
+
+    @Headers("Content-Type: application/json;format=product_token")
+    @POST("transactions")
+    fun makeTokenPayment(@Query("wallet.address") walletAddress: String,
+                         @Query("wallet.signature") walletSignature: String,
+                         @Body payment: TokenPayment): Single<AdyenTransactionResponse>
 
     @PATCH("transactions/{uid}")
     fun submitRedirect(@Path("uid") uid: String,

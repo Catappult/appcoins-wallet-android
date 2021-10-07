@@ -10,6 +10,7 @@ public class Payment {
   private @Nullable final String packageName;
   private @Nullable final String productName;
   private @Nullable final String uid;
+  private @Nullable final String purchaseUid;
   private @Nullable final String signature;
   private @Nullable final String signatureData;
   private @Nullable final String productId;
@@ -17,9 +18,9 @@ public class Payment {
   private @Nullable final Integer errorCode;
   private @Nullable final String errorMessage;
 
-  public Payment(String uri, Status status, @Nullable String uid, @Nullable String signature,
-      @Nullable String signatureData, @Nullable String orderReference, @Nullable Integer errorCode,
-      @Nullable String errorMessage) {
+  public Payment(String uri, Status status, @Nullable String uid, @Nullable String purchaseUid,
+      @Nullable String signature, @Nullable String signatureData, @Nullable String orderReference,
+      @Nullable Integer errorCode, @Nullable String errorMessage) {
     this.status = status;
     this.uri = uri;
     this.fromAddress = null;
@@ -27,6 +28,7 @@ public class Payment {
     this.packageName = null;
     this.productName = null;
     this.uid = uid;
+    this.purchaseUid = purchaseUid;
     this.signature = signature;
     this.signatureData = signatureData;
     this.productId = null;
@@ -45,6 +47,7 @@ public class Payment {
     this.packageName = packageName;
     this.productName = productName;
     this.uid = null;
+    this.purchaseUid = null;
     this.signature = null;
     this.signatureData = null;
     this.productId = productId;
@@ -105,6 +108,10 @@ public class Payment {
     return errorMessage;
   }
 
+  @Nullable public String getPurchaseUid() {
+    return purchaseUid;
+  }
+
   @Override public String toString() {
     return "Payment{"
         + "status="
@@ -127,6 +134,9 @@ public class Payment {
         + ", uid='"
         + uid
         + '\''
+        + ", purchaseUid='"
+        + purchaseUid
+        + '\''
         + ", signature='"
         + signature
         + '\''
@@ -141,7 +151,7 @@ public class Payment {
 
   public enum Status {
     COMPLETED, NO_FUNDS, NETWORK_ERROR, NO_ETHER, NO_TOKENS, NO_INTERNET, NONCE_ERROR, APPROVING,
-    BUYING, FORBIDDEN, ERROR
+    BUYING, FORBIDDEN, SUB_ALREADY_OWNED, ERROR
   }
 }
 

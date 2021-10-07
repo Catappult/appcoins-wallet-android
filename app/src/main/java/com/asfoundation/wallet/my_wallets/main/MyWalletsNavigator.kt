@@ -30,14 +30,14 @@ class MyWalletsNavigator(private val fragment: MyWalletsFragment,
 
   fun navigateToMore(walletAddress: String, totalFiatBalance: String,
                      appcoinsBalance: String, creditsBalance: String,
-                     ethereumBalance: String, showDeleteWallet: Boolean) {
+                     ethereumBalance: String, showVerifyCard: Boolean, showDeleteWallet: Boolean) {
     navigate(navController,
         MyWalletsFragmentDirections.actionNavigateToMore(walletAddress, totalFiatBalance,
-            appcoinsBalance, creditsBalance, ethereumBalance, showDeleteWallet))
+            appcoinsBalance, creditsBalance, ethereumBalance, showVerifyCard, showDeleteWallet))
   }
 
   fun navigateToVerify() {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerify())
+    navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerify(false))
   }
 
   fun navigateToBackupWallet(walletAddress: String) {

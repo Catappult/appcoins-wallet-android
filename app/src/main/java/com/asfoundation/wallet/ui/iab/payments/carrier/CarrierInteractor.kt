@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier
 
 import android.net.Uri
-import android.os.Bundle
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
@@ -30,8 +28,6 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                         private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                         private val walletBlockedInteract: WalletBlockedInteract,
                         private val walletVerificationInteractor: WalletVerificationInteractor,
-                        private val billing: Billing,
-                        private val billingMessagesMapper: BillingMessagesMapper,
                         private val logger: Logger,
                         private val ioScheduler: Scheduler) {
 
@@ -76,22 +72,19 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
           status == TransactionStatus.INVALID_TRANSACTION
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
+                                purchaseUid: String?,
                                 orderReference: String?, hash: String?,
-                                scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-          .map { bundle -> addPreselected(bundle) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
-          .map { bundle -> addPreselected(bundle) }
-    }
+                                scheduler: Scheduler): Single<PurchaseBundleModel> {
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, merchantName, sku, purchaseUid,
+        orderReference, hash, scheduler)
+        .map { bundle -> addPreselected(bundle) }
   }
 
-  private fun addPreselected(bundle: Bundle): Bundle {
+  private fun addPreselected(purchaseBundle: PurchaseBundleModel): PurchaseBundleModel {
+    val bundle = purchaseBundle.bundle
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.CARRIER_BILLING.id)
-    return bundle
+    return PurchaseBundleModel(bundle, purchaseBundle.renewal)
   }
 
   fun removePreSelectedPaymentMethod() {
@@ -110,10 +103,6 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
       WalletAddresses(addressModel.address, addressModel.signedAddress, attributionEntity.oemId,
           attributionEntity.domain)
     })
-  }
-
-  private fun isInApp(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true)
   }
 
   private fun observeTransactionUpdates(uid: String, walletAddress: String,

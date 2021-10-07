@@ -47,6 +47,7 @@ class MoreDialogFragment : DaggerBottomSheetDialogFragment(),
 
   override fun onStateChanged(state: MoreDialogState) {
     views.deleteWalletCardView.visibility = if (state.showDeleteWallet) View.VISIBLE else View.GONE
+    views.verifyCardCardView.visibility = if (state.showVerifyCard) View.VISIBLE else View.GONE
   }
 
   override fun onSideEffect(sideEffect: MoreDialogSideEffect) = Unit
@@ -57,6 +58,7 @@ class MoreDialogFragment : DaggerBottomSheetDialogFragment(),
     views.backupWalletCardView.setOnClickListener {
       navigator.navigateToBackupWallet(viewModel.state.walletAddress)
     }
+    views.verifyCardCardView.setOnClickListener { navigator.navigateToVerify() }
     views.deleteWalletCardView.setOnClickListener {
       navigator.navigateToRemoveWallet(viewModel.state.walletAddress,
           viewModel.state.totalFiatBalance,
@@ -71,6 +73,7 @@ class MoreDialogFragment : DaggerBottomSheetDialogFragment(),
     internal const val APPC_BALANCE_KEY = "appc_balance"
     internal const val CREDITS_BALANCE_KEY = "credits_balance"
     internal const val ETHEREUM_BALANCE_KEY = "ethereum_balance"
+    internal const val SHOW_VERIFY_CARD_KEY = "show_verify_card"
     internal const val SHOW_DELETE_WALLET_KEY = "show_delete_wallet"
   }
 }

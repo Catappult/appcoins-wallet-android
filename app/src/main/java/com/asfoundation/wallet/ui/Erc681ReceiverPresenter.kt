@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui
 
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.service.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser
@@ -25,27 +24,22 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
               .takeUntil { it != WalletGetterStatus.CREATING.toString() }
               .flatMap {
                 transferParser.parse(data)
-                    .map { transactionBuilder: TransactionBuilder ->
+                    .map { transactionBuilder ->
                       var callingPackage = transactionBuilder.domain
-                      if (callingPackage == null) {
-                        callingPackage = view.callingPackage
-                      }
+                      if (callingPackage == null) callingPackage = view.getCallingPackage()
                       transactionBuilder.domain = callingPackage
                       transactionBuilder.productName = productName
                       transactionBuilder
                     }
-                    .flatMap { transactionBuilder: TransactionBuilder ->
-                      inAppPurchaseInteractor.isWalletFromBds(
-                          transactionBuilder.domain, transactionBuilder.toAddress())
-                          .doOnSuccess { isBds: Boolean? ->
-                            view.startEipTransfer(transactionBuilder, isBds,
-                                transactionBuilder.payload)
-                          }
+                    .flatMap { transactionBuilder ->
+                      inAppPurchaseInteractor.isWalletFromBds(transactionBuilder.domain,
+                          transactionBuilder.toAddress())
+                          .doOnSuccess { isBds -> view.startEipTransfer(transactionBuilder, isBds) }
                     }
                     .toObservable()
 
               }
-              .subscribe({ }, { throwable: Throwable? -> view.startApp(throwable) })
+              .subscribe({ }, { view.startApp(it) })
       )
     }
   }

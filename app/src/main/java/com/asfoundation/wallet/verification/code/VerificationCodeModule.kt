@@ -3,10 +3,7 @@ package com.asfoundation.wallet.verification.code
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.logging.Logger
-import com.asfoundation.wallet.verification.VerificationActivityNavigator
-import com.asfoundation.wallet.verification.VerificationActivityView
-import com.asfoundation.wallet.verification.VerificationAnalytics
-import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.*
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,13 +14,22 @@ import io.reactivex.schedulers.Schedulers
 class VerificationCodeModule {
 
   @Provides
+  fun providesVerificationActivityData(
+      fragment: VerificationCodeFragment): VerificationActivityData {
+    return VerificationActivityData(
+        (fragment.activity as VerificationActivity).intent.getBooleanExtra(
+            VerificationActivity.IS_WALLET_VERIFIED, false))
+  }
+
+  @Provides
   fun providesWalletVerificationCodePresenter(fragment: VerificationCodeFragment,
                                               data: VerificationCodeData,
+                                              activityData: VerificationActivityData,
                                               verificationCodeInteractor: VerificationCodeInteractor,
                                               verificationCodeNavigator: VerificationCodeNavigator,
                                               logger: Logger,
                                               analytics: VerificationAnalytics): VerificationCodePresenter {
-    return VerificationCodePresenter(fragment as VerificationCodeView, data,
+    return VerificationCodePresenter(fragment as VerificationCodeView, data, activityData,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
         verificationCodeInteractor, verificationCodeNavigator, logger, analytics)
   }

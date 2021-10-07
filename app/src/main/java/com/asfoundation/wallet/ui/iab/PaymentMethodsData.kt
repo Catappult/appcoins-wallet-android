@@ -5,5 +5,7 @@ data class PaymentMethodsData(
   val isBds: Boolean,
   val developerPayload: String?,
   val uri: String?,
-  val sku: String
+  val sku: String,
+  val frequency: String?,
+  val subscription: Boolean
 )

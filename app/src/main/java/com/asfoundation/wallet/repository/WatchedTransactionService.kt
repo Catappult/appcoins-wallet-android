@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 class WatchedTransactionService(private val transactionSender: TransactionSender,
                                 private val cache: Repository<String, Transaction>,
-                                private val errorMapper: ErrorMapper,
+                                private val paymentErrorMapper: PaymentErrorMapper,
                                 private val scheduler: Scheduler,
                                 private val transactionTracker: TrackTransactionService) {
 
@@ -47,7 +47,7 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
         .doOnError {
           it.printStackTrace()
           cache.saveSync(transaction.key,
-              Transaction(transaction.key, enumValueOf(errorMapper.map(it).paymentState.name),
+              Transaction(transaction.key, enumValueOf(paymentErrorMapper.map(it).paymentState.name),
                   transaction.transactionBuilder))
         }
   }
@@ -91,7 +91,7 @@ data class Transaction(
 
   enum class Status {
     PENDING, PROCESSING, COMPLETED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS,
-    NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN
+    NO_ETHER, NO_FUNDS, NO_INTERNET, FORBIDDEN, SUB_ALREADY_OWNED
   }
 
 }

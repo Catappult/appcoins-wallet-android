@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingBottom="@dimen/big_margin"
+    >
+
+  <ImageView
+      android:id="@+id/app_icon"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/big_margin"
+      android:transitionName="app_icon_transition"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/ic_transaction_peer"
+      />
+
+  <include
+      android:id="@+id/app_icon_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintEnd_toEndOf="@id/app_icon"
+      app:layout_constraintStart_toStartOf="@id/app_icon"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
+      />
+  <LinearLayout
+      android:id="@+id/titleMoney"
+      style="@style/SettingsTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="8dp"
+      android:orientation="vertical"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintEnd_toStartOf="@+id/more_button"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@id/app_icon"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
+      >
+
+    <TextView
+        android:id="@+id/app_name"
+        style="@style/SettingsTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Cut the Rope 2 plus a large amount of text"
+        />
+
+    <TextView
+        android:id="@+id/recurrence_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="12sp"
+        tools:text="$2.99 / month"
+        tools:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/expires_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        tools:text="It expires on Jan 19"
+        />
+
+  </LinearLayout>
+
+  <Button
+      android:id="@+id/more_button"
+      style="@style/CancelBorderlessButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:maxWidth="360dp"
+      android:minWidth="80dp"
+      android:text="@string/action_more_details"
+      android:textColor="@color/text_button_color"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

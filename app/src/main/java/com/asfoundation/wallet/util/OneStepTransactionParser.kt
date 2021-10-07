@@ -2,7 +2,8 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.commons.Repository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
@@ -112,6 +113,10 @@ class OneStepTransactionParser(
 
   private fun getCurrency(uri: OneStepUri): String? {
     return uri.parameters[Parameters.CURRENCY]
+  }
+
+  private fun getType(uri: OneStepUri): String {
+    return uri.parameters[Parameters.TYPE] ?: "INAPP"
   }
 
   private fun getChainId(uri: OneStepUri): Long {

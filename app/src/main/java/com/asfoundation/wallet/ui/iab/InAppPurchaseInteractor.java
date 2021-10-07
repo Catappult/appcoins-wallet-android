@@ -5,7 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
@@ -18,11 +18,13 @@ import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.backup.NotificationNeeded;
+import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -33,6 +35,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class InAppPurchaseInteractor {
 
@@ -44,26 +48,25 @@ public class InAppPurchaseInteractor {
   private static final long EARN_APPCOINS_APTOIDE_VERCODE = 9961;
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
-  private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
   private final PackageManager packageManager;
   private final BackupInteractContract backupInteract;
+  private final BillingMessagesMapper billingMessagesMapper;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
-      SharedPreferences sharedPreferences, PackageManager packageManager,
-      BackupInteractContract backupInteract) {
+      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor, AppcoinsRewards appcoinsRewards,
+      Billing billing, SharedPreferences sharedPreferences, PackageManager packageManager,
+      BackupInteractContract backupInteract, BillingMessagesMapper billingMessagesMapper) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
-    this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
     this.packageManager = packageManager;
     this.backupInteract = backupInteract;
+    this.billingMessagesMapper = billingMessagesMapper;
   }
 
   public Single<NotificationNeeded> incrementAndValidateNotificationNeeded() {
@@ -164,15 +167,18 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getBillingMessagesMapper();
   }
 
-  private Single<Purchase> getCompletedPurchase(String packageName, String productName) {
-    return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
+  private Single<Purchase> getCompletedPurchase(String packageName, String productName,
+      String purchaseUid, String type) {
+    return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName, purchaseUid,
+        type);
   }
 
   Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
     return parseTransaction(transaction.getUri(), isBds).flatMap(transactionBuilder -> {
       if (isBds && transactionBuilder.getType()
           .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
-        return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId()).map(
+        return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId(),
+            transaction.getPurchaseUid(), transactionBuilder.getType()).map(
             purchase -> mapToBdsPayment(transaction, purchase))
             .observeOn(AndroidSchedulers.mainThread())
             .flatMap(payment -> remove(transaction.getUri()).toSingleDefault(payment));
@@ -185,9 +191,10 @@ public class InAppPurchaseInteractor {
 
   private Payment mapToBdsPayment(Payment transaction, Purchase purchase) {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
-        purchase.getSignature()
-            .getValue(), billingSerializer.serializeSignatureData(purchase),
-        transaction.getOrderReference(), transaction.getErrorCode(), transaction.getErrorMessage());
+        transaction.getPurchaseUid(), purchase.getSignature()
+        .getValue(), purchase.getSignature()
+        .getMessage(), transaction.getOrderReference(), transaction.getErrorCode(),
+        transaction.getErrorMessage());
   }
 
   public Single<Boolean> isWalletFromBds(String packageName, String wallet) {
@@ -373,7 +380,7 @@ public class InAppPurchaseInteractor {
           .equals(APPC_ID) || paymentMethod.getId()
           .equals(CREDITS_ID)) && !addedMergedAppc) {
         String mergedId = "merged_appcoins";
-        String mergedLabel = appcMethod.getLabel() + " / " + creditsMethod.getLabel();
+        String mergedLabel = creditsMethod.getLabel() + " / " + appcMethod.getLabel();
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
         Integer disableReason = mergeDisableReason(appcMethod, creditsMethod);
         mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
@@ -554,5 +561,22 @@ public class InAppPurchaseInteractor {
   String getLastUsedPaymentMethod() {
     return sharedPreferences.getString(LAST_USED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.CREDIT_CARD.getId());
+  }
+
+  @NotNull public Single<PurchaseBundleModel> getCompletedPurchaseBundle(@NotNull String type,
+      @NotNull String merchantName, @Nullable String sku, @Nullable String purchaseUid,
+      @Nullable String orderReference, @Nullable String hash, @NotNull Scheduler scheduler) {
+    BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(type);
+    if (isManagedTransaction(billingType) && sku != null) {
+      return billing.getSkuPurchase(merchantName, sku, purchaseUid, scheduler, billingType)
+          .map(purchase -> new PurchaseBundleModel(
+              billingMessagesMapper.mapPurchase(purchase, orderReference), purchase.getRenewal()));
+    } else {
+      return Single.just(new PurchaseBundleModel(billingMessagesMapper.successBundle(hash), null));
+    }
+  }
+
+  private Boolean isManagedTransaction(BillingSupportedType type) {
+    return type == BillingSupportedType.INAPP || type == BillingSupportedType.INAPP_SUBSCRIPTION;
   }
 }

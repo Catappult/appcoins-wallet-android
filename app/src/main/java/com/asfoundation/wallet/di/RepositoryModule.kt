@@ -3,19 +3,20 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
+import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
+import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository.AdyenApi
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
+import com.appcoins.wallet.billing.adyen.AdyenSerializer
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseTypeAdapter
+import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
@@ -48,6 +49,11 @@ import com.asfoundation.wallet.service.AutoUpdateService
 import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.WalletBalanceService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
+import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
+import com.asfoundation.wallet.subscriptions.UserSubscriptionsLocalData
+import com.asfoundation.wallet.subscriptions.UserSubscriptionsMapper
+import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -84,7 +90,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Named
@@ -124,8 +129,11 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideRemoteRepository(bdsApi: BdsApi, api: BdsApiSecondary): RemoteRepository {
-    return RemoteRepository(bdsApi, BdsApiResponseMapper(), api)
+  fun provideRemoteRepository(subscriptionBillingApi: SubscriptionBillingApi,
+                              bdsApi: RemoteRepository.BdsApi,
+                              api: BdsApiSecondary): RemoteRepository {
+    return RemoteRepository(bdsApi, BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(
+        ExternalBillingSerializer())), api, subscriptionBillingApi)
   }
 
   @Singleton
@@ -134,8 +142,10 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideAdyenPaymentRepository(
-      @Named("default") client: OkHttpClient, gson: Gson): AdyenPaymentRepository {
+  fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient,
+                                    bdsApi: RemoteRepository.BdsApi,
+                                    subscriptionBillingApi: SubscriptionBillingApi, gson: Gson,
+                                    billingErrorMapper: BillingErrorMapper): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
@@ -143,13 +153,15 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AdyenApi::class.java)
-    return AdyenPaymentRepository(api, AdyenResponseMapper(gson))
+    return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi,
+        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()))
   }
 
   @Singleton
   @Provides
   fun provideSkillsPaymentRepository(
-      @Named("default") client: OkHttpClient, gson: Gson): SkillsPaymentRepository {
+      @Named("default") client: OkHttpClient, gson: Gson,
+      billingErrorMapper: BillingErrorMapper): SkillsPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20210201/gateways/adyen_v2/")
         .client(client)
@@ -157,13 +169,15 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SkillsPaymentRepository.AdyenApi::class.java)
-    return SkillsPaymentRepository(api, AdyenResponseMapper(gson))
+    return SkillsPaymentRepository(api,
+        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()))
   }
 
   @Singleton
   @Provides
   fun provideCarrierBillingRepository(@Named("default") client: OkHttpClient,
-                                      preferences: CarrierBillingPreferencesRepository):
+                                      preferences: CarrierBillingPreferencesRepository,
+                                      billingErrorMapper: BillingErrorMapper):
       CarrierBillingRepository {
     val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
         CarrierErrorResponseTypeAdapter())
@@ -175,9 +189,13 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .build()
     val api = retrofit.create(CarrierBillingRepository.CarrierBillingApi::class.java)
-    return CarrierBillingRepository(api, preferences, CarrierResponseMapper(retrofit),
-        BuildConfig.APPLICATION_ID)
+    return CarrierBillingRepository(api, preferences,
+        CarrierResponseMapper(retrofit, billingErrorMapper), BuildConfig.APPLICATION_ID)
   }
+
+  @Singleton
+  @Provides
+  fun providesBillingMessageMapper(gson: Gson) = BillingErrorMapper(gson)
 
   @Singleton
   @Provides
@@ -205,8 +223,8 @@ class RepositoryModule {
   fun providesOffChainTransactionsRepository(
       @Named("blockchain") client: OkHttpClient): OffChainTransactionsRepository {
     val objectMapper = ObjectMapper()
-    val df: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
-    objectMapper.dateFormat = df
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
+    objectMapper.dateFormat = dateFormat
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
     val retrofit = Retrofit.Builder()
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -361,6 +379,22 @@ class RepositoryModule {
       sharedPreferences: SharedPreferences
   ): VerificationRepository {
     return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
+  }
+
+  @Singleton
+  @Provides
+  fun providesUserSubscriptionsLocalData(
+      userSubscriptionsDao: UserSubscriptionsDao): UserSubscriptionsLocalData {
+    return UserSubscriptionsLocalData(userSubscriptionsDao)
+  }
+
+  @Singleton
+  @Provides
+  fun provideSubscriptionRepository(userSubscriptionApi: UserSubscriptionApi,
+                                    userSubscriptionsLocalData: UserSubscriptionsLocalData,
+                                    walletService: WalletService): UserSubscriptionRepository {
+    return UserSubscriptionRepository(userSubscriptionApi, userSubscriptionsLocalData,
+        walletService, UserSubscriptionsMapper())
   }
 
   @Singleton

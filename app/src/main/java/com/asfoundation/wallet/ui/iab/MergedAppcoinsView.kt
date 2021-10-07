@@ -12,7 +12,7 @@ interface MergedAppcoinsView {
 
   fun hideBonus()
 
-  fun showBonus()
+  fun showBonus(@StringRes bonusText: Int)
 
   fun buyClick(): Observable<PaymentInfoWrapper>
 
@@ -46,4 +46,8 @@ interface MergedAppcoinsView {
   fun onAuthenticationResult(): Observable<Boolean>
 
   fun showPaymentMethodsView()
+
+  fun showVolatilityInfo()
+
+  fun hideVolatilityInfo()
 }

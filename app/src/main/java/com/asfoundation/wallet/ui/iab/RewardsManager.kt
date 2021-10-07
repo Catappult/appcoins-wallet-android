@@ -4,6 +4,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.asfoundation.wallet.billing.partners.AddressService
 import io.reactivex.Completable
@@ -30,8 +31,9 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
         }
   }
 
-  fun getPaymentCompleted(packageName: String, sku: String?): Single<Purchase> {
-    return billing.getSkuPurchase(packageName, sku, Schedulers.io())
+  fun getPaymentCompleted(packageName: String, sku: String?, purchaseUid: String?,
+                          billingType: BillingSupportedType): Single<Purchase> {
+    return billing.getSkuPurchase(packageName, sku, purchaseUid, Schedulers.io(), billingType)
   }
 
   fun getTransaction(packageName: String, sku: String?,
@@ -42,7 +44,7 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
   fun getPaymentStatus(packageName: String, sku: String?,
                        amount: BigDecimal): Observable<RewardPayment> {
     return appcoinsRewards.getPayment(packageName, sku, amount.toString())
-        .flatMap { this.map(it) }
+        .flatMap { map(it) }
   }
 
   private fun map(transaction: Transaction): Observable<RewardPayment> {
@@ -50,12 +52,14 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
       Transaction.Status.PROCESSING -> Observable.just(
           RewardPayment(transaction.orderReference, Status.PROCESSING))
       Transaction.Status.COMPLETED -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.COMPLETED))
+          RewardPayment(transaction.orderReference, Status.COMPLETED, transaction.purchaseUid))
       Transaction.Status.ERROR -> Observable.just(
-          RewardPayment(transaction.orderReference, Status.ERROR, transaction.errorCode,
-              transaction.errorMessage))
+          RewardPayment(transaction.orderReference, Status.ERROR,
+              errorCode = transaction.errorCode, errorMessage = transaction.errorMessage))
       Transaction.Status.FORBIDDEN -> Observable.just(
           RewardPayment(transaction.orderReference, Status.FORBIDDEN))
+      Transaction.Status.SUB_ALREADY_OWNED -> Observable.just(
+          RewardPayment(transaction.orderReference, Status.SUB_ALREADY_OWNED))
       Transaction.Status.NO_NETWORK -> Observable.just(
           RewardPayment(transaction.orderReference, Status.NO_NETWORK))
       else -> throw UnsupportedOperationException(

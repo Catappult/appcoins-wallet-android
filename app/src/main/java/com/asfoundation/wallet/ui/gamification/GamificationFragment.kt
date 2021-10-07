@@ -20,6 +20,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.bonus_updated_layout.*
 import kotlinx.android.synthetic.main.fragment_gamification.*
 import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
+import java.math.BigDecimal
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -119,8 +120,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
 
   private fun handleBonusUpdatedText(updateDate: Date?) {
     if (updateDate != null) {
-      val df: DateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-      val date = df.format(updateDate)
+      val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+      val date = dateFormat.format(updateDate)
       bonus_update_text.text = getString(R.string.pioneer_bonus_updated_body, date)
       bonus_update.visibility = View.VISIBLE
     }

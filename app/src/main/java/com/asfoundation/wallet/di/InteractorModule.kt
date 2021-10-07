@@ -7,10 +7,10 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.biometric.BiometricManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -60,6 +60,8 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
+import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.topup.TopUpInteractor
@@ -114,13 +116,14 @@ class InteractorModule {
   @Provides
   @Named("APPROVE_SERVICE_ON_CHAIN")
   fun provideApproveService(sendTransactionInteract: SendTransactionInteract,
-                            errorMapper: ErrorMapper, @Named("no_wait_transaction")
+                            paymentErrorMapper: PaymentErrorMapper, @Named("no_wait_transaction")
                             noWaitPendingTransactionService: TrackTransactionService): ApproveService {
     return ApproveService(WatchedTransactionService(object : TransactionSender {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.approve(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), errorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        Schedulers.io(),
         noWaitPendingTransactionService), NoValidateTransactionValidator())
   }
 
@@ -211,23 +214,24 @@ class InteractorModule {
                                          appcoinsRewards: AppcoinsRewards, billing: Billing,
                                          sharedPreferences: SharedPreferences,
                                          packageManager: PackageManager,
-                                         backupInteract: BackupInteractContract): InAppPurchaseInteractor {
+                                         backupInteract: BackupInteractContract,
+                                         billingMessagesMapper: BillingMessagesMapper): InAppPurchaseInteractor {
     return InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences, packageManager,
-        backupInteract)
+        appcoinsRewards, billing, sharedPreferences, packageManager, backupInteract,
+        billingMessagesMapper)
   }
 
   @Provides
   fun provideLocalPaymentInteractor(walletService: WalletService,
                                     partnerAddressService: AddressService,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                    billing: Billing, billingMessagesMapper: BillingMessagesMapper,
+                                    billingMessagesMapper: BillingMessagesMapper,
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
                                     remoteRepository: RemoteRepository): LocalPaymentInteractor {
     return LocalPaymentInteractor(walletService, partnerAddressService,
-        inAppPurchaseInteractor, billing, billingMessagesMapper, supportInteractor,
+        inAppPurchaseInteractor, billingMessagesMapper, supportInteractor,
         walletBlockedInteract, walletVerificationInteractor, remoteRepository)
   }
 
@@ -247,10 +251,9 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideAdyenPaymentInteractor(context: Context,
-                                    adyenPaymentRepository: AdyenPaymentRepository,
+  fun provideAdyenPaymentInteractor(adyenPaymentRepository: AdyenPaymentRepository,
                                     inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                    partnerAddressService: AddressService, billing: Billing,
+                                    partnerAddressService: AddressService,
                                     walletService: WalletService,
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
@@ -259,9 +262,9 @@ class InteractorModule {
     return AdyenPaymentInteractor(
         adyenPaymentRepository,
         inAppPurchaseInteractor,
-        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, billing,
-        walletService, supportInteractor, walletBlockedInteract, walletVerificationInteractor,
-        billingAddressRepository
+        inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, walletService,
+        supportInteractor, walletBlockedInteract, walletVerificationInteractor,
+        billingAddressRepository, Schedulers.io()
     )
   }
 
@@ -359,12 +362,11 @@ class InteractorModule {
                                       walletBlockedInteract: WalletBlockedInteract,
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       fingerprintPreferences: FingerprintPreferencesRepositoryContract,
-                                      billing: Billing,
-                                      billingMessagesMapper: BillingMessagesMapper,
+                                      billing: Billing, errorMapper: ErrorMapper,
                                       bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(supportInteractor, gamificationInteractor, balanceInteractor,
         walletBlockedInteract, inAppPurchaseInteractor, fingerprintPreferences, billing,
-        billingMessagesMapper, bdsPendingTransactionService)
+        errorMapper, bdsPendingTransactionService)
   }
 
   @Provides
@@ -516,12 +518,10 @@ class InteractorModule {
                                 inAppPurchaseInteractor: InAppPurchaseInteractor,
                                 walletBlockedInteract: WalletBlockedInteract,
                                 walletVerificationInteractor: WalletVerificationInteractor,
-                                billing: Billing,
-                                billingMessagesMapper: BillingMessagesMapper,
                                 logger: Logger): CarrierInteractor {
     return CarrierInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, walletBlockedInteract, walletVerificationInteractor, billing,
-        billingMessagesMapper, logger, Schedulers.io())
+        inAppPurchaseInteractor, walletBlockedInteract, walletVerificationInteractor, logger,
+        Schedulers.io())
   }
 
   @Singleton
@@ -555,4 +555,12 @@ class InteractorModule {
     return WalletVerificationInteractor(verificationRepository, adyenPaymentRepository,
         walletService)
   }
+
+  @Provides
+  fun provideSubscriptionInteractor(walletService: WalletService,
+                                    remoteRepository: RemoteRepository,
+                                    userSubscriptionRepository: UserSubscriptionRepository): UserSubscriptionsInteractor {
+    return UserSubscriptionsInteractor(walletService, remoteRepository, userSubscriptionRepository)
+  }
+
 }

@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.os.Bundle
 import android.util.Pair
+import com.appcoins.wallet.appcoins.rewards.ErrorInfo
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -29,7 +30,7 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
                                private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                private val billing: Billing,
-                               private val billingMessagesMapper: BillingMessagesMapper,
+                               private val errorMapper: ErrorMapper,
                                private val bdsPendingTransactionService: BdsPendingTransactionService) {
 
 
@@ -68,10 +69,10 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
       inAppPurchaseInteractor.convertToLocalFiat(appcValue)
 
   fun convertCurrencyToLocalFiat(value: Double, currency: String): Single<FiatValue> =
-    inAppPurchaseInteractor.convertFiatToLocalFiat(value, currency)
+      inAppPurchaseInteractor.convertFiatToLocalFiat(value, currency)
 
   fun convertCurrencyToAppc(value: Double, currency: String): Single<FiatValue> =
-    inAppPurchaseInteractor.convertFiatToAppc(value, currency)
+      inAppPurchaseInteractor.convertFiatToAppc(value, currency)
 
 
   fun hasAsyncLocalPayment() = inAppPurchaseInteractor.hasAsyncLocalPayment()
@@ -101,32 +102,33 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
   fun checkTransactionStateFromTransactionId(uid: String): Observable<PendingTransaction> =
       bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
 
-  fun getSkuTransaction(appPackage: String, skuId: String?, transactionType: String,
-                        networkThread: Scheduler) =
-      billing.getSkuTransaction(appPackage, skuId, transactionType, networkThread)
+  fun getSkuTransaction(appPackage: String, skuId: String?,
+                        networkThread: Scheduler, type: BillingSupportedType) =
+      billing.getSkuTransaction(appPackage, skuId, networkThread, type)
 
-  fun getSkuPurchase(appPackage: String, skuId: String?, type: String, orderReference: String?,
-                     hash: String?, networkThread: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && skuId != null) {
-      billing.getSkuPurchase(appPackage, skuId, networkThread)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
-    }
+  fun getSkuPurchase(appPackage: String, skuId: String?, purchaseUid: String?, type: String,
+                     orderReference: String?,
+                     hash: String?, networkThread: Scheduler): Single<PurchaseBundleModel> {
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, appPackage, skuId, purchaseUid,
+        orderReference, hash, networkThread)
   }
 
-  fun getSkuDetails(domain: String, sku: String): Single<Product> {
-    return billing.getProducts(domain, mutableListOf(sku)).map { products -> products.first() }
+  fun getSkuDetails(domain: String, sku: String, type: BillingSupportedType): Single<Product> {
+    return billing.getProducts(domain, mutableListOf(sku), type)
+        .map { products -> products.first() }
   }
-
-  private fun isInApp(type: String) =
-      type.equals(INAPP_TRANSACTION_TYPE, ignoreCase = true)
 
   fun getPurchases(appPackage: String, inapp: BillingSupportedType, networkThread: Scheduler) =
       billing.getPurchases(appPackage, inapp, networkThread)
 
-
-  private companion object {
-    private const val INAPP_TRANSACTION_TYPE = "INAPP"
+  fun isAbleToSubscribe(packageName: String, skuId: String,
+                        networkThread: Scheduler): Single<SubscriptionStatus> {
+    return billing.getSubscriptionToken(packageName, skuId, networkThread)
+        .map { SubscriptionStatus(true) }
+        .onErrorReturn {
+          val errorInfo = errorMapper.map(it)
+          val isAlreadySubscribed = errorInfo.errorType == ErrorInfo.ErrorType.SUB_ALREADY_OWNED
+          SubscriptionStatus(false, isAlreadySubscribed)
+        }
   }
 }

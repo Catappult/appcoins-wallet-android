@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -14,6 +15,7 @@ public class ApproveKeyProvider {
 
   Single<Transaction> getTransaction(String packageName, String productName,
       String transactionType) {
-    return billing.getSkuTransaction(packageName, productName, transactionType, Schedulers.io());
+    BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(transactionType);
+    return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType);
   }
 }

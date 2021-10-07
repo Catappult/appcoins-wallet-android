@@ -46,6 +46,7 @@ class SettingsPresenter(private val view: SettingsView,
     view.setVersionPreference()
     view.setRestorePreference()
     view.setBackupPreference()
+    view.setManageSubscriptionsPreference()
     setCurrencyPreference()
   }
 

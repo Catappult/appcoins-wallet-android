@@ -2,9 +2,9 @@ package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.BillingRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -37,24 +37,38 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   }
 
   override fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean> {
-    return remoteRepository.isBillingSupported(packageName, type)
+    return if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
+      remoteRepository.isBillingSupported(packageName)
+    } else {
+      remoteRepository.isBillingSupportedSubs(packageName)
+    }
   }
 
-  override fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
-    return remoteRepository.getSkuDetails(packageName, skus)
+  override fun getSkuDetails(packageName: String, skus: List<String>,
+                             type: BillingSupportedType): Single<List<Product>> {
+    return if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
+      remoteRepository.getSkuDetails(packageName, skus)
+    } else {
+      remoteRepository.getSkuDetailsSubs(packageName, skus)
+    }
   }
 
-  override fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
-                              walletSignature: String): Single<Purchase> {
-    return remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
-
+  override fun getSkuPurchase(packageName: String, skuId: String?, purchaseUid: String?,
+                              walletAddress: String, walletSignature: String,
+                              type: BillingSupportedType): Single<Purchase> {
+    return if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
+      remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+    } else {
+      remoteRepository.getSkuPurchaseSubs(packageName, purchaseUid!!, walletAddress,
+          walletSignature)
+    }
   }
 
-  override fun getSkuTransaction(packageName: String, skuId: String?,
-                                 transactionType: TransactionType, walletAddress: String,
-                                 walletSignature: String): Single<Transaction> {
-    return remoteRepository.getSkuTransaction(packageName, skuId, transactionType, walletAddress,
-        walletSignature)
+  override fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
+                                 walletSignature: String,
+                                 type: BillingSupportedType): Single<Transaction> {
+    return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature,
+        type)
         .flatMap {
           if (it.items.isNotEmpty()) {
             return@flatMap Single.just(it.items[0])
@@ -65,13 +79,34 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
 
   override fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
-    return remoteRepository.getPurchases(packageName, walletAddress, walletSignature, type)
+    return if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
+      remoteRepository.getPurchases(packageName, walletAddress, walletSignature)
+    } else {
+      remoteRepository.getPurchasesSubs(packageName, walletAddress, walletSignature)
+    }
   }
 
   override fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
-                                walletSignature: String): Single<Boolean> {
-    return remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
-        walletSignature)
+                                walletSignature: String,
+                                type: BillingSupportedType?): Single<Boolean> {
+    return when (type) {
+      null -> remoteRepository.consumePurchaseSubs(packageName, purchaseToken, walletAddress,
+          walletSignature)
+          .onErrorResumeNext {
+            //TODO Remove this when MS completes migration to product
+            remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
+                walletSignature)
+          }
+      BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.consumePurchaseSubs(packageName,
+          purchaseToken, walletAddress, walletSignature)
+      else -> remoteRepository.consumePurchase(packageName, purchaseToken,
+          walletAddress, walletSignature)
+    }
+  }
+
+  override fun getSubscriptionToken(packageName: String, skuId: String, walletAddress: String,
+                                    walletSignature: String): Single<String> {
+    return remoteRepository.getSubscriptionToken(packageName, skuId, walletAddress, walletSignature)
   }
 
   override fun getPaymentMethods(value: String?,

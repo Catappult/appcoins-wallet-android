@@ -19,11 +19,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class) public class BdsPendingTransactionServiceTest {
 
+  public static final String ORDER_REFERENCE = "order_reference";
   private static final String PACKAGE_NAME = "package_name";
   private static final String SKU = "sku";
   private static final String UID = "uid";
+  private static final String PURCHASE_UID = "purchase_uid";
   private static final String KEY = "key";
-  public static final String ORDER_REFERENCE = "order_reference";
   @Mock BdsPendingTransactionService transactionService;
   private BdsTransactionService bdsPendingTransactionService;
   private TestScheduler scheduler;
@@ -49,7 +50,8 @@ import static org.mockito.Mockito.when;
     scheduler.triggerActions();
 
     TestObserver<Object> observer = new TestObserver<>();
-    bdsPendingTransactionService.trackTransaction(KEY, PACKAGE_NAME, SKU, UID, ORDER_REFERENCE)
+    bdsPendingTransactionService.trackTransaction(KEY, PACKAGE_NAME, SKU, UID, PURCHASE_UID,
+        ORDER_REFERENCE)
         .subscribeOn(scheduler)
         .subscribe(observer);
     scheduler.advanceTimeBy(3, TimeUnit.SECONDS);
@@ -61,7 +63,8 @@ import static org.mockito.Mockito.when;
         .assertComplete();
 
     BdsTransactionService.BdsTransaction bdsTransaction =
-        new BdsTransactionService.BdsTransaction(UID, KEY, PACKAGE_NAME, SKU, ORDER_REFERENCE);
+        new BdsTransactionService.BdsTransaction(UID, PURCHASE_UID, KEY, PACKAGE_NAME, SKU,
+            ORDER_REFERENCE);
     transactionObserver.assertNoErrors()
         .assertValues(new BdsTransactionService.BdsTransaction(bdsTransaction,
                 BdsTransactionService.BdsTransaction.Status.PROCESSING),
