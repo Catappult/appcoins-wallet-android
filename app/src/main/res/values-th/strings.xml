@@ -50,6 +50,7 @@
   <string name="error_import">ข้อผิดพลาดในการนำคีย์สโตร์</string>
   <string name="message_this_is_your_address">ที่อยู่กระเป๋าสตางค์เอธิเรียมสาธารณะของฉัน</string>
   <string name="backup_warning_text">เนื่องจากคุณควบคุมเงินของคุณ คุณจะต้องบันทึกสำเนาสำรองคีย์สโตร์ของคุณ ในกรณีนี้เป็นกระเป๋าสตางค์ถูกลบ\n\n กระเป๋าสตางค์ของคุณไม่มีการบันทึกการสำรองข้อมูลอุปกรณ์มาตรฐานหรือจัดเก็บสำรองแบบมาตรฐาน</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">ไม่มีสำรองข้อมูล ไม่มีเอธิเรียม</string>
   <string name="error_deleting_account">มีข้อผิดพลาดในการลบกระเป๋าสตางค์</string>
   <string name="title_privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum เป็นสกุลเงินคริปโตซึ่งมี AppCoins เป็นหลัก คุณสามารถซื้อและขายแลกเปลี่ยนมันได้เป็นส่วนใหญ่ มันเป็นที่นิยมมาก!</string>
   <string name="balance_appcoins_body">AppCoins เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
   <string name="balance_appccreditos_body">โทเค็นเพื่อใช้ซื้อสินค้าในแอป! เติม APPC-C จากกระเป๋าสตางค์หรือรับมันเพื่อการใช้งานแอปฟรี มันยังสามารถถ่ายโอนได้ระหว่างเพื่อน!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ขอให้บางคนชำระเงิน</string>
   <string name="askafriend_generating_link_message">พวกเรากำลังสร้างลิงค์การชำระเงินของคุณ&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">รับรหัส</string>
   <string name="confirm_button">ยืนยัน</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
   <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">ยืนยันกระเป๋าสตางค์</string>
   <string name="verification_settings_unverified_body">รับรางวัลและเชิญเพื่อน</string>
   <string name="verification_settings_verified_title">กระเป๋าสตางค์ที่ยืนยัน</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">คุณจำเป็นต้องเชื่อมต่ออินเตอร์เน็ต</string>
   <string name="verification_error_time_expired">อุ๊ปส์ หมดเวลาแล้ว เริ่มอีกครั้ง!</string>
   <string name="verification_error_attempts_reached">ดูเหมือนว่าคุณเกินจำนวนทีจำกัดแล้ว โปรดรอซักครู่และลองอีกครั้ง</string>
@@ -715,6 +720,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">ใช้งาน</string>
   <string name="subscriptions_expired_title">หมดอายุ</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">ยังไม่มีการสมัครสมาชิก</string>
   <string name="subscriptions_empty_body">สมัครบริการแอปและเกมส์ที่คุณชื่นชอบและเราจะจัดการระยะเวลาการชำระเงินให้</string>
   <string name="subscriptions_details_billing_title">การเรียกเก็บเงิน:</string>
@@ -729,6 +735,8 @@
   <string name="subscriptions_details_button">รายละเอียด</string>
   <string name="subscriptions_manage_button">จัดการการสมัครสมาชิก</string>
   <string name="subscriptions_cancel_button">ยกเลิกสมาชิก</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">ยกเลิกสมาชิก</string>
   <string name="subscriptions_cancel_body">คุณแน่ใจใช่ไหมว่าต้องการยกเลิกการเป็นสมาชิกนี้</string>
   <string name="subscriptions_cancel_no_button">ไม่ ย้อนกลับ</string>
@@ -814,7 +822,7 @@
   <string name="carrier_billing_terms_button">ข้อกำหนดและเงื่อนไข</string>
   <string name="carrier_billing_privacy_button">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
@@ -889,7 +897,7 @@
   <string name="rate_us_back_title">ต้องการความช่วยเหลือไหม</string>
   <string name="rate_us_back_body">ให้คะแนน AppCoins Wallet บนแอพสโตร์เพื่อให้เราปรับปรุง</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">ตรวจสอบรหัสรายละเอียดธุรกรรม</string>
   <string name="card_verification_code_body">รหัสเฉพาะจะแสดงในข้อมูลสรุปธุรกรรมที่ผู้ออกบัตรของคุณให้ไว้</string>
