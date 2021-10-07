@@ -75,7 +75,8 @@ class HomeFragment : BasePageViewFragment(),
     disposables = CompositeDisposable()
 
     tooltip = layoutInflater.inflate(R.layout.fingerprint_tooltip, null)
-    views.emptyClickableView.visibility = View.VISIBLE
+    views.balanceEmptyClickableView.visibility = View.VISIBLE
+    views.currencyEmptyClickableView.visibility = View.VISIBLE
 
     emptyTransactionsSubject = PublishSubject.create()
     views.systemView.visibility = View.GONE
@@ -88,8 +89,8 @@ class HomeFragment : BasePageViewFragment(),
     views.actionButtonSettings.setOnClickListener { viewModel.onSettingsClick() }
     views.sendButton.setOnClickListener { viewModel.onSendClick() }
     views.receiveButton.setOnClickListener { viewModel.onReceiveClick() }
-    views.emptyClickableView.setOnClickListener { viewModel.onBalanceClick() }
-    views.currencySelector.setOnClickListener { viewModel.onCurrencySelectorClick() }
+    views.balanceEmptyClickableView.setOnClickListener { viewModel.onBalanceClick() }
+    views.currencyEmptyClickableView.setOnClickListener { viewModel.onCurrencySelectorClick() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
