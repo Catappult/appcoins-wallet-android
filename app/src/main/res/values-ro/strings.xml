@@ -50,6 +50,7 @@
   <string name="error_import">Eroare la importarea keystore-ului</string>
   <string name="message_this_is_your_address">Adresa mea publică a portofelului Ethereum</string>
   <string name="backup_warning_text">Din moment ce doar tu îți controlezi banii, vei avea nevoie de o copie de rezervă a keystore-ului tău, în cazul în care această aplicație este ștearsă.\n\nPortofelul tău nu este niciodată salvat în spațiul de stocare din Cloud sau pe dispozitive standard pentru copii de rezervă.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">Fără copie de rezervă, fără Ethereum</string>
   <string name="error_deleting_account">Eroare la ștergerea portofelului</string>
   <string name="title_privacy_policy">Politica de confidențialitate</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">Număr card</string>
   <string name="dialog_credit_card_expiration">Data de expirare</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Data expirării</string>
   <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
   <string name="activity_airdrop_details">Acest lucru este doar pentru securitate.</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum este criptomoneda pe care se bazează AppCoins. O poți cumpăra și vinde pe majoritatea burselor, fiind foarte populară!</string>
   <string name="balance_appcoins_body">AppCoins este criptomoneda pentru economia aplicației. O poți cumpăra și vinde pe diferite burse și o poți folosi pentru a face cumpărături in-app.</string>
   <string name="balance_appccreditos_body">Token-ul pentru a cumpăra articole in-app! Alimentează cu APPC-C din portofelul tău sau primește-le gratuit folosind aplicații. De asemenea, acestea pot fi și transferate între prieteni!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Roagă pe cineva să plătească</string>
   <string name="askafriend_generating_link_message">Îți generăm linkul de plată&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">Obține cod</string>
   <string name="confirm_button">Confirmă</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
   <string name="settings_subheader_support">Asistență</string>
   <string name="settings_subheader_about_us">Despre noi</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">Verifică portofel</string>
   <string name="verification_settings_unverified_body">Primește recompense și invită prieteni</string>
   <string name="verification_settings_verified_title">Portofel verificat</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">Trebuie să fii conectat la internet</string>
   <string name="verification_error_time_expired">Ups, timpul tău a expirat. Începe din nou!</string>
   <string name="verification_error_attempts_reached">Se pare că ai atins limita maximă de încercări. Așteaptă ca să încerci din nou.</string>
@@ -715,6 +720,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Active</string>
   <string name="subscriptions_expired_title">Expirată</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">Fără abonamente</string>
   <string name="subscriptions_empty_body">Abonează-te la servicii în aplicațiile și jocurile tale preferate și ne vom ocupa noi de plățile periodice.</string>
   <string name="subscriptions_details_billing_title">Facturare:</string>
@@ -729,6 +735,8 @@
   <string name="subscriptions_details_button">DETALII</string>
   <string name="subscriptions_manage_button">GESTIONEAZĂ ABONAMENTE</string>
   <string name="subscriptions_cancel_button">ANULEAZĂ ABONAMENT</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Anulează Abonament</string>
   <string name="subscriptions_cancel_body">Ești sigur că vrei să anulezi acest abonament?</string>
   <string name="subscriptions_cancel_no_button">NU, DU-TE ÎNAPOI</string>
@@ -814,7 +822,7 @@
   <string name="carrier_billing_terms_button">Termeni și condiții</string>
   <string name="carrier_billing_privacy_button">Politica de confidențialitate</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Gestionează carduri</string>
   <string name="manage_cards_view_title">Gestionează carduri</string>
   <string name="manage_cards_view_manage_subtitle">Gestionează cardurile tale de plată</string>
@@ -901,7 +909,7 @@
   <string name="rate_us_back_title">Vrei să ne dai o mână de ajutor?</string>
   <string name="rate_us_back_body">Evaluează AppCoins Wallet în App Store pentru a ne ajuta să îl îmbunătățim.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Verifică codul în detaliile tranzacției</string>
   <string name="card_verification_code_body">Un cod unic va apărea în rezumatul tranzacției furnizat de emitentul cardului tău.</string>
