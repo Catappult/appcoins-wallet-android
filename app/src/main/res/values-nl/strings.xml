@@ -50,6 +50,7 @@
   <string name="error_import">Fout bij importeren keystore</string>
   <string name="message_this_is_your_address">Adres van mijn openbare Ethereum-wallet</string>
   <string name="backup_warning_text">Omdat alleen jij je geld beheert, dien je een back-up van je keystore op te slaan voor het geval deze app wordt verwijderd.\n\nJe wallet wordt nooit in de cloudopslag of standaard back-ups van apparaten opgeslagen.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">Geen back-up, geen Ethereum</string>
   <string name="error_deleting_account">Fout bij verwijderen wallet</string>
   <string name="title_privacy_policy">Privacybeleid</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">Kaartnummer</string>
   <string name="dialog_credit_card_expiration">Vervaldatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Vervaldatum</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum is de cryptovaluta waarop AppCoins zijn gebaseerd. Je kunt deze populaire cryptovaluta via de meeste platforms kopen!</string>
   <string name="balance_appcoins_body">AppCoins is de cryptovaluta voor de app-economie. Je kunt deze cryptovaluta via verschillende platforms kopen en verkopen en gebruiken om in-app items te kopen.</string>
   <string name="balance_appccreditos_body">De token om in-app items te kopen! Waardeer APPC-C op via je wallet of krijg ze gratis door apps te gebruiken. Deze tokens kunnen ook tussen vrienden worden overgedragen!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Vraag iemand om te betalen</string>
   <string name="askafriend_generating_link_message">We zijn je link om te betalen aan het aanmaken&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">Code aanvragen</string>
   <string name="confirm_button">Bevestigen</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Neem contact op met support</string>
   <string name="settings_subheader_support">Ondersteuning</string>
   <string name="settings_subheader_about_us">Over ons</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">Wallet verifiëren</string>
   <string name="verification_settings_unverified_body">Ontvang beloningen en nodig vrienden uit</string>
   <string name="verification_settings_verified_title">Wallet is geverifieerd</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">Je dient verbonden met internet te zijn</string>
   <string name="verification_error_time_expired">Oeps, je sessie is verlopen. Begin opnieuw!</string>
   <string name="verification_error_attempts_reached">Het lijkt erop dat je het maximale aantal pogingen hebt bereikt. Wacht even en probeer het opnieuw.</string>
@@ -714,6 +719,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Actief</string>
   <string name="subscriptions_expired_title">Verlopen</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">Nog geen abonnementen</string>
   <string name="subscriptions_empty_body">Abonneer je op services in je favoriete apps en games, dan zorgen wij voor de periodieke betalingen.</string>
   <string name="subscriptions_details_billing_title">Facturatie:</string>
@@ -728,6 +734,8 @@
   <string name="subscriptions_details_button">DETAILS</string>
   <string name="subscriptions_manage_button">ABONNEMENTEN BEHEREN</string>
   <string name="subscriptions_cancel_button">ABONNEMENT ANNULEREN</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Abonnement annuleren</string>
   <string name="subscriptions_cancel_body">Weet je zeker dat je dit abonnement wilt annuleren?</string>
   <string name="subscriptions_cancel_no_button">NEE, GA TERUG</string>
@@ -813,7 +821,7 @@
   <string name="carrier_billing_terms_button">Algemene voorwaarden</string>
   <string name="carrier_billing_privacy_button">Privacybeleid</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Kaarten beheren</string>
   <string name="manage_cards_view_title">Kaarten beheren</string>
   <string name="manage_cards_view_manage_subtitle">Beheer je betaalkaarten</string>
@@ -894,7 +902,7 @@
   <string name="rate_us_back_title">Wil je ons helpen?</string>
   <string name="rate_us_back_body">Beoordeel de AppCoins Wallet in de App Store zodat we de wallet kunnen verbeteren.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Controleer de code via de transactiegegevens</string>
   <string name="card_verification_code_body">Het transactieoverzicht dat wordt verstrekt door de uitgever van je kaart bevat een unieke code.</string>
