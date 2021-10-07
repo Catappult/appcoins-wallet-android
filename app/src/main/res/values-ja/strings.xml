@@ -50,6 +50,7 @@
   <string name="error_import">キーストアをインポート中にエラーが発生</string>
   <string name="message_this_is_your_address">私の公式 Ethereum ウォレットアドレス</string>
   <string name="backup_warning_text">あなたがお金をコントロールするので、万が一、アプリが削除された場合に備えて、キーストアのバックアップを保存する必要があります。\n\nあなたのウォレットは、決してクラウドストレージまたは標準デバイスのバックアップに保存されません。</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">バックアップなし、 Ethereumなし</string>
   <string name="error_deleting_account">ウォレットの消去中にエラーが起こりました</string>
   <string name="title_privacy_policy">プライバシー ポリシー</string>
@@ -264,7 +265,7 @@
   <string name="dialog_credit_card_number">カード番号</string>
   <string name="dialog_credit_card_expiration">有効期限</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">有効期限</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
@@ -381,6 +382,12 @@
   <string name="balance_ethereum_body">イーサレムは、AppCoins に基づいている仮想通貨です。購入し、両替でそれらを販売することができます。非常に人気です！</string>
   <string name="balance_appcoins_body">AppCoins はアプリ経済の仮想通貨 です。購入して両替でそれを販売し、アプリ内アイテムを購入する等、使用することができます。</string>
   <string name="balance_appccreditos_body">アプリ内アイテムを購入するトークンです! 無料のアプリを使用して、取得またはあなたのウォレットから APPC-C を補充してください。友人間でも転送することができます!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">誰かに支払いをしてもらう</string>
   <string name="askafriend_generating_link_message">支払いリンクを生成しています&#8230;</string>
@@ -428,9 +435,6 @@
   <string name="get_code_button">コードを入手</string>
   <string name="confirm_button">承認する</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -441,7 +445,7 @@
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
   <string name="settings_subheader_support">サポート</string>
   <string name="settings_subheader_about_us">About Us</string>
@@ -474,6 +478,7 @@
   <string name="verification_settings_unverified_title">ウオレットの認証</string>
   <string name="verification_settings_unverified_body">リワードをゲットして友達を招待</string>
   <string name="verification_settings_verified_title">ウオレット認証済み</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">インターネットに接続する必要があります</string>
   <string name="verification_error_time_expired">期限切れです。再試行してください。</string>
   <string name="verification_error_attempts_reached">試行回数の上限に達しました。しばらく待って再試行してください。</string>
@@ -714,6 +719,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">アクティブ</string>
   <string name="subscriptions_expired_title">期限切れ</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">まだ購読はありません</string>
   <string name="subscriptions_empty_body">お気に入りのアプリやゲームでサービスを申し込めば、定期的な支払いにも対応します。</string>
   <string name="subscriptions_details_billing_title">支払い:</string>
@@ -728,6 +734,8 @@
   <string name="subscriptions_details_button">詳細</string>
   <string name="subscriptions_manage_button">購読を管理</string>
   <string name="subscriptions_cancel_button">購読をキャンセル</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">購読をキャンセル</string>
   <string name="subscriptions_cancel_body">この購読をキャンセルしてもよろしいですか？</string>
   <string name="subscriptions_cancel_no_button">いいえ、戻ってください</string>
@@ -813,7 +821,7 @@
   <string name="carrier_billing_terms_button">利用規約</string>
   <string name="carrier_billing_privacy_button">プライバシー ポリシー</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">カードの管理</string>
   <string name="manage_cards_view_title">カードの管理</string>
   <string name="manage_cards_view_manage_subtitle">支払い用カードの管理</string>
@@ -888,7 +896,7 @@
   <string name="rate_us_back_title">ご協力していただけますか？</string>
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">取引明細のコードを確認</string>
   <string name="card_verification_code_body">カード発行会社が提供する取引の概要に固有のコードが表示されます。</string>
