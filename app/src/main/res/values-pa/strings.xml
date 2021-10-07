@@ -50,6 +50,7 @@
   <string name="error_import">ਕੀਸਟੋਰ ਇਮਪੋਰਟ ਕਰਨ ਵਿੱਚ ਗਲਤੀ</string>
   <string name="message_this_is_your_address">ਮੇਰੇ ਜਨਤਕ ਇਥਿਰਿਅਮ ਬਟੂਏ ਦਾ ਪਤਾ</string>
   <string name="backup_warning_text">ਕਿਉਂਕਿ ਸਿਰਫ ਤੁਸੀਂ ਆਪਣੇ ਪੈਸੇ ਨੂੰ ਕਾਬੂ ਕਰਦੇ ਹੋ, ਇਸ ਐਪ ਨੂੰ ਮਿਟਾਉਣ ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਤੁਹਾਨੂੰ ਆਪਣੇ ਕੀਕੇਸਟੋਰ ਦਾ ਬੈਕਅੱਪ ਬਚਾਉਣ ਦੀ ਲੋੜ ਹੋਵੇਗੀ|\n\nਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਕਦੇ ਸਟੋਰੇਜ ਜਾਂ ਸਟੈਂਡਰਡ ਡਿਵਾਈਸ ਬੈਕਅਪਸ ਵਿੱਚ ਨਹੀਂ ਰੱਖਿਆ ਜਾਂਦਾ|</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">ਕੋਈ ਬੈਕਅਪ ਨਹੀਂ, ਕੋਈ ਇਥਿਰਿਅਮ ਨਹੀਂ</string>
   <string name="error_deleting_account">ਬਟੂਆ ਮਿਟਾਉਣ ਵਿੱਚ ਗਲਤੀ</string>
   <string name="title_privacy_policy">ਪਰਾਈਵੇਟ ਨੀਤੀ</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>
   <string name="dialog_credit_card_expiration">ਐਕਸਪਾਈਰੀ ਦੀ ਤਾਰੀਖ</string>
   <string name="dialog_credit_card_cvv">ਸੀਵੀਵੀ</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">ਆਖਰੀ ਤਾਰੀਖ</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
   <string name="activity_airdrop_details">ਇਹ ਕੇਵਲ ਇੱਕ ਸੁਰੱਖਿਆ ਚੀਜ਼ ਹੈ|</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">ਇਥਿਰਿਅਮ ਕਰਿਪਟੋ ਕਰੰਸੀ ਹੈ ਜਿਸ ਤੇ ਐਪ ਸਿੱਕੇ ਅਧਾਰਤ ਹਨ| ਤੁਸੀਂ ਇਨ੍ਹਾਂ ਨੂੰ ਜ਼ਿਆਦਾਤਰ ਐਕਸਚੇਂਜਾਂ ਵਿੱਚ ਖਰੀਦ ਅਤੇ ਵੇਚ ਸਕਦੇ ਹੋ, ਇਹ ਬਹੁਤ ਮਸ਼ਹੂਰ ਹੈ!</string>
   <string name="balance_appcoins_body">ਐਪ ਸਿੱਕੇ ਐਪ ਦੇ ਖਰਚਿਆਂ ਲਈ ਕਰਿਪਟੋ ਕਰੰਸੀ ਹੈ| ਤੁਸੀਂ ਇਸ ਨੂੰ ਕਈ ਐਕਸਚੇਂਜਾਂ ਤੇ ਖਰੀਦ ਅਤੇ ਵੇਚ ਸਕਦੇ ਹੋ ਅਤੇ ਇਨ-ਐਪ ਆਈਟਮਾਂ ਖਰੀਦਣ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੇ ਹੋ|</string>
   <string name="balance_appccreditos_body">ਤੇ ਟੋਕਨ ਤੋ ਬਾਇ ਇਨ-ਅੱਪ ਆਇਟਮ੍ਸ! ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਰਿਚਾਰਜ ਕਰਕੇ ਜਾਂ ਮੁਫਤ ਵਿੱਚ ਲੈਣ ਲਈ ਐਪਾਂ ਵਰਤ ਕੇ ਪਾਓ| ਇਹ ਦੋਸਤਾਂ ਵਿੱਚ ਵੀ ਟ੍ਰਾਂਸਫਰ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ਕਿਸੇ ਨੂੰ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਕਹੋ</string>
   <string name="askafriend_generating_link_message">ਅਸੀਂ ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਦਾ ਲਿੰਕ ਉਤਪੰਨ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">ਕੋਡ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="confirm_button">ਪੁਸ਼ਟੀ ਕਰੋ</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
   <string name="settings_subheader_support">ਸਪੋਰਟ</string>
   <string name="settings_subheader_about_us">ਸਾਡੇ ਬਾਰੇ</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="verification_settings_unverified_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ ਅਤੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
   <string name="verification_settings_verified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕੀਤੀ ਗਈ</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">ਤੁਹਾਨੂੰ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜਨ ਦੀ ਜ਼ਰੂਰਤ ਹੈ</string>
   <string name="verification_error_time_expired">ਓਹ ਹੋ, ਤੁਹਾਡਾ ਸਮਾਂ ਖਤਮ ਹੋ ਗਿਆ ਹੈ| ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ!</string>
   <string name="verification_error_attempts_reached">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਕੋਸ਼ਿਸ਼ਾਂ ਦੀ ਸੀਮਾ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ|. ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਉਡੀਕ ਕਰੋ ਜੀ|</string>
@@ -714,6 +719,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">ਐਕਟਿਵ</string>
   <string name="subscriptions_expired_title">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">ਅਜੇ ਕੋਈ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨਹੀਂ</string>
   <string name="subscriptions_empty_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਦੀਆਂ ਸੇਵਾਵਾਂ ਦੀ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਲਓ ਅਤੇ ਅਸੀਂ ਸਮੇਂ-ਸਮੇਂ ਤੇ ਭੁਗਤਾਨਾਂ ਨਾਲ ਕੰਮ ਕਰਾਂਗੇ|</string>
   <string name="subscriptions_details_billing_title">ਬਿਲਿੰਗ:</string>
@@ -728,6 +734,8 @@
   <string name="subscriptions_details_button">ਵੇਰਵਾ</string>
   <string name="subscriptions_manage_button">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ</string>
   <string name="subscriptions_cancel_button">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_cancel_body">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨੂੰ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="subscriptions_cancel_no_button">ਨਹੀਂ, ਵਾਪਸ ਜਾਓ</string>
@@ -813,7 +821,7 @@
   <string name="carrier_billing_terms_button">ਨਿਯਮ ਅਤੇ ਸ਼ਰਤਾਂ</string>
   <string name="carrier_billing_privacy_button">ਗੋਪਨੀਯਤਾ ਨੀਤੀ</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
   <string name="manage_cards_view_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
   <string name="manage_cards_view_manage_subtitle">ਆਪਣੇ ਭੁਗਤਾਨ ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
@@ -894,7 +902,7 @@
   <string name="rate_us_back_title">ਸਾਡੀ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="rate_us_back_body">ਐਪ ਸਟੋਰ ਤੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ ਤਾਂ ਜੋ ਅਸੀਂ ਇਸ ਵਿੱਚ ਸੁਧਾਰ ਕਰ ਸਕੀਏ|</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">ਲੈਣਦੇਣ ਦੇ ਵੇਰਵੇਆਂ ਵਿੱਚ ਕੋਡ ਦੀ ਜਾਂਚ ਕਰੋ</string>
   <string name="card_verification_code_body">ਤੁਹਾਡੇ ਕਾਰਡ ਦੇ ਜਾਰੀਕਰਤਾ ਦੁਆਰਾ ਪ੍ਰਦਾਨ ਕੀਤੇ ਸੌਦੇ ਦੇ ਸੰਖੇਪ ਵਿੱਚ ਇੱਕ ਵਿਲੱਖਣ ਕੋਡ ਦਿਖਾਈ ਦੇਵੇਗਾ|</string>
