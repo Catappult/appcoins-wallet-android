@@ -50,6 +50,7 @@
   <string name="error_import">Lỗi khi nhập kho khóa</string>
   <string name="message_this_is_your_address">Địa chỉ ví Ethereum công khai của tôi</string>
   <string name="backup_warning_text">Vì chỉ có bạn kiểm soát tiền của mình, bạn sẽ cần lưu một bản sao lưu của kho khóa trong trường hợp ứng dụng này bị xóa.\n\nVí của bạn không bao giờ được lưu vào bộ nhớ đám mây hoặc sao lưu thiết bị tiêu chuẩn.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">Không sao lưu, không Ethereum</string>
   <string name="error_deleting_account">Lỗi khi xóa ví</string>
   <string name="title_privacy_policy">Chính sách bảo mật</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">Số thẻ</string>
   <string name="dialog_credit_card_expiration">Ngày hết hạn</string>
   <string name="dialog_credit_card_cvv">Mã CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Ngày hết hạn</string>
   <string name="activity_airdrop_title">Xác nhận bạn là con người để nhận AppCoin</string>
   <string name="activity_airdrop_details">Đây chỉ là yếu tố bảo mật.</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">AppCoin dựa trên tiền điện tử Ethereum. Bạn có thể mua và bán chúng ở hầu hết các sàn giao dịch vì chúng rất phổ biến!</string>
   <string name="balance_appcoins_body">AppCoins là tiền điện tử dành cho nền kinh tế ứng dụng. Bạn có thể mua và bán chúng trên một số sàn giao dịch cũng như có thể sử dụng chúng để mua các vật phẩm trong ứng dụng.</string>
   <string name="balance_appccreditos_body">Token để mua các vật phẩm trong ứng dụng! Nạp APPC-C từ ví của bạn hoặc nhận chúng miễn phí bằng cách sử dụng các ứng dụng. Chúng cũng có thể được chuyển giao giữa những người bạn!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Nhờ ai đó thanh toán</string>
   <string name="askafriend_generating_link_message">Chúng tôi đang tạo liên kết thanh toán của bạn&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">Lấy mã</string>
   <string name="confirm_button">Xác nhận</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -440,7 +444,7 @@
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Liên hệ với Đội ngũ Hỗ trợ</string>
   <string name="settings_subheader_support">Hỗ trợ</string>
   <string name="settings_subheader_about_us">Giới thiệu</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">Xác minh Ví</string>
   <string name="verification_settings_unverified_body">Mời bạn bè và Nhận phần thưởng</string>
   <string name="verification_settings_verified_title">Ví đã được xác minh</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">Bạn cần kết nối với Internet</string>
   <string name="verification_error_time_expired">Rất tiếc, thời gian của bạn đã hết. Hãy bắt đầu lại!</string>
   <string name="verification_error_attempts_reached">Có vẻ như bạn đã đạt đến giới hạn số lần thử. Vui lòng chờ để thử lại.</string>
@@ -713,6 +718,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Hoạt động</string>
   <string name="subscriptions_expired_title">Đã hết hạn</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">Chưa có gói đăng ký nào</string>
   <string name="subscriptions_empty_body">Đăng ký dịch vụ trong các ứng dụng cũng như trò chơi yêu thích của bạn và chúng tôi sẽ xử lý các khoản thanh toán định kỳ.</string>
   <string name="subscriptions_details_billing_title">Thanh toán:</string>
@@ -727,6 +733,8 @@
   <string name="subscriptions_details_button">CHI TIẾT</string>
   <string name="subscriptions_manage_button">QUẢN LÝ GÓI ĐĂNG KÝ</string>
   <string name="subscriptions_cancel_button">HỦY GÓI ĐĂNG KÝ</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Hủy gói đăng ký</string>
   <string name="subscriptions_cancel_body">Bạn có chắc chắn muốn hủy gói đăng ký này?</string>
   <string name="subscriptions_cancel_no_button">KHÔNG, QUAY LẠI</string>
@@ -812,7 +820,7 @@
   <string name="carrier_billing_terms_button">Điều khoản và Điều kiện</string>
   <string name="carrier_billing_privacy_button">Chính sách Quyền riêng tư</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Quản lý thẻ</string>
   <string name="manage_cards_view_title">Quản lý thẻ</string>
   <string name="manage_cards_view_manage_subtitle">Quản lý thẻ thanh toán của bạn</string>
@@ -887,7 +895,7 @@
   <string name="rate_us_back_title">Bạn muốn giúp chúng tôi?</string>
   <string name="rate_us_back_body">Xếp hạng Ví AppCoins trên cửa hàng ứng dụng để chúng tôi có thể cải thiện nó.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Kiểm tra mã trong chi tiết giao dịch</string>
   <string name="card_verification_code_body">Mã sẽ xuất hiện trong bản tóm tắt giao dịch do công ty phát hành thẻ của bạn cung cấp.</string>
