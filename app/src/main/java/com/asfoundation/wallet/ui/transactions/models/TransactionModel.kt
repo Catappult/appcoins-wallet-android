@@ -89,12 +89,16 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
       Transaction.TransactionType.BONUS_REVERT, Transaction.TransactionType.TOP_UP_REVERT -> {
         transactionTypeIcon = R.drawable.ic_transaction_revert
         holder.typeIcon.visibility = View.VISIBLE
+        holder.typeIconImageView.visibility = View.VISIBLE
+        holder.subscriptionImageView.visibility = View.GONE
         setRevertMessage(holder, linkedTx)
         currencySymbol = WalletCurrency.CREDITS.symbol
       }
       Transaction.TransactionType.IAP_REVERT -> {
         transactionTypeIcon = R.drawable.ic_transaction_revert
         holder.typeIcon.visibility = View.VISIBLE
+        holder.typeIconImageView.visibility = View.VISIBLE
+        holder.subscriptionImageView.visibility = View.GONE
         setRevertMessage(holder, linkedTx)
       }
       Transaction.TransactionType.ADS, Transaction.TransactionType.ADS_OFFCHAIN -> {
@@ -116,6 +120,12 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         holder.typeIcon.visibility = View.GONE
         transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain
         currencySymbol = WalletCurrency.CREDITS.symbol
+      }
+      Transaction.TransactionType.SUBS_OFFCHAIN -> {
+        transactionTypeIcon = R.drawable.ic_transaction_peer
+        holder.typeIcon.visibility = View.VISIBLE
+        holder.typeIconImageView.visibility = View.GONE
+        holder.subscriptionImageView.visibility = View.VISIBLE
       }
       else -> {
         transactionTypeIcon = R.drawable.ic_transaction_peer
@@ -163,8 +173,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
 
           override fun onResourceReady(resource: Drawable?, model: Any, target: Target<Drawable?>,
                                        dataSource: DataSource, isFirstResource: Boolean): Boolean {
-            (holder.typeIcon.findViewById(R.id.icon) as ImageView).setImageResource(
-                transactionTypeIcon)
+            holder.typeIconImageView.setImageResource(transactionTypeIcon)
             return false
           }
         })
@@ -264,6 +273,8 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
       holder.typeIcon.visibility = View.GONE
     } else {
       holder.typeIcon.visibility = View.VISIBLE
+      holder.typeIconImageView.visibility = View.VISIBLE
+      holder.subscriptionImageView.visibility = View.GONE
     }
   }
 
@@ -280,6 +291,8 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
   class TransactionHolder : BaseViewHolder() {
     val srcImage by bind<ImageView>(R.id.img)
     val typeIcon by bind<View>(R.id.type_icon)
+    val typeIconImageView by bind<ImageView>(R.id.type_icon_image_view)
+    val subscriptionImageView by bind<ImageView>(R.id.subscription_icon)
     val address by bind<TextView>(R.id.address)
     val description by bind<TextView>(R.id.description)
     val value by bind<TextView>(R.id.value)

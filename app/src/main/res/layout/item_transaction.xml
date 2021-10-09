@@ -37,22 +37,21 @@
       tools:visibility="visible"
       >
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/type_icon_image_view"
         android:layout_width="13dp"
         android:layout_height="13dp"
         android:layout_gravity="center"
         android:contentDescription="@string/empty"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:src="@drawable/ic_transaction_poa"
         />
     <ImageView
-        android:id="@+id/filled_icon"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/subscription_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_gravity="center"
         android:visibility="gone"
-        tools:src="@drawable/ic_transaction_subscription"
-        tools:visibility="visible"
+        android:src="@drawable/ic_transaction_subscription"
         />
   </FrameLayout>
   <TextView
