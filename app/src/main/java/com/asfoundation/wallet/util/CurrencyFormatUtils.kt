@@ -95,17 +95,17 @@ class CurrencyFormatUtils {
           minimumFractionDigits = scale
           maximumFractionDigits = 15
           isParseBigDecimal = true
-          roundingMode = RoundingMode.FLOOR
+          roundingMode = RoundingMode.HALF_DOWN
         }
     return transferFormatter.format(value)
   }
 
   fun formatPaymentCurrency(value: BigDecimal, currencyType: WalletCurrency): String {
     return when (currencyType) {
-      WalletCurrency.FIAT -> formatCurrencyFiat(value.toDouble(), RoundingMode.CEILING)
-      WalletCurrency.APPCOINS -> formatCurrencyAppcoins(value.toDouble(), RoundingMode.CEILING)
-      WalletCurrency.CREDITS -> formatCurrencyCredits(value.toDouble(), RoundingMode.CEILING)
-      WalletCurrency.ETHEREUM -> formatCurrencyEth(value.toDouble(), RoundingMode.CEILING)
+      WalletCurrency.FIAT -> formatCurrencyFiat(value.toDouble(), RoundingMode.HALF_DOWN)
+      WalletCurrency.APPCOINS -> formatCurrencyAppcoins(value.toDouble(), RoundingMode.HALF_DOWN)
+      WalletCurrency.CREDITS -> formatCurrencyCredits(value.toDouble(), RoundingMode.HALF_DOWN)
+      WalletCurrency.ETHEREUM -> formatCurrencyEth(value.toDouble(), RoundingMode.HALF_DOWN)
     }
   }
 
@@ -114,7 +114,7 @@ class CurrencyFormatUtils {
     return formatter.format(value)
   }
 
-  fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
+  fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_HALF_DOWN)
 }
 
 
