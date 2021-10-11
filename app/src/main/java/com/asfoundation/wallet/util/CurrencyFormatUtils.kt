@@ -40,7 +40,7 @@ class CurrencyFormatUtils {
   }
 
   private fun formatCurrencyFiat(value: Double,
-                                 rounding: RoundingMode? = RoundingMode.FLOOR): String {
+                                 rounding: RoundingMode? = RoundingMode.HALF_DOWN): String {
     val fiatFormatter = NumberFormat.getNumberInstance()
         .apply {
           minimumFractionDigits = FIAT_SCALE
@@ -51,7 +51,7 @@ class CurrencyFormatUtils {
   }
 
   private fun formatCurrencyAppcoins(value: Double,
-                                     rounding: RoundingMode? = RoundingMode.FLOOR): String {
+                                     rounding: RoundingMode? = RoundingMode.HALF_DOWN): String {
     val appcFormatter = NumberFormat.getNumberInstance()
         .apply {
           minimumFractionDigits = APPC_SCALE
@@ -62,7 +62,7 @@ class CurrencyFormatUtils {
   }
 
   private fun formatCurrencyCredits(value: Double,
-                                    rounding: RoundingMode? = RoundingMode.FLOOR): String {
+                                    rounding: RoundingMode? = RoundingMode.HALF_DOWN): String {
     val creditsFormatter = NumberFormat.getNumberInstance()
         .apply {
           minimumFractionDigits = CREDITS_SCALE
@@ -73,7 +73,7 @@ class CurrencyFormatUtils {
   }
 
   private fun formatCurrencyEth(value: Double,
-                                rounding: RoundingMode? = RoundingMode.FLOOR): String {
+                                rounding: RoundingMode? = RoundingMode.HALF_DOWN): String {
     val ethFormatter = NumberFormat.getNumberInstance()
         .apply {
           minimumFractionDigits = ETH_SCALE
