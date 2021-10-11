@@ -4,14 +4,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.GlideApp;
@@ -85,13 +83,11 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     fill(transaction.getFrom(), transaction.getTo(), currency, transaction.getValue(),
-        transaction.getPaidAmount(), transaction.getPaidCurrency(),
-        transaction.getDetails());
+        transaction.getPaidAmount(), transaction.getPaidCurrency(), transaction.getDetails());
   }
 
   private void fill(String from, String to, String currencySymbol, String valueStr,
-      String paidAmount, String paidCurrency,
-      TransactionDetails details) {
+      String paidAmount, String paidCurrency, TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
 
@@ -208,15 +204,9 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
           @Override
           public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
               DataSource dataSource, boolean isFirstResource) {
-            if (transaction.getType() == TransactionType.SUBS_OFFCHAIN) {
-              ImageView filledIcon = typeIcon.findViewById(R.id.filled_icon);
-              filledIcon.setImageResource(finalTransactionTypeIcon);
-              filledIcon.setVisibility(View.VISIBLE);
-            } else {
-              ImageView icon = typeIcon.findViewById(R.id.icon);
-              icon.setImageResource(finalTransactionTypeIcon);
-              icon.setVisibility(View.VISIBLE);
-            }
+            ImageView icon = typeIcon.findViewById(R.id.icon);
+            icon.setImageResource(finalTransactionTypeIcon);
+            icon.setVisibility(View.VISIBLE);
             return false;
           }
         })
