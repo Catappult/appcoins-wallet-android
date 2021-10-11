@@ -4,10 +4,13 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
+import com.google.gson.annotations.SerializedName
 import java.lang.reflect.Type
 
 data class InappPurchaseResponse(val uid: String, val product: RemoteProductEntity,
-                                 val status: String, val packageName: PackageEntity,
+                                 val status: String,
+                                 @SerializedName("package")
+                                 val packageName: PackageEntity,
                                  val signature: SignatureEntity)
 
 data class RemoteProductEntity(val name: String)

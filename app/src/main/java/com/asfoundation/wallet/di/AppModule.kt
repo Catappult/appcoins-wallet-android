@@ -189,9 +189,11 @@ internal class AppModule {
   fun providesBillingPaymentProofSubmission(api: RemoteRepository.BdsApi,
                                             walletService: WalletService,
                                             subscriptionBillingApi: SubscriptionBillingApi,
-                                            bdsApi: BdsApiSecondary): BillingPaymentProofSubmission {
+                                            bdsApi: BdsApiSecondary,
+                                            billingSerializer: ExternalBillingSerializer): BillingPaymentProofSubmission {
     return BillingPaymentProofSubmissionImpl.Builder()
         .setApi(api)
+        .setBillingSerializer(billingSerializer)
         .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
         .setSubscriptionBillingService(subscriptionBillingApi)
@@ -343,7 +345,12 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideBillingMessagesMapper() = BillingMessagesMapper(ExternalBillingSerializer())
+  fun provideBillingMessagesMapper(billingSerializer: ExternalBillingSerializer) =
+      BillingMessagesMapper(billingSerializer)
+
+  @Singleton
+  @Provides
+  fun provideBillingSerializer() = ExternalBillingSerializer()
 
   @Provides
   fun provideAdyenEnvironment(): Environment {

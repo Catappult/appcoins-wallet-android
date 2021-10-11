@@ -2,6 +2,7 @@ package com.appcoins.wallet.bdsbilling.repository
 
 
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.merge
 import com.appcoins.wallet.bdsbilling.repository.entity.*
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
@@ -16,7 +17,8 @@ import java.util.*
 class RemoteRepository(private val inAppApi: BdsApi,
                        private val responseMapper: BdsApiResponseMapper,
                        private val bdsApiSecondary: BdsApiSecondary,
-                       private val subsApi: SubscriptionBillingApi
+                       private val subsApi: SubscriptionBillingApi,
+                       private val billingSerializer: ExternalBillingSerializer
 ) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
@@ -78,6 +80,13 @@ class RemoteRepository(private val inAppApi: BdsApi,
   internal fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
     return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+        .map { inAppPurchase ->
+          // TODO: Review this later, the actual response doesn't matter for now
+          Purchase(inAppPurchase.uid, RemoteProduct(inAppPurchase.product.name), State.PENDING,
+              false, null, Package(inAppPurchase.packageName.name),
+              Signature(inAppPurchase.signature.value,
+                  billingSerializer.serializeSignatureData(inAppPurchase)))
+        }
   }
 
   internal fun getSkuPurchaseSubs(packageName: String, purchaseUid: String, walletAddress: String,
@@ -241,7 +250,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
     fun getSkuPurchase(@Path("packageName") packageName: String,
                        @Path("skuId") skuId: String?,
                        @Query("wallet.address") walletAddress: String,
-                       @Query("wallet.signature") walletSignature: String): Single<Purchase>
+                       @Query("wallet.signature")
+                       walletSignature: String): Single<InappPurchaseResponse>
 
     @GET("broker/8.20180518/transactions")
     fun getSkuTransaction(

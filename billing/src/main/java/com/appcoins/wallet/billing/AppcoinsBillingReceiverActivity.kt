@@ -54,7 +54,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
         BdsRepository(RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(
             SubscriptionsMapper(), InAppMapper(serializer)),
             dependenciesProvider.bdsApiSecondary(),
-            dependenciesProvider.subscriptionBillingService())),
+            dependenciesProvider.subscriptionBillingService(), serializer)),
         dependenciesProvider.walletService(), BillingThrowableCodeMapper())
 
 
