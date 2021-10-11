@@ -133,7 +133,7 @@ class RepositoryModule {
                               bdsApi: RemoteRepository.BdsApi,
                               api: BdsApiSecondary): RemoteRepository {
     return RemoteRepository(bdsApi, BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(
-        ExternalBillingSerializer())), api, subscriptionBillingApi)
+        ExternalBillingSerializer())), api, subscriptionBillingApi, ExternalBillingSerializer())
   }
 
   @Singleton

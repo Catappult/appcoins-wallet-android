@@ -107,8 +107,12 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var api: RemoteRepository.BdsApi? = null
     private var bdsApiSecondary: BdsApiSecondary? = null
     private var subscriptionApi: SubscriptionBillingApi? = null
+    private var billingSerializer: ExternalBillingSerializer? = null
 
     fun setApi(bdsApi: RemoteRepository.BdsApi) = apply { api = bdsApi }
+
+    fun setBillingSerializer(billingSerializer: ExternalBillingSerializer) =
+        apply { this.billingSerializer = billingSerializer }
 
     fun setBdsApiSecondary(bdsApi: BdsApiSecondary) = apply { bdsApiSecondary = bdsApi }
 
@@ -125,12 +129,14 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         api?.let { api ->
           bdsApiSecondary?.let { bdsApiSecondary ->
             subscriptionApi?.let { subscriptionApi ->
-              BillingPaymentProofSubmissionImpl(walletService, BdsRepository(
-                  RemoteRepository(api, BdsApiResponseMapper(
-                    SubscriptionsMapper(), InAppMapper(
-                      ExternalBillingSerializer()
-                    )), bdsApiSecondary, subscriptionApi)),
-                  networkScheduler, ConcurrentHashMap(), ConcurrentHashMap())
+              billingSerializer?.let { billingSerializer ->
+                BillingPaymentProofSubmissionImpl(walletService, BdsRepository(
+                    RemoteRepository(api, BdsApiResponseMapper(
+                        SubscriptionsMapper(), InAppMapper(
+                        ExternalBillingSerializer()
+                    )), bdsApiSecondary, subscriptionApi, billingSerializer)),
+                    networkScheduler, ConcurrentHashMap(), ConcurrentHashMap())
+              } ?: throw IllegalArgumentException("BillingSerializer not defined")
             } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
           } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
         } ?: throw IllegalArgumentException("BdsApi not defined")

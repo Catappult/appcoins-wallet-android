@@ -5,6 +5,7 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
@@ -94,6 +95,9 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   @Inject
   lateinit var subscriptionBillingApi: SubscriptionBillingApi
+
+  @Inject
+  lateinit var billingSerializer: ExternalBillingSerializer
 
   companion object {
     private val TAG = App::class.java.name
@@ -201,4 +205,6 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   override fun bdsApiSecondary() = bdsapiSecondary
 
   override fun subscriptionBillingService() = subscriptionBillingApi
+
+  override fun billingSerializer() = billingSerializer
 }
