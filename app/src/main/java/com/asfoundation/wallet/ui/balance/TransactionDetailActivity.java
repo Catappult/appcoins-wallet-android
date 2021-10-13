@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.balance;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -268,6 +269,13 @@ public class TransactionDetailActivity extends BaseActivity {
         manageSubscriptions.setOnClickListener(
             view -> viewModel.showManageSubscriptions(view.getContext()));
         to = transaction.getTo();
+        symbol = getString(R.string.p2p_send_currency_appc_c);
+        break;
+      case ESKILLS_REWARD:
+        typeStr = R.string.transaction_type_eskills_reward;
+        typeIcon = -1;
+        id = getString(R.string.transaction_type_eskills_reward);
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
     }
