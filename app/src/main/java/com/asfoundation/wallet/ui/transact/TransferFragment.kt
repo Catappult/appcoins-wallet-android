@@ -128,7 +128,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   }
 
   override fun showNoNetworkError() {
-    Snackbar.make(title, R.string.connectoin_error_body, Snackbar.LENGTH_LONG)
+    Snackbar.make(title, R.string.connection_error_body, Snackbar.LENGTH_LONG)
         .show()
   }
 

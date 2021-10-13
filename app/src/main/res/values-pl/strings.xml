@@ -416,7 +416,7 @@
   <string name="discover_button">Odkryj</string>
   <string name="retry_button">Spróbuj ponownie</string>
   <string name="do_it_later_button">Potem</string>
-  <string name="connectoin_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
+  <string name="connection_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
   <string name="common_or">LUB</string>
   <string name="share_via">Podziel się:</string>
   <string name="password">Hasło</string>

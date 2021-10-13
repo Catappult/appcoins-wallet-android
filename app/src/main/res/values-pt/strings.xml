@@ -416,7 +416,7 @@
   <string name="discover_button">Explorar</string>
   <string name="retry_button">Tentar novamente</string>
   <string name="do_it_later_button">Tentar mais tarde</string>
-  <string name="connectoin_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
+  <string name="connection_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
   <string name="common_or">OU</string>
   <string name="share_via">Partilhar via:</string>
   <string name="password">Password</string>

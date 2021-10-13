@@ -416,7 +416,7 @@
   <string name="discover_button">शोधुन काढा</string>
   <string name="retry_button">पुन्हा प्रयत्न करा</string>
   <string name="do_it_later_button">नंतर करा</string>
-  <string name="connectoin_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
+  <string name="connection_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
   <string name="common_or">किंवा</string>
   <string name="share_via">द्वारे सामायिक करा:</string>
   <string name="password">पासवर्ड</string>
