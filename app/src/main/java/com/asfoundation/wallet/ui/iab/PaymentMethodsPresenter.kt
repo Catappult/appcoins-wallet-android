@@ -525,6 +525,13 @@ class PaymentMethodsPresenter(
               isBonusActive, paymentMethodsData.frequency)
         }
       }
+    } else if (paymentMethods.size == 1
+        && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id
+        && paymentMethods[0].isEnabled) {
+      showPaymentMethods(
+          fiatValue, paymentMethods, paymentMethods[0].id, fiatAmount, appcAmount,
+          paymentMethodsData.frequency
+      )
     } else {
       val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
       showPaymentMethods(fiatValue, paymentMethods, paymentMethodId, fiatAmount, appcAmount,
