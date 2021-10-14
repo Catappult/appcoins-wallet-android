@@ -89,7 +89,7 @@ class OneStepTransactionParserTest {
     parameters["callback_url"] = callback
 
     val oneStepUri =
-        OneStepUri("https", "apichain.dev.blockchainds.com", "/transaction/inapp", parameters)
+        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()
@@ -128,7 +128,7 @@ class OneStepTransactionParserTest {
     parameters["domain"] = packageName
 
     val oneStepUri =
-        OneStepUri("https", "apichain.dev.blockchainds.com", "/transaction/inapp", parameters)
+        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()
@@ -163,7 +163,7 @@ class OneStepTransactionParserTest {
     parameters["to"] = wrongDeveloperAddress
 
     val oneStepUri =
-        OneStepUri("https", "apichain.dev.blockchainds.com", "/transaction/inapp", parameters)
+        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()
