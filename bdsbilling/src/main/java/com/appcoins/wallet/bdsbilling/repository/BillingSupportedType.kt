@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 enum class BillingSupportedType {
-  INAPP, INAPP_UNMANAGED, INAPP_SUBSCRIPTION, SUBS_UNMANAGED, DONATION;
+  INAPP, INAPP_UNMANAGED, INAPP_SUBSCRIPTION, SUBS_UNMANAGED, DONATION, ESKILLS;
 
 
   companion object {
@@ -53,6 +53,7 @@ enum class BillingSupportedType {
         INAPP -> INAPP
         SUBS_UNMANAGED -> INAPP_SUBSCRIPTION
         INAPP_SUBSCRIPTION -> INAPP_SUBSCRIPTION
+        ESKILLS -> ESKILLS
       }
     }
   }
