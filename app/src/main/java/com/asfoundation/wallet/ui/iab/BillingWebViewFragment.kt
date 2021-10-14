@@ -43,8 +43,9 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
     private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
-    private const val GO_PAY_APP_PAYMENTS_SCHEMA = "gojek://"
-    private const val LINE_APP_PAYMENTS_SCHEMA = "intent://"
+    private val EXTERNAL_INTENT_SCHEMA_LIST =
+        listOf("picpay://", "gojek://", "shopeeid://", "grab://", "intent://",
+            "open.dolfinwallet://", "momo://")
     private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
     private const val CODAPAY_FINAL_REDIRECT_SCHEMA =
         "https://airtime.codapayments.com/epcgw/dlocal/"
@@ -97,8 +98,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
             currentUrl = clickUrl
             finishWithSuccess(clickUrl)
           }
-          clickUrl.contains(GO_PAY_APP_PAYMENTS_SCHEMA) || clickUrl.contains(
-              LINE_APP_PAYMENTS_SCHEMA) -> {
+          isExternalIntentSchema(clickUrl) -> {
             launchActivity(Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)))
           }
           clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
@@ -138,6 +138,15 @@ class BillingWebViewFragment : BasePageViewFragment() {
     view.webview.settings.useWideViewPort = true
     view.webview.loadUrl(currentUrl)
     return view
+  }
+
+  fun isExternalIntentSchema(clickUrl: String): Boolean {
+    for (schema in EXTERNAL_INTENT_SCHEMA_LIST) {
+      if (clickUrl.contains(schema)) {
+        return true
+      }
+    }
+    return false
   }
 
   fun handleBackPressed(): Boolean {
