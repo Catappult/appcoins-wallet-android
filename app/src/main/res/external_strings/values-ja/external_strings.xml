@@ -2,7 +2,7 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">このアイテムを購入するには、まず %s を入手する必要があります。</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">AppCoins ウォレット</string>
   <string name="iab_wallet_not_installed_popup_close_button">閉じる</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">この購入には、AppCoins Walletが必要です。AptoideまたはPlayストアからダウンロードして購入を完了してください。</string>
