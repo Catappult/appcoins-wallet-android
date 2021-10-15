@@ -276,6 +276,11 @@ public class TransactionDetailActivity extends BaseActivity {
         id = getString(R.string.transaction_type_eskills_reward);
         manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
+        categoryBackground.setBackground(null);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        to = transaction.getTo();
         break;
     }
 
