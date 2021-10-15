@@ -265,7 +265,7 @@
   <string name="dialog_credit_card_number">カード番号</string>
   <string name="dialog_credit_card_expiration">有効期限</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">有効期限</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
@@ -445,7 +445,7 @@
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
   <string name="settings_subheader_support">サポート</string>
   <string name="settings_subheader_about_us">About Us</string>
@@ -821,7 +821,7 @@
   <string name="carrier_billing_terms_button">利用規約</string>
   <string name="carrier_billing_privacy_button">プライバシー ポリシー</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">カードの管理</string>
   <string name="manage_cards_view_title">カードの管理</string>
   <string name="manage_cards_view_manage_subtitle">支払い用カードの管理</string>
@@ -896,7 +896,7 @@
   <string name="rate_us_back_title">ご協力していただけますか？</string>
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">取引明細のコードを確認</string>
   <string name="card_verification_code_body">カード発行会社が提供する取引の概要に固有のコードが表示されます。</string>
