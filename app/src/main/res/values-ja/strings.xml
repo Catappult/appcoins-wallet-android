@@ -534,8 +534,8 @@
   <string name="purchase_error_transaction_timeout">トランザクションの完了に時間がかかりすぎたようです。もう一度お試しください。</string>
   <string name="purchase_error_card_already_in_progress">あなたのリクエストはすでに処理済みか、処理中です。しばらくお待ちください。</string>
   <string name="purchase_error_payment_rejected">支払いが拒否されました。他の発行元のカードでお試しいただくか、他のお支払い方法をご利用ください。</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
+  <string name="purchase_error_verify_wallet">このアンロックするため、ウォレットの認証を行ってみてください。</string>
+  <string name="purchase_eskills_sku">エントリーチケット</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -716,10 +716,10 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">購読の管理</string>
   <string name="subscriptions_title">購読</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">サブスクリプション</string>
   <string name="subscriptions_active_title">アクティブ</string>
   <string name="subscriptions_expired_title">期限切れ</string>
-  <string name="subscriptions_inactive_title">Inactive</string>
+  <string name="subscriptions_inactive_title">無効</string>
   <string name="subscriptions_empty_title">まだ購読はありません</string>
   <string name="subscriptions_empty_body">お気に入りのアプリやゲームでサービスを申し込めば、定期的な支払いにも対応します。</string>
   <string name="subscriptions_details_billing_title">支払い:</string>
@@ -734,8 +734,8 @@
   <string name="subscriptions_details_button">詳細</string>
   <string name="subscriptions_manage_button">購読を管理</string>
   <string name="subscriptions_cancel_button">購読をキャンセル</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
-  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
+  <string name="subscriptions_renew_subscription_button">サブスクリプションの更新</string>
+  <string name="subscriptions_renewed_confirmation_title">サブスクリプションが更新されました！</string>
   <string name="subscriptions_cancel_title">購読をキャンセル</string>
   <string name="subscriptions_cancel_body">この購読をキャンセルしてもよろしいですか？</string>
   <string name="subscriptions_cancel_no_button">いいえ、戻ってください</string>
@@ -897,7 +897,7 @@
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your bank card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
+  <string name="card_verification_charde_disclaimer">お客様のカードには%sが請求され、コードを確認した後に返金されます。お使いの銀行によっては、数分から数日かかる場合もあります。</string>
   <string name="card_verification_code_title">取引明細のコードを確認</string>
   <string name="card_verification_code_body">カード発行会社が提供する取引の概要に固有のコードが表示されます。</string>
   <string name="card_verification_code_example_title">取引概要の例</string>
@@ -934,27 +934,27 @@
   <string name="voucher_empty_more_title">ゲームのクーポン</string>
   <string name="voucher_empty_more_body">お気に入りのゲームのお得な情報を見つけよう！</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
-  <string name="change_currency_choose_button">Choose currency</string>
+  <string name="change_currency_title">通貨を変更</string>
+  <string name="change_currency_settings_title">通貨</string>
+  <string name="change_currency_choose_button">通貨を選択</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">決済処理中です</string>
+  <string name="block_transaction_disclaimer_body">イーサスキャンでトラッキングができます。</string>
   <!--  Withdraw Funds-->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_settings_title">e-Skillsの引き出し</string>
+  <string name="e_skills_withdraw_email">Paypalのメールアドレス</string>
+  <string name="e_skills_withdraw_amount">金額 (USD)</string>
+  <string name="e_skills_withdraw_email_hint">メールアドレス</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
-  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+  <string name="e_skills_withdraw_title">e-Skillsの引き出し</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">無効なメールアドレス</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">残高不足</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">e-Skillsゲームで獲得した資金のみを引き出すことができます。</string>
+  <string name="e_skills_withdraw_max_amount">最大引き出し可能額：%s</string>
+  <string name="e_skills_more_info_button">詳細</string>
   <!--Promo Code-->
-  <string name="promo_code_settings_title">Promo Code</string>
-  <string name="promo_code_view_title">Promo Code</string>
+  <string name="promo_code_settings_title">プロモーションコード</string>
+  <string name="promo_code_view_title">プロモーションコード</string>
   <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
