@@ -264,7 +264,7 @@
   <string name="dialog_credit_card_number">Kart Numarası</string>
   <string name="dialog_credit_card_expiration">Son Kullanma Tarihi</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Son kullanma tarihi</string>
   <string name="activity_airdrop_title">AppCoin\'leri almak için insan olduğunuzu doğrulayın</string>
   <string name="activity_airdrop_details">Bu sadece güvenlik içindir.</string>
@@ -444,7 +444,7 @@
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Destek Ekibiyle iletişime geçin</string>
   <string name="settings_subheader_support">Destek</string>
   <string name="settings_subheader_about_us">Hakkımızda</string>
@@ -821,7 +821,7 @@
   <string name="carrier_billing_terms_button">Şartlar ve Koşullar</string>
   <string name="carrier_billing_privacy_button">Gizlilik Politikası</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Kartları yönetin</string>
   <string name="manage_cards_view_title">Kartları yönetin</string>
   <string name="manage_cards_view_manage_subtitle">Ödeme kartlarınızı yönetin</string>
@@ -902,7 +902,7 @@
   <string name="rate_us_back_title">Bize yardımcı olmak ister misiniz?</string>
   <string name="rate_us_back_body">AppCoins Wallet\'ı iyileştirebilmemiz için uygulama mağazasında değerlendirin.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">İşlem bilgilerin bilgilerinden kodu kontrol edin</string>
   <string name="card_verification_code_body">Kart sağlayıcınız tarafından sağlanan işlem özetinde eşsiz bir kod görünür.</string>
