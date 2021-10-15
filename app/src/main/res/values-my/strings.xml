@@ -718,7 +718,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
   <string name="subscriptions_expired_title">သက္တမ္းကုန္သြားပါၿပီ</string>
-  <string name="subscriptions_inactive_title">Inactive</string>
+  <string name="subscriptions_inactive_title">မ၀ယ္ထားေသာ</string>
   <string name="subscriptions_empty_title">ပံုမွန္၀ယ္ယူမႈမ်ား မရွိေသးပါ</string>
   <string name="subscriptions_empty_body">သင့့္စိတ္ႀကိဳက္အက္ပ္မ်ားနွင့္ ဂိမ္မ်ားတြင္ ၀န္ေဆာင္မႈမ်ားကို ပံုမွန္၀ယ္ယူလိုက္ပါ။ ကာလအလိုက္ ေငြေပးေခ်မႈမ်ားကို ကၽြႏ္ုပ္တို႔ လုပ္ေဆာင္ေပးပါမည္။</string>
   <string name="subscriptions_details_billing_title">က်သင့္ေငြေကာက္ခံျခင္း -</string>
@@ -958,7 +958,7 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">AppCoins အေၾကာင္း</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
