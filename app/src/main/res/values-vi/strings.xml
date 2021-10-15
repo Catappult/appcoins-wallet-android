@@ -718,7 +718,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Hoạt động</string>
   <string name="subscriptions_expired_title">Đã hết hạn</string>
-  <string name="subscriptions_inactive_title">Inactive</string>
+  <string name="subscriptions_inactive_title">Vô hiệu</string>
   <string name="subscriptions_empty_title">Chưa có gói đăng ký nào</string>
   <string name="subscriptions_empty_body">Đăng ký dịch vụ trong các ứng dụng cũng như trò chơi yêu thích của bạn và chúng tôi sẽ xử lý các khoản thanh toán định kỳ.</string>
   <string name="subscriptions_details_billing_title">Thanh toán:</string>
@@ -958,7 +958,7 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">Giới thiệu AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
