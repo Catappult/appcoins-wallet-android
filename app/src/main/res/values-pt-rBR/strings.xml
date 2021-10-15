@@ -719,7 +719,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Ativa</string>
   <string name="subscriptions_expired_title">Expirado</string>
-  <string name="subscriptions_inactive_title">Inactive</string>
+  <string name="subscriptions_inactive_title">Inativa</string>
   <string name="subscriptions_empty_title">Sem Assinaturas</string>
   <string name="subscriptions_empty_body">Assine os serviços dos seus aplicativos e jogos favoritos que nós lidamos com pagamentos periódicos.</string>
   <string name="subscriptions_details_billing_title">Fatura:</string>
@@ -967,9 +967,9 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">Sobre a AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
+  <string name="appcoins_info_title_1">O que são AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
   <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
   <string name="appcoins_info_title_2">What are AppCoins for?</string>
