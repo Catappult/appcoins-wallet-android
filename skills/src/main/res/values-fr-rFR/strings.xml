@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Création de l\'adresse du portefeuille adresse&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>
   <string name="finding_room_loading_title">Waiting for opponents</string>
-  <string name="finding_room_loading_message">This may take a while…</string>
+  <string name="finding_room_loading_message">Cela peut prendre un certain temps…</string>
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">OK</string>
-  <string name="cancel">Cancel</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="cancel">Annuler</string>
+  <string name="connectoin_error_body">On dirait que vous n\'êtes pas connecté à Internet. Vérifiez votre connexion et réessayez !</string>
 </resources>
