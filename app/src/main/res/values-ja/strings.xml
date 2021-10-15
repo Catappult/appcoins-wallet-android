@@ -530,10 +530,10 @@
   <string name="transfer_appc_error_no_eth_title">イーサリアムが必要です。</string>
   <string name="transfer_appc_error_no_eth_body">AppCoinsの送金手数料はイーサリアムで支払われるため、APPCの送金にはETHが必要です。</string>
   <string name="purchase_error_invalid_credit_card">銀行カード番号が無効です。すべての桁が正しいことを確認してください。</string>
-  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
-  <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
-  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
+  <string name="purchase_error_card_security_validation">このトランザクションの第2レベルの検証でエラーが発生しました。もう一度お試しください。</string>
+  <string name="purchase_error_transaction_timeout">トランザクションの完了に時間がかかりすぎたようです。もう一度お試しください。</string>
+  <string name="purchase_error_card_already_in_progress">あなたのリクエストはすでに処理済みか、処理中です。しばらくお待ちください。</string>
+  <string name="purchase_error_payment_rejected">支払いが拒否されました。他の発行元のカードでお試しいただくか、他のお支払い方法をご利用ください。</string>
   <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
   <string name="purchase_eskills_sku">Entry ticket</string>
   <!--Billing address in purchase flow-->
