@@ -264,7 +264,7 @@
   <string name="dialog_credit_card_number">Numero di carta</string>
   <string name="dialog_credit_card_expiration">Data di scadenza</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Data di scadenza</string>
   <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoin</string>
   <string name="activity_airdrop_details">E\' solo una questione di sicurezza.</string>
@@ -444,7 +444,7 @@
   <string name="home_empty_discover_apps_button">SCOPRI LE MIGLIORI APP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contatta l\'assistenza clienti</string>
   <string name="settings_subheader_support">Supporto</string>
   <string name="settings_subheader_about_us">Chi siamo</string>
@@ -821,7 +821,7 @@
   <string name="carrier_billing_terms_button">Termini e condizioni</string>
   <string name="carrier_billing_privacy_button">Informativa sulla privacy</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Gestisci carte</string>
   <string name="manage_cards_view_title">Gestisci carte</string>
   <string name="manage_cards_view_manage_subtitle">Gestisci le tue carte di pagamento</string>
@@ -902,7 +902,7 @@
   <string name="rate_us_back_title">Vuoi darci una mano?</string>
   <string name="rate_us_back_body">Valuta l\'AppCoins Wallet sull\'app store in modo da aiutarci a migliorarlo.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Controlla il codice nei dati della transazione</string>
   <string name="card_verification_code_body">Nel sommario della transazione apparirà un codice unico fornito dall\'ente emittente la tua carta.</string>
