@@ -264,7 +264,7 @@
   <string name="dialog_credit_card_number">Număr card</string>
   <string name="dialog_credit_card_expiration">Data de expirare</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Data expirării</string>
   <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
   <string name="activity_airdrop_details">Acest lucru este doar pentru securitate.</string>
@@ -444,7 +444,7 @@
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
   <string name="settings_subheader_support">Asistență</string>
   <string name="settings_subheader_about_us">Despre noi</string>
@@ -822,7 +822,7 @@
   <string name="carrier_billing_terms_button">Termeni și condiții</string>
   <string name="carrier_billing_privacy_button">Politica de confidențialitate</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Gestionează carduri</string>
   <string name="manage_cards_view_title">Gestionează carduri</string>
   <string name="manage_cards_view_manage_subtitle">Gestionează cardurile tale de plată</string>
@@ -909,7 +909,7 @@
   <string name="rate_us_back_title">Vrei să ne dai o mână de ajutor?</string>
   <string name="rate_us_back_body">Evaluează AppCoins Wallet în App Store pentru a ne ajuta să îl îmbunătățim.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Verifică codul în detaliile tranzacției</string>
   <string name="card_verification_code_body">Un cod unic va apărea în rezumatul tranzacției furnizat de emitentul cardului tău.</string>
