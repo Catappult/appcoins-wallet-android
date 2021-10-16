@@ -50,7 +50,7 @@
   <string name="error_import">Lỗi khi nhập kho khóa</string>
   <string name="message_this_is_your_address">Địa chỉ ví Ethereum công khai của tôi</string>
   <string name="backup_warning_text">Vì chỉ có bạn kiểm soát tiền của mình, bạn sẽ cần lưu một bản sao lưu của kho khóa trong trường hợp ứng dụng này bị xóa.\n\nVí của bạn không bao giờ được lưu vào bộ nhớ đám mây hoặc sao lưu thiết bị tiêu chuẩn.</string>
-  <string name="backup_wallet_tooltip">Để giữ an toàn, hãy tạo một bản sao ví.</string>
+  <string name="backup_wallet_tooltip">Để an toàn, bạn hãy tạo một bản sao ví.</string>
   <string name="message_no_backup">Không sao lưu, không Ethereum</string>
   <string name="error_deleting_account">Lỗi khi xóa ví</string>
   <string name="title_privacy_policy">Chính sách bảo mật</string>
@@ -100,7 +100,7 @@
   <string name="title_dialog_error">Lỗi</string>
   <string name="title_dialog_handling">Đang xử lý…</string>
   <string name="title_dialog_add_account">Thêm ví</string>
-  <string name="title_dialog_deposit">Bạn muốn mua như thế nào?</string>
+  <string name="title_dialog_deposit">Bạn muốn mua bằng phương thức nào?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Đặt mật khẩu để mã hóa ví của bạn</string>
@@ -247,7 +247,7 @@
   <string name="transaction_type_reverted_purchase_body">Giao dịch mua bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
   <string name="transaction_reverted_view_original_header">Giao dịch ban đầu</string>
   <string name="transaction_onchain_completed_title">Giao dịch đang được thực hiện!</string>
-  <string name="transaction_onchain_completed_body">Bạn có thể theo dõi nó trên Etherscan.</string>
+  <string name="transaction_onchain_completed_body">Bạn có thể theo dõi trên Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Được cung cấp bởi Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -281,7 +281,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">đã xử lý</string>
+  <string name="proceed">tiếp tục</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Xài AppCoin của bạn</string>
@@ -526,7 +526,7 @@
   <string name="purchase_error_try_other_amount_or_method">Rất tiếc&#8230; Đã xảy ra sự cố! Hãy thử với một phương thức thanh toán hoặc số tiền nạp khác.</string>
   <string name="purchase_error_try_cheaper_item">Thứ đó khá đắt đỏ! Vui lòng thử mua một món hàng có giá trị thấp hơn.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Thứ đó khá đắt đỏ! Vui lòng thử mua một món hàng rẻ hơn hoặc thử một phương thức thanh toán mới.</string>
-  <string name="transfer_appc_error_no_eth_title">Bạn cần Ether!</string>
+  <string name="transfer_appc_error_no_eth_title">Bạn cần có Ether!</string>
   <string name="transfer_appc_error_no_eth_body">Phí chuyển AppCoins được thanh toán bằng Ethereum, vì vậy bạn cần ETH để có thể chuyển APPC.</string>
   <string name="purchase_error_invalid_credit_card">Số thẻ không hợp lệ. Hãy chắc rằng tất cả các chữ số đều chính xác.</string>
   <string name="purchase_error_card_security_validation">Đã xảy ra lỗi khi xác thực cấp độ 2 cho giao dịch này. Vui lòng thử lại.</string>
@@ -896,7 +896,7 @@
   <string name="rate_us_back_body">Xếp hạng Ví AppCoins trên cửa hàng ứng dụng để chúng tôi có thể cải thiện nó.</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your bank card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và sẽ hoàn lại tiền ngay khi bạn xác nhận mã. Tùy thuộc vào ngân hàng của bạn, có thể mất từ vài phút đến vài ngày.</string>
+  <string name="card_verification_charde_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và sẽ hoàn lại tiền ngay khi bạn xác nhận mã. Tùy thuộc vào ngân hàng của bạn, có thể sẽ mất từ vài phút đến vài ngày.</string>
   <string name="card_verification_code_title">Kiểm tra mã trong chi tiết giao dịch</string>
   <string name="card_verification_code_body">Mã sẽ xuất hiện trong bản tóm tắt giao dịch do công ty phát hành thẻ của bạn cung cấp.</string>
   <string name="card_verification_code_example_title">Ví dụ về Tóm tắt Giao dịch</string>
@@ -938,17 +938,17 @@
   <string name="change_currency_choose_button">Chọn tiền tệ</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Giao dịch đang được thực hiện!</string>
-  <string name="block_transaction_disclaimer_body">Bạn có thể theo dõi nó trên Etherscan.</string>
+  <string name="block_transaction_disclaimer_body">Bạn có thể theo dõi trên Etherscan.</string>
   <!--  Withdraw Funds-->
   <string name="e_skills_withdraw_settings_title">Rút tiền e-Skills</string>
   <string name="e_skills_withdraw_email">Địa chỉ email PayPal</string>
   <string name="e_skills_withdraw_amount">Số tiền (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Nhập địa chỉ e-mail của bạn ở đây</string>
+  <string name="e_skills_withdraw_email_hint">Nhập địa chỉ email của bạn ở đây</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
   <string name="e_skills_withdraw_title">Rút tiền e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Email không hợp lệ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Không đủ số dư</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Bạn chỉ có thể rút được tiền kiếm được từ các trò chơi e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Bạn chỉ có thể rút tiền kiếm được từ các trò chơi e-Skills</string>
   <string name="e_skills_withdraw_max_amount">Số tiền tối đa bạn có thể rút: %s</string>
   <string name="e_skills_more_info_button">Thêm thông tin</string>
   <!--Promo Code-->
@@ -967,12 +967,12 @@
   <string name="appcoins_info_title">Giới thiệu AppCoins</string>
   <string name="appcoins_info_prince_title">Giá AppCoins (APPC)</string>
   <string name="appcoins_info_title_1">AppCoins là gì?</string>
-  <string name="appcoins_info_body_1">AppCoins là một đồng tiền kỹ thuật số được Aptoide tạo ra và được sử dụng rộng rãi bởi hơn 200 triệu người dùng trên toàn thế giới. Mục tiêu chính của giải pháp thanh toán sáng tạo này là tạo niềm tin vào nền kinh tế ứng dụng và loại bỏ các bên trung gian.</string>
+  <string name="appcoins_info_body_1">AppCoins là một đồng tiền kỹ thuật số được tạo ra bởi Aptoide và được sử dụng rộng rãi bởi hơn 200 triệu người dùng trên toàn thế giới. Mục tiêu chính của giải pháp thanh toán sáng tạo này là nhằm tạo niềm tin vào nền kinh tế ứng dụng và loại bỏ các bên trung gian.</string>
   <string name="appcoins_info_title_1b">Cũng như tất cả các đồng tiền kỹ thuật số khác, giá trị AppCoins thay đổi liên tục liên quan đến đơn vị tiền tệ ưa thích của bạn (EUR, USD...). Bạn có thể theo dõi những biến động này theo thời gian trong hình trên.</string>
   <string name="appcoins_info_title_2">AppCoins để làm gì?</string>
-  <string name="appcoins_info_body_2">Bạn có thể sử dụng AppCoins và AppCoins Credits để thanh toán trong các ứng dụng yêu thích của bạn. Bạn sẽ nhận được AppCoins Credits như một phần thưởng khi mua hàng bằng bất kỳ phương thức thanh toán nào khác (thẻ ngân hàng, PayPal...) và cả khi nạp vào Ví AppCoins của mình.</string>
+  <string name="appcoins_info_body_2">Bạn có thể sử dụng AppCoins và AppCoins Credits để thanh toán trong các ứng dụng yêu thích của mình. Bạn sẽ nhận được AppCoins Credits như một phần thưởng khi mua hàng bằng bất kỳ phương thức thanh toán nào khác (thẻ ngân hàng, PayPal...) hoặc bằng tiền được nạp vào Ví AppCoins của bạn.</string>
   <string name="appcoins_info_website_title">Trang web</string>
-  <string name="appcoins_info_explorer_title">Trình duyệt web</string>
+  <string name="appcoins_info_explorer_title">Trình duyệt</string>
   <string name="appcoins_info_market_cap_title">Vốn hóa thị trường</string>
   <string name="appcoins_info_volume_title">Khối lượng (24h)</string>
 </resources>
