@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Vietnamese\n"
 "Language: vi_VN\n"
-"PO-Revision-Date: 2021-10-16 14:35\n"
+"PO-Revision-Date: 2021-10-16 15:38\n"
 
 #. Card Title
 #:
@@ -20,7 +20,7 @@ msgstr "Kiếm AppCoins Credits!"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của bạn trong {1}, ngoại trừ khi bạn sử dụng AppCoins Credits."
+msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của mình trong {1}, ngoại trừ khi bạn sử dụng AppCoins Credits."
 
 #. Card - Purchase Promotion.
 #:
@@ -55,7 +55,7 @@ msgstr "Bởi vì bạn đã đạt đến cấp kế tiếp."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của bạn trong {1}, ngoại trừ khi bạn sử dụng AppCoins Credits."
+msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của mình trong {1}, ngoại trừ khi bạn sử dụng AppCoins Credits."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -110,7 +110,7 @@ msgstr "Vì bạn đã chi tiêu {0} {1} trong các ứng dụng AppCoins."
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Nhận thêm {0}% tiền thưởng cho tất cả các giao dịch mua của mình, ngoại trừ khi bạn sử dụng AppCoins Credits."
 
 #. Card - Title - Common
 #:
