@@ -246,7 +246,7 @@
   <string name="transaction_type_reverted_purchase_title">Terugbetaalde aankoop</string>
   <string name="transaction_type_reverted_purchase_body">De aankoop die je hebt uitgevoerd op %s is teruggedraaid. Neem voor meer informatie contact op met de klantenservice.</string>
   <string name="transaction_reverted_view_original_header">Oorspronkelijke transactie</string>
-  <string name="transaction_onchain_completed_title">Transactie wordt verwerkt!</string>
+  <string name="transaction_onchain_completed_title">Transactie is in behandeling!</string>
   <string name="transaction_onchain_completed_body">Je kunt de transactie op Etherscan volgen.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Mogelijk gemaakt door Ethereum</string>
@@ -264,7 +264,7 @@
   <string name="dialog_credit_card_number">Kaartnummer</string>
   <string name="dialog_credit_card_expiration">Vervaldatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Creditcard/betaalkaart</string>
   <string name="dialog_expiry_date">Vervaldatum</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
@@ -324,7 +324,7 @@
   <string name="gamification_star_subtitle">Groot, glanzend en zeer levendig!</string>
   <string name="gamification_galaxy_subtitle">De grootste van allemaal!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Deze aankoop heeft een bonus!</string>
+  <string name="gamification_purchase_header">Deze aankoop bevat een bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus voor aankoop:</string>
   <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
   <string name="gamification_purchase_body">Je kunt deze bonus bij je volgende aankoop gebruiken.</string>
@@ -444,7 +444,7 @@
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Code inwisselen</string>
   <string name="settings_item_support">Neem contact op met support</string>
   <string name="settings_subheader_support">Ondersteuning</string>
   <string name="settings_subheader_about_us">Over ons</string>
@@ -528,13 +528,13 @@
   <string name="purchase_error_try_cheaper_item_or_method">Dat is behoorlijk duur! Probeer een goedkoper item te kopen of gebruik een andere betaalmethode.</string>
   <string name="transfer_appc_error_no_eth_title">Je hebt Ether nodig!</string>
   <string name="transfer_appc_error_no_eth_body">Omdat de transactiekosten voor AppCoins in Ethereum worden betaald, heb je ETH nodig om APPC over te dragen.</string>
-  <string name="purchase_error_invalid_credit_card">Ongeldig bankkaartnummer. Controleer of de juiste cijfers zijn ingevoerd.</string>
+  <string name="purchase_error_invalid_credit_card">Ongeldig betaalkaartnummer. Controleer of de juiste cijfers zijn ingevoerd.</string>
   <string name="purchase_error_card_security_validation">Bij deze transactie is een fout bij de verificatie op het 2e niveau opgetreden. Probeer het opnieuw.</string>
   <string name="purchase_error_transaction_timeout">Het lijkt erop dat je er te lang over hebt gedaan om de transactie te voltooien. Probeer het opnieuw.</string>
   <string name="purchase_error_card_already_in_progress">Je verzoek is al verwerkt of is in behandeling. Even geduld.</string>
   <string name="purchase_error_payment_rejected">Betaling is geweigerd! Probeer een kaart van een andere uitgever of een andere betaalmethode te gebruiken.</string>
   <string name="purchase_error_verify_wallet">Probeer je wallet te verifiëren om dit probleem op te lossen.</string>
-  <string name="purchase_eskills_sku">Vereiste APPC</string>
+  <string name="purchase_eskills_sku">Toegangsticket</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -821,7 +821,7 @@
   <string name="carrier_billing_terms_button">Algemene voorwaarden</string>
   <string name="carrier_billing_privacy_button">Privacybeleid</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Creditcard/betaalkaart toevoegen</string>
   <string name="manage_cards_settings_manage_title">Kaarten beheren</string>
   <string name="manage_cards_view_title">Kaarten beheren</string>
   <string name="manage_cards_view_manage_subtitle">Beheer je betaalkaarten</string>
@@ -902,7 +902,7 @@
   <string name="rate_us_back_title">Wil je ons helpen?</string>
   <string name="rate_us_back_body">Beoordeel de AppCoins Wallet in de App Store zodat we de wallet kunnen verbeteren.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Gebruik je creditcard/betaalkaart om je wallet te verifiëren.</string>
   <string name="card_verification_charde_disclaimer">We brengen via je kaart %s in rekening en betalen het bedrag terug zodra je de code bevestigt. Afhankelijk van je bank kan dit enkele minuten tot enkele dagen duren.</string>
   <string name="card_verification_code_title">Controleer de code via de transactiegegevens</string>
   <string name="card_verification_code_body">Het transactieoverzicht dat wordt verstrekt door de uitgever van je kaart bevat een unieke code.</string>
@@ -946,11 +946,11 @@
   <string name="change_currency_settings_title">Valuta</string>
   <string name="change_currency_choose_button">Valuta kiezen</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transactie wordt verwerkt!</string>
+  <string name="block_transaction_disclaimer_title">Transactie is in behandeling!</string>
   <string name="block_transaction_disclaimer_body">Je kunt de transactie op Etherscan volgen.</string>
   <!--  Withdraw Funds-->
   <string name="e_skills_withdraw_settings_title">e-Skills uitbetalen</string>
-  <string name="e_skills_withdraw_email">E--mailadres voor Paypal</string>
+  <string name="e_skills_withdraw_email">E-mailadres voor PayPal</string>
   <string name="e_skills_withdraw_amount">Bedrag (USD)</string>
   <string name="e_skills_withdraw_email_hint">Voer hier je e-mailadres in</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
@@ -976,12 +976,12 @@
   <string name="appcoins_info_title">Over AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins-prijs (APPC)</string>
   <string name="appcoins_info_title_1">Wat zijn AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
+  <string name="appcoins_info_body_1">AppCoins zijn digitale tokens die door Aptoide zijn gecreëerd en wereldwijd door meer dan 200 miljoen personen worden gebruikt. Het belangrijkste doel van deze innovatieve betaaloplossing is om een betrouwbare betaalmethode zonder tussenpersonen voor aankopen in apps te bieden.</string>
+  <string name="appcoins_info_title_1b">Net als voor alle andere digitale tokens geldt dat de waarde van AppCoins ten opzichte van andere valuta (EUR, USD enz.) voortdurend verandert. In het bovenstaande tijdschema kun je de koersverandering volgen.</string>
+  <string name="appcoins_info_title_2">Waar worden AppCoins voor gebruikt?</string>
+  <string name="appcoins_info_body_2">Zowel AppCoins als AppCoins Credits kunnen worden gebruikt om betalingen in je favoriete apps te voltooien. Je krijgt een bonus in AppCoins Credits als je een andere betaalmethode (betaalkaart, PayPal enz.) gebruikt om een aankoop te doen en wanneer je je AppCoins Wallet opwaardeert.</string>
   <string name="appcoins_info_website_title">Website</string>
-  <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_explorer_title">Verkenner</string>
+  <string name="appcoins_info_market_cap_title">Marktkapitalisatie</string>
+  <string name="appcoins_info_volume_title">Volume (24 uur)</string>
 </resources>
