@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
-  <string name="processing_loading_title">Getting your entry ticket</string>
-  <string name="finding_room_loading_title">Waiting for opponents</string>
+  <string name="processing_loading_title">Toegangsticket ophalen</string>
+  <string name="finding_room_loading_title">Wachten op tegenstanders</string>
   <string name="finding_room_loading_message">Dit kan even duren…</string>
-  <string name="refunded">Your money has been refunded.</string>
+  <string name="refunded">Je geld is terugbetaald.</string>
   <string name="ok">OK</string>
   <string name="cancel">Annuleren</string>
   <string name="connectoin_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
