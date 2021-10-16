@@ -962,17 +962,17 @@
   <string name="promo_code_active_tag">သုံးႏိုင္ေသာ</string>
   <string name="promo_code_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
   <string name="promo_code_success_title">ၿပီးပါၿပီ။</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_success_body">သင့္ဝယ္ယူမႈမ်ား အားလုံးတြင္ %s%% အပိုေဘာနပ္စ္ ရရွိပါမည္။</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">AppCoins အေၾကာင္း</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
-  <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_prince_title">AppCoins ေစ်းႏႈန္း (APPC)</string>
+  <string name="appcoins_info_title_1">AppCoins ဆိုတာဘာလဲ။</string>
+  <string name="appcoins_info_body_1">AppCoins သည္ Aptoide မွ ဖန္တီးထားေသာ ဒီဂ်စ္တယ္တိုကင္ တစ္ခုျဖစ္ၿပီး ကမာၻအႏွံ႔တြင္ အသုံးျပဳသူေပါင္း သန္း ၂၀၀ ေက်ာ္က အသုံးျပဳေနပါသည္။ ဤဆန္းသစ္တီထြင္ထားေသာ ေငြေပးေခ်မႈ ေျဖရွင္းခ်က္၏ အဓိက ရည္႐ြယ္ခ်က္မွာ အက္ပ္စီးပြားေရးတြင္ ယုံၾကည္မႈကို ရေစရန္ႏွင့္ ၾကားခံေဆာင္႐ြက္သူမ်ားကို ဖယ္ရွားရန္ ျဖစ္ပါသည္။</string>
+  <string name="appcoins_info_title_1b">ဒီဂ်စ္တယ္တိုကင္မ်ား အားလုံးကဲ့သို႔ပင္ AppCoins တန္ဖိုးသည္ သင္ေ႐ြးခ်ယ္ထားေသာ ေငြေၾကးပုံစံ (EUR, USD...) အလိုက္ အၿမဲတမ္း ေျပာင္းလဲမည္ ျဖစ္ပါသည္။ အထက္ပါပုံတြင္ ဤအေျပာင္းအလဲမ်ားကို အခ်ိန္ႏွင့္အမွ် လိုက္ၾကည့္ႏိုင္ပါသည္။</string>
+  <string name="appcoins_info_title_2">AppCoins ေတြက ဘာအတြက္လဲ။</string>
+  <string name="appcoins_info_body_2">AppCoins ႏွင့္ AppCoins Credits ႏွစ္မ်ိဳးစလုံးကို သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ ေငြေပးေခ်မႈမ်ား ျပဳလုပ္ရန္အတြက္ အသုံးျပဳႏိုင္ပါသည္။ အျခားေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုခု (ဘဏ္ကဒ္၊ PayPal...) ျဖင့္ ဝယ္ယူမႈတစ္ခုကို ျပဳလုပ္ျခင္းႏွင့္ သင့္ AppCoins Wallet ကို ေငြျဖည့္ျခင္းတို႔တြင္ ေဘာနပ္စ္အျဖစ္ AppCoins Credits မ်ားကို သင္ရရွိမည္ ျဖစ္ပါသည္။</string>
+  <string name="appcoins_info_website_title">ဝဘ္ဆိုက္</string>
+  <string name="appcoins_info_explorer_title">လိုက္ၾကည့္ရန္</string>
+  <string name="appcoins_info_market_cap_title">ေစ်းကြက္တန္ဖိုး</string>
+  <string name="appcoins_info_volume_title">ပမာဏ (၂၄ နာရီ)</string>
 </resources>
