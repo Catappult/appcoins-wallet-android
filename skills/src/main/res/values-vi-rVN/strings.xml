@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="provide_wallet_creating_wallet_header">Đang tạo địa chỉ ví&#8230;</string>
-  <string name="processing_loading_title">Nhận vé tham gia của bạn</string>
+  <string name="processing_loading_title">Tải vé tham gia của bạn</string>
   <string name="finding_room_loading_title">Chờ đối thủ</string>
   <string name="finding_room_loading_message">Việc này có thể mất một lúc…</string>
   <string name="refunded">Tiền của bạn đã được hoàn trả.</string>
