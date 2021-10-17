@@ -28,7 +28,7 @@
   <string name="label_new">ਨਵਾਂ</string>
   <string name="got_it_button">ਠੀਕ ਹੈ!</string>
   <string name="change_button">ਬਦਲੋ</string>
-  <string name="vip">VIP</string>
+  <string name="vip">ਵੀਈਪੀ</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission_title">ਕੈਮਰਾ ਅਧਿਕਾਰ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
@@ -527,13 +527,13 @@
   <string name="purchase_error_try_cheaper_item">ਇਹ ਕਾਫ਼ੀ ਮਹਿੰਗਾ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਘੱਟ ਮੁੱਲ ਦੀ ਚੀਜ਼ ਖਰੀਦਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="purchase_error_try_cheaper_item_or_method">ਇਹ ਕਾਫ਼ੀ ਮਹਿੰਗਾ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਸਸਤੀ ਚੀਜ਼ ਨੂੰ ਖਰੀਦਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਵੱਖਰੀ ਭੁਗਤਾਨ ਵਿਧੀ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="transfer_appc_error_no_eth_title">ਤੁਹਾਨੂੰ ਈਥਰ ਦੀ ਲੋੜ ਹੈ!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
-  <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
-  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
-  <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
-  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
+  <string name="transfer_appc_error_no_eth_body">ਐਪ ਸਿੱਕੇ ਟ੍ਰਾਂਸਫਰ ਫੀਸਾਂ ਇਥਿਰਿਅਮ ਵਿੱਚ ਅਦਾ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਐਪ ਸਿੱਕੇ ਟ੍ਰਾਂਸਫਰ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਇਥਿਰਿਅਮ ਦੀ ਜ਼ਰੂਰਤ ਹੋਏਗੀ|</string>
+  <string name="purchase_error_invalid_credit_card">ਗਲਤ ਬੈਂਕ ਕਾਰਡ ਨੰਬਰ| ਕਿਰਪਾ ਕਰਕੇ ਦੇਖੋ ਕਿ ਸਾਰੇ ਅੰਕ ਸਹੀ ਹੋਣ|</string>
+  <string name="purchase_error_card_security_validation">ਇਸ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਦੇ ਦੂਜੇ ਪੱਧਰ ਦੀ ਪ੍ਰਮਾਣਿਕਤਾ ਵਿੱਚ ਇੱਕ ਗੜਬੜ ਹੋਈ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
+  <string name="purchase_error_transaction_timeout">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਸੀ ਬਹੁਤ ਸਮਾਂ ਲਗਾ ਦਿੱਤਾ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
+  <string name="purchase_error_card_already_in_progress">ਤੁਹਾਡੀ ਬੇਨਤੀ ਤੇ ਪਹਿਲਾਂ ਹੀ ਕਾਰਵਾਈ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ ਜਾਂ ਜਾਰੀ ਹੈ| ਕ੍ਰਿਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ|</string>
+  <string name="purchase_error_payment_rejected">ਭੁਗਤਾਨ ਅਸਵੀਕਾਰ! ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਜਾਰੀਕਰਤਾ ਦੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਹੋਰ ਭੁਗਤਾਨ ਵਿਧੀ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
+  <string name="purchase_error_verify_wallet">ਇਸ ਸਥਿਤੀ ਤੋਂ ਬਾਹਰ ਨਿਕਲਣ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="purchase_eskills_sku">ਦਾਖਲਾ ਟਿਕਟ</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
@@ -716,7 +716,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ</string>
   <string name="subscriptions_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">ਸਬਸਕ੍ਰਾਈਬ</string>
   <string name="subscriptions_active_title">ਐਕਟਿਵ</string>
   <string name="subscriptions_expired_title">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
   <string name="subscriptions_inactive_title">ਇਨ ਐਕਟਿਵ</string>
@@ -734,8 +734,8 @@
   <string name="subscriptions_details_button">ਵੇਰਵਾ</string>
   <string name="subscriptions_manage_button">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ</string>
   <string name="subscriptions_cancel_button">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
-  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
+  <string name="subscriptions_renew_subscription_button">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਰਿਨੀਊ ਕਰੋ</string>
+  <string name="subscriptions_renewed_confirmation_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਰਿਨੀਊ ਕੀਤੀ ਗਈ!</string>
   <string name="subscriptions_cancel_title">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_cancel_body">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨੂੰ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="subscriptions_cancel_no_button">ਨਹੀਂ, ਵਾਪਸ ਜਾਓ</string>
@@ -840,7 +840,7 @@
   <string name="perks_title">ਪ੍ਰਚਾਰ</string>
   <string name="perks_body">ਸਾਡੇ ਨਾਲ ਜੁੜੇ ਰਹੇ! ਸਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਲਈ ਵਿਸ਼ੇਸ਼ ਆਫਰਾਂ ਹਨ|</string>
   <plurals name="promotion_ends">
-    <item quantity="one">The promotion ends in %s day.</item>
+    <item quantity="one">ਆਫਰ %s ਦਿਨ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
     <item quantity="other">ਆਫਰ %s ਦਿਨਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
   </plurals>
   <plurals name="promotion_ends_short">
@@ -857,7 +857,7 @@
     <item quantity="other">ਇਹ %s ਘੰਟੇਆਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
-    <item quantity="one">The promotion ends in %s minute.</item>
+    <item quantity="one">ਆਫਰ %s ਮਿੰਟ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
     <item quantity="other">ਆਫਰ %s ਮਿੰਟਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
@@ -903,7 +903,7 @@
   <string name="rate_us_back_body">ਐਪ ਸਟੋਰ ਤੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ ਤਾਂ ਜੋ ਅਸੀਂ ਇਸ ਵਿੱਚ ਸੁਧਾਰ ਕਰ ਸਕੀਏ|</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your bank card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
+  <string name="card_verification_charde_disclaimer">ਅਸੀਂ ਤੁਹਾਡੇ ਕਾਰਡ ਤੋਂ %s ਰੁਪਏ ਕਟਾਂਗੇ ਅਤੇ ਜਦੋਂ ਤੁਸੀਂ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋਗੇ ਤਾਂ ਅਸੀਂ ਉਹ ਪੈਸੇ ਵਾਪਸ ਕਰ ਦੇਵਾਂਗੇ| ਤੁਹਾਡੇ ਬੈਂਕ ਤੇ ਨਿਰਭਰ ਕਰਦਿਆਂ, ਇਸ ਵਿੱਚ ਮਿੰਟਾਂ ਤੋਂ ਲੈ ਕੇ ਕੁੱਝ ਦਿਨਾਂ ਤੱਕ ਦਾ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ|</string>
   <string name="card_verification_code_title">ਲੈਣਦੇਣ ਦੇ ਵੇਰਵੇਆਂ ਵਿੱਚ ਕੋਡ ਦੀ ਜਾਂਚ ਕਰੋ</string>
   <string name="card_verification_code_body">ਤੁਹਾਡੇ ਕਾਰਡ ਦੇ ਜਾਰੀਕਰਤਾ ਦੁਆਰਾ ਪ੍ਰਦਾਨ ਕੀਤੇ ਸੌਦੇ ਦੇ ਸੰਖੇਪ ਵਿੱਚ ਇੱਕ ਵਿਲੱਖਣ ਕੋਡ ਦਿਖਾਈ ਦੇਵੇਗਾ|</string>
   <string name="card_verification_code_example_title">ਲੈਣ-ਦੇਣ ਦੇ ਸੰਖੇਪ ਦੀ ਉਦਾਹਰਣ</string>
@@ -913,8 +913,8 @@
   <string name="card_verification_code_example_code">ਵਿਲੱਖਣ ਕੋਡ| \n%s ਦਿਨਾਂ ਵਿੱਚ ਖਤਮ ਹੁੰਦਾ ਹੈ|</string>
   <string name="card_verification_code_enter_title">%s ਅੰਕਾਂ ਦਾ ਕੋਡ ਭਰੋ</string>
   <plurals name="card_verification_code_enter_hours_body">
-    <item quantity="one">%1$s will be refunded within %2$s hour after you confirm the code.</item>
-    <item quantity="other">ਤੁਹਾਡੇ ਦੁਆਰਾ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਤੋਂ ਬਾਅਦ %1$s ਨੂੰ %2$s ਘੰਟੇਆਂ ਦੇ ਅੰਦਰ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ|</item>
+    <item quantity="one">ਤੁਹਾਡੇ ਦੁਆਰਾ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਤੋਂ ਬਾਅਦ %1$s %2$s ਘੰਟੇ ਦੇ ਅੰਦਰ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ|</item>
+    <item quantity="other">ਤੁਹਾਡੇ ਦੁਆਰਾ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਤੋਂ ਬਾਅਦ %1$s %2$s ਘੰਟੇਆਂ ਦੇ ਅੰਦਰ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ|</item>
   </plurals>
   <plurals name="card_verification_code_enter_days_body">
     <item quantity="one">ਤੁਹਾਡੇ ਦੁਆਰਾ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਤੋਂ ਬਾਅਦ %1$s ਨੂੰ %2$s ਦਿਨ ਦੇ ਅੰਦਰ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ|</item>
@@ -942,46 +942,46 @@
   <string name="voucher_empty_more_title">ਗੇਮਾਂ ਲਈ ਵਾਊਚਰ</string>
   <string name="voucher_empty_more_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਗੇਮਾਂ ਲਈ ਵਧੀਆ ਸੌਦੇ ਲੱਭੋ!</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
-  <string name="change_currency_choose_button">Choose currency</string>
+  <string name="change_currency_title">ਮੁਦਰਾ ਬਦਲੋ</string>
+  <string name="change_currency_settings_title">ਮੁਦਰਾ</string>
+  <string name="change_currency_choose_button">ਮੁਦਰਾ ਚੁਣੋ</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਰਸਤੇ ਵਿੱਚ ਹੈ!</string>
+  <string name="block_transaction_disclaimer_body">ਤੁਸੀਂ ਇਸਨੂੰ ਈਥਰਸਕੈਨ ਤੇ ਟ੍ਰੈਕ ਕਰ ਸਕਦੇ ਹੋ|</string>
   <!--  Withdraw Funds-->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
-  <string name="e_skills_withdraw_amount_hint">0 USD</string>
-  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+  <string name="e_skills_withdraw_settings_title">ਈ-ਹੁਨਰ ਵਾਪਸ ਲਓ</string>
+  <string name="e_skills_withdraw_email">ਪੇਪਾਲ ਈ-ਮੇਲ ਪਤਾ</string>
+  <string name="e_skills_withdraw_amount">ਰਕਮ (ਡਾਲਰ)</string>
+  <string name="e_skills_withdraw_email_hint">ਤੁਹਾਡਾ ਈ-ਮੇਲ ਪਤਾ ਇੱਥੇ</string>
+  <string name="e_skills_withdraw_amount_hint">0 ਡਾਲਰ</string>
+  <string name="e_skills_withdraw_title">ਈ-ਹੁਨਰ ਵਾਪਸ ਲਓ</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">ਗਲਤ ਈ-ਮੇਲ</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">ਲੋੜੀਂਦਾ ਬੈਲੰਸ ਨਹੀਂ</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">ਤੁਸੀਂ ਸਿਰਫ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ</string>
+  <string name="e_skills_withdraw_max_amount">ਅਧਿਕਤਮ ਰਕਮ ਜੋ ਤੁਸੀਂ ਕੱਢਵਾ ਸਕਦੇ ਹੋ: %s</string>
+  <string name="e_skills_more_info_button">ਹੋਰ ਜਾਣਕਾਰੀ</string>
   <!--Promo Code-->
-  <string name="promo_code_settings_title">Promo Code</string>
-  <string name="promo_code_view_title">Promo Code</string>
-  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
-  <string name="promo_code_view_field">Promo Code here...</string>
-  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
-  <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
-  <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_settings_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
+  <string name="promo_code_view_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
+  <string name="promo_code_view_body">ਵਿਸ਼ੇਸ਼ ਡੀਲਾਂ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਇੱਕ ਪ੍ਰੋਮੋ ਕੋਡ ਪਾਓ!</string>
+  <string name="promo_code_view_field">ਪ੍ਰੋਮੋ ਕੋਡ ਇੱਥੇ...</string>
+  <string name="promo_code_view_error">ਗਲਤ ਕੋਡ| ਕਿਸੇ ਹੋਰ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
+  <string name="promo_code_activated">ਪ੍ਰੋਮੋ ਕੋਡ ਲਗਾ ਦਿੱਤਾ ਗਿਆ!</string>
+  <string name="promo_code_replace_button">ਬਦਲੋ</string>
+  <string name="promo_code_active_tag">ਐਕਟਿਵ</string>
+  <string name="promo_code_expired_tag">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
+  <string name="promo_code_success_title">ਹੋ ਗਿਆ!</string>
+  <string name="promo_code_success_body">ਤੁਹਾਨੂੰ ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ %s%% ਵਾਧੂ ਬੋਨਸ ਮਿਲੇਗਾ|</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">ਐਪ ਸਿੱਕਿਆਂ ਬਾਰੇ</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
-  <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_prince_title">ਐਪ ਸਿੱਕਿਆਂ ਦੀ ਕੀਮਤ (ਐਪਸੀ)</string>
+  <string name="appcoins_info_title_1">ਐਪ ਸਿੱਕੇ ਕੀ ਹਨ?</string>
+  <string name="appcoins_info_body_1">ਐਪ ਸਿੱਕੇ ਇੱਕ ਡਿਜੀਟਲ ਟੋਕਨ ਹੈ ਜੋ ਐਪਟਾਇਡ ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ ਹੈ ਅਤੇ ਦੁਨੀਆ ਭਰ ਵਿੱਚ 2000 ਲੱਖ ਤੋਂ ਵੱਧ ਉਪਭੋਗਤਾਵਾਂ ਦੁਆਰਾ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ| ਇਸ ਨਵੀਨਤਾਕਾਰੀ ਭੁਗਤਾਨ ਹੱਲ ਦਾ ਮੁੱਖ ਟੀਚਾ ਐਪਾਂ ਦੀ ਆਰਥਿਕਤਾ ਵਿੱਚ ਵਿਸ਼ਵਾਸ ਪ੍ਰਦਾਨ ਕਰਨਾ ਅਤੇ ਵਿਚੋਲਿਆਂ ਨੂੰ ਹਟਾਉਣਾ ਹੈ|</string>
+  <string name="appcoins_info_title_1b">ਸਾਰੇ ਡਿਜੀਟਲ ਟੋਕਨਾਂ ਵਾਂਗ, ਐਪ ਸਿੱਕਿਆਂ ਦੀ ਕੀਮਤ ਤੁਹਾਡੀ ਪਸੰਦੀਦਾ ਮੁਦਰਾ (ਯੂਰੋ, ਡਾਲਰ...) ਦੇ ਸੰਬੰਧ ਵਿੱਚ ਨਿਰੰਤਰ ਬਦਲਦੀ ਰਹਿੰਦੀ ਹੈ| ਤੁਸੀਂ ਉਪਰੋਕਤ ਗ੍ਰਾਫਿਕ ਵਿੱਚ ਸਮੇਂ ਦੇ ਨਾਲ ਇਹਨਾਂ ਤਬਦੀਲੀਆਂ ਨੂੰ ਟ੍ਰੈਕ ਕਰ ਸਕਦੇ ਹੋ|</string>
+  <string name="appcoins_info_title_2">ਐਪ ਸਿੱਕੇ ਕਿਸ ਕੰਮ ਲਈ ਹਨ?</string>
+  <string name="appcoins_info_body_2">ਐਪਸਿੱਕੇ ਅਤੇ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਦੋਵਾਂ ਦੀ ਵਰਤੋਂ ਤੁਹਾਡੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿੱਚ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ| ਜਦੋਂ ਤੁਸੀਂ ਕਿਸੇ ਹੋਰ ਭੁਗਤਾਨ ਵਿਧੀ (ਬੈਂਕ ਕਾਰਡ, ਪੇਪਾਲ...) ਨਾਲ ਖਰੀਦਦਾਰੀ ਕਰਦੇ ਹੋ ਅਤੇ ਆਪਣੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਸਿਖਰ ਤੇ ਲਿਆਉਂਦੇ ਹੋ ਤਾਂ ਤੁਸੀਂ ਬੋਨਸ ਦੇ ਰੂਪ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
+  <string name="appcoins_info_website_title">ਵੈਬਸਾਈਟ</string>
+  <string name="appcoins_info_explorer_title">ਐਕਸਪਲੋਰਰ</string>
+  <string name="appcoins_info_market_cap_title">ਮਾਰਕਿਟ ਦਾ ਹਿੱਸਾ</string>
+  <string name="appcoins_info_volume_title">ਵਾਲਿਊਮ (24 ਘੰਟੇ)</string>
 </resources>
