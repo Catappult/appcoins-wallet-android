@@ -2,7 +2,7 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">이 아이템 구매를 위해서 %s을 받아야 합니다.</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">AppCoins 지갑</string>
   <string name="iab_wallet_not_installed_popup_close_button">닫기</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">이 구매를 위해서 AppCoins 지갑이 필요합니다. Aptoide 또는 Play Store에서 다운로드하고 구매를 완료하세요!</string>
