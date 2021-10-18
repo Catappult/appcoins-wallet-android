@@ -4,11 +4,12 @@ import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.asfoundation.wallet.eskills_withdraw.WithdrawResult
 import com.google.gson.Gson
 import retrofit2.HttpException
+import java.math.BigDecimal
 
 class WithdrawApiMapper(private val jsonMapper: Gson) {
-  fun map(error: Throwable): WithdrawResult {
+  fun map(amount: BigDecimal, error: Throwable): WithdrawResult {
     if (error.isNoNetworkException()) {
-      return WithdrawResult(WithdrawResult.Status.NO_NETWORK)
+      return WithdrawResult(amount, WithdrawResult.Status.NO_NETWORK)
     }
     val response = jsonMapper.fromJson(
       (error as HttpException).response()
@@ -17,9 +18,9 @@ class WithdrawApiMapper(private val jsonMapper: Gson) {
       Response::class.java
     )
     return when (response.message.code) {
-      Status.AMOUNT_NOT_WON -> WithdrawResult(WithdrawResult.Status.NOT_ENOUGH_EARNING)
-      Status.NOT_ENOUGH_BALANCE -> WithdrawResult(WithdrawResult.Status.NOT_ENOUGH_BALANCE)
-      Status.INVALID_EMAIL -> WithdrawResult(WithdrawResult.Status.INVALID_EMAIL)
+      Status.AMOUNT_NOT_WON -> WithdrawResult(amount, WithdrawResult.Status.NOT_ENOUGH_EARNING)
+      Status.NOT_ENOUGH_BALANCE -> WithdrawResult(amount, WithdrawResult.Status.NOT_ENOUGH_BALANCE)
+      Status.INVALID_EMAIL -> WithdrawResult(amount, WithdrawResult.Status.INVALID_EMAIL)
     }
   }
 

@@ -18,7 +18,7 @@ class WithdrawRepository(
   fun withdrawAppcCredits(ewt: String, email: String, amount: BigDecimal): Single<WithdrawResult> {
     return withdrawApi.withdrawAppcCredits(ewt, WithdrawBody(email, amount))
         .subscribeOn(scheduler)
-        .andThen(Single.just(WithdrawResult(WithdrawResult.Status.SUCCESS)))
-        .onErrorReturn { mapper.map(it) }
+        .andThen(Single.just(WithdrawResult(amount, WithdrawResult.Status.SUCCESS)))
+        .onErrorReturn { mapper.map(amount, it) }
   }
 }

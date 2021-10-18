@@ -14,6 +14,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawAvailableAmount
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import kotlinx.android.synthetic.main.layout_appcoins_app_bar.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -124,13 +125,15 @@ class WithdrawFragment : BasePageViewFragment(),
 
   private fun handleSuccessState(withdrawResult: WithdrawResult) {
     when (withdrawResult.status) {
-      WithdrawResult.Status.SUCCESS -> showWithdrawSuccess()
+      WithdrawResult.Status.SUCCESS -> showWithdrawSuccess(withdrawResult.amount)
       else -> showWithdrawError(withdrawResult.status)
     }
   }
 
-  private fun showWithdrawSuccess() {
+  private fun showWithdrawSuccess(amount: BigDecimal) {
     views.layoutWithdrawSuccess.root.visibility = View.VISIBLE
+    views.layoutWithdrawSuccess.withdrawSuccessMessage.text =
+        getString(R.string.e_skills_withdraw_started, amount)
   }
 
   private fun showWithdrawError(withdrawStatus: WithdrawResult.Status) {
