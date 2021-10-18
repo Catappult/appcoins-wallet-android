@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="provide_wallet_creating_wallet_header">A criar o endereço da wallet&#8230;</string>
-  <string name="processing_loading_title">Getting your entry ticket</string>
-  <string name="finding_room_loading_title">Waiting for opponents</string>
+  <string name="processing_loading_title">A obter o teu bilhete de entrada</string>
+  <string name="finding_room_loading_title">À espera de adversários</string>
   <string name="finding_room_loading_message">Isto pode demorar um pouco…</string>
-  <string name="refunded">Your money has been refunded.</string>
+  <string name="refunded">O teu dinheiro foi reembolsado.</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="connectoin_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
