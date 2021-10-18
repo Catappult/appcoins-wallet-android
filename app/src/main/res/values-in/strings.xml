@@ -527,12 +527,12 @@
   <string name="purchase_error_try_cheaper_item">Itu cukup mahal! Silakan coba beli item yang nilainya lebih rendah.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Itu cukup mahal! Silakan coba beli item yang lebih murah atau coba metode pembayaran lain.</string>
   <string name="transfer_appc_error_no_eth_title">Anda membutuhkan Eter!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
-  <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
-  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
-  <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
-  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
+  <string name="transfer_appc_error_no_eth_body">Biaya transfer AppCoins dibayarkan dalam Ethereum, jadi Anda memerlukan ETH untuk mentransfer APPC.</string>
+  <string name="purchase_error_invalid_credit_card">Nomor kartu bank tidak valid. Pastikan semua digit sudah benar.</string>
+  <string name="purchase_error_card_security_validation">Terjadi kesalahan pada validasi tingkat ke-2 dari transaksi ini. Silakan coba lagi.</string>
+  <string name="purchase_error_transaction_timeout">Sepertinya Anda terlalu lama menyelesaikan transaksi. Silakan coba lagi.</string>
+  <string name="purchase_error_card_already_in_progress">Permintaan Anda sudah diproses atau sedang dijalankan. Mohon tunggu.</string>
+  <string name="purchase_error_payment_rejected">Pembayaran ditolak! Silakan coba dengan kartu dari penerbit kartu lain atau gunakan metode pembayaran lain.</string>
   <string name="purchase_error_verify_wallet">Coba verifikasi dompet Anda untuk mengatasi situasi ini.</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <!--Billing address in purchase flow-->
@@ -896,7 +896,7 @@
   <string name="rate_us_back_body">Beri nilai Dompet AppCoins di toko aplikasi agar kami bisa meningkatkannya.</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your bank card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
+  <string name="card_verification_charde_disclaimer">Kami akan membebankan biaya %s ke kartu Anda, dan akan kami kembalikan setelah Anda mengonfirmasi kode. Tergantung bank yang Anda gunakan, proses ini bisa memakan waktu hitungan menit sampai beberapa hari.</string>
   <string name="card_verification_code_title">Periksa kode di rincian transaksi</string>
   <string name="card_verification_code_body">Kode unik akan muncul pada ringkasan transaksi yang diberikan oleh penerbit kartu Anda.</string>
   <string name="card_verification_code_example_title">Contoh Ringkasan Transaksi</string>
@@ -967,10 +967,10 @@
   <string name="appcoins_info_title">Tentang AppCoins</string>
   <string name="appcoins_info_prince_title">Harga AppCoins (APPC)</string>
   <string name="appcoins_info_title_1">Apa itu AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
+  <string name="appcoins_info_body_1">AppCoins adalah token digital yang dibuat oleh Aptoide dan digunakan oleh lebih dari 200 juta pengguna di seluruh dunia. Tujuan utama yang diemban oleh solusi pembayaran inovatif ini adalah untuk memberikan kepercayaan terhadap ekonomi aplikasi serta menghapus perantara.</string>
+  <string name="appcoins_info_title_1b">Seperti halnya semua token digital lainnya, nilai AppCoins pun terus berubah terhadap mata uang pilihan Anda (EUR, USD...). Anda bisa melacak perubahan ini dari waktu ke waktu pada grafik di atas.</string>
   <string name="appcoins_info_title_2">Apa kegunaan dari AppCoins?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
+  <string name="appcoins_info_body_2">AppCoins dan Kredit AppCoins bisa digunakan untuk melakukan pembayaran dalam aplikasi favorit Anda. Anda akan menerima Kredit AppCoins sebagai bonus ketika melakukan pembelian dengan metode pembayaran lain (kartu bank, PayPal...) dan juga ketika mengisi ulang Dompet AppCoins Anda.</string>
   <string name="appcoins_info_website_title">Situs Web</string>
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Kapitalisasi Pasar</string>
