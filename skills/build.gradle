@@ -32,7 +32,7 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       buildConfigField 'String', 'BASE_HOST_SKILLS', project.BASE_HOST_SKILLS_DEV
-      buildConfigField 'String', 'BASE_HOST', project.BACKEND_HOST_DEV_BLOCKCHAINDS
+      buildConfigField 'String', 'BASE_HOST', project.BACKEND_HOST_DEV
       buildConfigField 'String', 'WALLET_PACKAGE', project.WALLET_PACKAGE_DEV
     }
     staging {
