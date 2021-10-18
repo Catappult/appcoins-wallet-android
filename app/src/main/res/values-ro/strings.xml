@@ -247,7 +247,7 @@
   <string name="transaction_type_reverted_purchase_body">Achiziția efectuată în %s a fost restituită. Contactează Asistență pentru mai multe informații.</string>
   <string name="transaction_reverted_view_original_header">Tranzacție originală</string>
   <string name="transaction_onchain_completed_title">Tranzacție în curs de procesare!</string>
-  <string name="transaction_onchain_completed_body">O poți verifica cu Etherscan.</string>
+  <string name="transaction_onchain_completed_body">O poți urmări cu Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Oferit de Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -531,10 +531,10 @@
   <string name="purchase_error_invalid_credit_card">Număr de card bancar nevalid. Asigură-te că toate cifrele sunt corecte.</string>
   <string name="purchase_error_card_security_validation">A avut loc o eroare la nivelul 2 al validării acestei tranzacții. Încearcă din nou.</string>
   <string name="purchase_error_transaction_timeout">Se pare că ai avut nevoie de prea mult timp pentru finalizarea tranzacției. Încearcă din nou.</string>
-  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
+  <string name="purchase_error_card_already_in_progress">Cererea ta a fost deja procesată sau este în curs de procesare. Te rugăm să aștepți.</string>
+  <string name="purchase_error_payment_rejected">Plată respinsă! Încearcă cu un card de la o bancă emitentă diferită sau folosește o altă metodă de plată.</string>
+  <string name="purchase_error_verify_wallet">Încearcă să îți verifici portofelul pentru a putea să rezolvi această problemă.</string>
+  <string name="purchase_eskills_sku">Tichet de intrare</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -717,7 +717,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Gestionează abonamente</string>
   <string name="subscriptions_title">Abonamente</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">Abonează-te</string>
   <string name="subscriptions_active_title">Active</string>
   <string name="subscriptions_expired_title">Expirată</string>
   <string name="subscriptions_inactive_title">Inactive</string>
@@ -735,8 +735,8 @@
   <string name="subscriptions_details_button">DETALII</string>
   <string name="subscriptions_manage_button">GESTIONEAZĂ ABONAMENTE</string>
   <string name="subscriptions_cancel_button">ANULEAZĂ ABONAMENT</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
-  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
+  <string name="subscriptions_renew_subscription_button">REÎNNOIEȘTE ABONAMENT</string>
+  <string name="subscriptions_renewed_confirmation_title">Abonament reînnoit!</string>
   <string name="subscriptions_cancel_title">Anulează Abonament</string>
   <string name="subscriptions_cancel_body">Ești sigur că vrei să anulezi acest abonament?</string>
   <string name="subscriptions_cancel_no_button">NU, DU-TE ÎNAPOI</string>
@@ -910,7 +910,7 @@
   <string name="rate_us_back_body">Evaluează AppCoins Wallet în App Store pentru a ne ajuta să îl îmbunătățim.</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your bank card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
+  <string name="card_verification_charde_disclaimer">Vom debita %s de pe cardul tău și vom rambursa suma imediat după ce confirmi codul. În funcție de banca ta, rambursarea poate dura între câteva minute și câteva zile.</string>
   <string name="card_verification_code_title">Verifică codul în detaliile tranzacției</string>
   <string name="card_verification_code_body">Un cod unic va apărea în rezumatul tranzacției furnizat de emitentul cardului tău.</string>
   <string name="card_verification_code_example_title">Exemplu de rezumat tranzacție</string>
@@ -951,46 +951,46 @@
   <string name="voucher_empty_more_title">Vouchere pentru Jocuri</string>
   <string name="voucher_empty_more_body">Găsește cele mai bune oferte pentru jocurile tale favorite!</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
-  <string name="change_currency_choose_button">Choose currency</string>
+  <string name="change_currency_title">Schimbă monedă</string>
+  <string name="change_currency_settings_title">Monedă</string>
+  <string name="change_currency_choose_button">Alege monedă</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">Tranzacție în curs de procesare!</string>
+  <string name="block_transaction_disclaimer_body">O poți urmări cu Etherscan.</string>
   <!--  Withdraw Funds-->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_settings_title">Retragere e-Skills</string>
+  <string name="e_skills_withdraw_email">Adresă de e-mail PayPal</string>
+  <string name="e_skills_withdraw_amount">Sumă (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Adresa ta de e-mail aici</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
-  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+  <string name="e_skills_withdraw_title">Retragere e-Skills</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">E-mail nevalid</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Fonduri insuficiente</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Poți retrage numai fondurile câștigate în jocurile e-Skills</string>
+  <string name="e_skills_withdraw_max_amount">Suma max. care poate fi retrasă: %s</string>
+  <string name="e_skills_more_info_button">Mai multe informații</string>
   <!--Promo Code-->
-  <string name="promo_code_settings_title">Promo Code</string>
-  <string name="promo_code_view_title">Promo Code</string>
-  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
-  <string name="promo_code_view_field">Promo Code here...</string>
-  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
-  <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
-  <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_settings_title">Cod Promo</string>
+  <string name="promo_code_view_title">Cod Promo</string>
+  <string name="promo_code_view_body">Introdu un Cod Promo pentru a te bucura de oferte speciale!</string>
+  <string name="promo_code_view_field">Cod Promo aici...</string>
+  <string name="promo_code_view_error">Cod nevalid. Încearcă cu un alt cod!</string>
+  <string name="promo_code_activated">Cod Promo activat!</string>
+  <string name="promo_code_replace_button">ÎNLOCUIEȘTE</string>
+  <string name="promo_code_active_tag">Activ</string>
+  <string name="promo_code_expired_tag">Expirat</string>
+  <string name="promo_code_success_title">Gata!</string>
+  <string name="promo_code_success_body">Vei primi un bonus suplimentar de %s%% la toate achizițiile tale.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Despre AppCoins</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
+  <string name="appcoins_info_prince_title">Preț AppCoins (APPC)</string>
+  <string name="appcoins_info_title_1">Ce sunt AppCoins?</string>
+  <string name="appcoins_info_body_1">AppCoins este un token digital creat de Aptoide și utilizat de peste 200 de milioane de utilizatori din întreaga lume. Obiectivul principal al acestei soluții de plată inovatoare este de a crește încrederea în economia aplicațiilor și de a elimina intermediarii.</string>
+  <string name="appcoins_info_title_1b">La fel ca toate celelalte token-uri digitale, valoarea AppCoins se modifică constant în raport cu moneda ta preferată (EUR, USD...). Poți urmări aceste modificări în timp în graficul de mai sus.</string>
+  <string name="appcoins_info_title_2">Când sunt folosite AppCoins?</string>
+  <string name="appcoins_info_body_2">Atât AppCoins, cât și AppCoins Credits pot fi utilizate pentru a efectua plăți în aplicațiile preferate. Vei primi AppCoins Credits ca bonus atunci când efectuezi o achiziție cu orice altă metodă de plată (card bancar, PayPal...) și, de asemenea, și atunci când încarci AppCoins Wallet.</string>
+  <string name="appcoins_info_website_title">Site web</string>
   <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_market_cap_title">Capitalizare bursieră</string>
+  <string name="appcoins_info_volume_title">Volum (24 h)</string>
 </resources>
