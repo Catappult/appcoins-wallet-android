@@ -12,6 +12,10 @@ import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseC
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.eskills_withdraw.use_cases.GetAvailableAmountToWithdrawUseCase
+import com.asfoundation.wallet.eskills_withdraw.use_cases.WithdrawToFiatUseCase
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.home.usecases.*
@@ -257,4 +261,21 @@ class UseCaseModule {
     return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
   }
 
+  @Singleton
+  @Provides
+  fun providesGetAvailableAmountToWithdrawUseCase(
+      ewt: EwtAuthenticatorService,
+      withdrawRepository: WithdrawRepository
+  ): GetAvailableAmountToWithdrawUseCase {
+    return GetAvailableAmountToWithdrawUseCase(ewt, withdrawRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesWithdrawToFiatUseCase(
+      ewt: EwtAuthenticatorService,
+      withdrawRepository: WithdrawRepository
+  ): WithdrawToFiatUseCase {
+    return WithdrawToFiatUseCase(ewt, withdrawRepository)
+  }
 }

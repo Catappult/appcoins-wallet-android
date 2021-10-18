@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.withdraw.repository
+package com.asfoundation.wallet.eskills_withdraw.repository
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal

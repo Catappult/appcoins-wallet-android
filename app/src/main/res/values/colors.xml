@@ -190,4 +190,9 @@
   <color name="change_fiat_selected_item_short">#FFFFFF</color>
   <color name="change_fiat_selected_item_long">#BABABA</color>
   <color name="change_fiat_selected_item">#192933</color>
+  
+  <!-- e-Skills Withdraw -->
+  <color name="withdraw_top_bar_yellow">#FFFAEA</color>
+  <color name="withdraw_title_color_black">#000000</color>
+  <color name="withdraw_text_color_black">#001727</color>
 </resources>

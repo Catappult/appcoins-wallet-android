@@ -99,7 +99,8 @@ import com.asfoundation.wallet.verification.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.error.VerificationErrorModule
 import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 import com.asfoundation.wallet.verification.intro.VerificationIntroModule
-import com.asfoundation.wallet.withdraw.ui.WithdrawFragment
+import com.asfoundation.wallet.eskills_withdraw.WithdrawFragment
+import com.asfoundation.wallet.eskills_withdraw.WithdrawModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -300,7 +301,7 @@ abstract class FragmentBuilders {
 
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [WithdrawModule::class])
   abstract fun bindWithdrawFragment(): WithdrawFragment
 
   @FragmentScope

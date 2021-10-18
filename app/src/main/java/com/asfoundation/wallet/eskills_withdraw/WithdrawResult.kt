@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.withdraw
+package com.asfoundation.wallet.eskills_withdraw
 
 data class WithdrawResult(val status: Status) {
   enum class Status {
