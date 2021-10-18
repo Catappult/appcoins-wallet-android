@@ -528,8 +528,8 @@
   <string name="purchase_error_try_cheaper_item_or_method">To nie są tanie rzeczy! Spróbuj kupić coś tańszego lub wypróbuj inną metodę płatności.</string>
   <string name="transfer_appc_error_no_eth_title">Musisz mieć Ether!</string>
   <string name="transfer_appc_error_no_eth_body">Opłaty za transfer AppCoins są realizowane w Ethereum, dlatego potrzebujesz ETH.</string>
-  <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
-  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
+  <string name="purchase_error_invalid_credit_card">Nieważny numer karty. Sprawdź czy wszystkie cyfry są prawidłowe.</string>
+  <string name="purchase_error_card_security_validation">Podczas weryfikacji transakcji pojawił się błąd. Spróbuj ponownie.</string>
   <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
   <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
   <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
