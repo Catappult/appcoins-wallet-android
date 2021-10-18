@@ -40,13 +40,24 @@ class WithdrawFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    views.withdrawButton.setOnClickListener {
-      viewModel.withdrawToFiat(
-          views.paypalEmail.text.toString(),
-          BigDecimal(views.amount.text.toString())
-      )
-    }
+    views.layoutWithdrawEntry.withdrawButton.setOnClickListener { withdrawToFiat() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun withdrawToFiat() {
+    val paypalEmail: String = views.layoutWithdrawEntry.paypalEmail.text.toString()
+    if (paypalEmail.isEmpty()) {
+      views.layoutWithdrawEntry.paypalEmail.error = getString(R.string.error_field_required)
+    }
+
+    val amount: String = views.layoutWithdrawEntry.amount.text.toString()
+    if (amount.isEmpty()) {
+      views.layoutWithdrawEntry.amount.error = getString(R.string.error_field_required)
+    }
+
+    if (paypalEmail.isNotEmpty() && amount.isNotEmpty()) {
+      viewModel.withdrawToFiat(paypalEmail, BigDecimal(amount))
+    }
   }
 
   override fun onSideEffect(sideEffect: WithdrawSideEffect) = Unit
@@ -61,9 +72,12 @@ class WithdrawFragment : BasePageViewFragment(),
       Async.Uninitialized,
       is Async.Loading -> {
         if (asyncAvailableAmount.value == null) {
+          views.layoutWithdrawEntry.availableAmountSkeleton.playAnimation()
+          views.layoutWithdrawEntry.availableAmountSkeleton.visibility = View.VISIBLE
         }
       }
-      is Async.Fail -> {}
+      is Async.Fail -> {
+      }
       is Async.Success -> {
         setWithdrawAvailableAmount(asyncAvailableAmount())
       }
@@ -71,37 +85,32 @@ class WithdrawFragment : BasePageViewFragment(),
   }
 
   private fun setWithdrawAvailableAmount(availableAmount: WithdrawAvailableAmount) {
-    val textAmount = resources.getString(R.string.e_skills_withdraw_max_amount, availableAmount.amount)
-    views.withdrawAvailableAmount.text = textAmount
+    views.layoutWithdrawEntry.availableAmountSkeleton.cancelAnimation()
+    views.layoutWithdrawEntry.availableAmountSkeleton.visibility = View.GONE
+    views.layoutWithdrawEntry.withdrawAvailableAmount.visibility = View.VISIBLE
+    views.layoutWithdrawEntry.withdrawAvailableAmount.text = getString(
+        R.string.e_skills_withdraw_max_amount_part_2, availableAmount.amount)
   }
 
   private fun handleWithdrawChangedState(asyncWithdrawResult: Async<WithdrawResult>) {
     when (asyncWithdrawResult) {
-      is Async.Uninitialized -> {}
+      is Async.Uninitialized -> {
+      }
       is Async.Loading -> {
         if (asyncWithdrawResult.value == null) {
-          showLoading()
+          views.layoutWithdrawEntry.root.visibility = View.GONE
+          views.layoutWithdrawLoading.root.visibility = View.VISIBLE
         }
       }
       is Async.Fail -> {
-        hideLoading()
+        views.layoutWithdrawLoading.root.visibility = View.GONE
         handleErrorState()
       }
       is Async.Success -> {
-        hideLoading()
+        views.layoutWithdrawLoading.root.visibility = View.GONE
         handleSuccessState(asyncWithdrawResult())
       }
     }
-  }
-
-  private fun showLoading() {
-    views.withdrawButton.isEnabled = false
-    views.loadingLayout.visibility = View.VISIBLE
-  }
-
-  private fun hideLoading() {
-    views.withdrawButton.isEnabled = true
-    views.loadingLayout.visibility = View.GONE
   }
 
   private fun handleErrorState() {
@@ -115,42 +124,35 @@ class WithdrawFragment : BasePageViewFragment(),
 
   private fun handleSuccessState(withdrawResult: WithdrawResult) {
     when (withdrawResult.status) {
-      WithdrawResult.Status.SUCCESS -> showWithdrawSuccessMessage()
-      WithdrawResult.Status.NOT_ENOUGH_EARNING -> showNotEnoughEarningsBalanceError()
-      WithdrawResult.Status.NOT_ENOUGH_BALANCE -> showNotEnoughBalanceError()
-      WithdrawResult.Status.NO_NETWORK -> showNoNetworkError()
-      WithdrawResult.Status.INVALID_EMAIL -> showInvalidEmailError()
+      WithdrawResult.Status.SUCCESS -> showWithdrawSuccess()
+      else -> showWithdrawError(withdrawResult.status)
     }
   }
 
-  private fun showWithdrawSuccessMessage() {
-    val builder = AlertDialog.Builder(context)
-    builder.setMessage(R.string.transaction_status_success)
-        .setPositiveButton(R.string.ok) { dialog, _ ->
-          dialog.dismiss()
-          activity?.onBackPressed()
-        }
-        .show()
+  private fun showWithdrawSuccess() {
+    views.layoutWithdrawSuccess.root.visibility = View.VISIBLE
   }
 
-  private fun showNotEnoughEarningsBalanceError() {
-    views.amount.error = getString(R.string.e_skills_withdraw_not_enough_earnings_error_message)
-  }
-
-  private fun showNotEnoughBalanceError() {
-    views.amount.error = getString(R.string.e_skills_withdraw_not_enough_balance_error_message)
-  }
-
-  private fun showNoNetworkError() {
-    val builder = AlertDialog.Builder(context)
-    builder.setMessage(R.string.activity_iab_no_network_message)
-        .setPositiveButton(
-            R.string.ok
-        ) { dialog, _ -> dialog.dismiss() }
-        .show()
-  }
-
-  private fun showInvalidEmailError() {
-    views.paypalEmail.error = getString(R.string.e_skills_withdraw_invalid_email_error_message)
+  private fun showWithdrawError(withdrawStatus: WithdrawResult.Status) {
+    views.layoutWithdrawError.root.visibility = View.VISIBLE
+    when (withdrawStatus) {
+      WithdrawResult.Status.NOT_ENOUGH_EARNING -> {
+        views.layoutWithdrawError.withdrawErrorMessage.text =
+            getString(R.string.e_skills_withdraw_not_enough_earnings_error_message)
+      }
+      WithdrawResult.Status.NOT_ENOUGH_BALANCE -> {
+        views.layoutWithdrawError.withdrawErrorMessage.text =
+            getString(R.string.e_skills_withdraw_not_enough_balance_error_message)
+      }
+      WithdrawResult.Status.NO_NETWORK -> {
+        views.layoutWithdrawError.withdrawErrorMessage.text =
+            getString(R.string.activity_iab_no_network_message)
+      }
+      WithdrawResult.Status.INVALID_EMAIL -> {
+        views.layoutWithdrawError.withdrawErrorMessage.text =
+            getString(R.string.e_skills_withdraw_invalid_email_error_message)
+      }
+      else -> return
+    }
   }
 }

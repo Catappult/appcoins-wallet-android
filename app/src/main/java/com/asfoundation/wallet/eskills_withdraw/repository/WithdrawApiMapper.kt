@@ -16,14 +16,16 @@ class WithdrawApiMapper(private val jsonMapper: Gson) {
         ?.charStream(),
       Response::class.java
     )
-    return when (response.code) {
+    return when (response.message.code) {
       Status.AMOUNT_NOT_WON -> WithdrawResult(WithdrawResult.Status.NOT_ENOUGH_EARNING)
       Status.NOT_ENOUGH_BALANCE -> WithdrawResult(WithdrawResult.Status.NOT_ENOUGH_BALANCE)
       Status.INVALID_EMAIL -> WithdrawResult(WithdrawResult.Status.INVALID_EMAIL)
     }
   }
 
-  data class Response(val code: Status)
+  data class Response(val message: Message)
+
+  data class Message(val detail: String, val code: Status)
 
   enum class Status {
     AMOUNT_NOT_WON, NOT_ENOUGH_BALANCE, INVALID_EMAIL

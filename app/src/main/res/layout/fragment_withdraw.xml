@@ -1,197 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/withdraw_top_bar"
+
+  <include
+      android:id="@+id/layout_withdraw_entry"
+      layout="@layout/layout_withdraw_entry"
       android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:background="@color/withdraw_top_bar_yellow"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="@string/e_skills_know_more_about"
-        android:textColor="@color/withdraw_title_color_black"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/withdraw_right_arrow"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/withdraw_right_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_withdraw_right_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-  <ImageView
-      android:id="@+id/withdraw_image_trophy"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="20dp"
-      android:layout_marginTop="20dp"
-      android:src="@drawable/ic_withdraw_trophy"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/withdraw_top_bar"
+      android:layout_height="match_parent"
       />
 
-  <TextView
-      android:id="@+id/withdraw_available_amount"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:text="@string/e_skills_withdraw_max_amount"
-      android:textColor="@color/withdraw_title_color_black"
-      android:textSize="18sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toBottomOf="@+id/withdraw_image_trophy"
-      app:layout_constraintStart_toEndOf="@id/withdraw_image_trophy"
-      app:layout_constraintTop_toTopOf="@+id/withdraw_image_trophy"
-      />
-
-  <TextView
-      android:id="@+id/paypal_email_title"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="32dp"
-      android:layout_marginEnd="16dp"
-      android:text="@string/e_skills_withdraw_email"
-      android:textColor="@color/withdraw_text_color_black"
-      android:textSize="14sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/withdraw_image_trophy"
-      />
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/email_text_layout"
-      android:layout_width="0dp"
-      android:layout_height="48dp"
-      android:layout_marginTop="8dp"
-      android:background="@drawable/rectangle_outline_grey"
-      app:layout_constraintEnd_toEndOf="@id/paypal_email_title"
-      app:layout_constraintStart_toStartOf="@id/paypal_email_title"
-      app:layout_constraintTop_toBottomOf="@id/paypal_email_title"
-      >
-
-    <EditText
-        android:id="@+id/paypal_email"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:autofillHints="emailAddress"
-        android:background="@android:color/transparent"
-        android:hint="@string/e_skills_withdraw_email_hint"
-        android:inputType="textEmailAddress"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        />
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <TextView
-      android:id="@+id/amount_title"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginEnd="16dp"
-      android:text="@string/e_skills_withdraw_amount"
-      android:textColor="@color/withdraw_text_color_black"
-      android:textSize="14sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/email_text_layout"
-      />
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/amount_text_layout"
-      android:layout_width="0dp"
-      android:layout_height="48dp"
-      android:layout_marginTop="8dp"
-      android:background="@drawable/rectangle_outline_grey"
-      app:layout_constraintEnd_toEndOf="@id/amount_title"
-      app:layout_constraintStart_toStartOf="@id/amount_title"
-      app:layout_constraintTop_toBottomOf="@id/amount_title"
-      >
-
-    <EditText
-        android:id="@+id/amount"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:hint="@string/e_skills_withdraw_amount_hint"
-        android:inputType="numberDecimal"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        />
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <Button
-      android:id="@+id/cancel_button"
-      style="@style/CancelBorderlessButtonStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:text="@string/cancel_button"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/amount_text_layout"
-      />
-
-  <Button
-      android:id="@+id/withdraw_button"
-      style="@style/ButtonStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/withdraw_button"
-      app:layout_constraintBottom_toBottomOf="@+id/cancel_button"
-      app:layout_constraintEnd_toEndOf="@id/amount_text_layout"
-      app:layout_constraintStart_toEndOf="@id/cancel_button"
-      app:layout_constraintTop_toTopOf="@+id/cancel_button"
-      />
-
-  <androidx.constraintlayout.widget.Group
-      android:id="@+id/loading_layout"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <include
+      android:id="@+id/layout_withdraw_loading"
+      layout="@layout/layout_withdraw_loading"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:visibility="gone"
-      app:constraint_referenced_ids="loading_background,loading_progress"
       />
-  <View
-      android:id="@+id/loading_background"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:background="@color/intercom_semi_transparent"
-      android:focusableInTouchMode="true"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+
+  <include
+      android:id="@+id/layout_withdraw_success"
+      layout="@layout/layout_withdraw_success"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"
       />
-  <ProgressBar
-      android:id="@+id/loading_progress"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+
+  <include
+      android:id="@+id/layout_withdraw_error"
+      layout="@layout/layout_withdraw_error"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"
       />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
