@@ -145,6 +145,8 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
             R.string.transaction_type_reverted_bonus_title)
         Transaction.TransactionType.IAP_REVERT -> holder.address.setText(
             R.string.transaction_type_reverted_purchase_title)
+        Transaction.TransactionType.ESKILLS_REWARD -> holder.address.setText(
+            R.string.transaction_type_eskills_reward)
         else -> {
           holder.address.text = if (details.sourceName == null) {
             if (isSent) to else from
