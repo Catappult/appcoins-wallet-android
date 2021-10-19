@@ -18,25 +18,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@string/e_skills_know_more_about"
+        android:gravity="end"
+        android:text="@string/e_skills_withdraw_not_enough_earnings_error_message"
         android:textColor="@color/withdraw_title_color_black"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/withdraw_right_arrow"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/withdraw_right_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_withdraw_right_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <!--    keeping this here because eventually we'll have a medium article
+            <ImageView
+            android:id="@+id/withdraw_right_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_withdraw_right_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />-->
   </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -60,9 +62,9 @@
       android:textColor="@color/withdraw_title_color_black"
       android:textSize="18sp"
       android:textStyle="bold"
+      app:layout_constraintBottom_toTopOf="@id/withdraw_available_amount"
       app:layout_constraintStart_toEndOf="@id/withdraw_image_trophy"
       app:layout_constraintTop_toTopOf="@+id/withdraw_image_trophy"
-      app:layout_constraintBottom_toTopOf="@id/withdraw_available_amount"
       />
 
   <TextView
@@ -75,9 +77,9 @@
       android:textSize="18sp"
       android:textStyle="bold"
       android:visibility="invisible"
-      app:layout_constraintTop_toBottomOf="@id/withdraw_available_amount_title"
       app:layout_constraintBottom_toBottomOf="@+id/withdraw_image_trophy"
       app:layout_constraintStart_toEndOf="@id/withdraw_image_trophy"
+      app:layout_constraintTop_toBottomOf="@id/withdraw_available_amount_title"
       />
 
   <com.airbnb.lottie.LottieAnimationView
@@ -85,11 +87,11 @@
       android:layout_width="80dp"
       android:layout_height="30dp"
       android:layout_marginStart="16dp"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/gamification_peek_skeleton"
-      app:layout_constraintTop_toBottomOf="@id/withdraw_available_amount_title"
       app:layout_constraintBottom_toBottomOf="@+id/withdraw_image_trophy"
       app:layout_constraintStart_toEndOf="@id/withdraw_image_trophy"
+      app:layout_constraintTop_toBottomOf="@id/withdraw_available_amount_title"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/gamification_peek_skeleton"
       />
 
   <TextView

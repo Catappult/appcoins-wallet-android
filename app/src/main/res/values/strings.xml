@@ -1049,7 +1049,7 @@
   <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds \nearned in e-Skills games</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds\nearned in e-Skills games</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $20</string>
   <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>

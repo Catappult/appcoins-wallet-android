@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:fillViewport="true"
     >
-
-  <include
-      android:id="@+id/layout_withdraw_entry"
-      layout="@layout/layout_withdraw_entry"
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      />
+      android:layout_height="wrap_content"
+      >
 
-  <include
-      android:id="@+id/layout_withdraw_loading"
-      layout="@layout/layout_withdraw_loading"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:visibility="gone"
-      />
+    <include
+        android:id="@+id/layout_withdraw_entry"
+        layout="@layout/layout_withdraw_entry"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
-  <include
-      android:id="@+id/layout_withdraw_success"
-      layout="@layout/layout_withdraw_success"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:visibility="gone"
-      />
+    <include
+        android:id="@+id/layout_withdraw_loading"
+        layout="@layout/layout_withdraw_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
 
-  <include
-      android:id="@+id/layout_withdraw_error"
-      layout="@layout/layout_withdraw_error"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:visibility="gone"
-      />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/layout_withdraw_success"
+        layout="@layout/layout_withdraw_success"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
+    <include
+        android:id="@+id/layout_withdraw_error"
+        layout="@layout/layout_withdraw_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
