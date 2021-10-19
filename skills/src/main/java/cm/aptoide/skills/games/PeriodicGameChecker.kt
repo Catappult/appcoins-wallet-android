@@ -21,9 +21,8 @@ class PeriodicGameChecker(
           roomRepository.getRoom(session)
               .observeOn(AndroidSchedulers.mainThread())
               .doOnSuccess { roomResponse: RoomResponse -> checkGameStatus(roomResponse) }
-              .doOnError(Throwable::printStackTrace)
         }
-        .subscribe())
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun checkGameStatus(roomResponse: RoomResponse) {
