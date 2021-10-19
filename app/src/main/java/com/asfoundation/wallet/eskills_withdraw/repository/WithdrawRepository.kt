@@ -11,8 +11,10 @@ class WithdrawRepository(
     private val mapper: WithdrawApiMapper,
     private val scheduler: Scheduler
 ) {
-  fun getAvailableAmount(ewt: String): Single<WithdrawAvailableAmount> {
-    return withdrawApi.getAvailableAmount(ewt).subscribeOn(scheduler)
+  fun getAvailableAmount(ewt: String): Single<BigDecimal> {
+    return withdrawApi.getAvailableAmount(ewt)
+        .subscribeOn(scheduler)
+        .map { it.amount }
   }
 
   fun withdrawAppcCredits(ewt: String, email: String, amount: BigDecimal): Single<WithdrawResult> {

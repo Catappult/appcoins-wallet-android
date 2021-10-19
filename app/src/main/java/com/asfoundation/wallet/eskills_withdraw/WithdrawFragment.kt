@@ -11,7 +11,6 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentWithdrawBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawAvailableAmount
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -77,7 +76,7 @@ class WithdrawFragment : BasePageViewFragment(),
     handleWithdrawChangedState(state.withdrawResultAsync)
   }
 
-  private fun handleAmountChangedState(asyncAvailableAmount: Async<WithdrawAvailableAmount>) {
+  private fun handleAmountChangedState(asyncAvailableAmount: Async<BigDecimal>) {
     when (asyncAvailableAmount) {
       Async.Uninitialized,
       is Async.Loading -> {
@@ -94,12 +93,12 @@ class WithdrawFragment : BasePageViewFragment(),
     }
   }
 
-  private fun setWithdrawAvailableAmount(availableAmount: WithdrawAvailableAmount) {
+  private fun setWithdrawAvailableAmount(availableAmount: BigDecimal) {
     views.layoutWithdrawEntry.availableAmountSkeleton.cancelAnimation()
     views.layoutWithdrawEntry.availableAmountSkeleton.visibility = View.GONE
     views.layoutWithdrawEntry.withdrawAvailableAmount.visibility = View.VISIBLE
     views.layoutWithdrawEntry.withdrawAvailableAmount.text = getString(
-        R.string.e_skills_withdraw_max_amount_part_2, availableAmount.amount)
+        R.string.e_skills_withdraw_max_amount_part_2, availableAmount)
   }
 
   private fun handleWithdrawChangedState(asyncWithdrawResult: Async<WithdrawResult>) {

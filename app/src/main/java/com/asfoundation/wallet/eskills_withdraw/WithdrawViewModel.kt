@@ -4,7 +4,6 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawAvailableAmount
 import com.asfoundation.wallet.eskills_withdraw.use_cases.GetAvailableAmountToWithdrawUseCase
 import com.asfoundation.wallet.eskills_withdraw.use_cases.WithdrawToFiatUseCase
 import java.math.BigDecimal
@@ -12,7 +11,7 @@ import java.math.BigDecimal
 object WithdrawSideEffect : SideEffect
 
 data class WithdrawState(
-    val availableAmount: Async<WithdrawAvailableAmount> = Async.Uninitialized,
+    val availableAmount: Async<BigDecimal> = Async.Uninitialized,
     val withdrawResultAsync: Async<WithdrawResult> = Async.Uninitialized
 ) : ViewState
 
