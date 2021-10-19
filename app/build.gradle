@@ -118,7 +118,7 @@ android {
       buildConfigField 'String', 'BDS_BASE_HOST', project.BDS_BASE_HOST_DEV
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
       buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME_DEV
-      buildConfigField 'String', 'LEGACY_PAYMENT_HOST', project.PAYMENT_HOST_DEV
+      buildConfigField 'String', 'LEGACY_PAYMENT_HOST', project.LEGACY_PAYMENT_HOST_DEV
       buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST_DEV
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
