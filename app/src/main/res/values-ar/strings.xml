@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">تأكد من أن لديك نسخة احتاطية من هذه المحفظة.</string>
   <string name="action_import">استعادة</string>
   <string name="copy">نسخ إلى الحافظة</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">تم النسخ!</string>
   <string name="close">إغلاق</string>
   <string name="title_activity_settings">الإعدادات</string>
   <string name="network_label">الشبكة</string>
