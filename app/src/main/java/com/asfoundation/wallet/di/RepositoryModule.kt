@@ -34,6 +34,7 @@ import com.asfoundation.wallet.change_currency.FiatCurrenciesMapper
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.eskills_withdraw.repository.SharedPreferencesWithdrawLocalStorage
 import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawApiMapper
 import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawRepository
@@ -397,8 +398,10 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesWithdrawRepository(api: WithdrawApi, gson: Gson): WithdrawRepository {
-    return WithdrawRepository(api, WithdrawApiMapper(gson), Schedulers.io())
+  fun providesWithdrawRepository(api: WithdrawApi, gson: Gson,
+                                 sharedPreferences: SharedPreferences): WithdrawRepository {
+    return WithdrawRepository(api, WithdrawApiMapper(gson), Schedulers.io(),
+        SharedPreferencesWithdrawLocalStorage(sharedPreferences))
   }
 
   @Singleton

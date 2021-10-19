@@ -72,8 +72,13 @@ class WithdrawFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: WithdrawSideEffect) = Unit
 
   override fun onStateChanged(state: WithdrawState) {
-    handleAmountChangedState(state.availableAmount)
+    handleUserEmailChangedState(state.userEmail)
+    handleAmountChangedState(state.availableAmountAsync)
     handleWithdrawChangedState(state.withdrawResultAsync)
+  }
+
+  private fun handleUserEmailChangedState(userEmail: String) {
+    views.layoutWithdrawEntry.paypalEmail.setText(userEmail)
   }
 
   private fun handleAmountChangedState(asyncAvailableAmount: Async<BigDecimal>) {

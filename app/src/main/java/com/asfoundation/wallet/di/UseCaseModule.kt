@@ -14,6 +14,7 @@ import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseC
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawRepository
 import com.asfoundation.wallet.eskills_withdraw.use_cases.GetAvailableAmountToWithdrawUseCase
+import com.asfoundation.wallet.eskills_withdraw.use_cases.GetStoredUserEmailUseCase
 import com.asfoundation.wallet.eskills_withdraw.use_cases.WithdrawToFiatUseCase
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
@@ -251,13 +252,14 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesGetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository,
-                                         conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
+                                                conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
     return GetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository, conversionService)
   }
 
   @Singleton
   @Provides
-  fun providesGetSelectedCurrencyUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
+  fun providesGetSelectedCurrencyUseCase(
+      fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
     return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
   }
 
@@ -268,6 +270,13 @@ class UseCaseModule {
       withdrawRepository: WithdrawRepository
   ): GetAvailableAmountToWithdrawUseCase {
     return GetAvailableAmountToWithdrawUseCase(ewt, withdrawRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetStoredUserEmailUseCase(
+      withdrawRepository: WithdrawRepository): GetStoredUserEmailUseCase {
+    return GetStoredUserEmailUseCase(withdrawRepository)
   }
 
   @Singleton
