@@ -93,7 +93,7 @@ class BackgroundGameService : DaggerService(), GameStateListener {
   private fun createNotificationDismissIntent(): PendingIntent {
     val intent = Intent(this, BackgroundGameService::class.java)
     intent.action = ACTION_DISMISS
-    return PendingIntent.getService(this, 0, intent, 0)
+    return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
   override fun onUpdate(roomResponse: RoomResponse) {
