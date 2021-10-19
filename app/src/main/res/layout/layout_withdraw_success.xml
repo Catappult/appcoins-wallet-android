@@ -41,7 +41,7 @@
 
 
   <Button
-      android:id="@+id/withdraw_button"
+      android:id="@+id/got_it_button"
       style="@style/ButtonStyle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

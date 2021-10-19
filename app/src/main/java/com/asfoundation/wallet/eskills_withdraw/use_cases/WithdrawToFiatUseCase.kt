@@ -18,7 +18,7 @@ class WithdrawToFiatUseCase(
           return@flatMap if (email.isEmailValid()) {
             withdrawRepository.withdrawAppcCredits(it, email, amount)
           } else {
-            Single.just(WithdrawResult(WithdrawResult.Status.INVALID_EMAIL))
+            Single.just(WithdrawResult(amount, WithdrawResult.Status.INVALID_EMAIL))
           }
         }
 

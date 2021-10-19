@@ -21,6 +21,7 @@ class WithdrawApiMapper(private val jsonMapper: Gson) {
       Status.AMOUNT_NOT_WON -> WithdrawResult(amount, WithdrawResult.Status.NOT_ENOUGH_EARNING)
       Status.NOT_ENOUGH_BALANCE -> WithdrawResult(amount, WithdrawResult.Status.NOT_ENOUGH_BALANCE)
       Status.INVALID_EMAIL -> WithdrawResult(amount, WithdrawResult.Status.INVALID_EMAIL)
+      Status.MIN_AMOUNT_REQUIRED -> WithdrawResult(amount, WithdrawResult.Status.MIN_AMOUNT_REQUIRED)
     }
   }
 
@@ -29,6 +30,6 @@ class WithdrawApiMapper(private val jsonMapper: Gson) {
   data class Message(val detail: String, val code: Status)
 
   enum class Status {
-    AMOUNT_NOT_WON, NOT_ENOUGH_BALANCE, INVALID_EMAIL
+    AMOUNT_NOT_WON, NOT_ENOUGH_BALANCE, INVALID_EMAIL, MIN_AMOUNT_REQUIRED
   }
 }

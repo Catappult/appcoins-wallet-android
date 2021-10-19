@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.eskills_withdraw
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawAvailableAmount
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import kotlinx.android.synthetic.main.layout_appcoins_app_bar.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -23,6 +21,9 @@ class WithdrawFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var withdrawViewModelFactory: WithdrawViewModelFactory
+
+  @Inject
+  lateinit var navigator: WithdrawNavigator
 
   private val viewModel: WithdrawViewModel by viewModels { withdrawViewModelFactory }
   private val views by viewBinding(FragmentWithdrawBinding::bind)
@@ -41,8 +42,16 @@ class WithdrawFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    views.layoutWithdrawEntry.withdrawButton.setOnClickListener { withdrawToFiat() }
+    setOnClickListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun setOnClickListeners() {
+    views.layoutWithdrawEntry.withdrawButton.setOnClickListener { withdrawToFiat() }
+    views.layoutWithdrawEntry.cancelButton.setOnClickListener { navigator.navigateBack() }
+    views.layoutWithdrawError.tryAgainButton.setOnClickListener {  }
+    views.layoutWithdrawError.laterButton.setOnClickListener { navigator.navigateBack() }
+    views.layoutWithdrawSuccess.gotItButton.setOnClickListener { navigator.navigateBack() }
   }
 
   private fun withdrawToFiat() {
@@ -96,48 +105,57 @@ class WithdrawFragment : BasePageViewFragment(),
   private fun handleWithdrawChangedState(asyncWithdrawResult: Async<WithdrawResult>) {
     when (asyncWithdrawResult) {
       is Async.Uninitialized -> {
+        showEntryLayout()
       }
       is Async.Loading -> {
         if (asyncWithdrawResult.value == null) {
-          views.layoutWithdrawEntry.root.visibility = View.GONE
-          views.layoutWithdrawLoading.root.visibility = View.VISIBLE
+          showLoadingLayout()
         }
       }
       is Async.Fail -> {
-        views.layoutWithdrawLoading.root.visibility = View.GONE
-        handleErrorState()
+        handleErrorState(WithdrawResult.Status.ERROR)
       }
       is Async.Success -> {
-        views.layoutWithdrawLoading.root.visibility = View.GONE
         handleSuccessState(asyncWithdrawResult())
       }
     }
   }
 
-  private fun handleErrorState() {
-    val builder = AlertDialog.Builder(context)
-    builder.setMessage(R.string.unknown_error)
-        .setPositiveButton(R.string.ok) { dialog, _ ->
-          dialog.dismiss()
-        }
-        .show()
+  private fun showEntryLayout() {
+    views.layoutWithdrawEntry.root.visibility = View.VISIBLE
+    views.layoutWithdrawLoading.root.visibility = View.GONE
+    views.layoutWithdrawError.root.visibility = View.GONE
+    views.layoutWithdrawSuccess.root.visibility = View.GONE
+  }
+
+  private fun showLoadingLayout() {
+    views.layoutWithdrawEntry.root.visibility = View.GONE
+    views.layoutWithdrawLoading.root.visibility = View.VISIBLE
+    views.layoutWithdrawError.root.visibility = View.GONE
+    views.layoutWithdrawSuccess.root.visibility = View.GONE
   }
 
   private fun handleSuccessState(withdrawResult: WithdrawResult) {
+    // success here can be badly interpreted. this means the operation was successful,
+    // but doesn't mean the operation result is
     when (withdrawResult.status) {
-      WithdrawResult.Status.SUCCESS -> showWithdrawSuccess(withdrawResult.amount)
-      else -> showWithdrawError(withdrawResult.status)
+      WithdrawResult.Status.SUCCESS -> {
+        views.layoutWithdrawSuccess.withdrawSuccessMessage.text =
+            getString(R.string.e_skills_withdraw_started, withdrawResult.amount)
+        showSuccessLayout()
+      }
+      else -> handleErrorState(withdrawResult.status)
     }
   }
 
-  private fun showWithdrawSuccess(amount: BigDecimal) {
+  private fun showSuccessLayout() {
+    views.layoutWithdrawEntry.root.visibility = View.GONE
+    views.layoutWithdrawLoading.root.visibility = View.GONE
+    views.layoutWithdrawError.root.visibility = View.GONE
     views.layoutWithdrawSuccess.root.visibility = View.VISIBLE
-    views.layoutWithdrawSuccess.withdrawSuccessMessage.text =
-        getString(R.string.e_skills_withdraw_started, amount)
   }
 
-  private fun showWithdrawError(withdrawStatus: WithdrawResult.Status) {
-    views.layoutWithdrawError.root.visibility = View.VISIBLE
+  private fun handleErrorState(withdrawStatus: WithdrawResult.Status) {
     when (withdrawStatus) {
       WithdrawResult.Status.NOT_ENOUGH_EARNING -> {
         views.layoutWithdrawError.withdrawErrorMessage.text =
@@ -155,7 +173,19 @@ class WithdrawFragment : BasePageViewFragment(),
         views.layoutWithdrawError.withdrawErrorMessage.text =
             getString(R.string.e_skills_withdraw_invalid_email_error_message)
       }
+      WithdrawResult.Status.MIN_AMOUNT_REQUIRED -> {
+        views.layoutWithdrawError.withdrawErrorMessage.text =
+            getString(R.string.e_skills_withdraw_minimum_amount_error_message)
+      }
       else -> return
     }
+    showErrorLayout()
+  }
+
+  private fun showErrorLayout() {
+    views.layoutWithdrawEntry.root.visibility = View.GONE
+    views.layoutWithdrawLoading.root.visibility = View.GONE
+    views.layoutWithdrawError.root.visibility = View.VISIBLE
+    views.layoutWithdrawSuccess.root.visibility = View.GONE
   }
 }

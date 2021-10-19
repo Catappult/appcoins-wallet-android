@@ -15,4 +15,9 @@ class WithdrawModule {
   ): WithdrawViewModelFactory {
     return WithdrawViewModelFactory(getAvailableAmountToWithdrawUseCase, withdrawToFiatUseCase)
   }
+
+  @Provides
+  fun providesWithdrawNavigator(fragment: WithdrawFragment): WithdrawNavigator {
+    return WithdrawNavigator(fragment.requireActivity())
+  }
 }

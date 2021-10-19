@@ -22,7 +22,6 @@
       app:layout_constraintTop_toTopOf="@+id/guideline_top"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
       app:lottie_rawRes="@raw/adyen_error_animation"
       />
 
@@ -79,7 +78,7 @@
       android:layout_marginStart="32dp"
       android:layout_marginEnd="32dp"
       android:layout_marginBottom="72dp"
-      android:text="@string/got_it_button"
+      android:text="@string/e_skills_withdraw_maybe_later"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
