@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +18,7 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.webview_fragment.*
 import kotlinx.android.synthetic.main.webview_fragment.view.*
+import java.net.URISyntaxException
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.ScheduledFuture
@@ -99,7 +100,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
             finishWithSuccess(clickUrl)
           }
           isExternalIntentSchema(clickUrl) -> {
-            launchActivity(Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)))
+            launchActivityForSchema(view, clickUrl)
           }
           clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
               ORDER_ID_PARAMETER) -> {
@@ -178,13 +179,24 @@ class BillingWebViewFragment : BasePageViewFragment() {
     super.onDetach()
   }
 
-  private fun launchActivity(intent: Intent) {
+  private fun launchActivityForSchema(webView: WebView, url: String) {
     try {
-      startActivity(intent)
-    } catch (exception: ActivityNotFoundException) {
-      exception.printStackTrace()
+      val intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME)
+      if (intent != null) {
+        val packageManager = requireContext().packageManager
+        val info =
+            packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        if (info != null) {
+          requireContext().startActivity(intent)
+        } else {
+          val fallbackUrl = intent.getStringExtra("browser_fallback_url")
+          webView.loadUrl(fallbackUrl)
+        }
+      }
+    } catch (e: URISyntaxException) {
+      e.printStackTrace()
       if (view != null) {
-        Snackbar.make(view!!, R.string.unknown_error,
+        Snackbar.make(requireView(), R.string.unknown_error,
             Snackbar.LENGTH_SHORT)
             .show()
       }
