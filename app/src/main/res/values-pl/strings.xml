@@ -989,16 +989,16 @@
   <string name="promo_code_active_tag">Aktywny</string>
   <string name="promo_code_expired_tag">Wygasł</string>
   <string name="promo_code_success_title">Zrobione!</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_success_body">Otrzymasz %s%% bonusu za wszystkie zakupy.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">O AppCoins</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
+  <string name="appcoins_info_prince_title">Kurs AppCoins (APPC)</string>
+  <string name="appcoins_info_title_1">Czym są AppCoins?</string>
+  <string name="appcoins_info_body_1">AppCoins to cyfrowy token stworzony przez Aptoide i używany przez ponad 200 milionów użytkowników na świecie. Głównym celem tego innowacyjnego rozwiązania jest zapewnienie zaufania do ekonomii aplikacji i usunięcie pośredników.</string>
+  <string name="appcoins_info_title_1b">Tak jak w przypadku innych kryptowalut, wartość AppCoins ciągle się zmienia w zależności od używanej waluty (EUR, USD...). Zmiany te można prześledzić na grafice powyżej.</string>
+  <string name="appcoins_info_title_2">Czemu służą AppCoins?</string>
+  <string name="appcoins_info_body_2">Appcoins i kredyty Appcoins mogą być użyte w celu dokonywania płatności w ulubionych aplikacjach. Kredyty Appcoins otrzymasz jako bonus w momencie dokonania zakupu inną metodą płatności (np. karta, PayPal) oraz kiedy doładowujesz swój Portfel AppCoins.</string>
+  <string name="appcoins_info_website_title">Strona</string>
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Market Cap</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
