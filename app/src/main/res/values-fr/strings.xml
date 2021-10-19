@@ -50,7 +50,7 @@
   <string name="error_import">Erreur importation keystore</string>
   <string name="message_this_is_your_address">Mon adresse publique Ethereum</string>
   <string name="backup_warning_text">Étant donné que seulement vous contrôlez votre argent, vous devrez enregistrer une sauvegarde de votre fichier dans le cas où cette application est supprimée.\n\nVotre portefeuille n’est jamais enregistré dans le cloud ou dans les sauvegardes standard de l’appareil.</string>
-  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
+  <string name="backup_wallet_tooltip">Conservez une copie de votre portefeuille pour le garder en sécurité.</string>
   <string name="message_no_backup">Pas de sauvegarde, Pas d\'Ethereum</string>
   <string name="error_deleting_account">Erreur lors de la suppression du portefeuille</string>
   <string name="title_privacy_policy">Politique de confidentialité</string>
@@ -100,7 +100,7 @@
   <string name="title_dialog_error">Erreur</string>
   <string name="title_dialog_handling">Traitement…</string>
   <string name="title_dialog_add_account">Ajouter un portefeuille</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">Comment voulez-vous acheter ?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Définir un mot de passe pour chiffrer votre portefeuille</string>
@@ -281,7 +281,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">continuer</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Dépensez vos AppCoins</string>
@@ -324,7 +324,7 @@
   <string name="gamification_star_subtitle">Brillante, grande et pleine de vie !</string>
   <string name="gamification_galaxy_subtitle">Le plus grand système qui existe !</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">Cet achat a un bonus !</string>
   <string name="gamification_purchase_header_part_1">Bonus d\'achat :</string>
   <string name="gamification_purchase_header_part_2">%s en crédits APPC</string>
   <string name="gamification_purchase_body">Vous pouvez utiliser ce bonus pour votre prochain achat.</string>
@@ -381,12 +381,12 @@
   <string name="balance_ethereum_body">Ethereum est la cryptomonnaie sur laquelle est basée AppCoins. Vous pouvez l\'acheter et la vendre dans la plupart des échanges, elle est très populaire !</string>
   <string name="balance_appcoins_body">AppCoins est la cryptomonnaie de l’économie de l’application. Vous pouvez acheter et vendre sur plusieurs échanges et l\'utiliser pour acheter des articles in-app.</string>
   <string name="balance_appccreditos_body">Les jetons pour acheter des articles in-app ! Rechargez l’APPC-C de votre porte-monnaie ou obtenez-les gratuitement en utilisant des applications. Ils peuvent aussi être transférés entre amis !</string>
-  <string name="my_wallets_action_new_wallet">New wallet</string>
-  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
-  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
-  <string name="verify_card_title">Verify Card</string>
+  <string name="my_wallets_action_new_wallet">Nouveau portefeuille</string>
+  <string name="my_wallets_action_recover_wallet">Récupérer le portefeuille</string>
+  <string name="my_wallets_action_backup_wallet">Sauvegarder le portefeuille</string>
+  <string name="my_wallets_action_verify_new_card">Vérifier la nouvelle carte</string>
+  <string name="my_wallets_action_delete_wallet">Supprimer le portefeuille</string>
+  <string name="verify_card_title">Vérifier la carte</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Demander à quelqu\'un de payer</string>
   <string name="askafriend_generating_link_message">Nous générons votre lien de paiement...</string>
@@ -433,7 +433,7 @@
   <string name="remind_later_button">Rappelez-moi plus tard</string>
   <string name="get_code_button">Obtenir un code</string>
   <string name="confirm_button">Confirmer</string>
-  <string name="withdraw_button">withdraw</string>
+  <string name="withdraw_button">retirer</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
   <string name="terms_and_conditions_error">Veuillez accepter nos Termes et Conditions et la Politique de Confidentialité afin de poursuivre</string>
@@ -477,7 +477,7 @@
   <string name="verification_settings_unverified_title">Vérifier le portefeuille</string>
   <string name="verification_settings_unverified_body">Obtenez des récompenses et invitez des amis</string>
   <string name="verification_settings_verified_title">Portefeuille Vérifié</string>
-  <string name="verification_settings_card_verified_title">Card Verified</string>
+  <string name="verification_settings_card_verified_title">Carte vérifiée</string>
   <string name="verification_settings_no_internet">Vous devez être connecté à internet</string>
   <string name="verification_error_time_expired">Oups, votre temps a expiré. Recommencez !</string>
   <string name="verification_error_attempts_reached">Il semble que vous ayez atteint la limite de tentatives. Veuillez patienter pour réessayer.</string>
@@ -526,15 +526,15 @@
   <string name="purchase_error_try_other_amount_or_method">Oups&#8230; Il se passe quelque chose ! Essayez avec un autre mode de paiement ou un autre montant de recharge.</string>
   <string name="purchase_error_try_cheaper_item">C\'est plutôt cher ! Veuillez essayer d\'acheter un article d\'une valeur inférieure.</string>
   <string name="purchase_error_try_cheaper_item_or_method">C\'est plutôt cher ! Veuillez essayer d\'acheter un article moins cher ou essayez un autre mode de paiement.</string>
-  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
-  <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
-  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
-  <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
-  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
+  <string name="transfer_appc_error_no_eth_title">Vous avez besoin d\'Ether !</string>
+  <string name="transfer_appc_error_no_eth_body">Les frais de transfert des AppCoins sont payés en Ethereum, vous aurez donc besoin d\'ETH pour transférer des APPC.</string>
+  <string name="purchase_error_invalid_credit_card">Le numéro de la carte bancaire n\'est pas valide. Veuillez vous assurer que tous les chiffres sont corrects.</string>
+  <string name="purchase_error_card_security_validation">Une erreur s\'est produite lors de la validation de deuxième niveau de cette transaction. Veuillez réessayer.</string>
+  <string name="purchase_error_transaction_timeout">Il semble que vous ayez mis trop de temps à effectuer la transaction. Veuillez réessayer.</string>
+  <string name="purchase_error_card_already_in_progress">Votre demande a déjà été traitée ou est en cours de traitement. Veuillez patienter.</string>
+  <string name="purchase_error_payment_rejected">Paiement rejeté ! Veuillez essayer avec la carte d\'un autre émetteur ou utiliser un autre mode de paiement.</string>
+  <string name="purchase_error_verify_wallet">Essayez de vérifier votre portefeuille afin de débloquer cette situation.</string>
+  <string name="purchase_eskills_sku">Ticket d\'entrée</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresse de facturation</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -734,8 +734,8 @@
   <string name="subscriptions_details_button">DETAILS</string>
   <string name="subscriptions_manage_button">GÉRER LES ABONNEMENTS</string>
   <string name="subscriptions_cancel_button">ANNULER L\'ABONNEMENT</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
-  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
+  <string name="subscriptions_renew_subscription_button">RENOUVELER L\'ABONNEMENT</string>
+  <string name="subscriptions_renewed_confirmation_title">Abonnement renouvelé !</string>
   <string name="subscriptions_cancel_title">Annuler l\'abonnement</string>
   <string name="subscriptions_cancel_body">Êtes-vous sûr de vouloir annuler cet abonnement ?</string>
   <string name="subscriptions_cancel_no_button">NON, RETOUR</string>
@@ -903,7 +903,7 @@
   <string name="rate_us_back_body">Evaluez le portefeuille AppCoins sur l\'app store afin que nous puissions l\'améliorer.</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your bank card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
+  <string name="card_verification_charde_disclaimer">Nous débiterons %s sur votre carte, et nous vous rembourserons une fois que vous aurez confirmé le code. En fonction de votre banque, cela peut prendre entre quelques minutes et quelques jours.</string>
   <string name="card_verification_code_title">Vérifiez le code dans les détails de la transaction</string>
   <string name="card_verification_code_body">Un code unique apparaîtra dans le résumé de la transaction fourni par l\'émetteur de votre carte.</string>
   <string name="card_verification_code_example_title">Exemple de résumé de transaction</string>
@@ -944,44 +944,44 @@
   <!--Change Currency-->
   <string name="change_currency_title">Changer la devise</string>
   <string name="change_currency_settings_title">Devise</string>
-  <string name="change_currency_choose_button">Choose currency</string>
+  <string name="change_currency_choose_button">Choisir la devise</string>
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaction en cours !</string>
   <string name="block_transaction_disclaimer_body">Vous pouvez suivre l\'évolution sur Etherscan.</string>
   <!--  Withdraw Funds-->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_settings_title">retrait d\'e-Skills</string>
+  <string name="e_skills_withdraw_email">Adresse courriel de PayPal</string>
+  <string name="e_skills_withdraw_amount">Montant (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Votre adresse courriel ici</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
-  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+  <string name="e_skills_withdraw_title">retrait d\'e-Skills</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Courriel non valide</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Balance insuffisante</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Vous ne pouvez retirer que les fonds gagnés dans les jeux e-Skills</string>
+  <string name="e_skills_withdraw_max_amount">Montant maximal que vous pouvez retirer : %s</string>
+  <string name="e_skills_more_info_button">Plus d\'infos.</string>
   <!--Promo Code-->
-  <string name="promo_code_settings_title">Promo Code</string>
-  <string name="promo_code_view_title">Promo Code</string>
-  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
-  <string name="promo_code_view_field">Promo Code here...</string>
-  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
-  <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
-  <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_settings_title">Code Promo</string>
+  <string name="promo_code_view_title">Code Promo</string>
+  <string name="promo_code_view_body">Insérez un code promotionnel pour bénéficier d\'offres spéciales !</string>
+  <string name="promo_code_view_field">Code promo ici...</string>
+  <string name="promo_code_view_error">Code invalide. Essayez avec un autre !</string>
+  <string name="promo_code_activated">Code promo activé !</string>
+  <string name="promo_code_replace_button">REMPLACER</string>
+  <string name="promo_code_active_tag">Activer</string>
+  <string name="promo_code_expired_tag">Expiré</string>
+  <string name="promo_code_success_title">Terminé !</string>
+  <string name="promo_code_success_body">Vous obtiendrez %s%% de bonus supplémentaire sur tous vos achats.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">A propos d\'AppCoins</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
+  <string name="appcoins_info_prince_title">Prix des AppCoins (APPC)</string>
+  <string name="appcoins_info_title_1">Que sont les AppCoins ?</string>
+  <string name="appcoins_info_body_1">AppCoins est un jeton numérique créé par Aptoide et utilisé par plus de 200 millions d\'utilisateurs dans le monde. L\'objectif principal de cette solution de paiement innovante est de donner confiance dans l\'économie des apps et de supprimer les intermédiaires.</string>
+  <string name="appcoins_info_title_1b">Comme tous les jetons numériques, la valeur des AppCoins change constamment par rapport à votre devise préférée (EUR, USD...). Vous pouvez suivre ces changements dans le temps dans le graphique ci-dessus.</string>
+  <string name="appcoins_info_title_2">A quoi servent les AppCoins ?</string>
+  <string name="appcoins_info_body_2">Les AppCoins et les AppCoins Credits peuvent être utilisés pour effectuer des paiements dans tes applications préférées. Tu recevras des AppCoins Credits en prime lorsque tu effectueras un achat avec un autre moyen de paiement (carte bancaire, PayPal...) et également lorsque tu rechargeras ton AppCoins Wallet.</string>
+  <string name="appcoins_info_website_title">Site Web</string>
   <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
+  <string name="appcoins_info_market_cap_title">Capitalisation boursière</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
 </resources>
