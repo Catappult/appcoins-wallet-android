@@ -11,20 +11,11 @@ class WithdrawRepository(
     private val mapper: WithdrawApiMapper,
     private val scheduler: Scheduler
 ) {
-  companion object {
-    const val MIN_AMOUNT_REQUIRED_USD = 5
-  }
-
   fun getAvailableAmount(ewt: String): Single<WithdrawAvailableAmount> {
     return withdrawApi.getAvailableAmount(ewt).subscribeOn(scheduler)
   }
 
   fun withdrawAppcCredits(ewt: String, email: String, amount: BigDecimal): Single<WithdrawResult> {
-    // this will be removed as soon as the backend implements minimum amount to withdraw
-    if (amount < MIN_AMOUNT_REQUIRED_USD.toBigDecimal()) {
-      return Single.just(WithdrawResult(amount, WithdrawResult.Status.MIN_AMOUNT_REQUIRED))
-    }
-
     return withdrawApi.withdrawAppcCredits(ewt, WithdrawBody(email, amount))
         .subscribeOn(scheduler)
         .andThen(Single.just(WithdrawResult(amount, WithdrawResult.Status.SUCCESS)))

@@ -49,7 +49,7 @@ class WithdrawFragment : BasePageViewFragment(),
   private fun setOnClickListeners() {
     views.layoutWithdrawEntry.withdrawButton.setOnClickListener { withdrawToFiat() }
     views.layoutWithdrawEntry.cancelButton.setOnClickListener { navigator.navigateBack() }
-    views.layoutWithdrawError.tryAgainButton.setOnClickListener {  }
+    views.layoutWithdrawError.tryAgainButton.setOnClickListener { withdrawToFiat() }
     views.layoutWithdrawError.laterButton.setOnClickListener { navigator.navigateBack() }
     views.layoutWithdrawSuccess.gotItButton.setOnClickListener { navigator.navigateBack() }
   }
