@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-08-24 10:53\n"
+"PO-Revision-Date: 2021-10-19 11:09\n"
 
 #. Card Title
 #:
@@ -20,7 +20,7 @@ msgstr "Gagnez des Crédits AppCoins!"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Recevez un bonus supplémentaire de {0}% sur tous vos achats, sauf si vous utilisez des AppCoins Credits."
 
 #. Card - Purchase Promotion.
 #:
