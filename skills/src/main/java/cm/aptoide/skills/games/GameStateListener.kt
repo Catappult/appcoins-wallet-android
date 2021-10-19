@@ -1,8 +1,6 @@
 package cm.aptoide.skills.games
 
-import cm.aptoide.skills.model.RoomResponse
-
 interface GameStateListener {
-  fun onUpdate(roomResponse: RoomResponse)
-  fun onFinishGame(roomResponse: RoomResponse)
+  fun onUpdate(gameUpdate: GameUpdate)
+  fun onFinishGame(finishedGame: FinishedGame)
 }

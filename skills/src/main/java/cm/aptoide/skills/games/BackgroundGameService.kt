@@ -10,11 +10,8 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import cm.aptoide.skills.R
-import cm.aptoide.skills.model.RoomResponse
-import cm.aptoide.skills.model.User
 import cm.aptoide.skills.repository.RoomRepository
 import dagger.android.DaggerService
-import java.lang.StringBuilder
 import javax.inject.Inject
 
 class BackgroundGameService : DaggerService(), GameStateListener {
@@ -96,31 +93,31 @@ class BackgroundGameService : DaggerService(), GameStateListener {
     return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
-  override fun onUpdate(roomResponse: RoomResponse) {
+  override fun onUpdate(gameUpdate: GameUpdate) {
     val notification = getNotification(
         getString(R.string.playing_game_notification_title),
-        getFormattedGameDetails(roomResponse))
+        getFormattedGameDetails(gameUpdate))
     notificationManager.notify(NOTIFICATION_SERVICE_ID, notification)
   }
 
-  private fun getFormattedGameDetails(roomResponse: RoomResponse): String {
+  private fun getFormattedGameDetails(gameUpdate: GameUpdate): String {
     val gameDetails = StringBuilder()
-    for (i in roomResponse.users.indices) {
-      val player: User = roomResponse.users[i]
-      gameDetails.append(player.userName)
-      if (i < roomResponse.users.size - 1) {
+    for (i in gameUpdate.userNames.indices) {
+      val userName: String = gameUpdate.userNames[i]
+      gameDetails.append(userName)
+      if (i < gameUpdate.userNames.size - 1) {
         gameDetails.append(PLAYER_SEPARATOR)
       }
     }
     return gameDetails.toString()
   }
 
-  override fun onFinishGame(roomResponse: RoomResponse) {
+  override fun onFinishGame(finishedGame: FinishedGame) {
     periodicGameChecker.stop()
-    val notification: Notification = if (isWinner(roomResponse)) {
+    val notification: Notification = if (finishedGame.isWinner) {
       getNotification(
           getString(R.string.finish_game_notification_title),
-          getString(R.string.won_game_notification_body, roomResponse.roomResult.winnerAmount)
+          getString(R.string.won_game_notification_body, finishedGame.winnerAmount)
       )
     } else {
       getNotification(
@@ -130,11 +127,6 @@ class BackgroundGameService : DaggerService(), GameStateListener {
     }
 
     notificationManager.notify(NOTIFICATION_SERVICE_ID, notification)
-  }
-
-  private fun isWinner(roomResponse: RoomResponse): Boolean {
-    return roomResponse.roomResult.winner.walletAddress
-        .equals(roomResponse.currentUser.walletAddress, ignoreCase = true)
   }
 
   private fun stopService() {
