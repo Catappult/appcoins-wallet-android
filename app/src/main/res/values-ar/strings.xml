@@ -1013,12 +1013,12 @@
   <string name="appcoins_info_title">حول AppCoins</string>
   <string name="appcoins_info_prince_title">سعر AppCoins (APPC)</string>
   <string name="appcoins_info_title_1">ما هو AppCoins؟</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
-  <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_body_1">AppCoins هي عملة رقمية أنشأها Aptoide يستخدمها أكثر من 200 مليون مستخدم حول العالم. الهدف الرئيسي لوسيلة الدفع المبتكرة هذه تهدف لتوفير الثقة في المعاملات الاقتصادية داخل التطبيقات وللاستغناء عن المواقع الوسيطة.</string>
+  <string name="appcoins_info_title_1b">كما هو الحال مع كل العملات الرقمية، تتغير قيمة AppCoins باستمرار تبعًا للعملة التي تتعامل بها (يورو، دولار...). تتبَّع هذه التغييرات عبر الوقت من الرسم البياني في الأعلى.</string>
+  <string name="appcoins_info_title_2">لماذا تُستخدم AppCoins؟</string>
+  <string name="appcoins_info_body_2">AppCoins و AppCoins Credit يمكن أن تُستخدم للدفع في تطبيقاتك المفضلة. ستحصل على AppCoins Credit كمكافآت عند إجراء عمليات الشراء بأي وسيلة دفع (بطاقة بنكية، PayPal...) وكذلك عندما تضيف إلى محفظة AppCoins Wallet الخاصة بك.</string>
+  <string name="appcoins_info_website_title">موقع إلكتروني</string>
+  <string name="appcoins_info_explorer_title">المتصفح</string>
+  <string name="appcoins_info_market_cap_title">القيمة السوقية</string>
+  <string name="appcoins_info_volume_title">الحجم (24س)</string>
 </resources>
