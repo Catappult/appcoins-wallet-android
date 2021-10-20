@@ -113,9 +113,7 @@ class WithdrawFragment : BasePageViewFragment(),
         showEntryLayout()
       }
       is Async.Loading -> {
-        if (asyncWithdrawResult.value == null) {
-          showLoadingLayout()
-        }
+        showLoadingLayout()
       }
       is Async.Fail -> {
         handleErrorState(WithdrawResult.Status.ERROR)
@@ -138,6 +136,8 @@ class WithdrawFragment : BasePageViewFragment(),
     views.layoutWithdrawLoading.root.visibility = View.VISIBLE
     views.layoutWithdrawError.root.visibility = View.GONE
     views.layoutWithdrawSuccess.root.visibility = View.GONE
+    views.layoutWithdrawEntry.amountErrorText.visibility = View.GONE
+    views.layoutWithdrawEntry.emailErrorText.visibility = View.GONE
   }
 
   private fun handleSuccessState(withdrawResult: WithdrawResult) {
@@ -163,28 +163,37 @@ class WithdrawFragment : BasePageViewFragment(),
   private fun handleErrorState(withdrawStatus: WithdrawResult.Status) {
     when (withdrawStatus) {
       WithdrawResult.Status.NOT_ENOUGH_EARNING -> {
-        views.layoutWithdrawError.withdrawErrorMessage.text =
+        views.layoutWithdrawEntry.amountErrorText.text =
             getString(R.string.e_skills_withdraw_not_enough_earnings_error_message)
+        views.layoutWithdrawEntry.amountErrorText.visibility = View.VISIBLE
+        showEntryLayout()
       }
       WithdrawResult.Status.NOT_ENOUGH_BALANCE -> {
-        views.layoutWithdrawError.withdrawErrorMessage.text =
+        views.layoutWithdrawEntry.amountErrorText.text =
             getString(R.string.e_skills_withdraw_not_enough_balance_error_message)
+        views.layoutWithdrawEntry.amountErrorText.visibility = View.VISIBLE
+        showEntryLayout()
+      }
+      WithdrawResult.Status.MIN_AMOUNT_REQUIRED -> {
+        views.layoutWithdrawEntry.amountErrorText.text =
+            getString(R.string.e_skills_withdraw_minimum_amount_error_message)
+        views.layoutWithdrawEntry.amountErrorText.visibility = View.VISIBLE
+        showEntryLayout()
+      }
+      WithdrawResult.Status.INVALID_EMAIL -> {
+        views.layoutWithdrawEntry.emailErrorText.text =
+            getString(R.string.e_skills_withdraw_invalid_email_error_message)
+        views.layoutWithdrawEntry.emailErrorText.visibility = View.VISIBLE
+        showEntryLayout()
       }
       WithdrawResult.Status.NO_NETWORK -> {
         views.layoutWithdrawError.withdrawErrorMessage.text =
             getString(R.string.activity_iab_no_network_message)
+        showErrorLayout()
       }
-      WithdrawResult.Status.INVALID_EMAIL -> {
-        views.layoutWithdrawError.withdrawErrorMessage.text =
-            getString(R.string.e_skills_withdraw_invalid_email_error_message)
-      }
-      WithdrawResult.Status.MIN_AMOUNT_REQUIRED -> {
-        views.layoutWithdrawError.withdrawErrorMessage.text =
-            getString(R.string.e_skills_withdraw_minimum_amount_error_message)
-      }
+      WithdrawResult.Status.ERROR -> showErrorLayout()
       else -> return
     }
-    showErrorLayout()
   }
 
   private fun showErrorLayout() {

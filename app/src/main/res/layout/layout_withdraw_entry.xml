@@ -134,6 +134,20 @@
   </com.google.android.material.textfield.TextInputLayout>
 
   <TextView
+      android:id="@+id/email_error_text"
+      style="@style/PaymentMethods.Carrier.PhoneFieldError"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="5dp"
+      android:layout_marginTop="5dp"
+      android:text="@string/e_skills_withdraw_invalid_email_error_message"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="@+id/email_text_layout"
+      app:layout_constraintStart_toStartOf="@+id/email_text_layout"
+      app:layout_constraintTop_toBottomOf="@+id/email_text_layout"
+      />
+
+  <TextView
       android:id="@+id/amount_title"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -145,7 +159,7 @@
       android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/email_text_layout"
+      app:layout_constraintTop_toBottomOf="@id/email_error_text"
       />
 
   <com.google.android.material.textfield.TextInputLayout
@@ -171,6 +185,20 @@
         />
   </com.google.android.material.textfield.TextInputLayout>
 
+  <TextView
+      android:id="@+id/amount_error_text"
+      style="@style/PaymentMethods.Carrier.PhoneFieldError"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="5dp"
+      android:layout_marginTop="5dp"
+      android:text="@string/e_skills_withdraw_minimum_amount_error_message"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="@+id/amount_text_layout"
+      app:layout_constraintStart_toStartOf="@+id/amount_text_layout"
+      app:layout_constraintTop_toBottomOf="@+id/amount_text_layout"
+      />
+
   <Button
       android:id="@+id/cancel_button"
       style="@style/CancelBorderlessButtonStyle"
@@ -181,7 +209,7 @@
       android:text="@string/cancel_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/amount_text_layout"
+      app:layout_constraintTop_toBottomOf="@+id/amount_error_text"
       />
 
   <Button
