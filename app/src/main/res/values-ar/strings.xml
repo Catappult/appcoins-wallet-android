@@ -986,14 +986,14 @@
   <string name="block_transaction_disclaimer_title">التحويل في الطريق!</string>
   <string name="block_transaction_disclaimer_body">يمكنك أن تتبعه على Etherscan.</string>
   <!--  Withdraw Funds-->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_settings_title">سحب رصيد e-Skills</string>
+  <string name="e_skills_withdraw_email">البريد الإلكتروني لPayPal</string>
+  <string name="e_skills_withdraw_amount">المبلغ (USD)</string>
+  <string name="e_skills_withdraw_email_hint">بريدك الإلكتروني هنا</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
   <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">بريد إلكتروني غير صالح</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">رصيد غير كافٍ</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
   <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
   <string name="e_skills_more_info_button">More info.</string>
