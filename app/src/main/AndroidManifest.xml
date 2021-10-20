@@ -267,7 +267,7 @@
         android:label="@string/verification_settings_unverified_title"
         android:windowSoftInputMode="stateHidden" />
     <activity
-        android:name="com.asfoundation.wallet.eskills_withdraw.WithdrawActivity"
+        android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawActivity"
         android:label="@string/e_skills_withdraw_title" />
 
     <service

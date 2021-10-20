@@ -1,6 +1,6 @@
-package com.asfoundation.wallet.eskills_withdraw.repository
+package com.asfoundation.wallet.eskills.withdraw.repository
 
-import com.asfoundation.wallet.eskills_withdraw.WithdrawResult
+import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import java.math.BigDecimal

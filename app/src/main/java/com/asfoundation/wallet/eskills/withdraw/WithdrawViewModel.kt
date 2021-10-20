@@ -1,12 +1,13 @@
-package com.asfoundation.wallet.eskills_withdraw
+package com.asfoundation.wallet.eskills.withdraw
 
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.eskills_withdraw.use_cases.GetAvailableAmountToWithdrawUseCase
-import com.asfoundation.wallet.eskills_withdraw.use_cases.GetStoredUserEmailUseCase
-import com.asfoundation.wallet.eskills_withdraw.use_cases.WithdrawToFiatUseCase
+import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
+import com.asfoundation.wallet.eskills.withdraw.usecases.GetAvailableAmountToWithdrawUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.GetStoredUserEmailUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.WithdrawToFiatUseCase
 import java.math.BigDecimal
 
 object WithdrawSideEffect : SideEffect

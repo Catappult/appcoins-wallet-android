@@ -1,6 +1,6 @@
-package com.asfoundation.wallet.eskills_withdraw.use_cases
+package com.asfoundation.wallet.eskills.withdraw.usecases
 
-import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
 import io.reactivex.Single
 
 class GetStoredUserEmailUseCase(private val withdrawRepository: WithdrawRepository) {

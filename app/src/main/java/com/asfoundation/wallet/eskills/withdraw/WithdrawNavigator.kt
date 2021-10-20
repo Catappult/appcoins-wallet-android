@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.eskills_withdraw
+package com.asfoundation.wallet.eskills.withdraw
 
 import androidx.fragment.app.FragmentActivity
 

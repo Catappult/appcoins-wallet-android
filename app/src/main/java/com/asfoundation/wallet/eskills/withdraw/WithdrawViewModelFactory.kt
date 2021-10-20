@@ -1,10 +1,10 @@
-package com.asfoundation.wallet.eskills_withdraw
+package com.asfoundation.wallet.eskills.withdraw
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.asfoundation.wallet.eskills_withdraw.use_cases.GetAvailableAmountToWithdrawUseCase
-import com.asfoundation.wallet.eskills_withdraw.use_cases.GetStoredUserEmailUseCase
-import com.asfoundation.wallet.eskills_withdraw.use_cases.WithdrawToFiatUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.GetAvailableAmountToWithdrawUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.GetStoredUserEmailUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.WithdrawToFiatUseCase
 
 class WithdrawViewModelFactory(
     private val getAvailableAmountToWithdrawUseCase: GetAvailableAmountToWithdrawUseCase,

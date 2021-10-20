@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.eskills_withdraw
+package com.asfoundation.wallet.eskills.withdraw
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentWithdrawBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import java.math.BigDecimal
 import javax.inject.Inject

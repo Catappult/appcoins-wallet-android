@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.eskills_withdraw.repository
+package com.asfoundation.wallet.eskills.withdraw.repository
 
 import io.reactivex.Single
 

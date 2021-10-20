@@ -1,9 +1,9 @@
-package com.asfoundation.wallet.eskills_withdraw.use_cases
+package com.asfoundation.wallet.eskills.withdraw.usecases
 
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.util.isEmailValid
-import com.asfoundation.wallet.eskills_withdraw.WithdrawResult
-import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
 import io.reactivex.Single
 import java.math.BigDecimal
 

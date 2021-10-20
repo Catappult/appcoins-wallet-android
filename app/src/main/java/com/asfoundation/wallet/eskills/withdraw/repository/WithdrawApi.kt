@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.eskills_withdraw.repository
+package com.asfoundation.wallet.eskills.withdraw.repository
 
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -11,7 +11,7 @@ interface WithdrawApi {
   @GET("transaction/wallet/withdraw/credits")
   fun getAvailableAmount(
       @Header("authorization") authorization: String
-  ): Single<WithdrawAvailableAmount>
+  ): Single<WithdrawAvailableAmountResult>
 
   @POST("transaction/wallet/withdraw/credits")
   fun withdrawAppcCredits(

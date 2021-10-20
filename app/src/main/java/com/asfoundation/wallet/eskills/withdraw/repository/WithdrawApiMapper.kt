@@ -1,7 +1,7 @@
-package com.asfoundation.wallet.eskills_withdraw.repository
+package com.asfoundation.wallet.eskills.withdraw.repository
 
 import com.appcoins.wallet.billing.util.isNoNetworkException
-import com.asfoundation.wallet.eskills_withdraw.WithdrawResult
+import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.google.gson.Gson
 import retrofit2.HttpException
 import java.math.BigDecimal

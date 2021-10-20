@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.eskills_withdraw
+package com.asfoundation.wallet.eskills.withdraw.domain
 
 import java.math.BigDecimal
 

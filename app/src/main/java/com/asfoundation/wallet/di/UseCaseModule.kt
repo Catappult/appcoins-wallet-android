@@ -12,10 +12,10 @@ import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseC
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.eskills_withdraw.repository.WithdrawRepository
-import com.asfoundation.wallet.eskills_withdraw.use_cases.GetAvailableAmountToWithdrawUseCase
-import com.asfoundation.wallet.eskills_withdraw.use_cases.GetStoredUserEmailUseCase
-import com.asfoundation.wallet.eskills_withdraw.use_cases.WithdrawToFiatUseCase
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.eskills.withdraw.usecases.GetAvailableAmountToWithdrawUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.GetStoredUserEmailUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.WithdrawToFiatUseCase
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase

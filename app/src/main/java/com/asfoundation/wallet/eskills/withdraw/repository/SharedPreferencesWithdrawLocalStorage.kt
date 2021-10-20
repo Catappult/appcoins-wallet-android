@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.eskills_withdraw.repository
+package com.asfoundation.wallet.eskills.withdraw.repository
 
 import android.content.SharedPreferences
 import io.reactivex.Single

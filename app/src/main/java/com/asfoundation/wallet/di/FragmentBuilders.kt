@@ -99,8 +99,8 @@ import com.asfoundation.wallet.verification.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.error.VerificationErrorModule
 import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 import com.asfoundation.wallet.verification.intro.VerificationIntroModule
-import com.asfoundation.wallet.eskills_withdraw.WithdrawFragment
-import com.asfoundation.wallet.eskills_withdraw.WithdrawModule
+import com.asfoundation.wallet.eskills.withdraw.WithdrawFragment
+import com.asfoundation.wallet.eskills.withdraw.WithdrawModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
