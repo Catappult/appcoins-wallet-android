@@ -24,6 +24,7 @@ import com.asfoundation.wallet.App
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
@@ -40,6 +41,8 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.nfts.repository.NftApi
+import com.asfoundation.wallet.nfts.repository.NftRepository
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
@@ -431,4 +434,21 @@ class RepositoryModule {
         fiatCurrenciesDao, conversionService)
 
   }
+
+  @Singleton
+  @Provides
+  fun providesNFTRepository(@Named("default") client: OkHttpClient,rxSchedulers: RxSchedulers): NftRepository {
+    val baseUrl = BuildConfig.BACKEND_HOST
+    val api = Retrofit.Builder()
+      .baseUrl(baseUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(NftApi::class.java)
+    return NftRepository(api , rxSchedulers)
+
+  }
+
+
 }
