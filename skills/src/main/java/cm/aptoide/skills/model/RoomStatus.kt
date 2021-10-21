@@ -1,5 +1,5 @@
 package cm.aptoide.skills.model
 
-enum class UserStatus {
+enum class RoomStatus {
   PLAYING, COMPLETED
 }

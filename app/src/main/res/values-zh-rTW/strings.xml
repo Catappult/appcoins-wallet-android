@@ -416,7 +416,7 @@
   <string name="discover_button">發現</string>
   <string name="retry_button">重試</string>
   <string name="do_it_later_button">稍後再做</string>
-  <string name="connectoin_error_body">可能您未連接至網路。請檢查您的網絡連線狀態，再試一次。</string>
+  <string name="connection_error_body">可能您未連接至網路。請檢查您的網絡連線狀態，再試一次。</string>
   <string name="common_or">或者</string>
   <string name="share_via">分享至：</string>
   <string name="password">密碼</string>

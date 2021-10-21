@@ -416,7 +416,7 @@
   <string name="discover_button">Khám phá</string>
   <string name="retry_button">Thử lại</string>
   <string name="do_it_later_button">Để sau</string>
-  <string name="connectoin_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
+  <string name="connection_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
   <string name="common_or">HOẶC</string>
   <string name="share_via">Chia sẻ qua:</string>
   <string name="password">Mật khẩu</string>

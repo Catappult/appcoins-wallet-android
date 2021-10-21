@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
+import cm.aptoide.skills.games.BackgroundGameService
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
 import dagger.android.support.DaggerFragment
@@ -46,8 +47,8 @@ class SkillsFragment : DaggerFragment() {
   private lateinit var binding: FragmentSkillsBinding
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     binding = FragmentSkillsBinding.inflate(inflater, container, false)
     return binding.root
@@ -59,11 +60,11 @@ class SkillsFragment : DaggerFragment() {
 
     val eskillsUri = getEskillsUri()
     requireActivity().onBackPressedDispatcher
-      .addCallback(this, object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-          disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
-        }
-      })
+        .addCallback(this, object : OnBackPressedCallback(true) {
+          override fun handleOnBackPressed() {
+            disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
+          }
+        })
     disposable.add(viewModel.closeView().subscribe { postbackUserData(it.first, it.second) })
 
 
@@ -99,9 +100,7 @@ class SkillsFragment : DaggerFragment() {
       binding.loadingTicketLayout.processingLoading.visibility = View.GONE
       binding.refundTicketLayout.root.visibility = View.GONE
       binding.noNetworkLayout.root.visibility = View.VISIBLE
-      binding.noNetworkLayout.noNetworkOkButton.setOnClickListener({
-        finishWithError()
-      })
+      binding.noNetworkLayout.noNetworkOkButton.setOnClickListener { finishWithError() }
     }
   }
 
@@ -178,6 +177,9 @@ class SkillsFragment : DaggerFragment() {
   }
 
   private fun postbackUserData(resultCode: Int, userData: UserData) {
+    if (resultCode == SkillsViewModel.RESULT_OK) {
+      startBackgroundGameService(userData)
+    }
     requireActivity().setResult(resultCode, buildDataIntent(userData))
     requireActivity().finish()
   }
@@ -191,5 +193,10 @@ class SkillsFragment : DaggerFragment() {
     intent.putExtra(WALLET_ADDRESS, userData.walletAddress)
 
     return intent
+  }
+
+  private fun startBackgroundGameService(userData: UserData) {
+    val intent = BackgroundGameService.newIntent(context!!, userData.session)
+    context?.startService(intent)
   }
 }
