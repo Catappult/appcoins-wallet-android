@@ -16,6 +16,3 @@ class GetNFTListUseCase(private val getCurrentWallet: GetCurrentWalletUseCase, p
       }
   }
 }
-
-//NFTsController
-//Navegação desde MyWallets
