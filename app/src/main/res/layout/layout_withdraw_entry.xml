@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/MaterialAppTheme"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/withdraw_top_bar"
@@ -40,7 +41,6 @@
             app:layout_constraintTop_toTopOf="parent"
             />-->
   </androidx.constraintlayout.widget.ConstraintLayout>
-
 
   <ImageView
       android:id="@+id/withdraw_image_trophy"
@@ -109,33 +109,42 @@
       app:layout_constraintTop_toBottomOf="@id/withdraw_image_trophy"
       />
 
-  <com.google.android.material.textfield.TextInputLayout
+  <LinearLayout
       android:id="@+id/email_text_layout"
       android:layout_width="0dp"
-      android:layout_height="48dp"
+      android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      android:background="@drawable/rectangle_outline_grey"
+      android:background="@drawable/rectangle_outline_grey_radius_8dp"
+      android:paddingStart="4dp"
+      android:paddingTop="4dp"
+      android:paddingEnd="4dp"
+      android:paddingBottom="4dp"
       app:layout_constraintEnd_toEndOf="@id/paypal_email_title"
       app:layout_constraintStart_toStartOf="@id/paypal_email_title"
       app:layout_constraintTop_toBottomOf="@id/paypal_email_title"
       >
 
-    <EditText
-        android:id="@+id/paypal_email"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/eSkills.Withdraw.TextInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:autofillHints="emailAddress"
-        android:background="@android:color/transparent"
-        android:hint="@string/e_skills_withdraw_email_hint"
-        android:inputType="textEmailAddress"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        />
-  </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/paypal_email"
+          style="@style/eSkills.Withdraw.TextInputEditText"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:hint="@string/e_skills_withdraw_email_hint"
+          android:inputType="textEmailAddress"
+          />
+    </com.google.android.material.textfield.TextInputLayout>
+
+  </LinearLayout>
 
   <TextView
       android:id="@+id/email_error_text"
-      style="@style/PaymentMethods.Carrier.PhoneFieldError"
+      style="@style/eSkills.Withdraw.FieldError"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="5dp"
@@ -162,32 +171,41 @@
       app:layout_constraintTop_toBottomOf="@id/email_error_text"
       />
 
-  <com.google.android.material.textfield.TextInputLayout
+  <LinearLayout
       android:id="@+id/amount_text_layout"
       android:layout_width="0dp"
-      android:layout_height="48dp"
+      android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      android:background="@drawable/rectangle_outline_grey"
+      android:background="@drawable/rectangle_outline_grey_radius_8dp"
+      android:paddingStart="4dp"
+      android:paddingTop="4dp"
+      android:paddingEnd="4dp"
+      android:paddingBottom="4dp"
       app:layout_constraintEnd_toEndOf="@id/amount_title"
       app:layout_constraintStart_toStartOf="@id/amount_title"
       app:layout_constraintTop_toBottomOf="@id/amount_title"
       >
 
-    <EditText
-        android:id="@+id/amount"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/eSkills.Withdraw.TextInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:hint="@string/e_skills_withdraw_amount_hint"
-        android:inputType="numberDecimal"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        />
-  </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="wrap_content"
+        >
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/amount"
+          style="@style/eSkills.Withdraw.TextInputEditText"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:hint="@string/e_skills_withdraw_amount_hint"
+          android:inputType="numberDecimal"
+          />
+    </com.google.android.material.textfield.TextInputLayout>
+
+  </LinearLayout>
 
   <TextView
       android:id="@+id/amount_error_text"
-      style="@style/PaymentMethods.Carrier.PhoneFieldError"
+      style="@style/eSkills.Withdraw.FieldError"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="5dp"
@@ -214,7 +232,7 @@
 
   <Button
       android:id="@+id/withdraw_button"
-      style="@style/ButtonStyle"
+      style="@style/ButtonStyle.Alternative"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/withdraw_button"
