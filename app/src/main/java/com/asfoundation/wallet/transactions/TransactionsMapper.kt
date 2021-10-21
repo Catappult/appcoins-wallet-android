@@ -75,6 +75,7 @@ class TransactionsMapper {
       "Topup Revert OffChain" -> TransactionEntity.TransactionType.TOP_UP_REVERT
       "IAP Revert OffChain" -> TransactionEntity.TransactionType.IAP_REVERT
       "Subscription OffChain" -> TransactionEntity.TransactionType.INAPP_SUBSCRIPTION
+      "Eskills Reward OffChain" -> TransactionEntity.TransactionType.ESKILLS_REWARD
       else -> TransactionEntity.TransactionType.STANDARD
     }
   }
