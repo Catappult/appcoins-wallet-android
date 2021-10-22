@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">Pastikan anda ada sandaran bagi dompet ini.</string>
   <string name="action_import">Dapatkan Semula</string>
   <string name="copy">Salin ke papan klip</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">Disalin!</string>
   <string name="close">Tutup</string>
   <string name="title_activity_settings">Tetapan</string>
   <string name="network_label">Rangkaian</string>
@@ -50,7 +50,7 @@
   <string name="error_import">Ralat mengimport kunci kedai</string>
   <string name="message_this_is_your_address">Alamat dompet Ethereum awam saya</string>
   <string name="backup_warning_text">Oleh kerana anda mengawal wang anda, anda perlu menyimpan sandaran kunci kedai anda sekiranya aplikasi ini dipadam.\n\nDompet anda tidak sesekali akan disimpan di simpanan awan atau sandaran peranti standard.</string>
-  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
+  <string name="backup_wallet_tooltip">Simpan salinan dompet anda untuk tujuan keselamatan.</string>
   <string name="message_no_backup">Tiada sandaran, tiada Ethereum</string>
   <string name="error_deleting_account">Ralat memadam dompet</string>
   <string name="title_privacy_policy">Dasar Privasi</string>
@@ -100,7 +100,7 @@
   <string name="title_dialog_error">Ralat</string>
   <string name="title_dialog_handling">Memproses…</string>
   <string name="title_dialog_add_account">Tambah dompet</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">Anda mahu bayar dengan apa?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Tetapkan kata laluan untuk menyulitkan dompet anda</string>
@@ -246,8 +246,8 @@
   <string name="transaction_type_reverted_purchase_title">Bayar Balik Pembelian</string>
   <string name="transaction_type_reverted_purchase_body">Pembelian yang anda buat pada %s telah dikembalikan. Hubungi Sokongan untuk maklumat lanjut.</string>
   <string name="transaction_reverted_view_original_header">Transaksi Asal</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_onchain_completed_title">Transaksi sedang berlangsung!</string>
+  <string name="transaction_onchain_completed_body">Anda boleh jejak menggunakan Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Dikuasakan Oleh Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -281,7 +281,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">teruskan</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Belanja AppCoins anda</string>
@@ -324,7 +324,7 @@
   <string name="gamification_star_subtitle">Bersinar, besar dan penuh tenaga!</string>
   <string name="gamification_galaxy_subtitle">Sistem terbesar di angkasa!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">Ada bonus utk pembelian ini!</string>
   <string name="gamification_purchase_header_part_1">Beli Bonus:</string>
   <string name="gamification_purchase_header_part_2">%s dalam Kredit APPC</string>
   <string name="gamification_purchase_body">Anda boleh gunakan bonus ini dalam pembelian anda yang seterusnya.</string>
@@ -381,12 +381,12 @@
   <string name="balance_ethereum_body">Ethereum ialah mata wang kripto yang digunakan dalam AppCoins. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga, ia sangat popular!</string>
   <string name="balance_appcoins_body">AppCoins ialah mata wang kripto untuk ekonomi aplikasi. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga dan menggunakannya untuk membeli item dalam aplikasi.</string>
   <string name="balance_appccreditos_body">Token untuk membeli item dalam aplikasi! Tambah nilai APPC-C daripada dompet anda atau dapatkannya secara percuma dengan menggunakan aplikasi. Ia juga boleh dipindahkan antara rakan!</string>
-  <string name="my_wallets_action_new_wallet">New wallet</string>
-  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
-  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
-  <string name="verify_card_title">Verify Card</string>
+  <string name="my_wallets_action_new_wallet">Dompet baru</string>
+  <string name="my_wallets_action_recover_wallet">Dapatkan semula dompet</string>
+  <string name="my_wallets_action_backup_wallet">Dompet sandaran</string>
+  <string name="my_wallets_action_verify_new_card">Sahkan kad baru</string>
+  <string name="my_wallets_action_delete_wallet">Hapus dompet</string>
+  <string name="verify_card_title">Sahkan Kad</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang bayarkan</string>
   <string name="askafriend_generating_link_message">Kami sedang menjana pautan pembayaran anda&#8230;</string>
@@ -433,7 +433,7 @@
   <string name="remind_later_button">Ingatkan saya nanti</string>
   <string name="get_code_button">Dapatkan kod</string>
   <string name="confirm_button">Sahkan</string>
-  <string name="withdraw_button">withdraw</string>
+  <string name="withdraw_button">keluarkan</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -477,7 +477,7 @@
   <string name="verification_settings_unverified_title">Sahkan Dompet</string>
   <string name="verification_settings_unverified_body">Dapatkan ganjaran dan jemput rakan</string>
   <string name="verification_settings_verified_title">Dompet Disahkan</string>
-  <string name="verification_settings_card_verified_title">Card Verified</string>
+  <string name="verification_settings_card_verified_title">Kad Disahkan</string>
   <string name="verification_settings_no_internet">Anda perlu sambungan Internet</string>
   <string name="verification_error_time_expired">Alamak, masa anda telah tamat. Buat semula!</string>
   <string name="verification_error_attempts_reached">Anda telah capai had percubaan. Sila tunggu sebentar sebelum cuba lagi.</string>
@@ -526,15 +526,15 @@
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Ada yang tak kena! Sila cuba kaedah bayaran atau jumlah tambah nilai yang lain.</string>
   <string name="purchase_error_try_cheaper_item">Mahal sangat! Cuba beli item lain yang murah sikit.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Mahal sangat! Cuba beli item lain yang murah sikit atau cuba kaedah bayaran yang lain.</string>
-  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
-  <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
-  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
-  <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
-  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
+  <string name="transfer_appc_error_no_eth_title">Anda perlu Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">Yuran pemindahan AppCoins dibayar dalam Ethereum, jadi anda perlu ETH untuk pindahkan APPC.</string>
+  <string name="purchase_error_invalid_credit_card">Nombor kad bank tidak sah. Pastikan semua digit adalah betul.</string>
+  <string name="purchase_error_card_security_validation">Ada ralat berlaku pada pengesahan tahap kedua transaksi ini. Sila cuba lagi.</string>
+  <string name="purchase_error_transaction_timeout">Nampaknya anda ambil masa terlalu lama untuk selesaikan transaksi. Sila cuba lagi.</string>
+  <string name="purchase_error_card_already_in_progress">Permintaan anda telah diproses atau sedang berlangsung. Sila tunggu.</string>
+  <string name="purchase_error_payment_rejected">Pembayaran ditolak! Sila cuba dengan kad lain atau gunakan kaedah bayaran yang lain.</string>
+  <string name="purchase_error_verify_wallet">Cuba sahkan dompet anda untuk atasi masalah ini.</string>
+  <string name="purchase_eskills_sku">Tiket masuk</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -715,7 +715,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Urus langganan</string>
   <string name="subscriptions_title">Langganan</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">Langgan</string>
   <string name="subscriptions_active_title">Aktif</string>
   <string name="subscriptions_expired_title">Luput</string>
   <string name="subscriptions_inactive_title">Tidak Aktif</string>
@@ -733,8 +733,8 @@
   <string name="subscriptions_details_button">BUTIRAN</string>
   <string name="subscriptions_manage_button">URUS LANGGANAN</string>
   <string name="subscriptions_cancel_button">BATAL LANGGANAN</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
-  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
+  <string name="subscriptions_renew_subscription_button">PERBAHARU LANGGANAN</string>
+  <string name="subscriptions_renewed_confirmation_title">Langganan Diperbaharu!</string>
   <string name="subscriptions_cancel_title">Batal Langganan</string>
   <string name="subscriptions_cancel_body">Anda pasti mahu batalkan langganan ini?</string>
   <string name="subscriptions_cancel_no_button">TIDAK, KEMBALI</string>
@@ -896,7 +896,7 @@
   <string name="rate_us_back_body">Nilai Dompet AppCoins di gedung aplikasi supaya kami boleh tambah baik.</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your bank card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
+  <string name="card_verification_charde_disclaimer">Caj sebanyak %s akan dikenakan pada kad anda, dan kami akan memulangkannya semula setelah anda sahkan kod. Urus niaga ini boleh mengambil masa beberapa minit sehingga beberapa hari bergantung pada bank anda.</string>
   <string name="card_verification_code_title">Semak kod pada butiran transaksi</string>
   <string name="card_verification_code_body">Kod unik akan terpapar pada rumusan transaksi yang disediakan oleh pengeluar kad anda.</string>
   <string name="card_verification_code_example_title">Contoh Ringkasan Transaksi</string>
@@ -933,46 +933,46 @@
   <string name="voucher_empty_more_title">Baucar untuk Permainan</string>
   <string name="voucher_empty_more_body">Temui tawaran terhebat untuk permainan kegemaran anda!</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
-  <string name="change_currency_choose_button">Choose currency</string>
+  <string name="change_currency_title">Tukar mata wang</string>
+  <string name="change_currency_settings_title">Mata wang</string>
+  <string name="change_currency_choose_button">Pilih mata wang</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">Transaksi sedang berlangsung!</string>
+  <string name="block_transaction_disclaimer_body">Anda boleh jejak menggunakan Etherscan.</string>
   <!--  Withdraw Funds-->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_settings_title">Pengeluaran e-Skills</string>
+  <string name="e_skills_withdraw_email">Alamat e-mel PayPal</string>
+  <string name="e_skills_withdraw_amount">Jumlah (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Alamat e-mel anda di sini</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
-  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+  <string name="e_skills_withdraw_title">Pengeluaran e-Skills</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">E-mel tidak sah</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Baki tidak mencukupi</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Anda hanya boleh keluarkan dana yang diperoleh dalam permainan e-Skills</string>
+  <string name="e_skills_withdraw_max_amount">Jumlah maksimum boleh dikeluarkan: %s</string>
+  <string name="e_skills_more_info_button">Maklumat lanjut</string>
   <!--Promo Code-->
-  <string name="promo_code_settings_title">Promo Code</string>
-  <string name="promo_code_view_title">Promo Code</string>
-  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
-  <string name="promo_code_view_field">Promo Code here...</string>
-  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
-  <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
-  <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_settings_title">Kod Promo</string>
+  <string name="promo_code_view_title">Kod Promo</string>
+  <string name="promo_code_view_body">Masukkan Kod Promo untuk dapatkan tawaran istimewa!</string>
+  <string name="promo_code_view_field">Kod Promo di sini...</string>
+  <string name="promo_code_view_error">Kod tidak sah. Cuba yang lain!</string>
+  <string name="promo_code_activated">Kod promo diaktifkan!</string>
+  <string name="promo_code_replace_button">GANTI</string>
+  <string name="promo_code_active_tag">Aktif</string>
+  <string name="promo_code_expired_tag">Luput</string>
+  <string name="promo_code_success_title">Selesai!</string>
+  <string name="promo_code_success_body">Anda akan terima %s%% bonus ekstra untuk semua pembelian anda.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Perihal AppCoins</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
+  <string name="appcoins_info_prince_title">Harga AppCoins (APPC)</string>
+  <string name="appcoins_info_title_1">Apa itu AppCoins?</string>
+  <string name="appcoins_info_body_1">AppCoins ialah token digital ciptaan Aptoide. Ia digunakan lebih 200 juta orang di seluruh dunia. Matlamat utama penyelesaian pembayaran inovatif ini adalah untuk memupuk rasa percaya terhadap ekonomi aplikasi dan menghapuskan perantara.</string>
+  <string name="appcoins_info_title_1b">Seperti token digita yang lain, nilai AppCoins berubah-ubah mengikut mata wang pilihan anda (EUR, USD...). Anda boleh menjejak perubahan seiring masa ini menggunakan grafik di atas.</string>
+  <string name="appcoins_info_title_2">Apakah kegunaan AppCoins?</string>
+  <string name="appcoins_info_body_2">AppCoins dan Kredit AppCoins boleh digunakan untuk membuat pembayaran dalam aplikasi kegemaran anda. Anda akan terima Kredit AppCoins sebagai bonus apabila membuat pembelian dengan kaedah bayaran lain (kad ban, PayPal...) dan semasa tambah nilai Dompet AppCoins anda.</string>
+  <string name="appcoins_info_website_title">Laman web</string>
   <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_market_cap_title">Modal Pasaran</string>
+  <string name="appcoins_info_volume_title">Jumlah (24j)</string>
 </resources>
