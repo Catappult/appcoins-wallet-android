@@ -416,7 +416,7 @@
   <string name="discover_button">Otkrij</string>
   <string name="retry_button">Pokušaj ponovo</string>
   <string name="do_it_later_button">Pokušaj kasnije</string>
-  <string name="connectoin_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
+  <string name="connection_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
   <string name="common_or">ILI</string>
   <string name="share_via">Podeli preko:</string>
   <string name="password">Lozinka</string>

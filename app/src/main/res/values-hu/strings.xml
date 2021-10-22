@@ -416,7 +416,7 @@
   <string name="discover_button">Felfedezés</string>
   <string name="retry_button">Újrapróbálkozás</string>
   <string name="do_it_later_button">Majd később</string>
-  <string name="connectoin_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
+  <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
   <string name="common_or">VAGY</string>
   <string name="share_via">Megosztás ezen keresztül:</string>
   <string name="password">Jelszó</string>

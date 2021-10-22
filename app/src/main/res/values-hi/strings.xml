@@ -416,7 +416,7 @@
   <string name="discover_button">पता लगाएँ</string>
   <string name="retry_button">पुनः करें</string>
   <string name="do_it_later_button">इसे बाद में करें</string>
-  <string name="connectoin_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
+  <string name="connection_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
   <string name="common_or">या</string>
   <string name="share_via">साझा करें:</string>
   <string name="password">पासवर्ड</string>

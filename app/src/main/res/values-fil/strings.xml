@@ -416,7 +416,7 @@
   <string name="discover_button">Discover</string>
   <string name="retry_button">Retry</string>
   <string name="do_it_later_button">Do it later</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <string name="password">Password</string>

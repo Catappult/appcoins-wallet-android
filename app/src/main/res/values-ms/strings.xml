@@ -416,7 +416,7 @@
   <string name="discover_button">Ketahui</string>
   <string name="retry_button">Cuba lagi</string>
   <string name="do_it_later_button">Buat nanti</string>
-  <string name="connectoin_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
+  <string name="connection_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
   <string name="common_or">ATAU</string>
   <string name="share_via">Kongsi melalui:</string>
   <string name="password">Kata laluan</string>

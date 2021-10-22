@@ -416,7 +416,7 @@
   <string name="discover_button">Keşfet</string>
   <string name="retry_button">Tekrar deneyin</string>
   <string name="do_it_later_button">Daha sonra yapın</string>
-  <string name="connectoin_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
+  <string name="connection_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
   <string name="common_or">VEYA</string>
   <string name="share_via">Şu yolla paylaş:</string>
   <string name="password">Şifre</string>
