@@ -533,7 +533,7 @@
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
   <string name="purchase_error_card_already_in_progress">你的请求已被处理或正在处理。请稍候。</string>
   <string name="purchase_error_payment_rejected">付款已被拒绝！请尝试使用其他发卡机构的卡或使用其他支付方式。</string>
-  <string name="purchase_error_verify_wallet">尝试验证钱包，以解锁这种情况。</string>
+  <string name="purchase_error_verify_wallet">尝试验证钱包，以解决这种情况。</string>
   <string name="purchase_eskills_sku">入场券</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
