@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">Stellen Sie sicher, dass Sie eine Sicherungskopie von diesem Wallet erstellt haben.</string>
   <string name="action_import">Wiederherstellen</string>
   <string name="copy">In Zwischenablage kopieren</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">Kopiert!</string>
   <string name="close">Schließen</string>
   <string name="title_activity_settings">Einstellungen</string>
   <string name="network_label">Netzwerk</string>
@@ -50,7 +50,7 @@
   <string name="error_import">Fehler beim Importieren von Keystore</string>
   <string name="message_this_is_your_address">Meine öffentliche Ethereum-Wallet Adresse</string>
   <string name="backup_warning_text">Da nur Sie ihr geld kontrollieren, müssen Sie selbst, für den Fall der Löschung dieser App, ein Backup ihres Keystores anlegen. \n\n Ihr Wallet wird niemals in der Cloud oder auf einem Standard-Speichermedium gespeichert.</string>
-  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
+  <string name="backup_wallet_tooltip">Aus Sicherheitsgründen sollten Sie eine Kopie ihres Wallets erstellen.</string>
   <string name="message_no_backup">Kein Backup, kein Ethereum</string>
   <string name="error_deleting_account">Fehler beim Löschen des Wallets</string>
   <string name="title_privacy_policy">Datenschutzrichtlinie</string>
@@ -382,8 +382,8 @@
   <string name="balance_appcoins_body">AppCoins ist die Kryptowährung für die App-Economy. Sie können AppCoins an mehreren Börsen kaufen und verkaufen und sie für den In-App Kauf von Artikeln verwenden.</string>
   <string name="balance_appccreditos_body">Das Token für den In-App Einkauf von Artikeln. Laden Sie APPC-Credits auf ihr Wallet und erhalten Sie sie gratis für die Verwendung von Apps. Sie können aber auch unter Freunden übertragen werden!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
-  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_recover_wallet">Wallet wiederherstellen</string>
+  <string name="my_wallets_action_backup_wallet">Wallet-Backup erstellen</string>
   <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <string name="verify_card_title">Verify Card</string>
@@ -969,8 +969,8 @@
   <string name="promo_code_activated">Promo code activated!</string>
   <string name="promo_code_replace_button">REPLACE</string>
   <string name="promo_code_active_tag">Active</string>
-  <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_expired_tag">Abgelaufen</string>
+  <string name="promo_code_success_title">Erledigt!</string>
   <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Über AppCoins</string>
