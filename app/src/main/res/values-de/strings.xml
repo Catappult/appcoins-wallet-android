@@ -963,25 +963,25 @@
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promotion-Code</string>
   <string name="promo_code_view_title">Promotion-Code</string>
-  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
-  <string name="promo_code_view_field">Promo Code here...</string>
-  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
-  <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
+  <string name="promo_code_view_body">Geben Sie einen Promotion-Code um besondere Angbote zu erhalten!</string>
+  <string name="promo_code_view_field">Promotion-Code hier...</string>
+  <string name="promo_code_view_error">Ungültiger Code. Versuchen Sie es mit einem anderen!</string>
+  <string name="promo_code_activated">Promotion-Code aktiviert!</string>
+  <string name="promo_code_replace_button">ERSETZEN</string>
+  <string name="promo_code_active_tag">Aktiv</string>
   <string name="promo_code_expired_tag">Abgelaufen</string>
   <string name="promo_code_success_title">Erledigt!</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_success_body">Sie erhalten %s%% zusätzlichen Bonus auf all ihre Einkäufe.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Über AppCoins</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
+  <string name="appcoins_info_prince_title">AppCoins Kurs (APPC)</string>
   <string name="appcoins_info_title_1">Was sind AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
+  <string name="appcoins_info_body_1">AppCoins ist ein digitaler Token der von Aptoide entwickelt wurde und von mehr als 200 Millionen Nutzern weltweit verwendet wird. Das Hauptziel von diesem innovativen Bezahlsystem ist es Vertrauen in die App-Wirtschaft zu schaffen und Vermittler auszuschalten.</string>
+  <string name="appcoins_info_title_1b">Wie alle digitalen Token, ändert sich der Wert von AppCoins ständig in Bezug auf Ihre bevorzugte Währung (EUR, USD...). Sie können diese Veränderungen in der Grafik oben verfolgen.</string>
+  <string name="appcoins_info_title_2">Was sind AppCoins?</string>
+  <string name="appcoins_info_body_2">Sowohl AppCoins als auch AppCoins Credits können verwendet werden, um Zahlungen in Ihren Lieblings-Apps zu tätigen. Sie erhalten AppCoins Credits als Bonus, wenn Sie einen Kauf mit einer anderen Zahlungsmethode (Bankkarte, PayPal...) tätigen und auch wenn Sie das Guthaben ihrer AppCoins Wallet aufladen.</string>
   <string name="appcoins_info_website_title">Website</string>
   <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_market_cap_title">Marktkap</string>
+  <string name="appcoins_info_volume_title">Volumen (24h)</string>
 </resources>
