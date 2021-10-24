@@ -942,27 +942,27 @@
   <string name="voucher_empty_more_title">Voucher für Spiele</string>
   <string name="voucher_empty_more_body">Finden Sie die besten Angebote für ihre Lieblingsspiele!</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
-  <string name="change_currency_choose_button">Choose currency</string>
+  <string name="change_currency_title">Währung ändern</string>
+  <string name="change_currency_settings_title">Währung</string>
+  <string name="change_currency_choose_button">Währung auswählen</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">Transaktion wird verarbeitet!</string>
+  <string name="block_transaction_disclaimer_body">Sie können die Transaktion auf Etherscan verfolgen.</string>
   <!--  Withdraw Funds-->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_settings_title">e-Skills Abhebung</string>
+  <string name="e_skills_withdraw_email">PayPal E-Mail Adresse</string>
+  <string name="e_skills_withdraw_amount">Betrag (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Ihre E-Mail Adresse hier</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
-  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+  <string name="e_skills_withdraw_title">e-Skills Abhebung</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Ungültige E-Mail Adresse</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Guthaben nicht ausreichend</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Sie können nur das Guthaben abheben dass Sie in e-Skill Spielen verdient haben</string>
+  <string name="e_skills_withdraw_max_amount">Max. Betrag den Sie abheben können: %s</string>
+  <string name="e_skills_more_info_button">Mehr Informationen</string>
   <!--Promo Code-->
-  <string name="promo_code_settings_title">Promo Code</string>
-  <string name="promo_code_view_title">Promo Code</string>
+  <string name="promo_code_settings_title">Promotion-Code</string>
+  <string name="promo_code_view_title">Promotion-Code</string>
   <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
