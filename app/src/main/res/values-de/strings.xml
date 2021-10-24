@@ -381,12 +381,12 @@
   <string name="balance_ethereum_body">AppCoins basiert auf der Kryptowährung Ethereum. Sie kann in den Kryptobörsen gekauft und verkauft werden da sie sehr beleibt ist!</string>
   <string name="balance_appcoins_body">AppCoins ist die Kryptowährung für die App-Economy. Sie können AppCoins an mehreren Börsen kaufen und verkaufen und sie für den In-App Kauf von Artikeln verwenden.</string>
   <string name="balance_appccreditos_body">Das Token für den In-App Einkauf von Artikeln. Laden Sie APPC-Credits auf ihr Wallet und erhalten Sie sie gratis für die Verwendung von Apps. Sie können aber auch unter Freunden übertragen werden!</string>
-  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_new_wallet">Neues Wallet</string>
   <string name="my_wallets_action_recover_wallet">Wallet wiederherstellen</string>
   <string name="my_wallets_action_backup_wallet">Wallet-Backup erstellen</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
-  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
-  <string name="verify_card_title">Verify Card</string>
+  <string name="my_wallets_action_verify_new_card">Neue Karte verifizieren</string>
+  <string name="my_wallets_action_delete_wallet">Wallet löschen</string>
+  <string name="verify_card_title">Karte verifizieren</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Bitten Sie jemanden die Bezahlung zu übernehmen</string>
   <string name="askafriend_generating_link_message">Wir generieren ihren Bezahlungslink&#8230;</string>
@@ -433,7 +433,7 @@
   <string name="remind_later_button">Erinnern Sie mich später daran</string>
   <string name="get_code_button">Einen Code erhalten</string>
   <string name="confirm_button">Bestätigen</string>
-  <string name="withdraw_button">withdraw</string>
+  <string name="withdraw_button">abheben</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s des AppCoins Wallets zu.</string>
   <string name="terms_and_conditions_error">Um fortzufahren, akzeptieren Sie bitte unsere AGBs und unsere Datenschutzrichtlinie</string>
@@ -477,7 +477,7 @@
   <string name="verification_settings_unverified_title">Wallet verifizieren</string>
   <string name="verification_settings_unverified_body">Erhalten Sie Prämien und laden Sie Freunde ein</string>
   <string name="verification_settings_verified_title">Wallet Verifiziert</string>
-  <string name="verification_settings_card_verified_title">Card Verified</string>
+  <string name="verification_settings_card_verified_title">Karte verifiziert</string>
   <string name="verification_settings_no_internet">Sie benötigen eine Verbindung ins Internet</string>
   <string name="verification_error_time_expired">Upps, ihr Zeitfenster ist abgelaufen. Bitte starten Sie erneut!</string>
   <string name="verification_error_attempts_reached">Sie haben die maximale Anzahl von Versuchen erreicht. Bitte warten Sie bevor Sie es erneut versuchen.</string>
@@ -526,15 +526,15 @@
   <string name="purchase_error_try_other_amount_or_method">Upps&#8230; Etwas ist schief gelaufen! Bitte versuchen Sie eine andere Bezahlmethode oder einen anderen Einzahlungsbetrag.</string>
   <string name="purchase_error_try_cheaper_item">Das ist ganz schön teuer! Bitte versuchen Sie einen billigeren Artikel zu erwerben.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Das ist ganz schön teuer! Bitte versuchen Sie einen billigeren Artikel zu erwerben oder probieren Sie eine andere Bezahlmethode.</string>
-  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
-  <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
-  <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
-  <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
-  <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
+  <string name="transfer_appc_error_no_eth_title">Sie benötigen Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins Transaktionsgebühren werden mit Ethereum bezahlt, deswegen benötigen Sie ETH um APPC überweisen zu können.</string>
+  <string name="purchase_error_invalid_credit_card">Ungültige Bankkartennummer. Bitte überprüfen Sie die korrekte Eingabe der Nummer.</string>
+  <string name="purchase_error_card_security_validation">Auf der 2 Ebene der Transaktionsüberprüfung hat sich ein Fehler ereignet. Bitte versuchen Sie es erneut.</string>
+  <string name="purchase_error_transaction_timeout">Scheinbar haben Sie zu lange für den Abschluss der Transaktion gebraucht. Bitte versuchen Sie es erneut.</string>
+  <string name="purchase_error_card_already_in_progress">Ihre Anfrage wird bereits bearbeitet oder ist bereits abgeschlossen. Bitte warten.</string>
+  <string name="purchase_error_payment_rejected">Bezahlung wurde zurückgewiesen! Bitte versuchen Sie es mit einer anderen Karte oder einer anderen Bezahlmethode.</string>
+  <string name="purchase_error_verify_wallet">Bitte verifizieren Sie ihr Wallet, um damit das Problem zu lösen.</string>
+  <string name="purchase_eskills_sku">Ticket eingeben</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -716,7 +716,7 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Abonnements verwalten</string>
   <string name="subscriptions_title">Abonnements</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">Abonnieren</string>
   <string name="subscriptions_active_title">Aktiv</string>
   <string name="subscriptions_expired_title">Abgelaufen</string>
   <string name="subscriptions_inactive_title">Inaktiv</string>
@@ -734,8 +734,8 @@
   <string name="subscriptions_details_button">DETAILS</string>
   <string name="subscriptions_manage_button">ABONNEMENTS VERWALTEN</string>
   <string name="subscriptions_cancel_button">ABONNEMENT KÜNDIGEN</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
-  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
+  <string name="subscriptions_renew_subscription_button">ABONNEMENT ERNEUERN</string>
+  <string name="subscriptions_renewed_confirmation_title">Abonnement wurde erneuert!</string>
   <string name="subscriptions_cancel_title">Abonnement kündigen</string>
   <string name="subscriptions_cancel_body">Sind Sie sicher, dass Sie dieses Abonnement kündigen wollen?</string>
   <string name="subscriptions_cancel_no_button">NEIN, ZURÜCK</string>
@@ -903,7 +903,7 @@
   <string name="rate_us_back_body">Bewerten Sie AppCoins Wallet im App-Store damit wir es verbessern können.</string>
   <!--Card verification-->
   <string name="card_verification_body">Use your bank card to verify your wallet.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
+  <string name="card_verification_charde_disclaimer">Wir belasten ihre Karte mit %s, sobald Sie den Code bestätigen werden wir den Betrag zurück überweisen. Abhängig von ihrer Bank kann das zwischen einigen Minuten bis zu ein paar Tagen dauern.</string>
   <string name="card_verification_code_title">Überprüfen Sie den Code in den Transaktionsdetails</string>
   <string name="card_verification_code_body">Es wird ein einmaliger Code in der Zusammenfassung ihrer Transaktion, die von ihrem Kartenaussteller zur Verfügung gestellt wird, erscheinen.</string>
   <string name="card_verification_code_example_title">Beispiel einer Zusammenfassung einer Transaktion</string>
