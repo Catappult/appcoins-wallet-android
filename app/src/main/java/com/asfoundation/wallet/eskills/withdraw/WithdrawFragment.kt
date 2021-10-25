@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -43,6 +44,12 @@ class WithdrawFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setOnClickListeners()
+    views.layoutWithdrawEntry.paypalEmail.doOnTextChanged { _, _, _, _ ->
+      hideErrorMessages()
+    }
+    views.layoutWithdrawEntry.amount.doOnTextChanged { _, _, _, _ ->
+      hideErrorMessages()
+    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
