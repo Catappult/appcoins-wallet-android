@@ -70,6 +70,13 @@
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/settings_item_support" />
 
+    <com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
+        android:icon="@drawable/ic_send_logs"
+        android:key="pref_send_logs"
+        android:layout="@layout/preferences_with_active_currency_layout"
+        android:title="@string/send_logs_settings"/>
+
+
   </PreferenceCategory>
 
   <PreferenceCategory

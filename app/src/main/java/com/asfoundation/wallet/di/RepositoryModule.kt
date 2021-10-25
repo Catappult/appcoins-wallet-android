@@ -40,6 +40,8 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.logging.send_logs.LogsDao
+import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
@@ -429,6 +431,22 @@ class RepositoryModule {
         .create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
     return FiatCurrenciesRepository(api, sharedPreferences, FiatCurrenciesMapper(),
         fiatCurrenciesDao, conversionService)
+
+  }
+
+  @Singleton
+  @Provides
+  fun providesSendLogsRepository(@Named("default") client: OkHttpClient,
+                                       logsDao: LogsDao): SendLogsRepository {
+    val baseUrl = BuildConfig.BACKEND_HOST
+    val api = Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(SendLogsRepository.SendLogsApi::class.java)
+    return SendLogsRepository(api, logsDao)
 
   }
 }
