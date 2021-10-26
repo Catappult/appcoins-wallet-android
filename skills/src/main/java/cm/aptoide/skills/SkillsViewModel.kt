@@ -28,7 +28,7 @@ class SkillsViewModel(
     const val RESULT_OK = 0
     const val RESULT_USER_CANCELED = 1
     const val RESULT_REGION_NOT_SUPPORTED = 2
-    const val RESULT_NO_NETWORK = 3
+    const val RESULT_SERVICE_UNAVAILABLE = 3
     const val RESULT_ERROR = 6
   }
 

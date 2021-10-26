@@ -21,8 +21,6 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import java.net.ConnectException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 class SkillsFragment : DaggerFragment() {
@@ -128,7 +126,7 @@ class SkillsFragment : DaggerFragment() {
     binding.refundTicketLayout.root.visibility = View.GONE
     binding.noNetworkLayout.root.visibility = View.VISIBLE
     binding.noNetworkLayout.noNetworkOkButton.setOnClickListener {
-      finishWithError(SkillsViewModel.RESULT_NO_NETWORK)
+      finishWithError(SkillsViewModel.RESULT_SERVICE_UNAVAILABLE)
     }
   }
 
