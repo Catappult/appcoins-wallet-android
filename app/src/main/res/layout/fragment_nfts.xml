@@ -17,14 +17,28 @@
       app:layout_constraintTop_toTopOf="parent"
       >
 
+    <ImageButton
+        android:id="@+id/action_back"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="42dp"
+        android:layout_height="48dp"
+        android:rotation="-90"
+        android:src="@drawable/arrow_rotated"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitCenter"
+        android:tint="@color/white"
+        />
+
     <TextView
         android:id="@+id/title"
         style="@style/BottomNav.Header.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="60dp"
         android:text="NFTs"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/action_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

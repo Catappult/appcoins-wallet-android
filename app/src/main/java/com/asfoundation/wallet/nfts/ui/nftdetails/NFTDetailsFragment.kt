@@ -10,9 +10,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.my_wallets.more.MoreDialogSideEffect
-import com.asfoundation.wallet.nfts.ui.nftlist.NFTSideEffect
-import com.asfoundation.wallet.nfts.ui.nftlist.NFTState
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.Glide
 import javax.inject.Inject

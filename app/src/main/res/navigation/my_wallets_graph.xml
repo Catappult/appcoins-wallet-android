@@ -36,7 +36,7 @@
         app:destination="@id/nfts_fragment" />
   </fragment>
 
-  <dialog
+  <fragment
       android:id="@+id/nfts_fragment"
       android:name="com.asfoundation.wallet.nfts.ui.nftlist.NFTFragment"
       tools:layout="@layout/fragment_nfts">
@@ -45,18 +45,18 @@
         android:id="@+id/action_navigate_to_nft"
         app:destination="@id/nft_details_fragment" />
 
-  </dialog>
+  </fragment>
 
-  <dialog
+  <fragment
       android:id="@+id/nft_details_fragment"
       android:name="com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsFragment"
       tools:layout="@layout/fragment_nft">
 
     <argument
         android:name="data"
-        app:argType="NFTItem" />
+        app:argType="com.asfoundation.wallet.nfts.domain.NFTItem" />
 
-  </dialog>
+  </fragment>
 
   <dialog
       android:id="@+id/more_dialog_fragment"

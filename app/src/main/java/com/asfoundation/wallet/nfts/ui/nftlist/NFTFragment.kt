@@ -54,7 +54,7 @@ class NFTFragment : BasePageViewFragment() ,
       MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
         .toInt())
     )
-
+    setListeners()
     views.noNetwork.retryButton.setOnClickListener { viewModel.fetchNFTList() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -67,7 +67,12 @@ class NFTFragment : BasePageViewFragment() ,
   override fun onSideEffect(sideEffect: NFTSideEffect) {
     when (sideEffect) {
       is NFTSideEffect.NavigateToInfo -> navigator.navigateToInfo(sideEffect.nftData)
+
     }
+  }
+
+  private fun setListeners() {
+    views.actionBack.setOnClickListener { goBack() }
   }
 
   private fun setNFTItem(asyncNFTListModel: Async<List<NFTItem>>) {
@@ -76,10 +81,12 @@ class NFTFragment : BasePageViewFragment() ,
       is Async.Loading -> {
         if (asyncNFTListModel.value == null) {
           showLoading()
-
         }
       }
-      is Async.Fail -> showErrorToast()
+      is Async.Fail -> {
+        hideLoading()
+        showErrorToast()
+      }
       is Async.Success -> {
         setNFTs(asyncNFTListModel())
       }
@@ -108,10 +115,8 @@ class NFTFragment : BasePageViewFragment() ,
       .show()
   }
 
-  private fun showNoNFTsScreen() {
-    views.noNetwork.root.visibility = View.GONE
-    views.noNetwork.retryAnimation.visibility = View.GONE
-    views.noNfts.root.visibility = View.VISIBLE
+  private fun goBack(){
+    navigator.navigateBack()
   }
 
 
