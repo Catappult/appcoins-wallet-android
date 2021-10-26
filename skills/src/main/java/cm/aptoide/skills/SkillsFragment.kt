@@ -12,6 +12,7 @@ import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
 import cm.aptoide.skills.model.FailedTicket
 import cm.aptoide.skills.model.CreatedTicket
+import cm.aptoide.skills.model.ErrorStatus
 import cm.aptoide.skills.model.Ticket
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
@@ -94,9 +95,20 @@ class SkillsFragment : DaggerFragment() {
         purchaseTicket(eskillsUri, ticket)
       }
       is FailedTicket -> {
-        Completable.fromAction { handleUserDataStatus(UserData.fromStatus(UserData.Status.FAILED)) }
+        Completable.fromAction {
+          handleFailedTicketResult(ticket)
+        }
       }
       else -> return Completable.complete()
+    }
+  }
+
+  private fun handleFailedTicketResult(ticket: FailedTicket) {
+    when (ticket.status) {
+      ErrorStatus.REGION_NOT_SUPPORTED -> {
+        finishWithError(SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
+      }
+      ErrorStatus.NO_NETWORK -> showNoNetworkErrorLayout()
     }
   }
 
@@ -111,31 +123,27 @@ class SkillsFragment : DaggerFragment() {
   private fun handleUserDataStatus(userData: UserData) {
     when (userData.status) {
       UserData.Status.IN_QUEUE, UserData.Status.PAYING -> showRoomLoading(true)
-      UserData.Status.REFUNDED -> showRefunded()
+      UserData.Status.REFUNDED -> showRefundedLayout()
       UserData.Status.COMPLETED -> postbackUserData(SkillsViewModel.RESULT_OK, userData)
-      UserData.Status.FAILED -> TODO()
+      UserData.Status.FAILED -> finishWithError(SkillsViewModel.RESULT_ERROR)
     }
   }
 
-  private fun handleError(throwable: Throwable) {
-    if (isNetworkException(throwable)) {
-      binding.loadingTicketLayout.processingLoading.visibility = View.GONE
-      binding.refundTicketLayout.root.visibility = View.GONE
-      binding.noNetworkLayout.root.visibility = View.VISIBLE
-      binding.noNetworkLayout.noNetworkOkButton.setOnClickListener { finishWithError() }
+  private fun showNoNetworkErrorLayout() {
+    binding.loadingTicketLayout.processingLoading.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.noNetworkLayout.root.visibility = View.VISIBLE
+    binding.noNetworkLayout.noNetworkOkButton.setOnClickListener {
+      finishWithError(SkillsViewModel.RESULT_NO_NETWORK)
     }
   }
 
-  private fun finishWithError() {
-    requireActivity().setResult(SkillsViewModel.RESULT_ERROR)
+  private fun finishWithError(errorCode: Int) {
+    requireActivity().setResult(errorCode)
     requireActivity().finish()
   }
 
-  private fun isNetworkException(throwable: Throwable): Boolean {
-    return throwable is ConnectException || throwable is UnknownHostException
-  }
-
-  private fun showRefunded() {
+  private fun showRefundedLayout() {
     binding.loadingTicketLayout.processingLoading.visibility = View.GONE
     binding.refundTicketLayout.refund.visibility = View.VISIBLE
     binding.refundTicketLayout.refundOkButton.setOnClickListener { requireActivity().finish() }

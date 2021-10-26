@@ -68,7 +68,6 @@ class SkillsViewModel(
           ProcessingStatus.PENDING_PAYMENT -> Observable.just(
               UserData.fromStatus(UserData.Status.PAYING)
           )
-
           ProcessingStatus.REFUNDED -> Observable.just(
               UserData.fromStatus(UserData.Status.REFUNDED)
           )
