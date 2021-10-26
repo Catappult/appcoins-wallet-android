@@ -114,7 +114,7 @@ class SkillsModule {
         .create(TicketApi::class.java)
 
     return TicketRepository(api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson),
-        TicketApiMapper())
+        TicketApiMapper(gson))
   }
 
   @Provides

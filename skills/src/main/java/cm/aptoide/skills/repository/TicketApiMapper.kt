@@ -1,10 +1,16 @@
 package cm.aptoide.skills.repository
 
 import cm.aptoide.skills.model.*
+import cm.aptoide.skills.util.getMessage
+import cm.aptoide.skills.util.isNoNetworkException
+import com.google.gson.Gson
 import retrofit2.HttpException
-import java.io.IOException
 
-class TicketApiMapper {
+class TicketApiMapper(private val jsonMapper: Gson) {
+  companion object {
+    private const val FORBIDDEN_CODE = 403
+  }
+
   fun map(ticketResponse: TicketResponse): Ticket {
     return when (ticketResponse.ticketStatus) {
       TicketStatus.COMPLETED -> PurchasedTicket(ticketResponse.ticketId,
@@ -25,13 +31,21 @@ class TicketApiMapper {
   }
 
   private fun mapHttpException(exception: HttpException): FailedTicket {
-    return when (exception.code()) {
-      403 -> FailedTicket(ErrorStatus.REGION_NOT_SUPPORTED)
-      else -> FailedTicket(ErrorStatus.GENERIC)
+    val response = jsonMapper.fromJson(exception.getMessage(), Response::class.java)
+    return if (exception.code() == FORBIDDEN_CODE) {
+      return when (response.detail.code) {
+        ErrorCode.REGION_NOT_SUPPORTED -> FailedTicket(ErrorStatus.REGION_NOT_SUPPORTED)
+      }
+    } else {
+      FailedTicket(ErrorStatus.GENERIC)
     }
   }
 }
 
-fun Throwable?.isNoNetworkException(): Boolean {
-  return this != null && (this is IOException || this.cause != null && this.cause is IOException)
+data class Response(val detail: ErrorDetail)
+
+data class ErrorDetail(val code: ErrorCode, val message: String)
+
+enum class ErrorCode {
+  REGION_NOT_SUPPORTED
 }
