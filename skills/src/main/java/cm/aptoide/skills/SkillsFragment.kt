@@ -10,9 +10,13 @@ import androidx.activity.OnBackPressedCallback
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
+import cm.aptoide.skills.model.FailedTicket
+import cm.aptoide.skills.model.CreatedTicket
+import cm.aptoide.skills.model.Ticket
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
 import dagger.android.support.DaggerFragment
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -60,39 +64,57 @@ class SkillsFragment : DaggerFragment() {
 
     val eskillsUri = getEskillsUri()
     requireActivity().onBackPressedDispatcher
-        .addCallback(this, object : OnBackPressedCallback(true) {
+        .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
           override fun handleOnBackPressed() {
-            disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
+            disposable.add(viewModel.cancelTicket()
+                .subscribe { _, _ -> })
           }
         })
-    disposable.add(viewModel.closeView().subscribe { postbackUserData(it.first, it.second) })
-
+    disposable.add(viewModel.closeView()
+        .subscribe { postbackUserData(it.first, it.second) })
 
     userId = eskillsUri.userId
     disposable.add(
-      handleWalletCreationIfNeeded()
-        .takeUntil { it != WALLET_CREATING_STATUS }
-        .flatMap {
-          viewModel.joinQueue(eskillsUri)
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { showRoomLoading(false) }
-            .flatMap { ticketResponse ->
-              viewModel.getRoom(eskillsUri, ticketResponse, this)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext { userData ->
-                  when (userData.status) {
-                    UserData.Status.IN_QUEUE, UserData.Status.PAYING -> showRoomLoading(true)
-                    UserData.Status.REFUNDED -> showRefunded()
-                    UserData.Status.COMPLETED -> postbackUserData(
-                      SkillsViewModel.RESULT_OK,
-                      userData
-                    )
-                  }
-                }
+        handleWalletCreationIfNeeded()
+            .takeUntil { it != WALLET_CREATING_STATUS }
+            .flatMapCompletable {
+              viewModel.joinQueue(eskillsUri)
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .doOnSubscribe { showRoomLoading(false) }
+                  .flatMapCompletable { handleTicketCreationResult(eskillsUri, it) }
             }
-        }.ignoreElements().doOnError({ handleError(it) })
-        .onErrorComplete({ t -> isNetworkException(t) }).subscribe()
+            .subscribe()
     )
+  }
+
+  private fun handleTicketCreationResult(eskillsUri: EskillsPaymentData,
+                                         ticket: Ticket): Completable {
+    return when (ticket) {
+      is CreatedTicket -> {
+        purchaseTicket(eskillsUri, ticket)
+      }
+      is FailedTicket -> {
+        Completable.fromAction { handleUserDataStatus(UserData.fromStatus(UserData.Status.FAILED)) }
+      }
+      else -> return Completable.complete()
+    }
+  }
+
+  private fun purchaseTicket(eskillsUri: EskillsPaymentData,
+                             ticket: CreatedTicket): Completable {
+    return viewModel.getRoom(eskillsUri, ticket, this)
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnNext { userData -> handleUserDataStatus(userData) }
+        .ignoreElements()
+  }
+
+  private fun handleUserDataStatus(userData: UserData) {
+    when (userData.status) {
+      UserData.Status.IN_QUEUE, UserData.Status.PAYING -> showRoomLoading(true)
+      UserData.Status.REFUNDED -> showRefunded()
+      UserData.Status.COMPLETED -> postbackUserData(SkillsViewModel.RESULT_OK, userData)
+      UserData.Status.FAILED -> TODO()
+    }
   }
 
   private fun handleError(throwable: Throwable) {
@@ -122,7 +144,8 @@ class SkillsFragment : DaggerFragment() {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == SkillsViewModel.RESULT_OK) {
       if (data == null || data.extras!!.getString(TRANSACTION_HASH) == null) {
-        disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
+        disposable.add(viewModel.cancelTicket()
+            .subscribe { _, _ -> })
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data)
@@ -141,17 +164,17 @@ class SkillsFragment : DaggerFragment() {
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
     return viewModel.handleWalletCreationIfNeeded()
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnNext {
-        if (it == WALLET_CREATING_STATUS) {
-          showWalletCreationLoadingAnimation()
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnNext {
+          if (it == WALLET_CREATING_STATUS) {
+            showWalletCreationLoadingAnimation()
+          }
         }
-      }
-      .filter { it != WALLET_CREATING_STATUS }
-      .map {
-        endWalletCreationLoadingAnimation()
-        it
-      }
+        .filter { it != WALLET_CREATING_STATUS }
+        .map {
+          endWalletCreationLoadingAnimation()
+          it
+        }
   }
 
   private fun showWalletCreationLoadingAnimation() {
@@ -169,7 +192,8 @@ class SkillsFragment : DaggerFragment() {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.finding_room_loading_title)
       binding.loadingTicketLayout.cancelButton.isEnabled = true
       binding.loadingTicketLayout.cancelButton.setOnClickListener {
-        disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
+        disposable.add(viewModel.cancelTicket()
+            .subscribe { _, _ -> })
       }
     } else {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)
@@ -196,7 +220,7 @@ class SkillsFragment : DaggerFragment() {
   }
 
   private fun startBackgroundGameService(userData: UserData) {
-    val intent = BackgroundGameService.newIntent(context!!, userData.session)
+    val intent = BackgroundGameService.newIntent(requireContext(), userData.session)
     context?.startService(intent)
   }
 }

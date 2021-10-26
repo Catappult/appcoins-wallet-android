@@ -16,6 +16,6 @@ data class UserData(
   }
 
   enum class Status {
-    IN_QUEUE, REFUNDED, COMPLETED, PAYING,
+    IN_QUEUE, REFUNDED, COMPLETED, PAYING, FAILED
   }
 }

@@ -1,6 +1,5 @@
 package cm.aptoide.skills.api
 
-import cm.aptoide.skills.model.PayTicketRequest
 import cm.aptoide.skills.model.TicketRequest
 import cm.aptoide.skills.model.TicketResponse
 import io.reactivex.Single
@@ -15,9 +14,6 @@ interface TicketApi {
   @GET("queue/ticket/{ticket_id}")
   fun getTicket(@Header("authorization") authorization: String,
                 @Path("ticket_id") ticketId: String): Single<TicketResponse>
-
-  @POST("queue/dummy/purchase")
-  fun createTicket(@Body payTicketRequest: PayTicketRequest): Single<Any>
 
   @PATCH("queue/ticket/{ticket_id}/status")
   fun cancelTicket(@Header("authorization") authorization: String,
