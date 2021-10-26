@@ -1,6 +1,7 @@
 package cm.aptoide.skills.repository
 
 import cm.aptoide.skills.model.*
+import retrofit2.HttpException
 import java.io.IOException
 
 class TicketApiMapper {
@@ -16,11 +17,18 @@ class TicketApiMapper {
   }
 
   fun map(error: Throwable): Ticket {
-    if (error.isNoNetworkException()) {
-      return FailedTicket(ErrorStatus.NO_NETWORK)
+    return when {
+      error.isNoNetworkException() -> FailedTicket(ErrorStatus.NO_NETWORK)
+      error is HttpException -> mapHttpException(error)
+      else -> FailedTicket(ErrorStatus.GENERIC)
     }
-    // TODO
-    return FailedTicket(ErrorStatus.REGION_NOT_SUPPORTED)
+  }
+
+  private fun mapHttpException(exception: HttpException): FailedTicket {
+    return when (exception.code()) {
+      403 -> FailedTicket(ErrorStatus.REGION_NOT_SUPPORTED)
+      else -> FailedTicket(ErrorStatus.GENERIC)
+    }
   }
 }
 

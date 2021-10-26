@@ -91,24 +91,18 @@ class SkillsFragment : DaggerFragment() {
   private fun handleTicketCreationResult(eskillsUri: EskillsPaymentData,
                                          ticket: Ticket): Completable {
     return when (ticket) {
-      is CreatedTicket -> {
-        purchaseTicket(eskillsUri, ticket)
-      }
-      is FailedTicket -> {
-        Completable.fromAction {
-          handleFailedTicketResult(ticket)
-        }
-      }
+      is CreatedTicket -> purchaseTicket(eskillsUri, ticket)
+      is FailedTicket -> Completable.fromAction { handleFailedTicketResult(ticket) }
       else -> return Completable.complete()
     }
   }
 
   private fun handleFailedTicketResult(ticket: FailedTicket) {
     when (ticket.status) {
-      ErrorStatus.REGION_NOT_SUPPORTED -> {
-        finishWithError(SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
-      }
+      ErrorStatus.REGION_NOT_SUPPORTED -> finishWithError(
+          SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
       ErrorStatus.NO_NETWORK -> showNoNetworkErrorLayout()
+      ErrorStatus.GENERIC -> finishWithError(SkillsViewModel.RESULT_ERROR)
     }
   }
 

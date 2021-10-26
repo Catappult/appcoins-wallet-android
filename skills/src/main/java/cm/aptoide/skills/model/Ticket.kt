@@ -15,23 +15,6 @@ data class CreatedTicket(
     val productToken: String
 ) : Ticket()
 
-
-data class FailedTicket(
-    val status: ErrorStatus
-) : Ticket()
-
-data class PurchasedTicket(
-    val ticketId: String,
-    val walletAddress: String,
-    val userId: String,
-    val roomId: String
-) : Ticket()
-
-enum class ErrorStatus {
-  REGION_NOT_SUPPORTED, NO_NETWORK
-}
-
-
 enum class ProcessingStatus {
   PENDING_PAYMENT, REFUNDING, REFUNDED, IN_QUEUE;
 
@@ -47,3 +30,18 @@ enum class ProcessingStatus {
     }
   }
 }
+
+data class FailedTicket(
+    val status: ErrorStatus
+) : Ticket()
+
+enum class ErrorStatus {
+  REGION_NOT_SUPPORTED, NO_NETWORK, GENERIC
+}
+
+data class PurchasedTicket(
+    val ticketId: String,
+    val walletAddress: String,
+    val userId: String,
+    val roomId: String
+) : Ticket()
