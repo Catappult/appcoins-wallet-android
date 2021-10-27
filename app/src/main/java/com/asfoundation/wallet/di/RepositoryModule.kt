@@ -24,6 +24,7 @@ import com.asfoundation.wallet.App
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
@@ -399,8 +400,9 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesWithdrawRepository(api: WithdrawApi, gson: Gson,
-                                 sharedPreferences: SharedPreferences): WithdrawRepository {
-    return WithdrawRepository(api, WithdrawApiMapper(gson), Schedulers.io(),
+                                 sharedPreferences: SharedPreferences,
+                                 schedulers: RxSchedulers): WithdrawRepository {
+    return WithdrawRepository(api, WithdrawApiMapper(gson), schedulers,
         SharedPreferencesWithdrawLocalStorage(sharedPreferences))
   }
 
