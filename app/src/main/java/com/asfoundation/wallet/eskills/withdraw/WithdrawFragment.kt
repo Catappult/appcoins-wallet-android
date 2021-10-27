@@ -12,8 +12,11 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentWithdrawBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
+import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import io.intercom.android.sdk.utilities.KeyboardUtils
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -123,7 +126,7 @@ class WithdrawFragment : BasePageViewFragment(),
         showLoadingLayout()
       }
       is Async.Fail -> {
-        handleErrorState(WithdrawResult.Status.ERROR)
+        handleErrorState(FailedWithdraw.GenericError(asyncWithdrawResult.error.toString()))
       }
       is Async.Success -> {
         handleSuccessState(asyncWithdrawResult())
@@ -158,51 +161,53 @@ class WithdrawFragment : BasePageViewFragment(),
   private fun handleSuccessState(withdrawResult: WithdrawResult) {
     // success here can be badly interpreted. this means the operation was successful,
     // but doesn't mean the operation result is
-    when (withdrawResult.status) {
-      WithdrawResult.Status.SUCCESS -> {
+    when (withdrawResult) {
+      is SuccessfulWithdraw -> {
         views.layoutWithdrawSuccess.withdrawSuccessMessage.text =
             getString(R.string.e_skills_withdraw_started, withdrawResult.amount)
         showSuccessLayout()
       }
-      else -> handleErrorState(withdrawResult.status)
+      else -> handleErrorState(withdrawResult)
     }
   }
 
   private fun showSuccessLayout() {
+    KeyboardUtils.hideKeyboard(view)
     views.layoutWithdrawEntry.root.visibility = View.GONE
     views.layoutWithdrawLoading.root.visibility = View.GONE
     views.layoutWithdrawError.root.visibility = View.GONE
     views.layoutWithdrawSuccess.root.visibility = View.VISIBLE
   }
 
-  private fun handleErrorState(withdrawStatus: WithdrawResult.Status) {
-    when (withdrawStatus) {
-      WithdrawResult.Status.NOT_ENOUGH_EARNING -> {
+  private fun handleErrorState(withdrawResult: WithdrawResult) {
+    when (withdrawResult) {
+      is FailedWithdraw.NotEnoughEarningError -> {
         views.layoutWithdrawEntry.amountErrorText.text =
             getString(R.string.e_skills_withdraw_not_enough_earnings_error_message)
         showAmountErrorMessage()
       }
-      WithdrawResult.Status.NOT_ENOUGH_BALANCE -> {
+      is FailedWithdraw.NotEnoughBalanceError -> {
         views.layoutWithdrawEntry.amountErrorText.text =
             getString(R.string.e_skills_withdraw_not_enough_balance_error_message)
         showAmountErrorMessage()
       }
-      WithdrawResult.Status.MIN_AMOUNT_REQUIRED -> {
+      is FailedWithdraw.MinAmountRequiredError -> {
         views.layoutWithdrawEntry.amountErrorText.text =
-            getString(R.string.e_skills_withdraw_minimum_amount_error_message)
+            getString(R.string.e_skills_withdraw_minimum_amount_error_message,
+                withdrawResult.amount)
         showAmountErrorMessage()
       }
-      WithdrawResult.Status.INVALID_EMAIL -> {
+      is FailedWithdraw.InvalidEmailError -> {
         views.layoutWithdrawEntry.emailErrorText.text =
             getString(R.string.e_skills_withdraw_invalid_email_error_message)
         showEmailErrorMessage()
       }
-      WithdrawResult.Status.NO_NETWORK -> {
+      is FailedWithdraw.NoNetworkError -> {
         views.layoutWithdrawError.withdrawErrorMessage.text =
             getString(R.string.activity_iab_no_network_message)
         showErrorLayout()
       }
-      WithdrawResult.Status.ERROR -> showErrorLayout()
+      is FailedWithdraw.GenericError -> showErrorLayout()
       else -> return
     }
   }
@@ -222,6 +227,7 @@ class WithdrawFragment : BasePageViewFragment(),
   }
 
   private fun showErrorLayout() {
+    KeyboardUtils.hideKeyboard(view)
     views.layoutWithdrawEntry.root.visibility = View.GONE
     views.layoutWithdrawLoading.root.visibility = View.GONE
     views.layoutWithdrawError.root.visibility = View.VISIBLE

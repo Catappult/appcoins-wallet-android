@@ -1,35 +1,39 @@
 package com.asfoundation.wallet.eskills.withdraw.repository
 
 import com.appcoins.wallet.billing.util.isNoNetworkException
+import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
+import com.asfoundation.wallet.util.getMessage
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import retrofit2.HttpException
 import java.math.BigDecimal
 
 class WithdrawApiMapper(private val jsonMapper: Gson) {
-  fun map(amount: BigDecimal, error: Throwable): WithdrawResult {
-    if (error.isNoNetworkException()) {
-      return WithdrawResult(amount, WithdrawResult.Status.NO_NETWORK)
+  fun map(error: Throwable): WithdrawResult {
+    return when {
+      error.isNoNetworkException() -> FailedWithdraw.NoNetworkError
+      error is HttpException -> mapHttpException(error)
+      else -> FailedWithdraw.GenericError(error.toString())
     }
-    val response = jsonMapper.fromJson(
-      (error as HttpException).response()
-        ?.errorBody()
-        ?.charStream(),
-      Response::class.java
-    )
+  }
+
+  private fun mapHttpException(error: HttpException): WithdrawResult {
+    val response = jsonMapper.fromJson(error.getMessage(), Response::class.java)
     return when (response.message.code) {
-      Status.AMOUNT_NOT_WON -> WithdrawResult(amount, WithdrawResult.Status.NOT_ENOUGH_EARNING)
-      Status.NOT_ENOUGH_BALANCE -> WithdrawResult(amount, WithdrawResult.Status.NOT_ENOUGH_BALANCE)
-      Status.INVALID_EMAIL -> WithdrawResult(amount, WithdrawResult.Status.INVALID_EMAIL)
-      Status.MIN_AMOUNT_REQUIRED -> WithdrawResult(amount, WithdrawResult.Status.MIN_AMOUNT_REQUIRED)
+      Status.AMOUNT_NOT_WON -> FailedWithdraw.NotEnoughEarningError(response.message.detail)
+      Status.NOT_ENOUGH_BALANCE -> FailedWithdraw.NotEnoughBalanceError(response.message.detail)
+      Status.MIN_AMOUNT_REQUIRED -> FailedWithdraw.MinAmountRequiredError(response.message.detail,
+          response.message.minimumAmount!!)
     }
   }
 
   data class Response(val message: Message)
 
-  data class Message(val detail: String, val code: Status)
+  data class Message(val detail: String, val code: Status,
+                     @SerializedName("minimum_amount") val minimumAmount: BigDecimal?)
 
   enum class Status {
-    AMOUNT_NOT_WON, NOT_ENOUGH_BALANCE, INVALID_EMAIL, MIN_AMOUNT_REQUIRED
+    AMOUNT_NOT_WON, NOT_ENOUGH_BALANCE, MIN_AMOUNT_REQUIRED
   }
 }

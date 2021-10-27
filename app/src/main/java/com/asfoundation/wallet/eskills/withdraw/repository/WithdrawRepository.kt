@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.eskills.withdraw.repository
 
+import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -22,8 +23,8 @@ class WithdrawRepository(
     withdrawLocalStorage.saveUserEmail(email)
     return withdrawApi.withdrawAppcCredits(ewt, WithdrawBody(email, amount))
         .subscribeOn(scheduler)
-        .andThen(Single.just(WithdrawResult(amount, WithdrawResult.Status.SUCCESS)))
-        .onErrorReturn { mapper.map(amount, it) }
+        .andThen(Single.just(SuccessfulWithdraw(amount) as WithdrawResult))
+        .onErrorReturn { mapper.map(it) }
   }
 
   fun getStoredUserEmail(): Single<String> {

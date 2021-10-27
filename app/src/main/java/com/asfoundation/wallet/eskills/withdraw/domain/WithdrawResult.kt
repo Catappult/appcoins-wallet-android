@@ -2,9 +2,15 @@ package com.asfoundation.wallet.eskills.withdraw.domain
 
 import java.math.BigDecimal
 
-data class WithdrawResult(val amount: BigDecimal, val status: Status) {
-  enum class Status {
-    SUCCESS, NOT_ENOUGH_EARNING, NOT_ENOUGH_BALANCE, NO_NETWORK, INVALID_EMAIL,
-    MIN_AMOUNT_REQUIRED, ERROR
-  }
+sealed class WithdrawResult
+
+data class SuccessfulWithdraw(val amount: BigDecimal) : WithdrawResult()
+
+sealed class FailedWithdraw : WithdrawResult() {
+  data class GenericError(val detail: String) : FailedWithdraw()
+  data class NotEnoughEarningError(val detail: String) : FailedWithdraw()
+  data class NotEnoughBalanceError(val detail: String) : FailedWithdraw()
+  data class MinAmountRequiredError(val detail: String, val amount: BigDecimal) : FailedWithdraw()
+  object NoNetworkError : FailedWithdraw()
+  object InvalidEmailError : FailedWithdraw()
 }

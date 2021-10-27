@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.eskills.withdraw.usecases
 
+import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.util.isEmailValid
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
@@ -18,9 +19,8 @@ class WithdrawToFiatUseCase(
           return@flatMap if (email.isEmailValid()) {
             withdrawRepository.withdrawAppcCredits(it, email, amount)
           } else {
-            Single.just(WithdrawResult(amount, WithdrawResult.Status.INVALID_EMAIL))
+            Single.just(FailedWithdraw.InvalidEmailError)
           }
         }
-
   }
 }
