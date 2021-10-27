@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.withdraw.ui
+package com.asfoundation.wallet.eskills.withdraw
 
 import android.content.Context
 import android.content.Intent
