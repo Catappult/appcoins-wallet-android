@@ -41,6 +41,8 @@ import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
+import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
+import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
@@ -429,6 +431,23 @@ class RepositoryModule {
         .create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
     return FiatCurrenciesRepository(api, sharedPreferences, FiatCurrenciesMapper(),
         fiatCurrenciesDao, conversionService)
+
+  }
+
+  @Singleton
+  @Provides
+  fun providesPromoCodeRepository(@Named("default") client: OkHttpClient,
+                                  objectMapper: ObjectMapper,
+                                  promoCodeDao: PromoCodeDao): PromoCodeRepository {
+    val baseUrl = BuildConfig.BASE_HOST
+    val api = Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(PromoCodeRepository.PromoCodeApi::class.java)
+    return PromoCodeRepository(api, promoCodeDao)
 
   }
 }

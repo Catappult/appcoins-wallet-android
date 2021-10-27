@@ -4,6 +4,10 @@ import cm.aptoide.skills.SkillsFragment
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyModule
+import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
+import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
 import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.home.HomeModule
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment
@@ -19,6 +23,8 @@ import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
+import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetFragment
+import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetModule
 import com.asfoundation.wallet.promotions.info.PromotionsInfoDialogFragment
 import com.asfoundation.wallet.promotions.ui.PromotionsFragment
 import com.asfoundation.wallet.promotions.ui.PromotionsModuleNew
@@ -78,10 +84,6 @@ import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyModule
-import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
-import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.ui.settings.entry.SettingsModule
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
@@ -350,4 +352,9 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [SubscriptionSuccessModule::class])
   abstract fun bindSubscriptionCancelSuccessFragment(): SubscriptionSuccessFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [PromoCodeBottomSheetModule::class])
+  abstract fun bindPromoCodeBottomSheetFragment(): PromoCodeBottomSheetFragment
+
 }

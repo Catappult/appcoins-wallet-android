@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/promo_code_bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_small_height"
+    android:background="@drawable/rounded_dialog"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingHorizontal="32dp"
+    android:paddingTop="32dp"
+    android:paddingBottom="36dp"
+    >
+
+  <TextView
+      android:id="@+id/promo_code_bottom_sheet_title"
+      style="@style/PromoCodeTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Insert the code provided by the Influencer"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/promo_code_bottom_sheet_text_rectangle"
+      android:layout_width="match_parent"
+      android:layout_height="49dp"
+      android:layout_marginTop="14dp"
+      android:background="@drawable/rectangle_outline_darkgrey"
+      android:paddingHorizontal="16dp"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_title"
+      >
+
+    <EditText
+        android:id="@+id/promo_code_bottom_sheet_string"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="Insert the code here…"
+        android:imeActionLabel="@string/prompt_to"
+        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingEnd="@dimen/large_margin"
+        app:layout_constraintBottom_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/promo_code_bottom_sheet_text_rectangle"
+        />
+
+    <ImageView
+        android:id="@+id/promo_code_bottom_sheet_active_checkmark"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:background="@drawable/ic_check_mark_dark"
+        app:layout_constraintBottom_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/promo_code_bottom_sheet_text_rectangle"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <Button
+      android:id="@+id/promo_code_bottom_sheet_submit_button"
+      style="@style/ButtonStyle"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_marginTop="35dp"
+      android:text="SUBMIT"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+      />
+
+  <Button
+      android:id="@+id/promo_code_bottom_sheet_delete_button"
+      style="@style/ButtonStyle.Light"
+      android:layout_width="120dp"
+      android:layout_height="40dp"
+      android:layout_marginTop="35dp"
+      android:layout_marginEnd="16dp"
+      android:text="DELETE"
+      android:visibility="gone"
+      app:layout_constraintEnd_toStartOf="@id/promo_code_bottom_sheet_replace_button"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+      />
+
+  <Button
+      android:id="@+id/promo_code_bottom_sheet_replace_button"
+      style="@style/ButtonStyle"
+      android:layout_width="120dp"
+      android:layout_height="40dp"
+      android:layout_marginTop="35dp"
+      android:text="REPLACE"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+      />
+
+  <com.asfoundation.wallet.widget.SystemView
+      android:id="@+id/promo_code_bottom_sheet_system_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/activity_background_color"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/promo_code_bottom_sheet_success_symbol"
+      android:layout_width="90dp"
+      android:layout_height="90dp"
+      android:background="@drawable/ic_check_mark_dark"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_title"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/promo_code_bottom_sheet_success_title"
+      style="@style/PromoCodeSuccessTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:text="Done!"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_subtitle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_symbol"
+      />
+
+  <TextView
+      android:id="@+id/promo_code_bottom_sheet_success_subtitle"
+      style="@style/PromoCodeSuccessSubtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:text="You’ll get %s%% extra bonus on all your purchases."
+      android:textAlignment="center"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_got_it_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_title"
+      />
+
+  <Button
+      android:id="@+id/promo_code_bottom_sheet_success_got_it_button"
+      style="@style/ButtonStyle"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_marginTop="10dp"
+      android:text="GOT IT"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_subtitle"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

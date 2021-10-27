@@ -18,6 +18,8 @@ import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
+import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
+import com.asfoundation.wallet.promo_code.repository.PromoCodeEntity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
@@ -173,6 +175,16 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
           BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress +
               "&lang=" + Locale.getDefault()
               .getLanguageAndCountryCodes()), false)
+      false
+    }
+  }
+
+  override fun setPromoCodePreference(promoCodeEntity: PromoCodeEntity) {
+    val promoCodePreference = findPreference<SettingsPreferencePromoCodeState>("pref_promo_code")
+    promoCodePreference?.setPromoCode(promoCodeEntity)
+    promoCodePreference?.setOnPreferenceClickListener {
+//      Log.d("APPC-2709", "SettingsFragment: setPromoCodePreference: click")
+      presenter.onPromoCodePreferenceClick()
       false
     }
   }

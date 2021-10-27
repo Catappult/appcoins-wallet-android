@@ -6,11 +6,11 @@ import androidx.biometric.BiometricManager
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
+import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
-import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
@@ -18,17 +18,20 @@ import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
+import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
+import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
-import com.asfoundation.wallet.repository.WalletRepositoryType
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
@@ -247,14 +250,35 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesGetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository,
-                                         conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
+                                                conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
     return GetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository, conversionService)
   }
 
   @Singleton
   @Provides
-  fun providesGetSelectedCurrencyUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
+  fun providesGetSelectedCurrencyUseCase(
+      fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
     return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSetPromoCodeUseCase(promoCodeRepository: PromoCodeRepository): SetPromoCodeUseCase {
+    return SetPromoCodeUseCase(promoCodeRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetCurrentPromoCodeUseCase(
+      promoCodeRepository: PromoCodeRepository): GetCurrentPromoCodeUseCase {
+    return GetCurrentPromoCodeUseCase(promoCodeRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesDeletePromoCodeUseCase(
+      promoCodeRepository: PromoCodeRepository): DeletePromoCodeUseCase {
+    return DeletePromoCodeUseCase(promoCodeRepository)
   }
 
 }
