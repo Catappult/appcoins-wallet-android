@@ -6,15 +6,9 @@ class User(
     @SerializedName("wallet_address")
     var walletAddress: String,
 
-    @SerializedName("user_id")
-    var userId: String,
+    @SerializedName("user_name")
+    var userName: String,
 
-    @SerializedName("ticket_id")
-    var ticketId: String,
-
-    @SerializedName("room_metadata")
-    var roomMetadata: Map<String, String>,
-
-    @SerializedName("status")
-    var status: UserStatus
+    @SerializedName("score")
+    var score: Int
 )

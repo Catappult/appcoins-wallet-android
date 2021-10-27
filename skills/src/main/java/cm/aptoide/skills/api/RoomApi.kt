@@ -9,8 +9,7 @@ import retrofit2.http.*
 interface RoomApi {
 
   @GET("room/")
-  fun getRoomByTicketId(@Header("authorization") authorization: String,
-                        @Query("ticket_id") ticketId: String): Single<RoomResponse>
+  fun getRoom(@Header("authorization") authorization: String): Single<RoomResponse>
 
   @POST("room/authorization/login")
   fun login(@Header("authorization") authorization: String,

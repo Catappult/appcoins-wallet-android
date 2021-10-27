@@ -5,9 +5,11 @@ import cm.aptoide.skills.model.RoomResponse
 import io.reactivex.Single
 
 class RoomRepository(private val roomApi: RoomApi) {
+  companion object {
+    const val BEARER_ = "Bearer "
+  }
 
-  fun getRoomByTicketId(ewt: String, ticketId: String,
-                        walletAddress: String): Single<RoomResponse> {
-    return roomApi.getRoomByTicketId(ewt, ticketId)
+  fun getRoom(session: String): Single<RoomResponse> {
+    return roomApi.getRoom(BEARER_ + session)
   }
 }
