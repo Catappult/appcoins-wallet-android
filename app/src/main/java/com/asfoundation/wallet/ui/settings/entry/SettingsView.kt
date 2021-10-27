@@ -43,6 +43,8 @@ interface SettingsView {
 
   fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity)
 
+  fun setSendLogsPreference(canLog: Boolean)
+
   fun setRestorePreference()
 
   fun setBackupPreference()

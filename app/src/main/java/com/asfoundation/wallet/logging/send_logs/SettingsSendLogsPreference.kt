@@ -6,14 +6,13 @@ import androidx.preference.Preference
 
 class SettingsSendLogsPreference(context: Context?, attrs: AttributeSet?) :
     Preference(context, attrs) {
-//  private var selectedCurrency: FiatCurrencyEntity? = null
 //  private var currency: TextView? = null
 //  private var flag: ImageView? = null
 //  var preferenceClickListener: View.OnClickListener? = null
 //
-//  init {
+  init {
 //    this.layoutResource = R.layout.preferences_with_active_currency_layout
-//  }
+  }
 //
 //  override fun onBindViewHolder(holder: PreferenceViewHolder) {
 //    super.onBindViewHolder(holder)
@@ -23,11 +22,9 @@ class SettingsSendLogsPreference(context: Context?, attrs: AttributeSet?) :
 //    setFlagImageView()
 //  }
 //
-//  fun setCurrency(selectedCurrency: FiatCurrencyEntity) {
-//    this.selectedCurrency = selectedCurrency
-//    setCurrencyTextView()
-//    setFlagImageView()
-//  }
+  fun setCanLog(canLog: Boolean) {
+    this.isVisible = canLog
+  }
 //
 //  private fun setCurrencyTextView() {
 //    currency?.text = selectedCurrency?.currency

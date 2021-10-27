@@ -4,6 +4,7 @@ import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.GetCanLogUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -16,7 +17,8 @@ class SettingsPresenter(private val view: SettingsView,
                         private val disposables: CompositeDisposable,
                         private val settingsInteractor: SettingsInteractor,
                         private val settingsData: SettingsData,
-                        private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase) {
+                        private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+                        private val getCanLogUseCase: GetCanLogUseCase) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -48,6 +50,7 @@ class SettingsPresenter(private val view: SettingsView,
     view.setBackupPreference()
     view.setManageSubscriptionsPreference()
     setCurrencyPreference()
+    setSendLogsPreference()
   }
 
   fun setFingerPrintPreference() {
@@ -170,6 +173,16 @@ class SettingsPresenter(private val view: SettingsView,
               break
             }
           }
+        }
+        .subscribeOn(networkScheduler)
+        .subscribe())
+  }
+
+  fun setSendLogsPreference() {
+    disposables.add(getCanLogUseCase()
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.setSendLogsPreference(it)
         }
         .subscribeOn(networkScheduler)
         .subscribe())

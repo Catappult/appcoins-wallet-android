@@ -61,6 +61,8 @@ import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.LogReceiver
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.WalletLogger
+import com.asfoundation.wallet.logging.send_logs.LogsDao
+import com.asfoundation.wallet.logging.send_logs.LogsDatabase
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
@@ -678,6 +680,21 @@ internal class AppModule {
   fun provideFiatCurrenciesDao(
       database: CurrenciesDatabase): FiatCurrenciesDao {
     return database.fiatCurrenciesDao()
+  }
+
+  @Singleton
+  @Provides
+  fun provideLogsDatabase(context: Context): LogsDatabase {
+    return Room.databaseBuilder(context, LogsDatabase::class.java,
+            "logs_database")
+            .build()
+  }
+
+  @Singleton
+  @Provides
+  fun provideLogsDao(
+      database: LogsDatabase): LogsDao {
+    return database.logsDao()
   }
 
 

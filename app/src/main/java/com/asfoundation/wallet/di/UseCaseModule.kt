@@ -16,6 +16,8 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
+import com.asfoundation.wallet.logging.send_logs.use_cases.GetCanLogUseCase
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
@@ -255,6 +257,13 @@ class UseCaseModule {
   @Provides
   fun providesGetSelectedCurrencyUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
     return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetCanLogUseCase(sendLogsRepository: SendLogsRepository,
+                                      getCurrentWalletUseCase: GetCurrentWalletUseCase): GetCanLogUseCase {
+    return GetCanLogUseCase(sendLogsRepository, getCurrentWalletUseCase)
   }
 
 }

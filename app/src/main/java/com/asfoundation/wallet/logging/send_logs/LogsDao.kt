@@ -2,26 +2,25 @@ package com.asfoundation.wallet.logging.send_logs
 
 import androidx.room.*
 import io.reactivex.Completable
-import io.reactivex.Single
 
 @Dao
 interface LogsDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertLog(log: LogEntity): Completable
 
+  @Query("""
+    DELETE FROM LogEntity WHERE id IN (
+        SELECT id FROM LogEntity 
+        WHERE NOT sending 
+        AND (SELECT COUNT(id) FROM LogEntity WHERE NOT sending) > :max_logs
+        ORDER BY created ASC 
+        LIMIT 1)
+    """)
+  fun removeOldLogs(max_logs: Int = 10)
+
   @Transaction
   fun saveLog(log: LogEntity) {
     insertLog(log)
     removeOldLogs()
   }
-
-  @Query("""
-    WITH del AS (
-    SELECT TOP 1 FROM LogEntity 
-    WHERE sending = 'False' 
-    AND (COUNT * FROM LogEntity WHERE WHERE sending = 'False') > :max_logs
-    ORDER BY created DESC)
-    DELETE FROM del
-  """)
-  fun removeOldLogs()
 }
