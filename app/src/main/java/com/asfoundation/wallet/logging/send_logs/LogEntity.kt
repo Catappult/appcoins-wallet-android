@@ -8,6 +8,7 @@ import java.time.Instant
 data class LogEntity(
     @PrimaryKey(autoGenerate = true) val id: Long?,
     val created: Instant = Instant.now(),
+    val tag: String?,
     val data: String,
     val sending: Boolean = false
 )

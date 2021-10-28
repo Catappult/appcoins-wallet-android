@@ -63,6 +63,8 @@ import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.logging.send_logs.LogsDao
 import com.asfoundation.wallet.logging.send_logs.LogsDatabase
+import com.asfoundation.wallet.logging.send_logs.SendLogsReceiver
+import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
@@ -178,11 +180,12 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideLogger(): Logger {
+  fun provideLogger(sendLogsRepository: SendLogsRepository): Logger {
     val receivers = ArrayList<LogReceiver>()
     if (BuildConfig.DEBUG) {
       receivers.add(DebugReceiver())
     }
+    receivers.add(SendLogsReceiver(sendLogsRepository))
     return WalletLogger(receivers)
   }
 

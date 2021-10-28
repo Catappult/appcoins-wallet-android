@@ -6,7 +6,7 @@ import io.reactivex.Completable
 @Dao
 interface LogsDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insertLog(log: LogEntity): Completable
+  fun insertLog(log: LogEntity)
 
   @Query("""
     DELETE FROM LogEntity WHERE id IN (

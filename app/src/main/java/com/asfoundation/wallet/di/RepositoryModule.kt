@@ -24,6 +24,7 @@ import com.asfoundation.wallet.App
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
@@ -437,7 +438,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesSendLogsRepository(@Named("default") client: OkHttpClient,
-                                       logsDao: LogsDao): SendLogsRepository {
+                                 logsDao: LogsDao,
+                                 rxSchedulers: RxSchedulers): SendLogsRepository {
     val baseUrl = BuildConfig.BACKEND_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -446,7 +448,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SendLogsRepository.SendLogsApi::class.java)
-    return SendLogsRepository(api, logsDao)
+    return SendLogsRepository(api, logsDao, rxSchedulers)
 
   }
 }

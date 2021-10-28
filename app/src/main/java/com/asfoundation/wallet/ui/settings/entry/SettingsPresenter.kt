@@ -184,7 +184,6 @@ class SettingsPresenter(private val view: SettingsView,
         .doOnSuccess {
           view.setSendLogsPreference(it)
         }
-        .subscribeOn(networkScheduler)
         .subscribe())
   }
 }

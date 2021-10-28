@@ -5,19 +5,18 @@ import com.asfoundation.wallet.logging.LogReceiver
 
 class SendLogsReceiver(private var sendLogsRepository: SendLogsRepository): LogReceiver {
   override fun log(tag: String?, throwable: Throwable?) {
-    sendLogsRepository.saveLog(map(tag = tag, throwable = throwable))
+    sendLogsRepository.saveLog(tag, map(throwable = throwable)).subscribe()
   }
 
   override fun log(tag: String?, message: String?) = Unit
 
   override fun log(tag: String?, message: String?, throwable: Throwable?) {
-    sendLogsRepository.saveLog(map(tag = tag, message = message, throwable = throwable))
+    sendLogsRepository.saveLog(tag, map(message = message, throwable = throwable)).subscribe()
   }
 
-  private fun map(tag: String?, message: String? = null, throwable: Throwable?): String {
+  private fun map(message: String? = null, throwable: Throwable?): String {
     val data = StringBuilder()
-    tag?.let{data.append(tag)}
-    message?.let{data.append(message)}
+    message?.let{data.appendLine(message)}
     throwable?.let{data.append(Log.getStackTraceString(throwable))}
 
     return data.toString()
