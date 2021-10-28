@@ -23,9 +23,6 @@ class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val b
           origin: String?, type: String, payload: String?, callbackUrl: String?,
           orderReference: String?, referrerUrl: String?, productToken: String?): Completable {
     return partnerAddressService.getAttributionEntity(packageName)
-        .doOnSuccess {
-          throw Throwable("d")
-        }
         .flatMapCompletable { attrEntity ->
           appcoinsRewards.pay(
               amount, origin, sku, type, developerAddress, attrEntity.oemId, attrEntity.domain,
