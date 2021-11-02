@@ -43,6 +43,7 @@ import com.asfoundation.wallet.ui.common.BaseViewHolder
 
     private fun NFTItemModel.NFTItemHolder.loadNft(url: String?) {
       GlideApp.with(itemView.context)
+        .asBitmap()
         .load(url)
         .into(image)
     }

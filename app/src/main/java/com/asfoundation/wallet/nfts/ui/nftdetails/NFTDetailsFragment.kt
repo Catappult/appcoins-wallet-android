@@ -37,9 +37,6 @@ class NFTDetailsFragment : BasePageViewFragment() ,
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     postponeEnterTransition()
-    sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-    returnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.no_transition)
-
     return inflater.inflate(R.layout.fragment_nft, container, false)
   }
 
