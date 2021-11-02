@@ -90,7 +90,7 @@ class MyWalletsFragment : BasePageViewFragment(),
                 navigator.navigateToBackupWallet(walletsModel.currentWallet.walletAddress)
               }
         }
-        WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerify()
+        WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerifyPicker()
         is WalletsListEvent.QrCodeClick -> navigator.navigateToQrCode(click.view)
         is WalletsListEvent.TokenClick -> {
           when (click.token) {

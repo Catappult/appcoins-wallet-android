@@ -5,7 +5,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
-import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable

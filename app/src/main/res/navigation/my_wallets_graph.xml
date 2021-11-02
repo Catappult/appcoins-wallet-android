@@ -22,8 +22,8 @@
         android:id="@+id/action_navigate_to_token_info"
         app:destination="@id/token_info_dialog_fragment" />
     <action
-        android:id="@+id/action_navigate_to_verify"
-        app:destination="@id/verify_wallet_activity" />
+        android:id="@+id/action_navigate_to_verify_picker"
+        app:destination="@id/verify_picker_dialog_fragment" />
     <action
         android:id="@+id/action_navigate_to_backup_wallet"
         app:destination="@id/backup_wallet_activity" />
@@ -78,8 +78,8 @@
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
     <action
-        android:id="@+id/action_navigate_to_verify"
-        app:destination="@id/verify_wallet_activity" />
+        android:id="@+id/action_navigate_to_verify_new_card"
+        app:destination="@id/verify_credit_card_wallet_activity" />
   </dialog>
 
   <dialog
@@ -119,14 +119,30 @@
         app:argType="boolean" />
   </dialog>
 
+  <dialog
+      android:id="@+id/verify_picker_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogFragment"
+      tools:layout="@layout/fragment_verify_picker">
+    <action
+        android:id="@+id/action_navigate_to_verify_card"
+        app:destination="@id/verify_credit_card_wallet_activity" />
+    <action
+        android:id="@+id/action_navigate_to_verify_paypal"
+        app:destination="@id/verify_paypal_wallet_activity" />
+  </dialog>
+
   <activity
-      android:id="@+id/verify_wallet_activity"
-      android:name="com.asfoundation.wallet.verification.VerificationActivity"
+      android:id="@+id/verify_credit_card_wallet_activity"
+      android:name="com.asfoundation.wallet.verification.credit_card.VerificationCreditCardActivity"
       tools:layout="@layout/activity_wallet_verification">
     <argument
         android:name="is_wallet_verified"
         app:argType="boolean" />
   </activity>
+  <activity
+      android:id="@+id/verify_paypal_wallet_activity"
+      android:name="com.asfoundation.wallet.verification.paypal.VerificationPaypalActivity"
+      tools:layout="@layout/activity_wallet_paypal_verification" />
   <activity
       android:id="@+id/restore_wallet_activity"
       android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"

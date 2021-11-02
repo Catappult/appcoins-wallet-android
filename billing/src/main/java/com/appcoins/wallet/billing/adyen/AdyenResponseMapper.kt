@@ -126,8 +126,10 @@ open class AdyenResponseMapper(private val gson: Gson,
     return PaymentModel(error)
   }
 
-  open fun mapVerificationPaymentModelSuccess(): VerificationPaymentModel {
-    return VerificationPaymentModel(true)
+  open fun mapVerificationPaymentModelSuccess(
+      adyenTransactionResponse: AdyenTransactionResponse): VerificationPaymentModel {
+    val verificationModel = map(adyenTransactionResponse)
+    return VerificationPaymentModel(success = true, redirectUrl = verificationModel.redirectUrl)
   }
 
   open fun mapVerificationPaymentModelError(throwable: Throwable): VerificationPaymentModel {
@@ -143,13 +145,13 @@ open class AdyenResponseMapper(private val gson: Gson,
       }
       VerificationPaymentModel(false, errorType,
           verificationTransactionResponse.data?.refusalReason,
-          verificationTransactionResponse.data?.refusalReasonCode?.toInt(), Error(hasError = true,
-          isNetworkError = false))
+          verificationTransactionResponse.data?.refusalReasonCode?.toInt(), null,
+          Error(hasError = true, isNetworkError = false))
     } else {
       val codeAndMessage = throwable.getErrorCodeAndMessage()
       val errorInfo = billingErrorMapper.mapErrorInfo(codeAndMessage.first, codeAndMessage.second)
       VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER, null, null,
-          Error(true, throwable.isNoNetworkException(), errorInfo))
+          null, Error(true, throwable.isNoNetworkException(), errorInfo))
     }
   }
 

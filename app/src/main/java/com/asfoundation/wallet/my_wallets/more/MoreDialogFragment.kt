@@ -58,7 +58,7 @@ class MoreDialogFragment : DaggerBottomSheetDialogFragment(),
     views.backupWalletCardView.setOnClickListener {
       navigator.navigateToBackupWallet(viewModel.state.walletAddress)
     }
-    views.verifyCardCardView.setOnClickListener { navigator.navigateToVerify() }
+    views.verifyCardCardView.setOnClickListener { navigator.navigateToVerifyNewCard() }
     views.deleteWalletCardView.setOnClickListener {
       navigator.navigateToRemoveWallet(viewModel.state.walletAddress,
           viewModel.state.totalFiatBalance,

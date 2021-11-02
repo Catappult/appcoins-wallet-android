@@ -4,6 +4,10 @@ import cm.aptoide.skills.SkillsFragment
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.address.BillingAddressModule
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyModule
+import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
+import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
 import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.home.HomeModule
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment
@@ -16,6 +20,8 @@ import com.asfoundation.wallet.my_wallets.more.MoreDialogFragment
 import com.asfoundation.wallet.my_wallets.more.MoreDialogModule
 import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment
 import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogModule
+import com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogFragment
+import com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -78,10 +84,6 @@ import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyModule
-import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
-import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.ui.settings.entry.SettingsModule
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
@@ -93,12 +95,14 @@ import com.asfoundation.wallet.ui.transact.TransferFragment
 import com.asfoundation.wallet.ui.transact.TransferFragmentModule
 import com.asfoundation.wallet.ui.wallets.RemoveWalletFragment
 import com.asfoundation.wallet.ui.wallets.WalletRemoveConfirmationFragment
-import com.asfoundation.wallet.verification.code.VerificationCodeFragment
-import com.asfoundation.wallet.verification.code.VerificationCodeModule
-import com.asfoundation.wallet.verification.error.VerificationErrorFragment
-import com.asfoundation.wallet.verification.error.VerificationErrorModule
-import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
-import com.asfoundation.wallet.verification.intro.VerificationIntroModule
+import com.asfoundation.wallet.verification.credit_card.code.VerificationCodeFragment
+import com.asfoundation.wallet.verification.credit_card.code.VerificationCodeModule
+import com.asfoundation.wallet.verification.credit_card.error.VerificationErrorFragment
+import com.asfoundation.wallet.verification.credit_card.error.VerificationErrorModule
+import com.asfoundation.wallet.verification.credit_card.intro.VerificationIntroFragment
+import com.asfoundation.wallet.verification.credit_card.intro.VerificationIntroModule
+import com.asfoundation.wallet.verification.paypal.intro.VerificationPaypalIntroFragment
+import com.asfoundation.wallet.verification.paypal.intro.VerificationPaypalIntroModule
 import com.asfoundation.wallet.withdraw.ui.WithdrawFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -295,6 +299,10 @@ abstract class FragmentBuilders {
   abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
 
   @FragmentScope
+  @ContributesAndroidInjector(modules = [VerificationPaypalIntroModule::class])
+  abstract fun bindVerificationPaypalFragment(): VerificationPaypalIntroFragment
+
+  @FragmentScope
   @ContributesAndroidInjector(modules = [SkillsModule::class])
   abstract fun bindSkillsFragment(): SkillsFragment
 
@@ -350,4 +358,8 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [SubscriptionSuccessModule::class])
   abstract fun bindSubscriptionCancelSuccessFragment(): SubscriptionSuccessFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [VerifyPickerDialogModule::class])
+  abstract fun bindVerifyPickerDialogFragment(): VerifyPickerDialogFragment
 }

@@ -28,7 +28,7 @@ import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
-import com.asfoundation.wallet.verification.VerificationActivity
+import com.asfoundation.wallet.verification.credit_card.VerificationCreditCardActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -163,7 +163,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showVerification() {
     fragment_container.visibility = View.GONE
-    val intent = VerificationActivity.newIntent(this)
+    val intent = VerificationCreditCardActivity.newIntent(this)
         .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivity(intent)
     finishWithError()

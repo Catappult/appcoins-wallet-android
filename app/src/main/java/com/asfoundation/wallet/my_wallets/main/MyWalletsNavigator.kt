@@ -36,8 +36,8 @@ class MyWalletsNavigator(private val fragment: MyWalletsFragment,
             appcoinsBalance, creditsBalance, ethereumBalance, showVerifyCard, showDeleteWallet))
   }
 
-  fun navigateToVerify() {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerify(false))
+  fun navigateToVerifyPicker() {
+    navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyPicker())
   }
 
   fun navigateToBackupWallet(walletAddress: String) {

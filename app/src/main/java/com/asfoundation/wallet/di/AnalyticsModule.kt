@@ -8,14 +8,14 @@ import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.billing.analytics.*
+import com.asfoundation.wallet.home.HomeAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
-import com.asfoundation.wallet.home.HomeAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
-import com.asfoundation.wallet.verification.VerificationAnalytics
+import com.asfoundation.wallet.verification.credit_card.VerificationAnalytics
 import com.facebook.appevents.AppEventsLogger
 import dagger.Module
 import dagger.Provides

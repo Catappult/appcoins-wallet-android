@@ -3,14 +3,18 @@ package com.asfoundation.wallet.di
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.biometric.BiometricManager
+import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
+import com.asfoundation.wallet.backup.BackupInteractContract
+import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
-import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
@@ -23,14 +27,14 @@ import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
-import com.asfoundation.wallet.repository.WalletRepositoryType
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
+import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import dagger.Module
 import dagger.Provides
@@ -247,14 +251,24 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesGetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository,
-                                         conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
+                                                conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
     return GetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository, conversionService)
   }
 
   @Singleton
   @Provides
-  fun providesGetSelectedCurrencyUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
+  fun providesGetSelectedCurrencyUseCase(
+      fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
     return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
   }
 
+  @Singleton
+  @Provides
+  fun providesGetVerificationInfoUseCase(walletService: WalletService,
+                                         adyenPaymentRepository: AdyenPaymentRepository,
+                                         adyenPaymentInteractor: AdyenPaymentInteractor,
+                                         rxSchedulers: RxSchedulers): GetVerificationInfoUseCase {
+    return GetVerificationInfoUseCase(walletService, adyenPaymentRepository, adyenPaymentInteractor,
+        rxSchedulers)
+  }
 }

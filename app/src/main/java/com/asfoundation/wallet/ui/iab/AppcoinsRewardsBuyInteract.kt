@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Single

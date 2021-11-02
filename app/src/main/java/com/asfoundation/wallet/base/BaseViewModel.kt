@@ -124,6 +124,32 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
     }
   }
 
+  /**
+   * Wraps the execution of a [Single] in [Async] and reduces it to the global state through
+   * [reducer]. It ONLY sends [Async.Loading] on subscription, while [asAsyncToState] also maps
+   * success and failure.
+   *
+   * @param retainValue A state property that will be retained for [Async.Loading]
+   *                    that is set when [Async.Loading] is emitted. It's useful if you want
+   *                    to display previously successful data on loading.
+   * @param reducer A reducer that takes the current state and returns the new state. A common
+   *                implementation of this with a data class is: `{ copy(stateProperty = it) }`.
+   */
+
+  protected fun <T> Single<T>.asAsyncLoadingToState(
+      retainValue: KProperty1<S, Async<T>>? = null,
+      reducer: S.(Async<T>) -> S
+  ): Single<T> {
+    return doOnSubscribe { setState { reducer(Async.Loading(retainValue?.get(this)?.value)) } }
+  }
+
+  protected fun Completable.asAsyncLoadingToState(
+      retainValue: KProperty1<S, Async<Unit>>? = null,
+      reducer: S.(Async<Unit>) -> S
+  ): Completable {
+    return doOnSubscribe { setState { reducer(Async.Loading(retainValue?.get(this)?.value)) } }
+  }
+
   private fun Throwable.mapToError(): Error {
     if (this.isNoNetworkException()) {
       return Error.ApiError.NetworkError(this)

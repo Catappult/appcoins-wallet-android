@@ -64,7 +64,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                               walletSignature: String): Single<VerificationPaymentModel> {
     return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
+        .map { adyenResponseMapper.mapVerificationPaymentModelSuccess(it) }
         .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
   }
 
@@ -146,7 +146,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     fun makeVerificationPayment(@Query("wallet.address") walletAddress: String,
                                 @Query("wallet.signature") walletSignature: String,
                                 @Body
-                                verificationPayment: VerificationPayment): Completable
+                                verificationPayment: VerificationPayment): Single<AdyenTransactionResponse>
 
     @POST("verification/validate")
     fun validateCode(@Query("wallet.address") walletAddress: String,

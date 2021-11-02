@@ -118,7 +118,7 @@ class AdyenPaymentRepositoryTest {
             AdyenPaymentRepository.VerificationPayment(model, false, "")))
         .thenReturn(Completable.complete())
 
-    Mockito.`when`(mapper.mapVerificationPaymentModelSuccess())
+    Mockito.`when`(mapper.mapVerificationPaymentModelSuccess(it))
         .thenReturn(VerificationPaymentModel(true))
 
     val testObserver = TestObserver<VerificationPaymentModel>()

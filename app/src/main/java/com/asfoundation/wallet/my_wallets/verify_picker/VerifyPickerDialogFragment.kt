@@ -25,8 +25,8 @@ class VerifyPickerDialogFragment : DaggerBottomSheetDialogFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    views.verifyWithPaypalCardView.setOnClickListener { }
-    views.verifyWithCreditCardView.setOnClickListener { }
+    views.verifyWithPaypalCardView.setOnClickListener { navigator.navigateToPaypalVerify() }
+    views.verifyWithCreditCardView.setOnClickListener { navigator.navigateToCreditCardVerify() }
   }
 
   override fun onStart() {

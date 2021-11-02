@@ -332,7 +332,7 @@ class AdyenResponseMapperTest {
   @Test
   fun mapVerificationPaymentModelSuccessTest() {
     val expectedModel = VerificationPaymentModel(true)
-    val model = mapper.mapVerificationPaymentModelSuccess()
+    val model = mapper.mapVerificationPaymentModelSuccess(it)
     Assert.assertEquals(expectedModel, model)
   }
 

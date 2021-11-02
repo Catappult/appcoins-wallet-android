@@ -1,18 +1,16 @@
 package com.asfoundation.wallet.referrals
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
-import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.verification.VerificationActivity
+import com.asfoundation.wallet.verification.credit_card.VerificationCreditCardActivity
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
@@ -108,7 +106,7 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   override fun navigateToWalletValidation(beenInvited: Boolean) {
-    val intent = VerificationActivity.newIntent(this)
+    val intent = VerificationCreditCardActivity.newIntent(this)
         .apply {
           flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
