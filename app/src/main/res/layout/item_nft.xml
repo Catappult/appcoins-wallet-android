@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/normal_margin"
-    android:layout_marginEnd="@dimen/normal_margin"
+    android:layout_marginStart="@dimen/small_margin"
+    android:layout_marginEnd="@dimen/small_margin"
     >
 
   <androidx.cardview.widget.CardView
@@ -26,16 +26,14 @@
         android:background="@drawable/nft_background_card"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/normal_margin"
         >
       <ImageView
-
           android:transitionName="nft_image_transition"
           android:id="@+id/nft_image"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="0dp"
           android:adjustViewBounds="true"
-          android:src="@drawable/gamification_unknown_planet_purple_reached"
+          app:layout_constraintDimensionRatio="1:1"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +47,7 @@
           android:layout_marginStart="8dp"
           android:layout_marginTop="8dp"
           android:layout_marginEnd="8dp"
-          android:layout_marginBottom="8dp"
+          android:layout_marginBottom="10dp"
           android:fontFamily="@font/roboto_bolt"
           android:textColor="#000B14"
           android:textSize="14sp"
@@ -74,6 +72,29 @@
           app:layout_constraintStart_toStartOf="@id/nft_title"
           app:layout_constraintTop_toBottomOf="@id/nft_title"
           tools:text="Sub-Title" />
+
+      <include
+          android:id="@+id/nft_image_skeleton"
+          layout="@layout/skeleton_rounded_rectangle"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          app:layout_constraintDimensionRatio="1:1"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+      <include
+          android:id="@+id/nft_title_skeleton"
+          layout="@layout/skeleton_rounded_rectangle"
+          android:layout_width="match_parent"
+          android:layout_height="20sp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginStart="8dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>

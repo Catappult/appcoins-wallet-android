@@ -59,6 +59,7 @@ class NFTDetailsFragment : BasePageViewFragment() ,
         target: com.bumptech.glide.request.target.Target<Drawable>?,
         isFirstResource: Boolean
       ): Boolean {
+        goBack()
         onLoadingFinished()
         return false
       }

@@ -51,9 +51,9 @@ class NFTFragment : BasePageViewFragment() ,
       viewModel.nftClicked(nftClick)
     }
     views.rvNfts.setController(nftsController)
-
+    views.refreshLayout.setOnRefreshListener { viewModel.fetchNFTList() }
     setListeners()
-    views.noNetwork.retryButton.setOnClickListener { viewModel.fetchNFTList() }
+    views.noNetwork.retryButton.setOnClickListener { networkRetry() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -83,7 +83,7 @@ class NFTFragment : BasePageViewFragment() ,
       }
       is Async.Fail -> {
         hideLoading()
-        showErrorToast()
+        showNetworkErrorView()
       }
       is Async.Success -> {
         setNFTs(asyncNFTListModel())
@@ -98,19 +98,30 @@ class NFTFragment : BasePageViewFragment() ,
 
   private fun showNFTs(nftListModel: List<NFTItem>) {
     nftsController.setData(nftListModel)
+    views.rvNfts.visibility = View.VISIBLE
   }
 
   private fun showLoading() {
     views.nftsProgressBar.visibility = View.VISIBLE
   }
 
-  private fun hideLoading() {
-    views.nftsProgressBar.visibility = View.GONE
+  private fun networkRetry(){
+    showLoading()
+    viewModel.fetchNFTList()
+    views.noNetwork.root.visibility = View.GONE
+    views.noNetwork.retryButton.visibility = View.GONE
   }
 
-  private fun showErrorToast() {
-    Toast.makeText(requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
-      .show()
+  private fun showNetworkErrorView() {
+    views.rvNfts.visibility = View.GONE
+    views.noNetwork.root.visibility = View.VISIBLE
+    views.noNetwork.retryButton.visibility = View.VISIBLE
+    views.noNetwork.retryAnimation.visibility = View.GONE
+  }
+
+  private fun hideLoading() {
+    views.refreshLayout.isRefreshing = false
+    views.nftsProgressBar.visibility = View.GONE
   }
 
   private fun goBack(){

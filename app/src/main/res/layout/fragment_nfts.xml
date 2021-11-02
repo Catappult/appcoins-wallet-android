@@ -23,13 +23,13 @@
         android:layout_width="42dp"
         android:layout_height="48dp"
         android:rotation="-90"
+        android:layout_marginStart="10dp"
         android:src="@drawable/arrow_rotated"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitCenter"
-        android:tint="@color/white"
-        />
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/title"
@@ -44,6 +44,7 @@
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 
+
   <com.google.android.material.card.MaterialCardView
       android:layout_width="0dp"
       android:layout_height="0dp"
@@ -56,68 +57,67 @@
       app:cardBackgroundColor="@color/white"
       app:shapeAppearance="@style/Promotions.ContentShape"
       >
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         >
-
-      <com.airbnb.epoxy.EpoxyRecyclerView
-          android:id="@+id/rv_nfts"
+      <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-          app:spanCount="2"
-          android:orientation="vertical"
-          android:overScrollMode="never"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          tools:listitem="@layout/item_nft"
-          />
+          >
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/rv_nfts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_nft"
+            />
 
 
-      <ProgressBar
-          android:id="@+id/nfts_progress_bar"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:indeterminateDrawable="@drawable/gradient_progress"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-      <include
-          android:id="@+id/no_network"
-          layout="@layout/no_network_retry_only_layout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-      <include
-          android:id="@+id/no_nfts"
-          layout="@layout/no_promotions_layout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
+        <ProgressBar
+            android:id="@+id/nfts_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/gradient_progress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <include
+            android:id="@+id/no_network"
+            layout="@layout/no_network_retry_only_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <include
+            android:id="@+id/no_nfts"
+            layout="@layout/no_promotions_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/half_guideline"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          app:layout_constraintGuide_percent="0.68"
-          />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
   </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
