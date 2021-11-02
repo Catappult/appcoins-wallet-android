@@ -2,6 +2,7 @@ package com.asfoundation.wallet.logging.send_logs
 
 import androidx.room.*
 import io.reactivex.Completable
+import io.reactivex.Single
 
 @Dao
 interface LogsDao {
@@ -23,4 +24,17 @@ interface LogsDao {
     insertLog(log)
     removeOldLogs()
   }
+
+  @Query("""
+    SELECT * FROM LogEntity 
+    WHERE sending
+  """)
+  fun getLogs(): Single<List<LogEntity>>
+
+  @Query("""
+    UPDATE LogEntity
+    SET sending = 1
+    WHERE NOT EXISTS (SELECT * FROM LogEntity WHERE sending)
+  """)
+  fun updateLogs(): Completable
 }

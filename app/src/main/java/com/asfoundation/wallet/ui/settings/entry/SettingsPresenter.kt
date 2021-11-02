@@ -4,7 +4,8 @@ import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.logging.send_logs.use_cases.GetCanLogUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.GetSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -18,7 +19,8 @@ class SettingsPresenter(private val view: SettingsView,
                         private val settingsInteractor: SettingsInteractor,
                         private val settingsData: SettingsData,
                         private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-                        private val getCanLogUseCase: GetCanLogUseCase) {
+                        private val getSendLogsStateUseCase: GetSendLogsStateUseCase,
+                        private val sendLogsUseCase: SendLogsUseCase) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -179,11 +181,17 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   fun setSendLogsPreference() {
-    disposables.add(getCanLogUseCase()
+    disposables.add(getSendLogsStateUseCase()
         .observeOn(viewScheduler)
         .doOnSuccess {
           view.setSendLogsPreference(it)
         }
+        .subscribe())
+  }
+
+  fun onSendLogsClicked() {
+    disposables.add(sendLogsUseCase()
+        .observeOn(viewScheduler)
         .subscribe())
   }
 }

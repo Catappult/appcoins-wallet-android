@@ -17,7 +17,8 @@ import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
-import com.asfoundation.wallet.logging.send_logs.use_cases.GetCanLogUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.GetSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
@@ -261,9 +262,15 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun providesGetCanLogUseCase(sendLogsRepository: SendLogsRepository,
-                                      getCurrentWalletUseCase: GetCurrentWalletUseCase): GetCanLogUseCase {
-    return GetCanLogUseCase(sendLogsRepository, getCurrentWalletUseCase)
+  fun providesGetSendLogsStateUseCase(sendLogsRepository: SendLogsRepository,
+                                      getCurrentWalletUseCase: GetCurrentWalletUseCase): GetSendLogsStateUseCase {
+    return GetSendLogsStateUseCase(sendLogsRepository, getCurrentWalletUseCase)
   }
 
+  @Singleton
+  @Provides
+  fun providesSendLogsUseCase(sendLogsRepository: SendLogsRepository,
+                                getCurrentWalletUseCase: GetCurrentWalletUseCase): SendLogsUseCase {
+    return SendLogsUseCase(sendLogsRepository, getCurrentWalletUseCase)
+  }
 }

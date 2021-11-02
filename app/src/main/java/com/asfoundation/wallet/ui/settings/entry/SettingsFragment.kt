@@ -17,6 +17,7 @@ import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
+import com.asfoundation.wallet.logging.send_logs.SendLogsState
 import com.asfoundation.wallet.logging.send_logs.SettingsSendLogsPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
@@ -259,9 +260,13 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setSendLogsPreference(canLog: Boolean) {
+  override fun setSendLogsPreference(sendLogsState: Observable<SendLogsState>) {
     val settingsSendLogsPreference = findPreference<SettingsSendLogsPreference>("pref_send_logs")
-    settingsSendLogsPreference?.setCanLog(canLog)
+    settingsSendLogsPreference?.setOnPreferenceClickListener {
+      presenter.onSendLogsClicked()
+      false
+    }
+    settingsSendLogsPreference?.setSendLogsState(sendLogsState)
   }
 
 
