@@ -6,8 +6,6 @@ import io.reactivex.Completable
 class SetPromoCodeUseCase(private val promoCodeRepository: PromoCodeRepository) {
 
   operator fun invoke(promoCodeString: String): Completable {
-    return Completable.fromAction {
-      promoCodeRepository.setPromoCode(promoCodeString)
-    }
+    return promoCodeRepository.setPromoCode(promoCodeString)
   }
 }

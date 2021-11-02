@@ -2,7 +2,6 @@ package com.asfoundation.wallet.promo_code
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -28,7 +27,6 @@ class SettingsPreferencePromoCodeState(context: Context?, attrs: AttributeSet?) 
   }
 
   fun setPromoCode(promoCode: PromoCodeEntity) {
-    Log.d("APPC-2709", "SettingsPreferencePromoCodeState : setPromoCode $promoCode")
     this.promoCode = promoCode
     setCurrencyTextView()
   }
@@ -45,7 +43,7 @@ class SettingsPreferencePromoCodeState(context: Context?, attrs: AttributeSet?) 
         promoCodeState?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.red, null))
       }
       else -> {
-        promoCodeState?.text = "Test"
+        promoCodeState?.text = ""
         promoCodeState?.setTextColor(
             ResourcesCompat.getColor(context.resources, R.color.black, null))
       }

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.settings.entry
 import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
-import android.util.Log
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
@@ -186,9 +185,7 @@ class SettingsPresenter(private val view: SettingsView,
   fun setPromoCodeState() {
     disposables.add(getCurrentPromoCodeUseCase()
         .observeOn(viewScheduler)
-        .doOnSuccess {
-          Log.d("APPC-2709",
-              "SettingsPresenter: setPromoCodeState: code: ${it.code}")
+        .doOnNext {
           view.setPromoCodePreference(it)
         }
         .subscribeOn(networkScheduler)

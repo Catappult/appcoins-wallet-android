@@ -1251,6 +1251,12 @@
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
+  <style name="PromoCodeErrorMessage" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/red</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
   <style name="PromoCodeSuccessTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">@color/black</item>
     <item name="android:textSize">20sp</item>

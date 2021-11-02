@@ -9,6 +9,7 @@ import com.asfoundation.wallet.promo_code.repository.PromoCodeEntity
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
+import io.reactivex.Completable
 import io.reactivex.Scheduler
 
 sealed class PromoCodeBottomSheetSideEffect : SideEffect {
@@ -17,7 +18,8 @@ sealed class PromoCodeBottomSheetSideEffect : SideEffect {
 
 data class PromoCodeBottomSheetState(
     val promoCodeAsync: Async<PromoCodeEntity> = Async.Uninitialized,
-    val submitClickAsync: Async<Unit> = Async.Uninitialized) : ViewState
+    val submitClickAsync: Async<Unit> = Async.Uninitialized,
+    val shouldShowDefault: Boolean = false) : ViewState
 
 class PromoCodeBottomSheetViewModel(private val networkScheduler: Scheduler,
                                     private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
@@ -39,7 +41,6 @@ class PromoCodeBottomSheetViewModel(private val networkScheduler: Scheduler,
   private fun getCurrentPromoCode() {
     getCurrentPromoCodeUseCase()
         .asAsyncToState() {
-          Log.d("APPC-2709", "PromoCodeBottomSheetViewModel: getCurrentPromoCode: state $it")
           copy(promoCodeAsync = it)
         }
         .scopedSubscribe() { e ->
@@ -48,10 +49,10 @@ class PromoCodeBottomSheetViewModel(private val networkScheduler: Scheduler,
   }
 
   fun submitClick(promoCodeString: String) {
-    Log.d("APPC-2709", "PromoCodeBottomSheetViewModel: submitClick: code typed: $promoCodeString")
     setPromoCodeUseCase(promoCodeString)
         .asAsyncToState() {
-          Log.d("APPC-2709", "PromoCodeBottomSheetViewModel: submitClick: state $it")
+          Log.d("APPC-2709",
+              "PromoCodeBottomSheetViewModel: submitClick: code typed: $promoCodeString ---- state: $it")
           copy(submitClickAsync = it)
         }
         .scopedSubscribe() { e ->
@@ -60,15 +61,25 @@ class PromoCodeBottomSheetViewModel(private val networkScheduler: Scheduler,
   }
 
   fun replaceClick() {
-    Log.d("APPC-2709", "PromoCodeBottomSheetViewModel: replaceClick: ")
+    getCurrentPromoCodeUseCase()
+        .asAsyncToState() {
+          copy(shouldShowDefault = true)
+        }
+        .scopedSubscribe() { e ->
+          e.printStackTrace()
+        }
   }
 
   fun deleteClick() {
-    Log.d("APPC-2709", "PromoCodeBottomSheetViewModel: deleteClick: ")
     deletePromoCodeUseCase()
         .asAsyncToState() {
           Log.d("APPC-2709", "PromoCodeBottomSheetViewModel: deleteClick: state $it")
           copy(promoCodeAsync = Async.Uninitialized)
+        }
+        .doOnComplete {
+          sendSideEffect {
+            PromoCodeBottomSheetSideEffect.NavigateBack
+          }
         }
         .scopedSubscribe() { e ->
           e.printStackTrace()

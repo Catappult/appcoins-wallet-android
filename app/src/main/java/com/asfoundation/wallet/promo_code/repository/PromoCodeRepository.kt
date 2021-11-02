@@ -2,7 +2,6 @@ package com.asfoundation.wallet.promo_code.repository
 
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,25 +9,21 @@ import retrofit2.http.Path
 class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
                           private val promoCodeDao: PromoCodeDao) {
 
-  fun setPromoCode(promoCodeString: String) {
-    promoCodeApi.getPromoCode(promoCodeString)
+  fun setPromoCode(promoCodeString: String): Completable {
+    return promoCodeApi.getPromoCode(promoCodeString)
         .map {
           PromoCodeEntity(it.code, it.expiry, it.expired)
         }
-        .doOnNext {
-          promoCodeDao.replaceSavedPromoCodeBy(it)
+        .flatMapCompletable {
+          Completable.fromAction { promoCodeDao.replaceSavedPromoCodeBy(it) }
         }
         .subscribeOn(Schedulers.io())
-        .subscribe() //TODO WHYYYYYY? its being subscribed in the viewModel, ask aleixo
   }
 
-  fun getCurrentPromoCode(): Single<PromoCodeEntity> {
-    return promoCodeDao.hasPromoCode()
-        .flatMap {
-          promoCodeDao.getSavedPromoCode()
-        }
-        .onErrorReturn {
-          PromoCodeEntity("", "", null)
+  fun getCurrentPromoCode(): Observable<PromoCodeEntity> {
+    return promoCodeDao.getSavedPromoCode()
+        .map {
+          if (it.isEmpty()) PromoCodeEntity("", "", null) else it[0]
         }
         .subscribeOn(Schedulers.io())
   }

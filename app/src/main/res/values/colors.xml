@@ -192,6 +192,8 @@
   <color name="change_fiat_selected_item">#192933</color>
 
   <!-- Promo Code -->
-  <color name="promo_code_text_box_border">#0C0C0C</color>
-  <color name="promo_code_text_box_background">#F8F8F8</color>
+  <color name="promo_code_text_box_active_border">#0C0C0C</color>
+  <color name="promo_code_text_box_active_background">#F8F8F8</color>
+  <color name="promo_code_text_box_default_border">#969696</color>
+
 </resources>

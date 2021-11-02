@@ -3,6 +3,8 @@ package com.asfoundation.wallet.promo_code.bottom_sheet
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,7 @@ import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.asfoundation.wallet.promo_code.repository.PromoCodeEntity
 import com.asfoundation.wallet.util.KeyboardUtils
+import com.asfoundation.wallet.util.setReadOnly
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject
 
@@ -50,10 +53,20 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
       viewModel.submitClick(views.promoCodeBottomSheetString.text.toString())
     }
     views.promoCodeBottomSheetReplaceButton.setOnClickListener {
-      viewModel.submitClick(views.promoCodeBottomSheetString.text.toString())
+      viewModel.replaceClick()
     }
     views.promoCodeBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
     views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener { viewModel.successGotItClick() }
+
+    views.promoCodeBottomSheetString.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
+      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        views.promoCodeBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
+      }
+
+      override fun afterTextChanged(s: Editable) = Unit
+    })
+
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -68,8 +81,8 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   }
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
-    setPromoCode(state.promoCodeAsync)
-    setSubmitClickState(state.submitClickAsync)
+    setPromoCode(state.promoCodeAsync, state.shouldShowDefault)
+    setSubmitClick(state.submitClickAsync)
   }
 
   override fun onSideEffect(sideEffect: PromoCodeBottomSheetSideEffect) {
@@ -78,23 +91,29 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     }
   }
 
-  fun setPromoCode(promoCodeAsync: Async<PromoCodeEntity>) {
+  fun setPromoCode(promoCodeAsync: Async<PromoCodeEntity>,
+                   shouldShowDefault: Boolean) {
     when (promoCodeAsync) {
       is Async.Uninitialized,
       is Async.Loading -> {
-        showDefaultView()
+        showDefaultScreen()
       }
       is Async.Fail -> {
+        showErrorMessage()
       }
       is Async.Success -> {
-        if (promoCodeAsync.value?.code != "") {
-          promoCodeAsync.value?.code?.let { showSavedView(it) }
+        if (shouldShowDefault) {
+          showDefaultScreen()
+        } else {
+          if (promoCodeAsync.value?.code != "") {
+            promoCodeAsync.value?.code?.let { showCurrentCodeScreen(it) }
+          }
         }
       }
     }
   }
 
-  fun setSubmitClickState(clickAsync: Async<Unit>) {
+  fun setSubmitClick(clickAsync: Async<Unit>) {
     when (clickAsync) {
       is Async.Uninitialized -> {
       }
@@ -104,6 +123,7 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
         }
       }
       is Async.Fail -> {
+        showErrorMessage()
       }
       is Async.Success -> {
         showSuccess()
@@ -111,31 +131,49 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     }
   }
 
-  fun showLoading() {
+  private fun showErrorMessage() {
+    hideAll()
+    views.promoCodeBottomSheetString.setReadOnly(false, InputType.TYPE_CLASS_TEXT)
+    views.promoCodeBottomSheetTitle.visibility = View.VISIBLE
+    views.promoCodeBottomSheetTextRectangle.visibility = View.VISIBLE
+    views.promoCodeBottomSheetTextRectangle.setBackgroundResource(R.drawable.rectangle_outline_red)
+    views.promoCodeBottomSheetErrorMessage.visibility = View.VISIBLE
+    views.promoCodeBottomSheetSubmitButton.visibility = View.VISIBLE
+    views.promoCodeBottomSheetSubmitButton.isEnabled = false
+  }
+
+  private fun showLoading() {
     hideAll()
     views.promoCodeBottomSheetSystemView.visibility = View.VISIBLE
     views.promoCodeBottomSheetSystemView.showProgress(true)
   }
 
-  fun showDefaultView() {
+  private fun showDefaultScreen() {
     hideAll()
+    views.promoCodeBottomSheetString.setReadOnly(false, InputType.TYPE_CLASS_TEXT)
     views.promoCodeBottomSheetTitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetTextRectangle.visibility = View.VISIBLE
+    views.promoCodeBottomSheetTextRectangle.setBackgroundResource(
+        R.drawable.rectangle_text_default_promo_code)
     views.promoCodeBottomSheetSubmitButton.visibility = View.VISIBLE
+    views.promoCodeBottomSheetSubmitButton.isEnabled = false
   }
 
-  fun showSavedView(promoCodeString: String) {
+  private fun showCurrentCodeScreen(promoCodeString: String) {
     hideAll()
     views.promoCodeBottomSheetString.text = Editable.Factory.getInstance()
         .newEditable(promoCodeString)
+    views.promoCodeBottomSheetString.setReadOnly(true)
     views.promoCodeBottomSheetTitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetTextRectangle.visibility = View.VISIBLE
+    views.promoCodeBottomSheetTextRectangle.setBackgroundResource(
+        R.drawable.rectangle_text_active_promo_code)
     views.promoCodeBottomSheetActiveCheckmark.visibility = View.VISIBLE
     views.promoCodeBottomSheetDeleteButton.visibility = View.VISIBLE
     views.promoCodeBottomSheetReplaceButton.visibility = View.VISIBLE
   }
 
-  fun showSuccess() {
+  private fun showSuccess() {
     hideAll()
     KeyboardUtils.hideKeyboard(view)
     views.promoCodeBottomSheetSuccessSymbol.visibility = View.VISIBLE
@@ -145,14 +183,15 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
   }
 
-  fun hideAll() {
-    hideDefaultView()
+  private fun hideAll() {
+    hideDefaultScreen()
     hideButtons()
     hideLoading()
-    hideSuccessView()
+    hideErrorMessage()
+    hideSuccessScreen()
   }
 
-  private fun hideDefaultView() {
+  private fun hideDefaultScreen() {
     views.promoCodeBottomSheetTitle.visibility = View.GONE
     views.promoCodeBottomSheetTextRectangle.visibility = View.GONE
     views.promoCodeBottomSheetActiveCheckmark.visibility = View.GONE
@@ -168,7 +207,11 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     views.promoCodeBottomSheetSystemView.visibility = View.GONE
   }
 
-  private fun hideSuccessView() {
+  private fun hideErrorMessage() {
+    views.promoCodeBottomSheetErrorMessage.visibility = View.GONE
+  }
+
+  private fun hideSuccessScreen() {
     views.promoCodeBottomSheetSuccessSymbol.visibility = View.GONE
     views.promoCodeBottomSheetSuccessTitle.visibility = View.GONE
     views.promoCodeBottomSheetSuccessSubtitle.visibility = View.GONE

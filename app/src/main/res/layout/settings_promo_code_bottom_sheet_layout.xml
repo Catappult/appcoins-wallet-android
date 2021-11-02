@@ -30,7 +30,7 @@
       android:layout_width="match_parent"
       android:layout_height="49dp"
       android:layout_marginTop="14dp"
-      android:background="@drawable/rectangle_outline_darkgrey"
+      android:background="@drawable/rectangle_text_default_promo_code"
       android:paddingHorizontal="16dp"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
@@ -65,6 +65,18 @@
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <TextView
+      android:id="@+id/promo_code_bottom_sheet_error_message"
+      style="@style/PromoCodeErrorMessage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Invalid code. Try again with another code!"
+      android:visibility="gone"
+      android:layout_marginTop="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+      />
 
   <Button
       android:id="@+id/promo_code_bottom_sheet_submit_button"
@@ -107,7 +119,7 @@
       android:id="@+id/promo_code_bottom_sheet_system_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/activity_background_color"
+      android:background="@color/white"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

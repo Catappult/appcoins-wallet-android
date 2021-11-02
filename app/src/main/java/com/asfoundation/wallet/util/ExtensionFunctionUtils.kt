@@ -8,11 +8,13 @@ import android.graphics.Matrix
 import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.text.InputType
 import android.util.Base64
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.google.zxing.BarcodeFormat
@@ -171,4 +173,10 @@ fun RecyclerView.addBottomItemDecoration(dimension: Float) {
 inline fun String.convertToDate(date: String): Date? {
   val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
   return dateFormat.parse(date)
+}
+
+fun EditText.setReadOnly(value: Boolean, inputType: Int = InputType.TYPE_NULL) {
+  isFocusable = !value
+  isFocusableInTouchMode = !value
+  this.inputType = inputType
 }

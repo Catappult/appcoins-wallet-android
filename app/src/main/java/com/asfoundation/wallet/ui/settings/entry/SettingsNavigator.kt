@@ -43,8 +43,8 @@ class SettingsNavigator(private val fragmentManager: FragmentManager,
   }
 
   fun showPromoCodeFragment() {
-    val bottomSheet = PromoCodeBottomSheetFragment.newInstance()
-    bottomSheet.show(fragmentManager, "PromoCodeBottomSheet")
+    PromoCodeBottomSheetFragment.newInstance()
+        .show(fragmentManager, "PromoCodeBottomSheet")
   }
 
   fun navigateToWithdrawScreen() {
