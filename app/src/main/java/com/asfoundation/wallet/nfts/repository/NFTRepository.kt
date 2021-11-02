@@ -10,8 +10,8 @@ class NftRepository(
 ) {
 
   fun getNFTAssetList(address: String): Single<List<NFTItem>>{
-    return nftApi.getNFTsOfWallet(address).map { response ->
-      response.assets.map { assetResponse ->
+    return nftApi.getNFTsOfWallet(address).map{ response ->
+      response.map { assetResponse ->
         NFTItem(
           assetResponse.name,
           assetResponse.description,

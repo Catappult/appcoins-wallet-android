@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitCenter"
-        android:tint="@color/white"
+        app:tint="@color/white"
         />
 
     <TextView
@@ -44,34 +44,47 @@
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="89dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/gamification_background"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
       android:background="@drawable/nft_background_card"
       android:clipChildren="false"
       android:clipToPadding="false"
       android:paddingBottom="@dimen/normal_margin"
       app:layout_constraintTop_toBottomOf="@id/header"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      app:cardPreventCornerOverlap="false"
+      app:cardBackgroundColor="@color/white"
       >
     <ImageView
+        android:transitionName="nft_image_transition"
         android:id="@+id/nft_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:src="@drawable/gamification_unknown_planet_purple"
+        android:src="@drawable/gamification_unknown_planet_purple_reached"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
     <TextView
+        android:transitionName="nft_title_transition"
         android:id="@+id/nft_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_bolt"
         android:textColor="#000B14"
         android:textSize="24sp"
@@ -96,5 +109,6 @@
         tools:text="Sub-Title"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

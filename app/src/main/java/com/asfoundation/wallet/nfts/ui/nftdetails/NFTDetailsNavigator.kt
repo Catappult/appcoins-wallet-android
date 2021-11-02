@@ -7,9 +7,7 @@ import com.asfoundation.wallet.my_wallets.main.MyWalletsFragmentDirections
 
 class NFTDetailsNavigator(private val navController: NavController) : Navigator {
 
-  /*
-  fun navigateToInfo() {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToNft(data))
-  }
-   */
+    fun navigateBack(){
+        navController.popBackStack()
+    }
 }

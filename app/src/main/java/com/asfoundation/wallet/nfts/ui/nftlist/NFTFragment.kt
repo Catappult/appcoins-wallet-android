@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.nfts.ui.nftlist
 
+import android.os.Build
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +16,8 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTsController
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import kotlinx.android.synthetic.main.fragment_nft.*
 import javax.inject.Inject
 
 class NFTFragment : BasePageViewFragment() ,
@@ -49,11 +51,7 @@ class NFTFragment : BasePageViewFragment() ,
       viewModel.nftClicked(nftClick)
     }
     views.rvNfts.setController(nftsController)
-    //TO-Change
-    views.rvNfts.addItemDecoration(
-      MarginItemDecoration(resources.getDimension(R.dimen.promotions_item_margin)
-        .toInt())
-    )
+
     setListeners()
     views.noNetwork.retryButton.setOnClickListener { viewModel.fetchNFTList() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -66,7 +64,7 @@ class NFTFragment : BasePageViewFragment() ,
 
   override fun onSideEffect(sideEffect: NFTSideEffect) {
     when (sideEffect) {
-      is NFTSideEffect.NavigateToInfo -> navigator.navigateToInfo(sideEffect.nftData)
+      is NFTSideEffect.NavigateToInfo -> navigator.navigateToInfo(sideEffect.nftData , sideEffect.extras)
 
     }
   }

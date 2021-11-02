@@ -7,11 +7,9 @@ import retrofit2.http.Query
 
 
 interface NftApi {
-  @GET("/transactions/wallet/{wallet}/nfts")
-  fun getNFTsOfWallet(@Path("wallet") owner: String): Single<NftResponse>
+  @GET("/transaction/wallet/{wallet}/nfts")
+  fun getNFTsOfWallet(@Path("wallet") owner: String): Single<List<NftAssetResponse>>
 }
-
-data class NftResponse(val assets: List<NftAssetResponse>)
 
 data class NftAssetResponse(
   @SerializedName("id") val id: String,
