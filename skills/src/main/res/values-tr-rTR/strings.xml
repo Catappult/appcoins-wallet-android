@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
+  <string name="processing_loading_title">Giriş biletiniz alınıyor</string>
+  <string name="finding_room_loading_title">Rakipler bekleniyor</string>
+  <string name="finding_room_loading_message">Bu biraz zaman alabilir…</string>
+  <string name="refunded">Paranız iade edildi.</string>
+  <string name="ok">Tamam</string>
+  <string name="cancel">İptal et</string>
+  <string name="connectoin_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
+</resources>

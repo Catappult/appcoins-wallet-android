@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
+  <string name="processing_loading_title">Belépőjegy lehívása</string>
+  <string name="finding_room_loading_title">Várakozás az ellenfelekre</string>
+  <string name="finding_room_loading_message">Ez eltarthat egy ideig…</string>
+  <string name="refunded">Visszautaltuk a pénzed.</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Mégse</string>
+  <string name="connectoin_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
+</resources>

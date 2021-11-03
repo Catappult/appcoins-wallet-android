@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">ตรวจสอบว่า คุณมีสำเนาสำรองนี้กระเป๋าสตางค์</string>
   <string name="action_import">กู้คืน</string>
   <string name="copy">คัดลอกลงคลิปบอร์ด</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">คัดลอก!</string>
   <string name="close">ปิด</string>
   <string name="title_activity_settings">การตั้งค่า</string>
   <string name="network_label">เครือข่าย</string>
@@ -28,7 +28,7 @@
   <string name="label_new">ใหม่</string>
   <string name="got_it_button">เข้าใจล่ะ</string>
   <string name="change_button">เปลี่ยนแปลง</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
@@ -50,6 +50,7 @@
   <string name="error_import">ข้อผิดพลาดในการนำคีย์สโตร์</string>
   <string name="message_this_is_your_address">ที่อยู่กระเป๋าสตางค์เอธิเรียมสาธารณะของฉัน</string>
   <string name="backup_warning_text">เนื่องจากคุณควบคุมเงินของคุณ คุณจะต้องบันทึกสำเนาสำรองคีย์สโตร์ของคุณ ในกรณีนี้เป็นกระเป๋าสตางค์ถูกลบ\n\n กระเป๋าสตางค์ของคุณไม่มีการบันทึกการสำรองข้อมูลอุปกรณ์มาตรฐานหรือจัดเก็บสำรองแบบมาตรฐาน</string>
+  <string name="backup_wallet_tooltip">เก็บสำเนากระเป๋าสตางค์ของคุณไว้เพื่อความปลอดภัย</string>
   <string name="message_no_backup">ไม่มีสำรองข้อมูล ไม่มีเอธิเรียม</string>
   <string name="error_deleting_account">มีข้อผิดพลาดในการลบกระเป๋าสตางค์</string>
   <string name="title_privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
@@ -99,7 +100,7 @@
   <string name="title_dialog_error">ข้อผิดพลาด</string>
   <string name="title_dialog_handling">กำลังประมวลผล...</string>
   <string name="title_dialog_add_account">เพิ่มกระเป๋าสตางค์</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">คุณต้องการซื้ออย่างไร</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">ตั้งรหัสผ่านเพื่อเข้ารหัสกระเป๋าสตางค์ของคุณ</string>
@@ -245,8 +246,8 @@
   <string name="transaction_type_reverted_purchase_title">การขอคืนเงิน</string>
   <string name="transaction_type_reverted_purchase_body">การซื้อที่คุณทำใน %s ถูกเปลี่ยนกลับแล้ว ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
   <string name="transaction_reverted_view_original_header">ธุรกรรมต้นฉบับ</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_onchain_completed_title">กำลังทำธุรกรรม!</string>
+  <string name="transaction_onchain_completed_body">คุณสามารถติดตามได้ใน Etherscan</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">สนับสนุนโดยเอธิเรียม</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">บัตรเครดิต/เดบิต</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
@@ -280,7 +281,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">ดำเนินการ</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">ใช้ AppCoins ของคุณ</string>
@@ -323,7 +324,7 @@
   <string name="gamification_star_subtitle">ส่องแสง ใหญ่และเต็มรูปแบบของชีวิต</string>
   <string name="gamification_galaxy_subtitle">ระบบที่ใหญ่ที่สุดที่มี!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">การซื้อนี้มีโบนัส!</string>
   <string name="gamification_purchase_header_part_1">โบนัสการซื้อ</string>
   <string name="gamification_purchase_header_part_2">%s ในเครดิต APPC</string>
   <string name="gamification_purchase_body">คุณสามารถใช้โบนัสนี้ในการซื้อครั้งต่อไป</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum เป็นสกุลเงินคริปโตซึ่งมี AppCoins เป็นหลัก คุณสามารถซื้อและขายแลกเปลี่ยนมันได้เป็นส่วนใหญ่ มันเป็นที่นิยมมาก!</string>
   <string name="balance_appcoins_body">AppCoins เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
   <string name="balance_appccreditos_body">โทเค็นเพื่อใช้ซื้อสินค้าในแอป! เติม APPC-C จากกระเป๋าสตางค์หรือรับมันเพื่อการใช้งานแอปฟรี มันยังสามารถถ่ายโอนได้ระหว่างเพื่อน!</string>
+  <string name="my_wallets_action_new_wallet">วอลเล็ตใหม่</string>
+  <string name="my_wallets_action_recover_wallet">กู้คืนวอลเล็ต</string>
+  <string name="my_wallets_action_backup_wallet">สำรองวอลเล็ต</string>
+  <string name="my_wallets_action_verify_new_card">ยืนยันบัตรใหม่</string>
+  <string name="my_wallets_action_delete_wallet">ลบวอลเล็ต</string>
+  <string name="verify_card_title">ยืนยันบัตร</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ขอให้บางคนชำระเงิน</string>
   <string name="askafriend_generating_link_message">พวกเรากำลังสร้างลิงค์การชำระเงินของคุณ&#8230;</string>
@@ -426,6 +433,7 @@
   <string name="remind_later_button">เตือนฉันภายหลัง</string>
   <string name="get_code_button">รับรหัส</string>
   <string name="confirm_button">ยืนยัน</string>
+  <string name="withdraw_button">ถอน</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -436,7 +444,7 @@
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">แลกใช้รหัส</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
   <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
@@ -469,6 +477,7 @@
   <string name="verification_settings_unverified_title">ยืนยันกระเป๋าสตางค์</string>
   <string name="verification_settings_unverified_body">รับรางวัลและเชิญเพื่อน</string>
   <string name="verification_settings_verified_title">กระเป๋าสตางค์ที่ยืนยัน</string>
+  <string name="verification_settings_card_verified_title">บัตรได้รับการยืนยัน</string>
   <string name="verification_settings_no_internet">คุณจำเป็นต้องเชื่อมต่ออินเตอร์เน็ต</string>
   <string name="verification_error_time_expired">อุ๊ปส์ หมดเวลาแล้ว เริ่มอีกครั้ง!</string>
   <string name="verification_error_attempts_reached">ดูเหมือนว่าคุณเกินจำนวนทีจำกัดแล้ว โปรดรอซักครู่และลองอีกครั้ง</string>
@@ -517,6 +526,15 @@
   <string name="purchase_error_try_other_amount_or_method">อ๊ะ &#8230; มีบางอย่างเกิดขึ้น! โปรดลองใช้วิธีการชำระเงินอื่นหรือลองจำนวนอื่น</string>
   <string name="purchase_error_try_cheaper_item">ราคาสูงไป! โปรดลองซื้อสินค้าที่มีมูลค่าต่ำกว่า</string>
   <string name="purchase_error_try_cheaper_item_or_method">แพงทีเดียว! โปรดลองซื้อสินค้าที่ถูกกว่าหรือลองใช้วิธีการชำระเงินแบบอื่น</string>
+  <string name="transfer_appc_error_no_eth_title">คุณต้องการ Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">ค่าธรรมเนียมการโอน AppCoins จ่ายเป็น Ethereum ดังนั้นคุณจะต้องใช้ ETH เพื่อโอน APPC</string>
+  <string name="purchase_error_invalid_credit_card">หมายเลขบัตรธนาคารไม่ถูกต้อง โปรดตรวจสอบให้แน่ใจว่าตัวเลขทั้งหมดถูกต้อง</string>
+  <string name="purchase_error_card_security_validation">มีข้อผิดพลาดในการตรวจสอบระดับ 2 ของธุรกรรมนี้ กรุณาลองอีกครั้ง</string>
+  <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>
+  <string name="purchase_error_card_already_in_progress">คำขอของคุณได้รับการประมวลผลแล้วหรืออยู่ระหว่างดำเนินการ โปรดรอ</string>
+  <string name="purchase_error_payment_rejected">การชำระเงินถูกปฏิเสธ! โปรดลองใช้บัตรจากผู้ออกบัตรรายอื่นหรือใช้วิธีการชำระเงินอื่น</string>
+  <string name="purchase_error_verify_wallet">ลองยืนยันวอลเล็ตของคุณเพื่อปลดล็อกสถานการณ์นี้</string>
+  <string name="purchase_eskills_sku">ตั๋วเข้า</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -699,9 +717,10 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">จัดการการสมัครสมาชิก</string>
   <string name="subscriptions_title">สมัครสมาชิก</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">ตอบรับสมาชิก</string>
   <string name="subscriptions_active_title">ใช้งาน</string>
   <string name="subscriptions_expired_title">หมดอายุ</string>
+  <string name="subscriptions_inactive_title">ไม่ใช้งาน</string>
   <string name="subscriptions_empty_title">ยังไม่มีการสมัครสมาชิก</string>
   <string name="subscriptions_empty_body">สมัครบริการแอปและเกมส์ที่คุณชื่นชอบและเราจะจัดการระยะเวลาการชำระเงินให้</string>
   <string name="subscriptions_details_billing_title">การเรียกเก็บเงิน:</string>
@@ -716,6 +735,8 @@
   <string name="subscriptions_details_button">รายละเอียด</string>
   <string name="subscriptions_manage_button">จัดการการสมัครสมาชิก</string>
   <string name="subscriptions_cancel_button">ยกเลิกสมาชิก</string>
+  <string name="subscriptions_renew_subscription_button">ต่อการตอบรับสมาชิก</string>
+  <string name="subscriptions_renewed_confirmation_title">ต่ออายุสมาชิก!</string>
   <string name="subscriptions_cancel_title">ยกเลิกสมาชิก</string>
   <string name="subscriptions_cancel_body">คุณแน่ใจใช่ไหมว่าต้องการยกเลิกการเป็นสมาชิกนี้</string>
   <string name="subscriptions_cancel_no_button">ไม่ ย้อนกลับ</string>
@@ -801,7 +822,7 @@
   <string name="carrier_billing_terms_button">ข้อกำหนดและเงื่อนไข</string>
   <string name="carrier_billing_privacy_button">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">เพิ่มบัตรเครดิต/เดบิต</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
@@ -876,8 +897,8 @@
   <string name="rate_us_back_title">ต้องการความช่วยเหลือไหม</string>
   <string name="rate_us_back_body">ให้คะแนน AppCoins Wallet บนแอพสโตร์เพื่อให้เราปรับปรุง</string>
   <!--Card verification-->
-  <string name="card_verification_body">ใช้บัตรเครดิต / เดบิตเพื่อยืนยันกระเป๋าเงินของคุณ</string>
-  <string name="card_verification_charde_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณและเราจะคืนเงินให้ เมื่อคุณยืนยันรหัส</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_charde_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณ และเราจะคืนเงินเมื่อคุณยืนยันรหัส ขึ้นอยู่กับธนาคารของคุณ อาจใช้เวลาระหว่างนาทีถึงสองสามวัน</string>
   <string name="card_verification_code_title">ตรวจสอบรหัสรายละเอียดธุรกรรม</string>
   <string name="card_verification_code_body">รหัสเฉพาะจะแสดงในข้อมูลสรุปธุรกรรมที่ผู้ออกบัตรของคุณให้ไว้</string>
   <string name="card_verification_code_example_title">ตัวอย่างสรุปธุรกรรม</string>
@@ -914,9 +935,46 @@
   <string name="voucher_empty_more_title">บัตรกำนัลสำหรับเกมส์</string>
   <string name="voucher_empty_more_body">ค้นหาข้อเสนอที่ดีที่สุดสำหรับเกมโปรดของคุณ!</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_title">เปลี่ยนสกุลเงิน</string>
+  <string name="change_currency_settings_title">สกุลเงิน</string>
+  <string name="change_currency_choose_button">เลือกสกุลเงิน</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">กำลังทำธุรกรรม!</string>
+  <string name="block_transaction_disclaimer_body">คุณสามารถติดตามได้ใน Etherscan</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">การถอน e-Skills</string>
+  <string name="e_skills_withdraw_email">ที่อยู่อีเมล PayPal</string>
+  <string name="e_skills_withdraw_amount">จำนวน (USD)</string>
+  <string name="e_skills_withdraw_email_hint">ที่อยู่อีเมลของคุณที่นี่</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">การถอน e-Skills</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">ไม่พบอีเมล</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">มียอดคงเหลือไม่เพียงพอ</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">คุณสามารถถอนเงินที่ได้รับในเกม e-Skills เท่านั้น</string>
+  <string name="e_skills_withdraw_max_amount">จำนวนเงินสูงสุดที่สามารถถอนได้: %s</string>
+  <string name="e_skills_more_info_button">ข้อมูลเพิ่มเติม</string>
+  <!--Promo Code-->
+  <string name="promo_code_settings_title">Promo Code</string>
+  <string name="promo_code_view_title">Promo Code</string>
+  <string name="promo_code_view_body">ใส่ Promo Code เพื่อรับข้อเสนอพิเศษ!</string>
+  <string name="promo_code_view_field">Promo Code ที่นี่...</string>
+  <string name="promo_code_view_error">รหัสไม่ถูกต้อง ลองกับอันอื่นสิ!</string>
+  <string name="promo_code_activated">รหัสโปรโมชั่นเปิดใช้งาน!</string>
+  <string name="promo_code_replace_button">แทนที่</string>
+  <string name="promo_code_active_tag">ใช้งาน</string>
+  <string name="promo_code_expired_tag">หมดอายุ</string>
+  <string name="promo_code_success_title">เสร็จ!</string>
+  <string name="promo_code_success_body">คุณจะได้รับโบนัสพิเศษ %s%% จากการซื้อทั้งหมดของคุณ</string>
+  <!--AppCoins Info Page-->
+  <string name="appcoins_info_title">เกี่ยวกับ AppCoins</string>
+  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
+  <string name="appcoins_info_title_1">AppCoins คืออะไร</string>
+  <string name="appcoins_info_body_1">AppCoins เป็นโทเค็นดิจิทัลที่สร้างโดย Aptoide และมีผู้ใช้มากกว่า 200 ล้านคนทั่วโลก เป้าหมายหลักของโซลูชันในการชำระเงินที่เป็นนวัตกรรมใหม่ที่มอบความน่าไว้วางใจในระบบเศรษฐกิจของแอปและเพื่อขจัดตัวกลางออก</string>
+  <string name="appcoins_info_title_1b">เช่นเดียวกับโทเค็นดิจิทัลทั้งหมด มูลค่าของ AppCoins เปลี่ยนแปลงอย่างต่อเนื่องตามสกุลเงินที่คุณต้องการ (EUR, USD...) คุณสามารถติดตามการเปลี่ยนแปลงเหล่านี้ได้ตลอดเวลาในกราฟิกด้านบน</string>
+  <string name="appcoins_info_title_2">AppCoins มีไว้เพื่ออะไร</string>
+  <string name="appcoins_info_body_2">ทั้ง AppCoins และ AppCoins Credits สามารถใช้ในการชำระเงินในแอปที่คุณชื่นชอบได้ คุณจะได้รับเครดิต AppCoins เป็นโบนัสเมื่อทำการซื้อด้วยวิธีการชำระเงินอื่น (บัตรธนาคาร PayPal...) และเมื่อเติมเงินในกระเป๋าเงิน AppCoins</string>
+  <string name="appcoins_info_website_title">เว็ปไซต์</string>
+  <string name="appcoins_info_explorer_title">สำรวจ</string>
+  <string name="appcoins_info_market_cap_title">มูลค่าตลาด</string>
+  <string name="appcoins_info_volume_title">ปริมาณ (24h)</string>
 </resources>
