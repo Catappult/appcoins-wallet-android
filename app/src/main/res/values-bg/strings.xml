@@ -50,6 +50,7 @@
   <string name="error_import">Грешка при импортиране на хранилище</string>
   <string name="message_this_is_your_address">Моят публичен адрес на Ethereum портфейл</string>
   <string name="backup_warning_text">Тъй като само ти контролираш парите си, трябва да направиш бекъп на твоето хранилище в случай, че това приложение бъде изтрито.\n\nТвоят портфейл никога не се записва в облак или стандартно устройство за архивиране.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">Без бекъп, без Ethereum</string>
   <string name="error_deleting_account">Грешка при изтриването на портфейла</string>
   <string name="title_privacy_policy">Политика за поверителност</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum е криптовалутата, на която се базират AppCoins. Можеш да ги купуваш и продаваш на повечето борси, много е популярно!</string>
   <string name="balance_appcoins_body">AppCoins е криптовалутата на икономиката на приложението. Можеш да я купуваш и продаваш на няколко борси и да я използваш за закупуване на различни неща в приложението.</string>
   <string name="balance_appccreditos_body">Токен за закупуване на покупки вътре в приложението! Допълни APPC-C от портфейла си или да ги получи безплатно, използвайки приложения. Те също могат и да се прехвърлят между приятели!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Помоли някой да плати</string>
   <string name="askafriend_generating_link_message">Генерираме плащането ти link&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">Потвърди</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Съгласявам се с %1$s и %2$s на AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Моля, приеми нашите Общи правила и Политика за поверителност, за да продължиш</string>
@@ -443,7 +447,7 @@
   <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Свържи се със съпорт отдела</string>
   <string name="settings_subheader_support">Поддръжка</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">За нас</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">В прогрес&#8230;</string>
   <string name="local_payments_inprogress_body">След като завършиш плащането, ще получиш AppCoins Credits в портфейла си. След това се върни към играта, за да направиш покупката!</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">Верифицирай портфейл</string>
   <string name="verification_settings_unverified_body">Получавай награди и кани приятели</string>
   <string name="verification_settings_verified_title">Портфейл верифициран</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">Трябва да си свързан с Интернет</string>
   <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
   <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
@@ -714,6 +719,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Активни</string>
   <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_inactive_title">Неактивни</string>
   <string name="subscriptions_empty_title">Няма абонаменти все още</string>
   <string name="subscriptions_empty_body">Абонирай се за услуги в любимите си приложения и игри и ние ще се занимаваме с периодичните плащания.</string>
   <string name="subscriptions_details_billing_title">Плащане:</string>
@@ -728,6 +734,8 @@
   <string name="subscriptions_details_button">ДЕТАЙЛИ</string>
   <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">ПРЕКРАТИ АБОНАМЕНТ</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Прекрати абонамент</string>
   <string name="subscriptions_cancel_body">Сигурен ли си, че искаш да прекратиш абонамента?</string>
   <string name="subscriptions_cancel_no_button">НЕ, ВЪРНИ СЕ</string>
@@ -958,8 +966,14 @@
   <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
+  <string name="promo_code_activated">Promo code activated!</string>
+  <string name="promo_code_replace_button">REPLACE</string>
+  <string name="promo_code_active_tag">Active</string>
+  <string name="promo_code_expired_tag">Expired</string>
+  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">За AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">Tworzenie adresu portfela&#8230;</string>
+  <string name="processing_loading_title">Drukowanie biletu</string>
+  <string name="finding_room_loading_title">Czekanie na przeciwnika</string>
+  <string name="finding_room_loading_message">To może potrwać chwilę…</string>
+  <string name="refunded">Twoje pieniądze zostały zwrócone.</string>
+  <string name="ok">Ok</string>
+  <string name="cancel">Anuluj</string>
+  <string name="connectoin_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
+</resources>

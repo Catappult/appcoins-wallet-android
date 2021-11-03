@@ -50,6 +50,7 @@
   <string name="error_import">加載密鑰庫時出錯</string>
   <string name="message_this_is_your_address">我的以太坊錢包地址</string>
   <string name="backup_warning_text">由於只有您可以存取您的資產，因此需要保存密鑰庫的備份，以防止此應用程式被刪除而造成損失。\n\n您的錢包永遠不會被保存到雲端儲存或標準設備備份中。</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">無備份，無以太坊</string>
   <string name="error_deleting_account">刪除錢包時發生錯誤</string>
   <string name="title_privacy_policy">隱私權政策</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">AppCoins是基於以太坊(網路)的加密貨幣。 您可以在大多數交易所買賣它，它非常受歡迎！</string>
   <string name="balance_appcoins_body">AppCoins是用於應用程式經濟的加密貨幣。 您可以在多個交易所買賣它，並用它購買應用程式內商品。</string>
   <string name="balance_appccreditos_body">用於購買應用程式內物品的代幣。從您的錢包儲值APPC點數或透過使用應用程式來免費獲得它。 您也可以在朋友之間轉移它！</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">請人代付</string>
   <string name="askafriend_generating_link_message">正在產生您的付款連結&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">獲得代碼</string>
   <string name="confirm_button">確認</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">驗證錢包</string>
   <string name="verification_settings_unverified_body">邀請朋友，獲得獎勵</string>
   <string name="verification_settings_verified_title">錢包已驗證</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">您需要連線至網路</string>
   <string name="verification_error_time_expired">糟糕，您已超時。請重開始驗證！</string>
   <string name="verification_error_attempts_reached">驗證嘗試次數已達上限，請稍後再試。</string>
@@ -713,6 +718,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">訂閱項目</string>
   <string name="subscriptions_expired_title">已到期</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">尚無訂閱</string>
   <string name="subscriptions_empty_body">在您喜歡的應用程式和遊戲中進行訂閱，系統會根據您的訂閱定期收費。</string>
   <string name="subscriptions_details_billing_title">帳單金額：</string>
@@ -727,6 +733,8 @@
   <string name="subscriptions_details_button">詳情</string>
   <string name="subscriptions_manage_button">管理訂閱</string>
   <string name="subscriptions_cancel_button">取消訂閱</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">取消訂閱</string>
   <string name="subscriptions_cancel_body">確認取消此訂閱嗎？</string>
   <string name="subscriptions_cancel_no_button">不，返回上一步</string>
@@ -949,8 +957,14 @@
   <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
+  <string name="promo_code_activated">Promo code activated!</string>
+  <string name="promo_code_replace_button">REPLACE</string>
+  <string name="promo_code_active_tag">Active</string>
+  <string name="promo_code_expired_tag">Expired</string>
+  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">關於AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>

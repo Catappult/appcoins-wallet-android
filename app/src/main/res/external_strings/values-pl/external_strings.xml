@@ -5,45 +5,45 @@
   <string name="appcoins_wallet">Portfel AppCoins</string>
   <string name="iab_wallet_not_installed_popup_close_button">ZAMKNIJ</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">Żeby dokonać zakupu, potrzebujesz Portfela AppCoins. Pobierz go z Aptoide albo Play Store\'a i wróć, by dokończyć transakcję!</string>
   <string name="iap_wallet_and_appstore_not_installed_popup_button">OK!</string>
   <!-- SDK - PoA when wallet is not installed -->
   <string name="poa_wallet_not_installed_notification_title">Potrzebujesz portfela AppCoins!</string>
   <string name="poa_wallet_not_installed_notification_body">Aby odebrać nagrodę, potrzebujesz portfela AppCoins.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
-  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
+  <string name="iab_pay_as_guest_title">Zapłać jako gość</string>
+  <string name="iab_pay_as_guest_credit_card">Karta kredytowa</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
-  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
+  <string name="iab_switch_to_paypal">ZAPŁAĆ Z PAYPAL</string>
+  <string name="iab_switch_to_credit_card">ZAPŁAĆ KARTĄ KREDYTOWĄ</string>
   <string name="iab_card_number">Numer karty</string>
   <string name="iab_card_expiry">MM/RR</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">ZMIANA KARTY</string>
-  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
-  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
+  <string name="iab_pay_with_wallet_title">Zapłać z AppCoins Wallet</string>
+  <string name="iab_pay_with_wallet_reward_title">Otrzymaj nawet %s%% Bonusu!</string>
+  <string name="iab_pay_with_wallet_reward_body">Za ten zakup otrzymasz %s.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">Za ten zakup otrzymasz Bonus!</string>
   <string name="iab_best_deal">BEST DEAL</string>
-  <string name="iab_purchase_done_title">DONE!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
-  <string name="iab_purchase_done_title_long">Purchase completed!</string>
-  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
-  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_done_title">GOTOWE!</string>
+  <string name="iab_purchase_done_reward_title">Następnym razem otrzymasz nawet %s%% Bonusu w AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Następnym razem pisz się na Bonus w AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_body">Za ten zakup można było otrzymać %s.</string>
+  <string name="iab_purchase_done_title_long">Transakcja zakończona!</string>
+  <string name="iab_purchase_change_payment_method_button">INNE METODY PŁATNOŚCI</string>
+  <string name="iab_purchase_support_1">Potrzebujesz pomocy?</string>
   <string name="iab_purchase_support_2_link">Pomoc.</string>
   <!-- SDK - Common -->
-  <string name="next_button">NEXT</string>
+  <string name="next_button">DALEJ</string>
   <string name="cancel_button">Anuluj</string>
-  <string name="buy_button">BUY</string>
+  <string name="buy_button">KUPUJĘ</string>
   <string name="iab_wallet_not_installed_popup_close_install">ZAINSTALUJ PORTFEL</string>
   <string name="button_ok">Ok</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Instaluj</string>
   <!-- Error messages -->
   <string name="title_dialog_error">Błąd</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_error_item_owned">Już to masz!</string>
   <string name="purchase_card_error_title">Coś poszło nie tak.</string>
   <string name="purchase_card_error_general_1">Pojawił się problem z twoją kartą. Spróbuj ponownie lub skontaktuj się z nami.</string>
   <string name="purchase_card_error_general_2">Transakcja została odrzucona przez twój bank. Spróbuj z inną kartą lub skontaktuj się z nami.</string>

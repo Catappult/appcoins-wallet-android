@@ -50,6 +50,7 @@
   <string name="error_import">कीस्ट्रोक इंपोर्ट करताना त्रुटी</string>
   <string name="message_this_is_your_address">माझा जाहीर एथरियम वॉलेट पत्ता</string>
   <string name="backup_warning_text">हे अॅप मिटविले जाण्याच्या परिस्थितीत, फक्त आपणच आपल्या पैशांचे नियंत्रण करीत असल्याने, आपणांस आपले कीस्ट्रोक बॅकअप करावे लागतील.\n\nआपले वॉलेट क्लाऊड स्टोरेज किंवा स्टँडर्ड डिव्हाइस बॅकअपमध्ये कधीच सेव्ह केले जात नाही.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">बॅकअप नाही, एथरियम नाही</string>
   <string name="error_deleting_account">वॉलेट मिटविताना त्रुटी</string>
   <string name="title_privacy_policy">गोपनीयता धोरण</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">अॅपकॉइन्स इथेरियम क्रिप्टोकरंसीवर आधारीत आहे. आपण ह्याचा विनिमय बहुतेक एक्सचेंजमध्ये करु शकता, हे फार लोकप्रिय आहे!</string>
   <string name="balance_appcoins_body">अॅप इकॉनॉमीसाठी अॅपकॉइन्स ही क्रिप्टोकरंसी आहे. आपण ह्याचा विनिमय पुष्कळशा एक्सचेंजेसवर करु शकता आणि अॅपमधील वस्तु खरेदीसाठी करु शकता.</string>
   <string name="balance_appccreditos_body">अॅपमधील खरेदी करण्याचे टोकन! आपल्या वॉलेटमधुन एपीपीसी-सीत भरणा करा किंवा अॅप वापरुन त्यांना मोफत मिळवा. स्नेह्यांमध्ये ह्याचे हस्तांतरणही केले जाऊ शकते!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">कोणालातरी पैसे भरायला सांगा</string>
   <string name="askafriend_generating_link_message">आम्ही आपली पेमेंट लिंक&#8230; तयार करीत आहोत</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">कोड मिळवा</string>
   <string name="confirm_button">पुष्टी करा</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">वॉलेट सत्यापन करा</string>
   <string name="verification_settings_unverified_body">बक्षिसे मिळवा आणि मित्रांना आमंत्रण द्या</string>
   <string name="verification_settings_verified_title">वॉलेट सत्यापित झाले</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">आपण इंटरनेटशी जुडलेले हवेत</string>
   <string name="verification_error_time_expired">अरेरे, आपली वेळ संपली. परत सुरु करा!</string>
   <string name="verification_error_attempts_reached">प्रयत्नांची शिकस्त झालीसे दिसतेय. कृपया पुन्हा प्रयत्न करण्यापूर्वी थोड थांबा.</string>
@@ -718,6 +723,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">सक्रिय</string>
   <string name="subscriptions_expired_title">कालबाह्य</string>
+  <string name="subscriptions_inactive_title">निष्क्रिय</string>
   <string name="subscriptions_empty_title">अजुन तरी कोणतेही सदस्यत्व नाही</string>
   <string name="subscriptions_empty_body">आपल्या आवडत्या अॅप्स आणि खेळातील सेवांचे सदस्यत्व घ्या आणि आम्ही त्यांच्या वेळशीर पैसे भरण्याची काळजी घेऊ.</string>
   <string name="subscriptions_details_billing_title">बिलिंग:</string>
@@ -732,6 +738,8 @@
   <string name="subscriptions_details_button">तपशील</string>
   <string name="subscriptions_manage_button">सदस्यत्वांचे व्यवस्थापन करा</string>
   <string name="subscriptions_cancel_button">सदस्यत्व रद्द करा</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">सदस्यत्व रद्द करा</string>
   <string name="subscriptions_cancel_body">हे सदस्यत्व नक्की रद्द करायचे आहे का?</string>
   <string name="subscriptions_cancel_no_button">नाही, परत जाऊया</string>
@@ -979,8 +987,14 @@
   <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
+  <string name="promo_code_activated">Promo code activated!</string>
+  <string name="promo_code_replace_button">REPLACE</string>
+  <string name="promo_code_active_tag">Active</string>
+  <string name="promo_code_expired_tag">Expired</string>
+  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">अॅपकॉइन्सविषयी</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>

@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2021-08-24 10:53\n"
+"PO-Revision-Date: 2021-10-19 05:36\n"
 
 #. Card Title
 #:
@@ -20,7 +20,7 @@ msgstr "AppCoins Credits verdienen!"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Erhalte einen Bonus von {0}% für alle deine Einkäufe {1}, ausser bei der Verwendung von AppCoins Credits."
 
 #. Card - Purchase Promotion.
 #:
@@ -55,12 +55,12 @@ msgstr "Weil Sie den nächsten erreicht haben."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Erhalte einen Bonus von {0}% für alle deine Einkäufe {1}, ausser bei der Verwendung von AppCoins Credits."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "Erhalte einen zusätzlichen {0}% Bonus auf alle deine Einkäufe."
 
 #. Card - First purchase.
 #:
@@ -110,7 +110,7 @@ msgstr "Da Du {0} {1} bei AppCoins Apps ausgegeben hast."
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Erhalte einen Bonus von {0}% für alle deine Einkäufe, ausser bei der Verwendung von AppCoins Credits."
 
 #. Card - Title - Common
 #:

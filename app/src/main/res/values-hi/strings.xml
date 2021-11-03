@@ -50,6 +50,7 @@
   <string name="error_import">कीस्टोर आयात करने में त्रुटि</string>
   <string name="message_this_is_your_address">मेरा सार्वजनिक इथीरियम वॉलेट पता</string>
   <string name="backup_warning_text">क्योंकि आप केवल अपने पैसे को नियंत्रित करते हैं, तो यह एप्प हटाए जाने पर आपको अपने कीस्टोर के बैकअप को सहेजने की जरूरत होगी।\n\nआपका वॉलेट कभी भी क्लाउड स्टोरेज या मानक डिवाइस बैकअप में सहेजा नहीं जाता है।</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">कोई बैकअप नहीं, कोई इथीरियम नहीं</string>
   <string name="error_deleting_account">वॉलेट मिटाने में त्रुटि</string>
   <string name="title_privacy_policy">गोपनीयता नीति</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">AppCoins इथीरियम क्रिप्टोकरेंसी पर आधारित है। आप अधिकतम एक्सचेंजों में उन्हें खरीद और बेच सकते हैं, यह बहुत लोकप्रिय है!</string>
   <string name="balance_appcoins_body">AppCoins एप्प अर्थव्यवस्था के लिए क्रिप्टोकरेंसी है। आप इसे कई एक्सचेंजों पर खरीदने और बेचने के साथ ही इन-एप्प खरीद के लिए इसका उपयोग कर सकते हैं।</string>
   <string name="balance_appccreditos_body">इन-एप्प चीजें खरीदने के लिए टोकन! APPC-C को अपने वॉलेट से टॉप अप करें या एप्प उपयोग करके उन्हें मुफ्त में प्राप्त करें। उन्हें मित्रों के बीच स्थानांतरित भी किया जा सकता है!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">किसी को भुगतान के लिए कहें</string>
   <string name="askafriend_generating_link_message">हम आपके लिए भुगतान लिंक बना रहे हैं&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">पुष्टि करें</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
   <string name="terms_and_conditions_error">जारी रखने के लिए कृपया हमारे नियम एवं शर्तों तथा गोपनीयता नीति को स्वीकार करें</string>
@@ -443,7 +447,7 @@
   <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contact Support Team</string>
   <string name="settings_subheader_support">सहायता</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">हमारे बारे में</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">प्रगति पर&#8230;</string>
   <string name="local_payments_inprogress_body">एक बार जब आप भुगतान पूरा कर लेंगे तो आपको अपने वॉलेट में AppCoins Credits मिल जाएगा। फिर खरीद करने के लिए गेम पर वापस जाएँ!</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">वॉलेट सत्यापित करें</string>
   <string name="verification_settings_unverified_body">पुरस्कार पाएँ और मित्रों को आमंत्रित करें</string>
   <string name="verification_settings_verified_title">वॉलेट सत्यापित</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">आपको इंटरनेट से जुड़े रहना चाहिए</string>
   <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
   <string name="verification_error_attempts_reached">It seems you reached the attempts limit. Please wait to try again.</string>
@@ -714,6 +719,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Active</string>
   <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_inactive_title">Inactive</string>
   <string name="subscriptions_empty_title">No Subscriptions Yet</string>
   <string name="subscriptions_empty_body">Subscribe to services in your favorite apps and games and we\'ll deal with periodic payments.</string>
   <string name="subscriptions_details_billing_title">Billing:</string>
@@ -728,6 +734,8 @@
   <string name="subscriptions_details_button">DETAILS</string>
   <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
   <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
   <string name="subscriptions_cancel_no_button">नहीं, पीछे जाएँ</string>
@@ -958,8 +966,14 @@
   <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
+  <string name="promo_code_activated">Promo code activated!</string>
+  <string name="promo_code_replace_button">REPLACE</string>
+  <string name="promo_code_active_tag">Active</string>
+  <string name="promo_code_expired_tag">Expired</string>
+  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">AppCoins के बारे में</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>

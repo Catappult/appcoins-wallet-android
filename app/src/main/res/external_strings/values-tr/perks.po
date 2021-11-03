@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2021-08-24 10:53\n"
+"PO-Revision-Date: 2021-10-19 17:01\n"
 
 #. Card Title
 #:
@@ -20,7 +20,7 @@ msgstr "AppCoins Credits kazanın!"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "AppCoins Credits kullandığınız zamanlar hariç, {1} adlı oyundaki tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
 
 #. Card - Purchase Promotion.
 #:
@@ -55,12 +55,12 @@ msgstr "Bir sonraki seviyeye ulaştığınız için."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "AppCoins Credits kullandığınız zamanlar hariç, {1} adlı oyundaki tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "Tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
 
 #. Card - First purchase.
 #:
@@ -90,7 +90,7 @@ msgstr "+{0} AppCoins Credits Bonusu!"
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "{3} uygulamasında {1} {2} harcadığınızda ekstra {0} AppCoins Credits kazanın."
 
 #. Receipt - Expenditure per amount Promotion.
 #:
@@ -100,20 +100,20 @@ msgstr "{2} uygulamasında {0} {1} harcadığınız için."
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "AppCoins uygulamalarında {1} {2} harcadığınızda ekstra {0} AppCoins Credits kazanın."
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "AppCoins uygulamalarında {0} {1} harcadığınız için."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "AppCoins Credits kullandığınız zamanlar hariç, tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "Yeni Özellik Mevcut"
 

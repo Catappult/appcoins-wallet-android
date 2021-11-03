@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Malay\n"
 "Language: ms_MY\n"
-"PO-Revision-Date: 2021-08-24 10:53\n"
+"PO-Revision-Date: 2021-10-22 06:13\n"
 
 #. Card Title
 #:
@@ -20,7 +20,7 @@ msgstr "Peroleh Kredit AppCoins!"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda dalam {1}, kecuali pembelian dengan Kredit AppCoins."
 
 #. Card - Purchase Promotion.
 #:
@@ -55,7 +55,7 @@ msgstr "Kerana anda telah capai tahap seterusnya."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda dalam {1}, kecuali pembelian dengan Kredit AppCoins."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -110,7 +110,7 @@ msgstr "Kerana anda belanja {0} {1} dalam aplikasi AppCoins."
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda, kecuali pembelian dengan Kredit AppCoins."
 
 #. Card - Title - Common
 #:

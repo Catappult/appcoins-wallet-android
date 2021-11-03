@@ -50,6 +50,7 @@
   <string name="error_import">Error al importar el keystore</string>
   <string name="message_this_is_your_address">La dirección pública de mi wallet Ethereum</string>
   <string name="backup_warning_text">Solo tú controlas tu dinero, y por eso deberías hacer una copia de seguridad de tu keystore en caso de que esta app sea eliminada.\n\nTu wallet nunca será almacenada en la nube ni en dispositivos de backup estándar.</string>
+  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
   <string name="message_no_backup">No backup, no Ethereum</string>
   <string name="error_deleting_account">Error al eliminar la wallet</string>
   <string name="title_privacy_policy">Política de Privacidad</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum es la criptomoneda en la que se basan las AppCoins. Puedes comprarla y venderla en la mayoría de exchanges, ¡es muy popular!</string>
   <string name="balance_appcoins_body">AppCoins es la criptomoneda para la economía de las apps. Puedes comprarla y venderla en varios exchanges y utilizarla para comprar cosas en apps.</string>
   <string name="balance_appccreditos_body">¡El token para hacer compras en apps! Recarga APPC-C desde tu wallet o recíbelos gratis por usar apps. ¡También se pueden transferir entre amigos!</string>
+  <string name="my_wallets_action_new_wallet">New wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="verify_card_title">Verify Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pedir a alguien</string>
   <string name="askafriend_generating_link_message">Estamos generando el enlace de pago&#8230;</string>
@@ -427,9 +434,6 @@
   <string name="get_code_button">Obtener código</string>
   <string name="confirm_button">Confirmar</string>
   <string name="withdraw_button">withdraw</string>
-  <string name="active_tag">Active</string>
-  <string name="expired_tag">Expired</string>
-  <string name="replace_button">Replace</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -473,6 +477,7 @@
   <string name="verification_settings_unverified_title">Verificar Wallet</string>
   <string name="verification_settings_unverified_body">Recibe recompensas e invita a amigos.</string>
   <string name="verification_settings_verified_title">Wallet Verificada</string>
+  <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">Necesitas estar conectado a internet.</string>
   <string name="verification_error_time_expired">Ups, tu tiempo disponible ha pasado. ¡Comienza de nuevo!</string>
   <string name="verification_error_attempts_reached">Parace que ya has llegado al límite de intentos. Espera para intentarlo de nuevo.</string>
@@ -714,6 +719,7 @@
   <string name="subscriptions_subscribe_button">Sucríbete</string>
   <string name="subscriptions_active_title">Activa</string>
   <string name="subscriptions_expired_title">Caducada</string>
+  <string name="subscriptions_inactive_title">Inactiva</string>
   <string name="subscriptions_empty_title">Todavía no tienes subscripciones</string>
   <string name="subscriptions_empty_body">Subscríbete a servicios en tus apps y juegos favoritos y gestionaremos los pagos de forma periódica.</string>
   <string name="subscriptions_details_billing_title">Pagos:</string>
@@ -728,6 +734,8 @@
   <string name="subscriptions_details_button">DETALLES</string>
   <string name="subscriptions_manage_button">GESTIONAR SUBSCRIPCIONES</string>
   <string name="subscriptions_cancel_button">CANCELAR SUBSCRIPCIÓN</string>
+  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Cancelar subscripción</string>
   <string name="subscriptions_cancel_body">¿Seguro que quieres cancelar esta subscripción?</string>
   <string name="subscriptions_cancel_no_button">NO, VOLVER</string>
@@ -958,10 +966,16 @@
   <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
+  <string name="promo_code_activated">Promo code activated!</string>
+  <string name="promo_code_replace_button">REPLACE</string>
+  <string name="promo_code_active_tag">Active</string>
+  <string name="promo_code_expired_tag">Expired</string>
+  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">Sobre AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
+  <string name="appcoins_info_title_1">¿Qué son las AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
   <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
   <string name="appcoins_info_title_2">What are AppCoins for?</string>
