@@ -176,7 +176,10 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   private fun showSuccess() {
     hideAll()
     KeyboardUtils.hideKeyboard(view)
-    views.promoCodeBottomSheetSuccessSymbol.visibility = View.VISIBLE
+    views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
+    views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
+    views.promoCodeBottomSheetSuccessAnimation.repeatCount = 0
+    views.promoCodeBottomSheetSuccessAnimation.playAnimation()
     views.promoCodeBottomSheetSuccessTitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetSuccessSubtitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetSuccessGotItButton.visibility = View.VISIBLE

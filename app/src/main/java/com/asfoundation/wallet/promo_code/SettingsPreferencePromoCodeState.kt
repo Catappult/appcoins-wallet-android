@@ -34,12 +34,12 @@ class SettingsPreferencePromoCodeState(context: Context?, attrs: AttributeSet?) 
   private fun setCurrencyTextView() {
     when {
       promoCode?.code != "" && promoCode?.expired == null -> {
-        promoCodeState?.text = "Active"
+        promoCodeState?.text = context.getString(R.string.promo_code_active_tag)
         promoCodeState?.setTextColor(
             ResourcesCompat.getColor(context.resources, R.color.gamification_green, null))
       }
       promoCode?.code != "" && promoCode?.expired != null -> {
-        promoCodeState?.text = "Expired"
+        promoCodeState?.text = context.getString(R.string.promo_code_expired_tag)
         promoCodeState?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.red, null))
       }
       else -> {

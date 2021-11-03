@@ -39,7 +39,7 @@
       android:icon="@drawable/ic_influencer"
       android:key="pref_promo_code"
       android:layout="@layout/preference_promo_code_layout"
-      android:title="Promo Code"/>
+      android:title="@string/promo_code_settings_title"/>
 
   <Preference
       android:icon="@drawable/ic_backup_black"
