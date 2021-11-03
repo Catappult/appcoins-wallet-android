@@ -5,7 +5,7 @@ msgstr ""
 
 #. Tooltip - APPC Credis disclaimer.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
 msgstr ""
 
 
@@ -41,7 +41,7 @@ msgstr ""
 
 #. Card - Home - Extra Gamification Bonus.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits, in {1}."
+msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
 msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
@@ -98,7 +98,7 @@ msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
-msgid "Receive an extra {0}% Bonus in all your purchases, except AppCoins Credits."
+msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
 msgstr ""
 
 #. Card - Title - Common

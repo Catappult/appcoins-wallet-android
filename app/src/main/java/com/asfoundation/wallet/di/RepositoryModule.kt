@@ -24,6 +24,7 @@ import com.asfoundation.wallet.App
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
@@ -34,7 +35,10 @@ import com.asfoundation.wallet.change_currency.FiatCurrenciesMapper
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.asfoundation.wallet.eskills.withdraw.repository.SharedPreferencesWithdrawLocalStorage
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApiMapper
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.identification.IdsRepository
@@ -75,10 +79,6 @@ import com.asfoundation.wallet.verification.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
-import com.asfoundation.wallet.withdraw.repository.WithdrawApi
-import com.asfoundation.wallet.withdraw.repository.WithdrawApiMapper
-import com.asfoundation.wallet.withdraw.repository.WithdrawRepository
-import com.asfoundation.wallet.withdraw.usecase.WithdrawFiatUseCase
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -401,17 +401,11 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesWithdrawRepository(api: WithdrawApi, gson: Gson): WithdrawRepository {
-    return WithdrawRepository(api, WithdrawApiMapper(gson))
-  }
-
-  @Singleton
-  @Provides
-  fun providesWithdrawUseCase(
-      ewt: EwtAuthenticatorService,
-      withdrawRepository: WithdrawRepository
-  ): WithdrawFiatUseCase {
-    return WithdrawFiatUseCase(ewt, withdrawRepository)
+  fun providesWithdrawRepository(api: WithdrawApi, gson: Gson,
+                                 sharedPreferences: SharedPreferences,
+                                 schedulers: RxSchedulers): WithdrawRepository {
+    return WithdrawRepository(api, WithdrawApiMapper(gson), schedulers,
+        SharedPreferencesWithdrawLocalStorage(sharedPreferences))
   }
 
   @Singleton

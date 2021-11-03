@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">Membuat alamat dompet&#8230;</string>
+  <string name="processing_loading_title">Mengambil tiket masuk Anda</string>
+  <string name="finding_room_loading_title">Menunggu lawan</string>
+  <string name="finding_room_loading_message">Ini mungkin memakan waktu…</string>
+  <string name="refunded">Uang Anda sudah dikembalikan.</string>
+  <string name="ok">Oke</string>
+  <string name="cancel">Batal</string>
+  <string name="connectoin_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
+</resources>

@@ -9,7 +9,7 @@ import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
-import com.asfoundation.wallet.withdraw.ui.WithdrawActivity
+import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
 
 class SettingsNavigator(private val fragmentManager: FragmentManager,
                         private val activity: FragmentActivity) {

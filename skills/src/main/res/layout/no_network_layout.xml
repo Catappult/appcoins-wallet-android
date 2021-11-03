@@ -46,7 +46,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:lineSpacingExtra="4sp"
-        android:text="@string/connectoin_error_body"
+        android:text="@string/connection_error_body"
         android:textColor="@color/grey_alpha_active_54"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"

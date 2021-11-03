@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">Mencipta alama dompet&#8230;</string>
+  <string name="processing_loading_title">Mendapatkan tiket masuk anda</string>
+  <string name="finding_room_loading_title">Menunggu lawan</string>
+  <string name="finding_room_loading_message">Ini akan mengambil masa sebentar…</string>
+  <string name="refunded">Wang anda sudah dikembalikan.</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Batal</string>
+  <string name="connectoin_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
+</resources>
