@@ -2,14 +2,12 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -18,25 +16,24 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
-import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRepository,
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billingMessagesMapper: BillingMessagesMapper,
                              private val partnerAddressService: AddressService,
-                             private val billing: Billing,
                              private val walletService: WalletService,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val walletVerificationInteractor: WalletVerificationInteractor,
-                             private val billingAddressRepository: BillingAddressRepository
+                             private val billingAddressRepository: BillingAddressRepository,
+                             private val networkThread: Scheduler
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
@@ -97,7 +94,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
         }
   }
 
-  fun submitRedirect(uid: String, details: JSONObject,
+  fun submitRedirect(uid: String, details: JsonObject,
                      paymentData: String?): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap {
@@ -115,23 +112,15 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
     return inAppPurchaseInteractor.convertToFiat(amount, currency)
   }
 
-  fun mapCancellation(): Bundle {
-    return billingMessagesMapper.mapCancellation()
-  }
+  fun mapCancellation(): Bundle = billingMessagesMapper.mapCancellation()
 
-  fun removePreSelectedPaymentMethod() {
-    inAppPurchaseInteractor.removePreSelectedPaymentMethod()
-  }
+  fun removePreSelectedPaymentMethod() = inAppPurchaseInteractor.removePreSelectedPaymentMethod()
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
-                                orderReference: String?, hash: String?,
-                                scheduler: Scheduler): Single<Bundle> {
-    return if (isInApp(type) && sku != null) {
-      billing.getSkuPurchase(merchantName, sku, scheduler)
-          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
-    } else {
-      Single.just(billingMessagesMapper.successBundle(hash))
-    }
+                                purchaseUid: String?, orderReference: String?, hash: String?,
+                                scheduler: Scheduler): Single<PurchaseBundleModel> {
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, merchantName, sku, purchaseUid,
+        orderReference, hash, scheduler)
   }
 
   fun convertToLocalFiat(doubleValue: Double): Single<FiatValue> {
@@ -141,7 +130,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMapObservable { walletAddressModel ->
-          Observable.interval(0, 10, TimeUnit.SECONDS, Schedulers.io())
+          Observable.interval(0, 10, TimeUnit.SECONDS, networkThread)
               .timeInterval()
               .switchMap {
                 adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
@@ -159,7 +148,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
           .flatMap { walletAddressModel ->
             Single.zip(adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
                 walletAddressModel.signedAddress),
-                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS),
+                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, networkThread),
                 BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
           }
           .flatMap {
@@ -173,16 +162,12 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
 
   fun getWalletAddress() = walletService.getWalletAddress()
 
-  private fun isEndingState(status: TransactionStatus): Boolean {
-    return (status == TransactionStatus.COMPLETED
-        || status == TransactionStatus.FAILED
-        || status == TransactionStatus.CANCELED
-        || status == TransactionStatus.INVALID_TRANSACTION
-        || status == TransactionStatus.FRAUD)
-  }
-
-  private fun isInApp(type: String): Boolean {
-    return type.equals("INAPP", ignoreCase = true)
+  private fun isEndingState(status: PaymentModel.Status): Boolean {
+    return (status == PaymentModel.Status.COMPLETED
+        || status == PaymentModel.Status.FAILED
+        || status == PaymentModel.Status.CANCELED
+        || status == PaymentModel.Status.INVALID_TRANSACTION
+        || status == PaymentModel.Status.FRAUD)
   }
 
   companion object {

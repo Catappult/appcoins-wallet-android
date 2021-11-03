@@ -423,7 +423,7 @@
   <string name="discover_button">Los geht\'s</string>
   <string name="retry_button">Neuer Versuch</string>
   <string name="do_it_later_button">Später</string>
-  <string name="connectoin_error_body">Scheinbar sind Sie nicht mit dem Internet verbunden. Überprüfen Sie ihrer Verbindung und überprüfen Sie es erneut!</string>
+  <string name="connection_error_body">Scheinbar sind Sie nicht mit dem Internet verbunden. Überprüfen Sie ihrer Verbindung und überprüfen Sie es erneut!</string>
   <string name="common_or">ODER</string>
   <string name="share_via">Teilen über:</string>
   <string name="password">Passwort</string>

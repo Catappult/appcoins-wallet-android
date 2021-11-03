@@ -12,7 +12,7 @@ class SettingsWalletsBottomSheetPresenter(
     private val data: SettingsWalletsBottomSheetData) {
 
   fun present() {
-    view.setupUi(data.walletsModel.walletsBalance)
+    view.setupUi(data.walletsModel.otherWallets)
     handleWalletCardClick()
   }
 

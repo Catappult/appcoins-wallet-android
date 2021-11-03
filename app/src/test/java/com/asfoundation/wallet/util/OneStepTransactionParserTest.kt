@@ -6,10 +6,10 @@ import com.appcoins.wallet.commons.MemoryCache
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.TokenRepositoryType
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
@@ -89,7 +89,7 @@ class OneStepTransactionParserTest {
     parameters["callback_url"] = callback
 
     val oneStepUri =
-        OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
+        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()
@@ -128,7 +128,7 @@ class OneStepTransactionParserTest {
     parameters["domain"] = packageName
 
     val oneStepUri =
-        OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
+        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()
@@ -163,7 +163,7 @@ class OneStepTransactionParserTest {
     parameters["to"] = wrongDeveloperAddress
 
     val oneStepUri =
-        OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
+        OneStepUri("https", "apichain.dev.catappult.io", "/transaction/inapp", parameters)
     val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()

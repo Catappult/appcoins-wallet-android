@@ -4,10 +4,10 @@ import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.WalletCreatorInteract
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.util.WalletUtils
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import ethereumj.crypto.ECKey
 import ethereumj.crypto.HashUtil.sha3
 import io.reactivex.Observable
@@ -79,17 +79,17 @@ class AccountWalletService(private val accountKeyService: AccountKeystoreService
   }
 
   fun find(): Single<Wallet> {
-    return walletRepository.defaultWallet
+    return walletRepository.getDefaultWallet()
         .onErrorResumeNext {
           walletRepository.fetchWallets()
-              .filter { wallets: Array<Wallet?> -> wallets.isNotEmpty() }
+              .filter { wallets -> wallets.isNotEmpty() }
               .map { wallets: Array<Wallet> ->
                 wallets[0]
               }
               .flatMapCompletable { wallet: Wallet ->
                 walletRepository.setDefaultWallet(wallet.address)
               }
-              .andThen(walletRepository.defaultWallet)
+              .andThen(walletRepository.getDefaultWallet())
         }
   }
 

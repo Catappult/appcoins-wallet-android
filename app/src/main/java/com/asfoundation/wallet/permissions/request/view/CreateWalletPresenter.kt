@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.permissions.request.view
 
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.WalletCreatorInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable

@@ -423,7 +423,7 @@
   <string name="discover_button">کشف‌کردن</string>
   <string name="retry_button">تلاش مجدد</string>
   <string name="do_it_later_button">بعدا انجام شود</string>
-  <string name="connectoin_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
+  <string name="connection_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
   <string name="common_or">یا</string>
   <string name="share_via">به اشتراک گذاری از طریق:</string>
   <string name="password">رمزعبور</string>

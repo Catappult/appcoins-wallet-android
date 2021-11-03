@@ -14,8 +14,12 @@ import androidx.preference.SwitchPreferenceCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
+import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
+import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
@@ -111,10 +115,35 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     return true
   }
 
+  private fun openSubscriptionsScreen(): Boolean {
+    context?.let {
+      val intent = SubscriptionActivity.newIntent(it)
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+          }
+      startActivity(intent)
+    }
+    return true
+  }
+
   override fun showError() {
     view?.let {
       Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
           .show()
+    }
+  }
+
+  override fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity) {
+    val settingsCurrencyPreference = findPreference<SettingsCurrencyPreference>("pref_currency")
+    settingsCurrencyPreference?.setCurrency(selectedCurrency)
+    settingsCurrencyPreference?.setOnPreferenceClickListener {
+      context?.let {
+        val intent = ChangeFiatCurrencyActivity.newIntent(it)
+            .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+        startActivity(intent)
+      }
+
+      false
     }
   }
 
@@ -142,7 +171,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     redeemPreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse(
           BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress +
-              "&lang=" + Locale.getDefault().getLanguageAndCountryCodes()), false)
+              "&lang=" + Locale.getDefault()
+              .getLanguageAndCountryCodes()), false)
       false
     }
   }
@@ -210,6 +240,13 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     sourceCodePreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://github.com/Catappult/appcoins-wallet-android"), false)
       false
+    }
+  }
+
+  override fun setManageSubscriptionsPreference() {
+    val subscriptionsPreference = findPreference<Preference>("pref_manage_subscriptions")
+    subscriptionsPreference?.setOnPreferenceClickListener {
+      openSubscriptionsScreen()
     }
   }
 

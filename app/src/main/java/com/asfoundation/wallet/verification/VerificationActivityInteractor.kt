@@ -12,7 +12,7 @@ class VerificationActivityInteractor(
   fun getVerificationStatus(): Single<VerificationStatus> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { addressModel ->
-          verificationRepository.getVerificationStatus(addressModel.address,
+          verificationRepository.getCardVerificationState(addressModel.address,
               addressModel.signedAddress)
         }
         .onErrorReturn { VerificationStatus.UNVERIFIED }

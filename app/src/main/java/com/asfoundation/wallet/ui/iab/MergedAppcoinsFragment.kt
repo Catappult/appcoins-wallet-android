@@ -24,6 +24,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -63,6 +64,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val TRANSACTION_TYPE = "transaction_type"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val TRANSACTION_BUILDER = "transaction_builder"
+    private const val IS_SUBSCRIPTION = "is_subscription"
+    private const val FREQUENCY = "frequency"
     const val APPC = "appcoins"
     const val CREDITS = "credits"
 
@@ -71,7 +74,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
                     productName: String?, appcAmount: BigDecimal, isBds: Boolean,
                     isDonation: Boolean, skuId: String?,
                     transactionType: String, gamificationLevel: Int,
-                    transactionBuilder: TransactionBuilder): Fragment {
+                    transactionBuilder: TransactionBuilder, isSubscription: Boolean,
+                    frequency: String?): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {
         putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -86,6 +90,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         putString(TRANSACTION_TYPE, transactionType)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
         putParcelable(TRANSACTION_BUILDER, transactionBuilder)
+        putBoolean(IS_SUBSCRIPTION, isSubscription)
+        putString(FREQUENCY, frequency)
       }
       fragment.arguments = bundle
       return fragment
@@ -202,6 +208,22 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+  private val isSubscription: Boolean by lazy {
+    if (arguments!!.containsKey(IS_SUBSCRIPTION)) {
+      arguments!!.getBoolean(IS_SUBSCRIPTION)
+    } else {
+      throw IllegalArgumentException("is subscriptino data not found")
+    }
+  }
+
+  private val frequency: String? by lazy {
+    if (arguments!!.containsKey(FREQUENCY)) {
+      arguments!!.getString(FREQUENCY)
+    } else {
+      null
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
@@ -210,7 +232,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         MergedAppcoinsPresenter(this, CompositeDisposable(), CompositeDisposable(),
             AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
             formatter, mergedAppcoinsInteractor, gamificationLevel, navigator, logger,
-            transactionBuilder, paymentMethodsMapper)
+            transactionBuilder, paymentMethodsMapper, isSubscription)
   }
 
   override fun onAttach(context: Context) {
@@ -227,8 +249,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHeaderInformation()
-    buy_button.text = setBuyButtonText()
-    cancel_button.text = getString(R.string.back_button)
+    setButtonsText()
     setBonus()
     iabView.disableBack()
     mergedAppcoinsPresenter.present(savedInstanceState)
@@ -245,7 +266,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setBuyButtonText(): String {
-    return if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
+    return if (isSubscription) getString(R.string.subscriptions_subscribe_button)
+    else {
+      if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
+    }
   }
 
   private fun setBonus() {
@@ -267,29 +291,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setHeaderInformation() {
-    if (isDonation) {
-      app_name.text = getString(R.string.item_donation)
-      app_sku_description.text = getString(R.string.item_donation)
-    } else {
-      app_name.text = getApplicationName(appName)
-      app_sku_description.text = productName
-    }
-    try {
-      app_icon.setImageDrawable(context!!.packageManager
-          .getApplicationIcon(appName))
-    } catch (e: PackageManager.NameNotFoundException) {
-      e.printStackTrace()
-    }
-    val appcText = formatter.formatPaymentCurrency(appcAmount, WalletCurrency.APPCOINS)
-        .plus(" " + WalletCurrency.APPCOINS.symbol)
-    val fiatText = formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT)
-        .plus(" $currency")
-    fiat_price.text = fiatText
-    appc_price.text = appcText
-    fiat_price_skeleton.visibility = GONE
-    appc_price_skeleton.visibility = GONE
-    fiat_price.visibility = VISIBLE
-    appc_price.visibility = VISIBLE
+    setNameAndDescription()
+    setAppIcon()
+    setPriceInformation()
   }
 
   override fun setPaymentsInformation(hasCredits: Boolean, creditsDisableReason: Int?,
@@ -418,22 +422,30 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         }
   }
 
-
-  override fun getPaymentSelection(): Observable<String> {
-    return paymentSelectionSubject!!
-  }
+  override fun getPaymentSelection() = paymentSelectionSubject!!
 
   override fun hideBonus() {
     bonus_layout?.visibility = INVISIBLE
     bonus_msg?.visibility = INVISIBLE
   }
 
-  override fun showBonus() {
+  override fun showVolatilityInfo() {
+    info?.visibility = VISIBLE
+    info_text?.visibility = VISIBLE
+  }
+
+  override fun hideVolatilityInfo() {
+    info?.visibility = GONE
+    info_text?.visibility = GONE
+  }
+
+  override fun showBonus(@StringRes bonusText: Int) {
     if (bonus.isNotEmpty()) {
       val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
       animation.duration = 250
       bonus_layout?.visibility = VISIBLE
       bonus_layout?.startAnimation(animation)
+      bonus_msg?.text = getText(bonusText)
       bonus_msg?.visibility = VISIBLE
     } else {
       bonus_layout?.visibility = GONE
@@ -518,5 +530,49 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onDestroy() {
     paymentSelectionSubject = null
     super.onDestroy()
+  }
+
+  private fun setNameAndDescription() {
+    if (isDonation) {
+      app_name.text = getString(R.string.item_donation)
+      app_sku_description.text = getString(R.string.item_donation)
+    } else {
+      app_name.text = getApplicationName(appName)
+      app_sku_description.text = productName
+    }
+  }
+
+  private fun setAppIcon() {
+    try {
+      app_icon.setImageDrawable(context!!.packageManager
+          .getApplicationIcon(appName))
+    } catch (e: PackageManager.NameNotFoundException) {
+      e.printStackTrace()
+    }
+  }
+
+
+  private fun setPriceInformation() {
+    var appcText = formatter.formatPaymentCurrency(appcAmount, WalletCurrency.APPCOINS)
+        .plus(" " + WalletCurrency.APPCOINS.symbol)
+    var fiatText = formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT)
+        .plus(" $currency")
+    if (isSubscription) {
+      val period = Period.parse(frequency!!)
+      period?.mapToSubsFrequency(context!!, fiatText)
+          ?.let { fiatText = it }
+      appcText = "~$appcText"
+    }
+    fiat_price.text = fiatText
+    appc_price.text = appcText
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
+    fiat_price.visibility = VISIBLE
+    appc_price.visibility = VISIBLE
+  }
+
+  private fun setButtonsText() {
+    buy_button.text = setBuyButtonText()
+    cancel_button.text = getString(R.string.back_button)
   }
 }

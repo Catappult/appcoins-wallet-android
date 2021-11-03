@@ -14,7 +14,6 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
-      android:background="@drawable/background_card"
       >
 
     <ProgressBar
@@ -41,18 +40,6 @@
           app:layout_constraintGuide_percent="0.46"
           />
 
-      <View
-          android:id="@+id/top_separator"
-          android:layout_width="0dp"
-          android:layout_height="1dp"
-          android:layout_marginTop="@dimen/big_margin"
-          android:background="@color/layout_separator_color"
-          app:layout_constraintBottom_toTopOf="@id/payment_methods_header"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
       <include
           android:id="@+id/payment_methods_header"
           layout="@layout/payment_methods_header"
@@ -63,7 +50,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           />
       <include
           android:id="@+id/bonus_layout"
@@ -109,7 +96,7 @@
           android:background="@drawable/dashed_vertical_line"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           />
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/radio_group"
@@ -117,11 +104,11 @@
           android:layout_height="wrap_content"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="parent"
           >
         <include
-            android:id="@+id/appcoins_radio"
-            layout="@layout/appcoins_radio_button"
+            android:id="@+id/credits_radio"
+            layout="@layout/credits_radio_button"
             android:layout_width="match_parent"
             android:layout_height="102dp"
             android:layout_marginStart="10dp"
@@ -153,11 +140,11 @@
             android:background="@color/layout_separator_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appcoins_radio"
+            app:layout_constraintTop_toBottomOf="@id/credits_radio"
             />
         <include
-            android:id="@+id/credits_radio"
-            layout="@layout/credits_radio_button"
+            android:id="@+id/appcoins_radio"
+            layout="@layout/appcoins_radio_button"
             android:layout_width="match_parent"
             android:layout_height="108dp"
             android:layout_marginStart="10dp"
@@ -187,6 +174,36 @@
             tools:visibility="visible"
             />
       </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <ImageView
+          android:id="@id/info"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+          app:layout_constraintVertical_bias="0"
+          app:srcCompat="@drawable/ic_info_grey"
+          />
+
+      <TextView
+          android:id="@+id/info_text"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:text="APPC value can be volatile, the value shown may not match  the next  payment"
+          android:textSize="10sp"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/info"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
+          app:layout_constraintStart_toEndOf="@id/info"
+          app:layout_constraintTop_toTopOf="@id/info"
+          />
+
       <View
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"

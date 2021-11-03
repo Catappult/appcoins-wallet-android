@@ -13,6 +13,8 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.recyclerview.widget.RecyclerView
+import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -21,6 +23,7 @@ import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -111,6 +114,11 @@ fun <T1 : Any, T2 : Any, R : Any> safeLet(p1: T1?, p2: T2?, block: (T1, T2) -> R
   return if (p1 != null && p2 != null) block(p1, p2) else null
 }
 
+fun <T1 : Any, T2 : Any, T3 : Any, R : Any> safeLet(p1: T1?, p2: T2?, p3: T3?,
+                                                    block: (T1, T2, T3) -> R?): R? {
+  return if (p1 != null && p2 != null && p3 != null) block(p1, p2, p3) else null
+}
+
 /**
  * Verifies and assigns the nullability of every input value. If at least one of the values is null,
  * it executes the closure function.
@@ -153,5 +161,14 @@ fun String.convertToBase64(): String {
 
 fun String?.isEmailValid(): Boolean {
   return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
-    .matches()
+      .matches()
+}
+
+fun RecyclerView.addBottomItemDecoration(dimension: Float) {
+  this.addItemDecoration(MarginItemDecoration(dimension.toInt()))
+}
+
+inline fun String.convertToDate(date: String): Date? {
+  val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+  return dateFormat.parse(date)
 }

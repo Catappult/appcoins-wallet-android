@@ -1,23 +1,40 @@
 package com.appcoins.wallet.bdsbilling.repository
 
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
+import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.appcoins.wallet.billing.repository.entity.Price
-import com.appcoins.wallet.billing.repository.entity.Product
 
-class BdsApiResponseMapper {
+class BdsApiResponseMapper(private val subscriptionsMapper: SubscriptionsMapper,
+                           private val inAppMapper: InAppMapper) {
+
   fun map(productDetails: DetailsResponseBody): List<Product> {
-    return ArrayList(productDetails.items.map {
-      Product(it.name, it.label, it.description,
-          Price(it.price.base, it.price.appc, it.price.fiat.value, it.price.fiat.currency.code,
-              it.price.fiat.currency.symbol))
-    })
+    return inAppMapper.map(productDetails)
   }
 
-  fun map(purchasesResponse: GetPurchasesResponse): List<Purchase> {
-    return purchasesResponse.items
+  fun map(packageName: String, inappPurchaseResponse: InappPurchaseResponse): Purchase {
+    return inAppMapper.map(packageName, inappPurchaseResponse)
+  }
+
+  fun map(packageName: String, purchasesResponse: GetPurchasesResponse): List<Purchase> {
+    return inAppMapper.map(packageName, purchasesResponse)
   }
 
   fun map(gatewaysResponse: GetMethodsResponse): List<PaymentMethodEntity> {
     return gatewaysResponse.items
+  }
+
+  fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {
+    return subscriptionsMapper.map(subscriptionsResponse)
+  }
+
+  fun map(packageName: String,
+          purchasesResponseSubscription: SubscriptionPurchaseListResponse): List<Purchase> {
+    return subscriptionsMapper.map(packageName, purchasesResponseSubscription)
+  }
+
+  fun map(packageName: String,
+          subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
+    return subscriptionsMapper.map(packageName, subscriptionPurchaseResponse)
   }
 }

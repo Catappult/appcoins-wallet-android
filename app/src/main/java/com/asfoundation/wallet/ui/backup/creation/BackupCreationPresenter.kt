@@ -144,6 +144,7 @@ class BackupCreationPresenter(private val view: BackupCreationView,
       fileShared = true
       view.shareFile(interactor.getUriFromFile(file))
       walletsEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
+      interactor.saveBackedUpOnce()
     }
   }
 
@@ -152,6 +153,7 @@ class BackupCreationPresenter(private val view: BackupCreationView,
         .doOnNext { view.askForWritePermissions() }
         .doOnNext {
           walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_SAVE)
+          interactor.saveBackedUpOnce()
         }
         .subscribe({}, { logger.log(TAG, it) }))
   }

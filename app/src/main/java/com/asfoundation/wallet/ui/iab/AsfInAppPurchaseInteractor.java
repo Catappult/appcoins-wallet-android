@@ -2,21 +2,21 @@ package com.asfoundation.wallet.ui.iab;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import com.asfoundation.wallet.util.TransferParser;
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -80,15 +80,21 @@ public class AsfInAppPurchaseInteractor {
     if (transactionType == TransactionType.NORMAL) {
       return buildPaymentTransaction(uri, packageName, productName, developerPayload,
           transactionBuilder.amount()).flatMapCompletable(
-          paymentTransaction -> billing.getSkuTransaction(packageName,
-              paymentTransaction.getTransactionBuilder()
-                  .getSkuId(), paymentTransaction.getTransactionBuilder()
-                  .getType(), scheduler)
-              .flatMapCompletable(
-                  transaction -> resumePayment(approveKey, paymentTransaction, transaction)));
+          paymentTransaction -> getSkuTransaction(paymentTransaction, packageName, approveKey));
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction type " + transactionType + " not supported"));
+  }
+
+  private Completable getSkuTransaction(PaymentTransaction paymentTransaction, String packageName,
+      String approveKey) {
+    BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(
+        paymentTransaction.getTransactionBuilder()
+            .getType());
+    return billing.getSkuTransaction(packageName, paymentTransaction.getTransactionBuilder()
+        .getSkuId(), scheduler, billingType)
+        .flatMapCompletable(
+            transaction -> resumePayment(approveKey, paymentTransaction, transaction));
   }
 
   private Completable resumePayment(String approveKey, PaymentTransaction paymentTransaction,
@@ -101,7 +107,7 @@ public class AsfInAppPurchaseInteractor {
       case PROCESSING:
         return trackTransactionService.trackTransaction(paymentTransaction.getUri(),
             paymentTransaction.getPackageName(), paymentTransaction.getTransactionBuilder()
-                .getSkuId(), transaction.getUid(), transaction.getOrderReference());
+                .getSkuId(), transaction.getUid(), null, transaction.getOrderReference());
       case PENDING:
       case COMPLETED:
       case INVALID_TRANSACTION:
@@ -175,6 +181,8 @@ public class AsfInAppPurchaseInteractor {
         return Payment.Status.NO_INTERNET;
       case FORBIDDEN:
         return Payment.Status.FORBIDDEN;
+      case SUB_ALREADY_OWNED:
+        return Payment.Status.SUB_ALREADY_OWNED;
     }
     throw new IllegalStateException("State " + state + " not mapped");
   }
@@ -321,22 +329,20 @@ public class AsfInAppPurchaseInteractor {
 
   private Single<Transaction> getTransaction(String packageName, String productName, String type) {
     return Single.defer(() -> {
-      if (TransactionData.TransactionType.INAPP.name()
-          .equalsIgnoreCase(type)) {
-        return billing.getSkuTransaction(packageName, productName, type, Schedulers.io());
-      } else {
-        return Single.just(Transaction.Companion.notFound());
-      }
+      BillingSupportedType billingType = BillingSupportedType.valueOfInsensitive(type);
+      return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType);
     });
   }
 
-  Single<Purchase> getCompletedPurchase(String packageName, String productName) {
-    return billing.getSkuTransaction(packageName, productName,
-        com.appcoins.wallet.bdsbilling.repository.TransactionType.INAPP.name(), Schedulers.io())
-        .map(Transaction::getStatus)
-        .flatMap(transactionStatus -> {
-          if (transactionStatus.equals(Transaction.Status.COMPLETED)) {
-            return billing.getSkuPurchase(packageName, productName, Schedulers.io());
+  Single<Purchase> getCompletedPurchase(String packageName, String productName, String purchaseUid,
+      String type) {
+    BillingSupportedType billingType = BillingSupportedType.valueOfManagedType(type);
+    return billing.getSkuTransaction(packageName, productName, Schedulers.io(), billingType)
+        .flatMap(transaction -> {
+          if (transaction.getStatus()
+              .equals(Transaction.Status.COMPLETED)) {
+            return billing.getSkuPurchase(packageName, productName, purchaseUid, Schedulers.io(),
+                billingType);
           } else {
             return Single.error(new TransactionNotFoundException());
           }

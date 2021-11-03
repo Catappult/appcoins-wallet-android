@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/details_bottom_sheet"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/bottom_sheet_small_height"
+    android:layout_height="match_parent"
     android:background="@drawable/background_white_card_top"
     android:orientation="vertical"
     android:paddingTop="31dp"
@@ -24,16 +24,15 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <Button
+  <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/got_it_button"
       style="@style/ButtonStyle"
       android:layout_width="134dp"
       android:layout_height="wrap_content"
       android:text="@string/got_it_button"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginTop="25dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/description"
-      app:layout_constraintVertical_bias="1"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

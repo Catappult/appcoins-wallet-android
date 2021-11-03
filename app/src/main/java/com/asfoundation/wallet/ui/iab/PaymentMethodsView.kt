@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
@@ -9,10 +10,12 @@ import java.math.BigDecimal
 interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
                          currency: String, paymentMethodId: String, fiatAmount: String,
-                         appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean)
+                         appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
+                         frequency: String?, isSubscription: Boolean)
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, currency: String,
-                                   fiatAmount: String, appcAmount: String, isBonusActive: Boolean)
+                                   fiatAmount: String, appcAmount: String, isBonusActive: Boolean,
+                                   frequency: String?, isSubscription: Boolean)
 
   fun showError(message: Int)
 
@@ -32,7 +35,7 @@ interface PaymentMethodsView {
 
   fun close(bundle: Bundle)
 
-  fun errorDismisses(): Observable<Boolean>
+  fun errorDismisses(): Observable<Any>
 
   fun setupUiCompleted(): Observable<Boolean>
 
@@ -42,14 +45,17 @@ interface PaymentMethodsView {
 
   fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean)
 
-  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue)
+  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                 isSubscription: Boolean)
 
   fun showAdyen(fiatAmount: BigDecimal,
                 fiatCurrency: String,
                 paymentType: PaymentType,
-                iconUrl: String?, gamificationLevel: Int)
+                iconUrl: String?, gamificationLevel: Int, frequency: String?,
+                isSubscription: Boolean)
 
-  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue)
+  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                     isSubscription: Boolean)
 
   fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder)
 
@@ -65,22 +71,25 @@ interface PaymentMethodsView {
                        async: Boolean, fiatAmount: String, fiatCurrency: String,
                        gamificationLevel: Int)
 
-  fun setBonus(bonus: BigDecimal, currency: String)
+  fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 
-  fun onBackPressed(): Observable<Boolean>
+  fun onBackPressed(): Observable<Any>
 
   fun showNext()
 
   fun showBuy()
 
   fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
-                         transaction: TransactionBuilder)
+                         transaction: TransactionBuilder, frequency: String?,
+                         isSubscription: Boolean)
+
+  fun showSubscribe()
 
   fun lockRotation()
 
   fun showEarnAppcoins()
 
-  fun showBonus()
+  fun showBonus(@StringRes bonusText: Int)
 
   fun hideBonus()
 
@@ -117,6 +126,5 @@ interface PaymentMethodsView {
     CREDIT_CARD("credit_card"),
     CARRIER_BILLING("onebip"),
     ASK_FRIEND("ask_friend")
-
   }
 }

@@ -5,8 +5,10 @@ import android.os.Parcelable;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.annotations.Nullable;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.C.ETHER_DECIMALS;
 
@@ -37,14 +39,17 @@ public class TransactionBuilder implements Parcelable {
   private String origin;
   private String domain;
   private String payload;
-  private String iabContract;
   private String callbackUrl;
+  private String iabContract;
   private String orderReference;
   private String originalOneStepValue;
   private String originalOneStepCurrency;
   private String referrerUrl;
   private String productName;
   private String productToken;
+  //Subs
+  @Nullable private String subscriptionPeriod;
+  @Nullable private String trialPeriod;
 
   public TransactionBuilder(TransactionBuilder transactionBuilder) {
     this.contractAddress = transactionBuilder.contractAddress;
@@ -71,6 +76,8 @@ public class TransactionBuilder implements Parcelable {
     this.referrerUrl = transactionBuilder.referrerUrl;
     this.productName = transactionBuilder.productName;
     this.productToken = transactionBuilder.productToken;
+    this.subscriptionPeriod = transactionBuilder.subscriptionPeriod;
+    this.trialPeriod = transactionBuilder.trialPeriod;
   }
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
@@ -108,6 +115,8 @@ public class TransactionBuilder implements Parcelable {
     referrerUrl = in.readString();
     productName = in.readString();
     productToken = in.readString();
+    subscriptionPeriod = in.readString();
+    trialPeriod = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
@@ -154,10 +163,23 @@ public class TransactionBuilder implements Parcelable {
     this.originalOneStepCurrency = originCurrency;
   }
 
+  //Subs
+  public TransactionBuilder(String symbol, String contractAddress, Long chainId,
+      String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
+      String iabContract, String type, String origin, String domain, String payload,
+      String callbackUrl, String orderReference, String referrerUrl, String productName,
+      @Nullable String subscriptionPeriod, @Nullable String trialPeriod) {
+    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
+        type, origin, domain, payload, callbackUrl, orderReference, referrerUrl, productName);
+    this.iabContract = iabContract;
+    this.subscriptionPeriod = subscriptionPeriod;
+    this.trialPeriod = trialPeriod;
+  }
+
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
-    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
-        null, "", "", "", "", null, null);
+    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals,
+        "inapp", null, "", "", "", "", null, null);
   }
 
   public String getIabContract() {
@@ -278,6 +300,10 @@ public class TransactionBuilder implements Parcelable {
     return type;
   }
 
+  public void setType(String type) {
+    this.type = type;
+  }
+
   public String getOrigin() {
     return origin;
   }
@@ -302,7 +328,7 @@ public class TransactionBuilder implements Parcelable {
     return payload;
   }
 
-  @Override public String toString() {
+  @NotNull @Override public String toString() {
     return "TransactionBuilder{"
         + "chainId="
         + chainId
@@ -428,6 +454,8 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(referrerUrl);
     dest.writeString(productName);
     dest.writeString(productToken);
+    dest.writeString(subscriptionPeriod);
+    dest.writeString(trialPeriod);
   }
 
   public byte[] approveData() {
@@ -437,5 +465,21 @@ public class TransactionBuilder implements Parcelable {
 
   public String getOrderReference() {
     return orderReference;
+  }
+
+  public String getSubscriptionPeriod() {
+    return subscriptionPeriod;
+  }
+
+  public void setSubscriptionPeriod(String subscriptionPeriod) {
+    this.subscriptionPeriod = subscriptionPeriod;
+  }
+
+  public String getTrialPeriod() {
+    return trialPeriod;
+  }
+
+  public void setTrialPeriod(String trialPeriod) {
+    this.trialPeriod = trialPeriod;
   }
 }

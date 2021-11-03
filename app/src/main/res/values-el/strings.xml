@@ -423,7 +423,7 @@
   <string name="discover_button">Ανακαλύψτε</string>
   <string name="retry_button">Επανάληψη</string>
   <string name="do_it_later_button">Αργότερα</string>
-  <string name="connectoin_error_body">Φαίνεται ότι δεν έχετε συνδεθεί στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά!</string>
+  <string name="connection_error_body">Φαίνεται ότι δεν έχετε συνδεθεί στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά!</string>
   <string name="common_or">Ή</string>
   <string name="share_via">Κοινοποίηση μέσω:</string>
   <string name="password">Κωδικός πρόσβασης</string>

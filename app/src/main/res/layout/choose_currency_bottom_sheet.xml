@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ether_transaction_bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_small_height"
+    android:background="@drawable/rounded_dialog"
+    android:orientation="vertical"
+    android:paddingTop="22dp"
+    android:paddingHorizontal="32dp"
+    android:paddingBottom="28dp"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    >
+
+  <ImageView
+      android:id="@+id/choose_currency_flag"
+      android:layout_width="56dp"
+      android:layout_height="56dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/ic_currency"
+      />
+
+  <TextView
+      android:id="@+id/choose_currency_short"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="9dp"
+      style="@style/BottomSheetEtherTransactionTitle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/choose_currency_flag"
+      tools:text="EUR"
+      />
+  <TextView
+      android:id="@+id/choose_currency_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      style="@style/BottomSheetEtherTransactionSubtitle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/choose_currency_short"
+      tools:text="Euro"
+      />
+
+
+  <Button
+      android:id="@+id/choose_currency_confirmation_button"
+      style="@style/ButtonStyle"
+      android:layout_width="292dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="18dp"
+      android:text="CHOOSE CURRENCY"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/choose_currency_label"
+      />
+
+  <com.asfoundation.wallet.widget.SystemView
+      android:id="@+id/choose_currency_system_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/activity_background_color"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

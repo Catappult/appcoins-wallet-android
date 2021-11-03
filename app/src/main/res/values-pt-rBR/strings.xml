@@ -423,7 +423,7 @@
   <string name="discover_button">Descobrir</string>
   <string name="retry_button">Repetir</string>
   <string name="do_it_later_button">Fazer Depois</string>
-  <string name="connectoin_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
+  <string name="connection_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
   <string name="common_or">OU</string>
   <string name="share_via">Compartilhar via:</string>
   <string name="password">Senha</string>

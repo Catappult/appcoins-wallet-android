@@ -152,6 +152,7 @@ public class TransactionDetailActivity extends BaseActivity {
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
     View button = findViewById(R.id.more_detail);
+    View manageSubscriptions = findViewById(R.id.manage_subscriptions);
     View categoryBackground = findViewById(R.id.category_icon_background);
 
     boolean isRevertTransaction = isRevertTransaction(transaction);
@@ -162,6 +163,7 @@ public class TransactionDetailActivity extends BaseActivity {
       case ADS:
         typeStr = R.string.transaction_type_poa;
         typeIcon = R.drawable.ic_transaction_poa;
+        manageSubscriptions.setVisibility(View.GONE);
         break;
       case ADS_OFFCHAIN:
         typeStr = R.string.transaction_type_poa_offchain;
@@ -169,6 +171,7 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case IAP_REVERT:
@@ -187,6 +190,7 @@ public class TransactionDetailActivity extends BaseActivity {
         typeIcon = R.drawable.ic_transaction_iab;
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         if (isRevertedTransaction) {
           revertedDescription = R.string.transaction_type_reverted_purchase_title;
         }
@@ -212,6 +216,7 @@ public class TransactionDetailActivity extends BaseActivity {
         }
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         if (isRevertedTransaction) {
           revertedDescription = R.string.transaction_type_reverted_bonus_title;
@@ -234,6 +239,7 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
         if (isRevertedTransaction) {
           revertedDescription = R.string.transaction_type_reverted_topup_title;
@@ -248,7 +254,33 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
+        break;
+      case SUBS_OFFCHAIN:
+        typeStr = R.string.subscriptions_category_title;
+        typeIcon = R.drawable.ic_transaction_subscription;
+        categoryBackground.setBackground(null);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.VISIBLE);
+        manageSubscriptions.setOnClickListener(
+            view -> viewModel.showManageSubscriptions(view.getContext()));
+        to = transaction.getTo();
+        symbol = getString(R.string.p2p_send_currency_appc_c);
+        break;
+      case ESKILLS_REWARD:
+        typeStr = R.string.transaction_type_eskills_reward;
+        typeIcon = -1;
+        id = getString(R.string.transaction_type_eskills_reward);
+        manageSubscriptions.setVisibility(View.GONE);
+        symbol = getString(R.string.p2p_send_currency_appc_c);
+        categoryBackground.setBackground(null);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        to = transaction.getTo();
         break;
     }
 

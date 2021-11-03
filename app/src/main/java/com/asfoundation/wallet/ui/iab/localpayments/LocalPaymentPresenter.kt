@@ -5,7 +5,8 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.TypedValue
-import androidx.annotation.StringRes
+import com.appcoins.wallet.appcoins.rewards.ErrorInfo.ErrorType
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asf.wallet.R
@@ -18,7 +19,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import retrofit2.HttpException
 import java.util.concurrent.TimeUnit
 
 
@@ -31,7 +31,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val networkScheduler: Scheduler,
                             private val disposables: CompositeDisposable,
                             private val context: Context?,
-                            private val logger: Logger) {
+                            private val logger: Logger,
+                            private val errorMapper: ErrorMapper) {
 
   private var waitingResult: Boolean = false
 
@@ -184,7 +185,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleSyncCompletedStatus(transaction: Transaction): Completable {
     return localPaymentInteractor.getCompletePurchaseBundle(data.type, data.packageName, data.skuId,
-        transaction.orderReference, transaction.hash, networkScheduler)
+        transaction.metadata?.purchaseUid, transaction.orderReference, transaction.hash,
+        networkScheduler)
         .doOnSuccess {
           analytics.sendPaymentConclusionEvents(data.packageName, data.skuId, data.appcAmount,
               data.type, data.paymentId)
@@ -195,7 +197,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         .flatMapCompletable {
           Completable.fromAction { view.showCompletedPayment() }
               .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
-              .andThen(Completable.fromAction { view.popView(it, data.paymentId) })
+              .andThen(Completable.fromAction { view.popView(it.bundle, data.paymentId) })
         }
   }
 
@@ -236,8 +238,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun showError(throwable: Throwable) {
     logger.log(TAG, throwable)
-    if (throwable is HttpException && throwable.code() == FORBIDDEN_CODE) handleFraudFlow()
-    else view.showError(mapError(throwable))
+    val error = errorMapper.map(throwable)
+    when (error.errorType) {
+      ErrorType.SUB_ALREADY_OWNED -> view.showError(R.string.subscriptions_error_already_subscribed)
+      ErrorType.BLOCKED -> handleFraudFlow()
+      else -> view.showError(R.string.unknown_error)
+    }
   }
 
   fun onSaveInstanceState(outState: Bundle) {
@@ -270,22 +276,6 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     private val TAG = LocalPaymentPresenter::class.java.simpleName
     private const val WAITING_RESULT = "WAITING_RESULT"
     private const val FORBIDDEN_CODE = 403
-  }
-
-  @StringRes
-  private fun mapError(throwable: Throwable): Int {
-    return when (throwable) {
-      is HttpException -> mapHttpError(throwable)
-      else -> R.string.unknown_error
-    }
-  }
-
-  @StringRes
-  private fun mapHttpError(exceptiont: HttpException): Int {
-    return when (exceptiont.code()) {
-      FORBIDDEN_CODE -> R.string.purchase_error_wallet_block_code_403
-      else -> R.string.unknown_error
-    }
   }
 }
 

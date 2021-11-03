@@ -12,8 +12,8 @@ import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.Function4
@@ -76,11 +76,12 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     return super.onTransact(code, data, reply, flags)
   }
 
-  override fun isBillingSupported(apiVersion: Int, packageName: String?, type: String?): Int {
-    if (apiVersion != supportedApiVersion || packageName.isNullOrBlank() || type.isNullOrBlank()) {
+  override fun isBillingSupported(apiVersion: Int, packageName: String?,
+                                  billingType: String?): Int {
+    if (apiVersion != supportedApiVersion || packageName.isNullOrBlank() || billingType.isNullOrBlank()) {
       return RESULT_BILLING_UNAVAILABLE
     }
-    return when (type) {
+    return when (billingType) {
       ITEM_TYPE_INAPP -> billing.isInAppSupported(merchantName)
       ITEM_TYPE_SUBS -> billing.isSubsSupported(merchantName)
       else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
@@ -89,25 +90,35 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .blockingGet()
   }
 
-  override fun getSkuDetails(apiVersion: Int, packageName: String?, type: String?,
+  override fun getSkuDetails(apiVersion: Int, packageName: String?, billingType: String?,
                              skusBundle: Bundle?): Bundle {
     val result = Bundle()
 
-    if (skusBundle == null || !skusBundle.containsKey(
-            ITEM_ID_LIST) || apiVersion != supportedApiVersion || type == null || type.isBlank()) {
-      result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+    if (skusBundle == null
+        || !skusBundle.containsKey(ITEM_ID_LIST)
+        || apiVersion != supportedApiVersion
+        || billingType == null
+        || billingType.isBlank()) {
+      with(result) { putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR) }
       return result
     }
 
     val skus = skusBundle.getStringArrayList(ITEM_ID_LIST)
 
     if (skus.isNullOrEmpty()) {
-      result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+      with(result) { putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR) }
+      return result
+    }
+
+    val type = try {
+      BillingSupportedType.valueOfItemType(billingType)
+    } catch (e: Exception) {
+      with(result) { putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR) }
       return result
     }
 
     return try {
-      val serializedProducts = billing.getProducts(merchantName, skus)
+      val serializedProducts = billing.getProducts(merchantName, skus, type)
           .doOnError { it.printStackTrace() }
           .onErrorResumeNext {
             Single.error(billingMessagesMapper.mapException(it))
@@ -122,32 +133,44 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
   }
 
-  override fun getBuyIntent(apiVersion: Int, packageName: String, sku: String?, type: String?,
-                            developerPayload: String?): Bundle {
+  override fun getBuyIntent(apiVersion: Int, packageName: String, sku: String?,
+                            billingType: String?, developerPayload: String?): Bundle {
+    if (validateGetBuyIntentArgs(apiVersion, billingType, sku)) {
+      return Bundle().apply {
+        putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+      }
+    }
+    requireNotNull(billingType!!)
+    requireNotNull(sku!!)
 
-
-    if (apiVersion != supportedApiVersion || type == null || type.isBlank() || sku == null) {
-      val result = Bundle()
-      result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
-      return result
+    val type = try {
+      BillingSupportedType.valueOfItemType(billingType)
+    } catch (e: Exception) {
+      return Bundle().apply {
+        putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+      }
     }
 
     val getTokenContractAddress = proxyService.getAppCoinsAddress(BuildConfig.DEBUG)
         .subscribeOn(networkScheduler)
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
         .subscribeOn(networkScheduler)
-    val getSkuDetails = billing.getProducts(merchantName, listOf(sku))
+    val getSkuDetails = billing.getProducts(merchantName, listOf(sku), type)
         .subscribeOn(networkScheduler)
     val getDeveloperAddress = billing.getDeveloperAddress(packageName)
         .subscribeOn(networkScheduler)
-
     return Single.zip(getTokenContractAddress, getIabContractAddress, getSkuDetails,
         getDeveloperAddress,
         Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
           try {
-            intentBuilder.buildBuyIntentBundle(tokenContractAddress, iabContractAddress,
+            val product = skuDetails[0]
+            if (type == BillingSupportedType.INAPP_SUBSCRIPTION && product.subscriptionPeriod == null) {
+              billingMessagesMapper.mapInvalidSubscriptionData()
+            }
+            intentBuilder.buildBuyIntentBundle(type.name, tokenContractAddress, iabContractAddress,
                 developerPayload, true, packageName, developerAddress, skuDetails[0].sku,
-                BigDecimal(skuDetails[0].price.appcoinsAmount), skuDetails[0].title)
+                BigDecimal(product.transactionPrice.appcoinsAmount), product.title, product.subscriptionPeriod,
+                product.trialPeriod)
           } catch (exception: Exception) {
             if (skuDetails.isEmpty()) {
               billingMessagesMapper.mapBuyIntentError(
@@ -164,12 +187,20 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .blockingGet()
   }
 
-  override fun getPurchases(apiVersion: Int, packageName: String?, type: String?,
+  private fun validateGetBuyIntentArgs(apiVersion: Int, billingType: String?,
+                                       sku: String?): Boolean {
+    return (apiVersion != supportedApiVersion
+        || billingType == null
+        || billingType.isBlank()
+        || sku == null)
+  }
+
+  override fun getPurchases(apiVersion: Int, packageName: String?, billingType: String?,
                             continuationToken: String?): Bundle {
     val result = Bundle()
 
     if (apiVersion != supportedApiVersion) {
-      result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+      with(result) { putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR) }
       return result
     }
 
@@ -178,21 +209,21 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     val signatureList = ArrayList<String>()
     val skuList = ArrayList<String>()
 
-    if (type == ITEM_TYPE_INAPP) {
-      try {
-        val purchases = billing.getPurchases(merchantName, BillingSupportedType.INAPP)
-            .blockingGet()
+    try {
+      val type =
+          billingType?.let { BillingSupportedType.valueOfItemType(it) }
+              ?: BillingSupportedType.INAPP
+      val purchases = billing.getPurchases(merchantName, type)
+          .blockingGet()
 
-        purchases.forEach { purchase: Purchase ->
-          idsList.add(purchase.uid)
-          dataList.add(serializer.serializeSignatureData(purchase))
-          signatureList.add(purchase.signature.value)
-          skuList.add(purchase.product.name)
-        }
-      } catch (exception: Exception) {
-        return billingMessagesMapper.mapPurchasesError(exception)
+      purchases.forEach { purchase: Purchase ->
+        idsList.add(purchase.uid)
+        dataList.add(purchase.signature.message)
+        signatureList.add(purchase.signature.value)
+        skuList.add(purchase.product.name)
       }
-
+    } catch (exception: Exception) {
+      return billingMessagesMapper.mapPurchasesError(exception)
     }
 
     return result.apply {

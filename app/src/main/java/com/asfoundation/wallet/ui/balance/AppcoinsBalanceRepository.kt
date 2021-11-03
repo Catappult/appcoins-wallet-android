@@ -1,24 +1,25 @@
 package com.asfoundation.wallet.ui.balance
 
 import android.util.Pair
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.Balance
-import com.asfoundation.wallet.interact.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDao
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsEntity
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 
-class AppcoinsBalanceRepository(
-    private val balanceGetter: GetDefaultWalletBalanceInteract,
-    private val localCurrencyConversionService: LocalCurrencyConversionService,
-    private val balanceDetailsDao: BalanceDetailsDao,
-    private val balanceDetailsMapper: BalanceDetailsMapper,
-    private val networkScheduler: Scheduler) :
+class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalanceInteract,
+                                private val localCurrencyConversionService: LocalCurrencyConversionService,
+                                private val balanceDetailsDao: BalanceDetailsDao,
+                                private val balanceDetailsMapper: BalanceDetailsMapper,
+                                private val networkScheduler: Scheduler,
+                                private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase) :
     BalanceRepository {
   private var ethBalanceDisposable: Disposable? = null
   private var appcBalanceDisposable: Disposable? = null
@@ -33,12 +34,17 @@ class AppcoinsBalanceRepository(
       ethBalanceDisposable = balanceGetter.getEthereumBalance(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getEtherToLocalFiat(balance.getStringValue(),
-                SUM_FIAT_SCALE)
-                .map { fiatValue ->
-                  balanceDetailsDao.updateEthBalance(address, balance.getStringValue(),
-                      fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
+            getSelectedCurrencyUseCase(bypass = false)
+                .observeOn(networkScheduler)
+                .flatMapObservable { targetCurrency ->
+                  localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "ETH",
+                      targetCurrency, SUM_FIAT_SCALE)
+                      .map { fiatValue ->
+                        balanceDetailsDao.updateEthBalance(address, balance.getStringValue(),
+                            fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
+                      }
                 }
+
           }
           .subscribe({}, { it.printStackTrace() })
     }
@@ -51,11 +57,15 @@ class AppcoinsBalanceRepository(
       balanceGetter.getAppcBalance(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),
-                SUM_FIAT_SCALE)
-                .map { fiatValue ->
-                  balanceDetailsDao.updateAppcBalance(address, balance.getStringValue(),
-                      fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
+            getSelectedCurrencyUseCase(bypass = false)
+                .observeOn(networkScheduler)
+                .flatMapObservable { targetCurrency ->
+                  localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "APPC",
+                      targetCurrency, SUM_FIAT_SCALE)
+                      .map { fiatValue ->
+                        balanceDetailsDao.updateAppcBalance(address, balance.getStringValue(),
+                            fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
+                      }
                 }
           }
           .onExceptionResumeNext {}
@@ -70,11 +80,15 @@ class AppcoinsBalanceRepository(
       balanceGetter.getCredits(address)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),
-                SUM_FIAT_SCALE)
-                .map { fiatValue ->
-                  balanceDetailsDao.updateCreditsBalance(address, balance.getStringValue(),
-                      fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
+            getSelectedCurrencyUseCase(bypass = false)
+                .observeOn(networkScheduler)
+                .flatMapObservable { targetCurrency ->
+                  localCurrencyConversionService.getValueToFiat(balance.getStringValue(), "APPC",
+                      targetCurrency, SUM_FIAT_SCALE)
+                      .map { fiatValue ->
+                        balanceDetailsDao.updateCreditsBalance(address, balance.getStringValue(),
+                            fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
+                      }
                 }
           }
           .onExceptionResumeNext {}

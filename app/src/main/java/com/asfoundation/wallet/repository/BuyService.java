@@ -163,13 +163,16 @@ public class BuyService {
       case FORBIDDEN:
         toReturn = Status.FORBIDDEN;
         break;
+      case SUB_ALREADY_OWNED:
+        toReturn = Status.SUB_ALREADY_OWNED;
+        break;
     }
     return toReturn;
   }
 
   public enum Status {
     BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER,
-    NO_FUNDS, NO_INTERNET, PENDING, FORBIDDEN
+    NO_FUNDS, NO_INTERNET, PENDING, FORBIDDEN, SUB_ALREADY_OWNED
   }
 
   public static class BuyTransaction {

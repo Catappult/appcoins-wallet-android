@@ -423,7 +423,7 @@
   <string name="discover_button">Temukan</string>
   <string name="retry_button">Coba lagi</string>
   <string name="do_it_later_button">Lakukan nanti</string>
-  <string name="connectoin_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
+  <string name="connection_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
   <string name="common_or">ATAU</string>
   <string name="share_via">Bagikan melalui:</string>
   <string name="password">Kata Sandi</string>

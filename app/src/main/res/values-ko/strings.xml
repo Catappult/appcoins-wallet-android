@@ -423,7 +423,7 @@
   <string name="discover_button">알아보기</string>
   <string name="retry_button">재시도</string>
   <string name="do_it_later_button">나중에</string>
-  <string name="connectoin_error_body">인터넷에 연결되지 않은 것 같습니다. 인터넷 연결을 확인하시고 다시 시도해 주세요!</string>
+  <string name="connection_error_body">인터넷에 연결되지 않은 것 같습니다. 인터넷 연결을 확인하시고 다시 시도해 주세요!</string>
   <string name="common_or">또는</string>
   <string name="share_via">다음을 통해 공유:</string>
   <string name="password">비밀번호</string>

@@ -96,9 +96,9 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
           && recyclerView != null
           && recyclerView.getAdapter() != null
           && recyclerView.getAdapter()
-          .getItemCount() > 0) {
+          .getItemCount() > 0
+          && recyclerView.getVisibility() == View.VISIBLE) {
         hide();
-        swipeRefreshLayout.setRefreshing(true);
       } else {
         hideAllComponents();
         progress.setVisibility(VISIBLE);
@@ -140,6 +140,13 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     emptyBox.setVisibility(VISIBLE);
     emptyBox.removeAllViews();
     emptyBox.addView(view);
+  }
+
+  public void showOnlyProgress() {
+    emptyBox.setVisibility(GONE);
+    errorBox.setVisibility(GONE);
+    tryAgain.setVisibility(GONE);
+    progress.setVisibility(VISIBLE);
   }
 
   @Override public void onClick(View v) {

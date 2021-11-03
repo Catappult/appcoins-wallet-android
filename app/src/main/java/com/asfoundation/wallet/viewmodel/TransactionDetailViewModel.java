@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.viewmodel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
@@ -9,11 +10,13 @@ import androidx.lifecycle.MutableLiveData;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionsDetailsModel;
-import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase;
+import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase;
+import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity;
 import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
@@ -25,27 +28,27 @@ import io.reactivex.schedulers.Schedulers;
 public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
-  private final SupportInteractor supportInteractor;
+  private final DisplayChatUseCase displayChatUseCase;
   private final TransactionDetailRouter transactionDetailRouter;
   private final LocalCurrencyConversionService conversionService;
-  private final FindDefaultNetworkInteract findDefaultNetworkInteract;
-  private final FindDefaultWalletInteract findDefaultWalletInteract;
+  private final FindDefaultWalletUseCase findDefaultWalletUseCase;
+  private final FindNetworkInfoUseCase findNetworkInfoUseCase;
   private final MutableLiveData<TransactionsDetailsModel> transactionsDetailsModel =
       new MutableLiveData<>();
   private final CompositeDisposable disposables;
 
-  TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter, CompositeDisposable compositeDisposable,
-      SupportInteractor supportInteractor, TransactionDetailRouter transactionDetailRouter,
+  TransactionDetailViewModel(FindDefaultWalletUseCase findDefaultWalletUseCase,
+      FindNetworkInfoUseCase findNetworkInfoUseCase, ExternalBrowserRouter externalBrowserRouter,
+      CompositeDisposable compositeDisposable, DisplayChatUseCase displayChatUseCase,
+      TransactionDetailRouter transactionDetailRouter,
       LocalCurrencyConversionService conversionService) {
+    this.findDefaultWalletUseCase = findDefaultWalletUseCase;
+    this.findNetworkInfoUseCase = findNetworkInfoUseCase;
     this.externalBrowserRouter = externalBrowserRouter;
     this.disposables = compositeDisposable;
-    this.supportInteractor = supportInteractor;
+    this.displayChatUseCase = displayChatUseCase;
     this.transactionDetailRouter = transactionDetailRouter;
     this.conversionService = conversionService;
-    this.findDefaultNetworkInteract = findDefaultNetworkInteract;
-    this.findDefaultWalletInteract = findDefaultWalletInteract;
   }
 
   @Override protected void onCleared() {
@@ -57,14 +60,14 @@ public class TransactionDetailViewModel extends BaseViewModel {
     Single<FiatValue> fiatValueSingle =
         (paidValue != null) ? convertValueToTargetCurrency(paidValue, paidCurrency, targetCurrency)
             : Single.just(new FiatValue());
-    disposables.add(Single.zip(findDefaultNetworkInteract.find(), findDefaultWalletInteract.find(),
+    disposables.add(Single.zip(findNetworkInfoUseCase.invoke(), findDefaultWalletUseCase.invoke(),
         fiatValueSingle, TransactionsDetailsModel::new)
         .subscribe(transactionsDetailsModel::postValue, t -> {
         }));
   }
 
   public void showSupportScreen() {
-    supportInteractor.displayChatScreen();
+    displayChatUseCase.invoke();
   }
 
   private Single<FiatValue> convertValueToTargetCurrency(String paidValue, String paidCurrency,
@@ -117,5 +120,10 @@ public class TransactionDetailViewModel extends BaseViewModel {
         .buildUpon()
         .appendEncodedPath(transaction.getTransactionId())
         .build();
+  }
+
+  public void showManageSubscriptions(Context context) {
+    Intent intent = SubscriptionActivity.newIntent(context);
+    context.startActivity(intent);
   }
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/payment_method_background"
+    android:paddingStart="16dp"
+    android:paddingTop="12dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="12dp"
+    >
+
+  <ImageView
+      android:id="@+id/app_icon"
+      android:layout_width="@dimen/subscriptions_image_size"
+      android:layout_height="@dimen/subscriptions_image_size"
+      android:adjustViewBounds="true"
+      android:contentDescription="@string/empty"
+      android:lineSpacingExtra="0.25sp"
+      android:transitionName="app_icon_transition"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/ic_transaction_peer"
+      />
+
+  <include
+      android:id="@+id/app_icon_skeleton"
+      layout="@layout/skeleton_rounded_rectangle"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintEnd_toEndOf="@id/app_icon"
+      app:layout_constraintStart_toStartOf="@id/app_icon"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
+      />
+
+  <TextView
+      android:id="@+id/app_name"
+      style="@style/SubscriptionsAppNameText"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start"
+      android:layout_marginStart="12dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/app_icon"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
+      tools:text="Cut the Rope 2"
+      />
+
+  <TextView
+      android:id="@+id/sku_name"
+      style="@style/TransactionDetailsTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/app_name"
+      app:layout_constraintTop_toBottomOf="@id/app_name"
+      tools:text="Gas reserve"
+      />
+
+  <TextView
+      android:id="@+id/total_value"
+      style="@style/SubscriptionsFiatValueText"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start"
+      android:layout_marginTop="5dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/app_name"
+      app:layout_constraintTop_toBottomOf="@id/sku_name"
+      tools:text="$2.40 /month"
+      />
+
+  <TextView
+      android:id="@+id/total_value_appc"
+      style="@style/SubscriptionsAppcValueText"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/app_name"
+      app:layout_constraintTop_toBottomOf="@id/total_value"
+      tools:text="~69.90 APPC"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

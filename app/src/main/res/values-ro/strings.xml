@@ -423,7 +423,7 @@
   <string name="discover_button">Descoperă</string>
   <string name="retry_button">Reîncearcă</string>
   <string name="do_it_later_button">Amână</string>
-  <string name="connectoin_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
+  <string name="connection_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
   <string name="common_or">SAU</string>
   <string name="share_via">Distribuie via:</string>
   <string name="password">Parolă</string>

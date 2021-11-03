@@ -2,14 +2,21 @@ package com.appcoins.wallet.bdsbilling.repository.entity
 
 import com.google.gson.annotations.SerializedName
 
-class SKU(val productId: String, val type: String,
-          @field:SerializedName("price") val priceBase: String,
-          @field:SerializedName("price_currency_code") val currencyBase: String,
-          @field:SerializedName("price_amount_micros") val amountBase: Long,
-          @field:SerializedName("appc_price") val priceAppc: String,
-          @field:SerializedName("appc_price_currency_code") val currencyAppc: String,
-          @field:SerializedName("appc_price_amount_micros") val amountAppc: Long,
-          @field:SerializedName("fiat_price") val priceFiat: String,
-          @field:SerializedName("fiat_price_currency_code") val currencyFiat: String,
-          @field:SerializedName("fiat_price_amount_micros") val amountFiat: Long,
-          val title: String, val description: String)
+class SKU(val productId: String,
+          val type: String,
+          @SerializedName("price") val priceBase: String,
+          @SerializedName("price_currency_code") val currencyBase: String,
+          @SerializedName("price_amount_micros") val amountBase: Long,
+          @SerializedName("appc_price") val priceAppc: String,
+          @SerializedName("appc_price_currency_code") val currencyAppc: String,
+          @SerializedName("appc_price_amount_micros") val amountAppc: Long,
+          @SerializedName("fiat_price") val priceFiat: String,
+          @SerializedName("fiat_price_currency_code") val currencyFiat: String,
+          @SerializedName("fiat_price_amount_micros") val amountFiat: Long,
+          val title: String,
+          val description: String,
+          @SerializedName("subscription_period")
+          val subscriptionPeriod: String?,
+          @SerializedName("trial_period")
+          val trialPeriod: String?
+)

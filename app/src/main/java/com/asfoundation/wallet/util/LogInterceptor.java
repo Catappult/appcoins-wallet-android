@@ -17,6 +17,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
+import org.jetbrains.annotations.NotNull;
 
 public class LogInterceptor implements Interceptor {
   private static final String TAG = "HTTP_TRACE";
@@ -28,7 +29,7 @@ public class LogInterceptor implements Interceptor {
     return url.scheme() + "://" + url.host() + (query != null ? (path + '?' + query) : path);
   }
 
-  @Override public Response intercept(@NonNull Chain chain) throws IOException {
+  @NotNull @Override public Response intercept(@NonNull Chain chain) throws IOException {
     StringBuilder logBuilder = new StringBuilder();
     Request request = chain.request();
     try {

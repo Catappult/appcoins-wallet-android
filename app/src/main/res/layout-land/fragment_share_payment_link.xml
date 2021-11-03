@@ -4,7 +4,6 @@
     android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/background_card"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:maxHeight="300dp"

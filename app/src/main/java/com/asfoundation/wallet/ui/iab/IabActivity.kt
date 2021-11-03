@@ -180,13 +180,15 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
                                 paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                                iconUrl: String?, gamificationLevel: Int) {
+                                iconUrl: String?, gamificationLevel: Int, isSubscription: Boolean,
+                                frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             AdyenPaymentFragment.newInstance(transaction!!.type, paymentType, transaction!!.domain,
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
                 bonus, isPreselected, gamificationLevel, getSkuDescription(),
-                transaction!!.productToken))
+                transaction!!.productToken, isSubscription,
+              frequency))
         .commit()
   }
 
@@ -228,14 +230,18 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showPaymentMethodsView() {
-    val isDonation = TransactionData.TransactionType.DONATION.name
-        .equals(transaction?.type, ignoreCase = true)
+    val isDonation =
+        TransactionData.TransactionType.DONATION.name.equals(transaction?.type, ignoreCase = true)
+    val isSubscription =
+        TransactionData.TransactionType.INAPP_SUBSCRIPTION.name.equals(transaction?.type,
+            ignoreCase = true)
     layout_error.visibility = View.GONE
     fragment_container.visibility = View.VISIBLE
+
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            getSkuDescription(), isBds, isDonation, developerPayload, uri,
-            intent.dataString))
+            getSkuDescription(), isBds, isDonation, developerPayload, uri, intent.dataString,
+            isSubscription, transaction?.subscriptionPeriod))
         .commit()
   }
 
@@ -270,13 +276,13 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                                   isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
-                                  transaction: TransactionBuilder) {
+                                  transaction: TransactionBuilder, isSubscription: Boolean, frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction.domain,
                 getSkuDescription(), transaction.amount(), isBds,
                 isDonation, transaction.skuId, transaction.type, gamificationLevel,
-                transaction))
+                transaction, isSubscription, frequency))
         .commit()
   }
 
@@ -420,7 +426,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
     @JvmStatic
     fun newIntent(activity: Activity, previousIntent: Intent, transaction: TransactionBuilder,
-                  isBds: Boolean?, developerPayload: String?): Intent {
+                  isBds: Boolean, developerPayload: String?): Intent {
       return Intent(activity, IabActivity::class.java)
           .apply {
             data = previousIntent.data

@@ -1,13 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.asfoundation.wallet.ui.transactions.models.SwipeRefreshMotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_background_color"
+    app:layoutDescription="@xml/activity_transactions_scene"
     >
 
-  <include layout="@layout/layout_collapsing_app_bar" />
+  <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/background_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:src="@drawable/appbar_background_large"
+      app:layout_constraintBottom_toBottomOf="@id/collapsable_bar"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:shapeAppearance="@style/Home.HeaderShape"
+      />
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/collapsable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:background="@null"
+      android:minHeight="227dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/appbar_background_large"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/Home.HeaderShape"
+        />
+    <View
+        android:id="@+id/spacer"
+        android:layout_width="0dp"
+        android:layout_height="379dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/send_button"
+        style="@style/Home.SendReceiveButton"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/title_send"
+        app:icon="@drawable/ic_bottom_nav_send"
+        app:layout_constraintBottom_toTopOf="@id/header_recycler_view"
+        app:layout_constraintEnd_toStartOf="@id/receive_button"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/receive_button"
+        style="@style/Home.SendReceiveButton"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/title_request"
+        app:icon="@drawable/ic_bottom_nav_receive"
+        app:layout_constraintBottom_toTopOf="@id/header_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/send_button"
+        />
+    <com.asfoundation.wallet.ui.transactions.HeaderRecyclerView
+        android:id="@+id/header_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="152dp"
+        android:background="@null"
+        android:clipToPadding="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+      android:id="@+id/refresh_layout"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/collapsable_bar"
+      >
+
+
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/transactions_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_background_color"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+  <com.asfoundation.wallet.widget.SystemView
+      android:id="@+id/system_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@color/activity_background_color"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/collapsable_bar"
+      />
+
+  <View
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@drawable/appbar_background_large"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
   <ImageView
       android:id="@+id/toolbar_layout_logo"
@@ -15,65 +146,146 @@
       android:layout_height="24dp"
       android:layout_margin="16dp"
       android:src="@drawable/ic_app_logo"
-      app:layout_anchor="@+id/app_bar"
-      app:layout_anchorGravity="start|top"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <include
-      layout="@layout/layout_transactions_activity"
-      android:layout_width="match_parent"
+      android:id="@+id/action_button_vip"
+      layout="@layout/layout_vip_badge"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="?android:actionBarSize"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:layout_marginEnd="8dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/toolbar"
+      app:layout_constraintEnd_toStartOf="@id/action_button_support"
+      app:layout_constraintTop_toTopOf="@id/toolbar"
       />
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/bottom_content"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
-      android:clipChildren="false"
-      android:clipToPadding="false"
-      >
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/top_up_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/floating_btn_start_gradient_color"
-        android:onClick="onClick"
-        android:text="@string/topup_home_button"
-        android:textColor="#ffffff"
-        app:icon="@drawable/ic_add_white_24dp"
-        app:iconTint="#ffffff"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="#00ffffff"
-        />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:itemIconTint="@color/gray_alpha_8a"
-        app:itemRippleColor="@color/button_borderless_ripple_color"
-        app:itemTextColor="@color/gray_alpha_8a"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
-        />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
   <FrameLayout
-      android:id="@+id/faded_background"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@color/faded_background_color"
+      android:id="@+id/action_button_support"
+      style="@style/Widget.AppCompat.ActionButton"
+      android:layout_width="42dp"
+      android:layout_height="48dp"
       android:clickable="true"
       android:focusable="true"
-      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/toolbar"
+      app:layout_constraintEnd_toStartOf="@id/action_button_settings"
+      app:layout_constraintTop_toTopOf="@id/toolbar"
+      >
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/intercom_animation"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/action_button_settings"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_rawRes="@raw/intercom_unread_animation"
+        app:lottie_repeatCount="2"
+        />
+  </FrameLayout>
+
+  <ImageButton
+      android:id="@+id/action_button_settings"
+      style="@style/Widget.AppCompat.ActionButton"
+      android:layout_width="42dp"
+      android:layout_marginEnd="5dp"
+      android:layout_height="48dp"
+      android:src="@drawable/ic_settings_white_24dp"
+      app:layout_constraintBottom_toBottomOf="@id/toolbar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="@id/toolbar"
       />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/balance_skeleton"
+      android:layout_width="wrap_content"
+      android:layout_height="57dp"
+      android:layout_marginTop="85dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/balance_skeleton"
+      />
+
+  <FrameLayout
+      android:id="@+id/balance_empty_clickable_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:onClick="onClick"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="@id/balance"
+      app:layout_constraintStart_toStartOf="@id/balance"
+      app:layout_constraintTop_toTopOf="@id/balance"
+      app:layout_constraintBottom_toBottomOf="@id/balance"
+      />
+
+  <TextView
+      android:id="@+id/balance"
+      style="@style/ToolbarTextAppearance.Title.Expanded"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="77dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <FrameLayout
+      android:id="@+id/currency_empty_clickable_view"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:onClick="onClick"
+      android:visibility="gone"
+      app:layout_constraintStart_toEndOf="@id/currency_selector"
+      app:layout_constraintEnd_toEndOf="@id/currency_selector"
+      app:layout_constraintTop_toTopOf="@id/currency_selector"
+      app:layout_constraintBottom_toBottomOf="@id/currency_selector"
+      />
+
+  <ImageView
+      android:id="@+id/currency_selector"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="12dp"
+      android:layout_marginTop="3dp"
+      app:layout_constraintStart_toEndOf="@id/balance"
+      app:layout_constraintTop_toTopOf="@id/balance"
+      android:src="@drawable/ic_home_currency_selection"
+      />
+
+  <TextView
+      android:id="@+id/balance_subtitle"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="124dp"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:paddingStart="15dp"
+      android:paddingEnd="15dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+
+  <FrameLayout
+      android:id="@+id/faded_background"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@color/faded_background_color"
+      android:clickable="true"
+      android:elevation="8dp"
+      android:focusable="true"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+</com.asfoundation.wallet.ui.transactions.models.SwipeRefreshMotionLayout>

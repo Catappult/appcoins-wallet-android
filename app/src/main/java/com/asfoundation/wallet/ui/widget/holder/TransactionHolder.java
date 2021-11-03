@@ -4,18 +4,17 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.transactions.Transaction.TransactionType;
 import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
@@ -84,13 +83,11 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     fill(transaction.getFrom(), transaction.getTo(), currency, transaction.getValue(),
-        transaction.getPaidAmount(), transaction.getPaidCurrency(),
-        transaction.getDetails());
+        transaction.getPaidAmount(), transaction.getPaidCurrency(), transaction.getDetails());
   }
 
   private void fill(String from, String to, String currencySymbol, String valueStr,
-      String paidAmount, String paidCurrency,
-      TransactionDetails details) {
+      String paidAmount, String paidCurrency, TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
 
@@ -150,6 +147,11 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain;
         currencySymbol = WalletCurrency.CREDITS.getSymbol();
         break;
+      case SUBS_OFFCHAIN:
+        transactionTypeIcon = R.drawable.ic_transaction_subscription;
+        setTypeIconVisibilityBasedOnDescription(details, uri);
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        break;
       default:
         transactionTypeIcon = R.drawable.ic_transaction_peer;
         setTypeIconVisibilityBasedOnDescription(details, uri);
@@ -157,22 +159,22 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     if (details != null) {
       if (transaction.getType()
-          .equals(Transaction.TransactionType.BONUS)) {
+          .equals(TransactionType.BONUS)) {
         address.setText(R.string.transaction_type_bonus);
       } else if (transaction.getType()
-          .equals(Transaction.TransactionType.TOP_UP)) {
+          .equals(TransactionType.TOP_UP)) {
         address.setText(R.string.topup_home_button);
       } else if (transaction.getType()
-          .equals(Transaction.TransactionType.TRANSFER_OFF_CHAIN)) {
+          .equals(TransactionType.TRANSFER_OFF_CHAIN)) {
         address.setText(R.string.transaction_type_p2p);
       } else if (transaction.getType()
-          .equals(Transaction.TransactionType.TOP_UP_REVERT)) {
+          .equals(TransactionType.TOP_UP_REVERT)) {
         address.setText(R.string.transaction_type_reverted_topup_title);
       } else if (transaction.getType()
-          .equals(Transaction.TransactionType.BONUS_REVERT)) {
+          .equals(TransactionType.BONUS_REVERT)) {
         address.setText(R.string.transaction_type_reverted_bonus_title);
       } else if (transaction.getType()
-          .equals(Transaction.TransactionType.IAP_REVERT)) {
+          .equals(TransactionType.IAP_REVERT)) {
         address.setText(R.string.transaction_type_reverted_purchase_title);
       } else {
         address.setText(
@@ -202,8 +204,9 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
           @Override
           public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
               DataSource dataSource, boolean isFirstResource) {
-            ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
-                finalTransactionTypeIcon);
+            ImageView icon = typeIcon.findViewById(R.id.icon);
+            icon.setImageResource(finalTransactionTypeIcon);
+            icon.setVisibility(View.VISIBLE);
             return false;
           }
         })
@@ -211,7 +214,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     if (valueStr.equals("0")) {
       valueStr = "0 ";
-    } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
+    } else if (transaction.getType() == TransactionType.IAP_REVERT) {
       valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
     } else {
       valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, C.ETHER_DECIMALS, currencySymbol);
@@ -247,13 +250,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       revertMessage.setVisibility(View.GONE);
     } else {
       Transaction linkedTx = links.get(0);
-      if (transaction.getType() == Transaction.TransactionType.BONUS_REVERT) {
+      if (transaction.getType() == TransactionType.BONUS_REVERT) {
         message = getString(R.string.transaction_type_reverted_bonus_body,
             getDate(linkedTx.getTimeStamp()));
-      } else if (transaction.getType() == Transaction.TransactionType.IAP_REVERT) {
+      } else if (transaction.getType() == TransactionType.IAP_REVERT) {
         message = getString(R.string.transaction_type_reverted_purchase_body,
             getDate(linkedTx.getTimeStamp()));
-      } else if (transaction.getType() == Transaction.TransactionType.TOP_UP_REVERT) {
+      } else if (transaction.getType() == TransactionType.TOP_UP_REVERT) {
         message = getString(R.string.transaction_type_reverted_topup_body,
             getDate(linkedTx.getTimeStamp()));
       }
@@ -272,7 +275,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
   private String getSourceText(Transaction transaction) {
     if (transaction.getType()
-        .equals(Transaction.TransactionType.BONUS)) {
+        .equals(TransactionType.BONUS)) {
       return getContext().getString(R.string.gamification_transaction_title,
           transaction.getDetails()
               .getSourceName());
@@ -300,9 +303,9 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     onTransactionClickListener.onTransactionClick(view, transaction);
   }
 
-  private boolean isRevertedType(Transaction.TransactionType type) {
-    return type == Transaction.TransactionType.BONUS_REVERT
-        || type == Transaction.TransactionType.IAP_REVERT
-        || type == Transaction.TransactionType.TOP_UP_REVERT;
+  private boolean isRevertedType(TransactionType type) {
+    return type == TransactionType.BONUS_REVERT
+        || type == TransactionType.IAP_REVERT
+        || type == TransactionType.TOP_UP_REVERT;
   }
 }

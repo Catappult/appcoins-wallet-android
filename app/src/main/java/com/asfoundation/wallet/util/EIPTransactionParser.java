@@ -35,6 +35,7 @@ public class EIPTransactionParser {
     TransactionBuilder transactionBuilder = new TransactionBuilder("ETH");
     transactionBuilder.toAddress(payment.getAddress());
     transactionBuilder.amount(getEtherTransferAmount(payment));
+    transactionBuilder.setType("inapp"); //Transfer only so it doesn't matter
     return Single.just(transactionBuilder);
   }
 
@@ -62,20 +63,15 @@ public class EIPTransactionParser {
             return Single.error(new UnknownTokenException());
           }
         })
-        .map(tokenInfo -> new TransactionBuilder(tokenInfo.symbol, getIabContractAddress(payment),
-            payment.getChainId(), getReceiverAddress(payment),
-            getTokenTransferAmount(payment, tokenInfo.decimals), getSkuId(payment),
-            tokenInfo.decimals, getIabContract(payment), getType(payment), getOrigin(payment),
-            getDomain(payment), getPayload(payment), null, getOrderReference(payment), null,
-            null).shouldSendToken(true));
-  }
-
-  private String getOrigin(ERC681 payment) {
-    return retrieveData(payment).getOrigin();
-  }
-
-  private String getOrderReference(ERC681 payment) {
-    return retrieveData(payment).getOrderReference();
+        .map(tokenInfo -> {
+          TransactionData data = retrieveData(payment);
+          return new TransactionBuilder(tokenInfo.symbol, getIabContractAddress(payment),
+              payment.getChainId(), getReceiverAddress(payment),
+              getTokenTransferAmount(payment, tokenInfo.decimals), data.getSkuId(),
+              tokenInfo.decimals, getIabContract(payment), data.getType(), data.getOrigin(),
+              data.getDomain(), data.getPayload(), null, data.getOrderReference(), null, null,
+              data.getPeriod(), data.getTrialPeriod()).shouldSendToken(true);
+        });
   }
 
   private String getIabContract(ERC681 payment) {
@@ -97,22 +93,6 @@ public class EIPTransactionParser {
     } else {
       return TransactionType.ETH;
     }
-  }
-
-  private String getSkuId(ERC681 payment) {
-    return retrieveData(payment).getSkuId();
-  }
-
-  private String getType(ERC681 payment) {
-    return retrieveData(payment).getType();
-  }
-
-  private String getDomain(ERC681 payment) {
-    return retrieveData(payment).getDomain();
-  }
-
-  private String getPayload(ERC681 payment) {
-    return retrieveData(payment).getPayload();
   }
 
   private TransactionData retrieveData(ERC681 payment) {

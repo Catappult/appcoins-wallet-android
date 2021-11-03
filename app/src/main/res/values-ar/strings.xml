@@ -423,7 +423,7 @@
   <string name="discover_button">اطّلاع</string>
   <string name="retry_button">حاول ثانية</string>
   <string name="do_it_later_button">لاحقًا</string>
-  <string name="connectoin_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
+  <string name="connection_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
   <string name="common_or">أو</string>
   <string name="share_via">مشاركة بواسطة:</string>
   <string name="password">كلمة المرور</string>

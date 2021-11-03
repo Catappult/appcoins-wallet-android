@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
   buildToolsVersion '29.0.3'
@@ -20,8 +21,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 29
-    versionCode 199
-    versionName "1.19.5.0.0"
+    versionCode 203
+    versionName "2.1.1.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -67,6 +68,7 @@ android {
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
     buildConfigField 'String', 'VIP_PROGRAM_BADGE_URL', project.VIP_PROGRAM_BADGE_URL
+    buildConfigField 'String', 'APPSFLYER_KEY', project.APPSFLYER_KEY
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 
@@ -96,6 +98,7 @@ android {
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
+      buildConfigField 'String', 'SUBS_BASE_HOST', project.BASE_HOST_PROD
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
     }
@@ -115,12 +118,13 @@ android {
       buildConfigField 'String', 'BDS_BASE_HOST', project.BDS_BASE_HOST_DEV
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
       buildConfigField 'String', 'APTOIDE_PKG_NAME', project.APTOIDE_PACKAGE_NAME_DEV
-      buildConfigField 'String', 'LEGACY_PAYMENT_HOST', project.PAYMENT_HOST_DEV
+      buildConfigField 'String', 'LEGACY_PAYMENT_HOST', project.LEGACY_PAYMENT_HOST_DEV
       buildConfigField 'String', 'PAYMENT_HOST', project.PAYMENT_HOST_DEV
       buildConfigField 'String', 'INTERCOM_API_KEY', project.INTERCOM_API_KEY_DEV
       buildConfigField 'String', 'INTERCOM_APP_ID', project.INTERCOM_APP_ID_DEV
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
+      buildConfigField 'String', 'SUBS_BASE_HOST', project.SUBS_BASE_HOST_DEV
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
@@ -145,6 +149,9 @@ android {
     targetCompatibility 1.8
     sourceCompatibility 1.8
   }
+  buildFeatures {
+    viewBinding true
+  }
   kotlinOptions {
     jvmTarget = "1.8"
   }
@@ -163,6 +170,11 @@ dependencies {
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+  implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$project.viewBindingDelegate"
+  implementation "androidx.navigation:navigation-fragment-ktx:$project.nav_version"
+  implementation "androidx.navigation:navigation-ui-ktx:$project.nav_version"
+  implementation "androidx.fragment:fragment:$project.fragment_version"
+  implementation "androidx.fragment:fragment-ktx:$project.fragment_version"
   implementation "androidx.appcompat:appcompat:$project.appcompat_version"
   implementation "androidx.vectordrawable:vectordrawable:$project.vector_drawable_version"
   implementation "androidx.recyclerview:recyclerview:$project.recyclerview_version"
@@ -178,6 +190,10 @@ dependencies {
 
   implementation "android.arch.lifecycle:runtime:$project.lifecycle_version"
   implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.ktx_lifecycle_version}"
+  implementation "androidx.lifecycle:lifecycle-runtime-ktx:$project.ktx_lifecycle_version"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$project.ktx_lifecycle_version"
+  implementation "androidx.lifecycle:lifecycle-common-java8:$project.ktx_lifecycle_version"
 
   implementation "com.squareup.retrofit2:retrofit:$project.retrofit_version"
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofit_version"
@@ -246,6 +262,11 @@ dependencies {
 
   implementation "androidx.work:work-runtime-ktx:$project.work_version"
   implementation "androidx.work:work-rxjava2:$project.work_version"
+
+  implementation "com.airbnb.android:epoxy:$project.epoxy_version"
+  kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
+
+  implementation "com.appsflyer:af-android-sdk:6.3.2"
 
   //Amplitude
   implementation "com.amplitude:android-sdk:$project.amplitude_version"

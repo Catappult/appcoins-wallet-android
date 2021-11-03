@@ -25,14 +25,23 @@ class VerificationRepository(private val verificationApi: VerificationApi,
           if (verificationResponse.verified) {
             Single.just(VerificationStatus.VERIFIED)
           } else {
-            verificationStateApi.getVerificationState(walletAddress, walletSignature)
-                .map { verificationState ->
-                  if (verificationState == "ACTIVE") VerificationStatus.CODE_REQUESTED
-                  else VerificationStatus.UNVERIFIED
-                }
+            getCardVerificationState(walletAddress, walletSignature)
           }
         }
         .doOnSuccess { status -> saveVerificationStatus(walletAddress, status) }
+        .onErrorReturn {
+          if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
+          else VerificationStatus.ERROR
+        }
+  }
+
+  fun getCardVerificationState(walletAddress: String,
+                               walletSignature: String): Single<VerificationStatus> {
+    return verificationStateApi.getVerificationState(walletAddress, walletSignature)
+        .map { verificationState ->
+          if (verificationState == "ACTIVE") VerificationStatus.CODE_REQUESTED
+          else VerificationStatus.UNVERIFIED
+        }
         .onErrorReturn {
           if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
           else VerificationStatus.ERROR

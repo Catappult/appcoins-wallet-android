@@ -1,5 +1,3 @@
-package com.appcoins.wallet.billing.exceptions
-
-import com.appcoins.wallet.bdsbilling.exceptions.BillingException
+package com.appcoins.wallet.bdsbilling.exceptions
 
 class ServiceUnavailableException(errorCode: Int) : BillingException(errorCode)

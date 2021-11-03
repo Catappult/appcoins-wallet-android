@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import androidx.room.Room
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.*
@@ -20,7 +21,7 @@ import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository.BdsApi
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
@@ -29,6 +30,7 @@ import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.M
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_2_3
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_3_4
 import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_4_5
+import com.appcoins.wallet.gamification.repository.PromotionDatabase.Companion.MIGRATION_5_6
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.WalletOriginDao
 import com.appcoins.wallet.permissions.Permissions
@@ -45,14 +47,16 @@ import com.asfoundation.wallet.C
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.analytics.TaskTimer
+import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.base.RxSchedulersImpl
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.change_currency.FiatCurrenciesDao
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.LogReceiver
 import com.asfoundation.wallet.logging.Logger
@@ -60,15 +64,18 @@ import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
+import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.service.TokenRateService
-import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesDatabase
+import com.asfoundation.wallet.service.currencies.CurrenciesDatabase
 import com.asfoundation.wallet.service.currencies.CurrencyConversionRatesPersistence
 import com.asfoundation.wallet.service.currencies.RoomCurrencyConversionRatesPersistence
+import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
+import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDatabase
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper
 import com.asfoundation.wallet.transactions.TransactionsMapper
@@ -81,6 +88,7 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils.Companion.create
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
+import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -107,6 +115,12 @@ import javax.inject.Singleton
 internal class AppModule {
   @Provides
   fun provideContext(application: App): Context = application.applicationContext
+
+  @Provides
+  @Singleton
+  fun provideRxSchedulers(): RxSchedulers {
+    return RxSchedulersImpl()
+  }
 
   @Singleton
   @Provides
@@ -172,19 +186,23 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBillingPaymentProofSubmission(api: BdsApi,
+  fun providesBillingPaymentProofSubmission(api: RemoteRepository.BdsApi,
                                             walletService: WalletService,
-                                            bdsApi: BdsApiSecondary): BillingPaymentProofSubmission {
+                                            subscriptionBillingApi: SubscriptionBillingApi,
+                                            bdsApi: BdsApiSecondary,
+                                            billingSerializer: ExternalBillingSerializer): BillingPaymentProofSubmission {
     return BillingPaymentProofSubmissionImpl.Builder()
         .setApi(api)
+        .setBillingSerializer(billingSerializer)
         .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
+        .setSubscriptionBillingService(subscriptionBillingApi)
         .build()
   }
 
   @Singleton
   @Provides
-  fun provideErrorMapper() = ErrorMapper()
+  fun providePaymentErrorMapper(gson: Gson) = PaymentErrorMapper(gson)
 
   @Provides
   fun provideGasSettingsRouter() = GasSettingsRouter()
@@ -306,7 +324,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideAppcoinsRewards(walletService: WalletService, billing: Billing, backendApi: BackendApi,
-                             remoteRepository: RemoteRepository): AppcoinsRewards {
+                             remoteRepository: RemoteRepository,
+                             errorMapper: ErrorMapper): AppcoinsRewards {
     return AppcoinsRewards(
         BdsAppcoinsRewardsRepository(CreditsRemoteRepository(backendApi, remoteRepository)),
         object : com.appcoins.wallet.appcoins.rewards.repository.WalletService {
@@ -314,7 +333,7 @@ internal class AppModule {
 
           override fun signContent(content: String) = walletService.signContent(content)
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), Schedulers.io(), billing,
-        com.appcoins.wallet.appcoins.rewards.ErrorMapper())
+        errorMapper)
   }
 
   @Singleton
@@ -326,7 +345,12 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideBillingMessagesMapper() = BillingMessagesMapper(ExternalBillingSerializer())
+  fun provideBillingMessagesMapper(billingSerializer: ExternalBillingSerializer) =
+      BillingMessagesMapper(billingSerializer)
+
+  @Singleton
+  @Provides
+  fun provideBillingSerializer() = ExternalBillingSerializer()
 
   @Provides
   fun provideAdyenEnvironment(): Environment {
@@ -380,6 +404,7 @@ internal class AppModule {
         .addMigrations(MIGRATION_2_3)
         .addMigrations(MIGRATION_3_4)
         .addMigrations(MIGRATION_4_5)
+        .addMigrations(MIGRATION_5_6)
         .build()
   }
 
@@ -402,6 +427,21 @@ internal class AppModule {
   @Provides
   fun providesWalletOriginDao(promotionDatabase: PromotionDatabase): WalletOriginDao {
     return promotionDatabase.walletOriginDao()
+  }
+
+  @Singleton
+  @Provides
+  fun providesUserSubscriptionsDatabase(context: Context): UserSubscriptionsDatabase {
+    return Room.databaseBuilder(context, UserSubscriptionsDatabase::class.java,
+        "user_subscription_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providesUserSubscriptionDao(
+      userSubscriptionsDatabase: UserSubscriptionsDatabase): UserSubscriptionsDao {
+    return userSubscriptionsDatabase.subscriptionsDao()
   }
 
   @Provides
@@ -519,6 +559,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  fun providesPromotionsMapper(gamificationMapper: GamificationMapper) =
+      PromotionsMapper(gamificationMapper)
+
+  @Singleton
+  @Provides
   fun providesServicesErrorMapper() = ServicesErrorCodeMapper()
 
   @Singleton
@@ -536,7 +581,8 @@ internal class AppModule {
             TransactionsDatabase.MIGRATION_2_3,
             TransactionsDatabase.MIGRATION_3_4,
             TransactionsDatabase.MIGRATION_4_5,
-            TransactionsDatabase.MIGRATION_5_6
+            TransactionsDatabase.MIGRATION_5_6,
+            TransactionsDatabase.MIGRATION_6_7
         )
         .build()
   }
@@ -604,19 +650,36 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideCurrencyConversionRatesDatabase(context: Context): CurrencyConversionRatesDatabase {
-    return Room.databaseBuilder(context, CurrencyConversionRatesDatabase::class.java,
-        "currency_conversion_rates_database")
+  fun providesErrorMapper(gson: Gson): ErrorMapper {
+    return ErrorMapper(gson)
+  }
+
+
+  @Singleton
+  @Provides
+  fun provideCurrencyConversionRatesDatabase(context: Context): CurrenciesDatabase {
+    return Room.databaseBuilder(context, CurrenciesDatabase::class.java,
+        "currencies_database")
+        .addMigrations(
+            CurrenciesDatabase.MIGRATION_1_2,
+        )
         .build()
   }
 
   @Singleton
   @Provides
   fun provideRoomCurrencyConversionRatesPersistence(
-    database: CurrencyConversionRatesDatabase
-  ): CurrencyConversionRatesPersistence {
+      database: CurrenciesDatabase): CurrencyConversionRatesPersistence {
     return RoomCurrencyConversionRatesPersistence(database.currencyConversionRatesDao())
   }
+
+  @Singleton
+  @Provides
+  fun provideFiatCurrenciesDao(
+      database: CurrenciesDatabase): FiatCurrenciesDao {
+    return database.fiatCurrenciesDao()
+  }
+
 
   @Singleton
   @Provides

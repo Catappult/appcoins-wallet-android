@@ -423,7 +423,7 @@
   <string name="discover_button">Ontdekken</string>
   <string name="retry_button">Opnieuw proberen</string>
   <string name="do_it_later_button">Later doen</string>
-  <string name="connectoin_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
+  <string name="connection_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
   <string name="common_or">OF</string>
   <string name="share_via">Delen via:</string>
   <string name="password">Wachtwoord</string>

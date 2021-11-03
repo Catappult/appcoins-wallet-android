@@ -3,13 +3,14 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
@@ -26,11 +27,13 @@ import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -130,7 +133,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               if (it.error.hasError) {
-                sendPaymentErrorEvent(it.error.code, it.error.message)
+                sendPaymentErrorEvent(it.error.errorInfo?.httpCode, it.error.errorInfo?.text)
                 view.hideLoadingAndShowView()
                 handleErrors(it.error)
               } else {
@@ -239,9 +242,9 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
             .observeOn(viewScheduler)
             .flatMapCompletable {
               when {
-                it.status == TransactionStatus.COMPLETED -> {
+                it.status == COMPLETED -> {
                   sendPaymentSuccessEvent()
-                  createBundle(it.hash, it.orderReference)
+                  createBundle(it.hash, it.orderReference, it.purchaseUid)
                       .doOnSuccess {
                         sendPaymentEvent()
                         sendRevenueEvent()
@@ -251,25 +254,26 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
                       .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
                 }
                 isPaymentFailed(it.status) -> {
-                  if (paymentModel.status == TransactionStatus.FAILED && paymentType == PaymentType.PAYPAL.name) {
+                  if (paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
                     retrieveFailedReason(paymentModel.uid)
                   } else {
                     Completable.fromAction {
-                      sendPaymentErrorEvent(it.error.code,
-                          buildRefusalReason(it.status, it.error.message))
+                      sendPaymentErrorEvent(it.error.errorInfo?.httpCode,
+                          buildRefusalReason(it.status, it.error.errorInfo?.text))
                       handleErrors(it.error)
                     }
                         .subscribeOn(viewScheduler)
                   }
                 }
                 else -> {
-                  sendPaymentErrorEvent(it.error.code, it.status.toString())
+                  sendPaymentErrorEvent(it.error.errorInfo?.httpCode,
+                      it.status.toString() + it.error.errorInfo?.text)
                   Completable.fromAction { handleErrors(it.error) }
                 }
               }
             }
       }
-      paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT && paymentModel.action != null -> {
+      paymentModel.status == PENDING_USER_PAYMENT && paymentModel.action != null -> {
         Completable.fromAction {
           view.showLoading()
           view.lockRotation()
@@ -295,16 +299,18 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         if (isBillingAddressError(paymentModel.error, priceAmount, priceCurrency)) {
           view.showBillingAddress(priceAmount!!, priceCurrency!!)
         } else {
-          sendPaymentErrorEvent(paymentModel.error.code, paymentModel.error.message)
+          sendPaymentErrorEvent(paymentModel.error.errorInfo?.httpCode,
+              paymentModel.error.errorInfo?.text)
           handleErrors(paymentModel.error)
         }
       }
-      paymentModel.status == TransactionStatus.FAILED && paymentType == PaymentType.PAYPAL.name -> {
+      paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
         retrieveFailedReason(paymentModel.uid)
       }
-      paymentModel.status == TransactionStatus.CANCELED -> Completable.fromAction { view.showMoreMethods() }
+      paymentModel.status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
       else -> Completable.fromAction {
-        sendPaymentErrorEvent(paymentModel.error.code, "${paymentModel.status}: Generic Error")
+        sendPaymentErrorEvent(paymentModel.error.errorInfo?.httpCode,
+            "${paymentModel.status} ${paymentModel.error.errorInfo?.text}")
         view.showGenericError()
       }
     }
@@ -313,18 +319,16 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun isBillingAddressError(error: Error,
                                     priceAmount: BigDecimal?,
                                     priceCurrency: String?): Boolean {
-    return error.code != null
-        && error.code == 400
-        && error.message?.contains("payment.billing_address") == true
+    return error.errorInfo?.errorType == ErrorType.BILLING_ADDRESS
         && priceAmount != null
         && priceCurrency != null
   }
 
-  private fun handleSuccessTransaction(bundle: Bundle): Completable {
-    return Completable.fromAction { view.showSuccess() }
+  private fun handleSuccessTransaction(purchaseBundleModel: PurchaseBundleModel): Completable {
+    return Completable.fromAction { view.showSuccess(purchaseBundleModel.renewal) }
         .andThen(Completable.timer(view.getAnimationDuration(),
             TimeUnit.MILLISECONDS))
-        .andThen(Completable.fromAction { navigator.popView(bundle) })
+        .andThen(Completable.fromAction { navigator.popView(purchaseBundleModel.bundle) })
   }
 
   private fun retrieveFailedReason(uid: String): Completable {
@@ -368,12 +372,13 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     )
   }
 
-  private fun buildRefusalReason(status: TransactionStatus, message: String?): String {
+  private fun buildRefusalReason(status: PaymentModel.Status, message: String?): String {
     return message?.let { "$status : $it" } ?: status.toString()
   }
 
-  private fun isPaymentFailed(status: TransactionStatus): Boolean {
-    return status == TransactionStatus.FAILED || status == TransactionStatus.CANCELED || status == TransactionStatus.INVALID_TRANSACTION
+  private fun isPaymentFailed(status: PaymentModel.Status): Boolean {
+    return status == PaymentModel.Status.FAILED || status == CANCELED ||
+        status == PaymentModel.Status.INVALID_TRANSACTION || status == PaymentModel.Status.FRAUD
   }
 
   private fun handlePaymentDetails() {
@@ -383,7 +388,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
         .doOnNext { view.lockRotation() }
         .observeOn(networkScheduler)
         .flatMapSingle {
-          adyenPaymentInteractor.submitRedirect(cachedUid, it.details!!,
+          adyenPaymentInteractor.submitRedirect(cachedUid, convertToJson(it.details!!),
               it.paymentData ?: cachedPaymentData)
         }
         .observeOn(viewScheduler)
@@ -392,6 +397,18 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           logger.log(TAG, it)
           view.showGenericError()
         }))
+  }
+
+  //This method is used to avoid the nameValuePairs key problem that occurs when we pass a JSONObject trough a GSON converter
+  private fun convertToJson(details: JSONObject): JsonObject {
+    val json = JsonObject()
+    val keys = details.keys()
+    while (keys.hasNext()) {
+      val key = keys.next()
+      val value = details.get(key)
+      if (value is String) json.addProperty(key, value)
+    }
+    return json
   }
 
   private fun handle3DSErrors() {
@@ -564,15 +581,17 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     }
   }
 
-  private fun createBundle(hash: String?, orderReference: String?): Single<Bundle> {
+  private fun createBundle(hash: String?, orderReference: String?,
+                           purchaseUid: String?): Single<PurchaseBundleModel> {
     return transactionBuilder.flatMap {
       adyenPaymentInteractor.getCompletePurchaseBundle(transactionType, domain, it.skuId,
-          orderReference, hash, networkScheduler)
+          purchaseUid, orderReference, hash, networkScheduler)
     }
         .map { mapPaymentMethodId(it) }
   }
 
-  private fun mapPaymentMethodId(bundle: Bundle): Bundle {
+  private fun mapPaymentMethodId(purchaseBundleModel: PurchaseBundleModel): PurchaseBundleModel {
+    val bundle = purchaseBundleModel.bundle
     if (paymentType == PaymentType.CARD.name) {
       bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
           PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id)
@@ -580,7 +599,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
       bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
           PaymentMethodsView.PaymentMethodId.PAYPAL.id)
     }
-    return bundle
+    return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
   }
 
   private fun handleBuyAnalytics(transactionBuilder: TransactionBuilder) {
@@ -659,19 +678,19 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     when {
       error.isNetworkError -> view.showNetworkError()
 
-      error.errorType == Error.ErrorType.INVALID_CARD -> view.showInvalidCardError()
+      error.errorInfo?.errorType == ErrorType.INVALID_CARD -> view.showInvalidCardError()
 
-      error.errorType == Error.ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+      error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
 
-      error.errorType == Error.ErrorType.TIMEOUT -> view.showTimeoutError()
+      error.errorInfo?.errorType == ErrorType.TIMEOUT -> view.showTimeoutError()
 
-      error.errorType == Error.ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+      error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
 
-      error.errorType == Error.ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+      error.errorInfo?.errorType == ErrorType.PAYMENT_ERROR -> view.showPaymentError()
 
-      error.code != null -> {
-        val resId = servicesErrorCodeMapper.mapError(error.code!!)
-        if (error.code == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
+      error.errorInfo?.httpCode != null -> {
+        val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
+        if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
       else -> view.showGenericError()

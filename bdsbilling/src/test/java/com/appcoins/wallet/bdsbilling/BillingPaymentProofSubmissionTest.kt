@@ -1,11 +1,13 @@
 package com.appcoins.wallet.bdsbilling
 
+import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.Data
 import com.appcoins.wallet.bdsbilling.repository.GetWalletResponse
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -44,6 +46,9 @@ class BillingPaymentProofSubmissionTest {
 
   @Mock
   lateinit var api: RemoteRepository.BdsApi
+
+  @Mock
+  lateinit var subscriptionBillingApi: SubscriptionBillingApi
   lateinit var billing: BillingPaymentProofSubmission
   lateinit var scheduler: TestScheduler
 
@@ -59,6 +64,7 @@ class BillingPaymentProofSubmissionTest {
           override fun signContent(content: String): Single<String> = Single.just(signedContent)
           override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
               Single.just(WalletAddressModel(walletAddress, signedContent))
+
           override fun getWalletOrCreate(): Single<String> = Single.just(walletAddress)
           override fun findWalletOrCreate(): Observable<String> = Observable.just(walletAddress)
         })
@@ -67,6 +73,8 @@ class BillingPaymentProofSubmissionTest {
             return Single.just(GetWalletResponse(Data("developer_address")))
           }
         })
+        .setBillingSerializer(ExternalBillingSerializer())
+        .setSubscriptionBillingService(subscriptionBillingApi)
         .build()
 
     `when`(
@@ -75,7 +83,7 @@ class BillingPaymentProofSubmissionTest {
             developerPayload, callback, orderReference, referrerUrl, walletAddress,
             signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
         Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
-        "orderReference", null, "", null, "")))
+        null, "orderReference", null, "", null, "")))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())

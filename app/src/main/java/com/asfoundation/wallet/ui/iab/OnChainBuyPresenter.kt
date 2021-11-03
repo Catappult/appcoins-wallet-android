@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -102,7 +103,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
 
   private fun close() = view.close(billingMessagesMapper.mapCancellation())
 
-  private fun showError(throwable: Throwable?, message: String? = null) {
+  private fun showError(throwable: Throwable?, message: String? = null, userMessage: Int? = null) {
     logger.log(TAG, message, throwable)
     if (throwable is UnknownTokenException) view.showWrongNetworkError()
     else view.showError()
@@ -148,7 +149,9 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
       }
       Payment.Status.FORBIDDEN -> Completable.fromAction { handleFraudFlow() }
           .andThen(onChainBuyInteract.remove(transaction.uri))
-
+      Payment.Status.SUB_ALREADY_OWNED -> Completable.fromAction {
+        showError(null, "Sub Already Owned", R.string.subscriptions_error_already_subscribed)
+      }
       Payment.Status.ERROR -> Completable.fromAction {
         showError(null, "Payment status: ${transaction.status.name}")
       }
@@ -261,7 +264,8 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
     return status == Payment.Status.ERROR || status == Payment.Status.NO_FUNDS ||
         status == Payment.Status.NONCE_ERROR || status == Payment.Status.NO_ETHER ||
         status == Payment.Status.NO_INTERNET || status == Payment.Status.NO_TOKENS ||
-        status == Payment.Status.NETWORK_ERROR || status == Payment.Status.FORBIDDEN
+        status == Payment.Status.NETWORK_ERROR || status == Payment.Status.FORBIDDEN ||
+        status == Payment.Status.SUB_ALREADY_OWNED
   }
 
   companion object {

@@ -423,7 +423,7 @@
   <string name="discover_button">发现</string>
   <string name="retry_button">重试</string>
   <string name="do_it_later_button"> 稍后重试</string>
-  <string name="connectoin_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
+  <string name="connection_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
   <string name="common_or">或</string>
   <string name="share_via">分享方式：</string>
   <string name="password">密码</string>
