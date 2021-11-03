@@ -4,7 +4,7 @@
   <string name="title_send_with_token">Send %s</string>
   <string name="title_request">Receive</string>
   <string name="title_import">Recover Wallet</string>
-  
+
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">My Wallets</string>
 
@@ -105,7 +105,7 @@
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Private key</string>
 
-  
+
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Processing…</string>
@@ -118,7 +118,7 @@
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
-  
+
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
@@ -141,7 +141,7 @@
   <string name="intro_wallet_created_short">Wallet created!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
   <string name="intro_skip_button">SKIP</string>
-        
+
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
@@ -320,7 +320,7 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">HOW IT WORKS</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>  
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">How to Level Up?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
@@ -475,11 +475,11 @@
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
 
-  
+
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
-  
+
   <!--Tokens-->
   <string name="appc_token_name" translatable="false">AppCoins</string>
   <string name="appc_credits_token_name" translatable="false">AppCoins Credits</string>
@@ -521,6 +521,9 @@
   <string name="verification_settings_unverified_title">Verify Wallet</string>
   <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
   <string name="verification_settings_verified_title">Wallet Verified</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">A minimal transaction will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_button">Verify Now</string>
   <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">You need to be connected to the internet</string>
   <string name="verification_error_time_expired">Oops, your time expired. Start again!</string>
@@ -551,7 +554,7 @@
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
   <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
   <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>  
+  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
   <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
   <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
   <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
@@ -709,10 +712,8 @@
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
 
-  
 
-
-<!--Wallets Management-->
+  <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Total balance in %s</string>
   <string name="wallets_active_wallet_title">Active Wallet</string>
@@ -721,7 +722,7 @@
     <item quantity="one">Wallet</item>
     <item quantity="other">Wallets</item>
   </plurals>
-  
+
   <string name="wallets_bottom_accumulated_value_title">Total value</string>
   <string name="wallets_address_copied_body">Wallet address copied to clipboard</string>
   <string name="wallets_imported_body">Wallet successfuly recovered</string>
@@ -760,12 +761,12 @@
   <string name="transfer_send_button">SEND</string>
   <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
 
-  
- <!--Support Notifications-->
+
+  <!--Support Notifications-->
   <string name="support_new_message_title">You\'ve got a new message!</string>
   <string name="support_new_message_button">Tap to open</string>
-  
- <!--Pioneers-->
+
+  <!--Pioneers-->
   <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
   <string name="pioneer_gamification_title">You\'re a Pioneer</string>
   <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
@@ -820,9 +821,9 @@
   <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
   <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
   <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
-  
 
-<!--New Gamification-->
+
+  <!--New Gamification-->
   <string name="gamif_title">Up to %s%% Bonus!</string>
   <string name="gamif_bonus_received">Bonus received</string>
   <string name="gamif_spent">Amount spent to reach this level</string>
@@ -870,9 +871,9 @@
   <string name="gamif_placeholder_unknown">an unknown planet</string>
   <string name="gamif_distance_unkown">Unknown location</string>
   <string name="gamif_placeholder_new_planet">a new planet</string>
-  
 
-<!--Carrier Billing-->
+
+  <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Carrier billing</string>
   <string name="carrier_billing_fees_disclaimer">Additional fees may apply</string>
   <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
@@ -956,23 +957,23 @@
   <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
-  
-  
- <!--Fingerprint Authentication-->
+
+
+  <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Fingerprint lock</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
   <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
   <string name="fingerprint_authentication_required_title">Authentication required!</string>
   <string name="fingerprint_authentication_required_body">Please use your finger or password to continue.</string>
   <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
-  
- <!--Send Logs to Support-->
+
+  <!--Send Logs to Support-->
   <string name="send_logs_settings">Send logs to Support Team</string>
   <string name="send_logs_sending">Sending&#8230;</string>
   <string name="send_logs_send">Sent!</string>
 
-  
- <!--Rate us-->
+
+  <!--Rate us-->
   <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
   <string name="rate_us_no">Not really</string>
   <string name="rate_us_yes">Yes!</string>
@@ -1015,9 +1016,9 @@
   <string name="card_verification_wallets_insert_bode_button">Insert code</string>
   <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
-  
 
- <!--Vouchers-->
+
+  <!--Vouchers-->
   <string name="voucher_card_body_1">Buy this voucher and get</string>
   <string name="voucher_card_body_2"> up to %s%% bonus.</string>
   <string name="voucher_buy_header">Voucher for %s</string>

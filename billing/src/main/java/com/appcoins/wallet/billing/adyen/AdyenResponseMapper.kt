@@ -87,6 +87,10 @@ open class AdyenResponseMapper(private val gson: Gson,
       TransactionStatus.FAILED -> FAILED
       TransactionStatus.CANCELED -> CANCELED
       TransactionStatus.FRAUD -> FRAUD
+      TransactionStatus.PENDING_VALIDATION -> PENDING
+      TransactionStatus.PENDING_CODE -> PENDING
+      TransactionStatus.VERIFIED -> COMPLETED
+      TransactionStatus.EXPIRED -> FAILED
     }
   }
 
@@ -127,9 +131,9 @@ open class AdyenResponseMapper(private val gson: Gson,
   }
 
   open fun mapVerificationPaymentModelSuccess(
-      adyenTransactionResponse: AdyenTransactionResponse): VerificationPaymentModel {
-    val verificationModel = map(adyenTransactionResponse)
-    return VerificationPaymentModel(success = true, redirectUrl = verificationModel.redirectUrl)
+      adyenTransactionResponse: AdyenTransactionResponse? = null): VerificationPaymentModel {
+    val redirectUrl = adyenTransactionResponse?.let { response -> map(response).redirectUrl }
+    return VerificationPaymentModel(success = true, redirectUrl = redirectUrl)
   }
 
   open fun mapVerificationPaymentModelError(throwable: Throwable): VerificationPaymentModel {

@@ -41,7 +41,9 @@ class VerificationPaypalIntroViewModel(
   fun launchVerificationPayment() {
     val paymentMethod = state.verificationInfoAsync.value?.paymentInfoModel?.paymentMethodInfo
     if (paymentMethod != null) {
-      walletVerificationInteractor.makeVerificationPayment(paymentMethod, false, data.returnUrl)
+      walletVerificationInteractor.makeVerificationPayment(
+          WalletVerificationInteractor.VerificationType.PAYPAL, paymentMethod, false,
+          data.returnUrl)
           .subscribeOn(Schedulers.io())
           .doOnSuccess { model ->
             val redirectUrl = model.redirectUrl
@@ -64,5 +66,9 @@ class VerificationPaypalIntroViewModel(
 
   fun failPayment() {
     setState { copy(verificationSubmitAsync = Async.Fail(Error.UnknownError(Throwable("")))) }
+  }
+
+  fun tryAgain() {
+    setState { copy(verificationSubmitAsync = Async.Uninitialized) }
   }
 }

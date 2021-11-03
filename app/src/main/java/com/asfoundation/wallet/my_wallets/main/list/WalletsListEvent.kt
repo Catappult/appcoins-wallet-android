@@ -18,6 +18,8 @@ sealed class WalletsListEvent {
 
   object VerifyWalletClick : WalletsListEvent()
 
+  object VerifyInsertCodeClick : WalletsListEvent()
+
   object CreateNewWalletClick : WalletsListEvent()
   data class OtherWalletClick(val walletBalance: WalletBalance) : WalletsListEvent()
 

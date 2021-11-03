@@ -40,6 +40,10 @@ class MyWalletsNavigator(private val fragment: MyWalletsFragment,
     navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyPicker())
   }
 
+  fun navigateToVerifyCreditCard() {
+    navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyCreditCard(false))
+  }
+
   fun navigateToBackupWallet(walletAddress: String) {
     navigate(navController,
         MyWalletsFragmentDirections.actionNavigateToBackupWallet(walletAddress))

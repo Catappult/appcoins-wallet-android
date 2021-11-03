@@ -13,6 +13,8 @@ class WalletVerificationInteractor(private val verificationRepository: Verificat
                                    private val adyenPaymentRepository: AdyenPaymentRepository,
                                    private val walletService: WalletService) {
 
+  enum class VerificationType { PAYPAL, CREDIT_CARD }
+
   fun isVerified(address: String, signature: String): Single<Boolean> {
     return getVerificationStatus(address, signature)
         .map { status -> status == VerificationStatus.VERIFIED }
@@ -31,18 +33,27 @@ class WalletVerificationInteractor(private val verificationRepository: Verificat
     return verificationRepository.removeCachedWalletValidationStatus(address)
   }
 
-  internal fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+  internal fun makeVerificationPayment(verificationType: VerificationType,
+                                       adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                                        returnUrl: String): Single<VerificationPaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { addressModel ->
-          adyenPaymentRepository.makeVerificationPayment(adyenPaymentMethod, shouldStoreMethod,
-              returnUrl, addressModel.address, addressModel.signedAddress)
-              .doOnSuccess { paymentModel ->
-                if (paymentModel.success) {
-                  verificationRepository.saveVerificationStatus(addressModel.address,
-                      VerificationStatus.CODE_REQUESTED)
-                }
-              }
+          when (verificationType) {
+            VerificationType.PAYPAL -> {
+              adyenPaymentRepository.makePaypalVerificationPayment(adyenPaymentMethod,
+                  shouldStoreMethod, returnUrl, addressModel.address, addressModel.signedAddress)
+            }
+            VerificationType.CREDIT_CARD -> {
+              adyenPaymentRepository.makeCreditCardVerificationPayment(adyenPaymentMethod,
+                  shouldStoreMethod, returnUrl, addressModel.address, addressModel.signedAddress)
+                  .doOnSuccess { paymentModel ->
+                    if (paymentModel.success) {
+                      verificationRepository.saveVerificationStatus(addressModel.address,
+                          VerificationStatus.CODE_REQUESTED)
+                    }
+                  }
+            }
+          }
         }
   }
 

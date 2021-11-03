@@ -30,4 +30,8 @@ class VerificationPaypalIntroNavigator(private val fragment: VerificationPaypalI
     paymentResultLauncher.launch(WebViewActivity.newIntent(fragment.activity, url))
   }
 
+  fun navigateBack() {
+    fragment.activity?.finish()
+  }
+
 }

@@ -38,7 +38,8 @@ class VerificationIntroInteractor(
 
   fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                   returnUrl: String): Single<VerificationPaymentModel> {
-    return walletVerificationInteractor.makeVerificationPayment(adyenPaymentMethod,
+    return walletVerificationInteractor.makeVerificationPayment(
+        WalletVerificationInteractor.VerificationType.CREDIT_CARD, adyenPaymentMethod,
         shouldStoreMethod, returnUrl)
   }
 

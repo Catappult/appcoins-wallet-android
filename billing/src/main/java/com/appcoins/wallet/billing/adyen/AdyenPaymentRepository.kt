@@ -59,10 +59,19 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     }
   }
 
-  fun makeVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                              returnUrl: String, walletAddress: String,
-                              walletSignature: String): Single<VerificationPaymentModel> {
-    return adyenApi.makeVerificationPayment(walletAddress, walletSignature,
+  fun makeCreditCardVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                                        returnUrl: String, walletAddress: String,
+                                        walletSignature: String): Single<VerificationPaymentModel> {
+    return adyenApi.makeCreditCardVerificationPayment(walletAddress, walletSignature,
+        VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
+        .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
+        .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
+  }
+
+  fun makePaypalVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+                                    returnUrl: String, walletAddress: String,
+                                    walletSignature: String): Single<VerificationPaymentModel> {
+    return adyenApi.makePaypalVerificationPayment(walletAddress, walletSignature,
         VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
         .map { adyenResponseMapper.mapVerificationPaymentModelSuccess(it) }
         .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
@@ -143,10 +152,16 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                             walletSignature: String): Single<VerificationInfoResponse>
 
     @POST("verification/generate")
-    fun makeVerificationPayment(@Query("wallet.address") walletAddress: String,
-                                @Query("wallet.signature") walletSignature: String,
-                                @Body
-                                verificationPayment: VerificationPayment): Single<AdyenTransactionResponse>
+    fun makePaypalVerificationPayment(@Query("wallet.address") walletAddress: String,
+                                      @Query("wallet.signature") walletSignature: String,
+                                      @Body
+                                      verificationPayment: VerificationPayment): Single<AdyenTransactionResponse>
+
+    @POST("verification/generate")
+    fun makeCreditCardVerificationPayment(@Query("wallet.address") walletAddress: String,
+                                          @Query("wallet.signature") walletSignature: String,
+                                          @Body
+                                          verificationPayment: VerificationPayment): Completable
 
     @POST("verification/validate")
     fun validateCode(@Query("wallet.address") walletAddress: String,

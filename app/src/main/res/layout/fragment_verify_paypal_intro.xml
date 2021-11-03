@@ -40,7 +40,7 @@
       android:layout_marginEnd="60dp"
       android:fontFamily="sans-serif-medium"
       android:gravity="center"
-      android:text="A minimal transaction will be made to confirm your account. It will be refunded immediately."
+      android:text="@string/verification_verify_paypal_description"
       android:textColor="@color/black"
       android:textSize="16sp"
       app:layout_constraintBottom_toTopOf="@+id/verify_now_button"
@@ -56,8 +56,8 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="30dp"
       android:layout_marginEnd="30dp"
-      android:layout_marginBottom="77dp"
-      android:text="Verify Now"
+      android:layout_marginBottom="25dp"
+      android:text="@string/verification_verify_paypal_button"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -81,14 +81,26 @@
       android:layout_height="wrap_content"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <include
       android:id="@+id/generic_error"
-      layout="@layout/error_top_up_layout"
+      layout="@layout/error_verification_layout"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <include
+      android:id="@+id/success_verification"
+      layout="@layout/success_verification_layout"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:visibility="gone"

@@ -22,6 +22,9 @@
         android:id="@+id/action_navigate_to_token_info"
         app:destination="@id/token_info_dialog_fragment" />
     <action
+        android:id="@+id/action_navigate_to_verify_credit_card"
+        app:destination="@id/verify_credit_card_wallet_activity" />
+    <action
         android:id="@+id/action_navigate_to_verify_picker"
         app:destination="@id/verify_picker_dialog_fragment" />
     <action
@@ -59,9 +62,9 @@
         app:argType="boolean" />
     <action
         android:id="@+id/action_navigate_to_create_wallet"
+        app:destination="@id/create_wallet_dialog_fragment"
         app:popUpTo="@id/more_dialog_fragment"
-        app:popUpToInclusive="true"
-        app:destination="@id/create_wallet_dialog_fragment" />
+        app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_navigate_to_restore_wallet"
         app:destination="@id/restore_wallet_activity"

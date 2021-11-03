@@ -91,6 +91,7 @@ class MyWalletsFragment : BasePageViewFragment(),
               }
         }
         WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerifyPicker()
+        WalletsListEvent.VerifyInsertCodeClick -> navigator.navigateToVerifyCreditCard()
         is WalletsListEvent.QrCodeClick -> navigator.navigateToQrCode(click.view)
         is WalletsListEvent.TokenClick -> {
           when (click.token) {

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/animation"
+      android:layout_width="@dimen/backup_success_icon_size"
+      android:layout_height="@dimen/backup_success_icon_size"
+      android:layout_marginTop="@dimen/backup_success_icon_margin_top"
+      app:layout_constraintBottom_toTopOf="@id/title"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.3"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/success_animation"
+      />
+
+  <TextView
+      android:id="@+id/title"
+      style="@style/WalletBackupTextStyle.Title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="56dp"
+      android:layout_marginTop="@dimen/backup_success_text_margin_top"
+      android:layout_marginEnd="56dp"
+      android:text="@string/verification_settings_verified_title"
+      app:layout_constraintBottom_toTopOf="@id/description"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/animation"
+      />
+
+  <TextView
+      android:id="@+id/description"
+      style="@style/WalletBackupTextStyle.Title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="56dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="56dp"
+      android:text="@string/verification_verified_paypal_description"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toTopOf="@+id/button_layout"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title"
+      />
+
+  <RelativeLayout
+      android:id="@+id/button_layout"
+      android:layout_width="match_parent"
+      android:layout_height="64dp"
+      android:clipChildren="false"
+      android:clipToPadding="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/list_separator_color"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/close_btn"
+        style="@style/MaterialButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/got_it_button"
+        />
+
+  </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
