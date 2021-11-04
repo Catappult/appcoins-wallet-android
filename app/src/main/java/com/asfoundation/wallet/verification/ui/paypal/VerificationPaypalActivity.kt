@@ -15,9 +15,11 @@ class VerificationPaypalActivity : BaseActivity() {
     setTitle(R.string.verification_settings_unverified_title)
     toolbar()
 
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            VerificationPaypalFragment.newInstance())
-        .commit()
+    if (savedInstanceState == null) {
+      supportFragmentManager.beginTransaction()
+          .replace(R.id.fragment_container,
+              VerificationPaypalFragment.newInstance())
+          .commit()
+    }
   }
 }

@@ -17,7 +17,7 @@ data class VerificationPaypalIntroState(
     val verificationSubmitAsync: Async<Unit> = Async.Uninitialized
 ) : ViewState
 
-class VerificationPaypalIntroViewModel(
+class VerificationPaypalViewModel(
     private val data: VerificationPaypalData,
     private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
     private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,

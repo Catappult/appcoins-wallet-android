@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.verification.ui.paypal
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -27,13 +29,19 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   @Inject
   lateinit var navigator: VerificationPaypalNavigator
 
-  private val viewModel: VerificationPaypalIntroViewModel by viewModels { viewModelFactory }
+  private val viewModel: VerificationPaypalViewModel by viewModels { viewModelFactory }
 
   private val views by viewBinding(FragmentVerifyPaypalIntroBinding::bind)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    lifecycle.addObserver(navigator)
+  private val paypalActivityLauncher = registerForActivityResult(
+      ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    val resultCode = result.resultCode
+    val data = result.data
+    if (resultCode == WebViewActivity.SUCCESS && data != null) {
+      viewModel.successPayment()
+    } else if (resultCode == WebViewActivity.FAIL) {
+      viewModel.failPayment()
+    }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +55,7 @@ class VerificationPaypalFragment : BasePageViewFragment(),
     views.successVerification.closeBtn.setOnClickListener { navigator.navigateBack() }
     views.genericError.maybeLater.setOnClickListener { navigator.navigateBack() }
     views.genericError.tryAgain.setOnClickListener { viewModel.tryAgain() }
+    views.genericError.tryAgainAttempts.setOnClickListener { viewModel.tryAgain() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -71,15 +80,7 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: VerificationPaypalIntroSideEffect) {
     when (sideEffect) {
       is VerificationPaypalIntroSideEffect.NavigateToPaymentUrl -> {
-        navigator.navigateToPayment(sideEffect.url) { result: ActivityResult ->
-          val resultCode = result.resultCode
-          val data = result.data
-          if (resultCode == WebViewActivity.SUCCESS && data != null) {
-            viewModel.successPayment()
-          } else if (resultCode == WebViewActivity.FAIL) {
-            viewModel.failPayment()
-          }
-        }
+        navigator.navigateToPayment(sideEffect.url, paypalActivityLauncher)
       }
     }
   }
@@ -92,61 +93,55 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   }
 
   private fun showSuccessValidation() {
-    views.progressBar.visibility = View.GONE
-    views.noNetwork.root.visibility = View.GONE
-    views.genericError.root.visibility = View.GONE
-    views.paypalGraphic.visibility = View.GONE
-    views.verifyGraphic.visibility = View.GONE
-    views.paypalVerifyDescription.visibility = View.GONE
-    views.verifyNowButton.visibility = View.GONE
+    hideAll()
     views.successVerification.root.visibility = View.VISIBLE
   }
 
   private fun showLoading() {
+    hideAll()
     views.progressBar.visibility = View.VISIBLE
-    views.noNetwork.root.visibility = View.GONE
-    views.genericError.root.visibility = View.GONE
-    views.paypalGraphic.visibility = View.GONE
-    views.verifyGraphic.visibility = View.GONE
-    views.paypalVerifyDescription.visibility = View.GONE
-    views.verifyNowButton.visibility = View.GONE
-    views.successVerification.root.visibility = View.GONE
   }
 
   private fun showVerificationInfo() {
-    views.progressBar.visibility = View.GONE
-    views.noNetwork.root.visibility = View.GONE
-    views.genericError.root.visibility = View.GONE
-    views.successVerification.root.visibility = View.GONE
+    hideAll()
     views.paypalGraphic.visibility = View.VISIBLE
     views.verifyGraphic.visibility = View.VISIBLE
     views.paypalVerifyDescription.visibility = View.VISIBLE
     views.verifyNowButton.visibility = View.VISIBLE
   }
 
-  private fun showGenericError() {
-    views.progressBar.visibility = View.GONE
-    views.paypalGraphic.visibility = View.GONE
-    views.verifyGraphic.visibility = View.GONE
-    views.paypalVerifyDescription.visibility = View.GONE
-    views.verifyNowButton.visibility = View.GONE
-    views.noNetwork.root.visibility = View.GONE
-    views.successVerification.root.visibility = View.GONE
-    views.genericError.errorTitle.visibility = View.VISIBLE
-    views.genericError.maybeLater.visibility = View.VISIBLE
-    views.genericError.errorMessage.text = getString(R.string.unknown_error)
-    views.genericError.root.visibility = View.VISIBLE
+  private fun showNetworkError() {
+    hideAll()
+    views.noNetwork.root.visibility = View.VISIBLE
   }
 
-  private fun showNetworkError() {
-    views.progressBar.visibility = View.GONE
+  private fun showGenericError() {
+    hideAll()
+    views.genericError.root.visibility = View.VISIBLE
+    views.genericError.errorTitle.visibility = View.VISIBLE
+    if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      views.genericError.attemptsGroup.visibility = View.GONE
+      views.genericError.maybeLater.visibility = View.GONE
+      views.genericError.tryAgainAttempts.visibility = View.GONE
+      views.genericError.tryAgain.visibility = View.VISIBLE
+    } else {
+      views.genericError.attemptsGroup.visibility = View.VISIBLE
+      views.genericError.maybeLater.visibility = View.VISIBLE
+      views.genericError.tryAgainAttempts.visibility = View.VISIBLE
+      views.genericError.tryAgain.visibility = View.GONE
+    }
+    views.genericError.errorMessage.text = getString(R.string.unknown_error)
+  }
+
+  private fun hideAll() {
+    views.successVerification.root.visibility = View.GONE
     views.paypalGraphic.visibility = View.GONE
     views.verifyGraphic.visibility = View.GONE
     views.paypalVerifyDescription.visibility = View.GONE
     views.verifyNowButton.visibility = View.GONE
+    views.progressBar.visibility = View.GONE
     views.genericError.root.visibility = View.GONE
-    views.successVerification.root.visibility = View.GONE
-    views.noNetwork.root.visibility = View.VISIBLE
+    views.noNetwork.root.visibility = View.GONE
   }
 
   companion object {

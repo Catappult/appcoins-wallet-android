@@ -12,7 +12,7 @@ class VerificationPaypalViewModelFactory(
 ) : ViewModelProvider.Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-    return VerificationPaypalIntroViewModel(data, getVerificationInfoUseCase,
+    return VerificationPaypalViewModel(data, getVerificationInfoUseCase,
         makeVerificationPaymentUseCase) as T
   }
 }
