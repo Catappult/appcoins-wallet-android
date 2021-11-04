@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.verification.credit_card
+package com.asfoundation.wallet.verification.repository
 
 import android.content.SharedPreferences
 import com.adyen.checkout.core.model.ModelObject

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.verification.paypal.intro
+package com.asfoundation.wallet.verification.paypal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,14 +18,14 @@ import com.asfoundation.wallet.verification.credit_card.intro.VerificationIntroM
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
 
-class VerificationPaypalIntroFragment : BasePageViewFragment(),
+class VerificationPaypalFragment : BasePageViewFragment(),
     SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
 
   @Inject
-  lateinit var viewModelFactory: VerificationPaypalIntroViewModelFactory
+  lateinit var viewModelFactory: VerificationPaypalViewModelFactory
 
   @Inject
-  lateinit var navigator: VerificationPaypalIntroNavigator
+  lateinit var navigator: VerificationPaypalNavigator
 
   private val viewModel: VerificationPaypalIntroViewModel by viewModels { viewModelFactory }
 
@@ -151,6 +151,6 @@ class VerificationPaypalIntroFragment : BasePageViewFragment(),
 
   companion object {
     @JvmStatic
-    fun newInstance() = VerificationPaypalIntroFragment()
+    fun newInstance() = VerificationPaypalFragment()
   }
 }

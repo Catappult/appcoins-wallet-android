@@ -1,12 +1,12 @@
-package com.asfoundation.wallet.verification.paypal.intro
+package com.asfoundation.wallet.verification.paypal
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 
-class VerificationPaypalIntroViewModelFactory(
-    private val data: VerificationPaypalIntroData,
+class VerificationPaypalViewModelFactory(
+    private val data: VerificationPaypalData,
     private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
     private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase
 ) : ViewModelProvider.Factory {

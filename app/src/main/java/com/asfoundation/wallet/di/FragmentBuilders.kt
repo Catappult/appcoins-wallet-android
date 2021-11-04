@@ -101,8 +101,8 @@ import com.asfoundation.wallet.verification.credit_card.error.VerificationErrorF
 import com.asfoundation.wallet.verification.credit_card.error.VerificationErrorModule
 import com.asfoundation.wallet.verification.credit_card.intro.VerificationIntroFragment
 import com.asfoundation.wallet.verification.credit_card.intro.VerificationIntroModule
-import com.asfoundation.wallet.verification.paypal.intro.VerificationPaypalIntroFragment
-import com.asfoundation.wallet.verification.paypal.intro.VerificationPaypalIntroModule
+import com.asfoundation.wallet.verification.paypal.VerificationPaypalFragment
+import com.asfoundation.wallet.verification.paypal.VerificationPaypalModule
 import com.asfoundation.wallet.withdraw.ui.WithdrawFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -299,8 +299,8 @@ abstract class FragmentBuilders {
   abstract fun bindVerificationErrorFragment(): VerificationErrorFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(modules = [VerificationPaypalIntroModule::class])
-  abstract fun bindVerificationPaypalFragment(): VerificationPaypalIntroFragment
+  @ContributesAndroidInjector(modules = [VerificationPaypalModule::class])
+  abstract fun bindVerificationPaypalFragment(): VerificationPaypalFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [SkillsModule::class])

@@ -33,7 +33,7 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
-import com.asfoundation.wallet.verification.credit_card.VerificationRepository
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase

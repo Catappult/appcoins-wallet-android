@@ -7,8 +7,8 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.verification.credit_card.VerificationAnalytics
-import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers

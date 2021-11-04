@@ -8,8 +8,8 @@ import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 

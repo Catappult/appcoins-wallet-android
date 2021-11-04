@@ -2,6 +2,7 @@ package com.asfoundation.wallet.verification.credit_card
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.verification.credit_card.network.VerificationStatus
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import io.reactivex.Single
 
 class VerificationCreditCardActivityInteractor(

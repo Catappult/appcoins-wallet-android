@@ -4,8 +4,8 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.appcoins.wallet.billing.util.Error
-import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import io.reactivex.Single
 
 class VerificationCodeInteractor(

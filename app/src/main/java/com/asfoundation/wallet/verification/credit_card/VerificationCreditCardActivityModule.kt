@@ -2,6 +2,7 @@ package com.asfoundation.wallet.verification.credit_card
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.verification.credit_card.VerificationCreditCardActivity.Companion.IS_WALLET_VERIFIED
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers

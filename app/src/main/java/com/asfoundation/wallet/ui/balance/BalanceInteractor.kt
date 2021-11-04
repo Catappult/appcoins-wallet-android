@@ -8,9 +8,9 @@ import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.credit_card.network.VerificationStatus
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import io.reactivex.*
 import io.reactivex.annotations.Nullable
 import io.reactivex.functions.Function3

@@ -5,6 +5,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.verification.credit_card.network.VerificationStatus
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 

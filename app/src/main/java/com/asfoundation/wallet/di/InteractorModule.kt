@@ -82,8 +82,8 @@ import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
-import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.wallets.FetchWalletsInteract

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.verification.credit_card.code
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.verification.credit_card.*
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers

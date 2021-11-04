@@ -3,7 +3,6 @@ package com.asfoundation.wallet.verification.paypal
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.verification.paypal.intro.VerificationPaypalIntroFragment
 import dagger.android.AndroidInjection
 
 class VerificationPaypalActivity : BaseActivity() {
@@ -18,7 +17,7 @@ class VerificationPaypalActivity : BaseActivity() {
 
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            VerificationPaypalIntroFragment.newInstance())
+            VerificationPaypalFragment.newInstance())
         .commit()
   }
 }

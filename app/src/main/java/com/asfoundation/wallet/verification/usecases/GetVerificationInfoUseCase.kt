@@ -6,9 +6,9 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.intro.VerificationInfoModel
 import com.asfoundation.wallet.verification.credit_card.intro.VerificationIntroModel
+import com.asfoundation.wallet.verification.repository.VerificationRepository
 import io.reactivex.Single
 
 class GetVerificationInfoUseCase(

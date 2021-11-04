@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.verification.paypal.intro
+package com.asfoundation.wallet.verification.paypal
 
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.base.*
@@ -18,7 +18,7 @@ data class VerificationPaypalIntroState(
 ) : ViewState
 
 class VerificationPaypalIntroViewModel(
-    private val data: VerificationPaypalIntroData,
+    private val data: VerificationPaypalData,
     private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
     private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
 ) : BaseViewModel<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect>(initialState()) {

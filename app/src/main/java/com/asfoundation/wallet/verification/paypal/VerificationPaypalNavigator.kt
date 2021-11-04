@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.verification.paypal.intro
+package com.asfoundation.wallet.verification.paypal
 
 import android.content.Intent
 import androidx.activity.result.ActivityResult
@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 
-class VerificationPaypalIntroNavigator(private val fragment: VerificationPaypalIntroFragment) :
+class VerificationPaypalNavigator(private val fragment: VerificationPaypalFragment) :
     Navigator, DefaultLifecycleObserver {
 
   private lateinit var paymentResultLauncher: ActivityResultLauncher<Intent>
