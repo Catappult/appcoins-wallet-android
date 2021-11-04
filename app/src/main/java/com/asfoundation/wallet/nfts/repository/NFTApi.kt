@@ -13,7 +13,7 @@ interface NftApi {
 data class NftAssetResponse(
     @SerializedName("id") val id: String,
     @SerializedName("token_id") val tokenId: String,
-    @SerializedName("image_preview_url") val imagePreviewUrl: String,
+    @SerializedName("image_preview_url") val imagePreviewUrl: String?,
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String,
     @SerializedName("contract_address") val contractAddress: String

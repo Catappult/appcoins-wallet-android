@@ -48,7 +48,7 @@ class NFTDetailsFragment : BasePageViewFragment() ,
     setListeners()
   }
 
-  fun ImageView.load(url: String, onLoadingFinished: () -> Unit = {}) {
+  fun ImageView.load(url: String?, onLoadingFinished: () -> Unit = {}) {
     val listener = object : RequestListener<Drawable> {
       override fun onLoadFailed(
         e: GlideException?,
