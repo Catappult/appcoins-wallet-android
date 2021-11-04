@@ -5,7 +5,7 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
-import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import io.reactivex.Completable
 
 /**

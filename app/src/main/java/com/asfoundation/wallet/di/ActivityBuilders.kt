@@ -23,9 +23,9 @@ import com.asfoundation.wallet.ui.onboarding.OnboardingModule
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.ui.splash.SplashModule
-import com.asfoundation.wallet.verification.credit_card.VerificationCreditCardActivity
-import com.asfoundation.wallet.verification.credit_card.VerificationCreditCardActivityModule
-import com.asfoundation.wallet.verification.paypal.VerificationPaypalActivity
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityModule
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

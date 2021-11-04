@@ -138,7 +138,7 @@
 
   <activity
       android:id="@+id/verify_credit_card_wallet_activity"
-      android:name="com.asfoundation.wallet.verification.credit_card.VerificationCreditCardActivity"
+      android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
       tools:layout="@layout/activity_wallet_verification">
     <argument
         android:name="is_wallet_verified"
@@ -146,7 +146,7 @@
   </activity>
   <activity
       android:id="@+id/verify_paypal_wallet_activity"
-      android:name="com.asfoundation.wallet.verification.paypal.VerificationPaypalActivity"
+      android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
       tools:layout="@layout/activity_wallet_paypal_verification" />
   <activity
       android:id="@+id/restore_wallet_activity"

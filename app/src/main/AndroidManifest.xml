@@ -263,11 +263,11 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating" />
 
     <activity
-        android:name="com.asfoundation.wallet.verification.credit_card.VerificationCreditCardActivity"
+        android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
         android:label="@string/verification_settings_unverified_title"
         android:windowSoftInputMode="stateHidden" />
     <activity
-        android:name="com.asfoundation.wallet.verification.paypal.VerificationPaypalActivity"
+        android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
         android:label="@string/verification_settings_unverified_title"
         android:windowSoftInputMode="stateHidden" />
     <activity

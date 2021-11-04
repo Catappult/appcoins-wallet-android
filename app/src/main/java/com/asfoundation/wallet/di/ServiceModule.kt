@@ -44,8 +44,8 @@ import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.DeviceInfo
-import com.asfoundation.wallet.verification.credit_card.network.BrokerVerificationApi
-import com.asfoundation.wallet.verification.credit_card.network.VerificationApi
+import com.asfoundation.wallet.verification.ui.credit_card.network.BrokerVerificationApi
+import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract

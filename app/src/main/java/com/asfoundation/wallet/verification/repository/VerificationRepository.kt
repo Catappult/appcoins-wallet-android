@@ -4,9 +4,9 @@ import android.content.SharedPreferences
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.*
 import com.asfoundation.wallet.util.isNoNetworkException
-import com.asfoundation.wallet.verification.credit_card.network.BrokerVerificationApi
-import com.asfoundation.wallet.verification.credit_card.network.VerificationApi
-import com.asfoundation.wallet.verification.credit_card.network.VerificationStatus
+import com.asfoundation.wallet.verification.ui.credit_card.network.BrokerVerificationApi
+import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationApi
+import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
