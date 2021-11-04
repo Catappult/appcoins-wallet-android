@@ -6,13 +6,14 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.intro.VerificationInfoModel
 import com.asfoundation.wallet.verification.credit_card.intro.VerificationIntroModel
 import io.reactivex.Single
 
 class GetVerificationInfoUseCase(
     private val walletService: WalletService,
-    private val adyenPaymentRepository: AdyenPaymentRepository,
+    private val verificationRepository: VerificationRepository,
     private val adyenPaymentInteractor: AdyenPaymentInteractor,
     private val rxSchedulers: RxSchedulers
 ) {
@@ -20,7 +21,7 @@ class GetVerificationInfoUseCase(
   operator fun invoke(method: AdyenPaymentRepository.Methods): Single<VerificationIntroModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { walletModel ->
-          adyenPaymentRepository.getVerificationInfo(walletModel.address, walletModel.signedAddress)
+          verificationRepository.getVerificationInfo(walletModel.address, walletModel.signedAddress)
         }
         .flatMap { verificationInfo ->
           adyenPaymentInteractor.loadPaymentInfo(method, verificationInfo.value,

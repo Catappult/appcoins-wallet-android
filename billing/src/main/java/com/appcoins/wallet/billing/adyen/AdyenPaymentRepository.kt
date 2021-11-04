@@ -59,31 +59,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     }
   }
 
-  fun makeCreditCardVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                                        returnUrl: String, walletAddress: String,
-                                        walletSignature: String): Single<VerificationPaymentModel> {
-    return adyenApi.makeCreditCardVerificationPayment(walletAddress, walletSignature,
-        VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
-        .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
-  }
-
-  fun makePaypalVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                                    returnUrl: String, walletAddress: String,
-                                    walletSignature: String): Single<VerificationPaymentModel> {
-    return adyenApi.makePaypalVerificationPayment(walletAddress, walletSignature,
-        VerificationPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl))
-        .map { adyenResponseMapper.mapVerificationPaymentModelSuccess(it) }
-        .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
-  }
-
-  fun validateCode(code: String, walletAddress: String,
-                   walletSignature: String): Single<VerificationCodeResult> {
-    return adyenApi.validateCode(walletAddress, walletSignature, code)
-        .toSingle { VerificationCodeResult(true) }
-        .onErrorReturn { adyenResponseMapper.mapVerificationCodeError(it) }
-  }
-
   fun submitRedirect(uid: String, walletAddress: String, walletSignature: String,
                      details: JsonObject, paymentData: String?): Single<PaymentModel> {
     return adyenApi.submitRedirect(uid, walletAddress, walletSignature,
@@ -97,11 +72,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
         .toSingleDefault(true)
         .doOnError { it.printStackTrace() }
         .onErrorReturn { false }
-  }
-
-  fun getVerificationInfo(walletAddress: String,
-                          signedWalletAddress: String): Single<VerificationInfoResponse> {
-    return adyenApi.getVerificationInfo(walletAddress, signedWalletAddress)
   }
 
   fun getTransaction(uid: String, walletAddress: String,
@@ -145,28 +115,6 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
     @POST("disable-recurring")
     fun disablePayments(@Body wallet: DisableWallet): Completable
-
-    @GET("verification/info")
-    fun getVerificationInfo(@Query("wallet.address") walletAddress: String,
-                            @Query("wallet.signature")
-                            walletSignature: String): Single<VerificationInfoResponse>
-
-    @POST("verification/generate")
-    fun makePaypalVerificationPayment(@Query("wallet.address") walletAddress: String,
-                                      @Query("wallet.signature") walletSignature: String,
-                                      @Body
-                                      verificationPayment: VerificationPayment): Single<AdyenTransactionResponse>
-
-    @POST("verification/generate")
-    fun makeCreditCardVerificationPayment(@Query("wallet.address") walletAddress: String,
-                                          @Query("wallet.signature") walletSignature: String,
-                                          @Body
-                                          verificationPayment: VerificationPayment): Completable
-
-    @POST("verification/validate")
-    fun validateCode(@Query("wallet.address") walletAddress: String,
-                     @Query("wallet.signature") walletSignature: String,
-                     @Body code: String): Completable
   }
 
   data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,

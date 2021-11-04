@@ -550,10 +550,8 @@ class InteractorModule {
   @Singleton
   @Provides
   fun providesWalletVerificationInteractor(verificationRepository: VerificationRepository,
-                                           adyenPaymentRepository: AdyenPaymentRepository,
                                            walletService: WalletService): WalletVerificationInteractor {
-    return WalletVerificationInteractor(verificationRepository, adyenPaymentRepository,
-        walletService)
+    return WalletVerificationInteractor(verificationRepository, walletService)
   }
 
   @Provides

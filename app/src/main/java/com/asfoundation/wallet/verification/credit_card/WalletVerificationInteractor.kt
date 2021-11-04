@@ -2,7 +2,6 @@ package com.asfoundation.wallet.verification.credit_card
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.verification.credit_card.network.VerificationStatus
@@ -10,7 +9,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 class WalletVerificationInteractor(private val verificationRepository: VerificationRepository,
-                                   private val adyenPaymentRepository: AdyenPaymentRepository,
                                    private val walletService: WalletService) {
 
   enum class VerificationType { PAYPAL, CREDIT_CARD }
@@ -40,11 +38,11 @@ class WalletVerificationInteractor(private val verificationRepository: Verificat
         .flatMap { addressModel ->
           when (verificationType) {
             VerificationType.PAYPAL -> {
-              adyenPaymentRepository.makePaypalVerificationPayment(adyenPaymentMethod,
+              verificationRepository.makePaypalVerificationPayment(adyenPaymentMethod,
                   shouldStoreMethod, returnUrl, addressModel.address, addressModel.signedAddress)
             }
             VerificationType.CREDIT_CARD -> {
-              adyenPaymentRepository.makeCreditCardVerificationPayment(adyenPaymentMethod,
+              verificationRepository.makeCreditCardVerificationPayment(adyenPaymentMethod,
                   shouldStoreMethod, returnUrl, addressModel.address, addressModel.signedAddress)
                   .doOnSuccess { paymentModel ->
                     if (paymentModel.success) {
@@ -60,7 +58,7 @@ class WalletVerificationInteractor(private val verificationRepository: Verificat
   internal fun confirmVerificationCode(code: String): Single<VerificationCodeResult> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { addressModel ->
-          adyenPaymentRepository.validateCode(code, addressModel.address,
+          verificationRepository.validateCode(code, addressModel.address,
               addressModel.signedAddress)
               .doOnSuccess { result ->
                 if (result.success) {

@@ -2,12 +2,12 @@ package com.asfoundation.wallet.verification.credit_card.intro
 
 import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.verification.credit_card.VerificationAnalytics
+import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
 import dagger.Module
 import dagger.Provides
@@ -37,12 +37,12 @@ class VerificationIntroModule {
   }
 
   @Provides
-  fun provideWalletVerificationIntroInteractor(adyenPaymentRepository: AdyenPaymentRepository,
+  fun provideWalletVerificationIntroInteractor(verificationRepository: VerificationRepository,
                                                adyenPaymentInteractor: AdyenPaymentInteractor,
                                                walletService: WalletService,
                                                supportInteractor: SupportInteractor,
                                                walletVerificationInteractor: WalletVerificationInteractor): VerificationIntroInteractor {
-    return VerificationIntroInteractor(adyenPaymentRepository, adyenPaymentInteractor,
+    return VerificationIntroInteractor(verificationRepository, adyenPaymentInteractor,
         walletService, supportInteractor, walletVerificationInteractor)
   }
 

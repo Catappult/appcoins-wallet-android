@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.verification.paypal.intro
 
 import com.adyen.checkout.redirect.RedirectComponent
-import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
+import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -19,10 +19,10 @@ class VerificationPaypalIntroModule {
   fun provideVerificationPaypalIntroViewModelFactory(
       data: VerificationPaypalIntroData,
       getVerificationInfoUseCase: GetVerificationInfoUseCase,
-      walletVerificationInteractor: WalletVerificationInteractor
+      makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase
   ): VerificationPaypalIntroViewModelFactory {
     return VerificationPaypalIntroViewModelFactory(data, getVerificationInfoUseCase,
-        walletVerificationInteractor)
+        makeVerificationPaymentUseCase)
   }
 
   @Provides

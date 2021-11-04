@@ -128,9 +128,11 @@
       tools:layout="@layout/fragment_verify_picker">
     <action
         android:id="@+id/action_navigate_to_verify_card"
+        app:popUpTo="@id/my_wallets_fragment"
         app:destination="@id/verify_credit_card_wallet_activity" />
     <action
         android:id="@+id/action_navigate_to_verify_paypal"
+        app:popUpTo="@id/my_wallets_fragment"
         app:destination="@id/verify_paypal_wallet_activity" />
   </dialog>
 

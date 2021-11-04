@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.biometric.BiometricManager
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
@@ -34,7 +33,9 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
+import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
+import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import dagger.Module
 import dagger.Provides
@@ -265,10 +266,17 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesGetVerificationInfoUseCase(walletService: WalletService,
-                                         adyenPaymentRepository: AdyenPaymentRepository,
+                                         verificationRepository: VerificationRepository,
                                          adyenPaymentInteractor: AdyenPaymentInteractor,
                                          rxSchedulers: RxSchedulers): GetVerificationInfoUseCase {
-    return GetVerificationInfoUseCase(walletService, adyenPaymentRepository, adyenPaymentInteractor,
+    return GetVerificationInfoUseCase(walletService, verificationRepository, adyenPaymentInteractor,
         rxSchedulers)
+  }
+
+  @Singleton
+  @Provides
+  fun providesMakeVerificationPaymentUseCase(walletService: WalletService,
+                                             verificationRepository: VerificationRepository): MakeVerificationPaymentUseCase {
+    return MakeVerificationPaymentUseCase(verificationRepository, walletService)
   }
 }

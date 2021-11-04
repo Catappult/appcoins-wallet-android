@@ -5,6 +5,7 @@ import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
+import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import io.reactivex.schedulers.Schedulers
 
 sealed class VerificationPaypalIntroSideEffect : SideEffect {
@@ -19,7 +20,7 @@ data class VerificationPaypalIntroState(
 class VerificationPaypalIntroViewModel(
     private val data: VerificationPaypalIntroData,
     private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
-    private val walletVerificationInteractor: WalletVerificationInteractor,
+    private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
 ) : BaseViewModel<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect>(initialState()) {
 
   companion object {
@@ -41,9 +42,8 @@ class VerificationPaypalIntroViewModel(
   fun launchVerificationPayment() {
     val paymentMethod = state.verificationInfoAsync.value?.paymentInfoModel?.paymentMethodInfo
     if (paymentMethod != null) {
-      walletVerificationInteractor.makeVerificationPayment(
-          WalletVerificationInteractor.VerificationType.PAYPAL, paymentMethod, false,
-          data.returnUrl)
+      makeVerificationPaymentUseCase(WalletVerificationInteractor.VerificationType.PAYPAL,
+          paymentMethod, false, data.returnUrl)
           .subscribeOn(Schedulers.io())
           .doOnSuccess { model ->
             val redirectUrl = model.redirectUrl

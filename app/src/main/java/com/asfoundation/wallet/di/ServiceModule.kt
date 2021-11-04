@@ -44,8 +44,8 @@ import com.asfoundation.wallet.topup.TopUpValuesService
 import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.DeviceInfo
+import com.asfoundation.wallet.verification.credit_card.network.BrokerVerificationApi
 import com.asfoundation.wallet.verification.credit_card.network.VerificationApi
-import com.asfoundation.wallet.verification.credit_card.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
@@ -564,15 +564,15 @@ class ServiceModule {
   @Provides
   fun provideWalletValidationApi(@Named("default") client: OkHttpClient,
                                  gson: Gson
-  ): VerificationStateApi {
-    val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20200810/gateways/adyen_v2/"
+  ): BrokerVerificationApi {
+    val baseUrl = BuildConfig.BASE_HOST + "/broker/8.20211101/gateways/adyen_v2/"
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(VerificationStateApi::class.java)
+        .create(BrokerVerificationApi::class.java)
   }
 
   @Singleton

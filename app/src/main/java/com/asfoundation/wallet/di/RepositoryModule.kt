@@ -68,8 +68,8 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPreferencesRepository
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.verification.credit_card.VerificationRepository
+import com.asfoundation.wallet.verification.credit_card.network.BrokerVerificationApi
 import com.asfoundation.wallet.verification.credit_card.network.VerificationApi
-import com.asfoundation.wallet.verification.credit_card.network.VerificationStateApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
@@ -142,10 +142,17 @@ class RepositoryModule {
 
   @Singleton
   @Provides
+  fun provideAdyenResponseMapper(gson: Gson,
+                                 billingErrorMapper: BillingErrorMapper): AdyenResponseMapper {
+    return AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer())
+  }
+
+  @Singleton
+  @Provides
   fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient,
+                                    adyenResponseMapper: AdyenResponseMapper,
                                     bdsApi: RemoteRepository.BdsApi,
-                                    subscriptionBillingApi: SubscriptionBillingApi, gson: Gson,
-                                    billingErrorMapper: BillingErrorMapper): AdyenPaymentRepository {
+                                    subscriptionBillingApi: SubscriptionBillingApi): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
@@ -153,15 +160,14 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AdyenApi::class.java)
-    return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi,
-        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()))
+    return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi, adyenResponseMapper)
   }
 
   @Singleton
   @Provides
   fun provideSkillsPaymentRepository(
-      @Named("default") client: OkHttpClient, gson: Gson,
-      billingErrorMapper: BillingErrorMapper): SkillsPaymentRepository {
+      @Named("default") client: OkHttpClient,
+      adyenResponseMapper: AdyenResponseMapper): SkillsPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20210201/gateways/adyen_v2/")
         .client(client)
@@ -169,8 +175,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SkillsPaymentRepository.AdyenApi::class.java)
-    return SkillsPaymentRepository(api,
-        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()))
+    return SkillsPaymentRepository(api, adyenResponseMapper)
   }
 
   @Singleton
@@ -375,10 +380,12 @@ class RepositoryModule {
   @Provides
   fun provideWalletVerificationRepository(
       verificationApi: VerificationApi,
-      verificationStateApi: VerificationStateApi,
+      brokerVerificationApi: BrokerVerificationApi,
+      adyenResponseMapper: AdyenResponseMapper,
       sharedPreferences: SharedPreferences
   ): VerificationRepository {
-    return VerificationRepository(verificationApi, verificationStateApi, sharedPreferences)
+    return VerificationRepository(verificationApi, brokerVerificationApi, adyenResponseMapper,
+        sharedPreferences)
   }
 
   @Singleton

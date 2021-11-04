@@ -8,12 +8,13 @@ import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.verification.credit_card.VerificationRepository
 import com.asfoundation.wallet.verification.credit_card.WalletVerificationInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
 
 class VerificationIntroInteractor(
-    private val adyenPaymentRepository: AdyenPaymentRepository,
+    private val verificationRepository: VerificationRepository,
     private val adyenPaymentInteractor: AdyenPaymentInteractor,
     private val walletService: WalletService,
     private val supportInteractor: SupportInteractor,
@@ -55,7 +56,7 @@ class VerificationIntroInteractor(
   private fun getVerificationInfo(): Single<VerificationInfoModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap {
-          adyenPaymentRepository.getVerificationInfo(it.address, it.signedAddress)
+          verificationRepository.getVerificationInfo(it.address, it.signedAddress)
               .map { info -> mapToVerificationInfoModel(info) }
         }
   }

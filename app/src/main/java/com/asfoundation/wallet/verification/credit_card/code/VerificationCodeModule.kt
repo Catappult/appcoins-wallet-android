@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.verification.credit_card.code
 
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.verification.credit_card.*
 import dagger.Module
@@ -37,9 +36,9 @@ class VerificationCodeModule {
   @Provides
   fun provideWalletVerificationCodeInteractor(
       walletVerificationInteractor: WalletVerificationInteractor,
-      adyenPaymentRepository: AdyenPaymentRepository,
+      verificationRepository: VerificationRepository,
       walletService: WalletService): VerificationCodeInteractor {
-    return VerificationCodeInteractor(walletVerificationInteractor, adyenPaymentRepository,
+    return VerificationCodeInteractor(walletVerificationInteractor, verificationRepository,
         walletService)
   }
 
