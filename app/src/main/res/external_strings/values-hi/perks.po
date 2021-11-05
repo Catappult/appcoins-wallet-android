@@ -5,12 +5,12 @@ msgstr ""
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: hi\n"
 "X-Crowdin-File: /[Catappult.appcoins-wallet-android] translations_update/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 4700\n"
+"X-Crowdin-File-ID: 5323\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Hindi\n"
 "Language: hi_IN\n"
-"PO-Revision-Date: 2021-08-24 10:53\n"
+"PO-Revision-Date: 2021-11-05 15:52\n"
 
 #. Card Title
 #:
