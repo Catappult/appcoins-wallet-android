@@ -963,7 +963,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_know_more_about_tmp">sie können nur das Guthaben abheben dass sie in e-Skill Spielen verdient haben</string>
   <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Maybe later</string>
