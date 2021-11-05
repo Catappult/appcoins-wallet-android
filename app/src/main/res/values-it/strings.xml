@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Salta &gt;</string>
   <string name="root_title">SICUREZZA DISPOSITIVO COMPROMESSA</string>
   <string name="root_body">Qualsiasi app \'con permesso di root\' può accedere ai dati portachiavi di AppCoin Wallet e rubare il tuo portafoglio! Cancella immediatamente questo portafoglio e ripristinalo su un dispositivo sicuro.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s crediti APPC</string>
   <string name="buying">Acquisto di %s</string>
   <string name="action_buy">Acquista</string>
   <string name="empty"></string>
