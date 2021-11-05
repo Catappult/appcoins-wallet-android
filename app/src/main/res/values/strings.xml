@@ -521,7 +521,7 @@
   <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
   <string name="verification_settings_verified_title">Wallet Verified</string>
   <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">Verify Now</string>
   <string name="verification_settings_card_verified_title">Card Verified</string>
   <string name="verification_settings_no_internet">You need to be connected to the internet</string>

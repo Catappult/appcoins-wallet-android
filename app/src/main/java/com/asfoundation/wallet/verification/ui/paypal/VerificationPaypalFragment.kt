@@ -16,6 +16,8 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.Error
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
@@ -28,6 +30,9 @@ class VerificationPaypalFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: VerificationPaypalNavigator
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   private val viewModel: VerificationPaypalViewModel by viewModels { viewModelFactory }
 
@@ -72,7 +77,7 @@ class VerificationPaypalFragment : BasePageViewFragment(),
     when (verificationInfoAsync) {
       Async.Uninitialized,
       is Async.Loading -> showLoading()
-      is Async.Success -> showVerificationInfo()
+      is Async.Success -> showVerificationInfo(verificationInfoAsync())
       is Async.Fail -> setError(verificationInfoAsync.error)
     }
   }
@@ -102,7 +107,11 @@ class VerificationPaypalFragment : BasePageViewFragment(),
     views.progressBar.visibility = View.VISIBLE
   }
 
-  private fun showVerificationInfo() {
+  private fun showVerificationInfo(verificationIntroModel: VerificationIntroModel) {
+    val amount = formatter.formatCurrency(verificationIntroModel.verificationInfoModel.value,
+        WalletCurrency.FIAT)
+    views.paypalVerifyDescription.text = getString(R.string.verification_verify_paypal_description,
+        "${verificationIntroModel.verificationInfoModel.symbol}$amount")
     hideAll()
     views.paypalGraphic.visibility = View.VISIBLE
     views.verifyGraphic.visibility = View.VISIBLE
