@@ -29,7 +29,7 @@
       android:layout_marginStart="56dp"
       android:layout_marginTop="@dimen/backup_success_text_margin_top"
       android:layout_marginEnd="56dp"
-      android:text="@string/verification_settings_verified_title"
+      android:text="@string/activity_iab_transaction_completed_title"
       app:layout_constraintBottom_toTopOf="@id/description"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
