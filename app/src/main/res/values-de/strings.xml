@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Überspringen &gt;</string>
   <string name="root_title">GERÄTESICHERHEIT WURDE KOMPROMITTIERT</string>
   <string name="root_body">Jede App mit Root-Rechten kann auf die Keychain_Daten ihres AppCoins Wallets zugreifen und ihr Wallet entwenden! Entfernen Sie dieses Wallet sofort und stellen Sie sie auf einem sicheren Gerät wieder her.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s -APPC-Credits</string>
   <string name="buying">Kaufen %s</string>
   <string name="action_buy">Kaufen</string>
   <string name="empty"></string>
