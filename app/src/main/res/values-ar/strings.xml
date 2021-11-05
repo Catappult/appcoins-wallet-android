@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">تخطي &gt;</string>
   <string name="root_title">أمان الجهاز معرض خطر</string>
   <string name="root_body">يمكن لأي تطبيق الوصول إلى بيانات سلسلة المفاتيح الخاصة بمحفظة الأبكوينز وسرقة محفظتك! امسح هذه المحفظة حالًا واستعدها على جهاز آمن.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">رصيد %s APPC</string>
   <string name="buying">شراء %s</string>
   <string name="action_buy">شراء</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">شيفرة QR لا تحتوي على عنوان صالح</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">محفظة AppCoins</string>
   <string name="intro_title_second_page"><![CDATA[خاص ومُؤمَّن]]></string>
   <string name="intro_title_third_page">بسيط &amp; سهل</string>
   <string name="intro_message_first_page">مرحبًا بك في ثورة اقتصاد التطبيقات.</string>
   <string name="intro_message_second_page">المفاتيح الخاصة لا تفارق جهازك أبدًا.</string>
   <string name="intro_message_third_page">نفّذ جميع عمليات الدفع داخل التطبيق والمكافآت بواسطة APPC.</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">محفظة AppCoins</string>
   <string name="intro_1_body">تطبيقك للشراء داخل التطبيقات.</string>
   <string name="intro_2_title">العب أكثر، ادفع أقل</string>
   <string name="intro_2_body">احصل على المكافآت عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
@@ -237,6 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">تحويل</string>
   <string name="transaction_type_bonus">علاوة</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_voucher">قسيمة إلكترونية</string>
   <string name="transaction_type_voucher_title">القسيمة لـ %s</string>
   <string name="transaction_type_reverted_bonus_title">مكافأة راجعة</string>
@@ -276,7 +277,7 @@
   <string name="activity_airdrop_success_message">اكتمل الـ Airdrop</string>
   <string name="activity_airdrop_generic_error_message">حدث خطأ</string>
   <string name="notification_generic_error">@string/unknown_error</string>
-  <string name="iab_activity_micro_raiden_wallet">Wallet</string>
+  <string name="iab_activity_micro_raiden_wallet">محفظة</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
@@ -995,8 +996,14 @@
   <string name="e_skills_withdraw_invalid_email_error_message">بريد إلكتروني غير صالح</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">رصيد غير كافٍ</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">يمكنك فقط سحب أموالك التي كسبتها في ألعاب e-Skills</string>
-  <string name="e_skills_withdraw_max_amount">الحد الأعلى. المبلغ الذي يمكنك سحبه: %s</string>
-  <string name="e_skills_more_info_button">معلومات إضافية.</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">يمكنك فقط سحب أموالك التي كسبتها في ألعاب e-Skills</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">رمز ترويجي</string>
   <string name="promo_code_view_title">رمز ترويجي</string>
