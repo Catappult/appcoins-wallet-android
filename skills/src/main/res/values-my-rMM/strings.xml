@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
-  <string name="processing_loading_title">သင့္ဝင္ေရာက္ခြင့္ လက္မွတ္ကို ရယူေနပါသည္</string>
-  <string name="finding_room_loading_title">ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
-  <string name="finding_room_loading_message">အခ်ိန္အနည္းငယ္ ၾကာႏိုင္ပါသည္…</string>
-  <string name="refunded">သင့္ေငြကို ျပန္အမ္းေပးလိုက္ပါသည္။</string>
-  <string name="ok">အိုေက</string>
-  <string name="cancel">ပယ္ဖ်က္မည္</string>
-  <string name="connectoin_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
+  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
+  <string name="processing_loading_title">Getting your entry ticket</string>
+  <string name="finding_room_loading_title">Waiting for opponents</string>
+  <string name="finding_room_loading_message">This may take a while…</string>
+  <string name="refunded">Your money has been refunded.</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancel</string>
+  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="playing_game_notification_title">Currently playing e-Skills</string>
+  <string name="playing_game_notification_body">Getting game info…</string>
+  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="dismiss_button">Dismiss</string>
 </resources>
