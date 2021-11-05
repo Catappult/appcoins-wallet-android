@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">跳过&gt;</string>
   <string name="root_title">设备安全弱</string>
   <string name="root_body">任何“植根”应用可以访问AppCoins Wallet的密钥库数据和盗取你的钱包！立即擦除此钱包并在安全的设备上恢复。</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s APPC积金</string>
   <string name="buying">购买%s</string>
   <string name="action_buy">购买</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">二维码没有包含有效地址</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">AppCoins钱包</string>
   <string name="intro_title_second_page"><![CDATA[私密和安全]]></string>
   <string name="intro_title_third_page">简单易用</string>
   <string name="intro_message_first_page">欢迎体验应用经济的革命。</string>
   <string name="intro_message_second_page">私钥永远不会离开你的设备。</string>
   <string name="intro_message_third_page">在APPC中处理你的所有应用内付款和奖励。</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">AppCoins钱包</string>
   <string name="intro_1_body">应用内购买的应用。</string>
   <string name="intro_2_title">少花钱，多玩乐</string>
   <string name="intro_2_body">在你最喜爱的应用和游戏中购买物品即可获得奖励。</string>
