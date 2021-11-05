@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins 지갑</string>
   <string name="title_send">전송</string>
   <string name="title_send_with_token">%s 전송</string>
   <string name="title_request">수신</string>
@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">건너띄기 &gt;</string>
   <string name="root_title">손상된 장치 보안</string>
   <string name="root_body">\'루팅\' 앱은 AppCoins Wallet의 키체인 데이터에 접근할 수 있으며 지갑을 도난 당할 수 있습니다! 이 지갑을 곧 삭제하시고 안전한 기기에서 복원하십시오.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s APPC 크레딧</string>
   <string name="buying">%s 구매</string>
   <string name="action_buy">구매</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">QR 코드에 유효한 주소가 없습니다</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">AppCoins 지갑</string>
   <string name="intro_title_second_page"><![CDATA[비밀 & 보안]]></string>
   <string name="intro_title_third_page">간단하고 쉬움</string>
   <string name="intro_message_first_page">앱 경제의 혁명에 오신것을 환영합니다.</string>
   <string name="intro_message_second_page">비밀 키는 귀하의 기기에서 절대 떠나지 않습니다.</string>
   <string name="intro_message_third_page">귀하의 모든 앱내 지불과 APPC 보상 처리.</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">AppCoins 지갑</string>
   <string name="intro_1_body">앱 내 구매 내역</string>
   <string name="intro_2_title">더 많이 플레이, 보다 적은 지불</string>
   <string name="intro_2_body">좋아하는 앱과 게임에서 아이템을 구매하여 보상을 받으세요.</string>
