@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">ਛੱਡੋ &gt;</string>
   <string name="root_title">ਡਿਵਾਈਸ ਸੁਰੱਖਿਆ ਨੂੰ ਕੰਪ੍ਰਾਮਾਇਜ਼ ਕੀਤਾ ਗਿਆ</string>
   <string name="root_body">ਕੋਈ ਵੀ \'ਰੂਟਿਡ\' ਐਪ ਐਪ ਕੋਆਈਨ ਬਟੂਏ ਦੇ ਕੀਚੈਨ ਡਾਟਾ ਤੱਕ ਪਹੁੰਚ ਸਕਦੀ ਹੈ ਅਤੇ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਚੋਰੀ ਕਰ ਸਕਦੀ ਹੈ! ਇਸ ਬਟੂਏ ਨੂੰ ਤੁਰੰਤ ਖਾਲੀ ਕਰੋ ਅਤੇ ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਤੇ ਰੀਸਟੋਰ ਕਰੋ|</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
   <string name="buying">%s ਖ਼ਰੀਦਣਾ</string>
   <string name="action_buy">ਖਰੀਦੋ</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">QR ਕੋਡ ਵਿੱਚ ਇੱਕ ਸਹੀ ਪਤਾ ਨਹੀਂ ਹੈ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">ਐਪ ਸਿੱਕੇ ਬਟੂਆ</string>
   <string name="intro_title_second_page"><![CDATA[ਪ੍ਰਾਈਵੇਟ ਅਤੇ ਸੁਰੱਖਿਅਤ]]></string>
   <string name="intro_title_third_page">ਆਸਾਨ &amp; ਸੌਖਾ</string>
   <string name="intro_message_first_page">ਐਪ ਅਰਥ-ਵਿਵਸਥਾ ਦੀ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਸੁਆਗਤ ਹੈ|</string>
   <string name="intro_message_second_page">ਪ੍ਰਾਈਵੇਟ ਕੀ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਨੂੰ ਕਦੇ ਨਹੀਂ ਛੱਡਦੀਆਂ|</string>
   <string name="intro_message_third_page">ਏਪੀਪੀਸੀ ਵਿਚ ਆਪਣੇ ਇਨ-ਐਪ ਭੁਗਤਾਨ ਅਤੇ ਇਨਾਮਾਂ ਦੀ ਪ੍ਰਕਿਰਿਆ ਕਰੋ|</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">ਐਪ ਸਿੱਕੇ ਬਟੂਆ</string>
   <string name="intro_1_body">ਇਨ-ਐਪ ਖ਼ਰੀਦ ਲਈ ਤੁਹਾਡੀ ਐਪ|</string>
   <string name="intro_2_title">ਪੈਸੇ ਘੱਟ ਦਿਓ, ਖੇਡੋ ਜ਼ਿਆਦਾ</string>
   <string name="intro_2_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ ਆਈਟਮਾਂ ਖਰੀਦਣ ਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
