@@ -7,11 +7,11 @@
   <string name="refunded">你的金额已被退还。</string>
   <string name="ok">确定</string>
   <string name="cancel">取消</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connection_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
   <string name="finish_game_notification_title">Your e-Skills game has finished</string>
   <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">You lost… Better luck next time!</string>
-  <string name="dismiss_button">Dismiss</string>
+  <string name="dismiss_button">取消</string>
 </resources>
