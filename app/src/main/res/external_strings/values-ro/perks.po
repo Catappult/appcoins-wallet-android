@@ -5,12 +5,12 @@ msgstr ""
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: ro\n"
 "X-Crowdin-File: /[Catappult.appcoins-wallet-android] translations_update/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 4700\n"
+"X-Crowdin-File-ID: 5323\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Romanian\n"
 "Language: ro_RO\n"
-"PO-Revision-Date: 2021-10-18 14:47\n"
+"PO-Revision-Date: 2021-11-05 15:50\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Pentru că ai ajuns la nivelul următor."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Primești un Bonus suplimentar de {0}% la toate achizițiile tale în {1}, cu excepția cazului în care folosești AppCoins Credits."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
