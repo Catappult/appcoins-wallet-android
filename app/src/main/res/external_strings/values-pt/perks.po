@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2021-11-05 15:51\n"
+"PO-Revision-Date: 2021-11-05 17:56\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Porque chegaste ao próximo nível."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Recebe um Bónus extra de {0}% em todas as tuas compras em {1}, exceto quando usas AppCoins Credits."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
