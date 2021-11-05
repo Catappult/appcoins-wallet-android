@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Atla &gt;</string>
   <string name="root_title">CİHAZ GÜVENLİĞİ TEHLİKEDE</string>
   <string name="root_body">\"Root atılan\" herhangi bir uygulama AppCoin Cüzdanının anahtarlık verilerine erişip cüzdanınızı çalabilir! Bu cüzdanı hemen silin ve güvenli bir cihazda geri yükleyin.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s APPC Kredisi</string>
   <string name="buying">%s satın alınıyor</string>
   <string name="action_buy">Satın Al</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">QR kodu geçerli bir adres içermiyor</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">AppCoins Cüzdan</string>
   <string name="intro_title_second_page"><![CDATA[Özel ve Güvenli]]></string>
   <string name="intro_title_third_page">Basit ve Kolay</string>
   <string name="intro_message_first_page">Uygulama ekonomisinin evrimine hoş geldiniz.</string>
   <string name="intro_message_second_page">Özel anahtarlar cihazınızı asla bırakmaz.</string>
   <string name="intro_message_third_page">Tüm uygulama içi ödemelerinizi ve ödüllerinizi APPC cinsinden işleyin.</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">AppCoins Cüzdan</string>
   <string name="intro_1_body">Uygulama içi satın alma işlemleri uygulamanız.</string>
   <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
   <string name="intro_2_body">En sevdiğiniz uygulama ve oyunlarda ürün satın aldığınızda ödül kazanın.</string>
