@@ -237,6 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher for %s</string>
   <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
@@ -423,7 +424,7 @@
   <string name="discover_button">Discover</string>
   <string name="retry_button">Retry</string>
   <string name="do_it_later_button">Do it later</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <string name="common_or">OR</string>
   <string name="share_via">Share via:</string>
   <string name="password">Password</string>
@@ -976,8 +977,14 @@
   <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo Code</string>
   <string name="promo_code_view_title">Promo Code</string>
