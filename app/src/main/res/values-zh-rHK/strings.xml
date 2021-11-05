@@ -265,7 +265,7 @@
   <string name="dialog_credit_card_number">Card Number</string>
   <string name="dialog_credit_card_expiration">Expiration Date</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Expiry date</string>
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
