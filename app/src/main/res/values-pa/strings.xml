@@ -237,6 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_voucher">ਈ-ਵਾਊਚਰ</string>
   <string name="transaction_type_voucher_title">%s ਲਈ ਵਾਊਚਰ</string>
   <string name="transaction_type_reverted_bonus_title">ਵਾਪਸ ਕੀਤਾ ਬੋਨਸ</string>
@@ -958,8 +959,14 @@
   <string name="e_skills_withdraw_invalid_email_error_message">ਗਲਤ ਈ-ਮੇਲ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">ਲੋੜੀਂਦਾ ਬੈਲੰਸ ਨਹੀਂ</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">ਤੁਸੀਂ ਸਿਰਫ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ</string>
-  <string name="e_skills_withdraw_max_amount">ਅਧਿਕਤਮ ਰਕਮ ਜੋ ਤੁਸੀਂ ਕੱਢਵਾ ਸਕਦੇ ਹੋ: %s</string>
-  <string name="e_skills_more_info_button">ਹੋਰ ਜਾਣਕਾਰੀ</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
   <string name="promo_code_view_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
