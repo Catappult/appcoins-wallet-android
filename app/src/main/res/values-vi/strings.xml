@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">Mã QR không chứa địa chỉ hợp lệ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">Ví AppCoins</string>
   <string name="intro_title_second_page"><![CDATA[Riêng tư và An toàn]]></string>
   <string name="intro_title_third_page">Đơn giản và Dễ dàng</string>
   <string name="intro_message_first_page">Chào mừng bạn đến với cuộc cách mạng của nền kinh tế ứng dụng.</string>
   <string name="intro_message_second_page">Khóa cá nhân không bao giờ rời khỏi thiết bị của bạn.</string>
   <string name="intro_message_third_page">Xử lý tất cả các khoản thanh toán trong ứng dụng và phần thưởng của bạn bằng APPC.</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">Ví AppCoins</string>
   <string name="intro_1_body">Ứng dụng để mua hàng trong ứng dụng của bạn.</string>
   <string name="intro_2_title">Chơi nhiều hơn, trả ít hơn</string>
   <string name="intro_2_body">Nhận thưởng khi mua vật phẩm trong các ứng dụng và trò chơi yêu thích của bạn.</string>
