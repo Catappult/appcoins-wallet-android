@@ -7,5 +7,11 @@
   <string name="refunded">O teu dinheiro foi reembolsado.</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
-  <string name="connectoin_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
+  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="playing_game_notification_title">Currently playing e-Skills</string>
+  <string name="playing_game_notification_body">Getting game info…</string>
+  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="dismiss_button">Dismiss</string>
 </resources>
