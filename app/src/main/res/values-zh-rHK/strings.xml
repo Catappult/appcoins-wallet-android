@@ -237,6 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher for %s</string>
   <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
@@ -264,7 +265,7 @@
   <string name="dialog_credit_card_number">Card Number</string>
   <string name="dialog_credit_card_expiration">Expiration Date</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Expiry date</string>
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
@@ -444,7 +445,7 @@
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Contact Support Team</string>
   <string name="settings_subheader_support">Support</string>
   <string name="settings_subheader_about_us">About Us</string>
@@ -820,7 +821,7 @@
   <string name="carrier_billing_terms_button">Terms and Conditions</string>
   <string name="carrier_billing_privacy_button">Privacy Policy</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Manage cards</string>
   <string name="manage_cards_view_title">Manage cards</string>
   <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
@@ -895,7 +896,7 @@
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Use your credit/debit card to verify your wallet.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Check the code in the transaction details</string>
   <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
@@ -948,9 +949,15 @@
   <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo Code</string>
   <string name="promo_code_view_title">Promo Code</string>
@@ -966,7 +973,7 @@
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">About AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">什么是AppCoins？</string>
+  <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
   <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
   <string name="appcoins_info_title_2">What are AppCoins for?</string>
