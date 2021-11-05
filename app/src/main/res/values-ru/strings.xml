@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Пропустить &gt;</string>
   <string name="root_title">БЕЗОПАСНОСТЬ УСТРОЙСТВА ПОД УГРОЗОЙ</string>
   <string name="root_body">Любое приложение с root-доступом может получить доступ к ключам AppCoins и украсть ваш кошелек! Уничтожьте этот кошелек немедленно и восстановите его на безопасном устройстве.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s APPC кредитов</string>
   <string name="buying">Покупка %s</string>
   <string name="action_buy">Купить</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">QR-код не содержит допустимый адрес</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">Кошелёк AppCoins</string>
   <string name="intro_title_second_page"><![CDATA[Закрытый и безопасный]]></string>
   <string name="intro_title_third_page">Простой в использовании</string>
   <string name="intro_message_first_page">Добро пожаловать в революцию экономики приложений.</string>
   <string name="intro_message_second_page">Закрытые ключи никогда не покидают ваше устройство.</string>
   <string name="intro_message_third_page">Обрабатывайте все ваши встроенные платежи и награды в APPC.</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">Кошелёк AppCoins</string>
   <string name="intro_1_body">Ваше приложение для встроенных покупок.</string>
   <string name="intro_2_title">Играй больше, плати меньше</string>
   <string name="intro_2_body">Получите награду для покупок в ваших любимых приложениях и играх.</string>
