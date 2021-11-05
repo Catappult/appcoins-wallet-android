@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Пропусни &gt;</string>
   <string name="root_title">СИГУРНОСТТА НА УСТРОЙСТВОТО В КОМПРОМЕТИРАНА</string>
   <string name="root_body">Всяко \"вкоренено\" приложение има достъп до кийчейн данните на AppCoins портфейла ти и ти го краде! Изтрий този портфейл незабавно и поднови данните си на сигурно устройство.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s APPC кредита</string>
   <string name="buying">Закупуване на %s</string>
   <string name="action_buy">Купи</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">QR кодът не съдържа валиден адрес</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">AppCoins портфейл</string>
   <string name="intro_title_second_page"><![CDATA[Частно и защитено]]></string>
   <string name="intro_title_third_page">Просто &amp; Лесно</string>
   <string name="intro_message_first_page">Добре дошли в революцията на ап икономиката.</string>
   <string name="intro_message_second_page">Частните ключове никога не напускат устройството ти.</string>
   <string name="intro_message_third_page">Обработва всички твои плащания и дава награди в APPC.</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">AppCoins портфейл</string>
   <string name="intro_1_body">Твоето приложение за ин-ап покупки.</string>
   <string name="intro_2_title">Играй повече, плащай по-малко</string>
   <string name="intro_2_body">Получи награда при купуване на артикули в любимите си приложения и игри.</string>
