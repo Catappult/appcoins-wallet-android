@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
-"PO-Revision-Date: 2021-11-05 15:51\n"
+"PO-Revision-Date: 2021-11-05 17:56\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "因为你已达到下一级。"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "你在{1}的所有购买可额外获得{0}%的AppCoins积金，使用AppCoins积金购买时除外。"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
