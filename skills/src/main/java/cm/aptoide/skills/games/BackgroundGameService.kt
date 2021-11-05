@@ -52,7 +52,7 @@ class BackgroundGameService : DaggerService(), GameStateListener {
     val notificationManager =
         this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      val importance = NotificationManager.IMPORTANCE_HIGH
+      val importance = NotificationManager.IMPORTANCE_LOW
       val notificationChannel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
       notificationManager.createNotificationChannel(notificationChannel)
     }
