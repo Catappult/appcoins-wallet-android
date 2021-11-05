@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Passer &gt;</string>
   <string name="root_title">SÉCURITÉ DE L\'APPAREIL COMPROMISE</string>
   <string name="root_body">N’importe quelle application « rootée » peut accéder aux données du portefeuille AppCoins et le voler ! Effacez immédiatement ce portefeuille et restaurez sur un appareil sûr.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s crédits APPC</string>
   <string name="buying">Achat %s</string>
   <string name="action_buy">Acheter</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">Le code QR ne contient pas une adresse valide</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">Portefeuille AppCoins</string>
   <string name="intro_title_second_page"><![CDATA[Privé & sécurisé]]></string>
   <string name="intro_title_third_page">Simple &amp; facile</string>
   <string name="intro_message_first_page">Bienvenue dans la révolution de l’économie des apps.</string>
   <string name="intro_message_second_page">Les clés privées ne quittent jamais votre appareil.</string>
   <string name="intro_message_third_page">Traitez tous vos paiements in-app et récompenses dans l’APPC.</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">Portefeuille AppCoins</string>
   <string name="intro_1_body">Votre application pour les achats in-app.</string>
   <string name="intro_2_title">Jouez plus, payez moins</string>
   <string name="intro_2_body">Soyez récompensé pour acheter des objets dans vos applications et jeux préférés.</string>
