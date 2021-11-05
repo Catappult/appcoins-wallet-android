@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Pomiń &gt;</string>
   <string name="root_title">ZŁAMANE ZABEZPIECZENIE URZĄDZENIA</string>
   <string name="root_body">Dowolna aplikacja z uprawnieniami \'root\' może uzyskać dostęp do danych portfela i ukraść portfel! Należy natychmiast opróżnić ten portfel i przywrócić na bezpieczne urządzenie.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s Kredytów APPC</string>
   <string name="buying">Kupowanie %s</string>
   <string name="action_buy">Kup</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">QR kod nie zawiera prawidłowego adresu</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">Portfel AppCoins</string>
   <string name="intro_title_second_page"><![CDATA[Prywatny & bezpieczny]]></string>
   <string name="intro_title_third_page">Prosty &amp; łatwy</string>
   <string name="intro_message_first_page">Zapraszamy do rewolucji gospodarki aplikacji.</string>
   <string name="intro_message_second_page">Klucze prywatne nigdy nie opuszczają urządzenia użytkownika.</string>
   <string name="intro_message_third_page">Przetwarzaj wszystkie płatności w aplikacjach oraz nagrody w APPC.</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">Portfel AppCoins</string>
   <string name="intro_1_body">Twoja aplikacja do zakupów w aplikacjach.</string>
   <string name="intro_2_title">Graj więcej, płać mniej</string>
   <string name="intro_2_body">Odbieraj nagrody za kupowanie przedmiotów w ulubionych aplikacjach i grach.</string>
