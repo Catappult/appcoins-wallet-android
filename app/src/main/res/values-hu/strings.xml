@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">Győződj meg róla, hogy van biztonsági mentésed erről a tárcáról.</string>
   <string name="action_import">Helyreállítás</string>
   <string name="copy">Másolás a vágólapra</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">Lemásolva!</string>
   <string name="close">Bezárás</string>
   <string name="title_activity_settings">Beállítások</string>
   <string name="network_label">Hálózat</string>
@@ -28,7 +28,7 @@
   <string name="label_new">Új</string>
   <string name="got_it_button">ÉRTEM</string>
   <string name="change_button">MÓDOSÍTÁS</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission_title">Engedély kamera használatára</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
@@ -50,6 +50,7 @@
   <string name="error_import">Keystore importálása sikertelen</string>
   <string name="message_this_is_your_address">Saját nyilvános Ethereum tárca-címed</string>
   <string name="backup_warning_text">Mivel a pénzedet kizárólagosan te kezeled, nagyon erősen ajánljuk, hogy készíts biztonsági mentést keystore-odról. \n\nErre azért van szükség, mert tárcádat sose mentjük felhőbe vagy az eszközöd hagyományos biztonsági mentéseibe, így az app törlése esetén elveszhet.</string>
+  <string name="backup_wallet_tooltip">Készíts másolatot a tárcádról. Fő a biztonság.</string>
   <string name="message_no_backup">Készíts biztonsági mentést</string>
   <string name="error_deleting_account">Hiba a tárca törlése közben</string>
   <string name="title_privacy_policy">Adatvédelmi szabályzat</string>
@@ -99,7 +100,7 @@
   <string name="title_dialog_error">Hiba</string>
   <string name="title_dialog_handling">Feldolgozás…</string>
   <string name="title_dialog_add_account">Tárca felvétele</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">Milyen fizetési módszert választasz?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Titkosítsd tárcádat jelszóval</string>
@@ -121,7 +122,7 @@
   <string name="intro_3_title">Egyszerű és könnyű</string>
   <string name="intro_3_body">Alkalmazáson belüli vásárlásaidat a kedvenc fizetési módszereddel hajthatod végre.</string>
   <string name="intro_4_title">Biztonságos és privát</string>
-  <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoin-jaid mindig biztonságban lesznek.</string>
+  <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoinsaid mindig biztonságban lesznek.</string>
   <string name="intro_4_body_2">A legújabb technológiáknak köszönhetően a tranzakcióid mindig biztonságban lesznek.</string>
   <string name="intro_5_title">Szerezz ingyenes AppCoins kreditet!</string>
   <string name="intro_5_body">Appok és játékok kipróbálásával ingyenes AppCoins kreditet szerezhetsz.</string>
@@ -245,8 +246,8 @@
   <string name="transaction_type_reverted_purchase_title">Vásárlás visszatérítés</string>
   <string name="transaction_type_reverted_purchase_body">A %s napon lebonyolított vásárlást visszavonták. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
   <string name="transaction_reverted_view_original_header">Eredeti tranzakció</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_onchain_completed_title">A tranzakció már úton van!</string>
+  <string name="transaction_onchain_completed_body">Kövesd nyomon az Etherscan oldalon.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum-mal hajtva</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">Kártyaszám</string>
   <string name="dialog_credit_card_expiration">Lejárati dátum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Hitelkártya/bankkártya</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">Lejárati idő</string>
   <string name="activity_airdrop_title">AppCoins-ok fogadásához igazold, hogy ember vagy</string>
   <string name="activity_airdrop_details">Ezt csak biztonsági okból kérjük.</string>
@@ -280,7 +281,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">tovább</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">AppCoins-ok elköltése</string>
@@ -323,7 +324,7 @@
   <string name="gamification_star_subtitle">Fényes, nagy és élettel teli!</string>
   <string name="gamification_galaxy_subtitle">A létező legnagyobb rendszer!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">Ezért a vásárlásért bónusz jár!</string>
   <string name="gamification_purchase_header_part_1">Vásárlási bónusz:</string>
   <string name="gamification_purchase_header_part_2">%s APPC kredit</string>
   <string name="gamification_purchase_body">A bónuszt a következő vásárlás során használhatod fel.</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Az Ethereum kriptovalután alapulnak az AppCoins-ok. Mivel nagyon népszerű, a legtöbb váltónál adható és vehető!</string>
   <string name="balance_appcoins_body">Az AppCoins az alkalmazások gazdaságának kriptovalutája. Bizonyos váltóknál adható-vehető, fizetésre pedig alkalmazásokon belüli vásárlásoknál használható.</string>
   <string name="balance_appccreditos_body">Alkalmazásokon belüli vásárlások tokenje! Töltsd fel tárcádat APPC-kredittel, vagy szerezd meg őket appok használatával. Ezek mellett barátok is küldhetik egymásnak!</string>
+  <string name="my_wallets_action_new_wallet">Új tárca</string>
+  <string name="my_wallets_action_recover_wallet">Tárca visszaállítása</string>
+  <string name="my_wallets_action_backup_wallet">Tárca biztonsági mentése</string>
+  <string name="my_wallets_action_verify_new_card">Új kártya hitelesítése</string>
+  <string name="my_wallets_action_delete_wallet">Tárca törlése</string>
+  <string name="verify_card_title">Kártya hitelesítése</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Kérj meg valakit, hogy fizesse ki</string>
   <string name="askafriend_generating_link_message">Készül a fizetési link&#8230;</string>
@@ -426,6 +433,7 @@
   <string name="remind_later_button">Emlékeztess később</string>
   <string name="get_code_button">Kód kérése</string>
   <string name="confirm_button">Megerősítés</string>
+  <string name="withdraw_button">felvétel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -436,7 +444,7 @@
   <string name="home_empty_discover_apps_button">FEDEZD FEL A LEGJOBB APPOKAT</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Kód beváltása</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Kapcsolatfelvétel az ügyfélszolgálattal</string>
   <string name="settings_subheader_support">Támogatás</string>
   <string name="settings_subheader_about_us">Rólunk</string>
@@ -455,7 +463,7 @@
   <string name="verification_insert_phone_field_landline_error">Nem adhatsz meg vezetékes telefonszámot.</string>
   <string name="verification_insert_phone_security_disclaimer">Csak biztonsági okokból szükséges, nem tárolunk személyes adatokat.</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
-  <string name="verification_notification_code_body">A hitelesító kód a következő %s. Ezzel hitelesítheted az AppCoins Wallet címedet.</string>
+  <string name="verification_notification_code_body">A hitelesítő kód a következő %s. Ezzel hitelesítheted az AppCoins Wallet címedet.</string>
   <string name="verification_insert_code_title">Írd be a hitelesítő kódod</string>
   <string name="verification_insert_code_error">Érvénytelen kód</string>
   <string name="verification_insert_code_resend_button">KÓD ÚJRAKÜLDÉSE</string>
@@ -469,6 +477,7 @@
   <string name="verification_settings_unverified_title">Tárca hitelesítése</string>
   <string name="verification_settings_unverified_body">Szerezz jutalmakat és hívd meg a barátaid</string>
   <string name="verification_settings_verified_title">Tárca hitelesítve</string>
+  <string name="verification_settings_card_verified_title">Kártya hitelesítve</string>
   <string name="verification_settings_no_internet">Internetkapcsolat szükséges</string>
   <string name="verification_error_time_expired">Hoppá, lejárt az idő. Kezd elölről!</string>
   <string name="verification_error_attempts_reached">Úgy tűnik nem próbálkozhatsz többször. Várj és próbáld újra később.</string>
@@ -493,7 +502,7 @@
   <string name="purchase_current_balance_appcc_body">%s AppCoins kreditben.</string>
   <string name="purchase_current_balance_appc_eth_body">%s AppCoins-ban és Etherben.</string>
   <string name="purchase_wallet_blocked_title">Az AppCoins kreditegyenleg blokkolásra került</string>
-  <string name="purchase_wallet_blocked_body">Szokatlan tranzakciós előzményeket észleltünk ezért letiltottuk az AppCoins kreditegyenleged. Az AppCoins kreditet kivéve más módokon továbbra is fizethetsz és végezhetsz tranzakcióak.\n\nHa úgy véled, hiba történt, vedd fel velünk a kapcsolatot itt:</string>
+  <string name="purchase_wallet_blocked_body">Szokatlan tranzakciós előzményeket észleltünk ezért letiltottuk az AppCoins kreditegyenleged. Az AppCoins kreditet kivéve más módokon továbbra is fizethetsz és végezhetsz tranzakciókat.\n\nHa úgy véled, hiba történt, vedd fel velünk a kapcsolatot itt:</string>
   <string name="purchase_card_error_title">Hoppá, hiba történt.</string>
   <string name="purchase_card_error_general_1">Problémát észleltünk a kártyáddal kapcsolatban. Kérjük, próbáld újra vagy vedd fel velünk a kapcsolatot.</string>
   <string name="purchase_card_error_general_2">A tranzakciót elutasította a bankod. Használj egy másik kártyát vagy vedd fel velünk a kapcsolatot.</string>
@@ -517,6 +526,15 @@
   <string name="purchase_error_try_other_amount_or_method">Hoppá&#8230; Valami nincs rendben! Kérjük, próbálkozz egy másik fizetési móddal vagy feltöltő összeggel.</string>
   <string name="purchase_error_try_cheaper_item">Ez aztán a borsos ár! Vegyél meg inkább egy olcsóbb elemet.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Ez aztán a borsos ár! Vegyél meg inkább egy olcsóbb elemet vagy válassz másféle fizetési módot.</string>
+  <string name="transfer_appc_error_no_eth_title">Etherre van szükséged!</string>
+  <string name="transfer_appc_error_no_eth_body">Az AppCoins átutalási díjainak kifizetése Ethereumban történik, tehát az APPC átutaláshoz ETH szükséges.</string>
+  <string name="purchase_error_invalid_credit_card">Érvénytelen kártyaszám. Ellenőrizd, hogy minden számjegy pontos-e.</string>
+  <string name="purchase_error_card_security_validation">Hiba lépett fel a tranzakció második szintű hitelesítése során. Kérjük, próbáld újra.</string>
+  <string name="purchase_error_transaction_timeout">Úgy tűnik, a tranzakció túl sok időt vett igénybe. Próbáld újra.</string>
+  <string name="purchase_error_card_already_in_progress">A kérelmed már feldolgozták vagy jelenleg is folyamatban van. Légy türelmes.</string>
+  <string name="purchase_error_payment_rejected">A fizetést elutasították! Kérjük, próbálkozz másik kártyakibocsátóval vagy válassz másik fizetési módot.</string>
+  <string name="purchase_error_verify_wallet">A helyzet megoldása érdekében próbáld meg hitelesíteni a tárcád.</string>
+  <string name="purchase_eskills_sku">Belépőjegy</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -530,7 +548,7 @@
   <string name="async_steps_2">Menj vissza a játékba és vásárolj úgy, hogy az AppCoinst választod fizetési módként.</string>
   <string name="async_steps_topup_2">Használd ezeket az AppCoins krediteket a kedvenc játékaidban való vásárlás során!</string>
   <string name="async_steps_1_no_notification">Végezd el a fizetést a következővel: %s.</string>
-  <string name="async_steps_2_no_notification">Amikor megkapo az AppCoins kreditet, menj vissza a játékba és vásárolj úgy, hogy az AppCoinst választod fizetési módként.</string>
+  <string name="async_steps_2_no_notification">Amikor megkapod az AppCoins kreditet, menj vissza a játékba és vásárolj úgy, hogy az AppCoinst választod fizetési módként.</string>
   <string name="async_steps_2_toptup_no_notification">Miután megkapod az AppCoins krediteket, használd őket a kedvenc játékaidban való vásárláshoz!</string>
   <string name="async_notification_title">Megérkezett az AppCoins kredited!</string>
   <string name="async_notification_body">Menj vissza a %s játékba és fizess AppCoins kredittel.</string>
@@ -698,9 +716,10 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Feliratkozások kezelése</string>
   <string name="subscriptions_title">Feliratkozások</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">Előfizetés</string>
   <string name="subscriptions_active_title">Aktív</string>
   <string name="subscriptions_expired_title">Lejárt</string>
+  <string name="subscriptions_inactive_title">Inaktív</string>
   <string name="subscriptions_empty_title">Még nincsenek feliratkozások</string>
   <string name="subscriptions_empty_body">Iratkozz fel szolgáltatásokra a kedvenc appjaidban és játékaidban, mi pedig intézzük az időszakos fizetéseket.</string>
   <string name="subscriptions_details_billing_title">Számlázás:</string>
@@ -715,6 +734,8 @@
   <string name="subscriptions_details_button">RÉSZLETEK</string>
   <string name="subscriptions_manage_button">ELŐFIZETÉSEK KEZELÉSE</string>
   <string name="subscriptions_cancel_button">FELIRATKOZÁS LEMONDÁSA</string>
+  <string name="subscriptions_renew_subscription_button">ELŐFIZETÉS MEGÚJÍTÁSA</string>
+  <string name="subscriptions_renewed_confirmation_title">Az előfizetés megújítva!</string>
   <string name="subscriptions_cancel_title">Feliratkozás lemondása</string>
   <string name="subscriptions_cancel_body">Biztos vagy benne, hogy lemondod a feliratkozást?</string>
   <string name="subscriptions_cancel_no_button">NEM, VISSZALÉPÉS</string>
@@ -795,12 +816,12 @@
   <string name="carrier_billing_submit_button">KÜLDÉS</string>
   <string name="carrier_billing_number_not_supported">Úgy tűnik, hogy a számod nem kompatibilis ezzel a fizetési móddal.</string>
   <string name="carrier_billing_terms_disclaimer">Ha a Küldésre koppintasz, akkor elfogadod a Felhasználási feltételeket és az Adatvédelmi szabályzatot.</string>
-  <string name="carrier_billing_help_1">Need help?</string>
+  <string name="carrier_billing_help_1">Segítségre van szükséged?</string>
   <string name="carrier_billing_help_2_button">Kapcsolatfelvétel az ügyfélszolgálattal</string>
   <string name="carrier_billing_terms_button">Általános szerződési feltételek</string>
   <string name="carrier_billing_privacy_button">Adatvédelmi szabályzat</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Hitelkártya/bankkártya hozzáadása</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">Kártyák kezelése</string>
   <string name="manage_cards_view_title">Kártyák kezelése</string>
   <string name="manage_cards_view_manage_subtitle">Fizetési kártyák kezelése</string>
@@ -881,8 +902,8 @@
   <string name="rate_us_back_title">Segítenél nekünk?</string>
   <string name="rate_us_back_body">Értékeld az AppCoins Walletot az alkalmazásboltban, hogy jobbá tehessük azt.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Használd a hitelkártyád/bankkártyád a tárca hitelesítéséhez.</string>
-  <string name="card_verification_charde_disclaimer">%s összeget vonunk le a kártyádról, majd visszafizetjük miután megerősíted a kódot.</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_charde_disclaimer">A kártyádat %s összeggel terheljük, amit visszautalunk, amikor megerősíted a kódot. A banktól függően ez néhány percet vagy akár néhány napot is igénybe vehet.</string>
   <string name="card_verification_code_title">Ellenőrizd a kódot a tranzakció részletekben</string>
   <string name="card_verification_code_body">A kártyaszolgáltató által kiadott tranzakció összegzésben egy egyedi kód fog megjelenni.</string>
   <string name="card_verification_code_example_title">Tranzakció összegzés pédája</string>
@@ -921,9 +942,46 @@
   <string name="voucher_empty_more_title">Utalványok játékokhoz</string>
   <string name="voucher_empty_more_body">Keresd meg a legjobb ajánlatokat a kedvenc játékaidhoz!</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_title">Pénznem váltása</string>
+  <string name="change_currency_settings_title">Pénznem</string>
+  <string name="change_currency_choose_button">Pénznem kiválasztása</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">A tranzakció már úton van!</string>
+  <string name="block_transaction_disclaimer_body">Kövesd nyomon az Etherscan oldalon.</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">e-Skills felvétel</string>
+  <string name="e_skills_withdraw_email">PayPal e-mail cím</string>
+  <string name="e_skills_withdraw_amount">Összeg (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Az e-mail címed</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">e-Skills felvétel</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Érvénytelen e-mail cím</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Kevés az egyenleg</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Csak az e-Skills játékokban szerzett összeget veheted fel</string>
+  <string name="e_skills_withdraw_max_amount">A max. felvehető összeg: %s</string>
+  <string name="e_skills_more_info_button">További infó.</string>
+  <!--Promo Code-->
+  <string name="promo_code_settings_title">Promóciós kód</string>
+  <string name="promo_code_view_title">Promóciós kód</string>
+  <string name="promo_code_view_body">Különleges ajánlatokért adj meg egy promóciós kódot!</string>
+  <string name="promo_code_view_field">Írd be a promóciós kódot…</string>
+  <string name="promo_code_view_error">Érvénytelen kód. Próbálkozz másikkal!</string>
+  <string name="promo_code_activated">A promóciós kód aktiválva!</string>
+  <string name="promo_code_replace_button">CSERE</string>
+  <string name="promo_code_active_tag">Aktív</string>
+  <string name="promo_code_expired_tag">Lejárt</string>
+  <string name="promo_code_success_title">Kész!</string>
+  <string name="promo_code_success_body">Minden vásárlás után %s%% bónuszt fog kapni.</string>
+  <!--AppCoins Info Page-->
+  <string name="appcoins_info_title">Az AppCoins-ról</string>
+  <string name="appcoins_info_prince_title">AppCoins ár (APPC)</string>
+  <string name="appcoins_info_title_1">Mi az az AppCoins?</string>
+  <string name="appcoins_info_body_1">Az AppCoins egy digitális token, amit az Aptoide hozott létre és több, mint 200 millió felhasználóval rendelkezik világszerte. Az innovatív fizetési megoldás fő célja, hogy biztonságosabbá tegye az app gazdaságot és eltávolítsa a közvetítőket.</string>
+  <string name="appcoins_info_title_1b">Mint minden digitális token értéke, az AppCoins értéke is folyamatosan változik az általad használt pénznemhez viszonyítva (EUR, USD…). A fenti ábrán nyomon követheted ezeket a változásokat.</string>
+  <string name="appcoins_info_title_2">Mire szolgálnak az AppCoinsok?</string>
+  <string name="appcoins_info_body_2">A kedvenc appjaidban AppCoins-szal és AppCoins kreditekkel is fizethetsz. Ha bármilyen más fizetési módot használsz (bankkártya, PayPal…), akkor AppCoins krediteket kapsz bónuszként, valamint akkor is, ha feltöltöd az AppCoins Walletod.</string>
+  <string name="appcoins_info_website_title">Weboldal</string>
+  <string name="appcoins_info_explorer_title">Felfedezés</string>
+  <string name="appcoins_info_market_cap_title">Piaci érték</string>
+  <string name="appcoins_info_volume_title">Mennyiség (24 óra)</string>
 </resources>

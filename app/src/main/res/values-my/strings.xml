@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">သင့္တြင္ ဤပိုက္ဆံအိတ္ကို အရန္ျပဳလုပ္ထားေၾကာင္း ေသခ်ာေအာင္ စစ္ေဆးပါ။</string>
   <string name="action_import">ျပန္လည္ရယူမည္</string>
   <string name="copy">ကလစ္ဘုတ္သို႔ ကူးမည္</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">ကူးလိုက္ပါၿပီ။</string>
   <string name="close">ပိတ္မည္</string>
   <string name="title_activity_settings">ဆက္တင္</string>
   <string name="network_label">ကြန္ရက္</string>
@@ -28,7 +28,7 @@
   <string name="label_new">အသစ္</string>
   <string name="got_it_button">ရပါၿပီ</string>
   <string name="change_button">ေျပာင္းလဲမည္</string>
-  <string name="vip" comment="vip" maxLength="5">VIP</string>
+  <string name="vip">VIP</string>
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
   <string name="no_camera_permission_title">ကင္မရာ ခြင့္ျပဳခ်က္</string>
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
@@ -50,6 +50,7 @@
   <string name="error_import">ကီးစတိုးကို ထည့္သြင္းရာတြင္ ခ်ိဳ႕ယြင္းခ်က္</string>
   <string name="message_this_is_your_address">ကၽြႏ္ုပ္၏ အမ်ားျမင္ႏိုင္္ေသာ Ethereum ပိုက္ဆံအိတ္လိပ္စာ</string>
   <string name="backup_warning_text">သင့္ေငြကို သင္ထိန္းခ်ဳပ္ျခင္းသာ ျဖစ္ေသာေၾကာင့္ ဤအက္ပ္ကို ဖ်က္မည္ဆိုလွ်င္ သင့္ကီးစတိုုးကို အရန္ျပဳလုုပ္ထားရန္ လုိအပ္မည္ ျဖစ္ပါသည္။ \n\nသင့္ပိုက္ဆံအိတ္အား cloud သိမ္းဆည္းမႈ သို႔မဟုတ္ စက္ကိရိယာ၏ သာမန္အရန္ျပဳလုုပ္မႈမ်ားတြင္ လံုးဝသိမ္းဆည္းမည္ မဟုတ္ပါ။</string>
+  <string name="backup_wallet_tooltip">ေဘးကင္းေစရန္ သင့္ပိုက္ဆံအိတ္ မိတၱဴတစ္ခုကို သိမ္းထားပါ။</string>
   <string name="message_no_backup">အရန္သိမ္းဆည္းမႈ မရွိလွ်င္ Ethereum မရွိပါ</string>
   <string name="error_deleting_account">ပိုက္ဆံအိတ္ကို ဖ်က္ရာတြင္ ခ်ဳိ႕ယြင္းခ်က္</string>
   <string name="title_privacy_policy">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
@@ -99,7 +100,7 @@
   <string name="title_dialog_error">ခ်ိဳ႕ယြင္းခ်က္</string>
   <string name="title_dialog_handling">စီစဥ္ေဆာင္ရြက္ေနပါသည္…</string>
   <string name="title_dialog_add_account">ပိုက္ဆံအိတ္ကို ထည့္မည္</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">ဘယ္လိုဝယ္ခ်င္ပါသလဲ။</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">သင့္ပိုက္ဆံအိတ္ကို ကုဒ္ဖ်က္ထားရန္ စကားဝွက္တစ္ခုကို သတ္မွတ္ပါ</string>
@@ -245,8 +246,8 @@
   <string name="transaction_type_reverted_purchase_title">ဝယ္ယူမႈ ေငြျပန္အမ္းျခင္း</string>
   <string name="transaction_type_reverted_purchase_body">%s တြင္ သင္ျပဳလုပ္ခဲ့ေသာ ဝယ္ယူမႈကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_reverted_view_original_header">မူလေငြလႊဲေျပာင္းမႈ</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_onchain_completed_title">ေငြလႊဲေျပာင္းမႈ ျပဳလုပ္ေနပါသည္။</string>
+  <string name="transaction_onchain_completed_body">Etherscan တြင္ လိုက္ၾကည့္ႏိုင္ပါသည္။</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Ethereum မွ ျပဳလုပ္ပါသည္</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -263,7 +264,7 @@
   <string name="dialog_credit_card_number">ကဒ္နံပါတ္</string>
   <string name="dialog_credit_card_expiration">သက္တမ္းကုန္သည့္ရက္</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္</string>
+  <string name="dialog_bank_card">Bank card</string>
   <string name="dialog_expiry_date">သက္တမ္းကုန္ရက္</string>
   <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
   <string name="activity_airdrop_details">ယင္းသည္ လံုၿခံဳေရးကိစၥအတြက္သာ ျဖစ္ပါသည္။</string>
@@ -280,7 +281,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">ဆက္လုပ္မည္</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">သင့္ AppCoins ကို သံုးလိုက္ပါ</string>
@@ -323,7 +324,7 @@
   <string name="gamification_star_subtitle">ေျပာင္လက္ႀကီးမားၿပီး လံုုးဝအသက္ဝင္သည္။</string>
   <string name="gamification_galaxy_subtitle">ယင္းေနရာတြင္ရွိေသာ အႀကီးမားဆံုးစနစ္။</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">ဤဝယ္ယူမႈတြင္ ေဘာနပ္စ္တစ္ခု ရွိပါသည္။</string>
   <string name="gamification_purchase_header_part_1">၀ယ္ယူမႈေဘာနပ္စ္ -</string>
   <string name="gamification_purchase_header_part_2">APPC Credit မ်ားတြင္ %s</string>
   <string name="gamification_purchase_body">ဤေဘာနပ္စ္ကို သင့္ေနာက္တစ္္ႀကိမ္ ၀ယ္ယူမႈတြင္ သံုးႏိုင္္ပါသည္။</string>
@@ -380,6 +381,12 @@
   <string name="balance_ethereum_body">Ethereum သည္ AppCoins မ်ား အေျချပဳထားေသာ ခရစ္ပ္တိုေငြေၾကးပံုစံ တစ္ခုုျဖစ္ပါသည္။ အိတ္ခ်ိန္းအမ်ားစုတြင္ ယင္းတို႔ကို သင္ေရာင္းဝယ္နိုင္ပါသည္။ အလြန္ လူႀကိဳက္မ်ားပါသည္။</string>
   <string name="balance_appcoins_body">AppCoins သည္ အက္ပ္စီးပြားေရးနယ္ပယ္အတြက္ ခရစ္ပ္တိုေငြေၾကးပံုစံ ျဖစ္ပါသည္။ သင္သည္ယင္းအား အိတ္ခ်ိန္းအမ်ားအျပားတြင္ ေရာင္းဝယ္နိုင္သလို အက္ပ္အတြင္း ပစၥည္းမ်ား ဝယ္ယူရန္အတြက္လည္း အသံုးျပဳနိုင္ပါသည္။</string>
   <string name="balance_appccreditos_body">အက္ပ္အတြင္း ပစၥည္းမ်ားကို ဝယ္ယူရန္အတြက္ တိုကင္ျဖစ္ပါသည္။ သင့္ပိုက္ဆံအိတ္မွ APPC-C ျဖင့္ ေငြျဖည့္ပါ သို႔မဟုတ္ အက္ပ္မ်ားကို အသံုးျပဳျခင္းျဖင့္ ယင္းတို႔ကို အခမဲ့ ရယူပါ။ သူငယ္ခ်င္းမ်ား အၾကားတြင္လည္း ယင္းတို႔ကို လႊဲေပးနိုင္ပါသည္။</string>
+  <string name="my_wallets_action_new_wallet">ပိုက္ဆံအိတ္အသစ္</string>
+  <string name="my_wallets_action_recover_wallet">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
+  <string name="my_wallets_action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
+  <string name="my_wallets_action_verify_new_card">ကဒ္အသစ္ကို အတည္ျပဳမည္</string>
+  <string name="my_wallets_action_delete_wallet">ပိုက္ဆံအိတ္ကိုဖ်က္မည္</string>
+  <string name="verify_card_title">ကဒ္ကိုအတည္ျပဳမည္</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ေပးေခ်ရန္ တစံုတေယာက္ကို ေျပာပါ</string>
   <string name="askafriend_generating_link_message">သင့္ေငြေပးေခ်မႈလင့္္ခ္ &#8230; ကို ထုတ္ေပးေနပါသည္</string>
@@ -426,6 +433,7 @@
   <string name="remind_later_button">ေနာက္မွသတိေပးပါ</string>
   <string name="get_code_button">ကုဒ္ရယူမည္</string>
   <string name="confirm_button">အတည္ျပဳမည္</string>
+  <string name="withdraw_button">ထုတ္ယူမည္</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -436,7 +444,7 @@
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">လဲလွယ္ရန္ကုဒ္</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
   <string name="settings_subheader_support">ပံ့ပိုးေရး</string>
   <string name="settings_subheader_about_us">ကၽြႏ္ုပ္တို႔အေၾကာင္း</string>
@@ -469,6 +477,7 @@
   <string name="verification_settings_unverified_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳမည္</string>
   <string name="verification_settings_unverified_body">ဆုမ်ားကို ရယူကာ သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚလိုက္ပါ</string>
   <string name="verification_settings_verified_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳၿပီးပါၿပီ</string>
+  <string name="verification_settings_card_verified_title">ကဒ္ကိုအတည္ျပဳလိုက္ပါသည္</string>
   <string name="verification_settings_no_internet">အင္တာနက္ခ်ိတ္ဆက္ထားရန္ လိုအပ္ပါသည္</string>
   <string name="verification_error_time_expired">အိုုး သင့္အခ်ိန္ကုန္သြားပါၿပီ။ ျပန္လည္စတင္ပါ။</string>
   <string name="verification_error_attempts_reached">ျပန္လည္ႀကိဳးစားမႈ အကန္႔အသတ္သို႔ သင္ေရာက္ရွိသြားပံုရပါသည္။ ထပ္ႀကိဳးစားရန္ ေစာင့္ေပးပါ။</string>
@@ -517,6 +526,15 @@
   <string name="purchase_error_try_other_amount_or_method">အိုး&#8230; တစ္ခုခု ျဖစ္ေနပါသည္။ အျခားေငြေပးေခ်ရန္နည္းလမ္း သို႔မဟုတ္ ေငြျဖည့္သည့္ပမာဏ တစ္ခုျဖင့္ ႀကိဳးစားၾကည့္ပါ။</string>
   <string name="purchase_error_try_cheaper_item">ယင္းက အလြန္ေစ်းႀကီးပါသည္။ ေစ်းပိုနည္းေသာ ပစၥည္းတစ္ခုကို ဝယ္ယူရန္ ႀကိဳးစားၾကည့္ေပးပါ။</string>
   <string name="purchase_error_try_cheaper_item_or_method">ယင္းက အလြန္ေစ်းႀကီးပါသည္။ ေစ်းပိုေပါေသာ ပစၥည္းတစ္ခုကို ဝယ္ယူရန္ သို႔မဟုတ္ မတူညီေသာ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခု စမ္းၾကည့္ရန္ ႀကိဳးစားေပးပါ။</string>
+  <string name="transfer_appc_error_no_eth_title">သင္ Ether လိုအပ္ပါသည္။</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins လႊဲေျပာင္းခမ်ားကို Ethereum ျဖင့္ ေပးေခ်ေသာေၾကာင့္ APPC ကို လႊဲေျပာင္းရန္ ETH ကို သင္လိုအပ္မည္ ျဖစ္ပါသည္။</string>
+  <string name="purchase_error_invalid_credit_card">ဘဏ္ကဒ္နံပါတ္ မမွန္ကန္ပါ။ ဂဏန္းအားလုံး မွန္ကန္ေၾကာင္း ေသခ်ာေအာင္စစ္ေပးပါ။</string>
+  <string name="purchase_error_card_security_validation">ဤေငြလႊဲေျပာင္းမႈကို ဒုတိယအဆင့္ အတည္ျပဳရာတြင္ ခ်ိဳ႕ယြင္းမႈတစ္ခု ရွိခဲ့ပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="purchase_error_transaction_timeout">ေငြလႊဲေျပာင္းမႈကို ၿပီးေအာင္လုပ္ရန္ သင္အခ်ိန္အလြန္ၾကာေနပုံ ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="purchase_error_card_already_in_progress">သင့္ေတာင္းဆိုမႈကို စီစဥ္ေဆာင္႐ြက္ထားၿပီး သို႔မဟုတ္ ေဆာင္႐ြက္ေနဆဲ ျဖစ္ပါသည္။ ေစာင့္ေပးပါ။</string>
+  <string name="purchase_error_payment_rejected">ေငြေပးေခ်မႈကို ျငင္းဆန္လိုက္ပါသည္။ အျခားထုတ္ေပးသူ တစ္ဦးထံမွ ကဒ္တစ္ကဒ္ျဖင့္ စမ္းၾကည့္ေပးပါ သို႔မဟုတ္ အျခားေငြေပးေခ်မႈ နည္းလမ္းကို အသုံးျပဳေပးပါ။</string>
+  <string name="purchase_error_verify_wallet">ဤအေျခအေနကို ေျဖရွင္းရန္အတြက္ သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳရန္ ႀကိဳးစားပါ။</string>
+  <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -697,9 +715,10 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
   <string name="subscriptions_title">ပံုမွန္၀ယ္ယူမႈမ်ား</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">ပုံမွန္ရယူမည္</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
   <string name="subscriptions_expired_title">သက္တမ္းကုန္သြားပါၿပီ</string>
+  <string name="subscriptions_inactive_title">မ၀ယ္ထားေသာ</string>
   <string name="subscriptions_empty_title">ပံုမွန္၀ယ္ယူမႈမ်ား မရွိေသးပါ</string>
   <string name="subscriptions_empty_body">သင့့္စိတ္ႀကိဳက္အက္ပ္မ်ားနွင့္ ဂိမ္မ်ားတြင္ ၀န္ေဆာင္မႈမ်ားကို ပံုမွန္၀ယ္ယူလိုက္ပါ။ ကာလအလိုက္ ေငြေပးေခ်မႈမ်ားကို ကၽြႏ္ုပ္တို႔ လုပ္ေဆာင္ေပးပါမည္။</string>
   <string name="subscriptions_details_billing_title">က်သင့္ေငြေကာက္ခံျခင္း -</string>
@@ -714,6 +733,8 @@
   <string name="subscriptions_details_button">အေသးစိတ္မ်ား</string>
   <string name="subscriptions_manage_button">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
   <string name="subscriptions_cancel_button">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
+  <string name="subscriptions_renew_subscription_button">ပုံမွန္ရယူမႈကို သက္တမ္းတိုးမည္</string>
+  <string name="subscriptions_renewed_confirmation_title">ပုံမွန္ရယူမႈကို သက္တမ္းတိုးလိုက္ပါၿပီ။</string>
   <string name="subscriptions_cancel_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
   <string name="subscriptions_cancel_body">ဤပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုပါသလား။</string>
   <string name="subscriptions_cancel_no_button">မဟုတ္ပါ။ ေနာက္သို႔ျပန္သြားမည္</string>
@@ -799,7 +820,7 @@
   <string name="carrier_billing_terms_button">စည္းမ်ဥ္းစည္းကမ္းမ်ား</string>
   <string name="carrier_billing_privacy_button">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ ထည့္မည္</string>
+  <string name="manage_cards_settings_add_title">Add bank card</string>
   <string name="manage_cards_settings_manage_title">ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_view_title">ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_view_manage_subtitle">သင့္ေငြေပးေခ်မႈ ကဒ္မ်ားကို စီမံမည္</string>
@@ -874,8 +895,8 @@
   <string name="rate_us_back_title">ကၽြႏ္ုပ္တို႔ကို ကူညီလိုပါသလား။</string>
   <string name="rate_us_back_body">AppCoins Wallet ကို ပိုမိုေကာင္းမြန္ေအာင္ ကၽြႏ္ုပ္တို႔ျပဳလုပ္ႏိုင္ေစရန္ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးပါ။</string>
   <!--Card verification-->
-  <string name="card_verification_body">သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳရန္ သင့္ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ကို အသံုးျပဳပါ။</string>
-  <string name="card_verification_charde_disclaimer">သင့္ကဒ္တြင္ %s ကို ကၽြႏ္ုပ္တို႔ေကာက္ခံကာ ကုဒ္ကိုအတည္ျပဳၿပီးသည္ႏွင့္ ျပန္အမ္းေပးပါမည္။</string>
+  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_charde_disclaimer">သင့္ကဒ္ကို %s ေကာက္ခံမည္ျဖစ္ကာ ကုဒ္ကိုသင္အတည္ျပဳလိုက္သည္ႏွင့္ ေငြျပန္အမ္းေပးပါမည္။ သင့္ဘဏ္အေပၚ မူတည္၍ ယင္းသည္ မိနစ္ပိုင္းမွ ရက္အနည္းငယ္အထိ ၾကာႏိုင္ပါသည္။</string>
   <string name="card_verification_code_title">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားပါ ကုဒ္ကို စစ္ေဆးပါ</string>
   <string name="card_verification_code_body">သင့္ကဒ္ကိုထုတ္ေပးသူကေပးေသာ ေငြလႊဲေျပာင္းမႈ အက်ဥ္းခ်ဳပ္တြင္ သီးျခားကုဒ္တစ္ခု ေတြ႕ရပါမည္။</string>
   <string name="card_verification_code_example_title">ေငြလႊဲေျပာင္းမႈ အက်ဥ္းခ်ဳပ္ ဥပမာ</string>
@@ -912,9 +933,46 @@
   <string name="voucher_empty_more_title">ဂိမ္းမ်ားအတြက္ ေဘာက္ခ်ာမ်ား</string>
   <string name="voucher_empty_more_body">သင့္စိတ္ႀကိဳက္ဂိမ္းမ်ားအတြက္ အေကာင္းဆံုးေရာင္းေစ်းကို ရွာေဖြလိုက္ပါ။</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
+  <string name="change_currency_title">ေငြေၾကးပုံစံ ေျပာင္းမည္</string>
+  <string name="change_currency_settings_title">ေငြေၾကးပုံစံ</string>
+  <string name="change_currency_choose_button">ေငြေၾကးပုံစံကို ေ႐ြးခ်ယ္ပါ</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">ေငြလႊဲေျပာင္းမႈ ျပဳလုပ္ေနပါသည္။</string>
+  <string name="block_transaction_disclaimer_body">Etherscan တြင္ လိုက္ၾကည့္ႏိုင္ပါသည္။</string>
+  <!--  Withdraw Funds-->
+  <string name="e_skills_withdraw_settings_title">e-Skills ေငြထုတ္ယူမႈ</string>
+  <string name="e_skills_withdraw_email">PayPal အီးေမးလ္လိပ္စာ</string>
+  <string name="e_skills_withdraw_amount">ပမာဏ (USD)</string>
+  <string name="e_skills_withdraw_email_hint">ဤေနရာတြင္ အီးေမးလ္လိပ္စာထည့္ပါ</string>
+  <string name="e_skills_withdraw_amount_hint">0 USD</string>
+  <string name="e_skills_withdraw_title">e-Skills ေငြထုတ္ယူမႈ</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">အီးေမးလ္ မမွန္ကန္ပါ</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">လက္က်န္ေငြ မလုံေလာက္ပါ</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">e-Skills ဂိမ္းမ်ားတြင္ ရရွိခဲ့ေသာ ေငြမ်ားကိုသာ သင္ထုတ္ယူႏိုင္ပါသည္</string>
+  <string name="e_skills_withdraw_max_amount">သင္ထုတ္ယူႏိုင္သည့္ အမ်ားဆုံး ပမာဏ - %s</string>
+  <string name="e_skills_more_info_button">ေနာက္ထပ္အခ်က္အလက္</string>
+  <!--Promo Code-->
+  <string name="promo_code_settings_title">ပ႐ိုမိုကုဒ္</string>
+  <string name="promo_code_view_title">ပ႐ိုမိုကုဒ္</string>
+  <string name="promo_code_view_body">အထူးအခြင့္အေရးမ်ား ရရွိရန္ ပ႐ိုမိုကုဒ္တစ္ခုကို ထည့္သြင္းပါ။</string>
+  <string name="promo_code_view_field">ဤေနရာတြင္ ပ႐ိုမိုကုဒ္ကိုထည့္ပါ...</string>
+  <string name="promo_code_view_error">ကုဒ္မမွန္ကန္ပါ။ ေနာက္ထပ္တစ္ခုျဖင့္ ႀကိဳးစားပါ။</string>
+  <string name="promo_code_activated">ပ႐ိုမိုကုဒ္ကို သုံးလိုက္ပါၿပီ။</string>
+  <string name="promo_code_replace_button">လဲလွယ္မည္</string>
+  <string name="promo_code_active_tag">သုံးႏိုင္ေသာ</string>
+  <string name="promo_code_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
+  <string name="promo_code_success_title">ၿပီးပါၿပီ။</string>
+  <string name="promo_code_success_body">သင့္ဝယ္ယူမႈမ်ား အားလုံးတြင္ %s%% အပိုေဘာနပ္စ္ ရရွိပါမည္။</string>
+  <!--AppCoins Info Page-->
+  <string name="appcoins_info_title">AppCoins အေၾကာင္း</string>
+  <string name="appcoins_info_prince_title">AppCoins ေစ်းႏႈန္း (APPC)</string>
+  <string name="appcoins_info_title_1">AppCoins ဆိုတာဘာလဲ။</string>
+  <string name="appcoins_info_body_1">AppCoins သည္ Aptoide မွ ဖန္တီးထားေသာ ဒီဂ်စ္တယ္တိုကင္ တစ္ခုျဖစ္ၿပီး ကမာၻအႏွံ႔တြင္ အသုံးျပဳသူေပါင္း သန္း ၂၀၀ ေက်ာ္က အသုံးျပဳေနပါသည္။ ဤဆန္းသစ္တီထြင္ထားေသာ ေငြေပးေခ်မႈ ေျဖရွင္းခ်က္၏ အဓိက ရည္႐ြယ္ခ်က္မွာ အက္ပ္စီးပြားေရးတြင္ ယုံၾကည္မႈကို ရေစရန္ႏွင့္ ၾကားခံေဆာင္႐ြက္သူမ်ားကို ဖယ္ရွားရန္ ျဖစ္ပါသည္။</string>
+  <string name="appcoins_info_title_1b">ဒီဂ်စ္တယ္တိုကင္မ်ား အားလုံးကဲ့သို႔ပင္ AppCoins တန္ဖိုးသည္ သင္ေ႐ြးခ်ယ္ထားေသာ ေငြေၾကးပုံစံ (EUR, USD...) အလိုက္ အၿမဲတမ္း ေျပာင္းလဲမည္ ျဖစ္ပါသည္။ အထက္ပါပုံတြင္ ဤအေျပာင္းအလဲမ်ားကို အခ်ိန္ႏွင့္အမွ် လိုက္ၾကည့္ႏိုင္ပါသည္။</string>
+  <string name="appcoins_info_title_2">AppCoins ေတြက ဘာအတြက္လဲ။</string>
+  <string name="appcoins_info_body_2">AppCoins ႏွင့္ AppCoins Credits ႏွစ္မ်ိဳးစလုံးကို သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ ေငြေပးေခ်မႈမ်ား ျပဳလုပ္ရန္အတြက္ အသုံးျပဳႏိုင္ပါသည္။ အျခားေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုခု (ဘဏ္ကဒ္၊ PayPal...) ျဖင့္ ဝယ္ယူမႈတစ္ခုကို ျပဳလုပ္ျခင္းႏွင့္ သင့္ AppCoins Wallet ကို ေငြျဖည့္ျခင္းတို႔တြင္ ေဘာနပ္စ္အျဖစ္ AppCoins Credits မ်ားကို သင္ရရွိမည္ ျဖစ္ပါသည္။</string>
+  <string name="appcoins_info_website_title">ဝဘ္ဆိုက္</string>
+  <string name="appcoins_info_explorer_title">လိုက္ၾကည့္ရန္</string>
+  <string name="appcoins_info_market_cap_title">ေစ်းကြက္တန္ဖိုး</string>
+  <string name="appcoins_info_volume_title">ပမာဏ (၂၄ နာရီ)</string>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">Creando dirección pública&#8230;</string>
+  <string name="processing_loading_title">Getting your entry ticket</string>
+  <string name="finding_room_loading_title">Waiting for opponents</string>
+  <string name="finding_room_loading_message">Esto puedo tardar un poquito…</string>
+  <string name="refunded">Your money has been refunded.</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancelar</string>
+  <string name="connectoin_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
+</resources>

@@ -15,6 +15,11 @@ import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyMo
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.eskills.withdraw.usecases.GetAvailableAmountToWithdrawUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.GetStoredUserEmailUseCase
+import com.asfoundation.wallet.eskills.withdraw.usecases.WithdrawToFiatUseCase
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.home.usecases.*
@@ -261,6 +266,31 @@ class UseCaseModule {
   fun providesGetSelectedCurrencyUseCase(
       fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
     return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetAvailableAmountToWithdrawUseCase(
+      ewt: EwtAuthenticatorService,
+      withdrawRepository: WithdrawRepository
+  ): GetAvailableAmountToWithdrawUseCase {
+    return GetAvailableAmountToWithdrawUseCase(ewt, withdrawRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetStoredUserEmailUseCase(
+      withdrawRepository: WithdrawRepository): GetStoredUserEmailUseCase {
+    return GetStoredUserEmailUseCase(withdrawRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesWithdrawToFiatUseCase(
+      ewt: EwtAuthenticatorService,
+      withdrawRepository: WithdrawRepository
+  ): WithdrawToFiatUseCase {
+    return WithdrawToFiatUseCase(ewt, withdrawRepository)
   }
 
   @Singleton

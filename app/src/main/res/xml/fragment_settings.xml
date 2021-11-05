@@ -24,7 +24,7 @@
       android:title="@string/change_currency_settings_title"/>
 
   <Preference
-      android:icon="@drawable/ic_withdraw"
+      android:icon="@drawable/ic_withdraw_icon"
       android:key="pref_withdraw"
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/e_skills_withdraw_settings_title" />

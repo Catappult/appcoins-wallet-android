@@ -49,7 +49,7 @@ import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationA
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
-import com.asfoundation.wallet.withdraw.repository.WithdrawApi
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

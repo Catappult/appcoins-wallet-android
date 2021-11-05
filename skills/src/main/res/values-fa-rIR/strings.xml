@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">ایجاد آدرس کیف پول&#8230;</string>
+  <string name="processing_loading_title">دریافت بلیت ورودی خود</string>
+  <string name="finding_room_loading_title">انتظار برای حریف</string>
+  <string name="finding_room_loading_message">اندکی زمان می‌برد…</string>
+  <string name="refunded">پول شما بازگردانده شد.</string>
+  <string name="ok">اوکی</string>
+  <string name="cancel">لغو</string>
+  <string name="connectoin_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
+</resources>

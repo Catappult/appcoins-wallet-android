@@ -103,7 +103,8 @@ import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInt
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModule
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalFragment
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalModule
-import com.asfoundation.wallet.withdraw.ui.WithdrawFragment
+import com.asfoundation.wallet.eskills.withdraw.WithdrawFragment
+import com.asfoundation.wallet.eskills.withdraw.WithdrawModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -308,7 +309,7 @@ abstract class FragmentBuilders {
 
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [WithdrawModule::class])
   abstract fun bindWithdrawFragment(): WithdrawFragment
 
   @FragmentScope
