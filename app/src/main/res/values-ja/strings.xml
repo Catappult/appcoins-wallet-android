@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins ウォレット</string>
   <string name="title_send">送信する</string>
   <string name="title_send_with_token">%s を送信します。</string>
   <string name="title_request">受信する</string>
@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">&gt; をスキップ</string>
   <string name="root_title">デバイスのセキュリティが危険にさらされている</string>
   <string name="root_body">\'ルート\' アプリは AppCoins 財布キーチェーン データにアクセスでき、あなたのウォレット盗みます!すぐにこのウォレットをワイプして、セキュリティで保護されたデバイス上に復元してください。</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s  APPC クレジット</string>
   <string name="buying">%s を購入</string>
   <string name="action_buy">購入します。</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">QR コードに有効なアドレスが含まれていません。</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">AppCoins ウォレット</string>
   <string name="intro_title_second_page"><![CDATA[プライベート ・安全]]></string>
   <string name="intro_title_third_page">シンプル&amp;簡単</string>
   <string name="intro_message_first_page">アプリ経済革命へようこそ。</string>
   <string name="intro_message_second_page">プライベートキーを、お使いのデバイスにて放置したままにしないでください。</string>
   <string name="intro_message_third_page">すべてのアプリ内の支払いと APPC で報酬を処理します。</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">AppCoins ウォレット</string>
   <string name="intro_1_body">アプリ内課金のアプリです。</string>
   <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
   <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
