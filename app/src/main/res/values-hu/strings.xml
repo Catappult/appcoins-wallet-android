@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Kihagyás &gt;</string>
   <string name="root_title">ALACSONY BIZTONSÁGÚ ESZKÖZ</string>
   <string name="root_body">Bármilyen root jogokkal rendelkező app hozzáférhet az AppCoins Wallet keychain-adataihoz, így el is lophatja azokat! Azonnal töröld ezt a tárcát, majd állítsd vissza egy biztonságos eszközön.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s APPC kredit</string>
   <string name="buying">Vásárlás: %s</string>
   <string name="action_buy">Vásárlás</string>
   <string name="empty"></string>
