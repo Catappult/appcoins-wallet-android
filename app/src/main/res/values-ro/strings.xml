@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Ignoră &gt;</string>
   <string name="root_title">SECURITATE DISPOZITIV COMPROMISĂ</string>
   <string name="root_body">Orice aplicație „cu acces rădăcină” poate accesa datele keychain-ului Portofelului AppCoins și îți poate fura portofelul! Șterge imediat acest portofel și restaurează-l pe un dispozitiv sigur.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s Credite APPC</string>
   <string name="buying">Se cumpără %s</string>
   <string name="action_buy">Cumpără</string>
   <string name="empty"></string>
