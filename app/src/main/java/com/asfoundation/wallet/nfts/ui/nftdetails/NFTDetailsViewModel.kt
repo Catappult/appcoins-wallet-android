@@ -13,9 +13,9 @@ data class NFTDetailsState(val data: NFTItem) :
 class NFTDetailsViewModel(private val data: NFTItem) :
     BaseViewModel<NFTDetailsState, NFTDetailsSideEffect>(initialState(data)) {
 
-    companion object {
-        fun initialState(data: NFTItem): NFTDetailsState {
-            return NFTDetailsState(data)
-        }
+  companion object {
+    fun initialState(data: NFTItem): NFTDetailsState {
+      return NFTDetailsState(data)
     }
+  }
 }

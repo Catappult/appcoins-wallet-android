@@ -139,7 +139,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   private fun setListeners() {
     views.actionButtonMore.setOnClickListener { navigateToMore() }
-    views.actionButtonNfts.setOnClickListener { navigateToNfts() }
+    views.actionButtonNfts.setOnClickListener { navigator.navigateToNfts()}
   }
 
   override fun onStateChanged(state: MyWalletsState) {
@@ -187,10 +187,6 @@ class MyWalletsFragment : BasePageViewFragment(),
       navigator.navigateToMore(walletsModel.currentWallet.walletAddress, overallFiatValue,
           appcoinsValue, creditsValue, ethValue, verified, walletsModel.otherWallets.isNotEmpty())
     }
-  }
-
-  private fun navigateToNfts(){
-    navigator.navigateToNfts();
   }
 
   fun setAddressToClipBoard(walletAddress: String) {

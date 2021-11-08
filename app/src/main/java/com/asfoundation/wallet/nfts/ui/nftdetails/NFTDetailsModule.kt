@@ -7,21 +7,21 @@ import dagger.Provides
 
 @Module
 class NFTDetailsModule {
-    @Provides
-    fun provideNFTDetailsViewModelFactory(data: NFTItem): NFTDetailsViewModelFactory {
-        return NFTDetailsViewModelFactory(data)
-    }
+  @Provides
+  fun provideNFTDetailsViewModelFactory(data: NFTItem): NFTDetailsViewModelFactory {
+    return NFTDetailsViewModelFactory(data)
+  }
 
-    @Provides
-    fun provideNFTDetailsData(fragment: NFTDetailsFragment): NFTItem {
-        fragment.requireArguments()
-            .apply {
-                return getSerializable(NFTDetailsFragment.NFTITEMDATA)!! as NFTItem
-            }
-    }
+  @Provides
+  fun provideNFTDetailsData(fragment: NFTDetailsFragment): NFTItem {
+    fragment.requireArguments()
+        .apply {
+          return getSerializable(NFTDetailsFragment.NFT_ITEM_DATA)!! as NFTItem
+        }
+  }
 
-    @Provides
-    fun provideNFTDetailsNavigator(fragment: NFTDetailsFragment): NFTDetailsNavigator {
-        return NFTDetailsNavigator(fragment.findNavController())
-    }
+  @Provides
+  fun provideNFTDetailsNavigator(fragment: NFTDetailsFragment): NFTDetailsNavigator {
+    return NFTDetailsNavigator(fragment.findNavController())
+  }
 }

@@ -6,11 +6,11 @@ import androidx.biometric.BiometricManager
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
+import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
-import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
@@ -18,19 +18,18 @@ import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
-import com.asfoundation.wallet.nfts.repository.NftRepository
+import com.asfoundation.wallet.nfts.repository.NFTRepository
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
-import com.asfoundation.wallet.repository.WalletRepositoryType
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
@@ -261,8 +260,8 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase , nftRepository: NftRepository): GetNFTListUseCase {
-    return GetNFTListUseCase(getCurrentWallet , nftRepository)
+  fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase, NFTRepository: NFTRepository): GetNFTListUseCase {
+    return GetNFTListUseCase(getCurrentWallet , NFTRepository)
   }
 
 }

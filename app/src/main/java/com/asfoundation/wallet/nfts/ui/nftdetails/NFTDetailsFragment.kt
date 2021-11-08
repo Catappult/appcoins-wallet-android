@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.nfts.ui.nftdetails
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,12 +16,14 @@ import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import javax.inject.Inject
 
-class NFTDetailsFragment : BasePageViewFragment() ,
-  SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
+class NFTDetailsFragment : BasePageViewFragment(),
+    SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: NFTDetailsViewModelFactory
@@ -33,17 +36,11 @@ class NFTDetailsFragment : BasePageViewFragment() ,
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    postponeEnterTransition()
     return inflater.inflate(R.layout.fragment_nft, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    views.nftTitle.text = viewModel.state.data.name
-    views.nftSubtitle.text = viewModel.state.data.description
-    views.nftImage.load(viewModel.state.data.imageURL) {
-      startPostponedEnterTransition()
-    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     setListeners()
   }
@@ -51,53 +48,52 @@ class NFTDetailsFragment : BasePageViewFragment() ,
   fun ImageView.load(url: String?, onLoadingFinished: () -> Unit = {}) {
     val listener = object : RequestListener<Drawable> {
       override fun onLoadFailed(
-        e: GlideException?,
-        model: Any?,
-        target: com.bumptech.glide.request.target.Target<Drawable>?,
-        isFirstResource: Boolean
+          e: GlideException?,
+          model: Any?,
+          target: com.bumptech.glide.request.target.Target<Drawable>?,
+          isFirstResource: Boolean
       ): Boolean {
         onLoadingFinished()
+        this@load.setBackgroundColor(Color.parseColor("#000000"))
         return false
       }
 
       override fun onResourceReady(
-        resource: Drawable?,
-        model: Any?,
-        target: com.bumptech.glide.request.target.Target<Drawable>?,
-        dataSource: DataSource?,
-        isFirstResource: Boolean
+          resource: Drawable?,
+          model: Any?,
+          target: com.bumptech.glide.request.target.Target<Drawable>?,
+          dataSource: DataSource?,
+          isFirstResource: Boolean
       ): Boolean {
         onLoadingFinished()
         return false
       }
     }
     Glide.with(this)
-      .load(url)
-      .listener(listener)
-      .error(R.drawable.nfts_error)
-      .into(this)
+        .load(url)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .listener(listener)
+        .error(R.drawable.nfts_error)
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .into(this)
   }
 
   override fun onSideEffect(sideEffect: NFTDetailsSideEffect) = Unit
 
-  override fun onStateChanged(state: NFTDetailsState) = Unit
+  override fun onStateChanged(state: NFTDetailsState) {
+    views.nftImageSkeleton.root.visibility = View.VISIBLE
+    views.nftTitle.text = viewModel.state.data.name
+    views.nftSubtitle.text = viewModel.state.data.description
+    views.nftImage.load(viewModel.state.data.imageURL) {
+      views.nftImageSkeleton.root.visibility = View.GONE
+    }
+  }
 
   companion object {
-    internal const val NFTITEMDATA = "data"
+    internal const val NFT_ITEM_DATA = "data"
   }
 
   private fun setListeners() {
-    views.actionBack.setOnClickListener { goBack() }
+    views.actionBack.setOnClickListener { navigator.navigateBack() }
   }
-
-  private fun goBack(){
-    navigator.navigateBack()
-  }
-
-
 }
-
-
-
-
-

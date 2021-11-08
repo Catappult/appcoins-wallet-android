@@ -7,13 +7,13 @@ import dagger.Provides
 
 @Module
 class NFTModule {
-    @Provides
-    fun provideNFTViewModelFactory(getNFTListUseCase: GetNFTListUseCase): NFTViewModelFactory {
-        return NFTViewModelFactory(getNFTListUseCase)
-    }
+  @Provides
+  fun provideNFTViewModelFactory(getNFTListUseCase: GetNFTListUseCase): NFTViewModelFactory {
+    return NFTViewModelFactory(getNFTListUseCase)
+  }
 
-    @Provides
-    fun provideNFTNavigator(fragment: NFTFragment): NFTNavigator {
-        return NFTNavigator(fragment.findNavController())
-    }
+  @Provides
+  fun provideNFTNavigator(fragment: NFTFragment): NFTNavigator {
+    return NFTNavigator(fragment.findNavController())
+  }
 }

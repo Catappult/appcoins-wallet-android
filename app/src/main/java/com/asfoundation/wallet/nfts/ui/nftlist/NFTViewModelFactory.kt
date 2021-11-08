@@ -4,9 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
 
-class NFTViewModelFactory(private val getNFTListUseCase: GetNFTListUseCase) : ViewModelProvider.Factory {
+class NFTViewModelFactory(private val getNFTListUseCase: GetNFTListUseCase) :
+    ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return NFTViewModel(getNFTListUseCase) as T
-    }
+  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    return NFTViewModel(getNFTListUseCase) as T
+  }
 }

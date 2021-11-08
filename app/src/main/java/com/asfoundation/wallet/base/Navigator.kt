@@ -19,7 +19,7 @@ fun Navigator.navigate(navController: NavController, destination: NavDirections)
 }
 
 /**
- * Safe navigate function to help avoid IllegalArgumentExceptions on concurrent navigation events with support to extras in navigation.
+ * Same as [navigate] but supports extras for shared element transitions.
  */
 fun Navigator.navigate(navController: NavController, destination: NavDirections , extras: FragmentNavigator.Extras) = with(
     navController) {

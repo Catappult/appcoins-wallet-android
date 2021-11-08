@@ -16,8 +16,8 @@ import com.asfoundation.wallet.nfts.list.NFTsController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
 
-class NFTFragment : BasePageViewFragment() ,
-  SingleStateFragment<NFTState, NFTSideEffect> {
+class NFTFragment : BasePageViewFragment(),
+    SingleStateFragment<NFTState, NFTSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: NFTViewModelFactory
@@ -43,13 +43,8 @@ class NFTFragment : BasePageViewFragment() ,
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     nftsController = NFTsController()
-    nftsController.clickListener = { nftClick ->
-      viewModel.nftClicked(nftClick)
-    }
-    views.rvNfts.setController(nftsController)
-    views.refreshLayout.setOnRefreshListener { viewModel.fetchNFTList() }
     setListeners()
-    views.noNetwork.retryButton.setOnClickListener { networkRetry() }
+    views.rvNfts.setController(nftsController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -60,13 +55,18 @@ class NFTFragment : BasePageViewFragment() ,
 
   override fun onSideEffect(sideEffect: NFTSideEffect) {
     when (sideEffect) {
-      is NFTSideEffect.NavigateToInfo -> navigator.navigateToInfo(sideEffect.nftData , sideEffect.extras)
+      is NFTSideEffect.NavigateToInfo -> navigator.navigateToInfo(sideEffect.nftData)
 
     }
   }
 
   private fun setListeners() {
-    views.actionBack.setOnClickListener { goBack() }
+    views.actionBack.setOnClickListener { navigator.navigateBack() }
+    nftsController.clickListener = { nftClick ->
+      viewModel.nftClicked(nftClick)
+    }
+    views.refreshLayout.setOnRefreshListener { viewModel.fetchNFTList() }
+    views.noNetwork.retryButton.setOnClickListener { networkRetry() }
   }
 
   private fun setNFTItem(asyncNFTListModel: Async<List<NFTItem>>) {
@@ -136,9 +136,9 @@ class NFTFragment : BasePageViewFragment() ,
   }
 
   private fun hideNetworkErrorView() {
-    views.noNetwork.root.visibility = View.INVISIBLE
-    views.noNetwork.retryButton.visibility = View.INVISIBLE
-    views.noNetwork.retryAnimation.visibility = View.INVISIBLE
+    views.noNetwork.root.visibility = View.GONE
+    views.noNetwork.retryButton.visibility = View.GONE
+    views.noNetwork.retryAnimation.visibility = View.GONE
   }
 
   private fun showNoNFTsView() {
@@ -151,10 +151,4 @@ class NFTFragment : BasePageViewFragment() ,
   private fun hideNoNFTsView() {
     views.noNfts.root.visibility = View.GONE
   }
-
-  private fun goBack() {
-    navigator.navigateBack()
-  }
-
-
 }
