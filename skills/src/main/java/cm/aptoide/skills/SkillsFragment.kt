@@ -10,9 +10,9 @@ import androidx.activity.OnBackPressedCallback
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
-import cm.aptoide.skills.model.FailedTicket
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.ErrorStatus
+import cm.aptoide.skills.model.FailedTicket
 import cm.aptoide.skills.model.Ticket
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
@@ -44,14 +44,12 @@ class SkillsFragment : DaggerFragment() {
   @Inject
   lateinit var eskillsUriParser: EskillsUriParser
 
-  private var userId: String? = null
   private lateinit var disposable: CompositeDisposable
-
   private lateinit var binding: FragmentSkillsBinding
 
   override fun onCreateView(
-      inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     binding = FragmentSkillsBinding.inflate(inflater, container, false)
     return binding.root
@@ -63,31 +61,32 @@ class SkillsFragment : DaggerFragment() {
 
     val eskillsUri = getEskillsUri()
     requireActivity().onBackPressedDispatcher
-        .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-          override fun handleOnBackPressed() {
-            disposable.add(viewModel.cancelTicket()
-                .subscribe { _, _ -> })
-          }
-        })
+      .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          disposable.add(viewModel.cancelTicket()
+            .subscribe { _, _ -> })
+        }
+      })
     disposable.add(viewModel.closeView()
-        .subscribe { postbackUserData(it.first, it.second) })
+      .subscribe { postbackUserData(it.first, it.second) })
 
-    userId = eskillsUri.userId
     disposable.add(
-        handleWalletCreationIfNeeded()
-            .takeUntil { it != WALLET_CREATING_STATUS }
-            .flatMapCompletable {
-              viewModel.joinQueue(eskillsUri)
-                  .observeOn(AndroidSchedulers.mainThread())
-                  .doOnSubscribe { showRoomLoading(false) }
-                  .flatMapCompletable { handleTicketCreationResult(eskillsUri, it) }
-            }
-            .subscribe()
+      handleWalletCreationIfNeeded()
+        .takeUntil { it != WALLET_CREATING_STATUS }
+        .flatMapCompletable {
+          viewModel.joinQueue(eskillsUri)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { showRoomLoading(false) }
+            .flatMapCompletable { handleTicketCreationResult(eskillsUri, it) }
+        }
+        .subscribe()
     )
   }
 
-  private fun handleTicketCreationResult(eskillsUri: EskillsPaymentData,
-                                         ticket: Ticket): Completable {
+  private fun handleTicketCreationResult(
+    eskillsUri: EskillsPaymentData,
+    ticket: Ticket
+  ): Completable {
     return when (ticket) {
       is CreatedTicket -> purchaseTicket(eskillsUri, ticket)
       is FailedTicket -> Completable.fromAction { handleFailedTicketResult(ticket) }
@@ -97,19 +96,20 @@ class SkillsFragment : DaggerFragment() {
 
   private fun handleFailedTicketResult(ticket: FailedTicket) {
     when (ticket.status) {
-      ErrorStatus.REGION_NOT_SUPPORTED -> finishWithError(
-          SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
+      ErrorStatus.REGION_NOT_SUPPORTED -> showRegionNotSupportedError()
       ErrorStatus.NO_NETWORK -> showNoNetworkErrorLayout()
       ErrorStatus.GENERIC -> finishWithError(SkillsViewModel.RESULT_ERROR)
     }
   }
 
-  private fun purchaseTicket(eskillsUri: EskillsPaymentData,
-                             ticket: CreatedTicket): Completable {
+  private fun purchaseTicket(
+    eskillsUri: EskillsPaymentData,
+    ticket: CreatedTicket
+  ): Completable {
     return viewModel.getRoom(eskillsUri, ticket, this)
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnNext { userData -> handleUserDataStatus(userData) }
-        .ignoreElements()
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnNext { userData -> handleUserDataStatus(userData) }
+      .ignoreElements()
   }
 
   private fun handleUserDataStatus(userData: UserData) {
@@ -122,11 +122,20 @@ class SkillsFragment : DaggerFragment() {
   }
 
   private fun showNoNetworkErrorLayout() {
-    binding.loadingTicketLayout.processingLoading.visibility = View.GONE
+    binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
     binding.noNetworkLayout.root.visibility = View.VISIBLE
     binding.noNetworkLayout.noNetworkOkButton.setOnClickListener {
       finishWithError(SkillsViewModel.RESULT_SERVICE_UNAVAILABLE)
+    }
+  }
+
+  private fun showRegionNotSupportedError() {
+    binding.loadingTicketLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.geofencingLayout.root.visibility = View.VISIBLE
+    binding.geofencingLayout.okButton.setOnClickListener {
+      finishWithError(SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
     }
   }
 
@@ -136,8 +145,8 @@ class SkillsFragment : DaggerFragment() {
   }
 
   private fun showRefundedLayout() {
-    binding.loadingTicketLayout.processingLoading.visibility = View.GONE
-    binding.refundTicketLayout.refund.visibility = View.VISIBLE
+    binding.loadingTicketLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.VISIBLE
     binding.refundTicketLayout.refundOkButton.setOnClickListener { requireActivity().finish() }
   }
 
@@ -145,7 +154,7 @@ class SkillsFragment : DaggerFragment() {
     if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == SkillsViewModel.RESULT_OK) {
       if (data == null || data.extras!!.getString(TRANSACTION_HASH) == null) {
         disposable.add(viewModel.cancelTicket()
-            .subscribe { _, _ -> })
+          .subscribe { _, _ -> })
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data)
@@ -164,36 +173,36 @@ class SkillsFragment : DaggerFragment() {
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
     return viewModel.handleWalletCreationIfNeeded()
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnNext {
-          if (it == WALLET_CREATING_STATUS) {
-            showWalletCreationLoadingAnimation()
-          }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnNext {
+        if (it == WALLET_CREATING_STATUS) {
+          showWalletCreationLoadingAnimation()
         }
-        .filter { it != WALLET_CREATING_STATUS }
-        .map {
-          endWalletCreationLoadingAnimation()
-          it
-        }
+      }
+      .filter { it != WALLET_CREATING_STATUS }
+      .map {
+        endWalletCreationLoadingAnimation()
+        it
+      }
   }
 
   private fun showWalletCreationLoadingAnimation() {
-    binding.createWalletLayout.createWalletCard.visibility = View.VISIBLE
+    binding.createWalletLayout.root.visibility = View.VISIBLE
     binding.createWalletLayout.createWalletAnimation.playAnimation()
   }
 
   private fun endWalletCreationLoadingAnimation() {
-    binding.createWalletLayout.createWalletCard.visibility = View.GONE
+    binding.createWalletLayout.root.visibility = View.GONE
   }
 
   private fun showRoomLoading(isCancelActive: Boolean) {
-    binding.loadingTicketLayout.processingLoading.visibility = View.VISIBLE
+    binding.loadingTicketLayout.root.visibility = View.VISIBLE
     if (isCancelActive) {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.finding_room_loading_title)
       binding.loadingTicketLayout.cancelButton.isEnabled = true
       binding.loadingTicketLayout.cancelButton.setOnClickListener {
         disposable.add(viewModel.cancelTicket()
-            .subscribe { _, _ -> })
+          .subscribe { _, _ -> })
       }
     } else {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)

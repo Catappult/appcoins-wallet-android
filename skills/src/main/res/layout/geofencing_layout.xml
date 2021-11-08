@@ -6,7 +6,7 @@
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/no_network_card"
+      android:id="@+id/geofencing_error_card"
       android:layout_width="340dp"
       android:layout_height="wrap_content"
       android:background="@drawable/background_card"
@@ -22,7 +22,7 @@
       >
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/no_network_animation"
+        android:id="@+id/geofencing_error_animation"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginTop="8dp"
@@ -31,12 +31,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/no_network_animation"
+        app:lottie_rawRes="@raw/adyen_error_animation"
         />
 
     <TextView
-        android:id="@+id/no_network_message"
+        android:id="@+id/geofencing_error_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -45,16 +44,16 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:lineSpacingExtra="4sp"
-        android:text="@string/connection_error_body"
+        android:text="@string/geofencing_error_message"
         android:textColor="@color/grey_alpha_active_54"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/no_network_animation"
+        app:layout_constraintTop_toBottomOf="@id/geofencing_error_animation"
         />
 
     <Button
-        android:id="@+id/no_network_ok_button"
+        android:id="@+id/ok_button"
         style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
@@ -67,7 +66,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/no_network_message"
+        app:layout_constraintTop_toBottomOf="@id/geofencing_error_message"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
