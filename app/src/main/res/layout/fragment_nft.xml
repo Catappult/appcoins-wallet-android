@@ -58,7 +58,7 @@
         android:id="@+id/gamification_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/nft_background_card"
+        android:background="@color/white"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/normal_margin"

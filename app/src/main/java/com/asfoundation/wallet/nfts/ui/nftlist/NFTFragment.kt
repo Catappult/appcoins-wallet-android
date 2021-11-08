@@ -16,8 +16,7 @@ import com.asfoundation.wallet.nfts.list.NFTsController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
 
-class NFTFragment : BasePageViewFragment(),
-    SingleStateFragment<NFTState, NFTSideEffect> {
+class NFTFragment : BasePageViewFragment(), SingleStateFragment<NFTState, NFTSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: NFTViewModelFactory
@@ -71,8 +70,7 @@ class NFTFragment : BasePageViewFragment(),
 
   private fun setNFTItem(asyncNFTListModel: Async<List<NFTItem>>) {
     when (asyncNFTListModel) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      Async.Uninitialized, is Async.Loading -> {
         if (asyncNFTListModel.value == null) {
           showLoading()
         }

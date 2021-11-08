@@ -55,12 +55,7 @@ abstract class NFTItemModel : EpoxyModelWithHolder<NFTItemModel.NFTItemHolder>()
         .asBitmap()
         .load(url)
         .transition(BitmapTransitionOptions.withCrossFade())
-        .listener(
-            SkeletonGlideRequestListener(
-                skeletonImage,
-                skeletonText
-            )
-        )
+        .listener(SkeletonGlideRequestListener(skeletonImage, skeletonText))
         .error(R.drawable.nfts_error)
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .into(image)

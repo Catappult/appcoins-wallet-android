@@ -7,8 +7,7 @@ import com.asfoundation.wallet.nfts.domain.NFTItem
 
 sealed class NFTDetailsSideEffect : SideEffect
 
-data class NFTDetailsState(val data: NFTItem) :
-    ViewState
+data class NFTDetailsState(val data: NFTItem) : ViewState
 
 class NFTDetailsViewModel(private val data: NFTItem) :
     BaseViewModel<NFTDetailsState, NFTDetailsSideEffect>(initialState(data)) {

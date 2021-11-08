@@ -7,12 +7,10 @@ import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Single
 
 class GetNFTListUseCase(private val getCurrentWallet: GetCurrentWalletUseCase,
-                        private val NFTRepository: NFTRepository
-) {
+                        private val NFTRepository: NFTRepository) {
 
   operator fun invoke(): Single<List<NFTItem>> {
-    return getCurrentWallet()
-        .flatMap { wallet ->
+    return getCurrentWallet().flatMap { wallet ->
           NFTRepository.getNFTAssetList(wallet.address)
         }
   }

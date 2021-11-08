@@ -12,8 +12,7 @@ sealed class NFTSideEffect : SideEffect {
   data class NavigateToInfo(val nftData: NFTItem) : NFTSideEffect()
 }
 
-data class NFTState(val nftListModelAsync: Async<List<NFTItem>> = Async.Uninitialized) :
-    ViewState
+data class NFTState(val nftListModelAsync: Async<List<NFTItem>> = Async.Uninitialized) : ViewState
 
 class NFTViewModel(private val getNFTList: GetNFTListUseCase) :
     BaseViewModel<NFTState, NFTSideEffect>(initialState()) {
@@ -25,8 +24,7 @@ class NFTViewModel(private val getNFTList: GetNFTListUseCase) :
   }
 
   fun fetchNFTList() {
-    getNFTList()
-        .asAsyncToState(NFTState::nftListModelAsync) {
+    getNFTList().asAsyncToState(NFTState::nftListModelAsync) {
           copy(nftListModelAsync = it)
         }
         .repeatableScopedSubscribe(NFTState::nftListModelAsync.name) { e ->

@@ -16,7 +16,7 @@
       app:cardElevation="2dp"
       app:cardUseCompatPadding="true"
       app:layout_constraintTop_toTopOf="parent"
-      android:background="@drawable/nft_background_card"
+      android:background="@color/white"
       android:foreground="?android:attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout

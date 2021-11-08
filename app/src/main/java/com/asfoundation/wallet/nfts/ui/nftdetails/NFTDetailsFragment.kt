@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.nfts.ui.nftdetails
 
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -47,24 +47,17 @@ class NFTDetailsFragment : BasePageViewFragment(),
 
   fun ImageView.load(url: String?, onLoadingFinished: () -> Unit = {}) {
     val listener = object : RequestListener<Drawable> {
-      override fun onLoadFailed(
-          e: GlideException?,
-          model: Any?,
-          target: com.bumptech.glide.request.target.Target<Drawable>?,
-          isFirstResource: Boolean
-      ): Boolean {
+      override fun onLoadFailed(e: GlideException?, model: Any?,
+                                target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                isFirstResource: Boolean): Boolean {
         onLoadingFinished()
-        this@load.setBackgroundColor(Color.parseColor("#000000"))
+        this@load.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
         return false
       }
 
-      override fun onResourceReady(
-          resource: Drawable?,
-          model: Any?,
-          target: com.bumptech.glide.request.target.Target<Drawable>?,
-          dataSource: DataSource?,
-          isFirstResource: Boolean
-      ): Boolean {
+      override fun onResourceReady(resource: Drawable?, model: Any?,
+                                   target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                   dataSource: DataSource?, isFirstResource: Boolean): Boolean {
         onLoadingFinished()
         return false
       }
@@ -82,9 +75,9 @@ class NFTDetailsFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: NFTDetailsState) {
     views.nftImageSkeleton.root.visibility = View.VISIBLE
-    views.nftTitle.text = viewModel.state.data.name
-    views.nftSubtitle.text = viewModel.state.data.description
-    views.nftImage.load(viewModel.state.data.imageURL) {
+    views.nftTitle.text = state.data.name
+    views.nftSubtitle.text = state.data.description
+    views.nftImage.load(state.data.imageURL) {
       views.nftImageSkeleton.root.visibility = View.GONE
     }
   }

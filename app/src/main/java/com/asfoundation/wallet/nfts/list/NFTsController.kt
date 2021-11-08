@@ -10,11 +10,9 @@ class NFTsController : TypedEpoxyController<List<NFTItem>>() {
 
   override fun buildModels(data: List<NFTItem>) {
     for (nft in data) {
-      add(
-          NFTItemModel_().id(nft.id)
-              .nftItem(nft)
-              .clickListener(clickListener)
-      )
+      add(NFTItemModel_().id(nft.id)
+          .nftItem(nft)
+          .clickListener(clickListener))
     }
   }
 }
