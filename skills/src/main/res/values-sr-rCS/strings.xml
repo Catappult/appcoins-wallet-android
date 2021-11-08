@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
+  <string name="processing_loading_title">Getting your entry ticket</string>
+  <string name="finding_room_loading_title">Waiting for opponents</string>
+  <string name="finding_room_loading_message">Ovo će možda malo potrajati…</string>
+  <string name="refunded">Your money has been refunded.</string>
+  <string name="ok">U redu</string>
+  <string name="cancel">Otkaži</string>
+  <string name="connectoin_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
+</resources>

@@ -82,7 +82,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     var currencySymbol = currency
     val transactionTypeIcon: Int
     when (type) {
-      Transaction.TransactionType.IAP, Transaction.TransactionType.IAP_OFFCHAIN -> {
+      Transaction.TransactionType.IAP, Transaction.TransactionType.IAP_OFFCHAIN, Transaction.TransactionType.ESKILLS -> {
         transactionTypeIcon = R.drawable.ic_transaction_iab
         setTypeIconVisibilityBasedOnDescription(holder, details, uri)
       }

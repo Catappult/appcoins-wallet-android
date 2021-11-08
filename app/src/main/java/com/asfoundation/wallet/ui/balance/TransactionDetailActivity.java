@@ -282,6 +282,15 @@ public class TransactionDetailActivity extends BaseActivity {
                 view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         to = transaction.getTo();
         break;
+      case ESKILLS:
+        button.setVisibility(View.VISIBLE);
+        to = transaction.getTo();
+        typeStr = R.string.transaction_type_eskills;
+        typeIcon = R.drawable.ic_transaction_iab;
+        button.setOnClickListener(
+                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
+        break;
     }
 
     switch (transaction.getStatus()) {
