@@ -1054,6 +1054,7 @@
     <string name="e_skills_more_info_button">More info.</string>
 
     <!--  NFTs -->
+    <string name="nfts_title">NFTs</string>
     <string name="nfts_no_nfts">No NFTs available at the moment.</string>
 
 
