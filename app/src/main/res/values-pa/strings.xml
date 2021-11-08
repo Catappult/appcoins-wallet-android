@@ -866,7 +866,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">ਸਹਾਇਤਾ ਟੀਮ ਨੂੰ ਲੌਗ ਭੇਜੋ</string>
   <string name="send_logs_sending">ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
-  <string name="send_logs_send">ਭੇਜਿਆ ਗਿਆ!</string>
+  <string name="send_logs_sent">ਭੇਜਿਆ ਗਿਆ!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦਾ ਅਨੰਦ ਲੈ ਰਹੇ ਹੋ?</string>
   <string name="rate_us_no">ਸੱਚ ਵਿੱਚ ਨਹੀ</string>

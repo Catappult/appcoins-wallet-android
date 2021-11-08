@@ -859,7 +859,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">傳送日誌給支援團隊</string>
   <string name="send_logs_sending">傳送中&#8230;</string>
-  <string name="send_logs_send">已傳送！</string>
+  <string name="send_logs_sent">已傳送！</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins錢包好用嗎？</string>
   <string name="rate_us_no">普通</string>

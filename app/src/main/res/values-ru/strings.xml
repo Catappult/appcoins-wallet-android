@@ -880,7 +880,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Отправить логи команде поддержки</string>
   <string name="send_logs_sending">Отправка&#8230;</string>
-  <string name="send_logs_send">Отправлено!</string>
+  <string name="send_logs_sent">Отправлено!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Нравится AppCoins Wallet?</string>
   <string name="rate_us_no">Не особо</string>

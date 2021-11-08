@@ -866,7 +866,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Enviar registos para a Equipa de Apoio</string>
   <string name="send_logs_sending">A enviar&#8230;</string>
-  <string name="send_logs_send">Enviado!</string>
+  <string name="send_logs_sent">Enviado!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Gostas da AppCoins Wallet?</string>
   <string name="rate_us_no">Nem por isso</string>

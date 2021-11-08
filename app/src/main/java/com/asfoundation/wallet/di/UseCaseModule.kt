@@ -12,6 +12,7 @@ import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseC
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.NetworkInfo
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.home.usecases.*
@@ -250,13 +251,14 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesGetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository,
-                                         conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
+                                                conversionService: LocalCurrencyConversionService): GetChangeFiatCurrencyModelUseCase {
     return GetChangeFiatCurrencyModelUseCase(fiatCurrenciesRepository, conversionService)
   }
 
   @Singleton
   @Provides
-  fun providesGetSelectedCurrencyUseCase(fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
+  fun providesGetSelectedCurrencyUseCase(
+      fiatCurrenciesRepository: FiatCurrenciesRepository): GetSelectedCurrencyUseCase {
     return GetSelectedCurrencyUseCase(fiatCurrenciesRepository)
   }
 
@@ -270,7 +272,7 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesSendLogsUseCase(sendLogsRepository: SendLogsRepository,
-                                getCurrentWalletUseCase: GetCurrentWalletUseCase): SendLogsUseCase {
-    return SendLogsUseCase(sendLogsRepository, getCurrentWalletUseCase)
+                              ewtObtainer: EwtAuthenticatorService): SendLogsUseCase {
+    return SendLogsUseCase(sendLogsRepository, ewtObtainer)
   }
 }

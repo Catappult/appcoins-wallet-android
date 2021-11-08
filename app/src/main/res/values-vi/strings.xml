@@ -859,7 +859,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Gửi nhật ký cho Đội ngũ Hỗ trợ</string>
   <string name="send_logs_sending">Đang gửi&#8230;</string>
-  <string name="send_logs_send">Đã gửi!</string>
+  <string name="send_logs_sent">Đã gửi!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Bạn có thích Ví AppCoins không?</string>
   <string name="rate_us_no">Không hẳn</string>

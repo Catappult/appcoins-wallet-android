@@ -29,7 +29,7 @@ interface LogsDao {
     SELECT * FROM LogEntity 
     WHERE sending
   """)
-  fun getLogs(): Single<List<LogEntity>>
+  fun getSendingLogs(): Single<List<LogEntity>>
 
   @Query("""
     UPDATE LogEntity

@@ -11,9 +11,9 @@ class GetSendLogsStateUseCase(
     private val sendLogsRepository: SendLogsRepository,
     private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
 
-  operator fun invoke(): Single<Observable<SendLogsState>> {
+  operator fun invoke(): Observable<SendLogsState> {
     return getCurrentWalletUseCase()
             .subscribeOn(Schedulers.io())
-            .map { sendLogsRepository.getSendLogsState(it.address) }
+            .flatMapObservable { sendLogsRepository.getSendLogsState(it.address) }
   }
 }

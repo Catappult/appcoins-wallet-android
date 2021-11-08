@@ -859,7 +859,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Hantar log ke Pasukan Sokongan</string>
   <string name="send_logs_sending">Menghantar&#8230;</string>
-  <string name="send_logs_send">Dihantar!</string>
+  <string name="send_logs_sent">Dihantar!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Seronok guna Dompet AppCoins?</string>
   <string name="rate_us_no">Tak sangat</string>

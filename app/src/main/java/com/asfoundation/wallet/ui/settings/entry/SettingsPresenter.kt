@@ -183,7 +183,7 @@ class SettingsPresenter(private val view: SettingsView,
   fun setSendLogsPreference() {
     disposables.add(getSendLogsStateUseCase()
         .observeOn(viewScheduler)
-        .doOnSuccess {
+        .doOnNext {
           view.setSendLogsPreference(it)
         }
         .subscribe())

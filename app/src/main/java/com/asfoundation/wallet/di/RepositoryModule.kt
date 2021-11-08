@@ -439,16 +439,24 @@ class RepositoryModule {
   @Provides
   fun providesSendLogsRepository(@Named("default") client: OkHttpClient,
                                  logsDao: LogsDao,
-                                 rxSchedulers: RxSchedulers): SendLogsRepository {
-    val baseUrl = BuildConfig.BACKEND_HOST
+                                 rxSchedulers: RxSchedulers,
+                                 context: Context
+  ): SendLogsRepository {
     val api = Retrofit.Builder()
-        .baseUrl(baseUrl)
+        .baseUrl(BuildConfig.BACKEND_HOST)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(SendLogsRepository.SendLogsApi::class.java)
-    return SendLogsRepository(api, logsDao, rxSchedulers)
+    val awsApi = Retrofit.Builder()
+        .baseUrl("https://localhost/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(SendLogsRepository.AwsUploadFilesApi::class.java)
+    return SendLogsRepository(api, awsApi, logsDao, rxSchedulers, context.cacheDir)
 
   }
 }

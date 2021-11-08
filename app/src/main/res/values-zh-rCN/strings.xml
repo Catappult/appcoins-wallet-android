@@ -859,7 +859,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">将日志发送给支持团队</string>
   <string name="send_logs_sending">正在发送&#8230;</string>
-  <string name="send_logs_send">已发送！</string>
+  <string name="send_logs_sent">已发送！</string>
   <!--Rate us-->
   <string name="rate_us_question_title">喜欢AppCoins Wallet吗？</string>
   <string name="rate_us_no">不太喜欢</string>

@@ -260,8 +260,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setSendLogsPreference(sendLogsState: Observable<SendLogsState>) {
+  override fun setSendLogsPreference(sendLogsState: SendLogsState) {
     val settingsSendLogsPreference = findPreference<SettingsSendLogsPreference>("pref_send_logs")
+    settingsSendLogsPreference?.isVisible = sendLogsState.shouldShow
     settingsSendLogsPreference?.setOnPreferenceClickListener {
       presenter.onSendLogsClicked()
       false

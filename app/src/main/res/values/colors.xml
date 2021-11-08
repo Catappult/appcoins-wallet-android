@@ -190,4 +190,11 @@
   <color name="change_fiat_selected_item_short">#FFFFFF</color>
   <color name="change_fiat_selected_item_long">#BABABA</color>
   <color name="change_fiat_selected_item">#192933</color>
+
+  <!--Send Logs to Support -->
+  <color name="send_logs_sent">#62BF00</color>
+  <color name="send_logs_sent_background">#0D62BF00</color>
+  <color name="send_logs_error">#e44b46</color>
+  <color name="send_logs_error_background">#0De44b46</color>
+
 </resources>

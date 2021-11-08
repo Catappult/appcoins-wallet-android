@@ -44,7 +44,7 @@ interface SettingsView {
 
   fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity)
 
-  fun setSendLogsPreference(sendLogsState: Observable<SendLogsState>)
+  fun setSendLogsPreference(sendLogsState: SendLogsState)
 
   fun setRestorePreference()
 
