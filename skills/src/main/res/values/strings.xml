@@ -15,5 +15,6 @@
   <string name="lost_game_notification_body">You lost… Better luck next time!</string>
   <string name="dismiss_button">Dismiss</string>
 
-  <string name="geofencing_error_message">e-Skills is not available in your region.\nBut keep checking our social media platforms for future updates!</string>
+  <string name="location_not_available_title">e-Skills games are not available in your location</string>
+  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
 </resources>
