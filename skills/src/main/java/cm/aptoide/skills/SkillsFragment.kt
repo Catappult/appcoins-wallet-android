@@ -10,10 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
-import cm.aptoide.skills.model.CreatedTicket
-import cm.aptoide.skills.model.ErrorStatus
-import cm.aptoide.skills.model.FailedTicket
-import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
 import dagger.android.support.DaggerFragment
@@ -90,7 +87,7 @@ class SkillsFragment : DaggerFragment() {
     return when (ticket) {
       is CreatedTicket -> purchaseTicket(eskillsUri, ticket)
       is FailedTicket -> Completable.fromAction { handleFailedTicketResult(ticket) }
-      else -> return Completable.complete()
+      is PurchasedTicket -> return Completable.complete()
     }
   }
 
