@@ -17,7 +17,6 @@ import com.asfoundation.wallet.eskills.withdraw.usecases.GetAvailableAmountToWit
 import com.asfoundation.wallet.eskills.withdraw.usecases.GetStoredUserEmailUseCase
 import com.asfoundation.wallet.eskills.withdraw.usecases.WithdrawToFiatUseCase
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.home.usecases.*
