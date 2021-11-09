@@ -14,4 +14,6 @@
   <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">You lost… Better luck next time!</string>
   <string name="dismiss_button">Zamknij</string>
+  <string name="location_not_available_title">e-Skills games are not available in your location</string>
+  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
 </resources>
