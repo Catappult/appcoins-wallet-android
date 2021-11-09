@@ -1033,25 +1033,29 @@
 
   <!--Change Currency-->
   <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
-  <string name="change_currency_choose_button">Choose currency</string>
+    <string name="change_currency_settings_title">Currency</string>
+    <string name="change_currency_choose_button">Choose currency</string>
 
-  <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+    <!--Blockchain transactions-->
+    <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
+    <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 
-  <!--  Withdraw Funds-->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
-  <string name="e_skills_withdraw_amount_hint">0 USD</string>
-  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
-  <string name="e_skills_more_info_button">More info.</string>
+    <!--  Withdraw Funds-->
+    <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
+    <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+    <string name="e_skills_withdraw_amount">Amount (USD)</string>
+    <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+    <string name="e_skills_withdraw_amount_hint">0 USD</string>
+    <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
+    <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+    <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
+    <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+    <string name="e_skills_withdraw_max_amount">Max. amount you can withdraw: %s</string>
+    <string name="e_skills_more_info_button">More info.</string>
+
+    <!--  NFTs -->
+    <string name="nfts_title">NFTs</string>
+    <string name="nfts_no_nfts">No NFTs available at the moment.</string>
 
 
 </resources>
