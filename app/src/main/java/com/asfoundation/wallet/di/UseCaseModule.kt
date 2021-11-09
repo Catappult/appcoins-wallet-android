@@ -19,6 +19,7 @@ import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.logging.send_logs.use_cases.GetSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
@@ -267,6 +268,12 @@ class UseCaseModule {
   fun providesGetSendLogsStateUseCase(sendLogsRepository: SendLogsRepository,
                                       getCurrentWalletUseCase: GetCurrentWalletUseCase): GetSendLogsStateUseCase {
     return GetSendLogsStateUseCase(sendLogsRepository, getCurrentWalletUseCase)
+  }
+
+  @Singleton
+  @Provides
+  fun providesResetSendLogsStateUseCase(sendLogsRepository: SendLogsRepository): ResetSendLogsStateUseCase {
+    return ResetSendLogsStateUseCase(sendLogsRepository)
   }
 
   @Singleton

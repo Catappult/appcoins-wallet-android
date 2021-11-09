@@ -5,6 +5,7 @@ import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.GetSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
@@ -20,6 +21,7 @@ class SettingsPresenter(private val view: SettingsView,
                         private val settingsData: SettingsData,
                         private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
                         private val getSendLogsStateUseCase: GetSendLogsStateUseCase,
+                        private val resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
                         private val sendLogsUseCase: SendLogsUseCase) {
 
   fun present(savedInstanceState: Bundle?) {
@@ -193,6 +195,10 @@ class SettingsPresenter(private val view: SettingsView,
     disposables.add(sendLogsUseCase()
         .observeOn(viewScheduler)
         .subscribe())
+  }
+
+  fun resetSendLogsState() {
+    resetSendLogsStateUseCase()
   }
 }
 

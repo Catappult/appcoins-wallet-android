@@ -2,10 +2,11 @@ package com.asfoundation.wallet.logging.send_logs
 
 import com.asfoundation.wallet.base.RxSchedulers
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -28,12 +29,15 @@ class SendLogsRepository(
         .subscribeOn(rxSchedulers.io)
   }
 
-  fun updateLogs(): Single<File> {
+  fun updateLogs(): Maybe<File> {
 
     return logsDao.updateLogs()
         .andThen(
             logsDao.getSendingLogs()
-                .map { logs ->
+                .flatMapMaybe { logs ->
+                  if(logs.isEmpty())
+                    return@flatMapMaybe Maybe.empty()
+
                   val logsFile = File.createTempFile("log", null, cacheDir)
                   val logContent = StringBuilder()
 
@@ -46,7 +50,7 @@ class SendLogsRepository(
                     logContent.clear()
                   }
 
-                  return@map logsFile
+                  return@flatMapMaybe Maybe.just(logsFile)
                 }
         )
         .subscribeOn(rxSchedulers.io)
@@ -55,25 +59,27 @@ class SendLogsRepository(
 
   fun sendLogs(ewt: String): Completable {
 
-    return Single.zip(sendLogsApi.getSendLogsUrl(ewt), updateLogs(),
-        { awsInfo, file -> Pair(awsInfo, file) }
+    return Single.zip(sendLogsApi.getSendLogsUrl(ewt), updateLogs().materialize(),
+        { awsInfo, materializedFile -> Pair(awsInfo, materializedFile) }
     )
         .flatMapCompletable {
-          val filePart = MultipartBody.Part.createFormData("file", it.second.getName(),
-              it.second.asRequestBody("multipart/form-data".toMediaTypeOrNull()))
+          val file = it.second.value ?: return@flatMapCompletable Completable.complete()
 
-          val body = HashMap<String, RequestBody>()
-          body["AWSAccessKeyId"] = it.first.fields.awsAccessKeyId.toRequestBody("multipart/form-data".toMediaTypeOrNull());
-          body["signature"] = it.first.fields.signature.toRequestBody("multipart/form-data".toMediaTypeOrNull());
-          body["policy"] = it.first.fields.policy.toRequestBody("multipart/form-data".toMediaTypeOrNull());
-          body["Key"] = it.first.fields.key.toRequestBody("multipart/form-data".toMediaTypeOrNull());
+          val filePart = MultipartBody.Part.createFormData("file", file.name,
+              file.asRequestBody("text/*".toMediaType()))
 
           awsUploadFilesApi.uploadFile(
               it.first.url,
+              it.first.fields.awsAccessKeyId.toRequestBody("text/plain".toMediaType()),
+              it.first.fields.signature.toRequestBody("text/plain".toMediaType()),
+              it.first.fields.policy.toRequestBody("text/plain".toMediaType()),
+              it.first.fields.key.toRequestBody("text/plain".toMediaType()),
               filePart,
-              body
           )
         }
+        .andThen(
+            logsDao.deleteSentLogs()
+        )
         .doOnComplete {
           sendStateBehaviorSubject.onNext(SendState.SENT)
         }
@@ -91,12 +97,18 @@ class SendLogsRepository(
   private fun canLog(address: String): Single<Boolean> {
     return sendLogsApi.getCanSendLogs(address)
         .map { response: CanLogResponse -> response.logging }
+        .onErrorReturnItem(false)
         .subscribeOn(rxSchedulers.io)
   }
 
   fun getSendLogsState(address: String): Observable<SendLogsState> {
-    return Observable.zip(canLog(address).toObservable(), sendStateBehaviorSubject,
+    return Observable.combineLatest(canLog(address).toObservable(), sendStateBehaviorSubject,
         { shouldShow, state -> SendLogsState(shouldShow, state) })
+  }
+
+  fun resetSendLogsState() {
+    if (sendStateBehaviorSubject.value == SendState.SENT)
+      sendStateBehaviorSubject.onNext(SendState.UNINITIALIZED)
   }
 
   interface SendLogsApi {
@@ -112,8 +124,11 @@ class SendLogsRepository(
     @POST
     fun uploadFile(
         @Url url: String,
+        @Part("AWSAccessKeyId") awsAccessKeyId: RequestBody,
+        @Part("signature") signature: RequestBody,
+        @Part("policy") policy: RequestBody,
+        @Part("Key") key: RequestBody,
         @Part file: MultipartBody.Part,
-        @PartMap body: HashMap<String, RequestBody>,
     ): Completable
   }
 }

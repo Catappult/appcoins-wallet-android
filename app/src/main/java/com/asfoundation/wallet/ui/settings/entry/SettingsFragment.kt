@@ -94,6 +94,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onDestroy() {
     switchSubject = null
+    presenter.resetSendLogsState()
     super.onDestroy()
   }
 
@@ -263,11 +264,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setSendLogsPreference(sendLogsState: SendLogsState) {
     val settingsSendLogsPreference = findPreference<SettingsSendLogsPreference>("pref_send_logs")
     settingsSendLogsPreference?.isVisible = sendLogsState.shouldShow
+    settingsSendLogsPreference?.setSendLogsState(sendLogsState)
     settingsSendLogsPreference?.setOnPreferenceClickListener {
       presenter.onSendLogsClicked()
       false
     }
-    settingsSendLogsPreference?.setSendLogsState(sendLogsState)
   }
 
 

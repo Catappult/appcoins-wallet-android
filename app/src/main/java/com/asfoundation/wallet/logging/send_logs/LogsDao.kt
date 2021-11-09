@@ -37,4 +37,10 @@ interface LogsDao {
     WHERE NOT EXISTS (SELECT * FROM LogEntity WHERE sending)
   """)
   fun updateLogs(): Completable
+
+  @Query("""
+      DELETE FROM LogEntity
+      WHERE sending
+    """)
+  fun deleteSentLogs(): Completable
 }

@@ -5,6 +5,7 @@ import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyMo
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.logging.send_logs.use_cases.GetSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
@@ -27,10 +28,11 @@ class SettingsModule {
                                 data: SettingsData,
                                 getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
                                 getSendLogsStateUseCase: GetSendLogsStateUseCase,
+                                resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
                                 sendLogsUseCase: SendLogsUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data,
-        getChangeFiatCurrencyModelUseCase, getSendLogsStateUseCase, sendLogsUseCase)
+        getChangeFiatCurrencyModelUseCase, getSendLogsStateUseCase, resetSendLogsStateUseCase, sendLogsUseCase)
   }
 
   @Provides

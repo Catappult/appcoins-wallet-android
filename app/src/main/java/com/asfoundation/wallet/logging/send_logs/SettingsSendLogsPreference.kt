@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.logging.send_logs
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
@@ -41,44 +42,59 @@ class SettingsSendLogsPreference(context: Context?, attrs: AttributeSet?) :
 
   private fun setStateTextView() {
     when (sendLogsState?.state) {
-      SendState.SENDING ->
+      SendState.SENDING -> {
+        state?.visibility = View.VISIBLE
         state?.setText(R.string.send_logs_sending)
+        state?.resources?.getColor(R.color.send_logs_sending)
+            ?.let { state?.setTextColor(it) }
+      }
       SendState.SENT -> {
+        state?.visibility = View.VISIBLE
         state?.setText(R.string.send_logs_sent)
         state?.resources?.getColor(R.color.send_logs_sent)
             ?.let { state?.setTextColor(it) }
 
       }
       SendState.ERROR -> {
+        state?.visibility = View.VISIBLE
         state?.setText(R.string.send_logs_error)
         state?.resources?.getColor(R.color.send_logs_error)
             ?.let { state?.setTextColor(it) }
       }
-      SendState.UNINITIALIZED -> Unit
+      SendState.UNINITIALIZED ->
+        state?.visibility = View.GONE
     }
   }
 
   private fun setIconImageView() {
     when (sendLogsState?.state) {
-      SendState.SENDING -> Unit
-      SendState.SENT ->
+      SendState.SENDING ->
+        icon?.visibility = View.GONE
+      SendState.SENT -> {
+        icon?.visibility = View.VISIBLE
         icon?.setImageResource(R.drawable.ic_check_mark_green)
-      SendState.ERROR ->
+      }
+      SendState.ERROR -> {
+        icon?.visibility = View.VISIBLE
         icon?.setImageResource(R.drawable.ic_alert)
-      SendState.UNINITIALIZED -> Unit
+      }
+      SendState.UNINITIALIZED ->
+        icon?.visibility = View.GONE
     }
   }
 
   private fun setBackgroundView() {
     when (sendLogsState?.state) {
-      SendState.SENDING -> Unit
+      SendState.SENDING ->
+        background?.setBackgroundColor(Color.TRANSPARENT)
       SendState.SENT ->
         background?.resources?.getColor(R.color.send_logs_sent_background)
             ?.let { background?.setBackgroundColor(it) }
       SendState.ERROR ->
         background?.resources?.getColor(R.color.send_logs_error_background)
             ?.let { background?.setBackgroundColor(it) }
-      SendState.UNINITIALIZED -> Unit
+      SendState.UNINITIALIZED ->
+        background?.setBackgroundColor(Color.TRANSPARENT)
     }
   }
 }
