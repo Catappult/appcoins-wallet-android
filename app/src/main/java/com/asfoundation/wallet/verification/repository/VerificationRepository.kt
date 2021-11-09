@@ -58,9 +58,12 @@ class VerificationRepository(private val verificationApi: VerificationApi,
         .subscribeOn(Schedulers.io())
         .flatMap { verificationResponse ->
           if (verificationResponse.verified) {
-            Single.just(VerificationStatus.VERIFIED)
+            return@flatMap Single.just(VerificationStatus.VERIFIED)
           } else {
-            getCardVerificationState(walletAddress, walletSignature)
+            if (getCachedValidationStatus(walletAddress) == VerificationStatus.VERIFYING) {
+              return@flatMap Single.just(VerificationStatus.VERIFYING)
+            }
+            return@flatMap getCardVerificationState(walletAddress, walletSignature)
           }
         }
         .doOnSuccess { status -> saveVerificationStatus(walletAddress, status) }

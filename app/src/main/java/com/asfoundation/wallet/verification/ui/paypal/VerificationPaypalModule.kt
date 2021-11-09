@@ -3,6 +3,7 @@ package com.asfoundation.wallet.verification.ui.paypal
 import com.adyen.checkout.redirect.RedirectComponent
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
+import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -16,13 +17,12 @@ class VerificationPaypalModule {
   }
 
   @Provides
-  fun provideVerificationPaypalViewModelFactory(
-      data: VerificationPaypalData,
-      getVerificationInfoUseCase: GetVerificationInfoUseCase,
-      makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase
-  ): VerificationPaypalViewModelFactory {
+  fun provideVerificationPaypalViewModelFactory(data: VerificationPaypalData,
+                                                getVerificationInfoUseCase: GetVerificationInfoUseCase,
+                                                makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
+                                                setCachedVerificationUseCase: SetCachedVerificationUseCase): VerificationPaypalViewModelFactory {
     return VerificationPaypalViewModelFactory(data, getVerificationInfoUseCase,
-        makeVerificationPaymentUseCase)
+        makeVerificationPaymentUseCase, setCachedVerificationUseCase)
   }
 
   @Provides
