@@ -36,6 +36,10 @@ class MyWalletsNavigator(private val fragment: MyWalletsFragment,
             appcoinsBalance, creditsBalance, ethereumBalance, showVerifyCard, showDeleteWallet))
   }
 
+  fun navigateToNfts() {
+    navigate(navController, MyWalletsFragmentDirections.actionNavigateToNfts())
+  }
+
   fun navigateToVerifyPicker() {
     navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyPicker())
   }

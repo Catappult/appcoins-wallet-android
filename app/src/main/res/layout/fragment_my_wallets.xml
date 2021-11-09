@@ -69,6 +69,24 @@
 
     </TextSwitcher>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/action_button_nfts"
+        android:text="NFTs"
+        style="@style/NFTs.GoToNFTS"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/action_button_more"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:icon="@drawable/ic_arrow_right"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:paddingVertical="10dp"
+        />
+
+
     <ImageButton
         android:id="@+id/action_button_more"
         style="@style/Widget.AppCompat.ActionButton"

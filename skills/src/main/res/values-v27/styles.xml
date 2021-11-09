@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--  This style file is needed because we want to override Theme.AppCompat.Transparent.FitAppWindow
+  style in api 26 only due to https://aptoide.atlassian.net/browse/ESKL-98 -->
+  <style name="Theme.AppCompat.Transparent.FitAppWindow.Eskills" parent="Theme.AppCompat.Transparent">
+    <item name="android:fitsSystemWindows">true</item>
+    <item name="android:windowIsFloating">false</item>
+  </style>
+
+</resources>

@@ -92,6 +92,7 @@ class TransactionMapper {
       TransactionEntity.TransactionType.IAP_REVERT -> Transaction.TransactionType.IAP_REVERT
       TransactionEntity.TransactionType.INAPP_SUBSCRIPTION -> Transaction.TransactionType.SUBS_OFFCHAIN
       TransactionEntity.TransactionType.ESKILLS_REWARD -> Transaction.TransactionType.ESKILLS_REWARD
+      TransactionEntity.TransactionType.ESKILLS -> Transaction.TransactionType.ESKILLS
     }
   }
 
@@ -158,6 +159,7 @@ class TransactionMapper {
       Transaction.TransactionType.IAP_REVERT -> TransactionEntity.TransactionType.IAP_REVERT
       Transaction.TransactionType.SUBS_OFFCHAIN -> TransactionEntity.TransactionType.INAPP_SUBSCRIPTION
       Transaction.TransactionType.ESKILLS_REWARD -> TransactionEntity.TransactionType.ESKILLS_REWARD
+      Transaction.TransactionType.ESKILLS -> TransactionEntity.TransactionType.ESKILLS
     }
   }
 
