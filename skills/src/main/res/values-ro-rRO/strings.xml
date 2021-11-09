@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">Se creează adresă portofel&#8230;</string>
+  <string name="processing_loading_title">Obținem biletul tău de intrare</string>
+  <string name="finding_room_loading_title">Se așteaptă oponenții</string>
+  <string name="finding_room_loading_message">Poate dura puțin…</string>
+  <string name="refunded">Banii tăi au fost rambursați.</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Anulează</string>
+  <string name="connectoin_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
+</resources>

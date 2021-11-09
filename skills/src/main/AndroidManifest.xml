@@ -6,7 +6,7 @@
     <activity
         android:name="cm.aptoide.skills.SkillsActivity"
         android:exported="true"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow.Eskills"
         android:screenOrientation="locked"
         android:label="">
 
@@ -14,6 +14,9 @@
         <action android:name="android.intent.action.VIEW" />
       </intent-filter>
     </activity>
+
+    <service android:name="cm.aptoide.skills.games.BackgroundGameService"
+      android:exported="false" />
   </application>
 
 </manifest>

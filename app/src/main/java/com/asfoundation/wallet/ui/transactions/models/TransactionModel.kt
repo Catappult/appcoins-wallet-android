@@ -82,7 +82,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     var currencySymbol = currency
     val transactionTypeIcon: Int
     when (type) {
-      Transaction.TransactionType.IAP, Transaction.TransactionType.IAP_OFFCHAIN -> {
+      Transaction.TransactionType.IAP, Transaction.TransactionType.IAP_OFFCHAIN, Transaction.TransactionType.ESKILLS -> {
         transactionTypeIcon = R.drawable.ic_transaction_iab
         setTypeIconVisibilityBasedOnDescription(holder, details, uri)
       }
@@ -145,6 +145,8 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
             R.string.transaction_type_reverted_bonus_title)
         Transaction.TransactionType.IAP_REVERT -> holder.address.setText(
             R.string.transaction_type_reverted_purchase_title)
+        Transaction.TransactionType.ESKILLS_REWARD -> holder.address.setText(
+            R.string.transaction_type_eskills_reward)
         else -> {
           holder.address.text = if (details.sourceName == null) {
             if (isSent) to else from

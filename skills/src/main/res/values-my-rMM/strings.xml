@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
+  <string name="processing_loading_title">သင့္ဝင္ေရာက္ခြင့္ လက္မွတ္ကို ရယူေနပါသည္</string>
+  <string name="finding_room_loading_title">ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
+  <string name="finding_room_loading_message">အခ်ိန္အနည္းငယ္ ၾကာႏိုင္ပါသည္…</string>
+  <string name="refunded">သင့္ေငြကို ျပန္အမ္းေပးလိုက္ပါသည္။</string>
+  <string name="ok">အိုေက</string>
+  <string name="cancel">ပယ္ဖ်က္မည္</string>
+  <string name="connectoin_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
+</resources>

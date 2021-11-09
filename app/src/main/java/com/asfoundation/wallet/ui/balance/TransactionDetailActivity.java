@@ -270,6 +270,27 @@ public class TransactionDetailActivity extends BaseActivity {
         to = transaction.getTo();
         symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
+      case ESKILLS_REWARD:
+        typeStr = R.string.transaction_type_eskills_reward;
+        typeIcon = -1;
+        id = getString(R.string.transaction_type_eskills_reward);
+        manageSubscriptions.setVisibility(View.GONE);
+        symbol = getString(R.string.p2p_send_currency_appc_c);
+        categoryBackground.setBackground(null);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        to = transaction.getTo();
+        break;
+      case ESKILLS:
+        button.setVisibility(View.VISIBLE);
+        to = transaction.getTo();
+        typeStr = R.string.transaction_type_eskills;
+        typeIcon = R.drawable.ic_transaction_iab;
+        button.setOnClickListener(
+                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
+        break;
     }
 
     switch (transaction.getStatus()) {

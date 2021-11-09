@@ -82,6 +82,10 @@ import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyModule
 import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
 import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
+import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsFragment
+import com.asfoundation.wallet.nfts.ui.nftlist.NFTFragment
+import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsModule
+import com.asfoundation.wallet.nfts.ui.nftlist.NFTModule
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.ui.settings.entry.SettingsModule
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
@@ -99,7 +103,8 @@ import com.asfoundation.wallet.verification.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.error.VerificationErrorModule
 import com.asfoundation.wallet.verification.intro.VerificationIntroFragment
 import com.asfoundation.wallet.verification.intro.VerificationIntroModule
-import com.asfoundation.wallet.withdraw.ui.WithdrawFragment
+import com.asfoundation.wallet.eskills.withdraw.WithdrawFragment
+import com.asfoundation.wallet.eskills.withdraw.WithdrawModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -300,7 +305,7 @@ abstract class FragmentBuilders {
 
 
   @FragmentScope
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = [WithdrawModule::class])
   abstract fun bindWithdrawFragment(): WithdrawFragment
 
   @FragmentScope
@@ -350,4 +355,12 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [SubscriptionSuccessModule::class])
   abstract fun bindSubscriptionCancelSuccessFragment(): SubscriptionSuccessFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [NFTModule::class])
+  abstract fun bindNFTFragment(): NFTFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [NFTDetailsModule::class])
+  abstract fun bindNFTDetailsFragment(): NFTDetailsFragment
 }

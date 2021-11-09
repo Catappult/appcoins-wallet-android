@@ -139,6 +139,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   private fun setListeners() {
     views.actionButtonMore.setOnClickListener { navigateToMore() }
+    views.actionButtonNfts.setOnClickListener { navigator.navigateToNfts()}
   }
 
   override fun onStateChanged(state: MyWalletsState) {
