@@ -4,6 +4,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.support.SupportInteractor
@@ -29,9 +30,10 @@ class OnboardingModule {
   fun providesOnboardingInteractor(walletService: WalletService,
                                    preferencesRepositoryType: PreferencesRepositoryType,
                                    supportInteractor: SupportInteractor, gamification: Gamification,
-                                   bdsRepository: BdsRepository): OnboardingInteractor {
+                                   bdsRepository: BdsRepository,
+                                   getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): OnboardingInteractor {
     return OnboardingInteractor(walletService, preferencesRepositoryType, supportInteractor,
-        gamification, bdsRepository)
+        gamification, bdsRepository, getCurrentPromoCodeUseCase)
   }
 
   @Provides

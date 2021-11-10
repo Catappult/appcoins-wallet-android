@@ -4,6 +4,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.Voucher
@@ -14,16 +15,20 @@ import io.reactivex.Observable
 class GetPromotionsUseCase(private val getCurrentWallet: GetCurrentWalletUseCase,
                            private val observeLevels: ObserveLevelsUseCase,
                            private val promotionsMapper: PromotionsMapper,
-                           private val promotionsRepository: PromotionsRepository) {
+                           private val promotionsRepository: PromotionsRepository,
+                           private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   operator fun invoke(): Observable<PromotionsModel> {
-    return getCurrentWallet()
-        .flatMapObservable {
-          Observable.zip(observeLevels(), promotionsRepository.getUserStats(it.address),
-              { levels: Levels, userStatsResponse: UserStats ->
-                promotionsMapper.mapToPromotionsModel(userStatsResponse, levels, it,
-                    getMockedVouchers())
-              })
+    return getCurrentPromoCodeUseCase()
+        .flatMap { promoCode ->
+          getCurrentWallet()
+              .flatMapObservable {
+                Observable.zip(observeLevels(), promotionsRepository.getUserStats(it.address, promoCode.code),
+                    { levels: Levels, userStatsResponse: UserStats ->
+                      promotionsMapper.mapToPromotionsModel(userStatsResponse, levels, it,
+                          getMockedVouchers())
+                    })
+              }
         }
   }
 

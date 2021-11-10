@@ -49,6 +49,7 @@ import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.interact.*
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.permissions.PermissionsInteractor
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.rating.RatingInteractor
 import com.asfoundation.wallet.rating.RatingRepository
@@ -283,8 +284,10 @@ class InteractorModule {
   @Provides
   fun provideGamificationInteractor(gamification: Gamification,
                                     defaultWallet: FindDefaultWalletInteract,
-                                    conversionService: LocalCurrencyConversionService) =
-      GamificationInteractor(gamification, defaultWallet, conversionService)
+                                    conversionService: LocalCurrencyConversionService,
+                                    getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) =
+      GamificationInteractor(gamification, defaultWallet, conversionService,
+          getCurrentPromoCodeUseCase)
 
   @Provides
   fun providePromotionsInteractor(
@@ -292,21 +295,24 @@ class InteractorModule {
       gamificationInteractor: GamificationInteractor,
       promotionsRepository: PromotionsRepository,
       findWalletUseCase: FindDefaultWalletUseCase,
+      getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
       rakamAnalytics: RakamAnalytics,
       userStatsLocalData: UserStatsLocalData,
       gamificationMapper: GamificationMapper,
   ): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
-        promotionsRepository, findWalletUseCase, userStatsLocalData, rakamAnalytics,
+        promotionsRepository, findWalletUseCase, getCurrentPromoCodeUseCase, userStatsLocalData,
+        rakamAnalytics,
         gamificationMapper)
   }
 
   @Provides
   fun provideReferralInteractor(preferences: SharedPreferences,
                                 findDefaultWalletInteract: FindDefaultWalletInteract,
-                                promotionsRepository: PromotionsRepository): ReferralInteractorContract {
+                                promotionsRepository: PromotionsRepository,
+                                getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): ReferralInteractorContract {
     return ReferralInteractor(SharedPreferencesReferralLocalData(preferences),
-        findDefaultWalletInteract, promotionsRepository)
+        findDefaultWalletInteract, promotionsRepository, getCurrentPromoCodeUseCase)
   }
 
   @Provides
@@ -324,10 +330,11 @@ class InteractorModule {
                               walletBlockedInteract: WalletBlockedInteract,
                               inAppPurchaseInteractor: InAppPurchaseInteractor,
                               supportInteractor: SupportInteractor,
-                              topUpDefaultValueExperiment: TopUpDefaultValueExperiment) =
+                              topUpDefaultValueExperiment: TopUpDefaultValueExperiment,
+                              getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) =
       TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
           LinkedHashMap(), TopUpLimitValues(), walletBlockedInteract, inAppPurchaseInteractor,
-          supportInteractor, topUpDefaultValueExperiment)
+          supportInteractor, topUpDefaultValueExperiment, getCurrentPromoCodeUseCase)
 
   @Singleton
   @Provides
@@ -363,10 +370,11 @@ class InteractorModule {
                                       inAppPurchaseInteractor: InAppPurchaseInteractor,
                                       fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                       billing: Billing, errorMapper: ErrorMapper,
-                                      bdsPendingTransactionService: BdsPendingTransactionService): PaymentMethodsInteractor {
+                                      bdsPendingTransactionService: BdsPendingTransactionService,
+                                      getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): PaymentMethodsInteractor {
     return PaymentMethodsInteractor(supportInteractor, gamificationInteractor, balanceInteractor,
         walletBlockedInteract, inAppPurchaseInteractor, fingerprintPreferences, billing,
-        errorMapper, bdsPendingTransactionService)
+        errorMapper, bdsPendingTransactionService, getCurrentPromoCodeUseCase)
   }
 
   @Provides
@@ -468,18 +476,21 @@ class InteractorModule {
                              walletCreatorInteract: WalletCreatorInteract,
                              supportInteractor: SupportInteractor,
                              sharedPreferencesRepository: SharedPreferencesRepository,
-                             gamification: Gamification, logger: Logger): WalletsInteract {
+                             gamification: Gamification, logger: Logger,
+                             getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): WalletsInteract {
     return WalletsInteract(balanceInteractor, fetchWalletsInteract, walletCreatorInteract,
-        supportInteractor, sharedPreferencesRepository, gamification, logger)
+        supportInteractor, sharedPreferencesRepository, gamification, logger,
+        getCurrentPromoCodeUseCase)
   }
 
   @Provides
   fun provideWalletDetailInteract(balanceInteractor: BalanceInteractor,
                                   setDefaultWalletInteractor: SetDefaultWalletInteractor,
                                   supportInteractor: SupportInteractor,
-                                  gamification: Gamification): WalletDetailsInteractor {
+                                  gamification: Gamification,
+                                  getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): WalletDetailsInteractor {
     return WalletDetailsInteractor(balanceInteractor, setDefaultWalletInteractor, supportInteractor,
-        gamification)
+        gamification, getCurrentPromoCodeUseCase)
   }
 
   @Singleton
@@ -499,9 +510,10 @@ class InteractorModule {
                          autoUpdateInteract: AutoUpdateInteract,
                          supportInteractor: SupportInteractor,
                          gamificationRepository: Gamification,
-                         walletBlockedInteract: WalletBlockedInteract): IabInteract {
+                         walletBlockedInteract: WalletBlockedInteract,
+                         getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): IabInteract {
     return IabInteract(inAppPurchaseInteractor, autoUpdateInteract, supportInteractor,
-        gamificationRepository, walletBlockedInteract)
+        gamificationRepository, walletBlockedInteract, getCurrentPromoCodeUseCase)
   }
 
   @Provides
@@ -528,8 +540,10 @@ class InteractorModule {
   @Provides
   fun providesSupportInteractor(supportRepository: SupportRepository,
                                 walletService: WalletService,
-                                gamificationRepository: Gamification): SupportInteractor {
+                                gamificationRepository: Gamification,
+                                getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): SupportInteractor {
     return SupportInteractor(supportRepository, walletService, gamificationRepository,
+        getCurrentPromoCodeUseCase,
         AndroidSchedulers.mainThread(), Schedulers.io())
   }
 

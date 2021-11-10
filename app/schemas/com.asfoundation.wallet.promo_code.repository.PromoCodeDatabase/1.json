@@ -2,17 +2,23 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ed1906d9fb230249f2dbde1cdf3b622a",
+    "identityHash": "e54de2b86d2d8ca02d0a5a057e0754b1",
     "entities": [
       {
         "tableName": "PromoCodeEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`code` TEXT NOT NULL, `expiryDate` TEXT, `expired` INTEGER, PRIMARY KEY(`code`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`code` TEXT NOT NULL, `bonus` REAL, `expiryDate` TEXT, `expired` INTEGER, PRIMARY KEY(`code`))",
         "fields": [
           {
             "fieldPath": "code",
             "columnName": "code",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "bonus",
+            "columnName": "bonus",
+            "affinity": "REAL",
+            "notNull": false
           },
           {
             "fieldPath": "expiryDate",
@@ -40,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ed1906d9fb230249f2dbde1cdf3b622a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e54de2b86d2d8ca02d0a5a057e0754b1')"
     ]
   }
 }

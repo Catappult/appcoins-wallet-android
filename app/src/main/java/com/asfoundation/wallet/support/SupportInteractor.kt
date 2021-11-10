@@ -2,6 +2,7 @@ package com.asfoundation.wallet.support
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.gamification.Gamification
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UnreadConversationCountListener
 import io.reactivex.Completable
@@ -12,17 +13,22 @@ import java.util.*
 class SupportInteractor(private val supportRepository: SupportRepository,
                         private val walletService: WalletService,
                         private val gamificationRepository: Gamification,
+                        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                         private val viewScheduler: Scheduler,
                         private val ioScheduler: Scheduler) {
 
   fun showSupport(): Completable {
-    return walletService.getWalletAddress()
-        .flatMapCompletable { address ->
-          gamificationRepository.getUserLevel(address)
-              .observeOn(viewScheduler)
-              .flatMapCompletable { showSupport(address, it) }
+    return getCurrentPromoCodeUseCase()
+        .firstOrError()
+        .flatMapCompletable { promoCode ->
+          walletService.getWalletAddress()
+              .flatMapCompletable { address ->
+                gamificationRepository.getUserLevel(address, promoCode.code)
+                    .observeOn(viewScheduler)
+                    .flatMapCompletable { showSupport(address, it) }
+              }
+              .subscribeOn(ioScheduler)
         }
-        .subscribeOn(ioScheduler)
   }
 
   fun showSupport(gamificationLevel: Int): Completable {

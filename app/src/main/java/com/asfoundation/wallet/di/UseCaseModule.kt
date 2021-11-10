@@ -51,9 +51,10 @@ class UseCaseModule {
   fun providesGetPromotionsUseCase(getCurrentWallet: GetCurrentWalletUseCase,
                                    observeLevels: ObserveLevelsUseCase,
                                    promotionsMapper: PromotionsMapper,
-                                   promotionsRepository: PromotionsRepository): GetPromotionsUseCase {
+                                   promotionsRepository: PromotionsRepository,
+                                   getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): GetPromotionsUseCase {
     return GetPromotionsUseCase(getCurrentWallet, observeLevels, promotionsMapper,
-        promotionsRepository)
+        promotionsRepository, getCurrentPromoCodeUseCase)
   }
 
   @Singleton
@@ -185,8 +186,9 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesGetUserLevelUseCase(gamification: Gamification,
-                                  findDefaultWalletUseCase: FindDefaultWalletUseCase): GetUserLevelUseCase {
-    return GetUserLevelUseCase(gamification, findDefaultWalletUseCase)
+                                  findDefaultWalletUseCase: FindDefaultWalletUseCase,
+                                  getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): GetUserLevelUseCase {
+    return GetUserLevelUseCase(gamification, findDefaultWalletUseCase, getCurrentPromoCodeUseCase)
   }
 
   @Singleton
@@ -290,6 +292,7 @@ class UseCaseModule {
   ): WithdrawToFiatUseCase {
     return WithdrawToFiatUseCase(ewt, withdrawRepository)
   }
+
   @Singleton
   @Provides
   fun providesSetPromoCodeUseCase(promoCodeRepository: PromoCodeRepository): SetPromoCodeUseCase {

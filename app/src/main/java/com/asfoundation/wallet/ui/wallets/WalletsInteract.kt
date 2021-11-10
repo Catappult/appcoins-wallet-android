@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.wallets
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
@@ -21,7 +22,8 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
                       private val supportInteractor: SupportInteractor,
                       private val preferencesRepository: SharedPreferencesRepository,
                       private val gamificationRepository: Gamification,
-                      private val logger: Logger) {
+                      private val logger: Logger,
+                      private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   fun retrieveWalletsModel(): Single<WalletsModel> {
     lateinit var currentWallet: WalletBalance
@@ -88,10 +90,15 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
     return walletCreatorInteract.create()
         .subscribeOn(Schedulers.io())
         .flatMapCompletable { wallet ->
-          walletCreatorInteract.setDefaultWallet(wallet.address)
-              .andThen(gamificationRepository.getUserLevel(wallet.address)
-                  .doOnSuccess { supportInteractor.registerUser(it, wallet.address) }
-                  .ignoreElement())
+          getCurrentPromoCodeUseCase()
+              .firstOrError()
+              .flatMapCompletable { promoCode ->
+                walletCreatorInteract.setDefaultWallet(wallet.address)
+                    .andThen(gamificationRepository.getUserLevel(wallet.address, promoCode.code)
+                        .doOnSuccess { supportInteractor.registerUser(it, wallet.address) }
+                        .ignoreElement())
+              }
+
         }
   }
 

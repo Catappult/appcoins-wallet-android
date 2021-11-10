@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -82,7 +83,7 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
     setPromoCode(state.promoCodeAsync, state.shouldShowDefault)
-    setSubmitClick(state.submitClickAsync)
+    setSubmitClick(state.submitClickAsync, state.promoCodeAsync)
   }
 
   override fun onSideEffect(sideEffect: PromoCodeBottomSheetSideEffect) {
@@ -113,7 +114,7 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     }
   }
 
-  fun setSubmitClick(clickAsync: Async<Unit>) {
+  fun setSubmitClick(clickAsync: Async<Unit>, promoCodeAsync: Async<PromoCodeEntity>) {
     when (clickAsync) {
       is Async.Uninitialized -> {
       }
@@ -126,7 +127,7 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
         showErrorMessage()
       }
       is Async.Success -> {
-        showSuccess()
+        promoCodeAsync.value?.bonus?.let { showSuccess(it) }
       }
     }
   }
@@ -173,15 +174,19 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     views.promoCodeBottomSheetReplaceButton.visibility = View.VISIBLE
   }
 
-  private fun showSuccess() {
+  @SuppressLint("StringFormatMatches")
+  private fun showSuccess(bonus: Double) {
     hideAll()
     KeyboardUtils.hideKeyboard(view)
+    views.promoCodeBottomSheetSuccessAnimation.visibility = View.VISIBLE
     views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
     views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
     views.promoCodeBottomSheetSuccessAnimation.repeatCount = 0
     views.promoCodeBottomSheetSuccessAnimation.playAnimation()
     views.promoCodeBottomSheetSuccessTitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetSuccessSubtitle.visibility = View.VISIBLE
+    views.promoCodeBottomSheetSuccessSubtitle.text =
+        this.getString(R.string.promo_code_success_body, bonus.toString())
     views.promoCodeBottomSheetSuccessGotItButton.visibility = View.VISIBLE
 
   }
@@ -215,7 +220,7 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   }
 
   private fun hideSuccessScreen() {
-    views.promoCodeBottomSheetSuccessSymbol.visibility = View.GONE
+    views.promoCodeBottomSheetSuccessAnimation.visibility = View.GONE
     views.promoCodeBottomSheetSuccessTitle.visibility = View.GONE
     views.promoCodeBottomSheetSuccessSubtitle.visibility = View.GONE
     views.promoCodeBottomSheetSuccessGotItButton.visibility = View.GONE

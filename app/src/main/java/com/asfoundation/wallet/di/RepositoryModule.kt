@@ -433,15 +433,23 @@ class RepositoryModule {
   fun providesPromoCodeRepository(@Named("default") client: OkHttpClient,
                                   objectMapper: ObjectMapper,
                                   promoCodeDao: PromoCodeDao): PromoCodeRepository {
-    val baseUrl = BuildConfig.BASE_HOST
-    val api = Retrofit.Builder()
-        .baseUrl(baseUrl)
+    val msBaseUrl = BuildConfig.BASE_HOST
+    val backendBaseUrl = BuildConfig.BACKEND_HOST
+    val msApi = Retrofit.Builder()
+        .baseUrl(msBaseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(PromoCodeRepository.PromoCodeApi::class.java)
-    return PromoCodeRepository(api, promoCodeDao)
+    val backendApi = Retrofit.Builder()
+        .baseUrl(backendBaseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(PromoCodeRepository.PromoCodeBackendApi::class.java)
+    return PromoCodeRepository(msApi, backendApi, promoCodeDao)
 
   }
 }

@@ -16,20 +16,21 @@ class Gamification(private val repository: PromotionsRepository) {
     const val REFERRAL_ID = "REFERRAL"
   }
 
-  fun getUserStats(wallet: String): Observable<GamificationStats> {
-    return repository.getGamificationStats(wallet)
+  fun getUserStats(wallet: String, promoCodeString: String?): Observable<GamificationStats> {
+    return repository.getGamificationStats(wallet, promoCodeString)
   }
 
-  fun getUserLevel(wallet: String): Single<Int> {
-    return repository.getGamificationLevel(wallet)
+  fun getUserLevel(wallet: String, promoCodeString: String?): Single<Int> {
+    return repository.getGamificationLevel(wallet, promoCodeString)
   }
 
   fun getLevels(wallet: String, offlineFirst: Boolean = true): Observable<Levels> {
     return repository.getLevels(wallet, offlineFirst)
   }
 
-  fun getUserBonusAndLevel(wallet: String): Single<ForecastBonusAndLevel> {
-    return repository.getUserStats(wallet, false)
+  fun getUserBonusAndLevel(wallet: String,
+                           promoCodeString: String?): Single<ForecastBonusAndLevel> {
+    return repository.getUserStats(wallet, promoCodeString, false)
         .map { map(it) }
         .lastOrError()
         .onErrorReturn { mapReferralError(it) }
@@ -69,8 +70,8 @@ class Gamification(private val repository: PromotionsRepository) {
   }
 
   fun getEarningBonus(wallet: String, packageName: String,
-                      amount: BigDecimal): Single<ForecastBonus> {
-    return repository.getForecastBonus(wallet, packageName, amount)
+                      amount: BigDecimal, promoCodeString: String?): Single<ForecastBonus> {
+    return repository.getForecastBonus(wallet, packageName, amount, promoCodeString)
   }
 
   fun hasNewLevel(wallet: String, gamificationContext: GamificationContext,

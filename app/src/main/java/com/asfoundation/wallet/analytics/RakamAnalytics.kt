@@ -8,6 +8,7 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.RakamReceiver
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.util.Log
 import com.google.android.gms.common.ConnectionResult
@@ -25,7 +26,9 @@ import java.net.URL
 
 class RakamAnalytics(private val context: Context, private val idsRepository: IdsRepository,
                      private val promotionsRepository: PromotionsRepository,
-                     private val logger: Logger) : AnalyticsSetup {
+                     private val logger: Logger,
+                     private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) :
+    AnalyticsSetup {
 
   private val rakamClient = Rakam.getInstance()
 
@@ -71,13 +74,18 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                           .flatMap { hasGms: Boolean ->
                             Single.just(idsRepository.getActiveWalletAddress())
                                 .flatMap { walletAddress ->
-                                  promotionsRepository.getWalletOrigin(walletAddress)
-                                      .doOnSuccess { walletOrigin ->
-                                        setRakamSuperProperties(rakamClient, installerPackage,
-                                            level, walletAddress, hasGms, walletOrigin)
-                                        if (!BuildConfig.DEBUG) {
-                                          logger.addReceiver(RakamReceiver())
-                                        }
+                                  getCurrentPromoCodeUseCase()
+                                      .lastOrError()
+                                      .flatMap { promoCode ->
+                                        promotionsRepository.getWalletOrigin(walletAddress,
+                                            promoCode.code)
+                                            .doOnSuccess { walletOrigin ->
+                                              setRakamSuperProperties(rakamClient, installerPackage,
+                                                  level, walletAddress, hasGms, walletOrigin)
+                                              if (!BuildConfig.DEBUG) {
+                                                logger.addReceiver(RakamReceiver())
+                                              }
+                                            }
                                       }
                                 }
                           }

@@ -65,7 +65,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getABTestingExperiment()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
-            Function3 { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: String ->
+        Function3 { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: String ->
           if (values.error.hasError || defaultValues.error.hasError &&
               (values.error.isNoNetwork || defaultValues.error.isNoNetwork)) {
             view.showNoNetworkError()
@@ -235,7 +235,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun loadBonusIntoView(appPackage: String, amount: String,
                                 currency: String): Completable {
     return interactor.convertLocal(currency, amount, 18)
-        .flatMapSingle { interactor.getEarningBonus(appPackage, it.amount) }
+        .flatMap { interactor.getEarningBonus(appPackage, it.amount) }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnNext {

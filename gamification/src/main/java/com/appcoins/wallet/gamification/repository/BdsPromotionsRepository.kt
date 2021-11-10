@@ -16,11 +16,11 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
-  private fun getUserStatsFromResponses(wallet: String,
+  private fun getUserStatsFromResponses(wallet: String, promoCodeString: String?,
                                         offlineFirst: Boolean = true): Observable<UserStats> {
     return if (offlineFirst) Observable.concat(getUserStatsFromDB(wallet),
-        getUserStatsFromAPI(wallet))
-    else getUserStatsFromAPI(wallet, true)
+        getUserStatsFromAPI(wallet, promoCodeString))
+    else getUserStatsFromAPI(wallet, promoCodeString, true)
   }
 
   // NOTE: the use of the throwable parameter can be dropped once all usages in these repository
@@ -43,9 +43,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
-  private fun getUserStatsFromAPI(wallet: String,
+  private fun getUserStatsFromAPI(wallet: String, promoCodeString: String?,
                                   useDbOnError: Boolean = false): Observable<UserStats> {
-    return api.getUserStats(wallet, Locale.getDefault().language)
+    return api.getUserStats(wallet, Locale.getDefault().language, promoCodeString)
         .map { filterByDate(it) }
         .flatMapObservable {
           local.deleteAndInsertPromotions(it.promotions)
@@ -89,8 +89,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   }
 
   override fun getForecastBonus(wallet: String, packageName: String,
-                                amount: BigDecimal): Single<ForecastBonus> {
-    return api.getForecastBonus(wallet, packageName, amount, "APPC")
+                                amount: BigDecimal,
+                                promoCodeString: String?): Single<ForecastBonus> {
+    return api.getForecastBonus(wallet, packageName, amount, "APPC", promoCodeString)
         .map { map(it) }
         .onErrorReturn { mapForecastError(it) }
   }
@@ -111,8 +112,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
     return ForecastBonus(ForecastBonus.Status.INACTIVE)
   }
 
-  override fun getGamificationStats(wallet: String): Observable<GamificationStats> {
-    return getUserStatsFromResponses(wallet)
+  override fun getGamificationStats(wallet: String,
+                                    promoCodeString: String?): Observable<GamificationStats> {
+    return getUserStatsFromResponses(wallet, promoCodeString)
         .map {
           val gamificationStats = mapToGamificationStats(it)
           if (!it.fromCache && it.error == null) local.setGamificationLevel(gamificationStats.level)
@@ -120,8 +122,8 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         }
   }
 
-  override fun getGamificationLevel(wallet: String): Single<Int> {
-    return getUserStats(wallet)
+  override fun getGamificationLevel(wallet: String, promoCodeString: String?): Single<Int> {
+    return getUserStats(wallet, promoCodeString)
         .filter { it.error == null }
         .map { mapToGamificationStats(it).level }
         .lastOrError()
@@ -226,8 +228,9 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
-  override fun getUserStats(wallet: String, offlineFirst: Boolean): Observable<UserStats> {
-    return getUserStatsFromResponses(wallet, offlineFirst)
+  override fun getUserStats(wallet: String, promoCodeString: String?,
+                            offlineFirst: Boolean): Observable<UserStats> {
+    return getUserStatsFromResponses(wallet, promoCodeString, offlineFirst)
         .flatMap { userStatusResponse ->
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
@@ -239,16 +242,17 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         .doOnError { it.printStackTrace() }
   }
 
-  override fun getWalletOrigin(wallet: String): Single<WalletOrigin> {
-    return getUserStats(wallet)
+  override fun getWalletOrigin(wallet: String, promoCodeString: String?): Single<WalletOrigin> {
+    return getUserStats(wallet, promoCodeString)
         .filter { it.error == null }
         .map { it.walletOrigin }
         .lastOrError()
         .onErrorReturn { WalletOrigin.UNKNOWN }
   }
 
-  override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
-    return getUserStatsFromResponses(wallet, false)
+  override fun getReferralUserStatus(wallet: String,
+                                     promoCodeString: String?): Single<ReferralResponse> {
+    return getUserStatsFromResponses(wallet, promoCodeString, false)
         .lastOrError()
         .flatMap {
           val gamification =

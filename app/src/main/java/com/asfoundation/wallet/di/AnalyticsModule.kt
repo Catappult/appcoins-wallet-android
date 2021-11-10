@@ -8,11 +8,12 @@ import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.billing.analytics.*
+import com.asfoundation.wallet.home.HomeAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
-import com.asfoundation.wallet.home.HomeAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
 import com.asfoundation.wallet.verification.VerificationAnalytics
@@ -180,8 +181,10 @@ class AnalyticsModule {
   @Provides
   fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
                                  promotionsRepository: PromotionsRepository,
-                                 logger: Logger): RakamAnalytics {
-    return RakamAnalytics(context, idsRepository, promotionsRepository, logger)
+                                 logger: Logger,
+                                 getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): RakamAnalytics {
+    return RakamAnalytics(context, idsRepository, promotionsRepository, logger,
+        getCurrentPromoCodeUseCase)
   }
 
   @Singleton

@@ -7,12 +7,15 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
+                          private val promoCodeBackendApi: PromoCodeBackendApi,
                           private val promoCodeDao: PromoCodeDao) {
 
   fun setPromoCode(promoCodeString: String): Completable {
     return promoCodeApi.getPromoCode(promoCodeString)
-        .map {
-          PromoCodeEntity(it.code, it.expiry, it.expired)
+        .flatMap {
+          promoCodeBackendApi.getPromoCode(promoCodeString).map { bonus ->
+            PromoCodeEntity(it.code, bonus.bonus, it.expiry, it.expired)
+          }
         }
         .flatMapCompletable {
           Completable.fromAction { promoCodeDao.replaceSavedPromoCodeBy(it) }
@@ -23,7 +26,7 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
   fun getCurrentPromoCode(): Observable<PromoCodeEntity> {
     return promoCodeDao.getSavedPromoCode()
         .map {
-          if (it.isEmpty()) PromoCodeEntity("", "", null) else it[0]
+          if (it.isEmpty()) PromoCodeEntity("",0.0, "", null) else it[0]
         }
         .subscribeOn(Schedulers.io())
   }
@@ -37,5 +40,11 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
     @GET("broker/8.20210201/entity/promo-code/{promoCodeString}")
     fun getPromoCode(
         @Path("promoCodeString") promoCodeString: String): Observable<PromoCodeResponse>
+  }
+
+  interface PromoCodeBackendApi {
+    @GET("gamification/perks/promo_code/{promoCodeString}/")
+    fun getPromoCode(
+        @Path("promoCodeString") promoCodeString: String): Observable<PromoCodeBonusResponse>
   }
 }
