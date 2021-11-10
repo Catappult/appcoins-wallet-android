@@ -4,7 +4,6 @@ import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.logging.send_logs.SendLogsState
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class GetSendLogsStateUseCase(
@@ -14,6 +13,6 @@ class GetSendLogsStateUseCase(
   operator fun invoke(): Observable<SendLogsState> {
     return getCurrentWalletUseCase()
             .subscribeOn(Schedulers.io())
-            .flatMapObservable { sendLogsRepository.getSendLogsState(it.address) }
+            .flatMapObservable { sendLogsRepository.observeSendLogsState(it.address) }
   }
 }

@@ -31,11 +31,11 @@ class SendLogsRepository(
 
   fun updateLogs(): Maybe<File> {
 
-    return logsDao.updateLogs()
+    return logsDao.setLogsToSent()
         .andThen(
             logsDao.getSendingLogs()
                 .flatMapMaybe { logs ->
-                  if(logs.isEmpty())
+                  if (logs.isEmpty())
                     return@flatMapMaybe Maybe.empty()
 
                   val logsFile = File.createTempFile("log", null, cacheDir)
@@ -94,15 +94,15 @@ class SendLogsRepository(
         .subscribeOn(rxSchedulers.io)
   }
 
-  private fun canLog(address: String): Single<Boolean> {
+  private fun getSendLogsVisibility(address: String): Single<Boolean> {
     return sendLogsApi.getCanSendLogs(address)
         .map { response: CanLogResponse -> response.logging }
         .onErrorReturnItem(false)
         .subscribeOn(rxSchedulers.io)
   }
 
-  fun getSendLogsState(address: String): Observable<SendLogsState> {
-    return Observable.combineLatest(canLog(address).toObservable(), sendStateBehaviorSubject,
+  fun observeSendLogsState(address: String): Observable<SendLogsState> {
+    return Observable.combineLatest(getSendLogsVisibility(address).toObservable(), sendStateBehaviorSubject,
         { shouldShow, state -> SendLogsState(shouldShow, state) })
   }
 
