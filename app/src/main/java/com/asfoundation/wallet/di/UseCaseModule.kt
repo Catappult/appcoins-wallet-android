@@ -300,7 +300,6 @@ class UseCaseModule {
   fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase, NFTRepository: NFTRepository): GetNFTListUseCase {
     return GetNFTListUseCase(getCurrentWallet , NFTRepository)
   }
-}
 
   @Singleton
   @Provides
@@ -321,5 +320,4 @@ class UseCaseModule {
       promoCodeRepository: PromoCodeRepository): DeletePromoCodeUseCase {
     return DeletePromoCodeUseCase(promoCodeRepository)
   }
-
 }
