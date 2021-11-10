@@ -28,6 +28,7 @@ import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
@@ -312,6 +313,13 @@ class UseCaseModule {
   fun providesGetCurrentPromoCodeUseCase(
       promoCodeRepository: PromoCodeRepository): GetCurrentPromoCodeUseCase {
     return GetCurrentPromoCodeUseCase(promoCodeRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesObserveCurrentPromoCodeUseCase(
+      promoCodeRepository: PromoCodeRepository): ObserveCurrentPromoCodeUseCase {
+    return ObserveCurrentPromoCodeUseCase(promoCodeRepository)
   }
 
   @Singleton

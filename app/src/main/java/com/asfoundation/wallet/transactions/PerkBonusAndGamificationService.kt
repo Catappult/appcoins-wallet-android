@@ -17,6 +17,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.gamification.ReachedLevelInfo
@@ -52,6 +53,10 @@ class PerkBonusAndGamificationService :
   lateinit var mainActivityNavigator: MainActivityNavigator
 
   private lateinit var notificationManager: NotificationManager
+
+  @Inject
+  lateinit var observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase
+
 
   @Inject
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
@@ -157,10 +162,10 @@ class PerkBonusAndGamificationService :
   }
 
   private fun getGamificationStats(address: String): Single<GamificationStats> {
-    return getCurrentPromoCodeUseCase().flatMap {
+    return getCurrentPromoCodeUseCase().flatMapObservable {
       promotionsRepository.getGamificationStats(address, it.code)
     }
-        .lastOrError()
+        .firstOrError()
   }
 
 

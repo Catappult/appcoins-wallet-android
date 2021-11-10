@@ -38,7 +38,6 @@ class ReferralInteractor(
 
   override fun retrieveReferral(): Single<ReferralModel> {
     return getCurrentPromoCodeUseCase()
-        .lastOrError()
         .flatMap { promoCode ->
           defaultWallet.find()
               .flatMap { promotionsRepository.getReferralUserStatus(it.address, promoCode.code) }
@@ -78,7 +77,6 @@ class ReferralInteractor(
 
   override fun getPendingBonusNotification(): Maybe<ReferralNotification> {
     return getCurrentPromoCodeUseCase()
-        .lastOrError()
         .flatMapMaybe { promoCode ->
           defaultWallet.find()
               .flatMapMaybe { wallet ->
@@ -102,7 +100,6 @@ class ReferralInteractor(
 
   override fun getUnwatchedPendingBonusNotification(): Single<CardNotification> {
     return getCurrentPromoCodeUseCase()
-        .lastOrError()
         .flatMap { promoCode ->
           defaultWallet.find()
               .flatMap { wallet ->

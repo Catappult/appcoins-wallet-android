@@ -5,6 +5,7 @@ import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -18,7 +19,7 @@ class SettingsPresenter(private val view: SettingsView,
                         private val settingsInteractor: SettingsInteractor,
                         private val settingsData: SettingsData,
                         private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-                        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+                        private val observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -183,7 +184,7 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   fun setPromoCodeState() {
-    disposables.add(getCurrentPromoCodeUseCase()
+    disposables.add(observeCurrentPromoCodeUseCase()
         .observeOn(viewScheduler)
         .doOnNext {
           view.setPromoCodePreference(it)

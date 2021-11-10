@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promo_code.repository
 
+import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -27,7 +28,7 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
     return promoCodeDao.getSavedPromoCode()
         .map {
           if (it.isEmpty()) PromoCodeEntity("",0.0, "", null) else it[0]
-        }
+        }.doOnNext { Log.d("APPC-2709", "PromoCodeRepository: getCurrentPromoCode: $it") }
         .subscribeOn(Schedulers.io())
   }
 

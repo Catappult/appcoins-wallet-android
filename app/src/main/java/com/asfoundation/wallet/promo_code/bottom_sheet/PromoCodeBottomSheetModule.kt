@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet
 
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
 import dagger.Module
 import dagger.Provides
@@ -12,10 +12,10 @@ class PromoCodeBottomSheetModule {
 
   @Provides
   fun providesPromoCodeBottomSheetViewModelFactory(
-      getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+      observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase,
       setPromoCodeUseCase: SetPromoCodeUseCase,
       deletePromoCodeUseCase: DeletePromoCodeUseCase): PromoCodeBottomSheetViewModelFactory {
-    return PromoCodeBottomSheetViewModelFactory(Schedulers.io(), getCurrentPromoCodeUseCase,
+    return PromoCodeBottomSheetViewModelFactory(observeCurrentPromoCodeUseCase,
         setPromoCodeUseCase, deletePromoCodeUseCase)
   }
 

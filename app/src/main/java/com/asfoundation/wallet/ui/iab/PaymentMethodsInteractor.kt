@@ -52,9 +52,9 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
   fun isBonusActiveAndValid(forecastBonus: ForecastBonusAndLevel) =
       gamificationInteractor.isBonusActiveAndValid(forecastBonus)
 
-  fun getEarningBonus(packageName: String, amount: BigDecimal): Observable<ForecastBonusAndLevel> {
+  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
     return getCurrentPromoCodeUseCase()
-        .flatMapSingle {
+        .flatMap {
           gamificationInteractor.getEarningBonus(packageName, amount, it.code)
         }
   }

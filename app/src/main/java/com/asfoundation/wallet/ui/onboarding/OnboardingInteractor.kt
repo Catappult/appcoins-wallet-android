@@ -19,7 +19,7 @@ class OnboardingInteractor(private val walletService: WalletService,
 
   fun getWalletAddress() = walletService.getWalletOrCreate()
       .flatMap {
-        getCurrentPromoCodeUseCase().firstOrError()
+        getCurrentPromoCodeUseCase()
             .flatMap { promoCode ->
               val address = it.toLowerCase(Locale.ROOT)
               gamificationRepository.getUserLevel(address, promoCode.code)

@@ -10,6 +10,7 @@ import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
@@ -33,7 +34,7 @@ class GamificationInteractor(private val gamification: Gamification,
 
   fun getUserStats(): Observable<GamificationStats> {
     return getCurrentPromoCodeUseCase()
-        .flatMap { promoCode ->
+        .flatMapObservable { promoCode ->
           defaultWallet.find()
               .flatMapObservable { gamification.getUserStats(it.address, promoCode.code) }
         }
@@ -41,7 +42,6 @@ class GamificationInteractor(private val gamification: Gamification,
 
   fun getUserLevel(): Single<Int> {
     return getCurrentPromoCodeUseCase()
-        .firstOrError()
         .flatMap { promoCode ->
           defaultWallet.find()
               .flatMap { gamification.getUserLevel(it.address, promoCode.code) }
@@ -51,7 +51,6 @@ class GamificationInteractor(private val gamification: Gamification,
   fun getEarningBonus(packageName: String, amount: BigDecimal,
                       promoCodeString: String?): Single<ForecastBonusAndLevel> {
     return getCurrentPromoCodeUseCase()
-        .lastOrError()
         .flatMap { promoCode ->
           defaultWallet.find()
               .flatMap { wallet: Wallet ->

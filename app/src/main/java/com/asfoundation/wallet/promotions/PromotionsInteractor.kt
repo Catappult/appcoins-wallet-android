@@ -41,7 +41,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
     return getCurrentPromoCodeUseCase()
-        .lastOrError()
         .flatMap { promoCode ->
           findWalletUseCase()
               .flatMap { wallet ->
@@ -74,7 +73,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
 
   fun getUnwatchedPromotionNotification(): Single<CardNotification> {
     return getCurrentPromoCodeUseCase()
-        .lastOrError()
         .flatMap { promoCode ->
           findWalletUseCase()
               .flatMap { wallet ->

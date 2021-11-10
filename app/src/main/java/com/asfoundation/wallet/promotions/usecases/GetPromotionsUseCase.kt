@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.Voucher
@@ -20,7 +21,7 @@ class GetPromotionsUseCase(private val getCurrentWallet: GetCurrentWalletUseCase
 
   operator fun invoke(): Observable<PromotionsModel> {
     return getCurrentPromoCodeUseCase()
-        .flatMap { promoCode ->
+        .flatMapObservable { promoCode ->
           getCurrentWallet()
               .flatMapObservable {
                 Observable.zip(observeLevels(), promotionsRepository.getUserStats(it.address, promoCode.code),

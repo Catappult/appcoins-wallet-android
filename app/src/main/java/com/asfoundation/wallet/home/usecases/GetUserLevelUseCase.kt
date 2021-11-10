@@ -10,7 +10,6 @@ class GetUserLevelUseCase(private val gamification: Gamification,
 
   operator fun invoke(): Single<Int> {
     return getCurrentPromoCodeUseCase()
-        .firstOrError()
         .flatMap { promoCode ->
           findDefaultWalletUseCase()
               .flatMap { gamification.getUserLevel(it.address, promoCode.code) }

@@ -36,7 +36,6 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   fun registerUser() =
       inAppPurchaseInteractor.walletAddress.flatMap { address ->
         getCurrentPromoCodeUseCase()
-            .firstOrError()
             .flatMap { promoCode ->
               gamificationRepository.getUserLevel(address, promoCode.code)
                   .doOnSuccess { supportInteractor.registerUser(it, address) }

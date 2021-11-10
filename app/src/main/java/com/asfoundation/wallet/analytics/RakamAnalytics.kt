@@ -75,7 +75,6 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                             Single.just(idsRepository.getActiveWalletAddress())
                                 .flatMap { walletAddress ->
                                   getCurrentPromoCodeUseCase()
-                                      .lastOrError()
                                       .flatMap { promoCode ->
                                         promotionsRepository.getWalletOrigin(walletAddress,
                                             promoCode.code)

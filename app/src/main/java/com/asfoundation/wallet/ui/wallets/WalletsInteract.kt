@@ -91,7 +91,6 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
         .subscribeOn(Schedulers.io())
         .flatMapCompletable { wallet ->
           getCurrentPromoCodeUseCase()
-              .firstOrError()
               .flatMapCompletable { promoCode ->
                 walletCreatorInteract.setDefaultWallet(wallet.address)
                     .andThen(gamificationRepository.getUserLevel(wallet.address, promoCode.code)

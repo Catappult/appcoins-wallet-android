@@ -4,7 +4,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
@@ -25,10 +25,10 @@ class SettingsModule {
                                 interactor: SettingsInteractor,
                                 data: SettingsData,
                                 getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-                                getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): SettingsPresenter {
+                                observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data,
-        getChangeFiatCurrencyModelUseCase, getCurrentPromoCodeUseCase)
+        getChangeFiatCurrencyModelUseCase, observeCurrentPromoCodeUseCase)
   }
 
   @Provides

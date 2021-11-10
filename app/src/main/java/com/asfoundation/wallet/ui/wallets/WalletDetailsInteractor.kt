@@ -20,7 +20,6 @@ class WalletDetailsInteractor(private val balanceInteractor: BalanceInteractor,
 
   fun setActiveWallet(address: String): Completable {
     return getCurrentPromoCodeUseCase()
-        .firstOrError()
         .flatMapCompletable { promoCode ->
           setDefaultWalletInteractor.set(address)
               .andThen(gamificationRepository.getUserLevel(address, promoCode.code)

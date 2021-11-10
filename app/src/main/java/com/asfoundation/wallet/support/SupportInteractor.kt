@@ -19,7 +19,6 @@ class SupportInteractor(private val supportRepository: SupportRepository,
 
   fun showSupport(): Completable {
     return getCurrentPromoCodeUseCase()
-        .firstOrError()
         .flatMapCompletable { promoCode ->
           walletService.getWalletAddress()
               .flatMapCompletable { address ->

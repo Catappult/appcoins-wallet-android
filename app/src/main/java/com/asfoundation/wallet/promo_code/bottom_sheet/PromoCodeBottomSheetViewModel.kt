@@ -7,9 +7,8 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.promo_code.repository.PromoCodeEntity
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
-import io.reactivex.Completable
 import io.reactivex.Scheduler
 
 sealed class PromoCodeBottomSheetSideEffect : SideEffect {
@@ -21,10 +20,10 @@ data class PromoCodeBottomSheetState(
     val submitClickAsync: Async<Unit> = Async.Uninitialized,
     val shouldShowDefault: Boolean = false) : ViewState
 
-class PromoCodeBottomSheetViewModel(private val networkScheduler: Scheduler,
-                                    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                                    private val setPromoCodeUseCase: SetPromoCodeUseCase,
-                                    private val deletePromoCodeUseCase: DeletePromoCodeUseCase) :
+class PromoCodeBottomSheetViewModel(
+    private val observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase,
+    private val setPromoCodeUseCase: SetPromoCodeUseCase,
+    private val deletePromoCodeUseCase: DeletePromoCodeUseCase) :
     BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(
         initialState()) {
 
@@ -39,7 +38,7 @@ class PromoCodeBottomSheetViewModel(private val networkScheduler: Scheduler,
   }
 
   private fun getCurrentPromoCode() {
-    getCurrentPromoCodeUseCase()
+    observeCurrentPromoCodeUseCase()
         .asAsyncToState() {
           copy(promoCodeAsync = it)
         }
@@ -61,7 +60,7 @@ class PromoCodeBottomSheetViewModel(private val networkScheduler: Scheduler,
   }
 
   fun replaceClick() {
-    getCurrentPromoCodeUseCase()
+    observeCurrentPromoCodeUseCase()
         .asAsyncToState() {
           copy(shouldShowDefault = true)
         }
