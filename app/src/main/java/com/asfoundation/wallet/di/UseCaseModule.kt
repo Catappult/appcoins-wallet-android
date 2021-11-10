@@ -23,6 +23,8 @@ import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
+import com.asfoundation.wallet.nfts.repository.NFTRepository
+import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
@@ -292,6 +294,13 @@ class UseCaseModule {
   ): WithdrawToFiatUseCase {
     return WithdrawToFiatUseCase(ewt, withdrawRepository)
   }
+
+  @Singleton
+  @Provides
+  fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase, NFTRepository: NFTRepository): GetNFTListUseCase {
+    return GetNFTListUseCase(getCurrentWallet , NFTRepository)
+  }
+}
 
   @Singleton
   @Provides

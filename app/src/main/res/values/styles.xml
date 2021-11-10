@@ -1197,6 +1197,19 @@
     <item name="shapeAppearance">@style/Home.PillShape</item>
   </style>
 
+  <style name="NFTs" />
+
+  <style name="NFTs.GoToNFTS">
+    <item name="android:textAllCaps">false</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="backgroundTint">@color/light_grey_alpha_73</item>
+    <item name="iconGravity"> end</item>
+    <item name="iconPadding">0dp</item>
+    <item name="iconTint">@color/wild_watermelon</item>
+    <item name="shapeAppearance">@style/Home.PillShape</item>
+  </style>
+
   <style name="BottomNav" />
 
   <style name="BottomNav.Header" />

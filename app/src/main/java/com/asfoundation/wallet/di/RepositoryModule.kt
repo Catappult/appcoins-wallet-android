@@ -44,6 +44,8 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.logging.Logger
+import com.asfoundation.wallet.nfts.repository.NFTRepository
+import com.asfoundation.wallet.nfts.repository.NftApi
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
@@ -452,4 +454,21 @@ class RepositoryModule {
     return PromoCodeRepository(msApi, backendApi, promoCodeDao)
 
   }
+
+  @Singleton
+  @Provides
+  fun providesNFTRepository(@Named("default") client: OkHttpClient,rxSchedulers: RxSchedulers): NFTRepository {
+    val baseUrl = BuildConfig.BACKEND_HOST
+    val api = Retrofit.Builder()
+      .baseUrl(baseUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(NftApi::class.java)
+    return NFTRepository(api , rxSchedulers)
+
+  }
+
+
 }
