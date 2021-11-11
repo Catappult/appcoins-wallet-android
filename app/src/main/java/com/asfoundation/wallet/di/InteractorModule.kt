@@ -260,13 +260,14 @@ class InteractorModule {
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
-                                    billingAddressRepository: BillingAddressRepository): AdyenPaymentInteractor {
+                                    billingAddressRepository: BillingAddressRepository,
+                                    getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): AdyenPaymentInteractor {
     return AdyenPaymentInteractor(
         adyenPaymentRepository,
         inAppPurchaseInteractor,
         inAppPurchaseInteractor.billingMessagesMapper, partnerAddressService, walletService,
         supportInteractor, walletBlockedInteract, walletVerificationInteractor,
-        billingAddressRepository, Schedulers.io()
+        billingAddressRepository, getCurrentPromoCodeUseCase, Schedulers.io()
     )
   }
 
