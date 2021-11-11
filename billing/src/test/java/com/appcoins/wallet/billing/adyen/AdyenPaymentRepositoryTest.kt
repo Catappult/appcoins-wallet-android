@@ -8,6 +8,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.commons.Logger
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -36,6 +37,9 @@ class AdyenPaymentRepositoryTest {
   @Mock
   lateinit var mapper: AdyenResponseMapper
 
+  @Mock
+  lateinit var logger: Logger
+
   private lateinit var adyenRepo: AdyenPaymentRepository
 
   companion object {
@@ -48,7 +52,7 @@ class AdyenPaymentRepositoryTest {
 
   @Before
   fun setup() {
-    adyenRepo = AdyenPaymentRepository(adyenApi, bdsApi, subscriptionsApi, mapper)
+    adyenRepo = AdyenPaymentRepository(adyenApi, bdsApi, subscriptionsApi, mapper, logger)
   }
 
   @Test
