@@ -324,7 +324,7 @@ class UseCaseModule {
                               ewtObtainer: EwtAuthenticatorService): SendLogsUseCase {
     return SendLogsUseCase(sendLogsRepository, ewtObtainer)
   }
-}
+
 
   @Singleton
   @Provides
