@@ -4,7 +4,9 @@ import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.ObserveSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
@@ -19,7 +21,11 @@ class SettingsPresenter(private val view: SettingsView,
                         private val settingsInteractor: SettingsInteractor,
                         private val settingsData: SettingsData,
                         private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+                        private val observeSendLogsStateUseCase: ObserveSendLogsStateUseCase,
+                        private val resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
+                        private val sendLogsUseCase: SendLogsUseCase,
                         private val observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase) {
+
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -51,6 +57,7 @@ class SettingsPresenter(private val view: SettingsView,
     view.setBackupPreference()
     view.setManageSubscriptionsPreference()
     setCurrencyPreference()
+    setSendLogsPreference()
     setPromoCodeState()
   }
 
@@ -181,6 +188,25 @@ class SettingsPresenter(private val view: SettingsView,
         }
         .subscribeOn(networkScheduler)
         .subscribe())
+  }
+
+  fun setSendLogsPreference() {
+    disposables.add(observeSendLogsStateUseCase()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.setSendLogsPreference(it)
+        }
+        .subscribe())
+  }
+
+  fun onSendLogsClicked() {
+    disposables.add(sendLogsUseCase()
+        .observeOn(viewScheduler)
+        .subscribe())
+  }
+
+  fun resetSendLogsState() {
+    resetSendLogsStateUseCase()
   }
 
   fun setPromoCodeState() {

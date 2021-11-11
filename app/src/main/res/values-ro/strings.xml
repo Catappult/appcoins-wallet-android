@@ -894,7 +894,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Trimite jurnale către Echipa de asistență</string>
   <string name="send_logs_sending">Se trimit&#8230;</string>
-  <string name="send_logs_send">Trimise!</string>
+  <string name="send_logs_sent">Trimise!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Îți place AppCoins Wallet?</string>
   <string name="rate_us_no">Nu prea</string>

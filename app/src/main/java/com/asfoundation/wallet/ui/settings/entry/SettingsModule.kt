@@ -4,6 +4,9 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.logging.send_logs.use_cases.ObserveSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
@@ -25,10 +28,13 @@ class SettingsModule {
                                 interactor: SettingsInteractor,
                                 data: SettingsData,
                                 getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+                                observeSendLogsStateUseCase: ObserveSendLogsStateUseCase,
+                                resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
+                                sendLogsUseCase: SendLogsUseCase,
                                 observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data,
-        getChangeFiatCurrencyModelUseCase, observeCurrentPromoCodeUseCase)
+        getChangeFiatCurrencyModelUseCase,observeSendLogsStateUseCase, resetSendLogsStateUseCase, sendLogsUseCase, observeCurrentPromoCodeUseCase)
   }
 
   @Provides

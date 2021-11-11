@@ -197,6 +197,14 @@
   <color name="withdraw_text_color_black">#001727</color>
   <color name="withdraw_error_description_grey">#646464</color>
 
+  <!--Send Logs to Support -->
+  <color name="send_logs_sending">#8C8C8C</color>
+  <color name="send_logs_sent">#62BF00</color>
+  <color name="send_logs_sent_background">#0D62BF00</color>
+  <color name="send_logs_error">#e44b46</color>
+  <color name="send_logs_error_background">#0De44b46</color>
+
+
   <!-- Promo Code -->
   <color name="promo_code_text_box_active_border">#0C0C0C</color>
   <color name="promo_code_text_box_active_background">#F8F8F8</color>

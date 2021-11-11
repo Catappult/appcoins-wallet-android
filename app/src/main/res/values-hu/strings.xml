@@ -887,7 +887,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Naplók küldése a támogatási csapatnak</string>
   <string name="send_logs_sending">Küldés&#8230;</string>
-  <string name="send_logs_send">Elküldve!</string>
+  <string name="send_logs_sent">Elküldve!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Tetszik az AppCoins Wallet?</string>
   <string name="rate_us_no">Nem igazán</string>

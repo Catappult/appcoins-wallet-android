@@ -880,7 +880,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">မွတ္တမ္းမ်ားကို ပံ့ပိုးေရးအဖြဲ႕ထံသို႔ ေပးပို႔မည္</string>
   <string name="send_logs_sending">ေပးပို႔ေနပါသည္&#8230;</string>
-  <string name="send_logs_send">ေပးပို႔လိုက္ပါသည္။</string>
+  <string name="send_logs_sent">ေပးပို႔လိုက္ပါသည္။</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins Wallet ကို ႏွစ္သက္ပါသလား။</string>
   <string name="rate_us_no">မဟုတ္ပါ</string>

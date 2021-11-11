@@ -5,7 +5,7 @@ import android.os.Build
 import android.preference.PreferenceManager
 import android.widget.Toast
 import com.asfoundation.wallet.entity.ServiceErrorException
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.util.KS
 import com.asfoundation.wallet.util.KS.ANDROID_KEY_STORE
 import com.wallet.pwd.trustapp.PasswordManager
