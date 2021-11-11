@@ -44,7 +44,7 @@ class GamificationTest {
     api.userStatusResponse =
         Single.just(UserStatusResponse(
             listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE))
-    val testObserver = gamification.getUserStats(WALLET)
+    val testObserver = gamification.getUserStats(WALLET, "")
         .test()
     testObserver.assertResult(
         GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = true),
@@ -60,7 +60,7 @@ class GamificationTest {
         BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
         PromotionsResponse.Status.ACTIVE, false)))
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserStats(WALLET)
+    val testObserver = gamification.getUserStats(WALLET, "")
         .test()
     testObserver.assertResult(
         GamificationStats(GamificationStats.Status.OK, 5, BigDecimal(60000.0), 15.0,
@@ -74,7 +74,7 @@ class GamificationTest {
     local.walletOriginResponse = Single.error(EmptyResultSetException(""))
     local.userStatusResponse = Single.error(EmptyResultSetException(""))
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserStats(WALLET)
+    val testObserver = gamification.getUserStats(WALLET, "")
         .test()
     testObserver.assertResult(
         GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, -1, BigDecimal.ZERO, -1.0,
@@ -100,7 +100,7 @@ class GamificationTest {
     api.userStatusResponse =
         Single.just(UserStatusResponse(
             listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE))
-    val testObserver = gamification.getUserLevel(WALLET)
+    val testObserver = gamification.getUserLevel(WALLET, "")
         .test()
     testObserver.assertValue(4)
   }
@@ -124,7 +124,7 @@ class GamificationTest {
     api.userStatusResponse =
         Single.just(UserStatusResponse(
             listOf(userStatsGamification, referralResponse), WalletOrigin.APTOIDE))
-    val testObserver = gamification.getUserLevel(WALLET)
+    val testObserver = gamification.getUserLevel(WALLET, "")
         .test()
     testObserver.assertValue(5)
   }
@@ -140,7 +140,7 @@ class GamificationTest {
         PromotionsResponse.Status.ACTIVE, false)))
     api.userStatusResponse =
         Single.just(UserStatusResponse(emptyList(), WalletOrigin.PARTNER))
-    val testObserver = gamification.getUserLevel(WALLET)
+    val testObserver = gamification.getUserLevel(WALLET, "")
         .test()
     testObserver.assertValue(GamificationStats.INVALID_LEVEL)
   }
@@ -152,7 +152,7 @@ class GamificationTest {
         BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
         PromotionsResponse.Status.ACTIVE, false)))
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserLevel(WALLET)
+    val testObserver = gamification.getUserLevel(WALLET, "")
         .test()
     testObserver.assertValue(5)
   }
@@ -162,7 +162,7 @@ class GamificationTest {
     local.walletOriginResponse = Single.just(WalletOrigin.UNKNOWN)
     local.userStatusResponse = Single.just(emptyList())
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserLevel(WALLET)
+    val testObserver = gamification.getUserLevel(WALLET, "")
         .test()
     testObserver.assertValue(GamificationStats.INVALID_LEVEL)
   }
@@ -248,7 +248,7 @@ class GamificationTest {
   fun getBonus() {
     api.bonusResponse = Single.just(
         ForecastBonusResponse(BigDecimal.ONE, 0, ForecastBonusResponse.Status.ACTIVE))
-    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE)
+    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE, "")
         .test()
     testObserver.assertValue(ForecastBonus(ForecastBonus.Status.ACTIVE, BigDecimal.ONE))
   }
@@ -256,7 +256,7 @@ class GamificationTest {
   @Test
   fun getBonusNoNetwork() {
     api.bonusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE)
+    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE, "")
         .test()
     testObserver.assertValue(ForecastBonus(ForecastBonus.Status.NO_NETWORK))
   }

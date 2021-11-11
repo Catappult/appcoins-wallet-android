@@ -373,7 +373,7 @@ class AdyenPaymentRepositoryTest {
                 null, null, BillingSupportedType.INAPP.name,
                 TEST_FIAT_CURRENCY,
                 TEST_FIAT_VALUE,
-                null, null, null, null, null)))
+                null, null, null, null, null, null)))
         .thenReturn(Single.just(expectedAdyenTransactionResponse))
 
     Mockito.`when`(mapper.map(expectedAdyenTransactionResponse))
@@ -383,7 +383,7 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, paymentType,
         TEST_WALLET_ADDRESS, null, null, null, null, null,
-        BillingSupportedType.INAPP.name, null, null, null, null,
+        BillingSupportedType.INAPP.name, null, null, null, null, null,
         TEST_WALLET_SIGNATURE, null, null)
         .subscribe(testObserver)
 
@@ -425,7 +425,7 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, paymentType,
         TEST_WALLET_ADDRESS, null, "trivial drive", null,
-        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null,
+        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null, null,
         TEST_WALLET_SIGNATURE, null, null)
         .subscribe(testObserver)
 
@@ -464,7 +464,7 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, paymentType,
         TEST_WALLET_ADDRESS, null, "trivial drive", null,
-        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null,
+        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null, null,
         TEST_WALLET_SIGNATURE, null, null)
         .subscribe(testObserver)
 
@@ -494,7 +494,7 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, paymentType,
         TEST_WALLET_ADDRESS, null, "trivial drive", null,
-        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null,
+        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null, null,
         TEST_WALLET_SIGNATURE, null, null)
         .subscribe(testObserver)
 
