@@ -18,7 +18,7 @@ import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.di.DaggerAppComponent
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType

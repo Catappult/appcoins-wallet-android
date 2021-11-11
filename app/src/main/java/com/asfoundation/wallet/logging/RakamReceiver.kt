@@ -1,8 +1,9 @@
 package com.asfoundation.wallet.logging
 
-import com.asfoundation.wallet.logging.LogReceiver.Companion.DEFAULT_MSG
-import com.asfoundation.wallet.logging.LogReceiver.Companion.DEFAULT_TAG
-import com.asfoundation.wallet.logging.LogReceiver.Companion.DEFAULT_THROWABLE_STATCKTRACE
+import com.appcoins.wallet.commons.LogReceiver
+import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_MSG
+import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_TAG
+import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_THROWABLE_STATCKTRACE
 import io.rakam.api.Rakam
 import org.json.JSONException
 import org.json.JSONObject

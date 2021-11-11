@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.wallets
 
 import com.asfoundation.wallet.interact.DeleteWalletInteract
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single

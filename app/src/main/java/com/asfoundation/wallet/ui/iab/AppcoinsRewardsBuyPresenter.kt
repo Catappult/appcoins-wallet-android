@@ -6,7 +6,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Completable

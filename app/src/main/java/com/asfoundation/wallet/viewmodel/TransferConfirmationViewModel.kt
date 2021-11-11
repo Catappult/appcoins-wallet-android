@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.transfers.TransferConfirmationInteractor
 import com.asfoundation.wallet.transfers.TransferConfirmationNavigator

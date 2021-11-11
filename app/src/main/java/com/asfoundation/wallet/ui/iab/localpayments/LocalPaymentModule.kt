@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab.localpayments
 
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import dagger.Module
 import dagger.Provides

@@ -5,7 +5,7 @@ import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable

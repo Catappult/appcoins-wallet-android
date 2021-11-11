@@ -4,10 +4,6 @@ import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Single
 
-/**
- * Manages LogEntities. These Logs can be uploaded to an aws bucket
- * using the 'Sent Logs to Support Tem' feature.
- */
 @Dao
 interface LogsDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)

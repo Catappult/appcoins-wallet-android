@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.verification.VerificationAnalytics
 import io.reactivex.Completable

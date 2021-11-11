@@ -17,7 +17,7 @@ import com.airbnb.lottie.TextDelegate;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.logging.Logger;
+import com.appcoins.wallet.commons.Logger;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;

@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.onboarding
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.gamification.Gamification
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.support.SupportInteractor

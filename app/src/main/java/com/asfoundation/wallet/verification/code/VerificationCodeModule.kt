@@ -2,7 +2,7 @@ package com.asfoundation.wallet.verification.code
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.verification.*
 import dagger.Module
 import dagger.Provides

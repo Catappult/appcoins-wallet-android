@@ -58,8 +58,8 @@ import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.logging.DebugReceiver
-import com.asfoundation.wallet.logging.LogReceiver
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.LogReceiver
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.logging.send_logs.LogsDao
 import com.asfoundation.wallet.logging.send_logs.LogsDatabase

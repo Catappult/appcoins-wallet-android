@@ -6,7 +6,7 @@ import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
-class GetSendLogsStateUseCase(
+class ObserveSendLogsStateUseCase(
     private val sendLogsRepository: SendLogsRepository,
     private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
 

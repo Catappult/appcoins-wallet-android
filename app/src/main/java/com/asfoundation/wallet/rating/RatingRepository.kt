@@ -2,7 +2,7 @@ package com.asfoundation.wallet.rating
 
 import android.content.SharedPreferences
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.rating.network.WalletFeedbackBody
 import io.reactivex.Single
 import okhttp3.ResponseBody

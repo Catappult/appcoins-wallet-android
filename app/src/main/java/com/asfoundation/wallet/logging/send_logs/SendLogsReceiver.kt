@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.logging.send_logs
 
 import android.util.Log
-import com.asfoundation.wallet.logging.LogReceiver
+import com.appcoins.wallet.commons.LogReceiver
 
 class SendLogsReceiver(private var sendLogsRepository: SendLogsRepository) : LogReceiver {
   override fun log(tag: String?, throwable: Throwable?) {

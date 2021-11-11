@@ -43,7 +43,7 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.nfts.repository.NFTRepository
 import com.asfoundation.wallet.nfts.repository.NftApi
 import com.asfoundation.wallet.logging.send_logs.LogsDao
