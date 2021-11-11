@@ -17,16 +17,16 @@ interface LogsDao {
         ORDER BY created ASC 
         LIMIT 1)
     """)
-  fun removeOldestLog(max_logs: Int = 10)
+  fun removeOldestLog(max_logs: Int)
 
   /**
    * Inserts a logEntity in the database and deletes the oldest log
-   * if the are more than 10 logs that aren't in the process of being sent.
+   * if the are more than maxLogs-logs that aren't in the process of being sent.
    */
   @Transaction
-  fun saveLog(log: LogEntity) {
+  fun saveLog(log: LogEntity, maxLogs: Int = 15) {
     insertLog(log)
-    removeOldestLog()
+    removeOldestLog(maxLogs)
   }
 
   @Query("""

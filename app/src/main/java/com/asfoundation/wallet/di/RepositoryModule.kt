@@ -149,7 +149,8 @@ class RepositoryModule {
   fun provideAdyenPaymentRepository(@Named("default") client: OkHttpClient,
                                     bdsApi: RemoteRepository.BdsApi,
                                     subscriptionBillingApi: SubscriptionBillingApi, gson: Gson,
-                                    billingErrorMapper: BillingErrorMapper): AdyenPaymentRepository {
+                                    billingErrorMapper: BillingErrorMapper,
+                                    logger: Logger): AdyenPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20200815/gateways/adyen_v2/")
         .client(client)
@@ -158,7 +159,7 @@ class RepositoryModule {
         .build()
         .create(AdyenApi::class.java)
     return AdyenPaymentRepository(api, bdsApi, subscriptionBillingApi,
-        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()))
+        AdyenResponseMapper(gson, billingErrorMapper, AdyenSerializer()), logger)
   }
 
   @Singleton
@@ -181,7 +182,8 @@ class RepositoryModule {
   @Provides
   fun provideCarrierBillingRepository(@Named("default") client: OkHttpClient,
                                       preferences: CarrierBillingPreferencesRepository,
-                                      billingErrorMapper: BillingErrorMapper):
+                                      billingErrorMapper: BillingErrorMapper,
+                                      logger: Logger):
       CarrierBillingRepository {
     val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
         CarrierErrorResponseTypeAdapter())
@@ -194,7 +196,7 @@ class RepositoryModule {
         .build()
     val api = retrofit.create(CarrierBillingRepository.CarrierBillingApi::class.java)
     return CarrierBillingRepository(api, preferences,
-        CarrierResponseMapper(retrofit, billingErrorMapper), BuildConfig.APPLICATION_ID)
+        CarrierResponseMapper(retrofit, billingErrorMapper), BuildConfig.APPLICATION_ID, logger)
   }
 
   @Singleton
@@ -457,16 +459,17 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesNFTRepository(@Named("default") client: OkHttpClient,rxSchedulers: RxSchedulers): NFTRepository {
+  fun providesNFTRepository(@Named("default") client: OkHttpClient,
+                            rxSchedulers: RxSchedulers): NFTRepository {
     val baseUrl = BuildConfig.BACKEND_HOST
     val api = Retrofit.Builder()
-      .baseUrl(baseUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create())
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
-      .create(NftApi::class.java)
-    return NFTRepository(api , rxSchedulers)
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(NftApi::class.java)
+    return NFTRepository(api, rxSchedulers)
 
   }
 
