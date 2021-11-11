@@ -887,7 +887,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Destek Ekibine günlükleri gönderin</string>
   <string name="send_logs_sending">Gönderiliyor&#8230;</string>
-  <string name="send_logs_send">Gönderildi!</string>
+  <string name="send_logs_sent">Gönderildi!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins Wallet\'ı sevdiniz mi?</string>
   <string name="rate_us_no">Pek sayılmaz</string>

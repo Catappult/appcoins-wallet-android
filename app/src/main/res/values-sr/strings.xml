@@ -894,7 +894,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Pošaljite evidenciju timu korisničke podrške</string>
   <string name="send_logs_sending">Slanje&#8230;</string>
-  <string name="send_logs_send">Poslato!</string>
+  <string name="send_logs_sent">Poslato!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
   <string name="rate_us_no">Not really</string>

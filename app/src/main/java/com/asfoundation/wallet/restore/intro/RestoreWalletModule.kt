@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.restore.intro
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.navigator.ActivityNavigatorContract
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import dagger.Module

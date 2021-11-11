@@ -58,9 +58,13 @@ import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.logging.DebugReceiver
-import com.asfoundation.wallet.logging.LogReceiver
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.LogReceiver
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.logging.WalletLogger
+import com.asfoundation.wallet.logging.send_logs.LogsDao
+import com.asfoundation.wallet.logging.send_logs.LogsDatabase
+import com.asfoundation.wallet.logging.send_logs.SendLogsReceiver
+import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
@@ -176,11 +180,12 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideLogger(): Logger {
+  fun provideLogger(sendLogsRepository: SendLogsRepository): Logger {
     val receivers = ArrayList<LogReceiver>()
     if (BuildConfig.DEBUG) {
       receivers.add(DebugReceiver())
     }
+    receivers.add(SendLogsReceiver(sendLogsRepository))
     return WalletLogger(receivers)
   }
 
@@ -678,6 +683,21 @@ internal class AppModule {
   fun provideFiatCurrenciesDao(
       database: CurrenciesDatabase): FiatCurrenciesDao {
     return database.fiatCurrenciesDao()
+  }
+
+  @Singleton
+  @Provides
+  fun provideLogsDatabase(context: Context): LogsDatabase {
+    return Room.databaseBuilder(context, LogsDatabase::class.java,
+            "logs_database")
+            .build()
+  }
+
+  @Singleton
+  @Provides
+  fun provideLogsDao(
+      database: LogsDatabase): LogsDao {
+    return database.logsDao()
   }
 
 

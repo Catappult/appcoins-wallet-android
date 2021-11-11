@@ -147,6 +147,7 @@ android {
   }
   compileOptions {
     targetCompatibility 1.8
+    coreLibraryDesugaringEnabled true
     sourceCompatibility 1.8
   }
   buildFeatures {
@@ -168,6 +169,7 @@ dependencies {
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':skills')
 
+  coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$project.desugar_version"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$project.viewBindingDelegate"

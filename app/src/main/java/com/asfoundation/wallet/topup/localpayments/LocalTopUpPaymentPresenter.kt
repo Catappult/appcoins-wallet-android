@@ -7,7 +7,7 @@ import android.util.TypedValue
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor

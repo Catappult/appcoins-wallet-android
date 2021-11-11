@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.logging
 
+import com.appcoins.wallet.commons.LogReceiver
 import io.sentry.Sentry
 
 class SentryReceiver : LogReceiver {

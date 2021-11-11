@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
