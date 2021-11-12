@@ -7,10 +7,7 @@ import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
-import cm.aptoide.skills.repository.LoginRepository
-import cm.aptoide.skills.repository.RoomRepository
-import cm.aptoide.skills.repository.SharedPreferencesTicketLocalStorage
-import cm.aptoide.skills.repository.TicketRepository
+import cm.aptoide.skills.repository.*
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsUriParser
 import com.appcoins.wallet.bdsbilling.WalletService
@@ -37,17 +34,17 @@ class SkillsModule {
 
   @Provides
   fun providesSkillsViewModel(
-    walletObtainer: WalletAddressObtainer,
-    joinQueueUseCase: JoinQueueUseCase,
-    payTicketUseCase: SkillsNavigator,
-    getTicketUseCase: GetTicketUseCase,
-    loginUseCase: LoginUseCase,
-    cancelUseCase: CancelTicketUseCase
+      walletObtainer: WalletAddressObtainer,
+      joinQueueUseCase: JoinQueueUseCase,
+      payTicketUseCase: SkillsNavigator,
+      getTicketUseCase: GetTicketUseCase,
+      loginUseCase: LoginUseCase,
+      cancelUseCase: CancelTicketUseCase
   ): SkillsViewModel {
     return SkillsViewModel(
-      walletObtainer, joinQueueUseCase, payTicketUseCase, getTicketUseCase,
-      GET_ROOM_RETRY_MILLIS,
-      loginUseCase, cancelUseCase,PublishSubject.create()
+        walletObtainer, joinQueueUseCase, payTicketUseCase, getTicketUseCase,
+        GET_ROOM_RETRY_MILLIS,
+        loginUseCase, cancelUseCase, PublishSubject.create()
     )
   }
 
@@ -81,7 +78,7 @@ class SkillsModule {
         .create()
 
     return Retrofit.Builder()
-        .baseUrl(ENDPOINT)
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -102,20 +99,22 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesTicketsRepository(@Named("default") client: OkHttpClient,sharedPreferences: SharedPreferences): TicketRepository {
+  fun providesTicketsRepository(@Named("default") client: OkHttpClient,
+                                sharedPreferences: SharedPreferences): TicketRepository {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
         .create()
 
     val api = Retrofit.Builder()
-        .baseUrl(ENDPOINT)
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(TicketApi::class.java)
 
-    return TicketRepository(api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson))
+    return TicketRepository(api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson),
+        TicketApiMapper(gson))
   }
 
   @Provides
@@ -125,9 +124,9 @@ class SkillsModule {
 
   @Provides
   fun providesCancelTicketUseCase(
-    walletAddressObtainer: WalletAddressObtainer,
-    ewtObtainer: EwtObtainer,
-    ticketRepository: TicketRepository
+      walletAddressObtainer: WalletAddressObtainer,
+      ewtObtainer: EwtObtainer,
+      ticketRepository: TicketRepository
   ): CancelTicketUseCase {
     return CancelTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
   }
@@ -138,7 +137,7 @@ class SkillsModule {
   }
 
   companion object {
-    const val ENDPOINT = BuildConfig.BASE_HOST_SKILLS
+    const val BASE_URL = BuildConfig.BASE_HOST_SKILLS
     const val GET_ROOM_RETRY_MILLIS = 3000L
   }
 }

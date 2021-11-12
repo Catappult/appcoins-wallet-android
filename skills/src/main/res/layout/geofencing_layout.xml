@@ -6,7 +6,7 @@
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/no_network_card"
+      android:id="@+id/geofencing_error_card"
       android:layout_width="340dp"
       android:layout_height="wrap_content"
       android:background="@drawable/background_card"
@@ -22,52 +22,64 @@
       >
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/no_network_animation"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:id="@+id/error_animation"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/no_network_animation"
+        app:lottie_rawRes="@raw/adyen_error_animation"
         />
 
     <TextView
-        android:id="@+id/no_network_message"
-        android:layout_width="0dp"
+        android:id="@+id/error_title"
+        style="@style/eSkills.Error.Title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="sans-serif"
+        android:layout_marginTop="23dp"
         android:gravity="center"
-        android:lineSpacingExtra="4sp"
-        android:text="@string/connection_error_body"
-        android:textColor="@color/grey_alpha_active_54"
-        android:textSize="12sp"
+        android:text="@string/location_not_available_title"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/no_network_animation"
+        app:layout_constraintTop_toBottomOf="@+id/error_animation"
+        />
+
+    <TextView
+        android:id="@+id/error_message"
+        style="@style/PaymentMethods.Error.Message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/location_not_available_body"
+        app:layout_constraintBottom_toTopOf="@+id/ok_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/error_title"
+        app:layout_constraintVertical_bias="0"
         />
 
     <Button
-        android:id="@+id/no_network_ok_button"
+        android:id="@+id/ok_button"
         style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:maxWidth="150dp"
         android:minWidth="80dp"
         android:text="@string/ok"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/no_network_message"
+        app:layout_constraintTop_toBottomOf="@id/error_message"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
