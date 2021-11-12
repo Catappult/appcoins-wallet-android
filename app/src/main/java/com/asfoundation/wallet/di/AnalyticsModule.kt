@@ -12,6 +12,8 @@ import com.asfoundation.wallet.home.HomeAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -182,9 +184,10 @@ class AnalyticsModule {
   fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
                                  promotionsRepository: PromotionsRepository,
                                  logger: Logger,
-                                 getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): RakamAnalytics {
+                                 promoCodeDao: PromoCodeDao,
+                                 rxSchedulers: RxSchedulers): RakamAnalytics {
     return RakamAnalytics(context, idsRepository, promotionsRepository, logger,
-        getCurrentPromoCodeUseCase)
+        promoCodeDao, rxSchedulers)
   }
 
   @Singleton

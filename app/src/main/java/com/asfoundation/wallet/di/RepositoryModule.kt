@@ -18,6 +18,7 @@ import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
+import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
@@ -43,11 +44,10 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepository
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.nfts.repository.NFTRepository
-import com.asfoundation.wallet.nfts.repository.NftApi
 import com.asfoundation.wallet.logging.send_logs.LogsDao
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
+import com.asfoundation.wallet.nfts.repository.NFTRepository
+import com.asfoundation.wallet.nfts.repository.NftApi
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
@@ -445,7 +445,9 @@ class RepositoryModule {
   @Provides
   fun providesPromoCodeRepository(@Named("default") client: OkHttpClient,
                                   objectMapper: ObjectMapper,
-                                  promoCodeDao: PromoCodeDao): PromoCodeRepository {
+                                  promoCodeDao: PromoCodeDao,
+                                  analyticsSetup: RakamAnalytics,
+                                  rxSchedulers: RxSchedulers): PromoCodeRepository {
     val msBaseUrl = BuildConfig.BASE_HOST
     val backendBaseUrl = BuildConfig.BACKEND_HOST
     val msApi = Retrofit.Builder()
@@ -462,7 +464,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(PromoCodeRepository.PromoCodeBackendApi::class.java)
-    return PromoCodeRepository(msApi, backendApi, promoCodeDao)
+    return PromoCodeRepository(msApi, backendApi, promoCodeDao, analyticsSetup, rxSchedulers)
 
   }
 

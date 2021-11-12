@@ -7,7 +7,4 @@ import androidx.room.RoomDatabase
 abstract class PromoCodeDatabase : RoomDatabase() {
 
   abstract fun promoCodeDao(): PromoCodeDao
-
-  companion object {
-  }
 }

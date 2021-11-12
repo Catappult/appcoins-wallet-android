@@ -47,7 +47,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
           .map {
             TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
                 billingAddress, callbackUrl, metadata, paymentType, origin, reference,
-                developerWallet, entityOemId, entityDomain, "", userWallet,
+                developerWallet, entityOemId, entityDomain, null, userWallet,
                 referrerUrl, it)
           }
           .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }

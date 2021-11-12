@@ -1,15 +1,17 @@
 package com.asfoundation.wallet.promo_code.repository
 
-import android.util.Log
+import com.asfoundation.wallet.analytics.AnalyticsSetup
+import com.asfoundation.wallet.base.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
                           private val promoCodeBackendApi: PromoCodeBackendApi,
-                          private val promoCodeDao: PromoCodeDao) {
+                          private val promoCodeDao: PromoCodeDao,
+                          private val analyticsSetup: AnalyticsSetup,
+                          private val rxSchedulers: RxSchedulers) {
 
   fun setPromoCode(promoCodeString: String): Completable {
     return promoCodeApi.getPromoCode(promoCodeString)
@@ -19,10 +21,13 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
                 PromoCodeEntity(it.code, bonus.bonus, it.expiry, it.expired)
               }
         }
+        .doOnNext {
+          analyticsSetup.setPromoCode(PromoCode(it.code, it.bonus, it.expiryDate, it.expired))
+        }
         .flatMapCompletable {
           Completable.fromAction { promoCodeDao.replaceSavedPromoCodeBy(it) }
         }
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(rxSchedulers.io)
   }
 
   fun getCurrentPromoCode(): Observable<PromoCode> {
@@ -31,12 +36,12 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
           if (it.isEmpty()) PromoCode(null, null, null, null)
           else PromoCode(it[0].code, it[0].bonus, it[0].expiryDate, it[0].expired)
         }
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(rxSchedulers.io)
   }
 
   fun removePromoCode(): Completable {
     return Completable.fromAction { promoCodeDao.removeSavedPromoCode() }
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(rxSchedulers.io)
   }
 
   interface PromoCodeApi {

@@ -55,10 +55,6 @@ class PerkBonusAndGamificationService :
   private lateinit var notificationManager: NotificationManager
 
   @Inject
-  lateinit var observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase
-
-
-  @Inject
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 
   override fun onCreate() {

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet
 
-import android.util.Log
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
@@ -49,8 +48,6 @@ class PromoCodeBottomSheetViewModel(
   fun submitClick(promoCodeString: String) {
     setPromoCodeUseCase(promoCodeString)
         .asAsyncToState() {
-          Log.d("APPC-2709",
-              "PromoCodeBottomSheetViewModel: submitClick: code typed: $promoCodeString ---- state: $it")
           copy(submitClickAsync = it)
         }
         .scopedSubscribe() { e ->
@@ -71,7 +68,6 @@ class PromoCodeBottomSheetViewModel(
   fun deleteClick() {
     deletePromoCodeUseCase()
         .asAsyncToState() {
-          Log.d("APPC-2709", "PromoCodeBottomSheetViewModel: deleteClick: state $it")
           copy(promoCodeAsync = Async.Uninitialized)
         }
         .doOnComplete {

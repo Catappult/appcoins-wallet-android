@@ -2,13 +2,15 @@ package com.asfoundation.wallet.analytics
 
 import android.app.Application
 import android.content.Context
+import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.identification.IdsRepository
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.logging.RakamReceiver
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.repository.PromoCode
+import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.util.Log
 import com.google.android.gms.common.ConnectionResult
@@ -27,7 +29,8 @@ import java.net.URL
 class RakamAnalytics(private val context: Context, private val idsRepository: IdsRepository,
                      private val promotionsRepository: PromotionsRepository,
                      private val logger: Logger,
-                     private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) :
+                     private val promoCodeDao: PromoCodeDao,
+                     private val rxSchedulers: RxSchedulers) :
     AnalyticsSetup {
 
   private val rakamClient = Rakam.getInstance()
@@ -62,7 +65,45 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
     rakamClient.superProperties = superProperties
   }
 
+  override fun setPromoCode(promoCode: PromoCode) {
+    val superProperties = rakamClient.superProperties ?: JSONObject()
+    try {
+      superProperties.put("promo_code", promoCode)
+    } catch (e: JSONException) {
+      e.printStackTrace()
+    }
+
+    rakamClient.superProperties = superProperties
+  }
+
   fun initialize(): Completable {
+    return Single.just(idsRepository.getAndroidId())
+        .flatMap { deviceId: String -> startRakam(deviceId) }
+        .flatMap { rakamClient: RakamClient ->
+          Single.zip(idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
+              Single.just(idsRepository.getGamificationLevel()),
+              Single.just(hasGms()),
+              Single.just(idsRepository.getActiveWalletAddress()),
+              getCurrentPromoCode(),
+              { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
+                RakamInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode)
+              })
+              .flatMap {
+                promotionsRepository.getWalletOrigin(it.walletAddress,
+                    it.promoCode.code)
+                    .doOnSuccess { walletOrigin ->
+                      setRakamSuperProperties(rakamClient, it.installerPackage,
+                          it.level, it.walletAddress, it.hasGms, walletOrigin)
+                      if (!BuildConfig.DEBUG) {
+                        logger.addReceiver(RakamReceiver())
+                      }
+                    }
+              }
+        }
+        .ignoreElement()
+  }
+
+  fun initialize3(): Completable {
     return Single.just(idsRepository.getAndroidId())
         .flatMap { deviceId: String -> startRakam(deviceId) }
         .flatMap { rakamClient: RakamClient ->
@@ -74,7 +115,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                           .flatMap { hasGms: Boolean ->
                             Single.just(idsRepository.getActiveWalletAddress())
                                 .flatMap { walletAddress ->
-                                  getCurrentPromoCodeUseCase()
+                                  getCurrentPromoCode()
                                       .flatMap { promoCode ->
                                         promotionsRepository.getWalletOrigin(walletAddress,
                                             promoCode.code)
@@ -137,5 +178,16 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
   private fun hasGms(): Boolean {
     return GoogleApiAvailability.getInstance()
         .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
+  }
+
+  //TODO remove this and use GetCurrentPromoUseCase, but resolve dependency cycle with PromoCodeRepository
+  private fun getCurrentPromoCode(): Single<PromoCode> {
+    return promoCodeDao.getSavedPromoCode()
+        .map {
+          if (it.isEmpty()) PromoCode(null, null, null, null)
+          else PromoCode(it[0].code, it[0].bonus, it[0].expiryDate, it[0].expired)
+        }
+        .firstOrError()
+        .subscribeOn(rxSchedulers.io)
   }
 }
