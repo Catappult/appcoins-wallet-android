@@ -18,12 +18,16 @@ class ErrorMapper(private val gson: Gson) {
   }
 
   private fun mapHttpException(exception: HttpException): ErrorInfo {
-    val messageInfo = gson.fromJson(exception.getMessage(), ResponseErrorBaseBody::class.java)
     return if (exception.code() == FORBIDDEN_CODE) {
-      when (messageInfo.code) {
-        "NotAllowed" -> ErrorInfo(ErrorType.SUB_ALREADY_OWNED, null, null)
-        "Authorization.Forbidden" -> ErrorInfo(ErrorType.BLOCKED, null, null)
-        else -> ErrorInfo(ErrorType.UNKNOWN, exception.code(), messageInfo.text)
+      try {
+        val messageInfo = gson.fromJson(exception.getMessage(), ResponseErrorBaseBody::class.java)
+        when (messageInfo.code) {
+          "NotAllowed" -> ErrorInfo(ErrorType.SUB_ALREADY_OWNED, null, null)
+          "Authorization.Forbidden" -> ErrorInfo(ErrorType.BLOCKED, null, null)
+          else -> ErrorInfo(ErrorType.UNKNOWN, exception.code(), messageInfo.text)
+        }
+      } catch (e: Exception) {
+        ErrorInfo(ErrorType.UNKNOWN, null, null)
       }
     } else {
       val message = exception.getMessage()
