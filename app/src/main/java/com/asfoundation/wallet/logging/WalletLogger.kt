@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.logging
 
+import com.appcoins.wallet.commons.LogReceiver
+import com.appcoins.wallet.commons.Logger
+
 class WalletLogger(private var logReceivers: ArrayList<LogReceiver>): Logger {
 
   override fun log(tag: String?, message: String?) {

@@ -4,6 +4,7 @@ import com.appcoins.wallet.billing.carrierbilling.request.CarrierTransactionBody
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
 import com.appcoins.wallet.billing.common.response.TransactionResponse
+import com.appcoins.wallet.commons.Logger
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.*
@@ -11,7 +12,8 @@ import retrofit2.http.*
 class CarrierBillingRepository(private val api: CarrierBillingApi,
                                private val preferences: CarrierBillingPreferencesRepository,
                                private val mapper: CarrierResponseMapper,
-                               packageName: String) {
+                               packageName: String,
+                               private val logger: Logger) {
 
   companion object {
     private const val METHOD = "onebip"
@@ -32,14 +34,20 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
             userWallet,
             referrerUrl, developerPayload, callbackUrl))
         .map { response -> mapper.mapPayment(response) }
-        .onErrorReturn { e -> mapper.mapPaymentError(e) }
+        .onErrorReturn { e ->
+          logger.log("CarrierBillingRepository", e)
+          mapper.mapPaymentError(e)
+        }
   }
 
   fun getPayment(uid: String, walletAddress: String,
                  walletSignature: String): Observable<CarrierPaymentModel> {
     return api.getPayment(uid, walletAddress, walletSignature)
         .map { response -> mapper.mapPayment(response) }
-        .onErrorReturn { e -> mapper.mapPaymentError(e) }
+        .onErrorReturn { e ->
+          logger.log("CarrierBillingRepository", e)
+          mapper.mapPaymentError(e)
+        }
   }
 
   fun retrieveAvailableCountryList(): Single<AvailableCountryListModel> {

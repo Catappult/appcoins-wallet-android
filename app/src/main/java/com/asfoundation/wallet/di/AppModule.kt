@@ -23,6 +23,8 @@ import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.commons.LogReceiver
+import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionDatabase
@@ -58,9 +60,11 @@ import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.logging.DebugReceiver
-import com.asfoundation.wallet.logging.LogReceiver
-import com.asfoundation.wallet.logging.Logger
 import com.asfoundation.wallet.logging.WalletLogger
+import com.asfoundation.wallet.logging.send_logs.LogsDao
+import com.asfoundation.wallet.logging.send_logs.LogsDatabase
+import com.asfoundation.wallet.logging.send_logs.SendLogsReceiver
+import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
@@ -128,12 +132,17 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  fun provideLogInterceptor(logsDao: LogsDao) = LogInterceptor(logsDao)
+
+  @Singleton
+  @Provides
   @Named("blockchain")
   fun provideBlockchainOkHttpClient(context: Context,
-                                    preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+                                    preferencesRepositoryType: PreferencesRepositoryType,
+                                    logInterceptor: LogInterceptor): OkHttpClient {
     return OkHttpClient.Builder()
         .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
-        .addInterceptor(LogInterceptor())
+        .addInterceptor(logInterceptor)
         .connectTimeout(15, TimeUnit.MINUTES)
         .readTimeout(30, TimeUnit.MINUTES)
         .writeTimeout(30, TimeUnit.MINUTES)
@@ -144,10 +153,11 @@ internal class AppModule {
   @Provides
   @Named("default")
   fun provideDefaultOkHttpClient(context: Context,
-                                 preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+                                 preferencesRepositoryType: PreferencesRepositoryType,
+                                 logInterceptor: LogInterceptor): OkHttpClient {
     return OkHttpClient.Builder()
         .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
-        .addInterceptor(LogInterceptor())
+        .addInterceptor(logInterceptor)
         .connectTimeout(45, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
         .writeTimeout(60, TimeUnit.SECONDS)
@@ -158,10 +168,11 @@ internal class AppModule {
   @Provides
   @Named("low-timer")
   fun provideLowTimerOkHttpClient(context: Context,
-                                  preferencesRepositoryType: PreferencesRepositoryType): OkHttpClient {
+                                  preferencesRepositoryType: PreferencesRepositoryType,
+                                  logInterceptor: LogInterceptor): OkHttpClient {
     return OkHttpClient.Builder()
         .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
-        .addInterceptor(LogInterceptor())
+        .addInterceptor(logInterceptor)
         .connectTimeout(10, TimeUnit.SECONDS)
         .readTimeout(20, TimeUnit.SECONDS)
         .writeTimeout(20, TimeUnit.SECONDS)
@@ -176,11 +187,12 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideLogger(): Logger {
+  fun provideLogger(sendLogsRepository: SendLogsRepository): Logger {
     val receivers = ArrayList<LogReceiver>()
     if (BuildConfig.DEBUG) {
       receivers.add(DebugReceiver())
     }
+    receivers.add(SendLogsReceiver(sendLogsRepository))
     return WalletLogger(receivers)
   }
 
@@ -224,8 +236,8 @@ internal class AppModule {
   }
 
   @Provides
-  fun provideOneStepTransferParser(proxyService: ProxyService,
-                                   billing: Billing, tokenRateService: TokenRateService,
+  fun provideOneStepTransferParser(proxyService: ProxyService, billing: Billing,
+                                   tokenRateService: TokenRateService,
                                    defaultTokenProvider: DefaultTokenProvider): OneStepTransactionParser {
     return OneStepTransactionParser(proxyService, billing, tokenRateService,
         MemoryCache(BehaviorSubject.create(), HashMap()), defaultTokenProvider)
@@ -299,8 +311,7 @@ internal class AppModule {
   fun provideInAppPurchaseDataSaver(context: Context, operationSources: OperationSources,
                                     appCoinsOperationRepository: AppCoinsOperationRepository): AppcoinsOperationsDataSaver {
     return AppcoinsOperationsDataSaver(operationSources.sources, appCoinsOperationRepository,
-        AppInfoProvider(context, ImageSaver(context.filesDir
-            .toString() + "/app_icons/")),
+        AppInfoProvider(context, ImageSaver(context.filesDir.toString() + "/app_icons/")),
         Schedulers.io(), CompositeDisposable())
   }
 
@@ -389,11 +400,11 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesPermissions(context: Context): Permissions {
-    return Permissions(PermissionRepository(Room.databaseBuilder(context.applicationContext,
-        PermissionsDatabase::class.java,
-        "permissions_database")
-        .build()
-        .permissionsDao()))
+    return Permissions(PermissionRepository(
+        Room.databaseBuilder(context.applicationContext, PermissionsDatabase::class.java,
+            "permissions_database")
+            .build()
+            .permissionsDao()))
   }
 
   @Singleton
@@ -410,18 +421,15 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesPromotionDao(promotionDatabase: PromotionDatabase) =
-      promotionDatabase.promotionDao()
+  fun providesPromotionDao(promotionDatabase: PromotionDatabase) = promotionDatabase.promotionDao()
 
   @Singleton
   @Provides
-  fun providesLevelsDao(promotionDatabase: PromotionDatabase) =
-      promotionDatabase.levelsDao()
+  fun providesLevelsDao(promotionDatabase: PromotionDatabase) = promotionDatabase.levelsDao()
 
   @Singleton
   @Provides
-  fun providesLevelDao(promotionDatabase: PromotionDatabase) =
-      promotionDatabase.levelDao()
+  fun providesLevelDao(promotionDatabase: PromotionDatabase) = promotionDatabase.levelDao()
 
   @Singleton
   @Provides
@@ -481,8 +489,7 @@ internal class AppModule {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       val channelName: CharSequence = "Notification channel"
       val importance = NotificationManager.IMPORTANCE_HIGH
-      val notificationChannel =
-          NotificationChannel(channelId, channelName, importance)
+      val notificationChannel = NotificationChannel(channelId, channelName, importance)
       builder = NotificationCompat.Builder(context, channelId)
       notificationManager.createNotificationChannel(notificationChannel)
     } else {
@@ -509,8 +516,7 @@ internal class AppModule {
   @Named("local_version_code")
   fun provideLocalVersionCode(context: Context, packageManager: PackageManager): Int {
     return try {
-      packageManager.getPackageInfo(context.packageName, 0)
-          .versionCode
+      packageManager.getPackageInfo(context.packageName, 0).versionCode
     } catch (e: PackageManager.NameNotFoundException) {
       -1
     }
@@ -573,17 +579,11 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideTransactionsDatabase(context: Context): TransactionsDatabase {
-    return Room.databaseBuilder(context.applicationContext,
-        TransactionsDatabase::class.java,
+    return Room.databaseBuilder(context.applicationContext, TransactionsDatabase::class.java,
         "transactions_database")
-        .addMigrations(
-            TransactionsDatabase.MIGRATION_1_2,
-            TransactionsDatabase.MIGRATION_2_3,
-            TransactionsDatabase.MIGRATION_3_4,
-            TransactionsDatabase.MIGRATION_4_5,
-            TransactionsDatabase.MIGRATION_5_6,
-            TransactionsDatabase.MIGRATION_6_7
-        )
+        .addMigrations(TransactionsDatabase.MIGRATION_1_2, TransactionsDatabase.MIGRATION_2_3,
+            TransactionsDatabase.MIGRATION_3_4, TransactionsDatabase.MIGRATION_4_5,
+            TransactionsDatabase.MIGRATION_5_6, TransactionsDatabase.MIGRATION_6_7)
         .build()
   }
 
@@ -658,8 +658,7 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideCurrencyConversionRatesDatabase(context: Context): CurrenciesDatabase {
-    return Room.databaseBuilder(context, CurrenciesDatabase::class.java,
-        "currencies_database")
+    return Room.databaseBuilder(context, CurrenciesDatabase::class.java, "currencies_database")
         .addMigrations(
             CurrenciesDatabase.MIGRATION_1_2,
         )
@@ -675,9 +674,21 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideFiatCurrenciesDao(
-      database: CurrenciesDatabase): FiatCurrenciesDao {
+  fun provideFiatCurrenciesDao(database: CurrenciesDatabase): FiatCurrenciesDao {
     return database.fiatCurrenciesDao()
+  }
+
+  @Singleton
+  @Provides
+  fun provideLogsDatabase(context: Context): LogsDatabase {
+    return Room.databaseBuilder(context, LogsDatabase::class.java, "logs_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun provideLogsDao(database: LogsDatabase): LogsDao {
+    return database.logsDao()
   }
 
 

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.ui.credit_card.code
 
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.*
 import dagger.Module

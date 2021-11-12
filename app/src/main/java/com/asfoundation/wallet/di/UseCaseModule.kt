@@ -24,6 +24,10 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
+import com.asfoundation.wallet.logging.send_logs.use_cases.ObserveSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
+import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.nfts.repository.NFTRepository
@@ -293,6 +297,26 @@ class UseCaseModule {
   @Provides
   fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase, NFTRepository: NFTRepository): GetNFTListUseCase {
     return GetNFTListUseCase(getCurrentWallet , NFTRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetSendLogsStateUseCase(sendLogsRepository: SendLogsRepository,
+                                      getCurrentWalletUseCase: GetCurrentWalletUseCase): ObserveSendLogsStateUseCase {
+    return ObserveSendLogsStateUseCase(sendLogsRepository, getCurrentWalletUseCase)
+  }
+
+  @Singleton
+  @Provides
+  fun providesResetSendLogsStateUseCase(sendLogsRepository: SendLogsRepository): ResetSendLogsStateUseCase {
+    return ResetSendLogsStateUseCase(sendLogsRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSendLogsUseCase(sendLogsRepository: SendLogsRepository,
+                              ewtObtainer: EwtAuthenticatorService): SendLogsUseCase {
+    return SendLogsUseCase(sendLogsRepository, ewtObtainer)
   }
 
   @Singleton

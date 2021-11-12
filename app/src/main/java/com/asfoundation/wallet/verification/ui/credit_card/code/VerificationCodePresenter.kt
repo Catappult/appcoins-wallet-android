@@ -2,7 +2,7 @@ package com.asfoundation.wallet.verification.ui.credit_card.code
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityData
 import io.reactivex.Scheduler

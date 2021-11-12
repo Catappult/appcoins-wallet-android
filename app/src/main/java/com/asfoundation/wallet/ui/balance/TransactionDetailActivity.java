@@ -90,7 +90,8 @@ public class TransactionDetailActivity extends BaseActivity {
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
 
-    viewModel.initializeView(getPaidValue(), transaction.getPaidCurrency(), globalBalanceCurrency);
+    viewModel.initializeView(transaction.getPaidAmount(), transaction.getPaidCurrency(),
+        globalBalanceCurrency);
     viewModel.transactionsDetailsModel()
         .observe(this, this::onTransactionsDetails);
 

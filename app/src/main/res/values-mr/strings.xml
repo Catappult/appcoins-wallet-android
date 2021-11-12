@@ -908,7 +908,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">समर्थन गटास लॉग्ज पाठवा</string>
   <string name="send_logs_sending">&#8230; पाठवित आहे</string>
-  <string name="send_logs_send">पाठवले!</string>
+  <string name="send_logs_sent">पाठवले!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">अॅपकॉईन्स वॉलेटचा मजा लुटताय?</string>
   <string name="rate_us_no">खरतर नाही</string>

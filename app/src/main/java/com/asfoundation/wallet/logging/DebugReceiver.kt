@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.logging
 
+import com.appcoins.wallet.commons.LogReceiver
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.util.Log
 

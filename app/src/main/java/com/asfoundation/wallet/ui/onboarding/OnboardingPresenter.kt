@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.onboarding
 
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

@@ -4,7 +4,7 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics

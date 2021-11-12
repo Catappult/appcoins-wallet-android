@@ -6,7 +6,7 @@ import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
-import com.asfoundation.wallet.logging.Logger
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.logging.RakamReceiver
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.util.Log

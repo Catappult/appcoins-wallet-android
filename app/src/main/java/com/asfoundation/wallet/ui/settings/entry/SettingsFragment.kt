@@ -17,6 +17,8 @@ import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
+import com.asfoundation.wallet.logging.send_logs.SendLogsState
+import com.asfoundation.wallet.logging.send_logs.SettingsSendLogsPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
@@ -92,6 +94,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onDestroy() {
     switchSubject = null
+    presenter.resetSendLogsState()
     super.onDestroy()
   }
 
@@ -257,6 +260,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       false
     }
   }
+
+  override fun setSendLogsPreference(sendLogsState: SendLogsState) {
+    val settingsSendLogsPreference = findPreference<SettingsSendLogsPreference>("pref_send_logs")
+    settingsSendLogsPreference?.isVisible = sendLogsState.shouldShow
+    settingsSendLogsPreference?.setSendLogsState(sendLogsState)
+    settingsSendLogsPreference?.setOnPreferenceClickListener {
+      presenter.onSendLogsClicked()
+      false
+    }
+  }
+
 
   override fun setWithdrawPreference() {
     val bugReportPreference = findPreference<Preference>("pref_withdraw")

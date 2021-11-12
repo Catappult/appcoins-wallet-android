@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.logging
+package com.appcoins.wallet.commons
 
 interface LogReceiver {
   companion object {

@@ -887,7 +887,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Αποστολή αρχείων καταγραφής στην Ομάδα Υποστήριξης</string>
   <string name="send_logs_sending">Αποστολή&#8230;</string>
-  <string name="send_logs_send">Στάλθηκαν!</string>
+  <string name="send_logs_sent">Στάλθηκαν!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Απολαμβάνετε το AppCoins Wallet;</string>
   <string name="rate_us_no">Όχι ιδιαίτερα</string>

@@ -19,7 +19,7 @@ import androidx.core.app.NotificationCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.asfoundation.wallet.logging.Logger;
+import com.appcoins.wallet.commons.Logger;
 import com.asfoundation.wallet.main.MainActivityNavigator;
 import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;

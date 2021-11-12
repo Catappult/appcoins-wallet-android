@@ -880,7 +880,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Kirim log ke Tim Dukungan</string>
   <string name="send_logs_sending">Mengirim&#8230;</string>
-  <string name="send_logs_send">Terkirim!</string>
+  <string name="send_logs_sent">Terkirim!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Menyukai Dompet AppCoins?</string>
   <string name="rate_us_no">Kurang suka</string>

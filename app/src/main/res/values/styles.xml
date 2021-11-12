@@ -663,6 +663,11 @@
     <item name="android:textColor">@color/black_87_alpha</item>
   </style>
 
+  <style name="SettingsDetailsTextStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
   <style name="SettingsTextStyle.Summary">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textSize">12sp</item>
