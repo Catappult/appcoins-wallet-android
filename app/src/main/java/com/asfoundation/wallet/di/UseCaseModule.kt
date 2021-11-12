@@ -349,8 +349,6 @@ class UseCaseModule {
                                            verificationRepository: VerificationRepository): SetCachedVerificationUseCase {
     return SetCachedVerificationUseCase(walletService, verificationRepository)
   }
-}
-
 
   @Singleton
   @Provides
