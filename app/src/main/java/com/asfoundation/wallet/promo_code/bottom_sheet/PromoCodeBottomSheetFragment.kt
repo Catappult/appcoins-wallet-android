@@ -17,6 +17,7 @@ import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
+import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.repository.PromoCodeEntity
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.setReadOnly
@@ -92,7 +93,7 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     }
   }
 
-  fun setPromoCode(promoCodeAsync: Async<PromoCodeEntity>,
+  fun setPromoCode(promoCodeAsync: Async<PromoCode>,
                    shouldShowDefault: Boolean) {
     when (promoCodeAsync) {
       is Async.Uninitialized,
@@ -106,15 +107,15 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
         if (shouldShowDefault) {
           showDefaultScreen()
         } else {
-          if (promoCodeAsync.value?.code != "") {
-            promoCodeAsync.value?.code?.let { showCurrentCodeScreen(it) }
+          if (promoCodeAsync.value?.code != null) {
+            showCurrentCodeScreen(promoCodeAsync.value.code)
           }
         }
       }
     }
   }
 
-  fun setSubmitClick(clickAsync: Async<Unit>, promoCodeAsync: Async<PromoCodeEntity>) {
+  fun setSubmitClick(clickAsync: Async<Unit>, promoCodeAsync: Async<PromoCode>) {
     when (clickAsync) {
       is Async.Uninitialized -> {
       }

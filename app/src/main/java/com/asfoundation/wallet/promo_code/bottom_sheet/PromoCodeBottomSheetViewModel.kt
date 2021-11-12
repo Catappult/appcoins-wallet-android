@@ -5,18 +5,17 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.promo_code.repository.PromoCodeEntity
+import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
-import io.reactivex.Scheduler
 
 sealed class PromoCodeBottomSheetSideEffect : SideEffect {
   object NavigateBack : PromoCodeBottomSheetSideEffect()
 }
 
 data class PromoCodeBottomSheetState(
-    val promoCodeAsync: Async<PromoCodeEntity> = Async.Uninitialized,
+    val promoCodeAsync: Async<PromoCode> = Async.Uninitialized,
     val submitClickAsync: Async<Unit> = Async.Uninitialized,
     val shouldShowDefault: Boolean = false) : ViewState
 

@@ -21,7 +21,7 @@ import com.asfoundation.wallet.logging.send_logs.SendLogsState
 import com.asfoundation.wallet.logging.send_logs.SettingsSendLogsPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
-import com.asfoundation.wallet.promo_code.repository.PromoCodeEntity
+import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
@@ -182,11 +182,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setPromoCodePreference(promoCodeEntity: PromoCodeEntity) {
+  override fun setPromoCodePreference(promoCode: PromoCode) {
     val promoCodePreference = findPreference<SettingsPreferencePromoCodeState>("pref_promo_code")
-    promoCodePreference?.setPromoCode(promoCodeEntity)
+    promoCodePreference?.setPromoCode(promoCode)
     promoCodePreference?.setOnPreferenceClickListener {
-//      Log.d("APPC-2709", "SettingsFragment: setPromoCodePreference: click")
       presenter.onPromoCodePreferenceClick()
       false
     }

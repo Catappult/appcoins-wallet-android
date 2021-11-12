@@ -73,12 +73,11 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
           val addressModel = pair.first
           val attrEntity = pair.second
           getCurrentPromoCodeUseCase().flatMap { promoCode ->
-            val promoCodeString = if (promoCode.code.isEmpty()) null else promoCode.code
             adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
                 supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
                 addressModel.address, origin, packageName, metadata, sku, callbackUrl,
                 transactionType, developerWallet, attrEntity.oemId, attrEntity.domain,
-                promoCodeString,
+                promoCode.code,
                 addressModel.address,
                 addressModel.signedAddress, billingAddress, referrerUrl)
           }

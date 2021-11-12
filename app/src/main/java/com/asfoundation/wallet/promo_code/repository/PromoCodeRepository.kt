@@ -14,9 +14,10 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
   fun setPromoCode(promoCodeString: String): Completable {
     return promoCodeApi.getPromoCode(promoCodeString)
         .flatMap {
-          promoCodeBackendApi.getPromoCode(promoCodeString).map { bonus ->
-            PromoCodeEntity(it.code, bonus.bonus, it.expiry, it.expired)
-          }
+          promoCodeBackendApi.getPromoCode(promoCodeString)
+              .map { bonus ->
+                PromoCodeEntity(it.code, bonus.bonus, it.expiry, it.expired)
+              }
         }
         .flatMapCompletable {
           Completable.fromAction { promoCodeDao.replaceSavedPromoCodeBy(it) }
@@ -24,11 +25,12 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
         .subscribeOn(Schedulers.io())
   }
 
-  fun getCurrentPromoCode(): Observable<PromoCodeEntity> {
+  fun getCurrentPromoCode(): Observable<PromoCode> {
     return promoCodeDao.getSavedPromoCode()
         .map {
-          if (it.isEmpty()) PromoCodeEntity("",0.0, "", null) else it[0]
-        }.doOnNext { Log.d("APPC-2709", "PromoCodeRepository: getCurrentPromoCode: $it") }
+          if (it.isEmpty()) PromoCode(null, null, null, null)
+          else PromoCode(it[0].code, it[0].bonus, it[0].expiryDate, it[0].expired)
+        }
         .subscribeOn(Schedulers.io())
   }
 
