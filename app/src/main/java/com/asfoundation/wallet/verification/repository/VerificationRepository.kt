@@ -102,6 +102,4 @@ class VerificationRepository(private val verificationApi: VerificationApi,
           .apply()
     }
   }
-
-
 }
