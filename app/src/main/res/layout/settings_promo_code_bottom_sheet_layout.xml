@@ -19,7 +19,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/promo_code_view_body"
-      android:visibility="gone"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
@@ -32,7 +31,6 @@
       android:layout_marginTop="14dp"
       android:background="@drawable/rectangle_text_default_promo_code"
       android:paddingHorizontal="16dp"
-      android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_title"
@@ -59,6 +57,7 @@
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:background="@drawable/ic_check_mark_dark"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/promo_code_bottom_sheet_text_rectangle"
@@ -85,7 +84,6 @@
       android:layout_height="40dp"
       android:layout_marginTop="35dp"
       android:text="@string/carrier_billing_submit_button"
-      android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
       />
