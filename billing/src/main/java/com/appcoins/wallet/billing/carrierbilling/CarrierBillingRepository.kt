@@ -25,12 +25,13 @@ class CarrierBillingRepository(private val api: CarrierBillingApi,
                   phoneNumber: String, packageName: String, origin: String?, sku: String?,
                   reference: String?, transactionType: String, currency: String,
                   value: String, developerWallet: String?, entityOemId: String?,
-                  entityDomain: String?,
+                  entityDomain: String?, entityPromoCode: String?,
                   userWallet: String?, referrerUrl: String?, developerPayload: String?,
                   callbackUrl: String?): Single<CarrierPaymentModel> {
     return api.makePayment(walletAddress, walletSignature,
         CarrierTransactionBody(phoneNumber, RETURN_URL, METHOD, packageName, origin, sku, reference,
             transactionType, currency, value, developerWallet, entityOemId, entityDomain,
+            entityPromoCode,
             userWallet,
             referrerUrl, developerPayload, callbackUrl))
         .map { response -> mapper.mapPayment(response) }

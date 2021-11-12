@@ -231,10 +231,12 @@ class InteractorModule {
                                     supportInteractor: SupportInteractor,
                                     walletBlockedInteract: WalletBlockedInteract,
                                     walletVerificationInteractor: WalletVerificationInteractor,
+                                    getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                                     remoteRepository: RemoteRepository): LocalPaymentInteractor {
     return LocalPaymentInteractor(walletService, partnerAddressService,
         inAppPurchaseInteractor, billingMessagesMapper, supportInteractor,
-        walletBlockedInteract, walletVerificationInteractor, remoteRepository)
+        walletBlockedInteract, walletVerificationInteractor, getCurrentPromoCodeUseCase,
+        remoteRepository)
   }
 
   @Provides
@@ -532,10 +534,11 @@ class InteractorModule {
                                 inAppPurchaseInteractor: InAppPurchaseInteractor,
                                 walletBlockedInteract: WalletBlockedInteract,
                                 walletVerificationInteractor: WalletVerificationInteractor,
+                                getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                                 logger: Logger): CarrierInteractor {
     return CarrierInteractor(repository, walletService, partnerAddressService,
-        inAppPurchaseInteractor, walletBlockedInteract, walletVerificationInteractor, logger,
-        Schedulers.io())
+        inAppPurchaseInteractor, walletBlockedInteract, walletVerificationInteractor,
+        getCurrentPromoCodeUseCase, logger, Schedulers.io())
   }
 
   @Singleton

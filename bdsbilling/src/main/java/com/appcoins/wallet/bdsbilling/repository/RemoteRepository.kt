@@ -194,12 +194,14 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                     currency: String?, productName: String?, type: String,
                                     origin: String?, walletsDeveloper: String?,
                                     entityOemId: String?, entityDomain: String?,
+                                    entityPromoCode: String?,
                                     developerPayload: String?, callback: String?,
                                     orderReference: String?, referrerUrl: String?,
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
     return inAppApi.createTransaction(origin, packageName, price, currency, productName, type,
-        walletAddress, walletsDeveloper, entityOemId, entityDomain, paymentId, developerPayload,
+        walletAddress, walletsDeveloper, entityOemId, entityDomain, entityPromoCode, paymentId,
+        developerPayload,
         callback,
         orderReference, referrerUrl, walletAddress, walletSignature)
   }
@@ -215,7 +217,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   private fun createTransaction(userWallet: String?, developerWallet: String?, entityOemId: String?,
-                                entityDomain: String?, token: String?, developerPayload: String?,
+                                entityDomain: String?, token: String?,
+                                developerPayload: String?,
                                 callback: String?, orderReference: String?, referrerUrl: String?,
                                 productToken: String?, origin: String?, type: String,
                                 gateway: String, walletAddress: String, signature: String,
@@ -230,7 +233,8 @@ class RemoteRepository(private val inAppApi: BdsApi,
     } else {
       return inAppApi.createTransaction(
           gateway, origin, packageName, amount, currency, productName,
-          type, userWallet, developerWallet, entityOemId, entityDomain, token, developerPayload,
+          type, userWallet, developerWallet, entityOemId, entityDomain, null, token,
+          developerPayload,
           callback, orderReference, referrerUrl, walletAddress, signature
       )
     }
@@ -360,6 +364,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
                           @Field("wallets.developer") walletsDeveloper: String?,
                           @Field("entity.oemid") entityOemId: String?,
                           @Field("entity.domain") entityDomain: String?,
+                          @Field("entity.promo_code") entityPromoCode: String?,
                           @Field("token") token: String?,
                           @Field("metadata") developerPayload: String?,
                           @Field("callback_url") callback: String?,
@@ -403,6 +408,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
                           @Field("wallets.developer") walletsDeveloper: String?,
                           @Field("entity.oemid") entityOemId: String?,
                           @Field("entity.domain") entityDomain: String?,
+                          @Field("entity.promo_code") entityPromoCode: String?,
                           @Field("method") method: String?,
                           @Field("metadata") developerPayload: String?,
                           @Field("callback_url") callback: String?,

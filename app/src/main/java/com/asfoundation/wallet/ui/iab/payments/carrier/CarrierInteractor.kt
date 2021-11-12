@@ -4,10 +4,11 @@ import android.net.Uri
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
@@ -28,6 +29,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
                         private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                         private val walletBlockedInteract: WalletBlockedInteract,
                         private val walletVerificationInteractor: WalletVerificationInteractor,
+                        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                         private val logger: Logger,
                         private val ioScheduler: Scheduler) {
 
@@ -40,12 +42,15 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
           TransactionDataDetails(addrs, builder)
         })
         .flatMap { details ->
-          repository.makePayment(details.addrs.userAddress, details.addrs.signedAddress,
-              phoneNumber, packageName, origin, details.builder.skuId,
-              details.builder.orderReference, transactionType, currency, value,
-              details.builder.toAddress(), details.addrs.entityOemId, details.addrs.entityDomain,
-              details.addrs.userAddress, details.builder.referrerUrl, details.builder.payload,
-              details.builder.callbackUrl)
+          getCurrentPromoCodeUseCase().flatMap { promoCode ->
+            repository.makePayment(details.addrs.userAddress, details.addrs.signedAddress,
+                phoneNumber, packageName, origin, details.builder.skuId,
+                details.builder.orderReference, transactionType, currency, value,
+                details.builder.toAddress(), details.addrs.entityOemId, details.addrs.entityDomain,
+                promoCode.code,
+                details.addrs.userAddress, details.builder.referrerUrl, details.builder.payload,
+                details.builder.callbackUrl)
+          }
         }
         .doOnError { logger.log("CarrierInteractor", it) }
   }
