@@ -301,13 +301,9 @@ class AdyenPaymentRepositoryTest {
         TEST_WALLET_SIGNATURE))
         .thenReturn(Single.just("token"))
 
-    Mockito.`when`(
-        adyenApi.makeTokenPayment(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
-            TokenPayment(modelObject, false, "", "Ecommerce", null, null, null,
-                paymentType, null,
-                null, null, null, null, null, null, "token")))
+    Mockito.`when`(adyenApi.makeTokenPayment(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE,
+        TokenPayment(modelObject, false, "", "Ecommerce", null, null, null, paymentType, null, null,
+            null, null, null, null, null, null, "token")))
         .thenReturn(Single.just(expectedAdyenTransactionResponse))
 
     Mockito.`when`(mapper.map(expectedAdyenTransactionResponse))
@@ -340,13 +336,9 @@ class AdyenPaymentRepositoryTest {
         TEST_WALLET_SIGNATURE))
         .thenReturn(Single.just("token"))
 
-    Mockito.`when`(
-        adyenApi.makeTokenPayment(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
-            TokenPayment(modelObject, false, "", "Ecommerce", null, null, null,
-                paymentType, null,
-                null, null, null, null, null, null, "token")))
+    Mockito.`when`(adyenApi.makeTokenPayment(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE,
+        TokenPayment(modelObject, false, "", "Ecommerce", null, null, null, paymentType, null, null,
+            null, null, null, null, null, null, "token")))
         .thenReturn(Single.error(throwable))
 
     Mockito.`when`(mapper.mapPaymentModelError(throwable))
