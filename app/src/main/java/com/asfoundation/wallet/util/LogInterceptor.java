@@ -2,10 +2,13 @@ package com.asfoundation.wallet.util;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
+import com.asfoundation.wallet.logging.send_logs.LogEntity;
+import com.asfoundation.wallet.logging.send_logs.LogsDao;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -22,6 +25,13 @@ import org.jetbrains.annotations.NotNull;
 public class LogInterceptor implements Interceptor {
   private static final String TAG = "HTTP_TRACE";
   private static final Charset UTF8 = StandardCharsets.UTF_8;
+
+  // Dao is being used directly because otherwise we'll have a cyclic dependency with Repository
+  private LogsDao logsDao;
+
+  public LogInterceptor(LogsDao logsDao) {
+    this.logsDao = logsDao;
+  }
 
   private static String requestPath(HttpUrl url) {
     String path = url.encodedPath();
@@ -124,6 +134,10 @@ public class LogInterceptor implements Interceptor {
           "<-----------------------------END REQUEST--------------------------------->");
       logBuilder.append("\n\n\n");
       Log.d(TAG, logBuilder.toString());
+
+      if (response.code() >= 400) {
+        saveLog(logBuilder.toString());
+      }
       return response;
     } catch (Exception exception) {
       logBuilder = new StringBuilder();
@@ -134,6 +148,10 @@ public class LogInterceptor implements Interceptor {
       Log.e(TAG, logBuilder.toString());
       throw exception;
     }
+  }
+
+  private void saveLog(String log) {
+    logsDao.saveLog(new LogEntity(null, Instant.now(), TAG, log, false), 15);
   }
 
   private String requestDecodedPath(HttpUrl url) {

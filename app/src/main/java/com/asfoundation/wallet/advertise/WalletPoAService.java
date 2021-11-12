@@ -28,7 +28,7 @@ import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.util.Log;
-import com.asfoundation.wallet.verification.VerificationBroadcastReceiver;
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationBroadcastReceiver;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -46,9 +46,9 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKA
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_NETWORK_ID;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PACKAGE_NAME;
-import static com.asfoundation.wallet.verification.VerificationBroadcastReceiver.ACTION_DISMISS;
-import static com.asfoundation.wallet.verification.VerificationBroadcastReceiver.ACTION_KEY;
-import static com.asfoundation.wallet.verification.VerificationBroadcastReceiver.ACTION_START_VERIFICATION;
+import static com.asfoundation.wallet.verification.ui.credit_card.VerificationBroadcastReceiver.ACTION_DISMISS;
+import static com.asfoundation.wallet.verification.ui.credit_card.VerificationBroadcastReceiver.ACTION_KEY;
+import static com.asfoundation.wallet.verification.ui.credit_card.VerificationBroadcastReceiver.ACTION_START_VERIFICATION;
 
 /**
  * Created by Joao Raimundo on 29/03/2018.

@@ -23,7 +23,7 @@ abstract class UnverifiedInsertCodeModel :
   override fun bind(holder: UnverifiedInsertCodeHolder) {
     super.bind(holder)
     holder.insertCodeButton.setOnClickListener {
-      walletClickListener?.invoke(WalletsListEvent.VerifyWalletClick)
+      walletClickListener?.invoke(WalletsListEvent.VerifyInsertCodeClick)
     }
     holder.insertCodeButton.isEnabled = !disableButton
   }

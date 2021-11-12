@@ -13,7 +13,6 @@ import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -108,117 +107,6 @@ class AdyenPaymentRepositoryTest {
 
     testObserver.assertNoErrors()
         .assertValue { it == model }
-  }
-
-  @Test
-  fun makeVerificationPaymentTest() {
-    val expectedModel = VerificationPaymentModel(true)
-
-    val model = CardPaymentMethod()
-    Mockito.`when`(
-        adyenApi.makeVerificationPayment(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
-            AdyenPaymentRepository.VerificationPayment(model, false, "")))
-        .thenReturn(Completable.complete())
-
-    Mockito.`when`(mapper.mapVerificationPaymentModelSuccess())
-        .thenReturn(VerificationPaymentModel(true))
-
-    val testObserver = TestObserver<VerificationPaymentModel>()
-    adyenRepo.makeVerificationPayment(model, false, "",
-        TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE)
-        .subscribe(testObserver)
-
-    testObserver.assertNoErrors()
-        .assertValue { it == expectedModel }
-  }
-
-  @Test
-  fun makeVerificationPaymentErrorTest() {
-    val expectedModel = VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER)
-    val throwable = Throwable("error")
-    val modelObject = CardPaymentMethod()
-    Mockito.`when`(
-        adyenApi.makeVerificationPayment(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
-            AdyenPaymentRepository.VerificationPayment(modelObject, false, "")))
-        .thenReturn(Completable.error(throwable))
-
-    Mockito.`when`(mapper.mapVerificationPaymentModelError(throwable))
-        .thenReturn(VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER))
-
-    val testObserver = TestObserver<VerificationPaymentModel>()
-    adyenRepo.makeVerificationPayment(modelObject, false, "",
-        TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE)
-        .subscribe(testObserver)
-
-    testObserver.assertNoErrors()
-        .assertValue { it == expectedModel }
-  }
-
-  @Test
-  fun getVerificationInfoTest() {
-    val expectedResponse =
-        VerificationInfoResponse(
-            TEST_FIAT_CURRENCY, "$",
-            TEST_FIAT_VALUE, 6, "", "")
-    Mockito.`when`(
-        adyenApi.getVerificationInfo(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE))
-        .thenReturn(Single.just(expectedResponse))
-    val response = adyenRepo.getVerificationInfo(
-        TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE)
-        .blockingGet()
-    Assert.assertEquals(expectedResponse, response)
-  }
-
-  @Test
-  fun validateCodeTest() {
-    val expectedResult = VerificationCodeResult(true)
-    Mockito.`when`(
-        adyenApi.validateCode(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE, "code"))
-        .thenReturn(Completable.complete())
-
-    val testObserver = TestObserver<VerificationCodeResult>()
-
-    adyenRepo.validateCode("code",
-        TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE)
-        .subscribe(testObserver)
-
-    testObserver.assertNoErrors()
-        .assertValue { it == expectedResult }
-  }
-
-  @Test
-  fun validateCodeErrorTest() {
-    val expectedResult = VerificationCodeResult(false)
-    val throwable = Throwable("error")
-    val code = "code"
-    Mockito.`when`(adyenApi.validateCode(
-        TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE, code))
-        .thenReturn(Completable.error(throwable))
-    Mockito.`when`(mapper.mapVerificationCodeError(throwable))
-        .thenReturn(expectedResult)
-
-    val testObserver = TestObserver<VerificationCodeResult>()
-
-    adyenRepo.validateCode(code,
-        TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE)
-        .subscribe(testObserver)
-
-    testObserver.assertNoErrors()
-        .assertValue { it == expectedResult }
   }
 
   @Test
