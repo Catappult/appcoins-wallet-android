@@ -3,10 +3,13 @@ package com.asfoundation.wallet.di
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.biometric.BiometricManager
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.asfoundation.wallet.backup.BackupInteractContract
+import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
@@ -41,6 +44,10 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
+import com.asfoundation.wallet.verification.repository.VerificationRepository
+import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
+import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
+import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import dagger.Module
 import dagger.Provides
@@ -154,16 +161,14 @@ class UseCaseModule {
                                              backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
                                              promotionsRepo: PromotionsRepository): DismissCardNotificationUseCase {
     return DismissCardNotificationUseCase(findDefaultWalletUseCase,
-        SharedPreferencesReferralLocalData(preferences),
-        autoUpdateRepository, sharedPreferencesRepository, backupRestorePreferencesRepository,
-        promotionsRepo)
+        SharedPreferencesReferralLocalData(preferences), autoUpdateRepository,
+        sharedPreferencesRepository, backupRestorePreferencesRepository, promotionsRepo)
   }
 
   @Singleton
   @Provides
   fun providesShouldShowFingerprintTooltipUseCase(
-      preferencesRepositoryType: PreferencesRepositoryType,
-      packageManager: PackageManager,
+      preferencesRepositoryType: PreferencesRepositoryType, packageManager: PackageManager,
       fingerprintPreferences: FingerprintPreferencesRepositoryContract,
       biometricManager: BiometricManager): ShouldShowFingerprintTooltipUseCase {
     return ShouldShowFingerprintTooltipUseCase(preferencesRepositoryType, packageManager,
@@ -231,8 +236,7 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun provideGetUnreadConversationsCountEventsUseCase() =
-      GetUnreadConversationsCountEventsUseCase()
+  fun provideGetUnreadConversationsCountEventsUseCase() = GetUnreadConversationsCountEventsUseCase()
 
   @Singleton
   @Provides
@@ -270,10 +274,8 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun providesGetAvailableAmountToWithdrawUseCase(
-      ewt: EwtAuthenticatorService,
-      withdrawRepository: WithdrawRepository
-  ): GetAvailableAmountToWithdrawUseCase {
+  fun providesGetAvailableAmountToWithdrawUseCase(ewt: EwtAuthenticatorService,
+                                                  withdrawRepository: WithdrawRepository): GetAvailableAmountToWithdrawUseCase {
     return GetAvailableAmountToWithdrawUseCase(ewt, withdrawRepository)
   }
 
@@ -286,10 +288,8 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun providesWithdrawToFiatUseCase(
-      ewt: EwtAuthenticatorService,
-      withdrawRepository: WithdrawRepository
-  ): WithdrawToFiatUseCase {
+  fun providesWithdrawToFiatUseCase(ewt: EwtAuthenticatorService,
+                                    withdrawRepository: WithdrawRepository): WithdrawToFiatUseCase {
     return WithdrawToFiatUseCase(ewt, withdrawRepository)
   }
 
@@ -298,6 +298,7 @@ class UseCaseModule {
   fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase, NFTRepository: NFTRepository): GetNFTListUseCase {
     return GetNFTListUseCase(getCurrentWallet , NFTRepository)
   }
+
   @Singleton
   @Provides
   fun providesGetSendLogsStateUseCase(sendLogsRepository: SendLogsRepository,
@@ -316,5 +317,29 @@ class UseCaseModule {
   fun providesSendLogsUseCase(sendLogsRepository: SendLogsRepository,
                               ewtObtainer: EwtAuthenticatorService): SendLogsUseCase {
     return SendLogsUseCase(sendLogsRepository, ewtObtainer)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetVerificationInfoUseCase(walletService: WalletService,
+                                         verificationRepository: VerificationRepository,
+                                         adyenPaymentInteractor: AdyenPaymentInteractor,
+                                         rxSchedulers: RxSchedulers): GetVerificationInfoUseCase {
+    return GetVerificationInfoUseCase(walletService, verificationRepository, adyenPaymentInteractor,
+        rxSchedulers)
+  }
+
+  @Singleton
+  @Provides
+  fun providesMakeVerificationPaymentUseCase(walletService: WalletService,
+                                             verificationRepository: VerificationRepository): MakeVerificationPaymentUseCase {
+    return MakeVerificationPaymentUseCase(verificationRepository, walletService)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSetCachedVerificationUseCase(walletService: WalletService,
+                                           verificationRepository: VerificationRepository): SetCachedVerificationUseCase {
+    return SetCachedVerificationUseCase(walletService, verificationRepository)
   }
 }

@@ -5,9 +5,9 @@ import com.asfoundation.wallet.main.MainActivityModule
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
-import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.restore.RestoreWalletActivityModule
+import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transfers.TransferConfirmationActivity
 import com.asfoundation.wallet.ui.*
@@ -23,8 +23,9 @@ import com.asfoundation.wallet.ui.onboarding.OnboardingModule
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.ui.splash.SplashModule
-import com.asfoundation.wallet.verification.VerificationActivity
-import com.asfoundation.wallet.verification.VerificationActivityModule
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityModule
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -127,8 +128,12 @@ abstract class ActivityBuilders {
   abstract fun bindRatingActivity(): RatingActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [VerificationActivityModule::class])
-  internal abstract fun bindVerificationActivity(): VerificationActivity
+  @ContributesAndroidInjector(modules = [VerificationCreditCardActivityModule::class])
+  internal abstract fun bindVerificationCreditCardActivity(): VerificationCreditCardActivity
+
+  @ActivityScope
+  @ContributesAndroidInjector
+  internal abstract fun bindVerificationPaypalActivity(): VerificationPaypalActivity
 
   @ActivityScope
   @ContributesAndroidInjector(modules = [MainActivityModule::class])

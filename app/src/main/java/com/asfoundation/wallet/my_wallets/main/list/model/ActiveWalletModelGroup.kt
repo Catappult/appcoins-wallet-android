@@ -76,8 +76,7 @@ class ActiveWalletModelGroup(
             BalanceVerificationStatus.UNVERIFIED -> addUnverified(false, walletClickListener)
             BalanceVerificationStatus.CODE_REQUESTED -> addUnverifiedInsertCode(false,
                 walletClickListener)
-            BalanceVerificationStatus.NO_NETWORK,
-            BalanceVerificationStatus.ERROR -> {
+            BalanceVerificationStatus.NO_NETWORK, BalanceVerificationStatus.ERROR -> {
               // Set cached value
               when (verifiedModel.cachedStatus) {
                 BalanceVerificationStatus.VERIFIED -> addVerified()
@@ -87,13 +86,14 @@ class ActiveWalletModelGroup(
                 else -> addUnverified(true, walletClickListener)
               }
             }
-            null -> {
+            else -> {
               // Set cached value
               when (verifiedModel.cachedStatus) {
                 BalanceVerificationStatus.VERIFIED -> addVerified()
                 BalanceVerificationStatus.UNVERIFIED -> addUnverified(false, walletClickListener)
                 BalanceVerificationStatus.CODE_REQUESTED -> addUnverifiedInsertCode(false,
                     walletClickListener)
+                BalanceVerificationStatus.VERIFYING -> addVerifying()
                 else -> addUnverified(true, walletClickListener)
               }
             }
@@ -129,20 +129,20 @@ class ActiveWalletModelGroup(
 
     private fun MutableList<EpoxyModel<*>>.addUnverifiedInsertCode(disableButton: Boolean,
                                                                    walletClickListener: ((WalletsListEvent) -> Unit)?) {
-      add(
-          UnverifiedInsertCodeModel_()
-              .disableButton(disableButton)
-              .walletClickListener(walletClickListener)
-              .id("active_wallet_insert_code")
-      )
+      add(UnverifiedInsertCodeModel_().disableButton(disableButton)
+          .walletClickListener(walletClickListener)
+          .id("active_wallet_insert_code"))
+    }
+
+    private fun MutableList<EpoxyModel<*>>.addVerifying() {
+      add(VerifyingModel_().id("active_wallet_verifying"))
     }
 
     private fun MutableList<EpoxyModel<*>>.addBackupCard(backedUpOnceAsync: Async<Boolean>,
                                                          walletClickListener: ((WalletsListEvent) -> Unit)?) {
       val backedUp = backedUpOnceAsync() ?: false
       if (!backedUp) {
-        add(BackupModel_()
-            .id("active_wallet_backup_card")
+        add(BackupModel_().id("active_wallet_backup_card")
             .walletClickListener(walletClickListener))
       }
     }

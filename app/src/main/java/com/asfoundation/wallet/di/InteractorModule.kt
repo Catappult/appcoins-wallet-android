@@ -82,8 +82,8 @@ import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.util.TransferParser
-import com.asfoundation.wallet.verification.VerificationRepository
-import com.asfoundation.wallet.verification.WalletVerificationInteractor
+import com.asfoundation.wallet.verification.repository.VerificationRepository
+import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.wallets.FetchWalletsInteract
@@ -550,10 +550,8 @@ class InteractorModule {
   @Singleton
   @Provides
   fun providesWalletVerificationInteractor(verificationRepository: VerificationRepository,
-                                           adyenPaymentRepository: AdyenPaymentRepository,
                                            walletService: WalletService): WalletVerificationInteractor {
-    return WalletVerificationInteractor(verificationRepository, adyenPaymentRepository,
-        walletService)
+    return WalletVerificationInteractor(verificationRepository, walletService)
   }
 
   @Provides

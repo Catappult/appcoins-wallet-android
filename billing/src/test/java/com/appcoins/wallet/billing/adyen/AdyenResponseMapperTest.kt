@@ -344,7 +344,7 @@ class AdyenResponseMapperTest {
     Mockito.`when`(billingErrorMapper.mapErrorInfo(null, "Error"))
         .thenReturn(errorInfo)
     val expectedModel =
-        VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER, null, null,
+        VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER, null, null, null,
             Error(true, false, errorInfo))
     val model = mapper.mapVerificationPaymentModelError(throwable)
     Assert.assertEquals(expectedModel, model)
@@ -363,7 +363,7 @@ class AdyenResponseMapperTest {
     val throwable = HttpException(errorResponse)
     val expectedModel =
         VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.INVALID_REQUEST,
-            "CVC Declined", 24,
+            "CVC Declined", 24, null,
             Error(true, false))
     val model = mapper.mapVerificationPaymentModelError(throwable)
     Assert.assertEquals(expectedModel, model)
@@ -382,7 +382,7 @@ class AdyenResponseMapperTest {
     val throwable = HttpException(errorResponse)
     val expectedModel =
         VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.TOO_MANY_ATTEMPTS,
-            "CVC Declined", 24,
+            "CVC Declined", 24, null,
             Error(true, false))
     val model = mapper.mapVerificationPaymentModelError(throwable)
     Assert.assertEquals(expectedModel, model)
@@ -401,7 +401,7 @@ class AdyenResponseMapperTest {
     val throwable = HttpException(errorResponse)
     val expectedModel =
         VerificationPaymentModel(false, VerificationPaymentModel.ErrorType.OTHER, "CVC Declined",
-            24,
+            24, null,
             Error(true, false))
     val model = mapper.mapVerificationPaymentModelError(throwable)
     Assert.assertEquals(expectedModel, model)
