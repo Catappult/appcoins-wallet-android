@@ -68,6 +68,8 @@ import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.permissions.repository.PermissionRepository
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase
 import com.asfoundation.wallet.poa.*
+import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
+import com.asfoundation.wallet.promo_code.repository.PromoCodeDatabase
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.IpCountryCodeProvider.IpApi
@@ -703,5 +705,19 @@ internal class AppModule {
     val headerJson = JsonObject()
     headerJson.addProperty("typ", "EWT")
     return EwtAuthenticatorService(walletService, headerJson.toString())
+  }
+
+  @Singleton
+  @Provides
+  fun providePromoCodeDatabase(context: Context): PromoCodeDatabase {
+    return Room.databaseBuilder(context, PromoCodeDatabase::class.java,
+        "promo_code_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providePromoCodeDao(database: PromoCodeDatabase): PromoCodeDao {
+    return database.promoCodeDao()
   }
 }

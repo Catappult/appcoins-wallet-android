@@ -9,6 +9,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -26,6 +27,7 @@ class LocalPaymentInteractor(private val walletService: WalletService,
                              private val supportInteractor: SupportInteractor,
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val walletVerificationInteractor: WalletVerificationInteractor,
+                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                              private val remoteRepository: RemoteRepository) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
@@ -44,11 +46,14 @@ class LocalPaymentInteractor(private val walletService: WalletService,
         .flatMap { walletAddressModel ->
           partnerAddressService.getAttributionEntity(packageName)
               .flatMap { attributionEntity ->
-                remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
-                    fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper,
-                    attributionEntity.oemId, attributionEntity.domain, developerPayload,
-                    callbackUrl, orderReference,
-                    referrerUrl, walletAddressModel.address, walletAddressModel.signedAddress)
+                getCurrentPromoCodeUseCase().flatMap { promoCode ->
+                  remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
+                      fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper,
+                      attributionEntity.oemId, attributionEntity.domain, promoCode.code,
+                      developerPayload,
+                      callbackUrl, orderReference,
+                      referrerUrl, walletAddressModel.address, walletAddressModel.signedAddress)
+                }
               }
               .map { it.url }
         }
@@ -61,7 +66,7 @@ class LocalPaymentInteractor(private val walletService: WalletService,
         .flatMap { walletAddressModel ->
           remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
               fiatAmount, fiatCurrency, productName, TOP_UP_TRANSACTION_TYPE,
-              null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null,
               walletAddressModel.address, walletAddressModel.signedAddress)
         }
         .map { it.url }

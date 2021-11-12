@@ -7,6 +7,7 @@ import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyMo
 import com.asfoundation.wallet.logging.send_logs.use_cases.ObserveSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -22,7 +23,9 @@ class SettingsPresenter(private val view: SettingsView,
                         private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
                         private val observeSendLogsStateUseCase: ObserveSendLogsStateUseCase,
                         private val resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
-                        private val sendLogsUseCase: SendLogsUseCase) {
+                        private val sendLogsUseCase: SendLogsUseCase,
+                        private val observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase) {
+
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -55,6 +58,7 @@ class SettingsPresenter(private val view: SettingsView,
     view.setManageSubscriptionsPreference()
     setCurrencyPreference()
     setSendLogsPreference()
+    setPromoCodeState()
   }
 
   fun setFingerPrintPreference() {
@@ -142,6 +146,10 @@ class SettingsPresenter(private val view: SettingsView,
     }
   }
 
+  fun onPromoCodePreferenceClick() {
+    navigator.showPromoCodeFragment()
+  }
+
   fun onBugReportClicked() = settingsInteractor.displaySupportScreen()
 
   fun redirectToStore() {
@@ -199,6 +207,16 @@ class SettingsPresenter(private val view: SettingsView,
 
   fun resetSendLogsState() {
     resetSendLogsStateUseCase()
+  }
+
+  fun setPromoCodeState() {
+    disposables.add(observeCurrentPromoCodeUseCase()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          view.setPromoCodePreference(it)
+        }
+        .subscribeOn(networkScheduler)
+        .subscribe({}, { it.printStackTrace() }))
   }
 }
 

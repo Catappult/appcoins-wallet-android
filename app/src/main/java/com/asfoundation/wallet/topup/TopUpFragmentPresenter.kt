@@ -65,7 +65,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getABTestingExperiment()
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler),
-            Function3 { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: String ->
+        Function3 { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: String ->
           if (values.error.hasError || defaultValues.error.hasError &&
               (values.error.isNoNetwork || defaultValues.error.isNoNetwork)) {
             view.showNoNetworkError()

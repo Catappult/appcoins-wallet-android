@@ -1,24 +1,23 @@
 package com.asfoundation.wallet.promotions
 
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.UserStats
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
-import com.appcoins.wallet.gamification.repository.entity.*
+import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
+import com.appcoins.wallet.gamification.repository.entity.GenericResponse
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
+import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.interact.EmptyNotification
-import com.asfoundation.wallet.promotions.model.*
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.functions.Function3
 import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -27,6 +26,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val gamificationInteractor: GamificationInteractor,
                            private val promotionsRepo: PromotionsRepository,
                            private val findWalletUseCase: FindDefaultWalletUseCase,
+                           private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                            private val userStatsPreferencesRepository: UserStatsLocalData,
                            private val analyticsSetup: AnalyticsSetup,
                            private val mapper: GamificationMapper) {
@@ -40,43 +40,52 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
   }
 
   fun hasAnyPromotionUpdate(promotionUpdateScreen: PromotionUpdateScreen): Single<Boolean> {
-    return findWalletUseCase()
-        .flatMap { wallet ->
-          promotionsRepo.getUserStats(wallet.address, false)
-              .lastOrError()
-              .flatMap {
-                val gamification =
-                    it.promotions.firstOrNull { promotionsResponse -> promotionsResponse is GamificationResponse } as GamificationResponse?
-                val referral =
-                    it.promotions.firstOrNull { referralResponse -> referralResponse is ReferralResponse } as ReferralResponse?
-                val generic = it.promotions.filterIsInstance<GenericResponse>()
-                Single.zip(
-                    referralInteractor.hasReferralUpdate(wallet.address, referral,
-                        ReferralsScreen.PROMOTIONS),
-                    gamificationInteractor.hasNewLevel(wallet.address, gamification,
-                        GamificationContext.SCREEN_PROMOTIONS),
-                    hasGenericUpdate(generic, promotionUpdateScreen),
-                    hasNewWalletOrigin(wallet.address, it.walletOrigin),
-                    Function4 { hasReferralUpdate: Boolean, hasNewLevel: Boolean,
-                                hasGenericUpdate: Boolean, hasNewWalletOrigin: Boolean ->
-                      hasReferralUpdate || hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
-                    })
+    return getCurrentPromoCodeUseCase()
+        .flatMap { promoCode ->
+          findWalletUseCase()
+              .flatMap { wallet ->
+                promotionsRepo.getUserStats(wallet.address, promoCode.code, false)
+                    .lastOrError()
+                    .flatMap {
+                      val gamification =
+                          it.promotions.firstOrNull { promotionsResponse -> promotionsResponse is GamificationResponse } as GamificationResponse?
+                      val referral =
+                          it.promotions.firstOrNull { referralResponse -> referralResponse is ReferralResponse } as ReferralResponse?
+                      val generic = it.promotions.filterIsInstance<GenericResponse>()
+                      Single.zip(
+                          referralInteractor.hasReferralUpdate(wallet.address, referral,
+                              ReferralsScreen.PROMOTIONS),
+                          gamificationInteractor.hasNewLevel(wallet.address, gamification,
+                              GamificationContext.SCREEN_PROMOTIONS),
+                          hasGenericUpdate(generic, promotionUpdateScreen),
+                          hasNewWalletOrigin(wallet.address, it.walletOrigin),
+                          Function4 { hasReferralUpdate: Boolean, hasNewLevel: Boolean,
+                                      hasGenericUpdate: Boolean, hasNewWalletOrigin: Boolean ->
+                            hasReferralUpdate || hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
+                          })
+                    }
+                    .subscribeOn(Schedulers.io())
               }
-              .subscribeOn(Schedulers.io())
         }
+
+
   }
 
   fun getUnwatchedPromotionNotification(): Single<CardNotification> {
-    return findWalletUseCase()
-        .flatMap { wallet ->
-          promotionsRepo.getUserStats(wallet.address)
-              .lastOrError()
-              .map {
-                val promotionList = it.promotions.filterIsInstance<GenericResponse>()
-                val unwatchedPromotion = getUnWatchedPromotion(promotionList)
-                buildPromotionNotification(unwatchedPromotion)
+    return getCurrentPromoCodeUseCase()
+        .flatMap { promoCode ->
+          findWalletUseCase()
+              .flatMap { wallet ->
+                promotionsRepo.getUserStats(wallet.address, promoCode.code)
+                    .lastOrError()
+                    .map {
+                      val promotionList = it.promotions.filterIsInstance<GenericResponse>()
+                      val unwatchedPromotion = getUnWatchedPromotion(promotionList)
+                      buildPromotionNotification(unwatchedPromotion)
+                    }
               }
         }
+
   }
 
   private fun getUnWatchedPromotion(promotionList: List<GenericResponse>): GenericResponse? {

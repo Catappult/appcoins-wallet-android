@@ -4,6 +4,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.Gamification
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import io.reactivex.Single
@@ -13,14 +14,18 @@ class OnboardingInteractor(private val walletService: WalletService,
                            private val preferencesRepositoryType: PreferencesRepositoryType,
                            private val supportInteractor: SupportInteractor,
                            private val gamificationRepository: Gamification,
-                           private val bdsRepository: BdsRepository) {
+                           private val bdsRepository: BdsRepository,
+                           private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   fun getWalletAddress() = walletService.getWalletOrCreate()
       .flatMap {
-        val address = it.toLowerCase(Locale.ROOT)
-        gamificationRepository.getUserLevel(address)
-            .doOnSuccess { level -> supportInteractor.registerUser(level, address) }
-            .map { address }
+        getCurrentPromoCodeUseCase()
+            .flatMap { promoCode ->
+              val address = it.toLowerCase(Locale.ROOT)
+              gamificationRepository.getUserLevel(address, promoCode.code)
+                  .doOnSuccess { level -> supportInteractor.registerUser(level, address) }
+                  .map { address }
+            }
       }
 
   fun saveOnboardingCompleted() = preferencesRepositoryType.setOnboardingComplete()

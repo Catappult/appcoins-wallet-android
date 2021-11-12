@@ -204,4 +204,10 @@
   <color name="send_logs_error">#e44b46</color>
   <color name="send_logs_error_background">#0De44b46</color>
 
+
+  <!-- Promo Code -->
+  <color name="promo_code_text_box_active_border">#0C0C0C</color>
+  <color name="promo_code_text_box_active_background">#F8F8F8</color>
+  <color name="promo_code_text_box_default_border">#969696</color>
+
 </resources>

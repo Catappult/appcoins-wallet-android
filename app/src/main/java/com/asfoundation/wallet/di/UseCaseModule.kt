@@ -32,6 +32,11 @@ import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.nfts.repository.NFTRepository
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
+import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
+import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
@@ -60,9 +65,10 @@ class UseCaseModule {
   fun providesGetPromotionsUseCase(getCurrentWallet: GetCurrentWalletUseCase,
                                    observeLevels: ObserveLevelsUseCase,
                                    promotionsMapper: PromotionsMapper,
-                                   promotionsRepository: PromotionsRepository): GetPromotionsUseCase {
+                                   promotionsRepository: PromotionsRepository,
+                                   getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): GetPromotionsUseCase {
     return GetPromotionsUseCase(getCurrentWallet, observeLevels, promotionsMapper,
-        promotionsRepository)
+        promotionsRepository, getCurrentPromoCodeUseCase)
   }
 
   @Singleton
@@ -192,8 +198,9 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesGetUserLevelUseCase(gamification: Gamification,
-                                  findDefaultWalletUseCase: FindDefaultWalletUseCase): GetUserLevelUseCase {
-    return GetUserLevelUseCase(gamification, findDefaultWalletUseCase)
+                                  findDefaultWalletUseCase: FindDefaultWalletUseCase,
+                                  getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): GetUserLevelUseCase {
+    return GetUserLevelUseCase(gamification, findDefaultWalletUseCase, getCurrentPromoCodeUseCase)
   }
 
   @Singleton
@@ -341,5 +348,32 @@ class UseCaseModule {
   fun providesSetCachedVerificationUseCase(walletService: WalletService,
                                            verificationRepository: VerificationRepository): SetCachedVerificationUseCase {
     return SetCachedVerificationUseCase(walletService, verificationRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSetPromoCodeUseCase(promoCodeRepository: PromoCodeRepository): SetPromoCodeUseCase {
+    return SetPromoCodeUseCase(promoCodeRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGetCurrentPromoCodeUseCase(
+      promoCodeRepository: PromoCodeRepository): GetCurrentPromoCodeUseCase {
+    return GetCurrentPromoCodeUseCase(promoCodeRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesObserveCurrentPromoCodeUseCase(
+      promoCodeRepository: PromoCodeRepository): ObserveCurrentPromoCodeUseCase {
+    return ObserveCurrentPromoCodeUseCase(promoCodeRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesDeletePromoCodeUseCase(
+      promoCodeRepository: PromoCodeRepository): DeletePromoCodeUseCase {
+    return DeletePromoCodeUseCase(promoCodeRepository)
   }
 }

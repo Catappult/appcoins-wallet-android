@@ -7,11 +7,11 @@ import com.amplitude.api.Identify
 import com.amplitude.api.TrackingOptions
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
+import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import io.reactivex.schedulers.Schedulers
-
 class AmplitudeAnalytics(private val context: Context, private val idsRepository: IdsRepository) :
     AnalyticsSetup {
 
@@ -34,6 +34,10 @@ class AmplitudeAnalytics(private val context: Context, private val idsRepository
   }
 
   override fun setWalletOrigin(origin: PromotionsModel.WalletOrigin) {
+    // Not used
+  }
+
+  override fun setPromoCode(promoCode: PromoCode) {
     // Not used
   }
 

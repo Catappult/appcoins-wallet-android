@@ -33,7 +33,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                   currency: String, reference: String?, paymentType: String, walletAddress: String,
                   origin: String?, packageName: String?, metadata: String?, sku: String?,
                   callbackUrl: String?, transactionType: String, developerWallet: String?,
-                  entityOemId: String?, entityDomain: String?, userWallet: String?,
+                  entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
+                  userWallet: String?,
                   walletSignature: String,
                   billingAddress: AdyenBillingAddress?,
                   referrerUrl: String?): Single<PaymentModel> {
@@ -46,7 +47,8 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
           .map {
             TokenPayment(adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
                 billingAddress, callbackUrl, metadata, paymentType, origin, reference,
-                developerWallet, entityOemId, entityDomain, userWallet, referrerUrl, it)
+                developerWallet, entityOemId, entityDomain, entityPromoCode, userWallet,
+                referrerUrl, it)
           }
           .flatMap { adyenApi.makeTokenPayment(walletAddress, walletSignature, it) }
           .map { adyenResponseMapper.map(it) }
@@ -60,6 +62,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
               billingAddress, callbackUrl, packageName, metadata, paymentType, origin, sku,
               reference,
               transactionType, currency, value, developerWallet, entityOemId, entityDomain,
+              entityPromoCode,
               userWallet,
               referrerUrl))
           .map { adyenResponseMapper.map(it) }
@@ -155,6 +158,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
                      @SerializedName("wallets.developer") val developer: String?,
                      @SerializedName("entity.oemid") val entityOemId: String?,
                      @SerializedName("entity.domain") val entityDomain: String?,
+                     @SerializedName("entity.promo_code") val entityPromoCode: String?,
                      @SerializedName("wallets.user") val user: String?,
                      @SerializedName("referrer_url") val referrerUrl: String?)
 

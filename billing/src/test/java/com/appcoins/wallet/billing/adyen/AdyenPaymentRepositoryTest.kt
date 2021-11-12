@@ -265,7 +265,7 @@ class AdyenPaymentRepositoryTest {
                 null, null, BillingSupportedType.INAPP.name,
                 TEST_FIAT_CURRENCY,
                 TEST_FIAT_VALUE,
-                null, null, null, null, null)))
+                null, null, null, null, null, null)))
         .thenReturn(Single.just(expectedAdyenTransactionResponse))
 
     Mockito.`when`(mapper.map(expectedAdyenTransactionResponse))
@@ -275,7 +275,7 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, paymentType,
         TEST_WALLET_ADDRESS, null, null, null, null, null,
-        BillingSupportedType.INAPP.name, null, null, null, null,
+        BillingSupportedType.INAPP.name, null, null, null, null, null,
         TEST_WALLET_SIGNATURE, null, null)
         .subscribe(testObserver)
 
@@ -301,13 +301,9 @@ class AdyenPaymentRepositoryTest {
         TEST_WALLET_SIGNATURE))
         .thenReturn(Single.just("token"))
 
-    Mockito.`when`(
-        adyenApi.makeTokenPayment(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
-            TokenPayment(modelObject, false, "", "Ecommerce", null, null, null,
-                paymentType, null,
-                null, null, null, null, null, null, "token")))
+    Mockito.`when`(adyenApi.makeTokenPayment(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE,
+        TokenPayment(modelObject, false, "", "Ecommerce", null, null, null, paymentType, null, null,
+            null, null, null, null, null, null, "token")))
         .thenReturn(Single.just(expectedAdyenTransactionResponse))
 
     Mockito.`when`(mapper.map(expectedAdyenTransactionResponse))
@@ -317,7 +313,7 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, paymentType,
         TEST_WALLET_ADDRESS, null, "trivial drive", null,
-        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null,
+        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null, null,
         TEST_WALLET_SIGNATURE, null, null)
         .subscribe(testObserver)
 
@@ -340,13 +336,9 @@ class AdyenPaymentRepositoryTest {
         TEST_WALLET_SIGNATURE))
         .thenReturn(Single.just("token"))
 
-    Mockito.`when`(
-        adyenApi.makeTokenPayment(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
-            TokenPayment(modelObject, false, "", "Ecommerce", null, null, null,
-                paymentType, null,
-                null, null, null, null, null, null, "token")))
+    Mockito.`when`(adyenApi.makeTokenPayment(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE,
+        TokenPayment(modelObject, false, "", "Ecommerce", null, null, null, paymentType, null, null,
+            null, null, null, null, null, null, "token")))
         .thenReturn(Single.error(throwable))
 
     Mockito.`when`(mapper.mapPaymentModelError(throwable))
@@ -356,7 +348,7 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, paymentType,
         TEST_WALLET_ADDRESS, null, "trivial drive", null,
-        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null,
+        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null, null,
         TEST_WALLET_SIGNATURE, null, null)
         .subscribe(testObserver)
 
@@ -386,7 +378,7 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, paymentType,
         TEST_WALLET_ADDRESS, null, "trivial drive", null,
-        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null,
+        "sku", null, BillingSupportedType.INAPP_SUBSCRIPTION.name, null, null, null, null, null,
         TEST_WALLET_SIGNATURE, null, null)
         .subscribe(testObserver)
 

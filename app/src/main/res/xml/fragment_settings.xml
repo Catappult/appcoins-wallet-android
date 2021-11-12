@@ -35,6 +35,12 @@
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/title_redeem" />
 
+  <com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
+      android:icon="@drawable/ic_influencer"
+      android:key="pref_promo_code"
+      android:layout="@layout/preference_promo_code_layout"
+      android:title="@string/promo_code_settings_title"/>
+
   <Preference
       android:icon="@drawable/ic_backup_black"
       android:key="pref_backup"

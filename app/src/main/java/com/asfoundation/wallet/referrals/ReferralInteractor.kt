@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
@@ -16,7 +17,8 @@ import java.math.BigDecimal
 class ReferralInteractor(
     private val preferences: SharedPreferencesReferralLocalData,
     private val defaultWallet: FindDefaultWalletInteract,
-    private val promotionsRepository: PromotionsRepository) :
+    private val promotionsRepository: PromotionsRepository,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) :
     ReferralInteractorContract {
 
   override fun hasReferralUpdate(walletAddress: String,
@@ -35,9 +37,12 @@ class ReferralInteractor(
   }
 
   override fun retrieveReferral(): Single<ReferralModel> {
-    return defaultWallet.find()
-        .flatMap { promotionsRepository.getReferralUserStatus(it.address) }
-        .map { map(it) }
+    return getCurrentPromoCodeUseCase()
+        .flatMap { promoCode ->
+          defaultWallet.find()
+              .flatMap { promotionsRepository.getReferralUserStatus(it.address, promoCode.code) }
+              .map { map(it) }
+        }
   }
 
   private fun map(referralResponse: ReferralResponse): ReferralModel {
@@ -71,47 +76,53 @@ class ReferralInteractor(
   }
 
   override fun getPendingBonusNotification(): Maybe<ReferralNotification> {
-    return defaultWallet.find()
-        .flatMapMaybe { wallet ->
-          promotionsRepository.getReferralUserStatus(wallet.address)
-              .map { mapResponse(it) }
-              .onErrorReturn { ReferralModel() }
-              .filter { it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && it.isActive }
-              .map {
-                ReferralNotification(
-                    R.string.referral_notification_bonus_pending_title,
-                    R.string.referral_notification_bonus_pending_body,
-                    R.drawable.ic_bonus_pending,
-                    R.string.gamification_APPCapps_button,
-                    CardNotificationAction.DISCOVER,
-                    it.pendingAmount,
-                    it.symbol)
-              }
-        }
-  }
-
-  override fun getUnwatchedPendingBonusNotification(): Single<CardNotification> {
-    return defaultWallet.find()
-        .flatMap { wallet ->
-          promotionsRepository.getReferralUserStatus(wallet.address)
-              .map { mapResponse(it) }
-              .onErrorReturn { ReferralModel() }
-              .flatMap { referralModel ->
-                preferences.getPendingAmountNotification(wallet.address)
+    return getCurrentPromoCodeUseCase()
+        .flatMapMaybe { promoCode ->
+          defaultWallet.find()
+              .flatMapMaybe { wallet ->
+                promotionsRepository.getReferralUserStatus(wallet.address, promoCode.code)
+                    .map { mapResponse(it) }
+                    .onErrorReturn { ReferralModel() }
+                    .filter { it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && it.isActive }
                     .map {
-                      referralModel.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
-                          it != referralModel.pendingAmount.scaleToString(
-                          2) && referralModel.isActive
-                    }
-                    .map { shouldShow ->
                       ReferralNotification(
                           R.string.referral_notification_bonus_pending_title,
                           R.string.referral_notification_bonus_pending_body,
                           R.drawable.ic_bonus_pending,
                           R.string.gamification_APPCapps_button,
                           CardNotificationAction.DISCOVER,
-                          referralModel.pendingAmount,
-                          referralModel.symbol).takeIf { shouldShow } ?: EmptyNotification()
+                          it.pendingAmount,
+                          it.symbol)
+                    }
+              }
+        }
+  }
+
+  override fun getUnwatchedPendingBonusNotification(): Single<CardNotification> {
+    return getCurrentPromoCodeUseCase()
+        .flatMap { promoCode ->
+          defaultWallet.find()
+              .flatMap { wallet ->
+                promotionsRepository.getReferralUserStatus(wallet.address, promoCode.code)
+                    .map { mapResponse(it) }
+                    .onErrorReturn { ReferralModel() }
+                    .flatMap { referralModel ->
+                      preferences.getPendingAmountNotification(wallet.address)
+                          .map {
+                            referralModel.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
+                                it != referralModel.pendingAmount.scaleToString(
+                                2) && referralModel.isActive
+                          }
+                          .map { shouldShow ->
+                            ReferralNotification(
+                                R.string.referral_notification_bonus_pending_title,
+                                R.string.referral_notification_bonus_pending_body,
+                                R.drawable.ic_bonus_pending,
+                                R.string.gamification_APPCapps_button,
+                                CardNotificationAction.DISCOVER,
+                                referralModel.pendingAmount,
+                                referralModel.symbol).takeIf { shouldShow } ?: EmptyNotification()
+                          }
                     }
               }
         }

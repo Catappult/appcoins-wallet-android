@@ -7,6 +7,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.backup.NotificationNeeded
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -31,7 +33,8 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private var walletBlockedInteract: WalletBlockedInteract,
                       private var inAppPurchaseInteractor: InAppPurchaseInteractor,
                       private var supportInteractor: SupportInteractor,
-                      private var topUpDefaultValueExperiment: TopUpDefaultValueExperiment) {
+                      private var topUpDefaultValueExperiment: TopUpDefaultValueExperiment,
+                      private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
 
   fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> {
@@ -81,7 +84,10 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
-    return gamificationInteractor.getEarningBonus(packageName, amount)
+    return getCurrentPromoCodeUseCase().flatMap {
+       gamificationInteractor.getEarningBonus(packageName, amount, it.code)
+    }
+
   }
 
   fun getLimitTopUpValues(): Single<TopUpLimitValues> {

@@ -12,6 +12,7 @@ import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
@@ -31,7 +32,8 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
                                private val billing: Billing,
                                private val errorMapper: ErrorMapper,
-                               private val bdsPendingTransactionService: BdsPendingTransactionService) {
+                               private val bdsPendingTransactionService: BdsPendingTransactionService,
+                               private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
 
   fun showSupport(gamificationLevel: Int): Completable {
@@ -50,8 +52,13 @@ class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
   fun isBonusActiveAndValid(forecastBonus: ForecastBonusAndLevel) =
       gamificationInteractor.isBonusActiveAndValid(forecastBonus)
 
-  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> =
-      gamificationInteractor.getEarningBonus(packageName, amount)
+  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
+    return getCurrentPromoCodeUseCase()
+        .flatMap {
+          gamificationInteractor.getEarningBonus(packageName, amount, it.code)
+        }
+  }
+
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 

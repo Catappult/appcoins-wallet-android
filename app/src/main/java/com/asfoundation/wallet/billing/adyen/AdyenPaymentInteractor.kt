@@ -11,6 +11,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -33,6 +34,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
                              private val walletBlockedInteract: WalletBlockedInteract,
                              private val walletVerificationInteractor: WalletVerificationInteractor,
                              private val billingAddressRepository: BillingAddressRepository,
+                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                              private val networkThread: Scheduler
 ) {
 
@@ -70,13 +72,15 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
         .flatMap { pair ->
           val addressModel = pair.first
           val attrEntity = pair.second
-          adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
-              supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
-              addressModel.address, origin, packageName, metadata, sku, callbackUrl,
-              transactionType, developerWallet, attrEntity.oemId, attrEntity.domain,
-              addressModel.address,
-              addressModel.signedAddress, billingAddress, referrerUrl)
-
+          getCurrentPromoCodeUseCase().flatMap { promoCode ->
+            adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
+                supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
+                addressModel.address, origin, packageName, metadata, sku, callbackUrl,
+                transactionType, developerWallet, attrEntity.oemId, attrEntity.domain,
+                promoCode.code,
+                addressModel.address,
+                addressModel.signedAddress, billingAddress, referrerUrl)
+          }
         }
   }
 
@@ -90,6 +94,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
           adyenPaymentRepository.makePayment(adyenPaymentMethod, shouldStoreMethod, hasCvc,
               supportedShopperInteraction, returnUrl, value, currency, null, paymentType,
               it.address, null, packageName, null, null, null, transactionType, null, null, null,
+              null,
               null, it.signedAddress, billingAddress, null)
         }
   }

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Single
@@ -11,7 +12,8 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                   private val autoUpdateInteract: AutoUpdateInteract,
                   private val supportInteractor: SupportInteractor,
                   private val gamificationRepository: Gamification,
-                  private val walletBlockedInteract: WalletBlockedInteract) {
+                  private val walletBlockedInteract: WalletBlockedInteract,
+                  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   companion object {
     const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
@@ -33,8 +35,11 @@ class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
 
   fun registerUser() =
       inAppPurchaseInteractor.walletAddress.flatMap { address ->
-        gamificationRepository.getUserLevel(address)
-            .doOnSuccess { supportInteractor.registerUser(it, address) }
+        getCurrentPromoCodeUseCase()
+            .flatMap { promoCode ->
+              gamificationRepository.getUserLevel(address, promoCode.code)
+                  .doOnSuccess { supportInteractor.registerUser(it, address) }
+            }
       }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {

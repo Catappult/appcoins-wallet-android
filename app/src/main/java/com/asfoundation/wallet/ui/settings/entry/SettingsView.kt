@@ -3,12 +3,15 @@ package com.asfoundation.wallet.ui.settings.entry
 import android.content.Intent
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.logging.send_logs.SendLogsState
+import com.asfoundation.wallet.promo_code.repository.PromoCode
 import io.reactivex.Observable
 
 
 interface SettingsView {
 
   fun setRedeemCodePreference(walletAddress: String)
+
+  fun setPromoCodePreference(promoCode: PromoCode)
 
   fun showError()
 

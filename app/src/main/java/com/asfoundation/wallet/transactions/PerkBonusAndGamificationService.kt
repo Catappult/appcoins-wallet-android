@@ -16,12 +16,15 @@ import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.main.MainActivityNavigator
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.gamification.ReachedLevelInfo
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.toBitmap
 import dagger.android.AndroidInjection
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.Function5
 import io.reactivex.schedulers.Schedulers
@@ -51,6 +54,9 @@ class PerkBonusAndGamificationService :
 
   private lateinit var notificationManager: NotificationManager
 
+  @Inject
+  lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+
   override fun onCreate() {
     super.onCreate()
     AndroidInjection.inject(this)
@@ -65,6 +71,7 @@ class PerkBonusAndGamificationService :
       // it can take a bit of time before every one of them to be processed by backend
       Thread.sleep(TRANSACTION_TIME_WAIT_FOR_ALL_IN_MILLIS)
       // blocking so that service does not call onDestroy beforehand
+
       handleNotifications(it).blockingGet()
     }
   }
@@ -150,9 +157,13 @@ class PerkBonusAndGamificationService :
             * 100.0).toInt() > almostNextLevelPercent
   }
 
-  private fun getGamificationStats(address: String): Single<GamificationStats> =
-      promotionsRepository.getGamificationStats(address)
-          .lastOrError()
+  private fun getGamificationStats(address: String): Single<GamificationStats> {
+    return getCurrentPromoCodeUseCase().flatMapObservable {
+      promotionsRepository.getGamificationStats(address, it.code)
+    }
+        .firstOrError()
+  }
+
 
   private fun getLastShownLevelUp(address: String): Single<Int> {
     return promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_LEVEL_UP)

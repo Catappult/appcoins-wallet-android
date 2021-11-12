@@ -25,6 +25,8 @@ import com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
+import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetFragment
+import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetModule
 import com.asfoundation.wallet.promotions.info.PromotionsInfoDialogFragment
 import com.asfoundation.wallet.promotions.ui.PromotionsFragment
 import com.asfoundation.wallet.promotions.ui.PromotionsModuleNew
@@ -375,4 +377,9 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerifyPickerDialogModule::class])
   abstract fun bindVerifyPickerDialogFragment(): VerifyPickerDialogFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [PromoCodeBottomSheetModule::class])
+  abstract fun bindPromoCodeBottomSheetFragment(): PromoCodeBottomSheetFragment
+
 }
