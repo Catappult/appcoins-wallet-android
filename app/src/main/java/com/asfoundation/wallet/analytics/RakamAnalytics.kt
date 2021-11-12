@@ -103,38 +103,6 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
         .ignoreElement()
   }
 
-  fun initialize3(): Completable {
-    return Single.just(idsRepository.getAndroidId())
-        .flatMap { deviceId: String -> startRakam(deviceId) }
-        .flatMap { rakamClient: RakamClient ->
-          idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID)
-              .flatMap { installerPackage: String ->
-                Single.just(idsRepository.getGamificationLevel())
-                    .flatMap { level: Int ->
-                      Single.just(hasGms())
-                          .flatMap { hasGms: Boolean ->
-                            Single.just(idsRepository.getActiveWalletAddress())
-                                .flatMap { walletAddress ->
-                                  getCurrentPromoCode()
-                                      .flatMap { promoCode ->
-                                        promotionsRepository.getWalletOrigin(walletAddress,
-                                            promoCode.code)
-                                            .doOnSuccess { walletOrigin ->
-                                              setRakamSuperProperties(rakamClient, installerPackage,
-                                                  level, walletAddress, hasGms, walletOrigin)
-                                              if (!BuildConfig.DEBUG) {
-                                                logger.addReceiver(RakamReceiver())
-                                              }
-                                            }
-                                      }
-                                }
-                          }
-                    }
-              }
-        }
-        .ignoreElement()
-  }
-
   private fun startRakam(deviceId: String): Single<RakamClient> {
     val instance = Rakam.getInstance()
     val options = TrackingOptions()
@@ -191,3 +159,7 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
         .subscribeOn(rxSchedulers.io)
   }
 }
+
+private data class RakamInitializeWrapper(val installerPackage: String, val level: Int,
+                                  val hasGms: Boolean, val walletAddress: String,
+                                  val promoCode: PromoCode)
