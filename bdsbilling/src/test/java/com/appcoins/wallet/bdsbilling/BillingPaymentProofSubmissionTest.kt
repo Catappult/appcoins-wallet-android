@@ -79,9 +79,8 @@ class BillingPaymentProofSubmissionTest {
 
     `when`(
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
-            type, null, developerAddress, storeAddress, oemAddress, paymentId,
-            developerPayload, callback, orderReference, referrerUrl, walletAddress,
-            signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
+            type, null, developerAddress, storeAddress, oemAddress, null, paymentId,
+            developerPayload, callback, orderReference, referrerUrl, walletAddress, signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
         Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
         null, "orderReference", null, "", null, "")))
 
@@ -110,10 +109,9 @@ class BillingPaymentProofSubmissionTest {
         .assertComplete()
     purchaseDisposable.assertNoErrors()
         .assertComplete()
-    verify(api, times(1)).createTransaction(paymentType, origin, packageName,
-        priceValue, currency, productName, type, null, developerAddress, storeAddress,
-        oemAddress, paymentId, developerPayload, callback, orderReference, referrerUrl,
-        walletAddress, signedContent)
+    verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
+        productName, type, null, developerAddress, storeAddress, oemAddress, null, paymentId,
+        developerPayload, callback, orderReference, referrerUrl, walletAddress, signedContent)
     verify(api, times(1)).patchTransaction(paymentType, paymentId,
         walletAddress, signedContent, paymentToken)
 
