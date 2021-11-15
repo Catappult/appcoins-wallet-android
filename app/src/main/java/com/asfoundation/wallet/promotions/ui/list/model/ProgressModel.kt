@@ -43,6 +43,7 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
     holder.loadIcon(progressItem.icon)
     holder.handleExpiryDate(progressItem.endDate)
     holder.activeAppName.text = progressItem.appName
+    holder.activeAppName.visibility = if (progressItem.appName != null) View.VISIBLE else View.GONE
 
     if (progressItem.objective != null) {
       holder.setProgressWithObjective(progressItem)

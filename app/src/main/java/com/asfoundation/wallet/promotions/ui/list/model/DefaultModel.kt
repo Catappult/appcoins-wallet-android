@@ -40,6 +40,8 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
     }
     holder.activeAppName.text = defaultItem.appName
 
+    holder.activeAppName.visibility = if (defaultItem.appName != null) View.VISIBLE else View.GONE
+
     holder.activeTitle.text = defaultItem.description
     holder.loadIcon(defaultItem.icon)
     holder.handleExpiryDate(defaultItem.endDate)

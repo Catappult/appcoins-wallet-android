@@ -115,7 +115,7 @@
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/normal_margin"
           android:layout_marginEnd="@dimen/normal_margin"
-          android:text="Promotional code"
+          android:text="@string/promo_code_promotions_tag"
           />
     </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
