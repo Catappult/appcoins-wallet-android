@@ -80,7 +80,7 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
     val minutes = TimeUnit.MINUTES.convert(diff, TimeUnit.SECONDS)
 
     when {
-      days > 3 -> activeContainerDate.visibility = View.GONE
+      days > 3 -> activeContainerDate.visibility = View.INVISIBLE
       days in 1..3 -> updateDate(days, R.plurals.promotion_ends_short)
       hours > 0 -> updateDate(hours, R.plurals.promotion_ends_hours_short)
       else -> updateDate(minutes, R.plurals.promotion_ends_minutes_short)

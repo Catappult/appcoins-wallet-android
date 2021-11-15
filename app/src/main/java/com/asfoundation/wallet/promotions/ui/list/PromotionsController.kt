@@ -35,6 +35,12 @@ class PromotionsController : TypedEpoxyController<PromotionsModel>() {
 
     for (perk in data.perks) {
       when (perk) {
+        is PromoCodeItem -> add(
+            PromoCodeModel_()
+                .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
+                .promoCodeItem(perk)
+                .clickListener(clickListener)
+        )
         is DefaultItem -> add(
             DefaultModel_()
                 .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())

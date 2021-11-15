@@ -10,42 +10,43 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.promotions.model.DefaultItem
+import com.asfoundation.wallet.promotions.model.PromoCodeItem
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.DETAILS_URL_EXTRA
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import java.util.concurrent.TimeUnit
 
 @EpoxyModelClass
-abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>() {
+abstract class PromoCodeModel : EpoxyModelWithHolder<PromoCodeModel.PromoCodeHolder>() {
 
   @EpoxyAttribute
-  lateinit var defaultItem: DefaultItem
+  lateinit var promoCodeItem: PromoCodeItem
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var clickListener: ((PromotionClick) -> Unit)? = null
 
-  override fun getDefaultLayout(): Int = R.layout.item_promotions_default
+  override fun getDefaultLayout(): Int = R.layout.item_promotions_promo_code
 
-  override fun bind(holder: DefaultHolder) {
+  override fun bind(holder: PromoCodeHolder) {
 
-    holder.itemView.isClickable = defaultItem.detailsLink != null
+    holder.itemView.isClickable = promoCodeItem.detailsLink != null
 
     holder.itemView.setOnClickListener {
       val extras = emptyMap<String, String>().toMutableMap()
-      defaultItem.detailsLink?.let {
+      promoCodeItem.detailsLink?.let {
         extras[DETAILS_URL_EXTRA] = it
       }
-      clickListener?.invoke(PromotionClick(defaultItem.id, extras))
+      clickListener?.invoke(PromotionClick(promoCodeItem.id, extras))
     }
-    holder.activeAppName.text = defaultItem.appName
+    holder.activeAppName.text = promoCodeItem.appName
+    holder.activeAppName.visibility = if (promoCodeItem.appName != null) View.VISIBLE else View.GONE
 
-    holder.activeTitle.text = defaultItem.description
-    holder.loadIcon(defaultItem.icon)
-    holder.handleExpiryDate(defaultItem.endDate)
+    holder.activeTitle.text = promoCodeItem.description
+    holder.loadIcon(promoCodeItem.icon)
+    holder.handleExpiryDate(promoCodeItem.endDate)
   }
 
-  private fun DefaultHolder.loadIcon(icon: String?) {
+  private fun PromoCodeHolder.loadIcon(icon: String?) {
     GlideApp.with(itemView.context)
         .load(icon)
         .error(R.drawable.ic_promotions_default)
@@ -53,7 +54,7 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
         .into(activeIcon)
   }
 
-  protected fun DefaultHolder.handleExpiryDate(endDate: Long) {
+  protected fun PromoCodeHolder.handleExpiryDate(endDate: Long) {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
     val diff: Long = endDate - currentTime
     val days = TimeUnit.DAYS.convert(diff, TimeUnit.SECONDS)
@@ -68,14 +69,14 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
     }
   }
 
-  private fun DefaultHolder.updateDate(time: Long, @PluralsRes text: Int) {
+  private fun PromoCodeHolder.updateDate(time: Long, @PluralsRes text: Int) {
     activeContainerDate.visibility = View.VISIBLE
     activeExpiryDate.text =
         itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
 
 
-  class DefaultHolder : BaseViewHolder() {
+  class PromoCodeHolder : BaseViewHolder() {
     val activeIcon by bind<ImageView>(R.id.active_icon)
     val activeAppName by bind<TextView>(R.id.active_app_name)
     val activeTitle by bind<TextView>(R.id.active_title)
