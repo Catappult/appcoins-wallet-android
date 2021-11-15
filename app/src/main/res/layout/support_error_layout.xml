@@ -46,6 +46,21 @@
       android:layout_marginEnd="32dp"
       android:layout_marginBottom="76dp"
       android:text="@string/referral_view_verify_button"
+      android:visibility="gone"
+      app:layout_constraintTop_toBottomOf="@id/error_message"
+      app:layout_constraintVertical_bias="1"
+      />
+
+  <Button
+      android:id="@+id/error_verify_card_button"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/button_height"
+      android:layout_marginBottom="76dp"
+      android:layout_marginEnd="32dp"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="42dp"
+      android:text="@string/verify_card_title"
+      style="@style/ButtonStyle.Light"
       app:layout_constraintTop_toBottomOf="@id/error_message"
       app:layout_constraintVertical_bias="1"
       android:visibility="gone"

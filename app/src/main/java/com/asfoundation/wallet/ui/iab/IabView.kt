@@ -79,7 +79,7 @@ interface IabView {
 
   fun showBackupNotification(walletAddress: String)
 
-  fun showVerification()
+  fun showVerification(isWalletVerified: Boolean)
 
   fun showError(@StringRes error: Int)
 

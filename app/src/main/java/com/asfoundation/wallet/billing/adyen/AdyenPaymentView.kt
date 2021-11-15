@@ -59,7 +59,7 @@ interface AdyenPaymentView {
 
   fun showSpecificError(stringRes: Int)
 
-  fun showVerificationError()
+  fun showVerificationError(isWalletVerified: Boolean)
 
   fun showCvvError()
 
@@ -85,9 +85,9 @@ interface AdyenPaymentView {
 
   fun getAdyenSupportIconClicks(): Observable<Any>
 
-  fun getVerificationClicks(): Observable<Any>
+  fun getVerificationClicks(): Observable<Boolean>
 
-  fun showVerification()
+  fun showVerification(isWalletVerified: Boolean)
 
   fun handle3DSAction(action: Action)
 
