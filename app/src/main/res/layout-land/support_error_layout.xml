@@ -52,6 +52,21 @@
       android:visibility="gone"
       />
 
+  <Button
+      android:id="@+id/error_verify_card_button"
+      android:layout_width="match_parent"
+      android:layout_height="32dp"
+      android:layout_marginBottom="42dp"
+      android:layout_marginEnd="32dp"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="20dp"
+      android:text="@string/referral_view_verify_button"
+      android:visibility="gone"
+      app:layout_constraintTop_toBottomOf="@id/error_message"
+      app:layout_constraintVertical_bias="1"
+      style="@style/ButtonStyle.Light"
+      />
+
   <TextView
       android:id="@+id/contact_us"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
@@ -64,8 +79,15 @@
       android:textSize="10sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/error_verify_wallet_button"
+      app:layout_constraintTop_toBottomOf="@+id/error_button_barrier"
       />
+
+  <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/error_button_barrier"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:barrierDirection="bottom"
+      app:constraint_referenced_ids="error_verify_wallet_button,error_verify_card_button" />
 
   <ImageView
       android:id="@+id/layout_support_logo"

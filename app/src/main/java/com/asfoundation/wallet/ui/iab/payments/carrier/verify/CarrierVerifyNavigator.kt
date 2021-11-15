@@ -37,5 +37,5 @@ class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
 
   fun finishActivityWithError() = iabActivity.finishWithError()
 
-  fun navigateToVerification() = iabActivity.showVerification()
+  fun navigateToVerification() = iabActivity.showVerification(false)
 }

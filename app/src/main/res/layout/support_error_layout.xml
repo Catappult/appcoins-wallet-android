@@ -78,8 +78,16 @@
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/error_verify_wallet_button"
+      app:layout_constraintTop_toBottomOf="@+id/error_button_barrier"
       />
+
+
+  <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/error_button_barrier"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:barrierDirection="bottom"
+      app:constraint_referenced_ids="error_verify_wallet_button,error_verify_card_button" />
 
   <ImageView
       android:id="@+id/layout_support_logo"

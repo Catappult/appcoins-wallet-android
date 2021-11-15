@@ -124,7 +124,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun getGotItClick() = RxView.clicks(got_it_button)
 
-  override fun showVerification() = iabView.showVerification()
+  override fun showVerification() = iabView.showVerification(false)
 
   override fun showProcessingLoading() {
     status = LOADING

@@ -381,7 +381,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showVerificationError(isWalletVerified: Boolean) {
     if (isWalletVerified) {
-      showSpecificError(R.string.purchase_error_verify_wallet)
+      showSpecificError(R.string.purchase_error_verify_card)
       error_verify_wallet_button?.visibility = GONE
       error_verify_card_button?.visibility = VISIBLE
     } else {
