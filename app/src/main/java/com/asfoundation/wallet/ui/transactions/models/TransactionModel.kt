@@ -200,15 +200,13 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     if (valueStr == "0") {
       valueStr = "0 "
     } else if (transaction!!.type == Transaction.TransactionType.IAP_REVERT) {
-      valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(), currencySymbol!!)
+      valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(), currencySymbol!!, false)
     } else {
-      valueStr = (if (isSent) "-" else "+") + getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(),
-          currencySymbol!!)
+      valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(), currencySymbol!!, isSent)
     }
 
     if (shouldShowFiat(txPaidAmount, txPaidCurrency)) {
-      val sign = if (isSent) "-" else "+"
-      val paidAmount = sign + getScaledValue(txPaidAmount!!, 0, "")
+      val paidAmount = getScaledValue(txPaidAmount!!, 0, "", isSent)
       holder.paidValue.text = paidAmount
       holder.paidCurrency.text = txPaidCurrency
       holder.value.visibility = View.VISIBLE
@@ -232,11 +230,14 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         && paidCurrency != "ETH")
   }
 
-  private fun getScaledValue(valueStr: String, decimals: Long, currencySymbol: String): String {
+  private fun getScaledValue(valueStr: String, decimals: Long, currencySymbol: String, isSent: Boolean): String {
+    val sign = if(isSent) -1 else 1
     val walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     val value = BigDecimal(valueStr).divide(BigDecimal(10.toDouble()
-        .pow(decimals.toDouble())));
-    return formatter!!.formatCurrency(value, walletCurrency)
+        .pow(decimals.toDouble()))).multiply(sign.toBigDecimal())
+    // In case of positive value, we need to explicitly put the "+" sign
+    val signedString = if(value > BigDecimal.ZERO) "+" else ""
+    return signedString + formatter!!.formatCurrency(value, walletCurrency)
   }
 
   private fun setRevertMessage(holder: TransactionHolder, linkedTx: List<Transaction>?) {
