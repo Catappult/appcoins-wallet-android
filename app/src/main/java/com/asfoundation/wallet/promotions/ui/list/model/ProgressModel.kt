@@ -15,6 +15,8 @@ import com.asfoundation.wallet.promotions.model.ProgressItem
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.DETAILS_URL_EXTRA
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.ui.common.BaseViewHolder
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.util.concurrent.TimeUnit
 
 @EpoxyModelClass
@@ -73,14 +75,15 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
         .into(activeIcon)
   }
 
-  protected fun ProgressHolder.handleExpiryDate(endDate: Long) {
-    val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+  private fun ProgressHolder.handleExpiryDate(endDate: Long) {
+    val currentTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
     val diff: Long = endDate - currentTime
     val days = TimeUnit.DAYS.convert(diff, TimeUnit.SECONDS)
     val hours = TimeUnit.HOURS.convert(diff, TimeUnit.SECONDS)
     val minutes = TimeUnit.MINUTES.convert(diff, TimeUnit.SECONDS)
 
     when {
+      minutes < 0 -> activeContainerDate.visibility = View.INVISIBLE
       days > 3 -> activeContainerDate.visibility = View.INVISIBLE
       days in 1..3 -> updateDate(days, R.plurals.promotion_ends_short)
       hours > 0 -> updateDate(hours, R.plurals.promotion_ends_hours_short)

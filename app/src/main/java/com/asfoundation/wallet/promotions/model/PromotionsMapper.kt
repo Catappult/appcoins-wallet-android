@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.promotions.model
 
-import android.util.Log
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
 import com.appcoins.wallet.gamification.repository.UserStats
