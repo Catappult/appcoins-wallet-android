@@ -131,6 +131,8 @@
           android:paddingEnd="16dp"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           app:layout_constrainedHeight="true"
+          app:layout_constraintHeight_max="216dp"
+          app:layout_constraintHeight_min="60dp"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
