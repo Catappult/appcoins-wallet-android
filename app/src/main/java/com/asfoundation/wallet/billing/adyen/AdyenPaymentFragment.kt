@@ -153,10 +153,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     )
   }
 
-  override fun onCreateView(
-      inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?
-  ): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
     return if (isPreSelected) {
       inflater.inflate(R.layout.adyen_credit_card_pre_selected, container, false)
     } else {
