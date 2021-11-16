@@ -12,15 +12,13 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2F
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
-import com.asf.wallet.R
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
@@ -349,15 +347,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(adyenPaymentInteractor.isWalletVerified()
         .observeOn(viewScheduler)
         .doOnSuccess { verified ->
-          if (verified) {
-            val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
-            val fraudError = when {
-              paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
-              else -> error
-            }
-            view.showSpecificError(fraudError)
-
-          } else view.showVerificationError()
+          view.showVerificationError(verified)
         }
         .subscribe({}, { view.showSpecificError(error) })
     )
@@ -367,7 +357,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
     disposables.add(view.getVerificationClicks()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
-        .doOnNext { view.showVerification() }
+        .doOnNext { isWalletVerified -> view.showVerification(isWalletVerified) }
         .subscribe({}, { it.printStackTrace() })
     )
   }

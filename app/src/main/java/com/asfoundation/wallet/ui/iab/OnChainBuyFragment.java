@@ -14,10 +14,10 @@ import androidx.annotation.StringRes;
 import com.airbnb.lottie.FontAssetDelegate;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.TextDelegate;
+import com.appcoins.wallet.commons.Logger;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.appcoins.wallet.commons.Logger;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
@@ -247,7 +247,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   }
 
   @Override public void showVerification() {
-    iabView.showVerification();
+    iabView.showVerification(false);
   }
 
   @Override public void onAttach(Context context) {

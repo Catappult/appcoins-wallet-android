@@ -17,6 +17,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.Observer
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
+import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
@@ -28,12 +29,12 @@ import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.repository.entity.TransactionData
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
@@ -126,30 +127,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     billingAddressInput = PublishSubject.create()
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
-    presenter = AdyenPaymentPresenter(this,
-        compositeDisposable,
-        AndroidSchedulers.mainThread(),
-        Schedulers.io(),
-        RedirectComponent.getReturnUrl(context!!),
-        analytics,
-        domain,
-        origin,
-        adyenPaymentInteractor,
-        skillsPaymentInteractor,
-        inAppPurchaseInteractor.parseTransaction(transactionData, true),
-        navigator,
-        paymentType,
-        transactionType,
-        amount,
-        currency,
-        skills,
-        isPreSelected,
-        AdyenErrorCodeMapper(),
-        servicesErrorMapper,
-        gamificationLevel,
-        formatter,
-        logger
-    )
+    presenter = AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
+        Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
+        adyenPaymentInteractor, skillsPaymentInteractor,
+        inAppPurchaseInteractor.parseTransaction(transactionData, true), navigator, paymentType,
+        transactionType, amount, currency, skills, isPreSelected, AdyenErrorCodeMapper(),
+        servicesErrorMapper, gamificationLevel, formatter, logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -189,9 +172,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     showProduct()
   }
 
-  override fun finishCardConfiguration(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      isStored: Boolean, forget: Boolean, savedInstance: Bundle?) {
+  override fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean,
+                                       forget: Boolean, savedInstance: Bundle?) {
     this.isStored = isStored
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
@@ -243,8 +225,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showProduct() {
     try {
-      app_icon?.setImageDrawable(context!!.packageManager
-          .getApplicationIcon(domain))
+      app_icon?.setImageDrawable(context!!.packageManager.getApplicationIcon(domain))
       app_name?.text = getApplicationName(domain)
     } catch (e: Exception) {
       e.printStackTrace()
@@ -335,7 +316,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     showSpecificError(R.string.purchase_error_payment_rejected)
   }
 
-  override fun showVerification() = iabView.showVerification()
+  override fun showVerification(isWalletVerified: Boolean) =
+      iabView.showVerification(isWalletVerified)
 
   override fun showBillingAddress(value: BigDecimal, currency: String) {
     main_view?.visibility = GONE
@@ -371,9 +353,16 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     fragment_adyen_error_pre_selected?.visibility = VISIBLE
   }
 
-  override fun showVerificationError() {
-    showSpecificError(R.string.purchase_error_verify_wallet)
-    error_verify_wallet_button?.visibility = VISIBLE
+  override fun showVerificationError(isWalletVerified: Boolean) {
+    if (isWalletVerified) {
+      showSpecificError(R.string.purchase_error_verify_card)
+      error_verify_wallet_button?.visibility = GONE
+      error_verify_card_button?.visibility = VISIBLE
+    } else {
+      showSpecificError(R.string.purchase_error_verify_wallet)
+      error_verify_wallet_button?.visibility = VISIBLE
+      error_verify_card_button?.visibility = GONE
+    }
   }
 
   override fun showCvvError() {
@@ -450,8 +439,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun getVerificationClicks() =
-      RxView.clicks(error_verify_wallet_button)
+  override fun getVerificationClicks() = Observable.merge(RxView.clicks(error_verify_wallet_button)
+      .map { false }, RxView.clicks(error_verify_card_button)
+      .map { true })
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -565,10 +555,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   }
 
-  private fun prepareCardComponent(
-      paymentMethodEntity: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      forget: Boolean,
-      savedInstanceState: Bundle?) {
+  private fun prepareCardComponent(paymentMethodEntity: PaymentMethod, forget: Boolean,
+                                   savedInstanceState: Bundle?) {
     if (forget) viewModelStore.clear()
     val cardComponent = CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
     if (forget) clearFields()
@@ -703,9 +691,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     @JvmStatic
     fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
                     origin: String?, transactionData: String?, appcAmount: BigDecimal,
-                    amount: BigDecimal, currency: String?, bonus: String?,
-                    isPreSelected: Boolean, gamificationLevel: Int,
-                    skuDescription: String, productToken: String?,
+                    amount: BigDecimal, currency: String?, bonus: String?, isPreSelected: Boolean,
+                    gamificationLevel: Int, skuDescription: String, productToken: String?,
                     isSubscription: Boolean, frequency: String?): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       fragment.arguments = Bundle().apply {
