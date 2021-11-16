@@ -17,6 +17,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.Observer
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
+import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
@@ -171,9 +172,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     showProduct()
   }
 
-  override fun finishCardConfiguration(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, isStored: Boolean,
-      forget: Boolean, savedInstance: Bundle?) {
+  override fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean,
+                                       forget: Boolean, savedInstance: Bundle?) {
     this.isStored = isStored
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
@@ -555,9 +555,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   }
 
-  private fun prepareCardComponent(
-      paymentMethodEntity: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      forget: Boolean, savedInstanceState: Bundle?) {
+  private fun prepareCardComponent(paymentMethodEntity: PaymentMethod, forget: Boolean,
+                                   savedInstanceState: Bundle?) {
     if (forget) viewModelStore.clear()
     val cardComponent = CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
     if (forget) clearFields()
