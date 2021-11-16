@@ -54,6 +54,7 @@ class PromotionsMapper(private val gamificationMapper: GamificationMapper) {
                   isFuturePromotion(it) -> perks.add(mapToFutureItem(it))
                   it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE -> perks.add(
                       mapToProgressItem(it))
+                  it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(mapToPromoCodeItem(it))
                   else -> perks.add(mapToDefaultItem(it))
                 }
               }
@@ -142,6 +143,12 @@ class PromotionsMapper(private val gamificationMapper: GamificationMapper) {
     return FutureItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
         genericResponse.appName, genericResponse.startDate, genericResponse.endDate,
         genericResponse.detailsLink)
+  }
+
+  private fun mapToPromoCodeItem(genericResponse: GenericResponse): PromoCodeItem {
+    return PromoCodeItem(genericResponse.id, genericResponse.perkDescription,
+        genericResponse.appName, genericResponse.icon, genericResponse.startDate,
+        genericResponse.endDate)
   }
 
   private fun isValidGamificationLink(linkedPromotionId: String?,

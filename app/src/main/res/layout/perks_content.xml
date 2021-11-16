@@ -6,27 +6,29 @@
     android:layout_height="match_parent"
     tools:background="@color/promotions_active_background"
     >
+
   <ImageView
       android:id="@+id/active_icon"
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:layout_marginStart="@dimen/normal_margin"
-      android:layout_marginTop="10dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:srcCompat="@drawable/ic_promotions_default"
       />
+
   <TextView
       android:id="@+id/active_app_name"
       style="@style/Promotions.TextStyle.AppName"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/normal_margin"
-      android:layout_marginTop="2dp"
       android:layout_marginEnd="@dimen/normal_margin"
-      app:layout_constraintEnd_toStartOf="@id/active_container_date"
+      app:layout_constraintBottom_toTopOf="@id/active_title"
       app:layout_constraintStart_toEndOf="@id/active_icon"
-      app:layout_constraintTop_toTopOf="@+id/active_icon"
+      app:layout_constraintTop_toBottomOf="@id/active_container_date"
+      app:layout_constraintVertical_chainStyle="spread_inside"
       tools:text="Trivial Drive Sample"
       />
 
@@ -35,11 +37,14 @@
       style="@style/Promotions.TextStyle.Title"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="6dp"
+      android:layout_marginStart="@dimen/normal_margin"
+      android:layout_marginTop="@dimen/small_margin"
       android:layout_marginEnd="@dimen/normal_margin"
+      android:paddingBottom="@dimen/big_margin"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="@id/active_app_name"
-      app:layout_constraintTop_toBottomOf="@+id/active_app_name"
+      app:layout_constraintStart_toEndOf="@id/active_icon"
+      app:layout_constraintTop_toBottomOf="@id/active_app_name"
+      app:layout_constraintVertical_chainStyle="packed"
       tools:text="Spend 200 Appcoins in 5 days and earn a bonus of 120 AppCoins Credits"
       />
 

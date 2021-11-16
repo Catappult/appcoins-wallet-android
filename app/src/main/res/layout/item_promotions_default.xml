@@ -3,6 +3,8 @@
     style="@style/Promotions.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/normal_margin"
+    android:layout_marginEnd="@dimen/normal_margin"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -10,7 +12,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@color/promotions_active_background"
-      android:paddingBottom="@dimen/normal_margin"
       >
 
     <include layout="@layout/perks_content" />

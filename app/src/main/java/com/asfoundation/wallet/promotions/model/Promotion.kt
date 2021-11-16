@@ -82,3 +82,10 @@ data class VoucherItem(override val id: String,
                        val icon: String,
                        val hasAppcoins: Boolean,
                        val maxBonus: Double) : Promotion(id)
+
+data class PromoCodeItem(override val id: String,
+                         val description: String?,
+                         val appName: String?,
+                         val icon: String?,
+                         override val startDate: Long?,
+                         override val endDate: Long) : PerkPromotion(id, startDate, endDate, null)
