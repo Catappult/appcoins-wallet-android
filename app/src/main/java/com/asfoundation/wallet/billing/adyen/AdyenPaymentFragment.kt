@@ -126,31 +126,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     billingAddressInput = PublishSubject.create()
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
-    presenter = AdyenPaymentPresenter(
-        this,
-        compositeDisposable,
-        AndroidSchedulers.mainThread(),
-        Schedulers.io(),
-        RedirectComponent.getReturnUrl(context!!),
-        analytics,
-        domain,
-        origin,
-        adyenPaymentInteractor,
-        skillsPaymentInteractor,
-        inAppPurchaseInteractor.parseTransaction(transactionData, true),
-        navigator,
-        paymentType,
-        transactionType,
-        amount,
-        currency,
-        skills,
-        isPreSelected,
-        AdyenErrorCodeMapper(),
-        servicesErrorMapper,
-        gamificationLevel,
-        formatter,
-        logger
-    )
+    presenter = AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
+        Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
+        adyenPaymentInteractor, skillsPaymentInteractor,
+        inAppPurchaseInteractor.parseTransaction(transactionData, true), navigator, paymentType,
+        transactionType, amount, currency, skills, isPreSelected, AdyenErrorCodeMapper(),
+        servicesErrorMapper, gamificationLevel, formatter, logger)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -191,9 +172,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun finishCardConfiguration(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      isStored: Boolean, forget: Boolean, savedInstance: Bundle?
-  ) {
+      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, isStored: Boolean,
+      forget: Boolean, savedInstance: Bundle?) {
     this.isStored = isStored
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
@@ -245,10 +225,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showProduct() {
     try {
-      app_icon?.setImageDrawable(
-          context!!.packageManager
-              .getApplicationIcon(domain)
-      )
+      app_icon?.setImageDrawable(context!!.packageManager.getApplicationIcon(domain))
       app_name?.text = getApplicationName(domain)
     } catch (e: Exception) {
       e.printStackTrace()
@@ -345,10 +322,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun showBillingAddress(value: BigDecimal, currency: String) {
     main_view?.visibility = GONE
     main_view_pre_selected?.visibility = GONE
-    iabView.showBillingAddress(
-        value, currency, bonus, appcAmount, this,
-        adyenSaveDetailsSwitch?.isChecked ?: true, isStored
-    )
+    iabView.showBillingAddress(value, currency, bonus, appcAmount, this,
+        adyenSaveDetailsSwitch?.isChecked ?: true, isStored)
   }
 
 
@@ -464,12 +439,9 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun getVerificationClicks() =
-      Observable.merge(
-          RxView.clicks(error_verify_wallet_button)
-              .map { false },
-          RxView.clicks(error_verify_card_button)
-              .map { true })
+  override fun getVerificationClicks() = Observable.merge(RxView.clicks(error_verify_wallet_button)
+      .map { false }, RxView.clicks(error_verify_card_button)
+      .map { true })
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -536,10 +508,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private fun setupTransactionCompleteAnimation() {
     val textDelegate = TextDelegate(lottie_transaction_success)
     textDelegate.setText("bonus_value", bonus)
-    textDelegate.setText(
-        "bonus_received",
-        resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
+    textDelegate.setText("bonus_received",
+        resources.getString(R.string.gamification_purchase_completed_bonus_received))
     lottie_transaction_success.setTextDelegate(textDelegate)
     lottie_transaction_success.setFontAssetDelegate(object : FontAssetDelegate() {
       override fun fetchFont(fontFamily: String): Typeface {
@@ -587,9 +557,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private fun prepareCardComponent(
       paymentMethodEntity: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      forget: Boolean,
-      savedInstanceState: Bundle?
-  ) {
+      forget: Boolean, savedInstanceState: Bundle?) {
     if (forget) viewModelStore.clear()
     val cardComponent = CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
     if (forget) clearFields()
@@ -604,11 +572,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
           val supportedShopperInteractions =
               if (paymentMethodEntity is StoredPaymentMethod) paymentMethodEntity.supportedShopperInteractions else emptyList()
           paymentDataSubject?.onNext(
-              AdyenCardWrapper(
-                  paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
-                  supportedShopperInteractions
-              )
-          )
+              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
+                  supportedShopperInteractions))
         }
       } else {
         buy_button?.isEnabled = false
@@ -680,10 +645,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true) -> {
         buy_button.setText(R.string.action_donate)
       }
-      transactionType.equals(
-          TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
-          ignoreCase = true
-      ) -> buy_button.text = getString(R.string.subscriptions_subscribe_button)
+      transactionType.equals(TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
+          ignoreCase = true) -> buy_button.text = getString(R.string.subscriptions_subscribe_button)
       else -> {
         buy_button.setText(R.string.action_buy)
       }
@@ -727,14 +690,11 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val PRODUCT_TOKEN = "product_token"
 
     @JvmStatic
-    fun newInstance(
-        transactionType: String, paymentType: PaymentType, domain: String,
-        origin: String?, transactionData: String?, appcAmount: BigDecimal,
-        amount: BigDecimal, currency: String?, bonus: String?,
-        isPreSelected: Boolean, gamificationLevel: Int,
-        skuDescription: String, productToken: String?,
-        isSubscription: Boolean, frequency: String?
-    ): AdyenPaymentFragment {
+    fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
+                    origin: String?, transactionData: String?, appcAmount: BigDecimal,
+                    amount: BigDecimal, currency: String?, bonus: String?, isPreSelected: Boolean,
+                    gamificationLevel: Int, skuDescription: String, productToken: String?,
+                    isSubscription: Boolean, frequency: String?): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
