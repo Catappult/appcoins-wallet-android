@@ -188,7 +188,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
                 getOrigin(isBds), intent.dataString, transaction!!.amount(), amount, currency,
                 bonus, isPreselected, gamificationLevel, getSkuDescription(),
                 transaction!!.productToken, isSubscription,
-              frequency))
+                frequency))
         .commit()
   }
 
@@ -276,7 +276,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                                   isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
-                                  transaction: TransactionBuilder, isSubscription: Boolean, frequency: String?) {
+                                  transaction: TransactionBuilder, isSubscription: Boolean,
+                                  frequency: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction.domain,

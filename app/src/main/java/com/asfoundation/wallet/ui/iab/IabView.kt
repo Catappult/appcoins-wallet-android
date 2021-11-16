@@ -59,7 +59,8 @@ interface IabView {
 
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
                          isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
-                         transaction: TransactionBuilder, isSubscription: Boolean, frequency: String?)
+                         transaction: TransactionBuilder, isSubscription: Boolean,
+                         frequency: String?)
 
   fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
                          appcAmount: BigDecimal, targetFragment: Fragment, shouldStoreCard: Boolean,
