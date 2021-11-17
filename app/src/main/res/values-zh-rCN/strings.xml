@@ -385,9 +385,9 @@
   <string name="my_wallets_action_new_wallet">新钱包</string>
   <string name="my_wallets_action_recover_wallet">恢复钱包</string>
   <string name="my_wallets_action_backup_wallet">备份钱包</string>
-  <string name="my_wallets_action_verify_new_card">验证新卡</string>
+  <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">删除钱包</string>
-  <string name="verify_card_title">验证卡</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">请求他人支付</string>
   <string name="askafriend_generating_link_message">我们正在生成支付链接&#8230;</string>
@@ -534,7 +534,8 @@
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
   <string name="purchase_error_card_already_in_progress">你的请求已被处理或正在处理。请稍候。</string>
   <string name="purchase_error_payment_rejected">付款已被拒绝！请尝试使用其他发卡机构的卡或使用其他支付方式。</string>
-  <string name="purchase_error_verify_wallet">尝试验证钱包，以解决这种情况。</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">入场券</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
@@ -896,7 +897,7 @@
   <string name="rate_us_back_title">想帮助我们吗？</string>
   <string name="rate_us_back_body">在应用商店上给AppCoins Wallet评分，以便我们对其进行改进。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">我们会从你的卡里扣除%的费用，你确认了代码后，我们就会退款。 根据你的银行情况，这可能需要几分钟到几天的时间。</string>
   <string name="card_verification_code_title">在交易详细信息中查看代码</string>
   <string name="card_verification_code_body">一个唯一代码将出现在发卡银行提供的交易摘要中。</string>
@@ -919,6 +920,8 @@
   <string name="card_verification_wallets_insert_bode_button">输入代码</string>
   <string name="card_verification_no_attempts_title">糟糕，您输入的错误代码次数过多，因此%1$s将退款至您的卡中。</string>
   <string name="card_verification_no_attempts_body">请重新开始验证过程。</string>
+  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">购买优惠券并获取</string>
   <string name="voucher_card_body_2">高达 %s%% 的奖励。</string>
@@ -969,7 +972,8 @@
   <string name="promo_code_active_tag">激活</string>
   <string name="promo_code_expired_tag">已到期</string>
   <string name="promo_code_success_title">完成！</string>
-  <string name="promo_code_success_body">你的所有消费都将获得%s%%的额外奖励。</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">关于AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins价格(APPC)</string>
