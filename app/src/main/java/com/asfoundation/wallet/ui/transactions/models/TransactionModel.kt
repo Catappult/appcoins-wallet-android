@@ -60,11 +60,11 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     }
   }
 
-  private fun initializeView(holder: TransactionHolder, from: String, to: String,
-                             currency: String?, value: String,
-                             status: Transaction.TransactionStatus, details: TransactionDetails?,
-                             type: Transaction.TransactionType, linkedTx: List<Transaction>?,
-                             txPaidAmount: String?, txPaidCurrency: String?) {
+  private fun initializeView(holder: TransactionHolder, from: String, to: String, currency: String?,
+                             value: String, status: Transaction.TransactionStatus,
+                             details: TransactionDetails?, type: Transaction.TransactionType,
+                             linkedTx: List<Transaction>?, txPaidAmount: String?,
+                             txPaidCurrency: String?) {
     val isSent = from.equals(defaultAddress, ignoreCase = true)
     holder.revertMessage.visibility = View.GONE
 
@@ -167,8 +167,8 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
             .placeholder(transactionTypeIcon)
             .error(transactionTypeIcon))
         .listener(object : RequestListener<Drawable?> {
-          override fun onLoadFailed(e: GlideException?, model: Any,
-                                    target: Target<Drawable?>, isFirstResource: Boolean): Boolean {
+          override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable?>,
+                                    isFirstResource: Boolean): Boolean {
             holder.typeIcon.visibility = View.GONE
             return false
           }
@@ -197,18 +197,13 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     }
 
     var valueStr = value
-    if (valueStr == "0") {
-      valueStr = "0 "
-    } else if (transaction!!.type == Transaction.TransactionType.IAP_REVERT) {
-      valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(), currencySymbol!!)
-    } else {
-      valueStr = (if (isSent) "-" else "+") + getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(),
-          currencySymbol!!)
-    }
+    val flipSign = if (isRevert(transaction!!.type)) true else isSent
+
+    valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(), currencySymbol!!, flipSign)
+    valueStr = if (valueStr == "0") "0 " else valueStr
 
     if (shouldShowFiat(txPaidAmount, txPaidCurrency)) {
-      val sign = if (isSent) "-" else "+"
-      val paidAmount = sign + getScaledValue(txPaidAmount!!, 0, "")
+      val paidAmount = getScaledValue(txPaidAmount!!, 0, "", flipSign)
       holder.paidValue.text = paidAmount
       holder.paidCurrency.text = txPaidCurrency
       holder.value.visibility = View.VISIBLE
@@ -226,17 +221,26 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     holder.value.text = valueStr
   }
 
-  private fun shouldShowFiat(paidAmount: String?, paidCurrency: String?): Boolean {
-    return (paidAmount != null && paidCurrency != "APPC"
-        && paidCurrency != "APPC-C"
-        && paidCurrency != "ETH")
+  private fun isRevert(type: Transaction.TransactionType): Boolean {
+    return type == Transaction.TransactionType.IAP_REVERT
+        || type == Transaction.TransactionType.TOP_UP_REVERT
+        || type == Transaction.TransactionType.BONUS_REVERT
   }
 
-  private fun getScaledValue(valueStr: String, decimals: Long, currencySymbol: String): String {
+  private fun shouldShowFiat(paidAmount: String?, paidCurrency: String?): Boolean {
+    return (paidAmount != null && paidCurrency != "APPC" && paidCurrency != "APPC-C" && paidCurrency != "ETH")
+  }
+
+  private fun getScaledValue(valueStr: String, decimals: Long, currencySymbol: String,
+                             flipSign: Boolean): String {
+    val sign = if (flipSign) -1 else 1
     val walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     val value = BigDecimal(valueStr).divide(BigDecimal(10.toDouble()
-        .pow(decimals.toDouble())));
-    return formatter!!.formatCurrency(value, walletCurrency)
+        .pow(decimals.toDouble())))
+        .multiply(sign.toBigDecimal())
+    // In case of positive value, we need to explicitly put the "+" sign
+    val signedString = if (value > BigDecimal.ZERO) "+" else ""
+    return signedString + formatter!!.formatCurrency(value, walletCurrency)
   }
 
   private fun setRevertMessage(holder: TransactionHolder, linkedTx: List<Transaction>?) {
@@ -249,9 +253,9 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         message = holder.itemView.context.getString(R.string.transaction_type_reverted_bonus_body,
             getDate(linkedTx.timeStamp))
       } else if (transaction!!.type == Transaction.TransactionType.IAP_REVERT) {
-        message = holder.itemView.context.getString(
-            R.string.transaction_type_reverted_purchase_body,
-            getDate(linkedTx.timeStamp))
+        message =
+            holder.itemView.context.getString(R.string.transaction_type_reverted_purchase_body,
+                getDate(linkedTx.timeStamp))
       } else if (transaction!!.type == Transaction.TransactionType.TOP_UP_REVERT) {
         message = holder.itemView.context.getString(R.string.transaction_type_reverted_topup_body,
             getDate(linkedTx.timeStamp))
@@ -269,8 +273,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
   }
 
   private fun setTypeIconVisibilityBasedOnDescription(holder: TransactionHolder,
-                                                      details: TransactionDetails?,
-                                                      uri: String?) {
+                                                      details: TransactionDetails?, uri: String?) {
     if (uri == null || details?.sourceName == null) {
       holder.typeIcon.visibility = View.GONE
     } else {
