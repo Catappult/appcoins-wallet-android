@@ -385,9 +385,9 @@
   <string name="my_wallets_action_new_wallet">کیف‌پول جدید</string>
   <string name="my_wallets_action_recover_wallet">بازیابی کیف‌پول</string>
   <string name="my_wallets_action_backup_wallet">پشتیبان‌گیری از کیف‌پول</string>
-  <string name="my_wallets_action_verify_new_card">تایید کارت جدید</string>
+  <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">حذف کیف‌پول</string>
-  <string name="verify_card_title">تایید کارت</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">از کسی بخواهید پرداخت کند</string>
   <string name="askafriend_generating_link_message">ما در حال تولید لینک پرداخت شما هستیم&#8230;</string>
@@ -534,7 +534,8 @@
   <string name="purchase_error_transaction_timeout">زمان سپری شده برای کامل کردن تراکنش به پایان رسیده‌است. لطفا دوباره اقدام کنید.</string>
   <string name="purchase_error_card_already_in_progress">درخواست شده قبلا اجرا شده و یا در حال اجراست. لطفا منتظر بمانید.</string>
   <string name="purchase_error_payment_rejected">پرداخت رد شد! لطفا با کارت متفاوتی دوباره اقدام کنید و یا روش پرداخت دیگری را استفاده کنید.</string>
-  <string name="purchase_error_verify_wallet">برای آزاد شدن شرایط، لطفا سعی کنید کیف‌پول خود را تایید کنید.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
@@ -903,7 +904,7 @@
   <string name="rate_us_back_title">آیا می‌خواهید به ما کمک کنید؟</string>
   <string name="rate_us_back_body">AppCoins Wallet را در فروشگاه اپلیکیشن رتبه بندی کنید تا بتوانیم آن را بهتر کنیم.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">ما کارت شما را %s شارژ خواهیم کرد و با تایید کد، آن را برگشت خواهیم زد. با توجه به بانک شما می‌تواند چند دقیقه تا چند روز طول بکشد.</string>
   <string name="card_verification_code_title">کد را در جزییات تراکنش بررسی کنید</string>
   <string name="card_verification_code_body">یک کد ویژه در خلاصه تراکنش توسط بانک شما دیده می‌شود.</string>
@@ -928,6 +929,8 @@
   <string name="card_verification_wallets_insert_bode_button">وارد کردن کد</string>
   <string name="card_verification_no_attempts_title">کد اشتباهی را به دفعات وارد کرده اید پس %1$s به کارت شما بازگردانده خواهد شد.</string>
   <string name="card_verification_no_attempts_body">لطفا پروسه تایید هویت را مجدد شروع کنید.</string>
+  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">این ووچر را بخرید و دریافت کنید</string>
   <string name="voucher_card_body_2"> تا %s%% پاداش.</string>
@@ -978,7 +981,8 @@
   <string name="promo_code_active_tag">فعال</string>
   <string name="promo_code_expired_tag">منقضی</string>
   <string name="promo_code_success_title">تمام!</string>
-  <string name="promo_code_success_body">در همه خریدهای خود %s%% پاداش اضافی دریافت خواهید کرد.</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">درباره AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
