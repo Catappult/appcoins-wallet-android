@@ -576,7 +576,8 @@
   <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
   <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
   <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">Entry ticket</string>
 
   <!--Billing address in purchase flow-->
@@ -1014,6 +1015,7 @@
   <string name="card_verification_wallets_insert_bode_button">Insert code</string>
   <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
+  <string name="wallet_verify_header">Validate at least one payment method</string>
   
 
  <!--Vouchers-->
