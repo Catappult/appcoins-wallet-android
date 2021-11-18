@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di
 
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
 import com.asfoundation.wallet.advertise.PoaAnalyticsController
@@ -10,10 +11,7 @@ import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.billing.analytics.*
 import com.asfoundation.wallet.home.HomeAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
+import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -44,95 +42,58 @@ class AnalyticsModule {
   @Singleton
   @Provides
   @Named("bi_event_list")
-  fun provideBiEventList() = listOf(
-      BillingAnalytics.PURCHASE_DETAILS,
-      BillingAnalytics.PAYMENT_METHOD_DETAILS,
-      BillingAnalytics.PAYMENT,
-      PoaAnalytics.POA_STARTED,
-      PoaAnalytics.POA_COMPLETED)
+  fun provideBiEventList() =
+      listOf(BillingAnalytics.PURCHASE_DETAILS, BillingAnalytics.PAYMENT_METHOD_DETAILS,
+          BillingAnalytics.PAYMENT, PoaAnalytics.POA_STARTED, PoaAnalytics.POA_COMPLETED)
 
   @Singleton
   @Provides
   @Named("facebook_event_list")
-  fun provideFacebookEventList() = listOf(
-      BillingAnalytics.PURCHASE_DETAILS,
-      BillingAnalytics.PAYMENT_METHOD_DETAILS,
-      BillingAnalytics.PAYMENT,
-      BillingAnalytics.REVENUE,
-      PoaAnalytics.POA_STARTED,
-      PoaAnalytics.POA_COMPLETED,
-      HomeAnalytics.OPEN_APPLICATION,
-      GamificationAnalytics.GAMIFICATION,
-      GamificationAnalytics.GAMIFICATION_MORE_INFO
-  )
+  fun provideFacebookEventList() =
+      listOf(BillingAnalytics.PURCHASE_DETAILS, BillingAnalytics.PAYMENT_METHOD_DETAILS,
+          BillingAnalytics.PAYMENT, BillingAnalytics.REVENUE, PoaAnalytics.POA_STARTED,
+          PoaAnalytics.POA_COMPLETED, HomeAnalytics.OPEN_APPLICATION,
+          GamificationAnalytics.GAMIFICATION, GamificationAnalytics.GAMIFICATION_MORE_INFO)
 
   @Singleton
   @Provides
   @Named("rakam_event_list")
-  fun provideRakamEventList() = listOf(
-      LaunchAnalytics.FIRST_LAUNCH,
-      HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
-      BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
-      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
-      BillingAnalytics.RAKAM_PAYMENT_START,
-      BillingAnalytics.RAKAM_PAYPAL_URL,
-      BillingAnalytics.RAKAM_PAYMENT_METHOD_DETAILS,
-      BillingAnalytics.RAKAM_PAYMENT_BILLING,
-      TopUpAnalytics.WALLET_TOP_UP_START,
-      TopUpAnalytics.WALLET_TOP_UP_SELECTION,
-      TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
-      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
-      TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
-      TopUpAnalytics.RAKAM_TOP_UP_BILLING,
-      PoaAnalytics.RAKAM_POA_EVENT,
-      WalletsAnalytics.WALLET_CREATE_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_BACKUP,
-      WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_FILE,
-      WalletsAnalytics.WALLET_IMPORT_RESTORE,
-      WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
-      WalletsAnalytics.WALLET_PASSWORD_RESTORE,
-      PageViewAnalytics.WALLET_PAGE_VIEW,
-      TopUpABTestingAnalytics.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
-      RatingAnalytics.WALLET_RATING_WELCOME_EVENT,
-      RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
-      RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT,
-      RatingAnalytics.WALLET_RATING_FINISH_EVENT,
-      VerificationAnalytics.START_EVENT,
-      VerificationAnalytics.INSERT_CARD_EVENT,
-      VerificationAnalytics.REQUEST_CONCLUSION_EVENT,
-      VerificationAnalytics.CONFIRM_EVENT,
-      VerificationAnalytics.CONCLUSION_EVENT,
-      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
-      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP
-  )
+  fun provideRakamEventList() =
+      listOf(LaunchAnalytics.FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
+          BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD, BillingAnalytics.RAKAM_PAYMENT_METHOD,
+          BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION, BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
+          BillingAnalytics.RAKAM_PAYMENT_START, BillingAnalytics.RAKAM_PAYPAL_URL,
+          BillingAnalytics.RAKAM_PAYMENT_METHOD_DETAILS, BillingAnalytics.RAKAM_PAYMENT_BILLING,
+          TopUpAnalytics.WALLET_TOP_UP_START, TopUpAnalytics.WALLET_TOP_UP_SELECTION,
+          TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION, TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
+          TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL, TopUpAnalytics.RAKAM_TOP_UP_BILLING,
+          PoaAnalytics.RAKAM_POA_EVENT, WalletsAnalytics.WALLET_CREATE_BACKUP,
+          WalletsAnalytics.WALLET_SAVE_BACKUP, WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
+          WalletsAnalytics.WALLET_SAVE_FILE, WalletsAnalytics.WALLET_IMPORT_RESTORE,
+          WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
+          WalletsAnalytics.WALLET_PASSWORD_RESTORE, PageViewAnalytics.WALLET_PAGE_VIEW,
+          TopUpABTestingAnalytics.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
+          RatingAnalytics.WALLET_RATING_WELCOME_EVENT, RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
+          RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT, RatingAnalytics.WALLET_RATING_FINISH_EVENT,
+          VerificationAnalytics.START_EVENT, VerificationAnalytics.INSERT_CARD_EVENT,
+          VerificationAnalytics.REQUEST_CONCLUSION_EVENT, VerificationAnalytics.CONFIRM_EVENT,
+          VerificationAnalytics.CONCLUSION_EVENT,
+          PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
+          PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP)
 
   @Singleton
   @Provides
   @Named("amplitude_event_list")
-  fun provideAmplitudeEventList() = listOf(
-      BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
-      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
-      BillingAnalytics.RAKAM_PAYMENT_START,
-      BillingAnalytics.RAKAM_PAYPAL_URL,
-      TopUpAnalytics.WALLET_TOP_UP_START,
-      TopUpAnalytics.WALLET_TOP_UP_SELECTION,
-      TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
-      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
-      TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
-      PoaAnalytics.RAKAM_POA_EVENT,
-      WalletsAnalytics.WALLET_CREATE_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_BACKUP,
-      WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_FILE,
-      WalletsAnalytics.WALLET_IMPORT_RESTORE,
-      WalletsAnalytics.WALLET_PASSWORD_RESTORE,
-      PageViewAnalytics.WALLET_PAGE_VIEW
-  )
+  fun provideAmplitudeEventList() = listOf(BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
+      BillingAnalytics.RAKAM_PAYMENT_METHOD, BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
+      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION, BillingAnalytics.RAKAM_PAYMENT_START,
+      BillingAnalytics.RAKAM_PAYPAL_URL, TopUpAnalytics.WALLET_TOP_UP_START,
+      TopUpAnalytics.WALLET_TOP_UP_SELECTION, TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
+      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION, TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
+      PoaAnalytics.RAKAM_POA_EVENT, WalletsAnalytics.WALLET_CREATE_BACKUP,
+      WalletsAnalytics.WALLET_SAVE_BACKUP, WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
+      WalletsAnalytics.WALLET_SAVE_FILE, WalletsAnalytics.WALLET_IMPORT_RESTORE,
+      WalletsAnalytics.WALLET_PASSWORD_RESTORE, PageViewAnalytics.WALLET_PAGE_VIEW)
 
   @Singleton
   @Provides
@@ -172,8 +133,7 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun providesTransactionsAnalytics(analytics: AnalyticsManager) =
-      HomeAnalytics(analytics)
+  fun providesTransactionsAnalytics(analytics: AnalyticsManager) = HomeAnalytics(analytics)
 
   @Singleton
   @Provides
@@ -182,12 +142,10 @@ class AnalyticsModule {
   @Singleton
   @Provides
   fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
-                                 promotionsRepository: PromotionsRepository,
-                                 logger: Logger,
-                                 promoCodeDao: PromoCodeDao,
-                                 rxSchedulers: RxSchedulers): RakamAnalytics {
+                                 promotionsRepository: PromotionsRepository, logger: Logger,
+                                 promoCodeLocalDataSource: PromoCodeLocalDataSource): RakamAnalytics {
     return RakamAnalytics(context, idsRepository, promotionsRepository, logger,
-        promoCodeDao, rxSchedulers)
+        promoCodeLocalDataSource)
   }
 
   @Singleton

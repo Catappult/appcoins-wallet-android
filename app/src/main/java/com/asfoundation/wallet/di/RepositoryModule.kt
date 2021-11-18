@@ -50,6 +50,7 @@ import com.asfoundation.wallet.nfts.repository.NFTRepository
 import com.asfoundation.wallet.nfts.repository.NftApi
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
 import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
+import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.repository.*
@@ -138,8 +139,9 @@ class RepositoryModule {
   fun provideRemoteRepository(subscriptionBillingApi: SubscriptionBillingApi,
                               bdsApi: RemoteRepository.BdsApi,
                               api: BdsApiSecondary): RemoteRepository {
-    return RemoteRepository(bdsApi, BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(
-        ExternalBillingSerializer())), api, subscriptionBillingApi, ExternalBillingSerializer())
+    return RemoteRepository(bdsApi,
+        BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(ExternalBillingSerializer())), api,
+        subscriptionBillingApi, ExternalBillingSerializer())
   }
 
   @Singleton
@@ -172,9 +174,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideSkillsPaymentRepository(
-      @Named("default") client: OkHttpClient,
-      adyenResponseMapper: AdyenResponseMapper): SkillsPaymentRepository {
+  fun provideSkillsPaymentRepository(@Named("default") client: OkHttpClient,
+                                     adyenResponseMapper: AdyenResponseMapper): SkillsPaymentRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20210201/gateways/adyen_v2/")
         .client(client)
@@ -190,8 +191,7 @@ class RepositoryModule {
   fun provideCarrierBillingRepository(@Named("default") client: OkHttpClient,
                                       preferences: CarrierBillingPreferencesRepository,
                                       billingErrorMapper: BillingErrorMapper,
-                                      logger: Logger):
-      CarrierBillingRepository {
+                                      logger: Logger): CarrierBillingRepository {
     val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
         CarrierErrorResponseTypeAdapter())
         .create()
@@ -212,9 +212,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesUserStatsLocalData(preferences: SharedPreferences,
-                                 promotionDao: PromotionDao, levelsDao: LevelsDao,
-                                 levelDao: LevelDao,
+  fun providesUserStatsLocalData(preferences: SharedPreferences, promotionDao: PromotionDao,
+                                 levelsDao: LevelsDao, levelDao: LevelDao,
                                  walletOriginDao: WalletOriginDao): UserStatsLocalData {
     return SharedPreferencesUserStatsLocalData(preferences, promotionDao, levelsDao, levelDao,
         walletOriginDao)
@@ -275,8 +274,7 @@ class RepositoryModule {
                                getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): BalanceRepository {
     return AppcoinsBalanceRepository(getDefaultWalletBalanceInteract,
         localCurrencyConversionService,
-        Room.databaseBuilder(context.applicationContext,
-            BalanceDetailsDatabase::class.java,
+        Room.databaseBuilder(context.applicationContext, BalanceDetailsDatabase::class.java,
             "balance_details")
             .build()
             .balanceDetailsDao(), BalanceDetailsMapper(), Schedulers.io(),
@@ -304,22 +302,20 @@ class RepositoryModule {
                               walletBalanceService: WalletBalanceService,
                               analyticsSetup: RakamAnalytics,
                               amplitudeAnalytics: AmplitudeAnalytics): WalletRepositoryType {
-    return WalletRepository(preferencesRepositoryType, accountKeystoreService,
-        walletBalanceService, Schedulers.io(), analyticsSetup, amplitudeAnalytics)
+    return WalletRepository(preferencesRepositoryType, accountKeystoreService, walletBalanceService,
+        Schedulers.io(), analyticsSetup, amplitudeAnalytics)
   }
 
   @Singleton
   @Provides
-  fun provideTokenRepository(
-      defaultTokenProvider: DefaultTokenProvider,
-      walletRepositoryType: WalletRepositoryType): TokenRepositoryType {
+  fun provideTokenRepository(defaultTokenProvider: DefaultTokenProvider,
+                             walletRepositoryType: WalletRepositoryType): TokenRepositoryType {
     return TokenRepository(defaultTokenProvider, walletRepositoryType)
   }
 
   @Singleton
   @Provides
-  fun provideWalletStatusRepository(
-      walletStatusApi: WalletStatusApi): WalletStatusRepository {
+  fun provideWalletStatusRepository(walletStatusApi: WalletStatusApi): WalletStatusRepository {
     return WalletStatusRepository(walletStatusApi)
   }
 
@@ -345,14 +341,13 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesABTestRepository(abTestApi: ABTestApi,
-                               idsRepository: IdsRepository,
+  fun providesABTestRepository(abTestApi: ABTestApi, idsRepository: IdsRepository,
                                @Named("ab-test-local-cache")
                                localCache: HashMap<String, ExperimentModel>,
                                persistence: RoomExperimentPersistence,
                                cacheValidator: ABTestCacheValidator): ABTestRepository {
-    return ABTestCenterRepository(abTestApi, idsRepository, localCache, persistence,
-        cacheValidator, Schedulers.io())
+    return ABTestCenterRepository(abTestApi, idsRepository, localCache, persistence, cacheValidator,
+        Schedulers.io())
   }
 
   @Singleton
@@ -386,12 +381,10 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideWalletVerificationRepository(
-      verificationApi: VerificationApi,
-      brokerVerificationApi: BrokerVerificationApi,
-      adyenResponseMapper: AdyenResponseMapper,
-      sharedPreferences: SharedPreferences
-  ): VerificationRepository {
+  fun provideWalletVerificationRepository(verificationApi: VerificationApi,
+                                          brokerVerificationApi: BrokerVerificationApi,
+                                          adyenResponseMapper: AdyenResponseMapper,
+                                          sharedPreferences: SharedPreferences): VerificationRepository {
     return VerificationRepository(verificationApi, brokerVerificationApi, adyenResponseMapper,
         sharedPreferences)
   }
@@ -414,8 +407,7 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesWithdrawRepository(api: WithdrawApi, gson: Gson,
-                                 sharedPreferences: SharedPreferences,
+  fun providesWithdrawRepository(api: WithdrawApi, gson: Gson, sharedPreferences: SharedPreferences,
                                  schedulers: RxSchedulers): WithdrawRepository {
     return WithdrawRepository(api, WithdrawApiMapper(gson), schedulers,
         SharedPreferencesWithdrawLocalStorage(sharedPreferences))
@@ -444,37 +436,39 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesPromoCodeRepository(@Named("default") client: OkHttpClient,
-                                  objectMapper: ObjectMapper,
-                                  promoCodeDao: PromoCodeDao,
-                                  analyticsSetup: RakamAnalytics,
-                                  rxSchedulers: RxSchedulers): PromoCodeRepository {
+                                  promoCodeLocalDataSource: PromoCodeLocalDataSource,
+                                  analyticsSetup: RakamAnalytics, rxSchedulers: RxSchedulers): PromoCodeRepository {
     val msBaseUrl = BuildConfig.BASE_HOST
     val backendBaseUrl = BuildConfig.BACKEND_HOST
     val msApi = Retrofit.Builder()
         .baseUrl(msBaseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(PromoCodeRepository.PromoCodeApi::class.java)
     val backendApi = Retrofit.Builder()
         .baseUrl(backendBaseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(PromoCodeRepository.PromoCodeBackendApi::class.java)
-    return PromoCodeRepository(msApi, backendApi, promoCodeDao, analyticsSetup, rxSchedulers)
-
+    return PromoCodeRepository(msApi, backendApi, promoCodeLocalDataSource, analyticsSetup,
+        rxSchedulers)
   }
 
   @Singleton
   @Provides
-  fun providesSendLogsRepository(@Named("default") client: OkHttpClient,
-                                 logsDao: LogsDao,
-                                 rxSchedulers: RxSchedulers,
-                                 context: Context
-  ): SendLogsRepository {
+  fun providesPromoCodeLocalDataSource(promoCodeDao: PromoCodeDao,
+                                       rxSchedulers: RxSchedulers): PromoCodeLocalDataSource {
+    return PromoCodeLocalDataSource(promoCodeDao, rxSchedulers)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSendLogsRepository(@Named("default") client: OkHttpClient, logsDao: LogsDao,
+                                 rxSchedulers: RxSchedulers, context: Context): SendLogsRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BACKEND_HOST)
         .client(client)

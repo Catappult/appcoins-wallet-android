@@ -95,4 +95,16 @@
       app:layout_constraintTop_toBottomOf="@+id/total_balance_label_text_view"
       />
 
+  <ProgressBar
+      android:id="@+id/loading"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:indeterminateDrawable="@drawable/gradient_progress"
+      android:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@id/change_wallet_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
