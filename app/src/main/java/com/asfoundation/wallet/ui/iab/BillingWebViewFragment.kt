@@ -33,7 +33,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var analytics: BillingAnalytics
-  private var currentUrl: String? = null
+  lateinit var currentUrl: String
   private var executorService: ScheduledExecutorService? = null
   private var webViewActivity: WebViewActivity? = null
   private var asyncDetailsShown = false
@@ -78,11 +78,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     executorService = Executors.newScheduledThreadPool(0)
-    require(arguments != null && arguments!!.containsKey(URL)) { "Provided url is null!" }
+    require(arguments != null && requireArguments().containsKey(URL)) { "Provided url is null!" }
     currentUrl = if (savedInstanceState == null) {
-      arguments!!.getString(URL)
+      requireArguments().getString(URL)!!
     } else {
-      savedInstanceState.getString(CURRENT_URL)
+      savedInstanceState.getString(CURRENT_URL)!!
     }
     CookieManager.getInstance()
         .setAcceptCookie(true)
@@ -175,7 +175,6 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   override fun onDetach() {
     webViewActivity = null
-    webview?.webViewClient = null
     super.onDetach()
   }
 
@@ -190,7 +189,9 @@ class BillingWebViewFragment : BasePageViewFragment() {
           requireContext().startActivity(intent)
         } else {
           val fallbackUrl = intent.getStringExtra("browser_fallback_url")
-          webView.loadUrl(fallbackUrl)
+          fallbackUrl?.let {
+            webView.loadUrl(fallbackUrl)
+          }
         }
       }
     } catch (e: URISyntaxException) {
