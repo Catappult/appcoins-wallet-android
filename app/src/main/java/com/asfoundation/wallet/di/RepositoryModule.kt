@@ -83,6 +83,7 @@ import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationA
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -490,7 +491,6 @@ class RepositoryModule {
         .build()
         .create(SendLogsRepository.AwsUploadFilesApi::class.java)
     return SendLogsRepository(api, awsApi, logsDao, rxSchedulers, context.cacheDir)
-
   }
 
   @Singleton
@@ -506,8 +506,20 @@ class RepositoryModule {
         .build()
         .create(NftApi::class.java)
     return NFTRepository(api, rxSchedulers)
-
   }
 
+  @Singleton
+  @Provides
+  fun providesWalletInfoRepository(@Named("default") client: OkHttpClient,
+                                   rxSchedulers: RxSchedulers): WalletInfoRepository {
+    val api = Retrofit.Builder()
+        .baseUrl(BuildConfig.BACKEND_HOST)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(WalletInfoRepository.WalletInfoApi::class.java)
+    return WalletInfoRepository(api, rxSchedulers)
+  }
 
 }

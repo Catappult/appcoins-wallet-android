@@ -47,20 +47,26 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
   }
 
   fun getSelectedCurrency(): Single<String> {
-    if (pref.getBoolean(SELECTED_FIRST_TIME, true)) {
-      pref.edit()
-          .putBoolean(SELECTED_FIRST_TIME, false)
-          .apply()
-      conversionService.localCurrency.doOnSuccess {
-        setSelectedCurrency(it.currency)
-      }
-          .subscribe()
-    }
-    return getCachedSelectedCurrency()
+    return Single.just(pref.getBoolean(SELECTED_FIRST_TIME, true))
+        .flatMapCompletable { isFirstTime ->
+          if (isFirstTime) {
+            pref.edit()
+                .putBoolean(SELECTED_FIRST_TIME, false)
+                .apply()
+            return@flatMapCompletable conversionService.localCurrency.doOnSuccess {
+                  setSelectedCurrency(it.currency)
+                }
+                .ignoreElement()
+          }
+          return@flatMapCompletable Completable.complete()
+        }
+        .andThen<Single<String>> { return@andThen getCachedSelectedCurrency() }
+        .subscribeOn(Schedulers.io())
   }
 
   fun getCachedSelectedCurrency(): Single<String> {
-    return Single.just(pref.getString(FIAT_CURRENCY, ""))
+    return Single.just(pref.getString(FIAT_CURRENCY, "")!!)
+        .subscribeOn(Schedulers.io())
   }
 
   fun setSelectedCurrency(currency: String) {
