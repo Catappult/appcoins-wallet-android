@@ -41,6 +41,6 @@ class Log private constructor() {
     fun e(tag: String, msg: String?, throwable: Throwable?): Int = Log.e(tag, msg, throwable)
 
     @JvmStatic
-    fun e(tag: String, msg: String?): Int = Log.e(tag, msg)
+    fun e(tag: String, msg: String): Int = Log.e(tag, msg)
   }
 }

@@ -14,8 +14,8 @@ class DebugReceiver : LogReceiver {
   }
 
   override fun log(tag: String?, message: String?) {
-    if (BuildConfig.DEBUG) {
-      Log.e(tag?: "Logger", message)
+    if (BuildConfig.DEBUG && message != null) {
+      Log.e(tag ?: "Logger", message)
     }
 
   }
