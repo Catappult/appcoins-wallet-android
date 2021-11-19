@@ -182,12 +182,11 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(partnerAddressService.getAttributionEntity("package"))
         .thenReturn(Single.just(AttributionEntity("store_address", "oem_address")))
     Mockito.`when`(getCurrentPromoCodeUseCase())
-        .thenReturn(Single.just(PromoCode(null,null,null,null)))
+        .thenReturn(Single.just(PromoCode(null, null, null, null, null)))
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
         "INAPP", null, "store_address", "oem_address", null, TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE,
-        null, null))
+        TEST_WALLET_SIGNATURE, null, null))
         .thenReturn(Single.just(expectedModel))
 
     interactor.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,

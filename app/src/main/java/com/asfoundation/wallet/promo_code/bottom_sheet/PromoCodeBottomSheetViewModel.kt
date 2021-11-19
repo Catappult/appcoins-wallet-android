@@ -13,17 +13,15 @@ sealed class PromoCodeBottomSheetSideEffect : SideEffect {
   object NavigateBack : PromoCodeBottomSheetSideEffect()
 }
 
-data class PromoCodeBottomSheetState(
-    val promoCodeAsync: Async<PromoCode> = Async.Uninitialized,
-    val submitClickAsync: Async<Unit> = Async.Uninitialized,
-    val shouldShowDefault: Boolean = false) : ViewState
+data class PromoCodeBottomSheetState(val promoCodeAsync: Async<PromoCode> = Async.Uninitialized,
+                                     val submitClickAsync: Async<Unit> = Async.Uninitialized,
+                                     val shouldShowDefault: Boolean = false) : ViewState
 
 class PromoCodeBottomSheetViewModel(
     private val observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase,
     private val setPromoCodeUseCase: SetPromoCodeUseCase,
     private val deletePromoCodeUseCase: DeletePromoCodeUseCase) :
-    BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(
-        initialState()) {
+    BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): PromoCodeBottomSheetState {
@@ -37,52 +35,35 @@ class PromoCodeBottomSheetViewModel(
 
   private fun getCurrentPromoCode() {
     observeCurrentPromoCodeUseCase()
-        .asAsyncToState() {
-          copy(promoCodeAsync = it)
-        }
-        .scopedSubscribe() { e ->
+        .asAsyncToState { copy(promoCodeAsync = it) }
+        .repeatableScopedSubscribe(PromoCodeBottomSheetState::promoCodeAsync.name) { e ->
           e.printStackTrace()
         }
   }
 
   fun submitClick(promoCodeString: String) {
     setPromoCodeUseCase(promoCodeString)
-        .asAsyncToState() {
-          copy(submitClickAsync = it)
-        }
-        .scopedSubscribe() { e ->
+        .asAsyncToState { copy(submitClickAsync = it) }
+        .repeatableScopedSubscribe(PromoCodeBottomSheetState::submitClickAsync.name) { e ->
           e.printStackTrace()
         }
   }
 
-  fun replaceClick() {
-    observeCurrentPromoCodeUseCase()
-        .asAsyncToState() {
-          copy(shouldShowDefault = true)
-        }
-        .scopedSubscribe() { e ->
-          e.printStackTrace()
-        }
-  }
+  fun replaceClick() = setState { copy(shouldShowDefault = true) }
 
   fun deleteClick() {
     deletePromoCodeUseCase()
-        .asAsyncToState() {
-          copy(promoCodeAsync = Async.Uninitialized)
-        }
+        .asAsyncToState { copy(promoCodeAsync = Async.Uninitialized) }
         .doOnComplete {
           sendSideEffect {
             PromoCodeBottomSheetSideEffect.NavigateBack
           }
         }
-        .scopedSubscribe() { e ->
+        .repeatableScopedSubscribe(
+            PromoCodeBottomSheetState::submitClickAsync.name + "_delete") { e ->
           e.printStackTrace()
         }
   }
 
-  fun successGotItClick() {
-    sendSideEffect {
-      PromoCodeBottomSheetSideEffect.NavigateBack
-    }
-  }
+  fun successGotItClick() = sendSideEffect { PromoCodeBottomSheetSideEffect.NavigateBack }
 }
