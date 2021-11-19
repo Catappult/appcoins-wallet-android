@@ -34,18 +34,16 @@ class PromoCodeBottomSheetViewModel(
   }
 
   private fun getCurrentPromoCode() {
-    observeCurrentPromoCodeUseCase().asAsyncToState() {
-      copy(promoCodeAsync = it)
-    }
+    observeCurrentPromoCodeUseCase()
+        .asAsyncToState { copy(promoCodeAsync = it) }
         .repeatableScopedSubscribe(PromoCodeBottomSheetState::promoCodeAsync.name) { e ->
           e.printStackTrace()
         }
   }
 
   fun submitClick(promoCodeString: String) {
-    setPromoCodeUseCase(promoCodeString).asAsyncToState() {
-      copy(submitClickAsync = it)
-    }
+    setPromoCodeUseCase(promoCodeString)
+        .asAsyncToState { copy(submitClickAsync = it) }
         .repeatableScopedSubscribe(PromoCodeBottomSheetState::submitClickAsync.name) { e ->
           e.printStackTrace()
         }
@@ -54,9 +52,8 @@ class PromoCodeBottomSheetViewModel(
   fun replaceClick() = setState { copy(shouldShowDefault = true) }
 
   fun deleteClick() {
-    deletePromoCodeUseCase().asAsyncToState() {
-      copy(promoCodeAsync = Async.Uninitialized)
-    }
+    deletePromoCodeUseCase()
+        .asAsyncToState { copy(promoCodeAsync = Async.Uninitialized) }
         .doOnComplete {
           sendSideEffect {
             PromoCodeBottomSheetSideEffect.NavigateBack
