@@ -237,7 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferência</string>
   <string name="transaction_type_bonus">Bônus</string>
-  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher para %s</string>
   <string name="transaction_type_reverted_bonus_title">Bónus Revertido</string>
@@ -387,7 +387,6 @@
   <string name="my_wallets_action_backup_wallet">Backup da wallet</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Apagar wallet</string>
-  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pede a alguém para pagar</string>
   <string name="askafriend_generating_link_message">Estamos a gerar o link para pagamento &#8230;</string>
