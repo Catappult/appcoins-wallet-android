@@ -237,7 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Przelewy</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher na %s</string>
   <string name="transaction_type_reverted_bonus_title">Cofnięty bonus</string>
@@ -387,7 +387,6 @@
   <string name="my_wallets_action_backup_wallet">Kopia zapasowa portfela</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Usuń kartę</string>
-  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Poproś znajomego o środki</string>
   <string name="askafriend_generating_link_message">Generujemy link dla płatności &#8230;</string>
