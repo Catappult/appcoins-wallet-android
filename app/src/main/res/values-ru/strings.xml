@@ -237,7 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Перевод</string>
   <string name="transaction_type_bonus">Бонус</string>
-  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
   <string name="transaction_type_voucher">Купон</string>
   <string name="transaction_type_voucher_title">Купон для %s</string>
   <string name="transaction_type_reverted_bonus_title">Бонус отменён</string>
@@ -387,7 +387,6 @@
   <string name="my_wallets_action_backup_wallet">Резервная копия</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Удалить кошелёк</string>
-  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Попросить кого-то заплатить</string>
   <string name="askafriend_generating_link_message">Мы создаем ссылку на ваш платеж&#8230;</string>
