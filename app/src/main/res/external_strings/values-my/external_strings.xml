@@ -2,7 +2,7 @@
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
   <string name="iab_wallet_not_installed_popup_body">ဤပစၥည္းကို ၀ယ္ရန္အတြက္ %s ကို ဦးစြာရယူရန္ လိုအပ္ပါသည္။</string>
-  <string name="appcoins_wallet">AppCoins ပိုက္ဆံအိတ္</string>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
   <string name="iab_wallet_not_installed_popup_close_button">ပိတ္မည္</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
   <string name="iap_wallet_and_appstore_not_installed_popup_body">ဤ၀ယ္ယူမႈကို ျပဳလုပ္ရန္အတြက္ AppCoins Wallet ကို လိုအပ္ပါသည္။ သင့္၀ယ္ယူမႈ ၿပီးစီးေစရန္အတြက္ Aptoide သို႔မဟုတ္ Play Store မွ ေဒါင္းလုဒ္ဆြဲကာ ျပန္လာခဲ့ပါ။</string>
