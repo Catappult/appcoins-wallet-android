@@ -237,7 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Overboeking</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
   <string name="transaction_type_voucher">E-voucher</string>
   <string name="transaction_type_voucher_title">Voucher voor %s</string>
   <string name="transaction_type_reverted_bonus_title">Teruggedraaide bonus</string>
@@ -387,7 +387,6 @@
   <string name="my_wallets_action_backup_wallet">Back-up van wallet maken</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Wallet verwijderen</string>
-  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Vraag iemand om te betalen</string>
   <string name="askafriend_generating_link_message">We zijn je link om te betalen aan het aanmaken&#8230;</string>
