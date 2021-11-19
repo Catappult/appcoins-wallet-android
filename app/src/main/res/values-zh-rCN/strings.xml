@@ -237,7 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">转移</string>
   <string name="transaction_type_bonus">奖励</string>
-  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
   <string name="transaction_type_voucher">电子优惠券</string>
   <string name="transaction_type_voucher_title">%s优惠券</string>
   <string name="transaction_type_reverted_bonus_title">已还原奖金</string>
@@ -387,7 +387,6 @@
   <string name="my_wallets_action_backup_wallet">备份钱包</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">删除钱包</string>
-  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">请求他人支付</string>
   <string name="askafriend_generating_link_message">我们正在生成支付链接&#8230;</string>
