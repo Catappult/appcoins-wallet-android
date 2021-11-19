@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">ਛੱਡੋ &gt;</string>
   <string name="root_title">ਡਿਵਾਈਸ ਸੁਰੱਖਿਆ ਨੂੰ ਕੰਪ੍ਰਾਮਾਇਜ਼ ਕੀਤਾ ਗਿਆ</string>
   <string name="root_body">ਕੋਈ ਵੀ \'ਰੂਟਿਡ\' ਐਪ ਐਪ ਕੋਆਈਨ ਬਟੂਏ ਦੇ ਕੀਚੈਨ ਡਾਟਾ ਤੱਕ ਪਹੁੰਚ ਸਕਦੀ ਹੈ ਅਤੇ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਚੋਰੀ ਕਰ ਸਕਦੀ ਹੈ! ਇਸ ਬਟੂਏ ਨੂੰ ਤੁਰੰਤ ਖਾਲੀ ਕਰੋ ਅਤੇ ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਤੇ ਰੀਸਟੋਰ ਕਰੋ|</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
   <string name="buying">%s ਖ਼ਰੀਦਣਾ</string>
   <string name="action_buy">ਖਰੀਦੋ</string>
   <string name="empty"></string>
@@ -109,13 +109,13 @@
   <string name="toast_qr_code_no_address">QR ਕੋਡ ਵਿੱਚ ਇੱਕ ਸਹੀ ਪਤਾ ਨਹੀਂ ਹੈ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">ਐਪ ਸਿੱਕੇ ਬਟੂਆ</string>
   <string name="intro_title_second_page"><![CDATA[ਪ੍ਰਾਈਵੇਟ ਅਤੇ ਸੁਰੱਖਿਅਤ]]></string>
   <string name="intro_title_third_page">ਆਸਾਨ &amp; ਸੌਖਾ</string>
   <string name="intro_message_first_page">ਐਪ ਅਰਥ-ਵਿਵਸਥਾ ਦੀ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਸੁਆਗਤ ਹੈ|</string>
   <string name="intro_message_second_page">ਪ੍ਰਾਈਵੇਟ ਕੀ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਨੂੰ ਕਦੇ ਨਹੀਂ ਛੱਡਦੀਆਂ|</string>
   <string name="intro_message_third_page">ਏਪੀਪੀਸੀ ਵਿਚ ਆਪਣੇ ਇਨ-ਐਪ ਭੁਗਤਾਨ ਅਤੇ ਇਨਾਮਾਂ ਦੀ ਪ੍ਰਕਿਰਿਆ ਕਰੋ|</string>
-  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_title">ਐਪ ਸਿੱਕੇ ਬਟੂਆ</string>
   <string name="intro_1_body">ਇਨ-ਐਪ ਖ਼ਰੀਦ ਲਈ ਤੁਹਾਡੀ ਐਪ|</string>
   <string name="intro_2_title">ਪੈਸੇ ਘੱਟ ਦਿਓ, ਖੇਡੋ ਜ਼ਿਆਦਾ</string>
   <string name="intro_2_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ ਆਈਟਮਾਂ ਖਰੀਦਣ ਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
@@ -237,6 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_voucher">ਈ-ਵਾਊਚਰ</string>
   <string name="transaction_type_voucher_title">%s ਲਈ ਵਾਊਚਰ</string>
   <string name="transaction_type_reverted_bonus_title">ਵਾਪਸ ਕੀਤਾ ਬੋਨਸ</string>
@@ -384,9 +385,9 @@
   <string name="my_wallets_action_new_wallet">ਨਵਾਂ ਬਟੂਆ</string>
   <string name="my_wallets_action_recover_wallet">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="my_wallets_action_backup_wallet">ਬੈਕਅਪ ਬਟੂਆ</string>
-  <string name="my_wallets_action_verify_new_card">ਨਵੇਂ ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">ਬਟੂਆ ਡੀਲੀਟ ਕਰੋ</string>
-  <string name="verify_card_title">ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ਕਿਸੇ ਨੂੰ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਕਹੋ</string>
   <string name="askafriend_generating_link_message">ਅਸੀਂ ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਦਾ ਲਿੰਕ ਉਤਪੰਨ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
@@ -533,7 +534,8 @@
   <string name="purchase_error_transaction_timeout">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਸੀ ਬਹੁਤ ਸਮਾਂ ਲਗਾ ਦਿੱਤਾ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_error_card_already_in_progress">ਤੁਹਾਡੀ ਬੇਨਤੀ ਤੇ ਪਹਿਲਾਂ ਹੀ ਕਾਰਵਾਈ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ ਜਾਂ ਜਾਰੀ ਹੈ| ਕ੍ਰਿਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ|</string>
   <string name="purchase_error_payment_rejected">ਭੁਗਤਾਨ ਅਸਵੀਕਾਰ! ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਜਾਰੀਕਰਤਾ ਦੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਹੋਰ ਭੁਗਤਾਨ ਵਿਧੀ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
-  <string name="purchase_error_verify_wallet">ਇਸ ਸਥਿਤੀ ਤੋਂ ਬਾਹਰ ਨਿਕਲਣ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">ਦਾਖਲਾ ਟਿਕਟ</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
@@ -902,7 +904,7 @@
   <string name="rate_us_back_title">ਸਾਡੀ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="rate_us_back_body">ਐਪ ਸਟੋਰ ਤੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ ਤਾਂ ਜੋ ਅਸੀਂ ਇਸ ਵਿੱਚ ਸੁਧਾਰ ਕਰ ਸਕੀਏ|</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">ਅਸੀਂ ਤੁਹਾਡੇ ਕਾਰਡ ਤੋਂ %s ਰੁਪਏ ਕਟਾਂਗੇ ਅਤੇ ਜਦੋਂ ਤੁਸੀਂ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋਗੇ ਤਾਂ ਅਸੀਂ ਉਹ ਪੈਸੇ ਵਾਪਸ ਕਰ ਦੇਵਾਂਗੇ| ਤੁਹਾਡੇ ਬੈਂਕ ਤੇ ਨਿਰਭਰ ਕਰਦਿਆਂ, ਇਸ ਵਿੱਚ ਮਿੰਟਾਂ ਤੋਂ ਲੈ ਕੇ ਕੁੱਝ ਦਿਨਾਂ ਤੱਕ ਦਾ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ|</string>
   <string name="card_verification_code_title">ਲੈਣਦੇਣ ਦੇ ਵੇਰਵੇਆਂ ਵਿੱਚ ਕੋਡ ਦੀ ਜਾਂਚ ਕਰੋ</string>
   <string name="card_verification_code_body">ਤੁਹਾਡੇ ਕਾਰਡ ਦੇ ਜਾਰੀਕਰਤਾ ਦੁਆਰਾ ਪ੍ਰਦਾਨ ਕੀਤੇ ਸੌਦੇ ਦੇ ਸੰਖੇਪ ਵਿੱਚ ਇੱਕ ਵਿਲੱਖਣ ਕੋਡ ਦਿਖਾਈ ਦੇਵੇਗਾ|</string>
@@ -927,6 +929,8 @@
   <string name="card_verification_wallets_insert_bode_button">ਕੋਡ ਭਰੋ</string>
   <string name="card_verification_no_attempts_title">ਓਹ ਹੋ, ਤੁਸੀਂ ਬਹੁਤ ਵਾਰ ਗਲਤ ਕੋਡ ਪਾਇਆ ਹੈ ਤਾਂ %1$s ਤੁਹਾਡੇ ਕਾਰਡ ਤੇ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ|</string>
   <string name="card_verification_no_attempts_body">ਕਿਰਪਾ ਕਰਕੇ, ਪੁਸ਼ਟੀਕਰਣ ਪ੍ਰਕਿਰਿਆ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ|</string>
+  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">ਇਹ ਵਾਊਚਰ ਖਰੀਦੋ ਅਤੇ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="voucher_card_body_2"> %s%% ਤੱਕ ਦਾ ਬੋਨਸ|</string>
@@ -958,8 +962,14 @@
   <string name="e_skills_withdraw_invalid_email_error_message">ਗਲਤ ਈ-ਮੇਲ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">ਲੋੜੀਂਦਾ ਬੈਲੰਸ ਨਹੀਂ</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">ਤੁਸੀਂ ਸਿਰਫ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ</string>
-  <string name="e_skills_withdraw_max_amount">ਅਧਿਕਤਮ ਰਕਮ ਜੋ ਤੁਸੀਂ ਕੱਢਵਾ ਸਕਦੇ ਹੋ: %s</string>
-  <string name="e_skills_more_info_button">ਹੋਰ ਜਾਣਕਾਰੀ</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">ਤੁਸੀਂ ਸਿਰਫ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
   <string name="promo_code_view_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
@@ -971,7 +981,8 @@
   <string name="promo_code_active_tag">ਐਕਟਿਵ</string>
   <string name="promo_code_expired_tag">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
   <string name="promo_code_success_title">ਹੋ ਗਿਆ!</string>
-  <string name="promo_code_success_body">ਤੁਹਾਨੂੰ ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ %s%% ਵਾਧੂ ਬੋਨਸ ਮਿਲੇਗਾ|</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">ਐਪ ਸਿੱਕਿਆਂ ਬਾਰੇ</string>
   <string name="appcoins_info_prince_title">ਐਪ ਸਿੱਕਿਆਂ ਦੀ ਕੀਮਤ (ਐਪਸੀ)</string>

@@ -7,5 +7,13 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">ठीक</string>
   <string name="cancel">रद्द करें</string>
-  <string name="connectoin_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
+  <string name="connection_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
+  <string name="playing_game_notification_title">Currently playing e-Skills</string>
+  <string name="playing_game_notification_body">Getting game info…</string>
+  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="dismiss_button">निकालें</string>
+  <string name="location_not_available_title">e-Skills games are not available in your location</string>
+  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
 </resources>

@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Kihagyás &gt;</string>
   <string name="root_title">ALACSONY BIZTONSÁGÚ ESZKÖZ</string>
   <string name="root_body">Bármilyen root jogokkal rendelkező app hozzáférhet az AppCoins Wallet keychain-adataihoz, így el is lophatja azokat! Azonnal töröld ezt a tárcát, majd állítsd vissza egy biztonságos eszközön.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s APPC kredit</string>
   <string name="buying">Vásárlás: %s</string>
   <string name="action_buy">Vásárlás</string>
   <string name="empty"></string>
@@ -237,6 +237,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Tranzakció</string>
   <string name="transaction_type_bonus">Bónusz</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_voucher">e-Utalvány</string>
   <string name="transaction_type_voucher_title">%s utalvány</string>
   <string name="transaction_type_reverted_bonus_title">Visszavont bónusz</string>
@@ -384,9 +385,9 @@
   <string name="my_wallets_action_new_wallet">Új tárca</string>
   <string name="my_wallets_action_recover_wallet">Tárca visszaállítása</string>
   <string name="my_wallets_action_backup_wallet">Tárca biztonsági mentése</string>
-  <string name="my_wallets_action_verify_new_card">Új kártya hitelesítése</string>
+  <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Tárca törlése</string>
-  <string name="verify_card_title">Kártya hitelesítése</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Kérj meg valakit, hogy fizesse ki</string>
   <string name="askafriend_generating_link_message">Készül a fizetési link&#8230;</string>
@@ -533,7 +534,8 @@
   <string name="purchase_error_transaction_timeout">Úgy tűnik, a tranzakció túl sok időt vett igénybe. Próbáld újra.</string>
   <string name="purchase_error_card_already_in_progress">A kérelmed már feldolgozták vagy jelenleg is folyamatban van. Légy türelmes.</string>
   <string name="purchase_error_payment_rejected">A fizetést elutasították! Kérjük, próbálkozz másik kártyakibocsátóval vagy válassz másik fizetési módot.</string>
-  <string name="purchase_error_verify_wallet">A helyzet megoldása érdekében próbáld meg hitelesíteni a tárcád.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">Belépőjegy</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
@@ -902,7 +904,7 @@
   <string name="rate_us_back_title">Segítenél nekünk?</string>
   <string name="rate_us_back_body">Értékeld az AppCoins Walletot az alkalmazásboltban, hogy jobbá tehessük azt.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">A kártyádat %s összeggel terheljük, amit visszautalunk, amikor megerősíted a kódot. A banktól függően ez néhány percet vagy akár néhány napot is igénybe vehet.</string>
   <string name="card_verification_code_title">Ellenőrizd a kódot a tranzakció részletekben</string>
   <string name="card_verification_code_body">A kártyaszolgáltató által kiadott tranzakció összegzésben egy egyedi kód fog megjelenni.</string>
@@ -927,6 +929,8 @@
   <string name="card_verification_wallets_insert_bode_button">Kód megadása</string>
   <string name="card_verification_no_attempts_title">Hoppá, túl sokszor adtál meg helytelen kódot, ezért visszautaljuk a(z) %1$s összeget a kártyádra.</string>
   <string name="card_verification_no_attempts_body">Kezdd újra a hitelesítési eljárást.</string>
+  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Vedd meg ezt az utalványt és szerezz</string>
   <string name="voucher_card_body_2"> akár %s%% bónuszt.</string>
@@ -958,8 +962,14 @@
   <string name="e_skills_withdraw_invalid_email_error_message">Érvénytelen e-mail cím</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Kevés az egyenleg</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">Csak az e-Skills játékokban szerzett összeget veheted fel</string>
-  <string name="e_skills_withdraw_max_amount">A max. felvehető összeg: %s</string>
-  <string name="e_skills_more_info_button">További infó.</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">csak az e-Skills játékokban szerzett összeget veheted fel</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promóciós kód</string>
   <string name="promo_code_view_title">Promóciós kód</string>
@@ -971,7 +981,8 @@
   <string name="promo_code_active_tag">Aktív</string>
   <string name="promo_code_expired_tag">Lejárt</string>
   <string name="promo_code_success_title">Kész!</string>
-  <string name="promo_code_success_body">Minden vásárlás után %s%% bónuszt fog kapni.</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Az AppCoins-ról</string>
   <string name="appcoins_info_prince_title">AppCoins ár (APPC)</string>
