@@ -15,4 +15,5 @@ data class FieldsItem(
     @SerializedName("AWSAccessKeyId") var awsAccessKeyId: String,
     var policy: String,
     var signature: String,
+    @SerializedName("x-amz-security-token") var token: String?,
 )
