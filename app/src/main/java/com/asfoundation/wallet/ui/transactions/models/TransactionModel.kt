@@ -282,7 +282,6 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     val srcImage by bind<ImageView>(R.id.img)
     val typeIconLayout by bind<View>(R.id.type_icon)
     val typeIconImageView by bind<ImageView>(R.id.type_icon_image_view)
-    val subscriptionImageView by bind<ImageView>(R.id.subscription_icon)
     val address by bind<TextView>(R.id.address)
     val description by bind<TextView>(R.id.description)
     val valueTextView by bind<TextView>(R.id.value)

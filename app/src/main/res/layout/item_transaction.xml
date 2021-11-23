@@ -45,14 +45,6 @@
         android:visibility="visible"
         tools:src="@drawable/ic_transaction_poa"
         />
-    <ImageView
-        android:id="@+id/subscription_icon"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:src="@drawable/ic_transaction_subscription"
-        />
   </FrameLayout>
   <TextView
       android:id="@+id/address"
