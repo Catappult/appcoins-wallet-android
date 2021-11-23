@@ -64,12 +64,13 @@ class TransactionsMapper {
   private fun mapTransactionType(
       transaction: WalletHistory.Transaction): TransactionEntity.TransactionType {
     return when (transaction.type) {
+      "Transfer" -> TransactionEntity.TransactionType.TRANSFER
       "Transfer OffChain" -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
+      "Ether Transfer" -> TransactionEntity.TransactionType.ETHER_TRANSFER
       "Topup OffChain" -> TransactionEntity.TransactionType.TOP_UP
       "IAP OffChain" -> TransactionEntity.TransactionType.IAP_OFFCHAIN
       "bonus" -> TransactionEntity.TransactionType.BONUS
       "PoA OffChain" -> TransactionEntity.TransactionType.ADS_OFFCHAIN
-      "Ether Transfer" -> TransactionEntity.TransactionType.ETHER_TRANSFER
       "IAP" -> TransactionEntity.TransactionType.IAP
       "Bonus Revert OffChain" -> TransactionEntity.TransactionType.BONUS_REVERT
       "Topup Revert OffChain" -> TransactionEntity.TransactionType.TOP_UP_REVERT
