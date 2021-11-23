@@ -16,4 +16,5 @@
   <string name="dismiss_button">Kapat</string>
   <string name="location_not_available_title">e-Skills games are not available in your location</string>
   <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
+  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
 </resources>
