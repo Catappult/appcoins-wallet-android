@@ -949,7 +949,7 @@
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaksi sedang berlangsung!</string>
   <string name="block_transaction_disclaimer_body">Anda bisa melacaknya di Etherscan.</string>
-  <!--  Withdraw Funds-->
+  <!--  e-Skills-->
   <string name="e_skills_withdraw_settings_title">Penarikan e-Skills</string>
   <string name="e_skills_withdraw_email">Alamat e-mail PayPal</string>
   <string name="e_skills_withdraw_amount">Jumlah (USD)</string>
@@ -967,6 +967,9 @@
   <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Maybe later</string>
+  <string name="e_skills_room_create_title">Create or join a room</string>
+  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="e_skills_room_field">Your room name here...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Kode Promo</string>
   <string name="promo_code_view_title">Kode Promo</string>
