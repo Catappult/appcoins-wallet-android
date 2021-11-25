@@ -83,6 +83,7 @@ import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationA
 import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -511,6 +512,7 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesWalletInfoRepository(@Named("default") client: OkHttpClient,
+                                   walletInfoDao: WalletInfoDao,
                                    rxSchedulers: RxSchedulers): WalletInfoRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BACKEND_HOST)
@@ -519,7 +521,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(WalletInfoRepository.WalletInfoApi::class.java)
-    return WalletInfoRepository(api, rxSchedulers)
+    return WalletInfoRepository(api, walletInfoDao, rxSchedulers)
   }
 
 }

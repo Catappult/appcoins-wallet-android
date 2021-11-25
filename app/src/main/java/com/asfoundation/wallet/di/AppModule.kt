@@ -95,6 +95,8 @@ import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils.Companion.create
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.asfoundation.wallet.wallets.db.WalletInfoDao
+import com.asfoundation.wallet.wallets.db.WalletInfoDatabase
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -437,6 +439,12 @@ internal class AppModule {
   @Provides
   fun providesWalletOriginDao(promotionDatabase: PromotionDatabase): WalletOriginDao {
     return promotionDatabase.walletOriginDao()
+  }
+
+  @Singleton
+  @Provides
+  fun providesWalletInfoDao(walletInfoDatabase: WalletInfoDatabase): WalletInfoDao {
+    return walletInfoDatabase.walletInfoDao()
   }
 
   @Singleton

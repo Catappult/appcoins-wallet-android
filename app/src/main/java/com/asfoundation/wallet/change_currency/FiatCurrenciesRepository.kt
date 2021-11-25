@@ -35,15 +35,19 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
   }
 
   fun getCurrenciesList(): Single<List<FiatCurrencyEntity>> {
-    return if (pref.getBoolean(CURRENCY_LIST_FIRST_TIME, true)) {
-      pref.edit()
-          .putBoolean(CURRENCY_LIST_FIRST_TIME, false)
-          .apply()
-      fetchCurrenciesList()
-    } else {
-      fiatCurrenciesDao.getFiatCurrencies()
-          .subscribeOn(Schedulers.io())
-    }
+    return Single.just(pref.getBoolean(CURRENCY_LIST_FIRST_TIME, true))
+        .flatMap { firstTime ->
+          if (firstTime) {
+            pref.edit()
+                .putBoolean(CURRENCY_LIST_FIRST_TIME, false)
+                .apply()
+            fetchCurrenciesList()
+          } else {
+            fiatCurrenciesDao.getFiatCurrencies()
+          }
+        }
+        .subscribeOn(Schedulers.io())
+
   }
 
   fun getSelectedCurrency(): Single<String> {
@@ -54,13 +58,13 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
                 .putBoolean(SELECTED_FIRST_TIME, false)
                 .apply()
             return@flatMapCompletable conversionService.localCurrency.doOnSuccess {
-                  setSelectedCurrency(it.currency)
-                }
+              setSelectedCurrency(it.currency)
+            }
                 .ignoreElement()
           }
           return@flatMapCompletable Completable.complete()
         }
-        .andThen<Single<String>> { return@andThen getCachedSelectedCurrency() }
+        .andThen(getCachedSelectedCurrency())
         .subscribeOn(Schedulers.io())
   }
 
