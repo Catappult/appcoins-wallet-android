@@ -6,7 +6,7 @@ import com.appcoins.wallet.commons.Logger
 class WalletLogger(private var logReceivers: ArrayList<LogReceiver>): Logger {
 
   override fun log(tag: String?, message: String?) {
-    logReceivers.forEach { it.log(tag, message) }
+    logReceivers.forEach { receiver -> message?.let { message -> receiver.log(tag, message) } }
   }
 
   override fun log(tag: String?, throwable: Throwable?) {

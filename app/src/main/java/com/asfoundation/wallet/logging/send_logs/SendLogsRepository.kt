@@ -74,6 +74,7 @@ class SendLogsRepository(
               it.first.fields.signature.toRequestBody("text/plain".toMediaType()),
               it.first.fields.policy.toRequestBody("text/plain".toMediaType()),
               it.first.fields.key.toRequestBody("text/plain".toMediaType()),
+              it.first.fields.token?.toRequestBody("text/plain".toMediaType()),
               filePart,
           )
         }
@@ -128,6 +129,7 @@ class SendLogsRepository(
         @Part("signature") signature: RequestBody,
         @Part("policy") policy: RequestBody,
         @Part("Key") key: RequestBody,
+        @Part("x-amz-security-token") token: RequestBody?,
         @Part file: MultipartBody.Part,
     ): Completable
   }

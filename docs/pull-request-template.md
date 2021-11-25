@@ -15,25 +15,18 @@
 
 **How should this be manually tested?**
 
-  Flow on how to test this or QA Tickets related to this use-case: [MOB-XXXX](https://aptoide.atlassian.net/browse/MOB-<Jira ticket number>)
+  Flow on how to test this.
 
 **What are the relevant tickets?**
 
-  Tickets related to this pull-request: [MOB-XXXX](https://aptoide.atlassian.net/browse/MOB-<Jira ticket number>)
-
-**Questions:**
-
-   Does this add new dependencies which need to be added? (Eg. new libs, new keys, etc.)
-
-
-
+  Tickets related to this pull-request: [APPC-XXXX](https://aptoide.atlassian.net/browse/APPC-XXXX)
 
 **Code Review Checklist**
 
 - [ ] Architecture
 - [ ] Documentation on public interfaces
 - [ ] Database changed?
-- [ ] If yes - Database migration?
+- [ ] Database migration (if applicable)?
 - [ ] Remove comments & unused code & forgotten testing Logs
 - [ ] Codestyle
 - [ ] Functional QA tests pass

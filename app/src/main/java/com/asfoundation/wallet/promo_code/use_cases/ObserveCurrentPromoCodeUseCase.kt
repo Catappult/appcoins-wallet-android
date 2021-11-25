@@ -6,6 +6,6 @@ import io.reactivex.Observable
 
 class ObserveCurrentPromoCodeUseCase(private val promoCodeRepository: PromoCodeRepository) {
   operator fun invoke(): Observable<PromoCode> {
-    return promoCodeRepository.getCurrentPromoCode()
+    return promoCodeRepository.observeCurrentPromoCode()
   }
 }

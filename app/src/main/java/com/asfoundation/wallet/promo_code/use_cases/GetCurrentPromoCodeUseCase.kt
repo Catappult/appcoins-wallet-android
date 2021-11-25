@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 class GetCurrentPromoCodeUseCase(private val promoCodeRepository: PromoCodeRepository) {
   operator fun invoke(): Single<PromoCode> {
-    return promoCodeRepository.getCurrentPromoCode()
+    return promoCodeRepository.observeCurrentPromoCode()
         .firstOrError()
   }
 }

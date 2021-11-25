@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentChangeActiveWalletBinding
+import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.asfoundation.wallet.ui.wallets.WalletBalance
@@ -52,12 +53,32 @@ class ChangeActiveWalletDialogFragment : DaggerBottomSheetDialogFragment(),
   override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
 
   override fun onStateChanged(state: ChangeActiveWalletState) {
-    setWalletDetails(state.walletBalance)
+    when (state.changeWalletAsync) {
+      Async.Uninitialized -> setWalletDetails(state.walletBalance)
+      is Async.Loading -> setLoading()
+      is Async.Fail -> Unit
+      is Async.Success -> Unit
+    }
+  }
+
+  private fun setLoading() {
+    views.loading.visibility = View.VISIBLE
+    views.addressIcon.visibility = View.INVISIBLE
+    views.walletAddressCardView.visibility = View.INVISIBLE
+    views.totalBalanceLabelTextView.visibility = View.INVISIBLE
+    views.totalBalanceTextView.visibility = View.INVISIBLE
+    views.changeWalletButton.isEnabled = false
   }
 
   private fun setWalletDetails(walletBalance: WalletBalance) {
-    views.walletAddressTextView.text = walletBalance.walletAddress
+    views.loading.visibility = View.GONE
+    views.addressIcon.visibility = View.VISIBLE
+    views.walletAddressTextView.visibility = View.VISIBLE
+    views.totalBalanceLabelTextView.visibility = View.VISIBLE
+    views.totalBalanceTextView.visibility = View.VISIBLE
+    views.changeWalletButton.isEnabled = true
 
+    views.walletAddressTextView.text = walletBalance.walletAddress
     val balance = walletBalance.balance
     val amountText = if (balance.amount.compareTo(BigDecimal("-1")) == 1) {
       formatter.formatCurrency(balance.amount)
