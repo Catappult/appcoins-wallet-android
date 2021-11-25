@@ -68,6 +68,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     var address = getDefaultAddress(context, isSent)
     var txTypeIcon = R.drawable.ic_transaction_peer
     var isTypeIconVisible = isTypeIconVisibleBasedOnDescription(tx.details, uri)
+    var description = tx.details?.description ?: ""
 
     when (tx.type) {
       Transaction.TransactionType.IAP, Transaction.TransactionType.IAP_OFFCHAIN -> {
@@ -90,20 +91,20 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         currencySymbol = WalletCurrency.CREDITS.symbol
       }
       Transaction.TransactionType.TRANSFER_OFF_CHAIN -> {
-        txTypeIcon = R.drawable.transaction_type_transfer_off_chain
+        txTypeIcon = R.drawable.ic_chain
         isTypeIconVisible = true
-        address = context.getString(R.string.transaction_type_p2p)
+        description = context.getString(R.string.transaction_type_p2p)
         currencySymbol = WalletCurrency.CREDITS.symbol
       }
       Transaction.TransactionType.TRANSFER -> {
-        txTypeIcon = R.drawable.transaction_type_transfer_off_chain
+        txTypeIcon = R.drawable.ic_chain
+        description = context.getString(R.string.transaction_type_p2p)
         isTypeIconVisible = true
-        currencySymbol = WalletCurrency.CREDITS.symbol
       }
       Transaction.TransactionType.ETHER_TRANSFER -> {
-        txTypeIcon = R.drawable.transaction_type_transfer_off_chain
+        txTypeIcon = R.drawable.ic_chain
+        description = context.getString(R.string.transaction_type_p2p)
         isTypeIconVisible = true
-        currencySymbol = WalletCurrency.CREDITS.symbol
       }
       Transaction.TransactionType.BONUS_REVERT -> {
         address = context.getString(R.string.transaction_type_reverted_bonus_title)
@@ -133,7 +134,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     }
 
     holder.setIcons(uri, txTypeIcon, isTypeIconVisible)
-    holder.setDescription()
+    holder.setDescription(description)
     holder.setAddress(address)
     holder.setValues(currencySymbol!!, isSent)
   }
@@ -142,13 +143,8 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     address.text = text
   }
 
-  private fun TransactionHolder.setDescription() {
-    val details = tx.details
-    if (details != null) {
-      description.text = if (details.description == null) "" else details.description
-    } else {
-      description.text = ""
-    }
+  private fun TransactionHolder.setDescription(desc: String) {
+    description.text = desc
   }
 
   private fun TransactionHolder.setValues(currencySymbol: String, isSent: Boolean) {

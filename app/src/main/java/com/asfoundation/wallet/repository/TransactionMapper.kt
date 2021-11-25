@@ -158,7 +158,7 @@ class TransactionMapper {
       Transaction.TransactionType.BONUS_REVERT -> TransactionEntity.TransactionType.BONUS_REVERT
       Transaction.TransactionType.TOP_UP_REVERT -> TransactionEntity.TransactionType.TOP_UP_REVERT
       Transaction.TransactionType.IAP_REVERT -> TransactionEntity.TransactionType.IAP_REVERT
-      Transaction.TransactionType.TRANSFER -> TODO()
+      Transaction.TransactionType.TRANSFER -> TransactionEntity.TransactionType.TRANSFER
       Transaction.TransactionType.SUBS_OFFCHAIN -> TransactionEntity.TransactionType.INAPP_SUBSCRIPTION
       Transaction.TransactionType.ESKILLS_REWARD -> TransactionEntity.TransactionType.ESKILLS_REWARD
       Transaction.TransactionType.ESKILLS -> TransactionEntity.TransactionType.ESKILLS

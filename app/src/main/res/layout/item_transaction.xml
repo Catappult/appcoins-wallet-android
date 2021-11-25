@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:clipChildren="false"
     android:background="@color/white"
     android:elevation="@dimen/component_elevation"
     android:paddingTop="@dimen/normal_padding"
@@ -25,13 +27,17 @@
       tools:src="@drawable/ic_transaction_peer"
       />
 
-  <FrameLayout
+  <com.google.android.material.card.MaterialCardView
       android:id="@+id/type_icon"
       android:layout_width="24dp"
       android:layout_height="24dp"
       android:layout_marginStart="40dp"
-      android:background="@drawable/transaction_icon_background"
       android:visibility="invisible"
+      android:clipToPadding="false"
+      android:clipChildren="false"
+      app:cardBackgroundColor="@color/white"
+      app:shapeAppearance="@style/Home.PillShape"
+      app:cardElevation="8dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:visibility="visible"
@@ -43,9 +49,11 @@
         android:layout_gravity="center"
         android:contentDescription="@string/empty"
         android:visibility="visible"
-        tools:src="@drawable/ic_transaction_poa"
+        android:scaleType="fitXY"
+        tools:src="@drawable/ic_chain"
         />
-  </FrameLayout>
+  </com.google.android.material.card.MaterialCardView>
+
   <TextView
       android:id="@+id/address"
       android:layout_width="wrap_content"
