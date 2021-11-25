@@ -37,6 +37,7 @@ public class Transaction implements Parcelable {
   @Nullable private final List<Transaction> linkedTx;
   @Nullable private final String paidAmount;
   @Nullable private final String paidCurrency;
+  @Nullable private final String orderReference;
 
   public Transaction(String transactionId, TransactionType type, @Nullable SubType subType,
       @Nullable String title, @Nullable String description, @Nullable Perk perk,
@@ -44,7 +45,7 @@ public class Transaction implements Parcelable {
       TransactionStatus status, String value, String from, String to,
       @Nullable TransactionDetails details, @Nullable String currency,
       @Nullable List<Operation> operations, @Nullable List<Transaction> linkedTx,
-      @Nullable String paidAmount, @Nullable String paidCurrency) {
+      @Nullable String paidAmount, @Nullable String paidCurrency, @Nullable String orderReference) {
     this.transactionId = transactionId;
     this.subType = subType;
     this.title = title;
@@ -64,6 +65,7 @@ public class Transaction implements Parcelable {
     this.linkedTx = linkedTx;
     this.paidAmount = paidAmount;
     this.paidCurrency = paidCurrency;
+    this.orderReference = orderReference;
   }
 
   protected Transaction(Parcel in) {
@@ -98,6 +100,7 @@ public class Transaction implements Parcelable {
     }
     paidAmount = in.readString();
     paidCurrency = in.readString();
+    orderReference = in.readString();
   }
 
   @Override public int describeContents() {
@@ -142,6 +145,7 @@ public class Transaction implements Parcelable {
     dest.writeParcelableArray(linkedTxArray, flags);
     dest.writeString(paidAmount);
     dest.writeString(paidCurrency);
+    dest.writeString(orderReference);
   }
 
   @Override public int hashCode() {
@@ -163,6 +167,7 @@ public class Transaction implements Parcelable {
     result = 31 * result + (linkedTx != null ? linkedTx.hashCode() : 0);
     result = 31 * result + (paidAmount != null ? paidAmount.hashCode() : 0);
     result = 31 * result + (paidCurrency != null ? paidCurrency.hashCode() : 0);
+    result = 31 * result + (orderReference != null ? orderReference.hashCode() : 0);
     return result;
   }
 
@@ -189,6 +194,7 @@ public class Transaction implements Parcelable {
     if (!Objects.equals(operations, that.operations)) return false;
     if (!Objects.equals(paidAmount, that.paidAmount)) return false;
     if (!Objects.equals(paidCurrency, that.paidCurrency)) return false;
+    if (!Objects.equals(orderReference, that.orderReference)) return false;
     return Objects.equals(linkedTx, that.linkedTx);
   }
 
@@ -317,6 +323,10 @@ public class Transaction implements Parcelable {
 
   @Nullable public String getPaidCurrency() {
     return paidCurrency;
+  }
+
+  @Nullable public String getOrderReference() {
+    return orderReference;
   }
 
   public enum TransactionType {

@@ -22,11 +22,13 @@ data class TransactionEntity(val transactionId: String,
                              val from: String,
                              val to: String,
                              @Embedded val details: TransactionDetailsEntity?,
-                             val operations: List<OperationEntity>?) {
+                             val operations: List<OperationEntity>?,
+                             val orderReference: String?) {
 
   enum class TransactionType {
     STANDARD, IAP, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN,
-    ETHER_TRANSFER, BONUS_REVERT, TOP_UP_REVERT, IAP_REVERT, INAPP_SUBSCRIPTION, ESKILLS_REWARD, ESKILLS;
+    ETHER_TRANSFER, BONUS_REVERT, TOP_UP_REVERT, IAP_REVERT, INAPP_SUBSCRIPTION, ESKILLS_REWARD,
+    ESKILLS;
   }
 
   enum class SubType {

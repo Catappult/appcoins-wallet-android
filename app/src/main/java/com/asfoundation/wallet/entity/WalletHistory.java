@@ -2,11 +2,11 @@ package com.asfoundation.wallet.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.Nullable;
 
 @JsonIgnoreProperties(ignoreUnknown = true) public class WalletHistory {
 
@@ -47,6 +47,7 @@ import java.util.List;
     @JsonProperty("status") private Status status;
     @JsonProperty("operations") private List<Operation> operations;
     @JsonProperty("linked_tx") private List<String> linkedTx;
+    @JsonProperty("reference") private String orderReference;
 
     public List<Operation> getOperations() {
       return operations;
@@ -182,6 +183,14 @@ import java.util.List;
 
     public void setLinkedTx(List<String> linkedTx) {
       this.linkedTx = linkedTx;
+    }
+
+    public String getOrderReference() {
+      return orderReference;
+    }
+
+    public void setOrderReference(String orderReference) {
+      this.orderReference = orderReference;
     }
 
     @Override public String toString() {
