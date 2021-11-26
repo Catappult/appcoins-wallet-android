@@ -6,6 +6,7 @@ import android.view.View
 import cm.aptoide.skills.SkillsActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.service.WalletGetterStatus
@@ -27,6 +28,9 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var walletService: WalletService
+
+  @Inject
+  lateinit var logger: Logger
 
   @Inject
   lateinit var transferParser: TransferParser
@@ -68,7 +72,10 @@ class OneStepPaymentReceiver : BaseActivity() {
                   }
                   .toObservable()
             }
-            .subscribe({ }, { throwable: Throwable -> startApp(throwable) })
+            .subscribe({ }, { throwable: Throwable ->
+              logger.log("OneStepPaymentReceiver", throwable)
+              startApp(throwable)
+            })
       }
     }
   }

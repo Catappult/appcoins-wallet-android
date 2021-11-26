@@ -52,19 +52,18 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
 
   fun getSelectedCurrency(): Single<String> {
     return Single.just(pref.getBoolean(SELECTED_FIRST_TIME, true))
-        .flatMapCompletable { isFirstTime ->
+        .flatMap { isFirstTime ->
           if (isFirstTime) {
             pref.edit()
                 .putBoolean(SELECTED_FIRST_TIME, false)
                 .apply()
-            return@flatMapCompletable conversionService.localCurrency.doOnSuccess {
+            return@flatMap conversionService.localCurrency.doOnSuccess {
               setSelectedCurrency(it.currency)
             }
-                .ignoreElement()
+                .map { it.currency }
           }
-          return@flatMapCompletable Completable.complete()
+          return@flatMap getCachedSelectedCurrency()
         }
-        .andThen(getCachedSelectedCurrency())
         .subscribeOn(Schedulers.io())
   }
 
