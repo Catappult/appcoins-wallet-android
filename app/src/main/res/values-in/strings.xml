@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
   <string name="intro_agree_terms_and_conditions_body">Dengan mengetuk Lewatkan, Anda menyetujui %1$s dan %2$s Dompet AppCoins</string>
   <string name="intro_skip_button">LEWATKAN</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">Syarat dan Ketentuan</string>
   <string name="privacy_policy">Kebijakan Privasi</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Aplikasi Android terbaik menunggu Anda.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Harap jaga keamanan kata sandi Anda.</string>
   <string name="backup_additional_security_disclaimer_body">Tidak ada pemulihan kata sandi.</string>
   <string name="backup_additional_security_password_not_march">Kata sandi tidak cocok.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Total saldo dalam %s</string>
