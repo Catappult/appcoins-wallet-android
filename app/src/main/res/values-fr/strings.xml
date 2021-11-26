@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Portefeuille créé !</string>
   <string name="intro_agree_terms_and_conditions_body">En tapant sur Passer, vous acceptez les %1$s et %2$s du portefeuille AppCoins</string>
   <string name="intro_skip_button">PASSER</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">Termes et Conditions</string>
   <string name="privacy_policy">Politique de confidentialité</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Les meilleures applications Android vous attendent.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">DÉCOUVREZ LES APPLICATIONS AU TOP</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Veuillez conserver votre mot de passe en lieu sûr.</string>
   <string name="backup_additional_security_disclaimer_body">Il n\'y a pas de récupération de mot de passe.</string>
   <string name="backup_additional_security_password_not_march">Les mots de passe ne correspondent pas.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portefeuilles</string>
   <string name="wallets_total_balance_title">Solde total en %s</string>
