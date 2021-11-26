@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
   <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
   <string name="intro_skip_button">PRESKOČI</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Od</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">Uslovi i odredbe</string>
   <string name="privacy_policy">Smernice za privatnost</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Čekaju vas najbolje aplikacije za Android.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>
