@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Tárca létrehozva!</string>
   <string name="intro_agree_terms_and_conditions_body">A Kihagyás gombra bökve elfogadod az AppCoins Wallet %1$s és %2$s dokumentumait</string>
   <string name="intro_skip_button">KIHAGYÁS</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Feladó</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">Általános szerződési feltételek</string>
   <string name="privacy_policy">Adatvédelmi szabályzat</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Várnak rád a legjobb Android appok.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">FEDEZD FEL A LEGJOBB APPOKAT</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Ügyelj a jelszavad biztonságára.</string>
   <string name="backup_additional_security_disclaimer_body">Nincs jelszó visszaállítás.</string>
   <string name="backup_additional_security_password_not_march">A jelszavak nem egyeznek.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Tárcák</string>
   <string name="wallets_total_balance_title">Teljes egyenleg %s pénznemben</string>
