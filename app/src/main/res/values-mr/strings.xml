@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">वॉलेट बनविले!</string>
   <string name="intro_agree_terms_and_conditions_body">वगळा वर टॅप करुन आपण अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s ना मान्यता देता</string>
   <string name="intro_skip_button">वगळा</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">कडुन</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">अटी आणि शर्ती</string>
   <string name="privacy_policy">गोपनीयता धोरण</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">उत्कृष्ट अँड्रॉइड अॅप्स आपली वाट बघताहेत.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">कृपया आपला पासवर्ड सुरक्षित राखा.</string>
   <string name="backup_additional_security_disclaimer_body">पासवर्ड रिकव्हरी नाही.</string>
   <string name="backup_additional_security_password_not_march">पासवर्डस एकसमान नाहीत.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>
