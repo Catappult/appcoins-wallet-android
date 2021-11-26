@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Портфейл създаден!</string>
   <string name="intro_agree_terms_and_conditions_body">Кликвайки на Пропусни, ти се съгласяваш с  %1$s и %2$s на AppCoins портфейла</string>
   <string name="intro_skip_button">ПРОПУСНИ</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">От</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">Общи условия</string>
   <string name="privacy_policy">Политика за поверителност</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Най-добрите Android приложения те очакват.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ОТКРИЙ ТОП ПРИЛОЖЕНИЯ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Портфейли</string>
   <string name="wallets_total_balance_title">Общ баланс в %s</string>
