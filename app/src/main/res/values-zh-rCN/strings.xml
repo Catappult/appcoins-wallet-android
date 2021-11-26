@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">钱包已创建！</string>
   <string name="intro_agree_terms_and_conditions_body">点击“跳过”，即表示你同意AppCoins Wallet的%1$s和%2$s</string>
   <string name="intro_skip_button">跳过</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">条款与条件</string>
   <string name="privacy_policy">隐私政策</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">最精彩的安卓应用正等你去探索。</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">请确保您的密码安全。</string>
   <string name="backup_additional_security_disclaimer_body">密码不可恢复。</string>
   <string name="backup_additional_security_password_not_march">密码不匹配。</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
