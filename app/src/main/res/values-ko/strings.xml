@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">지갑이 생성되었습니다!</string>
   <string name="intro_agree_terms_and_conditions_body">건너뛰기를 탭하는 것으로, AppCoins 지갑의 %1$s 그리고 %2$s에 동의합니다</string>
   <string name="intro_skip_button">건너뛰기</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">송신</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">이용약관</string>
   <string name="privacy_policy">개인정보 보호정책</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">최고의 Android 앱이 당신을 위해 기다리고 있습니다.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">최고의 앱 찾아보기</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">비밀번호를 안전하게 보관하세요.</string>
   <string name="backup_additional_security_disclaimer_body">비밀번호 복구가 없습니다.</string>
   <string name="backup_additional_security_password_not_march">비밀번호가 일치하지 않습니다.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">지갑</string>
   <string name="wallets_total_balance_title">%s의 총 잔액</string>
