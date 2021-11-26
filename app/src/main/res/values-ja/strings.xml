@@ -131,6 +131,10 @@
   <string name="intro_agree_terms_and_conditions_body">\"\"\"スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
  \"\"\"</string>
   <string name="intro_skip_button">スキップ</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">差出人</string>
@@ -442,7 +446,7 @@
   <string name="terms_and_conditions">利用規約</string>
   <string name="privacy_policy">プライバシー ポリシー</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">最高のAndroidアプリがあなたを待っています。</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
@@ -662,6 +666,7 @@
   <string name="backup_additional_security_disclaimer_title">パスワードは大切に保管してください。</string>
   <string name="backup_additional_security_disclaimer_body">パスワードの復元はできません。</string>
   <string name="backup_additional_security_password_not_march">パスワードが一致しません。</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">ウォレット</string>
   <string name="wallets_total_balance_title">%sでの総残高</string>
