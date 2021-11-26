@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Wallet creato!</string>
   <string name="intro_agree_terms_and_conditions_body">Premendo \'Salta\' accetti i %1$s e l\'%2$s di AppCoins Wallet</string>
   <string name="intro_skip_button">SALTA</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Da</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">Termini e condizioni</string>
   <string name="privacy_policy">Informativa sulla privacy</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Le migliori app Android ti stanno aspettando!</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">SCOPRI LE MIGLIORI APP</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Conserva la tua password al sicuro.</string>
   <string name="backup_additional_security_disclaimer_body">Non è possibile recuperare la password.</string>
   <string name="backup_additional_security_password_not_march">Le password non corrispondono.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallet</string>
   <string name="wallets_total_balance_title">Saldo totale in %s</string>
