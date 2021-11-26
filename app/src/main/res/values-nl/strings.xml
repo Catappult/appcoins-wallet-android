@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Wallet is aangemaakt!</string>
   <string name="intro_agree_terms_and_conditions_body">Door op Overslaan te tikken, ga je akkoord met de %1$s en het %2$s van AppCoins Wallet</string>
   <string name="intro_skip_button">OVERSLAAN</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Van</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">Algemene voorwaarden</string>
   <string name="privacy_policy">Privacybeleid</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">De beste Android-apps wachten op je.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Bewaar je wachtwoord veilig.</string>
   <string name="backup_additional_security_disclaimer_body">Er is geen wachtwoordherstel.</string>
   <string name="backup_additional_security_password_not_march">De wachtwoorden komen niet overeen.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Totale saldo in %s</string>
