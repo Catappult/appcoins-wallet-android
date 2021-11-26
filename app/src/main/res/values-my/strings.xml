@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">ပိုက္ဆံအိတ္ကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
   <string name="intro_agree_terms_and_conditions_body">ေက်ာ္မည္ကို နွိပ္ျခင္းျဖင့္ သင္သည္ AppCoins ပိုက္ဆံအိတ္၏ %1$s ႏွင့္ %2$s ကို သေဘာတူျခင္း ျဖစ္ပါသည္</string>
   <string name="intro_skip_button">ေက်ာ္မည္</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
@@ -441,7 +445,7 @@
   <string name="terms_and_conditions">စည္းမ်ဥ္းစည္းကမ္းမ်ား</string>
   <string name="privacy_policy">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">အေကာင္းဆံုး အန္းဒ႐ိုက္အက္ပ္မ်ားက သင့္ကိုေစာင့္ေနပါသည္။</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -661,6 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">သင့္စကားဝွက္ကို ေဘးကင္းေအာင္ ထားေပးပါ။</string>
   <string name="backup_additional_security_disclaimer_body">စကားဝွက္ ျပန္လည္ရယူမႈ မရွိပါ။</string>
   <string name="backup_additional_security_password_not_march">စကားဝွက္မ်ား မကိုက္ညီပါ။</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="wallets_total_balance_title">%s တြင္ စုစုေပါင္းလက္က်န္ေငြ</string>
