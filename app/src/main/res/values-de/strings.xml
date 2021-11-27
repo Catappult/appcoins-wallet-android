@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Meine Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Passwort</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Erstellen</string>
   <!-- String related to sending -->
   <string name="prompt_to">An</string>
   <string name="action_send">Senden</string>
@@ -37,7 +37,7 @@
   <string name="barcode_error_format">Ungültiges Barcode-Format: %s</string>
   <string name="title_delete_account">Sind Sie sicher das Sie das Wallet entfernen wollen?</string>
   <string name="twitter">Twitter</string>
-  <string name="telegram">Telegram Group</string>
+  <string name="telegram">Telegram Gruppe</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
   <string name="title_opensource">Open-Source-Entwicklung</string>
