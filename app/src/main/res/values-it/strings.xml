@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">I miei wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Password</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Crea</string>
   <!-- String related to sending -->
   <string name="prompt_to">A</string>
   <string name="action_send">Invia</string>
@@ -24,7 +24,7 @@
   <string name="close">Chiudi</string>
   <string name="title_activity_settings">Impostazioni</string>
   <string name="network_label">Rete</string>
-  <string name="credits">Credits</string>
+  <string name="credits">Crediti</string>
   <string name="label_new">Novità</string>
   <string name="got_it_button">HO CAPITO</string>
   <string name="change_button">MODIFICA</string>
