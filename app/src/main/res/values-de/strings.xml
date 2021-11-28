@@ -915,7 +915,7 @@
   <string name="rate_us_back_title">Wollen Sie uns helfen?</string>
   <string name="rate_us_back_body">Bewerten Sie AppCoins Wallet im App-Store damit wir es verbessern können.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">Bestätigen Sie ihre Kredit-/Debitkarte, um Zahlungen vornehmen zu können.</string>
   <string name="card_verification_charde_disclaimer">Wir belasten ihre Karte mit %s, sobald Sie den Code bestätigen werden wir den Betrag zurück überweisen. Abhängig von ihrer Bank kann das zwischen einigen Minuten bis zu ein paar Tagen dauern.</string>
   <string name="card_verification_code_title">Überprüfen Sie den Code in den Transaktionsdetails</string>
   <string name="card_verification_code_body">Es wird ein einmaliger Code in der Zusammenfassung ihrer Transaktion, die von ihrem Kartenaussteller zur Verfügung gestellt wird, erscheinen.</string>
@@ -940,8 +940,8 @@
   <string name="card_verification_wallets_insert_bode_button">Code eingeben</string>
   <string name="card_verification_no_attempts_title">Upps, Sie haben zu oft einen falschen Code eingegeben deshalb wird ihnen %1$s wieder auf ihre Karte eingezahlt.</string>
   <string name="card_verification_no_attempts_body">Bitte starten Sie den Verifikationsprozess erneut.</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Validate Card</string>
+  <string name="wallet_verify_header">Bestätigen Sie mindestens eine Zahlungsmethode</string>
+  <string name="verify_card_title">Karte Überprüfen</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Kaufen Sie dieses Voucher und erhalten Sie</string>
   <string name="voucher_card_body_2"> bis zu %s%% Bonus.</string>
@@ -973,17 +973,17 @@
   <string name="e_skills_withdraw_invalid_email_error_message">Ungültige E-Mail Adresse</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Guthaben nicht ausreichend</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">Sie können nur das Guthaben abheben dass Sie in e-Skill Spielen verdient haben</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Der Mindestbetrag für eine Abhebung beträgt $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">Sie können abheben:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_know_more_about">Erfahren Sie mehr über e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">Sie können nur das Guthaben abheben dass Sie in e-Skill Spielen verdient haben</string>
+  <string name="e_skills_withdraw_started">Ihre Abhebung von $%1$.2f \nwurde gestartet</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
+  <string name="e_skills_withdraw_maybe_later">Vielleicht später</string>
+  <string name="e_skills_room_create_title">Einem Raum beitreten oder erstellen</string>
+  <string name="e_skills_room_create_body">Erstellen Sie einen Raum und teilen Sie ihn mit ihren Gegenspielern oder treten Sie einem existierenden Raum bei.</string>
+  <string name="e_skills_room_field">Geben Sie den Namen ihres Raumes hier ein...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promotion-Code</string>
   <string name="promo_code_view_title">Promotion-Code</string>
@@ -995,9 +995,9 @@
   <string name="promo_code_active_tag">Aktiv</string>
   <string name="promo_code_expired_tag">Abgelaufen</string>
   <string name="promo_code_success_title">Erledigt!</string>
-  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_success_body">Sie erhalten %s%% zusätzlichen Bonus auf all ihre Einkäufe.</string>
+  <string name="promo_code_success_body_specific_app">Sie erhalten %1$s%% zusätzlichen Bonus auf all ihre Einkäufe bei %2$s.</string>
+  <string name="promo_code_promotions_tag">Aktionscode</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Über AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Kurs (APPC)</string>
