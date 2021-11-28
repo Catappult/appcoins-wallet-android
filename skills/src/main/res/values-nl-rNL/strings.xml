@@ -8,13 +8,13 @@
   <string name="ok">OK</string>
   <string name="cancel">Annuleren</string>
   <string name="connection_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="playing_game_notification_title">Je speelt momenteel een game met e-Skills</string>
+  <string name="playing_game_notification_body">Informatie over game ophalen…</string>
+  <string name="finish_game_notification_title">Je game met e-Skills is afgelopen</string>
+  <string name="won_game_notification_body">Je hebt gewonnen! Er is $ %1$.2f aan je wallet toegevoegd!</string>
+  <string name="lost_game_notification_body">Je hebt verloren... Volgende keer beter!</string>
   <string name="dismiss_button">Niet accepteren</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="location_not_available_title">Op jouw locatie zijn games met e-Skills niet beschikbaar</string>
+  <string name="location_not_available_body">We werken er hard aan om deze games voor iedereen beschikbaar te maken. Blijf ons volgen!</string>
+  <string name="shared_room_waiting">Wachten tot tegenstanders zich aansluiten bij %s</string>
 </resources>
