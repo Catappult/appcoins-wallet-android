@@ -255,7 +255,7 @@
   <string name="transaction_onchain_completed_title">Transaktion wird verarbeitet!</string>
   <string name="transaction_onchain_completed_body">Sie können die Transaktion auf Etherscan verfolgen.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
-  <string name="transaction_details_brand_txt">Powered By Ethereum</string>
+  <string name="transaction_details_brand_txt">Unterstützt durch Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
@@ -445,7 +445,7 @@
   <string name="terms_and_conditions">Allgemeinen Geschäftsbedingungen</string>
   <string name="privacy_policy">Datenschutzrichtlinie</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Kaufe bei deinem Lieblingsspiel ein und wir erledigen alles andere.</string>
   <string name="home_empty_discover_apps_button">ENTDECKEN SIE DIE BESTEN APPS</string>
   <!--Tokens-->
   <!--Settings-->
