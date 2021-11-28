@@ -8,13 +8,13 @@
   <string name="ok">အိုေက</string>
   <string name="cancel">ပယ္ဖ်က္မည္</string>
   <string name="connection_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="playing_game_notification_title">လက္ရွိကစားေနေသာ e-Skills</string>
+  <string name="playing_game_notification_body">ဂိမ္းအခ်က္အလက္ကို ရယူေနပါသည္…</string>
+  <string name="finish_game_notification_title">သင့္ e-Skills ဂိမ္း ၿပီးသြားပါၿပီ</string>
+  <string name="won_game_notification_body">သင္ႏိုင္သြားပါသည္။ ယခုအခါ သင့္ပိုက္ဆံအိတ္တြင္ $%1$.2f ပိုမ်ားသြားပါၿပီ။</string>
+  <string name="lost_game_notification_body">သင္ရႈံးသြားပါသည္… ေနာက္တစ္ခါ ကံပိုေကာင္းပါေစ။</string>
   <string name="dismiss_button">ဖယ္မည္</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="location_not_available_title">e-Skills ဂိမ္းမ်ားကို သင့္ေဒသတြင္ မကစားႏိုင္ပါ</string>
+  <string name="location_not_available_body">ယင္းတို႔ကို လူတိုင္းအတြက္ ယူေဆာင္ေပးႏိုင္ရန္ ကြၽႏ္ုပ္တို႔ အျပင္းအထန္ ႀကိဳးစားေနေသာေၾကာင့္ မၾကာခင္ ျပန္လာခဲ့ပါ။</string>
+  <string name="shared_room_waiting">%s တြင္ ပါဝင္မည့္ ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
 </resources>
