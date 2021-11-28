@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Tárcáim</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Jelszó</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Létrehozás</string>
   <!-- String related to sending -->
   <string name="prompt_to">Címzett</string>
   <string name="action_send">Küldés</string>
@@ -33,7 +33,7 @@
   <string name="no_camera_permission_title">Engedély kamera használatára</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
   <string name="no_camera_available">Nincs elérhető kamera!</string>
-  <string name="ok">Ok</string>
+  <string name="ok">Oké</string>
   <string name="barcode_error_format">Érvénytelen formátumú Qr-kód: %s</string>
   <string name="title_delete_account">Biztos vagy benne, hogy eltávolítod a tárcát?</string>
   <string name="twitter">Twitter</string>
