@@ -1012,5 +1012,5 @@
   <string name="appcoins_info_volume_title">Volumen (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_no_nfts">Zur Zeit sind keine NTFs verfügbar.</string>
 </resources>
