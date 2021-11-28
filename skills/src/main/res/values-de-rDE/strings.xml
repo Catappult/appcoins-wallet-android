@@ -8,13 +8,13 @@
   <string name="ok">OK</string>
   <string name="cancel">Abbrechen</string>
   <string name="connection_error_body">Scheinbar sind Sie nicht mit dem Internet verbunden. Überprüfen Sie ihrer Verbindung und überprüfen Sie es erneut!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="playing_game_notification_title">Aktuell spielende e-Skills</string>
+  <string name="playing_game_notification_body">Spieleinfo erhalten…</string>
+  <string name="finish_game_notification_title">Dein e-Skills Spiel wurde beendet</string>
+  <string name="won_game_notification_body">Du hast gewonnen! Dein Walletguthaben um $%1$.2f angewachsen!</string>
+  <string name="lost_game_notification_body">Du hast verloren... Viel Glück beim nächsten mal!</string>
   <string name="dismiss_button">Ablehnen</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="location_not_available_title">e-Skills Spiele sind in deiner Region nicht verfügbar</string>
+  <string name="location_not_available_body">Wir arbeiten hart daran diese Spiele für dich zu ermöglichen, also komm bald wieder!</string>
+  <string name="shared_room_waiting">Warten auf Gegenspieler die %s beitreten</string>
 </resources>
