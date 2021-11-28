@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">ကၽြႏ္ုပ္၏ ပိုက္ဆံအိတ္မ်ား</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">စကားဝွက္</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">ျပဳလုပ္မည္</string>
   <!-- String related to sending -->
   <string name="prompt_to">သို႔</string>
   <string name="action_send">ေပးပို႔မည္</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">မ်ားမ်ားကစားပါ၊ နည္းနည္းပဲေပးပါ</string>
   <string name="intro_2_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းအတြက္ ဆုရယူလိုက္ပါ။</string>
   <string name="intro_3_title">႐ိုးရွင္းၿပီး လြယ္ကူပါသည္</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">ထည့္သြင္းထားေသာ AppCoins Wallet ကို သင့္ဂိမ္းမ်ားတြင္ တိုက္႐ိုက္ဝယ္ယူရန္ ထားရွိပါ။</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
   <string name="intro_4_body">သင့္သီးသန္႔ကီးမ်ားသည္ သင့္စက္ပစၥည္းတြင္သာ ရွိေနမည္ ျဖစ္ေသာေၾကာင့္ သင့္ AppCoins မ်ားမွာ အခ်ိန္ျပည့္ လံုျခံဳပါသည္။</string>
   <string name="intro_4_body_2">ေနာက္ဆံုးေပၚနည္းပညာေၾကာင့္ သင့္ေငြလႊဲေျပာင္းမႈအားလံုး အၿမဲလံုျခံဳပါသည္။</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">ပိုက္ဆံအိတ္ကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
   <string name="intro_agree_terms_and_conditions_body">ေက်ာ္မည္ကို နွိပ္ျခင္းျဖင့္ သင္သည္ AppCoins ပိုက္ဆံအိတ္၏ %1$s ႏွင့္ %2$s ကို သေဘာတူျခင္း ျဖစ္ပါသည္</string>
   <string name="intro_skip_button">ေက်ာ္မည္</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">AppCoins Wallet မွ ႀကိဳဆိုပါသည္</string>
+  <string name="intro_welcome_body">အက္ပ္အတြင္း ဝယ္ယူမႈမ်ားအတြက္ သင့္အက္ပ္</string>
+  <string name="intro_already_have_wallet_button">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
+  <string name="intro_get_started_button">စတင္မည္</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
@@ -241,8 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">လႊဲေျပာင္းမည္</string>
   <string name="transaction_type_bonus">ေဘာနပ္စ္</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills_reward">e-Skills ဆု</string>
+  <string name="transaction_type_eskills">e-Skills ဝယ္ယူမႈ</string>
   <string name="transaction_type_voucher">အီးေဘာက္ခ်ာ</string>
   <string name="transaction_type_voucher_title">%s အတြက္ ေဘာက္ခ်ာ</string>
   <string name="transaction_type_reverted_bonus_title">ျပန္ပို႔ခဲ့ေသာဘောနပ္စ္</string>
@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">ပိုက္ဆံအိတ္အသစ္</string>
   <string name="my_wallets_action_recover_wallet">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="my_wallets_action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
+  <string name="my_wallets_action_verify_new_card">ကဒ္အသစ္ကို အတည္ျပဳပါ</string>
   <string name="my_wallets_action_delete_wallet">ပိုက္ဆံအိတ္ကိုဖ်က္မည္</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ေပးေခ်ရန္ တစံုတေယာက္ကို ေျပာပါ</string>
@@ -428,7 +428,7 @@
   <string name="discover_button">ရွာေဖြမည္</string>
   <string name="retry_button">ျပန္ႀကိဳးစားမည္</string>
   <string name="do_it_later_button">ေနာက္မွလုပ္မည္</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connection_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
   <string name="common_or">သို႔မဟုတ္</string>
   <string name="share_via">မွ်ေ၀ရန္ -</string>
   <string name="password">စကားဝွက္</string>
@@ -445,7 +445,7 @@
   <string name="terms_and_conditions">စည္းမ်ဥ္းစည္းကမ္းမ်ား</string>
   <string name="privacy_policy">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">သင့္စိတ္ႀကိဳက္ဂိမ္းတြင္ ဝယ္ယူမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။ က်န္တာကို ကြၽႏ္ုပ္တို႔တာဝန္ထားပါ။</string>
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -482,10 +482,10 @@
   <string name="verification_settings_unverified_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳမည္</string>
   <string name="verification_settings_unverified_body">ဆုမ်ားကို ရယူကာ သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚလိုက္ပါ</string>
   <string name="verification_settings_verified_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳၿပီးပါၿပီ</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
+  <string name="verification_settings_verifying_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳေနပါသည္…</string>
+  <string name="verification_verified_paypal_description">သင့္ကို ခ်က္ခ်င္းေငြျပန္အမ္းေပးပါမည္။ သင့္ပိုက္ဆံအိတ္ကို အခ်ိန္အနည္းငယ္အတြင္း အတည္ျပဳေပးပါမည္။</string>
+  <string name="verification_verify_paypal_description">သင့္အေကာင့္ကို အတည္ျပဳရန္ အနည္းဆုံး ေငြလႊဲေျပာင္းမႈျဖစ္သည့္ %s ကို ျပဳလုပ္ပါမည္။ ယင္းကို ခ်က္ခ်င္းေငြျပန္အမ္းေပးပါမည္။</string>
+  <string name="verification_verify_paypal_button">ယခုပင္ အတည္ျပဳမည္</string>
   <string name="verification_settings_card_verified_title">ကဒ္ကိုအတည္ျပဳလိုက္ပါသည္</string>
   <string name="verification_settings_no_internet">အင္တာနက္ခ်ိတ္ဆက္ထားရန္ လိုအပ္ပါသည္</string>
   <string name="verification_error_time_expired">အိုုး သင့္အခ်ိန္ကုန္သြားပါၿပီ။ ျပန္လည္စတင္ပါ။</string>
@@ -542,9 +542,9 @@
   <string name="purchase_error_transaction_timeout">ေငြလႊဲေျပာင္းမႈကို ၿပီးေအာင္လုပ္ရန္ သင္အခ်ိန္အလြန္ၾကာေနပုံ ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_error_card_already_in_progress">သင့္ေတာင္းဆိုမႈကို စီစဥ္ေဆာင္႐ြက္ထားၿပီး သို႔မဟုတ္ ေဆာင္႐ြက္ေနဆဲ ျဖစ္ပါသည္။ ေစာင့္ေပးပါ။</string>
   <string name="purchase_error_payment_rejected">ေငြေပးေခ်မႈကို ျငင္းဆန္လိုက္ပါသည္။ အျခားထုတ္ေပးသူ တစ္ဦးထံမွ ကဒ္တစ္ကဒ္ျဖင့္ စမ္းၾကည့္ေပးပါ သို႔မဟုတ္ အျခားေငြေပးေခ်မႈ နည္းလမ္းကို အသုံးျပဳေပးပါ။</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
+  <string name="purchase_error_verify_wallet">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ေငြေပးေခ်မႈနည္းလမ္းကို အတည္ျပဳပါ။</string>
+  <string name="purchase_error_verify_card">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ကဒ္ကို အတည္ျပဳပါ။</string>
+  <string name="purachse_error_verify_card_button">ကဒ္ကို အတည္ျပဳမည္</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
@@ -665,7 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">သင့္စကားဝွက္ကို ေဘးကင္းေအာင္ ထားေပးပါ။</string>
   <string name="backup_additional_security_disclaimer_body">စကားဝွက္ ျပန္လည္ရယူမႈ မရွိပါ။</string>
   <string name="backup_additional_security_password_not_march">စကားဝွက္မ်ား မကိုက္ညီပါ။</string>
-  <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="import_wallet_recovering_body">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူေနပါသည္...</string>
   <!--Wallets Management-->
   <string name="wallets_title">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="wallets_total_balance_title">%s တြင္ စုစုေပါင္းလက္က်န္ေငြ</string>
@@ -730,7 +730,7 @@
   <string name="subscriptions_subscribe_button">ပုံမွန္ရယူမည္</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
   <string name="subscriptions_expired_title">သက္တမ္းကုန္သြားပါၿပီ</string>
-  <string name="subscriptions_inactive_title">Inactive</string>
+  <string name="subscriptions_inactive_title">သက္ဝင္ျခင္း မရွိပါ</string>
   <string name="subscriptions_empty_title">ပံုမွန္၀ယ္ယူမႈမ်ား မရွိေသးပါ</string>
   <string name="subscriptions_empty_body">သင့့္စိတ္ႀကိဳက္အက္ပ္မ်ားနွင့္ ဂိမ္မ်ားတြင္ ၀န္ေဆာင္မႈမ်ားကို ပံုမွန္၀ယ္ယူလိုက္ပါ။ ကာလအလိုက္ ေငြေပးေခ်မႈမ်ားကို ကၽြႏ္ုပ္တို႔ လုပ္ေဆာင္ေပးပါမည္။</string>
   <string name="subscriptions_details_billing_title">က်သင့္ေငြေကာက္ခံျခင္း -</string>
@@ -892,7 +892,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">မွတ္တမ္းမ်ားကို ပံ့ပိုးေရးအဖြဲ႕ထံသို႔ ေပးပို႔မည္</string>
   <string name="send_logs_sending">ေပးပို႔ေနပါသည္&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">ေပးပို႔လိုက္ပါသည္။</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins Wallet ကို ႏွစ္သက္ပါသလား။</string>
@@ -908,7 +908,7 @@
   <string name="rate_us_back_title">ကၽြႏ္ုပ္တို႔ကို ကူညီလိုပါသလား။</string>
   <string name="rate_us_back_body">AppCoins Wallet ကို ပိုမိုေကာင္းမြန္ေအာင္ ကၽြႏ္ုပ္တို႔ျပဳလုပ္ႏိုင္ေစရန္ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးပါ။</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">ေငြေပးေခ်မႈမ်ား ျပဳလုပ္ရန္ သင့္ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ကို အတည္ျပဳပါ။</string>
   <string name="card_verification_charde_disclaimer">သင့္ကဒ္ကို %s ေကာက္ခံမည္ျဖစ္ကာ ကုဒ္ကိုသင္အတည္ျပဳလိုက္သည္ႏွင့္ ေငြျပန္အမ္းေပးပါမည္။ သင့္ဘဏ္အေပၚ မူတည္၍ ယင္းသည္ မိနစ္ပိုင္းမွ ရက္အနည္းငယ္အထိ ၾကာႏိုင္ပါသည္။</string>
   <string name="card_verification_code_title">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားပါ ကုဒ္ကို စစ္ေဆးပါ</string>
   <string name="card_verification_code_body">သင့္ကဒ္ကိုထုတ္ေပးသူကေပးေသာ ေငြလႊဲေျပာင္းမႈ အက်ဥ္းခ်ဳပ္တြင္ သီးျခားကုဒ္တစ္ခု ေတြ႕ရပါမည္။</string>
@@ -931,8 +931,8 @@
   <string name="card_verification_wallets_insert_bode_button">ကုဒ္ကိုထည့္ပါ</string>
   <string name="card_verification_no_attempts_title">အိုး သင္က မွားယြင္းေသာကုဒ္တစ္ခုကို အႀကိမ္မ်ားစြာ ထည့္သြင္းခဲ့ေသာေၾကာင့္ %1$s ကို သင့္ကဒ္သို႔ ေငြျပန္အမ္းေပးမည္ ျဖစ္ပါသည္။</string>
   <string name="card_verification_no_attempts_body">အတည္ျပဳသည့္ လုပ္ငန္းစဥ္ကို ျပန္လည္စတင္ေပးပါ။</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Validate Card</string>
+  <string name="wallet_verify_header">ေငြေပးေခ်မႈနည္းလမ္း အနည္းဆုံးတစ္ခုကို အတည္ျပဳပါ</string>
+  <string name="verify_card_title">ကဒ္ကို အတည္ျပဳပါ</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">ဤေဘာက္ခ်ာကို ဝယ္ယူကာ ရယူလိုက္ပါ</string>
   <string name="voucher_card_body_2"> %s%% အထိ ေဘာနပ္စ္။</string>
@@ -963,18 +963,18 @@
   <string name="e_skills_withdraw_title">e-Skills ေငြထုတ္ယူမႈ</string>
   <string name="e_skills_withdraw_invalid_email_error_message">အီးေမးလ္ မမွန္ကန္ပါ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">လက္က်န္ေငြ မလုံေလာက္ပါ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">ဤပမာဏကို ထုတ္ယူႏိုင္ေလာက္ေအာင္ e-Skills ဂိမ္းမ်ား သင္မႏိုင္ထားေသးပါ</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">ထုတ္ယူရမည့္ အနည္းဆုံး ပမာဏမွာ $%1$.2f ျဖစ္ပါသည္</string>
+  <string name="e_skills_withdraw_max_amount_part_1">သင္ထုတ္ယူႏိုင္သည္မွာ -</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_know_more_about">e-Skills အေၾကာင္း ပိုသိေအာင္ လုပ္လိုက္ပါ</string>
+  <string name="e_skills_know_more_about_tmp">e-Skills ဂိမ္းမ်ားတြင္ ရရွိခဲ့ေသာ ေငြမ်ားကိုသာ သင္ထုတ္ယူႏိုင္ပါသည္</string>
+  <string name="e_skills_withdraw_started">$%1$.2f \n ထုတ္ယူမႈကို စတင္လိုက္ပါသည္</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
+  <string name="e_skills_withdraw_maybe_later">ေနာက္မွလုပ္မည္</string>
+  <string name="e_skills_room_create_title">အခန္းတစ္ခန္းကို ျပဳလုပ္တြင္ သို႔မဟုတ္ ပါဝင္ပါ</string>
+  <string name="e_skills_room_create_body">အခန္းအသစ္ တစ္ခန္းကို ျပဳလုပ္ကာ သင့္ၿပိဳင္ဖက္မ်ားထံ မွ်ေဝလိုက္ပါ သို႔မဟုတ္ ရွိၿပီးသား အခန္းတစ္ခန္းတြင္ ပါဝင္လိုက္ပါ။</string>
+  <string name="e_skills_room_field">ဤေနရာတြင္ သင့္အခန္းအမည္...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">ပ႐ိုမိုကုဒ္</string>
   <string name="promo_code_view_title">ပ႐ိုမိုကုဒ္</string>
@@ -986,11 +986,11 @@
   <string name="promo_code_active_tag">သုံးႏိုင္ေသာ</string>
   <string name="promo_code_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
   <string name="promo_code_success_title">ၿပီးပါၿပီ။</string>
-  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_success_body">သင့္ဝယ္ယူမႈမ်ား အားလုံးတြင္ %s%% အပိုေဘာနပ္စ္ ရရွိပါမည္။</string>
+  <string name="promo_code_success_body_specific_app">%2$s ရွိ သင့္ဝယ္ယူမႈမ်ား အားလုံးတြင္ %1$s%% အပိုေဘာနပ္စ္ ရရွိပါမည္။</string>
+  <string name="promo_code_promotions_tag">ပ႐ိုမိုးရွင္းကုဒ္</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">AppCoins အေၾကာင္း</string>
   <string name="appcoins_info_prince_title">AppCoins ေစ်းႏႈန္း (APPC)</string>
   <string name="appcoins_info_title_1">AppCoins ဆိုတာဘာလဲ။</string>
   <string name="appcoins_info_body_1">AppCoins သည္ Aptoide မွ ဖန္တီးထားေသာ ဒီဂ်စ္တယ္တိုကင္ တစ္ခုျဖစ္ၿပီး ကမာၻအႏွံ႔တြင္ အသုံးျပဳသူေပါင္း သန္း ၂၀၀ ေက်ာ္က အသုံးျပဳေနပါသည္။ ဤဆန္းသစ္တီထြင္ထားေသာ ေငြေပးေခ်မႈ ေျဖရွင္းခ်က္၏ အဓိက ရည္႐ြယ္ခ်က္မွာ အက္ပ္စီးပြားေရးတြင္ ယုံၾကည္မႈကို ရေစရန္ႏွင့္ ၾကားခံေဆာင္႐ြက္သူမ်ားကို ဖယ္ရွားရန္ ျဖစ္ပါသည္။</string>
@@ -1003,5 +1003,5 @@
   <string name="appcoins_info_volume_title">ပမာဏ (၂၄ နာရီ)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_no_nfts">လက္ရွိတြင္ မည္သည့္ NFT မွ် မရရွိႏိုင္ပါ။</string>
 </resources>
