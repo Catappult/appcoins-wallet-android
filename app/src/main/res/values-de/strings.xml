@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">Neues Wallet</string>
   <string name="my_wallets_action_recover_wallet">Wallet wiederherstellen</string>
   <string name="my_wallets_action_backup_wallet">Wallet-Backup erstellen</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
+  <string name="my_wallets_action_verify_new_card">Neue Karte überprüfen</string>
   <string name="my_wallets_action_delete_wallet">Wallet löschen</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Bitten Sie jemanden die Bezahlung zu übernehmen</string>
