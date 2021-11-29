@@ -879,7 +879,7 @@
   <string name="perks_level_up_amount_left">您距離下一個等級還有%1$s %2$s！</string>
   <string name="perks_level_up_level_tag">等級 %s</string>
   <string name="perks_bonus_purchase_flow">%1$s獎勵：價值%2$s的AppCoins點數</string>
-  <string name="perks_purchases_disclaimer_body">除了AppCoins點數之外，透過任何付款方式進行的購買和儲值都可以提高您的等級並獲得獎勵。</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">在與AppCoins相容的應用程式中進行首購，即可解鎖我們為您準備的促銷活動！</string>
   <string name="perks_empty_body">當前沒有促銷活動。</string>
   <!--Fingerprint Authentication-->
