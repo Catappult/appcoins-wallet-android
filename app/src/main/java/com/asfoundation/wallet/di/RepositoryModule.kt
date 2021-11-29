@@ -69,7 +69,6 @@ import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
-import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesUserStatsLocalData
@@ -273,7 +272,7 @@ class RepositoryModule {
   fun provideBalanceRepository(context: Context,
                                localCurrencyConversionService: LocalCurrencyConversionService,
                                getDefaultWalletBalanceInteract: GetDefaultWalletBalanceInteract,
-                               getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): BalanceRepository {
+                               getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): AppcoinsBalanceRepository {
     return AppcoinsBalanceRepository(getDefaultWalletBalanceInteract,
         localCurrencyConversionService,
         Room.databaseBuilder(context.applicationContext, BalanceDetailsDatabase::class.java,

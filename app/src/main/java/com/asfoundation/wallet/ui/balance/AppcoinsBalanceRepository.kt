@@ -9,6 +9,7 @@ import com.asfoundation.wallet.ui.balance.database.BalanceDetailsEntity
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -19,8 +20,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
                                 private val balanceDetailsDao: BalanceDetailsDao,
                                 private val balanceDetailsMapper: BalanceDetailsMapper,
                                 private val networkScheduler: Scheduler,
-                                private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase) :
-    BalanceRepository {
+                                private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase){
   private var ethBalanceDisposable: Disposable? = null
   private var appcBalanceDisposable: Disposable? = null
   private var creditsBalanceDisposable: Disposable? = null
@@ -29,7 +29,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
     private const val SUM_FIAT_SCALE = 4
   }
 
-  override fun getEthBalance(address: String): Observable<Pair<Balance, FiatValue>> {
+  fun getEthBalance(address: String): Observable<Pair<Balance, FiatValue>> {
     if (ethBalanceDisposable == null || ethBalanceDisposable!!.isDisposed) {
       ethBalanceDisposable = balanceGetter.getEthereumBalance(address)
           .observeOn(networkScheduler)
@@ -52,7 +52,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
         .map { balanceDetailsMapper.mapEthBalance(it) }
   }
 
-  override fun getAppcBalance(address: String): Observable<Pair<Balance, FiatValue>> {
+  fun getAppcBalance(address: String): Observable<Pair<Balance, FiatValue>> {
     if (appcBalanceDisposable == null || appcBalanceDisposable!!.isDisposed) {
       balanceGetter.getAppcBalance(address)
           .observeOn(networkScheduler)
@@ -75,7 +75,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
         .map { balanceDetailsMapper.mapAppcBalance(it) }
   }
 
-  override fun getCreditsBalance(address: String): Observable<Pair<Balance, FiatValue>> {
+  fun getCreditsBalance(address: String): Observable<Pair<Balance, FiatValue>> {
     if (creditsBalanceDisposable == null || creditsBalanceDisposable!!.isDisposed) {
       balanceGetter.getCredits(address)
           .observeOn(networkScheduler)
@@ -98,6 +98,10 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
         .map { balanceDetailsMapper.mapCreditsBalance(it) }
   }
 
+  private fun fetchWalletInfo(): Single<WalletInfo> {
+    return walletInfoRepository.observeWalletInfo()
+  }
+
   private fun getBalance(walletAddress: String): Observable<BalanceDetailsEntity?> {
     checkIfExistsOrCreate(walletAddress)
     return balanceDetailsDao.getBalance(walletAddress)
@@ -111,19 +115,19 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
     }
   }
 
-  override fun getStoredEthBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
+  fun getStoredEthBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
     return getBalance(walletAddress)
         .map { balanceDetailsMapper.mapEthBalance(it) }
         .firstOrError()
   }
 
-  override fun getStoredAppcBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
+  fun getStoredAppcBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
     return getBalance(walletAddress)
         .map { balanceDetailsMapper.mapAppcBalance(it) }
         .firstOrError()
   }
 
-  override fun getStoredCreditsBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
+  fun getStoredCreditsBalance(walletAddress: String): Single<Pair<Balance, FiatValue>> {
     return getBalance(walletAddress)
         .map { balanceDetailsMapper.mapCreditsBalance(it) }
         .firstOrError()
