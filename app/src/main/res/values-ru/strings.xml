@@ -900,7 +900,7 @@
   <string name="perks_level_up_amount_left">Вы в %1$s%2$s от следующего уровня!</string>
   <string name="perks_level_up_level_tag">Ур. %s</string>
   <string name="perks_bonus_purchase_flow">Бонус %1$s: %2$s в AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Все покупки в приложениях и пополнения, сделанные с помощью любого способа оплаты, кроме AppCoins Credits, приведут к повышению бонусного уровня и получению вознаграждения.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">Сделайте свою первую покупку в приложении, совместимом с AppCoins, и откройте специальные акции, которые мы приготовили для вас!</string>
   <string name="perks_empty_body">На данный момент акций нет.</string>
   <!--Fingerprint Authentication-->
