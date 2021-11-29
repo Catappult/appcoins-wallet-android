@@ -879,7 +879,7 @@
   <string name="perks_level_up_amount_left">您还要%1$s %2$s升到下一级！</string>
   <string name="perks_level_up_level_tag">%s级</string>
   <string name="perks_bonus_purchase_flow">%1$s奖励：%2$s 的AppCoins积金</string>
-  <string name="perks_purchases_disclaimer_body">除AppCoins积金以外，通过任何付款方式进行的所有应用内购买和充值都将可以提升等级并获得奖励。</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">在AppCoins兼容应用内完成首次购买，即可解锁我们为您准备的促销！</string>
   <string name="perks_empty_body">目前没有可用的促销。</string>
   <!--Fingerprint Authentication-->
