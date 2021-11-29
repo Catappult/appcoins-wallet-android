@@ -14,7 +14,7 @@
   <string name="won_game_notification_body">Venceste! A tua wallet é agora $%1$.2f mais pesada!</string>
   <string name="lost_game_notification_body">Perdeste... Melhor sorte da próxima vez!</string>
   <string name="dismiss_button">Dispensar</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="location_not_available_title">Os jogos e-Skills não estão disponíveis na tua localização</string>
+  <string name="location_not_available_body">Estamos a trabalhar arduamente para levar estes a toda a gente, por isso volta em breve!</string>
+  <string name="shared_room_waiting">À espera que adversários se juntem a %s</string>
 </resources>
