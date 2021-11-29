@@ -886,7 +886,7 @@
   <string name="perks_level_up_amount_left">Είστε %1$s %2$s μακριά από το επόμενο επίπεδο!</string>
   <string name="perks_level_up_level_tag">Επ. %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s σε AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Κάθε αγορά και κάθε φόρτιση που πραγματοποιείται με οποιαδήποτε μέθοδο πληρωμής, εκτός από AppCoins Credits, θα πληροί τις προϋποθέσεις για την αύξηση του επιπέδου σας και τη λήψη αμοιβής.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">Κάντε την πρώτη σας αγορά σε μία εφαρμογή συμβατή με AppCoins, ώστε να ξεκλειδώσετε τις προωθήσεις που έχουμε για εσάς!</string>
   <string name="perks_empty_body">Δεν υπάρχουν διαθέσιμες προωθήσεις αυτή τη στιγμή.</string>
   <!--Fingerprint Authentication-->
