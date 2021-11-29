@@ -886,7 +886,7 @@
   <string name="perks_level_up_amount_left">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੋਂ %1$s %2$s ਦੂਰ ਹੋ!</string>
   <string name="perks_level_up_level_tag">ਐਲਵੀ %s</string>
   <string name="perks_bonus_purchase_flow">%1$sਬੋਨਸ: %2$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਵਿੱਚ</string>
-  <string name="perks_purchases_disclaimer_body">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਤੋਂ ਇਲਾਵਾ ਕਿਸੇ ਵੀ ਖਰੀਦ ਵਿਧੀ ਨਾਲ ਕੀਤੀਆਂ ਗਈਆਂ ਇਨ-ਐਪ ਖਰੀਦਾਂ ਅਤੇ ਟਾਪ ਅੱਪ ਤੁਹਾਡੇ ਪੱਧਰ ਨੂੰ ਵਧਾਉਣ ਅਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਦੇ ਯੋਗ ਹੋਣਗੇ|</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">ਇੱਕ ਐਪ ਸਿੱਕੇ ਅਨੁਕੂਲ ਐਪ ਵਿੱਚ ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰੋ ਅਤੇ ਸਾਨੂੰ ਤੁਹਾਡੇ ਲਈ ਮਿਲੀਆਂ ਆਫਰਾਂ ਨੂੰ ਖੋਲੋ!</string>
   <string name="perks_empty_body">ਇਸ ਸਮੇਂ ਕੋਈ ਆਫਰ ਉਪਲਬਧ ਨਹੀਂ ਹਨ|</string>
   <!--Fingerprint Authentication-->
