@@ -879,7 +879,7 @@
   <string name="perks_level_up_amount_left">Bạn còn %1$s %2$s nữa để đạt được cấp kế tiếp!</string>
   <string name="perks_level_up_level_tag">Cấp %s</string>
   <string name="perks_bonus_purchase_flow">%1$s tiền thưởng: %2$s bằng AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Tất cả các giao dịch mua và nạp tiền được thực hiện bằng bất kỳ phương thức thanh toán nào ngoài AppCoins Credits sẽ đủ điều kiện để tăng cấp của bạn và được nhận phần thưởng.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong một ứng dụng tương thích với AppCoins để mở khóa các chương trình khuyến mãi mà chúng tôi dành cho bạn!</string>
   <string name="perks_empty_body">Hiện tại không có khuyến mãi nào.</string>
   <!--Fingerprint Authentication-->
