@@ -886,7 +886,7 @@
   <string name="perks_level_up_amount_left">Még %1$s %2$s választ el a következő szinttől!</string>
   <string name="perks_level_up_level_tag">%s. szint</string>
   <string name="perks_bonus_purchase_flow">%1$s Bónusz: %2$s AppCoins kreditben</string>
-  <string name="perks_purchases_disclaimer_body">Az AppCoins krediteken kívül minden más fizetési móddal történő vásárlás és feltöltés magasabb szintre emelhet és jutalmakat hozhat számodra.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">Itt az ideje az első vásárlásnak egy AppCoins kompatibilis alkalmazásban. Felfedezheted, milyen promóciók várnak rád!</string>
   <string name="perks_empty_body">Jelenleg nincs aktív promóció.</string>
   <!--Fingerprint Authentication-->
