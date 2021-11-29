@@ -879,7 +879,7 @@
   <string name="perks_level_up_amount_left">ေနာက္တစ္ဆင့္သို႔ သင္ေရာက္ရွိရန္ %1$s %2$s သာ လိုအပ္ပါသည္။</string>
   <string name="perks_level_up_level_tag">အဆင့္ %s</string>
   <string name="perks_bonus_purchase_flow">%1$s ေဘာနပ္စ္ - %2$s ကို AppCoins Credits အေနျဖင့္</string>
-  <string name="perks_purchases_disclaimer_body">AppCoins Credits မွလြဲ၍ မည္သည့္ေငြေပးေခ်မႈ နည္းလမ္းျဖင့္မဆို ျပဳလုပ္ေသာ ဝယ္ယူမႈမ်ားႏွင့္ ေငြျဖည့္မႈမ်ား အားလံုးသည္ သင့္အဆင့္ကို ျမင့္ေစရန္ႏွင့္ ဆုကို ရရွိေစရန္ အက်ံဳးဝင္မည္ ျဖစ္ပါသည္။</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">သင့္အတြက္ ကၽြႏ္ုပ္တို႔ေပးထားေသာ ပ႐ိုမိုးရွင္းမ်ားကို ပြင့္လာေစရန္ AppCoins အသံုးျပဳႏိုင္ေသာ အက္ပ္တစ္ခုတြင္ ပထမဆံုးဝယ္ယူမႈကို ျပဳလုပ္လိုက္ပါ။</string>
   <string name="perks_empty_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရရွိႏိုင္ပါ။</string>
   <!--Fingerprint Authentication-->
