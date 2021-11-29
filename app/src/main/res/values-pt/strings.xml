@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Password</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Criar</string>
   <!-- String related to sending -->
   <string name="prompt_to">Para</string>
   <string name="action_send">Enviar</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">Joga Mais, Paga Menos</string>
   <string name="intro_2_body">Recebe recompensas ao comprares itens nas tuas apps e jogos preferidos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Mantém a AppCoins Wallet instalada para comprares diretamente nos teus jogos.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">As tuas private keys nunca deixarão o teu dispositivo, e por isso as tuas AppCoins estão sempre seguras.</string>
   <string name="intro_4_body_2">Todas as tuas transações são sempre seguras graças à mais recente tecnologia.</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Saltar, estará a concordar com os %1$s e com a %2$s da AppCoins Wallet</string>
   <string name="intro_skip_button">Saltar</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">Bem-vindo à AppCoins Wallet</string>
+  <string name="intro_welcome_body">A tua app para compras in-app.</string>
+  <string name="intro_already_have_wallet_button">Já tenho uma wallet</string>
+  <string name="intro_get_started_button">Começar</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -241,8 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferência</string>
   <string name="transaction_type_bonus">Bônus</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills_reward">Recompensa e-Skills</string>
+  <string name="transaction_type_eskills">Compra e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher para %s</string>
   <string name="transaction_type_reverted_bonus_title">Bónus Revertido</string>
@@ -261,7 +261,7 @@
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
   <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
   <string name="ellipsize">\u0020• • •</string>
-  <string name="transaction_status_label">Status</string>
+  <string name="transaction_status_label">Estado</string>
   <string name="transaction_category_label">Categoria</string>
   <string name="transaction_details_label">Detalhes</string>
   <string name="transaction_to_label">Para</string>
@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">Nova wallet</string>
   <string name="my_wallets_action_recover_wallet">Recuperar wallet</string>
   <string name="my_wallets_action_backup_wallet">Backup da wallet</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
+  <string name="my_wallets_action_verify_new_card">Validar novo cartão</string>
   <string name="my_wallets_action_delete_wallet">Apagar wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pede a alguém para pagar</string>
