@@ -907,7 +907,7 @@
   <string name="perks_level_up_amount_left">आपण पुढच्या पातळीपासुन %1$s %2$s दूर आहात!</string>
   <string name="perks_level_up_level_tag">पातळी %s</string>
   <string name="perks_bonus_purchase_flow">%1$s बोनस: %2$s अॅपकॉइन्स क्रेडीटस</string>
-  <string name="perks_purchases_disclaimer_body">अॅपकॉइन्स क्रेडीटस व्यतिरिक्त कोणतीही पेमेंट पद्धत वापरुन केलेल्या सर्व खरेदी आणि टॉपअप्समुळे आपली लेव्हल वाढण्यास आणि बक्षिस मिळविण्यास पात्र व्हाल.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">अॅपकॉइन्स कंपॅटिबल अॅपमध्ये आपली पहिली खरेदी करुन आम्ही आपल्यासाठी आणलेले प्रमोशन अनलॉक करा!</string>
   <string name="perks_empty_body">सध्यातरी कोणतीही प्रमोशन्स उपलब्ध नाहीत.</string>
   <!--Fingerprint Authentication-->
