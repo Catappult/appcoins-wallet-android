@@ -881,7 +881,7 @@
   <string name="perks_level_up_amount_left">อีก %1$s%2$s จะถึงเลเวลถัดไป!</string>
   <string name="perks_level_up_level_tag">เลเวล %s</string>
   <string name="perks_bonus_purchase_flow">%1$s โบนัส: %2$s ใน AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">การซื้อในแอปและการเติมเงินทั้งหมดที่ทำด้วยวิธีการซื้อใดๆ นอกเหนือจากเครดิต AppCoins จะมีสิทธิ์เพิ่มระดับโบนัสของคุณและรับรางวัล</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">ดำเนินการซื้อครั้งแรกของคุณในแอพที่รองรับ AppCoins เพื่อปลดล็อกโปรโมชั่นที่เรามีให้คุณ!</string>
   <string name="perks_empty_body">ในขณะนี้ไม่มีโปรโมชั่น</string>
   <!--Fingerprint Authentication-->
