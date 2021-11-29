@@ -886,7 +886,7 @@
   <string name="perks_level_up_amount_left">شما %1$s%2$s با مرحله بعدی فاصله دارید!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">پاداش %1$s: %2$s در AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">همه خریدها و شارژهایی که در هر روش پرداخت به جز AppCoins Credits انجام شده‌ است به بالابردن درجه پاداش و دریافت هدایای کمک می کند.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">اولین خرید خود را در یک اپلیکیشن سازگار با AppCoins انجام دهید تا پیشنهادهای تشویقی که برای شما در نظر گرفتیم را باز کنید!</string>
   <string name="perks_empty_body">هیچ پیشنهاد تشویقی در حال حاضر موجود نیست.</string>
   <!--Fingerprint Authentication-->
