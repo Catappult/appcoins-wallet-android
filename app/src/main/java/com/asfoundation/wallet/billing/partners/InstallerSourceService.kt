@@ -9,7 +9,7 @@ class InstallerSourceService(val context: Context) : InstallerService {
     return try {
       Single.just(context.packageManager.getInstallerPackageName(appPackageName) ?: "")
     } catch (e: IllegalArgumentException) {
-      Single.error(e)
+      Single.just("")
     }
   }
 }
