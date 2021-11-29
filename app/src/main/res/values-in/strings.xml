@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">Dompet AppCoins</string>
   <string name="title_send">Kirim</string>
   <string name="title_send_with_token">Kirim %s</string>
   <string name="title_request">Terima</string>
@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Dompet Saya</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Kata Sandi</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Buat</string>
   <!-- String related to sending -->
   <string name="prompt_to">Ke</string>
   <string name="action_send">Kirim</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
   <string name="intro_agree_terms_and_conditions_body">Dengan mengetuk Lewatkan, Anda menyetujui %1$s dan %2$s Dompet AppCoins</string>
   <string name="intro_skip_button">LEWATKAN</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
   <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_already_have_wallet_button">Saya sudah punya dompet</string>
+  <string name="intro_get_started_button">Mulai</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
@@ -1002,6 +1002,6 @@
   <string name="appcoins_info_market_cap_title">Kapitalisasi Pasar</string>
   <string name="appcoins_info_volume_title">Volume (24 jam)</string>
   <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_title">NFT</string>
+  <string name="nfts_no_nfts">NFT tidak tersedia saat ini.</string>
 </resources>
