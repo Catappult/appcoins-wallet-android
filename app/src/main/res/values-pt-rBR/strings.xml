@@ -886,7 +886,7 @@
   <string name="perks_level_up_amount_left">Falta %1$s %2$s para o próximo nível!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s de Bônus: %2$s em Créditos AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">Todas as compras e recargas feitas com qualquer método de pagamento além de Créditos AppCoins serão qualificadas para aumentar seu nível e receber recompensas.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">Faça sua primeira compra em um app compatível com AppCoins para liberar as promoções que preparamos para você!</string>
   <string name="perks_empty_body">Nenhuma promoção disponível no momento.</string>
   <!--Fingerprint Authentication-->
