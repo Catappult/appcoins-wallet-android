@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Portofelele mele</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Parolă</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Creează</string>
   <!-- String related to sending -->
   <string name="prompt_to">Către</string>
   <string name="action_send">Trimite</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">Joci mai mult, plătești mai puțin</string>
   <string name="intro_2_body">Primești recompense pentru cumpărarea articolelor în aplicațiile și jocurile preferate.</string>
   <string name="intro_3_title">Simplu și Ușor</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Păstrează AppCoins Wallet instalat pentru a face achiziții direct în jocurile tale.</string>
   <string name="intro_4_title">Sigur și Privat</string>
   <string name="intro_4_body">Cheile tale private nu vor părăsi niciodată dispozitivul tău, așa că AppCoins sunt sigure în orice moment.</string>
   <string name="intro_4_body_2">Toate tranzacțiile tale sunt întotdeauna sigure datorită tehnologiei de ultimă generație.</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">Portofel creat!</string>
   <string name="intro_agree_terms_and_conditions_body">Apăsând pe Ignoră, ești de acord cu %1$s și %2$s Portofelului AppCoins</string>
   <string name="intro_skip_button">IGNORĂ</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">Bine ai venit la AppCoins Wallet</string>
+  <string name="intro_welcome_body">Aplicația ta pentru achiziții in-app.</string>
+  <string name="intro_already_have_wallet_button">Am deja un portofel</string>
+  <string name="intro_get_started_button">Începe</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Din</string>
