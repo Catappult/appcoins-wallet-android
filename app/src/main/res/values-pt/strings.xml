@@ -982,7 +982,7 @@
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Talvez mais tarde</string>
   <string name="e_skills_room_create_title">Cria ou junta-te a uma sala</string>
-  <string name="e_skills_room_create_body">Cria uma nova sala e partilha-a com os teus oponentes ou junta-te a uma sala já existente.</string>
+  <string name="e_skills_room_create_body">Cria uma nova sala e partilha-a com os teus adversários ou junta-te a uma sala já existente.</string>
   <string name="e_skills_room_field">O nome da tua sala aqui...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Código Promocional</string>
