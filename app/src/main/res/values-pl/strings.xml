@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Portfele</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Hasło</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Stwórz</string>
   <!-- String related to sending -->
   <string name="prompt_to">Do</string>
   <string name="action_send">Wyślij</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">Graj więcej, płać mniej</string>
   <string name="intro_2_body">Odbieraj nagrody za kupowanie przedmiotów w ulubionych aplikacjach i grach.</string>
   <string name="intro_3_title">Prosto i łatwo</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Za pomocą AppCoins Wallet możesz robić zakupy w swoich grach.</string>
   <string name="intro_4_title">Bezpieczeństwo i prywatność</string>
   <string name="intro_4_body">Twoje prywatne klucze nigdy nie opuszczą Twojego urządzenia, więc Twoje AppCoins są zawsze bezpieczne.</string>
   <string name="intro_4_body_2">Twoje transakcje są zawsze bezpieczne dzięki najnowszej technologii.</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">Stworzono portfel!</string>
   <string name="intro_agree_terms_and_conditions_body">Naciskając na Pomiń, zgadzasz się na %1$s i %2$s portfela AppCoins</string>
   <string name="intro_skip_button">POMIŃ</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">Witaj w AppCoins Wallet</string>
+  <string name="intro_welcome_body">Twojej aplikacja do zakupów w aplikacjach.</string>
+  <string name="intro_already_have_wallet_button">Mam już portfel</string>
+  <string name="intro_get_started_button">Zaczynam</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Od</string>
@@ -241,8 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Przelewy</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills_reward">Nagroda e-Skills</string>
+  <string name="transaction_type_eskills">Zakup e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher na %s</string>
   <string name="transaction_type_reverted_bonus_title">Cofnięty bonus</string>
@@ -306,7 +306,7 @@
   <string name="gamification_level_earned">ZAROBIONE:</string>
   <string name="gamification_level_next_lvl">DO NASTĘPNEGO POZIOMU:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
-  <string name="gamification_level_bonus">%s%% BONUS</string>
+  <string name="gamification_level_bonus">%s%% BONUSU</string>
   <string name="gamification_level_button_how">JAK TO DZIAŁA</string>
   <string name="gamification_level_body">Możesz zarabiać APPC, kupując przedmioty w ulubionych aplikacjach i grach.</string>
   <string name="gamification_how_header">Jak wbijać poziomy?</string>
@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">Nowy portfel</string>
   <string name="my_wallets_action_recover_wallet">Odzyskaj portfel</string>
   <string name="my_wallets_action_backup_wallet">Kopia zapasowa portfela</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
+  <string name="my_wallets_action_verify_new_card">Zatwierdź nową kartę</string>
   <string name="my_wallets_action_delete_wallet">Usuń kartę</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Poproś znajomego o środki</string>
@@ -445,7 +445,7 @@
   <string name="terms_and_conditions">Regulamin</string>
   <string name="privacy_policy">Polityka prywatności</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Dokonaj zakupu w ulubionej grze – my zajmiemy się resztą.</string>
   <string name="home_empty_discover_apps_button">ODKRYJ NAJLEPSZE APLIKACJE</string>
   <!--Tokens-->
   <!--Settings-->
@@ -482,10 +482,10 @@
   <string name="verification_settings_unverified_title">Zweryfikuj portfel</string>
   <string name="verification_settings_unverified_body">Otrzymuj nagrody i zaproś znajomych</string>
   <string name="verification_settings_verified_title">Portfel zweryfikowany</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
+  <string name="verification_settings_verifying_title">Weryfikacja portfela…</string>
+  <string name="verification_verified_paypal_description">Natychmiastowy zwrot środków. Weryfikacja portfela zakończy się wkrótce.</string>
+  <string name="verification_verify_paypal_description">W celu potwierdzenia konta przeprowadzimy transakcję na sumę %s, która natychmiast zostanie zwrócona.</string>
+  <string name="verification_verify_paypal_button">Zweryfikuj</string>
   <string name="verification_settings_card_verified_title">Karta zweryfikowana</string>
   <string name="verification_settings_no_internet">Musisz mieć połączenie z internetem</string>
   <string name="verification_error_time_expired">Oj, po czasie. Zacznij jeszcze raz!</string>
@@ -542,9 +542,9 @@
   <string name="purchase_error_transaction_timeout">Wygląda na to, że transakcja zajmuje zbyt wiele czasu. Spróbuj ponownie.</string>
   <string name="purchase_error_card_already_in_progress">Twoja prośba jest przetwarzana. Jeszcze chwilka.</string>
   <string name="purchase_error_payment_rejected">Płatność odrzucona. Spróbuj z inną kartą lub wybierz inną metodę płatności.</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
+  <string name="purchase_error_verify_wallet">Potwierdź metodę płatności, by sfinalizować zakup.</string>
+  <string name="purchase_error_verify_card">Potwierdź kartę, by sfinalizować zakup.</string>
+  <string name="purachse_error_verify_card_button">Potwierdź kartę</string>
   <string name="purchase_eskills_sku">Bilet wstępu</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
@@ -665,7 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Zatrzymaj hasło dla siebie.</string>
   <string name="backup_additional_security_disclaimer_body">Nie można odzyskać hasła.</string>
   <string name="backup_additional_security_password_not_march">Hasła nie są identyczne.</string>
-  <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="import_wallet_recovering_body">Odzyskiwanie portfela...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portfele</string>
   <string name="wallets_total_balance_title">Saldo w %s</string>
@@ -792,7 +792,7 @@
   <string name="gamif_placeholder_phobos">księżyc Fobos</string>
   <string name="gamif_quote_phobos">\"Każdy człowiek jest jak Księżyc. Ma swoją drugą stronę, której nie pokazuje nikomu.\" – Mark Twain</string>
   <string name="gamif_distance_phobos">77.79 million km od Ziemi</string>
-  <string name="gamif_placeholder_jupiter">Jupiter</string>
+  <string name="gamif_placeholder_jupiter">Jowisz</string>
   <string name="gamif_quote_jupiter">\"Wszelkie prawdy są łatwe do zrozumienia gdy są już odkryte; trzeba je jednak odkryć...\" – Galileusz</string>
   <string name="gamif_distance_jupiter">623.31 million km od Ziemi</string>
   <string name="gamif_placeholder_europa">księżyc Europa</string>
@@ -900,7 +900,7 @@
   <string name="perks_level_up_amount_left">Brakuje %1$s%2$s do następnego poziomu!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s w AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Wszystkie zakupy w aplikacji i doładowania dokonane za pomocą dowolnej metody płatności oprócz AppCoins Credits zwiększają poziom premii i zbliżają do nagród.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">Dokonaj pierwszego zakupu w aplikacji z AppCoins - i odblokuj specjalne promocje!</string>
   <string name="perks_empty_body">Teraz nie ma tu żadnych promocji.</string>
   <!--Fingerprint Authentication-->
