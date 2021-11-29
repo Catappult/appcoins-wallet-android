@@ -8,13 +8,13 @@
   <string name="ok">Oke</string>
   <string name="cancel">Batal</string>
   <string name="connection_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="playing_game_notification_title">Saat ini memainkan e-Skills</string>
+  <string name="playing_game_notification_body">Memuat info game…</string>
+  <string name="finish_game_notification_title">Game e-Skills Anda sudah selesai</string>
+  <string name="won_game_notification_body">Anda menang! Dompet Anda sekarang $%1$.2f lebih berat!</string>
+  <string name="lost_game_notification_body">Anda kalah… Semoga beruntung lain kali!</string>
   <string name="dismiss_button">Tutup</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="location_not_available_title">Game e-Skills tidak tersedia di lokasi Anda</string>
+  <string name="location_not_available_body">Kami sedang bekerja keras untuk menghadirkan ini untuk semua orang, jadi harap segera kembali lagi!</string>
+  <string name="shared_room_waiting">Menunggu lawan untuk bergabung di %s</string>
 </resources>
