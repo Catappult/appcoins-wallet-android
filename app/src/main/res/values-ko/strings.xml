@@ -879,7 +879,7 @@
   <string name="perks_level_up_amount_left">다음 단계까지 %1$s%2$s 남았습니다!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s 보너스: AppCoins 크레디트로 %2$s</string>
-  <string name="perks_purchases_disclaimer_body">AppCoins 크레디트을 제외한 모든 지불 방법으로 이루어지는 모든 구매 및 탑업은 보너스 레벨을 높이고 보상을 받을 수 있는 자격이 주어집니다.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">AppCoins 호환 앱에서 첫 번째 구매를 하고 당신을 위해 준비한 프로모션의 잠금을 해제하세요!</string>
   <string name="perks_empty_body">현재 사용할 수 있는 프로모션이 없습니다.</string>
   <!--Fingerprint Authentication-->
