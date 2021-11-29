@@ -886,7 +886,7 @@
   <string name="perks_level_up_amount_left">Je bent %1$s %2$s verwijderd van het volgende niveau!</string>
   <string name="perks_level_up_level_tag">Niveau %s</string>
   <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Behalve AppCoins Credits komen alle betaalmethoden voor het uitvoeren van aankopen en opwaarderingen in aanmerking om je niveau te verhogen en beloningen te ontvangen.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">Doe je eerste aankoop in een app die AppCoins ondersteunt om de acties die we voor je hebben te ontgrendelen!</string>
   <string name="perks_empty_body">Er zijn momenteel geen acties beschikbaar.</string>
   <!--Fingerprint Authentication-->
