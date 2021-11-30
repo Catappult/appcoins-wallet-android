@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">我的钱包</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">密码</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">创建</string>
   <!-- String related to sending -->
   <string name="prompt_to">接收方</string>
   <string name="action_send">发送</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">少花钱，多玩乐</string>
   <string name="intro_2_body">在你最喜爱的应用和游戏中购买物品即可获得奖励。</string>
   <string name="intro_3_title">简单易用</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">继续安装AppCoins钱包，以直接在游戏中购买。</string>
   <string name="intro_4_title">安全私密</string>
   <string name="intro_4_body">你的私钥永远不会离开你的设备，因此你的AppCoins始终安全。</string>
   <string name="intro_4_body_2">得益于最新技术，您的所有交易都始终安全。</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">钱包已创建！</string>
   <string name="intro_agree_terms_and_conditions_body">点击“跳过”，即表示你同意AppCoins Wallet的%1$s和%2$s</string>
   <string name="intro_skip_button">跳过</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">欢迎来到AppCoins钱包</string>
+  <string name="intro_welcome_body">应用内购买的应用。</string>
+  <string name="intro_already_have_wallet_button">我已经有钱包了。</string>
+  <string name="intro_get_started_button">开始</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -241,8 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">转移</string>
   <string name="transaction_type_bonus">奖励</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills_reward">e-Skills奖励</string>
+  <string name="transaction_type_eskills">e-Skills购买</string>
   <string name="transaction_type_voucher">电子优惠券</string>
   <string name="transaction_type_voucher_title">%s优惠券</string>
   <string name="transaction_type_reverted_bonus_title">已还原奖金</string>
@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">新钱包</string>
   <string name="my_wallets_action_recover_wallet">恢复钱包</string>
   <string name="my_wallets_action_backup_wallet">备份钱包</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
+  <string name="my_wallets_action_verify_new_card">验证新卡</string>
   <string name="my_wallets_action_delete_wallet">删除钱包</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">请求他人支付</string>
@@ -445,7 +445,7 @@
   <string name="terms_and_conditions">条款与条件</string>
   <string name="privacy_policy">隐私政策</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">购买你最喜欢的游戏，我们会处理一切。</string>
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
@@ -482,10 +482,10 @@
   <string name="verification_settings_unverified_title">验证钱包</string>
   <string name="verification_settings_unverified_body">获取奖励和邀请好友</string>
   <string name="verification_settings_verified_title">已验证钱包</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
+  <string name="verification_settings_verifying_title">正在验证钱包……</string>
+  <string name="verification_verified_paypal_description">我们会立即退款。你的钱包很快就会通过验证。</string>
+  <string name="verification_verify_paypal_description">我们将进行%s最小额度交易以确认你的帐户。我们会立即退款。</string>
+  <string name="verification_verify_paypal_button">立即验证</string>
   <string name="verification_settings_card_verified_title">已验证卡</string>
   <string name="verification_settings_no_internet">你需要连接到互联网</string>
   <string name="verification_error_time_expired">糟糕，您的时间已到。请重新开始！</string>
@@ -542,9 +542,9 @@
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
   <string name="purchase_error_card_already_in_progress">你的请求已被处理或正在处理。请稍候。</string>
   <string name="purchase_error_payment_rejected">付款已被拒绝！请尝试使用其他发卡机构的卡或使用其他支付方式。</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
+  <string name="purchase_error_verify_wallet">验证你的付款方式以完成本次购买。</string>
+  <string name="purchase_error_verify_card">验证你的卡以完成本次购买。</string>
+  <string name="purachse_error_verify_card_button">验证卡</string>
   <string name="purchase_eskills_sku">入场券</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
@@ -665,7 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">请确保您的密码安全。</string>
   <string name="backup_additional_security_disclaimer_body">密码不可恢复。</string>
   <string name="backup_additional_security_password_not_march">密码不匹配。</string>
-  <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="import_wallet_recovering_body">正在恢复钱包……</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
@@ -879,7 +879,7 @@
   <string name="perks_level_up_amount_left">您还要%1$s %2$s升到下一级！</string>
   <string name="perks_level_up_level_tag">%s级</string>
   <string name="perks_bonus_purchase_flow">%1$s奖励：%2$s 的AppCoins积金</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">除AppCoins积金以外，通过任何付款方式进行的所有购买和充值都将提升等级并获得奖励。</string>
   <string name="perks_empty_state_first_purchase_body">在AppCoins兼容应用内完成首次购买，即可解锁我们为您准备的促销！</string>
   <string name="perks_empty_body">目前没有可用的促销。</string>
   <!--Fingerprint Authentication-->
@@ -892,7 +892,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">将日志发送给支持团队</string>
   <string name="send_logs_sending">正在发送&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">已发送！</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">喜欢AppCoins Wallet吗？</string>
@@ -908,7 +908,7 @@
   <string name="rate_us_back_title">想帮助我们吗？</string>
   <string name="rate_us_back_body">在应用商店上给AppCoins Wallet评分，以便我们对其进行改进。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">验证你的信用卡/借记卡来进行付款。</string>
   <string name="card_verification_charde_disclaimer">我们会从你的卡里扣除%的费用，你确认了代码后，我们就会退款。 根据你的银行情况，这可能需要几分钟到几天的时间。</string>
   <string name="card_verification_code_title">在交易详细信息中查看代码</string>
   <string name="card_verification_code_body">一个唯一代码将出现在发卡银行提供的交易摘要中。</string>
@@ -931,8 +931,8 @@
   <string name="card_verification_wallets_insert_bode_button">输入代码</string>
   <string name="card_verification_no_attempts_title">糟糕，您输入的错误代码次数过多，因此%1$s将退款至您的卡中。</string>
   <string name="card_verification_no_attempts_body">请重新开始验证过程。</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Validate Card</string>
+  <string name="wallet_verify_header">验证至少一种付款方式</string>
+  <string name="verify_card_title">验证卡</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">购买优惠券并获取</string>
   <string name="voucher_card_body_2">高达 %s%% 的奖励。</string>
@@ -964,17 +964,17 @@
   <string name="e_skills_withdraw_invalid_email_error_message">无效的电子邮件</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">余额不足</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">你只能取在e-Skills游戏中获得的资金</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">最低取款金额$%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">你可以取款：</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_know_more_about">深入了解e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">你只能提取在e-Skills游戏中获得的资金</string>
+  <string name="e_skills_withdraw_started">取款$%1$.2f\n现已开始</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
+  <string name="e_skills_withdraw_maybe_later">以后再说</string>
+  <string name="e_skills_room_create_title">创建或加入房间</string>
+  <string name="e_skills_room_create_body">创建新房间并与对手分享房间或加入现有房间。</string>
+  <string name="e_skills_room_field">此处是你的房间名称……</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">促销码</string>
   <string name="promo_code_view_title">促销代码</string>
@@ -986,9 +986,9 @@
   <string name="promo_code_active_tag">激活</string>
   <string name="promo_code_expired_tag">已到期</string>
   <string name="promo_code_success_title">完成！</string>
-  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_success_body">你的所有购买都将获得%s%%的额外奖励。</string>
+  <string name="promo_code_success_body_specific_app">你在%2$s中的所有购买都将获得%1$s%%的额外奖励。</string>
+  <string name="promo_code_promotions_tag">优惠码</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">关于AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins价格(APPC)</string>
@@ -1002,6 +1002,6 @@
   <string name="appcoins_info_market_cap_title">市值</string>
   <string name="appcoins_info_volume_title">数据（24小时）</string>
   <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_title">非同质化代币</string>
+  <string name="nfts_no_nfts">目前没有可用的非同质化代币。</string>
 </resources>
