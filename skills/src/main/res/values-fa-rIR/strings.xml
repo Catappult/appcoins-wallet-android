@@ -8,13 +8,13 @@
   <string name="ok">اوکی</string>
   <string name="cancel">لغو</string>
   <string name="connection_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="playing_game_notification_title">در حال بازی e-Skills</string>
+  <string name="playing_game_notification_body">در حال دریاف اطلاعات بازی…</string>
+  <string name="finish_game_notification_title">بازی e-Skills شما به پایان رسیده‌ است</string>
+  <string name="won_game_notification_body">برنده شدید! کیف پول شما %1$.2f$ سنگین‌تر است!</string>
+  <string name="lost_game_notification_body">باختید… آرزوی شانس بیشتری برای سری بعدی داریم!</string>
   <string name="dismiss_button">رد کردن</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="location_not_available_title">بازی‌های e-Skills در منطقه جغرافیایی شما موجود نیست</string>
+  <string name="location_not_available_body">به سختی در حال تلاش هستیم تا آن را به همه برسانیم. پس بزودی دوباره برگردید!</string>
+  <string name="shared_room_waiting">درحال انتظار برای عضو شدن در %s</string>
 </resources>
