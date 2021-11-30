@@ -15,6 +15,6 @@
   <string name="lost_game_notification_body">Ups! Powodzenia następnym razem!</string>
   <string name="dismiss_button">Zamknij</string>
   <string name="location_not_available_title">Gry e-Skills nie są dostępne w twojej lokalizacji</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="location_not_available_body">Pracujemy nad tym, by były dostępne wszędzie – wróć za jakiś czas!</string>
+  <string name="shared_room_waiting">Oczekiwanie na przeciwników w %s</string>
 </resources>
