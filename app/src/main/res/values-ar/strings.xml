@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">مَحافظي</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">كلمة المرور</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">إنشاء</string>
   <!-- String related to sending -->
   <string name="prompt_to">إلى</string>
   <string name="action_send">إرسال</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">العب أكثر، ادفع أقل</string>
   <string name="intro_2_body">احصل على المكافآت عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
   <string name="intro_3_title">بسيط وسهل</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">احتفظ بمحفظة AppCoins Wallet مثبتة للشراء مباشرة في ألعابك المفضلة.</string>
   <string name="intro_4_title">آمن وسرّي</string>
   <string name="intro_4_body">مفاتيحك السرية لن تفارق الجهاز، ما يبقي الأبكوينز الخاصو بك آمنة طوال الوقت.</string>
   <string name="intro_4_body_2">ستكون كل تحويلاتك آمنة دومًا بفضل التقنيات الحديثة.</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">تم إنشاء المحفظة!</string>
   <string name="intro_agree_terms_and_conditions_body">بالضغط على تخطّي، أنت توافق على محفظة AppCoins %1$s و%2$s</string>
   <string name="intro_skip_button">تخطّي</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">أهلا بك بمحفظة AppCoins Wallet</string>
+  <string name="intro_welcome_body">تطبيقك للشراء داخل التطبيقات.</string>
+  <string name="intro_already_have_wallet_button">لدي محفظة بالفعل</string>
+  <string name="intro_get_started_button">ابدأ</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">مِن</string>
@@ -241,8 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">تحويل</string>
   <string name="transaction_type_bonus">علاوة</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills_reward">جائزة مهارة إلكترونية</string>
+  <string name="transaction_type_eskills">سلعة مهارة إلكترونية</string>
   <string name="transaction_type_voucher">قسيمة إلكترونية</string>
   <string name="transaction_type_voucher_title">القسيمة لـ %s</string>
   <string name="transaction_type_reverted_bonus_title">مكافأة راجعة</string>
@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">محفظة جديدة</string>
   <string name="my_wallets_action_recover_wallet">استعادة المحفظة</string>
   <string name="my_wallets_action_backup_wallet">محفظة احتياطية</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
+  <string name="my_wallets_action_verify_new_card">توثيق بطاقة جديدة</string>
   <string name="my_wallets_action_delete_wallet">حذف المحفظة</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">اطلب من شخص أن يدفع</string>
@@ -445,7 +445,7 @@
   <string name="terms_and_conditions">القواعد والشروط</string>
   <string name="privacy_policy">سياسة الخصوصية</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">اشتري العناصر في ألعابك المفضلة وسنعتني نحن بكل شيء.</string>
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
   <!--Tokens-->
   <!--Settings-->
@@ -482,8 +482,8 @@
   <string name="verification_settings_unverified_title">وثّق المحفظة</string>
   <string name="verification_settings_unverified_body">احصل على الجوائز وادعُ الأصدقاء</string>
   <string name="verification_settings_verified_title">اكتمل التحقق من المحفظة</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
+  <string name="verification_settings_verifying_title">جاري توثيق المحفظة…</string>
+  <string name="verification_verified_paypal_description">ستستعيد أموالك في الحال. سيتم التحقق من محفظتك خلال لحظات.</string>
   <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">Verify Now</string>
   <string name="verification_settings_card_verified_title">المحفظة موثقة</string>
