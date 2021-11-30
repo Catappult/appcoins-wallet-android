@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">محفظة جديدة</string>
   <string name="my_wallets_action_recover_wallet">استعادة المحفظة</string>
   <string name="my_wallets_action_backup_wallet">محفظة احتياطية</string>
-  <string name="my_wallets_action_verify_new_card">توثيق بطاقة جديدة</string>
+  <string name="my_wallets_action_verify_new_card">تحقق من بطاقة جديدة</string>
   <string name="my_wallets_action_delete_wallet">حذف المحفظة</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">اطلب من شخص أن يدفع</string>
@@ -484,8 +484,8 @@
   <string name="verification_settings_verified_title">اكتمل التحقق من المحفظة</string>
   <string name="verification_settings_verifying_title">جاري توثيق المحفظة…</string>
   <string name="verification_verified_paypal_description">ستستعيد أموالك في الحال. سيتم التحقق من محفظتك خلال لحظات.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
+  <string name="verification_verify_paypal_description">سيتم تحويل حد أدنى وهو %s لتأكيد حسابك. وستستعيد المبلغ في الحال.</string>
+  <string name="verification_verify_paypal_button">تحقق الآن</string>
   <string name="verification_settings_card_verified_title">المحفظة موثقة</string>
   <string name="verification_settings_no_internet">أنت بحاجة إلى الاتصال بالإنترنت</string>
   <string name="verification_error_time_expired">يييي، انتهى وقتك. ابدأ من جديد!</string>
@@ -543,9 +543,9 @@
   <string name="purchase_error_transaction_timeout">يبدو أنك استغرقت وقتًا طويلًا لإتمام التحويل. يرجى المحاولة مجددًا.</string>
   <string name="purchase_error_card_already_in_progress">تم إتمام طلبك بالفعل أو أنه قيد التنفيذ. يرجى الانتظار.</string>
   <string name="purchase_error_payment_rejected">الدفعة مرفوضة! يرجى تجربة بطاقة من مصدر آخر أو استخدم وسيلة دفع أخرى.</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
+  <string name="purchase_error_verify_wallet">تحقق من وسيلة الدفع لديك وأكمل عملية الشراء هذه.</string>
+  <string name="purchase_error_verify_card">تحقق من بطاقتك لإتمام عملية الشراء هذه.</string>
+  <string name="purachse_error_verify_card_button">تحتت من البطاقة</string>
   <string name="purchase_eskills_sku">بطاقة الدخول</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
@@ -666,7 +666,7 @@
   <string name="backup_additional_security_disclaimer_title">يرجى حفظ كلمة المرور في أمان.</string>
   <string name="backup_additional_security_disclaimer_body">لا يمكن استرجاع كلمة المرور.</string>
   <string name="backup_additional_security_password_not_march">كلمة المرور غير متطابقة.</string>
-  <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="import_wallet_recovering_body">استعادة المحفظة...</string>
   <!--Wallets Management-->
   <string name="wallets_title">المَحافظ</string>
   <string name="wallets_total_balance_title">الرصيد الكلي يساوي %s</string>
