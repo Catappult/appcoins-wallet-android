@@ -915,7 +915,7 @@
   <string name="perks_level_up_amount_left">أنت على بعد %1$s %2$s عن المستوى التالي!</string>
   <string name="perks_level_up_level_tag">المستوى %s</string>
   <string name="perks_bonus_purchase_flow">%1$s مكافأة: %2$s في رصيد AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">كل المشتريات وشحن الرصيد التي تقوم بها من وسائل دفع مختلفة عن AppCoins Credits ستؤهلك أيضًا لرفع مستواك وزيادة الجوائز التي تحصل عليها.</string>
   <string name="perks_empty_state_first_purchase_body">أجر أول عملية شراء في تطبيق AppCoins متوافق لتفتح الترقيات التي أعددناها من أجلك!</string>
   <string name="perks_empty_body">لا تتوفر ترقيات حاليًا.</string>
   <!--Fingerprint Authentication-->
@@ -928,7 +928,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">أرسل سجل النشاط إلى فريق الدعم</string>
   <string name="send_logs_sending">يتم إرسال&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">أُرسل!</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">هل أنت مستمتع بـ AppCoins Wallet؟</string>
