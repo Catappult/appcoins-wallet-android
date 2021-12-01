@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Minhas Wallets</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Senha</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Criar</string>
   <!-- String related to sending -->
   <string name="prompt_to">Para</string>
   <string name="action_send">Enviar</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">Jogue Mais, Pague Menos</string>
   <string name="intro_2_body">Seja recompensado por comprar itens em seus games e apps favoritos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Mantenha a AppCoins Wallet instalada para comprar diretamente em seus jogos.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">Suas chaves privadas nunca deixam seu dispositivo, e por isso suas AppCoins estão sempre seguras.</string>
   <string name="intro_4_body_2">Todas as suas transações são sempre seguras graças à mais recente tecnologia.</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Pular, você concorda com os %1$s e a %2$s da sua Wallet AppCoins</string>
   <string name="intro_skip_button">PULAR</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">Bem-vindo à AppCoins Wallet</string>
+  <string name="intro_welcome_body">Seu app para compras dentro de aplicativos.</string>
+  <string name="intro_already_have_wallet_button">Já tenho uma wallet</string>
+  <string name="intro_get_started_button">Começar</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -241,8 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferir</string>
   <string name="transaction_type_bonus">Bônus</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills_reward">Recompensa de e-Skills</string>
+  <string name="transaction_type_eskills">Compra de e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher para %s</string>
   <string name="transaction_type_reverted_bonus_title">Bônus Revertido</string>
@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">Nova wallet</string>
   <string name="my_wallets_action_recover_wallet">Recuperar wallet</string>
   <string name="my_wallets_action_backup_wallet">Fazer Backup da Wallet</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
+  <string name="my_wallets_action_verify_new_card">Validar novo cartão</string>
   <string name="my_wallets_action_delete_wallet">Excluir wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Peça para alguém pagar</string>
@@ -445,7 +445,7 @@
   <string name="terms_and_conditions">Termos e Condições</string>
   <string name="privacy_policy">Política de Privacidade</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Faça uma compra em seu jogo favorito e nós cuidaremos de tudo.</string>
   <string name="home_empty_discover_apps_button">DESCUBRA OS MELHORES APPS</string>
   <!--Tokens-->
   <!--Settings-->
@@ -482,10 +482,10 @@
   <string name="verification_settings_unverified_title">Verificar Wallet</string>
   <string name="verification_settings_unverified_body">Ganhe recompensas e convide amigos</string>
   <string name="verification_settings_verified_title">Wallet Verificada</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
+  <string name="verification_settings_verifying_title">Verificando Wallet…</string>
+  <string name="verification_verified_paypal_description">Você será reembolsado imediatamente. Sua carteira será verificada em breve.</string>
+  <string name="verification_verify_paypal_description">Uma pequena transação de %s será feita para confirmar sua conta. O valor será devolvido imediatamente.</string>
+  <string name="verification_verify_paypal_button">Verificar Agora</string>
   <string name="verification_settings_card_verified_title">Cartão Verificado</string>
   <string name="verification_settings_no_internet">Você precisa estar conectado à Internet</string>
   <string name="verification_error_time_expired">Opa, seu tempo expirou. Comece de novo!</string>
@@ -542,9 +542,9 @@
   <string name="purchase_error_transaction_timeout">Parece que você demorou muito para concluir a transação. Por favor, tente novamente.</string>
   <string name="purchase_error_card_already_in_progress">Sua solicitação já foi processada ou está em andamento. Por favor, aguarde.</string>
   <string name="purchase_error_payment_rejected">Pagamento recusado! Tente com um cartão de um emissor diferente ou use outro método de pagamento.</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
+  <string name="purchase_error_verify_wallet">Valide seu método de pagamento para completar essa compra.</string>
+  <string name="purchase_error_verify_card">Valide seu cartão para completar essa compra.</string>
+  <string name="purachse_error_verify_card_button">VALIDAR CARTÃO</string>
   <string name="purchase_eskills_sku">Ingresso</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Endereço de cobrança</string>
@@ -665,7 +665,7 @@
   <string name="backup_additional_security_disclaimer_title">Mantenha sua senha segura.</string>
   <string name="backup_additional_security_disclaimer_body">Não há recuperação de senha.</string>
   <string name="backup_additional_security_password_not_march">As senhas não conferem.</string>
-  <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="import_wallet_recovering_body">Recuperando wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total em %s</string>
@@ -886,7 +886,7 @@
   <string name="perks_level_up_amount_left">Falta %1$s %2$s para o próximo nível!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s de Bônus: %2$s em Créditos AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Todas as compras e recargas feitas com qualquer método de pagamento além de Créditos AppCoins serão qualificadas para aumentar seu nível e receber recompensas.</string>
   <string name="perks_empty_state_first_purchase_body">Faça sua primeira compra em um app compatível com AppCoins para liberar as promoções que preparamos para você!</string>
   <string name="perks_empty_body">Nenhuma promoção disponível no momento.</string>
   <!--Fingerprint Authentication-->
