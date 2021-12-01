@@ -899,7 +899,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Enviar logs para a Equipe de Suporte</string>
   <string name="send_logs_sending">Enviando&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">Enviado!</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Curtindo sua Wallet da AppCoins?</string>
@@ -915,7 +915,7 @@
   <string name="rate_us_back_title">Gostaria de nos ajudar?</string>
   <string name="rate_us_back_body">Avalie o AppCoins Wallet na app store para que possamos melhorá-lo.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">Valide o seu cartão de crédito/débito para efetuar pagamentos.</string>
   <string name="card_verification_charde_disclaimer">Cobraremos %s do seu cartão e o reembolsaremos assim que você confirmar o código. Dependendo de seu banco, pode levar entre minutos e até alguns dias.</string>
   <string name="card_verification_code_title">Verifique o código nos detalhes da transação</string>
   <string name="card_verification_code_body">Um código único será exibido no resumo da transação fornecido pelo emissor do seu cartão.</string>
@@ -940,8 +940,8 @@
   <string name="card_verification_wallets_insert_bode_button">Inserir código</string>
   <string name="card_verification_no_attempts_title">Ops, você inseriu um código errado muitas vezes, por isso, %1$s s será reembolsado em seu cartão.</string>
   <string name="card_verification_no_attempts_body">Por favor, reinicie o processo de verificação.</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Validate Card</string>
+  <string name="wallet_verify_header">Valide pelo menos um método de pagamento</string>
+  <string name="verify_card_title">Validar Cartão</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Compre este voucher e receba</string>
   <string name="voucher_card_body_2"> até %s%% de bônus.</string>
