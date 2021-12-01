@@ -944,7 +944,7 @@
   <string name="rate_us_back_title">تريد مساعدتنا؟</string>
   <string name="rate_us_back_body">أضف تقيمك لمحفظة AppCoins على متجر التطبيقات لنعمل على تحسينه.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">تحقق من بطاقتك الائتمانية لتسدد مدفوعاتك.</string>
   <string name="card_verification_charde_disclaimer">سيتم خصم %s من بطاقتك، وستستعيدها عندما تُدخل رمز التأكيد. اعتمادًا على البنك الذي تتعامل معه، يمكن أن تستغرق العملية من دقيقة إلى بضعة أيام.</string>
   <string name="card_verification_code_title">تفقد الرمز في تفاصيل حركة الدفع</string>
   <string name="card_verification_code_body">سيظهر رمز مميز في ملخص عملية التحويل عن طريق مُصدِر بطاقتك.</string>
@@ -977,8 +977,8 @@
   <string name="card_verification_wallets_insert_bode_button">أدخل الرمز</string>
   <string name="card_verification_no_attempts_title">يييي، لقد أدخلت رمزًا خاطئًا مرات عديدة لذلك سنعيد %1$s إلى بطاقتك.</string>
   <string name="card_verification_no_attempts_body">لطفًا، ابدأ عملية التحقق من جديد.</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Validate Card</string>
+  <string name="wallet_verify_header">تحقق من وسيلة دفع واحدة على الأقل</string>
+  <string name="verify_card_title">تحقق من البطاقة</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">اشترِ بطاقة الهدة هذه واحصل على</string>
   <string name="voucher_card_body_2"> ما يصل إلى %s%% مكافأة.</string>
@@ -1010,17 +1010,17 @@
   <string name="e_skills_withdraw_invalid_email_error_message">بريد إلكتروني غير صالح</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">رصيد غير كافٍ</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">يمكنك فقط سحب أموالك التي كسبتها في ألعاب e-Skills</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">الحد الأدنى للسحب هو %1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">يمكنك أن تسحب:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_know_more_about">تعرف المزيد عن e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">يمكنك فقط سحب الرصيد الذي ربحته في ألعاب e-Skills</string>
+  <string name="e_skills_withdraw_started">\nبدأت عملية سحب %1$.2f$</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
+  <string name="e_skills_withdraw_maybe_later">ربما لاحقًا</string>
+  <string name="e_skills_room_create_title">أنشئ أو انضم إلى غرفة</string>
+  <string name="e_skills_room_create_body">أنشئ غرفة جديدة وشاركها مع خصومك أو انضم إلى غرفة موجودة مسبقًا.</string>
+  <string name="e_skills_room_field">اسم غرفتك هنك...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">رمز ترويجي</string>
   <string name="promo_code_view_title">رمز ترويجي</string>
@@ -1032,9 +1032,9 @@
   <string name="promo_code_active_tag">نشط</string>
   <string name="promo_code_expired_tag">منتهي الصلاحية</string>
   <string name="promo_code_success_title">تم!</string>
-  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_success_body">ستحصل على %s%% مكافأة إضافية على كل عمليات الشراء.</string>
+  <string name="promo_code_success_body_specific_app">ستحصل على %1$s%% مكافأة إضافية على كل عمليات الشراء في %2$s.</string>
+  <string name="promo_code_promotions_tag">الكود الترويجي</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">حول AppCoins</string>
   <string name="appcoins_info_prince_title">سعر AppCoins (APPC)</string>
@@ -1049,5 +1049,5 @@
   <string name="appcoins_info_volume_title">الحجم (24س)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_no_nfts">لا توجد NFTs متوفرة حاليًا.</string>
 </resources>
