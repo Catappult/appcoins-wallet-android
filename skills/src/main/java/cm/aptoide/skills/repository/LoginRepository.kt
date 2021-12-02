@@ -8,6 +8,6 @@ import io.reactivex.Single
 class LoginRepository(private val roomApi: RoomApi) {
 
   fun login(ewt: String, roomId: String, ticketId: String): Single<LoginResponse> {
-    return roomApi.login(ewt, LoginRequest(roomId,ticketId))
+    return roomApi.login(ewt, LoginRequest(roomId, ticketId))
   }
 }
