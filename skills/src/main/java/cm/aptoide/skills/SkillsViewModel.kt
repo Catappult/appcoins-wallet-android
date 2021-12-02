@@ -77,7 +77,7 @@ class SkillsViewModel(
         }
       }
       is PurchasedTicket -> {
-        loginUseCase.login(ticket.roomId)
+        loginUseCase.login(ticket.roomId, ticket.ticketId)
             .map { session ->
               return@map UserData(
                   ticket.userId, ticket.roomId, ticket.walletAddress, session,
