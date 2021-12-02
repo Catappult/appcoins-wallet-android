@@ -8,13 +8,13 @@
   <string name="ok">ตกลง</string>
   <string name="cancel">ยกเลิก</string>
   <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="playing_game_notification_title">กำลังเล่น e-Skills</string>
+  <string name="playing_game_notification_body">กำลังรับข้อมูลเกม...</string>
+  <string name="finish_game_notification_title">เกม e-Skills ของคุณเสร็จแล้ว</string>
+  <string name="won_game_notification_body">คุณได้รับรางวัล! กระเป๋าเงินของคุณตอนนี้หนักกว่า $%1$.2f!</string>
+  <string name="lost_game_notification_body">คุณแพ้… ครั้งหน้าขอให้โชคดีกว่านี้!</string>
   <string name="dismiss_button">ละทิ้ง</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="location_not_available_title">เกม e-Skills ไม่พร้อมให้บริการในพื้นที่ของคุณ</string>
+  <string name="location_not_available_body">เรากำลังดำเนินการอย่างเต็มที่เพื่อนำเสนอสิ่งเหล่านี้ให้กับทุกคน โปรดกลับมาเร็วๆ นี้!</string>
+  <string name="shared_room_waiting">รอให้ฝ่ายตรงข้ามเข้าร่วม %s</string>
 </resources>
