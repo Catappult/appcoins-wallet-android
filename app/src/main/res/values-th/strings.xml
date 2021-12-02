@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">กระเป๋าเงินของฉัน</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">รหัสผ่าน</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">สร้าง</string>
   <!-- String related to sending -->
   <string name="prompt_to">ถึง</string>
   <string name="action_send">ส่ง</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">เล่นเมาก จ่ายน้อยลง</string>
   <string name="intro_2_body">รับรางวัลสำหรับการซื้อสินค้าในแอปพลิเคชันที่ชื่นชอบและเกมของคุณ</string>
   <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">ติดตั้ง AppCoins Wallet เพื่อใช้จ่ายแกมส์ได้โดยตรง</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
   <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
   <string name="intro_4_body_2">ธุรกรรมทั้งหมดของคุณปลอดภัยด้วยเทคโนโลยีล่าสุด</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">สร้างกระเป๋าสตางค์!</string>
   <string name="intro_agree_terms_and_conditions_body">โดยการแตะที่ข้าม คุณตกลงที่จะใช้กระเป๋าสตางค์ AppCoins %1$s และ %2$s</string>
   <string name="intro_skip_button">ข้าม</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">ยินดีต้อนรับสู่ AppCoins Wallet</string>
+  <string name="intro_welcome_body">ซื้อในแอปของคุณ</string>
+  <string name="intro_already_have_wallet_button">ฉันมีวอลเล็ตแล้ว</string>
+  <string name="intro_get_started_button">เริ่ม</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">จาก</string>
@@ -241,8 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills_reward">รางวัล e-Skill</string>
+  <string name="transaction_type_eskills">ซื้อ e-Skills</string>
   <string name="transaction_type_voucher">เวาเชอร์อิเล็กทรอนิกส์</string>
   <string name="transaction_type_voucher_title">บัตรกำนัลสำหรับ %s</string>
   <string name="transaction_type_reverted_bonus_title">โบนัสเงินคืน</string>
@@ -390,7 +390,7 @@
   <string name="my_wallets_action_new_wallet">วอลเล็ตใหม่</string>
   <string name="my_wallets_action_recover_wallet">กู้คืนวอลเล็ต</string>
   <string name="my_wallets_action_backup_wallet">สำรองวอลเล็ต</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
+  <string name="my_wallets_action_verify_new_card">ยืนยันบัตรใหม่</string>
   <string name="my_wallets_action_delete_wallet">ลบวอลเล็ต</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ขอให้บางคนชำระเงิน</string>
@@ -428,7 +428,7 @@
   <string name="discover_button">เปิด</string>
   <string name="retry_button">ลอง</string>
   <string name="do_it_later_button">ทำภายหลัง</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connection_error_body">ดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต โปรดเช็คการเชื่อมต่อและลองอีกครั้ง!</string>
   <string name="common_or">หรือ</string>
   <string name="share_via">แชร์ไปยัง:</string>
   <string name="password">รหัสผ่าน</string>
@@ -445,7 +445,7 @@
   <string name="terms_and_conditions">ข้อกำหนดและเงื่อนไข</string>
   <string name="privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">ดำเนินการซื้อเกมส์ที่คุณชื่นชอบและเราจะรับมือกับทุกอย่าง</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
@@ -482,10 +482,10 @@
   <string name="verification_settings_unverified_title">ยืนยันกระเป๋าสตางค์</string>
   <string name="verification_settings_unverified_body">รับรางวัลและเชิญเพื่อน</string>
   <string name="verification_settings_verified_title">กระเป๋าสตางค์ที่ยืนยัน</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
+  <string name="verification_settings_verifying_title">ยืนยันวอลเล็ต…</string>
+  <string name="verification_verified_paypal_description">คุณจะได้รับเงินคืนทันที วอลเล็ตของคุณจะได้รับการยืนยันในไม่ช้า</string>
+  <string name="verification_verify_paypal_description">การทำธุรกรรมขั้นต่ำ %s จะทำเพื่อยืนยันบัญชีของคุณ เงินจะถูกคืนให้ทันที</string>
+  <string name="verification_verify_paypal_button">ยืนยันตอนนี้</string>
   <string name="verification_settings_card_verified_title">บัตรได้รับการยืนยัน</string>
   <string name="verification_settings_no_internet">คุณจำเป็นต้องเชื่อมต่ออินเตอร์เน็ต</string>
   <string name="verification_error_time_expired">อุ๊ปส์ หมดเวลาแล้ว เริ่มอีกครั้ง!</string>
@@ -542,9 +542,9 @@
   <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_card_already_in_progress">คำขอของคุณได้รับการประมวลผลแล้วหรืออยู่ระหว่างดำเนินการ โปรดรอ</string>
   <string name="purchase_error_payment_rejected">การชำระเงินถูกปฏิเสธ! โปรดลองใช้บัตรจากผู้ออกบัตรรายอื่นหรือใช้วิธีการชำระเงินอื่น</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
+  <string name="purchase_error_verify_wallet">ตรวจสอบวิธีการชำระเงินของคุณเพื่อดำเนินการสั่งซื้อนี้ให้เสร็จสมบูรณ์</string>
+  <string name="purchase_error_verify_card">ตรวจสอบบัตรของคุณเพื่อทำการซื้อนี้ให้เสร็จสมบูรณ์</string>
+  <string name="purachse_error_verify_card_button">ตรวจสอบบัตร</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
@@ -667,7 +667,7 @@
   <string name="backup_additional_security_disclaimer_title">โปรดเก็บรักษารหัสผ่านของคุณให้ปลอดภัย</string>
   <string name="backup_additional_security_disclaimer_body">ไม่มีการกู้คืนรหัสผ่าน</string>
   <string name="backup_additional_security_password_not_march">รหัสผ่านไม่เหมือนกัน</string>
-  <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="import_wallet_recovering_body">กำลังกู้คืนกระเป๋าสตางค์...</string>
   <!--Wallets Management-->
   <string name="wallets_title">กระเป๋าสตางค์</string>
   <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>
@@ -732,7 +732,7 @@
   <string name="subscriptions_subscribe_button">ตอบรับสมาชิก</string>
   <string name="subscriptions_active_title">ใช้งาน</string>
   <string name="subscriptions_expired_title">หมดอายุ</string>
-  <string name="subscriptions_inactive_title">Inactive</string>
+  <string name="subscriptions_inactive_title">ไม่ใช้งาน</string>
   <string name="subscriptions_empty_title">ยังไม่มีการสมัครสมาชิก</string>
   <string name="subscriptions_empty_body">สมัครบริการแอปและเกมส์ที่คุณชื่นชอบและเราจะจัดการระยะเวลาการชำระเงินให้</string>
   <string name="subscriptions_details_billing_title">การเรียกเก็บเงิน:</string>
@@ -881,7 +881,7 @@
   <string name="perks_level_up_amount_left">อีก %1$s%2$s จะถึงเลเวลถัดไป!</string>
   <string name="perks_level_up_level_tag">เลเวล %s</string>
   <string name="perks_bonus_purchase_flow">%1$s โบนัส: %2$s ใน AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">การซื้อและการเติมเงินด้วยวิธีการชำระเงินใดๆ นอกเหนือจาก AppCoins Credits จะมีคุณสมบัติในการเพิ่มระดับของคุณและรับรางวัล</string>
   <string name="perks_empty_state_first_purchase_body">ดำเนินการซื้อครั้งแรกของคุณในแอพที่รองรับ AppCoins เพื่อปลดล็อกโปรโมชั่นที่เรามีให้คุณ!</string>
   <string name="perks_empty_body">ในขณะนี้ไม่มีโปรโมชั่น</string>
   <!--Fingerprint Authentication-->
@@ -894,7 +894,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">ส่งบันทึกไปยังทีมสนับสนุน</string>
   <string name="send_logs_sending">กำลังส่ง&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">ส่งแล้ว!</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">เพลิดเพลินกับ AppCoins Wallet หรือไม่</string>
@@ -910,7 +910,7 @@
   <string name="rate_us_back_title">ต้องการความช่วยเหลือไหม</string>
   <string name="rate_us_back_body">ให้คะแนน AppCoins Wallet บนแอพสโตร์เพื่อให้เราปรับปรุง</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">ตรวจสอบบัตรเครดิต/เดบิตของคุณเพื่อชำระเงิน</string>
   <string name="card_verification_charde_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณ และเราจะคืนเงินเมื่อคุณยืนยันรหัส ขึ้นอยู่กับธนาคารของคุณ อาจใช้เวลาระหว่างนาทีถึงสองสามวัน</string>
   <string name="card_verification_code_title">ตรวจสอบรหัสรายละเอียดธุรกรรม</string>
   <string name="card_verification_code_body">รหัสเฉพาะจะแสดงในข้อมูลสรุปธุรกรรมที่ผู้ออกบัตรของคุณให้ไว้</string>
@@ -933,8 +933,8 @@
   <string name="card_verification_wallets_insert_bode_button">ใส่รหัส</string>
   <string name="card_verification_no_attempts_title">อ๊ะ คุณใส่รหัสผิดหลายครั้งเกินไปดังนั้น %1$s จะได้รับเงินคืนไปยังบัตรของคุณ</string>
   <string name="card_verification_no_attempts_body">โปรดเริ่มการตรวจสอบอีกครั้ง</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Validate Card</string>
+  <string name="wallet_verify_header">ตรวจสอบวิธีการชำระเงินอย่างน้อยหนึ่งวิธี</string>
+  <string name="verify_card_title">ตรวจสอบบัตร</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">ซื้อและรับบัตรกำนัลนี้</string>
   <string name="voucher_card_body_2"> โบนัสสูงสุด %s%%</string>
@@ -965,18 +965,18 @@
   <string name="e_skills_withdraw_title">การถอน e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">ไม่พบอีเมล</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">มียอดคงเหลือไม่เพียงพอ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">คุณยังไม่ชนะเกม e-Skills มากพอที่จะถอนเงินจำนวนนั้น</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">จำนวนเงินขั้นต่ำในการถอนคือ $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">คุณสามารถถอน:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_know_more_about">เรียนรู้เพิ่มเติมเกี่ยวกับ e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">คุณสามารถถอนเงินที่ได้รับในเกม e-Skills เท่านั้น</string>
+  <string name="e_skills_withdraw_started">การถอนเงิน $%1$.2f \nเริ่มต้นขึ้นแล้ว</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
+  <string name="e_skills_withdraw_maybe_later">ไว้ก่อน</string>
+  <string name="e_skills_room_create_title">สร้างหรือเข้าร่วมห้อง</string>
+  <string name="e_skills_room_create_body">สร้างห้องใหม่และแชร์กับฝ่ายตรงข้ามหรือเข้าร่วมห้องที่มีอยู่</string>
+  <string name="e_skills_room_field">ชื่อห้องของคุณที่นี่...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo Code</string>
   <string name="promo_code_view_title">Promo Code</string>
@@ -988,11 +988,11 @@
   <string name="promo_code_active_tag">ใช้งาน</string>
   <string name="promo_code_expired_tag">หมดอายุ</string>
   <string name="promo_code_success_title">เสร็จ!</string>
-  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_success_body">คุณจะได้รับโบนัสพิเศษ %s%% ในการซื้อทั้งหมดของคุณ</string>
+  <string name="promo_code_success_body_specific_app">คุณจะได้รับโบนัสพิเศษ %1$s%% จากการซื้อทั้งหมดของคุณใน %2$s</string>
+  <string name="promo_code_promotions_tag">รหัสโปรโมชั่น</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">เกี่ยวกับ AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">AppCoins คืออะไร</string>
   <string name="appcoins_info_body_1">AppCoins เป็นโทเค็นดิจิทัลที่สร้างโดย Aptoide และมีผู้ใช้มากกว่า 200 ล้านคนทั่วโลก เป้าหมายหลักของโซลูชันในการชำระเงินที่เป็นนวัตกรรมใหม่ที่มอบความน่าไว้วางใจในระบบเศรษฐกิจของแอปและเพื่อขจัดตัวกลางออก</string>
@@ -1005,5 +1005,5 @@
   <string name="appcoins_info_volume_title">ปริมาณ (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_no_nfts">ไม่มี NFTs ในตอนนี้</string>
 </resources>
