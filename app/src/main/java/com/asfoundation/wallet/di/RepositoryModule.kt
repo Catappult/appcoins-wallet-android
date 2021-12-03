@@ -292,12 +292,6 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideWalletStatusRepository(walletStatusApi: WalletStatusApi): WalletStatusRepository {
-    return WalletStatusRepository(walletStatusApi)
-  }
-
-  @Singleton
-  @Provides
   fun provideSupportRepository(preferences: SupportSharedPreferences, app: App): SupportRepository {
     return SupportRepository(preferences, app)
   }

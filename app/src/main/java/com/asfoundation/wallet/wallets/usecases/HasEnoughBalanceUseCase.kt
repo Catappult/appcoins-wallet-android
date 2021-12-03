@@ -19,13 +19,16 @@ class HasEnoughBalanceUseCase(
     return getWalletInfoUseCase(address, cached = false, updateFiat = false)
         .flatMap { walletInfo ->
           val scaledValue = Convert.toWei(value, unit)
+          val scaledCredits = Convert.toWei(walletInfo.walletBalance.creditsBalance.token.amount,
+              Convert.Unit.ETHER)
+          val scaledAppc =
+              Convert.toWei(walletInfo.walletBalance.appcBalance.token.amount, Convert.Unit.ETHER)
+          val scaledEth =
+              Convert.toWei(walletInfo.walletBalance.ethBalance.token.amount, Convert.Unit.ETHER)
           return@flatMap when (balanceType) {
-            BalanceType.APPC_C -> Single.just(
-                walletInfo.walletBalance.creditsBalance.token.amount >= scaledValue)
-            BalanceType.APPC -> Single.just(
-                walletInfo.walletBalance.appcBalance.token.amount >= scaledValue)
-            BalanceType.ETH -> Single.just(
-                walletInfo.walletBalance.ethBalance.token.amount >= scaledValue)
+            BalanceType.APPC_C -> Single.just(scaledCredits >= scaledValue)
+            BalanceType.APPC -> Single.just(scaledAppc >= scaledValue)
+            BalanceType.ETH -> Single.just(scaledEth >= scaledValue)
           }
         }
   }

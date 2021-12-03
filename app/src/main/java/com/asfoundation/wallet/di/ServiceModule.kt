@@ -386,19 +386,6 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideWalletStatusApi(@Named("default") client: OkHttpClient, gson: Gson): WalletStatusApi {
-    val baseUrl = BuildConfig.BACKEND_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(WalletStatusApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun providesTopUpValuesApi(@Named("default") client: OkHttpClient, gson: Gson): TopUpValuesApi {
     val baseUrl = BuildConfig.BASE_HOST
     return Retrofit.Builder()

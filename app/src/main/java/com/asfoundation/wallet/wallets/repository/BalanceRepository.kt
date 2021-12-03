@@ -25,7 +25,7 @@ class BalanceRepository(private val getSelectedCurrencyUseCase: GetSelectedCurre
     const val APPC_C_CURRENCY = "APPC_C_CURRENCY"
     const val ETH_CURRENCY = "ETH_CURRENCY"
 
-    private const val FIAT_SCALE = 4
+    const val FIAT_SCALE = 4
   }
 
   fun getWalletBalance(appcCreditsWei: BigInteger,
