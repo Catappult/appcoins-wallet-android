@@ -9,5 +9,4 @@ import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
 @TypeConverters(WalletInfoTypeConverter::class)
 abstract class WalletInfoDatabase : RoomDatabase() {
   abstract fun walletInfoDao(): WalletInfoDao
-
 }

@@ -18,11 +18,6 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
         .onErrorReturn { map(it) }
   }
 
-  override fun getBalance(address: String): Single<BigDecimal> {
-    return remoteRepository.getBalance(address)
-        .map { it.balance }
-  }
-
   override fun pay(walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
                    sku: String?, type: String, developerAddress: String, entityOemId: String?,
                    entityDomain: String?, packageName: String, payload: String?, callback: String?,

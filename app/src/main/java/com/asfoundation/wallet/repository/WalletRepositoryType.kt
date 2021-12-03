@@ -4,7 +4,6 @@ import com.asfoundation.wallet.entity.Wallet
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.math.BigDecimal
 
 interface WalletRepositoryType {
 
@@ -28,9 +27,4 @@ interface WalletRepositoryType {
   fun getDefaultWallet(): Single<Wallet>
 
   fun observeDefaultWallet(): Observable<Wallet>
-
-  fun getEthBalanceInWei(address: String): Single<BigDecimal>
-
-  fun getAppcBalanceInWei(address: String): Single<BigDecimal>
-
 }

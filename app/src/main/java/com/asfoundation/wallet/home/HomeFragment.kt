@@ -16,12 +16,12 @@ import com.asf.wallet.databinding.ActivityTransactionsBinding
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.ErrorEnvelope
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
+import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.transactions.HeaderController
 import com.asfoundation.wallet.ui.transactions.TransactionsController
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
@@ -36,6 +36,7 @@ import io.intercom.android.sdk.Intercom
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class HomeFragment : BasePageViewFragment(),
@@ -280,46 +281,52 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   private fun setWalletBalance(globalBalance: GlobalBalance) {
-    if (globalBalance.fiatValue.isNotEmpty() && globalBalance.fiatSymbol.isNotEmpty()) {
+    val overallBalanceFiat = globalBalance.walletBalance.overallFiat
+
+    if (overallBalanceFiat.amount > BigDecimal("-1") && overallBalanceFiat.symbol.isNotEmpty()) {
       views.balanceSkeleton.visibility = View.GONE
       views.balance.visibility = View.VISIBLE
       views.balanceSubtitle.visibility = View.VISIBLE
       views.currencySelector.visibility = View.VISIBLE
-      views.balance.text = globalBalance.fiatSymbol + globalBalance.fiatValue
+      views.balance.text = overallBalanceFiat.symbol + overallBalanceFiat.amount
       setSubtitle(globalBalance)
     }
   }
 
   private fun setSubtitle(globalBalance: GlobalBalance) {
-    val subtitle = buildCurrencyString(globalBalance.appcoinsBalance, globalBalance.creditsBalance,
-        globalBalance.etherBalance, globalBalance.showAppcoins,
+    val walletBalance = globalBalance.walletBalance
+    val subtitle = buildCurrencyString(walletBalance.appcBalance, walletBalance.creditsBalance,
+        walletBalance.ethBalance, globalBalance.showAppcoins,
         globalBalance.showCredits, globalBalance.showEthereum)
     views.balanceSubtitle.text = Html.fromHtml(subtitle)
   }
 
-  private fun buildCurrencyString(appcoinsBalance: Balance, creditsBalance: Balance,
-                                  ethereumBalance: Balance, showAppcoins: Boolean,
+  private fun buildCurrencyString(appcoinsBalance: TokenBalance, creditsBalance: TokenBalance,
+                                  ethereumBalance: TokenBalance, showAppcoins: Boolean,
                                   showCredits: Boolean, showEthereum: Boolean): String {
     val stringBuilder = StringBuilder()
     val bullet = "\u00A0\u00A0\u00A0\u2022\u00A0\u00A0\u00A0"
     if (showCredits) {
-      val creditsString = (formatter.formatCurrency(creditsBalance.value, WalletCurrency.CREDITS)
-          + " "
-          + WalletCurrency.CREDITS.symbol)
+      val creditsString =
+          (formatter.formatCurrency(creditsBalance.token.amount, WalletCurrency.CREDITS)
+              + " "
+              + WalletCurrency.CREDITS.symbol)
       stringBuilder.append(creditsString)
           .append(bullet)
     }
     if (showAppcoins) {
-      val appcString = (formatter.formatCurrency(appcoinsBalance.value, WalletCurrency.APPCOINS)
-          + " "
-          + WalletCurrency.APPCOINS.symbol)
+      val appcString =
+          (formatter.formatCurrency(appcoinsBalance.token.amount, WalletCurrency.APPCOINS)
+              + " "
+              + WalletCurrency.APPCOINS.symbol)
       stringBuilder.append(appcString)
           .append(bullet)
     }
     if (showEthereum) {
-      val ethString = (formatter.formatCurrency(ethereumBalance.value, WalletCurrency.ETHEREUM)
-          + " "
-          + WalletCurrency.ETHEREUM.symbol)
+      val ethString =
+          (formatter.formatCurrency(ethereumBalance.token.amount, WalletCurrency.ETHEREUM)
+              + " "
+              + WalletCurrency.ETHEREUM.symbol)
       stringBuilder.append(ethString)
           .append(bullet)
     }

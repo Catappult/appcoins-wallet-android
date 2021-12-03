@@ -5,6 +5,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -23,6 +24,7 @@ class HomeModule {
 
   @Provides
   fun providesHomeViewModelFactory(homeAnalytics: HomeAnalytics,
+                                   observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                                    shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
                                    updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
                                    findNetworkInfoUseCase: FindNetworkInfoUseCase,
@@ -34,9 +36,6 @@ class HomeModule {
                                    setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
                                    getLevelsUseCase: GetLevelsUseCase,
                                    getUserLevelUseCase: GetUserLevelUseCase,
-                                   getAppcBalanceUseCase: GetAppcBalanceUseCase,
-                                   getEthBalanceUseCase: GetEthBalanceUseCase,
-                                   getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
                                    getCardNotificationsUseCase: GetCardNotificationsUseCase,
                                    registerSupportUserUseCase: RegisterSupportUserUseCase,
                                    getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
@@ -45,12 +44,11 @@ class HomeModule {
                                    context: Context,
                                    walletsEventSender: WalletsEventSender,
                                    currencyFormatUtils: CurrencyFormatUtils): HomeViewModelFactory {
-    return HomeViewModelFactory(homeAnalytics, shouldOpenRatingDialogUseCase,
-        updateTransactionsNumberUseCase, findNetworkInfoUseCase, fetchTransactionsUseCase,
-        findDefaultWalletUseCase, observeDefaultWalletUseCase, dismissCardNotificationUseCase,
-        shouldShowFingerprintTooltipUseCase,
+    return HomeViewModelFactory(homeAnalytics, observeWalletInfoUseCase,
+        shouldOpenRatingDialogUseCase, updateTransactionsNumberUseCase, findNetworkInfoUseCase,
+        fetchTransactionsUseCase, findDefaultWalletUseCase, observeDefaultWalletUseCase,
+        dismissCardNotificationUseCase, shouldShowFingerprintTooltipUseCase,
         setSeenFingerprintTooltipUseCase, getLevelsUseCase, getUserLevelUseCase,
-        getAppcBalanceUseCase, getEthBalanceUseCase, getCreditsBalanceUseCase,
         getCardNotificationsUseCase, registerSupportUserUseCase,
         getUnreadConversationsCountEventsUseCase, displayChatUseCase,
         displayConversationListOrChatUseCase, context.packageName, walletsEventSender,

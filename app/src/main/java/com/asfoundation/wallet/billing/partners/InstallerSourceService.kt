@@ -10,7 +10,7 @@ class InstallerSourceService(val context: Context) : InstallerService {
     try {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         return Single.just(
-            context.packageManager.getInstallSourceInfo(appPackageName).installingPackageName)
+            context.packageManager.getInstallSourceInfo(appPackageName).installingPackageName ?: "")
       }
       return Single.just(context.packageManager.getInstallerPackageName(appPackageName) ?: "")
     } catch (e: IllegalArgumentException) {

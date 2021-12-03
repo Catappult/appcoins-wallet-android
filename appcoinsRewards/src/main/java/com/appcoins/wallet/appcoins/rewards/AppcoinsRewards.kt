@@ -18,13 +18,6 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
                       private val billing: Billing,
                       private val errorMapper: ErrorMapper) {
 
-  fun getBalance(address: String): Single<BigDecimal> = repository.getBalance(address)
-
-  fun getBalance(): Single<BigDecimal> {
-    return walletService.getWalletAddress()
-        .flatMap { getBalance(it) }
-  }
-
   fun pay(amount: BigDecimal, origin: String?, sku: String?, type: String, developerAddress: String,
           entityOemId: String?, entityDomainId: String?, packageName: String, payload: String?,
           callbackUrl: String?, orderReference: String?, referrerUrl: String?,

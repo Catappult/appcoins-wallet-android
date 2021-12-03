@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.wallets.db
 
 import androidx.room.TypeConverter
+import java.math.BigDecimal
 import java.math.BigInteger
 
 class WalletInfoTypeConverter {
@@ -10,4 +11,11 @@ class WalletInfoTypeConverter {
 
   @TypeConverter
   fun toString(bigInteger: BigInteger?): String? = bigInteger?.toString()
+
+  @TypeConverter
+  fun fromBigDecimalString(value: String?): BigDecimal =
+      if (value == null || value.isBlank()) BigDecimal.ZERO else BigDecimal(value)
+
+  @TypeConverter
+  fun toString(bigDecimal: BigDecimal?): String? = bigDecimal?.toPlainString()
 }

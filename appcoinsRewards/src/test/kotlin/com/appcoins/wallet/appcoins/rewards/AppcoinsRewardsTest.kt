@@ -3,7 +3,6 @@ package com.appcoins.wallet.appcoins.rewards
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.RemoteRepository
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
-import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.commons.MemoryCache

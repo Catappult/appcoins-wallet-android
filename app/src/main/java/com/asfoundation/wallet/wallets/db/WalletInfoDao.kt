@@ -1,18 +1,36 @@
 package com.asfoundation.wallet.wallets.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
-import io.reactivex.Completable
+import com.asfoundation.wallet.wallets.db.entity.WalletInfoUpdate
 import io.reactivex.Observable
 
 @Dao
 interface WalletInfoDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insertWalletInfo(walletInfo: WalletInfoEntity): Completable
+  fun insertWalletInfoWithFiat(walletInfo: WalletInfoEntity)
+
+  @Insert(onConflict = OnConflictStrategy.ABORT)
+  fun insertWalletInfo(walletInfo: WalletInfoEntity)
+
+  @Update(entity = WalletInfoEntity::class)
+  fun updateWalletInfo(walletInfoUpdate: WalletInfoUpdate)
+
+  /**
+   * Attempts to insert a WalletInfoEntity without fiat values. If it already exists, it just
+   * updates the relevant fields.
+   */
+  @Transaction
+  fun insertOrUpdateNoFiat(walletInfo: WalletInfoEntity) {
+    try {
+      insertWalletInfo(walletInfo)
+    } catch (e: Exception) {
+      updateWalletInfo(WalletInfoUpdate(walletInfo.wallet, walletInfo.appcCreditsBalanceWei,
+          walletInfo.appcBalanceWei, walletInfo.ethBalanceWei, walletInfo.blocked,
+          walletInfo.verified, walletInfo.logging))
+    }
+  }
 
   @Query("SELECT * FROM WalletInfoEntity WHERE wallet = :walletAddress")
-  fun observeWalletInfo(walletAddress: String): Observable<List<WalletInfoEntity>>
+  fun observeWalletInfo(walletAddress: String): Observable<WalletInfoEntity>
 }

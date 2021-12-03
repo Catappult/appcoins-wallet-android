@@ -3,7 +3,6 @@ package com.asfoundation.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
-import android.util.Pair
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.base.Async
@@ -12,19 +11,19 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
+import com.asfoundation.wallet.wallets.domain.WalletBalance
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -54,6 +53,7 @@ data class HomeState(val transactionsModelAsync: Async<TransactionsModel> = Asyn
                      val unreadMessages: Boolean = false) : ViewState
 
 class HomeViewModel(private val analytics: HomeAnalytics,
+                    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                     private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
                     private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
                     private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
@@ -65,9 +65,6 @@ class HomeViewModel(private val analytics: HomeAnalytics,
                     private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
                     private val getLevelsUseCase: GetLevelsUseCase,
                     private val getUserLevelUseCase: GetUserLevelUseCase,
-                    private val getAppcBalanceUseCase: GetAppcBalanceUseCase,
-                    private val getEthBalanceUseCase: GetEthBalanceUseCase,
-                    private val getCreditsBalanceUseCase: GetCreditsBalanceUseCase,
                     private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
                     private val registerSupportUserUseCase: RegisterSupportUserUseCase,
                     private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
@@ -158,61 +155,31 @@ class HomeViewModel(private val analytics: HomeAnalytics,
   }
 
   /**
-   * Balance is refreshed every [.UPDATE_INTERVAL] seconds, and stops while
-   * [.refreshData] is false
+   * Balance is refreshed every [UPDATE_INTERVAL] seconds, and stops while
+   * [refreshData] is false
    */
   private fun updateBalance(): Completable {
     return Completable.fromObservable(
         Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
             .flatMap { observeRefreshData() }
             .switchMap {
-              Observable.zip(
-                  getAppcBalance(), getCreditsBalance(), getEthereumBalance(),
-                  { tokenBalance, creditsBalance, ethereumBalance ->
-                    this.mapWalletValue(tokenBalance, creditsBalance, ethereumBalance)
-                  })
+              observeWalletInfoUseCase(null, update = true, updateFiat = true)
+                  .map { walletInfo -> mapWalletValue(walletInfo.walletBalance) }
                   .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
                     copy(defaultWalletBalanceAsync = it)
                   }
             })
   }
 
-  private fun getAppcBalance(): Observable<Pair<Balance, FiatValue>> {
-    return getAppcBalanceUseCase()
-        .filter { pair: Pair<Balance, FiatValue> ->
-          pair.second.symbol.isNotEmpty()
-        }
+  private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
+    return GlobalBalance(walletBalance, shouldShow(walletBalance.appcBalance, 0.01),
+        shouldShow(walletBalance.creditsBalance, 0.01),
+        shouldShow(walletBalance.ethBalance, 0.0001))
   }
 
-  private fun getEthereumBalance(): Observable<Pair<Balance, FiatValue>> {
-    return getEthBalanceUseCase()
-  }
-
-  private fun getCreditsBalance(): Observable<Pair<Balance, FiatValue>> {
-    return getCreditsBalanceUseCase()
-  }
-
-  private fun mapWalletValue(tokenBalance: Pair<Balance, FiatValue>,
-                             creditsBalance: Pair<Balance, FiatValue>,
-                             ethereumBalance: Pair<Balance, FiatValue>): GlobalBalance {
-    var fiatValue = ""
-    val sumFiat: BigDecimal = sumFiat(tokenBalance.second.amount, creditsBalance.second.amount,
-        ethereumBalance.second.amount)
-    if (sumFiat > MINUS_ONE) {
-      fiatValue = formatter.formatCurrency(sumFiat, WalletCurrency.FIAT)
-    }
-    return GlobalBalance(tokenBalance.first, creditsBalance.first, ethereumBalance.first,
-        tokenBalance.second.symbol, tokenBalance.second.currency, fiatValue,
-        shouldShow(tokenBalance, 0.01), shouldShow(creditsBalance, 0.01),
-        shouldShow(ethereumBalance, 0.0001))
-  }
-
-  private fun shouldShow(balance: Pair<Balance, FiatValue>, threshold: Double): Boolean {
-    return (balance.first.getStringValue()
-        .isNotEmpty() && balance.first.getStringValue()
-        .toDouble() >= threshold && balance.second.amount > MINUS_ONE
-        && balance.second.amount
-        .toDouble() >= threshold)
+  private fun shouldShow(tokenBalance: TokenBalance, threshold: Double): Boolean {
+    return (tokenBalance.token.amount >= BigDecimal(
+        threshold) && tokenBalance.fiat.amount.toDouble() >= threshold)
   }
 
   private fun sumFiat(appcoinsFiatValue: BigDecimal, creditsFiatValue: BigDecimal,
@@ -402,8 +369,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
   fun onTransactionDetailsClick(transaction: Transaction) {
     sendSideEffect {
       state.defaultWalletBalanceAsync.value?.let {
-        HomeSideEffect.NavigateToDetails(transaction,
-            it.fiatCurrency)
+        HomeSideEffect.NavigateToDetails(transaction, it.walletBalance.overallFiat.currency)
       }
     }
   }

@@ -6,7 +6,6 @@ import com.appcoins.wallet.commons.MemoryCache
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.repository.TokenRepositoryType
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract

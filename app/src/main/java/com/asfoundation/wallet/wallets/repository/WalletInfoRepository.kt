@@ -1,15 +1,6 @@
 package com.asfoundation.wallet.wallets.repository
 
 import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
-import com.asfoundation.wallet.entity.Balance
-import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.ui.TokenValue
-import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
-import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.BalanceUtils
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
 import com.asfoundation.wallet.wallets.domain.WalletBalance
@@ -20,116 +11,96 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import java.math.BigDecimal
-import java.math.RoundingMode
+import java.util.*
 
 class WalletInfoRepository(
-  private val api: WalletInfoApi,
-  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-  private val walletInfoDao: WalletInfoDao,
-  private val localCurrencyConversionService: LocalCurrencyConversionService,
-  private val defaultNetwork: NetworkInfo,
-  private val rxSchedulers: RxSchedulers
+    private val api: WalletInfoApi,
+    private val walletInfoDao: WalletInfoDao,
+    private val balanceRepository: BalanceRepository,
+    private val rxSchedulers: RxSchedulers
 ) {
 
-  companion object {
-    const val APPC_CURRENCY = "APPC_CURRENCY"
-    const val APPC_C_CURRENCY = "APPC_C_CURRENCY"
-    const val ETH_CURRENCY = "ETH_CURRENCY"
+  fun getLatestWalletInfo(walletAddress: String,
+                          updateFiatValues: Boolean): Single<WalletInfo> {
+    return updateWalletInfo(walletAddress, updateFiatValues)
+        .andThen(observeWalletInfo(walletAddress).firstOrError())
+  }
 
-    private const val FIAT_SCALE = 4
+  fun getCachedWalletInfo(walletAddress: String): Single<WalletInfo> {
+    return observeWalletInfo(walletAddress).firstOrError()
+  }
+
+  fun observeUpdatedWalletInfo(walletAddress: String,
+                               updateFiatValues: Boolean): Observable<WalletInfo> {
+    return Observable.merge(observeWalletInfo(walletAddress),
+        updateWalletInfo(walletAddress, updateFiatValues).toObservable())
   }
 
   fun observeWalletInfo(walletAddress: String): Observable<WalletInfo> {
-    return walletInfoDao.observeWalletInfo(walletAddress)
-      .map { list ->
-        if (list.isNotEmpty()) {
-          return@map WalletInfo(
-            list[0].wallet, list[0].ethBalanceWei, list[0].appcBalanceWei,
-            list[0].appcCreditsBalanceWei, list[0].blocked, list[0].verified, list[0].logging
+    return walletInfoDao.observeWalletInfo(walletAddress.normalize())
+        .map { entity ->
+          return@map WalletInfo(entity.wallet, getWalletBalance(entity), entity.blocked,
+              entity.verified, entity.logging
           )
         }
-        throw UnknownError("No wallet info for the specified wallet address (${walletAddress})")
-      }
-      .subscribeOn(rxSchedulers.io)
+        .doOnError { e -> e.printStackTrace() }
+        .subscribeOn(rxSchedulers.io)
   }
 
-  fun updateWalletInfo(walletAddress: String, updateFiat: Boolean): Completable {
+  /**
+   * Retrieves Wallet Info and fiat values (if specified), saving it to DB.
+   * Fiat values is optional because it involves 3 requests, and it really only is useful in
+   * My Wallets for now.
+   */
+  fun updateWalletInfo(walletAddress: String, updateFiatValues: Boolean): Completable {
     return api.getWalletInfo(walletAddress)
-      .flatMap { walletInfoResponse ->
-        if (updateFiat) {
-
-        }
-        return@flatMap Single.just(
-          WalletInfoEntity(
-            walletInfoResponse.wallet, walletInfoResponse.ethBalanceWei,
-            walletInfoResponse.appcBalanceWei, walletInfoResponse.appcCreditsBalanceWei,
-            walletInfoResponse.blocked, walletInfoResponse.verified, walletInfoResponse.logging,
-            null, null, null, null, null
-          )
-        )
-      }
-      .map { response ->
-
-      }
-      .doOnSuccess { entity -> walletInfoDao.insertWalletInfo(entity) }
-      .ignoreElement()
-      .subscribeOn(rxSchedulers.io)
-  }
-
-  private fun convertToFiat(
-    appcCreditsWei: BigDecimal,
-    appcWei: BigDecimal,
-    ethWei: BigDecimal
-  ): WalletBalance {
-    val appcCredits = BalanceUtils.weiToEth(appcCreditsWei).setScale(FIAT_SCALE, RoundingMode.FLOOR)
-    val appc = BalanceUtils.weiToEth(appcWei).setScale(FIAT_SCALE, RoundingMode.FLOOR)
-    val eth = BalanceUtils.weiToEth(ethWei).setScale(FIAT_SCALE, RoundingMode.FLOOR)
-
-    localCurrencyConversionService.getValueToFiat(
-      appcCredits.toString(), "ETH",
-      targetCurrency, AppcoinsBalanceRepository.SUM_FIAT_SCALE
-    )
-    return getSelectedCurrencyUseCase(bypass = false)
-      .flatMap { targetCurrency ->
-        Single.zip(
-          localCurrencyConversionService.getValueToFiat(
-            appcCredits.toString(),
-            "APPC",
-            targetCurrency,
-            FIAT_SCALE
-          ),
-          localCurrencyConversionService.getValueToFiat(
-            appc.toString(),
-            "APPC",
-            targetCurrency,
-            FIAT_SCALE
-          ),
-          localCurrencyConversionService.getValueToFiat(
-            eth.toString(),
-            "ETH",
-            targetCurrency,
-            FIAT_SCALE
-          ),
-          { appcCreditsFiat, appcFiat, ethFiat ->
-
-            WalletBalance()
+        .flatMap { walletInfoResponse ->
+          if (updateFiatValues) {
+            return@flatMap balanceRepository.getWalletBalance(
+                walletInfoResponse.appcCreditsBalanceWei, walletInfoResponse.appcBalanceWei,
+                walletInfoResponse.ethBalanceWei)
+                .map { walletBalance ->
+                  val fiat = walletBalance.creditsBalance.fiat
+                  WalletInfoEntity(
+                      walletInfoResponse.wallet.normalize(),
+                      walletInfoResponse.appcCreditsBalanceWei,
+                      walletInfoResponse.appcBalanceWei, walletInfoResponse.ethBalanceWei,
+                      walletInfoResponse.blocked, walletInfoResponse.verified,
+                      walletInfoResponse.logging, walletBalance.creditsBalance.fiat.amount,
+                      walletBalance.appcBalance.fiat.amount, walletBalance.ethBalance.fiat.amount,
+                      fiat.currency, fiat.symbol
+                  )
+                }
+                .doOnSuccess { entity -> walletInfoDao.insertWalletInfoWithFiat(entity) }
           }
-        )
-      }
+          return@flatMap Single.just(
+              WalletInfoEntity(walletInfoResponse.wallet.normalize(),
+                  walletInfoResponse.ethBalanceWei,
+                  walletInfoResponse.appcBalanceWei, walletInfoResponse.appcCreditsBalanceWei,
+                  walletInfoResponse.blocked, walletInfoResponse.verified,
+                  walletInfoResponse.logging, null, null, null, null, null
+              ))
+              .doOnSuccess { entity -> walletInfoDao.insertOrUpdateNoFiat(entity) }
+        }
+        .doOnError { e -> e.printStackTrace() }
+        .ignoreElement()
+        .subscribeOn(rxSchedulers.io)
   }
 
-  private fun mapToTokenBalance(
-    balance: Balance,
-    fiatValue: FiatValue,
-    currency: String
-  ): TokenBalance {
-    return TokenBalance(TokenValue(balance.value, currency, balance.symbol), fiatValue)
+  // This normalization is important as wallet addresses can be received with mixed case
+  private fun String.normalize(): String {
+    return this.toLowerCase(Locale.ROOT)
   }
 
-  fun getStringValue(value: String): String {
-    return value
-      .stripTrailingZeros()
-      .toPlainString()
+  private fun getWalletBalance(entity: WalletInfoEntity): WalletBalance {
+    val credits = balanceRepository.roundToEth(entity.appcCreditsBalanceWei)
+    val creditsFiatAmount = entity.appcCreditsBalanceFiat ?: BigDecimal.ZERO
+    val appc = balanceRepository.roundToEth(entity.appcBalanceWei)
+    val appcFiatAmount = entity.appcBalanceFiat ?: BigDecimal.ZERO
+    val eth = balanceRepository.roundToEth(entity.ethBalanceWei)
+    val ethFiatAmount = entity.ethBalanceFiat ?: BigDecimal.ZERO
+    return balanceRepository.mapToWalletBalance(credits, creditsFiatAmount, appc,
+        appcFiatAmount, eth, ethFiatAmount, entity.fiatCurrency ?: "", entity.fiatSymbol ?: "")
   }
 
   interface WalletInfoApi {
