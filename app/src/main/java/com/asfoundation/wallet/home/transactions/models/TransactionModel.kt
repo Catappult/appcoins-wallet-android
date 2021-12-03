@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.transactions.models
+package com.asfoundation.wallet.home.transactions.models
 
 import android.graphics.drawable.Drawable
 import android.text.TextUtils

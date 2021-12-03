@@ -1,10 +1,10 @@
-package com.asfoundation.wallet.ui.transactions.models.appcoinsapps
+package com.asfoundation.wallet.home.transactions.models.appcoinsapps
 
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.home.transactions.models.DefaultCarouselModel_
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
-import com.asfoundation.wallet.ui.transactions.models.DefaultCarouselModel_
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction
 
 class AppcoinsAppListModel(val data: List<AppcoinsApplication>,

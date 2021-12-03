@@ -1,13 +1,13 @@
-package com.asfoundation.wallet.ui.transactions
+package com.asfoundation.wallet.home.transactions
 
 import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.Typed3EpoxyController
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.home.transactions.models.DateModel_
+import com.asfoundation.wallet.home.transactions.models.PerkModel_
+import com.asfoundation.wallet.home.transactions.models.TransactionModel_
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.transactions.models.DateModel_
-import com.asfoundation.wallet.ui.transactions.models.PerkModel_
-import com.asfoundation.wallet.ui.transactions.models.TransactionModel_
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import java.util.*

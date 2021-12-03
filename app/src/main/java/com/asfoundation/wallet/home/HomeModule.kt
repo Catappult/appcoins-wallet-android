@@ -4,7 +4,6 @@ import android.content.Context
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.main.MainActivityNavigator
-import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
@@ -42,8 +41,7 @@ class HomeModule {
                                    displayChatUseCase: DisplayChatUseCase,
                                    displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
                                    context: Context,
-                                   walletsEventSender: WalletsEventSender,
-                                   currencyFormatUtils: CurrencyFormatUtils): HomeViewModelFactory {
+                                   walletsEventSender: WalletsEventSender): HomeViewModelFactory {
     return HomeViewModelFactory(homeAnalytics, observeWalletInfoUseCase,
         shouldOpenRatingDialogUseCase, updateTransactionsNumberUseCase, findNetworkInfoUseCase,
         fetchTransactionsUseCase, findDefaultWalletUseCase, observeDefaultWalletUseCase,
@@ -51,7 +49,6 @@ class HomeModule {
         setSeenFingerprintTooltipUseCase, getLevelsUseCase, getUserLevelUseCase,
         getCardNotificationsUseCase, registerSupportUserUseCase,
         getUnreadConversationsCountEventsUseCase, displayChatUseCase,
-        displayConversationListOrChatUseCase, context.packageName, walletsEventSender,
-        currencyFormatUtils)
+        displayConversationListOrChatUseCase, context.packageName, walletsEventSender)
   }
 }

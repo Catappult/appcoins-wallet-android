@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.transactions.models.cardnotifications
+package com.asfoundation.wallet.home.transactions.models.cardnotifications
 
 import android.view.View
 import android.widget.ImageView

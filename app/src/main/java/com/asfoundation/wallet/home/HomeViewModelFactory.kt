@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.home.usecases.*
-import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -28,8 +27,7 @@ class HomeViewModelFactory(private val analytics: HomeAnalytics,
                            private val displayChatUseCase: DisplayChatUseCase,
                            private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
                            private val walletPackageName: String,
-                           private val walletsEventSender: WalletsEventSender,
-                           private val formatter: CurrencyFormatUtils) :
+                           private val walletsEventSender: WalletsEventSender) :
     ViewModelProvider.Factory {
 
   override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -40,7 +38,7 @@ class HomeViewModelFactory(private val analytics: HomeAnalytics,
         shouldShowFingerprintTooltipUseCase, setSeenFingerprintTooltipUseCase, getLevelsUseCase,
         getUserLevelUseCase, getCardNotificationsUseCase, registerSupportUserUseCase,
         getUnreadConversationsCountEventsUseCase, displayChatUseCase,
-        displayConversationListOrChatUseCase, walletPackageName, walletsEventSender, formatter,
+        displayConversationListOrChatUseCase, walletPackageName, walletsEventSender,
         AndroidSchedulers.mainThread(), Schedulers.io()) as T
   }
 }

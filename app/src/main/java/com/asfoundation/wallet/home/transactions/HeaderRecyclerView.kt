@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.transactions
+package com.asfoundation.wallet.home.transactions
 
 import android.content.Context
 import android.util.AttributeSet

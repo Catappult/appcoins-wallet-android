@@ -46,7 +46,6 @@ import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.DeviceInfo
 import com.asfoundation.wallet.verification.ui.credit_card.network.BrokerVerificationApi
-import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import com.asfoundation.wallet.wallets.usecases.HasEnoughBalanceUseCase
 import com.fasterxml.jackson.databind.ObjectMapper

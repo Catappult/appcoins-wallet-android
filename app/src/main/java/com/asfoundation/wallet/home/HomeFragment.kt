@@ -18,12 +18,12 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.entity.ErrorEnvelope
 import com.asfoundation.wallet.entity.GlobalBalance
+import com.asfoundation.wallet.home.transactions.HeaderController
+import com.asfoundation.wallet.home.transactions.TransactionsController
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.transactions.HeaderController
-import com.asfoundation.wallet.ui.transactions.TransactionsController
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -282,13 +282,13 @@ class HomeFragment : BasePageViewFragment(),
 
   private fun setWalletBalance(globalBalance: GlobalBalance) {
     val overallBalanceFiat = globalBalance.walletBalance.overallFiat
-
+    val overallAmount = formatter.formatCurrency(overallBalanceFiat.amount, WalletCurrency.FIAT)
     if (overallBalanceFiat.amount > BigDecimal("-1") && overallBalanceFiat.symbol.isNotEmpty()) {
       views.balanceSkeleton.visibility = View.GONE
       views.balance.visibility = View.VISIBLE
       views.balanceSubtitle.visibility = View.VISIBLE
       views.currencySelector.visibility = View.VISIBLE
-      views.balance.text = overallBalanceFiat.symbol + overallBalanceFiat.amount
+      views.balance.text = overallBalanceFiat.symbol + overallAmount
       setSubtitle(globalBalance)
     }
   }

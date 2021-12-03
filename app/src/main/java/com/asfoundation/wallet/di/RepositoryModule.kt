@@ -75,8 +75,6 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPrefe
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.network.BrokerVerificationApi
-import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
-import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.repository.BalanceRepository
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository

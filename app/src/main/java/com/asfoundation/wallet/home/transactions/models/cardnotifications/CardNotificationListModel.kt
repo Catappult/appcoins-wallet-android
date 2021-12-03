@@ -1,10 +1,10 @@
-package com.asfoundation.wallet.ui.transactions.models.cardnotifications
+package com.asfoundation.wallet.home.transactions.models.cardnotifications
 
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.home.transactions.models.DefaultCarouselModel_
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.ui.transactions.models.DefaultCarouselModel_
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 
 class CardNotificationListModel(val data: List<CardNotification>,

@@ -83,7 +83,6 @@ import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
 import com.asfoundation.wallet.wallets.FetchWalletsInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
@@ -139,9 +138,8 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideWalletBlockedInteract(findDefaultWalletInteract: FindDefaultWalletInteract,
-                                   walletStatusRepository: WalletStatusRepository): WalletBlockedInteract {
-    return WalletBlockedInteract(findDefaultWalletInteract, walletStatusRepository)
+  fun provideWalletBlockedInteract(walletInfoUseCase: GetWalletInfoUseCase): WalletBlockedInteract {
+    return WalletBlockedInteract(walletInfoUseCase)
   }
 
   @Provides

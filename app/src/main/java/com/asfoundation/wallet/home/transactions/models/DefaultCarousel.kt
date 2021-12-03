@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.transactions.models
+package com.asfoundation.wallet.home.transactions.models
 
 import android.content.Context
 import com.airbnb.epoxy.Carousel

@@ -1,9 +1,9 @@
-package com.asfoundation.wallet.ui.transactions
+package com.asfoundation.wallet.home.transactions
 
 import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.TypedEpoxyController
+import com.asfoundation.wallet.home.transactions.models.cardnotifications.CardNotificationListModel
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.ui.transactions.models.cardnotifications.CardNotificationListModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 

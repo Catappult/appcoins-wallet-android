@@ -20,7 +20,6 @@ import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
@@ -72,7 +71,6 @@ class HomeViewModel(private val analytics: HomeAnalytics,
                     private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
                     private val walletPackageName: String,
                     private val walletsEventSender: WalletsEventSender,
-                    private val formatter: CurrencyFormatUtils,
                     private val viewScheduler: Scheduler,
                     private val networkScheduler: Scheduler) :
     BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
@@ -180,29 +178,6 @@ class HomeViewModel(private val analytics: HomeAnalytics,
   private fun shouldShow(tokenBalance: TokenBalance, threshold: Double): Boolean {
     return (tokenBalance.token.amount >= BigDecimal(
         threshold) && tokenBalance.fiat.amount.toDouble() >= threshold)
-  }
-
-  private fun sumFiat(appcoinsFiatValue: BigDecimal, creditsFiatValue: BigDecimal,
-                      etherFiatValue: BigDecimal): BigDecimal {
-    var fiatSum = MINUS_ONE
-    if (appcoinsFiatValue > MINUS_ONE) {
-      fiatSum = appcoinsFiatValue
-    }
-    if (creditsFiatValue > MINUS_ONE) {
-      fiatSum = if (fiatSum > MINUS_ONE) {
-        fiatSum.add(creditsFiatValue)
-      } else {
-        creditsFiatValue
-      }
-    }
-    if (etherFiatValue > MINUS_ONE) {
-      fiatSum = if (fiatSum > MINUS_ONE) {
-        fiatSum.add(etherFiatValue)
-      } else {
-        etherFiatValue
-      }
-    }
-    return fiatSum
   }
 
   private fun updateTransactions(walletModel: TransactionsWalletModel?): Completable {

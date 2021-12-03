@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.transactions.models.appcoinsapps
+package com.asfoundation.wallet.home.transactions.models.appcoinsapps
 
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
