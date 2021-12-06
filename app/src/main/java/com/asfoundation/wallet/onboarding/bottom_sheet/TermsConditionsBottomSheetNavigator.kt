@@ -3,6 +3,7 @@ package com.asfoundation.wallet.onboarding.bottom_sheet
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
@@ -27,12 +28,12 @@ class TermsConditionsBottomSheetNavigator(
   }
 
   fun navigateBack() {
-    fragment.dismiss()
+    fragment.findNavController().popBackStack()
   }
-
-
+  
   fun navigateToCreateWalletDialog() {
+    Log.d("APPC-2781", "TermsConditionsBottomSheetNavigator: navigateToCreateWalletDialog: ")
     navigate(fragment.findNavController(),
-        OnboardingFragmentDirections.actionNavigateCreateWalletDialog())
+        TermsConditionsBottomSheetFragmentDirections.actionNavigateCreateWalletDialog())
   }
 }

@@ -12,6 +12,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
 
@@ -48,10 +49,8 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun handleFragmentResult() {
-    childFragmentManager.setFragmentResultListener("CreateWalletDialogFragment",
+    parentFragmentManager.setFragmentResultListener(CreateWalletDialogFragment.RESULT_REQUEST_KEY,
         this) { requestKey, bundle ->
-      val resultReceived = bundle.getString("fragmentEnded")
-      // do something with the result
       navigator.navigateToMainActivity(fromSupportNotification = false)
     }
   }

@@ -28,12 +28,12 @@
 
   <Button
       android:id="@+id/terms_conditions_decline_button"
-      style="@style/ButtonStyle.Light"
+      style="@style/ButtonStyle.NoBorder"
       android:layout_width="120dp"
       android:layout_height="40dp"
       android:layout_marginTop="32dp"
       android:layout_marginEnd="16dp"
-      android:text="Decline"
+      android:text="@string/decline_button"
       android:visibility="visible"
       app:layout_constraintEnd_toStartOf="@id/terms_conditions_confirm_button"
       app:layout_constraintTop_toBottomOf="@id/terms_conditions_body"

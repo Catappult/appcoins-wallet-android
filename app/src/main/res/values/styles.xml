@@ -274,6 +274,18 @@
     <item name="android:letterSpacing">.09</item>
   </style>
 
+  <style name="ButtonStyle.NoBorder" parent="Base.Widget.AppCompat.ImageButton">
+    <item name="android:background">@drawable/flag_transparent</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:paddingStart">@dimen/big_padding</item>
+    <item name="android:paddingEnd">@dimen/big_padding</item>
+    <item name="android:minWidth">64dp</item>
+    <item name="android:minHeight">36dp</item>
+    <item name="android:letterSpacing">.09</item>
+  </style>
+
   <style name="VerifyButtonStyle" parent="ButtonStyle.Light">
     <item name="android:background">@drawable/button_light_background</item>
     <item name="android:textAllCaps">true</item>

@@ -16,6 +16,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TermsConditionsBottomSheetBinding
 import com.asfoundation.wallet.base.SingleStateFragment
@@ -41,11 +42,6 @@ class TermsConditionsBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     fun newInstance(): TermsConditionsBottomSheetFragment {
       return TermsConditionsBottomSheetFragment()
     }
-
-    // NOTE - if this gets moved to myappcoins domain, don't forget to add "lang" parameter to both
-    //  these urls. See how it's done in SettingsFragment
-    private const val TERMS_CONDITIONS_URL = "https://catappult.io/appcoins-wallet/terms-conditions"
-    private const val PRIVACY_POLICY_URL = "https://catappult.io/appcoins-wallet/privacy-policy"
   }
 
   override fun onStart() {
@@ -92,8 +88,8 @@ class TermsConditionsBottomSheetFragment : DaggerBottomSheetDialogFragment(),
             privacyPolicy)
 
     val spannableString = SpannableString(termsPolicyTickBox)
-    setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
-    setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
+    setLinkToString(spannableString, termsConditions, Uri.parse(BuildConfig.TERMS_CONDITIONS_URL))
+    setLinkToString(spannableString, privacyPolicy, Uri.parse(BuildConfig.PRIVACY_POLICY_URL))
 
     views.termsConditionsBody.text = spannableString
     views.termsConditionsBody.isClickable = true

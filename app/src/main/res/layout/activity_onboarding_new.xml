@@ -7,7 +7,7 @@
 
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/nav_fragment_container"
-      android:name="com.asfoundation.wallet.onboarding.OnboardingFragment"
+      android:name="androidx.navigation.fragment.NavHostFragment"
       app:navGraph="@navigation/onboarding_graph"
       app:defaultNavHost="true"
       android:layout_width="match_parent"

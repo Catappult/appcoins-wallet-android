@@ -15,6 +15,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.onboarding.OnboardingFragment
 import dagger.android.support.DaggerDialogFragment
 import javax.inject.Inject
 
@@ -49,8 +50,8 @@ class CreateWalletDialogFragment : DaggerDialogFragment(),
   }
 
   override fun onDestroy() {
+    setFragmentResult(RESULT_REQUEST_KEY, bundleOf("fragmentEnded" to "result"))
     super.onDestroy()
-    setFragmentResult("CreateWalletDialogFragment", bundleOf("fragmentEnded" to "result"))
   }
 
   override fun getTheme(): Int = R.style.NoBackgroundDialog
@@ -79,5 +80,9 @@ class CreateWalletDialogFragment : DaggerDialogFragment(),
   }
 
   override fun onSideEffect(sideEffect: CreateWalletSideEffect) = Unit
+
+  companion object {
+    const val RESULT_REQUEST_KEY = "CreateWalletDialogFragment"
+  }
 
 }
