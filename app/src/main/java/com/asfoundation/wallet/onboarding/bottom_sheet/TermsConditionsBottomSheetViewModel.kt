@@ -2,12 +2,9 @@ package com.asfoundation.wallet.onboarding.bottom_sheet
 
 import android.net.Uri
 import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.onboarding.use_cases.GetWalletOrCreateUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
-import io.reactivex.Completable
 
 sealed class TermsConditionsBottomSheetSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : TermsConditionsBottomSheetSideEffect()
@@ -18,9 +15,7 @@ sealed class TermsConditionsBottomSheetSideEffect : SideEffect {
 object TermsConditionsBottomSheetState : ViewState
 
 class TermsConditionsBottomSheetViewModel(
-    private val getWalletOrCreateUseCase: GetWalletOrCreateUseCase,
-    private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-    private val rxSchedulers: RxSchedulers) :
+    private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase) :
     BaseViewModel<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect>(
         initialState()) {
 
@@ -35,15 +30,8 @@ class TermsConditionsBottomSheetViewModel(
   }
 
   fun handleCreateWallet() {
-    getWalletOrCreateUseCase()
-        .observeOn(rxSchedulers.main)
-        .flatMapCompletable {
-          Completable.fromAction {
-            sendSideEffect { TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation }
-            setOnboardingCompletedUseCase()
-          }
-        }
-        .scopedSubscribe()
+    sendSideEffect { TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation }
+    setOnboardingCompletedUseCase()
   }
 
   fun handleLinkClick(uri: Uri) {

@@ -21,13 +21,13 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/onboarding_mid_container"
       android:layout_width="match_parent"
-      android:layout_height="300dp"
+      android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/onboarding_padding"
       android:layout_marginEnd="@dimen/onboarding_padding"
-      android:layout_marginTop="@dimen/onboarding_container_margin_top"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon">
+      app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_buttons_container">
 
     <include
         android:id="@+id/onboarding_welcome_message"
@@ -50,13 +50,13 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/onboarding_buttons_container"
       android:layout_width="match_parent"
-      android:layout_height="110dp"
+      android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/onboarding_padding"
       android:layout_marginEnd="@dimen/onboarding_padding"
       android:layout_marginBottom="@dimen/onboarding_padding"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_mid_container">
+      app:layout_constraintBottom_toBottomOf="parent">
 
     <include
         android:id="@+id/onboarding_welcome_buttons"
