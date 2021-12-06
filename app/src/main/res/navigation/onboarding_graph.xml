@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding"
+    app:startDestination="@id/onboarding_fragment">
+
+  <fragment
+      android:id="@+id/onboarding_fragment"
+      android:name="com.asfoundation.wallet.onboarding.OnboardingFragment"
+      tools:layout="@layout/fragment_onboarding">
+
+    <action
+        android:id="@+id/action_navigate_to_restore_wallet"
+        app:destination="@id/restore_wallet_activity" />
+
+    <action
+        android:id="@+id/action_navigate_terms_conditions"
+        app:destination="@id/onboarding_terms_conditions_dialog"
+      />
+
+    <action
+        android:id="@+id/action_navigate_create_wallet_dialog"
+        app:destination="@id/create_wallet_dialog_fragment"
+        app:popUpTo="@id/onboarding_fragment"
+        app:popUpToInclusive="false" />
+
+    <action
+        android:id="@+id/action_navigate_to_main_activity"
+        app:destination="@id/main_activity" />
+  </fragment>
+
+  <dialog
+      android:id="@+id/onboarding_terms_conditions_dialog"
+      android:name="com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment"
+      tools:layout="@layout/terms_conditions_bottom_sheet" />
+
+  <dialog
+      android:id="@+id/create_wallet_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
+      tools:layout="@layout/fragment_create_wallet_dialog_layout" />
+
+  <activity
+      android:id="@+id/main_activity"
+      android:name="com.asfoundation.wallet.main.MainActivity"
+      tools:layout="@layout/qr_code_layout">
+    <argument
+        android:name="wallet_addr"
+        app:argType="boolean" />
+  </activity>
+
+  <activity
+      android:id="@+id/restore_wallet_activity"
+      android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
+      tools:layout="@layout/activity_restore_wallet" />
+</navigation>

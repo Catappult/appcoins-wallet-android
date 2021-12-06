@@ -2,6 +2,7 @@ package com.asfoundation.wallet.restore.password
 
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
 import com.asfoundation.wallet.wallets.WalletModel
@@ -13,6 +14,7 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
                                      private val interactor: RestoreWalletPasswordInteractor,
                                      private val walletsEventSender: WalletsEventSender,
                                      private val currencyFormatUtils: CurrencyFormatUtils,
+                                     private val preferencesRepositoryType: PreferencesRepositoryType,
                                      private val disposable: CompositeDisposable,
                                      private val viewScheduler: Scheduler,
                                      private val networkScheduler: Scheduler,
@@ -73,7 +75,10 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)
-        .doOnComplete { view.showWalletRestoredAnimation() }
+        .doOnComplete {
+          preferencesRepositoryType.setOnboardingComplete()
+          view.showWalletRestoredAnimation()
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
