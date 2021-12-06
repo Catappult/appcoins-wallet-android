@@ -21,7 +21,6 @@ import java.math.BigDecimal
 import java.util.*
 
 class OneStepTransactionParserTest {
-  private lateinit var tokenRepositoryType: TokenRepositoryType
   private lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
   private lateinit var defaultTokenProvider: DefaultTokenProvider
   private lateinit var proxyService: ProxyService
@@ -45,7 +44,6 @@ class OneStepTransactionParserTest {
 
   @Before
   fun before() {
-    tokenRepositoryType = mock<TokenRepositoryType>(TokenRepositoryType::class.java)
     findDefaultWalletInteract =
         mock<FindDefaultWalletInteract>(FindDefaultWalletInteract::class.java)
     proxyService = mock<ProxyService>(ProxyService::class.java)
