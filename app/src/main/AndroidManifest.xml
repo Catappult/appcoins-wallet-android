@@ -77,10 +77,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name="com.asfoundation.wallet.ui.onboarding.OnboardingActivity"
-        android:label="" />
-    <activity
-        android:name="com.asfoundation.wallet.onboarding.OnboardingActivityNew"
+        android:name="com.asfoundation.wallet.onboarding.OnboardingActivity"
         android:label="" />
     <activity
         android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"

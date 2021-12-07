@@ -32,7 +32,6 @@ import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.nfts.repository.NFTRepository
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
-import com.asfoundation.wallet.onboarding.use_cases.GetWalletOrCreateUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
@@ -49,7 +48,6 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.verification.repository.VerificationRepository
@@ -380,16 +378,6 @@ class UseCaseModule {
   fun providesDeletePromoCodeUseCase(
       promoCodeRepository: PromoCodeRepository): DeletePromoCodeUseCase {
     return DeletePromoCodeUseCase(promoCodeRepository)
-  }
-
-  @Singleton
-  @Provides
-  fun providesGetWalletOrCreateUseCase(walletService: WalletService,
-                                       supportInteractor: SupportInteractor,
-                                       gamificationRepository: Gamification,
-                                       getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): GetWalletOrCreateUseCase {
-    return GetWalletOrCreateUseCase(walletService, supportInteractor, gamificationRepository,
-        getCurrentPromoCodeUseCase)
   }
 
   @Singleton
