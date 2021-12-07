@@ -8,6 +8,8 @@ import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyModule
 import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetFragment
 import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
+import com.asfoundation.wallet.eskills.withdraw.WithdrawFragment
+import com.asfoundation.wallet.eskills.withdraw.WithdrawModule
 import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.home.HomeModule
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment
@@ -22,6 +24,12 @@ import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment
 import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogModule
 import com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogFragment
 import com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogModule
+import com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogFragment
+import com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogModule
+import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsFragment
+import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsModule
+import com.asfoundation.wallet.nfts.ui.nftlist.NFTFragment
+import com.asfoundation.wallet.nfts.ui.nftlist.NFTModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -86,10 +94,6 @@ import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorModule
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.asfoundation.wallet.ui.overlay.OverlayModule
-import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsFragment
-import com.asfoundation.wallet.nfts.ui.nftlist.NFTFragment
-import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsModule
-import com.asfoundation.wallet.nfts.ui.nftlist.NFTModule
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.ui.settings.entry.SettingsModule
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
@@ -109,8 +113,6 @@ import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInt
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModule
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalFragment
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalModule
-import com.asfoundation.wallet.eskills.withdraw.WithdrawFragment
-import com.asfoundation.wallet.eskills.withdraw.WithdrawModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -373,6 +375,10 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [NFTDetailsModule::class])
   abstract fun bindNFTDetailsFragment(): NFTDetailsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [NFTTransactDialogModule::class])
+  abstract fun bindNFTTransactDialogFragment(): NFTTransactDialogFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerifyPickerDialogModule::class])

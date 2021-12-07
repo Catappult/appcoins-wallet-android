@@ -88,5 +88,9 @@ class NFTDetailsFragment : BasePageViewFragment(),
 
   private fun setListeners() {
     views.actionBack.setOnClickListener { navigator.navigateBack() }
+
+    views.nftTransactButton.setOnClickListener {
+      viewModel.state.data?.let { data -> navigator.navigateToTransact(data) }
+    }
   }
 }
