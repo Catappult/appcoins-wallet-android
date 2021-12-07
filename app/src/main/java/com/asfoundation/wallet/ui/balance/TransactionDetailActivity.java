@@ -280,7 +280,7 @@ public class TransactionDetailActivity extends BaseActivity {
         categoryBackground.setBackground(null);
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
-                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         to = transaction.getTo();
         break;
       case ESKILLS:
@@ -289,7 +289,7 @@ public class TransactionDetailActivity extends BaseActivity {
         typeStr = R.string.transaction_type_eskills;
         typeIcon = R.drawable.ic_transaction_iab;
         button.setOnClickListener(
-                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         manageSubscriptions.setVisibility(View.GONE);
         break;
     }
@@ -318,8 +318,9 @@ public class TransactionDetailActivity extends BaseActivity {
         transaction.getPaidCurrency(), transactionsDetailsModel.getFiatValue()
             .getAmount()
             .toString(), localFiatCurrency, icon, id, description, typeStr, typeIcon, statusStr,
-        statusColor, to, isSent, isRevertTransaction, isRevertedTransaction, revertedDescription,
-        descriptionColor, transactionsDetailsModel.getWallet().address);
+        statusColor, transaction.getOrderReference(), to, isSent, isRevertTransaction,
+        isRevertedTransaction, revertedDescription, descriptionColor,
+        transactionsDetailsModel.getWallet().address);
   }
 
   private String getScaledValue(String valueStr, long decimals, String currencySymbol,
@@ -356,9 +357,10 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private void setUiContent(long timeStamp, String value, String symbol, String paidAmount,
       String paidCurrency, String localFiatAmount, String localFiatCurrency, String icon, String id,
-      String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to,
-      boolean isSent, boolean isRevertTransaction, boolean isRevertedTransaction,
-      int revertedDescription, int descriptionColor, String walletAddress) {
+      String description, int typeStr, int typeIcon, int statusStr, int statusColor,
+      String orderReference, String to, boolean isSent, boolean isRevertTransaction,
+      boolean isRevertedTransaction, int revertedDescription, int descriptionColor,
+      String walletAddress) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
@@ -404,6 +406,12 @@ public class TransactionDetailActivity extends BaseActivity {
 
     ((TextView) findViewById(R.id.status)).setText(statusStr);
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
+
+    if (orderReference != null) {
+      findViewById(R.id.order_reference_label).setVisibility(View.VISIBLE);
+      findViewById(R.id.order_reference_name).setVisibility(View.VISIBLE);
+      ((TextView) findViewById(R.id.order_reference_name)).setText(orderReference);
+    }
 
     if (to != null) {
       ((TextView) findViewById(R.id.to)).setText(
