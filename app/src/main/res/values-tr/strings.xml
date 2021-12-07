@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Cüzdanlarım</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Şifre</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Oluştur</string>
   <!-- String related to sending -->
   <string name="prompt_to">Adres</string>
   <string name="action_send">Gönder</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
   <string name="intro_2_body">En sevdiğiniz uygulama ve oyunlarda ürün satın aldığınızda ödül kazanın.</string>
   <string name="intro_3_title">Basit ve Kolay</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Oyunlarınızda doğrudan satın alma işlemi gerçekleştirebilmek için AppCoins Wallet yüklü kalsın.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
   <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
   <string name="intro_4_body_2">En yeni teknoloji sayesinde tüm işlemleriniz her zaman güvenli.</string>
@@ -130,8 +130,8 @@
   <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
   <string name="intro_agree_terms_and_conditions_body">Atla\'ya dokunarak AppCoins Cüzdanının %1$s ve %2$s\'nı kabul etmiş olursunuz</string>
   <string name="intro_skip_button">ATLA</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_welcome_header">AppCoins Wallet\'a hoş geldiniz</string>
+  <string name="intro_welcome_body">Uygulama içi satın alma işlemleri uygulamanız.</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
   <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
