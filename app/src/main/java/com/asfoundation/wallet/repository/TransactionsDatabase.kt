@@ -96,9 +96,8 @@ abstract class TransactionsDatabase : RoomDatabase() {
     }
 
     //Adds new column to be possible to show the order game reference on transactions
-    val MIGRATION_7_8: Migration = object : Migration(5, 6) {
+    val MIGRATION_7_8: Migration = object : Migration(7, 8) {
       override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("DELETE FROM TransactionEntity")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN orderReference TEXT")
       }
     }
