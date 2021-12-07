@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/onboarding_value_propositions_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    >
+
+  <LinearLayout
+      android:id="@+id/onboarding_value1"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:gravity="center"
+      android:layout_marginHorizontal="15dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_value2"
+      >
+
+    <ImageView
+        android:id="@+id/onboarding_value1_icon"
+        android:layout_width="@dimen/onboarding_value_proposition_image_size_land"
+        android:layout_height="@dimen/onboarding_value_proposition_image_size_land"
+        android:src="@drawable/ic_onboarding_value1"
+        />
+
+    <LinearLayout
+        android:id="@+id/onboarding_value1_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:id="@+id/onboarding_value1_title"
+          style="@style/OnboardingValuesTitleTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/intro_2_title"
+          />
+      <TextView
+          android:id="@+id/onboarding_value1_body"
+          style="@style/OnboardingValuesBodyTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:text="@string/intro_2_body"
+          />
+    </LinearLayout>
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/onboarding_value2"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:layout_marginHorizontal="15dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toEndOf="@id/onboarding_value1"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_value3"
+      >
+
+    <ImageView
+        android:id="@+id/onboarding_value2_icon"
+        android:layout_width="@dimen/onboarding_value_proposition_image_size_land"
+        android:layout_height="@dimen/onboarding_value_proposition_image_size_land"
+        android:src="@drawable/ic_onboarding_value2"
+        />
+
+    <LinearLayout
+        android:id="@+id/onboarding_value2_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+      <TextView
+          android:id="@+id/onboarding_value2_title"
+          style="@style/OnboardingValuesTitleTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/intro_3_title"
+          />
+      <TextView
+          android:id="@+id/onboarding_value2_body"
+          style="@style/OnboardingValuesBodyTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:text="@string/intro_3_body"
+          />
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/onboarding_value3"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:layout_marginHorizontal="15dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toEndOf="@id/onboarding_value2"
+      app:layout_constraintEnd_toEndOf="parent"
+      >
+
+    <ImageView
+        android:id="@+id/onboarding_value3_icon"
+        android:layout_width="@dimen/onboarding_value_proposition_image_size_land"
+        android:layout_height="@dimen/onboarding_value_proposition_image_size_land"
+        android:src="@drawable/ic_onboarding_value3"
+        />
+    <LinearLayout
+        android:id="@+id/onboarding_value3_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+      <TextView
+          android:id="@+id/onboarding_value3_title"
+          style="@style/OnboardingValuesTitleTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/intro_4_title"
+          />
+
+      <TextView
+          android:id="@+id/onboarding_value3_body"
+          style="@style/OnboardingValuesBodyTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:text="@string/intro_4_body"
+          />
+    </LinearLayout>
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

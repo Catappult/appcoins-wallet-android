@@ -475,7 +475,7 @@
   <string name="privacy_policy">Privacy Policy</string>
   <string name="decline_button">Decline</string>
   <string name="get_started">Get Started</string>
-
+  <string name="existent_wallet">I already have a wallet</string>
 
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
