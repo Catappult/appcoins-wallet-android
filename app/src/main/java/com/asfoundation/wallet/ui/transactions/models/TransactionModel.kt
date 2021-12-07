@@ -100,6 +100,12 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         txTypeIcon = R.drawable.ic_chain
         description = context.getString(R.string.transaction_type_p2p)
         isTypeIconVisible = true
+        currencySymbol = when (tx.method) {
+          Transaction.Method.UNKNOWN,
+          Transaction.Method.APPC_C -> WalletCurrency.CREDITS.symbol
+          Transaction.Method.APPC -> WalletCurrency.APPCOINS.symbol
+          Transaction.Method.ETH -> WalletCurrency.ETHEREUM.symbol
+        }
       }
       Transaction.TransactionType.ETHER_TRANSFER -> {
         txTypeIcon = R.drawable.ic_chain

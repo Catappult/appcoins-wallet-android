@@ -24,7 +24,8 @@ data class Transaction(
     val operations: List<Operation>?,
     val linkedTx: List<Transaction>?,
     val paidAmount: String?,
-    val paidCurrency: String?
+    val paidCurrency: String?,
+    val orderReference: String?
 ) : Parcelable {
 
   @Parcelize

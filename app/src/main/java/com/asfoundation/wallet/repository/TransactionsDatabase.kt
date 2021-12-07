@@ -99,7 +99,6 @@ abstract class TransactionsDatabase : RoomDatabase() {
     // Also adds column for method
     val MIGRATION_7_8: Migration = object : Migration(7, 8) {
       override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("DELETE FROM TransactionEntity")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN orderReference TEXT")
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN method TEXT")
       }

@@ -21,7 +21,8 @@ class TransactionMapper {
         map(transaction.status), transaction.value,
         transaction.from, transaction.to, map(transaction.details),
         transaction.currency, mapToOperations(transaction.operations),
-        listOf(mapLink(link, transaction)), transaction.paidAmount, transaction.paidCurrency, transaction.orderReference)
+        listOf(mapLink(link, transaction)), transaction.paidAmount, transaction.paidCurrency,
+        transaction.orderReference)
   }
 
   private fun map(method: TransactionEntity.Method?): Transaction.Method {
@@ -50,7 +51,7 @@ class TransactionMapper {
         transaction.processedTime, map(transaction.status), transaction.value,
         transaction.from, transaction.to, map(transaction.details),
         transaction.currency, mapToOperations(transaction.operations),
-        emptyList(), transaction.paidAmount, transaction.paidCurrency, , transaction.orderReference)
+        emptyList(), transaction.paidAmount, transaction.paidCurrency, transaction.orderReference)
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {
