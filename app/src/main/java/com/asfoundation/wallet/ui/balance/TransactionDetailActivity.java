@@ -246,6 +246,24 @@ public class TransactionDetailActivity extends BaseActivity {
           revertedDescription = R.string.transaction_type_reverted_topup_title;
         }
         break;
+      case TRANSFER:
+        typeStr = R.string.transaction_type_p2p;
+        id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
+        typeIcon = R.drawable.transaction_type_transfer_off_chain;
+        categoryBackground.setBackground(null);
+        to = transaction.getTo();
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
+        if (transaction.getMethod() == Transaction.Method.APPC) {
+          symbol = getString(R.string.p2p_send_currency_appc);
+        } else if (transaction.getMethod() == Transaction.Method.ETH) {
+          symbol = getString(R.string.p2p_send_currency_eth);
+        } else {
+          symbol = getString(R.string.p2p_send_currency_appc_c);
+        }
+        break;
       case TRANSFER_OFF_CHAIN:
         typeStr = R.string.transaction_type_p2p;
         id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);

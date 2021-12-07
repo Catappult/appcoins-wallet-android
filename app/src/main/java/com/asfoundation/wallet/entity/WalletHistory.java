@@ -2,11 +2,11 @@ package com.asfoundation.wallet.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.Nullable;
 
 @JsonIgnoreProperties(ignoreUnknown = true) public class WalletHistory {
 
@@ -41,6 +41,7 @@ import java.util.List;
     @JsonProperty("processed_time") private Date processedTime;
     @JsonProperty("type") private String type;
     @JsonProperty("subtype") private String subType;
+    @JsonProperty("method") private String method;
     @JsonProperty("title") private String title;
     @JsonProperty("description") private String description;
     @JsonProperty("perk") private String perk;
@@ -174,6 +175,14 @@ import java.util.List;
 
     public void setType(String type) {
       this.type = type;
+    }
+
+    public String getMethod() {
+      return method;
+    }
+
+    public void setMethod(String method) {
+      this.method = method;
     }
 
     public List<String> getLinkedTx() {

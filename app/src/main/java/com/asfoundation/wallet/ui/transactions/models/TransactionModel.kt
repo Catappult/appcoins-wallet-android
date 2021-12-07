@@ -105,6 +105,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         txTypeIcon = R.drawable.ic_chain
         description = context.getString(R.string.transaction_type_p2p)
         isTypeIconVisible = true
+        currencySymbol = WalletCurrency.ETHEREUM.symbol
       }
       Transaction.TransactionType.BONUS_REVERT -> {
         address = context.getString(R.string.transaction_type_reverted_bonus_title)

@@ -18,7 +18,7 @@ import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
       TransactionLinkIdEntity::class,
       LastUpdatedWalletEntity::class
     ],
-    version = 7)
+    version = 8)
 @TypeConverters(TransactionTypeConverter::class)
 abstract class TransactionsDatabase : RoomDatabase() {
 
@@ -92,6 +92,12 @@ abstract class TransactionsDatabase : RoomDatabase() {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
             "CREATE TABLE IF NOT EXISTS LastUpdatedWalletEntity (wallet TEXT NOT NULL, transactionsUpdateTimestamp INTEGER NOT NULL, PRIMARY KEY(wallet))")
+      }
+    }
+
+    val MIGRATION_7_8: Migration = object : Migration(7, 8) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN method TEXT")
       }
     }
   }

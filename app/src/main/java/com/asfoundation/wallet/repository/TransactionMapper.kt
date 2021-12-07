@@ -15,34 +15,41 @@ class TransactionMapper {
 
   fun map(transaction: TransactionEntity, link: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        transaction.title, transaction.cardDescription, map(transaction.perk),
+        map(transaction.method), transaction.title, transaction.cardDescription,
+        map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
         map(transaction.status), transaction.value,
         transaction.from, transaction.to, map(transaction.details),
-        transaction.currency,
-        mapToOperations(transaction.operations),
+        transaction.currency, mapToOperations(transaction.operations),
         listOf(mapLink(link, transaction)), transaction.paidAmount, transaction.paidCurrency)
+  }
+
+  private fun map(method: TransactionEntity.Method?): Transaction.Method {
+    return when (method) {
+      TransactionEntity.Method.APPC -> Transaction.Method.APPC
+      TransactionEntity.Method.APPC_C -> Transaction.Method.APPC_C
+      TransactionEntity.Method.ETH -> Transaction.Method.ETH
+      else -> Transaction.Method.UNKNOWN
+    }
   }
 
   private fun mapLink(transaction: TransactionEntity, link: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        transaction.title, transaction.cardDescription, map(transaction.perk),
-        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value,
-        transaction.from, transaction.to, map(transaction.details),
-        transaction.currency,
-        mapToOperations(transaction.operations),
-        listOf(map(link)), transaction.paidAmount, transaction.paidCurrency)
+        map(transaction.method), transaction.title, transaction.cardDescription,
+        map(transaction.perk), transaction.approveTransactionId, transaction.timeStamp,
+        transaction.processedTime, map(transaction.status), transaction.value, transaction.from,
+        transaction.to, map(transaction.details), transaction.currency,
+        mapToOperations(transaction.operations), listOf(map(link)), transaction.paidAmount,
+        transaction.paidCurrency)
   }
 
   fun map(transaction: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        transaction.title, transaction.cardDescription, map(transaction.perk),
-        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value,
+        map(transaction.method), transaction.title, transaction.cardDescription,
+        map(transaction.perk), transaction.approveTransactionId, transaction.timeStamp,
+        transaction.processedTime, map(transaction.status), transaction.value,
         transaction.from, transaction.to, map(transaction.details),
-        transaction.currency,
-        mapToOperations(transaction.operations),
+        transaction.currency, mapToOperations(transaction.operations),
         emptyList(), transaction.paidAmount, transaction.paidCurrency)
   }
 
@@ -100,12 +107,21 @@ class TransactionMapper {
   fun map(transaction: Transaction, relatedWallet: String): TransactionEntity {
     return TransactionEntity(transaction.transactionId, relatedWallet,
         transaction.approveTransactionId, map(transaction.perk),
-        map(transaction.type), map(transaction.subType), transaction.title,
+        map(transaction.type), map(transaction.method), map(transaction.subType), transaction.title,
         transaction.description, transaction.timeStamp,
         transaction.processedTime, map(transaction.status), transaction.value, transaction.currency,
         transaction.paidAmount, transaction.paidCurrency,
         transaction.from, transaction.to, map(transaction.details),
         mapToOperationEntities(transaction.operations))
+  }
+
+  private fun map(method: Transaction.Method): TransactionEntity.Method {
+    return when (method) {
+      Transaction.Method.UNKNOWN -> TransactionEntity.Method.UNKNOWN
+      Transaction.Method.APPC -> TransactionEntity.Method.APPC
+      Transaction.Method.APPC_C -> TransactionEntity.Method.APPC_C
+      Transaction.Method.ETH -> TransactionEntity.Method.ETH
+    }
   }
 
   private fun mapToOperationEntities(operations: List<Operation>?): List<OperationEntity>? {
