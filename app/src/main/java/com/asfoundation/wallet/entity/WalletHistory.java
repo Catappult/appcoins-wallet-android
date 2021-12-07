@@ -48,6 +48,7 @@ import javax.annotation.Nullable;
     @JsonProperty("status") private Status status;
     @JsonProperty("operations") private List<Operation> operations;
     @JsonProperty("linked_tx") private List<String> linkedTx;
+    @JsonProperty("reference") private String orderReference;
 
     public List<Operation> getOperations() {
       return operations;
@@ -191,6 +192,14 @@ import javax.annotation.Nullable;
 
     public void setLinkedTx(List<String> linkedTx) {
       this.linkedTx = linkedTx;
+    }
+
+    public String getOrderReference() {
+      return orderReference;
+    }
+
+    public void setOrderReference(String orderReference) {
+      this.orderReference = orderReference;
     }
 
     @Override public String toString() {
