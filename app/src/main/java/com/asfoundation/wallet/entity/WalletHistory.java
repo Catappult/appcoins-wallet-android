@@ -41,6 +41,7 @@ import javax.annotation.Nullable;
     @JsonProperty("processed_time") private Date processedTime;
     @JsonProperty("type") private String type;
     @JsonProperty("subtype") private String subType;
+    @JsonProperty("method") private String method;
     @JsonProperty("title") private String title;
     @JsonProperty("description") private String description;
     @JsonProperty("perk") private String perk;
@@ -175,6 +176,14 @@ import javax.annotation.Nullable;
 
     public void setType(String type) {
       this.type = type;
+    }
+
+    public String getMethod() {
+      return method;
+    }
+
+    public void setMethod(String method) {
+      this.method = method;
     }
 
     public List<String> getLinkedTx() {
