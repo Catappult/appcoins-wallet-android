@@ -61,6 +61,7 @@ class OneStepPaymentReceiver : BaseActivity() {
       if (savedInstanceState == null) {
         disposable = handleWalletCreationIfNeeded()
             .takeUntil { it != WalletGetterStatus.CREATING.toString() }
+            .filter { it != WalletGetterStatus.CREATING.toString() }
             .flatMap {
               transferParser.parse(intent.dataString!!)
                   .flatMap { transaction: TransactionBuilder ->
