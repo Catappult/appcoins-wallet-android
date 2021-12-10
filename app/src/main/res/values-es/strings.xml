@@ -306,7 +306,7 @@
   <string name="gamification_level_earned">GANADO:</string>
   <string name="gamification_level_next_lvl">PARA EL PRÓXIMO NIVEL:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
-  <string name="gamification_level_bonus">%s%% BONUS</string>
+  <string name="gamification_level_bonus">%s%% de BONUS</string>
   <string name="gamification_level_button_how">CÓMO FUNCIONA</string>
   <string name="gamification_level_body">Ganarás APPC Credits al hacer compras en tus apps y juegos favoritos.</string>
   <string name="gamification_how_header">¿Cómo subir de nivel?</string>
@@ -387,11 +387,11 @@
   <string name="balance_ethereum_body">Ethereum es la criptomoneda en la que se basan las AppCoins. Puedes comprarla y venderla en la mayoría de exchanges, ¡es muy popular!</string>
   <string name="balance_appcoins_body">AppCoins es la criptomoneda para la economía de las apps. Puedes comprarla y venderla en varios exchanges y utilizarla para comprar cosas en apps.</string>
   <string name="balance_appccreditos_body">¡El token para hacer compras en apps! Recarga APPC-C desde tu wallet o recíbelos gratis por usar apps. ¡También se pueden transferir entre amigos!</string>
-  <string name="my_wallets_action_new_wallet">New wallet</string>
-  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
-  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="my_wallets_action_new_wallet">Nueva wallet</string>
+  <string name="my_wallets_action_recover_wallet">Recuperar wallet</string>
+  <string name="my_wallets_action_backup_wallet">Hacer backup</string>
+  <string name="my_wallets_action_verify_new_card">Validar nueva tarjeta</string>
+  <string name="my_wallets_action_delete_wallet">Eliminar wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pedir a alguien</string>
   <string name="askafriend_generating_link_message">Estamos generando el enlace de pago&#8230;</string>
@@ -438,14 +438,14 @@
   <string name="remind_later_button">Más tarde</string>
   <string name="get_code_button">Obtener código</string>
   <string name="confirm_button">Confirmar</string>
-  <string name="withdraw_button">withdraw</string>
+  <string name="withdraw_button">Retirar</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
   <string name="terms_and_conditions">Términos y Condiciones</string>
   <string name="privacy_policy">Política de Privacidad</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we1\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
   <!--Tokens-->
   <!--Settings-->
@@ -987,30 +987,30 @@
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo Code</string>
   <string name="promo_code_view_title">Promo Code</string>
-  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
-  <string name="promo_code_view_field">Promo Code here...</string>
-  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
-  <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
-  <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
-  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_view_body">¡Inserta el código promocional para recibir ofertas!</string>
+  <string name="promo_code_view_field">El código promocional aquí...</string>
+  <string name="promo_code_view_error">Código no válido. ¡Prueba con otro!</string>
+  <string name="promo_code_activated">¡Código promocional activado!</string>
+  <string name="promo_code_replace_button">SUBSTITUIR</string>
+  <string name="promo_code_active_tag">Activo</string>
+  <string name="promo_code_expired_tag">Caducado</string>
+  <string name="promo_code_success_title">¡Hecho!</string>
+  <string name="promo_code_success_body">Recibirás %s%% extra de bonus en todas tus compras.</string>
+  <string name="promo_code_success_body_specific_app">Recibirás %1$s%% en todas tus compras en %2$s.</string>
+  <string name="promo_code_promotions_tag">Código promocional</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Sobre AppCoins</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
+  <string name="appcoins_info_prince_title">Precio de las AppCoins (APPC)</string>
   <string name="appcoins_info_title_1">¿Qué son las AppCoins?</string>
-  <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
+  <string name="appcoins_info_body_1">Las AppCoins son tokens digitales creados por Aptoide y usados por más de 200 millones de usuarios de todo el mundo. El principal objetivo de esta innovadora forma de pago es ofrecer confianza a la economía de las apps y eliminar intermediarios.</string>
+  <string name="appcoins_info_title_1b">Como todos los tokens digitales, el valor de las AppCoins cambia constantement en relación a tu moneda de referencia (EUR, USD...). Puedes ver estos cambios a lo largo del tiempo en el gráfico de arriba.</string>
+  <string name="appcoins_info_title_2">¿Qué son las AppCoins?</string>
   <string name="appcoins_info_body_2">Tanto las AppCoins como las AppCoins Credits pueden usarse para realizar pagos en tus apps favoritas. Recibirás AppCoins Credits como bonus al hacer compras con otros métodos de pago (tarjeta bancaria, PayPal...) y también al realizar una recarga en tu AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
+  <string name="appcoins_info_website_title">Página web</string>
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_volume_title">Volumen (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_no_nfts">No hay NFTs disponibles en este momento.</string>
 </resources>
