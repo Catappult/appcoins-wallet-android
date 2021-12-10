@@ -211,4 +211,8 @@
   <color name="promo_code_text_box_default_border">#969696</color>
   <color name="promo_code_promotions_border">#F7C337</color>
 
+  <!-- Backup 2.0 -->
+  <color name="dark_blue">#001728</color>
+  <color name="transparent_white_4">#0AFFFFFF</color>
+  <color name="transparent_white_10">#1AFFFFFF</color>
 </resources>

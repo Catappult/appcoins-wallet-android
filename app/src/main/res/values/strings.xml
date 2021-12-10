@@ -674,6 +674,7 @@
   <string name="backup_title">Backup Wallet</string>
   <string name="backup_password_title">Encrypt your wallet (optional)</string>
   <string name="backup_password">Password</string>
+  <string name="backup_body_title">Backup your wallet key now!</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_confirmation_title">Just one more step</string>
   <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
