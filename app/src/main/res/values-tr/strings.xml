@@ -698,7 +698,7 @@
   <string name="remove_wallet_yes_button">EVET, CÜZDANI KALDIR</string>
   <string name="remove_wallet_removed_body">Cüzdan kaldırıldı!</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Transfer</string>
+  <string name="tranfer_bottom_navigation">Transfer et</string>
   <string name="transfer_title">Fon Transfer Et</string>
   <string name="transfer_send_tab_title">Gönder</string>
   <string name="transfer_receive_tab_title">Al</string>
