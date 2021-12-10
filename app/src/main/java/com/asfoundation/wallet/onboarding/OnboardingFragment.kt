@@ -17,7 +17,7 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
 
 class OnboardingFragment : BasePageViewFragment(),
-    SingleStateFragment<OnboardinState, OnboardingSideEffect> {
+    SingleStateFragment<OnboardingState, OnboardingSideEffect> {
 
   @Inject
   lateinit var onboardingViewModelFactory: OnboardingViewModelFactory
@@ -40,9 +40,10 @@ class OnboardingFragment : BasePageViewFragment(),
           override fun handleOnBackPressed() {
             when (viewModel.state.pageNumber) {
               0 -> {
-                // Do nothing
+                isEnabled = false
+                activity?.onBackPressed()
               }
-              1 -> showWelcomeScreen()
+              1 -> viewModel.handleBackButtonClick()
             }
           }
         })
@@ -50,7 +51,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun handleFragmentResult() {
     parentFragmentManager.setFragmentResultListener(CreateWalletDialogFragment.RESULT_REQUEST_KEY,
-        this) { requestKey, bundle ->
+        this) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)
     }
   }
@@ -62,26 +63,34 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    showWelcomeScreen()
+    setClickListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
-  override fun onStateChanged(state: OnboardinState) = Unit
+  private fun setClickListeners() {
+    views.onboardingWelcomeButtons.onboardingNextButton.setOnClickListener { viewModel.handleNextClick() }
+    views.onboardingWelcomeButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
+
+    views.onboardingValuePropositionButtons.onboardingBackButton.setOnClickListener { viewModel.handleBackButtonClick() }
+    views.onboardingValuePropositionButtons.onboardingGetStartedButton.setOnClickListener { navigator.navigateToTermsBottomSheet() }
+  }
+
+  override fun onStateChanged(state: OnboardingState) {
+    when (state.pageNumber) {
+      0 -> showWelcomeScreen()
+      1 -> showValuesScreen()
+    }
+  }
 
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRestoreActivity()
-      OnboardingSideEffect.NavigateToValuePropositions -> showValuesScreen()
-      OnboardingSideEffect.NavigateBackToWelcomeScreen -> showWelcomeScreen()
     }
   }
 
   private fun showWelcomeScreen() {
     views.onboardingWelcomeMessage.onboardingWelcomeMessageLayout.visibility = View.VISIBLE
     views.onboardingWelcomeButtons.onboardingWelcomeButtonsLayout.visibility = View.VISIBLE
-
-    views.onboardingWelcomeButtons.onboardingNextButton.setOnClickListener { viewModel.handleNextClick() }
-    views.onboardingWelcomeButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
 
     views.onboardingValuePropositions.onboardingValuePropositionsLayout.visibility = View.GONE
     views.onboardingValuePropositionButtons.onboardingValuePropositionsLayout.visibility = View.GONE
@@ -91,11 +100,6 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingValuePropositions.onboardingValuePropositionsLayout.visibility = View.VISIBLE
     views.onboardingValuePropositionButtons.onboardingValuePropositionsLayout.visibility =
         View.VISIBLE
-
-    views.onboardingValuePropositionButtons.onboardingBackButton.setOnClickListener { viewModel.handleBackButtonClick() }
-    views.onboardingValuePropositionButtons.onboardingGetStartedButton.setOnClickListener {
-      navigator.navigateToTermsBottomSheet()
-    }
 
     views.onboardingWelcomeMessage.onboardingWelcomeMessageLayout.visibility = View.GONE
     views.onboardingWelcomeButtons.onboardingWelcomeButtonsLayout.visibility = View.GONE

@@ -30,8 +30,8 @@ class TermsConditionsBottomSheetViewModel(
   }
 
   fun handleCreateWallet() {
-    sendSideEffect { TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation }
     setOnboardingCompletedUseCase()
+    sendSideEffect { TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation }
   }
 
   fun handleLinkClick(uri: Uri) {

@@ -5,28 +5,24 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 
 sealed class OnboardingSideEffect : SideEffect {
-  object NavigateToValuePropositions : OnboardingSideEffect()
   object NavigateToRecoverWallet : OnboardingSideEffect()
-  object NavigateBackToWelcomeScreen : OnboardingSideEffect()
 }
 
-data class OnboardinState(val pageNumber: Int) : ViewState
+data class OnboardingState(val pageNumber: Int = 0) : ViewState
 
-class OnboardingViewModel : BaseViewModel<OnboardinState, OnboardingSideEffect>(initialState()) {
+class OnboardingViewModel : BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
 
   companion object {
-    fun initialState(): OnboardinState {
-      return OnboardinState(0)
+    fun initialState(): OnboardingState {
+      return OnboardingState(0)
     }
   }
 
   fun handleBackButtonClick() {
-    sendSideEffect { OnboardingSideEffect.NavigateBackToWelcomeScreen }
     setState { copy(pageNumber = 0) }
   }
 
   fun handleNextClick() {
-    sendSideEffect { OnboardingSideEffect.NavigateToValuePropositions }
     setState { copy(pageNumber = 1) }
   }
 
