@@ -11,7 +11,6 @@ class BackupSuccessLogRepository(private val backupLogApi: BackupLopApi,
 
   fun logBackupSuccess(ewt: String): Completable {
     return backupLogApi.logBackupSuccess(ewt)
-        .doOnError { Log.d("APPC-2783", "BackupSuccessLogRepository: doOnError -> $it") }
         .subscribeOn(rxSchedulers.io)
   }
 
