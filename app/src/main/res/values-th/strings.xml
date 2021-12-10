@@ -445,7 +445,7 @@
   <string name="terms_and_conditions">ข้อกำหนดและเงื่อนไข</string>
   <string name="privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">ดำเนินการซื้อเกมส์ที่คุณชื่นชอบและเราจะรับมือกับทุกอย่าง</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
