@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.onboarding
 
+import android.content.res.Configuration
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +10,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.rd.draw.data.Orientation
 import javax.inject.Inject
 
 class OnboardingFragment : BasePageViewFragment(),
@@ -97,6 +101,12 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showValuesScreen() {
+    if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      views.onboardingWalletIcon.visibility = View.GONE
+    } else {
+      views.onboardingWalletIcon.visibility = View.VISIBLE
+    }
+
     views.onboardingValuePropositions.onboardingValuePropositionsLayout.visibility = View.VISIBLE
     views.onboardingValuePropositionButtons.onboardingValuePropositionsLayout.visibility =
         View.VISIBLE
