@@ -24,11 +24,11 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/onboarding_padding"
       android:layout_marginEnd="@dimen/onboarding_padding"
-      android:layout_marginTop="@dimen/onboarding_container_margin_top"
       android:animateLayoutChanges="true"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon">
+      app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_buttons_container">
 
     <include
         android:id="@+id/onboarding_welcome_message"

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.Nullable
+import androidx.core.view.marginTop
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -93,6 +94,8 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showWelcomeScreen() {
+    views.onboardingWalletIcon.visibility = View.VISIBLE
+
     views.onboardingWelcomeMessage.onboardingWelcomeMessageLayout.visibility = View.VISIBLE
     views.onboardingWelcomeButtons.onboardingWelcomeButtonsLayout.visibility = View.VISIBLE
 
