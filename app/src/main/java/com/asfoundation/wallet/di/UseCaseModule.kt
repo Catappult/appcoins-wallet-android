@@ -48,6 +48,8 @@ import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
+import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
@@ -302,8 +304,9 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase, NFTRepository: NFTRepository): GetNFTListUseCase {
-    return GetNFTListUseCase(getCurrentWallet , NFTRepository)
+  fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase,
+                                NFTRepository: NFTRepository): GetNFTListUseCase {
+    return GetNFTListUseCase(getCurrentWallet, NFTRepository)
   }
 
   @Singleton
@@ -315,7 +318,8 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun providesResetSendLogsStateUseCase(sendLogsRepository: SendLogsRepository): ResetSendLogsStateUseCase {
+  fun providesResetSendLogsStateUseCase(
+      sendLogsRepository: SendLogsRepository): ResetSendLogsStateUseCase {
     return ResetSendLogsStateUseCase(sendLogsRepository)
   }
 
@@ -375,5 +379,12 @@ class UseCaseModule {
   fun providesDeletePromoCodeUseCase(
       promoCodeRepository: PromoCodeRepository): DeletePromoCodeUseCase {
     return DeletePromoCodeUseCase(promoCodeRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBackupSuccessLogUseCase(ewt: EwtAuthenticatorService,
+                                      backupSuccessLogRepository: BackupSuccessLogRepository): BackupSuccessLogUseCase {
+    return BackupSuccessLogUseCase(ewt, backupSuccessLogRepository)
   }
 }
