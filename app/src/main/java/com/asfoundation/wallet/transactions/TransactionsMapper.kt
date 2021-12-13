@@ -16,6 +16,7 @@ class TransactionsMapper {
 
   fun map(transaction: WalletHistory.Transaction, wallet: String): TransactionEntity {
     val txType = mapTransactionType(transaction)
+    val method = mapTransactionMethod(transaction.method)
     val status = map(transaction.status)
     val sourceName = mapSource(txType, transaction)
     val bonusSubType = mapSubtype(transaction.subType)
@@ -24,11 +25,11 @@ class TransactionsMapper {
     val icon = TransactionDetailsEntity.Icon(TransactionDetailsEntity.Type.URL, transaction.icon)
     val details = TransactionDetailsEntity(icon, sourceName, transaction.sku)
     val currency = if (txType == TransactionEntity.TransactionType.ETHER_TRANSFER) "ETH" else "APPC"
-    return TransactionEntity(transaction.txID, wallet, null, perk, txType, bonusSubType,
+    return TransactionEntity(transaction.txID, wallet, null, perk, txType, method, bonusSubType,
         transaction.title, transaction.description, transaction.ts.time,
         transaction.processedTime.time, status, transaction.amount.toString(), currency,
         transaction.paidAmount, transaction.paidCurrency, transaction.sender,
-        transaction.receiver, details, operations)
+        transaction.receiver, details, operations, transaction.orderReference)
   }
 
   private fun mapSource(txType: TransactionEntity.TransactionType,
@@ -64,12 +65,13 @@ class TransactionsMapper {
   private fun mapTransactionType(
       transaction: WalletHistory.Transaction): TransactionEntity.TransactionType {
     return when (transaction.type) {
+      "Transfer" -> TransactionEntity.TransactionType.TRANSFER
       "Transfer OffChain" -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
+      "Ether Transfer" -> TransactionEntity.TransactionType.ETHER_TRANSFER
       "Topup OffChain" -> TransactionEntity.TransactionType.TOP_UP
       "IAP OffChain" -> TransactionEntity.TransactionType.IAP_OFFCHAIN
       "bonus" -> TransactionEntity.TransactionType.BONUS
       "PoA OffChain" -> TransactionEntity.TransactionType.ADS_OFFCHAIN
-      "Ether Transfer" -> TransactionEntity.TransactionType.ETHER_TRANSFER
       "IAP" -> TransactionEntity.TransactionType.IAP
       "Bonus Revert OffChain" -> TransactionEntity.TransactionType.BONUS_REVERT
       "Topup Revert OffChain" -> TransactionEntity.TransactionType.TOP_UP_REVERT
@@ -81,6 +83,14 @@ class TransactionsMapper {
     }
   }
 
+  private fun mapTransactionMethod(method: String?): TransactionEntity.Method {
+    return when (method) {
+      "appcoins_credits" -> TransactionEntity.Method.APPC_C
+      "appcoins" -> TransactionEntity.Method.APPC
+      "ETH" -> TransactionEntity.Method.ETH
+      else -> TransactionEntity.Method.UNKNOWN
+    }
+  }
 
   private fun mapPerk(perk: String?): TransactionEntity.Perk? {
     return perk?.let {

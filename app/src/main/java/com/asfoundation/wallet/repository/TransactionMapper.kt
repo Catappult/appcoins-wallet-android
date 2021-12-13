@@ -15,35 +15,43 @@ class TransactionMapper {
 
   fun map(transaction: TransactionEntity, link: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        transaction.title, transaction.cardDescription, map(transaction.perk),
+        map(transaction.method), transaction.title, transaction.cardDescription,
+        map(transaction.perk),
         transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
         map(transaction.status), transaction.value,
         transaction.from, transaction.to, map(transaction.details),
-        transaction.currency,
-        mapToOperations(transaction.operations),
-        listOf(mapLink(link, transaction)), transaction.paidAmount, transaction.paidCurrency)
+        transaction.currency, mapToOperations(transaction.operations),
+        listOf(mapLink(link, transaction)), transaction.paidAmount, transaction.paidCurrency,
+        transaction.orderReference)
+  }
+
+  private fun map(method: TransactionEntity.Method?): Transaction.Method {
+    return when (method) {
+      TransactionEntity.Method.APPC -> Transaction.Method.APPC
+      TransactionEntity.Method.APPC_C -> Transaction.Method.APPC_C
+      TransactionEntity.Method.ETH -> Transaction.Method.ETH
+      else -> Transaction.Method.UNKNOWN
+    }
   }
 
   private fun mapLink(transaction: TransactionEntity, link: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        transaction.title, transaction.cardDescription, map(transaction.perk),
-        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value,
-        transaction.from, transaction.to, map(transaction.details),
-        transaction.currency,
-        mapToOperations(transaction.operations),
-        listOf(map(link)), transaction.paidAmount, transaction.paidCurrency)
+        map(transaction.method), transaction.title, transaction.cardDescription,
+        map(transaction.perk), transaction.approveTransactionId, transaction.timeStamp,
+        transaction.processedTime, map(transaction.status), transaction.value, transaction.from,
+        transaction.to, map(transaction.details), transaction.currency,
+        mapToOperations(transaction.operations), listOf(map(link)), transaction.paidAmount,
+        transaction.paidCurrency, transaction.orderReference)
   }
 
   fun map(transaction: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        transaction.title, transaction.cardDescription, map(transaction.perk),
-        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value,
+        map(transaction.method), transaction.title, transaction.cardDescription,
+        map(transaction.perk), transaction.approveTransactionId, transaction.timeStamp,
+        transaction.processedTime, map(transaction.status), transaction.value,
         transaction.from, transaction.to, map(transaction.details),
-        transaction.currency,
-        mapToOperations(transaction.operations),
-        emptyList(), transaction.paidAmount, transaction.paidCurrency)
+        transaction.currency, mapToOperations(transaction.operations),
+        emptyList(), transaction.paidAmount, transaction.paidCurrency, transaction.orderReference)
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {
@@ -86,6 +94,7 @@ class TransactionMapper {
       TransactionEntity.TransactionType.BONUS -> Transaction.TransactionType.BONUS
       TransactionEntity.TransactionType.TOP_UP -> Transaction.TransactionType.TOP_UP
       TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN -> Transaction.TransactionType.TRANSFER_OFF_CHAIN
+      TransactionEntity.TransactionType.TRANSFER -> Transaction.TransactionType.TRANSFER
       TransactionEntity.TransactionType.ETHER_TRANSFER -> Transaction.TransactionType.ETHER_TRANSFER
       TransactionEntity.TransactionType.TOP_UP_REVERT -> Transaction.TransactionType.TOP_UP_REVERT
       TransactionEntity.TransactionType.BONUS_REVERT -> Transaction.TransactionType.BONUS_REVERT
@@ -99,12 +108,21 @@ class TransactionMapper {
   fun map(transaction: Transaction, relatedWallet: String): TransactionEntity {
     return TransactionEntity(transaction.transactionId, relatedWallet,
         transaction.approveTransactionId, map(transaction.perk),
-        map(transaction.type), map(transaction.subType), transaction.title,
+        map(transaction.type), map(transaction.method), map(transaction.subType), transaction.title,
         transaction.description, transaction.timeStamp,
         transaction.processedTime, map(transaction.status), transaction.value, transaction.currency,
         transaction.paidAmount, transaction.paidCurrency,
         transaction.from, transaction.to, map(transaction.details),
-        mapToOperationEntities(transaction.operations))
+        mapToOperationEntities(transaction.operations), transaction.orderReference)
+  }
+
+  private fun map(method: Transaction.Method): TransactionEntity.Method {
+    return when (method) {
+      Transaction.Method.UNKNOWN -> TransactionEntity.Method.UNKNOWN
+      Transaction.Method.APPC -> TransactionEntity.Method.APPC
+      Transaction.Method.APPC_C -> TransactionEntity.Method.APPC_C
+      Transaction.Method.ETH -> TransactionEntity.Method.ETH
+    }
   }
 
   private fun mapToOperationEntities(operations: List<Operation>?): List<OperationEntity>? {
@@ -157,6 +175,7 @@ class TransactionMapper {
       Transaction.TransactionType.BONUS_REVERT -> TransactionEntity.TransactionType.BONUS_REVERT
       Transaction.TransactionType.TOP_UP_REVERT -> TransactionEntity.TransactionType.TOP_UP_REVERT
       Transaction.TransactionType.IAP_REVERT -> TransactionEntity.TransactionType.IAP_REVERT
+      Transaction.TransactionType.TRANSFER -> TransactionEntity.TransactionType.TRANSFER
       Transaction.TransactionType.SUBS_OFFCHAIN -> TransactionEntity.TransactionType.INAPP_SUBSCRIPTION
       Transaction.TransactionType.ESKILLS_REWARD -> TransactionEntity.TransactionType.ESKILLS_REWARD
       Transaction.TransactionType.ESKILLS -> TransactionEntity.TransactionType.ESKILLS

@@ -246,6 +246,31 @@
       </FrameLayout>
 
       <TextView
+          android:id="@+id/order_reference_label"
+          style="@style/TransactionDetailsTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/half_large_margin"
+          android:layout_marginTop="@dimen/big_margin"
+          android:text="@string/transaction_order_reference_label"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/category_label"
+          />
+
+      <TextView
+          android:id="@+id/order_reference_name"
+          style="@style/TransactionDetailsTextStyle.Content"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/half_large_margin"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/order_reference_label"
+          app:layout_constraintEnd_toEndOf="parent"
+          tools:text="orderID_ESOANPCOC"
+          />
+
+      <TextView
           android:id="@+id/to_label"
           style="@style/TransactionDetailsTextStyle"
           android:layout_width="wrap_content"
@@ -255,7 +280,7 @@
           android:text="@string/transaction_to_label"
           android:visibility="gone"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/category_label"
+          app:layout_constraintTop_toBottomOf="@id/order_reference_label"
           />
 
       <TextView

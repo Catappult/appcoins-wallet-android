@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.transactions.models
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.text.format.DateFormat
@@ -20,6 +21,7 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -31,7 +33,7 @@ import kotlin.math.pow
 abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.TransactionHolder>() {
 
   @EpoxyAttribute
-  var transaction: Transaction? = null
+  lateinit var tx: Transaction
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var defaultAddress: String? = null
@@ -48,177 +50,175 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
   override fun getDefaultLayout(): Int = R.layout.item_transaction
 
   override fun bind(holder: TransactionHolder) {
-    transaction?.let { tx ->
-      val actualCurrency = if (!TextUtils.isEmpty(tx.currency)) {
-        tx.currency
-      } else {
-        currency
-      }
-      initializeView(holder, tx.from, tx.to, actualCurrency, tx.value, tx.status, tx.details,
-          tx.type, tx.linkedTx, tx.paidAmount, tx.paidCurrency)
-      holder.itemView.setOnClickListener { clickListener?.invoke(tx) }
-    }
-  }
+    holder.itemView.setOnClickListener { clickListener?.invoke(tx) }
 
-  private fun initializeView(holder: TransactionHolder, from: String, to: String, currency: String?,
-                             value: String, status: Transaction.TransactionStatus,
-                             details: TransactionDetails?, type: Transaction.TransactionType,
-                             linkedTx: List<Transaction>?, txPaidAmount: String?,
-                             txPaidCurrency: String?) {
-    val isSent = from.equals(defaultAddress, ignoreCase = true)
-    holder.revertMessage.visibility = View.GONE
-
-    var icon: TransactionDetails.Icon? = null
-    var uri: String? = null
-    details?.let {
-      icon = details.icon
-      uri = when (icon?.type) {
-        TransactionDetails.Icon.Type.FILE -> "file:" + icon?.uri
-        TransactionDetails.Icon.Type.URL -> icon?.uri
+    val context = holder.itemView.context
+    val isSent = tx.from.equals(defaultAddress, ignoreCase = true)
+    val uri: String? = tx.details?.icon?.let { icon ->
+      when (icon.type) {
+        TransactionDetails.Icon.Type.FILE -> "file:" + icon.uri
+        TransactionDetails.Icon.Type.URL -> icon.uri
         null -> null
       }
     }
+    holder.revertMessage.visibility = View.GONE
 
-    var currencySymbol = currency
-    val transactionTypeIcon: Int
-    when (type) {
-      Transaction.TransactionType.IAP, Transaction.TransactionType.IAP_OFFCHAIN, Transaction.TransactionType.ESKILLS -> {
-        transactionTypeIcon = R.drawable.ic_transaction_iab
-        setTypeIconVisibilityBasedOnDescription(holder, details, uri)
-      }
-      Transaction.TransactionType.BONUS_REVERT, Transaction.TransactionType.TOP_UP_REVERT -> {
-        transactionTypeIcon = R.drawable.ic_transaction_revert
-        holder.typeIcon.visibility = View.VISIBLE
-        holder.typeIconImageView.visibility = View.VISIBLE
-        holder.subscriptionImageView.visibility = View.GONE
-        setRevertMessage(holder, linkedTx)
-        currencySymbol = WalletCurrency.CREDITS.symbol
-      }
-      Transaction.TransactionType.IAP_REVERT -> {
-        transactionTypeIcon = R.drawable.ic_transaction_revert
-        holder.typeIcon.visibility = View.VISIBLE
-        holder.typeIconImageView.visibility = View.VISIBLE
-        holder.subscriptionImageView.visibility = View.GONE
-        setRevertMessage(holder, linkedTx)
+    // Default values
+    var currencySymbol = if (!TextUtils.isEmpty(tx.currency)) tx.currency else currency
+    var address = getDefaultAddress(context, isSent)
+    var txTypeIcon = R.drawable.ic_transaction_peer
+    var isTypeIconVisible = isTypeIconVisibleBasedOnDescription(tx.details, uri)
+    var description = tx.details?.description ?: ""
+
+    when (tx.type) {
+      Transaction.TransactionType.IAP, Transaction.TransactionType.IAP_OFFCHAIN -> {
+        txTypeIcon = R.drawable.ic_transaction_iab
       }
       Transaction.TransactionType.ADS, Transaction.TransactionType.ADS_OFFCHAIN -> {
-        transactionTypeIcon = R.drawable.ic_transaction_poa
-        setTypeIconVisibilityBasedOnDescription(holder, details, uri)
+        txTypeIcon = R.drawable.ic_transaction_poa
         currencySymbol = WalletCurrency.CREDITS.symbol
       }
       Transaction.TransactionType.BONUS -> {
-        holder.typeIcon.visibility = View.GONE
-        transactionTypeIcon = R.drawable.ic_transaction_peer
+        txTypeIcon = R.drawable.ic_transaction_peer
+        isTypeIconVisible = false
+        address = context.getString(R.string.transaction_type_bonus)
         currencySymbol = WalletCurrency.CREDITS.symbol
       }
       Transaction.TransactionType.TOP_UP -> {
-        holder.typeIcon.visibility = View.GONE
-        transactionTypeIcon = R.drawable.transaction_type_top_up
+        txTypeIcon = R.drawable.transaction_type_top_up
+        isTypeIconVisible = false
+        address = context.getString(R.string.topup_home_button)
         currencySymbol = WalletCurrency.CREDITS.symbol
       }
       Transaction.TransactionType.TRANSFER_OFF_CHAIN -> {
-        holder.typeIcon.visibility = View.GONE
-        transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain
+        txTypeIcon = R.drawable.ic_chain
+        isTypeIconVisible = true
+        description = context.getString(R.string.transaction_type_p2p)
         currencySymbol = WalletCurrency.CREDITS.symbol
       }
-      Transaction.TransactionType.SUBS_OFFCHAIN -> {
-        transactionTypeIcon = R.drawable.ic_transaction_peer
-        holder.typeIcon.visibility = View.VISIBLE
-        holder.typeIconImageView.visibility = View.GONE
-        holder.subscriptionImageView.visibility = View.VISIBLE
-      }
-      else -> {
-        transactionTypeIcon = R.drawable.ic_transaction_peer
-        setTypeIconVisibilityBasedOnDescription(holder, details, uri)
-      }
-    }
-
-    if (details != null) {
-      when (transaction!!.type) {
-        Transaction.TransactionType.BONUS -> holder.address.setText(R.string.transaction_type_bonus)
-        Transaction.TransactionType.TOP_UP -> holder.address.setText(R.string.topup_home_button)
-        Transaction.TransactionType.TRANSFER_OFF_CHAIN -> holder.address.setText(
-            R.string.transaction_type_p2p)
-        Transaction.TransactionType.TOP_UP_REVERT -> holder.address.setText(
-            R.string.transaction_type_reverted_topup_title)
-        Transaction.TransactionType.BONUS_REVERT -> holder.address.setText(
-            R.string.transaction_type_reverted_bonus_title)
-        Transaction.TransactionType.IAP_REVERT -> holder.address.setText(
-            R.string.transaction_type_reverted_purchase_title)
-        Transaction.TransactionType.ESKILLS_REWARD -> holder.address.setText(
-            R.string.transaction_type_eskills_reward)
-        else -> {
-          holder.address.text = if (details.sourceName == null) {
-            if (isSent) to else from
-          } else {
-            getSourceText(holder, type, details)
-          }
+      Transaction.TransactionType.TRANSFER -> {
+        txTypeIcon = R.drawable.ic_chain
+        description = context.getString(R.string.transaction_type_p2p)
+        isTypeIconVisible = true
+        currencySymbol = when (tx.method) {
+          Transaction.Method.UNKNOWN,
+          Transaction.Method.APPC_C -> WalletCurrency.CREDITS.symbol
+          Transaction.Method.APPC -> WalletCurrency.APPCOINS.symbol
+          Transaction.Method.ETH -> WalletCurrency.ETHEREUM.symbol
         }
       }
-      holder.description.text = if (details.description == null) "" else details.description
-    } else {
-      holder.address.text = if (isSent) to else from
-      holder.description.text = ""
+      Transaction.TransactionType.ETHER_TRANSFER -> {
+        txTypeIcon = R.drawable.ic_chain
+        description = context.getString(R.string.transaction_type_p2p)
+        isTypeIconVisible = true
+        currencySymbol = WalletCurrency.ETHEREUM.symbol
+      }
+      Transaction.TransactionType.BONUS_REVERT -> {
+        address = context.getString(R.string.transaction_type_reverted_bonus_title)
+        holder.setRevertMessage(tx.linkedTx)
+        currencySymbol = WalletCurrency.CREDITS.symbol
+      }
+      Transaction.TransactionType.TOP_UP_REVERT -> {
+        address = context.getString(R.string.transaction_type_reverted_topup_title)
+        holder.setRevertMessage(tx.linkedTx)
+        currencySymbol = WalletCurrency.CREDITS.symbol
+      }
+      Transaction.TransactionType.IAP_REVERT -> {
+        address = context.getString(R.string.transaction_type_reverted_purchase_title)
+        holder.setRevertMessage(tx.linkedTx)
+      }
+      Transaction.TransactionType.SUBS_OFFCHAIN -> {
+        txTypeIcon = R.drawable.ic_transaction_subscription
+        isTypeIconVisible = true
+      }
+      Transaction.TransactionType.ESKILLS_REWARD -> {
+        address = context.getString(R.string.transaction_type_eskills_reward)
+      }
+      Transaction.TransactionType.ESKILLS -> {
+        txTypeIcon = R.drawable.ic_transaction_iab
+      }
+      else -> Unit
     }
 
-    GlideApp.with(holder.itemView.context)
+    holder.setIcons(uri, txTypeIcon, isTypeIconVisible)
+    holder.setDescription(description)
+    holder.setAddress(address)
+    holder.setValues(currencySymbol!!, isSent)
+  }
+
+  private fun TransactionHolder.setAddress(text: String?) {
+    address.text = text
+  }
+
+  private fun TransactionHolder.setDescription(desc: String) {
+    description.text = desc
+  }
+
+  private fun TransactionHolder.setValues(currencySymbol: String, isSent: Boolean) {
+    var valueStr = tx.value
+    val flipSign = if (isRevert(tx.type)) true else isSent
+
+    valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(), currencySymbol, flipSign)
+    valueStr = if (valueStr == "0") "0 " else valueStr
+
+    if (shouldShowFiat(tx.paidAmount, tx.paidCurrency)) {
+      val paidAmount = getScaledValue(tx.paidAmount!!, 0, "", flipSign)
+      paidValue.text = paidAmount
+      paidCurrency.text = tx.paidCurrency
+      valueTextView.visibility = View.VISIBLE
+      currency.visibility = View.VISIBLE
+      valueTextView.text = valueStr
+      currency.text = currencySymbol
+    } else {
+      paidValue.text = valueStr
+      paidCurrency.text = currencySymbol
+      valueTextView.visibility = View.GONE
+      currency.visibility = View.GONE
+    }
+
+    currency.text = currencySymbol
+    valueTextView.text = valueStr
+  }
+
+  private fun TransactionHolder.setIcons(uri: String?, txTypeIcon: Int,
+                                         txTypeIconVisible: Boolean) {
+    typeIconLayout.visibility = if (txTypeIconVisible) View.VISIBLE else View.GONE
+
+    GlideApp.with(itemView.context)
         .load(uri)
         .apply(RequestOptions.bitmapTransform(CircleCrop())
-            .placeholder(transactionTypeIcon)
-            .error(transactionTypeIcon))
+            .error(txTypeIcon))
         .listener(object : RequestListener<Drawable?> {
           override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable?>,
                                     isFirstResource: Boolean): Boolean {
-            holder.typeIcon.visibility = View.GONE
+            typeIconLayout.visibility = View.GONE
             return false
           }
 
           override fun onResourceReady(resource: Drawable?, model: Any, target: Target<Drawable?>,
                                        dataSource: DataSource, isFirstResource: Boolean): Boolean {
-            holder.typeIconImageView.setImageResource(transactionTypeIcon)
+            typeIconImageView.setImageResource(txTypeIcon)
             return false
           }
         })
-        .into(holder.srcImage)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(srcImage)
+  }
 
-    var statusText = R.string.transaction_status_success
-    var statusColor = R.color.green
-
-    when (status) {
-      Transaction.TransactionStatus.PENDING -> {
-        statusText = R.string.transaction_status_pending
-        statusColor = R.color.orange
+  private fun getDefaultAddress(context: Context, isSent: Boolean): String {
+    val details = tx.details
+    if (details != null) {
+      return if (details.sourceName == null) {
+        if (isSent) tx.to else tx.from
+      } else {
+        if (tx.type == Transaction.TransactionType.BONUS) {
+          context.getString(R.string.gamification_transaction_title, details.sourceName)
+        } else {
+          details.sourceName ?: ""
+        }
       }
-      Transaction.TransactionStatus.FAILED -> {
-        statusText = R.string.transaction_status_failed
-        statusColor = R.color.red
-      }
-      else -> Unit
     }
-
-    var valueStr = value
-    val flipSign = if (isRevert(transaction!!.type)) true else isSent
-
-    valueStr = getScaledValue(valueStr, C.ETHER_DECIMALS.toLong(), currencySymbol!!, flipSign)
-    valueStr = if (valueStr == "0") "0 " else valueStr
-
-    if (shouldShowFiat(txPaidAmount, txPaidCurrency)) {
-      val paidAmount = getScaledValue(txPaidAmount!!, 0, "", flipSign)
-      holder.paidValue.text = paidAmount
-      holder.paidCurrency.text = txPaidCurrency
-      holder.value.visibility = View.VISIBLE
-      holder.currency.visibility = View.VISIBLE
-      holder.value.text = valueStr
-      holder.currency.text = currencySymbol
-    } else {
-      holder.paidValue.text = valueStr
-      holder.paidCurrency.text = currencySymbol
-      holder.value.visibility = View.GONE
-      holder.currency.visibility = View.GONE
-    }
-
-    holder.currency.text = currencySymbol
-    holder.value.text = valueStr
+    return ""
   }
 
   private fun isRevert(type: Transaction.TransactionType): Boolean {
@@ -243,25 +243,29 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     return signedString + formatter!!.formatCurrency(value, walletCurrency)
   }
 
-  private fun setRevertMessage(holder: TransactionHolder, linkedTx: List<Transaction>?) {
+  private fun TransactionHolder.setRevertMessage(linkedTxs: List<Transaction>?) {
     var message: String? = null
-    if (linkedTx == null || linkedTx.isEmpty()) {
-      holder.revertMessage.visibility = View.GONE
+    if (linkedTxs == null || linkedTxs.isEmpty()) {
+      revertMessage.visibility = View.GONE
     } else {
-      val linkedTx = linkedTx[0]
-      if (transaction!!.type == Transaction.TransactionType.BONUS_REVERT) {
-        message = holder.itemView.context.getString(R.string.transaction_type_reverted_bonus_body,
-            getDate(linkedTx.timeStamp))
-      } else if (transaction!!.type == Transaction.TransactionType.IAP_REVERT) {
-        message =
-            holder.itemView.context.getString(R.string.transaction_type_reverted_purchase_body,
-                getDate(linkedTx.timeStamp))
-      } else if (transaction!!.type == Transaction.TransactionType.TOP_UP_REVERT) {
-        message = holder.itemView.context.getString(R.string.transaction_type_reverted_topup_body,
-            getDate(linkedTx.timeStamp))
+      val linkedTx = linkedTxs[0]
+      when (tx.type) {
+        Transaction.TransactionType.BONUS_REVERT -> {
+          message = itemView.context.getString(R.string.transaction_type_reverted_bonus_body,
+              getDate(linkedTx.timeStamp))
+        }
+        Transaction.TransactionType.IAP_REVERT -> {
+          message =
+              itemView.context.getString(R.string.transaction_type_reverted_purchase_body,
+                  getDate(linkedTx.timeStamp))
+        }
+        Transaction.TransactionType.TOP_UP_REVERT -> {
+          message = itemView.context.getString(R.string.transaction_type_reverted_topup_body,
+              getDate(linkedTx.timeStamp))
+        }
       }
-      holder.revertMessage.text = message
-      holder.revertMessage.visibility = View.VISIBLE
+      revertMessage.text = message
+      revertMessage.visibility = View.VISIBLE
     }
   }
 
@@ -272,35 +276,18 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         .toString()
   }
 
-  private fun setTypeIconVisibilityBasedOnDescription(holder: TransactionHolder,
-                                                      details: TransactionDetails?, uri: String?) {
-    if (uri == null || details?.sourceName == null) {
-      holder.typeIcon.visibility = View.GONE
-    } else {
-      holder.typeIcon.visibility = View.VISIBLE
-      holder.typeIconImageView.visibility = View.VISIBLE
-      holder.subscriptionImageView.visibility = View.GONE
-    }
-  }
-
-  private fun getSourceText(holder: TransactionHolder, type: Transaction.TransactionType,
-                            details: TransactionDetails?): String? {
-    return if (type == Transaction.TransactionType.BONUS) {
-      holder.itemView.context.getString(R.string.gamification_transaction_title,
-          details?.sourceName)
-    } else {
-      details?.sourceName
-    }
+  private fun isTypeIconVisibleBasedOnDescription(details: TransactionDetails?,
+                                                  uri: String?): Boolean {
+    return !(uri == null || details?.sourceName == null)
   }
 
   class TransactionHolder : BaseViewHolder() {
     val srcImage by bind<ImageView>(R.id.img)
-    val typeIcon by bind<View>(R.id.type_icon)
+    val typeIconLayout by bind<View>(R.id.type_icon)
     val typeIconImageView by bind<ImageView>(R.id.type_icon_image_view)
-    val subscriptionImageView by bind<ImageView>(R.id.subscription_icon)
     val address by bind<TextView>(R.id.address)
     val description by bind<TextView>(R.id.description)
-    val value by bind<TextView>(R.id.value)
+    val valueTextView by bind<TextView>(R.id.value)
     val currency by bind<TextView>(R.id.currency)
     val paidValue by bind<TextView>(R.id.paid_value)
     val paidCurrency by bind<TextView>(R.id.paid_currency)

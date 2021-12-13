@@ -272,6 +272,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Category</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">To</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
