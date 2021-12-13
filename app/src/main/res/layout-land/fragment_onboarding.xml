@@ -4,6 +4,7 @@
     android:background="@drawable/background_dark_gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     >
 
   <ImageView
@@ -18,61 +19,35 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/onboarding_mid_container"
+  <include
+      layout="@layout/onboarding_welcome_message"
+      android:id="@+id/onboarding_welcome_message"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/onboarding_padding"
+      android:layout_height="0dp"
       android:layout_marginEnd="@dimen/onboarding_padding"
-      android:layout_marginTop="@dimen/onboarding_title_margin_top"
+      android:layout_marginStart="@dimen/onboarding_padding"
+      android:layout_marginTop="15dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon">
+      app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
+      app:tint="@color/white"
+      />
 
-    <include
-        android:id="@+id/onboarding_welcome_message"
-        layout="@layout/onboarding_welcome_message"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:tint="@color/white"
-        />
-
-    <include
-        android:id="@+id/onboarding_value_propositions"
-        layout="@layout/onboarding_value_propositions"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:tint="@color/white"
-        />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/onboarding_buttons_container"
+  <include
+      layout="@layout/onboarding_value_propositions"
+      android:id="@+id/onboarding_value_propositions"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/onboarding_padding"
+      android:layout_height="0dp"
       android:layout_marginEnd="@dimen/onboarding_padding"
-      android:layout_marginBottom="@dimen/onboarding_padding"
+      android:layout_marginTop="15dp"
+      android:layout_marginStart="@dimen/onboarding_padding"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent">
-
-    <include
-        android:id="@+id/onboarding_welcome_buttons"
-        layout="@layout/onboarding_welcome_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
-    <include
-        android:id="@+id/onboarding_value_proposition_buttons"
-        layout="@layout/onboarding_value_proposition_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="@id/onboarding_buttons_container"
-        />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
+      app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
+      app:tint="@color/white"
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

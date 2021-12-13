@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.onboarding
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,7 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import javax.inject.Inject
 
 class OnboardingFragment : BasePageViewFragment(),
-    SingleStateFragment<OnboardingState, OnboardingSideEffect> {
+  SingleStateFragment<OnboardingState, OnboardingSideEffect> {
 
   @Inject
   lateinit var onboardingViewModelFactory: OnboardingViewModelFactory
@@ -36,28 +37,32 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun handleBackPress() {
     requireActivity().onBackPressedDispatcher.addCallback(this,
-        object : OnBackPressedCallback(true) {
-          override fun handleOnBackPressed() {
-            when (viewModel.state.pageNumber) {
-              0 -> {
-                isEnabled = false
-                activity?.onBackPressed()
-              }
-              1 -> viewModel.handleBackButtonClick()
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          when (viewModel.state.pageNumber) {
+            0 -> {
+              isEnabled = false
+              activity?.onBackPressed()
             }
+            1 -> viewModel.handleBackButtonClick()
           }
-        })
+        }
+      })
   }
 
   private fun handleFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(CreateWalletDialogFragment.RESULT_REQUEST_KEY,
-        this) { _, _ ->
+    parentFragmentManager.setFragmentResultListener(
+      CreateWalletDialogFragment.RESULT_REQUEST_KEY,
+      this
+    ) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?,
-                            @Nullable savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, @Nullable container: ViewGroup?,
+    @Nullable savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_onboarding, container, false)
   }
 
@@ -68,11 +73,11 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun setClickListeners() {
-    views.onboardingWelcomeButtons.onboardingNextButton.setOnClickListener { viewModel.handleNextClick() }
-    views.onboardingWelcomeButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
+    views.onboardingWelcomeMessage.onboardingNextButton.setOnClickListener { viewModel.handleNextClick() }
+    views.onboardingWelcomeMessage.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
 
-    views.onboardingValuePropositionButtons.onboardingBackButton.setOnClickListener { viewModel.handleBackButtonClick() }
-    views.onboardingValuePropositionButtons.onboardingGetStartedButton.setOnClickListener { navigator.navigateToTermsBottomSheet() }
+    views.onboardingValuePropositions.onboardingBackButton.setOnClickListener { viewModel.handleBackButtonClick() }
+    views.onboardingValuePropositions.onboardingGetStartedButton.setOnClickListener { navigator.navigateToTermsBottomSheet() }
   }
 
   override fun onStateChanged(state: OnboardingState) {
@@ -89,20 +94,19 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showWelcomeScreen() {
-    views.onboardingWelcomeMessage.onboardingWelcomeMessageLayout.visibility = View.VISIBLE
-    views.onboardingWelcomeButtons.onboardingWelcomeButtonsLayout.visibility = View.VISIBLE
-
-    views.onboardingValuePropositions.onboardingValuePropositionsLayout.visibility = View.GONE
-    views.onboardingValuePropositionButtons.onboardingValuePropositionsLayout.visibility = View.GONE
+    views.onboardingValuePropositions.root.visibility = View.GONE
+    views.onboardingWalletIcon.visibility = View.VISIBLE
+    views.onboardingWelcomeMessage.root.visibility = View.VISIBLE
   }
 
   private fun showValuesScreen() {
-    views.onboardingValuePropositions.onboardingValuePropositionsLayout.visibility = View.VISIBLE
-    views.onboardingValuePropositionButtons.onboardingValuePropositionsLayout.visibility =
-        View.VISIBLE
-
-    views.onboardingWelcomeMessage.onboardingWelcomeMessageLayout.visibility = View.GONE
-    views.onboardingWelcomeButtons.onboardingWelcomeButtonsLayout.visibility = View.GONE
+    if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+      views.onboardingWalletIcon.visibility = View.VISIBLE
+    } else {
+      views.onboardingWalletIcon.visibility = View.GONE
+    }
+    views.onboardingWelcomeMessage.root.visibility = View.GONE
+    views.onboardingValuePropositions.root.visibility = View.VISIBLE
   }
 
   companion object {
