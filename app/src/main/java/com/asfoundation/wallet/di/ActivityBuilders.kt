@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di
 
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.main.MainActivityModule
+import com.asfoundation.wallet.onboarding.OnboardingActivity
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
@@ -18,8 +19,6 @@ import com.asfoundation.wallet.ui.balance.TokenDetailsActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.ui.onboarding.OnboardingActivity
-import com.asfoundation.wallet.ui.onboarding.OnboardingModule
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.ui.splash.SplashModule
@@ -78,7 +77,7 @@ abstract class ActivityBuilders {
   internal abstract fun bindTopUpActivity(): TopUpActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [OnboardingModule::class])
+  @ContributesAndroidInjector
   internal abstract fun bindOnboardingActivity(): OnboardingActivity
 
   @ActivityScope

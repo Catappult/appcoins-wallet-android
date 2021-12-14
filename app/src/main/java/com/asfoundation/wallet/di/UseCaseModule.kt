@@ -32,6 +32,7 @@ import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.nfts.repository.NFTRepository
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
@@ -365,6 +366,13 @@ class UseCaseModule {
   fun providesBackupSuccessLogUseCase(ewt: EwtAuthenticatorService,
                                       backupSuccessLogRepository: BackupSuccessLogRepository): BackupSuccessLogUseCase {
     return BackupSuccessLogUseCase(ewt, backupSuccessLogRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSetOnboardingCompletedUseCase(
+      preferencesRepositoryType: PreferencesRepositoryType): SetOnboardingCompletedUseCase {
+    return SetOnboardingCompletedUseCase(preferencesRepositoryType)
   }
 
   @Singleton

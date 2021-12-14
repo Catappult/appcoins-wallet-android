@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.restore.password
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
@@ -20,9 +21,10 @@ class RestoreWalletPasswordModule {
                                              observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                                              interactor: RestoreWalletPasswordInteractor,
                                              eventSender: WalletsEventSender,
-                                             currencyFormatUtils: CurrencyFormatUtils): RestoreWalletPasswordPresenter {
-    return RestoreWalletPasswordPresenter(fragment as RestoreWalletPasswordView, data,
-        observeWalletInfoUseCase, interactor, eventSender, currencyFormatUtils,
+                                             currencyFormatUtils: CurrencyFormatUtils,
+                                             preferencesRepositoryType: PreferencesRepositoryType): RestoreWalletPasswordPresenter {
+    return RestoreWalletPasswordPresenter(fragment as RestoreWalletPasswordView, data, observeWalletInfoUseCase, interactor,
+        eventSender, currencyFormatUtils, preferencesRepositoryType,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
         Schedulers.computation())
   }
