@@ -61,7 +61,7 @@ class MyWalletsViewModel(
             observeHasBackedUpWallet()
           }
         }
-        .scopedSubscribe { e -> e.printStackTrace() }
+        .repeatableScopedSubscribe("ObserveCurrentWallet") { e -> e.printStackTrace() }
   }
 
   private fun fetchWallets() {

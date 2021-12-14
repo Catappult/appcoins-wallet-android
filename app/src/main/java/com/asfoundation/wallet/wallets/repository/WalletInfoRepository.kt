@@ -84,6 +84,7 @@ class WalletInfoRepository(
         }
         .doOnError { e -> e.printStackTrace() }
         .ignoreElement()
+        .onErrorComplete()
         .subscribeOn(rxSchedulers.io)
   }
 
