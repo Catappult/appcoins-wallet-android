@@ -26,7 +26,7 @@ class BalanceInteractor(private val accountWalletService: AccountWalletService,
 
   fun observeCurrentWalletVerified(): Observable<BalanceVerificationModel> {
     return getSignedCurrentWalletAddress().flatMapObservable { addressModel ->
-      Observable.merge(Observable.just(getCachedVerificationStatus(addressModel.address))
+      Observable.mergeDelayError(Observable.just(getCachedVerificationStatus(addressModel.address))
           .map { verificationStatus ->
             mapToBalanceVerificationModel(addressModel.address, verificationStatus, null)
           }, observeWalletVerification(addressModel.address, addressModel.signedAddress))
@@ -85,5 +85,6 @@ class BalanceInteractor(private val accountWalletService: AccountWalletService,
       emitter.onNext(backupRestorePreferencesRepository.getBackedUpOnce())
       backupRestorePreferencesRepository.addChangeListener(listener)
     } as ObservableOnSubscribe<Boolean>)
+        .onErrorReturn { false }
   }
 }
