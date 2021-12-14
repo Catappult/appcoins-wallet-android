@@ -54,11 +54,11 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
     return Single.just(pref.getBoolean(SELECTED_FIRST_TIME, true))
         .flatMap { isFirstTime ->
           if (isFirstTime) {
-            pref.edit()
-                .putBoolean(SELECTED_FIRST_TIME, false)
-                .apply()
             return@flatMap conversionService.localCurrency.doOnSuccess {
               setSelectedCurrency(it.currency)
+              pref.edit()
+                  .putBoolean(SELECTED_FIRST_TIME, false)
+                  .apply()
             }
                 .map { it.currency }
           }
