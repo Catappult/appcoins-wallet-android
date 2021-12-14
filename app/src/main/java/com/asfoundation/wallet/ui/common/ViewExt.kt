@@ -4,12 +4,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.asfoundation.wallet.util.convertDpToPx
 
-fun View.setMargins(
-  startMarginDp: Int? = null,
-  topMarginDp: Int? = null,
-  endMarginDp: Int? = null,
-  bottomMarginDp: Int? = null
-) {
+fun View.setMargins(startMarginDp: Int? = null,
+                    topMarginDp: Int? = null,
+                    endMarginDp: Int? = null,
+                    bottomMarginDp: Int? = null) {
   if (layoutParams is ViewGroup.MarginLayoutParams) {
     val params = layoutParams as ViewGroup.MarginLayoutParams
     startMarginDp?.run { params.marginStart = this.convertDpToPx(context.resources) }

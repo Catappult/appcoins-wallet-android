@@ -15,7 +15,7 @@ import com.asfoundation.wallet.util.convertDpToPx
 class WalletButtonView : FrameLayout {
 
   private val views =
-    LayoutWalletButtonViewBinding.inflate(LayoutInflater.from(context), this, true)
+      LayoutWalletButtonViewBinding.inflate(LayoutInflater.from(context), this, true)
 
   private var type = Type.FILLED
 
@@ -24,15 +24,15 @@ class WalletButtonView : FrameLayout {
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-    context, attrs,
-    defStyleAttr
+      context, attrs,
+      defStyleAttr
   ) {
     retrievePreferences(attrs, defStyleAttr)
   }
 
   private fun retrievePreferences(attrs: AttributeSet?, defStyleAttr: Int) {
     val typedArray =
-      context.obtainStyledAttributes(attrs, R.styleable.WalletButtonView, defStyleAttr, 0)
+        context.obtainStyledAttributes(attrs, R.styleable.WalletButtonView, defStyleAttr, 0)
     val type = Type.values()[typedArray.getInt(R.styleable.WalletButtonView_buttonType, 0)]
     setType(type)
     val string = typedArray.getString(R.styleable.WalletButtonView_buttonText) ?: ""
