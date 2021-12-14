@@ -1,11 +1,15 @@
 package com.asfoundation.wallet.ui.balance;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
@@ -434,6 +438,8 @@ public class TransactionDetailActivity extends BaseActivity {
       findViewById(R.id.order_reference_label).setVisibility(View.VISIBLE);
       findViewById(R.id.order_reference_name).setVisibility(View.VISIBLE);
       ((TextView) findViewById(R.id.order_reference_name)).setText(orderReference);
+      findViewById(R.id.order_reference_name).setOnClickListener(
+          v -> copyToClipboard(orderReference));
     }
 
     if (to != null) {
@@ -464,6 +470,14 @@ public class TransactionDetailActivity extends BaseActivity {
         setupRevertedUi(link, isRevertTransaction, isRevertedTransaction, walletAddress);
       }
     }
+  }
+
+  private void copyToClipboard(String text) {
+    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+    ClipData clip = ClipData.newPlainText("order_id", text);
+    clipboard.setPrimaryClip(clip);
+    Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT)
+        .show();
   }
 
   private void setupRevertedUi(Transaction linkTransaction, boolean isRevertTransaction,

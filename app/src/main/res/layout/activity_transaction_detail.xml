@@ -264,12 +264,14 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/half_large_margin"
+          android:singleLine="true"
           android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="@id/order_reference_label"
+          app:layout_constrainedWidth="true"
+          app:layout_constraintTop_toTopOf="@id/order_reference_label"
+          app:layout_constraintStart_toEndOf="@id/guideline_mid"
           app:layout_constraintEnd_toEndOf="parent"
-          tools:text="orderID_ESOANPCOC"
+          tools:text="orderID_ESOANPCOC_orderID_ESOANPCOC_orderID_ESOANPCOC_orderID_ESOANPCOC_"
           />
-
       <TextView
           android:id="@+id/to_label"
           style="@style/TransactionDetailsTextStyle"
@@ -294,7 +296,6 @@
           app:layout_constrainedWidth="true"
           app:layout_constraintBottom_toBottomOf="@id/to_label"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toEndOf="@id/guideline_mid"
           tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
           />
