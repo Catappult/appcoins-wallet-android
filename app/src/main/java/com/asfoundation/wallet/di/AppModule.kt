@@ -559,6 +559,17 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  @Named("NFTNetwork")
+  fun providesDefaultNFTNetwork(): String {
+    return if (BuildConfig.DEBUG) {
+      "https://rinkeby.infura.io/v3/${BuildConfig.INFURA_API_KEY_RINKEBY}"
+    } else {
+      "https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}"
+    }
+  }
+
+  @Singleton
+  @Provides
   fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
 
   @Singleton

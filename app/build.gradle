@@ -63,6 +63,7 @@ android {
     resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
     buildConfigField 'String', 'INFURA_API_KEY_MAIN', project.INFURA_API_KEY_MAIN
     buildConfigField 'String', 'INFURA_API_KEY_ROPSTEN', project.INFURA_API_KEY_ROPSTEN
+    buildConfigField 'String', 'INFURA_API_KEY_RINKEBY', project.INFURA_API_KEY_RINKEBY
     buildConfigField 'String', 'AMPLITUDE_API_KEY', project.AMPLITUDE_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_API_KEY', project.FEEDBACK_ZENDESK_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST

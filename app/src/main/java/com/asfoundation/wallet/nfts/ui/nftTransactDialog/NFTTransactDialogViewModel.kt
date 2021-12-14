@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.nfts.ui.nftTransactDialog
 
-import android.util.Log
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
@@ -14,7 +13,9 @@ object NFTTransactSideEffect : SideEffect
 
 
 data class NFTTransactState(val data: NFTItem,
-                            val gasPriceAsync: Async<BigInteger> = Async.Uninitialized) : ViewState
+                            val gasPriceAsync: Async<Pair<BigInteger, BigInteger>> = Async.Uninitialized,
+                            val transactionHashAsync: Async<String> = Async.Uninitialized) :
+    ViewState
 
 class NFTTransactDialogViewModel(private val data: NFTItem,
                                  private val estimateNFTSendGas: EstimateNFTSendGasUseCase,
@@ -28,17 +29,30 @@ class NFTTransactDialogViewModel(private val data: NFTItem,
   }
 
   fun send(toAddress: String, gasPrice: BigInteger, gasLimit: BigInteger) {
-    sendNFT(toAddress, data, gasPrice, gasLimit)
+    sendNFT(toAddress, data, gasPrice, gasLimit).asAsyncToState(
+        NFTTransactState::transactionHashAsync) {
+      copy(transactionHashAsync = it)
+    }
+        .repeatableScopedSubscribe(NFTTransactState::transactionHashAsync.name) { e ->
+          e.printStackTrace()
+        }
   }
 
   fun estimateGas(toAddress: String) {
-    Log.d("NFT", "view model")
     estimateNFTSendGas(data, toAddress).asAsyncToState(NFTTransactState::gasPriceAsync) {
       copy(gasPriceAsync = it)
     }
         .repeatableScopedSubscribe(NFTTransactState::gasPriceAsync.name) { e ->
           e.printStackTrace()
         }
+
+    /*
+    estimateNFTSendGas(data, toAddress).doOnSuccess {
+      gasPrice -> sendSideEffect { gasPrice }
+    }.repeatableScopedSubscribe(NFTTransactState::gasPriceAsync.name) { e ->
+      e.printStackTrace()
+    }
+    */
   }
 }
 

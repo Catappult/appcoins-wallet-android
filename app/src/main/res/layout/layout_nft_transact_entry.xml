@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <TextView
+      android:id="@+id/title"
+      style="@style/MyWallets.TokenInfo.Title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="31dp"
+      android:layout_marginBottom="13dp"
+      android:ellipsize="end"
+      android:maxLines="1"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/to_input_layout"
+      android:text="@string/nfts_transact_tip"
+      />
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/to_input_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginBottom="23dp"
+      android:layout_marginHorizontal="16dp"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      >
+    <EditText
+        android:id="@+id/send_to_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nfts_transact_input_tip"
+        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+        android:inputType="text"
+        android:maxLines="1"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+
+
+  <android.widget.Button
+      android:id="@+id/send_button"
+      style="@style/ButtonStyle"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginBottom="27dp"
+      android:layout_marginHorizontal="16dp"
+      android:text="@string/nfts_transact_button_send"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
