@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Αντίγραφο Ασφαλείας του Wallet σας</string>
   <string name="backup_home_notification_body">Έχετε χάσει ποτέ το κινητό σας; Δημιουργήστε ένα αντίγραφο ασφαλείας του wallet σας τώρα!</string>
-  <string name="backup_button">ΑΝΤΙΓΡΑΦΟ ΑΣΦΑΛΕΙΑΣ</string>
+  <string name="backup_button_deprecated">ΑΝΤΙΓΡΑΦΟ ΑΣΦΑΛΕΙΑΣ</string>
   <string name="backup_title">Αντίγραφο Ασφαλείας του Wallet</string>
   <string name="backup_password_title">Κρυπτογραφήστε το wallet σας (προαιρετικό)</string>
   <string name="backup_password">Κωδικός πρόσβασης</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Επιλέξτε ένα wallet για δημιουργία αντιγράφου ασφαλείας</string>
   <string name="backup_additional_security_title">Επιπρόσθετη Ασφάλεια (προαιρετικά)</string>
   <string name="backup_additional_security_body">Επιλέξτε έναν κωδικό πρόσβασης</string>
-  <string name="backup_additional_security_disclaimer_title">Παρακαλούμε διατηρήστε τον κωδικό σας ασφαλή.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Παρακαλούμε διατηρήστε τον κωδικό σας ασφαλή.</string>
   <string name="backup_additional_security_disclaimer_body">Δεν υπάρχει δυνατότητα επαναφοράς κωδικού.</string>
   <string name="backup_additional_security_password_not_march">Οι κωδικοί πρόσβασης δεν ταιριάζουν.</string>
   <!--Wallets Management-->

@@ -613,7 +613,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">สำรองกระเป๋าสตางค์ของคุณ</string>
   <string name="backup_home_notification_body">คุณเคยทำโทรศัพท์หายหรือไม่? สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
-  <string name="backup_button">สำรอง</string>
+  <string name="backup_button_deprecated">สำรอง</string>
   <string name="backup_title">สำรองกระเป๋าสตางค์</string>
   <string name="backup_password_title">เข้ารหัสกระเป๋าสตางค์ของคุณ (ไม่จำเป็น)</string>
   <string name="backup_password">รหัสผ่าน</string>
@@ -653,7 +653,7 @@
   <string name="backup_choose_wallet_title">เลือกสำรองกระเป๋าสตางค์</string>
   <string name="backup_additional_security_title">ความปลอดภัยเพิ่มเติม (ตัวเลือก)</string>
   <string name="backup_additional_security_body">เลือกรหัสผ่าน</string>
-  <string name="backup_additional_security_disclaimer_title">โปรดเก็บรักษารหัสผ่านของคุณให้ปลอดภัย</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">โปรดเก็บรักษารหัสผ่านของคุณให้ปลอดภัย</string>
   <string name="backup_additional_security_disclaimer_body">ไม่มีการกู้คืนรหัสผ่าน</string>
   <string name="backup_additional_security_password_not_march">รหัสผ่านไม่เหมือนกัน</string>
   <!--Wallets Management-->

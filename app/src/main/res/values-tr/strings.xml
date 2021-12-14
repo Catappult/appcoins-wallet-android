@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Cüzdanınızı Yedekleyin</string>
   <string name="backup_home_notification_body">Hiç telefonunuzu kaybettiniz mi? Cüzdanınızı hemen yedekleyin!</string>
-  <string name="backup_button">YEDEKLE</string>
+  <string name="backup_button_deprecated">YEDEKLE</string>
   <string name="backup_title">Yedek Cüzdan</string>
   <string name="backup_password_title">Cüzdanınızı şifreleyin (isteğe bağlı)</string>
   <string name="backup_password">Şifre</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Yedeklemek için bir cüzdan seçin</string>
   <string name="backup_additional_security_title">Ek Güvenlik (isteğe bağlı)</string>
   <string name="backup_additional_security_body">Şifre seçin</string>
-  <string name="backup_additional_security_disclaimer_title">Lütfen şifrenizi güvende tutun.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Lütfen şifrenizi güvende tutun.</string>
   <string name="backup_additional_security_disclaimer_body">Şifre kurtarma yapılamıyor.</string>
   <string name="backup_additional_security_password_not_march">Şifreler eşleşmiyor.</string>
   <!--Wallets Management-->

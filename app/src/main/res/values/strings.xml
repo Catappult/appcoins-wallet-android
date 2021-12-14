@@ -667,10 +667,12 @@
   <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
   <string name="update_button">UPDATE</string>
 
-<!--Backup and Import-->
+  <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
-  <string name="backup_button">BACKUP</string>
+  <string name="backup_button_deprecated">BACKUP</string> <!-- TODO: Unused, delete -->
+  <string name="backup_button">Backup wallet</string>
+  <string name="backup_skip_button">Skip for now</string>
   <string name="backup_title">Backup Wallet</string>
   <string name="backup_password_title">Encrypt your wallet (optional)</string>
   <string name="backup_password">Password</string>
@@ -711,8 +713,9 @@
   <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
-  <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Please keep your password safe.</string> <!-- TODO: Unused, delete -->
+  <string name="backup_additional_security_disclaimer_title">We are not responsible for lost or stolen password!</string>
+  <string name="backup_additional_security_disclaimer_body">There is no password recovery!</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
 
 

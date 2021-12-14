@@ -612,7 +612,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">ウォレットのバックアップ</string>
   <string name="backup_home_notification_body">携帯電話を紛失したことはありませんか？今すぐウォレットをバックアップしましょう！</string>
-  <string name="backup_button">バックアップ</string>
+  <string name="backup_button_deprecated">バックアップ</string>
   <string name="backup_title">ウォレットをバックアップする</string>
   <string name="backup_password_title">ウォレットを暗号化 (任意)</string>
   <string name="backup_password">パスワード</string>
@@ -652,7 +652,7 @@
   <string name="backup_choose_wallet_title">バックアップするウォレットを選択</string>
   <string name="backup_additional_security_title">追加のセキュリティ (オプション)</string>
   <string name="backup_additional_security_body">パスワードの入力</string>
-  <string name="backup_additional_security_disclaimer_title">パスワードは大切に保管してください。</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">パスワードは大切に保管してください。</string>
   <string name="backup_additional_security_disclaimer_body">パスワードの復元はできません。</string>
   <string name="backup_additional_security_password_not_march">パスワードが一致しません。</string>
   <!--Wallets Management-->

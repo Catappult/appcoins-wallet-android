@@ -612,7 +612,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">حفظ نسخة احتياطية لمحفظتك</string>
   <string name="backup_home_notification_body">هل أضعت هاتفك في يوم من الأيام؟ احتفظ بنسخة احتياطية من محفظتك الآن!</string>
-  <string name="backup_button">نسخ احتياطي</string>
+  <string name="backup_button_deprecated">نسخ احتياطي</string>
   <string name="backup_title">نسخ احتياطي للمحفظة</string>
   <string name="backup_password_title">تشفير محفظتك (اختياري)</string>
   <string name="backup_password">كلمة المرور</string>
@@ -652,7 +652,7 @@
   <string name="backup_choose_wallet_title">اختر محفظة لإنشاء نسخ احتياطي لها</string>
   <string name="backup_additional_security_title">أمان إضافي (اختياري)</string>
   <string name="backup_additional_security_body">اختر كلمة مرور</string>
-  <string name="backup_additional_security_disclaimer_title">يرجى حفظ كلمة المرور في أمان.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">يرجى حفظ كلمة المرور في أمان.</string>
   <string name="backup_additional_security_disclaimer_body">لا يمكن استرجاع كلمة المرور.</string>
   <string name="backup_additional_security_password_not_march">كلمة المرور غير متطابقة.</string>
   <!--Wallets Management-->

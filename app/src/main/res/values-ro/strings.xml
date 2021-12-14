@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>
-  <string name="backup_button">COPIE DE REZERVĂ</string>
+  <string name="backup_button_deprecated">COPIE DE REZERVĂ</string>
   <string name="backup_title">Copie de rezervă portofel</string>
   <string name="backup_password_title">Criptează-ți portofelul (opțional)</string>
   <string name="backup_password">Parolă</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Alege portofelul pentru care vrei să faci o copie de rezervă</string>
   <string name="backup_additional_security_title">Securitate suplimentară (opțional)</string>
   <string name="backup_additional_security_body">Alege o parolă</string>
-  <string name="backup_additional_security_disclaimer_title">Păstrează parola în siguranță.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Păstrează parola în siguranță.</string>
   <string name="backup_additional_security_disclaimer_body">Nu există acces la recuperarea parolei.</string>
   <string name="backup_additional_security_password_not_march">Parolele nu sunt identice.</string>
   <!--Wallets Management-->

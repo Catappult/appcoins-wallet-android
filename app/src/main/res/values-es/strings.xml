@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Haz un Backup de tu Wallet</string>
   <string name="backup_home_notification_body">¿Alguna vez perdiste tu dispositivo? ¡Haz un backup!</string>
-  <string name="backup_button">HACER COPIA</string>
+  <string name="backup_button_deprecated">HACER COPIA</string>
   <string name="backup_title">Backup de la Wallet</string>
   <string name="backup_password_title">Encripta tu wallet (opcional)</string>
   <string name="backup_password">Contraseña</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Elige una wallet para hacer backup</string>
   <string name="backup_additional_security_title">Seguridad adicional (opcional)</string>
   <string name="backup_additional_security_body">Elige una contraseña</string>
-  <string name="backup_additional_security_disclaimer_title">Mantén la contraseña segura.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Mantén la contraseña segura.</string>
   <string name="backup_additional_security_disclaimer_body">No hay opción de recuperar la contraseña.</string>
   <string name="backup_additional_security_password_not_march">Las contraseñas no coinciden.</string>
   <!--Wallets Management-->

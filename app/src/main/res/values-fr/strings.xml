@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sauvegarder votre portefeuille</string>
   <string name="backup_home_notification_body">Avez-vous déjà perdu votre téléphone ? Sauvegardez votre portefeuille maintenant !</string>
-  <string name="backup_button">SAUVEGARDE</string>
+  <string name="backup_button_deprecated">SAUVEGARDE</string>
   <string name="backup_title">Sauvegarde portefeuille</string>
   <string name="backup_password_title">Crypter votre portefeuille (optionnel)</string>
   <string name="backup_password">Mot de passe</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Choisissez un portefeuille à sauvegarder</string>
   <string name="backup_additional_security_title">Sécurité supplémentaire (facultatif)</string>
   <string name="backup_additional_security_body">Choisissez un mot de passe</string>
-  <string name="backup_additional_security_disclaimer_title">Veuillez conserver votre mot de passe en lieu sûr.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Veuillez conserver votre mot de passe en lieu sûr.</string>
   <string name="backup_additional_security_disclaimer_body">Il n\'y a pas de récupération de mot de passe.</string>
   <string name="backup_additional_security_password_not_march">Les mots de passe ne correspondent pas.</string>
   <!--Wallets Management-->

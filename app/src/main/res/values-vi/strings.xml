@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sao lưu Ví của bạn</string>
   <string name="backup_home_notification_body">Bạn đã bao giờ bị mất điện thoại chưa? Hãy sao lưu ví của mình ngay!</string>
-  <string name="backup_button">SAO LƯU</string>
+  <string name="backup_button_deprecated">SAO LƯU</string>
   <string name="backup_title">Sao lưu</string>
   <string name="backup_password_title">Đồng bộ ví của bạn (tùy chọn)</string>
   <string name="backup_password">Mật khẩu</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Chọn một ví để sao lưu</string>
   <string name="backup_additional_security_title">Bảo mật bổ sung (tùy chọn)</string>
   <string name="backup_additional_security_body">Chọn mật khẩu</string>
-  <string name="backup_additional_security_disclaimer_title">Hãy giữ mật khẩu của bạn an toàn.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Hãy giữ mật khẩu của bạn an toàn.</string>
   <string name="backup_additional_security_disclaimer_body">Không có khôi phục mật khẩu.</string>
   <string name="backup_additional_security_password_not_march">Mật khẩu không khớp.</string>
   <!--Wallets Management-->

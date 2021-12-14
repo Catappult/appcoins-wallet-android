@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Utwórz kopię zapasową portfela</string>
   <string name="backup_home_notification_body">Zgubiłeś/aś kiedyś telefon? Zrób kopię zapasową portfela teraz!</string>
-  <string name="backup_button">KOPIUJ</string>
+  <string name="backup_button_deprecated">KOPIUJ</string>
   <string name="backup_title">Kopia zapasowa portfela</string>
   <string name="backup_password_title">Zakoduj portfel (opcjonalnie)</string>
   <string name="backup_password">Hasło</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Wybierz portfel</string>
   <string name="backup_additional_security_title">Ekstra bezpiecznie (opcjonalnie)</string>
   <string name="backup_additional_security_body">Stwórz hasło</string>
-  <string name="backup_additional_security_disclaimer_title">Zatrzymaj hasło dla siebie.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Zatrzymaj hasło dla siebie.</string>
   <string name="backup_additional_security_disclaimer_body">Nie można odzyskać hasła.</string>
   <string name="backup_additional_security_password_not_march">Hasła nie są identyczne.</string>
   <!--Wallets Management-->

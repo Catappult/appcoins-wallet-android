@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">지갑 백업하기</string>
   <string name="backup_home_notification_body">전화기를 분실하셨나요? 지금 지갑을 백업하세요!</string>
-  <string name="backup_button">백업</string>
+  <string name="backup_button_deprecated">백업</string>
   <string name="backup_title">지갑 백업하기</string>
   <string name="backup_password_title">지갑 암호화(선택)</string>
   <string name="backup_password">비밀번호</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">백업할 지갑을 선택하세요</string>
   <string name="backup_additional_security_title">추가 보안(선택)</string>
   <string name="backup_additional_security_body">비밀번호 선택</string>
-  <string name="backup_additional_security_disclaimer_title">비밀번호를 안전하게 보관하세요.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">비밀번호를 안전하게 보관하세요.</string>
   <string name="backup_additional_security_disclaimer_body">비밀번호 복구가 없습니다.</string>
   <string name="backup_additional_security_password_not_march">비밀번호가 일치하지 않습니다.</string>
   <!--Wallets Management-->

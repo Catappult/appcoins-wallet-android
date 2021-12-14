@@ -45,7 +45,7 @@ class BackupInteract(
                     R.string.backup_home_notification_title,
                     R.string.backup_home_notification_body,
                     R.drawable.ic_backup_notification,
-                    R.string.backup_button,
+                    R.string.backup_button_deprecated,
                     CardNotificationAction.BACKUP).takeIf { shouldShow } ?: EmptyNotification()
               }
         }

@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Wallet biztonsági mentés</string>
   <string name="backup_home_notification_body">Vesztetted már el a telefonod? Készíts biztonsági másolatot a tárcádról most!</string>
-  <string name="backup_button">BIZTONSÁGI MENTÉS</string>
+  <string name="backup_button_deprecated">BIZTONSÁGI MENTÉS</string>
   <string name="backup_title">Biztonsági mentés készítése</string>
   <string name="backup_password_title">Tárca titkosítása (nem kötelező)</string>
   <string name="backup_password">Jelszó</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Válaszd ki, melyik tárcáról készítesz biztonsági mentést</string>
   <string name="backup_additional_security_title">További biztonság (nem kötelező)</string>
   <string name="backup_additional_security_body">Válaszd ki a jelszavad</string>
-  <string name="backup_additional_security_disclaimer_title">Ügyelj a jelszavad biztonságára.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Ügyelj a jelszavad biztonságára.</string>
   <string name="backup_additional_security_disclaimer_body">Nincs jelszó visszaállítás.</string>
   <string name="backup_additional_security_password_not_march">A jelszavak nem egyeznek.</string>
   <!--Wallets Management-->

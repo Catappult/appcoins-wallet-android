@@ -611,7 +611,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Cadangkan Dompet Anda</string>
   <string name="backup_home_notification_body">Apakah Anda pernah kehilangan HP? Cadangkan dompet Anda sekarang!</string>
-  <string name="backup_button">CADANGKAN</string>
+  <string name="backup_button_deprecated">CADANGKAN</string>
   <string name="backup_title">Cadangkan Dompet</string>
   <string name="backup_password_title">Enkripsi dompet Anda (opsional)</string>
   <string name="backup_password">Kata Sandi</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Pilih dompet untuk dicadangkan</string>
   <string name="backup_additional_security_title">Keamanan Tambahan (opsional)</string>
   <string name="backup_additional_security_body">Pilih kata sandi</string>
-  <string name="backup_additional_security_disclaimer_title">Harap jaga keamanan kata sandi Anda.</string>
+  <string name="backup_additional_security_disclaimer_title_deprecated">Harap jaga keamanan kata sandi Anda.</string>
   <string name="backup_additional_security_disclaimer_body">Tidak ada pemulihan kata sandi.</string>
   <string name="backup_additional_security_password_not_march">Kata sandi tidak cocok.</string>
   <!--Wallets Management-->
