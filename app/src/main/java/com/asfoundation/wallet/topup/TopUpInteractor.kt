@@ -8,7 +8,6 @@ import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -18,7 +17,6 @@ import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.*
@@ -57,11 +55,11 @@ class TopUpInteractor(private val repository: BdsRepository,
         }
   }
 
-  fun convertAppc(value: String): Observable<FiatValue> {
+  fun convertAppc(value: String): Single<FiatValue> {
     return conversionService.getAppcToLocalFiat(value, 2)
   }
 
-  fun convertLocal(currency: String, value: String, scale: Int): Observable<FiatValue> {
+  fun convertLocal(currency: String, value: String, scale: Int): Single<FiatValue> {
     return conversionService.getFiatToAppc(currency, value, scale)
   }
 

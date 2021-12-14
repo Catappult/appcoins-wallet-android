@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity;
@@ -20,8 +19,8 @@ import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.backup.NotificationNeeded;
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.util.BalanceUtils;
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
+import com.asfoundation.wallet.repository.InAppPurchaseService;
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -48,7 +47,7 @@ public class InAppPurchaseInteractor {
   private static final long EARN_APPCOINS_APTOIDE_VERCODE = 9961;
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
-  private final AppcoinsRewards appcoinsRewards;
+  private final GetWalletInfoUseCase getWalletInfoUseCase;
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
   private final PackageManager packageManager;
@@ -56,12 +55,13 @@ public class InAppPurchaseInteractor {
   private final BillingMessagesMapper billingMessagesMapper;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor, AppcoinsRewards appcoinsRewards,
-      Billing billing, SharedPreferences sharedPreferences, PackageManager packageManager,
+      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
+      GetWalletInfoUseCase getWalletInfoUseCase, Billing billing,
+      SharedPreferences sharedPreferences, PackageManager packageManager,
       BackupInteractContract backupInteract, BillingMessagesMapper billingMessagesMapper) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
-    this.appcoinsRewards = appcoinsRewards;
+    this.getWalletInfoUseCase = getWalletInfoUseCase;
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
     this.packageManager = packageManager;
@@ -216,8 +216,7 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
   }
 
-  public Single<GetDefaultWalletBalanceInteract.BalanceState> getBalanceState(
-      TransactionBuilder transaction) {
+  public Single<InAppPurchaseService.BalanceState> getBalanceState(TransactionBuilder transaction) {
     return asfInAppPurchaseInteractor.getAppcoinsBalanceState(transaction);
   }
 
@@ -239,8 +238,11 @@ public class InAppPurchaseInteractor {
   }
 
   private Single<BigDecimal> getRewardsBalance() {
-    return appcoinsRewards.getBalance()
-        .map(BalanceUtils::weiToEth);
+    return getWalletInfoUseCase.invoke(null, false, false)
+        .map(walletInfo -> walletInfo.getWalletBalance()
+            .getCreditsBalance()
+            .getToken()
+            .getAmount());
   }
 
   private Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(

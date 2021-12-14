@@ -8,7 +8,6 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -213,7 +212,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     }
   }
 
-  private fun getConvertedValue(data: TopUpData): Observable<FiatValue> {
+  private fun getConvertedValue(data: TopUpData): Single<FiatValue> {
     return if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY
         && data.currency.fiatValue != DEFAULT_VALUE) {
       interactor.convertLocal(data.currency.fiatCurrencyCode,
@@ -222,7 +221,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         && data.currency.appcValue != DEFAULT_VALUE) {
       interactor.convertAppc(data.currency.appcValue)
     } else {
-      Observable.just(FiatValue(BigDecimal.ZERO, ""))
+      Single.just(FiatValue(BigDecimal.ZERO, ""))
     }
   }
 
@@ -235,10 +234,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun loadBonusIntoView(appPackage: String, amount: String,
                                 currency: String): Completable {
     return interactor.convertLocal(currency, amount, 18)
-        .flatMapSingle { interactor.getEarningBonus(appPackage, it.amount) }
+        .flatMap { interactor.getEarningBonus(appPackage, it.amount) }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnNext {
+        .doOnSuccess {
           if (interactor.isBonusValidAndActive(it)) {
             val scaledBonus = formatter.scaleFiat(it.amount)
             view.showBonus(scaledBonus, it.currency)
@@ -248,7 +247,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.setNextButtonState(true)
           cachedGamificationLevel = it.level
         }
-        .ignoreElements()
+        .ignoreElement()
   }
 
   private fun handleInsertedValue(packageName: String, topUpData: TopUpData,
@@ -357,7 +356,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(interactor.convertLocal(currency, amount.toString(), 2)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnNext { view.changeMainValueText(it.amount.toString()) }
+        .doOnSuccess { view.changeMainValueText(it.amount.toString()) }
         .doOnError { handleError(it) }
         .subscribe({}, { it.printStackTrace() }))
   }

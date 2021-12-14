@@ -6,13 +6,13 @@ import com.asfoundation.wallet.my_wallets.main.list.model.ActiveWalletModelGroup
 import com.asfoundation.wallet.my_wallets.main.list.model.CreateNewWalletModel_
 import com.asfoundation.wallet.my_wallets.main.list.model.OtherWalletModel_
 import com.asfoundation.wallet.my_wallets.main.list.model.OtherWalletsTitleModel_
-import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 
 class WalletsController :
-    Typed4EpoxyController<Async<WalletsModel>, Async<BalanceVerificationModel>, Async<BalanceScreenModel>, Async<Boolean>>() {
+    Typed4EpoxyController<Async<WalletsModel>, Async<BalanceVerificationModel>, Async<WalletInfo>, Async<Boolean>>() {
 
   private val currencyFormatUtils = CurrencyFormatUtils()
 
@@ -20,9 +20,10 @@ class WalletsController :
 
   override fun buildModels(walletsAsync: Async<WalletsModel>,
                            walletVerifiedAsync: Async<BalanceVerificationModel>,
-                           balanceAsync: Async<BalanceScreenModel>,
+                           walletInfoAsync: Async<WalletInfo>,
                            backedUpOnceAsync: Async<Boolean>) {
-    add(ActiveWalletModelGroup(walletsAsync, walletVerifiedAsync, balanceAsync, backedUpOnceAsync,
+    add(ActiveWalletModelGroup(walletsAsync, walletVerifiedAsync, walletInfoAsync,
+        backedUpOnceAsync,
         currencyFormatUtils, walletClickListener))
     addOtherWallets(walletsAsync)
   }

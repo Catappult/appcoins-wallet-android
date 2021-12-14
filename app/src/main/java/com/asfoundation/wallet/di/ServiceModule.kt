@@ -2,7 +2,6 @@ package com.asfoundation.wallet.di
 
 import android.content.Context
 import android.os.Build
-import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.ProxyService
@@ -23,9 +22,11 @@ import com.asfoundation.wallet.abtesting.ABTestApi
 import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.analytics.AnalyticsAPI
 import com.asfoundation.wallet.apps.Applications
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.partners.*
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository.BdsShareLinkApi
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import com.asfoundation.wallet.poa.*
@@ -45,11 +46,8 @@ import com.asfoundation.wallet.topup.TopUpValuesService.TopUpValuesApi
 import com.asfoundation.wallet.ui.AppcoinsApps
 import com.asfoundation.wallet.util.DeviceInfo
 import com.asfoundation.wallet.verification.ui.credit_card.network.BrokerVerificationApi
-import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationApi
-import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
-import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
+import com.asfoundation.wallet.wallets.usecases.HasEnoughBalanceUseCase
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -88,7 +86,8 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        Schedulers.io(),
         pendingTransactionService), NoValidateTransactionValidator(), defaultTokenProvider,
         countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission)
   }
@@ -106,7 +105,8 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.buy(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        Schedulers.io(),
         bdsPendingTransactionService),
         BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider, addressService), defaultTokenProvider, countryCodeProvider,
@@ -125,10 +125,12 @@ class ServiceModule {
   fun provideInAppPurchaseService(@Named("APPROVE_SERVICE_BDS") approveService: ApproveService,
                                   allowanceService: AllowanceService,
                                   @Named("BUY_SERVICE_BDS") buyService: BuyService,
-                                  balanceService: BalanceService,
-                                  paymentErrorMapper: PaymentErrorMapper): InAppPurchaseService {
+                                  hasEnoughBalanceUseCase: HasEnoughBalanceUseCase,
+                                  paymentErrorMapper: PaymentErrorMapper,
+                                  defaultTokenProvider: DefaultTokenProvider): InAppPurchaseService {
     return InAppPurchaseService(MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
-        allowanceService, buyService, balanceService, Schedulers.io(), paymentErrorMapper)
+        allowanceService, buyService, Schedulers.io(), paymentErrorMapper, hasEnoughBalanceUseCase,
+        defaultTokenProvider)
   }
 
   @Singleton
@@ -137,9 +139,12 @@ class ServiceModule {
   fun provideInAppPurchaseServiceAsf(
       @Named("APPROVE_SERVICE_ON_CHAIN") approveService: ApproveService,
       allowanceService: AllowanceService, @Named("BUY_SERVICE_ON_CHAIN") buyService: BuyService,
-      balanceService: BalanceService, paymentErrorMapper: PaymentErrorMapper): InAppPurchaseService {
+      hasEnoughBalanceUseCase: HasEnoughBalanceUseCase,
+      paymentErrorMapper: PaymentErrorMapper,
+      defaultTokenProvider: DefaultTokenProvider): InAppPurchaseService {
     return InAppPurchaseService(MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
-        allowanceService, buyService, balanceService, Schedulers.io(), paymentErrorMapper)
+        allowanceService, buyService, Schedulers.io(), paymentErrorMapper, hasEnoughBalanceUseCase,
+        defaultTokenProvider)
   }
 
   @Singleton
@@ -198,6 +203,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun provideLocalCurrencyConversionService(@Named("default") client: OkHttpClient,
+                                            rxSchedulers: RxSchedulers,
                                             objectMapper: ObjectMapper,
                                             persistence: CurrencyConversionRatesPersistence): LocalCurrencyConversionService {
     val baseUrl = LocalCurrencyConversionService.CONVERSION_HOST
@@ -205,7 +211,7 @@ class ServiceModule {
         .baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(rxSchedulers.io))
         .build()
         .create(TokenToLocalFiatApi::class.java)
     return LocalCurrencyConversionService(api, persistence)
@@ -325,12 +331,6 @@ class ServiceModule {
       AutoUpdateService(autoUpdateApi)
 
   @Provides
-  fun provideBalanceService(
-      getDefaultWalletBalanceInteract: GetDefaultWalletBalanceInteract): BalanceService {
-    return getDefaultWalletBalanceInteract
-  }
-
-  @Provides
   @Named("APPROVE_SERVICE_BDS")
   fun provideApproveServiceBds(sendTransactionInteract: SendTransactionInteract,
                                paymentErrorMapper: PaymentErrorMapper, @Named("no_wait_transaction")
@@ -341,23 +341,11 @@ class ServiceModule {
       override fun send(transactionBuilder: TransactionBuilder): Single<String> {
         return sendTransactionInteract.approve(transactionBuilder)
       }
-    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper, Schedulers.io(),
+    }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        Schedulers.io(),
         noWaitPendingTransactionService),
         ApproveTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             addressService))
-  }
-
-  @Singleton
-  @Provides
-  fun provideWalletBalanceService(@Named("default") client: OkHttpClient,
-                                  gson: Gson): WalletBalanceService {
-    return Retrofit.Builder()
-        .baseUrl(WalletBalanceService.API_BASE_URL)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(WalletBalanceService::class.java)
   }
 
   @Singleton
@@ -394,19 +382,6 @@ class ServiceModule {
   @Provides
   fun providesWeb3jService(web3jProvider: Web3jProvider): Web3jService {
     return Web3jService(web3jProvider)
-  }
-
-  @Singleton
-  @Provides
-  fun provideWalletStatusApi(@Named("default") client: OkHttpClient, gson: Gson): WalletStatusApi {
-    val baseUrl = BuildConfig.BACKEND_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(WalletStatusApi::class.java)
   }
 
   @Singleton
@@ -463,18 +438,6 @@ class ServiceModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(GamificationApi::class.java)
-  }
-
-  @Singleton
-  @Provides
-  fun provideBackendApi(@Named("default") client: OkHttpClient, gson: Gson): BackendApi {
-    return Retrofit.Builder()
-        .baseUrl(BuildConfig.BACKEND_HOST)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(BackendApi::class.java)
   }
 
   @Singleton
@@ -544,20 +507,6 @@ class ServiceModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(RatingRepository.WalletFeedbackApi::class.java)
-  }
-
-  @Singleton
-  @Provides
-  fun provideWalletVerificationApi(@Named("default") client: OkHttpClient,
-                                   gson: Gson): VerificationApi {
-    val baseUrl = BuildConfig.BACKEND_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(VerificationApi::class.java)
   }
 
   @Singleton

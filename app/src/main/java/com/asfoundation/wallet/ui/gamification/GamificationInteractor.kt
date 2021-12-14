@@ -10,7 +10,6 @@ import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
@@ -106,7 +105,7 @@ class GamificationInteractor(private val gamification: Gamification,
   }
 
   fun getAppcToLocalFiat(value: String, scale: Int,
-                         getFromCache: Boolean = false): Observable<FiatValue> {
+                         getFromCache: Boolean = false): Single<FiatValue> {
     return conversionService.getAppcToLocalFiat(value, scale, getFromCache)
         .onErrorReturn { FiatValue(BigDecimal("-1"), "", "") }
   }

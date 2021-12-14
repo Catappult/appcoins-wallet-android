@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.ui.backup.entry
 
-import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class BackupWalletPresenter(private val balanceInteractor: BalanceInteractor,
-                            private val view: BackupWalletFragmentView,
+class BackupWalletPresenter(private val view: BackupWalletFragmentView,
                             private val data: BackupWalletData,
+                            private val getWalletInfoUseCase: GetWalletInfoUseCase,
                             private val navigator: BackupWalletNavigator,
                             private val currencyFormatUtils: CurrencyFormatUtils,
                             private val disposables: CompositeDisposable,
@@ -58,11 +58,13 @@ class BackupWalletPresenter(private val balanceInteractor: BalanceInteractor,
   }
 
   private fun initializeView() {
-    disposables.add(balanceInteractor.getStoredOverallBalance(data.walletAddress)
+    disposables.add(getWalletInfoUseCase(data.walletAddress, cached = true, updateFiat = false)
         .subscribeOn(dbScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess {
-          view.setupUi(data.walletAddress, it.symbol, currencyFormatUtils.formatCurrency(it.amount))
+        .doOnSuccess { walletInfo ->
+          val overallBalanceFiat = walletInfo.walletBalance.overallFiat
+          view.setupUi(data.walletAddress, overallBalanceFiat.symbol,
+              currencyFormatUtils.formatCurrency(overallBalanceFiat.amount))
         }
         .subscribe({}, { it.printStackTrace() }))
   }

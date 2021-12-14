@@ -1,9 +1,10 @@
 package com.asfoundation.wallet.restore.intro
 
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.navigator.ActivityNavigatorContract
 import com.asfoundation.wallet.restore.RestoreWalletActivity
+import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,11 +23,12 @@ class RestoreWalletModule {
   @Provides
   fun providesRestoreWalletPresenter(fragment: RestoreWalletFragment,
                                      navigator: RestoreWalletNavigator,
+                                     updateWalletInfoUseCase: UpdateWalletInfoUseCase,
                                      interactor: RestoreWalletInteractor, logger: Logger,
                                      eventSender: WalletsEventSender): RestoreWalletPresenter {
     return RestoreWalletPresenter(fragment as RestoreWalletView, CompositeDisposable(), navigator,
-        interactor, eventSender, logger, AndroidSchedulers.mainThread(), Schedulers.computation(),
-        Schedulers.io()
+        interactor, updateWalletInfoUseCase, eventSender, logger, AndroidSchedulers.mainThread(),
+        Schedulers.computation(), Schedulers.io()
     )
   }
 

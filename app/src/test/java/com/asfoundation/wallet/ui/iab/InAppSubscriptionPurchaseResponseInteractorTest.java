@@ -23,7 +23,6 @@ import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.AllowanceService;
 import com.asfoundation.wallet.repository.ApproveService;
-import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionProvider;
 import com.asfoundation.wallet.repository.BdsTransactionService;
@@ -42,7 +41,7 @@ import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
+import com.asfoundation.wallet.wallets.usecases.HasEnoughBalanceUseCase;
 import com.google.gson.Gson;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -92,7 +91,6 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
-  @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
   @Mock TransactionSender transactionSender;
@@ -105,10 +103,10 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
   @Mock TokenRateService conversionService;
   @Mock AddressService addressService;
   @Mock AllowanceService allowanceService;
+  @Mock HasEnoughBalanceUseCase hasEnoughBalanceUseCase;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
-  private PublishSubject<GetDefaultWalletBalanceInteract.BalanceState> balance;
   private TestScheduler scheduler;
   private InAppPurchaseService inAppPurchaseService;
 
@@ -118,7 +116,6 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
     BillingPaymentProofSubmission billingPaymentProofSubmission =
         Mockito.mock(BillingPaymentProofSubmission.class);
 
-    balance = PublishSubject.create();
     Gson gson = new Gson();
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
         Single.just(new GasSettings(new BigDecimal(1), new BigDecimal(2))));
@@ -141,8 +138,6 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
     when(pendingTransactionService.checkTransactionState(APPROVE_HASH)).thenReturn(
         pendingApproveState);
     when(pendingTransactionService.checkTransactionState(BUY_HASH)).thenReturn(pendingBuyState);
-    when(balanceService.hasEnoughBalance(any(TransactionBuilder.class),
-        any(BigDecimal.class))).thenReturn(balance.firstOrError());
 
     when(defaultWalletInteract.find()).thenReturn(Single.just(new Wallet("wallet_address")));
 
@@ -171,8 +166,8 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
             new ApproveService(approveTransactionService, transactionValidator), allowanceService,
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
                 countryCodeProvider, new DataMapper(), addressService,
-                billingPaymentProofSubmission), balanceService, scheduler,
-            new PaymentErrorMapper(new Gson()));
+                billingPaymentProofSubmission), scheduler, new PaymentErrorMapper(new Gson()),
+            hasEnoughBalanceUseCase, defaultTokenProvider);
 
     when(proofOfAttentionService.get()).thenReturn(PublishSubject.create());
 

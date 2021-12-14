@@ -2,17 +2,21 @@ package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
+import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.repository.ApproveService.Status;
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract.BalanceState;
+import com.asfoundation.wallet.util.UnknownTokenException;
+import com.asfoundation.wallet.wallets.usecases.HasEnoughBalanceUseCase;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.util.List;
+import org.web3j.utils.Convert;
 
-import static com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract.BalanceState.OK;
+import static com.asfoundation.wallet.repository.InAppPurchaseService.BalanceState.OK;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -24,20 +28,23 @@ public class InAppPurchaseService {
   private final ApproveService approveService;
   private final AllowanceService allowanceService;
   private final BuyService buyService;
-  private final BalanceService balanceService;
   private final Scheduler scheduler;
   private final PaymentErrorMapper paymentErrorMapper;
+  private final HasEnoughBalanceUseCase hasEnoughBalanceUseCase;
+  private final DefaultTokenProvider defaultTokenProvider;
 
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
       ApproveService approveService, AllowanceService allowanceService, BuyService buyService,
-      BalanceService balanceService, Scheduler scheduler, PaymentErrorMapper paymentErrorMapper) {
+      Scheduler scheduler, PaymentErrorMapper paymentErrorMapper,
+      HasEnoughBalanceUseCase hasEnoughBalanceUseCase, DefaultTokenProvider defaultTokenProvider) {
     this.cache = cache;
     this.approveService = approveService;
     this.allowanceService = allowanceService;
     this.buyService = buyService;
-    this.balanceService = balanceService;
     this.scheduler = scheduler;
     this.paymentErrorMapper = paymentErrorMapper;
+    this.hasEnoughBalanceUseCase = hasEnoughBalanceUseCase;
+    this.defaultTokenProvider = defaultTokenProvider;
   }
 
   public Completable send(String key, PaymentTransaction paymentTransaction) {
@@ -91,10 +98,7 @@ public class InAppPurchaseService {
   private Completable checkFunds(String key, PaymentTransaction paymentTransaction,
       Completable action) {
     return Completable.fromAction(() -> cache.saveSync(key, paymentTransaction))
-        .andThen(balanceService.hasEnoughBalance(paymentTransaction.getTransactionBuilder(),
-            paymentTransaction.getTransactionBuilder()
-                .gasSettings().gasLimit)
-            .observeOn(scheduler)
+        .andThen(getBalanceState(paymentTransaction.getTransactionBuilder()).observeOn(scheduler)
             .flatMapCompletable(balance -> {
               switch (balance) {
                 case NO_TOKEN:
@@ -285,19 +289,68 @@ public class InAppPurchaseService {
   }
 
   public Single<Boolean> hasBalanceToBuy(TransactionBuilder transactionBuilder) {
-    return balanceService.hasEnoughBalance(transactionBuilder,
-        transactionBuilder.gasSettings().gasLimit)
-        .flatMap(balanceState -> {
-          if (balanceState.equals(OK)) {
-            return Single.just(true);
+    return getBalanceState(transactionBuilder).flatMap(balanceState -> {
+      if (balanceState.equals(OK)) {
+        return Single.just(true);
+      } else {
+        return Single.just(false);
+      }
+    });
+  }
+
+  public Single<BalanceState> getBalanceState(TransactionBuilder transactionBuilder) {
+    BigDecimal transactionGasLimit = transactionBuilder.gasSettings().gasLimit;
+    GasSettings gasSettings = transactionBuilder.gasSettings();
+    if (transactionBuilder.shouldSendToken()) {
+      return checkTokenAddress(transactionBuilder, true).flatMap(
+          __ -> Single.zip(hasEnoughForTransfer(transactionBuilder),
+              hasEnoughForFee(gasSettings.gasPrice.multiply(transactionGasLimit)),
+              this::mapToState));
+    } else {
+      return Single.zip(hasEnoughForTransfer(transactionBuilder),
+          hasEnoughForFee(gasSettings.gasPrice.multiply(transactionGasLimit)), this::mapToState);
+    }
+  }
+
+  private Single<Boolean> hasEnoughForTransfer(TransactionBuilder transactionBuilder) {
+    if (transactionBuilder.shouldSendToken()) {
+      return hasEnoughBalanceUseCase.invoke(null, transactionBuilder.amount(), Convert.Unit.ETHER,
+          HasEnoughBalanceUseCase.BalanceType.APPC);
+    } else {
+      return hasEnoughBalanceUseCase.invoke(null, transactionBuilder.amount(), Convert.Unit.WEI,
+          HasEnoughBalanceUseCase.BalanceType.ETH);
+    }
+  }
+
+  private Single<Boolean> hasEnoughForFee(BigDecimal fee) {
+    return hasEnoughBalanceUseCase.invoke(null, fee, Convert.Unit.WEI,
+        HasEnoughBalanceUseCase.BalanceType.ETH);
+  }
+
+  private <T> Single<T> checkTokenAddress(TransactionBuilder transactionBuilder, T successValue) {
+    return defaultTokenProvider.getDefaultToken()
+        .flatMap(tokenInfo -> {
+          if (tokenInfo.address.equalsIgnoreCase(transactionBuilder.contractAddress())) {
+            return Single.just(successValue);
           } else {
-            return Single.just(false);
+            return Single.error(new UnknownTokenException());
           }
         });
   }
 
-  public Single<BalanceState> getBalanceState(TransactionBuilder transactionBuilder) {
-    return balanceService.hasEnoughBalance(transactionBuilder,
-        transactionBuilder.gasSettings().gasLimit);
+  @NonNull private BalanceState mapToState(Boolean enoughEther, boolean enoughTokens) {
+    if (enoughTokens && enoughEther) {
+      return OK;
+    } else if (!enoughTokens && !enoughEther) {
+      return BalanceState.NO_ETHER_NO_TOKEN;
+    } else if (enoughEther) {
+      return BalanceState.NO_TOKEN;
+    } else {
+      return BalanceState.NO_ETHER;
+    }
+  }
+
+  public enum BalanceState {
+    NO_TOKEN, NO_ETHER, NO_ETHER_NO_TOKEN, OK
   }
 }
