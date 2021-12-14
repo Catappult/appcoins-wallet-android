@@ -2,11 +2,11 @@ package com.asfoundation.wallet.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.Nullable;
 
 @JsonIgnoreProperties(ignoreUnknown = true) public class WalletHistory {
 
@@ -41,12 +41,14 @@ import java.util.List;
     @JsonProperty("processed_time") private Date processedTime;
     @JsonProperty("type") private String type;
     @JsonProperty("subtype") private String subType;
+    @JsonProperty("method") private String method;
     @JsonProperty("title") private String title;
     @JsonProperty("description") private String description;
     @JsonProperty("perk") private String perk;
     @JsonProperty("status") private Status status;
     @JsonProperty("operations") private List<Operation> operations;
     @JsonProperty("linked_tx") private List<String> linkedTx;
+    @JsonProperty("reference") private String orderReference;
 
     public List<Operation> getOperations() {
       return operations;
@@ -176,12 +178,28 @@ import java.util.List;
       this.type = type;
     }
 
+    public String getMethod() {
+      return method;
+    }
+
+    public void setMethod(String method) {
+      this.method = method;
+    }
+
     public List<String> getLinkedTx() {
       return linkedTx;
     }
 
     public void setLinkedTx(List<String> linkedTx) {
       this.linkedTx = linkedTx;
+    }
+
+    public String getOrderReference() {
+      return orderReference;
+    }
+
+    public void setOrderReference(String orderReference) {
+      this.orderReference = orderReference;
     }
 
     @Override public String toString() {

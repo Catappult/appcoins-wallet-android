@@ -48,6 +48,8 @@ import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
+import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
@@ -356,6 +358,13 @@ class UseCaseModule {
   fun providesDeletePromoCodeUseCase(
       promoCodeRepository: PromoCodeRepository): DeletePromoCodeUseCase {
     return DeletePromoCodeUseCase(promoCodeRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBackupSuccessLogUseCase(ewt: EwtAuthenticatorService,
+                                      backupSuccessLogRepository: BackupSuccessLogRepository): BackupSuccessLogUseCase {
+    return BackupSuccessLogUseCase(ewt, backupSuccessLogRepository)
   }
 
   @Singleton

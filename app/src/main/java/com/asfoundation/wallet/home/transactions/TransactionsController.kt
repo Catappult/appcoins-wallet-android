@@ -47,7 +47,7 @@ class TransactionsController : Typed3EpoxyController<TransactionsModel, Wallet, 
         add(
             TransactionModel_()
                 .id(transaction.transactionId)
-                .transaction(transaction)
+                .tx(transaction)
                 .defaultAddress(wallet.address)
                 .currency(networkInfo.symbol)
                 .formatter(formatter)
