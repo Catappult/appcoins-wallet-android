@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.restore.password
 
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -19,9 +20,10 @@ class RestoreWalletPasswordModule {
                                              data: RestoreWalletPasswordData,
                                              interactor: RestoreWalletPasswordInteractor,
                                              eventSender: WalletsEventSender,
-                                             currencyFormatUtils: CurrencyFormatUtils): RestoreWalletPasswordPresenter {
+                                             currencyFormatUtils: CurrencyFormatUtils,
+                                             preferencesRepositoryType: PreferencesRepositoryType): RestoreWalletPasswordPresenter {
     return RestoreWalletPasswordPresenter(fragment as RestoreWalletPasswordView, data, interactor,
-        eventSender, currencyFormatUtils,
+        eventSender, currencyFormatUtils, preferencesRepositoryType,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
         Schedulers.computation())
   }
@@ -29,9 +31,11 @@ class RestoreWalletPasswordModule {
   @Provides
   fun providesRestoreWalletPasswordData(
       fragment: RestoreWalletPasswordFragment): RestoreWalletPasswordData {
-    fragment.arguments!!.apply {
-      return RestoreWalletPasswordData(getString(RestoreWalletPasswordFragment.KEYSTORE_KEY, ""))
-    }
+    fragment.requireArguments()
+        .apply {
+          return RestoreWalletPasswordData(
+              getString(RestoreWalletPasswordFragment.KEYSTORE_KEY, ""))
+        }
   }
 
   @Provides
