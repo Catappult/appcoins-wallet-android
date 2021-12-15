@@ -12,7 +12,9 @@ class SettingsWalletsBottomSheetPresenter(
     private val data: SettingsWalletsBottomSheetData) {
 
   fun present() {
-    view.setupUi(data.walletsModel.otherWallets)
+    val wallets = data.walletsModel.otherWallets.toMutableList()
+    wallets.add(0, data.walletsModel.currentWallet)
+    view.setupUi(wallets)
     handleWalletCardClick()
   }
 

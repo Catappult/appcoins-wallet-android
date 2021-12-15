@@ -25,64 +25,29 @@ class WalletsInteract(private val getWalletInfoUseCase: GetWalletInfoUseCase,
                       private val logger: Logger,
                       private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
-  fun retrieveWalletsModel(): Single<WalletsModel> {
-    lateinit var currentWallet: WalletBalance
-    val wallets = ArrayList<WalletBalance>()
-    val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
-    return retrieveWallets().filter { it.isNotEmpty() }
-        .flatMapCompletable { list ->
-          Observable.fromIterable(list)
-              .flatMapCompletable { wallet ->
-                getWalletInfoUseCase(wallet.address, cached = true, updateFiat = false)
-                    .doOnSuccess { walletInfo ->
-                      val fiatValue = walletInfo.walletBalance.overallFiat
-                      if (currentWalletAddress == wallet.address) {
-                        currentWallet = WalletBalance(wallet.address, fiatValue,
-                            currentWalletAddress == wallet.address)
-                      }
-                      wallets.add(WalletBalance(wallet.address, fiatValue,
-                          currentWalletAddress == wallet.address))
-                    }
-                    .doOnError { logger.log("WalletsInteract", it) }
-                    .ignoreElement()
-              }
-        }
-        .toSingle {
-          WalletsModel(getTotalBalance(currentWallet, wallets), wallets.size, currentWallet,
-              wallets)
-        }
-  }
-
   fun getWalletsModel(): Single<WalletsModel> {
-    lateinit var currentWallet: WalletBalance
-    val wallets = ArrayList<WalletBalance>()
-    val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
     return retrieveWallets().filter { it.isNotEmpty() }
-        .flatMapCompletable { list ->
-          Observable.fromIterable(list)
-              .flatMapCompletable { wallet ->
-                getWalletInfoUseCase(wallet.address, cached = true, updateFiat = false)
-                    .subscribeOn(Schedulers.io())
-                    .doOnSuccess { walletInfo ->
-                      val fiatValue = walletInfo.walletBalance.overallFiat
-                      if (currentWalletAddress == wallet.address) {
-                        currentWallet = WalletBalance(wallet.address, fiatValue,
-                            currentWalletAddress == wallet.address)
-                      } else {
-                        wallets.add(WalletBalance(wallet.address, fiatValue,
-                            currentWalletAddress == wallet.address))
-                      }
-                    }
-                    .doOnError { logger.log("WalletsInteract", it) }
-                    .ignoreElement()
+        .flatMapIterable { list -> list }
+        .flatMap { wallet ->
+          return@flatMap getWalletInfoUseCase(wallet.address, cached = true, updateFiat = false)
+              .toObservable()
+              .map { walletInfo ->
+                val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
+                val fiatValue = walletInfo.walletBalance.overallFiat
+                WalletBalance(wallet.address, fiatValue, currentWalletAddress == wallet.address)
               }
+              .doOnError { logger.log("WalletsInteract", it) }
         }
-        .toSingle {
-          val totalBalance = getTotalBalance(currentWallet, wallets)
+        .toList()
+        .map { list ->
+          // We always have an active wallet
+          val currentWallet = list.find { walletBalance -> walletBalance.isActiveWallet }!!
+          list.remove(currentWallet)
+          val totalBalance = getTotalBalance(currentWallet, list)
           val balanceComparator = compareByDescending<WalletBalance> { it.balance.amount }
           val walletsSorted =
-              wallets.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
-          WalletsModel(totalBalance, wallets.size, currentWallet, walletsSorted)
+              list.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
+          WalletsModel(totalBalance, walletsSorted.size, currentWallet, walletsSorted)
         }
   }
 
