@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import cm.aptoide.skills.repository.RoomNameRepository
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
@@ -438,7 +439,8 @@ class RepositoryModule {
   @Provides
   fun providesPromoCodeRepository(@Named("default") client: OkHttpClient,
                                   promoCodeLocalDataSource: PromoCodeLocalDataSource,
-                                  analyticsSetup: RakamAnalytics, rxSchedulers: RxSchedulers): PromoCodeRepository {
+                                  analyticsSetup: RakamAnalytics,
+                                  rxSchedulers: RxSchedulers): PromoCodeRepository {
     val msBaseUrl = BuildConfig.BASE_HOST
     val backendBaseUrl = BuildConfig.BACKEND_HOST
     val msApi = Retrofit.Builder()
@@ -518,6 +520,12 @@ class RepositoryModule {
         .create(BackupSuccessLogRepository.BackupLopApi::class.java)
     return BackupSuccessLogRepository(api, rxSchedulers)
 
+  }
+
+  @Singleton
+  @Provides
+  fun provideRoomNameRepository(sharedPreferences: SharedPreferences): RoomNameRepository {
+    return RoomNameRepository(sharedPreferences)
   }
 
 }

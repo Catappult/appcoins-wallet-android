@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
@@ -112,6 +113,11 @@ interface PaymentMethodsView {
   fun getTopupClicks(): Observable<String>
 
   fun showTopupFlow()
+
+  fun showSkillsPayment(paymentMethod: PaymentMethod, currency: String, fiatAmount: String,
+                        appcAmount: String)
+
+  fun getSkillsRoomName(): String
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,

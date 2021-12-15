@@ -191,11 +191,12 @@
   <color name="change_fiat_selected_item_long">#BABABA</color>
   <color name="change_fiat_selected_item">#192933</color>
 
-  <!-- e-Skills Withdraw -->
+  <!-- e-Skills -->
   <color name="withdraw_top_bar_yellow">#FFFAEA</color>
   <color name="withdraw_title_color_black">#000000</color>
   <color name="withdraw_text_color_black">#001727</color>
   <color name="withdraw_error_description_grey">#646464</color>
+  <color name="room_create_background">#33D9D9D9</color>
 
   <!--Send Logs to Support -->
   <color name="send_logs_sending">#8C8C8C</color>
