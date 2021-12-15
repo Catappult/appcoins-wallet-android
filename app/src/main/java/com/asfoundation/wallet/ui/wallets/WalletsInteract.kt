@@ -1,22 +1,22 @@
 package com.asfoundation.wallet.ui.wallets
 
+import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.sumByBigDecimal
 import com.asfoundation.wallet.wallets.FetchWalletsInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class WalletsInteract(private val balanceInteractor: BalanceInteractor,
+class WalletsInteract(private val getWalletInfoUseCase: GetWalletInfoUseCase,
                       private val fetchWalletsInteract: FetchWalletsInteract,
                       private val walletCreatorInteract: WalletCreatorInteract,
                       private val supportInteractor: SupportInteractor,
@@ -33,9 +33,9 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
         .flatMapCompletable { list ->
           Observable.fromIterable(list)
               .flatMapCompletable { wallet ->
-                balanceInteractor.getTotalBalance(wallet.address)
-                    .firstOrError()
-                    .doOnSuccess { fiatValue ->
+                getWalletInfoUseCase(wallet.address, cached = true, updateFiat = false)
+                    .doOnSuccess { walletInfo ->
+                      val fiatValue = walletInfo.walletBalance.overallFiat
                       if (currentWalletAddress == wallet.address) {
                         currentWallet = WalletBalance(wallet.address, fiatValue,
                             currentWalletAddress == wallet.address)
@@ -61,10 +61,10 @@ class WalletsInteract(private val balanceInteractor: BalanceInteractor,
         .flatMapCompletable { list ->
           Observable.fromIterable(list)
               .flatMapCompletable { wallet ->
-                balanceInteractor.getTotalBalance(wallet.address)
+                getWalletInfoUseCase(wallet.address, cached = true, updateFiat = false)
                     .subscribeOn(Schedulers.io())
-                    .firstOrError()
-                    .doOnSuccess { fiatValue ->
+                    .doOnSuccess { walletInfo ->
+                      val fiatValue = walletInfo.walletBalance.overallFiat
                       if (currentWalletAddress == wallet.address) {
                         currentWallet = WalletBalance(wallet.address, fiatValue,
                             currentWalletAddress == wallet.address)

@@ -35,32 +35,41 @@ class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
   }
 
   fun getCurrenciesList(): Single<List<FiatCurrencyEntity>> {
-    return if (pref.getBoolean(CURRENCY_LIST_FIRST_TIME, true)) {
-      pref.edit()
-          .putBoolean(CURRENCY_LIST_FIRST_TIME, false)
-          .apply()
-      fetchCurrenciesList()
-    } else {
-      fiatCurrenciesDao.getFiatCurrencies()
-          .subscribeOn(Schedulers.io())
-    }
+    return Single.just(pref.getBoolean(CURRENCY_LIST_FIRST_TIME, true))
+        .flatMap { firstTime ->
+          if (firstTime) {
+            pref.edit()
+                .putBoolean(CURRENCY_LIST_FIRST_TIME, false)
+                .apply()
+            fetchCurrenciesList()
+          } else {
+            fiatCurrenciesDao.getFiatCurrencies()
+          }
+        }
+        .subscribeOn(Schedulers.io())
+
   }
 
   fun getSelectedCurrency(): Single<String> {
-    if (pref.getBoolean(SELECTED_FIRST_TIME, true)) {
-      pref.edit()
-          .putBoolean(SELECTED_FIRST_TIME, false)
-          .apply()
-      conversionService.localCurrency.doOnSuccess {
-        setSelectedCurrency(it.currency)
-      }
-          .subscribe()
-    }
-    return getCachedSelectedCurrency()
+    return Single.just(pref.getBoolean(SELECTED_FIRST_TIME, true))
+        .flatMap { isFirstTime ->
+          if (isFirstTime) {
+            return@flatMap conversionService.localCurrency.doOnSuccess {
+              setSelectedCurrency(it.currency)
+              pref.edit()
+                  .putBoolean(SELECTED_FIRST_TIME, false)
+                  .apply()
+            }
+                .map { it.currency }
+          }
+          return@flatMap getCachedSelectedCurrency()
+        }
+        .subscribeOn(Schedulers.io())
   }
 
   fun getCachedSelectedCurrency(): Single<String> {
-    return Single.just(pref.getString(FIAT_CURRENCY, ""))
+    return Single.just(pref.getString(FIAT_CURRENCY, "")!!)
+        .subscribeOn(Schedulers.io())
   }
 
   fun setSelectedCurrency(currency: String) {

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.home.HomeFragment
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -39,7 +38,6 @@ class OverlayFragment : DaggerFragment(), OverlayView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    HomeFragment.newInstance()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

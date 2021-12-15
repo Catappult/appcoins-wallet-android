@@ -6,12 +6,12 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.State
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
@@ -25,7 +25,6 @@ import io.reactivex.Single
 import io.reactivex.Single.zip
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import io.reactivex.functions.Function3
 import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.*
@@ -750,22 +749,9 @@ class PaymentMethodsPresenter(
       )
           .map { interactor.mergeAppcoins(it) }
           .map { interactor.swapDisabledPositions(it) }
-          .doOnSuccess { updateBalanceDao() }
     } else {
       Single.just(listOf(PaymentMethod.APPC))
     }
-  }
-
-  //Updates database with the latest balance to take less time loading the merged appcoins view
-  private fun updateBalanceDao() {
-    disposables.add(
-        Observable.zip(interactor.getEthBalance(),
-            interactor.getCreditsBalance(),
-            interactor.getAppcBalance(), Function3 { _: Any, _: Any, _: Any -> })
-            .take(1)
-            .subscribeOn(networkThread)
-            .subscribe({}, { it.printStackTrace() })
-    )
   }
 
   private fun getPreSelectedPaymentMethod(paymentMethods: List<PaymentMethod>): PaymentMethod? {

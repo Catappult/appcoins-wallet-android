@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <ImageView
+      android:id="@+id/onboarding_value1_icon"
+      android:layout_width="@dimen/onboarding_value_proposition_image_size"
+      android:layout_height="@dimen/onboarding_value_proposition_image_size"
+      android:src="@drawable/ic_onboarding_value1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/onboarding_value2_icon"
+      android:layout_width="@dimen/onboarding_value_proposition_image_size"
+      android:layout_height="@dimen/onboarding_value_proposition_image_size"
+      android:layout_marginTop="@dimen/onboarding_padding"
+      android:src="@drawable/ic_onboarding_value2"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_value1_icon"
+      />
+  <ImageView
+      android:id="@+id/onboarding_value3_icon"
+      android:layout_width="@dimen/onboarding_value_proposition_image_size"
+      android:layout_height="@dimen/onboarding_value_proposition_image_size"
+      android:layout_marginTop="@dimen/onboarding_padding"
+      android:src="@drawable/ic_onboarding_value3"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_value2_icon"
+      />
+
+  <TextView
+      android:id="@+id/onboarding_value1_title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="27dp"
+      android:text="@string/intro_2_title"
+      app:layout_constraintBottom_toTopOf="@+id/onboarding_value1_body"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/onboarding_value1_icon"
+      app:layout_constraintTop_toTopOf="@+id/onboarding_value1_icon"
+      style="@style/OnboardingValuesTitleTextStyle"
+      />
+
+  <TextView
+      android:id="@+id/onboarding_value1_body"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="27dp"
+      android:text="@string/intro_2_body"
+      app:layout_constraintBottom_toBottomOf="@+id/onboarding_value1_icon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/onboarding_value1_icon"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_value1_title"
+      style="@style/OnboardingValuesBodyTextStyle"
+      />
+
+  <TextView
+      android:id="@+id/onboarding_value2_title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="27dp"
+      android:text="@string/intro_3_title"
+      app:layout_constraintBottom_toTopOf="@+id/onboarding_value2_body"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/onboarding_value2_icon"
+      app:layout_constraintTop_toTopOf="@+id/onboarding_value2_icon"
+      style="@style/OnboardingValuesTitleTextStyle"
+      />
+  <TextView
+      android:id="@+id/onboarding_value2_body"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="27dp"
+      android:text="@string/intro_3_body"
+      app:layout_constraintBottom_toBottomOf="@+id/onboarding_value2_icon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/onboarding_value2_icon"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_value2_title"
+      style="@style/OnboardingValuesBodyTextStyle"
+      />
+
+  <TextView
+      android:id="@+id/onboarding_value3_title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="27dp"
+      android:text="@string/intro_4_title"
+      app:layout_constraintBottom_toTopOf="@+id/onboarding_value3_body"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/onboarding_value3_icon"
+      app:layout_constraintTop_toTopOf="@+id/onboarding_value3_icon"
+      style="@style/OnboardingValuesTitleTextStyle"
+      />
+
+  <TextView
+      android:id="@+id/onboarding_value3_body"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="27dp"
+      android:text="@string/intro_4_body"
+      app:layout_constraintBottom_toBottomOf="@+id/onboarding_value3_icon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/onboarding_value3_icon"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_value3_title"
+      style="@style/OnboardingValuesBodyTextStyle"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/onboarding_get_started_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginBottom="30dp"
+      android:layout_marginStart="27dp"
+      android:layout_marginTop="@dimen/onboarding_button_existent_margin_top"
+      app:buttonText="@string/get_started"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/onboarding_back_button"
+      />
+
+  <com.google.android.material.card.MaterialCardView
+      android:id="@+id/onboarding_back_button"
+      android:layout_width="48dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:background="@color/transparent"
+      app:cardBackgroundColor="@color/transparent"
+      app:cardElevation="0dp"
+      app:layout_constraintEnd_toStartOf="@+id/onboarding_get_started_button"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/onboarding_get_started_button"
+      app:rippleColor="@color/white"
+      app:shapeAppearance="@style/Home.PillShape"
+      app:strokeColor="@color/white"
+      app:strokeWidth="1dp"
+      >
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_back_button"
+        />
+
+  </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

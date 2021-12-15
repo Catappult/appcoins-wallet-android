@@ -9,6 +9,7 @@ data class TransactionEntity(val transactionId: String,
                              val approveTransactionId: String?,
                              val perk: Perk?,
                              val type: TransactionType,
+                             val method: Method?,
                              val subType: SubType?,
                              val title: String?,
                              val cardDescription: String?,
@@ -25,8 +26,12 @@ data class TransactionEntity(val transactionId: String,
                              val operations: List<OperationEntity>?,
                              val orderReference: String?) {
 
+  enum class Method {
+    UNKNOWN, APPC, APPC_C, ETH
+  }
+
   enum class TransactionType {
-    STANDARD, IAP, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN,
+    STANDARD, IAP, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN, TRANSFER,
     ETHER_TRANSFER, BONUS_REVERT, TOP_UP_REVERT, IAP_REVERT, INAPP_SUBSCRIPTION, ESKILLS_REWARD,
     ESKILLS;
   }

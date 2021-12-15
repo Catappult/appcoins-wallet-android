@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
@@ -26,6 +27,9 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   @Inject
   lateinit var transferParser: TransferParser
+
+  @Inject
+  lateinit var logger: Logger
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -72,6 +76,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   }
 
   override fun startApp(throwable: Throwable) {
+    logger.log("Erc681Receiver", throwable)
     throwable.printStackTrace()
     startActivity(SplashActivity.newIntent(this))
     finish()

@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.restore.intro
 
 import android.os.Bundle
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.util.RestoreError
 import com.asfoundation.wallet.util.RestoreErrorType
 import com.asfoundation.wallet.wallets.WalletModel
+import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -16,6 +17,7 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
                              private val disposable: CompositeDisposable,
                              private val navigator: RestoreWalletNavigator,
                              private val restoreWalletInteractor: RestoreWalletInteractor,
+                             private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
                              private val walletsEventSender: WalletsEventSender,
                              private val logger: Logger,
                              private val viewScheduler: Scheduler,
@@ -93,9 +95,7 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
     if (model.error.hasError) return Single.just(model)
     // Retrieves overall balance to update it right as we import it
     return Completable.mergeArray(restoreWalletInteractor.setDefaultWallet(model.address),
-        restoreWalletInteractor.getOverallBalance(model.address)
-            .firstElement()
-            .ignoreElement())
+        updateWalletInfoUseCase(model.address, updateFiat = true))
         .andThen(Single.just(model))
   }
 

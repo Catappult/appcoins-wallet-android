@@ -4,6 +4,7 @@ import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -13,9 +14,10 @@ class MyWalletsModule {
   @Provides
   fun providesMyWalletsViewModelFactory(balanceInteractor: BalanceInteractor,
                                         walletsInteract: WalletsInteract,
+                                        observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                                         observeDefaultWalletUseCase: ObserveDefaultWalletUseCase): MyWalletsViewModelFactory {
     return MyWalletsViewModelFactory(balanceInteractor, walletsInteract,
-        observeDefaultWalletUseCase)
+        observeWalletInfoUseCase, observeDefaultWalletUseCase)
   }
 
   @Provides

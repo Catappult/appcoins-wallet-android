@@ -5,13 +5,13 @@ import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.*
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.verification.ui.credit_card.network.BrokerVerificationApi
-import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationApi
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
+import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class VerificationRepository(private val verificationApi: VerificationApi,
+class VerificationRepository(private val walletInfoRepository: WalletInfoRepository,
                              private val brokerVerificationApi: BrokerVerificationApi,
                              private val adyenResponseMapper: AdyenResponseMapper,
                              private val sharedPreferences: SharedPreferences) {
@@ -54,10 +54,10 @@ class VerificationRepository(private val verificationApi: VerificationApi,
 
   fun getVerificationStatus(walletAddress: String,
                             walletSignature: String): Single<VerificationStatus> {
-    return verificationApi.isUserVerified(walletAddress)
+    return walletInfoRepository.getLatestWalletInfo(walletAddress, updateFiatValues = false)
         .subscribeOn(Schedulers.io())
-        .flatMap { verificationResponse ->
-          if (verificationResponse.verified) {
+        .flatMap { walletInfo ->
+          if (walletInfo.verified) {
             return@flatMap Single.just(VerificationStatus.VERIFIED)
           } else {
             if (getCachedValidationStatus(walletAddress) == VerificationStatus.VERIFYING) {

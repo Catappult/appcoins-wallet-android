@@ -6,10 +6,11 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
-import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.asfoundation.wallet.wallets.domain.WalletInfo
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
@@ -18,13 +19,14 @@ object MyWalletsSideEffect : SideEffect
 data class MyWalletsState(
     val walletsAsync: Async<WalletsModel> = Async.Uninitialized,
     val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
-    val balanceAsync: Async<BalanceScreenModel> = Async.Uninitialized,
+    val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized,
     val backedUpOnceAsync: Async<Boolean> = Async.Uninitialized,
 ) : ViewState
 
 class MyWalletsViewModel(
     private val balanceInteractor: BalanceInteractor,
     private val walletsInteract: WalletsInteract,
+    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
     private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
 
@@ -55,7 +57,7 @@ class MyWalletsViewModel(
             // triggering Async.Loading
             fetchWallets()
             fetchWalletVerified()
-            fetchBalance()
+            fetchWalletInfo()
             observeHasBackedUpWallet()
           }
         }
@@ -87,14 +89,11 @@ class MyWalletsViewModel(
         }
   }
 
-  private fun fetchBalance() {
+  private fun fetchWalletInfo() {
     softRefreshSubject
-        .switchMap {
-          balanceInteractor.requestTokenConversion()
-              .subscribeOn(Schedulers.io())
-        }
-        .asAsyncToState { balance -> copy(balanceAsync = balance) }
-        .repeatableScopedSubscribe(MyWalletsState::balanceAsync.name) { e ->
+        .switchMap { observeWalletInfoUseCase(null, update = true, updateFiat = true) }
+        .asAsyncToState { balance -> copy(walletInfoAsync = balance) }
+        .repeatableScopedSubscribe(MyWalletsState::walletInfoAsync.name) { e ->
           e.printStackTrace()
         }
   }

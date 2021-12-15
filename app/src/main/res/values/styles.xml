@@ -276,6 +276,18 @@
     <item name="android:letterSpacing">.09</item>
   </style>
 
+  <style name="ButtonStyle.NoBorder" parent="Base.Widget.AppCompat.ImageButton">
+    <item name="android:background">@drawable/flag_transparent</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:paddingStart">@dimen/big_padding</item>
+    <item name="android:paddingEnd">@dimen/big_padding</item>
+    <item name="android:minWidth">64dp</item>
+    <item name="android:minHeight">36dp</item>
+    <item name="android:letterSpacing">.09</item>
+  </style>
+
   <style name="VerifyButtonStyle" parent="ButtonStyle.Light">
     <item name="android:background">@drawable/button_light_background</item>
     <item name="android:textAllCaps">true</item>
@@ -528,6 +540,45 @@
 
   <style name="GasSettingsTextStyle.Body">
     <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="OnboardingWelcomeTitleTextStyle">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="OnboardingWelcomeSubtitleTextStyle">
+    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="OnboardingValuesTitleTextStyle">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="OnboardingValuesBodyTextStyle">
+    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="ButtonStyle.Onboarding" parent="ButtonStyle">
+    <item name="android:background">@drawable/onboarding_button_background</item>
+  </style>
+
+  <style name="ButtonStyle.Onboarding.ExistentWallet" parent="ButtonStyle">
+    <item name="android:background">@drawable/onboarding_empty_background_with_border</item>
+  </style>
+
+  <style name="ButtonStyle.BackButton" parent="ButtonStyle">
+    <item name="android:background">@drawable/ic_back_button</item>
   </style>
 
   <style name="OnboardingTermsConditionsTextStyle">

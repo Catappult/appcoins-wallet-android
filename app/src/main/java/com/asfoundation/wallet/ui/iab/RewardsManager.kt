@@ -16,9 +16,6 @@ import java.math.BigDecimal
 class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val billing: Billing,
                      private val partnerAddressService: AddressService) {
 
-  val balance: Single<BigDecimal>
-    get() = appcoinsRewards.getBalance()
-
   fun pay(sku: String?, amount: BigDecimal, developerAddress: String, packageName: String,
           origin: String?, type: String, payload: String?, callbackUrl: String?,
           orderReference: String?, referrerUrl: String?, productToken: String?): Completable {

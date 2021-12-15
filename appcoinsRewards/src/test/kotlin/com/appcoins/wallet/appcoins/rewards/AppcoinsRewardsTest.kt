@@ -3,7 +3,6 @@ package com.appcoins.wallet.appcoins.rewards
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.RemoteRepository
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
-import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.commons.MemoryCache
@@ -63,8 +62,6 @@ class AppcoinsRewardsTest {
   fun setUp() {
     `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
         BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(Completable.complete())
-    `when`(remoteApi.getBalance(USER_ADDRESS)).thenReturn(
-        Single.just(BackendApi.RewardBalanceResponse(BALANCE)))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, BDS_ORIGIN, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
@@ -203,23 +200,6 @@ class AppcoinsRewardsTest {
         ))
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)
-  }
-
-  @Test
-  fun getBalance() {
-    val testObserverNoAddress = TestObserver<BigDecimal>()
-    appcoinsRewards.getBalance()
-        .subscribe(testObserverNoAddress)
-    testObserverNoAddress.assertNoErrors()
-        .assertValue(BALANCE)
-        .assertComplete()
-
-    val testObserverWithAddress = TestObserver<BigDecimal>()
-    appcoinsRewards.getBalance(USER_ADDRESS)
-        .subscribe(testObserverWithAddress)
-    testObserverWithAddress.assertNoErrors()
-        .assertValue(BALANCE)
-        .assertComplete()
   }
 
   @Test

@@ -2,17 +2,21 @@ package com.asfoundation.wallet.restore.password
 
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
 import com.asfoundation.wallet.wallets.WalletModel
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView,
                                      private val data: RestoreWalletPasswordData,
+                                     private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                                      private val interactor: RestoreWalletPasswordInteractor,
                                      private val walletsEventSender: WalletsEventSender,
                                      private val currencyFormatUtils: CurrencyFormatUtils,
+                                     private val preferencesRepositoryType: PreferencesRepositoryType,
                                      private val disposable: CompositeDisposable,
                                      private val viewScheduler: Scheduler,
                                      private val networkScheduler: Scheduler,
@@ -28,11 +32,12 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
     disposable.add(interactor.extractWalletAddress(keystore)
         .subscribeOn(networkScheduler)
         .flatMapObservable { address ->
-          interactor.getOverallBalance(address)
+          observeWalletInfoUseCase(address, update = true, updateFiat = true)
               .observeOn(viewScheduler)
-              .doOnNext { fiatValue ->
-                view.updateUi(address, currencyFormatUtils.formatCurrency(fiatValue.amount),
-                    fiatValue.symbol)
+              .doOnNext { walletInfo ->
+                val overallFiat = walletInfo.walletBalance.overallFiat
+                view.updateUi(address, currencyFormatUtils.formatCurrency(overallFiat.amount),
+                    overallFiat.symbol)
               }
         }
         .observeOn(viewScheduler)
@@ -73,7 +78,10 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)
-        .doOnComplete { view.showWalletRestoredAnimation() }
+        .doOnComplete {
+          preferencesRepositoryType.setOnboardingComplete()
+          view.showWalletRestoredAnimation()
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 
