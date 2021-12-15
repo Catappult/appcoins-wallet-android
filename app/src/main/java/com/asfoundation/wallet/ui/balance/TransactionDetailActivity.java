@@ -437,8 +437,11 @@ public class TransactionDetailActivity extends BaseActivity {
     if (orderReference != null) {
       findViewById(R.id.order_reference_label).setVisibility(View.VISIBLE);
       findViewById(R.id.order_reference_name).setVisibility(View.VISIBLE);
+      findViewById(R.id.order_reference_copy_icon).setVisibility(View.VISIBLE);
       ((TextView) findViewById(R.id.order_reference_name)).setText(orderReference);
       findViewById(R.id.order_reference_name).setOnClickListener(
+          v -> copyToClipboard(orderReference));
+      findViewById(R.id.order_reference_copy_icon).setOnClickListener(
           v -> copyToClipboard(orderReference));
     }
 
