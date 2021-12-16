@@ -96,7 +96,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
 
   private fun handleWalletData() {
     observeRefreshData().switchMap { observeNetworkAndWallet() }
-        .switchMapCompletable { this.updateWalletData(it) }
+        .switchMap { observeWalletData(it) }
         .scopedSubscribe() { e ->
           e.printStackTrace()
         }
@@ -126,12 +126,17 @@ class HomeViewModel(private val analytics: HomeAnalytics,
         })
   }
 
-  private fun updateWalletData(model: TransactionsWalletModel): Completable {
-    return Completable.mergeArray(refreshTransactionsAndBalance(model),
-        updateRegisterUser(model.wallet))
+  private fun observeWalletData(model: TransactionsWalletModel): Observable<Unit> {
+    return Observable.mergeDelayError(
+        observeBalance(),
+        updateTransactions(model).subscribeOn(networkScheduler),
+        updateRegisterUser(model.wallet).toObservable()
+    )
+        .map { }
+        .subscribeOn(networkScheduler)
   }
 
-  private fun updateRegisterUser(wallet: Wallet): Completable? {
+  private fun updateRegisterUser(wallet: Wallet): Completable {
     return getUserLevelUseCase()
         .subscribeOn(networkScheduler)
         .map { userLevel ->
@@ -146,27 +151,20 @@ class HomeViewModel(private val analytics: HomeAnalytics,
     registerSupportUserUseCase(level, walletAddress)
   }
 
-  private fun refreshTransactionsAndBalance(model: TransactionsWalletModel): Completable {
-    return Completable.mergeArray(updateBalance(),
-        updateTransactions(model).subscribeOn(networkScheduler))
-        .subscribeOn(networkScheduler)
-  }
-
   /**
    * Balance is refreshed every [UPDATE_INTERVAL] seconds, and stops while
    * [refreshData] is false
    */
-  private fun updateBalance(): Completable {
-    return Completable.fromObservable(
-        Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
-            .flatMap { observeRefreshData() }
-            .switchMap {
-              observeWalletInfoUseCase(null, update = true, updateFiat = true)
-                  .map { walletInfo -> mapWalletValue(walletInfo.walletBalance) }
-                  .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
-                    copy(defaultWalletBalanceAsync = it)
-                  }
-            })
+  private fun observeBalance(): Observable<GlobalBalance> {
+    return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
+        .flatMap { observeRefreshData() }
+        .switchMap {
+          observeWalletInfoUseCase(null, update = true, updateFiat = true)
+              .map { walletInfo -> mapWalletValue(walletInfo.walletBalance) }
+              .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
+                copy(defaultWalletBalanceAsync = it)
+              }
+        }
   }
 
   private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
@@ -180,24 +178,24 @@ class HomeViewModel(private val analytics: HomeAnalytics,
         threshold) && tokenBalance.fiat.amount.toDouble() >= threshold)
   }
 
-  private fun updateTransactions(walletModel: TransactionsWalletModel?): Completable {
-    if (walletModel == null) return Completable.complete()
+  private fun updateTransactions(
+      walletModel: TransactionsWalletModel?): Observable<TransactionsWalletModel> {
+    if (walletModel == null) return Observable.empty()
     val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
-    return Completable.fromObservable(
-        Observable.combineLatest(getTransactions(walletModel.wallet), getCardNotifications(),
-            getMaxBonus(), observeNetworkAndWallet(),
-            { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
-              createTransactionsModel(transactions, notifications, maxBonus,
-                  transactionsWalletModel)
-            })
-            .doOnNext { (transactions) ->
-              updateTransactionsNumberUseCase(
-                  transactions)
-            }
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .asAsyncToState(retainValue) { copy(transactionsModelAsync = it) }
-            .map { walletModel })
+    return Observable.combineLatest(getTransactions(walletModel.wallet), getCardNotifications(),
+        getMaxBonus(), observeNetworkAndWallet(),
+        { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
+          createTransactionsModel(transactions, notifications, maxBonus,
+              transactionsWalletModel)
+        })
+        .doOnNext { (transactions) ->
+          updateTransactionsNumberUseCase(
+              transactions)
+        }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .asAsyncToState(retainValue) { copy(transactionsModelAsync = it) }
+        .map { walletModel }
   }
 
   private fun createTransactionsModel(transactions: List<Transaction>,

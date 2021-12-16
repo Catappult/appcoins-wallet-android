@@ -37,6 +37,7 @@ class AnimatedTextSwitcher : FrameLayout {
     val typedArray =
         context.obtainStyledAttributes(attrs, R.styleable.ToolbarTextSwitcher, defStyleAttr, 0)
     val string = typedArray.getString(R.styleable.ToolbarTextSwitcher_toolbarText) ?: ""
+    text = string
     views.textSwitcher.setCurrentText(string)
     typedArray.recycle()
   }
