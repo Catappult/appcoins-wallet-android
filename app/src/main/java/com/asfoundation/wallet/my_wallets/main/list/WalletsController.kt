@@ -22,26 +22,27 @@ class WalletsController :
                            walletVerifiedAsync: Async<BalanceVerificationModel>,
                            walletInfoAsync: Async<WalletInfo>,
                            backedUpOnceAsync: Async<Boolean>) {
-    add(ActiveWalletModelGroup(walletsAsync, walletVerifiedAsync, walletInfoAsync,
-        backedUpOnceAsync,
-        currencyFormatUtils, walletClickListener))
+    add(ActiveWalletModelGroup(walletVerifiedAsync, walletInfoAsync,
+        backedUpOnceAsync, currencyFormatUtils, walletClickListener))
     addOtherWallets(walletsAsync)
   }
 
   private fun addOtherWallets(walletsAsync: Async<WalletsModel>) {
-    val otherWallets = walletsAsync()?.otherWallets
+    val otherWallets = walletsAsync()?.wallets
     if (otherWallets != null && otherWallets.isNotEmpty()) {
       add(OtherWalletsTitleModel_()
           .id("other_wallets_title_model"))
 
       for (walletBalance in otherWallets) {
-        add(
-            OtherWalletModel_()
-                .id("other_wallet_model_", walletBalance.walletAddress)
-                .currencyFormatUtils(currencyFormatUtils)
-                .walletBalance(walletBalance)
-                .walletClickListener(walletClickListener)
-        )
+        if (!walletBalance.isActiveWallet) {
+          add(
+              OtherWalletModel_()
+                  .id("other_wallet_model_", walletBalance.walletAddress)
+                  .currencyFormatUtils(currencyFormatUtils)
+                  .walletBalance(walletBalance)
+                  .walletClickListener(walletClickListener)
+          )
+        }
       }
     }
 

@@ -84,9 +84,9 @@ class MyWalletsFragment : BasePageViewFragment(),
         is WalletsListEvent.CopyWalletClick -> setAddressToClipBoard(click.walletAddress)
         is WalletsListEvent.ShareWalletClick -> showShare(click.walletAddress)
         WalletsListEvent.BackupClick -> {
-          viewModel.state.walletsAsync()
-              ?.let { walletsModel ->
-                navigator.navigateToBackupWallet(walletsModel.currentWallet.walletAddress)
+          viewModel.state.walletInfoAsync()
+              ?.let { walletInfo ->
+                navigator.navigateToBackupWallet(walletInfo.wallet)
               }
         }
         WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerifyPicker()
@@ -181,8 +181,8 @@ class MyWalletsFragment : BasePageViewFragment(),
       val ethValue = "${
         getTokenValueText(walletInfo.walletBalance.ethBalance, WalletCurrency.ETHEREUM)
       } ${walletInfo.walletBalance.ethBalance.token.symbol}"
-      navigator.navigateToMore(walletsModel.currentWallet.walletAddress, overallFiatValue,
-          appcoinsValue, creditsValue, ethValue, verified, walletsModel.otherWallets.isNotEmpty())
+      navigator.navigateToMore(walletInfo.wallet, overallFiatValue,
+          appcoinsValue, creditsValue, ethValue, verified, walletsModel.wallets.isNotEmpty())
     }
   }
 

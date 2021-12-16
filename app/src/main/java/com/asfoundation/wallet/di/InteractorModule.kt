@@ -87,6 +87,7 @@ import com.asfoundation.wallet.wallets.FetchWalletsInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Single
@@ -452,14 +453,16 @@ class InteractorModule {
   }
 
   @Provides
-  fun provideWalletsInteract(walletInfoUseCase: GetWalletInfoUseCase,
+  fun provideWalletsInteract(observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+                             getWalletInfoUseCase: GetWalletInfoUseCase,
                              fetchWalletsInteract: FetchWalletsInteract,
                              walletCreatorInteract: WalletCreatorInteract,
                              supportInteractor: SupportInteractor,
                              sharedPreferencesRepository: SharedPreferencesRepository,
                              gamification: Gamification, logger: Logger,
                              getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): WalletsInteract {
-    return WalletsInteract(walletInfoUseCase, fetchWalletsInteract, walletCreatorInteract,
+    return WalletsInteract(observeWalletInfoUseCase, getWalletInfoUseCase, fetchWalletsInteract,
+        walletCreatorInteract,
         supportInteractor, sharedPreferencesRepository, gamification, logger,
         getCurrentPromoCodeUseCase)
   }
