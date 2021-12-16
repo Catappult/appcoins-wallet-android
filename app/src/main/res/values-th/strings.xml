@@ -618,10 +618,10 @@
   <string name="backup_password_title">เข้ารหัสกระเป๋าสตางค์ของคุณ (ไม่จำเป็น)</string>
   <string name="backup_password">รหัสผ่าน</string>
   <string name="backup_body">เราไม่เก็บคีย์ส่วนตัวของคุณหรือวิธีการเข้าถึงอื่นๆ การสำรองข้อมูลกระเป๋าสตางค์ของคุณ (คีย์สตอร์) เป็นสิ่งสำคัญ</string>
-  <string name="backup_confirmation_title">อีกเพียงนิดเดียว</string>
-  <string name="backup_confirmation_body">สำรองข้อมูลของคุณให้ปลอดภัย! คุณต้องการบันทึกไว้ที่ไหน</string>
-  <string name="backup_confirmation_yes">ใช่ เสร็จสิ้น</string>
-  <string name="backup_confirmation_no">ไม่ บันทึกบนอุปกรณ์</string>
+  <string name="backup_confirmation_title_deprecated">อีกเพียงนิดเดียว</string>
+  <string name="backup_confirmation_body_deprecated">สำรองข้อมูลของคุณให้ปลอดภัย! คุณต้องการบันทึกไว้ที่ไหน</string>
+  <string name="backup_confirmation_yes_deprecated">ใช่ เสร็จสิ้น</string>
+  <string name="backup_confirmation_no_deprecated">ไม่ บันทึกบนอุปกรณ์</string>
   <string name="backup_done_title">สำรองสำเร็จ!</string>
   <string name="backup_done_body">คุณแน่ใจหรือว่าไฟล์สำรองของคุณอยู่ในที่ปลอดภัย?</string>
   <string name="backup_confirmation_no_share_title">สำรองสำเร็จ!</string>
@@ -634,7 +634,7 @@
   <string name="backup_confirmation_tips_3">คัดลอกเป็นส่วนตัวและเก็บรักษาในคลาวน์</string>
   <string name="backup_send_via_title">ส่งข้อมูลสำรองผ่าน:</string>
   <string name="backup_send_button">ส่งข้อมูลสำรอง</string>
-  <string name="backup_save_button">บันทึกข้อมูลสำรอง</string>
+  <string name="backup_save_button_deprecated">บันทึกข้อมูลสำรอง</string>
   <string name="import_wallet_title">กู้คืน Wallet</string>
   <string name="import_wallet_body">วางข้อมูลสำรองของกระเป๋าสตางค์ของคุณด้านล่าง</string>
   <string name="import_wallet_keystore_private_keys">Keystore หรือคีย์ส่วนตัว</string>

@@ -616,10 +616,10 @@
   <string name="backup_password_title">Криптирай портфейла си (по желание)</string>
   <string name="backup_password">Парола</string>
   <string name="backup_body">Ние не съхраняваме твоите лични ключове или друг метод за достъп. Важно е да запазиш резервното копие (хранилище) на портфейла си.</string>
-  <string name="backup_confirmation_title">Само още една стъпка</string>
-  <string name="backup_confirmation_body">Пази бекъпа си! Къде искаш да го запазиш?</string>
-  <string name="backup_confirmation_yes">ДА, ЗАВЪРШИ</string>
-  <string name="backup_confirmation_no">НЕ, ЗАПАМЕТИ НА УСТРОЙСТВОТО</string>
+  <string name="backup_confirmation_title_deprecated">Само още една стъпка</string>
+  <string name="backup_confirmation_body_deprecated">Пази бекъпа си! Къде искаш да го запазиш?</string>
+  <string name="backup_confirmation_yes_deprecated">ДА, ЗАВЪРШИ</string>
+  <string name="backup_confirmation_no_deprecated">НЕ, ЗАПАМЕТИ НА УСТРОЙСТВОТО</string>
   <string name="backup_done_title">Бекъпът приключи!</string>
   <string name="backup_done_body">Сигурен ли си, че файлът с бекъпа ти е на сигурно място?</string>
   <string name="backup_confirmation_no_share_title">Бекъп завършен!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Копирай го на частен и сигурен облак.</string>
   <string name="backup_send_via_title">Изпрати бекъп чрез:</string>
   <string name="backup_send_button">ИЗПРАТИ БЕКЪП</string>
-  <string name="backup_save_button">ЗАПАЗИ БЕКЪП</string>
+  <string name="backup_save_button_deprecated">ЗАПАЗИ БЕКЪП</string>
   <string name="import_wallet_title">Възстанови портфейла</string>
   <string name="import_wallet_body">Постави бекъп-а на портфейла си по-долу.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище или лични ключове</string>

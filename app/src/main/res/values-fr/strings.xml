@@ -616,10 +616,10 @@
   <string name="backup_password_title">Crypter votre portefeuille (optionnel)</string>
   <string name="backup_password">Mot de passe</string>
   <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
-  <string name="backup_confirmation_title">Encore une étape</string>
-  <string name="backup_confirmation_body">Conservez vos sauvegardes en sécurité ! Où voulez-vous la sauvegarder ?</string>
-  <string name="backup_confirmation_yes">OUI, TERMINÉ</string>
-  <string name="backup_confirmation_no">NON, SAUVEGARDER SUR L\'APPAREIL</string>
+  <string name="backup_confirmation_title_deprecated">Encore une étape</string>
+  <string name="backup_confirmation_body_deprecated">Conservez vos sauvegardes en sécurité ! Où voulez-vous la sauvegarder ?</string>
+  <string name="backup_confirmation_yes_deprecated">OUI, TERMINÉ</string>
+  <string name="backup_confirmation_no_deprecated">NON, SAUVEGARDER SUR L\'APPAREIL</string>
   <string name="backup_done_title">Sauvegarde effectuée !</string>
   <string name="backup_done_body">Êtes-vous sûr que votre fichier de sauvegarde se trouve dans un endroit sûr ?</string>
   <string name="backup_confirmation_no_share_title">Sauvegarde effectuée !</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Copiez-le vers un cloud privé et sécurisé.</string>
   <string name="backup_send_via_title">Envoyer la sauvegarde via :</string>
   <string name="backup_send_button">ENVOYER SAUVEGARDE</string>
-  <string name="backup_save_button">ENREGISTREZ LA SAUVEGARDE</string>
+  <string name="backup_save_button_deprecated">ENREGISTREZ LA SAUVEGARDE</string>
   <string name="import_wallet_title">Récupérer le portefeuille</string>
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>

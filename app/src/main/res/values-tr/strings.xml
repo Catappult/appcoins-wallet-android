@@ -616,10 +616,10 @@
   <string name="backup_password_title">Cüzdanınızı şifreleyin (isteğe bağlı)</string>
   <string name="backup_password">Şifre</string>
   <string name="backup_body">Gizli anahtarlarınızı veya diğer erişim yöntemlerinizi saklamayız. Cüzdanınızın yedeğini (keystore) güvende tutmak önemlidir.</string>
-  <string name="backup_confirmation_title">Sadece bir adım daha</string>
-  <string name="backup_confirmation_body">Yedeklemenizi güvende tutun! Nereye kaydetmek istersiniz?</string>
-  <string name="backup_confirmation_yes">EVET, BİTİR</string>
-  <string name="backup_confirmation_no">HAYIR, CİHAZA KAYDET</string>
+  <string name="backup_confirmation_title_deprecated">Sadece bir adım daha</string>
+  <string name="backup_confirmation_body_deprecated">Yedeklemenizi güvende tutun! Nereye kaydetmek istersiniz?</string>
+  <string name="backup_confirmation_yes_deprecated">EVET, BİTİR</string>
+  <string name="backup_confirmation_no_deprecated">HAYIR, CİHAZA KAYDET</string>
   <string name="backup_done_title">Yedekleme tamamlandı!</string>
   <string name="backup_done_body">Yedekleme dosyanızın güvenli bir yerde olduğundan emin misiniz?</string>
   <string name="backup_confirmation_no_share_title">Yedekleme tamamlandı!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Gizli ve güvenli bir bulut depolama alanına kopyalayın.</string>
   <string name="backup_send_via_title">Yedeklemeyi şununla gönder:</string>
   <string name="backup_send_button">YEDEKLEMEYİ GÖNDER</string>
-  <string name="backup_save_button">YEDEKLEMEYİ KAYDET</string>
+  <string name="backup_save_button_deprecated">YEDEKLEMEYİ KAYDET</string>
   <string name="import_wallet_title">Cüzdanı geri yükle</string>
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
   <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>

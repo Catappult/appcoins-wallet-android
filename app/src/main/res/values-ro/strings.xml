@@ -616,10 +616,10 @@
   <string name="backup_password_title">Criptează-ți portofelul (opțional)</string>
   <string name="backup_password">Parolă</string>
   <string name="backup_body">Nu îți stocăm cheile private sau orice alte metode de acces. Este important să păstrezi copia de rezervă a portofelului (keystore) în siguranță.</string>
-  <string name="backup_confirmation_title">Încă un pas</string>
-  <string name="backup_confirmation_body">Păstrează-ți copia de rezervă în siguranță! Unde vrei să o salvezi?</string>
-  <string name="backup_confirmation_yes">DA, FINALIZEAZĂ</string>
-  <string name="backup_confirmation_no">NU, SALVEAZĂ PE DISPOZITIV</string>
+  <string name="backup_confirmation_title_deprecated">Încă un pas</string>
+  <string name="backup_confirmation_body_deprecated">Păstrează-ți copia de rezervă în siguranță! Unde vrei să o salvezi?</string>
+  <string name="backup_confirmation_yes_deprecated">DA, FINALIZEAZĂ</string>
+  <string name="backup_confirmation_no_deprecated">NU, SALVEAZĂ PE DISPOZITIV</string>
   <string name="backup_done_title">Copie de rezervă efectuată!</string>
   <string name="backup_done_body">Ești sigur că fișierul copiei de rezervă este într-un loc sigur?</string>
   <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Copiază-l într-un cloud de stocare privat și securizat.</string>
   <string name="backup_send_via_title">Trimite copie de rezervă via:</string>
   <string name="backup_send_button">TRIMITE COPIE DE REZERVĂ</string>
-  <string name="backup_save_button">SALVEAZĂ COPIE DE REZERVĂ</string>
+  <string name="backup_save_button_deprecated">SALVEAZĂ COPIE DE REZERVĂ</string>
   <string name="import_wallet_title">Recuperează Portofel</string>
   <string name="import_wallet_body">Lipește copia de rezervă a portofelului tău mai jos.</string>
   <string name="import_wallet_keystore_private_keys">Keystore sau chei private</string>

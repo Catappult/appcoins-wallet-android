@@ -616,10 +616,10 @@
   <string name="backup_password_title">Đồng bộ ví của bạn (tùy chọn)</string>
   <string name="backup_password">Mật khẩu</string>
   <string name="backup_body">Chúng tôi không lưu trữ khóa cá nhân hoặc bất kỳ phương thức truy cập nào khác của bạn. Điều quan trọng hơn cả là giữ cho bản sao lưu ví (kho khóa) của bạn được an toàn.</string>
-  <string name="backup_confirmation_title">Chỉ một bước nữa thôi</string>
-  <string name="backup_confirmation_body">Giữ bản sao lưu của bạn an toàn! Bạn muốn lưu nó ở đâu?</string>
-  <string name="backup_confirmation_yes">CÓ, HOÀN TẤT</string>
-  <string name="backup_confirmation_no">KHÔNG, LƯU TRÊN THIẾT BỊ</string>
+  <string name="backup_confirmation_title_deprecated">Chỉ một bước nữa thôi</string>
+  <string name="backup_confirmation_body_deprecated">Giữ bản sao lưu của bạn an toàn! Bạn muốn lưu nó ở đâu?</string>
+  <string name="backup_confirmation_yes_deprecated">CÓ, HOÀN TẤT</string>
+  <string name="backup_confirmation_no_deprecated">KHÔNG, LƯU TRÊN THIẾT BỊ</string>
   <string name="backup_done_title">Sao lưu hoàn tất!</string>
   <string name="backup_done_body">Bạn có chắc rằng tập tin sao lưu của bạn đang ở chỗ an toàn không?</string>
   <string name="backup_confirmation_no_share_title">Sao lưu hoàn tất!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Sao chép nó vào một lưu trữ đám mây riêng tư và an toàn.</string>
   <string name="backup_send_via_title">Gửi bản sao lưu qua:</string>
   <string name="backup_send_button">LƯU BẢN SAO LƯU</string>
-  <string name="backup_save_button">LƯU BẢN SAO LƯU</string>
+  <string name="backup_save_button_deprecated">LƯU BẢN SAO LƯU</string>
   <string name="import_wallet_title">Khôi phục ví</string>
   <string name="import_wallet_body">Dán sao lưu ví của bạn dưới đây.</string>
   <string name="import_wallet_keystore_private_keys">Kho khóa hoặc khóa cá nhân</string>

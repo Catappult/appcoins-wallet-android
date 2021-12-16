@@ -616,10 +616,10 @@
   <string name="backup_password_title">加密您的錢包（可選）</string>
   <string name="backup_password">密碼</string>
   <string name="backup_body">我們不會儲存您的私鑰或任何其他存取方式。 確保錢包的備份（密鑰庫）的安全很重要。</string>
-  <string name="backup_confirmation_title">最後一步</string>
-  <string name="backup_confirmation_body">確保備份安全！ 您想在哪裡儲存它？</string>
-  <string name="backup_confirmation_yes">是的，完成</string>
-  <string name="backup_confirmation_no">不，儲存至裝置</string>
+  <string name="backup_confirmation_title_deprecated">最後一步</string>
+  <string name="backup_confirmation_body_deprecated">確保備份安全！ 您想在哪裡儲存它？</string>
+  <string name="backup_confirmation_yes_deprecated">是的，完成</string>
+  <string name="backup_confirmation_no_deprecated">不，儲存至裝置</string>
   <string name="backup_done_title">備份完成！</string>
   <string name="backup_done_body">確認備份資料儲存在安全的地方了嗎？</string>
   <string name="backup_confirmation_no_share_title">備份完成！</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">將其複製到私人且安全的雲端儲存。</string>
   <string name="backup_send_via_title">傳送備份至：</string>
   <string name="backup_send_button">傳送備份</string>
-  <string name="backup_save_button">儲存備份</string>
+  <string name="backup_save_button_deprecated">儲存備份</string>
   <string name="import_wallet_title">恢復錢包</string>
   <string name="import_wallet_body">在下面貼上您的錢包備份。</string>
   <string name="import_wallet_keystore_private_keys">密鑰庫或私鑰</string>

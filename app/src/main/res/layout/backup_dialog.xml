@@ -118,7 +118,7 @@
         android:layout_gravity="center_vertical"
         android:maxWidth="126dp"
         android:minWidth="80dp"
-        android:text="@string/backup_save_button"
+        android:text="@string/backup_save_button_deprecated"
         android:textColor="@color/white"
         android:textSize="12sp"
         />

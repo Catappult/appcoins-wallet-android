@@ -616,10 +616,10 @@
   <string name="backup_password_title">Zakoduj portfel (opcjonalnie)</string>
   <string name="backup_password">Hasło</string>
   <string name="backup_body">Nie przechowujemy Twoich prywatnych kluczy lub innych metod dostępu. Ważne jest aby kopia zapasowa Twojego portfela była bezpieczna.</string>
-  <string name="backup_confirmation_title">Jeszcze tylko jeden krok</string>
-  <string name="backup_confirmation_body">Dbaj o kopię zapasową! Gdzie ją zapisać?</string>
-  <string name="backup_confirmation_yes">TAK, ZAKOŃCZ</string>
-  <string name="backup_confirmation_no">NIE, ZAPISZ NA URZĄDZENIU</string>
+  <string name="backup_confirmation_title_deprecated">Jeszcze tylko jeden krok</string>
+  <string name="backup_confirmation_body_deprecated">Dbaj o kopię zapasową! Gdzie ją zapisać?</string>
+  <string name="backup_confirmation_yes_deprecated">TAK, ZAKOŃCZ</string>
+  <string name="backup_confirmation_no_deprecated">NIE, ZAPISZ NA URZĄDZENIU</string>
   <string name="backup_done_title">Kopia utworzona!</string>
   <string name="backup_done_body">Jesteś pewien, że kopia jest w bezpiecznym miejscu?</string>
   <string name="backup_confirmation_no_share_title">Kopia utworzona!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Umieść kopię w bezpiecznej prywatnej chmurze.</string>
   <string name="backup_send_via_title">Wyślij kopię zapasową poprzez:</string>
   <string name="backup_send_button">WYŚLIJ KOPIĘ ZAPASOWĄ</string>
-  <string name="backup_save_button">ZAPISZ KOPIĘ ZAPASOWĄ</string>
+  <string name="backup_save_button_deprecated">ZAPISZ KOPIĘ ZAPASOWĄ</string>
   <string name="import_wallet_title">Odzyskaj portfel</string>
   <string name="import_wallet_body">Wklej kopię zapasową portfela poniżej.</string>
   <string name="import_wallet_keystore_private_keys">Prywatne klucze lub keystore</string>

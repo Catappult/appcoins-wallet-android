@@ -617,10 +617,10 @@
   <string name="backup_password_title">ウォレットを暗号化 (任意)</string>
   <string name="backup_password">パスワード</string>
   <string name="backup_body">当方があなたの秘密鍵やその他のアクセス方法を保存することはありません。ウォレットのバックアップ (キーストア) を安全に保管することが重要です。</string>
-  <string name="backup_confirmation_title">あと1ステップ</string>
-  <string name="backup_confirmation_body">バックアップを安全に保管しましょう！ どこに保存しますか？</string>
-  <string name="backup_confirmation_yes">はい、完了します。</string>
-  <string name="backup_confirmation_no">いいえ、端末に保存</string>
+  <string name="backup_confirmation_title_deprecated">あと1ステップ</string>
+  <string name="backup_confirmation_body_deprecated">バックアップを安全に保管しましょう！ どこに保存しますか？</string>
+  <string name="backup_confirmation_yes_deprecated">はい、完了します。</string>
+  <string name="backup_confirmation_no_deprecated">いいえ、端末に保存</string>
   <string name="backup_done_title">バックアップ完了！</string>
   <string name="backup_done_body">バックアップファイルが安全な場所にあることを確認していますか？</string>
   <string name="backup_confirmation_no_share_title">バックアップ完了！</string>
@@ -633,7 +633,7 @@
   <string name="backup_confirmation_tips_3">プライベートで安全なクラウドストレージにコピー</string>
   <string name="backup_send_via_title">バックアップを送信：</string>
   <string name="backup_send_button">バックアップの送信</string>
-  <string name="backup_save_button">バックアップの保存</string>
+  <string name="backup_save_button_deprecated">バックアップの保存</string>
   <string name="import_wallet_title">ウォレットの復元</string>
   <string name="import_wallet_body">ウォレットのバックアップを以下に貼り付けてください。</string>
   <string name="import_wallet_keystore_private_keys">キーストアまたは秘密鍵</string>

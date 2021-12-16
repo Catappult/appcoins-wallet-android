@@ -616,10 +616,10 @@
   <string name="backup_password_title">Зашифровать кошелёк (необязательно)</string>
   <string name="backup_password">Пароль</string>
   <string name="backup_body">Мы не храним ваши закрытые ключи или иные методы доступа. Важно хранить ваш бэкап (хранилище ключей) в безопасности.</string>
-  <string name="backup_confirmation_title">Остался всего один шаг</string>
-  <string name="backup_confirmation_body">Держите свои резервные копии в безопасном месте! Где вы хотите их сохранить?</string>
-  <string name="backup_confirmation_yes">ДА, ЗАКОНЧИТЬ</string>
-  <string name="backup_confirmation_no">НЕТ, СОХРАНИТЬ НА УСТРОЙСТВО</string>
+  <string name="backup_confirmation_title_deprecated">Остался всего один шаг</string>
+  <string name="backup_confirmation_body_deprecated">Держите свои резервные копии в безопасном месте! Где вы хотите их сохранить?</string>
+  <string name="backup_confirmation_yes_deprecated">ДА, ЗАКОНЧИТЬ</string>
+  <string name="backup_confirmation_no_deprecated">НЕТ, СОХРАНИТЬ НА УСТРОЙСТВО</string>
   <string name="backup_done_title">Резервное копирование сделано!</string>
   <string name="backup_done_body">Вы уверены, что ваш файл с резервной копией в безопасном месте?</string>
   <string name="backup_confirmation_no_share_title">Резервное копирование сделано!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Скопируйте в личное безопасное облачное хранилище.</string>
   <string name="backup_send_via_title">Отправить бэкап через:</string>
   <string name="backup_send_button">ОТПРАВИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
-  <string name="backup_save_button">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
+  <string name="backup_save_button_deprecated">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
   <string name="import_wallet_title">Восстановить кошелёк</string>
   <string name="import_wallet_body">Вставьте бэкап вашего кошелька ниже.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище ключей или закрытый ключ</string>

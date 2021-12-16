@@ -616,10 +616,10 @@
   <string name="backup_password_title">Κρυπτογραφήστε το wallet σας (προαιρετικό)</string>
   <string name="backup_password">Κωδικός πρόσβασης</string>
   <string name="backup_body">Δεν αποθηκεύουμε τα ιδιωτικά κλειδιά σας ή άλλες μεθόδους πρόσβασης. Είναι σημαντικό να διατηρείτε το αντίγραφο ασφαλείας του wallet σας (keystore) ασφαλές.</string>
-  <string name="backup_confirmation_title">Μόνο ένα βήμα ακόμη</string>
-  <string name="backup_confirmation_body">Διατηρήστε ασφαλές το αντίγραφο ασφαλείας! Πού θέλετε να το αποθηκεύσετε;</string>
-  <string name="backup_confirmation_yes">ΝΑΙ, ΤΕΛΟΣ</string>
-  <string name="backup_confirmation_no">ΟΧΙ, ΑΠΟΘΗΚΕΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ</string>
+  <string name="backup_confirmation_title_deprecated">Μόνο ένα βήμα ακόμη</string>
+  <string name="backup_confirmation_body_deprecated">Διατηρήστε ασφαλές το αντίγραφο ασφαλείας! Πού θέλετε να το αποθηκεύσετε;</string>
+  <string name="backup_confirmation_yes_deprecated">ΝΑΙ, ΤΕΛΟΣ</string>
+  <string name="backup_confirmation_no_deprecated">ΟΧΙ, ΑΠΟΘΗΚΕΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ</string>
   <string name="backup_done_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
   <string name="backup_done_body">Είστε σίγουροι ότι το αρχείο αντιγράφου ασφαλείας είναι σε ασφαλές μέρος;</string>
   <string name="backup_confirmation_no_share_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Αντιγράψτε το σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.</string>
   <string name="backup_send_via_title">Αποστολή αντιγράφου ασφαλείας μέσω:</string>
   <string name="backup_send_button">ΑΠΟΣΤΟΛΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
-  <string name="backup_save_button">ΑΠΟΘΗΚΕΥΣΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
+  <string name="backup_save_button_deprecated">ΑΠΟΘΗΚΕΥΣΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
   <string name="import_wallet_title">Ανάκτηση Wallet</string>
   <string name="import_wallet_body">Επικολλήστε το αντίγραφο ασφαλείας του wallet σας παρακάτω.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ή ιδιωτικά κλειδιά</string>

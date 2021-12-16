@@ -616,10 +616,10 @@
   <string name="backup_password_title">Sulitkan dompet anda (pilihan)</string>
   <string name="backup_password">Kata laluan</string>
   <string name="backup_body">Kami tidak menyimpan kunci peribadi anda atau kaedah akses yang lain. Penting bagi anda untuk memastikan sandaran dompet (kunci gedung) anda selamat.</string>
-  <string name="backup_confirmation_title">Satu lagi langkah</string>
-  <string name="backup_confirmation_body">Pastikan sandaran anda selamat! Di mana anda mahu simpan?</string>
-  <string name="backup_confirmation_yes">YA, SELESAI</string>
-  <string name="backup_confirmation_no">TIDAK, SIMPAN DALAM PERANTI</string>
+  <string name="backup_confirmation_title_deprecated">Satu lagi langkah</string>
+  <string name="backup_confirmation_body_deprecated">Pastikan sandaran anda selamat! Di mana anda mahu simpan?</string>
+  <string name="backup_confirmation_yes_deprecated">YA, SELESAI</string>
+  <string name="backup_confirmation_no_deprecated">TIDAK, SIMPAN DALAM PERANTI</string>
   <string name="backup_done_title">Sandaran selesai!</string>
   <string name="backup_done_body">Anda pasti fail sandaran anda di tempat selamat?</string>
   <string name="backup_confirmation_no_share_title">Sandaran selesai!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Salin ke storan awan peribadi dan selamat.</string>
   <string name="backup_send_via_title">Hantar sandaran melalui:</string>
   <string name="backup_send_button">HANTAR SANDARAN</string>
-  <string name="backup_save_button">SIMPAN SANDARAN</string>
+  <string name="backup_save_button_deprecated">SIMPAN SANDARAN</string>
   <string name="import_wallet_title">Dapatkan Semula Dompet</string>
   <string name="import_wallet_body">Tampal sandaran dompet anda di bawah.</string>
   <string name="import_wallet_keystore_private_keys">Kunci gedung atau kunci peribadi</string>

@@ -616,10 +616,10 @@
   <string name="backup_password_title">Šifrujte novčanik (opcionalno)</string>
   <string name="backup_password">Lozinka</string>
   <string name="backup_body">Ne čuvamo vaše privatnhe ključeve ni ostale načine pristupa. Važno je da rezervna kopija (skladište ključeva) vašeg novčanika bude na sigurnom.</string>
-  <string name="backup_confirmation_title">Još samo jedan korak</string>
-  <string name="backup_confirmation_body">Čuvajte rezervnu kopiju na sigurnom! Gde želite da je sačuvate?</string>
-  <string name="backup_confirmation_yes">DA, ZAVRŠI</string>
-  <string name="backup_confirmation_no">NE, SAČUVAJ NA UREĐAJU</string>
+  <string name="backup_confirmation_title_deprecated">Još samo jedan korak</string>
+  <string name="backup_confirmation_body_deprecated">Čuvajte rezervnu kopiju na sigurnom! Gde želite da je sačuvate?</string>
+  <string name="backup_confirmation_yes_deprecated">DA, ZAVRŠI</string>
+  <string name="backup_confirmation_no_deprecated">NE, SAČUVAJ NA UREĐAJU</string>
   <string name="backup_done_title">Rezervna kopija je napravljena!</string>
   <string name="backup_done_body">Da li ste sigurni da je vaša datoteka sa rezervnom kopijom na sigurnom mestu?</string>
   <string name="backup_confirmation_no_share_title">Rezervna kopija je napravljena!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Kopirajte je u privatnu, bezbednu memoriju na oblaku.</string>
   <string name="backup_send_via_title">Pošaljite rezervnu kopiju preko:</string>
   <string name="backup_send_button">POŠALJI REZERVNU KOPIJU</string>
-  <string name="backup_save_button">SAČUVAJ REZERVNU KOPIJU</string>
+  <string name="backup_save_button_deprecated">SAČUVAJ REZERVNU KOPIJU</string>
   <string name="import_wallet_title">Oporavite novčanik</string>
   <string name="import_wallet_body">Nalepite rezervnu kopiju svog novčanika ispod.</string>
   <string name="import_wallet_keystore_private_keys">Skladište ključeva ili privatni ključevi</string>

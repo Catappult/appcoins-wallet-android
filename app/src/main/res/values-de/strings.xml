@@ -616,10 +616,10 @@
   <string name="backup_password_title">Wallet verschlüsseln (optional)</string>
   <string name="backup_password">Passwort</string>
   <string name="backup_body">Wir speichern weder ihre privaten Schlüssel noch andere Zugriffsmethoden. Es ist wichtig das Sie das Backup ihres Wallets (Keystore) sicher aufbewahren.</string>
-  <string name="backup_confirmation_title">Nur noch einen Schritt</string>
-  <string name="backup_confirmation_body">Sicher Sie ihr Bachup! Wo wollen Sie es speichern?</string>
-  <string name="backup_confirmation_yes">JA, FERTIG</string>
-  <string name="backup_confirmation_no">NEIN, AUF GERÄT SPEICHERN</string>
+  <string name="backup_confirmation_title_deprecated">Nur noch einen Schritt</string>
+  <string name="backup_confirmation_body_deprecated">Sicher Sie ihr Bachup! Wo wollen Sie es speichern?</string>
+  <string name="backup_confirmation_yes_deprecated">JA, FERTIG</string>
+  <string name="backup_confirmation_no_deprecated">NEIN, AUF GERÄT SPEICHERN</string>
   <string name="backup_done_title">Backup erledigt!</string>
   <string name="backup_done_body">Sind Sie sich sicher, dass die Backup-Datei sich an einem sicheren Ort befindet?</string>
   <string name="backup_confirmation_no_share_title">Backup erledigt!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">In einer privaten und sicheren Cloud speichern.</string>
   <string name="backup_send_via_title">Backup versenden über:</string>
   <string name="backup_send_button">BACKUP VERSENDEN</string>
-  <string name="backup_save_button">BACKUP SICHERN</string>
+  <string name="backup_save_button_deprecated">BACKUP SICHERN</string>
   <string name="import_wallet_title">Wallet wiederherstellen</string>
   <string name="import_wallet_body">Fügen Sie das Backup ihres Wallets unten ein.</string>
   <string name="import_wallet_keystore_private_keys">Keystore oder private Schlüssel</string>

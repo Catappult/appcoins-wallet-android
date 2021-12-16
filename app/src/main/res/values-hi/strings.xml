@@ -616,10 +616,10 @@
   <string name="backup_password_title">अपना वॉलेट एन्क्रिप्ट करें (वैकल्पिक)</string>
   <string name="backup_password">पासवर्ड</string>
   <string name="backup_body">हम आपकी निजी कुंजी या अन्य एक्सेस विधि को स्टोर नहीं करते हैं। अपने वॉलेट बैकअप (कीस्टोर) को सुरक्षित रखना महत्वपूर्ण है।</string>
-  <string name="backup_confirmation_title">केवल एक और चरण</string>
-  <string name="backup_confirmation_body">अपना बैकअप सुरक्षित रखें! आप इसे कहाँ सहेजना चाहेंगे?</string>
-  <string name="backup_confirmation_yes">हाँ, पूरा करें</string>
-  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
+  <string name="backup_confirmation_title_deprecated">केवल एक और चरण</string>
+  <string name="backup_confirmation_body_deprecated">अपना बैकअप सुरक्षित रखें! आप इसे कहाँ सहेजना चाहेंगे?</string>
+  <string name="backup_confirmation_yes_deprecated">हाँ, पूरा करें</string>
+  <string name="backup_confirmation_no_deprecated">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">बैकअप पूर्ण!</string>
   <string name="backup_done_body">क्या आपकी बैकअप फाइल सुरक्षित जगह पर है?</string>
   <string name="backup_confirmation_no_share_title">बैकअप पूर्ण!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">इसे किसी निजी और सुरक्षित क्लाउड स्टोरेज पर कॉपी करें।</string>
   <string name="backup_send_via_title">बैकअप निम्न से भेजें:</string>
   <string name="backup_send_button">बैकअप भेजें</string>
-  <string name="backup_save_button">बैकअप सहेजें</string>
+  <string name="backup_save_button_deprecated">बैकअप सहेजें</string>
   <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">नीचे अपने वॉलेट का बैकअप पेस्ट करें।</string>
   <string name="import_wallet_keystore_private_keys">कीस्टोर या निजी कुंजी</string>

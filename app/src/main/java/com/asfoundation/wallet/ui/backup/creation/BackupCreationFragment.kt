@@ -70,9 +70,9 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    proceed_button.visibility = View.VISIBLE //To avoid flick when user navigates with open keyboard
+//    proceed_button.visibility = View.VISIBLE //To avoid flick when user navigates with open keyboard
     presenter.present(savedInstanceState)
-    animation.playAnimation()
+//    animation.playAnimation()
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -101,15 +101,18 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
     }
   }
 
-  override fun getFirstSaveClick() = RxView.clicks(proceed_button)
+  override fun getFirstSaveClick(): Observable<Any> =
+      Observable.never() // RxView.clicks(proceed_button)
 
-  override fun getFinishClick(): Observable<Any> = RxView.clicks(finish_button)
+  override fun getFinishClick(): Observable<Any> =
+      Observable.empty() // RxView.clicks(finish_button)
 
-  override fun getSaveAgainClick() = RxView.clicks(save_again_button)
+  override fun getSaveAgainClick(): Observable<Any> =
+      Observable.empty() // RxView.clicks(save_again_button)
 
   override fun enableSaveButton() {
-    proceed_button.isEnabled = true
-    animation.cancelAnimation()
+//    proceed_button.isEnabled = true
+//    animation.cancelAnimation()
   }
 
   override fun showError() {
@@ -135,15 +138,15 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   }
 
   override fun showConfirmation() {
-    animation.visibility = View.INVISIBLE
-    backup_confirmation_image.setImageResource(R.drawable.ic_backup_confirm)
-    backup_confirmation_image.visibility = View.VISIBLE
-    title.text = getString(R.string.backup_done_body)
-    description.visibility = View.INVISIBLE
-    proceed_button.visibility = View.INVISIBLE
-    file_shared_buttons.visibility = View.VISIBLE
+//    animation.visibility = View.INVISIBLE
+//    backup_confirmation_image.setImageResource(R.drawable.ic_backup_confirm)
+//    backup_confirmation_image.visibility = View.VISIBLE
+//    title.text = getString(R.string.backup_done_body)
+//    description.visibility = View.INVISIBLE
+//    proceed_button.visibility = View.INVISIBLE
+//    file_shared_buttons.visibility = View.VISIBLE
     //Fix for bug related with group layout
-    file_shared_buttons.requestLayout()
+//    file_shared_buttons.requestLayout()
   }
 
   override fun getDialogCancelClick() = RxView.clicks(dialogView.backup_cancel)

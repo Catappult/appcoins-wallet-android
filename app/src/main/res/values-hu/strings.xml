@@ -616,10 +616,10 @@
   <string name="backup_password_title">Tárca titkosítása (nem kötelező)</string>
   <string name="backup_password">Jelszó</string>
   <string name="backup_body">Nem tároljuk sem a titkos kulcsokat, sem bármely más hozzáférési módot. Fontos a tárcáról készült biztonsági mentés (keystore) biztonsága.</string>
-  <string name="backup_confirmation_title">Csak még egy lépés</string>
-  <string name="backup_confirmation_body">Tartsd biztonságban a biztonsági mentést! Hova szeretnéd elmenteni?</string>
-  <string name="backup_confirmation_yes">IGEN, KÉSZ</string>
-  <string name="backup_confirmation_no">NEM, MENTÉS ESZKÖZRE</string>
+  <string name="backup_confirmation_title_deprecated">Csak még egy lépés</string>
+  <string name="backup_confirmation_body_deprecated">Tartsd biztonságban a biztonsági mentést! Hova szeretnéd elmenteni?</string>
+  <string name="backup_confirmation_yes_deprecated">IGEN, KÉSZ</string>
+  <string name="backup_confirmation_no_deprecated">NEM, MENTÉS ESZKÖZRE</string>
   <string name="backup_done_title">Kész a biztonsági mentés!</string>
   <string name="backup_done_body">Biztos vagy benne, hogy a biztonsági mentés biztonságos helyen van?</string>
   <string name="backup_confirmation_no_share_title">Kész a biztonsági mentés!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Másold egy biztonságos és magán felhőalapú tárhelyre.</string>
   <string name="backup_send_via_title">Biztonsági másolat küldése:</string>
   <string name="backup_send_button">BIZTONSÁGI MÁSOLAT KÜLDÉSE</string>
-  <string name="backup_save_button">BIZTONSÁGI MÁSOLAT MENTÉSE</string>
+  <string name="backup_save_button_deprecated">BIZTONSÁGI MÁSOLAT MENTÉSE</string>
   <string name="import_wallet_title">Pénztárca helyreállítása</string>
   <string name="import_wallet_body">Illeszd be a tárca biztonsági másolatát alulra.</string>
   <string name="import_wallet_keystore_private_keys">Keystore vagy privát kulcsok</string>

@@ -616,10 +616,10 @@
   <string name="backup_password_title">Encriptar a tua wallet (opcional)</string>
   <string name="backup_password">Password</string>
   <string name="backup_body">Não guardamos as tuas senhas privadas ou qualquer outro método de acesso. É importante manter o backup da tua wallet (keystore) seguro.</string>
-  <string name="backup_confirmation_title">Só mais um passo</string>
-  <string name="backup_confirmation_body">Mantém o teu backup seguro! Onde é que o queres guardar?</string>
-  <string name="backup_confirmation_yes">SIM, TERMINAR</string>
-  <string name="backup_confirmation_no">NÃO, GUARDAR NO DISPOSITIVO</string>
+  <string name="backup_confirmation_title_deprecated">Só mais um passo</string>
+  <string name="backup_confirmation_body_deprecated">Mantém o teu backup seguro! Onde é que o queres guardar?</string>
+  <string name="backup_confirmation_yes_deprecated">SIM, TERMINAR</string>
+  <string name="backup_confirmation_no_deprecated">NÃO, GUARDAR NO DISPOSITIVO</string>
   <string name="backup_done_title">Backup feito!</string>
   <string name="backup_done_body">Tens a certeza de que o teu ficheiro de backup está num local seguro?</string>
   <string name="backup_confirmation_no_share_title">Backup feito!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">Copia-o para um armazenamento em nuvem privado e seguro.</string>
   <string name="backup_send_via_title">Enviar backup através de:</string>
   <string name="backup_send_button">ENVIAR BACKUP</string>
-  <string name="backup_save_button">GUARDAR BACKUP</string>
+  <string name="backup_save_button_deprecated">GUARDAR BACKUP</string>
   <string name="import_wallet_title">Recuperar Wallet</string>
   <string name="import_wallet_body">Cola o backup da tua wallet em baixo.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou senhas privadas</string>

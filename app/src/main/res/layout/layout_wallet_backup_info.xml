@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/backup_balance"
-        style="@style/WalletBackupTextStyle.BoldBig"
+        style="@style/WalletBackupTextStyle.Bold.White.Big"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
@@ -66,7 +66,7 @@
 
     <TextView
         android:id="@+id/backup_description_title"
-        style="@style/WalletBackupTextStyle.BoldBig"
+        style="@style/WalletBackupTextStyle.Bold.White.Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

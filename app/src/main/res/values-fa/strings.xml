@@ -616,10 +616,10 @@
   <string name="backup_password_title">کدگذاری از کیف پول (اختیاری)</string>
   <string name="backup_password">رمزعبور</string>
   <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
-  <string name="backup_confirmation_title">فقط یک قدم دیگر</string>
-  <string name="backup_confirmation_body">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
-  <string name="backup_confirmation_yes">بله، تمام شد</string>
-  <string name="backup_confirmation_no">نه، ذخیره روی دستگاه</string>
+  <string name="backup_confirmation_title_deprecated">فقط یک قدم دیگر</string>
+  <string name="backup_confirmation_body_deprecated">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
+  <string name="backup_confirmation_yes_deprecated">بله، تمام شد</string>
+  <string name="backup_confirmation_no_deprecated">نه، ذخیره روی دستگاه</string>
   <string name="backup_done_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_done_body">آیا مطمئن هستید که فایل بک‌آپ شما در جای امنی قرار دارد؟</string>
   <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
@@ -632,7 +632,7 @@
   <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن منتقل کنید.</string>
   <string name="backup_send_via_title">ارسال بک‌آپ از طریق:</string>
   <string name="backup_send_button">ارسال بک‌آپ</string>
-  <string name="backup_save_button">ذخیره بک‌آپ</string>
+  <string name="backup_save_button_deprecated">ذخیره بک‌آپ</string>
   <string name="import_wallet_title">بازیابی کیف‌پول</string>
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
