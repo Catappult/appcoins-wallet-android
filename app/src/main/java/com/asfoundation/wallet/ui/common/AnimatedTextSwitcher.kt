@@ -12,7 +12,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.LayoutToolbarTextSwitcherBinding
 import kotlinx.android.parcel.Parcelize
 
-class ToolbarTextSwitcher : FrameLayout {
+class AnimatedTextSwitcher : FrameLayout {
   @Parcelize
   class ToolbarTextSwitcherState(val superSavedState: Parcelable?, val animateFirstView: Boolean,
                                  val text: CharSequence) : View.BaseSavedState(superSavedState),

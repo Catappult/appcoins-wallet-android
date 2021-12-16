@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <com.asfoundation.wallet.ui.common.ToolbarTextSwitcher
+    <com.asfoundation.wallet.ui.common.AnimatedTextSwitcher
         android:id="@+id/title_switcher"
         android:layout_width="0dp"
         android:layout_height="match_parent"
