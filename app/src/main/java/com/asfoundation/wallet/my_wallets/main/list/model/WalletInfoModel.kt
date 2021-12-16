@@ -11,8 +11,8 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.my_wallets.main.list.WalletsListEvent
 import com.asfoundation.wallet.ui.common.BaseViewHolder
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.generateQrCode
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
@@ -21,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 abstract class WalletInfoModel : EpoxyModelWithHolder<WalletInfoModel.WalletInfoHolder>() {
 
   @EpoxyAttribute
-  lateinit var walletBalanceAsync: Async<WalletsModel>
+  lateinit var walletInfoAsync: Async<WalletInfo>
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var walletClickListener: ((WalletsListEvent) -> Unit)? = null
@@ -29,21 +29,21 @@ abstract class WalletInfoModel : EpoxyModelWithHolder<WalletInfoModel.WalletInfo
   override fun getDefaultLayout(): Int = R.layout.item_wallet_info
 
   override fun bind(holder: WalletInfoHolder) {
-    when (val asyncValue = walletBalanceAsync) {
+    when (val asyncValue = walletInfoAsync) {
       is Async.Success -> {
-        val walletBalance = asyncValue().currentWallet
-        holder.walletAddressTextView.text = walletBalance.walletAddress
+        val walletAddress = asyncValue().wallet
+        holder.walletAddressTextView.text = walletAddress
         holder.actionButtonShareAddress.setOnClickListener {
           walletClickListener?.invoke(
-              WalletsListEvent.ShareWalletClick(walletBalance.walletAddress))
+              WalletsListEvent.ShareWalletClick(walletAddress))
         }
         holder.actionButtonCopyAddress.setOnClickListener {
-          walletClickListener?.invoke(WalletsListEvent.CopyWalletClick(walletBalance.walletAddress))
+          walletClickListener?.invoke(WalletsListEvent.CopyWalletClick(walletAddress))
         }
         holder.qrImage.setOnClickListener {
           walletClickListener?.invoke(WalletsListEvent.QrCodeClick(holder.qrImage))
         }
-        setQrCode(holder, walletBalance.walletAddress)
+        setQrCode(holder, walletAddress)
       }
       else -> Unit
     }

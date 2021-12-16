@@ -140,7 +140,7 @@ class SettingsPresenter(private val view: SettingsView,
       }
       1 -> {
         settingsInteractor.sendCreateSuccessEvent()
-        navigator.navigateToBackup(walletModel.otherWallets[0].walletAddress)
+        navigator.navigateToBackup(walletModel.wallets[0].walletAddress)
       }
       else -> navigator.showWalletsBottomSheet(walletModel)
     }
