@@ -88,35 +88,37 @@ class SkillsFragment : DaggerFragment() {
   }
 
   private fun setupQueueIdLayout() {
-    binding.payTicketLayout.roomNameLayout.openCardButton.setOnClickListener {
-      if (binding.payTicketLayout.roomNameLayout.roomCreateBody.visibility == View.GONE) {
+    binding.payTicketLayout.payTicketRoomDetails.openCardButton.setOnClickListener {
+      if (binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility == View.GONE) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-          binding.payTicketLayout.roomNameLayout.createRoomTitle.setTextAppearance(
+          binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
               R.style.DialogTitleStyle)
         } else {
-          binding.payTicketLayout.roomNameLayout.createRoomTitle.setTextAppearance(requireContext(),
+          binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
+              requireContext(),
               R.style.DialogTitleStyle)
         }
-        binding.payTicketLayout.roomNameLayout.openCardButton.rotation = 180F
-        binding.payTicketLayout.roomNameLayout.roomCreateBody.visibility = View.VISIBLE
+        binding.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 180F
+        binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.VISIBLE
       } else {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-          binding.payTicketLayout.roomNameLayout.createRoomTitle.setTextAppearance(
+          binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
               R.style.DialogTextStyle)
         } else {
-          binding.payTicketLayout.roomNameLayout.createRoomTitle.setTextAppearance(requireContext(),
+          binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
+              requireContext(),
               R.style.DialogTextStyle)
         }
-        binding.payTicketLayout.roomNameLayout.openCardButton.rotation = 0F
-        binding.payTicketLayout.roomNameLayout.roomCreateBody.visibility = View.GONE
+        binding.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 0F
+        binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.GONE
       }
     }
   }
 
   private fun setupPurchaseTicketButtons(
       eSkillsPaymentData: EskillsPaymentData) {
-    binding.payTicketLayout.roomNameLayout.copyButton.setOnClickListener {
-      val queueId = binding.payTicketLayout.roomNameLayout.roomId.text.toString()
+    binding.payTicketLayout.payTicketRoomDetails.copyButton.setOnClickListener {
+      val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
       if (queueId.isNotEmpty()) {
         viewModel.saveQueueIdToClipboard(queueId)
         Toast.makeText(requireContext(), R.string.copied_to_clipboard, Toast.LENGTH_SHORT)
@@ -124,13 +126,13 @@ class SkillsFragment : DaggerFragment() {
       }
     }
     binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-      eSkillsPaymentData.queueId = binding.payTicketLayout.roomNameLayout.roomId.text.toString()
+      eSkillsPaymentData.queueId =
+          binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
       binding.payTicketLayout.root.visibility = View.GONE
       createAndPayTicket(eSkillsPaymentData)
     }
     binding.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
-      disposable.add(viewModel.cancelTicket()
-          .subscribe { _, _ -> })
+      viewModel.cancelPayment()
     }
   }
 

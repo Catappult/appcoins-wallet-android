@@ -11,6 +11,7 @@
   <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
   <string name="buy_button">Buy</string>
+  <string name="topup_button">Top Up</string>
   <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>

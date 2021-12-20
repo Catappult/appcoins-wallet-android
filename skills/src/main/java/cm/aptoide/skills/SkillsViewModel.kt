@@ -23,7 +23,8 @@ class SkillsViewModel(
     private val payTicketUseCase: PayTicketUseCase,
     private val saveQueueIdToClipboard: SaveQueueIdToClipboard,
     private val getApplicationInfoUseCase: GetApplicationInfoUseCase,
-    private val getTicketPriceUseCase: GetTicketPriceUseCase) {
+    private val getTicketPriceUseCase: GetTicketPriceUseCase,
+    private val getUserBalanceUseCase: GetUserBalanceUseCase) {
 
   lateinit var ticketId: String
 
@@ -102,6 +103,11 @@ class SkillsViewModel(
     return SkillsNavigator.RC_ONE_STEP
   }
 
+  fun cancelPayment() {
+    closeView.onNext(
+        Pair(RESULT_USER_CANCELED, UserData.fromStatus(UserData.Status.REFUNDED)))
+  }
+
   fun cancelTicket(): Single<TicketResponse> {
     // only paid tickets can be canceled/refunded on the backend side, meaning that if we
     // cancel before actually paying the backend will return a 409 HTTP. this way we allow
@@ -136,5 +142,9 @@ class SkillsViewModel(
 
   fun getFiatToAppcAmount(value: BigDecimal, currency: String): Single<String> {
     return getTicketPriceUseCase.getAppcPrice(value, currency)
+  }
+
+  fun getCreditsBalance(): Single<BigDecimal> {
+    return getUserBalanceUseCase.getCreditsBalance()
   }
 }

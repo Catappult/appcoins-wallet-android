@@ -8,6 +8,7 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 interface ExternalSkillsPaymentProvider {
+  fun getBalance(): Single<BigDecimal>
   fun pay(eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket): Completable
   fun getLocalFiatAmount(value: BigDecimal, currency: String): Single<Price>
   fun getFiatToAppcAmount(value: BigDecimal, currency: String): Single<Price>

@@ -18,6 +18,10 @@ class SkillsPaymentRepository(
     private val appCoinsCreditsPayment: AppCoinsCreditsPayment,
     private val schedulers: RxSchedulers,
 ) : ExternalSkillsPaymentProvider {
+  override fun getBalance(): Single<BigDecimal> {
+    return appCoinsCreditsPayment.getBalance()
+  }
+
   override fun getLocalFiatAmount(value: BigDecimal, currency: String): Single<Price> {
     return currencyConversionService.getLocalFiatAmount(value.toString(), currency)
         .map { Price(it.amount, it.currency, it.symbol) }
