@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
@@ -36,6 +35,8 @@ class SkillsFragment : DaggerFragment() {
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
     private const val TRANSACTION_HASH = "transaction_hash"
+
+    private const val CLIPBOARD_TOOLTIP_DELAY_SECONDS = 3000L
   }
 
   @Inject
@@ -120,8 +121,9 @@ class SkillsFragment : DaggerFragment() {
       val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
       if (queueId.isNotEmpty()) {
         viewModel.saveQueueIdToClipboard(queueId)
-        Toast.makeText(requireContext(), R.string.copied_to_clipboard, Toast.LENGTH_SHORT)
-            .show()
+        val tooltip = binding.payTicketLayout.payTicketRoomDetails.tooltipClipboard
+        tooltip.visibility = View.VISIBLE
+        view?.postDelayed({ tooltip.visibility = View.GONE }, CLIPBOARD_TOOLTIP_DELAY_SECONDS)
       }
     }
 

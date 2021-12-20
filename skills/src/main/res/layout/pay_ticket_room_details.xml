@@ -66,6 +66,7 @@
           android:id="@+id/room_create_body"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:animateLayoutChanges="true"
           android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
@@ -114,6 +115,7 @@
               app:layout_constraintTop_toTopOf="parent"
               />
 
+
           <ImageButton
               android:id="@+id/copy_button"
               style="@style/Widget.AppCompat.ActionButton"
@@ -126,6 +128,55 @@
               app:layout_constraintStart_toEndOf="@id/room_id"
               app:layout_constraintTop_toTopOf="parent"
               />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tooltip_clipboard"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="32dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/room_id_text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+          <View
+              android:id="@+id/tooltip_background"
+              android:layout_width="match_parent"
+              android:layout_height="20dp"
+              android:background="@drawable/tooltip_background"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/copied_to_clipboard"
+              android:textColor="@color/white"
+              android:textSize="9sp"
+              app:layout_constraintBottom_toBottomOf="@id/tooltip_background"
+              app:layout_constraintEnd_toEndOf="@id/tooltip_background"
+              app:layout_constraintStart_toStartOf="@id/tooltip_background"
+              app:layout_constraintTop_toTopOf="@id/tooltip_background"
+              />
+
+          <ImageButton
+              android:id="@+id/tip"
+              style="@style/Widget.AppCompat.ActionButton"
+              android:layout_width="55dp"
+              android:layout_height="45dp"
+              android:layout_marginTop="0dp"
+              android:scaleType="fitCenter"
+              android:src="@drawable/arrow_drop_down"
+              android:tint="@color/black"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
