@@ -20,7 +20,6 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.Parameters.Companion.ESKILLS
 import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
@@ -400,11 +399,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   }
 
   override fun updateProductName() {
-    if (transactionBuilder?.type == ESKILLS) {
-      app_sku_description.text = getString(R.string.purchase_eskills_sku)
-    } else {
-      app_sku_description.text = transactionBuilder?.productName
-    }
+    app_sku_description.text = transactionBuilder?.productName
   }
 
   override fun close(bundle: Bundle) {
