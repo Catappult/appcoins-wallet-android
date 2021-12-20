@@ -10,7 +10,11 @@ class GetTicketPriceUseCase(private val externalSkillsPaymentProvider: ExternalS
     return externalSkillsPaymentProvider.getLocalFiatAmount(value, currency)
   }
 
-  fun getAppcPrice(value: BigDecimal, currency: String): Single<String> {
+  fun getAppcPrice(value: BigDecimal, currency: String): Single<Price> {
+    return externalSkillsPaymentProvider.getFiatToAppcAmount(value, currency)
+  }
+
+  fun getAppcFormatted(value: BigDecimal, currency: String): Single<String> {
     return externalSkillsPaymentProvider.getFormattedAppcAmount(value, currency)
   }
 }

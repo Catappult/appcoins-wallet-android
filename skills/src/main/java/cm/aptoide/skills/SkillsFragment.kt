@@ -21,7 +21,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SkillsFragment : DaggerFragment() {
@@ -125,25 +124,45 @@ class SkillsFragment : DaggerFragment() {
             .show()
       }
     }
-    binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-      eSkillsPaymentData.queueId =
-          binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
-      binding.payTicketLayout.root.visibility = View.GONE
-      createAndPayTicket(eSkillsPaymentData)
-    }
+
+    disposable.add(Single.zip(
+        viewModel.getCreditsBalance(),
+        viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!),
+        { balance, appcAmount -> Pair(balance, appcAmount) })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map {
+          if (it.first < it.second.amount) {
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+                getString(R.string.topup_button)
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+              sendUserToTopUpFlow()
+            }
+          } else {
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+              eSkillsPaymentData.queueId =
+                  binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+              binding.payTicketLayout.root.visibility = View.GONE
+              createAndPayTicket(eSkillsPaymentData)
+            }
+          }
+        }
+        .subscribe())
+
     binding.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
       viewModel.cancelPayment()
     }
   }
 
+  private fun sendUserToTopUpFlow() {
+    viewModel.sendUserToTopUpFlow(requireContext())
+  }
+
   private fun setupAppNameAndIcon(packageName: String) {
-    disposable.add(
-        Single.fromCallable {
-          viewModel.getApplicationInfo(packageName)
-        }
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ setHeaderInfo(it) }) { it.printStackTrace() })
+    disposable.add(Single.fromCallable {
+      viewModel.getApplicationInfo(packageName)
+    }
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ setHeaderInfo(it) }) { it.printStackTrace() })
   }
 
   private fun setHeaderInfo(applicationInfo: ApplicationInfo) {
@@ -154,7 +173,7 @@ class SkillsFragment : DaggerFragment() {
 
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
     val header = binding.payTicketLayout.payTicketHeader
-    disposable.add(
+    disposable.addAll(
         viewModel.getLocalFiatAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
             .observeOn(AndroidSchedulers.mainThread())
             .map {
@@ -162,11 +181,9 @@ class SkillsFragment : DaggerFragment() {
               header.fiatPriceSkeleton.visibility = View.GONE
               header.fiatPrice.visibility = View.VISIBLE
             }
-            .subscribe()
-    )
-
-    disposable.add(
-        viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
+            .subscribe(),
+        viewModel.getFormattedAppcAmount(eSkillsPaymentData.price!!,
+            eSkillsPaymentData.currency!!)
             .observeOn(AndroidSchedulers.mainThread())
             .map {
               header.appcPrice.text = "$it APPC"

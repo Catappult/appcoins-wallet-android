@@ -1,5 +1,6 @@
 package cm.aptoide.skills.interfaces
 
+import android.content.Context
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.Price
 import cm.aptoide.skills.util.EskillsPaymentData
@@ -13,4 +14,5 @@ interface ExternalSkillsPaymentProvider {
   fun getLocalFiatAmount(value: BigDecimal, currency: String): Single<Price>
   fun getFiatToAppcAmount(value: BigDecimal, currency: String): Single<Price>
   fun getFormattedAppcAmount(value: BigDecimal, currency: String): Single<String>
+  fun sendUserToTopUpFlow(context: Context)
 }

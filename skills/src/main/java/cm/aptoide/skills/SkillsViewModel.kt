@@ -1,5 +1,6 @@
 package cm.aptoide.skills
 
+import android.content.Context
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.*
@@ -24,7 +25,9 @@ class SkillsViewModel(
     private val saveQueueIdToClipboard: SaveQueueIdToClipboard,
     private val getApplicationInfoUseCase: GetApplicationInfoUseCase,
     private val getTicketPriceUseCase: GetTicketPriceUseCase,
-    private val getUserBalanceUseCase: GetUserBalanceUseCase) {
+    private val getUserBalanceUseCase: GetUserBalanceUseCase,
+    private val sendUserToTopUpFlowUseCase: SendUserToTopUpFlowUseCase
+) {
 
   lateinit var ticketId: String
 
@@ -140,11 +143,19 @@ class SkillsViewModel(
     return getTicketPriceUseCase.getLocalPrice(value, currency)
   }
 
-  fun getFiatToAppcAmount(value: BigDecimal, currency: String): Single<String> {
+  fun getFiatToAppcAmount(value: BigDecimal, currency: String): Single<Price> {
     return getTicketPriceUseCase.getAppcPrice(value, currency)
+  }
+
+  fun getFormattedAppcAmount(value: BigDecimal, currency: String): Single<String> {
+    return getTicketPriceUseCase.getAppcFormatted(value, currency)
   }
 
   fun getCreditsBalance(): Single<BigDecimal> {
     return getUserBalanceUseCase.getCreditsBalance()
+  }
+
+  fun sendUserToTopUpFlow(context: Context) {
+    sendUserToTopUpFlowUseCase.send(context)
   }
 }

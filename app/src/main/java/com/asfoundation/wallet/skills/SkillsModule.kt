@@ -52,13 +52,14 @@ class SkillsModule {
       saveQueueIdToClipboard: SaveQueueIdToClipboard,
       getApplicationInfoUseCase: GetApplicationInfoUseCase,
       getTicketPriceUseCase: GetTicketPriceUseCase,
-      getUserBalanceUseCase: GetUserBalanceUseCase
+      getUserBalanceUseCase: GetUserBalanceUseCase,
+      sendUserToTopUpFlowUseCase: SendUserToTopUpFlowUseCase
   ): SkillsViewModel {
     return SkillsViewModel(
         walletObtainer, joinQueueUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS,
         loginUseCase, cancelUseCase, PublishSubject.create(), payTicketUseCase,
         saveQueueIdToClipboard, getApplicationInfoUseCase, getTicketPriceUseCase,
-        getUserBalanceUseCase
+        getUserBalanceUseCase, sendUserToTopUpFlowUseCase
     )
   }
 
@@ -188,6 +189,12 @@ class SkillsModule {
   fun providesGetUserBalanceUseCase(
       externalSkillsPaymentProvider: ExternalSkillsPaymentProvider): GetUserBalanceUseCase {
     return GetUserBalanceUseCase(externalSkillsPaymentProvider)
+  }
+
+  @Provides
+  fun providesSendUserToTopUpFlowUseCase(
+      externalSkillsPaymentProvider: ExternalSkillsPaymentProvider): SendUserToTopUpFlowUseCase {
+    return SendUserToTopUpFlowUseCase(externalSkillsPaymentProvider)
   }
 
   companion object {
