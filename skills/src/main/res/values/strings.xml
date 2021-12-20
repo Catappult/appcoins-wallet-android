@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
+
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>
   <string name="finding_room_loading_title">Waiting for opponents</string>
@@ -8,6 +10,7 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
+  <string name="buy_button">Buy</string>
   <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
@@ -18,4 +21,13 @@
 
   <string name="location_not_available_title">e-Skills games are not available in your location</string>
   <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
+
+  <string name="e_skills_room_create_title">Create or join a room</string>
+  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="e_skills_room_field">Your room name here…</string>
+  <string name="e_skills_payment_title">Payment with</string>
+  <string name="e_skills_payment_body">AppCoins Credits</string>
+  <string name="copied_to_clipboard">Copied to the clipboard</string>
+
+  <string name="purchase_eskills_sku">Entry ticket</string>
 </resources>

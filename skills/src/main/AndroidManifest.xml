@@ -7,7 +7,6 @@
         android:name="cm.aptoide.skills.SkillsActivity"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow.Eskills"
-        android:screenOrientation="locked"
         android:label="">
 
       <intent-filter>

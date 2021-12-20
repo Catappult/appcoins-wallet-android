@@ -3,7 +3,6 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import cm.aptoide.skills.repository.RoomNameRepository
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
@@ -521,11 +520,4 @@ class RepositoryModule {
     return BackupSuccessLogRepository(api, rxSchedulers)
 
   }
-
-  @Singleton
-  @Provides
-  fun provideRoomNameRepository(sharedPreferences: SharedPreferences): RoomNameRepository {
-    return RoomNameRepository(sharedPreferences)
-  }
-
 }

@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import androidx.annotation.StringRes
-import cm.aptoide.skills.repository.RoomNameRepository
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.State
@@ -17,7 +16,6 @@ import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.Parameters
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Completable
@@ -45,8 +43,7 @@ class PaymentMethodsPresenter(
     private val logger: Logger,
     private val interactor: PaymentMethodsInteractor,
     private val paymentMethodsData: PaymentMethodsData,
-    private val taskTimer: TaskTimer,
-    private val roomNameRepository: RoomNameRepository
+    private val taskTimer: TaskTimer
 ) {
 
   private var cachedGamificationLevel = 0
@@ -121,9 +118,6 @@ class PaymentMethodsPresenter(
             APPC_CREDITS -> {
               view.showProgressBarLoading()
               handleWalletBlockStatus(selectedPaymentMethod)
-              if (transaction.type == Parameters.ESKILLS) {
-                roomNameRepository.saveRoomName(view.getSkillsRoomName())
-              }
             }
             MERGED_APPC -> view.showMergedAppcoins(
                 cachedGamificationLevel,
@@ -595,14 +589,10 @@ class PaymentMethodsPresenter(
           .filter { it.id == paymentMethodsMapper.map(APPC) }
           .toMutableList()
     }
-    if (transaction.type == Parameters.ESKILLS) {
-      view.showSkillsPayment(paymentList[0], symbol, fiatAmount, appcAmount)
-    } else {
-      view.showPaymentMethods(
-          paymentList, symbol, paymentMethodId, fiatAmount, appcAmount,
-          appcEnabled, creditsEnabled, frequency, paymentMethodsData.subscription
-      )
-    }
+    view.showPaymentMethods(
+        paymentList, symbol, paymentMethodId, fiatAmount, appcAmount,
+        appcEnabled, creditsEnabled, frequency, paymentMethodsData.subscription
+    )
     sendPaymentMethodsEvents()
   }
 

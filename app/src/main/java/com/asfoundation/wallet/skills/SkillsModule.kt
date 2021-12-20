@@ -1,17 +1,26 @@
 package com.asfoundation.wallet.skills
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import cm.aptoide.skills.BuildConfig
 import cm.aptoide.skills.SkillsViewModel
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.interfaces.EwtObtainer
+import cm.aptoide.skills.interfaces.ExternalSkillsPaymentProvider
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.repository.*
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsUriParser
+import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.asfoundation.wallet.repository.CurrencyConversionService
+import com.asfoundation.wallet.ui.iab.RewardsManager
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -36,15 +45,18 @@ class SkillsModule {
   fun providesSkillsViewModel(
       walletObtainer: WalletAddressObtainer,
       joinQueueUseCase: JoinQueueUseCase,
-      payTicketUseCase: SkillsNavigator,
+      payTicketUseCase: PayTicketUseCase,
       getTicketUseCase: GetTicketUseCase,
       loginUseCase: LoginUseCase,
-      cancelUseCase: CancelTicketUseCase
+      cancelUseCase: CancelTicketUseCase,
+      saveQueueIdToClipboard: SaveQueueIdToClipboard,
+      getApplicationInfoUseCase: GetApplicationInfoUseCase,
+      getTicketPriceUseCase: GetTicketPriceUseCase
   ): SkillsViewModel {
     return SkillsViewModel(
-        walletObtainer, joinQueueUseCase, payTicketUseCase, getTicketUseCase,
-        GET_ROOM_RETRY_MILLIS,
-        loginUseCase, cancelUseCase, PublishSubject.create()
+        walletObtainer, joinQueueUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS,
+        loginUseCase, cancelUseCase, PublishSubject.create(), payTicketUseCase,
+        saveQueueIdToClipboard, getApplicationInfoUseCase, getTicketPriceUseCase
     )
   }
 
@@ -84,11 +96,6 @@ class SkillsModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(RoomApi::class.java)
-  }
-
-  @Provides
-  fun providesPayTicketUseCase(): SkillsNavigator {
-    return SkillsNavigator()
   }
 
   @Provides
@@ -134,6 +141,45 @@ class SkillsModule {
   @Provides
   fun providesEWTObtainer(ewtAuthenticatorService: EwtAuthenticatorService): EwtObtainer {
     return DefaultEwtObtainer(ewtAuthenticatorService)
+  }
+
+  @Provides
+  fun providesPayTicketUseCase(
+      externalSkillsPaymentProvider: ExternalSkillsPaymentProvider): PayTicketUseCase {
+    return PayTicketUseCase(externalSkillsPaymentProvider)
+  }
+
+  @Provides
+  fun providesCreditsSkillsPayment(
+      currencyConversionService: CurrencyConversionService,
+      currencyFormatUtils: CurrencyFormatUtils,
+      rewardsManager: RewardsManager,
+      billing: Billing,
+      rxSchedulers: RxSchedulers
+  ): ExternalSkillsPaymentProvider {
+    return SkillsPaymentRepository(currencyConversionService, currencyFormatUtils,
+        AppCoinsCreditsPayment(rewardsManager, billing), rxSchedulers)
+  }
+
+  @Provides
+  fun providesClipboardManager(context: Context): ClipboardManager {
+    return context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+  }
+
+  @Provides
+  fun providesSaveQueueIdToClipboard(clipboardManager: ClipboardManager): SaveQueueIdToClipboard {
+    return SaveQueueIdToClipboard(clipboardManager)
+  }
+
+  @Provides
+  fun providesGetApplicationUseCase(packageManager: PackageManager): GetApplicationInfoUseCase {
+    return GetApplicationInfoUseCase(LocalApplicationsRepository(packageManager))
+  }
+
+  @Provides
+  fun providesGetTicketPriceUseCase(
+      externalSkillsPaymentProvider: ExternalSkillsPaymentProvider): GetTicketPriceUseCase {
+    return GetTicketPriceUseCase(externalSkillsPaymentProvider)
   }
 
   companion object {

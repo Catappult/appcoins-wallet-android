@@ -27,7 +27,7 @@ class TicketRepository(
           eskillsPaymentData.packageName, eskillsPaymentData.userId, eskillsPaymentData.userName,
           walletAddress, eskillsPaymentData.metadata, eskillsPaymentData.environment,
           eskillsPaymentData.numberOfUsers, eskillsPaymentData.price, eskillsPaymentData.currency,
-          eskillsPaymentData.product, eskillsPaymentData.timeout
+          eskillsPaymentData.product, eskillsPaymentData.timeout, eskillsPaymentData.queueId
       )
 
   fun getTicket(ewt: String, ticketId: String): Single<Ticket> {

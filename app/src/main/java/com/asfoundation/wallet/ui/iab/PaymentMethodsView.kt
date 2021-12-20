@@ -114,11 +114,6 @@ interface PaymentMethodsView {
 
   fun showTopupFlow()
 
-  fun showSkillsPayment(paymentMethod: PaymentMethod, currency: String, fiatAmount: String,
-                        appcAmount: String)
-
-  fun getSkillsRoomName(): String
-
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
     CARRIER_BILLING, ERROR

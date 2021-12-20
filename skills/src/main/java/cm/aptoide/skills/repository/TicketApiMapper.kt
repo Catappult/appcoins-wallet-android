@@ -14,11 +14,12 @@ class TicketApiMapper(private val jsonMapper: Gson) {
   fun map(ticketResponse: TicketResponse): Ticket {
     return when (ticketResponse.ticketStatus) {
       TicketStatus.COMPLETED -> PurchasedTicket(ticketResponse.ticketId,
-          ticketResponse.walletAddress, ticketResponse.userId, ticketResponse.roomId!!)
+          ticketResponse.walletAddress, ticketResponse.userId, ticketResponse.roomId!!,
+          ticketResponse.queueId)
       else -> CreatedTicket(ticketResponse.ticketId,
           ProcessingStatus.fromTicketStatus(ticketResponse.ticketStatus),
           ticketResponse.walletAddress, ticketResponse.callbackUrl, ticketResponse.ticketPrice,
-          ticketResponse.priceCurrency, ticketResponse.productToken)
+          ticketResponse.priceCurrency, ticketResponse.productToken, ticketResponse.queueId)
     }
   }
 

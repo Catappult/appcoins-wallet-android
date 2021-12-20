@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/create_room_title"
-            style="@style/DialogTitleStyle"
+            style="@style/DialogTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -53,13 +53,11 @@
             android:layout_width="42dp"
             android:layout_height="48dp"
             android:layout_marginEnd="6dp"
-            android:rotation="180"
             android:scaleType="fitCenter"
-            android:src="@drawable/arrow_rotated"
+            android:src="@drawable/arrow_drop_down"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/black"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -68,6 +66,7 @@
           android:id="@+id/room_create_body"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +102,7 @@
 
           <EditText
               android:id="@+id/room_id"
-              style="@style/eSkills.Withdraw.TextInputEditText"
+              style="@style/eSkills.Payment.TextInputEditText"
               android:layout_width="0dp"
               android:layout_height="48dp"
               android:background="@null"
@@ -126,8 +125,6 @@
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@id/room_id"
               app:layout_constraintTop_toTopOf="parent"
-              app:tint="@color/black"
-
               />
         </androidx.constraintlayout.widget.ConstraintLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>

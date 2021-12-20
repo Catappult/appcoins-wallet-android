@@ -67,6 +67,8 @@ dependencies {
   implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
 
   implementation "com.airbnb.android:lottie:$project.lottie_version"
+  implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
+  implementation "org.web3j:core:$project.web3j_version"
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"

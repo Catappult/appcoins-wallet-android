@@ -1,6 +1,5 @@
 package cm.aptoide.skills
 
-import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.*
@@ -9,18 +8,22 @@ import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 
 class SkillsViewModel(
     private val walletAddressObtainer: WalletAddressObtainer,
     private val joinQueueUseCase: JoinQueueUseCase,
-    private val navigator: SkillsNavigator,
     private val getTicketUseCase: GetTicketUseCase,
     private val getTicketRetryMillis: Long,
     private val loginUseCase: LoginUseCase,
     private val cancelTicketUseCase: CancelTicketUseCase,
-    private val closeView: PublishSubject<Pair<Int, UserData>>) {
+    private val closeView: PublishSubject<Pair<Int, UserData>>,
+    private val payTicketUseCase: PayTicketUseCase,
+    private val saveQueueIdToClipboard: SaveQueueIdToClipboard,
+    private val getApplicationInfoUseCase: GetApplicationInfoUseCase,
+    private val getTicketPriceUseCase: GetTicketPriceUseCase) {
 
   lateinit var ticketId: String
 
@@ -43,14 +46,14 @@ class SkillsViewModel(
   }
 
   fun getRoom(
-      eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket, fragment: Fragment
+      eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket
   ): Observable<UserData> {
     return Single.just(ticket)
         .flatMap {
           if (ticket.processingStatus == ProcessingStatus.IN_QUEUE) {
             Single.just(it)
           } else {
-            navigator.navigateToPayTicket(ticket, eskillsPaymentData, fragment)
+            payTicketUseCase.pay(ticket, eskillsPaymentData)
           }
         }
         .flatMapObservable {
@@ -72,7 +75,7 @@ class SkillsViewModel(
               UserData.fromStatus(UserData.Status.REFUNDED)
           )
           ProcessingStatus.IN_QUEUE, ProcessingStatus.REFUNDING -> Observable.just(
-              UserData.fromStatus(UserData.Status.IN_QUEUE)
+              UserData.fromStatus(UserData.Status.IN_QUEUE, ticket.queueId)
           )
         }
       }
@@ -81,7 +84,7 @@ class SkillsViewModel(
             .map { session ->
               return@map UserData(
                   ticket.userId, ticket.roomId, ticket.walletAddress, session,
-                  UserData.Status.COMPLETED
+                  UserData.Status.COMPLETED, ticket.queueId
               )
             }
             .toObservable()
@@ -117,5 +120,21 @@ class SkillsViewModel(
 
   fun closeView(): Observable<Pair<Int, UserData>> {
     return closeView
+  }
+
+  fun saveQueueIdToClipboard(queueId: String) {
+    saveQueueIdToClipboard.save(queueId)
+  }
+
+  fun getApplicationInfo(packageName: String): ApplicationInfo {
+    return getApplicationInfoUseCase.getInfo(packageName)
+  }
+
+  fun getLocalFiatAmount(value: BigDecimal, currency: String): Single<Price> {
+    return getTicketPriceUseCase.getLocalPrice(value, currency)
+  }
+
+  fun getFiatToAppcAmount(value: BigDecimal, currency: String): Single<String> {
+    return getTicketPriceUseCase.getAppcPrice(value, currency)
   }
 }

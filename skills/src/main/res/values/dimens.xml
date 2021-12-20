@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="big_padding">16dp</dimen>
+    <dimen name="big_margin">16dp</dimen>
+    <dimen name="button_height">36dp</dimen>
+    <dimen name="payment_methods_width">340dp</dimen>
 </resources>

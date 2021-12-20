@@ -1,6 +1,5 @@
 package cm.aptoide.skills.model
 
-import java.lang.RuntimeException
 import java.math.BigDecimal
 
 sealed class Ticket
@@ -12,7 +11,8 @@ data class CreatedTicket(
     val callbackUrl: String,
     val ticketPrice: BigDecimal,
     val priceCurrency: String,
-    val productToken: String
+    val productToken: String,
+    val queueId: String? = null
 ) : Ticket()
 
 enum class ProcessingStatus {
@@ -43,5 +43,6 @@ data class PurchasedTicket(
     val ticketId: String,
     val walletAddress: String,
     val userId: String,
-    val roomId: String
+    val roomId: String,
+    val queueId: String? = null
 ) : Ticket()

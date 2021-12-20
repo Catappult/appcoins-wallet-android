@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -14,7 +12,6 @@ import android.widget.ImageView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import cm.aptoide.skills.repository.RoomNameRepository
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
@@ -39,7 +36,6 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.iab_error_layout.view.*
-import kotlinx.android.synthetic.main.pay_ticket_layout.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.payment_methods_layout.*
 import kotlinx.android.synthetic.main.payment_methods_layout.error_message
@@ -59,7 +55,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
     private const val IS_DONATION = "is_donation"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
-    private const val SKILLS_ROOM_NAME = "skills_room_name"
 
     @JvmStatic
     fun newInstance(
@@ -104,9 +99,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
   @Inject
   lateinit var paymentMethodsInteractor: PaymentMethodsInteractor
 
-  @Inject
-  lateinit var roomNameRepository: RoomNameRepository
-
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
   private lateinit var compositeDisposable: CompositeDisposable
@@ -143,7 +135,7 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
         this, AndroidSchedulers.mainThread(),
         Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
         paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData,
-        taskTimer, roomNameRepository
+        taskTimer
     )
   }
 
@@ -153,55 +145,6 @@ class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
 
   override fun showTopupFlow() {
     iabView.showTopupFlow()
-  }
-
-  override fun getSkillsRoomName(): String {
-    return room_id.text.toString()
-  }
-
-  override fun showSkillsPayment(paymentMethod: PaymentMethod, currency: String,
-                                 fiatAmount: String, appcAmount: String) {
-    updateHeaderInfo(currency, fiatAmount, appcAmount, null, false)
-    setupSkillsPaymentMethod(paymentMethod)
-
-    setupSubject!!.onNext(true)
-  }
-
-  private fun setupSkillsPaymentMethod(paymentMethod: PaymentMethod) {
-    buy_button.tag = !paymentMethod.showTopup
-
-    mid_separator?.visibility = View.INVISIBLE
-    skills_payment_method_header.visibility = View.VISIBLE
-    payment_method_description_single.visibility = View.GONE
-    layout_pay_ticket.visibility = View.VISIBLE
-    open_card_button.setOnClickListener {
-      if (room_create_body.visibility == View.GONE) {
-        open_card_button.rotation = 0F
-        room_create_body.visibility = View.VISIBLE
-      } else {
-        open_card_button.rotation = 180F
-        room_create_body.visibility = View.GONE
-      }
-    }
-
-    copy_button.setOnClickListener {
-      saveRoomNameToClipboard(room_id.text.toString())
-    }
-
-    hideBonus()
-    // on hideBonus, we are still leaving that white space. in order to
-    // be more lookalike with design and to prevent introducing any
-    // unexpected behaviour I've decided to also add GONE here
-    bonus_view.visibility = View.GONE
-    setupFee(paymentMethod.fee)
-    loadIcons(paymentMethod, payment_method_ic)
-  }
-
-  private fun saveRoomNameToClipboard(roomName: String) {
-    val clipboard =
-        requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-    val clip = ClipData.newPlainText(SKILLS_ROOM_NAME, roomName)
-    clipboard?.setPrimaryClip(clip)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

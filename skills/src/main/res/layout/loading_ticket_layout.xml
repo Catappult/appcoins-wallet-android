@@ -9,7 +9,7 @@
       android:id="@+id/processing_loading"
       android:layout_width="340dp"
       android:layout_height="wrap_content"
-      android:background="@drawable/background_card"
+      android:background="@drawable/background_card_bottom_rounded"
       android:orientation="vertical"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
