@@ -10,7 +10,7 @@ interface BackupCreationView {
 
   fun getFirstSaveClick(): Observable<Any>
 
-  fun getSaveAgainClick(): Observable<Any>
+  fun getSaveOnDeviceButton(): Observable<Any>
 
   fun getFinishClick(): Observable<Any>
 

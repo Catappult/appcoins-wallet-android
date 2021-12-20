@@ -214,6 +214,7 @@
   <color name="blue_dark">#001728</color>
   <color name="white_transparent_4">#0AFFFFFF</color>
   <color name="white_transparent_10">#1AFFFFFF</color>
-  <color name="grey_medium">#5F6E78</color>
+  <color name="grey_blue_medium">#5F6E78</color>
+  <color name="grey_medium_2">#707070</color>
   <color name="red_light">#E44B46</color>
 </resources>

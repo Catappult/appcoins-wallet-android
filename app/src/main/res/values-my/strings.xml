@@ -624,8 +624,8 @@
   <string name="backup_done_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ လံုၿခံဳေသာေနရာတြင္ ရွိေနေၾကာင္း ေသခ်ာပါသလား။</string>
   <string name="backup_confirmation_no_share_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_confirmation_no_share_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ သင့္ Downloads ဖိုလ္ဒါတြင္ ရွိပါသည္။</string>
-  <string name="backup_save_dialogue_title">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
-  <string name="backup_save_dialogue_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
+  <string name="backup_save_dialogue_title_deprecated">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
+  <string name="backup_save_dialogue_body_deprecated">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
   <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
   <string name="backup_confirmation_tips_1">ယင္းကို ပရင့္ထုတ္ကာ တေနရာရာတြင္ လံုျခံဳေအာင္ သိမ္းထားပါ။</string>
   <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္တစ္ခုေပၚတြင္ သိမ္းဆည္းပါ။</string>

@@ -624,8 +624,8 @@
   <string name="backup_done_body">Ești sigur că fișierul copiei de rezervă este într-un loc sigur?</string>
   <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
   <string name="backup_confirmation_no_share_body">Fișierul tău de rezervă este în folder-ul tău de Descărcări.</string>
-  <string name="backup_save_dialogue_title">Salvează fișier de rezervă</string>
-  <string name="backup_save_dialogue_body">Alege un nume pentru fișierul de rezervă.</string>
+  <string name="backup_save_dialogue_title_deprecated">Salvează fișier de rezervă</string>
+  <string name="backup_save_dialogue_body_deprecated">Alege un nume pentru fișierul de rezervă.</string>
   <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
   <string name="backup_confirmation_tips_1">Scoate-l la imprimantă și păstrează-l în siguranță.</string>
   <string name="backup_confirmation_tips_2">Salvează-l pe un drive USB.</string>

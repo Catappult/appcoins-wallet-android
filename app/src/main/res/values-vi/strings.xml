@@ -624,8 +624,8 @@
   <string name="backup_done_body">Bạn có chắc rằng tập tin sao lưu của bạn đang ở chỗ an toàn không?</string>
   <string name="backup_confirmation_no_share_title">Sao lưu hoàn tất!</string>
   <string name="backup_confirmation_no_share_body">Tập tin sao lưu của bạn nằm trong thư mục Downloads của bạn.</string>
-  <string name="backup_save_dialogue_title">Lưu tập tin sao lưu</string>
-  <string name="backup_save_dialogue_body">Chọn tên cho tập tin sao lưu của bạn.</string>
+  <string name="backup_save_dialogue_title_deprecated">Lưu tập tin sao lưu</string>
+  <string name="backup_save_dialogue_body_deprecated">Chọn tên cho tập tin sao lưu của bạn.</string>
   <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
   <string name="backup_confirmation_tips_1">In và lưu nó ở một nơi an toàn.</string>
   <string name="backup_confirmation_tips_2">Lưu nó vào ổ USB.</string>

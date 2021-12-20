@@ -624,8 +624,8 @@
   <string name="backup_done_body">Biztos vagy benne, hogy a biztonsági mentés biztonságos helyen van?</string>
   <string name="backup_confirmation_no_share_title">Kész a biztonsági mentés!</string>
   <string name="backup_confirmation_no_share_body">A biztonsági mentés a Letöltések mappában van.</string>
-  <string name="backup_save_dialogue_title">Biztonságimásolat-fájl mentése</string>
-  <string name="backup_save_dialogue_body">Add meg a biztonságimásolat-fájl nevét.</string>
+  <string name="backup_save_dialogue_title_deprecated">Biztonságimásolat-fájl mentése</string>
+  <string name="backup_save_dialogue_body_deprecated">Add meg a biztonságimásolat-fájl nevét.</string>
   <string name="backup_confirmation_tips_title">Tartsd biztonságban a fájlt:</string>
   <string name="backup_confirmation_tips_1">Nyomtasd ki és tárold biztonságos helyen.</string>
   <string name="backup_confirmation_tips_2">Mentsd egy USB meghajtóra.</string>

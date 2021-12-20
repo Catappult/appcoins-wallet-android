@@ -624,8 +624,8 @@
   <string name="backup_done_body">Hai controllato che il file di backup sia al sicuro?</string>
   <string name="backup_confirmation_no_share_title">Backup completato!</string>
   <string name="backup_confirmation_no_share_body">Il tuo file di backup è nella cartella dei Download.</string>
-  <string name="backup_save_dialogue_title">Salva file di backup</string>
-  <string name="backup_save_dialogue_body">Scegli un nome per il tuo file di backup.</string>
+  <string name="backup_save_dialogue_title_deprecated">Salva file di backup</string>
+  <string name="backup_save_dialogue_body_deprecated">Scegli un nome per il tuo file di backup.</string>
   <string name="backup_confirmation_tips_title">Tieni il file al sicuro:</string>
   <string name="backup_confirmation_tips_1">Stampalo e conservalo in un luogo sicuro.</string>
   <string name="backup_confirmation_tips_2">Salvalo su una chiavetta USB.</string>

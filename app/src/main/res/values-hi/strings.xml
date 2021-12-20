@@ -624,8 +624,8 @@
   <string name="backup_done_body">क्या आपकी बैकअप फाइल सुरक्षित जगह पर है?</string>
   <string name="backup_confirmation_no_share_title">बैकअप पूर्ण!</string>
   <string name="backup_confirmation_no_share_body">आपकी बैकअप फाइल आपके डाउनलोड फोल्डर में है।</string>
-  <string name="backup_save_dialogue_title">बैकअप फाइल सहेजें</string>
-  <string name="backup_save_dialogue_body">अपनी बैकअप फाइल के लिए एक नाम चुनें।</string>
+  <string name="backup_save_dialogue_title_deprecated">बैकअप फाइल सहेजें</string>
+  <string name="backup_save_dialogue_body_deprecated">अपनी बैकअप फाइल के लिए एक नाम चुनें।</string>
   <string name="backup_confirmation_tips_title">फाइल को सुरक्षित रखें:</string>
   <string name="backup_confirmation_tips_1">इसे प्रिंट करें और कहीं सुरक्षित रखें।</string>
   <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>

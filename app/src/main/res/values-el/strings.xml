@@ -624,8 +624,8 @@
   <string name="backup_done_body">Είστε σίγουροι ότι το αρχείο αντιγράφου ασφαλείας είναι σε ασφαλές μέρος;</string>
   <string name="backup_confirmation_no_share_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
   <string name="backup_confirmation_no_share_body">Το αρχείο αντιγράφου ασφαλείας βρίσκεται στον φάκελο Λήψεις.</string>
-  <string name="backup_save_dialogue_title">Αποθήκευση αρχείου αντιγράφου ασφαλείας</string>
-  <string name="backup_save_dialogue_body">Επιλέξτε ένα όνομα για το αρχείο αντιγράφου ασφαλείας.</string>
+  <string name="backup_save_dialogue_title_deprecated">Αποθήκευση αρχείου αντιγράφου ασφαλείας</string>
+  <string name="backup_save_dialogue_body_deprecated">Επιλέξτε ένα όνομα για το αρχείο αντιγράφου ασφαλείας.</string>
   <string name="backup_confirmation_tips_title">Διατηρήστε το αρχείο ασφαλές:</string>
   <string name="backup_confirmation_tips_1">Εκτυπώστε το και αποθηκεύστε το σε ασφαλές μέρος.</string>
   <string name="backup_confirmation_tips_2">Αποθήκευση σε μονάδα USB.</string>

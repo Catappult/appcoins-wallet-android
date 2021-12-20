@@ -624,8 +624,8 @@
   <string name="backup_done_body">백업 파일이 안전한 곳이라고 확신하시나요?</string>
   <string name="backup_confirmation_no_share_title">백업 완료!</string>
   <string name="backup_confirmation_no_share_body">백업 파일이 다운로드 폴더 내에 있습니다.</string>
-  <string name="backup_save_dialogue_title">백업 파일 저장</string>
-  <string name="backup_save_dialogue_body">백업 파일 이름을 선택하세요.</string>
+  <string name="backup_save_dialogue_title_deprecated">백업 파일 저장</string>
+  <string name="backup_save_dialogue_body_deprecated">백업 파일 이름을 선택하세요.</string>
   <string name="backup_confirmation_tips_title">파일을 안전하게 보관하세요:</string>
   <string name="backup_confirmation_tips_1">출력하고 다른 안전한 곳에 보관하세요.</string>
   <string name="backup_confirmation_tips_2">USB 드라이브에 저장하세요.</string>

@@ -624,8 +624,8 @@
   <string name="backup_done_body">Jesteś pewien, że kopia jest w bezpiecznym miejscu?</string>
   <string name="backup_confirmation_no_share_title">Kopia utworzona!</string>
   <string name="backup_confirmation_no_share_body">Twoja kopia znajduje się w folderze Pobrane.</string>
-  <string name="backup_save_dialogue_title">Zapisz kopię zapasową</string>
-  <string name="backup_save_dialogue_body">Nazwij plik z kopią zapasową.</string>
+  <string name="backup_save_dialogue_title_deprecated">Zapisz kopię zapasową</string>
+  <string name="backup_save_dialogue_body_deprecated">Nazwij plik z kopią zapasową.</string>
   <string name="backup_confirmation_tips_title">Dbaj o bezpieczeństwo pliku:</string>
   <string name="backup_confirmation_tips_1">Wydrukuj go i przechowuj w bezpiecznym miejscu.</string>
   <string name="backup_confirmation_tips_2">Zapisz go na pendrivie.</string>

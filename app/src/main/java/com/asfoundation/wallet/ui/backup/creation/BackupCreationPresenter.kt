@@ -149,7 +149,7 @@ class BackupCreationPresenter(private val view: BackupCreationView,
   }
 
   private fun handleSaveAgainClick() {
-    disposables.add(view.getSaveAgainClick()
+    disposables.add(view.getSaveOnDeviceButton()
         .doOnNext { view.askForWritePermissions() }
         .doOnNext {
           walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_SAVE)

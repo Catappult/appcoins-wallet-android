@@ -624,8 +624,8 @@
   <string name="backup_done_body">Da li ste sigurni da je vaša datoteka sa rezervnom kopijom na sigurnom mestu?</string>
   <string name="backup_confirmation_no_share_title">Rezervna kopija je napravljena!</string>
   <string name="backup_confirmation_no_share_body">Datoteka sa rezervnom kopijom se nalazi u fascikli Preuzimanja.</string>
-  <string name="backup_save_dialogue_title">Sačuvaj datoteku sa rezervnom kopijom</string>
-  <string name="backup_save_dialogue_body">Izaberite naziv za datoteku sa rezervnom kopijom.</string>
+  <string name="backup_save_dialogue_title_deprecated">Sačuvaj datoteku sa rezervnom kopijom</string>
+  <string name="backup_save_dialogue_body_deprecated">Izaberite naziv za datoteku sa rezervnom kopijom.</string>
   <string name="backup_confirmation_tips_title">Čuvajte datoteku na sigurnom:</string>
   <string name="backup_confirmation_tips_1">Odštampajte je i čuvajte je na bezbednom mestu.</string>
   <string name="backup_confirmation_tips_2">Sačuvajte je na USB disku.</string>

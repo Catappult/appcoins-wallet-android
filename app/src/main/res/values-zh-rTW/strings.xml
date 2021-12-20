@@ -624,8 +624,8 @@
   <string name="backup_done_body">確認備份資料儲存在安全的地方了嗎？</string>
   <string name="backup_confirmation_no_share_title">備份完成！</string>
   <string name="backup_confirmation_no_share_body">備份資料位於「下載」資料夾中。</string>
-  <string name="backup_save_dialogue_title">儲存備份檔案</string>
-  <string name="backup_save_dialogue_body">輸入備份資料的名稱。</string>
+  <string name="backup_save_dialogue_title_deprecated">儲存備份檔案</string>
+  <string name="backup_save_dialogue_body_deprecated">輸入備份資料的名稱。</string>
   <string name="backup_confirmation_tips_title">確保資料安全：</string>
   <string name="backup_confirmation_tips_1">列印並將其儲存在安全的地方。</string>
   <string name="backup_confirmation_tips_2">將其儲存在隨身碟。</string>

@@ -624,8 +624,8 @@
   <string name="backup_done_body">آیا مطمئن هستید که فایل بک‌آپ شما در جای امنی قرار دارد؟</string>
   <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_confirmation_no_share_body">بک‌آپ شما در پوشه دانلودهای شماست.</string>
-  <string name="backup_save_dialogue_title">ذخیره فایل بک‌آپ</string>
-  <string name="backup_save_dialogue_body">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
+  <string name="backup_save_dialogue_title_deprecated">ذخیره فایل بک‌آپ</string>
+  <string name="backup_save_dialogue_body_deprecated">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
   <string name="backup_confirmation_tips_1">آن را پرینت و در جای امنی نگه‌داری کنید.</string>
   <string name="backup_confirmation_tips_2">آن را روی یک USB ذخیره کنید.</string>

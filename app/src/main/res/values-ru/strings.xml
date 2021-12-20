@@ -624,8 +624,8 @@
   <string name="backup_done_body">Вы уверены, что ваш файл с резервной копией в безопасном месте?</string>
   <string name="backup_confirmation_no_share_title">Резервное копирование сделано!</string>
   <string name="backup_confirmation_no_share_body">Ваша резервная копия в директории \"Загрузки\".</string>
-  <string name="backup_save_dialogue_title">Сохранить резервную копию</string>
-  <string name="backup_save_dialogue_body">Введите имя для файла резервной копии.</string>
+  <string name="backup_save_dialogue_title_deprecated">Сохранить резервную копию</string>
+  <string name="backup_save_dialogue_body_deprecated">Введите имя для файла резервной копии.</string>
   <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
   <string name="backup_confirmation_tips_1">Распечатайте и храните в безопасном месте.</string>
   <string name="backup_confirmation_tips_2">Сохраните на диск USB.</string>

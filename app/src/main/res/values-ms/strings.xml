@@ -624,8 +624,8 @@
   <string name="backup_done_body">Anda pasti fail sandaran anda di tempat selamat?</string>
   <string name="backup_confirmation_no_share_title">Sandaran selesai!</string>
   <string name="backup_confirmation_no_share_body">Fail sandaran anda di dalam folder Muat Turun.</string>
-  <string name="backup_save_dialogue_title">Simpan fail sandaran</string>
-  <string name="backup_save_dialogue_body">Pilih nama untuk fail sandaran anda.</string>
+  <string name="backup_save_dialogue_title_deprecated">Simpan fail sandaran</string>
+  <string name="backup_save_dialogue_body_deprecated">Pilih nama untuk fail sandaran anda.</string>
   <string name="backup_confirmation_tips_title">Pastikan fail selamat:</string>
   <string name="backup_confirmation_tips_1">Cetak ia dan simpan ia di tempat yang selamat.</string>
   <string name="backup_confirmation_tips_2">Simpan di dalam pemacu USB.</string>

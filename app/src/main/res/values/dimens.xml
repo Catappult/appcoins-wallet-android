@@ -105,5 +105,6 @@
 
   <!-- Backup 2.0 -->
   <dimen name="round_corner">6dp</dimen>
+  <dimen name="round_corner_big">32dp</dimen>
 
 </resources>

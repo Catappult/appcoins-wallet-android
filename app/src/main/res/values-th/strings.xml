@@ -626,8 +626,8 @@
   <string name="backup_done_body">คุณแน่ใจหรือว่าไฟล์สำรองของคุณอยู่ในที่ปลอดภัย?</string>
   <string name="backup_confirmation_no_share_title">สำรองสำเร็จ!</string>
   <string name="backup_confirmation_no_share_body">ไฟล์สำรองของคุณอยู่ในโฟลเดอร์การดาวโหลด</string>
-  <string name="backup_save_dialogue_title">บันทึกไฟล์สำรอง</string>
-  <string name="backup_save_dialogue_body">เลือกชื่อสำหรับไฟล์สำรองของคุณ</string>
+  <string name="backup_save_dialogue_title_deprecated">บันทึกไฟล์สำรอง</string>
+  <string name="backup_save_dialogue_body_deprecated">เลือกชื่อสำหรับไฟล์สำรองของคุณ</string>
   <string name="backup_confirmation_tips_title">เก็บไฟล์ให้ปลอดภัย:</string>
   <string name="backup_confirmation_tips_1">ปรินท์และจัดเก็บในที่ปลอดภัย</string>
   <string name="backup_confirmation_tips_2">บันทึกลงในไดรฟ์ USB</string>

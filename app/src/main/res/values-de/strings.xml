@@ -624,8 +624,8 @@
   <string name="backup_done_body">Sind Sie sich sicher, dass die Backup-Datei sich an einem sicheren Ort befindet?</string>
   <string name="backup_confirmation_no_share_title">Backup erledigt!</string>
   <string name="backup_confirmation_no_share_body">Die Backup-Datei befindet sich im Download-Ordner.</string>
-  <string name="backup_save_dialogue_title">Backup-Datei speichern</string>
-  <string name="backup_save_dialogue_body">Einen Namen für die Backup-Datei auswählen.</string>
+  <string name="backup_save_dialogue_title_deprecated">Backup-Datei speichern</string>
+  <string name="backup_save_dialogue_body_deprecated">Einen Namen für die Backup-Datei auswählen.</string>
   <string name="backup_confirmation_tips_title">Datei sichern:</string>
   <string name="backup_confirmation_tips_1">Ausdrucken und an einem sicheren Ort aufbewahren.</string>
   <string name="backup_confirmation_tips_2">Auf einem USB-Stick sichern.</string>

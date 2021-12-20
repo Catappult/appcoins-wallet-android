@@ -624,8 +624,8 @@
   <string name="backup_done_body">Yedekleme dosyanızın güvenli bir yerde olduğundan emin misiniz?</string>
   <string name="backup_confirmation_no_share_title">Yedekleme tamamlandı!</string>
   <string name="backup_confirmation_no_share_body">Yedekleme dosyanız İndirilenler klasöründe.</string>
-  <string name="backup_save_dialogue_title">Yedekleme dosyasını kaydet</string>
-  <string name="backup_save_dialogue_body">Yedekleme dosyanızı adlandırın.</string>
+  <string name="backup_save_dialogue_title_deprecated">Yedekleme dosyasını kaydet</string>
+  <string name="backup_save_dialogue_body_deprecated">Yedekleme dosyanızı adlandırın.</string>
   <string name="backup_confirmation_tips_title">Dosyayı güvende tutun:</string>
   <string name="backup_confirmation_tips_1">Yazdırın ve güvenli bir yerde saklayın.</string>
   <string name="backup_confirmation_tips_2">USB sürücüsüne kaydedin.</string>

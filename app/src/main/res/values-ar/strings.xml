@@ -625,8 +625,8 @@
   <string name="backup_done_body">هل أنت متأكد بأن ملف النسخ الاحتياطي في مكان آمن؟</string>
   <string name="backup_confirmation_no_share_title">تم النسخ الاحتياطي!</string>
   <string name="backup_confirmation_no_share_body">ملف النسخ الاحتياطي في مجلّد التنزيلات.</string>
-  <string name="backup_save_dialogue_title">احفظ ملفات النسخ الاحتياطي</string>
-  <string name="backup_save_dialogue_body">اختر اسمًا لملف النسخ الاحتياطي.</string>
+  <string name="backup_save_dialogue_title_deprecated">احفظ ملفات النسخ الاحتياطي</string>
+  <string name="backup_save_dialogue_body_deprecated">اختر اسمًا لملف النسخ الاحتياطي.</string>
   <string name="backup_confirmation_tips_title">احفظ الملف بأمان:</string>
   <string name="backup_confirmation_tips_1">اطبعه واحفظه في مكان آمن.</string>
   <string name="backup_confirmation_tips_2">احفظها على مشغل يو أس بي.</string>

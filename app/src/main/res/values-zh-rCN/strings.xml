@@ -624,8 +624,8 @@
   <string name="backup_done_body">你确定备份文件存放在安全的位置吗？</string>
   <string name="backup_confirmation_no_share_title">备份完成！</string>
   <string name="backup_confirmation_no_share_body">备份文件位于“下载”文件夹中。</string>
-  <string name="backup_save_dialogue_title">保存备份文件</string>
-  <string name="backup_save_dialogue_body">选择备份文件的名称。</string>
+  <string name="backup_save_dialogue_title_deprecated">保存备份文件</string>
+  <string name="backup_save_dialogue_body_deprecated">选择备份文件的名称。</string>
   <string name="backup_confirmation_tips_title">确保文件安全：</string>
   <string name="backup_confirmation_tips_1">打印并将其存储在安全的地方。</string>
   <string name="backup_confirmation_tips_2">将其保存在 USB 驱动器上。</string>

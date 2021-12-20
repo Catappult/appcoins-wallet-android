@@ -624,8 +624,8 @@
   <string name="backup_done_body">बॅकअप फाईल सुरक्षित जागी आहे ह्याची खात्री आहे ना?</string>
   <string name="backup_confirmation_no_share_title">बॅकअप झाला!</string>
   <string name="backup_confirmation_no_share_body">आपली बॅकअप फाईल आपल्या डाऊनलोडस फोल्डरमध्ये आहे.</string>
-  <string name="backup_save_dialogue_title">बॅकअप फाईल सेव्ह करा</string>
-  <string name="backup_save_dialogue_body">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
+  <string name="backup_save_dialogue_title_deprecated">बॅकअप फाईल सेव्ह करा</string>
+  <string name="backup_save_dialogue_body_deprecated">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
   <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
   <string name="backup_confirmation_tips_1">प्रिंट करुन कुठेतरी सुरक्षित राखा.</string>
   <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर सेव्ह करा.</string>

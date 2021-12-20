@@ -624,8 +624,8 @@
   <string name="backup_done_body">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਇੱਕ ਸੁਰੱਖਿਅਤ ਜਗ੍ਹਾ ਤੇ ਹੈ?</string>
   <string name="backup_confirmation_no_share_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
   <string name="backup_confirmation_no_share_body">ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਤੁਹਾਡੇ ਡਾਉਨਲੋਡ ਫੋਲਡਰ ਵਿੱਚ ਹੈ|</string>
-  <string name="backup_save_dialogue_title">ਬੈਕਅਪ ਫਾਈਲ ਨੂੰ ਸੇਵ ਕਰੋ</string>
-  <string name="backup_save_dialogue_body">ਆਪਣੀ ਬੈਕਅਪ ਫਾਈਲ ਲਈ ਇੱਕ ਨਾਮ ਚੁਣੋ|</string>
+  <string name="backup_save_dialogue_title_deprecated">ਬੈਕਅਪ ਫਾਈਲ ਨੂੰ ਸੇਵ ਕਰੋ</string>
+  <string name="backup_save_dialogue_body_deprecated">ਆਪਣੀ ਬੈਕਅਪ ਫਾਈਲ ਲਈ ਇੱਕ ਨਾਮ ਚੁਣੋ|</string>
   <string name="backup_confirmation_tips_title">ਫਾਈਲ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ:</string>
   <string name="backup_confirmation_tips_1">ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
   <string name="backup_confirmation_tips_2">ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ ਸੁਰੱਖਿਅਤ ਕਰੋ|</string>

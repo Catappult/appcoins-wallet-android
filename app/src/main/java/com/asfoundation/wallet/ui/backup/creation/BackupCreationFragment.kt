@@ -21,7 +21,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.backup_dialog.view.*
-import kotlinx.android.synthetic.main.fragment_backup_creation_layout.*
+import kotlinx.android.synthetic.main.layout_backup_creation_options.*
 import javax.inject.Inject
 
 class BackupCreationFragment : BackupCreationView, DaggerFragment() {
@@ -107,8 +107,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   override fun getFinishClick(): Observable<Any> =
       Observable.empty() // RxView.clicks(finish_button)
 
-  override fun getSaveAgainClick(): Observable<Any> =
-      Observable.empty() // RxView.clicks(save_again_button)
+  override fun getSaveOnDeviceButton(): Observable<Any> = RxView.clicks(device_button)
 
   override fun enableSaveButton() {
 //    proceed_button.isEnabled = true
@@ -128,7 +127,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
           .create()
       dialog.window?.decorView?.setBackgroundResource(R.color.transparent)
       dialogView.visibility = View.VISIBLE
-      dialogView.edit_text_name?.setText(defaultName)
+      dialogView.edit_file_name_input?.setText(defaultName)
       path?.let {
         dialogView.store_path?.text = it
         dialogView.store_path?.visibility = View.VISIBLE
@@ -153,7 +152,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun getDialogSaveClick(): Observable<String> {
     return RxView.clicks(dialogView.backup_save)
-        .map { dialogView.edit_text_name.text.toString() }
+        .map { dialogView.edit_file_name_input.text.toString() }
   }
 
   override fun closeDialog() {

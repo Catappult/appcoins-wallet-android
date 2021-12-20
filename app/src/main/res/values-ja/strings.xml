@@ -625,8 +625,8 @@
   <string name="backup_done_body">バックアップファイルが安全な場所にあることを確認していますか？</string>
   <string name="backup_confirmation_no_share_title">バックアップ完了！</string>
   <string name="backup_confirmation_no_share_body">バックアップファイルは、ダウンロードフォルダにあります。</string>
-  <string name="backup_save_dialogue_title">バックアップファイルの保存</string>
-  <string name="backup_save_dialogue_body">バックアップファイルの名前を決めてください。</string>
+  <string name="backup_save_dialogue_title_deprecated">バックアップファイルの保存</string>
+  <string name="backup_save_dialogue_body_deprecated">バックアップファイルの名前を決めてください。</string>
   <string name="backup_confirmation_tips_title">ファイルを大切に保管してください:</string>
   <string name="backup_confirmation_tips_1">印刷して、安全な場所に保管</string>
   <string name="backup_confirmation_tips_2">USBメモリに保存</string>

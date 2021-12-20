@@ -624,8 +624,8 @@
   <string name="backup_done_body">¿Estás seguro de que tu copia de seguridad está en un lugar seguro?</string>
   <string name="backup_confirmation_no_share_title">¡Copia de seguridad realizada!</string>
   <string name="backup_confirmation_no_share_body">Tu copia de seguridad está en la carpeta de Descargas.</string>
-  <string name="backup_save_dialogue_title">Guardar copia de seguridad</string>
-  <string name="backup_save_dialogue_body">Elige un nombre para tu copia de seguridad.</string>
+  <string name="backup_save_dialogue_title_deprecated">Guardar copia de seguridad</string>
+  <string name="backup_save_dialogue_body_deprecated">Elige un nombre para tu copia de seguridad.</string>
   <string name="backup_confirmation_tips_title">Mantén el archivo seguro:</string>
   <string name="backup_confirmation_tips_1">Imprímelo y guárdalo en un lugar seguro.</string>
   <string name="backup_confirmation_tips_2">Guárdalo en un USB.</string>

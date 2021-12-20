@@ -624,8 +624,8 @@
   <string name="backup_done_body">Weet je zeker dat je back-upbestand op een veilige plek is opgeslagen?</string>
   <string name="backup_confirmation_no_share_title">Back-up gereed!</string>
   <string name="backup_confirmation_no_share_body">Je back-upbestand is in de map downloads opgeslagen.</string>
-  <string name="backup_save_dialogue_title">Back-upbestand opslaan</string>
-  <string name="backup_save_dialogue_body">Kies een naam voor je back-upbestand.</string>
+  <string name="backup_save_dialogue_title_deprecated">Back-upbestand opslaan</string>
+  <string name="backup_save_dialogue_body_deprecated">Kies een naam voor je back-upbestand.</string>
   <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
   <string name="backup_confirmation_tips_1">Kopieer het bestand en sla het op een veilige plek op.</string>
   <string name="backup_confirmation_tips_2">Sla het bestand op een USB-stick op.</string>
