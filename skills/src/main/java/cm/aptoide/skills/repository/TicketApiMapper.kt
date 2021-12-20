@@ -32,8 +32,8 @@ class TicketApiMapper(private val jsonMapper: Gson) {
   }
 
   private fun mapHttpException(exception: HttpException): FailedTicket {
-    val response = jsonMapper.fromJson(exception.getMessage(), Response::class.java)
     return if (exception.code() == FORBIDDEN_CODE) {
+      val response = jsonMapper.fromJson(exception.getMessage(), Response::class.java)
       return when (response.detail.code) {
         ErrorCode.REGION_NOT_SUPPORTED -> FailedTicket(ErrorStatus.REGION_NOT_SUPPORTED)
         ErrorCode.NOT_AUTHENTICATED -> FailedTicket(ErrorStatus.GENERIC)

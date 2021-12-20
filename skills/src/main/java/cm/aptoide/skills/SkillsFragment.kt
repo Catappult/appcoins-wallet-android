@@ -4,10 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.text.bold
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
@@ -120,7 +122,7 @@ class SkillsFragment : DaggerFragment() {
     binding.payTicketLayout.payTicketRoomDetails.copyButton.setOnClickListener {
       val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
       if (queueId.isNotEmpty()) {
-        viewModel.saveQueueIdToClipboard(queueId)
+        viewModel.saveQueueIdToClipboard(queueId.trim())
         val tooltip = binding.payTicketLayout.payTicketRoomDetails.tooltipClipboard
         tooltip.visibility = View.VISIBLE
         view?.postDelayed({ tooltip.visibility = View.GONE }, CLIPBOARD_TOOLTIP_DELAY_SECONDS)
@@ -141,8 +143,10 @@ class SkillsFragment : DaggerFragment() {
             }
           } else {
             binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-              eSkillsPaymentData.queueId =
-                  binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+              val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+              if (queueId.isNotBlank()) {
+                eSkillsPaymentData.queueId = queueId.trim()
+              }
               binding.payTicketLayout.root.visibility = View.GONE
               createAndPayTicket(eSkillsPaymentData)
             }
@@ -326,8 +330,9 @@ class SkillsFragment : DaggerFragment() {
     binding.loadingTicketLayout.root.visibility = View.VISIBLE
     if (isCancelActive) {
       if (queueId != null) {
-        binding.loadingTicketLayout.loadingTitle.text =
-            getString(R.string.finding_room_name_loading_title, queueId)
+        binding.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()
+            .append(getString(R.string.finding_room_name_loading_title))
+            .bold { append(" $queueId") }
       } else {
         binding.loadingTicketLayout.loadingTitle.text =
             getString(R.string.finding_room_loading_title)

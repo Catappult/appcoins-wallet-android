@@ -5,7 +5,7 @@
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>
   <string name="finding_room_loading_title">Waiting for opponents</string>
-  <string name="finding_room_name_loading_title">Waiting for opponents to join the %s</string>
+  <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
   <string name="finding_room_loading_message">This may take a while…</string>
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">OK</string>
