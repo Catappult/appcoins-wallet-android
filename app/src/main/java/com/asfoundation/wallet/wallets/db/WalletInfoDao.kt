@@ -4,6 +4,7 @@ import androidx.room.*
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoUpdate
 import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 interface WalletInfoDao {
@@ -31,6 +32,9 @@ interface WalletInfoDao {
     }
   }
 
-  @Query("SELECT * FROM WalletInfoEntity WHERE wallet = :walletAddress")
+  @Query("SELECT * FROM WalletInfoEntity WHERE wallet = :walletAddress LIMIT 1")
   fun observeWalletInfo(walletAddress: String): Observable<WalletInfoEntity>
+
+  @Query("SELECT * FROM WalletInfoEntity WHERE wallet = :walletAddress LIMIT 1")
+  fun getWalletInfo(walletAddress: String): Single<List<WalletInfoEntity>>
 }

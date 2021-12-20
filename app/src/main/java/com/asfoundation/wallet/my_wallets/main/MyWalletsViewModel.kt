@@ -51,8 +51,8 @@ class MyWalletsViewModel(
   private fun observeCurrentWallet() {
     observeDefaultWalletUseCase()
         .doOnNext { wallet ->
-          val currentWalletModel = state.walletsAsync()
-          if (currentWalletModel == null || currentWalletModel.currentWallet.walletAddress != wallet.address) {
+          val currentWalletAddress = state.walletInfoAsync()?.wallet
+          if (currentWalletAddress == null || currentWalletAddress != wallet.address) {
             // Full refresh data if our active wallet changed (meaning we flush our Async streams)
             // triggering Async.Loading
             fetchWallets()
@@ -61,15 +61,14 @@ class MyWalletsViewModel(
             observeHasBackedUpWallet()
           }
         }
-        .scopedSubscribe { e -> e.printStackTrace() }
+        .repeatableScopedSubscribe("ObserveCurrentWallet") { e -> e.printStackTrace() }
   }
 
   private fun fetchWallets() {
     softRefreshSubject
         .switchMap {
-          walletsInteract.getWalletsModel()
+          walletsInteract.observeWalletsModel()
               .subscribeOn(Schedulers.io())
-              .toObservable()
         }
         .asAsyncToState { wallet -> copy(walletsAsync = wallet) }
         .repeatableScopedSubscribe(MyWalletsState::walletsAsync.name) { e ->

@@ -8,41 +8,38 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.my_wallets.main.list.WalletsListEvent
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 
 class ActiveWalletModelGroup(
-    walletsAsync: Async<WalletsModel>,
     walletVerifiedAsync: Async<BalanceVerificationModel>,
     walletInfoAsync: Async<WalletInfo>,
     backedUpOnceAsync: Async<Boolean>,
     currencyFormatUtils: CurrencyFormatUtils,
     walletClickListener: ((WalletsListEvent) -> Unit)?
 ) : EpoxyModelGroup(R.layout.item_active_wallet,
-    buildModels(walletsAsync, walletVerifiedAsync, walletInfoAsync, backedUpOnceAsync,
+    buildModels(walletVerifiedAsync, walletInfoAsync, backedUpOnceAsync,
         currencyFormatUtils, walletClickListener)) {
 
   companion object {
-    fun buildModels(walletsAsync: Async<WalletsModel>,
-                    walletVerifiedAsync: Async<BalanceVerificationModel>,
+    fun buildModels(walletVerifiedAsync: Async<BalanceVerificationModel>,
                     walletInfoAsync: Async<WalletInfo>,
                     backedUpOnceAsync: Async<Boolean>,
                     currencyFormatUtils: CurrencyFormatUtils,
                     walletClickListener: ((WalletsListEvent) -> Unit)?): List<EpoxyModel<*>> {
       val models = mutableListOf<EpoxyModel<*>>()
-      models.addWalletInfo(walletsAsync, walletClickListener)
+      models.addWalletInfo(walletInfoAsync, walletClickListener)
       models.addBalance(walletInfoAsync, currencyFormatUtils, walletClickListener)
       models.addBackupCard(backedUpOnceAsync, walletClickListener)
       models.addVerify(walletVerifiedAsync, walletClickListener)
       return models
     }
 
-    private fun MutableList<EpoxyModel<*>>.addWalletInfo(walletsAsync: Async<WalletsModel>,
+    private fun MutableList<EpoxyModel<*>>.addWalletInfo(walletInfoAsync: Async<WalletInfo>,
                                                          walletClickListener: ((WalletsListEvent) -> Unit)?) {
       add(WalletInfoModel_()
           .id("active_wallet_info")
-          .walletBalanceAsync(walletsAsync)
+          .walletInfoAsync(walletInfoAsync)
           .walletClickListener(walletClickListener)
       )
     }
