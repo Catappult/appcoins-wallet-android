@@ -11,6 +11,7 @@ import com.asfoundation.wallet.repository.CurrencyConversionService
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -19,11 +20,13 @@ class SkillsPaymentRepository(
     private val currencyConversionService: CurrencyConversionService,
     private val currencyFormatUtils: CurrencyFormatUtils,
     private val appCoinsCreditsPayment: AppCoinsCreditsPayment,
-    private val schedulers: RxSchedulers
+    private val schedulers: RxSchedulers,
+    private val getWalletInfoUseCase: GetWalletInfoUseCase
 ) : ExternalSkillsPaymentProvider {
   override fun getBalance(): Single<BigDecimal> {
-    return appCoinsCreditsPayment.getBalance()
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
         .subscribeOn(schedulers.io)
+        .map { it.walletBalance.creditsBalance.token.amount }
   }
 
   override fun getLocalFiatAmount(value: BigDecimal, currency: String): Single<Price> {

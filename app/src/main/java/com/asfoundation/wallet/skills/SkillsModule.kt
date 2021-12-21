@@ -21,6 +21,7 @@ import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.repository.CurrencyConversionService
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -158,10 +159,11 @@ class SkillsModule {
       currencyFormatUtils: CurrencyFormatUtils,
       rewardsManager: RewardsManager,
       billing: Billing,
-      rxSchedulers: RxSchedulers
+      rxSchedulers: RxSchedulers,
+      getWalletInfoUseCase: GetWalletInfoUseCase
   ): ExternalSkillsPaymentProvider {
     return SkillsPaymentRepository(currencyConversionService, currencyFormatUtils,
-        AppCoinsCreditsPayment(rewardsManager, billing), rxSchedulers)
+        AppCoinsCreditsPayment(rewardsManager, billing), rxSchedulers, getWalletInfoUseCase)
   }
 
   @Provides

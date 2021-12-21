@@ -13,8 +13,6 @@ import io.reactivex.Single
 
 class AppCoinsCreditsPayment(private val rewardsManager: RewardsManager,
                              private val billing: Billing) {
-  fun getBalance() = rewardsManager.balance
-
   fun pay(eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket): Completable {
     return getDeveloperWalletAddress(eskillsPaymentData.packageName)
         .flatMapCompletable { developerAddress: WalletAddress ->
