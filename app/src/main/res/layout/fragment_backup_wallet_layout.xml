@@ -52,31 +52,33 @@
         android:background="@color/white_transparent_10"
         app:layout_constraintTop_toTopOf="parent"
         />
-    <androidx.appcompat.widget.AppCompatButton
+
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/backup_btn"
-        style="@style/ButtonStyle.Alternative.Backup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/large_button_height"
         android:layout_marginTop="@dimen/big_margin"
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/big_margin"
-        android:text="@string/backup_button"
+        app:buttonText="@string/backup_button"
+        app:buttonType="filled"
         app:layout_constraintTop_toTopOf="@+id/grid_line"
         />
-    <androidx.appcompat.widget.AppCompatButton
+
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/backup_skip_btn"
-        style="@style/FloatingButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/large_button_height"
         android:layout_marginTop="@dimen/normal_margin"
         android:layout_marginBottom="@dimen/big_margin"
-        android:text="@string/backup_skip_button"
+        android:paddingHorizontal="@dimen/half_large_padding"
+        app:buttonText="@string/backup_skip_button"
+        app:buttonType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backup_btn"
         />
-
   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

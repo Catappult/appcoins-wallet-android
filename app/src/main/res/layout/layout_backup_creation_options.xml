@@ -35,14 +35,16 @@
         android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
         />
   </com.google.android.material.textfield.TextInputLayout>
-  <androidx.appcompat.widget.AppCompatButton
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/email_button"
-      style="@style/ButtonStyle.Alternative.Backup"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/large_button_height"
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="16dp"
-      android:text="@string/backup_option_email_button"
+      android:layout_marginBottom="18dp"
+      app:buttonText="@string/backup_option_email_button"
+      app:buttonType="filled"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/email_input"
@@ -89,14 +91,14 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <androidx.appcompat.widget.AppCompatButton
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/device_button"
-      style="@style/MaterialButtonStyle.Light.White"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/large_button_height"
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="20dp"
-      android:text="@string/backup_option_device_button"
+      app:buttonText="@string/backup_option_device_button"
+      app:buttonType="outlined"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/backup_options_separator"

@@ -107,4 +107,6 @@
   <dimen name="round_corner">6dp</dimen>
   <dimen name="round_corner_big">32dp</dimen>
 
+  <dimen name="large_button_height">48dp</dimen>
+
 </resources>
