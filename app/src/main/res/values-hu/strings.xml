@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Wallet biztonsági mentés</string>
   <string name="backup_home_notification_body">Vesztetted már el a telefonod? Készíts biztonsági másolatot a tárcádról most!</string>
-  <string name="backup_button_deprecated">BIZTONSÁGI MENTÉS</string>
+  <string name="backup_button">BIZTONSÁGI MENTÉS</string>
   <string name="backup_title">Biztonsági mentés készítése</string>
   <string name="backup_password_title">Tárca titkosítása (nem kötelező)</string>
   <string name="backup_password">Jelszó</string>
   <string name="backup_body">Nem tároljuk sem a titkos kulcsokat, sem bármely más hozzáférési módot. Fontos a tárcáról készült biztonsági mentés (keystore) biztonsága.</string>
-  <string name="backup_confirmation_title_deprecated">Csak még egy lépés</string>
-  <string name="backup_confirmation_body_deprecated">Tartsd biztonságban a biztonsági mentést! Hova szeretnéd elmenteni?</string>
-  <string name="backup_confirmation_yes_deprecated">IGEN, KÉSZ</string>
-  <string name="backup_confirmation_no_deprecated">NEM, MENTÉS ESZKÖZRE</string>
+  <string name="backup_confirmation_title">Csak még egy lépés</string>
+  <string name="backup_confirmation_body">Tartsd biztonságban a biztonsági mentést! Hova szeretnéd elmenteni?</string>
+  <string name="backup_confirmation_yes">IGEN, KÉSZ</string>
+  <string name="backup_confirmation_no">NEM, MENTÉS ESZKÖZRE</string>
   <string name="backup_done_title">Kész a biztonsági mentés!</string>
   <string name="backup_done_body">Biztos vagy benne, hogy a biztonsági mentés biztonságos helyen van?</string>
   <string name="backup_confirmation_no_share_title">Kész a biztonsági mentés!</string>
   <string name="backup_confirmation_no_share_body">A biztonsági mentés a Letöltések mappában van.</string>
-  <string name="backup_save_dialogue_title_deprecated">Biztonságimásolat-fájl mentése</string>
-  <string name="backup_save_dialogue_body_deprecated">Add meg a biztonságimásolat-fájl nevét.</string>
+  <string name="backup_save_dialogue_title">Biztonságimásolat-fájl mentése</string>
+  <string name="backup_save_dialogue_body">Add meg a biztonságimásolat-fájl nevét.</string>
   <string name="backup_confirmation_tips_title">Tartsd biztonságban a fájlt:</string>
   <string name="backup_confirmation_tips_1">Nyomtasd ki és tárold biztonságos helyen.</string>
   <string name="backup_confirmation_tips_2">Mentsd egy USB meghajtóra.</string>
   <string name="backup_confirmation_tips_3">Másold egy biztonságos és magán felhőalapú tárhelyre.</string>
   <string name="backup_send_via_title">Biztonsági másolat küldése:</string>
   <string name="backup_send_button">BIZTONSÁGI MÁSOLAT KÜLDÉSE</string>
-  <string name="backup_save_button_deprecated">BIZTONSÁGI MÁSOLAT MENTÉSE</string>
+  <string name="backup_save_button">BIZTONSÁGI MÁSOLAT MENTÉSE</string>
   <string name="import_wallet_title">Pénztárca helyreállítása</string>
   <string name="import_wallet_body">Illeszd be a tárca biztonsági másolatát alulra.</string>
   <string name="import_wallet_keystore_private_keys">Keystore vagy privát kulcsok</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Válaszd ki, melyik tárcáról készítesz biztonsági mentést</string>
   <string name="backup_additional_security_title">További biztonság (nem kötelező)</string>
   <string name="backup_additional_security_body">Válaszd ki a jelszavad</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Ügyelj a jelszavad biztonságára.</string>
+  <string name="backup_additional_security_disclaimer_title">Ügyelj a jelszavad biztonságára.</string>
   <string name="backup_additional_security_disclaimer_body">Nincs jelszó visszaállítás.</string>
   <string name="backup_additional_security_password_not_march">A jelszavak nem egyeznek.</string>
   <!--Wallets Management-->

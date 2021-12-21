@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Haz un Backup de tu Wallet</string>
   <string name="backup_home_notification_body">¿Alguna vez perdiste tu dispositivo? ¡Haz un backup!</string>
-  <string name="backup_button_deprecated">HACER COPIA</string>
+  <string name="backup_button">HACER COPIA</string>
   <string name="backup_title">Backup de la Wallet</string>
   <string name="backup_password_title">Encripta tu wallet (opcional)</string>
   <string name="backup_password">Contraseña</string>
   <string name="backup_body">No almacenamos tus private keys ni otros métodos de acceso. Es importante tener tu backup (keystore) seguro.</string>
-  <string name="backup_confirmation_title_deprecated">Solo un paso más</string>
-  <string name="backup_confirmation_body_deprecated">¡Mantén tu wallet segura! ¿Dónde quieres guardarla?</string>
-  <string name="backup_confirmation_yes_deprecated">SÍ, TERMINAR</string>
-  <string name="backup_confirmation_no_deprecated">NO, GUARDAR</string>
+  <string name="backup_confirmation_title">Solo un paso más</string>
+  <string name="backup_confirmation_body">¡Mantén tu wallet segura! ¿Dónde quieres guardarla?</string>
+  <string name="backup_confirmation_yes">SÍ, TERMINAR</string>
+  <string name="backup_confirmation_no">NO, GUARDAR</string>
   <string name="backup_done_title">¡Copia de seguridad terminada!</string>
   <string name="backup_done_body">¿Estás seguro de que tu copia de seguridad está en un lugar seguro?</string>
   <string name="backup_confirmation_no_share_title">¡Copia de seguridad realizada!</string>
   <string name="backup_confirmation_no_share_body">Tu copia de seguridad está en la carpeta de Descargas.</string>
-  <string name="backup_save_dialogue_title_deprecated">Guardar copia de seguridad</string>
-  <string name="backup_save_dialogue_body_deprecated">Elige un nombre para tu copia de seguridad.</string>
+  <string name="backup_save_dialogue_title">Guardar copia de seguridad</string>
+  <string name="backup_save_dialogue_body">Elige un nombre para tu copia de seguridad.</string>
   <string name="backup_confirmation_tips_title">Mantén el archivo seguro:</string>
   <string name="backup_confirmation_tips_1">Imprímelo y guárdalo en un lugar seguro.</string>
   <string name="backup_confirmation_tips_2">Guárdalo en un USB.</string>
   <string name="backup_confirmation_tips_3">Cópialo en un repositorio en la nube privado y seguro.</string>
   <string name="backup_send_via_title">Enviar backup por:</string>
   <string name="backup_send_button">ENVIAR BACKUP</string>
-  <string name="backup_save_button_deprecated">GUARDAR BACKUP</string>
+  <string name="backup_save_button">GUARDAR BACKUP</string>
   <string name="import_wallet_title">Recuperar Wallet</string>
   <string name="import_wallet_body">Pega el backup de tu wallet abajo.</string>
   <string name="import_wallet_keystore_private_keys">Keystore o private keys</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Elige una wallet para hacer backup</string>
   <string name="backup_additional_security_title">Seguridad adicional (opcional)</string>
   <string name="backup_additional_security_body">Elige una contraseña</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Mantén la contraseña segura.</string>
+  <string name="backup_additional_security_disclaimer_title">Mantén la contraseña segura.</string>
   <string name="backup_additional_security_disclaimer_body">No hay opción de recuperar la contraseña.</string>
   <string name="backup_additional_security_password_not_march">Las contraseñas no coinciden.</string>
   <!--Wallets Management-->

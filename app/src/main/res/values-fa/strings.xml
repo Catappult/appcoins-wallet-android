@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">پشتیبان‌گیری از کیف پول خود</string>
   <string name="backup_home_notification_body">آیا موبایل خود را گم‌کرده‌اید؟ از کیف پول خود همین حالا پشتیان‌گیری کنید!</string>
-  <string name="backup_button_deprecated">پشتیبان‌گیری</string>
+  <string name="backup_button">پشتیبان‌گیری</string>
   <string name="backup_title">پشتیبان‌گیری از کیف‌پول</string>
   <string name="backup_password_title">کدگذاری از کیف پول (اختیاری)</string>
   <string name="backup_password">رمزعبور</string>
   <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
-  <string name="backup_confirmation_title_deprecated">فقط یک قدم دیگر</string>
-  <string name="backup_confirmation_body_deprecated">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
-  <string name="backup_confirmation_yes_deprecated">بله، تمام شد</string>
-  <string name="backup_confirmation_no_deprecated">نه، ذخیره روی دستگاه</string>
+  <string name="backup_confirmation_title">فقط یک قدم دیگر</string>
+  <string name="backup_confirmation_body">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
+  <string name="backup_confirmation_yes">بله، تمام شد</string>
+  <string name="backup_confirmation_no">نه، ذخیره روی دستگاه</string>
   <string name="backup_done_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_done_body">آیا مطمئن هستید که فایل بک‌آپ شما در جای امنی قرار دارد؟</string>
   <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_confirmation_no_share_body">بک‌آپ شما در پوشه دانلودهای شماست.</string>
-  <string name="backup_save_dialogue_title_deprecated">ذخیره فایل بک‌آپ</string>
-  <string name="backup_save_dialogue_body_deprecated">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
+  <string name="backup_save_dialogue_title">ذخیره فایل بک‌آپ</string>
+  <string name="backup_save_dialogue_body">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
   <string name="backup_confirmation_tips_1">آن را پرینت و در جای امنی نگه‌داری کنید.</string>
   <string name="backup_confirmation_tips_2">آن را روی یک USB ذخیره کنید.</string>
   <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن منتقل کنید.</string>
   <string name="backup_send_via_title">ارسال بک‌آپ از طریق:</string>
   <string name="backup_send_button">ارسال بک‌آپ</string>
-  <string name="backup_save_button_deprecated">ذخیره بک‌آپ</string>
+  <string name="backup_save_button">ذخیره بک‌آپ</string>
   <string name="import_wallet_title">بازیابی کیف‌پول</string>
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">یک کیف پول برای بک‌آپ انتخاب کنید</string>
   <string name="backup_additional_security_title">افزایش امنیت (اختیاری)</string>
   <string name="backup_additional_security_body">انتخاب رمزعبور</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">لطفا رمزعبور خود را امن نگه دارید.</string>
+  <string name="backup_additional_security_disclaimer_title">لطفا رمزعبور خود را امن نگه دارید.</string>
   <string name="backup_additional_security_disclaimer_body">بازیابی برای رمزعبور وجود ندارد.</string>
   <string name="backup_additional_security_password_not_march">رمزعبور همخوانی ندارد.</string>
   <!--Wallets Management-->

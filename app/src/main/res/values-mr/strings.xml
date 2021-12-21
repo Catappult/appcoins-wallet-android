@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">वॉलेट बॅकअप करा</string>
   <string name="backup_home_notification_body">आपला फोन हरवला आहे का? आपले वॉलेट आत्ताच बॅकअप करा!</string>
-  <string name="backup_button_deprecated">बॅकअप</string>
+  <string name="backup_button">बॅकअप</string>
   <string name="backup_title">वॉलेट बॅकअप करा</string>
   <string name="backup_password_title">आपले वॉलेट एनक्रिप्ट करा (पर्यायी)</string>
   <string name="backup_password">पासवर्ड</string>
   <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
-  <string name="backup_confirmation_title_deprecated">अजुन फक्त एकच पायरी</string>
-  <string name="backup_confirmation_body_deprecated">आपला बॅकअप सुरक्षित राखा! आपण त्याला कुठे सेव्ह कराल?</string>
-  <string name="backup_confirmation_yes_deprecated">हो, संपवा</string>
-  <string name="backup_confirmation_no_deprecated">नको, डिव्हाईसवर सेव्ह करा</string>
+  <string name="backup_confirmation_title">अजुन फक्त एकच पायरी</string>
+  <string name="backup_confirmation_body">आपला बॅकअप सुरक्षित राखा! आपण त्याला कुठे सेव्ह कराल?</string>
+  <string name="backup_confirmation_yes">हो, संपवा</string>
+  <string name="backup_confirmation_no">नको, डिव्हाईसवर सेव्ह करा</string>
   <string name="backup_done_title">बॅकअप झाला!</string>
   <string name="backup_done_body">बॅकअप फाईल सुरक्षित जागी आहे ह्याची खात्री आहे ना?</string>
   <string name="backup_confirmation_no_share_title">बॅकअप झाला!</string>
   <string name="backup_confirmation_no_share_body">आपली बॅकअप फाईल आपल्या डाऊनलोडस फोल्डरमध्ये आहे.</string>
-  <string name="backup_save_dialogue_title_deprecated">बॅकअप फाईल सेव्ह करा</string>
-  <string name="backup_save_dialogue_body_deprecated">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
+  <string name="backup_save_dialogue_title">बॅकअप फाईल सेव्ह करा</string>
+  <string name="backup_save_dialogue_body">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
   <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
   <string name="backup_confirmation_tips_1">प्रिंट करुन कुठेतरी सुरक्षित राखा.</string>
   <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर सेव्ह करा.</string>
   <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये कॉपी करा.</string>
   <string name="backup_send_via_title">बॅकअप ह्याद्वारे करा:</string>
   <string name="backup_send_button">बॅकअप करा</string>
-  <string name="backup_save_button_deprecated">बॅकअप सेव्ह करा</string>
+  <string name="backup_save_button">बॅकअप सेव्ह करा</string>
   <string name="import_wallet_title">वॉलेट परत मिळवा</string>
   <string name="import_wallet_body">आपल्या वॉलेटचा बॅकअप खाली पेस्ट करा.</string>
   <string name="import_wallet_keystore_private_keys">की स्टोर किंवा खासगी कीज</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">बॅकअपसाठी वॉलेट निवडा</string>
   <string name="backup_additional_security_title">अतिरिक्त सुरक्षा (पर्यायी)</string>
   <string name="backup_additional_security_body">पासवर्ड निवडा</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">कृपया आपला पासवर्ड सुरक्षित राखा.</string>
+  <string name="backup_additional_security_disclaimer_title">कृपया आपला पासवर्ड सुरक्षित राखा.</string>
   <string name="backup_additional_security_disclaimer_body">पासवर्ड रिकव्हरी नाही.</string>
   <string name="backup_additional_security_password_not_march">पासवर्डस एकसमान नाहीत.</string>
   <!--Wallets Management-->

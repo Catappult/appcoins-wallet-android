@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>
-  <string name="backup_button_deprecated">COPIE DE REZERVĂ</string>
+  <string name="backup_button">COPIE DE REZERVĂ</string>
   <string name="backup_title">Copie de rezervă portofel</string>
   <string name="backup_password_title">Criptează-ți portofelul (opțional)</string>
   <string name="backup_password">Parolă</string>
   <string name="backup_body">Nu îți stocăm cheile private sau orice alte metode de acces. Este important să păstrezi copia de rezervă a portofelului (keystore) în siguranță.</string>
-  <string name="backup_confirmation_title_deprecated">Încă un pas</string>
-  <string name="backup_confirmation_body_deprecated">Păstrează-ți copia de rezervă în siguranță! Unde vrei să o salvezi?</string>
-  <string name="backup_confirmation_yes_deprecated">DA, FINALIZEAZĂ</string>
-  <string name="backup_confirmation_no_deprecated">NU, SALVEAZĂ PE DISPOZITIV</string>
+  <string name="backup_confirmation_title">Încă un pas</string>
+  <string name="backup_confirmation_body">Păstrează-ți copia de rezervă în siguranță! Unde vrei să o salvezi?</string>
+  <string name="backup_confirmation_yes">DA, FINALIZEAZĂ</string>
+  <string name="backup_confirmation_no">NU, SALVEAZĂ PE DISPOZITIV</string>
   <string name="backup_done_title">Copie de rezervă efectuată!</string>
   <string name="backup_done_body">Ești sigur că fișierul copiei de rezervă este într-un loc sigur?</string>
   <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
   <string name="backup_confirmation_no_share_body">Fișierul tău de rezervă este în folder-ul tău de Descărcări.</string>
-  <string name="backup_save_dialogue_title_deprecated">Salvează fișier de rezervă</string>
-  <string name="backup_save_dialogue_body_deprecated">Alege un nume pentru fișierul de rezervă.</string>
+  <string name="backup_save_dialogue_title">Salvează fișier de rezervă</string>
+  <string name="backup_save_dialogue_body">Alege un nume pentru fișierul de rezervă.</string>
   <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
   <string name="backup_confirmation_tips_1">Scoate-l la imprimantă și păstrează-l în siguranță.</string>
   <string name="backup_confirmation_tips_2">Salvează-l pe un drive USB.</string>
   <string name="backup_confirmation_tips_3">Copiază-l într-un cloud de stocare privat și securizat.</string>
   <string name="backup_send_via_title">Trimite copie de rezervă via:</string>
   <string name="backup_send_button">TRIMITE COPIE DE REZERVĂ</string>
-  <string name="backup_save_button_deprecated">SALVEAZĂ COPIE DE REZERVĂ</string>
+  <string name="backup_save_button">SALVEAZĂ COPIE DE REZERVĂ</string>
   <string name="import_wallet_title">Recuperează Portofel</string>
   <string name="import_wallet_body">Lipește copia de rezervă a portofelului tău mai jos.</string>
   <string name="import_wallet_keystore_private_keys">Keystore sau chei private</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Alege portofelul pentru care vrei să faci o copie de rezervă</string>
   <string name="backup_additional_security_title">Securitate suplimentară (opțional)</string>
   <string name="backup_additional_security_body">Alege o parolă</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Păstrează parola în siguranță.</string>
+  <string name="backup_additional_security_disclaimer_title">Păstrează parola în siguranță.</string>
   <string name="backup_additional_security_disclaimer_body">Nu există acces la recuperarea parolei.</string>
   <string name="backup_additional_security_password_not_march">Parolele nu sunt identice.</string>
   <!--Wallets Management-->

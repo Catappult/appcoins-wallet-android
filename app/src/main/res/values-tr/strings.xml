@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Cüzdanınızı Yedekleyin</string>
   <string name="backup_home_notification_body">Hiç telefonunuzu kaybettiniz mi? Cüzdanınızı hemen yedekleyin!</string>
-  <string name="backup_button_deprecated">YEDEKLE</string>
+  <string name="backup_button">YEDEKLE</string>
   <string name="backup_title">Yedek Cüzdan</string>
   <string name="backup_password_title">Cüzdanınızı şifreleyin (isteğe bağlı)</string>
   <string name="backup_password">Şifre</string>
   <string name="backup_body">Gizli anahtarlarınızı veya diğer erişim yöntemlerinizi saklamayız. Cüzdanınızın yedeğini (keystore) güvende tutmak önemlidir.</string>
-  <string name="backup_confirmation_title_deprecated">Sadece bir adım daha</string>
-  <string name="backup_confirmation_body_deprecated">Yedeklemenizi güvende tutun! Nereye kaydetmek istersiniz?</string>
-  <string name="backup_confirmation_yes_deprecated">EVET, BİTİR</string>
-  <string name="backup_confirmation_no_deprecated">HAYIR, CİHAZA KAYDET</string>
+  <string name="backup_confirmation_title">Sadece bir adım daha</string>
+  <string name="backup_confirmation_body">Yedeklemenizi güvende tutun! Nereye kaydetmek istersiniz?</string>
+  <string name="backup_confirmation_yes">EVET, BİTİR</string>
+  <string name="backup_confirmation_no">HAYIR, CİHAZA KAYDET</string>
   <string name="backup_done_title">Yedekleme tamamlandı!</string>
   <string name="backup_done_body">Yedekleme dosyanızın güvenli bir yerde olduğundan emin misiniz?</string>
   <string name="backup_confirmation_no_share_title">Yedekleme tamamlandı!</string>
   <string name="backup_confirmation_no_share_body">Yedekleme dosyanız İndirilenler klasöründe.</string>
-  <string name="backup_save_dialogue_title_deprecated">Yedekleme dosyasını kaydet</string>
-  <string name="backup_save_dialogue_body_deprecated">Yedekleme dosyanızı adlandırın.</string>
+  <string name="backup_save_dialogue_title">Yedekleme dosyasını kaydet</string>
+  <string name="backup_save_dialogue_body">Yedekleme dosyanızı adlandırın.</string>
   <string name="backup_confirmation_tips_title">Dosyayı güvende tutun:</string>
   <string name="backup_confirmation_tips_1">Yazdırın ve güvenli bir yerde saklayın.</string>
   <string name="backup_confirmation_tips_2">USB sürücüsüne kaydedin.</string>
   <string name="backup_confirmation_tips_3">Gizli ve güvenli bir bulut depolama alanına kopyalayın.</string>
   <string name="backup_send_via_title">Yedeklemeyi şununla gönder:</string>
   <string name="backup_send_button">YEDEKLEMEYİ GÖNDER</string>
-  <string name="backup_save_button_deprecated">YEDEKLEMEYİ KAYDET</string>
+  <string name="backup_save_button">YEDEKLEMEYİ KAYDET</string>
   <string name="import_wallet_title">Cüzdanı geri yükle</string>
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
   <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Yedeklemek için bir cüzdan seçin</string>
   <string name="backup_additional_security_title">Ek Güvenlik (isteğe bağlı)</string>
   <string name="backup_additional_security_body">Şifre seçin</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Lütfen şifrenizi güvende tutun.</string>
+  <string name="backup_additional_security_disclaimer_title">Lütfen şifrenizi güvende tutun.</string>
   <string name="backup_additional_security_disclaimer_body">Şifre kurtarma yapılamıyor.</string>
   <string name="backup_additional_security_password_not_march">Şifreler eşleşmiyor.</string>
   <!--Wallets Management-->

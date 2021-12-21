@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">ਆਪਣਾ ਬਟੂਆ ਬੈਕਅਪ ਕਰੋ</string>
   <string name="backup_home_notification_body">ਕੀ ਤੁਸੀਂ ਕਦੇ ਆਪਣਾ ਫੋਨ ਗੁਆਇਆ ਹੈ? ਹੁਣੇ ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਲਓ!</string>
-  <string name="backup_button_deprecated">ਬੈਕਅਪ</string>
+  <string name="backup_button">ਬੈਕਅਪ</string>
   <string name="backup_title">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="backup_password_title">ਆਪਣੇ ਬਟੂਏ ਤੇ ਕੋਡ ਲਗਾਓ| (ਵਿਕਲਪਿਕ)</string>
   <string name="backup_password">ਪਾਸਵਰਡ</string>
   <string name="backup_body">ਅਸੀਂ ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਕੁੰਜੀਆਂ ਜਾਂ ਕੋਈ ਹੋਰ ਪਹੁੰਚ ਵਿਧੀ ਆਪਣੇ ਕੋਲ ਨਹੀਂ ਰੱਖਦੇ| ਤੁਹਾਡੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ (ਚਾਬੀ ਸਟੋਰ) ਸੁਰੱਖਿਅਤ ਰੱਖਣਾ ਜਰੂਰੀ ਹੈ|</string>
-  <string name="backup_confirmation_title_deprecated">ਸਿਰਫ ਇਕ ਹੋਰ ਕਦਮ</string>
-  <string name="backup_confirmation_body_deprecated">ਆਪਣਾ ਬੈਕਅਪ ਸੁਰੱਖਿਅਤ ਰੱਖੋ! ਤੁਸੀਂ ਇਸਨੂੰ ਕਿੱਥੇ ਸੇਵ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
-  <string name="backup_confirmation_yes_deprecated">ਹਾਂ, ਖਤਮ ਕਰੋ</string>
-  <string name="backup_confirmation_no_deprecated">ਨਹੀਂ, ਡਿਵਾਈਸ ਤੇ ਸੇਵ ਕਰੋ</string>
+  <string name="backup_confirmation_title">ਸਿਰਫ ਇਕ ਹੋਰ ਕਦਮ</string>
+  <string name="backup_confirmation_body">ਆਪਣਾ ਬੈਕਅਪ ਸੁਰੱਖਿਅਤ ਰੱਖੋ! ਤੁਸੀਂ ਇਸਨੂੰ ਕਿੱਥੇ ਸੇਵ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+  <string name="backup_confirmation_yes">ਹਾਂ, ਖਤਮ ਕਰੋ</string>
+  <string name="backup_confirmation_no">ਨਹੀਂ, ਡਿਵਾਈਸ ਤੇ ਸੇਵ ਕਰੋ</string>
   <string name="backup_done_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
   <string name="backup_done_body">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਇੱਕ ਸੁਰੱਖਿਅਤ ਜਗ੍ਹਾ ਤੇ ਹੈ?</string>
   <string name="backup_confirmation_no_share_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
   <string name="backup_confirmation_no_share_body">ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਤੁਹਾਡੇ ਡਾਉਨਲੋਡ ਫੋਲਡਰ ਵਿੱਚ ਹੈ|</string>
-  <string name="backup_save_dialogue_title_deprecated">ਬੈਕਅਪ ਫਾਈਲ ਨੂੰ ਸੇਵ ਕਰੋ</string>
-  <string name="backup_save_dialogue_body_deprecated">ਆਪਣੀ ਬੈਕਅਪ ਫਾਈਲ ਲਈ ਇੱਕ ਨਾਮ ਚੁਣੋ|</string>
+  <string name="backup_save_dialogue_title">ਬੈਕਅਪ ਫਾਈਲ ਨੂੰ ਸੇਵ ਕਰੋ</string>
+  <string name="backup_save_dialogue_body">ਆਪਣੀ ਬੈਕਅਪ ਫਾਈਲ ਲਈ ਇੱਕ ਨਾਮ ਚੁਣੋ|</string>
   <string name="backup_confirmation_tips_title">ਫਾਈਲ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ:</string>
   <string name="backup_confirmation_tips_1">ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
   <string name="backup_confirmation_tips_2">ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ ਸੁਰੱਖਿਅਤ ਕਰੋ|</string>
   <string name="backup_confirmation_tips_3">ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ ਕਾਪੀ ਕਰੋ|</string>
   <string name="backup_send_via_title">ਬੈਕਅਪ ਇਸ ਦੁਆਰਾ ਭੇਜੋ:</string>
   <string name="backup_send_button">ਬੈਕਅੱਪ ਭੇਜੋ</string>
-  <string name="backup_save_button_deprecated">ਬੈਕਅੱਪ ਸੇਵ ਕਰੋ</string>
+  <string name="backup_save_button">ਬੈਕਅੱਪ ਸੇਵ ਕਰੋ</string>
   <string name="import_wallet_title">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਹੇਠਾਂ ਪਾਓ|</string>
   <string name="import_wallet_keystore_private_keys">ਚਾਬੀ ਸਟੋਰ ਜਾਂ ਨਿਜੀ ਕੁੰਜੀਆਂ</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">ਬੈਕਅਪ ਲਈ ਇੱਕ ਬਟੂਏ ਦੀ ਚੋਣ ਕਰੋ</string>
   <string name="backup_additional_security_title">ਹੋਰ ਸੁਰੱਖਿਆ (ਵਿਕਲਪਿਕ)</string>
   <string name="backup_additional_security_body">ਇੱਕ ਪਾਸਵਰਡ ਚੁਣੋ</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਪਾਸਵਰਡ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
+  <string name="backup_additional_security_disclaimer_title">ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਪਾਸਵਰਡ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
   <string name="backup_additional_security_disclaimer_body">ਕੋਈ ਪਾਸਵਰਡ ਰਿਕਵਰੀ ਨਹੀਂ ਹੈ|</string>
   <string name="backup_additional_security_password_not_march">ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ|</string>
   <!--Wallets Management-->

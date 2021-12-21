@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Effettua il backup del tuo wallet</string>
   <string name="backup_home_notification_body">Hai perso il telefono? Fai subito il backup del tuo wallet!</string>
-  <string name="backup_button_deprecated">BACKUP</string>
+  <string name="backup_button">BACKUP</string>
   <string name="backup_title">Backup del Wallet</string>
   <string name="backup_password_title">Cripta il tuo wallet (facoltativo)</string>
   <string name="backup_password">Password</string>
   <string name="backup_body">Non conserviamo le tue chiavi private o qualsiasi altro metodo di accesso. È importante che il backup del tuo wallet (keystore) sia al sicuro.</string>
-  <string name="backup_confirmation_title_deprecated">Ultimo passaggio</string>
-  <string name="backup_confirmation_body_deprecated">Tieni il backup al sicuro! Dove desideri salvarlo?</string>
-  <string name="backup_confirmation_yes_deprecated">SÌ, CONCLUDI</string>
-  <string name="backup_confirmation_no_deprecated">NO, SALVA SUL DISPOSITIVO</string>
+  <string name="backup_confirmation_title">Ultimo passaggio</string>
+  <string name="backup_confirmation_body">Tieni il backup al sicuro! Dove desideri salvarlo?</string>
+  <string name="backup_confirmation_yes">SÌ, CONCLUDI</string>
+  <string name="backup_confirmation_no">NO, SALVA SUL DISPOSITIVO</string>
   <string name="backup_done_title">Backup completato!</string>
   <string name="backup_done_body">Hai controllato che il file di backup sia al sicuro?</string>
   <string name="backup_confirmation_no_share_title">Backup completato!</string>
   <string name="backup_confirmation_no_share_body">Il tuo file di backup è nella cartella dei Download.</string>
-  <string name="backup_save_dialogue_title_deprecated">Salva file di backup</string>
-  <string name="backup_save_dialogue_body_deprecated">Scegli un nome per il tuo file di backup.</string>
+  <string name="backup_save_dialogue_title">Salva file di backup</string>
+  <string name="backup_save_dialogue_body">Scegli un nome per il tuo file di backup.</string>
   <string name="backup_confirmation_tips_title">Tieni il file al sicuro:</string>
   <string name="backup_confirmation_tips_1">Stampalo e conservalo in un luogo sicuro.</string>
   <string name="backup_confirmation_tips_2">Salvalo su una chiavetta USB.</string>
   <string name="backup_confirmation_tips_3">Copialo su un archivio cloud sicuro.</string>
   <string name="backup_send_via_title">Invia backup tramite:</string>
   <string name="backup_send_button">INVIA BACKUP</string>
-  <string name="backup_save_button_deprecated">SALVA BACKUP</string>
+  <string name="backup_save_button">SALVA BACKUP</string>
   <string name="import_wallet_title">Recupera wallet</string>
   <string name="import_wallet_body">Incolla il backup del tuo wallet di seguito.</string>
   <string name="import_wallet_keystore_private_keys">Keystore o chiavi private</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Scegli un wallet per il backup</string>
   <string name="backup_additional_security_title">Ulteriore sicurezza (facoltativo)</string>
   <string name="backup_additional_security_body">Scegli una password</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Conserva la tua password al sicuro.</string>
+  <string name="backup_additional_security_disclaimer_title">Conserva la tua password al sicuro.</string>
   <string name="backup_additional_security_disclaimer_body">Non è possibile recuperare la password.</string>
   <string name="backup_additional_security_password_not_march">Le password non corrispondono.</string>
   <!--Wallets Management-->

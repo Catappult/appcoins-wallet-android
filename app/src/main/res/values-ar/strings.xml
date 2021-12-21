@@ -612,28 +612,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">حفظ نسخة احتياطية لمحفظتك</string>
   <string name="backup_home_notification_body">هل أضعت هاتفك في يوم من الأيام؟ احتفظ بنسخة احتياطية من محفظتك الآن!</string>
-  <string name="backup_button_deprecated">نسخ احتياطي</string>
+  <string name="backup_button">نسخ احتياطي</string>
   <string name="backup_title">نسخ احتياطي للمحفظة</string>
   <string name="backup_password_title">تشفير محفظتك (اختياري)</string>
   <string name="backup_password">كلمة المرور</string>
   <string name="backup_body">نحن لا نحتفظ بمفاتيحك الخاصة أو أيٍّ من وسائل الدخولا أخرى. من المهم أن يبقى النسخ الاحتياطي لمحفظتك (keystore) بأمان.</string>
-  <string name="backup_confirmation_title_deprecated">خطوة واحدة أخرى</string>
-  <string name="backup_confirmation_body_deprecated">احتفظ بالنسخ الاحتياطي في أمان! أين تريد الاحتفاظ به؟</string>
-  <string name="backup_confirmation_yes_deprecated">نعم، خلّصني</string>
-  <string name="backup_confirmation_no_deprecated">لا، احفظ على الجهاز</string>
+  <string name="backup_confirmation_title">خطوة واحدة أخرى</string>
+  <string name="backup_confirmation_body">احتفظ بالنسخ الاحتياطي في أمان! أين تريد الاحتفاظ به؟</string>
+  <string name="backup_confirmation_yes">نعم، خلّصني</string>
+  <string name="backup_confirmation_no">لا، احفظ على الجهاز</string>
   <string name="backup_done_title">انتهى النسخ الاحتياطي!</string>
   <string name="backup_done_body">هل أنت متأكد بأن ملف النسخ الاحتياطي في مكان آمن؟</string>
   <string name="backup_confirmation_no_share_title">تم النسخ الاحتياطي!</string>
   <string name="backup_confirmation_no_share_body">ملف النسخ الاحتياطي في مجلّد التنزيلات.</string>
-  <string name="backup_save_dialogue_title_deprecated">احفظ ملفات النسخ الاحتياطي</string>
-  <string name="backup_save_dialogue_body_deprecated">اختر اسمًا لملف النسخ الاحتياطي.</string>
+  <string name="backup_save_dialogue_title">احفظ ملفات النسخ الاحتياطي</string>
+  <string name="backup_save_dialogue_body">اختر اسمًا لملف النسخ الاحتياطي.</string>
   <string name="backup_confirmation_tips_title">احفظ الملف بأمان:</string>
   <string name="backup_confirmation_tips_1">اطبعه واحفظه في مكان آمن.</string>
   <string name="backup_confirmation_tips_2">احفظها على مشغل يو أس بي.</string>
   <string name="backup_confirmation_tips_3">انسخه إلى تخزين سحابي خاص وآمن.</string>
   <string name="backup_send_via_title">أرسل النسخة الاحتياطية بواسطة:</string>
   <string name="backup_send_button">إرسال النسخ الاحتياطي</string>
-  <string name="backup_save_button_deprecated">احفظ النسخ الاحتياطي</string>
+  <string name="backup_save_button">احفظ النسخ الاحتياطي</string>
   <string name="import_wallet_title">استعادة المحفظة</string>
   <string name="import_wallet_body">ألصق النسخ الاحتياطي للمحفظة في الأسفل.</string>
   <string name="import_wallet_keystore_private_keys">مخزن المفاتيح أو المفاتيح الخاصة</string>
@@ -652,7 +652,7 @@
   <string name="backup_choose_wallet_title">اختر محفظة لإنشاء نسخ احتياطي لها</string>
   <string name="backup_additional_security_title">أمان إضافي (اختياري)</string>
   <string name="backup_additional_security_body">اختر كلمة مرور</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">يرجى حفظ كلمة المرور في أمان.</string>
+  <string name="backup_additional_security_disclaimer_title">يرجى حفظ كلمة المرور في أمان.</string>
   <string name="backup_additional_security_disclaimer_body">لا يمكن استرجاع كلمة المرور.</string>
   <string name="backup_additional_security_password_not_march">كلمة المرور غير متطابقة.</string>
   <!--Wallets Management-->

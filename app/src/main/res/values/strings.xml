@@ -672,7 +672,6 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
-  <string name="backup_button_deprecated">BACKUP</string> <!-- TODO: Unused, delete -->
   <string name="backup_button">Backup wallet</string>
   <string name="backup_skip_button">Skip for now</string>
   <string name="backup_title">Backup Wallet</string>
@@ -680,23 +679,17 @@
   <string name="backup_password">Password</string>
   <string name="backup_body_title">Backup your wallet key now!</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
-  <string name="backup_confirmation_title_deprecated">Just one more step</string>
   <string name="backup_confirmation_title">Your backup is ready!\n<br />Keep it safe</string>
   <string name="backup_option_email_title">Save on your email</string>
   <string name="backup_options">Or</string>
   <string name="backup_option_email_hint">Your email here…</string>
   <string name="backup_option_email_button">Send to email</string>
   <string name="backup_option_device_button">Save on device</string>
-  <string name="backup_confirmation_body_deprecated">Keep your backup safe! Where do you want to save it?</string>
-  <string name="backup_confirmation_yes_deprecated">YES, FINISH</string>
-  <string name="backup_confirmation_no_deprecated">NO, SAVE ON DEVICE</string>
   <string name="backup_done_title">Backup done!</string>
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
   <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
-  <string name="backup_save_dialogue_title_deprecated">Save backup file</string>
   <string name="backup_save_dialogue_title">Save Backup</string>
-  <string name="backup_save_dialogue_body_deprecated">Choose a name for your backup file.</string>
   <string name="backup_save_dialogue_body">Please enter a name for the backup file.</string>
   <string name="backup_confirmation_tips_title">Keep the file safe:</string>
   <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
@@ -704,7 +697,6 @@
   <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
-  <string name="backup_save_button_deprecated">SAVE BACKUP</string>
   <string name="backup_save_on_device_button">SAVE</string>
   <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
@@ -724,7 +716,6 @@
   <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Please keep your password safe.</string> <!-- TODO: Unused, delete -->
   <string name="backup_additional_security_disclaimer_title">We are not responsible for lost or stolen password!</string>
   <string name="backup_additional_security_disclaimer_body">There is no password recovery!</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>

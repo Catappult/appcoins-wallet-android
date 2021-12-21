@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားပါ</string>
   <string name="backup_home_notification_body">သင့္ဖုန္းကို ေပ်ာက္ဖူးပါသလား။ ယခုပင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားလိုက္ပါ။</string>
-  <string name="backup_button_deprecated">အရံသိမ္းဆည္းမည္</string>
+  <string name="backup_button">အရံသိမ္းဆည္းမည္</string>
   <string name="backup_title">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
   <string name="backup_password_title">သင့္ပိုက္ဆံအိတ္ကို ကုဒ္ဖ်က္လိုက္ပါ (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
   <string name="backup_password">စကား၀ွက္</string>
   <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
-  <string name="backup_confirmation_title_deprecated">ေနာက္ထပ္တစ္ဆင့္သာ</string>
-  <string name="backup_confirmation_body_deprecated">သင့္အရံသိမ္းဆည္းမႈကို လံုၿခံဳေအာင္ ထားလိုက္ပါ။ မည္သည့္ေနရာတြင္ သိမ္းလိုပါသလဲ။</string>
-  <string name="backup_confirmation_yes_deprecated">ဟုတ္ကဲ့ ၿပီးပါၿပီ</string>
-  <string name="backup_confirmation_no_deprecated">မဟုတ္ပါ။ ကိရိယာေပၚတြင္ သိမ္းဆည္းမည္</string>
+  <string name="backup_confirmation_title">ေနာက္ထပ္တစ္ဆင့္သာ</string>
+  <string name="backup_confirmation_body">သင့္အရံသိမ္းဆည္းမႈကို လံုၿခံဳေအာင္ ထားလိုက္ပါ။ မည္သည့္ေနရာတြင္ သိမ္းလိုပါသလဲ။</string>
+  <string name="backup_confirmation_yes">ဟုတ္ကဲ့ ၿပီးပါၿပီ</string>
+  <string name="backup_confirmation_no">မဟုတ္ပါ။ ကိရိယာေပၚတြင္ သိမ္းဆည္းမည္</string>
   <string name="backup_done_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_done_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ လံုၿခံဳေသာေနရာတြင္ ရွိေနေၾကာင္း ေသခ်ာပါသလား။</string>
   <string name="backup_confirmation_no_share_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_confirmation_no_share_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ သင့္ Downloads ဖိုလ္ဒါတြင္ ရွိပါသည္။</string>
-  <string name="backup_save_dialogue_title_deprecated">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
-  <string name="backup_save_dialogue_body_deprecated">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
+  <string name="backup_save_dialogue_title">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
+  <string name="backup_save_dialogue_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
   <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
   <string name="backup_confirmation_tips_1">ယင္းကို ပရင့္ထုတ္ကာ တေနရာရာတြင္ လံုျခံဳေအာင္ သိမ္းထားပါ။</string>
   <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္တစ္ခုေပၚတြင္ သိမ္းဆည္းပါ။</string>
   <string name="backup_confirmation_tips_3">သီးသန္႔ျဖစ္ၿပီး လံုျခံဳေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ ကူးယူထားပါ။</string>
   <string name="backup_send_via_title">အရန္သိမ္းဆည္းမႈကို ေပးပို႔မည္ -</string>
   <string name="backup_send_button">အရံသိမ္းဆည္းမႈကို ေပးပို႔မည္</string>
-  <string name="backup_save_button_deprecated">အရံသိမ္းဆည္းမႈကို သိမ္းမည္</string>
+  <string name="backup_save_button">အရံသိမ္းဆည္းမႈကို သိမ္းမည္</string>
   <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">အရံသိမ္းဆည္းရန္အတြက္ ပိုက္ဆံအိတ္တစ္ခုကို ေရြးခ်ယ္ပါ</string>
   <string name="backup_additional_security_title">ေနာက္ထပ္လံုျခံဳေရး (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
   <string name="backup_additional_security_body">စကားဝွက္တစ္ခု ေရြးခ်ယ္ပါ</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">သင့္စကားဝွက္ကို ေဘးကင္းေအာင္ ထားေပးပါ။</string>
+  <string name="backup_additional_security_disclaimer_title">သင့္စကားဝွက္ကို ေဘးကင္းေအာင္ ထားေပးပါ။</string>
   <string name="backup_additional_security_disclaimer_body">စကားဝွက္ ျပန္လည္ရယူမႈ မရွိပါ။</string>
   <string name="backup_additional_security_password_not_march">စကားဝွက္မ်ား မကိုက္ညီပါ။</string>
   <!--Wallets Management-->

@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sauvegarder votre portefeuille</string>
   <string name="backup_home_notification_body">Avez-vous déjà perdu votre téléphone ? Sauvegardez votre portefeuille maintenant !</string>
-  <string name="backup_button_deprecated">SAUVEGARDE</string>
+  <string name="backup_button">SAUVEGARDE</string>
   <string name="backup_title">Sauvegarde portefeuille</string>
   <string name="backup_password_title">Crypter votre portefeuille (optionnel)</string>
   <string name="backup_password">Mot de passe</string>
   <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
-  <string name="backup_confirmation_title_deprecated">Encore une étape</string>
-  <string name="backup_confirmation_body_deprecated">Conservez vos sauvegardes en sécurité ! Où voulez-vous la sauvegarder ?</string>
-  <string name="backup_confirmation_yes_deprecated">OUI, TERMINÉ</string>
-  <string name="backup_confirmation_no_deprecated">NON, SAUVEGARDER SUR L\'APPAREIL</string>
+  <string name="backup_confirmation_title">Encore une étape</string>
+  <string name="backup_confirmation_body">Conservez vos sauvegardes en sécurité ! Où voulez-vous la sauvegarder ?</string>
+  <string name="backup_confirmation_yes">OUI, TERMINÉ</string>
+  <string name="backup_confirmation_no">NON, SAUVEGARDER SUR L\'APPAREIL</string>
   <string name="backup_done_title">Sauvegarde effectuée !</string>
   <string name="backup_done_body">Êtes-vous sûr que votre fichier de sauvegarde se trouve dans un endroit sûr ?</string>
   <string name="backup_confirmation_no_share_title">Sauvegarde effectuée !</string>
   <string name="backup_confirmation_no_share_body">Votre fichier sauvegardé est dans votre dossier Téléchargements.</string>
-  <string name="backup_save_dialogue_title_deprecated">Enregistrez le fichier de sauvegarde</string>
-  <string name="backup_save_dialogue_body_deprecated">Choisissez un nom pour votre fichier de sauvegarde.</string>
+  <string name="backup_save_dialogue_title">Enregistrez le fichier de sauvegarde</string>
+  <string name="backup_save_dialogue_body">Choisissez un nom pour votre fichier de sauvegarde.</string>
   <string name="backup_confirmation_tips_title">Conservez le fichier en sécurité :</string>
   <string name="backup_confirmation_tips_1">Imprimez-le et stockez-le dans un endroit sûr.</string>
   <string name="backup_confirmation_tips_2">Sauvegardez-le sur un disque USB.</string>
   <string name="backup_confirmation_tips_3">Copiez-le vers un cloud privé et sécurisé.</string>
   <string name="backup_send_via_title">Envoyer la sauvegarde via :</string>
   <string name="backup_send_button">ENVOYER SAUVEGARDE</string>
-  <string name="backup_save_button_deprecated">ENREGISTREZ LA SAUVEGARDE</string>
+  <string name="backup_save_button">ENREGISTREZ LA SAUVEGARDE</string>
   <string name="import_wallet_title">Récupérer le portefeuille</string>
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Choisissez un portefeuille à sauvegarder</string>
   <string name="backup_additional_security_title">Sécurité supplémentaire (facultatif)</string>
   <string name="backup_additional_security_body">Choisissez un mot de passe</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Veuillez conserver votre mot de passe en lieu sûr.</string>
+  <string name="backup_additional_security_disclaimer_title">Veuillez conserver votre mot de passe en lieu sûr.</string>
   <string name="backup_additional_security_disclaimer_body">Il n\'y a pas de récupération de mot de passe.</string>
   <string name="backup_additional_security_password_not_march">Les mots de passe ne correspondent pas.</string>
   <!--Wallets Management-->

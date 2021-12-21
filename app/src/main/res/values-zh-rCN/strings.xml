@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">备份你的钱包</string>
   <string name="backup_home_notification_body">丢过手机吗？立即备份你的钱包！</string>
-  <string name="backup_button_deprecated">备份</string>
+  <string name="backup_button">备份</string>
   <string name="backup_title">备份钱包</string>
   <string name="backup_password_title">为你的钱包加密（可选）</string>
   <string name="backup_password">密码</string>
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
-  <string name="backup_confirmation_title_deprecated">最后一个步骤</string>
-  <string name="backup_confirmation_body_deprecated">请确保备份安全！你希望将其保存在哪里？</string>
-  <string name="backup_confirmation_yes_deprecated">是的，完成</string>
-  <string name="backup_confirmation_no_deprecated">不，保存在设备上</string>
+  <string name="backup_confirmation_title">最后一个步骤</string>
+  <string name="backup_confirmation_body">请确保备份安全！你希望将其保存在哪里？</string>
+  <string name="backup_confirmation_yes">是的，完成</string>
+  <string name="backup_confirmation_no">不，保存在设备上</string>
   <string name="backup_done_title">备份完成！</string>
   <string name="backup_done_body">你确定备份文件存放在安全的位置吗？</string>
   <string name="backup_confirmation_no_share_title">备份完成！</string>
   <string name="backup_confirmation_no_share_body">备份文件位于“下载”文件夹中。</string>
-  <string name="backup_save_dialogue_title_deprecated">保存备份文件</string>
-  <string name="backup_save_dialogue_body_deprecated">选择备份文件的名称。</string>
+  <string name="backup_save_dialogue_title">保存备份文件</string>
+  <string name="backup_save_dialogue_body">选择备份文件的名称。</string>
   <string name="backup_confirmation_tips_title">确保文件安全：</string>
   <string name="backup_confirmation_tips_1">打印并将其存储在安全的地方。</string>
   <string name="backup_confirmation_tips_2">将其保存在 USB 驱动器上。</string>
   <string name="backup_confirmation_tips_3">将其复制到安全的私有云存储中。</string>
   <string name="backup_send_via_title">备份发送方式：</string>
   <string name="backup_send_button">发送备份</string>
-  <string name="backup_save_button_deprecated">保存备份</string>
+  <string name="backup_save_button">保存备份</string>
   <string name="import_wallet_title">恢复钱包</string>
   <string name="import_wallet_body">将你的钱包备份粘贴在下方。</string>
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">选择要备份的钱包</string>
   <string name="backup_additional_security_title">额外安全性（可选）</string>
   <string name="backup_additional_security_body">选择密码</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">请确保您的密码安全。</string>
+  <string name="backup_additional_security_disclaimer_title">请确保您的密码安全。</string>
   <string name="backup_additional_security_disclaimer_body">密码不可恢复。</string>
   <string name="backup_additional_security_password_not_march">密码不匹配。</string>
   <!--Wallets Management-->

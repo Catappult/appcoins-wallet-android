@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Αντίγραφο Ασφαλείας του Wallet σας</string>
   <string name="backup_home_notification_body">Έχετε χάσει ποτέ το κινητό σας; Δημιουργήστε ένα αντίγραφο ασφαλείας του wallet σας τώρα!</string>
-  <string name="backup_button_deprecated">ΑΝΤΙΓΡΑΦΟ ΑΣΦΑΛΕΙΑΣ</string>
+  <string name="backup_button">ΑΝΤΙΓΡΑΦΟ ΑΣΦΑΛΕΙΑΣ</string>
   <string name="backup_title">Αντίγραφο Ασφαλείας του Wallet</string>
   <string name="backup_password_title">Κρυπτογραφήστε το wallet σας (προαιρετικό)</string>
   <string name="backup_password">Κωδικός πρόσβασης</string>
   <string name="backup_body">Δεν αποθηκεύουμε τα ιδιωτικά κλειδιά σας ή άλλες μεθόδους πρόσβασης. Είναι σημαντικό να διατηρείτε το αντίγραφο ασφαλείας του wallet σας (keystore) ασφαλές.</string>
-  <string name="backup_confirmation_title_deprecated">Μόνο ένα βήμα ακόμη</string>
-  <string name="backup_confirmation_body_deprecated">Διατηρήστε ασφαλές το αντίγραφο ασφαλείας! Πού θέλετε να το αποθηκεύσετε;</string>
-  <string name="backup_confirmation_yes_deprecated">ΝΑΙ, ΤΕΛΟΣ</string>
-  <string name="backup_confirmation_no_deprecated">ΟΧΙ, ΑΠΟΘΗΚΕΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ</string>
+  <string name="backup_confirmation_title">Μόνο ένα βήμα ακόμη</string>
+  <string name="backup_confirmation_body">Διατηρήστε ασφαλές το αντίγραφο ασφαλείας! Πού θέλετε να το αποθηκεύσετε;</string>
+  <string name="backup_confirmation_yes">ΝΑΙ, ΤΕΛΟΣ</string>
+  <string name="backup_confirmation_no">ΟΧΙ, ΑΠΟΘΗΚΕΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ</string>
   <string name="backup_done_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
   <string name="backup_done_body">Είστε σίγουροι ότι το αρχείο αντιγράφου ασφαλείας είναι σε ασφαλές μέρος;</string>
   <string name="backup_confirmation_no_share_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
   <string name="backup_confirmation_no_share_body">Το αρχείο αντιγράφου ασφαλείας βρίσκεται στον φάκελο Λήψεις.</string>
-  <string name="backup_save_dialogue_title_deprecated">Αποθήκευση αρχείου αντιγράφου ασφαλείας</string>
-  <string name="backup_save_dialogue_body_deprecated">Επιλέξτε ένα όνομα για το αρχείο αντιγράφου ασφαλείας.</string>
+  <string name="backup_save_dialogue_title">Αποθήκευση αρχείου αντιγράφου ασφαλείας</string>
+  <string name="backup_save_dialogue_body">Επιλέξτε ένα όνομα για το αρχείο αντιγράφου ασφαλείας.</string>
   <string name="backup_confirmation_tips_title">Διατηρήστε το αρχείο ασφαλές:</string>
   <string name="backup_confirmation_tips_1">Εκτυπώστε το και αποθηκεύστε το σε ασφαλές μέρος.</string>
   <string name="backup_confirmation_tips_2">Αποθήκευση σε μονάδα USB.</string>
   <string name="backup_confirmation_tips_3">Αντιγράψτε το σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.</string>
   <string name="backup_send_via_title">Αποστολή αντιγράφου ασφαλείας μέσω:</string>
   <string name="backup_send_button">ΑΠΟΣΤΟΛΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
-  <string name="backup_save_button_deprecated">ΑΠΟΘΗΚΕΥΣΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
+  <string name="backup_save_button">ΑΠΟΘΗΚΕΥΣΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
   <string name="import_wallet_title">Ανάκτηση Wallet</string>
   <string name="import_wallet_body">Επικολλήστε το αντίγραφο ασφαλείας του wallet σας παρακάτω.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ή ιδιωτικά κλειδιά</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Επιλέξτε ένα wallet για δημιουργία αντιγράφου ασφαλείας</string>
   <string name="backup_additional_security_title">Επιπρόσθετη Ασφάλεια (προαιρετικά)</string>
   <string name="backup_additional_security_body">Επιλέξτε έναν κωδικό πρόσβασης</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Παρακαλούμε διατηρήστε τον κωδικό σας ασφαλή.</string>
+  <string name="backup_additional_security_disclaimer_title">Παρακαλούμε διατηρήστε τον κωδικό σας ασφαλή.</string>
   <string name="backup_additional_security_disclaimer_body">Δεν υπάρχει δυνατότητα επαναφοράς κωδικού.</string>
   <string name="backup_additional_security_password_not_march">Οι κωδικοί πρόσβασης δεν ταιριάζουν.</string>
   <!--Wallets Management-->

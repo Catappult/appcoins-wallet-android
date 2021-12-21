@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Сделайте бэкап кошелька</string>
   <string name="backup_home_notification_body">Когда-нибудь теряли телефон? Сделайте резервную копию кошелька прямо сейчас!</string>
-  <string name="backup_button_deprecated">КОПИРОВАТЬ</string>
+  <string name="backup_button">КОПИРОВАТЬ</string>
   <string name="backup_title">Бэкап кошелька</string>
   <string name="backup_password_title">Зашифровать кошелёк (необязательно)</string>
   <string name="backup_password">Пароль</string>
   <string name="backup_body">Мы не храним ваши закрытые ключи или иные методы доступа. Важно хранить ваш бэкап (хранилище ключей) в безопасности.</string>
-  <string name="backup_confirmation_title_deprecated">Остался всего один шаг</string>
-  <string name="backup_confirmation_body_deprecated">Держите свои резервные копии в безопасном месте! Где вы хотите их сохранить?</string>
-  <string name="backup_confirmation_yes_deprecated">ДА, ЗАКОНЧИТЬ</string>
-  <string name="backup_confirmation_no_deprecated">НЕТ, СОХРАНИТЬ НА УСТРОЙСТВО</string>
+  <string name="backup_confirmation_title">Остался всего один шаг</string>
+  <string name="backup_confirmation_body">Держите свои резервные копии в безопасном месте! Где вы хотите их сохранить?</string>
+  <string name="backup_confirmation_yes">ДА, ЗАКОНЧИТЬ</string>
+  <string name="backup_confirmation_no">НЕТ, СОХРАНИТЬ НА УСТРОЙСТВО</string>
   <string name="backup_done_title">Резервное копирование сделано!</string>
   <string name="backup_done_body">Вы уверены, что ваш файл с резервной копией в безопасном месте?</string>
   <string name="backup_confirmation_no_share_title">Резервное копирование сделано!</string>
   <string name="backup_confirmation_no_share_body">Ваша резервная копия в директории \"Загрузки\".</string>
-  <string name="backup_save_dialogue_title_deprecated">Сохранить резервную копию</string>
-  <string name="backup_save_dialogue_body_deprecated">Введите имя для файла резервной копии.</string>
+  <string name="backup_save_dialogue_title">Сохранить резервную копию</string>
+  <string name="backup_save_dialogue_body">Введите имя для файла резервной копии.</string>
   <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
   <string name="backup_confirmation_tips_1">Распечатайте и храните в безопасном месте.</string>
   <string name="backup_confirmation_tips_2">Сохраните на диск USB.</string>
   <string name="backup_confirmation_tips_3">Скопируйте в личное безопасное облачное хранилище.</string>
   <string name="backup_send_via_title">Отправить бэкап через:</string>
   <string name="backup_send_button">ОТПРАВИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
-  <string name="backup_save_button_deprecated">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
+  <string name="backup_save_button">СОХРАНИТЬ РЕЗЕРВНУЮ КОПИЮ</string>
   <string name="import_wallet_title">Восстановить кошелёк</string>
   <string name="import_wallet_body">Вставьте бэкап вашего кошелька ниже.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище ключей или закрытый ключ</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Выберите кошелёк для создания резервной копии</string>
   <string name="backup_additional_security_title">Дополнительная безопасность (необязательно)</string>
   <string name="backup_additional_security_body">Выберите пароль</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Пожалуйста, сохраните свой пароль в безопасности.</string>
+  <string name="backup_additional_security_disclaimer_title">Пожалуйста, сохраните свой пароль в безопасности.</string>
   <string name="backup_additional_security_disclaimer_body">Восстановление пароля невозможно.</string>
   <string name="backup_additional_security_password_not_march">Пароли не совпадают.</string>
   <!--Wallets Management-->

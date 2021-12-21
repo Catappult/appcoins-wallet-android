@@ -611,28 +611,28 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Направи бекъп на портфейла си</string>
   <string name="backup_home_notification_body">Някога архивирал ли си си телефона? Архивирай портфейла си сега!</string>
-  <string name="backup_button_deprecated">БЕКЪП</string>
+  <string name="backup_button">БЕКЪП</string>
   <string name="backup_title">Бекъп на портфейла</string>
   <string name="backup_password_title">Криптирай портфейла си (по желание)</string>
   <string name="backup_password">Парола</string>
   <string name="backup_body">Ние не съхраняваме твоите лични ключове или друг метод за достъп. Важно е да запазиш резервното копие (хранилище) на портфейла си.</string>
-  <string name="backup_confirmation_title_deprecated">Само още една стъпка</string>
-  <string name="backup_confirmation_body_deprecated">Пази бекъпа си! Къде искаш да го запазиш?</string>
-  <string name="backup_confirmation_yes_deprecated">ДА, ЗАВЪРШИ</string>
-  <string name="backup_confirmation_no_deprecated">НЕ, ЗАПАМЕТИ НА УСТРОЙСТВОТО</string>
+  <string name="backup_confirmation_title">Само още една стъпка</string>
+  <string name="backup_confirmation_body">Пази бекъпа си! Къде искаш да го запазиш?</string>
+  <string name="backup_confirmation_yes">ДА, ЗАВЪРШИ</string>
+  <string name="backup_confirmation_no">НЕ, ЗАПАМЕТИ НА УСТРОЙСТВОТО</string>
   <string name="backup_done_title">Бекъпът приключи!</string>
   <string name="backup_done_body">Сигурен ли си, че файлът с бекъпа ти е на сигурно място?</string>
   <string name="backup_confirmation_no_share_title">Бекъп завършен!</string>
   <string name="backup_confirmation_no_share_body">Твоят бекъп файл е в папката ти Изтегляния.</string>
-  <string name="backup_save_dialogue_title_deprecated">Запамети бекъп файл</string>
-  <string name="backup_save_dialogue_body_deprecated">Избери име за своя бекъп файл.</string>
+  <string name="backup_save_dialogue_title">Запамети бекъп файл</string>
+  <string name="backup_save_dialogue_body">Избери име за своя бекъп файл.</string>
   <string name="backup_confirmation_tips_title">Безопасно запаметяване на файла:</string>
   <string name="backup_confirmation_tips_1">Изпринтирай го и го съхранявай на сигурно място.</string>
   <string name="backup_confirmation_tips_2">Запамети го на флашка.</string>
   <string name="backup_confirmation_tips_3">Копирай го на частен и сигурен облак.</string>
   <string name="backup_send_via_title">Изпрати бекъп чрез:</string>
   <string name="backup_send_button">ИЗПРАТИ БЕКЪП</string>
-  <string name="backup_save_button_deprecated">ЗАПАЗИ БЕКЪП</string>
+  <string name="backup_save_button">ЗАПАЗИ БЕКЪП</string>
   <string name="import_wallet_title">Възстанови портфейла</string>
   <string name="import_wallet_body">Постави бекъп-а на портфейла си по-долу.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище или лични ключове</string>
@@ -651,7 +651,7 @@
   <string name="backup_choose_wallet_title">Избери портфейл за бекъп</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_additional_security_disclaimer_title_deprecated">Please keep your password safe.</string>
+  <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <!--Wallets Management-->
