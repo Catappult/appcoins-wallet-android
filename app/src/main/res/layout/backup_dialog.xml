@@ -48,6 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_title"
         />
+
     <TextView
         android:id="@+id/store_path"
         android:layout_width="wrap_content"
@@ -69,29 +70,33 @@
         tools:visibility="visible"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/file_name_input"
-        style="@style/BackupFileNameInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="25dp"
-        android:imeOptions="actionDone"
-        android:inputType="textImeMultiLine"
+        android:background="@drawable/rectangle_text_default_promo_code"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/store_path"
+        android:paddingHorizontal="16dp"
         >
 
-      <com.google.android.material.textfield.TextInputEditText
+      <EditText
           android:id="@+id/edit_file_name_input"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="top"
+          android:layout_width="250dp"
+          android:layout_height="wrap_content"
+          android:background="@android:color/transparent"
+          android:imeActionLabel="@string/prompt_to"
+          android:inputType="text"
+          android:maxLines="1"
+          app:layout_constraintBottom_toBottomOf="parent"
           android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
           />
-    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

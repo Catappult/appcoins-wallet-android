@@ -74,6 +74,7 @@
         android:paddingHorizontal="@dimen/half_large_padding"
         app:buttonText="@string/backup_skip_button"
         app:buttonType="text"
+        app:buttonColor="@color/grey_blue_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
