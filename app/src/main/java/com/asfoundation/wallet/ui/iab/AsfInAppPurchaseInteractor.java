@@ -16,7 +16,6 @@ import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -257,7 +256,7 @@ public class AsfInAppPurchaseInteractor {
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
   }
 
-  Single<GetDefaultWalletBalanceInteract.BalanceState> getAppcoinsBalanceState(
+  Single<InAppPurchaseService.BalanceState> getAppcoinsBalanceState(
       TransactionBuilder transactionBuilder) {
     return gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(

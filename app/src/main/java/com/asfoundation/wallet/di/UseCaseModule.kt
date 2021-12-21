@@ -32,6 +32,7 @@ import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.nfts.repository.NFTRepository
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
@@ -50,12 +51,12 @@ import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
-import com.asfoundation.wallet.ui.balance.BalanceRepository
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
+import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
+import com.asfoundation.wallet.wallets.usecases.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -203,27 +204,6 @@ class UseCaseModule {
                                   findDefaultWalletUseCase: FindDefaultWalletUseCase,
                                   getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase): GetUserLevelUseCase {
     return GetUserLevelUseCase(gamification, findDefaultWalletUseCase, getCurrentPromoCodeUseCase)
-  }
-
-  @Singleton
-  @Provides
-  fun providesGetAppcBalanceUseCase(getCurrentWalletUseCase: GetCurrentWalletUseCase,
-                                    balanceRepository: BalanceRepository): GetAppcBalanceUseCase {
-    return GetAppcBalanceUseCase(getCurrentWalletUseCase, balanceRepository)
-  }
-
-  @Singleton
-  @Provides
-  fun providesGetEthBalanceUseCase(getCurrentWalletUseCase: GetCurrentWalletUseCase,
-                                   balanceRepository: BalanceRepository): GetEthBalanceUseCase {
-    return GetEthBalanceUseCase(getCurrentWalletUseCase, balanceRepository)
-  }
-
-  @Singleton
-  @Provides
-  fun providesGetCreditsBalanceUseCase(getCurrentWalletUseCase: GetCurrentWalletUseCase,
-                                       balanceRepository: BalanceRepository): GetCreditsBalanceUseCase {
-    return GetCreditsBalanceUseCase(getCurrentWalletUseCase, balanceRepository)
   }
 
   @Singleton
@@ -386,5 +366,40 @@ class UseCaseModule {
   fun providesBackupSuccessLogUseCase(ewt: EwtAuthenticatorService,
                                       backupSuccessLogRepository: BackupSuccessLogRepository): BackupSuccessLogUseCase {
     return BackupSuccessLogUseCase(ewt, backupSuccessLogRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSetOnboardingCompletedUseCase(
+      preferencesRepositoryType: PreferencesRepositoryType): SetOnboardingCompletedUseCase {
+    return SetOnboardingCompletedUseCase(preferencesRepositoryType)
+  }
+
+  @Singleton
+  @Provides
+  fun provideGetWalletInfoUseCase(walletInfoRepository: WalletInfoRepository,
+                                  getCurrentWallet: GetCurrentWalletUseCase): GetWalletInfoUseCase {
+    return GetWalletInfoUseCase(walletInfoRepository, getCurrentWallet)
+  }
+
+  @Singleton
+  @Provides
+  fun provideObserveWalletInfoUseCase(walletInfoRepository: WalletInfoRepository,
+                                      getCurrentWallet: GetCurrentWalletUseCase): ObserveWalletInfoUseCase {
+    return ObserveWalletInfoUseCase(walletInfoRepository, getCurrentWallet)
+  }
+
+  @Singleton
+  @Provides
+  fun provideUpdateWalletInfoUseCase(walletInfoRepository: WalletInfoRepository,
+                                     getCurrentWallet: GetCurrentWalletUseCase): UpdateWalletInfoUseCase {
+    return UpdateWalletInfoUseCase(walletInfoRepository, getCurrentWallet)
+  }
+
+  @Singleton
+  @Provides
+  fun provideHasEnoughBalanceUseCase(
+      getWalletInfoUseCase: GetWalletInfoUseCase): HasEnoughBalanceUseCase {
+    return HasEnoughBalanceUseCase(getWalletInfoUseCase)
   }
 }

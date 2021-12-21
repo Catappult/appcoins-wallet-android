@@ -21,8 +21,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 31
-    versionCode 206
-    versionName "2.2.1.1"
+    versionCode 210
+    versionName "2.3.0.3"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -69,6 +69,8 @@ android {
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
     buildConfigField 'String', 'VIP_PROGRAM_BADGE_URL', project.VIP_PROGRAM_BADGE_URL
     buildConfigField 'String', 'APPSFLYER_KEY', project.APPSFLYER_KEY
+    buildConfigField 'String', 'TERMS_CONDITIONS_URL', project.TERMS_CONDITIONS_URL
+    buildConfigField 'String', 'PRIVACY_POLICY_URL', project.PRIVACY_POLICY_URL
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 

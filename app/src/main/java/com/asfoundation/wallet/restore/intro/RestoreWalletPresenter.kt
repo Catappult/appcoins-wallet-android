@@ -1,14 +1,16 @@
 package com.asfoundation.wallet.restore.intro
 
 import android.os.Bundle
+import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.util.RestoreError
 import com.asfoundation.wallet.util.RestoreErrorType
 import com.asfoundation.wallet.wallets.WalletModel
+import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
 import io.reactivex.Completable
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
@@ -16,11 +18,11 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
                              private val disposable: CompositeDisposable,
                              private val navigator: RestoreWalletNavigator,
                              private val restoreWalletInteractor: RestoreWalletInteractor,
+                             private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
                              private val walletsEventSender: WalletsEventSender,
                              private val logger: Logger,
-                             private val viewScheduler: Scheduler,
-                             private val computationScheduler: Scheduler,
-                             private val ioScheduler: Scheduler) {
+                             private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+                             private val rxSchedulers: RxSchedulers) {
 
   companion object {
     private const val KEYSTORE = "keystore"
@@ -45,10 +47,10 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
     disposable.add(view.onFileChosen()
         .doOnNext { view.showWalletRestoreAnimation() }
         .flatMapSingle { restoreWalletInteractor.readFile(it) }
-        .observeOn(computationScheduler)
+        .observeOn(rxSchedulers.computation)
         .flatMapSingle { fetchWalletModel(it) }
         .flatMapSingle { setDefaultWallet(it) }
-        .observeOn(viewScheduler)
+        .observeOn(rxSchedulers.main)
         .doOnNext { handleWalletModel(it) }
         .subscribe({}, {
           logger.log("RestoreWalletPresenter", it)
@@ -78,9 +80,9 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
           view.hideKeyboard()
           view.showWalletRestoreAnimation()
         }
-        .observeOn(computationScheduler)
+        .observeOn(rxSchedulers.computation)
         .flatMapSingle { fetchWalletModel(it) }
-        .observeOn(viewScheduler)
+        .observeOn(rxSchedulers.main)
         .doOnNext { handleWalletModel(it) }
         .doOnError { t ->
           walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
@@ -93,9 +95,8 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
     if (model.error.hasError) return Single.just(model)
     // Retrieves overall balance to update it right as we import it
     return Completable.mergeArray(restoreWalletInteractor.setDefaultWallet(model.address),
-        restoreWalletInteractor.getOverallBalance(model.address)
-            .firstElement()
-            .ignoreElement())
+        updateWalletInfoUseCase(model.address, updateFiat = true))
+        .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(Single.just(model))
   }
 

@@ -18,14 +18,15 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -115,110 +116,113 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   lateinit var logger: Logger
 
   @Inject
+  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
+
+  @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
   private val fiatAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
-      arguments!!.getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
+    if (requireArguments().containsKey(FIAT_AMOUNT_KEY)) {
+      requireArguments().getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
     } else {
       throw IllegalArgumentException("amount data not found")
     }
   }
   private val currency: String by lazy {
-    if (arguments!!.containsKey(FIAT_CURRENCY_KEY)) {
-      arguments!!.getString(FIAT_CURRENCY_KEY)!!
+    if (requireArguments().containsKey(FIAT_CURRENCY_KEY)) {
+      requireArguments().getString(FIAT_CURRENCY_KEY)!!
     } else {
       throw IllegalArgumentException("currency data not found")
     }
   }
 
   private val bonus: String by lazy {
-    if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY)!!
+    if (requireArguments().containsKey(BONUS_KEY)) {
+      requireArguments().getString(BONUS_KEY)!!
     } else {
       throw IllegalArgumentException("bonus data not found")
     }
   }
 
   private val appName: String by lazy {
-    if (arguments!!.containsKey(APP_NAME_KEY)) {
-      arguments!!.getString(APP_NAME_KEY)!!
+    if (requireArguments().containsKey(APP_NAME_KEY)) {
+      requireArguments().getString(APP_NAME_KEY)!!
     } else {
       throw IllegalArgumentException("app name data not found")
     }
   }
 
   private val productName: String? by lazy {
-    if (arguments!!.containsKey(PRODUCT_NAME_KEY)) {
-      arguments!!.getString(PRODUCT_NAME_KEY)
+    if (requireArguments().containsKey(PRODUCT_NAME_KEY)) {
+      requireArguments().getString(PRODUCT_NAME_KEY)
     } else {
       throw IllegalArgumentException("product name data not found")
     }
   }
 
   private val appcAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(APPC_AMOUNT_KEY)) {
-      arguments!!.getSerializable(APPC_AMOUNT_KEY) as BigDecimal
+    if (requireArguments().containsKey(APPC_AMOUNT_KEY)) {
+      requireArguments().getSerializable(APPC_AMOUNT_KEY) as BigDecimal
     } else {
       throw IllegalArgumentException("appc data not found")
     }
   }
 
   private val isBds: Boolean by lazy {
-    if (arguments!!.containsKey(IS_BDS_KEY)) {
-      arguments!!.getBoolean(IS_BDS_KEY)
+    if (requireArguments().containsKey(IS_BDS_KEY)) {
+      requireArguments().getBoolean(IS_BDS_KEY)
     } else {
       throw IllegalArgumentException("is bds data not found")
     }
   }
 
   private val isDonation: Boolean by lazy {
-    if (arguments!!.containsKey(IS_DONATION_KEY)) {
-      arguments!!.getBoolean(IS_DONATION_KEY)
+    if (requireArguments().containsKey(IS_DONATION_KEY)) {
+      requireArguments().getBoolean(IS_DONATION_KEY)
     } else {
       throw IllegalArgumentException("is donation data not found")
     }
   }
 
   private val skuId: String? by lazy {
-    arguments!!.getString(SKU_ID)
+    requireArguments().getString(SKU_ID)
   }
 
   private val transactionType: String by lazy {
-    if (arguments!!.containsKey(TRANSACTION_TYPE)) {
-      arguments!!.getString(TRANSACTION_TYPE)!!
+    if (requireArguments().containsKey(TRANSACTION_TYPE)) {
+      requireArguments().getString(TRANSACTION_TYPE)!!
     } else {
       throw IllegalArgumentException("transaction type data not found")
     }
   }
 
   private val gamificationLevel: Int by lazy {
-    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
-      arguments!!.getInt(GAMIFICATION_LEVEL)
+    if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
+      requireArguments().getInt(GAMIFICATION_LEVEL)
     } else {
       throw IllegalArgumentException("gamification level not found")
     }
   }
 
   private val transactionBuilder: TransactionBuilder by lazy {
-    if (arguments!!.containsKey(TRANSACTION_BUILDER)) {
-      (arguments!!.getParcelable(TRANSACTION_BUILDER) as TransactionBuilder?)!!
+    if (requireArguments().containsKey(TRANSACTION_BUILDER)) {
+      (requireArguments().getParcelable(TRANSACTION_BUILDER) as TransactionBuilder?)!!
     } else {
       throw IllegalArgumentException("transaction builder not found")
     }
   }
 
   private val isSubscription: Boolean by lazy {
-    if (arguments!!.containsKey(IS_SUBSCRIPTION)) {
-      arguments!!.getBoolean(IS_SUBSCRIPTION)
+    if (requireArguments().containsKey(IS_SUBSCRIPTION)) {
+      requireArguments().getBoolean(IS_SUBSCRIPTION)
     } else {
       throw IllegalArgumentException("is subscriptino data not found")
     }
   }
 
   private val frequency: String? by lazy {
-    if (arguments!!.containsKey(FREQUENCY)) {
-      arguments!!.getString(FREQUENCY)
+    if (requireArguments().containsKey(FREQUENCY)) {
+      requireArguments().getString(FREQUENCY)
     } else {
       null
     }
@@ -230,9 +234,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     paymentSelectionSubject = PublishSubject.create()
     mergedAppcoinsPresenter =
         MergedAppcoinsPresenter(this, CompositeDisposable(), CompositeDisposable(),
-            AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics,
-            formatter, mergedAppcoinsInteractor, gamificationLevel, navigator, logger,
-            transactionBuilder, paymentMethodsMapper, isSubscription)
+            AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics, formatter,
+            getWalletInfoUseCase, mergedAppcoinsInteractor, gamificationLevel, navigator,
+            logger, transactionBuilder, paymentMethodsMapper, isSubscription)
   }
 
   override fun onAttach(context: Context) {
@@ -336,8 +340,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     radioButton.isEnabled = false
     radioButton.isChecked = false
     message.text = getString(reason)
-    title.setTextColor(ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
-    message.setTextColor(ContextCompat.getColor(context!!, R.color.disable_reason))
+    title.setTextColor(ContextCompat.getColor(requireContext(), R.color.btn_disable_snd_color))
+    message.setTextColor(ContextCompat.getColor(requireContext(), R.color.disable_reason))
     bonusLayout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
     message.visibility = VISIBLE
     balanceGroup.visibility = INVISIBLE
@@ -358,7 +362,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
     selectedRadioButton.isEnabled = true
     message.text = ""
-    title.setTextColor(ContextCompat.getColor(context!!, R.color.color_title))
+    title.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_title))
     bonusView?.setBackgroundResource(R.drawable.bonus_img_background)
     message.visibility = INVISIBLE
     balanceGroup.visibility = VISIBLE
@@ -386,7 +390,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun getApplicationName(appPackage: String): CharSequence {
-    val packageManager = context!!.packageManager
+    val packageManager = requireContext().packageManager
     val packageInfo = packageManager.getApplicationInfo(appPackage, 0)
     return packageManager.getApplicationLabel(packageInfo)
   }
@@ -544,7 +548,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private fun setAppIcon() {
     try {
-      app_icon.setImageDrawable(context!!.packageManager
+      app_icon.setImageDrawable(requireContext().packageManager
           .getApplicationIcon(appName))
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
@@ -559,7 +563,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
         .plus(" $currency")
     if (isSubscription) {
       val period = Period.parse(frequency!!)
-      period?.mapToSubsFrequency(context!!, fiatText)
+      period?.mapToSubsFrequency(requireContext(), fiatText)
           ?.let { fiatText = it }
       appcText = "~$appcText"
     }

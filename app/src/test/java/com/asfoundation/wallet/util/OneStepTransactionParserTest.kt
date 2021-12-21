@@ -6,7 +6,6 @@ import com.appcoins.wallet.commons.MemoryCache
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.repository.TokenRepositoryType
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
@@ -22,7 +21,6 @@ import java.math.BigDecimal
 import java.util.*
 
 class OneStepTransactionParserTest {
-  private lateinit var tokenRepositoryType: TokenRepositoryType
   private lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
   private lateinit var defaultTokenProvider: DefaultTokenProvider
   private lateinit var proxyService: ProxyService
@@ -46,7 +44,6 @@ class OneStepTransactionParserTest {
 
   @Before
   fun before() {
-    tokenRepositoryType = mock<TokenRepositoryType>(TokenRepositoryType::class.java)
     findDefaultWalletInteract =
         mock<FindDefaultWalletInteract>(FindDefaultWalletInteract::class.java)
     proxyService = mock<ProxyService>(ProxyService::class.java)

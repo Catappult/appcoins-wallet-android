@@ -9,13 +9,12 @@ import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.my_wallets.main.list.WalletsListEvent
-import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.google.android.material.card.MaterialCardView
 import java.math.BigDecimal
 
@@ -23,10 +22,7 @@ import java.math.BigDecimal
 abstract class WalletBalanceModel : EpoxyModelWithHolder<WalletBalanceModel.WalletBalanceHolder>() {
 
   @EpoxyAttribute
-  lateinit var walletBalance: WalletBalance
-
-  @EpoxyAttribute
-  lateinit var balanceAsync: Async<BalanceScreenModel>
+  lateinit var walletInfoAsync: Async<WalletInfo>
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   lateinit var formatter: CurrencyFormatUtils
@@ -38,7 +34,7 @@ abstract class WalletBalanceModel : EpoxyModelWithHolder<WalletBalanceModel.Wall
 
   override fun bind(holder: WalletBalanceHolder) {
     holder.setListeners()
-    when (val balance = balanceAsync) {
+    when (val walletInfoAsync = walletInfoAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
         holder.appccValueSkeleton.playAnimation()
@@ -52,11 +48,11 @@ abstract class WalletBalanceModel : EpoxyModelWithHolder<WalletBalanceModel.Wall
       }
       is Async.Fail -> Unit
       is Async.Success -> {
-        val balanceScreenModel = balance()
-        holder.updateTokenValue(balanceScreenModel.appcBalance, WalletCurrency.APPCOINS)
-        holder.updateTokenValue(balanceScreenModel.creditsBalance, WalletCurrency.CREDITS)
-        holder.updateTokenValue(balanceScreenModel.ethBalance, WalletCurrency.ETHEREUM)
-        holder.updateOverallBalance(balanceScreenModel.overallFiat)
+        val walletInfo = walletInfoAsync()
+        holder.updateTokenValue(walletInfo.walletBalance.appcBalance, WalletCurrency.APPCOINS)
+        holder.updateTokenValue(walletInfo.walletBalance.creditsBalance, WalletCurrency.CREDITS)
+        holder.updateTokenValue(walletInfo.walletBalance.ethBalance, WalletCurrency.ETHEREUM)
+        holder.updateOverallBalance(walletInfo.walletBalance.overallFiat)
       }
     }
   }

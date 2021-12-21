@@ -58,7 +58,6 @@ import com.asfoundation.wallet.repository.OffChainTransactionsRepository.Transac
 import com.asfoundation.wallet.service.AccountKeystoreService
 import com.asfoundation.wallet.service.AutoUpdateService
 import com.asfoundation.wallet.service.GasService
-import com.asfoundation.wallet.service.WalletBalanceService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
@@ -69,10 +68,6 @@ import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
-import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository
-import com.asfoundation.wallet.ui.balance.BalanceRepository
-import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase
-import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesUserStatsLocalData
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
@@ -81,10 +76,9 @@ import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPrefe
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.network.BrokerVerificationApi
-import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationApi
-import com.asfoundation.wallet.wallet_blocked.WalletStatusApi
-import com.asfoundation.wallet.wallet_blocked.WalletStatusRepository
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.db.WalletInfoDao
+import com.asfoundation.wallet.wallets.repository.BalanceRepository
+import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -267,21 +261,6 @@ class RepositoryModule {
         Schedulers.io())
   }
 
-  @Singleton
-  @Provides
-  fun provideBalanceRepository(context: Context,
-                               localCurrencyConversionService: LocalCurrencyConversionService,
-                               getDefaultWalletBalanceInteract: GetDefaultWalletBalanceInteract,
-                               getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase): BalanceRepository {
-    return AppcoinsBalanceRepository(getDefaultWalletBalanceInteract,
-        localCurrencyConversionService,
-        Room.databaseBuilder(context.applicationContext, BalanceDetailsDatabase::class.java,
-            "balance_details")
-            .build()
-            .balanceDetailsDao(), BalanceDetailsMapper(), Schedulers.io(),
-        getSelectedCurrencyUseCase)
-  }
-
   @Provides
   fun provideAutoUpdateRepository(autoUpdateService: AutoUpdateService) =
       AutoUpdateRepository(autoUpdateService)
@@ -300,24 +279,16 @@ class RepositoryModule {
   @Provides
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
                               accountKeystoreService: AccountKeystoreService,
-                              walletBalanceService: WalletBalanceService,
                               analyticsSetup: RakamAnalytics,
                               amplitudeAnalytics: AmplitudeAnalytics): WalletRepositoryType {
-    return WalletRepository(preferencesRepositoryType, accountKeystoreService, walletBalanceService,
-        Schedulers.io(), analyticsSetup, amplitudeAnalytics)
+    return WalletRepository(preferencesRepositoryType, accountKeystoreService, Schedulers.io(),
+        analyticsSetup, amplitudeAnalytics)
   }
 
   @Singleton
   @Provides
-  fun provideTokenRepository(defaultTokenProvider: DefaultTokenProvider,
-                             walletRepositoryType: WalletRepositoryType): TokenRepositoryType {
-    return TokenRepository(defaultTokenProvider, walletRepositoryType)
-  }
-
-  @Singleton
-  @Provides
-  fun provideWalletStatusRepository(walletStatusApi: WalletStatusApi): WalletStatusRepository {
-    return WalletStatusRepository(walletStatusApi)
+  fun provideTokenRepository(): TokenRepository {
+    return TokenRepository()
   }
 
   @Singleton
@@ -382,11 +353,11 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideWalletVerificationRepository(verificationApi: VerificationApi,
+  fun provideWalletVerificationRepository(walletInfoRepository: WalletInfoRepository,
                                           brokerVerificationApi: BrokerVerificationApi,
                                           adyenResponseMapper: AdyenResponseMapper,
                                           sharedPreferences: SharedPreferences): VerificationRepository {
-    return VerificationRepository(verificationApi, brokerVerificationApi, adyenResponseMapper,
+    return VerificationRepository(walletInfoRepository, brokerVerificationApi, adyenResponseMapper,
         sharedPreferences)
   }
 
@@ -486,7 +457,6 @@ class RepositoryModule {
         .build()
         .create(SendLogsRepository.AwsUploadFilesApi::class.java)
     return SendLogsRepository(api, awsApi, logsDao, rxSchedulers, context.cacheDir)
-
   }
 
   @Singleton
@@ -502,7 +472,22 @@ class RepositoryModule {
         .build()
         .create(NftApi::class.java)
     return NFTRepository(api, rxSchedulers)
+  }
 
+  @Singleton
+  @Provides
+  fun providesWalletInfoRepository(@Named("default") client: OkHttpClient,
+                                   walletInfoDao: WalletInfoDao,
+                                   balanceRepository: BalanceRepository,
+                                   rxSchedulers: RxSchedulers): WalletInfoRepository {
+    val api = Retrofit.Builder()
+        .baseUrl(BuildConfig.BACKEND_HOST)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(WalletInfoRepository.WalletInfoApi::class.java)
+    return WalletInfoRepository(api, walletInfoDao, balanceRepository, rxSchedulers)
   }
 
   @Singleton
@@ -519,5 +504,14 @@ class RepositoryModule {
         .create(BackupSuccessLogRepository.BackupLopApi::class.java)
     return BackupSuccessLogRepository(api, rxSchedulers)
 
+  }
+
+  @Singleton
+  @Provides
+  fun providesBalanceRepository(getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+                                localCurrencyConversionService: LocalCurrencyConversionService,
+                                rxSchedulers: RxSchedulers): BalanceRepository {
+    return BalanceRepository(getSelectedCurrencyUseCase, localCurrencyConversionService,
+        rxSchedulers)
   }
 }

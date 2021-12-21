@@ -24,7 +24,7 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
   fun findWallet() = findDefaultWalletInteract.find()
       .map { it.address }
 
-  fun retrieveWallets() = walletsInteract.retrieveWalletsModel()
+  fun retrieveWallets() = walletsInteract.getWalletsModel()
 
   fun sendCreateSuccessEvent() {
     walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,

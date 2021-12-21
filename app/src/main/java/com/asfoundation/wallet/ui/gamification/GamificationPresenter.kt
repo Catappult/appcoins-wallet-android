@@ -130,6 +130,7 @@ class GamificationPresenter(private val view: GamificationView,
           if (stats.status == GamificationStats.Status.OK) {
             gamification.getAppcToLocalFiat(stats.totalEarned.toString(), 2, stats.fromCache)
                 .map { Pair(stats, it) }
+                .toObservable()
           } else {
             Observable.just(Pair(stats, FiatValue(BigDecimal.ONE.negate(), "")))
           }

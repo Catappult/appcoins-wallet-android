@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.entity
 
-data class GlobalBalance(val appcoinsBalance: Balance, val creditsBalance: Balance,
-                         val etherBalance: Balance, val fiatSymbol: String,
-                         val fiatCurrency: String,
-                         val fiatValue: String, val showAppcoins: Boolean,
+import com.asfoundation.wallet.wallets.domain.WalletBalance
+
+data class GlobalBalance(val walletBalance: WalletBalance, val showAppcoins: Boolean,
                          val showCredits: Boolean, val showEthereum: Boolean)
 

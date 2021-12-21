@@ -48,7 +48,7 @@ class MyWalletsFragment : BasePageViewFragment(),
   private val views get() = binding!!
 
   private lateinit var walletsController: WalletsController
-  val epoxyVisibilityTracker = EpoxyVisibilityTracker()
+  private val epoxyVisibilityTracker = EpoxyVisibilityTracker()
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -75,7 +75,6 @@ class MyWalletsFragment : BasePageViewFragment(),
   }
 
   private fun initializeView() {
-    epoxyVisibilityTracker.attach(views.otherWalletsRecyclerView)
     walletsController = WalletsController()
     walletsController.walletClickListener = { click ->
       when (click) {
@@ -85,9 +84,9 @@ class MyWalletsFragment : BasePageViewFragment(),
         is WalletsListEvent.CopyWalletClick -> setAddressToClipBoard(click.walletAddress)
         is WalletsListEvent.ShareWalletClick -> showShare(click.walletAddress)
         WalletsListEvent.BackupClick -> {
-          viewModel.state.walletsAsync()
-              ?.let { walletsModel ->
-                navigator.navigateToBackupWallet(walletsModel.currentWallet.walletAddress)
+          viewModel.state.walletInfoAsync()
+              ?.let { walletInfo ->
+                navigator.navigateToBackupWallet(walletInfo.wallet)
               }
         }
         WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerifyPicker()
@@ -112,22 +111,19 @@ class MyWalletsFragment : BasePageViewFragment(),
         }
         is WalletsListEvent.ChangedBalanceVisibility -> {
           if (click.balanceVisible) {
-            binding?.titleSwitcher?.setInAnimation(requireContext(), R.anim.slide_in_up)
-            binding?.titleSwitcher?.setOutAnimation(requireContext(), R.anim.slide_out_down)
             binding?.titleSwitcher?.setText(getString(R.string.wallets_active_wallet_title))
           } else {
-            viewModel.state.balanceAsync()
+            viewModel.state.walletInfoAsync()
                 ?.let { balance ->
-                  binding?.titleSwitcher?.setInAnimation(requireContext(), R.anim.slide_in_down)
-                  binding?.titleSwitcher?.setOutAnimation(requireContext(), R.anim.slide_out_up)
-                  binding?.titleSwitcher?.setText(getFiatBalanceText(balance.overallFiat))
+                  binding?.titleSwitcher?.setText(
+                      getFiatBalanceText(balance.walletBalance.overallFiat))
                 }
           }
         }
       }
     }
+    epoxyVisibilityTracker.attach(views.otherWalletsRecyclerView)
     views.otherWalletsRecyclerView.setController(walletsController)
-    epoxyVisibilityTracker.requestVisibilityCheck()
   }
 
   private fun navigateToTokenInfo(tokenNameRes: Int, tokenSymbolRes: Int, tokenImageRes: Int,
@@ -145,7 +141,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: MyWalletsState) {
     walletsController.setData(state.walletsAsync, state.walletVerifiedAsync,
-        state.balanceAsync, state.backedUpOnceAsync)
+        state.walletInfoAsync, state.backedUpOnceAsync)
   }
 
   override fun onSideEffect(sideEffect: MyWalletsSideEffect) = Unit
@@ -170,23 +166,23 @@ class MyWalletsFragment : BasePageViewFragment(),
   }
 
   private fun navigateToMore() {
-    safeLet(viewModel.state.balanceAsync(),
+    safeLet(viewModel.state.walletInfoAsync(),
         viewModel.state.walletsAsync(),
-        viewModel.state.walletVerifiedAsync()) { balanceScreenModel, walletsModel, verifyModel ->
+        viewModel.state.walletVerifiedAsync()) { walletInfo, walletsModel, verifyModel ->
       val verifyStatus = verifyModel.status ?: verifyModel.cachedStatus
       val verified = verifyStatus == BalanceVerificationStatus.VERIFIED
-      val overallFiatValue = getFiatBalanceText(balanceScreenModel.overallFiat)
+      val overallFiatValue = getFiatBalanceText(walletInfo.walletBalance.overallFiat)
       val appcoinsValue = "${
-        getTokenValueText(balanceScreenModel.appcBalance, WalletCurrency.APPCOINS)
-      } ${balanceScreenModel.appcBalance.token.symbol}"
+        getTokenValueText(walletInfo.walletBalance.appcBalance, WalletCurrency.APPCOINS)
+      } ${walletInfo.walletBalance.appcBalance.token.symbol}"
       val creditsValue = "${
-        getTokenValueText(balanceScreenModel.creditsBalance, WalletCurrency.CREDITS)
-      } ${balanceScreenModel.creditsBalance.token.symbol}"
+        getTokenValueText(walletInfo.walletBalance.creditsBalance, WalletCurrency.CREDITS)
+      } ${walletInfo.walletBalance.creditsBalance.token.symbol}"
       val ethValue = "${
-        getTokenValueText(balanceScreenModel.ethBalance, WalletCurrency.ETHEREUM)
-      } ${balanceScreenModel.ethBalance.token.symbol}"
-      navigator.navigateToMore(walletsModel.currentWallet.walletAddress, overallFiatValue,
-          appcoinsValue, creditsValue, ethValue, verified, walletsModel.otherWallets.isNotEmpty())
+        getTokenValueText(walletInfo.walletBalance.ethBalance, WalletCurrency.ETHEREUM)
+      } ${walletInfo.walletBalance.ethBalance.token.symbol}"
+      navigator.navigateToMore(walletInfo.wallet, overallFiatValue,
+          appcoinsValue, creditsValue, ethValue, verified, walletsModel.wallets.isNotEmpty())
     }
   }
 

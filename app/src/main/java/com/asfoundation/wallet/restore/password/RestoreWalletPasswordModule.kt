@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.restore.password
 
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.restore.intro.RestoreWalletInteractor
-import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 @Module
 class RestoreWalletPasswordModule {
@@ -17,26 +17,31 @@ class RestoreWalletPasswordModule {
   @Provides
   fun providesRestoreWalletPasswordPresenter(fragment: RestoreWalletPasswordFragment,
                                              data: RestoreWalletPasswordData,
+                                             observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                                              interactor: RestoreWalletPasswordInteractor,
                                              eventSender: WalletsEventSender,
-                                             currencyFormatUtils: CurrencyFormatUtils): RestoreWalletPasswordPresenter {
-    return RestoreWalletPasswordPresenter(fragment as RestoreWalletPasswordView, data, interactor,
-        eventSender, currencyFormatUtils,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
-        Schedulers.computation())
+                                             currencyFormatUtils: CurrencyFormatUtils,
+                                             setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+                                             rxSchedulers: RxSchedulers): RestoreWalletPasswordPresenter {
+    return RestoreWalletPasswordPresenter(fragment as RestoreWalletPasswordView, data,
+        observeWalletInfoUseCase, interactor,
+        eventSender, currencyFormatUtils, setOnboardingCompletedUseCase,
+        CompositeDisposable(), rxSchedulers)
   }
 
   @Provides
   fun providesRestoreWalletPasswordData(
       fragment: RestoreWalletPasswordFragment): RestoreWalletPasswordData {
-    fragment.arguments!!.apply {
-      return RestoreWalletPasswordData(getString(RestoreWalletPasswordFragment.KEYSTORE_KEY, ""))
-    }
+    fragment.requireArguments()
+        .apply {
+          return RestoreWalletPasswordData(
+              getString(RestoreWalletPasswordFragment.KEYSTORE_KEY, ""))
+        }
   }
 
   @Provides
-  fun provideRestoreWalletPasswordInteractor(gson: Gson, balanceInteractor: BalanceInteractor,
+  fun provideRestoreWalletPasswordInteractor(gson: Gson,
                                              restoreWalletInteractor: RestoreWalletInteractor): RestoreWalletPasswordInteractor {
-    return RestoreWalletPasswordInteractor(gson, balanceInteractor, restoreWalletInteractor)
+    return RestoreWalletPasswordInteractor(gson, restoreWalletInteractor)
   }
 }

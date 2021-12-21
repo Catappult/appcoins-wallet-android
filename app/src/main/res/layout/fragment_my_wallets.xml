@@ -37,37 +37,16 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <TextSwitcher
+    <com.asfoundation.wallet.ui.common.ToolbarTextSwitcher
         android:id="@+id/title_switcher"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        app:toolbarText="@string/wallets_active_wallet_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/action_button_more"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
-
-      <TextView
-          android:id="@+id/title"
-          style="@style/MyWallets.Title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="25dp"
-          android:layout_gravity="center_vertical"
-          android:text="@string/wallets_active_wallet_title"
-          />
-
-      <TextView
-          android:id="@+id/title_2"
-          style="@style/MyWallets.Title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="25dp"
-          android:layout_gravity="center_vertical"
-          android:text="@string/wallets_active_wallet_title"
-          />
-
-    </TextSwitcher>
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/action_button_nfts"

@@ -6,13 +6,13 @@ import com.asfoundation.wallet.my_wallets.main.list.model.ActiveWalletModelGroup
 import com.asfoundation.wallet.my_wallets.main.list.model.CreateNewWalletModel_
 import com.asfoundation.wallet.my_wallets.main.list.model.OtherWalletModel_
 import com.asfoundation.wallet.my_wallets.main.list.model.OtherWalletsTitleModel_
-import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 
 class WalletsController :
-    Typed4EpoxyController<Async<WalletsModel>, Async<BalanceVerificationModel>, Async<BalanceScreenModel>, Async<Boolean>>() {
+    Typed4EpoxyController<Async<WalletsModel>, Async<BalanceVerificationModel>, Async<WalletInfo>, Async<Boolean>>() {
 
   private val currencyFormatUtils = CurrencyFormatUtils()
 
@@ -20,27 +20,29 @@ class WalletsController :
 
   override fun buildModels(walletsAsync: Async<WalletsModel>,
                            walletVerifiedAsync: Async<BalanceVerificationModel>,
-                           balanceAsync: Async<BalanceScreenModel>,
+                           walletInfoAsync: Async<WalletInfo>,
                            backedUpOnceAsync: Async<Boolean>) {
-    add(ActiveWalletModelGroup(walletsAsync, walletVerifiedAsync, balanceAsync, backedUpOnceAsync,
-        currencyFormatUtils, walletClickListener))
+    add(ActiveWalletModelGroup(walletVerifiedAsync, walletInfoAsync,
+        backedUpOnceAsync, currencyFormatUtils, walletClickListener))
     addOtherWallets(walletsAsync)
   }
 
   private fun addOtherWallets(walletsAsync: Async<WalletsModel>) {
-    val otherWallets = walletsAsync()?.otherWallets
+    val otherWallets = walletsAsync()?.wallets
     if (otherWallets != null && otherWallets.isNotEmpty()) {
       add(OtherWalletsTitleModel_()
           .id("other_wallets_title_model"))
 
       for (walletBalance in otherWallets) {
-        add(
-            OtherWalletModel_()
-                .id("other_wallet_model_", walletBalance.walletAddress)
-                .currencyFormatUtils(currencyFormatUtils)
-                .walletBalance(walletBalance)
-                .walletClickListener(walletClickListener)
-        )
+        if (!walletBalance.isActiveWallet) {
+          add(
+              OtherWalletModel_()
+                  .id("other_wallet_model_", walletBalance.walletAddress)
+                  .currencyFormatUtils(currencyFormatUtils)
+                  .walletBalance(walletBalance)
+                  .walletClickListener(walletClickListener)
+          )
+        }
       }
     }
 

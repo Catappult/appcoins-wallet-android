@@ -9,6 +9,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import io.reactivex.Completable
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit
 class TransferFragmentPresenter(private val view: TransferFragmentView,
                                 private val disposables: CompositeDisposable,
                                 private val onResumeDisposables: CompositeDisposable,
+                                private val getWalletInfoUseCase: GetWalletInfoUseCase,
                                 private val interactor: TransferInteractor,
                                 private val navigator: TransferFragmentNavigator,
                                 private val ioScheduler: Scheduler,
@@ -56,11 +58,15 @@ class TransferFragmentPresenter(private val view: TransferFragmentView,
   }
 
   private fun getBalance(currency: Currency): Single<BigDecimal> {
-    return when (currency) {
-      Currency.APPC_C -> interactor.getCreditsBalance()
-      Currency.APPC -> interactor.getAppcoinsBalance()
-      Currency.ETH -> interactor.getEthBalance()
-    }
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+        .map { walletInfo ->
+          val balance = walletInfo.walletBalance
+          when (currency) {
+            Currency.APPC_C -> balance.creditsBalance.token.amount
+            Currency.APPC -> balance.appcBalance.token.amount
+            Currency.ETH -> balance.ethBalance.token.amount
+          }
+        }
   }
 
   private fun handleQrCodeResult(barcode: Barcode) {
