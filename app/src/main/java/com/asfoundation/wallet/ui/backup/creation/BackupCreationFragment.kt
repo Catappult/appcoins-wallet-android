@@ -20,8 +20,9 @@ import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.backup_dialog.view.*
 import kotlinx.android.synthetic.main.layout_backup_creation_options.*
+import kotlinx.android.synthetic.main.layout_wallet_text_field_view.view.*
+import kotlinx.android.synthetic.main.save_backup_layout.view.*
 import javax.inject.Inject
 
 class BackupCreationFragment : BackupCreationView, DaggerFragment() {
@@ -64,7 +65,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    dialogView = layoutInflater.inflate(R.layout.backup_dialog, null)
+    dialogView = layoutInflater.inflate(R.layout.save_backup_layout, null)
     return inflater.inflate(R.layout.fragment_backup_creation_layout, container, false)
   }
 
@@ -127,7 +128,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
           .create()
       dialog.window?.decorView?.setBackgroundResource(R.color.transparent)
       dialogView.visibility = View.VISIBLE
-      dialogView.edit_file_name_input?.setText(defaultName)
+      dialogView.file_name_input.text_input?.setText(defaultName)
       path?.let {
         dialogView.store_path?.text = it
         dialogView.store_path?.visibility = View.VISIBLE
@@ -152,7 +153,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun getDialogSaveClick(): Observable<String> {
     return RxView.clicks(dialogView.backup_save)
-        .map { dialogView.edit_file_name_input.text.toString() }
+        .map { dialogView.file_name_input.text_input.text.toString() }
   }
 
   override fun closeDialog() {

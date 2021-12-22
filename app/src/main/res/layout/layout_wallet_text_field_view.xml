@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:theme="@style/MaterialAppTheme"
+    app:cardBackgroundColor="@color/gamification_yellow"
+    app:cardElevation="0dp"
+    app:rippleColor="@color/white"
+    app:shapeAppearance="@style/Commons.RoundedRectangleShape"
+    >
+
+  <EditText
+      android:id="@+id/text_input"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginHorizontal="@dimen/big_margin"
+      android:background="@android:color/transparent"
+      android:fontFamily="sans-serif"
+      android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+      android:inputType="text"
+      android:maxLines="1"
+      android:textColor="@color/black"
+      android:textColorHint="@color/grey_70"
+      android:textSize="14sp"
+      tools:hint="Insert text here..."
+      />
+
+</com.google.android.material.card.MaterialCardView>

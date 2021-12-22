@@ -705,7 +705,6 @@
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
   <string name="backup_save_button_deprecated">SAVE BACKUP</string>
-  <string name="backup_save_on_device_button">SAVE</string>
   <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
