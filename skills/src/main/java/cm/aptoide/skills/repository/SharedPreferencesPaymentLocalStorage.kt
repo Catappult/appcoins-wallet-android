@@ -11,7 +11,7 @@ class SharedPreferencesPaymentLocalStorage(
     private val mapper: Gson
 ) : PaymentLocalStorage {
   companion object {
-    private const val PREFIX = "TICKET_LOCAL_STORAGE_PREFIX_"
+    private const val PREFIX = "PAYMENT_LOCAL_STORAGE_PREFIX_"
   }
 
   override fun save(cachedPayment: CachedPayment) {
