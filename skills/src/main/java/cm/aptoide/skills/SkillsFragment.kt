@@ -13,6 +13,7 @@ import androidx.core.text.bold
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
+import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
@@ -24,7 +25,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class SkillsFragment : DaggerFragment() {
+class SkillsFragment : DaggerFragment(), PaymentView {
 
   companion object {
     fun newInstance() = SkillsFragment()
@@ -36,7 +37,6 @@ class SkillsFragment : DaggerFragment() {
 
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
-    private const val TRANSACTION_HASH = "transaction_hash"
 
     private const val CLIPBOARD_TOOLTIP_DELAY_SECONDS = 3000L
   }
@@ -228,8 +228,8 @@ class SkillsFragment : DaggerFragment() {
   private fun handleFailedTicketResult(ticket: FailedTicket) {
     when (ticket.status) {
       ErrorStatus.REGION_NOT_SUPPORTED -> showRegionNotSupportedError()
-      ErrorStatus.NO_NETWORK -> showNoNetworkErrorLayout()
-      ErrorStatus.GENERIC -> finishWithError(SkillsViewModel.RESULT_ERROR)
+      ErrorStatus.NO_NETWORK -> showNoNetworkError()
+      ErrorStatus.GENERIC -> showError()
     }
   }
 
@@ -237,7 +237,7 @@ class SkillsFragment : DaggerFragment() {
       eskillsUri: EskillsPaymentData,
       ticket: CreatedTicket
   ): Completable {
-    return viewModel.getRoom(eskillsUri, ticket)
+    return viewModel.getRoom(eskillsUri, ticket, this)
         .observeOn(AndroidSchedulers.mainThread())
         .doOnNext { userData -> handleUserDataStatus(userData) }
         .ignoreElements()
@@ -248,22 +248,14 @@ class SkillsFragment : DaggerFragment() {
       UserData.Status.IN_QUEUE, UserData.Status.PAYING -> showRoomLoading(true, userData.queueId)
       UserData.Status.REFUNDED -> showRefundedLayout()
       UserData.Status.COMPLETED -> postbackUserData(SkillsViewModel.RESULT_OK, userData)
-      UserData.Status.FAILED -> finishWithError(SkillsViewModel.RESULT_ERROR)
-    }
-  }
-
-  private fun showNoNetworkErrorLayout() {
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.noNetworkLayout.root.visibility = View.VISIBLE
-    binding.noNetworkLayout.noNetworkOkButton.setOnClickListener {
-      finishWithError(SkillsViewModel.RESULT_SERVICE_UNAVAILABLE)
+      UserData.Status.FAILED -> showError()
     }
   }
 
   private fun showRegionNotSupportedError() {
     binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
+    binding.errorLayout.root.visibility = View.GONE
     binding.geofencingLayout.root.visibility = View.VISIBLE
     binding.geofencingLayout.okButton.setOnClickListener {
       finishWithError(SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
@@ -282,11 +274,8 @@ class SkillsFragment : DaggerFragment() {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == viewModel.getPayTicketRequestCode() && resultCode == SkillsViewModel.RESULT_OK) {
-      if (data == null || data.extras!!.getString(TRANSACTION_HASH) == null) {
-        disposable.add(viewModel.cancelTicket()
-            .subscribe { _, _ -> })
-      }
+    if (requestCode == SkillsViewModel.AUTHENTICATION_REQUEST_CODE) {
+      handleAuthenticationResult(resultCode)
     } else {
       super.onActivityResult(requestCode, resultCode, data)
     }
@@ -327,7 +316,6 @@ class SkillsFragment : DaggerFragment() {
   }
 
   private fun showRoomLoading(isCancelActive: Boolean, queueId: String? = null) {
-    binding.loadingTicketLayout.root.visibility = View.VISIBLE
     if (isCancelActive) {
       if (queueId != null) {
         binding.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()
@@ -345,6 +333,7 @@ class SkillsFragment : DaggerFragment() {
     } else {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)
     }
+    binding.loadingTicketLayout.root.visibility = View.VISIBLE
   }
 
   private fun postbackUserData(resultCode: Int, userData: UserData) {
@@ -361,7 +350,7 @@ class SkillsFragment : DaggerFragment() {
     intent.putExtra(SESSION, userData.session)
     intent.putExtra(USER_ID, userData.userId)
     intent.putExtra(ROOM_ID, userData.roomId)
-    intent.putExtra(WALLET_ADDRESS, userData.walletAddress)
+    intent.putExtra(WALLET_ADDRESS, userData.walletAddress?.address)
 
     return intent
   }
@@ -369,5 +358,56 @@ class SkillsFragment : DaggerFragment() {
   private fun startBackgroundGameService(userData: UserData) {
     val intent = BackgroundGameService.newIntent(requireContext(), userData.session)
     context?.startService(intent)
+  }
+
+  override fun showLoading() {
+    binding.geofencingLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.errorLayout.root.visibility = View.GONE
+    binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_payment_title)
+    binding.loadingTicketLayout.root.visibility = View.VISIBLE
+  }
+
+  override fun hideLoading() {
+    showRoomLoading(false)
+  }
+
+  override fun showError() {
+    binding.loadingTicketLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.geofencingLayout.root.visibility = View.GONE
+    binding.errorLayout.root.visibility = View.VISIBLE
+    binding.errorLayout.errorOkButton.setOnClickListener {
+      finishWithError(SkillsViewModel.RESULT_ERROR)
+    }
+  }
+
+  override fun showFraudError() {
+    // TODO implement the verify wallet flow
+    showError()
+  }
+
+  override fun showNoNetworkError() {
+    binding.loadingTicketLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.errorLayout.root.visibility = View.GONE
+    binding.noNetworkLayout.root.visibility = View.VISIBLE
+    binding.noNetworkLayout.noNetworkOkButton.setOnClickListener {
+      finishWithError(SkillsViewModel.RESULT_SERVICE_UNAVAILABLE)
+    }
+  }
+
+  override fun showFingerprintAuthentication() {
+    val intent = viewModel.getAuthenticationIntent(requireContext())
+    startActivityForResult(intent, SkillsViewModel.AUTHENTICATION_REQUEST_CODE)
+  }
+
+  private fun handleAuthenticationResult(resultCode: Int) {
+    if (resultCode == SkillsViewModel.RESULT_OK) {
+      viewModel.restorePurchase(this)
+          .subscribe()
+    } else if (resultCode == SkillsViewModel.RESULT_USER_CANCELED) {
+      viewModel.closeView()
+    }
   }
 }

@@ -1,21 +1,20 @@
-package com.asfoundation.wallet.skills
+package com.asfoundation.wallet.eskills.payments
 
 import cm.aptoide.skills.BuildConfig
-import cm.aptoide.skills.model.CreatedTicket
-import cm.aptoide.skills.model.WalletAddress
+import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asfoundation.wallet.ui.iab.RewardPayment
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.ui.iab.Status
-import io.reactivex.Completable
 import io.reactivex.Single
 
 class AppCoinsCreditsPayment(private val rewardsManager: RewardsManager,
                              private val billing: Billing) {
-  fun pay(eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket): Completable {
+  fun pay(eskillsPaymentData: EskillsPaymentData,
+          ticket: CreatedTicket): Single<PaymentResult> {
     return getDeveloperWalletAddress(eskillsPaymentData.packageName)
-        .flatMapCompletable { developerAddress: WalletAddress ->
+        .flatMap { developerAddress: WalletAddress ->
           rewardsManager.pay(
               eskillsPaymentData.product, ticket.ticketPrice, developerAddress.address,
               eskillsPaymentData.packageName, "BDS", "ESKILLS", null, ticket.callbackUrl,
@@ -28,8 +27,9 @@ class AppCoinsCreditsPayment(private val rewardsManager: RewardsManager,
                   )
                       .takeUntil { it.status != Status.PROCESSING }
               )
-              .flatMapCompletable { paymentStatus: RewardPayment ->
-                handlePaymentStatus(paymentStatus)
+              .firstOrError()
+              .flatMap { paymentStatus: RewardPayment ->
+                handlePaymentStatus(paymentStatus, eskillsPaymentData)
               }
         }
   }
@@ -51,18 +51,19 @@ class AppCoinsCreditsPayment(private val rewardsManager: RewardsManager,
         .map { WalletAddress.fromValue(it) }
   }
 
-  private fun handlePaymentStatus(transaction: RewardPayment): Completable {
+  private fun handlePaymentStatus(transaction: RewardPayment,
+                                  eskillsPaymentData: EskillsPaymentData): Single<PaymentResult> {
     return when (transaction.status) {
-      Status.ERROR -> Completable.error(
-          AppCoinsCreditsException(transaction.errorMessage)
-      )
-      Status.FORBIDDEN -> Completable.error(
-          AppCoinsCreditsException(transaction.errorMessage)
-      )
-      Status.NO_NETWORK -> Completable.error(
-          AppCoinsCreditsException("No network error.")
-      )
-      else -> Completable.complete()
+      Status.COMPLETED -> {
+        rewardsManager.getTransaction(eskillsPaymentData.packageName, eskillsPaymentData.product,
+            eskillsPaymentData.price!!)
+            .firstOrError()
+            .flatMap { Single.just(SuccessfulPayment) }
+      }
+      Status.ERROR -> Single.just(FailedPayment.GenericError(transaction.errorMessage))
+      Status.FORBIDDEN -> Single.just(FailedPayment.FraudError(transaction.errorMessage))
+      Status.NO_NETWORK -> Single.just(FailedPayment.NoNetworkError)
+      else -> Single.just(SuccessfulPayment)
     }
   }
 }

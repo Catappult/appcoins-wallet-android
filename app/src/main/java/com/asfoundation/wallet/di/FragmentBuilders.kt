@@ -55,7 +55,7 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.restore.intro.RestoreWalletModule
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
-import com.asfoundation.wallet.skills.SkillsModule
+import com.asfoundation.wallet.eskills.di.SkillsModule
 import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelFragment
 import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelModule
 import com.asfoundation.wallet.subscriptions.details.SubscriptionDetailsFragment

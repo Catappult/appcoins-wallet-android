@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.skills
+package com.asfoundation.wallet.eskills
 
 import cm.aptoide.skills.interfaces.EwtObtainer
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService

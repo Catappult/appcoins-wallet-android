@@ -1,6 +1,7 @@
-package com.asfoundation.wallet.skills
+package com.asfoundation.wallet.eskills
 
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
+import cm.aptoide.skills.model.WalletAddress
 import com.appcoins.wallet.bdsbilling.WalletService
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -8,8 +9,9 @@ import io.reactivex.Single
 class DefaultWalletAddressObtainer(private val walletService: WalletService) :
     WalletAddressObtainer {
 
-  override fun getWalletAddress(): Single<String> {
+  override fun getWalletAddress(): Single<WalletAddress> {
     return walletService.getWalletAddress()
+        .map { WalletAddress.fromValue(it) }
   }
 
   override fun getOrCreateWallet(): Observable<String> {

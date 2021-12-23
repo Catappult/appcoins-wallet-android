@@ -1,7 +1,9 @@
 package cm.aptoide.skills.entity
 
+import cm.aptoide.skills.model.WalletAddress
+
 data class UserData(
-    val userId: String, val roomId: String, val walletAddress: String,
+    val userId: String, val roomId: String, val walletAddress: WalletAddress?,
     val session: String, val status: Status, val queueId: String?
 ) {
   companion object {
@@ -9,7 +11,7 @@ data class UserData(
       return UserData(
           "",
           "",
-          "",
+          null,
           "",
           status,
           ""
@@ -20,7 +22,7 @@ data class UserData(
       return UserData(
           "",
           "",
-          "",
+          null,
           "",
           status,
           queueId

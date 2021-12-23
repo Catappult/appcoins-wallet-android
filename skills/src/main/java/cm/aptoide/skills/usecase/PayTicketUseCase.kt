@@ -2,20 +2,23 @@ package cm.aptoide.skills.usecase
 
 import cm.aptoide.skills.interfaces.ExternalSkillsPaymentProvider
 import cm.aptoide.skills.model.CreatedTicket
-import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.model.PaymentResult
+import cm.aptoide.skills.model.SuccessfulPayment
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
 
 class PayTicketUseCase(private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
-  fun pay(ticket: CreatedTicket, eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
+  operator fun invoke(ticket: CreatedTicket,
+                      eskillsPaymentData: EskillsPaymentData): Single<PaymentResult> {
     val environment = eskillsPaymentData.environment
     if (environment == EskillsPaymentData.MatchEnvironment.LIVE || environment == null) {
-      launchPurchaseFlow(eskillsPaymentData, ticket)
+      return launchPurchaseFlow(eskillsPaymentData, ticket)
     }
-    return Single.just(ticket)
+    return Single.just(SuccessfulPayment)
   }
 
-  private fun launchPurchaseFlow(eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket) {
-    externalSkillsPaymentProvider.pay(eskillsPaymentData, ticket).subscribe()
+  private fun launchPurchaseFlow(eskillsPaymentData: EskillsPaymentData,
+                                 ticket: CreatedTicket): Single<PaymentResult> {
+    return externalSkillsPaymentProvider.pay(eskillsPaymentData, ticket)
   }
 }

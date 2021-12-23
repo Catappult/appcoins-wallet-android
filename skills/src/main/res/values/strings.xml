@@ -30,5 +30,8 @@
   <string name="e_skills_payment_body">AppCoins Credits</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
 
+  <string name="processing_payment_title">Processing your payment</string>
+  <string name="purchase_error_title">Oops, something went wrong.</string>
+
   <string name="purchase_eskills_sku">Entry ticket</string>
 </resources>

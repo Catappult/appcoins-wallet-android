@@ -5,7 +5,7 @@ import cm.aptoide.skills.interfaces.ExternalSkillsPaymentProvider
 
 class SendUserToTopUpFlowUseCase(
     private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
-  fun send(context: Context) {
+  operator fun invoke(context: Context) {
     externalSkillsPaymentProvider.sendUserToTopUpFlow(context)
   }
 }

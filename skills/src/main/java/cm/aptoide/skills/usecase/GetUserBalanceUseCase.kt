@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 class GetUserBalanceUseCase(
     private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
-  fun getCreditsBalance(): Single<BigDecimal> {
+  operator fun invoke(): Single<BigDecimal> {
     return externalSkillsPaymentProvider.getBalance()
   }
 }

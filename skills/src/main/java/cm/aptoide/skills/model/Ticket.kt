@@ -7,7 +7,7 @@ sealed class Ticket
 data class CreatedTicket(
     val ticketId: String,
     val processingStatus: ProcessingStatus,
-    val walletAddress: String,
+    val walletAddress: WalletAddress,
     val callbackUrl: String,
     val ticketPrice: BigDecimal,
     val priceCurrency: String,
@@ -41,7 +41,7 @@ enum class ErrorStatus {
 
 data class PurchasedTicket(
     val ticketId: String,
-    val walletAddress: String,
+    val walletAddress: WalletAddress,
     val userId: String,
     val roomId: String,
     val queueId: String? = null

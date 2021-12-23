@@ -5,6 +5,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.ProcessingStatus
 import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.model.WalletAddress
 import cm.aptoide.skills.repository.EmptyStoredTicket
 import cm.aptoide.skills.repository.StoredTicket
 import cm.aptoide.skills.repository.StoredTicketInQueue
@@ -20,7 +21,7 @@ class JoinQueueUseCase(
     private val networkScheduler: Scheduler
 ) {
 
-  fun joinQueue(eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
+  operator fun invoke(eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
     return walletAddressObtainer.getWalletAddress()
         .subscribeOn(networkScheduler)
         .flatMap { walletAddress ->
@@ -45,7 +46,7 @@ class JoinQueueUseCase(
       storedTicket: StoredTicket,
       eskillsPaymentData: EskillsPaymentData,
       ewt: String,
-      walletAddress: String): Single<Ticket> {
+      walletAddress: WalletAddress): Single<Ticket> {
     return when (storedTicket) {
       EmptyStoredTicket -> ticketRepository.createTicket(
           eskillsPaymentData, ewt, walletAddress
@@ -60,7 +61,7 @@ class JoinQueueUseCase(
       ewt: String,
       ticketInQueue: StoredTicketInQueue,
       eskillsPaymentData: EskillsPaymentData,
-      walletAddress: String
+      walletAddress: WalletAddress
   ): Single<Ticket> {
     return ticketRepository.getTicket(ewt, ticketInQueue.ticketId)
         .flatMap {

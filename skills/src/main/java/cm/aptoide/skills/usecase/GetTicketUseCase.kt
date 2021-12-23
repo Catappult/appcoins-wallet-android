@@ -12,7 +12,7 @@ class GetTicketUseCase(private val walletAddressObtainer: WalletAddressObtainer,
                        private val ticketRepository: TicketRepository) {
 
 
-  fun getTicket(ticketId: String): Single<Ticket> {
+  operator fun invoke(ticketId: String): Single<Ticket> {
     return walletAddressObtainer.getWalletAddress()
         .flatMap {
           ewtObtainer.getEWT()

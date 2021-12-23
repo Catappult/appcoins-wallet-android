@@ -1,13 +1,16 @@
 package cm.aptoide.skills
 
 import android.content.Context
+import android.content.Intent
 import cm.aptoide.skills.entity.UserData
+import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -22,13 +25,16 @@ class SkillsViewModel(
     private val cancelTicketUseCase: CancelTicketUseCase,
     private val closeView: PublishSubject<Pair<Int, UserData>>,
     private val payTicketUseCase: PayTicketUseCase,
-    private val saveQueueIdToClipboard: SaveQueueIdToClipboard,
+    private val saveQueueIdToClipboardUseCase: SaveQueueIdToClipboardUseCase,
     private val getApplicationInfoUseCase: GetApplicationInfoUseCase,
     private val getTicketPriceUseCase: GetTicketPriceUseCase,
     private val getUserBalanceUseCase: GetUserBalanceUseCase,
-    private val sendUserToTopUpFlowUseCase: SendUserToTopUpFlowUseCase
+    private val sendUserToTopUpFlowUseCase: SendUserToTopUpFlowUseCase,
+    private val hasAuthenticationPermissionUseCase: HasAuthenticationPermissionUseCase,
+    private val getAuthenticationIntentUseCase: GetAuthenticationIntentUseCase,
+    private val cachePaymentUseCase: CachePaymentUseCase,
+    private val getCachedPaymentUseCase: GetCachedPaymentUseCase
 ) {
-
   lateinit var ticketId: String
 
   companion object {
@@ -37,6 +43,8 @@ class SkillsViewModel(
     const val RESULT_REGION_NOT_SUPPORTED = 2
     const val RESULT_SERVICE_UNAVAILABLE = 3
     const val RESULT_ERROR = 6
+
+    const val AUTHENTICATION_REQUEST_CODE = 33
   }
 
   fun handleWalletCreationIfNeeded(): Observable<String> {
@@ -44,20 +52,30 @@ class SkillsViewModel(
   }
 
   fun joinQueue(eskillsPaymentData: EskillsPaymentData): Observable<Ticket> {
-    return joinQueueUseCase.joinQueue(eskillsPaymentData)
+    return joinQueueUseCase(eskillsPaymentData)
         .doOnSuccess { if (it is CreatedTicket) ticketId = it.ticketId }
         .toObservable()
   }
 
   fun getRoom(
-      eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket
+      eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket, view: PaymentView
   ): Observable<UserData> {
     return Single.just(ticket)
         .flatMap {
           if (ticket.processingStatus == ProcessingStatus.IN_QUEUE) {
             Single.just(it)
           } else {
-            payTicketUseCase.pay(ticket, eskillsPaymentData)
+            Single.fromCallable {
+              if (hasAuthenticationPermissionUseCase()) {
+                cachePaymentUseCase(ticket, eskillsPaymentData)
+                view.showFingerprintAuthentication()
+              } else {
+                payTicketUseCase(ticket, eskillsPaymentData)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe { view.showLoading() }
+                    .map { paymentResult -> handlePaymentResultStatus(view, paymentResult, ticket) }
+              }
+            }
           }
         }
         .flatMapObservable {
@@ -66,6 +84,18 @@ class SkillsViewModel(
                 return@flatMap handlePurchasedTicketStatus(it)
               }
         }
+  }
+
+  private fun handlePaymentResultStatus(view: PaymentView,
+                                        paymentResult: PaymentResult,
+                                        ticket: CreatedTicket): Single<Ticket> {
+    when (paymentResult) {
+      is SuccessfulPayment -> view.hideLoading()
+      is FailedPayment.GenericError -> view.showError()
+      is FailedPayment.FraudError -> view.showFraudError()
+      is FailedPayment.NoNetworkError -> view.showNoNetworkError()
+    }
+    return Single.just(ticket)
   }
 
   private fun handlePurchasedTicketStatus(ticket: Ticket): Observable<UserData> {
@@ -84,7 +114,7 @@ class SkillsViewModel(
         }
       }
       is PurchasedTicket -> {
-        loginUseCase.login(ticket.roomId, ticket.ticketId)
+        loginUseCase(ticket.roomId, ticket.ticketId)
             .map { session ->
               return@map UserData(
                   ticket.userId, ticket.roomId, ticket.walletAddress, session,
@@ -99,11 +129,7 @@ class SkillsViewModel(
 
   private fun getTicketUpdates(ticketId: String): Observable<Ticket> {
     return Observable.interval(getTicketRetryMillis, TimeUnit.MILLISECONDS)
-        .switchMapSingle { getTicketUseCase.getTicket(ticketId) }
-  }
-
-  fun getPayTicketRequestCode(): Int {
-    return SkillsNavigator.RC_ONE_STEP
+        .switchMapSingle { getTicketUseCase(ticketId) }
   }
 
   fun cancelPayment() {
@@ -115,7 +141,7 @@ class SkillsViewModel(
     // only paid tickets can be canceled/refunded on the backend side, meaning that if we
     // cancel before actually paying the backend will return a 409 HTTP. this way we allow
     // users to return to the game, without crashing, even if they weren't waiting in queue
-    return cancelTicketUseCase.cancelTicket(ticketId)
+    return cancelTicketUseCase(ticketId)
         .doOnSuccess {
           closeView.onNext(
               Pair(RESULT_USER_CANCELED, UserData.fromStatus(UserData.Status.REFUNDED)))
@@ -132,11 +158,11 @@ class SkillsViewModel(
   }
 
   fun saveQueueIdToClipboard(queueId: String) {
-    saveQueueIdToClipboard.save(queueId)
+    saveQueueIdToClipboardUseCase(queueId)
   }
 
   fun getApplicationInfo(packageName: String): ApplicationInfo {
-    return getApplicationInfoUseCase.getInfo(packageName)
+    return getApplicationInfoUseCase(packageName)
   }
 
   fun getLocalFiatAmount(value: BigDecimal, currency: String): Single<Price> {
@@ -152,10 +178,28 @@ class SkillsViewModel(
   }
 
   fun getCreditsBalance(): Single<BigDecimal> {
-    return getUserBalanceUseCase.getCreditsBalance()
+    return getUserBalanceUseCase()
   }
 
   fun sendUserToTopUpFlow(context: Context) {
-    sendUserToTopUpFlowUseCase.send(context)
+    sendUserToTopUpFlowUseCase(context)
+  }
+
+  fun getAuthenticationIntent(context: Context): Intent {
+    return getAuthenticationIntentUseCase(context)
+  }
+
+  fun restorePurchase(view: PaymentView): Single<Ticket> {
+    return walletAddressObtainer.getWalletAddress()
+        .flatMap { walletAddress ->
+          getCachedPaymentUseCase(walletAddress).flatMap { cachedPayment ->
+            payTicketUseCase(cachedPayment.ticket, cachedPayment.eskillsPaymentData)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { view.showLoading() }
+                .flatMap { paymentResult ->
+                  handlePaymentResultStatus(view, paymentResult, cachedPayment.ticket)
+                }
+          }
+        }
   }
 }
