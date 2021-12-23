@@ -15,7 +15,6 @@ class WalletsController :
     Typed4EpoxyController<Async<WalletsModel>, Async<BalanceVerificationModel>, Async<WalletInfo>, Async<Boolean>>() {
 
   private val currencyFormatUtils = CurrencyFormatUtils()
-
   var walletClickListener: ((WalletsListEvent) -> Unit)? = null
 
   override fun buildModels(walletsAsync: Async<WalletsModel>,
@@ -29,7 +28,7 @@ class WalletsController :
 
   private fun addOtherWallets(walletsAsync: Async<WalletsModel>) {
     val otherWallets = walletsAsync()?.wallets
-    if (otherWallets != null && otherWallets.isNotEmpty()) {
+    if (otherWallets != null && otherWallets.size > 1) {
       add(OtherWalletsTitleModel_()
           .id("other_wallets_title_model"))
 

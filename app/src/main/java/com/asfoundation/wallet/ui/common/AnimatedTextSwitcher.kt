@@ -35,8 +35,8 @@ class AnimatedTextSwitcher : FrameLayout {
 
   private fun retrievePreferences(attrs: AttributeSet?, defStyleAttr: Int) {
     val typedArray =
-        context.obtainStyledAttributes(attrs, R.styleable.ToolbarTextSwitcher, defStyleAttr, 0)
-    val string = typedArray.getString(R.styleable.ToolbarTextSwitcher_toolbarText) ?: ""
+        context.obtainStyledAttributes(attrs, R.styleable.AnimatedTextSwitcher, defStyleAttr, 0)
+    val string = typedArray.getString(R.styleable.AnimatedTextSwitcher_toolbarText) ?: ""
     text = string
     views.textSwitcher.setCurrentText(string)
     typedArray.recycle()
@@ -65,8 +65,8 @@ class AnimatedTextSwitcher : FrameLayout {
   fun setText(str: CharSequence) {
     if (str == getText()) return
     if (animateFirstView) {
-      views.textSwitcher.setInAnimation(context, R.anim.slide_in_up)
-      views.textSwitcher.setOutAnimation(context, R.anim.slide_out_down)
+      views.textSwitcher.setInAnimation(context, R.anim.slide_in_down)
+      views.textSwitcher.setOutAnimation(context, R.anim.slide_out_up)
     } else {
       views.textSwitcher.setInAnimation(context, R.anim.slide_in_down)
       views.textSwitcher.setOutAnimation(context, R.anim.slide_out_up)
