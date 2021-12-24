@@ -44,7 +44,7 @@ class HomeController : Typed2EpoxyController<Async<TransactionsModel>, Async<Glo
           add(getTransactions(txModel))
         }
       }
-      is Async.Fail -> Unit // TODO
+      is Async.Fail -> Unit
       is Async.Success -> add(getTransactions(txModelAsync()))
     }
   }
