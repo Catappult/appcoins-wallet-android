@@ -433,12 +433,6 @@ class UseCaseModule {
 
   @Singleton
   @Provides
-  fun providesRecoverWalletErrorMapper(): RecoverErrorMapperUseCase {
-    return RecoverErrorMapperUseCase()
-  }
-
-  @Singleton
-  @Provides
   fun provideSetDefaultWalletUseCase(
       setDefaultWalletInteractor: SetDefaultWalletInteractor): SetDefaultWalletUseCase {
     return SetDefaultWalletUseCase(setDefaultWalletInteractor)
@@ -455,12 +449,10 @@ class UseCaseModule {
   fun provideRecoverKeystoreUseCase(walletRepository: WalletRepositoryType,
                                     passwordStore: PasswordStore,
                                     backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-                                    recoverErrorMapperUseCase: RecoverErrorMapperUseCase,
-                                    observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+                                    getWalletInfoUseCase: GetWalletInfoUseCase,
                                     currencyFormatUtils: CurrencyFormatUtils): RecoverKeystoreUseCase {
     return RecoverKeystoreUseCase(walletRepository, passwordStore,
-        backupRestorePreferencesRepository, recoverErrorMapperUseCase, observeWalletInfoUseCase,
-        currencyFormatUtils)
+        backupRestorePreferencesRepository, getWalletInfoUseCase, currencyFormatUtils)
   }
 
   @Singleton
@@ -468,10 +460,9 @@ class UseCaseModule {
   fun provideRecoverPrivateKeyUseCase(walletRepository: WalletRepositoryType,
                                       passwordStore: PasswordStore,
                                       backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-                                      observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+                                      getWalletInfoUseCase: GetWalletInfoUseCase,
                                       currencyFormatUtils: CurrencyFormatUtils): RecoverPrivateKeyUseCase {
     return RecoverPrivateKeyUseCase(walletRepository, passwordStore,
-        backupRestorePreferencesRepository, observeWalletInfoUseCase,
-        currencyFormatUtils)
+        backupRestorePreferencesRepository, getWalletInfoUseCase, currencyFormatUtils)
   }
 }

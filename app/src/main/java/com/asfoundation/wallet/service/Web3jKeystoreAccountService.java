@@ -3,6 +3,10 @@ package com.asfoundation.wallet.service;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.recover.FailedRestore;
+import com.asfoundation.wallet.recover.RestoreResult;
+import com.asfoundation.wallet.recover.RestoreResultErrorMapper;
+import com.asfoundation.wallet.recover.SuccessfulRestore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -51,7 +55,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   }
 
   @Override
-  public Single<Wallet> restoreKeystore(String store, String password, String newPassword) {
+  public Single<RestoreResult> restoreKeystore(String store, String password, String newPassword) {
     return Single.fromCallable(() -> extractAddressFromStore(store))
         .flatMap(address -> {
           if (hasAccount(address)) {
@@ -64,17 +68,20 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
             return importKeystoreInternal(store, password, newPassword);
           }
         })
-        .doOnError(Throwable::printStackTrace);
+        .map(wallet -> (RestoreResult) new SuccessfulRestore(wallet.address))
+        .onErrorReturn(throwable -> new RestoreResultErrorMapper().map(throwable,
+            extractAddressFromStore(store)));
   }
 
-  @Override public Single<Wallet> restorePrivateKey(String privateKey, String newPassword) {
+  @Override public Single<RestoreResult> restorePrivateKey(String privateKey, String newPassword) {
     return Single.fromCallable(() -> {
       BigInteger key = new BigInteger(privateKey, PRIVATE_KEY_RADIX);
       ECKeyPair keypair = ECKeyPair.create(key);
       WalletFile walletFile = create(newPassword, keypair, N, P);
       return new ObjectMapper().writeValueAsString(walletFile);
     })
-        .flatMap(keystore -> restoreKeystore(keystore, newPassword, newPassword));
+        .flatMap(keystore -> restoreKeystore(keystore, newPassword, newPassword))
+        .onErrorReturn(throwable -> new FailedRestore.InvalidPrivateKey(throwable));
   }
 
   @Override

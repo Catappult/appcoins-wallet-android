@@ -54,9 +54,9 @@ class RecoverWalletFragment : BasePageViewFragment(),
     views.recoverWalletButton.setOnClickListener {
       viewModel.handleRestoreClick(views.recoverWalletOptions.keystoreEditText.text.toString())
     }
-    views.recoverWalletButtonPassword.setOnClickListener {
-      viewModel.handleRestoreClick("")
-    }
+//    views.recoverWalletButtonPassword.setOnClickListener {
+//      viewModel.handleRestoreClick("")
+//    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -94,7 +94,7 @@ class RecoverWalletFragment : BasePageViewFragment(),
         showLoading()
       }
       is Async.Fail -> {
-        handleErrorState(FailedRecover.GenericError(asyncRecoverResult.error.throwable.toString()))
+        handleErrorState(FailedWalletRecover.GenericError(asyncRecoverResult.error.throwable))
       }
       is Async.Success -> {
         handleSuccessState(asyncRecoverResult())
@@ -119,7 +119,7 @@ class RecoverWalletFragment : BasePageViewFragment(),
   private fun handleSuccessState(recoverResult: RecoverWalletResult) {
     Log.d("APPC-2780", "RecoverWalletFragment: handleSuccessState: $recoverResult ")
     when (recoverResult) {
-      is SuccessfulRecover -> {
+      is SuccessfulWalletRecover -> {
 
       }
       else -> handleErrorState(recoverResult)
@@ -130,24 +130,24 @@ class RecoverWalletFragment : BasePageViewFragment(),
     Log.d("APPC-2780", "RecoverWalletFragment: handleErrorState: $recoverResult ")
     views.recoverWalletOptions.labelInput.isErrorEnabled = true
     when (recoverResult) {
-      is FailedRecover.AlreadyAdded -> {
+      is FailedWalletRecover.AlreadyAdded -> {
         views.recoverWalletOptions.labelInput.error = getString(R.string.error_already_added)
       }
-      is FailedRecover.InvalidKeystore -> {
+      is FailedWalletRecover.InvalidKeystore -> {
         views.recoverWalletOptions.labelInput.error = getString(R.string.error_import)
       }
-      is FailedRecover.InvalidPassword -> {
+      is FailedWalletRecover.InvalidPassword -> {
         views.recoverWalletOptions.labelInput.error = "getString(R.string.error_import)"
       }
-      is FailedRecover.RequirePassword -> {
+      is FailedWalletRecover.RequirePassword -> {
         views.recoverWalletPassword.walletBalance.text = recoverResult.symbol + recoverResult.amount
         views.recoverWalletPassword.walletAddress.text = recoverResult.address
         showRecoverPasswordScreen()
       }
-      is FailedRecover.InvalidPrivateKey -> {
+      is FailedWalletRecover.InvalidPrivateKey -> {
 
       }
-      is FailedRecover.GenericError -> {
+      is FailedWalletRecover.GenericError -> {
         views.recoverWalletOptions.labelInput.error = getString(R.string.error_general)
       }
       else -> return

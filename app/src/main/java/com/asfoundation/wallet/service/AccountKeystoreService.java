@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.service;
 
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.recover.RestoreResult;
+import com.asfoundation.wallet.util.RestoreError;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
@@ -23,9 +25,9 @@ public interface AccountKeystoreService {
    *
    * @return included {@link Wallet} if success
    */
-  Single<Wallet> restoreKeystore(String store, String password, String newPassword);
+  Single<RestoreResult> restoreKeystore(String store, String password, String newPassword);
 
-  Single<Wallet> restorePrivateKey(String privateKey, String newPassword);
+  Single<RestoreResult> restorePrivateKey(String privateKey, String newPassword);
 
   /**
    * Export wallet to keystore

@@ -6,8 +6,6 @@ import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.recover.use_cases.*
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -59,14 +57,15 @@ class RecoverWalletViewModel(private val getFilePathUseCase: GetFilePathUseCase,
     return if (isKeystoreUseCase(key = key)) recoverKeystoreUseCase(keystore = key)
     else {
       if (key.length == 64) recoverPrivateKeyUseCase(privateKey = key)
-      else Single.just(FailedRecover.InvalidPrivateKey)
+      else Single.just(FailedWalletRecover.InvalidPrivateKey())
     }
   }
 
   private fun setDefaultWalletNew(recoverResult: RecoverWalletResult): Single<RecoverWalletResult> {
     return when (recoverResult) {
-      is FailedRecover -> Single.just(recoverResult)
-      is SuccessfulRecover -> Completable.mergeArray(setDefaultWalletUseCase(recoverResult.address),
+      is FailedWalletRecover -> Single.just(recoverResult)
+      is SuccessfulWalletRecover -> Completable.mergeArray(
+          setDefaultWalletUseCase(recoverResult.address),
           updateWalletInfoUseCase(recoverResult.address, updateFiat = true))
           .andThen(Single.just(recoverResult))
     }
@@ -74,11 +73,11 @@ class RecoverWalletViewModel(private val getFilePathUseCase: GetFilePathUseCase,
 
   private fun handleRecoverResult(recoverResult: RecoverWalletResult) {
     when (recoverResult) {
-      is SuccessfulRecover -> {
+      is SuccessfulWalletRecover -> {
         walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
             WalletsAnalytics.STATUS_SUCCESS)
       }
-      is FailedRecover.RequirePassword -> {
+      is FailedWalletRecover.RequirePassword -> {
         handleRestoreClick("")
         walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
             WalletsAnalytics.STATUS_SUCCESS)
@@ -91,7 +90,7 @@ class RecoverWalletViewModel(private val getFilePathUseCase: GetFilePathUseCase,
   }
 
   fun handleRestoreClick(keystore: String) {
-
+    //TODO
   }
 
 }

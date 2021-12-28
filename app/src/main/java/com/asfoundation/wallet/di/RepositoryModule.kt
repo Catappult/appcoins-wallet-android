@@ -54,7 +54,6 @@ import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.recover.use_cases.ExtractWalletAddressUseCase
-import com.asfoundation.wallet.recover.use_cases.RecoverErrorMapperUseCase
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.AccountKeystoreService
@@ -284,14 +283,9 @@ class RepositoryModule {
                               accountKeystoreService: AccountKeystoreService,
                               analyticsSetup: RakamAnalytics,
                               amplitudeAnalytics: AmplitudeAnalytics,
-                              recoverErrorMapperUseCase: RecoverErrorMapperUseCase,
-                              walletInfoRepository: WalletInfoRepository,
-                              extractWalletAddressUseCase: ExtractWalletAddressUseCase,
-                              passwordStore: PasswordStore,
-                              currencyFormatUtils: CurrencyFormatUtils): WalletRepositoryType {
-    return WalletRepository(preferencesRepositoryType, accountKeystoreService, Schedulers.io(),
-        analyticsSetup, amplitudeAnalytics, walletInfoRepository, recoverErrorMapperUseCase,
-        extractWalletAddressUseCase, passwordStore, currencyFormatUtils)
+                              passwordStore: PasswordStore): WalletRepositoryType {
+    return WalletRepository(preferencesRepositoryType, accountKeystoreService, analyticsSetup,
+        amplitudeAnalytics, passwordStore)
   }
 
   @Singleton
