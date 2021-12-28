@@ -161,8 +161,7 @@ class BackupCreationPresenter(private val view: BackupCreationView,
   private fun handlePermissionGiven() {
     disposables.add(view.onPermissionGiven()
         .doOnNext {
-          view.showSaveOnDeviceDialog(interactor.getDefaultBackupFileName(data.walletAddress),
-              downloadsPath?.path)
+          navigator.showSaveOnDeviceScreen(data.walletAddress, data.password)
         }
         .subscribe({}, { it.printStackTrace() }))
   }

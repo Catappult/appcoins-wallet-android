@@ -79,6 +79,8 @@ import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationModule
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletModule
+import com.asfoundation.wallet.ui.backup.save.SaveBackupBottomSheetFragment
+import com.asfoundation.wallet.ui.backup.save.SaveBackupBottomSheetModule
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessModule
 import com.asfoundation.wallet.ui.gamification.GamificationFragment
@@ -393,5 +395,9 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [TermsConditionsBottomSheetModule::class])
   abstract fun bindTermsConditionsBottomSheetFragment(): TermsConditionsBottomSheetFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [SaveBackupBottomSheetModule::class])
+  abstract fun bindSaveBackupBottomSheetFragment(): SaveBackupBottomSheetFragment
 
 }

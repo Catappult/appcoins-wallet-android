@@ -50,6 +50,14 @@ class WalletTextFieldView : FrameLayout {
     views.textInput.hint = text
   }
 
+  fun setText(text: CharSequence) {
+    views.textInput.setText(text)
+  }
+
+  fun getText(): String {
+    return views.textInput.text.toString()
+  }
+
   fun setColor(@ColorInt color: Int) {
     this.color = color
     applyType()

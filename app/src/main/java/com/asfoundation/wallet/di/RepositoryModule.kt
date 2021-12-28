@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di
 
+import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
@@ -67,6 +68,7 @@ import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
+import com.asfoundation.wallet.ui.backup.save.repository.FileRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesUserStatsLocalData
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper
@@ -513,5 +515,11 @@ class RepositoryModule {
                                 rxSchedulers: RxSchedulers): BalanceRepository {
     return BalanceRepository(getSelectedCurrencyUseCase, localCurrencyConversionService,
         rxSchedulers)
+  }
+
+  @Singleton
+  @Provides
+  fun providesFileRepository(contentResolver: ContentResolver): FileRepository {
+    return FileRepository(contentResolver)
   }
 }

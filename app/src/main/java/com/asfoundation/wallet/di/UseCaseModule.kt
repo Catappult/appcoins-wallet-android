@@ -49,6 +49,8 @@ import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
+import com.asfoundation.wallet.ui.backup.save.repository.FileRepository
+import com.asfoundation.wallet.ui.backup.save.use_cases.SaveBackupFileUseCase
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
 import com.asfoundation.wallet.verification.repository.VerificationRepository
@@ -401,5 +403,15 @@ class UseCaseModule {
   fun provideHasEnoughBalanceUseCase(
       getWalletInfoUseCase: GetWalletInfoUseCase): HasEnoughBalanceUseCase {
     return HasEnoughBalanceUseCase(getWalletInfoUseCase)
+  }
+
+
+  @Singleton
+  @Provides
+  fun providesSaveBackupFileUseCase(
+      walletRepository: WalletRepositoryType,
+      passwordStore: PasswordStore,
+      fileRepository: FileRepository): SaveBackupFileUseCase {
+    return SaveBackupFileUseCase(walletRepository, passwordStore, fileRepository)
   }
 }

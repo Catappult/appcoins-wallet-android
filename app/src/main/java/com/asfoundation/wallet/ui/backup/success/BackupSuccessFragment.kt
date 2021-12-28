@@ -9,7 +9,6 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.BackupActivityView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
-//import kotlinx.android.synthetic.main.fragment_backup_creation_layout.animation
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
 import javax.inject.Inject
 
