@@ -30,10 +30,10 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
 
   fun present(savedInstanceState: Bundle?) {
     savedInstanceState?.let { view.setKeystore(it.getString(KEYSTORE, "")) }
-    handleRestoreFromString()
-    handleRestoreFromFile()
-    handleFileChosen()
-    handleOnPermissionsGiven()
+//    handleRestoreFromString()
+//    handleRestoreFromFile()
+//    handleFileChosen()
+//    handleOnPermissionsGiven()
   }
 
   private fun handleOnPermissionsGiven() {
@@ -43,22 +43,23 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handleFileChosen() {
-    disposable.add(view.onFileChosen()
-        .doOnNext { view.showWalletRestoreAnimation() }
-        .flatMapSingle { restoreWalletInteractor.readFile(it) }
-        .observeOn(computationScheduler)
-        .flatMapSingle { fetchWalletModel(it) }
-        .flatMapSingle { setDefaultWallet(it) }
-        .observeOn(viewScheduler)
-        .doOnNext { handleWalletModel(it) }
-        .subscribe({}, {
-          logger.log("RestoreWalletPresenter", it)
-          view.hideAnimation()
-          view.showError(RestoreErrorType.INVALID_KEYSTORE)
-        })
-    )
-  }
+//  private fun handleFileChosen() {
+//    disposable.add(view.onFileChosen()
+//        .doOnNext { view.showWalletRestoreAnimation() }
+//        .flatMapSingle {
+//          restoreWalletInteractor.readFile(it) }
+//        .observeOn(computationScheduler)
+//        .flatMapSingle { fetchWalletModel(it) }
+//        .flatMapSingle { setDefaultWallet(it) }
+//        .observeOn(viewScheduler)
+//        .doOnNext { handleWalletModel(it) }
+//        .subscribe({}, {
+//          logger.log("RestoreWalletPresenter", it)
+//          view.hideAnimation()
+//          view.showError(RestoreErrorType.INVALID_KEYSTORE)
+//        })
+//    )
+//  }
 
   private fun handleRestoreFromFile() {
     disposable.add(view.restoreFromFileClick()
@@ -74,22 +75,22 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handleRestoreFromString() {
-    disposable.add(view.restoreFromStringClick()
-        .doOnNext {
-          view.hideKeyboard()
-          view.showWalletRestoreAnimation()
-        }
-        .observeOn(computationScheduler)
-        .flatMapSingle { fetchWalletModel(it) }
-        .observeOn(viewScheduler)
-        .doOnNext { handleWalletModel(it) }
-        .doOnError { t ->
-          walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
-              WalletsAnalytics.STATUS_FAIL, t.message)
-        }
-        .subscribe())
-  }
+//  private fun handleRestoreFromString() {
+//    disposable.add(view.restoreFromStringClick()
+//        .doOnNext {
+//          view.hideKeyboard()
+//          view.showWalletRestoreAnimation()
+//        }
+//        .observeOn(computationScheduler)
+//        .flatMapSingle { fetchWalletModel(it) }
+//        .observeOn(viewScheduler)
+//        .doOnNext { handleWalletModel(it) }
+//        .doOnError { t ->
+//          walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+//              WalletsAnalytics.STATUS_FAIL, t.message)
+//        }
+//        .subscribe())
+//  }
 
   private fun setDefaultWallet(model: WalletModel): Single<WalletModel> {
     if (model.error.hasError) return Single.just(model)
@@ -118,13 +119,13 @@ class RestoreWalletPresenter(private val view: RestoreWalletView,
     }
   }
 
-  private fun fetchWalletModel(key: String): Single<WalletModel> {
-    return if (restoreWalletInteractor.isKeystore(key)) restoreWalletInteractor.restoreKeystore(key)
-    else {
-      if (key.length == 64) restoreWalletInteractor.restorePrivateKey(key)
-      else Single.just(WalletModel(RestoreError(RestoreErrorType.INVALID_PRIVATE_KEY)))
-    }
-  }
+//  private fun fetchWalletModel(key: String): Single<WalletModel> {
+//    return if (restoreWalletInteractor.isKeystore(key)) restoreWalletInteractor.restoreKeystore(key)
+//    else {
+//      if (key.length == 64) restoreWalletInteractor.restorePrivateKey(key)
+//      else Single.just(WalletModel(RestoreError(RestoreErrorType.INVALID_PRIVATE_KEY)))
+//    }
+//  }
 
   fun onSaveInstanceState(outState: Bundle, keystore: String) {
     outState.putString(KEYSTORE, keystore)

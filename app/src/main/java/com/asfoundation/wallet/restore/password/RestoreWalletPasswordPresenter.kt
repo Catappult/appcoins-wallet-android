@@ -25,7 +25,7 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
   fun present() {
     val keystore = data.keystore
     populateUi(keystore)
-    handleRestoreWalletButtonClicked(keystore)
+//    handleRestoreWalletButtonClicked(keystore)
   }
 
   private fun populateUi(keystore: String) {
@@ -47,34 +47,34 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
         }))
   }
 
-  private fun handleRestoreWalletButtonClicked(keystore: String) {
-    disposable.add(view.restoreWalletButtonClick()
-        .doOnNext {
-          view.hideKeyboard()
-          view.showWalletRestoreAnimation()
-        }
-        .doOnNext {
-          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
-              WalletsAnalytics.STATUS_SUCCESS)
-        }
-        .doOnError {
-          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
-              WalletsAnalytics.STATUS_FAIL, it.message)
-        }
-        .observeOn(computationScheduler)
-        .flatMapSingle { interactor.restoreWallet(keystore, it) }
-        .observeOn(viewScheduler)
-        .doOnNext { handleWalletModel(it) }
-        .doOnError {
-          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
-              it.message)
-        }
-        .subscribe({}, {
-          it.printStackTrace()
-          view.hideAnimation()
-          view.showError(RestoreErrorType.GENERIC)
-        }))
-  }
+//  private fun handleRestoreWalletButtonClicked(keystore: String) {
+//    disposable.add(view.restoreWalletButtonClick()
+//        .doOnNext {
+//          view.hideKeyboard()
+//          view.showWalletRestoreAnimation()
+//        }
+//        .doOnNext {
+//          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+//              WalletsAnalytics.STATUS_SUCCESS)
+//        }
+//        .doOnError {
+//          walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+//              WalletsAnalytics.STATUS_FAIL, it.message)
+//        }
+//        .observeOn(computationScheduler)
+//        .flatMapSingle { interactor.restoreWallet(keystore, it) }
+//        .observeOn(viewScheduler)
+//        .doOnNext { handleWalletModel(it) }
+//        .doOnError {
+//          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
+//              it.message)
+//        }
+//        .subscribe({}, {
+//          it.printStackTrace()
+//          view.hideAnimation()
+//          view.showError(RestoreErrorType.GENERIC)
+//        }))
+//  }
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)

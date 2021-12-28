@@ -282,6 +282,9 @@ dependencies {
   implementation "org.apache.commons:commons-lang3:$project.commons_lang3_version"
   implementation "com.android.support:support-annotations:$project.support_annotations"
 
+  implementation 'androidx.activity:activity-ktx:1.3.0'
+  implementation 'androidx.fragment:fragment-ktx:1.3.0'
+
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
   androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"

@@ -57,6 +57,9 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
           if (hasAccount(address)) {
             return Single.error(
                 new ServiceErrorException(C.ErrorCode.ALREADY_ADDED, "Already added"));
+          } else if (password.equals("")) {
+            return Single.error(new ServiceErrorException(C.ErrorCode.CANT_GET_STORE_PASSWORD,
+                "Requires password"));
           } else {
             return importKeystoreInternal(store, password, newPassword);
           }

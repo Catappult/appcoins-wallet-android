@@ -53,6 +53,8 @@ import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
 import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.rating.RatingRepository
+import com.asfoundation.wallet.recover.use_cases.ExtractWalletAddressUseCase
+import com.asfoundation.wallet.recover.use_cases.RecoverErrorMapperUseCase
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.AccountKeystoreService
@@ -74,6 +76,7 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase
 import com.asfoundation.wallet.ui.iab.payments.carrier.SecureCarrierBillingPreferencesRepository
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.network.BrokerVerificationApi
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
@@ -280,9 +283,15 @@ class RepositoryModule {
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
                               accountKeystoreService: AccountKeystoreService,
                               analyticsSetup: RakamAnalytics,
-                              amplitudeAnalytics: AmplitudeAnalytics): WalletRepositoryType {
+                              amplitudeAnalytics: AmplitudeAnalytics,
+                              recoverErrorMapperUseCase: RecoverErrorMapperUseCase,
+                              walletInfoRepository: WalletInfoRepository,
+                              extractWalletAddressUseCase: ExtractWalletAddressUseCase,
+                              passwordStore: PasswordStore,
+                              currencyFormatUtils: CurrencyFormatUtils): WalletRepositoryType {
     return WalletRepository(preferencesRepositoryType, accountKeystoreService, Schedulers.io(),
-        analyticsSetup, amplitudeAnalytics)
+        analyticsSetup, amplitudeAnalytics, walletInfoRepository, recoverErrorMapperUseCase,
+        extractWalletAddressUseCase, passwordStore, currencyFormatUtils)
   }
 
   @Singleton

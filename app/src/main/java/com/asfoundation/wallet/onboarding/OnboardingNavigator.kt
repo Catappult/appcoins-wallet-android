@@ -20,4 +20,9 @@ class OnboardingNavigator(private val fragment: OnboardingFragment) : Navigator 
     navigate(fragment.findNavController(),
         OnboardingFragmentDirections.actionNavigateToRestoreWallet())
   }
+
+  fun navigateToRecoverFragment() {
+    navigate(fragment.findNavController(),
+        OnboardingFragmentDirections.actionNavigateToRecoverWallet())
+  }
 }

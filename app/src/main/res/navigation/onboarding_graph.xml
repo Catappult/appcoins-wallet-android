@@ -15,6 +15,10 @@
         app:destination="@id/restore_wallet_activity" />
 
     <action
+        android:id="@+id/action_navigate_to_recover_wallet"
+        app:destination="@id/recover_wallet_fragment" />
+
+    <action
         android:id="@+id/action_navigate_terms_conditions"
         app:destination="@id/onboarding_terms_conditions_dialog" />
 
@@ -33,7 +37,7 @@
         android:id="@+id/action_navigate_create_wallet_dialog"
         app:destination="@id/create_wallet_dialog_fragment"
         app:popUpTo="@+id/onboarding_terms_conditions_dialog"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
   </dialog>
 
   <dialog
@@ -54,4 +58,9 @@
       android:id="@+id/restore_wallet_activity"
       android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
       tools:layout="@layout/activity_restore_wallet" />
+
+  <fragment
+      android:id="@+id/recover_wallet_fragment"
+      android:name="com.asfoundation.wallet.recover.RecoverWalletFragment"
+      tools:layout="@layout/fragment_recover_wallet"/>
 </navigation>

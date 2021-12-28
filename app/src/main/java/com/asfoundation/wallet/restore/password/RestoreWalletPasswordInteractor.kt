@@ -13,8 +13,8 @@ class RestoreWalletPasswordInteractor(private val gson: Gson,
     it.onSuccess("0x" + parsedKeystore.address)
   }
 
-  fun restoreWallet(keystore: String, password: String): Single<WalletModel> =
-      restoreWalletInteractor.restoreKeystore(keystore, password)
+//  fun restoreWallet(keystore: String, password: String): Single<WalletModel> =
+//      restoreWalletInteractor.restoreKeystore(keystore, password)
 
   fun setDefaultWallet(address: String) = restoreWalletInteractor.setDefaultWallet(address)
 

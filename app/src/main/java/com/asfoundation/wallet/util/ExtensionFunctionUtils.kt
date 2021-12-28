@@ -1,6 +1,9 @@
 package com.asfoundation.wallet.util
 
+import android.Manifest
 import android.animation.LayoutTransition
+import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -8,13 +11,19 @@ import android.graphics.Matrix
 import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.text.InputType
 import android.util.Base64
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.google.zxing.BarcodeFormat
@@ -179,4 +188,17 @@ fun EditText.setReadOnly(value: Boolean, inputType: Int = InputType.TYPE_NULL) {
   isFocusable = !value
   isFocusableInTouchMode = !value
   this.inputType = inputType
+}
+
+inline fun Fragment.requestPermission(permission: String,
+                                      crossinline granted: (permission: String) -> Unit = {},
+                                      crossinline denied: (permission: String) -> Unit = {},
+                                      crossinline explained: (permission: String) -> Unit = {}) {
+  registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+    when {
+      result -> granted.invoke(permission)
+      shouldShowRequestPermissionRationale(permission) -> denied.invoke(permission)
+      else -> explained.invoke(permission)
+    }
+  }.launch(permission)
 }

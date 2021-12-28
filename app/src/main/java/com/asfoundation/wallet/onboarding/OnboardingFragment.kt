@@ -87,7 +87,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
-      OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRestoreActivity()
+      OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecoverFragment()
     }
   }
 

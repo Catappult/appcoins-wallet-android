@@ -8,6 +8,7 @@ import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.asfoundation.wallet.backup.BackupInteractContract
+import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
@@ -24,6 +25,7 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.interact.SetDefaultWalletInteractor
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.logging.send_logs.use_cases.ObserveSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
@@ -44,6 +46,7 @@ import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
 import com.asfoundation.wallet.rating.RatingRepository
+import com.asfoundation.wallet.recover.use_cases.*
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
@@ -51,12 +54,14 @@ import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.asfoundation.wallet.wallets.usecases.*
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -401,5 +406,72 @@ class UseCaseModule {
   fun provideHasEnoughBalanceUseCase(
       getWalletInfoUseCase: GetWalletInfoUseCase): HasEnoughBalanceUseCase {
     return HasEnoughBalanceUseCase(getWalletInfoUseCase)
+  }
+
+  /*
+  RecoverWallet Use Cases
+  */
+  @Singleton
+  @Provides
+  fun provideIsKeystoreUseCase(): IsKeystoreUseCase {
+    return IsKeystoreUseCase()
+  }
+
+  @Singleton
+  @Provides
+  fun provideGetFilePathUseCase(
+      backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+      fileInteractor: FileInteractor): GetFilePathUseCase {
+    return GetFilePathUseCase(backupRestorePreferencesRepository, fileInteractor)
+  }
+
+  @Singleton
+  @Provides
+  fun provideReadFileUseCase(fileInteractor: FileInteractor): ReadFileUseCase {
+    return ReadFileUseCase(fileInteractor)
+  }
+
+  @Singleton
+  @Provides
+  fun providesRecoverWalletErrorMapper(): RecoverErrorMapperUseCase {
+    return RecoverErrorMapperUseCase()
+  }
+
+  @Singleton
+  @Provides
+  fun provideSetDefaultWalletUseCase(
+      setDefaultWalletInteractor: SetDefaultWalletInteractor): SetDefaultWalletUseCase {
+    return SetDefaultWalletUseCase(setDefaultWalletInteractor)
+  }
+
+  @Singleton
+  @Provides
+  fun provideExtractWalletAddressUseCase(gson: Gson): ExtractWalletAddressUseCase {
+    return ExtractWalletAddressUseCase(gson)
+  }
+
+  @Singleton
+  @Provides
+  fun provideRecoverKeystoreUseCase(walletRepository: WalletRepositoryType,
+                                    passwordStore: PasswordStore,
+                                    backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+                                    recoverErrorMapperUseCase: RecoverErrorMapperUseCase,
+                                    observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+                                    currencyFormatUtils: CurrencyFormatUtils): RecoverKeystoreUseCase {
+    return RecoverKeystoreUseCase(walletRepository, passwordStore,
+        backupRestorePreferencesRepository, recoverErrorMapperUseCase, observeWalletInfoUseCase,
+        currencyFormatUtils)
+  }
+
+  @Singleton
+  @Provides
+  fun provideRecoverPrivateKeyUseCase(walletRepository: WalletRepositoryType,
+                                      passwordStore: PasswordStore,
+                                      backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+                                      observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+                                      currencyFormatUtils: CurrencyFormatUtils): RecoverPrivateKeyUseCase {
+    return RecoverPrivateKeyUseCase(walletRepository, passwordStore,
+        backupRestorePreferencesRepository, observeWalletInfoUseCase,
+        currencyFormatUtils)
   }
 }

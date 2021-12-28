@@ -22,27 +22,27 @@ class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType
 
   fun isKeystore(key: String): Boolean = key.contains("{")
 
-  fun restoreKeystore(keystore: String, password: String = ""): Single<WalletModel> {
-    return passwordStore.generatePassword()
-        .flatMap { newPassword ->
-          walletRepository.restoreKeystoreToWallet(keystore, password, newPassword)
-              .compose(Operators.savePassword(passwordStore, walletRepository, newPassword))
-        }
-        .doOnSuccess { backupRestorePreferencesRepository.setWalletRestoreBackup(it.address) }
-        .map { WalletModel(it.address) }
-        .onErrorReturn { mapError(keystore, it) }
-  }
-
-  fun restorePrivateKey(privateKey: String?): Single<WalletModel> {
-    return passwordStore.generatePassword()
-        .flatMap { newPassword ->
-          walletRepository.restorePrivateKeyToWallet(privateKey, newPassword)
-              .compose(Operators.savePassword(passwordStore, walletRepository, newPassword))
-        }
-        .map { WalletModel(it.address) }
-        .doOnSuccess { backupRestorePreferencesRepository.setWalletRestoreBackup(it.address) }
-        .onErrorReturn { WalletModel(RestoreError(RestoreErrorType.GENERIC)) }
-  }
+//  fun restoreKeystore(keystore: String, password: String = ""): Single<WalletModel> {
+//    return passwordStore.generatePassword()
+//        .flatMap { newPassword ->
+//          walletRepository.restoreKeystoreToWallet(keystore, password, newPassword)
+//              .compose(Operators.savePassword(passwordStore, walletRepository, newPassword))
+//        }
+//        .doOnSuccess { backupRestorePreferencesRepository.setWalletRestoreBackup(it.address) }
+//        .map { WalletModel(it.address) }
+//        .onErrorReturn { mapError(keystore, it) }
+//  }
+//
+//  fun restorePrivateKey(privateKey: String?): Single<WalletModel> {
+//    return passwordStore.generatePassword()
+//        .flatMap { newPassword ->
+//          walletRepository.restorePrivateKeyToWallet(privateKey, newPassword)
+//              .compose(Operators.savePassword(passwordStore, walletRepository, newPassword))
+//        }
+//        .map { WalletModel(it.address) }
+//        .doOnSuccess { backupRestorePreferencesRepository.setWalletRestoreBackup(it.address) }
+//        .onErrorReturn { WalletModel(RestoreError(RestoreErrorType.GENERIC)) }
+//  }
 
   fun setDefaultWallet(address: String): Completable = setDefaultWalletInteractor.set(address)
 

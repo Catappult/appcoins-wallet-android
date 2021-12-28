@@ -48,6 +48,8 @@ import com.asfoundation.wallet.rating.negative.RatingNegativeFragment
 import com.asfoundation.wallet.rating.negative.RatingNegativeModule
 import com.asfoundation.wallet.rating.positive.RatingPositiveFragment
 import com.asfoundation.wallet.rating.positive.RatingPositiveModule
+import com.asfoundation.wallet.recover.RecoverWalletFragment
+import com.asfoundation.wallet.recover.RecoverWalletModule
 import com.asfoundation.wallet.referrals.InviteFriendsFragment
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment
 import com.asfoundation.wallet.referrals.ReferralsFragment
@@ -393,5 +395,9 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [TermsConditionsBottomSheetModule::class])
   abstract fun bindTermsConditionsBottomSheetFragment(): TermsConditionsBottomSheetFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [RecoverWalletModule::class])
+  abstract fun bindRecoverWalletFragment(): RecoverWalletFragment
 
 }
