@@ -7,4 +7,6 @@ interface BackupSuccessFragmentView {
   fun getCloseButtonClick(): Observable<Any>
 
   fun closeScreen()
+
+  fun setSuccessInfo(info: String)
 }

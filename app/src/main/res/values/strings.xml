@@ -694,6 +694,7 @@
   <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
   <string name="backup_confirmation_no_share_body">Your backup file is stored in your device.</string>
+  <string name="backup_confirmation_button">I understand</string>
   <string name="backup_confirmation_email_body">Your backup file is in your email.</string>
   <string name="backup_save_dialogue_title_deprecated">Save backup file</string>
   <string name="backup_save_dialogue_title">Save Backup</string>

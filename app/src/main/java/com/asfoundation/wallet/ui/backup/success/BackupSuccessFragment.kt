@@ -10,6 +10,7 @@ import com.asfoundation.wallet.ui.backup.BackupActivityView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
+import kotlinx.android.synthetic.main.layout_backup_success_info.view.*
 import javax.inject.Inject
 
 class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
@@ -19,8 +20,17 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
   private lateinit var activityView: BackupActivityView
 
   companion object {
+    const val EMAIL_KEY = "email"
+
     @JvmStatic
-    fun newInstance() = BackupSuccessFragment()
+    fun newInstance(email: Boolean): BackupSuccessFragment {
+      return BackupSuccessFragment()
+          .apply {
+            arguments = Bundle().apply {
+              putBoolean(EMAIL_KEY, email)
+            }
+          }
+    }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +41,6 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
-//    animation.playAnimation()
-    val text = "${getString(R.string.backup_confirmation_tips_title)}\n\n• ${getString(
-        R.string.backup_confirmation_tips_1)}\n• ${getString(
-        R.string.backup_confirmation_tips_2)}\n• ${getString(
-        R.string.backup_confirmation_tips_3)}"
-    information.text = text
   }
 
   override fun onAttach(context: Context) {
@@ -46,9 +50,13 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
     activityView = context
   }
 
-  override fun getCloseButtonClick() = RxView.clicks(close_btn)
+  override fun getCloseButtonClick() = RxView.clicks(close_button)
 
   override fun closeScreen() = activityView.closeScreen()
+
+  override fun setSuccessInfo(info: String) {
+    backup_success_info.body.text = info
+  }
 
   override fun onDestroy() {
     presenter.stop()

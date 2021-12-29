@@ -14,7 +14,7 @@ class BackupCreationNavigator(private val fragmentManager: FragmentManager,
 
   fun showSuccessScreen() {  // TODO: REMOVE
     fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, BackupSuccessFragment.newInstance())
+        .replace(R.id.fragment_container, BackupSuccessFragment.newInstance(true))
         .commit()
   }
 

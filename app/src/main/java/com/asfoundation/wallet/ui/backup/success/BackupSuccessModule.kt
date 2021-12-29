@@ -8,7 +8,19 @@ import io.reactivex.disposables.CompositeDisposable
 class BackupSuccessModule {
 
   @Provides
-  fun providesBackupSuccessPresenter(fragment: BackupSuccessFragment): BackupSuccessPresenter {
-    return BackupSuccessPresenter(fragment as BackupSuccessFragmentView, CompositeDisposable())
+  fun providesBackupSuccessPresenter(data: BackupSuccessData,
+                                     fragment: BackupSuccessFragment): BackupSuccessPresenter {
+    return BackupSuccessPresenter(data, fragment as BackupSuccessFragmentView,
+        CompositeDisposable())
+  }
+
+  @Provides
+  fun providesBackupSuccessDataData(
+      fragment: BackupSuccessFragment): BackupSuccessData {
+    fragment.requireArguments()
+        .apply {
+          return BackupSuccessData(
+              getBoolean(BackupSuccessFragment.EMAIL_KEY))
+        }
   }
 }
