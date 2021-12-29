@@ -710,6 +710,7 @@
   <string name="backup_confirmation_tips_2_body"> on a USB drive.</string>
   <string name="backup_confirmation_tips_3_title">Copy it</string>
   <string name="backup_confirmation_tips_3_body"> to a private and secure cloud storage.</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key</string>
   <string name="backup_send_via_title">Send backup via:</string>
   <string name="backup_send_button">SEND BACKUP</string>
   <string name="backup_save_button_deprecated">SAVE BACKUP</string>

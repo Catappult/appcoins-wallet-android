@@ -84,6 +84,8 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
         PasswordStatus(backup_password_edit_text.text.toString(), backup_password_toggle.isChecked)
       }
 
+  override fun getSkipClick(): Observable<Any> = RxView.clicks(backup_skip_btn)
+
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(password_group?.windowToken, 0)

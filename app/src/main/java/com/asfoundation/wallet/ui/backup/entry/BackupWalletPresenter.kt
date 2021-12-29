@@ -18,6 +18,7 @@ class BackupWalletPresenter(private val view: BackupWalletFragmentView,
   fun present() {
     initializeView()
     handleBackupClick()
+    handleSkipClick()
     handlePasswordTextChange()
     handleOnCheckedChangeListener()
   }
@@ -44,6 +45,14 @@ class BackupWalletPresenter(private val view: BackupWalletFragmentView,
           view.hideKeyboard()
           val password = if (passwordStatus.wantsPassword) passwordStatus.password else ""
           navigator.showBackupCreationScreen(data.walletAddress, password)
+        }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleSkipClick() {
+    disposables.add(view.getSkipClick()
+        .doOnNext {
+          navigator.navigateToSkipScreen()
         }
         .subscribe({}, { it.printStackTrace() }))
   }

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.backup.entry
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment
+import com.asfoundation.wallet.ui.backup.skip.SkipDialogFragment
 
 class BackupWalletNavigator(private val fragmentManager: FragmentManager) {
 
@@ -11,5 +12,10 @@ class BackupWalletNavigator(private val fragmentManager: FragmentManager) {
         .replace(R.id.fragment_container,
             BackupCreationFragment.newInstance(walletAddress, password))
         .commit()
+  }
+
+  fun navigateToSkipScreen() {
+    val bottomSheet = SkipDialogFragment.newInstance()
+    bottomSheet.show(fragmentManager, "SkipDialog")
   }
 }

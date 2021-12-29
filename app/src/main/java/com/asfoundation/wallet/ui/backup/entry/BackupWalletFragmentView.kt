@@ -8,6 +8,8 @@ interface BackupWalletFragmentView {
 
   fun getBackupClick(): Observable<PasswordStatus>
 
+  fun getSkipClick(): Observable<Any>
+
   fun hideKeyboard()
 
   fun showPasswordFields()
