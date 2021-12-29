@@ -52,10 +52,10 @@ class RecoverWalletFragment : BasePageViewFragment(),
       requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
     views.recoverWalletButton.setOnClickListener {
-      viewModel.handleRestoreClick(views.recoverWalletOptions.keystoreEditText.text.toString())
+      viewModel.handleRecoverClick(views.recoverWalletOptions.keystoreEditText.text.toString(), passwordRequired = false)
     }
-//    views.recoverWalletButtonPassword.setOnClickListener {
-//      viewModel.handleRestoreClick("")
+//    views.recoverWalletPasswordButton.setOnClickListener {
+//      viewModel.handleRecoverClick("", passwordRequired = true)
 //    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -105,11 +105,15 @@ class RecoverWalletFragment : BasePageViewFragment(),
   fun showRecoverOptionsScreen() {
     views.recoverWalletOptions.root.visibility = View.VISIBLE
     views.recoverWalletPassword.root.visibility = View.GONE
+    views.recoverWalletButton.visibility = View.VISIBLE
+    views.recoverWalletPasswordButton.visibility = View.GONE
   }
 
   fun showRecoverPasswordScreen() {
     views.recoverWalletOptions.root.visibility = View.GONE
     views.recoverWalletPassword.root.visibility = View.VISIBLE
+    views.recoverWalletButton.visibility = View.GONE
+    views.recoverWalletPasswordButton.visibility = View.VISIBLE
   }
 
   fun showLoading() {
@@ -137,7 +141,7 @@ class RecoverWalletFragment : BasePageViewFragment(),
         views.recoverWalletOptions.labelInput.error = getString(R.string.error_import)
       }
       is FailedWalletRecover.InvalidPassword -> {
-        views.recoverWalletOptions.labelInput.error = "getString(R.string.error_import)"
+
       }
       is FailedWalletRecover.RequirePassword -> {
         views.recoverWalletPassword.walletBalance.text = recoverResult.symbol + recoverResult.amount
@@ -145,7 +149,7 @@ class RecoverWalletFragment : BasePageViewFragment(),
         showRecoverPasswordScreen()
       }
       is FailedWalletRecover.InvalidPrivateKey -> {
-
+        views.recoverWalletOptions.labelInput.error = getString(R.string.error_import)
       }
       is FailedWalletRecover.GenericError -> {
         views.recoverWalletOptions.labelInput.error = getString(R.string.error_general)

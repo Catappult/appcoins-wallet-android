@@ -22,7 +22,7 @@ class RecoverKeystoreUseCase(private val walletRepository: WalletRepositoryType,
         .flatMap { newPassword ->
           walletRepository.restoreKeystoreToWallet(keystore, password, newPassword)
         }
-        .map {
+        .flatMap {
           RecoverWalletResultMapper(getWalletInfoUseCase, currencyFormatUtils).map(it)
         }
         .doOnSuccess {

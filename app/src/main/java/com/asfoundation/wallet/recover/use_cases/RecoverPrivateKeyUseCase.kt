@@ -22,13 +22,13 @@ class RecoverPrivateKeyUseCase(private val walletRepository: WalletRepositoryTyp
         .flatMap { newPassword ->
           walletRepository.restorePrivateKeyToWallet(privateKey, newPassword)
         }
-        .map {
+        .flatMap {
           RecoverWalletResultMapper(getWalletInfoUseCase, currencyFormatUtils).map(it)
         }
         .doOnSuccess {
           when (it) {
             is SuccessfulWalletRecover -> backupRestorePreferencesRepository.setWalletRestoreBackup(
-                it.address!!)
+                it.address)
             else -> Unit
           }
         }

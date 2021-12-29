@@ -44,7 +44,7 @@ class RecoverWalletViewModel(private val getFilePathUseCase: GetFilePathUseCase,
     readFileUseCase(uri)
         .observeOn(rxSchedulers.computation)
         .flatMap { fetchWallet(it) }
-        .flatMap { setDefaultWalletNew(it) }
+        .flatMap { setDefaultWallet(it) }
         .observeOn(rxSchedulers.main)
         .asAsyncToState {
           copy(recoverResultAsync = it)
@@ -61,7 +61,7 @@ class RecoverWalletViewModel(private val getFilePathUseCase: GetFilePathUseCase,
     }
   }
 
-  private fun setDefaultWalletNew(recoverResult: RecoverWalletResult): Single<RecoverWalletResult> {
+  private fun setDefaultWallet(recoverResult: RecoverWalletResult): Single<RecoverWalletResult> {
     return when (recoverResult) {
       is FailedWalletRecover -> Single.just(recoverResult)
       is SuccessfulWalletRecover -> Completable.mergeArray(
@@ -78,7 +78,7 @@ class RecoverWalletViewModel(private val getFilePathUseCase: GetFilePathUseCase,
             WalletsAnalytics.STATUS_SUCCESS)
       }
       is FailedWalletRecover.RequirePassword -> {
-        handleRestoreClick("")
+//        handleRecoverClick("")
         walletsEventSender.sendWalletRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
             WalletsAnalytics.STATUS_SUCCESS)
       }
@@ -89,8 +89,29 @@ class RecoverWalletViewModel(private val getFilePathUseCase: GetFilePathUseCase,
     }
   }
 
-  fun handleRestoreClick(keystore: String) {
-    //TODO
+  fun handleRecoverClick(keystore: String, passwordRequired: Boolean) {
+    fetchWallet(keystore)
+        .doOnSuccess {
+          if (passwordRequired){
+            walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+                WalletsAnalytics.STATUS_SUCCESS)
+          }
+        }
+        .doOnError {
+          if (passwordRequired){
+            walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
+                WalletsAnalytics.STATUS_FAIL, it.message)
+          }
+        }
+        .flatMap { setDefaultWallet(it) }
+        .asAsyncToState {
+          copy(recoverResultAsync = it)
+        }
+        .doOnSuccess { handleRecoverResult(it) }
+        .doOnError {
+          walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
+              it.message)
+        }
+        .scopedSubscribe()
   }
-
 }

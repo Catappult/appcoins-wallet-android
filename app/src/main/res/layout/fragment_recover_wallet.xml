@@ -87,7 +87,7 @@
         />
 
     <com.asfoundation.wallet.ui.common.WalletButtonView
-        android:id="@+id/recover_wallet_button_password"
+        android:id="@+id/recover_wallet_password_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/onboarding_button_height"
         android:layout_marginStart="27dp"

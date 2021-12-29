@@ -2,6 +2,7 @@ package com.asfoundation.wallet.recover
 
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import io.reactivex.Single
 
 sealed class RecoverWalletResult
 
@@ -9,7 +10,8 @@ data class SuccessfulWalletRecover(val address: String) : RecoverWalletResult()
 
 sealed class FailedWalletRecover : RecoverWalletResult() {
   data class GenericError(val throwable: Throwable? = null) : FailedWalletRecover()
-  data class RequirePassword(val throwable: Throwable? = null, val address: String, val amount: String,
+  data class RequirePassword(val throwable: Throwable? = null, val address: String,
+                             val amount: String,
                              val symbol: String) : FailedWalletRecover()
 
   data class InvalidPassword(val throwable: Throwable? = null) : FailedWalletRecover()
@@ -20,20 +22,20 @@ sealed class FailedWalletRecover : RecoverWalletResult() {
 
 class RecoverWalletResultMapper(private val getWalletInfoUseCase: GetWalletInfoUseCase,
                                 private val currencyFormatUtils: CurrencyFormatUtils) {
-  fun map(restoreResult: RestoreResult): RecoverWalletResult {
+  fun map(restoreResult: RestoreResult): Single<RecoverWalletResult> {
     return when (restoreResult) {
       is SuccessfulRestore ->
-        SuccessfulWalletRecover(restoreResult.address)
+        Single.just(SuccessfulWalletRecover(restoreResult.address))
       is FailedRestore.AlreadyAdded ->
-        FailedWalletRecover.AlreadyAdded(restoreResult.throwable)
+        Single.just(FailedWalletRecover.AlreadyAdded(restoreResult.throwable))
       is FailedRestore.GenericError ->
-        FailedWalletRecover.GenericError(restoreResult.throwable)
+        Single.just(FailedWalletRecover.GenericError(restoreResult.throwable))
       is FailedRestore.InvalidKeystore ->
-        FailedWalletRecover.InvalidKeystore(restoreResult.throwable)
+        Single.just(FailedWalletRecover.InvalidKeystore(restoreResult.throwable))
       is FailedRestore.InvalidPassword ->
-        FailedWalletRecover.InvalidPassword(restoreResult.throwable)
+        Single.just(FailedWalletRecover.InvalidPassword(restoreResult.throwable))
       is FailedRestore.InvalidPrivateKey ->
-        FailedWalletRecover.InvalidPrivateKey(restoreResult.throwable)
+        Single.just(FailedWalletRecover.InvalidPrivateKey(restoreResult.throwable))
       is FailedRestore.RequirePassword -> {
         getWalletInfoUseCase(address = restoreResult.address, cached = false, updateFiat = true)
             .map {
@@ -41,7 +43,6 @@ class RecoverWalletResultMapper(private val getWalletInfoUseCase: GetWalletInfoU
                   currencyFormatUtils.formatCurrency(
                       it.walletBalance.overallFiat.amount), it.walletBalance.overallFiat.symbol)
             }
-            .blockingGet()
       }
     }
   }
