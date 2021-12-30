@@ -12,7 +12,7 @@ data class CreatedTicket(
     val ticketPrice: BigDecimal,
     val priceCurrency: String,
     val productToken: String,
-    val queueId: String? = null
+    val queueId: QueueIdentifier
 ) : Ticket()
 
 enum class ProcessingStatus {
@@ -44,5 +44,5 @@ data class PurchasedTicket(
     val walletAddress: WalletAddress,
     val userId: String,
     val roomId: String,
-    val queueId: String? = null
+    val queueId: QueueIdentifier
 ) : Ticket()

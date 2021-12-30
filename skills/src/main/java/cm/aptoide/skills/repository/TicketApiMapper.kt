@@ -11,16 +11,16 @@ class TicketApiMapper(private val jsonMapper: Gson) {
     private const val FORBIDDEN_CODE = 403
   }
 
-  fun map(ticketResponse: TicketResponse): Ticket {
+  fun map(ticketResponse: TicketResponse, queueId: QueueIdentifier?): Ticket {
     return when (ticketResponse.ticketStatus) {
       TicketStatus.COMPLETED -> PurchasedTicket(ticketResponse.ticketId,
           WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.userId,
-          ticketResponse.roomId!!, ticketResponse.queueId)
+          ticketResponse.roomId!!, queueId ?: QueueIdentifier(ticketResponse.queueId, false))
       else -> CreatedTicket(ticketResponse.ticketId,
           ProcessingStatus.fromTicketStatus(ticketResponse.ticketStatus),
           WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.callbackUrl,
           ticketResponse.ticketPrice, ticketResponse.priceCurrency, ticketResponse.productToken,
-          ticketResponse.queueId)
+          queueId ?: QueueIdentifier(ticketResponse.queueId, false))
     }
   }
 

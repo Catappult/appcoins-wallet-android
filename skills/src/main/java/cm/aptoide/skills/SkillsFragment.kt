@@ -145,7 +145,7 @@ class SkillsFragment : DaggerFragment(), PaymentView {
             binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
               val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
               if (queueId.isNotBlank()) {
-                eSkillsPaymentData.queueId = queueId.trim()
+                eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
               }
               binding.payTicketLayout.root.visibility = View.GONE
               createAndPayTicket(eSkillsPaymentData)
@@ -315,12 +315,12 @@ class SkillsFragment : DaggerFragment(), PaymentView {
     binding.createWalletLayout.root.visibility = View.GONE
   }
 
-  private fun showRoomLoading(isCancelActive: Boolean, queueId: String? = null) {
+  private fun showRoomLoading(isCancelActive: Boolean, queueIdentifier: QueueIdentifier? = null) {
     if (isCancelActive) {
-      if (queueId != null) {
+      if (queueIdentifier != null && queueIdentifier.setByUser) {
         binding.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()
             .append(getString(R.string.finding_room_name_loading_title))
-            .bold { append(" $queueId") }
+            .bold { append(" ${queueIdentifier.id}") }
       } else {
         binding.loadingTicketLayout.loadingTitle.text =
             getString(R.string.finding_room_loading_title)

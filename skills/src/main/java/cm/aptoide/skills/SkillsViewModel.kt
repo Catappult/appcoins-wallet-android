@@ -79,7 +79,7 @@ class SkillsViewModel(
           }
         }
         .flatMapObservable {
-          getTicketUpdates(ticket.ticketId)
+          getTicketUpdates(ticket.ticketId, eskillsPaymentData.queueId)
               .flatMap {
                 return@flatMap handlePurchasedTicketStatus(it)
               }
@@ -127,9 +127,10 @@ class SkillsViewModel(
     }
   }
 
-  private fun getTicketUpdates(ticketId: String): Observable<Ticket> {
+  private fun getTicketUpdates(ticketId: String,
+                               queueIdentifier: QueueIdentifier?): Observable<Ticket> {
     return Observable.interval(getTicketRetryMillis, TimeUnit.MILLISECONDS)
-        .switchMapSingle { getTicketUseCase(ticketId) }
+        .switchMapSingle { getTicketUseCase(ticketId, queueIdentifier) }
   }
 
   fun cancelPayment() {

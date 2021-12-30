@@ -61,9 +61,9 @@ class JoinQueueUseCase(
       ewt: String,
       ticketInQueue: StoredTicketInQueue,
       eskillsPaymentData: EskillsPaymentData,
-      walletAddress: WalletAddress
+      walletAddress: WalletAddress,
   ): Single<Ticket> {
-    return ticketRepository.getTicket(ewt, ticketInQueue.ticketId)
+    return ticketRepository.getTicket(ewt, ticketInQueue.ticketId, eskillsPaymentData.queueId)
         .flatMap {
           if (it is CreatedTicket && it.processingStatus == ProcessingStatus.IN_QUEUE) {
             Single.just(it)

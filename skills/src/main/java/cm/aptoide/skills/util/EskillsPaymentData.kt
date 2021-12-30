@@ -1,5 +1,6 @@
 package cm.aptoide.skills.util
 
+import cm.aptoide.skills.model.QueueIdentifier
 import java.math.BigDecimal
 
 data class EskillsPaymentData(
@@ -17,7 +18,7 @@ data class EskillsPaymentData(
     var metadata: Map<String, String>,
     var numberOfUsers: Int?,
     var timeout: Int?,
-    var queueId: String? = null
+    var queueId: QueueIdentifier? = null
 ) {
 
   enum class MatchEnvironment {

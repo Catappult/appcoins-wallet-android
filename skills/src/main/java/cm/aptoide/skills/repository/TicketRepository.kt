@@ -1,10 +1,7 @@
 package cm.aptoide.skills.repository
 
 import cm.aptoide.skills.api.TicketApi
-import cm.aptoide.skills.model.Ticket
-import cm.aptoide.skills.model.TicketRequest
-import cm.aptoide.skills.model.TicketResponse
-import cm.aptoide.skills.model.WalletAddress
+import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
 
@@ -19,7 +16,7 @@ class TicketRepository(
       walletAddress: WalletAddress
   ): Single<Ticket> {
     return ticketApi.postTicket(ewt, buildTicketRequest(eskillsPaymentData, walletAddress))
-        .map { ticketApiMapper.map(it) }
+        .map { ticketApiMapper.map(it, eskillsPaymentData.queueId) }
         .onErrorReturn { ticketApiMapper.map(it) }
   }
 
@@ -29,12 +26,12 @@ class TicketRepository(
           eskillsPaymentData.packageName, eskillsPaymentData.userId, eskillsPaymentData.userName,
           walletAddress.address, eskillsPaymentData.metadata, eskillsPaymentData.environment,
           eskillsPaymentData.numberOfUsers, eskillsPaymentData.price, eskillsPaymentData.currency,
-          eskillsPaymentData.product, eskillsPaymentData.timeout, eskillsPaymentData.queueId
+          eskillsPaymentData.product, eskillsPaymentData.timeout, eskillsPaymentData.queueId?.id
       )
 
-  fun getTicket(ewt: String, ticketId: String): Single<Ticket> {
+  fun getTicket(ewt: String, ticketId: String, queueIdentifier: QueueIdentifier?): Single<Ticket> {
     return ticketApi.getTicket(ewt, ticketId)
-        .map { ticketApiMapper.map(it) }
+        .map { ticketApiMapper.map(it, queueIdentifier) }
         .onErrorReturn { ticketApiMapper.map(it) }
   }
 
