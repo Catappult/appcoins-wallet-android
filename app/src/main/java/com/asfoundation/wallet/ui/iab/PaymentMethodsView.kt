@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
-import io.reactivex.Single
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
