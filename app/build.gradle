@@ -211,11 +211,6 @@ dependencies {
   implementation "com.google.zxing:core:$project.zxing_version"
   implementation "com.journeyapps:zxing-android-embedded:$project.zxing_android_version"
 
-  implementation "com.google.dagger:dagger:$project.dagger_version"
-  kapt "com.google.dagger:dagger-android-processor:$project.dagger_version"
-  kapt "com.google.dagger:dagger-compiler:$project.dagger_version"
-  implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
-
   implementation 'com.google.dagger:hilt-android:2.40.5'
   kapt 'com.google.dagger:hilt-compiler:2.40.5'
 

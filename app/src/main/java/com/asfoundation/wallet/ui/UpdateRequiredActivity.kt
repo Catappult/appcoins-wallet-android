@@ -7,7 +7,6 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.AndroidInjection
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.update_required_main_layout.*
@@ -23,7 +22,6 @@ class UpdateRequiredActivity : BaseActivity(), UpdateRequiredView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    AndroidInjection.inject(this)
     setContentView(R.layout.update_required_main_layout)
     presenter = UpdateRequiredPresenter(this, CompositeDisposable(), autoUpdateInteract)
     presenter.present()

@@ -34,11 +34,11 @@ class VerificationCreditCardActivityModule {
         analytics)
   }
 
-//  @Provides
-//  fun providesWalletVerificationActivityNavigator(
-//      activity: AppCompatActivity): VerificationCreditCardActivityNavigator {
-//    return VerificationCreditCardActivityNavigator(activity, activity.supportFragmentManager)
-//  }
+  @Provides
+  fun providesWalletVerificationActivityNavigator(
+      activity: AppCompatActivity): VerificationCreditCardActivityNavigator {
+    return VerificationCreditCardActivityNavigator(activity, activity.supportFragmentManager)
+  }
 
   @Provides
   fun provideWalletVerificationActivityInteractor(

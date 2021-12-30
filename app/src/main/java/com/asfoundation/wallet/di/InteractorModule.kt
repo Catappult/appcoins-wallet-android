@@ -91,6 +91,7 @@ import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -339,13 +340,13 @@ class InteractorModule {
                                 @Named("local_version_code")
                                 localVersionCode: Int, packageManager: PackageManager,
                                 sharedPreferences: PreferencesRepositoryType,
-                                context: Context) =
+                                @ApplicationContext context: Context) =
       AutoUpdateInteract(autoUpdateRepository, localVersionCode, Build.VERSION.SDK_INT,
           packageManager, context.packageName, sharedPreferences)
 
   @Singleton
   @Provides
-  fun provideFileInteract(context: Context, contentResolver: ContentResolver,
+  fun provideFileInteract(@ApplicationContext context: Context, contentResolver: ContentResolver,
                           backupRestorePreferencesRepository: BackupRestorePreferencesRepository) =
       FileInteractor(context, contentResolver, backupRestorePreferencesRepository)
 

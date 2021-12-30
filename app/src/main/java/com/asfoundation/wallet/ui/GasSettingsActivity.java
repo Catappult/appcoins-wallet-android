@@ -18,7 +18,6 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModelFactory;
-import dagger.android.AndroidInjection;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -38,8 +37,6 @@ import javax.inject.Inject;
   private SeekBar gasPriceSlider;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
-
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_gas_settings);

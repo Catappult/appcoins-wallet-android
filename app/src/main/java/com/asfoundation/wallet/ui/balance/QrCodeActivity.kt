@@ -12,7 +12,6 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.util.generateQrCode
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.AndroidInjection
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -27,7 +26,6 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
   private lateinit var presenter: QrCodePresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
 
     setAnimationOptions()

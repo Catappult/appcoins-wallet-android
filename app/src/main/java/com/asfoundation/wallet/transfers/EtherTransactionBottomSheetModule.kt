@@ -24,7 +24,7 @@ class EtherTransactionBottomSheetModule {
 
   @Provides
   fun providesEtherTransactionsBottomSheetData(
-      fragment: EtherTransactionBottomSheetFragment): EtherTransactionBottomSheetData {
+      fragment: Fragment): EtherTransactionBottomSheetData {
     fragment.requireArguments()
         .apply {
           return EtherTransactionBottomSheetData(

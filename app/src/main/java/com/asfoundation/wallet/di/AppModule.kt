@@ -102,6 +102,7 @@ import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
@@ -140,7 +141,7 @@ internal class AppModule {
   @Singleton
   @Provides
   @Named("blockchain")
-  fun provideBlockchainOkHttpClient(context: Context,
+  fun provideBlockchainOkHttpClient(@ApplicationContext context: Context,
                                     preferencesRepositoryType: PreferencesRepositoryType,
                                     logInterceptor: LogInterceptor): OkHttpClient {
     return OkHttpClient.Builder()
@@ -155,7 +156,7 @@ internal class AppModule {
   @Singleton
   @Provides
   @Named("default")
-  fun provideDefaultOkHttpClient(context: Context,
+  fun provideDefaultOkHttpClient(@ApplicationContext context: Context,
                                  preferencesRepositoryType: PreferencesRepositoryType,
                                  logInterceptor: LogInterceptor): OkHttpClient {
     return OkHttpClient.Builder()
@@ -170,7 +171,7 @@ internal class AppModule {
   @Singleton
   @Provides
   @Named("low-timer")
-  fun provideLowTimerOkHttpClient(context: Context,
+  fun provideLowTimerOkHttpClient(@ApplicationContext context: Context,
                                   preferencesRepositoryType: PreferencesRepositoryType,
                                   logInterceptor: LogInterceptor): OkHttpClient {
     return OkHttpClient.Builder()
@@ -184,7 +185,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun passwordStore(context: Context, logger: Logger): PasswordStore {
+  fun passwordStore(@ApplicationContext context: Context, logger: Logger): PasswordStore {
     return TrustPasswordStore(context, logger)
   }
 
@@ -311,7 +312,7 @@ internal class AppModule {
 
   @Provides
   @Singleton
-  fun provideInAppPurchaseDataSaver(context: Context, operationSources: OperationSources,
+  fun provideInAppPurchaseDataSaver(@ApplicationContext context: Context, operationSources: OperationSources,
                                     appCoinsOperationRepository: AppCoinsOperationRepository): AppcoinsOperationsDataSaver {
     return AppcoinsOperationsDataSaver(operationSources.sources, appCoinsOperationRepository,
         AppInfoProvider(context, ImageSaver(context.filesDir.toString() + "/app_icons/")),
@@ -377,7 +378,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideSharedPreferences(context: Context): SharedPreferences {
+  fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
     return PreferenceManager.getDefaultSharedPreferences(context)
   }
 
@@ -387,7 +388,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesPermissions(context: Context): Permissions {
+  fun providesPermissions(@ApplicationContext context: Context): Permissions {
     return Permissions(PermissionRepository(
         Room.databaseBuilder(context.applicationContext, PermissionsDatabase::class.java,
             "permissions_database")
@@ -397,7 +398,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesPromotionDatabase(context: Context): PromotionDatabase {
+  fun providesPromotionDatabase(@ApplicationContext context: Context): PromotionDatabase {
     return Room.databaseBuilder(context, PromotionDatabase::class.java, "promotion_database")
         .addMigrations(MIGRATION_1_2)
         .addMigrations(MIGRATION_2_3)
@@ -427,7 +428,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesWalletInfoDatabase(context: Context): WalletInfoDatabase {
+  fun providesWalletInfoDatabase(@ApplicationContext context: Context): WalletInfoDatabase {
     return Room.databaseBuilder(context, WalletInfoDatabase::class.java, "wallet_info_database")
         .build()
   }
@@ -440,7 +441,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesUserSubscriptionsDatabase(context: Context): UserSubscriptionsDatabase {
+  fun providesUserSubscriptionsDatabase(@ApplicationContext context: Context): UserSubscriptionsDatabase {
     return Room.databaseBuilder(context, UserSubscriptionsDatabase::class.java,
         "user_subscription_database")
         .build()
@@ -475,7 +476,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideNotificationManager(context: Context): NotificationManager {
+  fun provideNotificationManager(@ApplicationContext context: Context): NotificationManager {
     return context.applicationContext.getSystemService(
         Context.NOTIFICATION_SERVICE) as NotificationManager
   }
@@ -483,7 +484,7 @@ internal class AppModule {
   @Singleton
   @Provides
   @Named("heads_up")
-  fun provideHeadsUpNotificationBuilder(context: Context,
+  fun provideHeadsUpNotificationBuilder(@ApplicationContext context: Context,
                                         notificationManager: NotificationManager): NotificationCompat.Builder {
     val builder: NotificationCompat.Builder
     val channelId = "notification_channel_heads_up_id"
@@ -511,11 +512,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providePackageManager(context: Context): PackageManager = context.packageManager
+  fun providePackageManager(@ApplicationContext context: Context): PackageManager = context.packageManager
 
   @Provides
   @Named("local_version_code")
-  fun provideLocalVersionCode(context: Context, packageManager: PackageManager): Int {
+  fun provideLocalVersionCode(@ApplicationContext context: Context, packageManager: PackageManager): Int {
     return try {
       packageManager.getPackageInfo(context.packageName, 0).versionCode
     } catch (e: PackageManager.NameNotFoundException) {
@@ -533,7 +534,7 @@ internal class AppModule {
   fun provideCurrencyFormatUtils() = create()
 
   @Provides
-  fun provideContentResolver(context: Context): ContentResolver = context.contentResolver
+  fun provideContentResolver(@ApplicationContext context: Context): ContentResolver = context.contentResolver
 
   @Singleton
   @Provides
@@ -562,7 +563,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesGamificationMapper(context: Context) = GamificationMapper(context)
+  fun providesGamificationMapper(@ApplicationContext context: Context) = GamificationMapper(context)
 
   @Singleton
   @Provides
@@ -575,11 +576,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesBiometricManager(context: Context) = BiometricManager.from(context)
+  fun providesBiometricManager(@ApplicationContext context: Context) = BiometricManager.from(context)
 
   @Singleton
   @Provides
-  fun provideTransactionsDatabase(context: Context): TransactionsDatabase {
+  fun provideTransactionsDatabase(@ApplicationContext context: Context): TransactionsDatabase {
     return Room.databaseBuilder(context.applicationContext, TransactionsDatabase::class.java,
         "transactions_database")
         .addMigrations(TransactionsDatabase.MIGRATION_1_2, TransactionsDatabase.MIGRATION_2_3,
@@ -603,11 +604,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesApplicationInfoLoader(context: Context) = ApplicationInfoProvider(context)
+  fun providesApplicationInfoLoader(@ApplicationContext context: Context) = ApplicationInfoProvider(context)
 
   @Singleton
   @Provides
-  fun providesStringProvider(context: Context): StringProvider = StringProvider(context.resources)
+  fun providesStringProvider(@ApplicationContext context: Context): StringProvider = StringProvider(context.resources)
 
   @Singleton
   @Provides
@@ -625,7 +626,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesAbTestDatabase(context: Context): ABTestDatabase {
+  fun providesAbTestDatabase(@ApplicationContext context: Context): ABTestDatabase {
     return Room.databaseBuilder(context, ABTestDatabase::class.java, "abtest_database")
         .build()
   }
@@ -646,7 +647,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesSecureSharedPreferences(context: Context): SecureSharedPreferences {
+  fun providesSecureSharedPreferences(@ApplicationContext context: Context): SecureSharedPreferences {
     return SecureSharedPreferences(context)
   }
 
@@ -659,7 +660,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideCurrencyConversionRatesDatabase(context: Context): CurrenciesDatabase {
+  fun provideCurrencyConversionRatesDatabase(@ApplicationContext context: Context): CurrenciesDatabase {
     return Room.databaseBuilder(context, CurrenciesDatabase::class.java, "currencies_database")
         .addMigrations(
             CurrenciesDatabase.MIGRATION_1_2,
@@ -682,7 +683,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideLogsDatabase(context: Context): LogsDatabase {
+  fun provideLogsDatabase(@ApplicationContext context: Context): LogsDatabase {
     return Room.databaseBuilder(context, LogsDatabase::class.java, "logs_database")
         .build()
   }
@@ -709,7 +710,7 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providePromoCodeDatabase(context: Context): PromoCodeDatabase {
+  fun providePromoCodeDatabase(@ApplicationContext context: Context): PromoCodeDatabase {
     return Room.databaseBuilder(context, PromoCodeDatabase::class.java, "promo_code_database")
         .addMigrations(PromoCodeDatabase.MIGRATION_1_2)
         .build()

@@ -53,12 +53,12 @@ class VerificationCodeModule {
         fragment.activity as VerificationCreditCardActivityView, activityNavigator)
   }
 
-  @Provides
-  fun providesWalletVerificationActivityNavigator(
-      fragment: Fragment): VerificationCreditCardActivityNavigator {
-    return VerificationCreditCardActivityNavigator(fragment.requireActivity(),
-        fragment.requireActivity().supportFragmentManager)
-  }
+//  @Provides
+//  fun providesWalletVerificationActivityNavigator(
+//      fragment: Fragment): VerificationCreditCardActivityNavigator {
+//    return VerificationCreditCardActivityNavigator(fragment.requireActivity(),
+//        fragment.requireActivity().supportFragmentManager)
+//  }
 
   @Provides
   fun providesVerificationCodeData(fragment: Fragment): VerificationCodeData {

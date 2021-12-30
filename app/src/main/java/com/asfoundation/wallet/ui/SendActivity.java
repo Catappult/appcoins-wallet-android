@@ -21,7 +21,6 @@ import com.asfoundation.wallet.viewmodel.SendViewModelFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.textfield.TextInputLayout;
-import dagger.android.AndroidInjection;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -30,8 +29,7 @@ import javax.inject.Inject;
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
 
-@AndroidEntryPoint
-public class SendActivity extends BaseActivity {
+@AndroidEntryPoint public class SendActivity extends BaseActivity {
 
   private static final int BARCODE_READER_REQUEST_CODE = 1;
   @Inject SendViewModelFactory sendViewModelFactory;
@@ -56,8 +54,6 @@ public class SendActivity extends BaseActivity {
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
-
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_send);

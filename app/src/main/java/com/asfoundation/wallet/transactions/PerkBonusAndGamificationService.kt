@@ -22,7 +22,6 @@ import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.gamification.ReachedLevelInfo
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.toBitmap
-import dagger.android.AndroidInjection
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.functions.Function5
@@ -56,11 +55,6 @@ class PerkBonusAndGamificationService :
 
   @Inject
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
-
-  override fun onCreate() {
-    super.onCreate()
-    AndroidInjection.inject(this)
-  }
 
   override fun onHandleIntent(intent: Intent?) {
     val address = intent?.getStringExtra(ADDRESS_KEY)

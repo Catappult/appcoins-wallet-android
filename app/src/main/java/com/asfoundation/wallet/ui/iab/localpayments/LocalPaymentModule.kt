@@ -31,7 +31,7 @@ class LocalPaymentModule {
   }
 
   @Provides
-  fun providesLocalPaymentData(fragment: LocalPaymentFragment): LocalPaymentData {
+  fun providesLocalPaymentData(fragment: Fragment): LocalPaymentData {
     fragment.requireArguments()
         .apply {
           return LocalPaymentData(getString(LocalPaymentFragment.DOMAIN_KEY)!!,

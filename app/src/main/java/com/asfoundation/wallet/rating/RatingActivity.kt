@@ -7,7 +7,6 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.rating.entry.RatingEntryFragment
 import com.asfoundation.wallet.rating.positive.RatingPositiveFragment
 import com.asfoundation.wallet.ui.BaseActivity
-import dagger.android.AndroidInjection
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
@@ -22,7 +21,6 @@ class RatingActivity : BaseActivity() {
   private var backEnabled = true
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_rating)
     if (savedInstanceState == null) {

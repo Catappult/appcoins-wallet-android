@@ -21,6 +21,7 @@ import com.facebook.appevents.AppEventsLogger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import java.util.concurrent.CopyOnWriteArrayList
@@ -153,7 +154,7 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideAmplitudeAnalytics(context: Context,
+  fun provideAmplitudeAnalytics(@ApplicationContext context: Context,
                                 idsRepository: IdsRepository): AmplitudeAnalytics {
     return AmplitudeAnalytics(context, idsRepository)
   }

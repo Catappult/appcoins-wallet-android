@@ -3,6 +3,12 @@ package com.asfoundation.wallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import cm.aptoide.skills.api.RoomApi
+import cm.aptoide.skills.api.TicketApi
+import cm.aptoide.skills.repository.RoomRepository
+import cm.aptoide.skills.repository.SharedPreferencesTicketLocalStorage
+import cm.aptoide.skills.repository.TicketApiMapper
+import cm.aptoide.skills.repository.TicketRepository
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
@@ -59,6 +65,7 @@ import com.asfoundation.wallet.service.AccountKeystoreService
 import com.asfoundation.wallet.service.AutoUpdateService
 import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.skills.SkillsModule
 import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsLocalData
@@ -517,4 +524,44 @@ class RepositoryModule {
     return BalanceRepository(getSelectedCurrencyUseCase, localCurrencyConversionService,
         rxSchedulers)
   }
+
+  @Provides
+  fun providesRoomApi(@Named("default") client: OkHttpClient): RoomApi {
+    val gson = GsonBuilder()
+        .setDateFormat("yyyy-MM-dd HH:mm")
+        .create()
+
+    return Retrofit.Builder()
+        .baseUrl(SkillsModule.BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(RoomApi::class.java)
+  }
+
+  @Provides
+  fun providesTicketsRepository(@Named("default") client: OkHttpClient,
+                                sharedPreferences: SharedPreferences): TicketRepository {
+    val gson = GsonBuilder()
+        .setDateFormat("yyyy-MM-dd HH:mm")
+        .create()
+
+    val api = Retrofit.Builder()
+        .baseUrl(SkillsModule.BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(TicketApi::class.java)
+
+    return TicketRepository(api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson),
+        TicketApiMapper(gson))
+  }
+
+  @Provides
+  fun providesRoomRepository(roomApi: RoomApi): RoomRepository {
+    return RoomRepository(roomApi)
+  }
+
 }

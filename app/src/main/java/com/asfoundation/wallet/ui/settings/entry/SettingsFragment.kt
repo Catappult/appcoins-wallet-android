@@ -27,7 +27,6 @@ import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.support.AndroidSupportInjection
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -70,7 +69,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
     switchSubject = PublishSubject.create()
     presenter.setFingerPrintPreference()

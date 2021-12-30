@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 class SettingsWalletsBottomSheetModule {
 
   @Provides
-  fun providesSettingsWalletsBottomSheetPresenter(fragment: SettingsWalletsBottomSheetFragment,
+  fun providesSettingsWalletsBottomSheetPresenter(fragment: Fragment,
                                                   navigator: SettingsWalletsBottomSheetNavigator,
                                                   walletsEventSender: WalletsEventSender,
                                                   data: SettingsWalletsBottomSheetData): SettingsWalletsBottomSheetPresenter {

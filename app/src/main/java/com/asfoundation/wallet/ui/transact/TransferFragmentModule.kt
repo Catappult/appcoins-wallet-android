@@ -32,8 +32,8 @@ class TransferFragmentModule {
   }
 
   @Provides
-  fun providesTransferFragmentData(transferFragment: TransferFragment): TransferFragmentData {
-    return TransferFragmentData(transferFragment.requireContext().packageName)
+  fun providesTransferFragmentData(fragment: Fragment): TransferFragmentData {
+    return TransferFragmentData(fragment.requireContext().packageName)
   }
 
   @Provides

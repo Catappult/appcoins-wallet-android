@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.BaseActivity
-import dagger.android.AndroidInjection
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -16,7 +15,6 @@ class SplashActivity : BaseActivity(), SplashView {
   lateinit var presenter: SplashPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     presenter.present(savedInstanceState)
 

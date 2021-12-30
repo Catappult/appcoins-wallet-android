@@ -1,9 +1,6 @@
 package cm.aptoide.skills.games
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -11,12 +8,11 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import cm.aptoide.skills.R
 import cm.aptoide.skills.repository.RoomRepository
-import dagger.android.DaggerService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackgroundGameService : DaggerService(), GameStateListener {
+class BackgroundGameService : Service(), GameStateListener {
   companion object {
     private const val NOTIFICATION_SERVICE_ID = 77798
     private const val CHANNEL_ID = "game_notification_channel_id"

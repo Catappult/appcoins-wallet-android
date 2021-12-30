@@ -27,8 +27,6 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.flurry.android.FlurryAgent
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.hilt.android.HiltAndroidApp
 import io.intercom.android.sdk.Intercom
 import io.reactivex.Completable
@@ -42,9 +40,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltAndroidApp
-class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvider {
-  @Inject
-  lateinit var androidInjector: DispatchingAndroidInjector<Any>
+class App : MultiDexApplication(), BillingDependenciesProvider {
 
   @Inject
   lateinit var proofOfAttentionService: ProofOfAttentionService
@@ -186,8 +182,6 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   }
 
   fun analyticsManager() = analyticsManager
-
-  override fun androidInjector() = androidInjector
 
   override fun supportedVersion() = BuildConfig.BILLING_SUPPORTED_VERSION
 

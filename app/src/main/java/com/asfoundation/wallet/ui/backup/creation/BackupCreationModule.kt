@@ -16,6 +16,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -42,7 +43,7 @@ class BackupCreationModule {
   }
 
   @Provides
-  fun providesBackupCreationData(fragment: BackupCreationFragment): BackupCreationData {
+  fun providesBackupCreationData(fragment: Fragment): BackupCreationData {
     fragment.requireArguments()
         .apply {
           return BackupCreationData(getString(WALLET_ADDRESS_KEY)!!, getString(PASSWORD_KEY)!!)
@@ -59,7 +60,7 @@ class BackupCreationModule {
 
   @Provides
   @Named("temporary-path")
-  fun providesTemporaryPath(context: Context): File? = context.externalCacheDir
+  fun providesTemporaryPath(@ActivityContext context: Context): File? = context.externalCacheDir
 
   @Provides
   @Named("downloads-path")

@@ -25,7 +25,6 @@ import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
-import dagger.android.AndroidInjection;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -51,8 +50,6 @@ import static com.asfoundation.wallet.C.GWEI_UNIT;
   private Button sendButton;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
-
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_confirm);

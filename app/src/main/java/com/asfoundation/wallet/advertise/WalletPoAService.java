@@ -29,7 +29,6 @@ import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationBroadcastReceiver;
-import dagger.android.AndroidInjection;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -84,11 +83,6 @@ import static com.asfoundation.wallet.verification.ui.credit_card.VerificationBr
   private Disposable startedEventDisposable;
   private Disposable completedEventDisposable;
   private String appName;
-
-  @Override public void onCreate() {
-    super.onCreate();
-    AndroidInjection.inject(this);
-  }
 
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
     if (intent != null && intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
