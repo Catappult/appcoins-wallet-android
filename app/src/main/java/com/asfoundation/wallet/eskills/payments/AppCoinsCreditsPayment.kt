@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.eskills.payments
 
-import cm.aptoide.skills.BuildConfig
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import com.appcoins.wallet.bdsbilling.Billing
@@ -18,7 +17,7 @@ class AppCoinsCreditsPayment(private val rewardsManager: RewardsManager,
           rewardsManager.pay(
               eskillsPaymentData.product, ticket.ticketPrice, developerAddress.address,
               eskillsPaymentData.packageName, "BDS", "ESKILLS", null, ticket.callbackUrl,
-              ticket.ticketId, buildReferralUrl(eskillsPaymentData, ticket), ticket.productToken
+              ticket.ticketId, null, ticket.productToken
           )
               .andThen(
                   rewardsManager.getPaymentStatus(
@@ -32,18 +31,6 @@ class AppCoinsCreditsPayment(private val rewardsManager: RewardsManager,
                 handlePaymentStatus(paymentStatus, eskillsPaymentData)
               }
         }
-  }
-
-  private fun buildReferralUrl(eskillsPaymentData: EskillsPaymentData,
-                               ticket: CreatedTicket): String {
-    return (BuildConfig.BASE_HOST + "/transaction/inapp" +
-        "?domain=" + eskillsPaymentData.packageName +
-        "&callback_url=" + ticket.callbackUrl +
-        "&order_reference=" + ticket.ticketId +
-        "&product_token=" + ticket.productToken +
-        "&product=" + eskillsPaymentData.product +
-        "&value=" + eskillsPaymentData.price +
-        "&currency=" + eskillsPaymentData.currency)
   }
 
   private fun getDeveloperWalletAddress(packageName: String): Single<WalletAddress> {
