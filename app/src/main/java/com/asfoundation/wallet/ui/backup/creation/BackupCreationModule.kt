@@ -1,8 +1,5 @@
 package com.asfoundation.wallet.ui.backup.creation
 
-import android.content.Context
-import android.os.Build
-import android.os.Environment
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.ExportWalletInteractor
@@ -16,9 +13,6 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import java.io.File
-import javax.inject.Named
 
 @Module
 class BackupCreationModule {
@@ -30,13 +24,11 @@ class BackupCreationModule {
                                       logger: Logger,
                                       data: BackupCreationData,
                                       navigator: BackupCreationNavigator,
-                                      @Named("temporary-path") temporaryPath: File?,
-                                      @Named("downloads-path") downloadsPath: File?,
                                       sendBackupToEmailUseCase: SendBackupToEmailUseCase)
       : BackupCreationPresenter {
     return BackupCreationPresenter(fragment as BackupCreationView, backupCreationInteractor,
-        walletsEventSender, logger, Schedulers.io(), AndroidSchedulers.mainThread(),
-        CompositeDisposable(), data, navigator, temporaryPath, downloadsPath,
+        walletsEventSender, logger, AndroidSchedulers.mainThread(), CompositeDisposable(), data,
+        navigator,
         sendBackupToEmailUseCase)
   }
 
@@ -53,18 +45,6 @@ class BackupCreationModule {
                                        backupRestorePreferencesRepository: BackupRestorePreferencesRepository): BackupCreationInteractor {
     return BackupCreationInteractor(exportWalletInteractor, fileInteractor,
         backupRestorePreferencesRepository)
-  }
-
-  @Provides
-  @Named("temporary-path")
-  fun providesTemporaryPath(context: Context): File? = context.externalCacheDir
-
-  @Provides
-  @Named("downloads-path")
-  fun providesDownloadsPath(): File? {
-    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) Environment.getExternalStoragePublicDirectory(
-        Environment.DIRECTORY_DOWNLOADS)
-    else null
   }
 
   @Provides

@@ -1,28 +1,21 @@
 package com.asfoundation.wallet.ui.backup.creation
 
-import android.os.Build
 import android.os.Bundle
-import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
-import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import java.io.File
 
 class BackupCreationPresenter(private val view: BackupCreationView,
                               private val interactor: BackupCreationInteractor,
                               private val walletsEventSender: WalletsEventSender,
                               private val logger: Logger,
-                              private val networkScheduler: Scheduler,
                               private val viewScheduler: Scheduler,
                               private val disposables: CompositeDisposable,
                               private val data: BackupCreationData,
                               private val navigator: BackupCreationNavigator,
-                              private val temporaryPath: File?,
-                              private val downloadsPath: File?,
                               private val sendBackupToEmailUseCase: SendBackupToEmailUseCase) {
 
   companion object {
@@ -42,83 +35,9 @@ class BackupCreationPresenter(private val view: BackupCreationView,
       cachedKeystore = it.getString(KEYSTORE_KEY, "")
       cachedFileName = it.getString(FILE_NAME_KEY)
     }
-    createBackUpFile()
     handleSendToEmailClick()
-    handleFirstSaveClick()
-    handleSaveAgainClick()
+    handleSaveOnDeviceClick()
     handlePermissionGiven()
-    handleDialogCancelClick()
-    handleDialogSaveClick()
-    handleSystemFileIntentResult()
-  }
-
-  private fun handleSystemFileIntentResult() {
-    disposables.add(view.onSystemFileIntentResult()
-        .observeOn(networkScheduler)
-        .flatMapCompletable {
-          if (it.documentFile != null && cachedFileName != null) {
-            createAndSaveFile(it.documentFile, cachedFileName!!)
-          } else {
-            Completable.fromAction { view.closeDialog() }
-          }
-        }
-        .subscribe({}, { showError(it) }))
-  }
-
-  private fun handleDialogSaveClick() {
-    disposables.add(view.getDialogSaveClick()
-        .doOnNext {
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            cachedFileName = it
-            navigator.openSystemFileDirectory(it)
-          } else {
-            handleDialogSaveClickBelowAndroidQ(it)
-          }
-          walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
-              WalletsAnalytics.STATUS_SUCCESS)
-        }
-        .doOnError {
-          walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_SAVE,
-              WalletsAnalytics.STATUS_FAIL, it.message)
-        }
-        .subscribe({}, { showError(it) }))
-  }
-
-  private fun handleDialogSaveClickBelowAndroidQ(fileName: String) {
-    disposables.add(interactor.createAndSaveFile(cachedKeystore, downloadsPath, fileName)
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnComplete {
-          view.closeDialog()
-          navigator.showSuccessScreen()
-        }
-        .doOnError { showError(it) }
-        .subscribe({}, { showError(it) }))
-  }
-
-  private fun handleDialogCancelClick() {
-    disposables.add(view.getDialogCancelClick()
-        .doOnNext { view.closeDialog() }
-        .doOnNext {
-          walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_CANCEL,
-              WalletsAnalytics.STATUS_FAIL)
-        }
-        .doOnError { t ->
-          walletsEventSender.sendWalletSaveFileEvent(WalletsAnalytics.ACTION_CANCEL,
-              WalletsAnalytics.STATUS_FAIL, t.message)
-        }
-        .subscribe({}, { view.closeDialog() }))
-  }
-
-  private fun createBackUpFile() {
-    disposables.add(interactor.export(data.walletAddress, data.password)
-        .doOnSuccess { cachedKeystore = it }
-        .flatMapCompletable { interactor.createTmpFile(data.walletAddress, it, temporaryPath) }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnComplete { view.enableSaveButton() }
-        .doOnError { showError(it) }
-        .subscribe({}, { showError(it) }))
   }
 
   private fun handleSendToEmailClick() {
@@ -134,25 +53,7 @@ class BackupCreationPresenter(private val view: BackupCreationView,
     )
   }
 
-  private fun handleFirstSaveClick() {
-    disposables.add(view.getFirstSaveClick()
-        .observeOn(viewScheduler)
-        .doOnNext { shareFile(interactor.getCachedFile()) }
-        .subscribe({}, { logger.log(TAG, it) }))
-  }
-
-  private fun shareFile(file: File?) {
-    if (file == null) {
-      showError("Error retrieving file")
-    } else {
-      fileShared = true
-      view.shareFile(interactor.getUriFromFile(file))
-      walletsEventSender.sendSaveBackupEvent(WalletsAnalytics.ACTION_SAVE)
-      interactor.saveBackedUpOnce()
-    }
-  }
-
-  private fun handleSaveAgainClick() {
+  private fun handleSaveOnDeviceClick() {
     disposables.add(view.getSaveOnDeviceButton()
         .doOnNext { view.askForWritePermissions() }
         .doOnNext {
@@ -170,39 +71,9 @@ class BackupCreationPresenter(private val view: BackupCreationView,
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun createAndSaveFile(documentFile: DocumentFile,
-                                fileName: String): Completable {
-    return interactor.createAndSaveFile(cachedKeystore, documentFile, fileName)
-        .observeOn(viewScheduler)
-        .doOnComplete {
-          interactor.saveChosenUri(documentFile.uri)
-          view.closeDialog()
-          navigator.showSuccessScreen()
-        }
-  }
-
-  fun onResume() {
-    if (fileShared) {
-      view.showConfirmation()
-      interactor.deleteFile()
-    }
-  }
-
   fun stop() {
     interactor.deleteFile()
     disposables.clear()
-  }
-
-  fun onSaveInstanceState(outState: Bundle) {
-    outState.putBoolean(FILE_SHARED_KEY, fileShared)
-    outState.putString(KEYSTORE_KEY, cachedKeystore)
-    outState.putString(FILE_NAME_KEY, cachedFileName)
-  }
-
-  private fun showError(throwable: Throwable) {
-    throwable.printStackTrace()
-    logger.log(TAG, throwable)
-    view.showError()
   }
 
   private fun showError(message: String) {
