@@ -1,8 +1,5 @@
-package com.asfoundation.wallet.ui.backup.save
+package com.asfoundation.wallet.ui.backup.skip
 
-import com.asfoundation.wallet.ui.backup.skip.SkipDialogFragment
-import com.asfoundation.wallet.ui.backup.skip.SkipDialogNavigator
-import com.asfoundation.wallet.ui.backup.skip.SkipDialogViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -18,6 +15,6 @@ class SkipDialogModule {
   fun providesSkipDialogNavigator(
       fragment: SkipDialogFragment
   ): SkipDialogNavigator {
-    return SkipDialogNavigator(fragment, fragment.requireFragmentManager())
+    return SkipDialogNavigator(fragment)
   }
 }

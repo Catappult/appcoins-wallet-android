@@ -46,7 +46,7 @@ class SkipDialogFragment : DaggerBottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     views.confirm.setOnClickListener {
-      navigator.navigateHomeScreen()
+      navigator.finishBackup()
     }
     views.cancel.setOnClickListener {
       navigator.navigateBack()

@@ -81,7 +81,7 @@ import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletModule
 import com.asfoundation.wallet.ui.backup.save.SaveBackupBottomSheetFragment
 import com.asfoundation.wallet.ui.backup.save.SaveBackupBottomSheetModule
-import com.asfoundation.wallet.ui.backup.save.SkipDialogModule
+import com.asfoundation.wallet.ui.backup.skip.SkipDialogModule
 import com.asfoundation.wallet.ui.backup.skip.SkipDialogFragment
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessModule
