@@ -22,11 +22,11 @@ import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.*
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
@@ -40,9 +40,10 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -61,7 +62,8 @@ import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
+@AndroidEntryPoint
+class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   @Inject
   internal lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -115,7 +117,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
     presenter =
         AdyenTopUpPresenter(this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable(), RedirectComponent.getReturnUrl(context!!), paymentType,
+            CompositeDisposable(), RedirectComponent.getReturnUrl(requireContext()), paymentType,
             data.transactionType, data.fiatValue, data.fiatCurrencyCode, data.appcValue,
             data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
             adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
@@ -385,7 +387,7 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
   }
 
   override fun handle3DSAction(action: Action) {
-    adyen3DS2Component.handleAction(activity!!, action)
+    adyen3DS2Component.handleAction(requireActivity(), action)
   }
 
   override fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!
@@ -551,23 +553,23 @@ class AdyenTopUpFragment : DaggerFragment(), AdyenTopUpView {
 
   private val appPackage: String by lazy {
     if (activity != null) {
-      activity!!.packageName
+      requireActivity().packageName
     } else {
       throw IllegalArgumentException("previous app package name not found")
     }
   }
 
   private val data: TopUpPaymentData by lazy {
-    if (arguments!!.containsKey(PAYMENT_DATA)) {
-      arguments!!.getSerializable(PAYMENT_DATA) as TopUpPaymentData
+    if (requireArguments().containsKey(PAYMENT_DATA)) {
+      requireArguments().getSerializable(PAYMENT_DATA) as TopUpPaymentData
     } else {
       throw IllegalArgumentException("previous payment data not found")
     }
   }
 
   private val paymentType: String by lazy {
-    if (arguments!!.containsKey(PAYMENT_TYPE)) {
-      arguments!!.getString(PAYMENT_TYPE)!!
+    if (requireArguments().containsKey(PAYMENT_TYPE)) {
+      requireArguments().getString(PAYMENT_TYPE)!!
     } else {
       throw IllegalArgumentException("Payment Type not found")
     }

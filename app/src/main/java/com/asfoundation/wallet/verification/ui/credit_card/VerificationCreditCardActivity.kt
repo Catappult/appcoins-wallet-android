@@ -12,12 +12,13 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_wallet_verification.*
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardActivityView {
 
   companion object {

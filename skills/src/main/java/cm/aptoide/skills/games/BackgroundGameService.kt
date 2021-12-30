@@ -12,8 +12,10 @@ import androidx.core.app.NotificationCompat
 import cm.aptoide.skills.R
 import cm.aptoide.skills.repository.RoomRepository
 import dagger.android.DaggerService
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class BackgroundGameService : DaggerService(), GameStateListener {
   companion object {
     private const val NOTIFICATION_SERVICE_ID = 77798
@@ -27,9 +29,9 @@ class BackgroundGameService : DaggerService(), GameStateListener {
 
     @JvmStatic
     fun newIntent(context: Context, sessionToken: String) =
-      Intent(context, BackgroundGameService::class.java).apply {
-        putExtra(SESSION, sessionToken)
-      }
+        Intent(context, BackgroundGameService::class.java).apply {
+          putExtra(SESSION, sessionToken)
+        }
   }
 
   @Inject
@@ -50,7 +52,7 @@ class BackgroundGameService : DaggerService(), GameStateListener {
 
   private fun getNotificationManager(): NotificationManager {
     val notificationManager =
-      this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       val importance = NotificationManager.IMPORTANCE_LOW
       val notificationChannel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
@@ -68,8 +70,8 @@ class BackgroundGameService : DaggerService(), GameStateListener {
     session?.let {
       periodicGameChecker.start(it)
       val notification = getNotification(
-        getString(R.string.playing_game_notification_title),
-        getString(R.string.playing_game_notification_body)
+          getString(R.string.playing_game_notification_title),
+          getString(R.string.playing_game_notification_body)
       )
       this.startForeground(NOTIFICATION_SERVICE_ID, notification)
     }
@@ -80,11 +82,11 @@ class BackgroundGameService : DaggerService(), GameStateListener {
     val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
     val dismissIntent = createNotificationDismissIntent()
     return notificationBuilder.setContentTitle(title)
-      .addAction(0, getString(R.string.dismiss_button), dismissIntent)
-      .setSmallIcon(R.drawable.ic_launcher_foreground)
-      .setDeleteIntent(dismissIntent)
-      .setContentText(text)
-      .build()
+        .addAction(0, getString(R.string.dismiss_button), dismissIntent)
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setDeleteIntent(dismissIntent)
+        .setContentText(text)
+        .build()
   }
 
   private fun createNotificationDismissIntent(): PendingIntent {
@@ -95,8 +97,8 @@ class BackgroundGameService : DaggerService(), GameStateListener {
 
   override fun onUpdate(gameUpdate: GameUpdate) {
     val notification = getNotification(
-      getString(R.string.playing_game_notification_title),
-      getFormattedGameDetails(gameUpdate)
+        getString(R.string.playing_game_notification_title),
+        getFormattedGameDetails(gameUpdate)
     )
     notificationManager.notify(NOTIFICATION_SERVICE_ID, notification)
   }
@@ -117,13 +119,13 @@ class BackgroundGameService : DaggerService(), GameStateListener {
     periodicGameChecker.stop()
     val notification: Notification = if (finishedGame.isWinner) {
       getNotification(
-        getString(R.string.finish_game_notification_title),
-        getString(R.string.won_game_notification_body, finishedGame.winnerAmount)
+          getString(R.string.finish_game_notification_title),
+          getString(R.string.won_game_notification_body, finishedGame.winnerAmount)
       )
     } else {
       getNotification(
-        getString(R.string.finish_game_notification_title),
-        getString(R.string.lost_game_notification_body)
+          getString(R.string.finish_game_notification_title),
+          getString(R.string.lost_game_notification_body)
       )
     }
 

@@ -14,8 +14,10 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.change_currency.list.ChangeFiatCurrencyController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ChangeFiatCurrencyFragment : BasePageViewFragment(),
     SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
 

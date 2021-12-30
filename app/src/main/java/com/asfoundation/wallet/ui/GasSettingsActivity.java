@@ -19,11 +19,12 @@ import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModelFactory;
 import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.inject.Inject;
 
-public class GasSettingsActivity extends BaseActivity {
+@AndroidEntryPoint public class GasSettingsActivity extends BaseActivity {
 
   @Inject GasSettingsViewModelFactory viewModelFactory;
   GasSettingsViewModel viewModel;

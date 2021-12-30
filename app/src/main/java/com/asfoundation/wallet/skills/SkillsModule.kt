@@ -15,6 +15,8 @@ import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import okhttp3.OkHttpClient
@@ -23,7 +25,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 
-
+@InstallIn(FragmentComponent::class)
 @Module
 class SkillsModule {
 

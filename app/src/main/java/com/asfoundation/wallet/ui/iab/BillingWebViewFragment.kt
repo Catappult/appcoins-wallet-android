@@ -16,6 +16,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.webview_fragment.*
 import kotlinx.android.synthetic.main.webview_fragment.view.*
 import java.net.URISyntaxException
@@ -25,6 +26,7 @@ import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class BillingWebViewFragment : BasePageViewFragment() {
   private val timeoutReference: AtomicReference<ScheduledFuture<*>?> = AtomicReference()
 

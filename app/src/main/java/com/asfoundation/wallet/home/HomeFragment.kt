@@ -32,6 +32,7 @@ import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.widget.EmptyTransactionsView
+import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -39,6 +40,7 @@ import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : BasePageViewFragment(),
     SingleStateFragment<HomeState, HomeSideEffect> {
 

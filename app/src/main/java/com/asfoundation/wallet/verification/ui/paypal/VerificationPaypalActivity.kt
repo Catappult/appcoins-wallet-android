@@ -4,7 +4,9 @@ import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class VerificationPaypalActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {

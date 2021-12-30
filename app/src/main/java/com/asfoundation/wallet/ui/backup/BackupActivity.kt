@@ -9,9 +9,11 @@ import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class BackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
 
   companion object {

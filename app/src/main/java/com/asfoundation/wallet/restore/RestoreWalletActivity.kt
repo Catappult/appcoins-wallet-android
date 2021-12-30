@@ -16,12 +16,13 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.navigator.ActivityNavigator
 import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_restore_wallet.*
 import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class RestoreWalletActivity : ActivityNavigator(), RestoreWalletActivityView {
 
   companion object {

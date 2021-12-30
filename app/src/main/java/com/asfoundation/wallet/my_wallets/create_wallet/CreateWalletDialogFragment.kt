@@ -15,10 +15,11 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.OnboardingFragment
 import dagger.android.support.DaggerDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CreateWalletDialogFragment : DaggerDialogFragment(),
     SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
 

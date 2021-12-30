@@ -11,14 +11,16 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentChangeActiveWalletBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class ChangeActiveWalletDialogFragment : DaggerBottomSheetDialogFragment(),
+@AndroidEntryPoint
+class ChangeActiveWalletDialogFragment : BottomSheetDialogFragment(),
     SingleStateFragment<ChangeActiveWalletState, ChangeActiveWalletSideEffect> {
 
   @Inject

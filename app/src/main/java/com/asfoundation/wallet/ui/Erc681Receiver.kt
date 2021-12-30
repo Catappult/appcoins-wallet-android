@@ -13,6 +13,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.util.TransferParser
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_iab_wallet_creation.*
@@ -21,6 +22,7 @@ import javax.inject.Inject
 /**
  * Created by trinkes on 13/03/2018.
  */
+@AndroidEntryPoint
 class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   @Inject
   lateinit var walletService: WalletService

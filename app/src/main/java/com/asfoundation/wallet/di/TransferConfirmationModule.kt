@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di
 
+import androidx.appcompat.app.AppCompatActivity
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import com.appcoins.wallet.commons.Logger
@@ -11,7 +12,10 @@ import com.asfoundation.wallet.transfers.TransferConfirmationNavigator
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 
+@InstallIn(ActivityComponent::class)
 @Module(includes = [SendModule::class])
 class TransferConfirmationModule {
 
@@ -32,7 +36,7 @@ class TransferConfirmationModule {
 
   @Provides
   fun providesConfirmationNavigator(
-      transferConfirmationActivity: TransferConfirmationActivity): TransferConfirmationNavigator {
-    return TransferConfirmationNavigator(transferConfirmationActivity.supportFragmentManager)
+      activity: AppCompatActivity): TransferConfirmationNavigator {
+    return TransferConfirmationNavigator(activity.supportFragmentManager)
   }
 }

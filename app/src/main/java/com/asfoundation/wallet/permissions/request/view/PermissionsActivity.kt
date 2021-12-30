@@ -11,12 +11,13 @@ import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionFragmentNavigator,
     CreateWalletNavigator {
 

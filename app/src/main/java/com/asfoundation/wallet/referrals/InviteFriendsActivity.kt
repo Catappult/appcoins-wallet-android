@@ -14,6 +14,7 @@ import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCar
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
 
   private lateinit var menu: Menu

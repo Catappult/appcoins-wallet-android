@@ -27,6 +27,7 @@ import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -39,6 +40,7 @@ import kotlinx.android.synthetic.main.top_up_activity_layout.*
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavigator {
 
   @Inject

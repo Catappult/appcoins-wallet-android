@@ -7,8 +7,11 @@ import androidx.work.WorkManager
 import com.asfoundation.wallet.util.Log
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class WorkerModule {
 

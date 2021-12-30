@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.change_currency
 
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 
+@InstallIn(FragmentComponent::class)
 @Module
 class ChangeFiatCurrencyModule {
 
@@ -14,8 +18,7 @@ class ChangeFiatCurrencyModule {
   }
 
   @Provides
-  fun providesChangeFiatCurrencyNavigator(
-      fragment: ChangeFiatCurrencyFragment): ChangeFiatCurrencyNavigator {
+  fun providesChangeFiatCurrencyNavigator(fragment: Fragment): ChangeFiatCurrencyNavigator {
     return ChangeFiatCurrencyNavigator(fragment)
   }
 }

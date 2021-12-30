@@ -9,18 +9,21 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_top_up_success.*
 import javax.inject.Inject
 
-class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
+@AndroidEntryPoint
+class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
 
   companion object {
     @JvmStatic
@@ -48,32 +51,32 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   private lateinit var topUpActivityView: TopUpActivityView
 
   val amount: String? by lazy {
-    if (arguments!!.containsKey(PARAM_AMOUNT)) {
-      arguments!!.getString(PARAM_AMOUNT)
+    if (requireArguments().containsKey(PARAM_AMOUNT)) {
+      requireArguments().getString(PARAM_AMOUNT)
     } else {
       throw IllegalArgumentException("product name not found")
     }
   }
 
   val currency: String? by lazy {
-    if (arguments!!.containsKey(CURRENCY)) {
-      arguments!!.getString(CURRENCY)
+    if (requireArguments().containsKey(CURRENCY)) {
+      requireArguments().getString(CURRENCY)
     } else {
       throw IllegalArgumentException("currency not found")
     }
   }
 
   val bonus: String by lazy {
-    if (arguments!!.containsKey(BONUS)) {
-      arguments!!.getString(BONUS, "")
+    if (requireArguments().containsKey(BONUS)) {
+      requireArguments().getString(BONUS, "")
     } else {
       throw IllegalArgumentException("bonus not found")
     }
   }
 
   private val currencySymbol: String by lazy {
-    if (arguments!!.containsKey(CURRENCY_SYMBOL)) {
-      arguments!!.getString(CURRENCY_SYMBOL, "")
+    if (requireArguments().containsKey(CURRENCY_SYMBOL)) {
+      requireArguments().getString(CURRENCY_SYMBOL, "")
     } else {
       throw IllegalArgumentException("bonus not found")
     }

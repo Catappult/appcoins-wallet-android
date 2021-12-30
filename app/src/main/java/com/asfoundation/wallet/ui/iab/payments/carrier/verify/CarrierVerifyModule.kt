@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import androidx.fragment.app.Fragment
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -9,39 +10,43 @@ import com.asfoundation.wallet.util.StringProvider
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 
+@InstallIn(FragmentComponent::class)
 @Module
 class CarrierVerifyModule {
 
   @Provides
-  fun providesCarrierVerifyNavigator(fragment: CarrierVerifyFragment): CarrierVerifyNavigator {
+  fun providesCarrierVerifyNavigator(fragment: Fragment): CarrierVerifyNavigator {
     return CarrierVerifyNavigator(fragment.requireFragmentManager(),
         fragment.activity as IabActivity)
   }
 
   @Provides
-  fun providesCarrierVerifyPhoneData(fragment: CarrierVerifyFragment): CarrierVerifyData {
-    fragment.arguments!!.apply {
-      return CarrierVerifyData(getBoolean(CarrierVerifyFragment.PRE_SELECTED_KEY),
-          getString(CarrierVerifyFragment.DOMAIN_KEY)!!,
-          getString(CarrierVerifyFragment.ORIGIN_KEY),
-          getString(CarrierVerifyFragment.TRANSACTION_TYPE_KEY) ?: "",
-          getString(CarrierVerifyFragment.TRANSACTION_DATA_KEY) ?: "",
-          getString(CarrierVerifyFragment.CURRENCY_KEY)!!,
-          getSerializable(CarrierVerifyFragment.FIAT_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierVerifyFragment.APPC_AMOUNT_KEY) as BigDecimal,
-          getSerializable(CarrierVerifyFragment.BONUS_AMOUNT_KEY) as BigDecimal?,
-          getString(CarrierVerifyFragment.SKU_DESCRIPTION)!!,
-          getString(CarrierVerifyFragment.SKU_ID))
-    }
+  fun providesCarrierVerifyPhoneData(fragment: Fragment): CarrierVerifyData {
+    fragment.requireArguments()
+        .apply {
+          return CarrierVerifyData(getBoolean(CarrierVerifyFragment.PRE_SELECTED_KEY),
+              getString(CarrierVerifyFragment.DOMAIN_KEY)!!,
+              getString(CarrierVerifyFragment.ORIGIN_KEY),
+              getString(CarrierVerifyFragment.TRANSACTION_TYPE_KEY) ?: "",
+              getString(CarrierVerifyFragment.TRANSACTION_DATA_KEY) ?: "",
+              getString(CarrierVerifyFragment.CURRENCY_KEY)!!,
+              getSerializable(CarrierVerifyFragment.FIAT_AMOUNT_KEY) as BigDecimal,
+              getSerializable(CarrierVerifyFragment.APPC_AMOUNT_KEY) as BigDecimal,
+              getSerializable(CarrierVerifyFragment.BONUS_AMOUNT_KEY) as BigDecimal?,
+              getString(CarrierVerifyFragment.SKU_DESCRIPTION)!!,
+              getString(CarrierVerifyFragment.SKU_ID))
+        }
   }
 
   @Provides
-  fun providesCarrierVerifyPresenter(fragment: CarrierVerifyFragment,
+  fun providesCarrierVerifyPresenter(fragment: Fragment,
                                      data: CarrierVerifyData,
                                      navigator: CarrierVerifyNavigator,
                                      interactor: CarrierInteractor,

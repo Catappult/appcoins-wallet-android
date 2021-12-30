@@ -14,8 +14,10 @@ import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTsController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NFTFragment : BasePageViewFragment(), SingleStateFragment<NFTState, NFTSideEffect> {
 
   @Inject

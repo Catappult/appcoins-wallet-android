@@ -20,6 +20,7 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
@@ -29,6 +30,7 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TransferFragment : BasePageViewFragment(), TransferFragmentView {
 
   companion object {

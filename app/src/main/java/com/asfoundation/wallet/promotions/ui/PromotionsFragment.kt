@@ -16,8 +16,10 @@ import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.ui.list.PromotionsController
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PromotionsFragment : BasePageViewFragment(),
     SingleStateFragment<PromotionsState, PromotionsSideEffect> {
   @Inject

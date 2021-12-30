@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.transact
 
 import android.content.Intent
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
@@ -16,7 +17,7 @@ import io.reactivex.Completable
 import java.math.BigDecimal
 
 class TransferFragmentNavigator(private val fragmentManager: FragmentManager,
-                                private val fragment: TransferFragment,
+                                private val fragment: Fragment,
                                 private val activity: FragmentActivity,
                                 private val defaultTokenProvider: DefaultTokenProvider) {
 

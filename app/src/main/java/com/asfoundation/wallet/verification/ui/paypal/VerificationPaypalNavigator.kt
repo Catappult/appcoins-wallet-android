@@ -2,10 +2,11 @@ package com.asfoundation.wallet.verification.ui.paypal
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 
-class VerificationPaypalNavigator(private val fragment: VerificationPaypalFragment) :
+class VerificationPaypalNavigator(private val fragment: Fragment) :
     Navigator {
 
   fun navigateToPayment(url: String, launcher: ActivityResultLauncher<Intent>) {

@@ -15,6 +15,7 @@ import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
@@ -22,7 +23,7 @@ import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_subscription_details.*
 import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
@@ -34,7 +35,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class SubscriptionDetailsFragment : DaggerFragment(), SubscriptionDetailsView {
+@AndroidEntryPoint
+class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsView {
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils

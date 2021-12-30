@@ -1,9 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +9,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -21,6 +19,7 @@ import kotlinx.android.synthetic.main.earn_appcoins_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
 
   private lateinit var presenter: EarnAppcoinsPresenter
@@ -78,16 +77,16 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   }
 
   val domain: String by lazy {
-    if (arguments!!.containsKey(PARAM_DOMAIN)) {
-      arguments!!.getString(PARAM_DOMAIN, "")
+    if (requireArguments().containsKey(PARAM_DOMAIN)) {
+      requireArguments().getString(PARAM_DOMAIN, "")
     } else {
       throw IllegalArgumentException("Domain not found")
     }
   }
 
   val skuId: String? by lazy {
-    if (arguments!!.containsKey(PARAM_SKUID)) {
-      val value = arguments!!.getString(PARAM_SKUID) ?: return@lazy null
+    if (requireArguments().containsKey(PARAM_SKUID)) {
+      val value = requireArguments().getString(PARAM_SKUID) ?: return@lazy null
       value
     } else {
       throw IllegalArgumentException("SkuId not found")
@@ -95,8 +94,8 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   }
 
   val amount: BigDecimal by lazy {
-    if (arguments!!.containsKey(PARAM_AMOUNT)) {
-      val value = arguments!!.getSerializable(PARAM_AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(PARAM_AMOUNT)) {
+      val value = requireArguments().getSerializable(PARAM_AMOUNT) as BigDecimal
       value
     } else {
       throw IllegalArgumentException("amount not found")
@@ -104,8 +103,8 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   }
 
   val type: String by lazy {
-    if (arguments!!.containsKey(PARAM_TRANSACTION_TYPE)) {
-      arguments!!.getString(PARAM_TRANSACTION_TYPE, "")
+    if (requireArguments().containsKey(PARAM_TRANSACTION_TYPE)) {
+      requireArguments().getString(PARAM_TRANSACTION_TYPE, "")
     } else {
       throw IllegalArgumentException("type not found")
     }

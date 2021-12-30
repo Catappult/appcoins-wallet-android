@@ -16,10 +16,12 @@ import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.utilities.KeyboardUtils
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class WithdrawFragment : BasePageViewFragment(),
     SingleStateFragment<WithdrawState, WithdrawSideEffect> {
 

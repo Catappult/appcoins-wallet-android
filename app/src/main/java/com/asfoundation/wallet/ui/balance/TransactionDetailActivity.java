@@ -37,6 +37,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.AppBarLayout;
 import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -46,6 +47,7 @@ import javax.inject.Inject;
 import static com.asfoundation.wallet.C.Key.GLOBAL_BALANCE_CURRENCY;
 import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
+@AndroidEntryPoint
 public class TransactionDetailActivity extends BaseActivity {
 
   private static final int DECIMALS = 18;

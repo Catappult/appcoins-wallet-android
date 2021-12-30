@@ -20,11 +20,13 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TermsConditionsBottomSheetBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class TermsConditionsBottomSheetFragment : DaggerBottomSheetDialogFragment(),
+@AndroidEntryPoint
+class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
     SingleStateFragment<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect> {
 
 

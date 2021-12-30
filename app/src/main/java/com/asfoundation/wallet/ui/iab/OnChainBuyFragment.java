@@ -18,8 +18,9 @@ import com.appcoins.wallet.commons.Logger;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment;
 import com.jakewharton.rxbinding2.view.RxView;
-import dagger.android.support.DaggerFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -37,8 +38,8 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 /**
  * Created by franciscocalado on 19/07/2018.
  */
-
-public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView {
+@AndroidEntryPoint public class OnChainBuyFragment extends BasePageViewFragment
+    implements OnChainBuyView {
 
   private static final String APP_PACKAGE = "app_package";
   private static final String TRANSACTION_BUILDER_KEY = "transaction_builder";

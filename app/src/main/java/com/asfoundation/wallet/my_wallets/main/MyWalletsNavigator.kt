@@ -3,6 +3,7 @@ package com.asfoundation.wallet.my_wallets.main
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.fragment.app.Fragment
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
 import com.asf.wallet.R
@@ -10,7 +11,7 @@ import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 
-class MyWalletsNavigator(private val fragment: MyWalletsFragment,
+class MyWalletsNavigator(private val fragment: Fragment,
                          private val navController: NavController) : Navigator {
 
   fun navigateToChangeActiveWallet(walletBalance: WalletBalance) {
@@ -59,12 +60,4 @@ class MyWalletsNavigator(private val fragment: MyWalletsFragment,
     val extras = ActivityNavigatorExtras(options)
     navController.navigate(R.id.action_navigate_to_qr_code, null, null, extras)
   }
-
-//  val intent = TokenDetailsActivity.newInstance(fragment.requireContext(), tokenDetailsId)
-//
-//  val options = ActivityOptionsCompat.makeSceneTransitionAnimation(fragment.requireActivity(),
-//      androidx.core.util.Pair(imgView, ViewCompat.getTransitionName(imgView)!!),
-//      androidx.core.util.Pair(textView, ViewCompat.getTransitionName(textView)!!),
-//      androidx.core.util.Pair(parentView,
-//          ViewCompat.getTransitionName(parentView)!!))
 }

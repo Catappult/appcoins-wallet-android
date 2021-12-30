@@ -8,9 +8,11 @@ import com.asfoundation.wallet.rating.entry.RatingEntryFragment
 import com.asfoundation.wallet.rating.positive.RatingPositiveFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class RatingActivity : BaseActivity() {
 
   @Inject

@@ -11,14 +11,13 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.analytics.RakamAnalytics
-import com.asfoundation.wallet.di.DaggerAppComponent
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -30,6 +29,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.HiltAndroidApp
 import io.intercom.android.sdk.Intercom
 import io.reactivex.Completable
 import io.reactivex.exceptions.UndeliverableException
@@ -41,6 +41,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@HiltAndroidApp
 class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvider {
   @Inject
   lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -105,10 +106,6 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   override fun onCreate() {
     super.onCreate()
-    val appComponent = DaggerAppComponent.builder()
-        .application(this)
-        .build()
-    appComponent.inject(this)
     setupRxJava()
     val gpsAvailable = checkGooglePlayServices()
     if (gpsAvailable.not()) setupSupportNotificationAlarm()

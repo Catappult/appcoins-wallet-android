@@ -1,9 +1,14 @@
 package com.asfoundation.wallet.onboarding.bottom_sheet
 
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 
+@InstallIn(FragmentComponent::class)
 @Module
 class TermsConditionsBottomSheetModule {
 
@@ -15,7 +20,7 @@ class TermsConditionsBottomSheetModule {
 
   @Provides
   fun providesTermsConditionsBottomSheetNavigator(
-      fragment: TermsConditionsBottomSheetFragment): TermsConditionsBottomSheetNavigator {
+      fragment: Fragment): TermsConditionsBottomSheetNavigator {
     return TermsConditionsBottomSheetNavigator(fragment)
   }
 }

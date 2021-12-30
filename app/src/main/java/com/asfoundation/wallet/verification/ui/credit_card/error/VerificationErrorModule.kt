@@ -1,17 +1,21 @@
 package com.asfoundation.wallet.verification.ui.credit_card.error
 
+import androidx.fragment.app.Fragment
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityNavigator
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import io.reactivex.disposables.CompositeDisposable
 
+@InstallIn(FragmentComponent::class)
 @Module
 class VerificationErrorModule {
 
   @Provides
-  fun providesVerificationErrorPresenter(fragment: VerificationErrorFragment,
+  fun providesVerificationErrorPresenter(fragment: Fragment,
                                          data: VerificationErrorData,
                                          navigator: VerificationErrorNavigator): VerificationErrorPresenter {
     return VerificationErrorPresenter(fragment as VerificationErrorView, data, navigator,
@@ -19,27 +23,29 @@ class VerificationErrorModule {
   }
 
   @Provides
-  fun providesVerificationErrorNavigator(fragment: VerificationErrorFragment,
+  fun providesVerificationErrorNavigator(fragment: Fragment,
                                          activityNavigator: VerificationCreditCardActivityNavigator): VerificationErrorNavigator {
     return VerificationErrorNavigator(fragment.requireFragmentManager(),
         fragment.activity as VerificationCreditCardActivityView, activityNavigator)
   }
 
-  @Provides
-  fun providesWalletVerificationActivityNavigator(
-      fragment: VerificationErrorFragment): VerificationCreditCardActivityNavigator {
-    return VerificationCreditCardActivityNavigator(fragment.requireActivity(),
-        fragment.requireActivity().supportFragmentManager)
-  }
+//  @Provides
+//  fun providesWalletVerificationActivityNavigator(
+//      fragment: Fragment): VerificationCreditCardActivityNavigator {
+//    return VerificationCreditCardActivityNavigator(fragment.requireActivity(),
+//        fragment.requireActivity().supportFragmentManager)
+//  }
 
   @Provides
-  fun providesVerificationErrorData(fragment: VerificationErrorFragment): VerificationErrorData {
-    fragment.arguments!!.apply {
-      return VerificationErrorData(
-          VerificationCodeResult.ErrorType.values()[getInt(VerificationErrorFragment.ERROR_TYPE)],
-          getString(VerificationErrorFragment.AMOUNT, ""),
-          getString(VerificationErrorFragment.SYMBOL, "")
-      )
-    }
+  fun providesVerificationErrorData(fragment: Fragment): VerificationErrorData {
+    fragment.requireArguments()
+        .apply {
+          return VerificationErrorData(
+              VerificationCodeResult.ErrorType.values()[getInt(
+                  VerificationErrorFragment.ERROR_TYPE)],
+              getString(VerificationErrorFragment.AMOUNT, ""),
+              getString(VerificationErrorFragment.SYMBOL, "")
+          )
+        }
   }
 }

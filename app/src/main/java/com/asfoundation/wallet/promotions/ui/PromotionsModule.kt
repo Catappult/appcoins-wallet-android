@@ -1,18 +1,21 @@
 package com.asfoundation.wallet.promotions.ui
 
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import io.reactivex.schedulers.Schedulers
-
+@InstallIn(FragmentComponent::class)
 @Module
-class PromotionsModuleNew {
+class PromotionsModule {
 
   @Provides
-  fun providesPromotionsNavigator(fragment: PromotionsFragment): PromotionsNavigator {
+  fun providesPromotionsNavigator(fragment: Fragment): PromotionsNavigator {
     return PromotionsNavigator(fragment)
   }
 

@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.Log
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WebViewActivity : AppCompatActivity() {
 
   override fun getAssets(): AssetManager {

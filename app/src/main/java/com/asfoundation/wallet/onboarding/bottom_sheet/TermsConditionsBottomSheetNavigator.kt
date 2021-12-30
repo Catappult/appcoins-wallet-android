@@ -4,13 +4,13 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
 
-class TermsConditionsBottomSheetNavigator(
-    private val fragment: TermsConditionsBottomSheetFragment) : Navigator {
+class TermsConditionsBottomSheetNavigator(private val fragment: Fragment) : Navigator {
 
   fun navigateToBrowser(uri: Uri) {
     try {

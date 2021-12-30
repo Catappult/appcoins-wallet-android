@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.rating.RatingActivity
-import dagger.android.support.DaggerFragment
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_rating_finish.*
 import javax.inject.Inject
 
-class RatingFinishFragment : DaggerFragment(), RatingFinishView {
+@AndroidEntryPoint
+class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
 
   @Inject
   lateinit var presenter: RatingFinishPresenter

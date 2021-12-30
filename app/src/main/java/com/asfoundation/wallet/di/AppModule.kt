@@ -101,6 +101,8 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
@@ -115,7 +117,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
-
+@InstallIn(SingletonComponent::class)
 @Module
 internal class AppModule {
   @Provides

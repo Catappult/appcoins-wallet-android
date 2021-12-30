@@ -1,10 +1,14 @@
 package com.asfoundation.wallet.nfts.ui.nftlist
 
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 
+@InstallIn(FragmentComponent::class)
 @Module
 class NFTModule {
   @Provides
@@ -13,7 +17,7 @@ class NFTModule {
   }
 
   @Provides
-  fun provideNFTNavigator(fragment: NFTFragment): NFTNavigator {
+  fun provideNFTNavigator(fragment: Fragment): NFTNavigator {
     return NFTNavigator(fragment.findNavController())
   }
 }

@@ -20,10 +20,12 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.Key.WALLET;
 
+@AndroidEntryPoint
 public class MyAddressActivity extends BaseActivity implements View.OnClickListener {
 
   public static final String KEY_ADDRESS = "key_address";

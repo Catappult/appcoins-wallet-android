@@ -11,10 +11,12 @@ import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityView {
 
   @Inject

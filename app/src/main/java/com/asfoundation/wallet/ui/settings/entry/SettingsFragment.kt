@@ -28,6 +28,7 @@ import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.preference_fingerprint.*
@@ -35,6 +36,7 @@ import kotlinx.android.synthetic.main.preference_fingerprint_off.*
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject

@@ -10,8 +10,10 @@ import dagger.android.AndroidInjection
 import dagger.android.DaggerBroadcastReceiver
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class BackupBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjector {
 
   @Inject

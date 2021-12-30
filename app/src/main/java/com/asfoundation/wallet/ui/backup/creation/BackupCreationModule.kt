@@ -3,27 +3,31 @@ package com.asfoundation.wallet.ui.backup.creation
 import android.content.Context
 import android.os.Build
 import android.os.Environment
+import androidx.fragment.app.Fragment
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.backup.FileInteractor
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.interact.ExportWalletInteractor
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.ui.backup.BackupActivityNavigator
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment.Companion.PASSWORD_KEY
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment.Companion.WALLET_ADDRESS_KEY
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.io.File
 import javax.inject.Named
 
+@InstallIn(FragmentComponent::class)
 @Module
 class BackupCreationModule {
 
   @Provides
-  fun providesBackupCreationPresenter(fragment: BackupCreationFragment,
+  fun providesBackupCreationPresenter(fragment: Fragment,
                                       backupCreationInteractor: BackupCreationInteractor,
                                       walletsEventSender: WalletsEventSender,
                                       logger: Logger,
@@ -39,9 +43,10 @@ class BackupCreationModule {
 
   @Provides
   fun providesBackupCreationData(fragment: BackupCreationFragment): BackupCreationData {
-    fragment.arguments!!.apply {
-      return BackupCreationData(getString(WALLET_ADDRESS_KEY)!!, getString(PASSWORD_KEY)!!)
-    }
+    fragment.requireArguments()
+        .apply {
+          return BackupCreationData(getString(WALLET_ADDRESS_KEY)!!, getString(PASSWORD_KEY)!!)
+        }
   }
 
   @Provides
@@ -65,13 +70,13 @@ class BackupCreationModule {
   }
 
   @Provides
-  fun providesBackupCreationNavigator(fragment: BackupCreationFragment,
+  fun providesBackupCreationNavigator(fragment: Fragment,
                                       activityNavigator: BackupActivityNavigator): BackupCreationNavigator {
     return BackupCreationNavigator(fragment.requireFragmentManager(), activityNavigator)
   }
 
-  @Provides
-  fun providesBackupActivityNavigator(fragment: BackupCreationFragment): BackupActivityNavigator {
-    return BackupActivityNavigator(fragment.requireFragmentManager(), fragment.activity!!)
-  }
+//  @Provides
+//  fun providesBackupActivityNavigator(fragment: Fragment): BackupActivityNavigator {
+//    return BackupActivityNavigator(fragment.requireFragmentManager(), fragment.requireActivity())
+//  }
 }

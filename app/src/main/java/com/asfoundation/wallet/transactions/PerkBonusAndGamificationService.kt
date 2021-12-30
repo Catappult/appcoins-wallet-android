@@ -17,14 +17,13 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.gamification.ReachedLevelInfo
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.toBitmap
 import dagger.android.AndroidInjection
-import io.reactivex.Observable
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.functions.Function5
 import io.reactivex.schedulers.Schedulers
@@ -34,6 +33,7 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.math.pow
 
+@AndroidEntryPoint
 class PerkBonusAndGamificationService :
     IntentService(PerkBonusAndGamificationService::class.java.simpleName) {
 

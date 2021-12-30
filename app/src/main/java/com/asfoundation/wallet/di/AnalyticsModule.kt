@@ -20,11 +20,14 @@ import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.facebook.appevents.AppEventsLogger
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import java.util.concurrent.CopyOnWriteArrayList
 import javax.inject.Named
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class AnalyticsModule {
 

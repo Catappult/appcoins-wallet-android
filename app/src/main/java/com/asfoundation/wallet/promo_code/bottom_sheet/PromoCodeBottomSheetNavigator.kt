@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet
 
-class PromoCodeBottomSheetNavigator(val fragment: PromoCodeBottomSheetFragment) {
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
+class PromoCodeBottomSheetNavigator(val fragment: BottomSheetDialogFragment) {
 
   fun navigateBack() {
     fragment.dismiss()

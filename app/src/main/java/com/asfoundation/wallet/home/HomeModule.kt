@@ -1,25 +1,29 @@
 package com.asfoundation.wallet.home
 
 import android.content.Context
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 
+@InstallIn(ActivityComponent::class)
 @Module
 class HomeModule {
 
   @Provides
-  fun providesHomeNavigator(fragment: HomeFragment): HomeNavigator {
+  fun providesHomeNavigator(fragment: Fragment): HomeNavigator {
     return HomeNavigator(fragment, MainActivityNavigator(fragment.requireActivity()))
   }
 
-  @Provides
-  fun provideMainActivityNavigator(fragment: HomeFragment): MainActivityNavigator {
-    return MainActivityNavigator(fragment.requireActivity())
-  }
+//  @Provides
+//  fun provideMainActivityNavigator(fragment: Fragment): MainActivityNavigator {
+//    return MainActivityNavigator(fragment.requireActivity())
+//  }
 
   @Provides
   fun providesHomeViewModelFactory(homeAnalytics: HomeAnalytics,

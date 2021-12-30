@@ -1,33 +1,39 @@
 package com.asfoundation.wallet.ui.iab.payments.common.error
 
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.IabActivity
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import io.reactivex.disposables.CompositeDisposable
 
+@InstallIn(FragmentComponent::class)
 @Module
 class IabErrorModule {
 
   @Provides
-  fun providesIabErrorNavigator(fragment: IabErrorFragment): IabErrorNavigator {
+  fun providesIabErrorNavigator(fragment: Fragment): IabErrorNavigator {
     return IabErrorNavigator(fragment.activity as IabActivity, fragment.requireFragmentManager())
   }
 
   @Provides
-  fun providesIabErrorData(fragment: IabErrorFragment): IabErrorData {
-    fragment.arguments!!.apply {
-      val errorMessage = if (containsKey(IabErrorFragment.ERROR_MESSAGE_STRING)) {
-        getString(IabErrorFragment.ERROR_MESSAGE_STRING)!!
-      } else {
-        fragment.getString(getInt(IabErrorFragment.ERROR_MESSAGE_RESOURCE))
-      }
-      return IabErrorData(errorMessage, getString(IabErrorFragment.FEATURE_ENTRY_BACKSTACK_NAME)!!)
-    }
+  fun providesIabErrorData(fragment: Fragment): IabErrorData {
+    fragment.requireArguments()
+        .apply {
+          val errorMessage = if (containsKey(IabErrorFragment.ERROR_MESSAGE_STRING)) {
+            getString(IabErrorFragment.ERROR_MESSAGE_STRING)!!
+          } else {
+            fragment.getString(getInt(IabErrorFragment.ERROR_MESSAGE_RESOURCE))
+          }
+          return IabErrorData(errorMessage,
+              getString(IabErrorFragment.FEATURE_ENTRY_BACKSTACK_NAME)!!)
+        }
   }
 
   @Provides
-  fun providesIabErrorPresenter(fragment: IabErrorFragment,
+  fun providesIabErrorPresenter(fragment: Fragment,
                                 data: IabErrorData,
                                 navigator: IabErrorNavigator,
                                 supportInteractor: SupportInteractor): IabErrorPresenter {

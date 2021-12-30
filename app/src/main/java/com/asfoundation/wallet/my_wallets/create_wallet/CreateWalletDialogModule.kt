@@ -1,10 +1,14 @@
 package com.asfoundation.wallet.my_wallets.create_wallet
 
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 
+@InstallIn(FragmentComponent::class)
 @Module
 class CreateWalletDialogModule {
 
@@ -15,8 +19,7 @@ class CreateWalletDialogModule {
   }
 
   @Provides
-  fun provideCreateWalletDialogNavigator(
-      fragment: CreateWalletDialogFragment): CreateWalletDialogNavigator {
+  fun provideCreateWalletDialogNavigator(fragment: Fragment): CreateWalletDialogNavigator {
     return CreateWalletDialogNavigator(fragment.findNavController())
   }
 }

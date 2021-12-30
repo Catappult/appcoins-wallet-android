@@ -90,6 +90,8 @@ import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.internal.schedulers.ExecutorScheduler
@@ -100,6 +102,7 @@ import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Named
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class InteractorModule {
 

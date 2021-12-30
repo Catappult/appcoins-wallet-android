@@ -20,9 +20,11 @@ import dagger.android.AndroidInjection
 import dagger.android.DaggerBroadcastReceiver
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjector {
 
   @Inject

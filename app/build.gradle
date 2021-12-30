@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
   buildToolsVersion '30.0.3'
@@ -29,7 +30,7 @@ android {
     //room schemas location
     javaCompileOptions {
       annotationProcessorOptions {
-        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+        arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
       }
     }
 
@@ -214,6 +215,9 @@ dependencies {
   kapt "com.google.dagger:dagger-android-processor:$project.dagger_version"
   kapt "com.google.dagger:dagger-compiler:$project.dagger_version"
   implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
+
+  implementation 'com.google.dagger:hilt-android:2.40.5'
+  kapt 'com.google.dagger:hilt-compiler:2.40.5'
 
   implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxandroid_version"

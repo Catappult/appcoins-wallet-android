@@ -8,11 +8,13 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.layout_wallet_blocked.*
 
+@AndroidEntryPoint
 class WalletBlockedActivity : BaseActivity(),
     WalletBlockedView {
 

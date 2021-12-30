@@ -26,6 +26,7 @@ import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
 import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.inject.Inject;
@@ -34,7 +35,7 @@ import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
 import static com.asfoundation.wallet.C.GWEI_UNIT;
 
-public class TransferConfirmationActivity extends BaseActivity {
+@AndroidEntryPoint public class TransferConfirmationActivity extends BaseActivity {
   private static final String TAG = TransferConfirmationActivity.class.getSimpleName();
 
   AlertDialog dialog;

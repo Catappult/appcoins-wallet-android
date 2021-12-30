@@ -14,12 +14,14 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class ChooseCurrencyBottomSheetFragment : DaggerBottomSheetDialogFragment(),
+@AndroidEntryPoint
+class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
     SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
 
 
