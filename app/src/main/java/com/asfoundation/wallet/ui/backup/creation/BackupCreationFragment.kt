@@ -71,9 +71,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-//    proceed_button.visibility = View.VISIBLE //To avoid flick when user navigates with open keyboard
     presenter.present(savedInstanceState)
-//    animation.playAnimation()
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -105,8 +103,10 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   override fun getFirstSaveClick(): Observable<Any> =
       Observable.never() // RxView.clicks(proceed_button)
 
-  override fun getFinishClick(): Observable<Any> =
-      Observable.empty() // RxView.clicks(finish_button)
+  override fun getSendToEmailClick(): Observable<String> {
+    return RxView.clicks(email_button)
+        .map { email_input.getText() }
+  }
 
   override fun getSaveOnDeviceButton(): Observable<Any> = RxView.clicks(device_button)
 

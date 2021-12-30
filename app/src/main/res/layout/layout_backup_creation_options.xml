@@ -16,26 +16,20 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
-  <com.google.android.material.textfield.TextInputLayout
+  <com.asfoundation.wallet.ui.common.WalletTextFieldView
       android:id="@+id/email_input"
-      style="@style/BackupTextInputLayout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="@dimen/half_large_margin"
+      android:layout_height="@dimen/large_button_height"
       android:layout_marginTop="8dp"
+      android:layout_marginHorizontal="@dimen/half_large_margin"
+      app:buttonText="@string/backup_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/send_email_title"
-      >
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top"
-        android:hint="@string/backup_option_email_hint"
-        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
-        />
-  </com.google.android.material.textfield.TextInputLayout>
-
+      app:textFieldColor="@color/white"
+      app:textFieldHint="@string/backup_option_email_hint"
+      app:textFieldType="filled"
+      />
   <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/email_button"
       android:layout_width="match_parent"

@@ -68,7 +68,7 @@ import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
-import com.asfoundation.wallet.ui.backup.save.repository.FileRepository
+import com.asfoundation.wallet.ui.backup.repository.BackupRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesUserStatsLocalData
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper
@@ -519,7 +519,17 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesFileRepository(contentResolver: ContentResolver): FileRepository {
-    return FileRepository(contentResolver)
+  fun providesBackupRepository(@Named("default") client: OkHttpClient,
+                               objectMapper: ObjectMapper,
+                               contentResolver: ContentResolver): BackupRepository {
+    val baseUrl = BuildConfig.BASE_HOST
+    val api = Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BackupRepository.BackupEmailApi::class.java)
+    return BackupRepository(contentResolver, api)
   }
 }

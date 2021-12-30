@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.backup.save
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.asfoundation.wallet.ui.backup.save.use_cases.SaveBackupFileUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import java.io.File
 
 class SaveBackupBottomSheetViewModelFactory(

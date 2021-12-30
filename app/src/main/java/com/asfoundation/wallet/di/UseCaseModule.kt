@@ -49,10 +49,12 @@ import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
-import com.asfoundation.wallet.ui.backup.save.repository.FileRepository
-import com.asfoundation.wallet.ui.backup.save.use_cases.SaveBackupFileUseCase
+import com.asfoundation.wallet.ui.backup.repository.BackupRepository
+import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.CreateBackupUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
@@ -405,13 +407,27 @@ class UseCaseModule {
     return HasEnoughBalanceUseCase(getWalletInfoUseCase)
   }
 
+  @Singleton
+  @Provides
+  fun providesCreateBackupUseCase(
+      walletRepository: WalletRepositoryType,
+      passwordStore: PasswordStore): CreateBackupUseCase {
+    return CreateBackupUseCase(walletRepository, passwordStore)
+  }
 
   @Singleton
   @Provides
   fun providesSaveBackupFileUseCase(
-      walletRepository: WalletRepositoryType,
-      passwordStore: PasswordStore,
-      fileRepository: FileRepository): SaveBackupFileUseCase {
-    return SaveBackupFileUseCase(walletRepository, passwordStore, fileRepository)
+      createBackupUseCase: CreateBackupUseCase,
+      backupRepository: BackupRepository): SaveBackupFileUseCase {
+    return SaveBackupFileUseCase(createBackupUseCase, backupRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSendBackupToEmailUseCase(
+      createBackupUseCase: CreateBackupUseCase,
+      backupRepository: BackupRepository): SendBackupToEmailUseCase {
+    return SendBackupToEmailUseCase(createBackupUseCase, backupRepository)
   }
 }

@@ -4,7 +4,7 @@ import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.ui.backup.save.use_cases.SaveBackupFileUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import java.io.File
 
 sealed class SaveBackupBottomSheetSideEffect : SideEffect {
@@ -31,8 +31,7 @@ class SaveBackupBottomSheetViewModel(
   fun saveBackupFile(fileName: String, filePath: DocumentFile? = downloadsPath?.let {
     DocumentFile.fromFile(it)
   }) {
-    saveBackupFileUseCase
-        .invoke(data.walletAddress, data.password, fileName, filePath)
+    saveBackupFileUseCase(data.walletAddress, data.password, fileName, filePath)
         .doOnComplete { sendSideEffect { SaveBackupBottomSheetSideEffect.NavigateToSuccess } }
         .repeatableScopedSubscribe("saveBackupFile") { e -> e.printStackTrace() }
   }

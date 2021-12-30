@@ -6,6 +6,7 @@ import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -21,7 +22,8 @@ class BackupCreationPresenter(private val view: BackupCreationView,
                               private val data: BackupCreationData,
                               private val navigator: BackupCreationNavigator,
                               private val temporaryPath: File?,
-                              private val downloadsPath: File?) {
+                              private val downloadsPath: File?,
+                              private val sendBackupToEmailUseCase: SendBackupToEmailUseCase) {
 
   companion object {
     private const val FILE_SHARED_KEY = "FILE_SHARED"
@@ -41,7 +43,7 @@ class BackupCreationPresenter(private val view: BackupCreationView,
       cachedFileName = it.getString(FILE_NAME_KEY)
     }
     createBackUpFile()
-    handleFinishClick()
+    handleSendToEmailClick()
     handleFirstSaveClick()
     handleSaveAgainClick()
     handlePermissionGiven()
@@ -119,11 +121,13 @@ class BackupCreationPresenter(private val view: BackupCreationView,
         .subscribe({}, { showError(it) }))
   }
 
-  private fun handleFinishClick() {
-    disposables.add(view.getFinishClick()
+  private fun handleSendToEmailClick() {
+    disposables.add(view.getSendToEmailClick()
         .observeOn(viewScheduler)
         .doOnNext {
-          walletsEventSender.sendWalletConfirmationBackupEvent(WalletsAnalytics.ACTION_FINISH)
+          sendBackupToEmailUseCase(data.walletAddress, data.password, it)
+        }
+        .doOnComplete {
           view.closeScreen()
         }
         .subscribe({}, { view.closeScreen() })

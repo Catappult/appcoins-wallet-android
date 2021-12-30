@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.backup.save
 
 import android.os.Build
 import android.os.Environment
-import com.asfoundation.wallet.ui.backup.save.use_cases.SaveBackupFileUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import dagger.Module
 import dagger.Provides
 import java.io.File

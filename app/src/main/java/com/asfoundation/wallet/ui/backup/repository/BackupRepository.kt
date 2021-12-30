@@ -1,11 +1,14 @@
-package com.asfoundation.wallet.ui.backup.save.repository
+package com.asfoundation.wallet.ui.backup.repository
 
 import android.content.ContentResolver
 import androidx.documentfile.provider.DocumentFile
 import io.reactivex.Completable
+import retrofit2.http.Field
+import retrofit2.http.POST
 import java.io.IOException
 
-class FileRepository(private val contentResolver: ContentResolver) {
+class BackupRepository(private val contentResolver: ContentResolver,
+                       private val backupEmailApi: BackupEmailApi) {
   fun saveFile(content: String, filePath: DocumentFile?,
                fileName: String): Completable {
 
@@ -27,4 +30,14 @@ class FileRepository(private val contentResolver: ContentResolver) {
   }
 
   private fun getDefaultBackupFileExtension() = ".bck"
+
+  fun sendBackupEmail(keystore: String, email: String): Completable {
+    return backupEmailApi.sendBackupEmail(email, keystore)
+  }
+
+  interface BackupEmailApi {
+    @POST("broker/8.20210201/wallet/backup")
+    fun sendBackupEmail(@Field("email") email: String,
+                        @Field("keystore") keystore: String): Completable
+  }
 }

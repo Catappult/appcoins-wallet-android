@@ -11,6 +11,7 @@ import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.ui.backup.BackupActivityNavigator
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment.Companion.PASSWORD_KEY
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment.Companion.WALLET_ADDRESS_KEY
+import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,11 +31,13 @@ class BackupCreationModule {
                                       data: BackupCreationData,
                                       navigator: BackupCreationNavigator,
                                       @Named("temporary-path") temporaryPath: File?,
-                                      @Named("downloads-path") downloadsPath: File?)
+                                      @Named("downloads-path") downloadsPath: File?,
+                                      sendBackupToEmailUseCase: SendBackupToEmailUseCase)
       : BackupCreationPresenter {
     return BackupCreationPresenter(fragment as BackupCreationView, backupCreationInteractor,
         walletsEventSender, logger, Schedulers.io(), AndroidSchedulers.mainThread(),
-        CompositeDisposable(), data, navigator, temporaryPath, downloadsPath)
+        CompositeDisposable(), data, navigator, temporaryPath, downloadsPath,
+        sendBackupToEmailUseCase)
   }
 
   @Provides

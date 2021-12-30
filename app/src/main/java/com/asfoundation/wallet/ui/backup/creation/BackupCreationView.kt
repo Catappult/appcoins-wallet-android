@@ -12,7 +12,7 @@ interface BackupCreationView {
 
   fun getSaveOnDeviceButton(): Observable<Any>
 
-  fun getFinishClick(): Observable<Any>
+  fun getSendToEmailClick(): Observable<String>
 
   fun showConfirmation()
 
