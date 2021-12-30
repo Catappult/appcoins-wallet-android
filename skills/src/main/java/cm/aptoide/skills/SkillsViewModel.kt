@@ -65,16 +65,16 @@ class SkillsViewModel(
           if (ticket.processingStatus == ProcessingStatus.IN_QUEUE) {
             Single.just(it)
           } else {
-            Single.fromCallable {
-              if (hasAuthenticationPermissionUseCase()) {
+            if (hasAuthenticationPermissionUseCase()) {
+              Single.fromCallable {
                 cachePaymentUseCase(ticket, eskillsPaymentData)
                 view.showFingerprintAuthentication()
-              } else {
-                payTicketUseCase(ticket, eskillsPaymentData)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe { view.showLoading() }
-                    .map { paymentResult -> handlePaymentResultStatus(view, paymentResult, ticket) }
               }
+            } else {
+              payTicketUseCase(ticket, eskillsPaymentData)
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .doOnSubscribe { view.showLoading() }
+                  .map { paymentResult -> handlePaymentResultStatus(view, paymentResult, ticket) }
             }
           }
         }
