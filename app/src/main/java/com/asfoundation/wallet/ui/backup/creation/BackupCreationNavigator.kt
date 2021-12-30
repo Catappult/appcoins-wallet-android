@@ -6,20 +6,16 @@ import com.asfoundation.wallet.ui.backup.BackupActivityNavigator
 import com.asfoundation.wallet.ui.backup.save.SaveBackupBottomSheetFragment
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
 
-class BackupCreationNavigator(private val fragmentManager: FragmentManager,
-                              private val activityNavigator: BackupActivityNavigator) {
+class BackupCreationNavigator(private val fragmentManager: FragmentManager) {
 
-  fun openSystemFileDirectory(fileName: String) =
-      activityNavigator.openSystemFileDirectory(fileName) // TODO: REMOVE
+  fun navigateToSaveOnDeviceScreen(walletAddress: String, password: String) {
+    val bottomSheet = SaveBackupBottomSheetFragment.newInstance(walletAddress, password)
+    bottomSheet.show(fragmentManager, "SaveBackupBottomSheet")
+  }
 
-  fun showSuccessScreen() {  // TODO: REMOVE
+  fun navigateToSuccessScreen() {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container, BackupSuccessFragment.newInstance(true))
         .commit()
-  }
-
-  fun showSaveOnDeviceScreen(walletAddress: String, password: String) {
-    val bottomSheet = SaveBackupBottomSheetFragment.newInstance(walletAddress, password)
-    bottomSheet.show(fragmentManager, "SaveBackupBottomSheet")
   }
 }

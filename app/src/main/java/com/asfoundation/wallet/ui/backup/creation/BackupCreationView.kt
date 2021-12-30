@@ -10,7 +10,7 @@ interface BackupCreationView {
 
   fun showError()
 
-  fun closeScreen()
+  fun dismiss()
 
   fun askForWritePermissions()
 

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.BackupActivityView
@@ -24,9 +23,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   @Inject
   lateinit var presenter: BackupCreationPresenter
-  private lateinit var dialogView: View
   private lateinit var activityView: BackupActivityView
-  private lateinit var dialog: AlertDialog
   private lateinit var onWritePermissionGivenSubject: PublishSubject<Unit>
 
   companion object {
@@ -60,13 +57,12 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    dialogView = layoutInflater.inflate(R.layout.save_backup_layout, null)
     return inflater.inflate(R.layout.fragment_backup_creation_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present(savedInstanceState)
+    presenter.present()
   }
 
   override fun onDestroy() {
@@ -84,10 +80,10 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
   override fun showError() {
     Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG)
         .show()
-    activityView.closeScreen()
+    dismiss()
   }
 
-  override fun closeScreen() = activityView.closeScreen()
+  override fun dismiss() = activityView.closeScreen()
 
   override fun askForWritePermissions() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ||

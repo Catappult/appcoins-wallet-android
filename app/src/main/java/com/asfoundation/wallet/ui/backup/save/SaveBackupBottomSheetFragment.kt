@@ -83,7 +83,7 @@ class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
         activityResultLauncher.launch(intent)
       } else {
         viewModel.saveBackupFile(views.fileNameInput.getText())
-        navigator.navigateSuccessScreen()
+        navigator.navigateToSuccessScreen()
       }
     }
     views.backupCancel.setOnClickListener {
@@ -122,6 +122,6 @@ class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   }
 
   override fun onSideEffect(sideEffect: SaveBackupBottomSheetSideEffect) = when (sideEffect) {
-    SaveBackupBottomSheetSideEffect.NavigateToSuccess -> navigator.navigateSuccessScreen()
+    SaveBackupBottomSheetSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen()
   }
 }

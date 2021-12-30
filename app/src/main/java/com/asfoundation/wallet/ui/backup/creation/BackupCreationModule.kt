@@ -40,17 +40,14 @@ class BackupCreationModule {
   }
 
   @Provides
-  fun providesBackupCreationInteractor(exportWalletInteractor: ExportWalletInteractor,
-                                       fileInteractor: FileInteractor,
-                                       backupRestorePreferencesRepository: BackupRestorePreferencesRepository): BackupCreationInteractor {
-    return BackupCreationInteractor(exportWalletInteractor, fileInteractor,
-        backupRestorePreferencesRepository)
+  fun providesBackupCreationInteractor(
+      backupRestorePreferencesRepository: BackupRestorePreferencesRepository): BackupCreationInteractor {
+    return BackupCreationInteractor(backupRestorePreferencesRepository)
   }
 
   @Provides
-  fun providesBackupCreationNavigator(fragment: BackupCreationFragment,
-                                      activityNavigator: BackupActivityNavigator): BackupCreationNavigator {
-    return BackupCreationNavigator(fragment.requireFragmentManager(), activityNavigator)
+  fun providesBackupCreationNavigator(fragment: BackupCreationFragment): BackupCreationNavigator {
+    return BackupCreationNavigator(fragment.requireFragmentManager())
   }
 
   @Provides

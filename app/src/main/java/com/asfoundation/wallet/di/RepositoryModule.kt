@@ -521,7 +521,9 @@ class RepositoryModule {
   @Provides
   fun providesBackupRepository(@Named("default") client: OkHttpClient,
                                objectMapper: ObjectMapper,
-                               contentResolver: ContentResolver): BackupRepository {
+                               contentResolver: ContentResolver,
+                               rxSchedulers: RxSchedulers,
+                               walletService: WalletService): BackupRepository {
     val baseUrl = BuildConfig.BASE_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -530,6 +532,6 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(BackupRepository.BackupEmailApi::class.java)
-    return BackupRepository(contentResolver, api)
+    return BackupRepository(contentResolver, api, rxSchedulers, walletService)
   }
 }
