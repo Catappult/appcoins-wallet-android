@@ -1,14 +1,12 @@
 package com.asfoundation.wallet.di
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
-import cm.aptoide.skills.repository.RoomRepository
-import cm.aptoide.skills.repository.SharedPreferencesTicketLocalStorage
-import cm.aptoide.skills.repository.TicketApiMapper
-import cm.aptoide.skills.repository.TicketRepository
+import cm.aptoide.skills.repository.*
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
@@ -93,6 +91,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -131,7 +130,7 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesAppCoinsOperationRepository(context: Context): AppCoinsOperationRepository {
+  fun providesAppCoinsOperationRepository(@ApplicationContext context: Context): AppCoinsOperationRepository {
     return AppCoinsOperationRepository(
         Room.databaseBuilder(context.applicationContext, AppCoinsOperationDatabase::class.java,
             "appcoins_operations_data")
@@ -277,7 +276,7 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideIdsRepository(context: Context,
+  fun provideIdsRepository(@ApplicationContext context: Context,
                            sharedPreferencesRepository: SharedPreferencesRepository,
                            userStatsLocalData: UserStatsLocalData,
                            installerService: InstallerService): IdsRepository {
@@ -303,8 +302,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideSupportRepository(preferences: SupportSharedPreferences, app: App): SupportRepository {
-    return SupportRepository(preferences, app)
+  fun provideSupportRepository(preferences: SupportSharedPreferences, app: Application): SupportRepository {
+    return SupportRepository(preferences, app as App)
   }
 
   @Singleton
@@ -451,7 +450,7 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesSendLogsRepository(@Named("default") client: OkHttpClient, logsDao: LogsDao,
-                                 rxSchedulers: RxSchedulers, context: Context): SendLogsRepository {
+                                 rxSchedulers: RxSchedulers, @ApplicationContext context: Context): SendLogsRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BACKEND_HOST)
         .client(client)
@@ -526,6 +525,16 @@ class RepositoryModule {
   }
 
   @Provides
+  fun providesLoginRepository(roomApi: RoomApi): LoginRepository {
+    return LoginRepository(roomApi)
+  }
+
+  @Provides
+  fun providesRoomRepository(roomApi: RoomApi): RoomRepository {
+    return RoomRepository(roomApi)
+  }
+
+  @Provides
   fun providesRoomApi(@Named("default") client: OkHttpClient): RoomApi {
     val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd HH:mm")
@@ -558,10 +567,4 @@ class RepositoryModule {
     return TicketRepository(api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson),
         TicketApiMapper(gson))
   }
-
-  @Provides
-  fun providesRoomRepository(roomApi: RoomApi): RoomRepository {
-    return RoomRepository(roomApi)
-  }
-
 }

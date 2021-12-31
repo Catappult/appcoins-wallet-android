@@ -3,9 +3,10 @@ package com.asfoundation.wallet.referrals
 import android.content.SharedPreferences
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class SharedPreferencesReferralLocalData(private val preferences: SharedPreferences) :
-    ReferralLocalData {
+class SharedPreferencesReferralLocalData @Inject constructor(
+    private val preferences: SharedPreferences) : ReferralLocalData {
 
   override fun saveReferralInformation(address: String, invitedFriends: Int,
                                        isVerified: Boolean, screen: String): Completable {

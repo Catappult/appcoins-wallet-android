@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.restore
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.main.MainActivityNavigator
@@ -13,7 +14,7 @@ import dagger.hilt.android.components.ActivityComponent
 class RestoreWalletActivityModule {
 
   @Provides
-  fun providesRestoreWalletActivityPresenter(activity: AppCompatActivity,
+  fun providesRestoreWalletActivityPresenter(activity: Activity,
                                              walletsEventSender: WalletsEventSender,
                                              navigator: RestoreWalletActivityNavigator): RestoreWalletActivityPresenter {
     return RestoreWalletActivityPresenter(activity as RestoreWalletActivityView, walletsEventSender,
@@ -21,9 +22,8 @@ class RestoreWalletActivityModule {
   }
 
   @Provides
-  fun providesRestoreWalletActivityNavigator(
-      activity: AppCompatActivity): RestoreWalletActivityNavigator {
+  fun providesRestoreWalletActivityNavigator(activity: Activity): RestoreWalletActivityNavigator {
     return RestoreWalletActivityNavigator(MainActivityNavigator(activity),
-        activity.supportFragmentManager)
+        (activity as AppCompatActivity).supportFragmentManager)
   }
 }

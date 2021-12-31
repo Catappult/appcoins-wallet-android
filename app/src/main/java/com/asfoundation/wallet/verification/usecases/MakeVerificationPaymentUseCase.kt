@@ -7,9 +7,11 @@ import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import io.reactivex.Single
+import javax.inject.Inject
 
-class MakeVerificationPaymentUseCase(private val verificationRepository: VerificationRepository,
-                                     private val walletService: WalletService) {
+class MakeVerificationPaymentUseCase @Inject constructor(
+    private val verificationRepository: VerificationRepository,
+    private val walletService: WalletService) {
 
   operator fun invoke(verificationType: WalletVerificationInteractor.VerificationType,
                       adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,

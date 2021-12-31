@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.verification.ui.credit_card
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.verification.repository.VerificationRepository
@@ -18,13 +19,13 @@ class VerificationCreditCardActivityModule {
 
   @Provides
   fun providesVerificationActivityData(
-      activity: AppCompatActivity): VerificationCreditCardActivityData {
+      activity: Activity): VerificationCreditCardActivityData {
     return VerificationCreditCardActivityData(
         activity.intent.getBooleanExtra(IS_WALLET_VERIFIED, false))
   }
 
   @Provides
-  fun providesWalletVerificationActivityPresenter(activity: AppCompatActivity,
+  fun providesWalletVerificationActivityPresenter(activity: Activity,
                                                   navigator: VerificationCreditCardActivityNavigator,
                                                   interactor: VerificationCreditCardActivityInteractor,
                                                   analytics: VerificationAnalytics): VerificationCreditCardActivityPresenter {
@@ -36,8 +37,9 @@ class VerificationCreditCardActivityModule {
 
   @Provides
   fun providesWalletVerificationActivityNavigator(
-      activity: AppCompatActivity): VerificationCreditCardActivityNavigator {
-    return VerificationCreditCardActivityNavigator(activity, activity.supportFragmentManager)
+      activity: Activity): VerificationCreditCardActivityNavigator {
+    return VerificationCreditCardActivityNavigator(activity,
+        (activity as AppCompatActivity).supportFragmentManager)
   }
 
   @Provides

@@ -10,8 +10,9 @@ import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInfoModel
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import io.reactivex.Single
+import javax.inject.Inject
 
-class GetVerificationInfoUseCase(
+class GetVerificationInfoUseCase @Inject constructor(
     private val walletService: WalletService,
     private val verificationRepository: VerificationRepository,
     private val adyenPaymentInteractor: AdyenPaymentInteractor,

@@ -10,8 +10,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 
-@InstallIn(ActivityComponent::class)
+@InstallIn(FragmentComponent::class)
 @Module
 class HomeModule {
 
@@ -44,7 +46,7 @@ class HomeModule {
                                    getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
                                    displayChatUseCase: DisplayChatUseCase,
                                    displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
-                                   context: Context,
+                                   @ActivityContext context: Context,
                                    walletsEventSender: WalletsEventSender): HomeViewModelFactory {
     return HomeViewModelFactory(homeAnalytics, observeWalletInfoUseCase,
         shouldOpenRatingDialogUseCase, updateTransactionsNumberUseCase, findNetworkInfoUseCase,

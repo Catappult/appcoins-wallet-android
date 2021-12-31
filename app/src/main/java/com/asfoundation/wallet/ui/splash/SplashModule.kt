@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.splash
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.interact.AutoUpdateInteract
@@ -32,7 +33,7 @@ class SplashModule {
   }
 
   @Provides
-  fun providesSplashNavigator(activity: AppCompatActivity): SplashNavigator {
-    return SplashNavigator(activity)
+  fun providesSplashNavigator(activity: Activity): SplashNavigator {
+    return SplashNavigator(activity as AppCompatActivity)
   }
 }

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.main
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
@@ -16,12 +16,12 @@ import dagger.hilt.android.components.ActivityComponent
 class MainActivityModule {
 
   @Provides
-  fun provideNavigator(activity: AppCompatActivity): MainActivityNavigator {
+  fun provideNavigator(activity: Activity): MainActivityNavigator {
     return MainActivityNavigator(activity)
   }
 
   @Provides
-  fun provideData(activity: AppCompatActivity): MainData {
+  fun provideData(activity: Activity): MainData {
     return MainData(
         activity.intent.getBooleanExtra(SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
             false)

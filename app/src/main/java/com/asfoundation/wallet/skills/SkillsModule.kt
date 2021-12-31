@@ -57,11 +57,6 @@ class SkillsModule {
   }
 
   @Provides
-  fun providesLoginRepository(roomApi: RoomApi): LoginRepository {
-    return LoginRepository(roomApi)
-  }
-
-  @Provides
   fun providesGetTicketUseCase(walletAddressObtainer: WalletAddressObtainer,
                                ewtObtainer: EwtObtainer,
                                ticketRepository: TicketRepository): GetTicketUseCase {

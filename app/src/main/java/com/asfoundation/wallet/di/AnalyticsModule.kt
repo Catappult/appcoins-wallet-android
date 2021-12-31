@@ -102,7 +102,8 @@ class AnalyticsModule {
   @Singleton
   @Provides
   fun provideAnalyticsManager(@Named("default") okHttpClient: OkHttpClient, api: AnalyticsAPI,
-                              context: Context, @Named("bi_event_list") biEventList: List<String>,
+                              @ApplicationContext context: Context,
+                              @Named("bi_event_list") biEventList: List<String>,
                               @Named("facebook_event_list") facebookEventList: List<String>,
                               @Named("rakam_event_list") rakamEventList: List<String>,
                               @Named("amplitude_event_list")
@@ -145,7 +146,7 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideRakamAnalyticsSetup(context: Context, idsRepository: IdsRepository,
+  fun provideRakamAnalyticsSetup(@ApplicationContext context: Context, idsRepository: IdsRepository,
                                  promotionsRepository: PromotionsRepository, logger: Logger,
                                  promoCodeLocalDataSource: PromoCodeLocalDataSource): RakamAnalytics {
     return RakamAnalytics(context, idsRepository, promotionsRepository, logger,

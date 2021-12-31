@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.main.usecases
 
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import javax.inject.Inject
 
-class IncreaseLaunchCountUseCase(val preferencesRepositoryType: PreferencesRepositoryType) {
+class IncreaseLaunchCountUseCase @Inject constructor(
+    val preferencesRepositoryType: PreferencesRepositoryType) {
 
   companion object {
     // An high arbitrary number that conceivably will cover any future use case
