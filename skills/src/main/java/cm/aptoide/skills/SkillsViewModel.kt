@@ -30,6 +30,7 @@ class SkillsViewModel(
     const val RESULT_REGION_NOT_SUPPORTED = 2
     const val RESULT_SERVICE_UNAVAILABLE = 3
     const val RESULT_ERROR = 6
+    const val RESULT_INVALID_URL = 7
   }
 
   fun handleWalletCreationIfNeeded(): Observable<String> {

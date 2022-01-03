@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import cm.aptoide.skills.SkillsViewModel.Companion.RESULT_INVALID_URL
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
@@ -57,6 +58,10 @@ class SkillsFragment : DaggerFragment() {
     disposable = CompositeDisposable()
 
     val eskillsUri = getEskillsUri()
+    if(eskillsUri == Uri.EMPTY) {
+      finishWithError(RESULT_INVALID_URL)
+    }
+    val eskillsPaymentData = eskillsUriParser.parse(eskillsUri)
     requireActivity().onBackPressedDispatcher
       .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -71,10 +76,10 @@ class SkillsFragment : DaggerFragment() {
       handleWalletCreationIfNeeded()
         .takeUntil { it != WALLET_CREATING_STATUS }
         .flatMapCompletable {
-          viewModel.joinQueue(eskillsUri)
+          viewModel.joinQueue(eskillsPaymentData)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { showRoomLoading(false) }
-            .flatMapCompletable { handleTicketCreationResult(eskillsUri, it) }
+            .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
         }
         .subscribe()
     )
@@ -163,9 +168,18 @@ class SkillsFragment : DaggerFragment() {
     super.onDestroyView()
   }
 
-  private fun getEskillsUri(): EskillsPaymentData {
+  private fun getEskillsUri(): Uri {
     val intent = requireActivity().intent
-    return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
+    val eskillsUri = Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY))
+    if(containsDuplicateParameters(eskillsUri)) {
+      return Uri.EMPTY
+    }
+    return eskillsUri
+  }
+
+  private fun containsDuplicateParameters(uri: Uri): Boolean {
+    val numberOfQueryParameters = uri.query?.split("&")?.size
+    return uri.queryParameterNames.size != numberOfQueryParameters
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
