@@ -60,13 +60,15 @@ class SkillsModule {
       getAuthenticationIntentUseCase: GetAuthenticationIntentUseCase,
       cachePaymentUseCase: CachePaymentUseCase,
       getCachedPaymentUseCase: GetCachedPaymentUseCase,
+      verificationFlowUseCase: SendUserVerificationFlowUseCase,
   ): SkillsViewModel {
     return SkillsViewModel(
         walletObtainer, joinQueueUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS,
         loginUseCase, cancelUseCase, PublishSubject.create(), payTicketUseCase,
         saveQueueIdToClipboardUseCase, getApplicationInfoUseCase, getTicketPriceUseCase,
         getUserBalanceUseCase, sendUserToTopUpFlowUseCase, hasAuthenticationPermissionUseCase,
-        getAuthenticationIntentUseCase, cachePaymentUseCase, getCachedPaymentUseCase
+        getAuthenticationIntentUseCase, cachePaymentUseCase, getCachedPaymentUseCase,
+        verificationFlowUseCase
     )
   }
 

@@ -383,8 +383,8 @@ class SkillsFragment : DaggerFragment(), PaymentView {
   }
 
   override fun showFraudError() {
-    // TODO implement the verify wallet flow
-    showError()
+    viewModel.sendUserToVerificationFlow(requireContext())
+    finishWithError(SkillsViewModel.RESULT_ERROR)
   }
 
   override fun showNoNetworkError() {

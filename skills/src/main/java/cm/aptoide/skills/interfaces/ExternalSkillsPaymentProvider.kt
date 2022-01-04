@@ -15,4 +15,5 @@ interface ExternalSkillsPaymentProvider {
   fun getFiatToAppcAmount(value: BigDecimal, currency: String): Single<Price>
   fun getFormattedAppcAmount(value: BigDecimal, currency: String): Single<String>
   fun sendUserToTopUpFlow(context: Context)
+  fun sendUserToVerificationFlow(context: Context)
 }

@@ -83,6 +83,12 @@ class UseCaseModule {
   }
 
   @Provides
+  fun providesSendUserToVerificationFlowUseCase(
+      externalSkillsPaymentProvider: ExternalSkillsPaymentProvider): SendUserVerificationFlowUseCase {
+    return SendUserVerificationFlowUseCase(externalSkillsPaymentProvider)
+  }
+
+  @Provides
   fun providesHasAuthenticationPermissionUseCase(
       externalAuthenticationProvider: ExternalAuthenticationProvider): HasAuthenticationPermissionUseCase {
     return HasAuthenticationPermissionUseCase(externalAuthenticationProvider)

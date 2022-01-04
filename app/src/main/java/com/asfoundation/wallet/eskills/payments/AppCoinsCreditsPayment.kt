@@ -24,7 +24,7 @@ class AppCoinsCreditsPayment(private val rewardsManager: RewardsManager,
                       eskillsPaymentData.packageName, eskillsPaymentData.product,
                       ticket.ticketPrice
                   )
-                      .takeUntil { it.status != Status.PROCESSING }
+                      .skipWhile { it.status == Status.PROCESSING }
               )
               .firstOrError()
               .flatMap { paymentStatus: RewardPayment ->

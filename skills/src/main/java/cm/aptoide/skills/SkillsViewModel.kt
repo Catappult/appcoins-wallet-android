@@ -33,7 +33,8 @@ class SkillsViewModel(
     private val hasAuthenticationPermissionUseCase: HasAuthenticationPermissionUseCase,
     private val getAuthenticationIntentUseCase: GetAuthenticationIntentUseCase,
     private val cachePaymentUseCase: CachePaymentUseCase,
-    private val getCachedPaymentUseCase: GetCachedPaymentUseCase
+    private val getCachedPaymentUseCase: GetCachedPaymentUseCase,
+    private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase
 ) {
   lateinit var ticketId: String
 
@@ -184,6 +185,10 @@ class SkillsViewModel(
 
   fun sendUserToTopUpFlow(context: Context) {
     sendUserToTopUpFlowUseCase(context)
+  }
+
+  fun sendUserToVerificationFlow(context: Context) {
+    sendUserVerificationFlowUseCase(context)
   }
 
   fun getAuthenticationIntent(context: Context): Intent {

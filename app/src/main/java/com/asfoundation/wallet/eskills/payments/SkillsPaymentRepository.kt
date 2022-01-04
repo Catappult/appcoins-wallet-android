@@ -12,6 +12,7 @@ import com.asfoundation.wallet.repository.CurrencyConversionService
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -56,5 +57,11 @@ class SkillsPaymentRepository(
                    ticket: CreatedTicket): Single<PaymentResult> {
     return appCoinsCreditsPayment.pay(eskillsPaymentData, ticket)
         .subscribeOn(schedulers.io)
+  }
+
+  override fun sendUserToVerificationFlow(context: Context) {
+    val intent = VerificationCreditCardActivity.newIntent(context)
+        .apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    context.startActivity(intent)
   }
 }
