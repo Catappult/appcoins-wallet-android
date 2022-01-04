@@ -53,7 +53,7 @@ class AccountWalletServiceTest {
 
     accountWalletService =
         AccountWalletService(accountKeyService, passwordStore, walletCreatorInteract,
-            SignDataStandardNormalizer(), walletRepository, syncScheduler)
+            walletRepository, syncScheduler)
   }
 
   @Test

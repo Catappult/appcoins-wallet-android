@@ -9,6 +9,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.commons.MemoryCache;
+import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
@@ -38,6 +39,7 @@ import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.EIPTransactionParser;
+import com.asfoundation.wallet.util.FakeSchedulers;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
@@ -108,6 +110,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private TestScheduler scheduler;
+  private RxSchedulers fakeSchedulers;
   private InAppPurchaseService inAppPurchaseService;
 
   @Before public void before()
@@ -142,6 +145,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
     when(defaultWalletInteract.find()).thenReturn(Single.just(new Wallet("wallet_address")));
 
     scheduler = new TestScheduler();
+    fakeSchedulers = new FakeSchedulers();
 
     when(transactionSender.send(any(TransactionBuilder.class))).thenReturn(Single.just(BUY_HASH));
 
@@ -208,9 +212,9 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
             new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
             new CurrencyConversionService(Mockito.mock(TokenRateService.class),
                 Mockito.mock(LocalCurrencyConversionService.class)),
-            new BdsTransactionService(scheduler,
+            new BdsTransactionService(fakeSchedulers,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-                new CompositeDisposable(), transactionService), scheduler);
+                new CompositeDisposable(), transactionService), fakeSchedulers);
 
     inAppPurchaseInteractor =
         new BdsInAppPurchaseInteractor(asfInAppPurchaseInteractor, billingPaymentProofSubmission,

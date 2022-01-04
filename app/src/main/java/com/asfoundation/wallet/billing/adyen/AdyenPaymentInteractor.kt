@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -29,6 +30,7 @@ import javax.inject.Inject
 class AdyenPaymentInteractor @Inject constructor(
     private val adyenPaymentRepository: AdyenPaymentRepository,
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val billingMessagesMapper: BillingMessagesMapper,
     private val partnerAddressService: AddressService,
     private val walletService: WalletService,
     private val supportInteractor: SupportInteractor,
@@ -117,7 +119,7 @@ class AdyenPaymentInteractor @Inject constructor(
     return inAppPurchaseInteractor.convertToFiat(amount, currency)
   }
 
-  fun mapCancellation(): Bundle = inAppPurchaseInteractor.billingMessagesMapper.mapCancellation()
+  fun mapCancellation(): Bundle = billingMessagesMapper.mapCancellation()
 
   fun removePreSelectedPaymentMethod() = inAppPurchaseInteractor.removePreSelectedPaymentMethod()
 

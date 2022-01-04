@@ -20,11 +20,12 @@ import javax.inject.Named
 class AutoUpdateInteract @Inject constructor(private val autoUpdateRepository: AutoUpdateRepository,
                                              @Named("local_version_code")
                                              private val walletVersionCode: Int,
+                                             @Named("device-sdk")
+                                             private val deviceSdk: Int,
+                                             @Named("package-name")
+                                             private val packageName: String,
                                              private val packageManager: PackageManager,
-                                             @ApplicationContext private val context: Context,
                                              private val sharedPreferencesRepository: PreferencesRepositoryType) {
-
-  private val deviceSdk = Build.VERSION.SDK_INT
 
   fun getAutoUpdateModel(invalidateCache: Boolean = true): Single<AutoUpdateModel> {
     return autoUpdateRepository.loadAutoUpdateModel(invalidateCache)
@@ -40,7 +41,7 @@ class AutoUpdateInteract @Inject constructor(private val autoUpdateRepository: A
   }
 
   fun retrieveRedirectUrl(): String {
-    return String.format(PLAY_APP_VIEW_URL, context.packageName)
+    return String.format(PLAY_APP_VIEW_URL, packageName)
   }
 
   fun buildUpdateIntent(): Intent {

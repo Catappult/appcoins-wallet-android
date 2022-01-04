@@ -185,6 +185,18 @@ internal class AppModule {
   }
 
   @Provides
+  @Named("device-sdk")
+  fun provideDeviceSdk(): Int = Build.VERSION.SDK_INT
+
+  @Provides
+  @Named("package-name")
+  fun providePackageName(@ApplicationContext context: Context): String = context.packageName
+
+  @Provides
+  @Named("payment-gas-limit")
+  fun providePaymentGasLimit(): BigDecimal = BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT)
+
+  @Provides
   fun provideContentResolver(@ApplicationContext context: Context): ContentResolver =
       context.contentResolver
 

@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.service
 
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.util.FakeSchedulers
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
@@ -18,6 +20,7 @@ class CampaignServiceTest {
   lateinit var api: CampaignService.CampaignApi
   private lateinit var campaignService: CampaignService
   private lateinit var scheduler: TestScheduler
+  private val fakeSchedulers: RxSchedulers = FakeSchedulers()
 
 
   companion object {
@@ -61,7 +64,7 @@ class CampaignServiceTest {
         api.getPoaInformation(ELIGIBLE_ADDRESS)).thenReturn(
         Observable.just(PoaInformationResponse(0, 3, 0)))
     scheduler = TestScheduler()
-    campaignService = CampaignService(api, BuildConfig.VERSION_CODE, scheduler)
+    campaignService = CampaignService(api, BuildConfig.VERSION_CODE, fakeSchedulers)
   }
 
 

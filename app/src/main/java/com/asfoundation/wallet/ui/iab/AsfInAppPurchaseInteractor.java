@@ -6,7 +6,6 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -20,18 +19,17 @@ import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
+import javax.inject.Named;
 
 public class AsfInAppPurchaseInteractor {
   private static final double GAS_PRICE_MULTIPLIER = 1.25;
-  private static final BigDecimal paymentGasLimit = new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT);
+  private final BigDecimal paymentGasLimit;
   private final InAppPurchaseService inAppPurchaseService;
   private final CurrencyConversionService currencyConversionService;
   private final FindDefaultWalletInteract defaultWalletInteract;
@@ -44,12 +42,14 @@ public class AsfInAppPurchaseInteractor {
 
   public AsfInAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
-      TransferParser parser, BillingMessagesMapper billingMessagesMapper, Billing billing,
+      @Named("payment-gas-limit") BigDecimal paymentGasLimit, TransferParser parser,
+      BillingMessagesMapper billingMessagesMapper, Billing billing,
       CurrencyConversionService currencyConversionService,
       BdsTransactionService trackTransactionService, RxSchedulers rxSchedulers) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
+    this.paymentGasLimit = paymentGasLimit;
     this.parser = parser;
     this.billingMessagesMapper = billingMessagesMapper;
     this.billing = billing;
