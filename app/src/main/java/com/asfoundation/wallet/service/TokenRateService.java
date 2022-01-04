@@ -6,6 +6,7 @@ import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import javax.inject.Inject;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -14,12 +15,10 @@ import retrofit2.http.Query;
  */
 
 public class TokenRateService {
-  public static final String CONVERSION_HOST = BuildConfig.BACKEND_HOST;
 
   private final TokenToFiatApi tokenToFiatApi;
 
-  public TokenRateService(TokenToFiatApi tokenToFiatApi) {
-
+  public @Inject TokenRateService(TokenToFiatApi tokenToFiatApi) {
     this.tokenToFiatApi = tokenToFiatApi;
   }
 

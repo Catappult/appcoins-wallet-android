@@ -1,22 +1,30 @@
 package com.asfoundation.wallet.interact
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import com.asf.wallet.R
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.repository.AutoUpdateRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Named
 
-class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
-                         private val walletVersionCode: Int, private val deviceSdk: Int,
-                         private val packageManager: PackageManager,
-                         private val walletPackageName: String,
-                         private val sharedPreferencesRepository: PreferencesRepositoryType) {
+class AutoUpdateInteract @Inject constructor(private val autoUpdateRepository: AutoUpdateRepository,
+                                             @Named("local_version_code")
+                                             private val walletVersionCode: Int,
+                                             private val packageManager: PackageManager,
+                                             @ApplicationContext private val context: Context,
+                                             private val sharedPreferencesRepository: PreferencesRepositoryType) {
+
+  private val deviceSdk = Build.VERSION.SDK_INT
 
   fun getAutoUpdateModel(invalidateCache: Boolean = true): Single<AutoUpdateModel> {
     return autoUpdateRepository.loadAutoUpdateModel(invalidateCache)
@@ -32,7 +40,7 @@ class AutoUpdateInteract(private val autoUpdateRepository: AutoUpdateRepository,
   }
 
   fun retrieveRedirectUrl(): String {
-    return String.format(PLAY_APP_VIEW_URL, walletPackageName)
+    return String.format(PLAY_APP_VIEW_URL, context.packageName)
   }
 
   fun buildUpdateIntent(): Intent {

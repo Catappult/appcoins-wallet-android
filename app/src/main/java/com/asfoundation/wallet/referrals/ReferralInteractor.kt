@@ -12,9 +12,12 @@ import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class ReferralInteractor(
+@BoundTo(supertype = ReferralInteractorContract::class)
+class ReferralInteractor @Inject constructor(
     private val preferences: SharedPreferencesReferralLocalData,
     private val defaultWallet: FindDefaultWalletInteract,
     private val promotionsRepository: PromotionsRepository,

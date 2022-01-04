@@ -9,12 +9,13 @@ import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class MergedAppcoinsInteractor(private val balanceInteractor: BalanceInteractor,
-                               private val walletBlockedInteract: WalletBlockedInteract,
-                               private val supportInteractor: SupportInteractor,
-                               private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                               private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+class MergedAppcoinsInteractor @Inject constructor(private val balanceInteractor: BalanceInteractor,
+                                                   private val walletBlockedInteract: WalletBlockedInteract,
+                                                   private val supportInteractor: SupportInteractor,
+                                                   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                                   private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return supportInteractor.showSupport(gamificationLevel)

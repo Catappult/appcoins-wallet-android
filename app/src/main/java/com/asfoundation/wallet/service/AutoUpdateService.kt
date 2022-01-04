@@ -4,8 +4,9 @@ import com.asfoundation.wallet.entity.AutoUpdateResponse
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
 import retrofit2.http.GET
+import javax.inject.Inject
 
-class AutoUpdateService(private val api: AutoUpdateApi) {
+class AutoUpdateService @Inject constructor(private val api: AutoUpdateApi) {
 
   fun loadAutoUpdateModel(): Single<AutoUpdateModel> {
     return api.getAutoUpdateInfo()

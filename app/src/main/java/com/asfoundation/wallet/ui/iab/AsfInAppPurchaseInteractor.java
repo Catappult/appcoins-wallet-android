@@ -6,6 +6,8 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
@@ -25,36 +27,35 @@ import java.math.BigDecimal;
 import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 public class AsfInAppPurchaseInteractor {
   private static final double GAS_PRICE_MULTIPLIER = 1.25;
+  private static final BigDecimal paymentGasLimit = new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT);
   private final InAppPurchaseService inAppPurchaseService;
   private final CurrencyConversionService currencyConversionService;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchGasSettingsInteract gasSettingsInteract;
-  private final BigDecimal paymentGasLimit;
   private final TransferParser parser;
   private final BillingMessagesMapper billingMessagesMapper;
   private final Billing billing;
   private final BdsTransactionService trackTransactionService;
-  private final Scheduler scheduler;
+  private final RxSchedulers rxSchedulers;
 
   public AsfInAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
-      BigDecimal paymentGasLimit, TransferParser parser,
-      BillingMessagesMapper billingMessagesMapper, Billing billing,
+      TransferParser parser, BillingMessagesMapper billingMessagesMapper, Billing billing,
       CurrencyConversionService currencyConversionService,
-      BdsTransactionService trackTransactionService, Scheduler scheduler) {
+      BdsTransactionService trackTransactionService, RxSchedulers rxSchedulers) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
-    this.paymentGasLimit = paymentGasLimit;
     this.parser = parser;
     this.billingMessagesMapper = billingMessagesMapper;
     this.billing = billing;
     this.currencyConversionService = currencyConversionService;
     this.trackTransactionService = trackTransactionService;
-    this.scheduler = scheduler;
+    this.rxSchedulers = rxSchedulers;
   }
 
   Single<TransactionBuilder> parseTransaction(String uri) {
@@ -91,7 +92,7 @@ public class AsfInAppPurchaseInteractor {
         paymentTransaction.getTransactionBuilder()
             .getType());
     return billing.getSkuTransaction(packageName, paymentTransaction.getTransactionBuilder()
-        .getSkuId(), scheduler, billingType)
+        .getSkuId(), rxSchedulers.getIo(), billingType)
         .flatMapCompletable(
             transaction -> resumePayment(approveKey, paymentTransaction, transaction));
   }
@@ -193,8 +194,10 @@ public class AsfInAppPurchaseInteractor {
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
       String productName, String developerPayload, BigDecimal amount) {
-    return Single.zip(parseTransaction(uri).observeOn(scheduler), defaultWalletInteract.find()
-        .observeOn(scheduler), (transaction, wallet) -> transaction.fromAddress(wallet.address))
+    return Single.zip(parseTransaction(uri).observeOn(rxSchedulers.getIo()),
+        defaultWalletInteract.find()
+            .observeOn(rxSchedulers.getIo()),
+        (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> {
               transactionBuilder.gasSettings(new GasSettings(

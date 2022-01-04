@@ -4,8 +4,9 @@ import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Single
+import javax.inject.Inject
 
-class CurrencyConversionService(private val tokenRateService: TokenRateService,
+class CurrencyConversionService @Inject constructor(private val tokenRateService: TokenRateService,
                                 private val localCurrencyConversionService: LocalCurrencyConversionService) {
 
   fun getTokenValue(currency: String?): Single<FiatValue> {

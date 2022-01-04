@@ -1,16 +1,18 @@
 package com.asfoundation.wallet.wallets
 
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.WalletRepositoryType
-import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.Single
+import javax.inject.Inject
 
-class FindDefaultWalletInteract(private val walletRepository: WalletRepositoryType,
-                                private val scheduler: Scheduler) {
+class FindDefaultWalletInteract @Inject constructor(
+    private val walletRepository: WalletRepositoryType,
+    private val rxSchedulers: RxSchedulers) {
+
   fun find(): Single<Wallet> {
     return walletRepository.getDefaultWallet()
-        .subscribeOn(scheduler)
+        .subscribeOn(rxSchedulers.io)
         .onErrorResumeNext {
           walletRepository.fetchWallets()
               .filter { wallets -> wallets.isNotEmpty() }

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.service.currencies
 
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.ConversionResponseBody
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Single
@@ -8,8 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.math.RoundingMode
+import javax.inject.Inject
 
-class LocalCurrencyConversionService(
+class LocalCurrencyConversionService @Inject constructor(
     private val tokenToLocalFiatApi: TokenToLocalFiatApi,
     private val currencyConversionRatesPersistence: CurrencyConversionRatesPersistence) {
 
@@ -85,9 +85,5 @@ class LocalCurrencyConversionService(
     @GET("broker/8.20180518/exchanges/{currency}/convert/{value}?to=APPC")
     fun convertFiatToAppc(@Path("currency") currency: String,
                           @Path("value") value: String): Single<ConversionResponseBody>
-  }
-
-  companion object {
-    const val CONVERSION_HOST = BuildConfig.BASE_HOST
   }
 }

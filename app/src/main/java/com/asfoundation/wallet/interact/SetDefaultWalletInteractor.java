@@ -2,12 +2,13 @@ package com.asfoundation.wallet.interact;
 
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import io.reactivex.Completable;
+import javax.inject.Inject;
 
 public class SetDefaultWalletInteractor {
 
-  private WalletRepositoryType accountRepository;
+  private final WalletRepositoryType accountRepository;
 
-  public SetDefaultWalletInteractor(WalletRepositoryType walletRepositoryType) {
+  public @Inject SetDefaultWalletInteractor(WalletRepositoryType walletRepositoryType) {
     this.accountRepository = walletRepositoryType;
   }
 

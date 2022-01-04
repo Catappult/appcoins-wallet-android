@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.di.api
 
 import android.content.Context
-import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.LogInterceptor
 import com.asfoundation.wallet.util.UserAgentInterceptor
@@ -21,8 +20,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class BaseApiModule {
-
-  private val localhost = "https://localhost/"
 
   @Singleton
   @Provides
@@ -100,15 +97,5 @@ class BaseApiModule {
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-  }
-
-  @Singleton
-  @Provides
-  fun providesAwsUploadFilesApi(
-      @Named("default") retrofit: Retrofit): SendLogsRepository.AwsUploadFilesApi {
-    return retrofit.newBuilder()
-        .baseUrl(localhost)
-        .build()
-        .create(SendLogsRepository.AwsUploadFilesApi::class.java)
   }
 }

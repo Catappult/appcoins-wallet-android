@@ -8,14 +8,6 @@ import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.repository.SharedPreferencesTicketLocalStorage
 import cm.aptoide.skills.repository.TicketApiMapper
 import cm.aptoide.skills.repository.TicketRepository
-import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
-import com.appcoins.wallet.billing.carrierbilling.CarrierBillingRepository
-import com.appcoins.wallet.billing.carrierbilling.CarrierResponseMapper
-import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
-import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponseTypeAdapter
-import com.appcoins.wallet.billing.common.BillingErrorMapper
-import com.appcoins.wallet.commons.Logger
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
@@ -55,26 +47,6 @@ class RepositoryModule {
             "appcoins_operations_data")
             .build()
             .appCoinsOperationDao(), AppCoinsOperationMapper())
-  }
-
-  @Singleton
-  @Provides
-  fun provideCarrierBillingRepository(@Named("default") client: OkHttpClient,
-                                      preferences: CarrierBillingPreferencesRepository,
-                                      billingErrorMapper: BillingErrorMapper,
-                                      logger: Logger): CarrierBillingRepository {
-    val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
-        CarrierErrorResponseTypeAdapter())
-        .create()
-    val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_HOST + "/broker/8.20210329/")
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-        .build()
-    val api = retrofit.create(CarrierBillingRepository.CarrierBillingApi::class.java)
-    return CarrierBillingRepository(api, preferences,
-        CarrierResponseMapper(retrofit, billingErrorMapper), BuildConfig.APPLICATION_ID, logger)
   }
 
   @Singleton

@@ -2,20 +2,25 @@ package com.asfoundation.wallet.ui.balance
 
 import android.content.SharedPreferences
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
-import io.reactivex.*
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class BalanceInteractor(private val accountWalletService: AccountWalletService,
-                        private val walletVerificationInteractor: WalletVerificationInteractor,
-                        private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-                        private val verificationRepository: VerificationRepository,
-                        private val networkScheduler: Scheduler) {
+class BalanceInteractor @Inject constructor(private val accountWalletService: AccountWalletService,
+                                            private val walletVerificationInteractor: WalletVerificationInteractor,
+                                            private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+                                            private val verificationRepository: VerificationRepository,
+                                            private val rxSchedulers: RxSchedulers) {
 
   companion object {
     val BIG_DECIMAL_MINUS_ONE = BigDecimal("-1")
@@ -35,7 +40,7 @@ class BalanceInteractor(private val accountWalletService: AccountWalletService,
 
   fun observeWalletVerification(address: String,
                                 signedAddress: String): Observable<BalanceVerificationModel> {
-    return Observable.interval(0, 5, TimeUnit.SECONDS, networkScheduler)
+    return Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
         .timeInterval()
         .flatMap {
           verificationRepository.getVerificationStatus(address, signedAddress)

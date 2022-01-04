@@ -3,22 +3,29 @@ package com.appcoins.wallet.billing.carrierbilling
 import com.appcoins.wallet.billing.carrierbilling.request.CarrierTransactionBody
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
+import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.commons.Logger
 import io.reactivex.Observable
 import io.reactivex.Single
+import retrofit2.Retrofit
 import retrofit2.http.*
+import javax.inject.Inject
+import javax.inject.Named
 
-class CarrierBillingRepository(private val api: CarrierBillingApi,
-                               private val preferences: CarrierBillingPreferencesRepository,
-                               private val mapper: CarrierResponseMapper,
-                               packageName: String,
-                               private val logger: Logger) {
+class CarrierBillingRepository @Inject constructor(private val api: CarrierBillingApi,
+                                                   private val preferences: CarrierBillingPreferencesRepository,
+                                                   @Named("broker-carrier-default")
+                                                   retrofit: Retrofit,
+                                                   billingErrorMapper: BillingErrorMapper,
+                                                   private val logger: Logger) {
 
   companion object {
     private const val METHOD = "onebip"
   }
 
+  private val mapper = CarrierResponseMapper(retrofit, billingErrorMapper)
+  private val packageName = "com.appcoins.wallet.dev"
   private val RETURN_URL = "https://${packageName}/return/carrier_billing"
 
   fun makePayment(walletAddress: String, walletSignature: String,

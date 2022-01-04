@@ -5,9 +5,10 @@ import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import javax.inject.Inject
 
-class TopUpValuesService(private val api: TopUpValuesApi,
-                         private val responseMapper: TopUpValuesApiResponseMapper) {
+class TopUpValuesService @Inject constructor(private val api: TopUpValuesApi,
+                                             private val responseMapper: TopUpValuesApiResponseMapper) {
 
   fun getDefaultValues(): Single<TopUpValuesModel> {
     return api.getDefaultValues(BuildConfig.APPLICATION_ID)

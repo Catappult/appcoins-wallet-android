@@ -8,9 +8,11 @@ import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class WalletVerificationInteractor(private val verificationRepository: VerificationRepository,
-                                   private val walletService: WalletService) {
+class WalletVerificationInteractor @Inject constructor(
+    private val verificationRepository: VerificationRepository,
+    private val walletService: WalletService) {
 
   enum class VerificationType { PAYPAL, CREDIT_CARD }
 

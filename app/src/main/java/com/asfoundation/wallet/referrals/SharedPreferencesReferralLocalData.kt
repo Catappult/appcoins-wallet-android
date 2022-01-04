@@ -3,8 +3,10 @@ package com.asfoundation.wallet.referrals
 import android.content.SharedPreferences
 import io.reactivex.Completable
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
+@BoundTo(supertype = ReferralLocalData::class)
 class SharedPreferencesReferralLocalData @Inject constructor(
     private val preferences: SharedPreferences) : ReferralLocalData {
 
