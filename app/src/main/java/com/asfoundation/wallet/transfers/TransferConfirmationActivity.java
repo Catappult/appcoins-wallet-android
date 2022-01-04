@@ -54,7 +54,7 @@ import static com.asfoundation.wallet.C.GWEI_UNIT;
 
     setContentView(R.layout.activity_confirm);
     toolbar();
-    currencyFormatUtils = CurrencyFormatUtils.Companion.create();
+    currencyFormatUtils = new CurrencyFormatUtils();
     fromAddressText = findViewById(R.id.text_from);
     toAddressText = findViewById(R.id.text_to);
     valueText = findViewById(R.id.text_value);

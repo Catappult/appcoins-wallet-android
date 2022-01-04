@@ -6,12 +6,15 @@ import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.service.AccountKeystoreService
 import io.reactivex.*
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-class WalletRepository(private val preferencesRepositoryType: PreferencesRepositoryType,
-                       private val accountKeystoreService: AccountKeystoreService,
-                       private val networkScheduler: Scheduler,
-                       private val analyticsSetUp: AnalyticsSetup,
-                       private val amplitudeAnalytics: AmplitudeAnalytics) : WalletRepositoryType {
+@BoundTo(supertype = WalletRepositoryType::class)
+class WalletRepository @Inject constructor(
+    private val preferencesRepositoryType: PreferencesRepositoryType,
+    private val accountKeystoreService: AccountKeystoreService,
+    private val analyticsSetUp: AnalyticsSetup,
+    private val amplitudeAnalytics: AmplitudeAnalytics) : WalletRepositoryType {
 
   override fun fetchWallets(): Single<Array<Wallet>> {
     return accountKeystoreService.fetchAccounts()

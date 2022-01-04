@@ -7,7 +7,6 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.gamification.repository.GamificationApi
@@ -312,7 +311,8 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideOemIdExtractorService(@ApplicationContext context: Context, extractor: IExtract): OemIdExtractorService {
+  fun provideOemIdExtractorService(@ApplicationContext context: Context,
+                                   extractor: IExtract): OemIdExtractorService {
     return OemIdExtractorService(OemIdExtractorV1(context),
         OemIdExtractorV2(context, extractor))
   }
@@ -457,20 +457,6 @@ class ServiceModule {
     return AppcoinsApps(Applications.Builder()
         .setApi(BDSAppsApi(appsApi))
         .build())
-  }
-
-  @Singleton
-  @Provides
-  fun provideBdsApi(@Named("blockchain") client: OkHttpClient,
-                    gson: Gson): RemoteRepository.BdsApi {
-    val baseUrl = BuildConfig.BASE_HOST
-    return Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(RemoteRepository.BdsApi::class.java)
   }
 
   @Singleton

@@ -4,8 +4,9 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import javax.inject.Inject
 
-class PaymentMethodsAnalytics(private val analyticsManager: AnalyticsManager,
+class PaymentMethodsAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager,
                               private val billingAnalytics: BillingAnalytics,
                               private val rakamAnalytics: RakamAnalytics,
                               private val amplitudeAnalytics: AmplitudeAnalytics) {

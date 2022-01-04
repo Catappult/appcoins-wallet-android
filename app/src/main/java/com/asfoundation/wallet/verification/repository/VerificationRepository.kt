@@ -10,11 +10,13 @@ import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class VerificationRepository(private val walletInfoRepository: WalletInfoRepository,
-                             private val brokerVerificationApi: BrokerVerificationApi,
-                             private val adyenResponseMapper: AdyenResponseMapper,
-                             private val sharedPreferences: SharedPreferences) {
+class VerificationRepository @Inject constructor(
+    private val walletInfoRepository: WalletInfoRepository,
+    private val brokerVerificationApi: BrokerVerificationApi,
+    private val adyenResponseMapper: AdyenResponseMapper,
+    private val sharedPreferences: SharedPreferences) {
 
   companion object {
     private const val WALLET_VERIFIED = "wallet_verified_cc_"

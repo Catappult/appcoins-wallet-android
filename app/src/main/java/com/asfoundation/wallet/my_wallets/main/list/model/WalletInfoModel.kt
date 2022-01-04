@@ -16,6 +16,7 @@ import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.qualifiers.ActivityContext
 
 @EpoxyModelClass
 abstract class WalletInfoModel : EpoxyModelWithHolder<WalletInfoModel.WalletInfoHolder>() {

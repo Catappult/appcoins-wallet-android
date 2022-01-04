@@ -199,8 +199,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
 
     EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
     OneStepTransactionParser oneStepTransactionParser =
-        new OneStepTransactionParser(proxyService, billing, conversionService,
-            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), defaultTokenProvider);
+        new OneStepTransactionParser(proxyService, billing, defaultTokenProvider);
 
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,

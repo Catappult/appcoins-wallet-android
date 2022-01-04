@@ -2,14 +2,15 @@ package com.asfoundation.wallet.util;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import com.asfoundation.wallet.logging.send_logs.LogEntity;
-import com.asfoundation.wallet.logging.send_logs.LogsDao;
+import com.asfoundation.wallet.logging.send_logs.db.LogEntity;
+import com.asfoundation.wallet.logging.send_logs.db.LogsDao;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -29,7 +30,7 @@ public class LogInterceptor implements Interceptor {
   // Dao is being used directly because otherwise we'll have a cyclic dependency with Repository
   private LogsDao logsDao;
 
-  public LogInterceptor(LogsDao logsDao) {
+  public @Inject LogInterceptor(LogsDao logsDao) {
     this.logsDao = logsDao;
   }
 

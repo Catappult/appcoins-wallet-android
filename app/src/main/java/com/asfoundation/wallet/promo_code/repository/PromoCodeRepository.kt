@@ -7,15 +7,16 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import javax.inject.Inject
 
-class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
-                          private val promoCodeBackendApi: PromoCodeBackendApi,
-                          private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
-                          private val analyticsSetup: AnalyticsSetup,
-                          private val rxSchedulers: RxSchedulers) {
+class PromoCodeRepository @Inject constructor(private val promoCodeBrokerApi: PromoCodeBrokerApi,
+                                              private val promoCodeBackendApi: PromoCodeBackendApi,
+                                              private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
+                                              private val analyticsSetup: AnalyticsSetup,
+                                              private val rxSchedulers: RxSchedulers) {
 
   fun setPromoCode(promoCodeString: String): Completable {
-    return Single.zip(promoCodeApi.getPromoCode(promoCodeString),
+    return Single.zip(promoCodeBrokerApi.getPromoCode(promoCodeString),
         promoCodeBackendApi.getPromoCodeBonus(promoCodeString), { promoCode, bonus ->
       Pair(promoCode, bonus)
     })
@@ -35,7 +36,7 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
 
   fun removePromoCode(): Completable = promoCodeLocalDataSource.removePromoCode()
 
-  interface PromoCodeApi {
+  interface PromoCodeBrokerApi {
     @GET("broker/8.20210201/entity/promo-code/{promoCodeString}")
     fun getPromoCode(@Path("promoCodeString") promoCodeString: String): Single<PromoCodeResponse>
   }

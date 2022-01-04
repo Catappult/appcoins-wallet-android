@@ -13,6 +13,7 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import javax.inject.Inject;
 import org.reactivestreams.Publisher;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.protocol.Web3j;

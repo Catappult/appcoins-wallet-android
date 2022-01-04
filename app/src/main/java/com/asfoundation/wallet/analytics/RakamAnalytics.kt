@@ -14,21 +14,27 @@ import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.util.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.rakam.api.Rakam
 import io.rakam.api.RakamClient
 import io.rakam.api.TrackingOptions
 import io.reactivex.Completable
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.MalformedURLException
 import java.net.URL
+import javax.inject.Inject
+import javax.inject.Named
 
-
-class RakamAnalytics(private val context: Context, private val idsRepository: IdsRepository,
-                     private val promotionsRepository: PromotionsRepository,
-                     private val logger: Logger,
-                     private val promoCodeLocalDataSource: PromoCodeLocalDataSource) :
+@BoundTo(supertype = AnalyticsSetup::class)
+@Named("RakamAnalytics")
+class RakamAnalytics @Inject constructor(@ApplicationContext private val context: Context,
+                                         private val idsRepository: IdsRepository,
+                                         private val promotionsRepository: PromotionsRepository,
+                                         private val logger: Logger,
+                                         private val promoCodeLocalDataSource: PromoCodeLocalDataSource) :
     AnalyticsSetup {
 
   private val rakamClient = Rakam.getInstance()
@@ -147,5 +153,5 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
 }
 
 private data class RakamInitializeWrapper(val installerPackage: String, val level: Int,
-                                  val hasGms: Boolean, val walletAddress: String,
-                                  val promoCode: PromoCode)
+                                          val hasGms: Boolean, val walletAddress: String,
+                                          val promoCode: PromoCode)

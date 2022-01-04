@@ -4,8 +4,9 @@ import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.carrierbilling.ForbiddenError
 import com.appcoins.wallet.billing.repository.ResponseErrorBaseBody
 import com.google.gson.Gson
+import javax.inject.Inject
 
-open class BillingErrorMapper(private val gson: Gson) {
+open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
 
   internal companion object {
     internal const val NOT_ALLOWED_CODE = "NotAllowed"

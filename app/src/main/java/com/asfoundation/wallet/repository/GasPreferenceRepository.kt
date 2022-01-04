@@ -2,8 +2,9 @@ package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class GasPreferenceRepository(private val pref: SharedPreferences) {
+class GasPreferenceRepository @Inject constructor(private val pref: SharedPreferences) {
 
   companion object {
     private const val GAS_PRICE = "gas_price"

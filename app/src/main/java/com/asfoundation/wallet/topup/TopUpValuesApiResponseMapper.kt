@@ -2,9 +2,10 @@ package com.asfoundation.wallet.topup
 
 import com.asfoundation.wallet.ui.iab.FiatValue
 import java.math.BigDecimal
+import javax.inject.Inject
 
 
-class TopUpValuesApiResponseMapper {
+class TopUpValuesApiResponseMapper @Inject constructor(){
 
   fun map(defaultValues: TopUpDefaultValuesResponse): TopUpValuesModel {
     return TopUpValuesModel(ArrayList(defaultValues.items.map {

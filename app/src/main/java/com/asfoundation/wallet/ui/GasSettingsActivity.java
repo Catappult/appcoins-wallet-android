@@ -42,7 +42,7 @@ import javax.inject.Inject;
     setContentView(R.layout.activity_gas_settings);
     toolbar();
 
-    currencyFormatUtils = CurrencyFormatUtils.Companion.create();
+    currencyFormatUtils = new CurrencyFormatUtils();
     gasPriceSlider = findViewById(R.id.gas_price_slider);
     gasLimitSlider = findViewById(R.id.gas_limit_slider);
     gasPriceText = findViewById(R.id.gas_price_text);

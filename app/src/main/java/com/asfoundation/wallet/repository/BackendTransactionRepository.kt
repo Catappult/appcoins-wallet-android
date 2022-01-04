@@ -15,20 +15,20 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class BackendTransactionRepository(
-    networkInfo: NetworkInfo,
-    accountKeystoreService: AccountKeystoreService,
-    defaultTokenProvider: DefaultTokenProvider,
-    errorMapper: BlockchainErrorMapper,
-    nonceObtainer: MultiWalletNonceObtainer,
-    scheduler: Scheduler,
-    private val offChainTransactions: OffChainTransactions,
-    private val localRepository: TransactionsRepository,
-    private val mapper: TransactionMapper,
-    private val transactionsMapper: TransactionsMapper,
-    private val disposables: CompositeDisposable,
-    private val ioScheduler: Scheduler) :
+class BackendTransactionRepository @Inject constructor(networkInfo: NetworkInfo,
+                                                       accountKeystoreService: AccountKeystoreService,
+                                                       defaultTokenProvider: DefaultTokenProvider,
+                                                       errorMapper: BlockchainErrorMapper,
+                                                       nonceObtainer: MultiWalletNonceObtainer,
+                                                       scheduler: Scheduler,
+                                                       private val offChainTransactions: OffChainTransactions,
+                                                       private val localRepository: TransactionsRepository,
+                                                       private val mapper: TransactionMapper,
+                                                       private val transactionsMapper: TransactionsMapper,
+                                                       private val disposables: CompositeDisposable,
+                                                       private val ioScheduler: Scheduler) :
     TransactionRepository(networkInfo, accountKeystoreService,
         defaultTokenProvider, errorMapper, nonceObtainer, scheduler) {
 

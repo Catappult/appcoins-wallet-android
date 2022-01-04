@@ -7,12 +7,13 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
+import javax.inject.Inject
 
-class FiatCurrenciesRepository(private val fiatCurrenciesApi: FiatCurrenciesApi,
-                               private val pref: SharedPreferences,
-                               private val fiatCurrenciesMapper: FiatCurrenciesMapper,
-                               private val fiatCurrenciesDao: FiatCurrenciesDao,
-                               private val conversionService: LocalCurrencyConversionService) {
+class FiatCurrenciesRepository @Inject constructor(private val fiatCurrenciesApi: FiatCurrenciesApi,
+                                                   private val pref: SharedPreferences,
+                                                   private val fiatCurrenciesMapper: FiatCurrenciesMapper,
+                                                   private val fiatCurrenciesDao: FiatCurrenciesDao,
+                                                   private val conversionService: LocalCurrencyConversionService) {
 
   companion object {
     private const val FIAT_CURRENCY = "fiat_currency"

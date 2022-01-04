@@ -5,11 +5,11 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import javax.inject.Inject
 
-class CurrencyFormatUtils {
+class CurrencyFormatUtils @Inject constructor(){
 
   companion object {
-    fun create(): CurrencyFormatUtils = CurrencyFormatUtils()
     const val FIAT_SCALE = 2
     const val APPC_SCALE = 2
     const val CREDITS_SCALE = 2

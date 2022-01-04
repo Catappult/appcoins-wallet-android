@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.billing.analytics
 
 import cm.aptoide.analytics.AnalyticsManager
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.util.*
+import javax.inject.Inject
 
-class WalletsAnalytics(private val analytics: AnalyticsManager) : WalletsEventSender {
+@BoundTo(supertype = WalletsEventSender::class)
+class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManager) :
+    WalletsEventSender {
 
   override fun sendAction(action: String) {
     val data = HashMap<String, Any>()

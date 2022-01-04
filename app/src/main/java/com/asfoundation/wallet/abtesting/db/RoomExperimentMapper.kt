@@ -1,4 +1,6 @@
-package com.asfoundation.wallet.abtesting
+package com.asfoundation.wallet.abtesting.db
+
+import com.asfoundation.wallet.abtesting.Experiment
 
 class RoomExperimentMapper {
 

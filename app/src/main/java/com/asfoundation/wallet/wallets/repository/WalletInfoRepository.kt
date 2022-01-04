@@ -12,13 +12,12 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.math.BigDecimal
 import java.util.*
+import javax.inject.Inject
 
-class WalletInfoRepository(
-    private val api: WalletInfoApi,
-    private val walletInfoDao: WalletInfoDao,
-    private val balanceRepository: BalanceRepository,
-    private val rxSchedulers: RxSchedulers
-) {
+class WalletInfoRepository @Inject constructor(private val api: WalletInfoApi,
+                                               private val walletInfoDao: WalletInfoDao,
+                                               private val balanceRepository: BalanceRepository,
+                                               private val rxSchedulers: RxSchedulers) {
 
   fun getLatestWalletInfo(walletAddress: String,
                           updateFiatValues: Boolean): Single<WalletInfo> {

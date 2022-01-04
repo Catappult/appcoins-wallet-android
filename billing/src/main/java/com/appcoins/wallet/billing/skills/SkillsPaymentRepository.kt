@@ -8,10 +8,11 @@ import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
+import javax.inject.Inject
 
 
-class SkillsPaymentRepository(private val adyenApi: AdyenApi,
-                              private val adyenResponseMapper: AdyenResponseMapper) {
+class SkillsPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
+                                                  private val adyenResponseMapper: AdyenResponseMapper) {
 
 
   fun makeSkillsPayment(returnUrl: String,

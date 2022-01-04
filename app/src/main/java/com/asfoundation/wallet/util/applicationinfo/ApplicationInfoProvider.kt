@@ -2,14 +2,16 @@ package com.asfoundation.wallet.util.applicationinfo
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Helper class to load resources from installed applications
  */
-class ApplicationInfoProvider(val context: Context) {
+class ApplicationInfoProvider @Inject constructor(@ApplicationContext val context: Context) {
 
   fun getApplicationInfo(packageName: String): Single<ApplicationInfoModel> {
     return Single.zip(getApplicationName(packageName), getApplicationIcon(packageName),

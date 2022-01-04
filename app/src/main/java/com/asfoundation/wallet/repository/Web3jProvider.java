@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
+import javax.inject.Inject;
+import javax.inject.Named;
 import okhttp3.OkHttpClient;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
@@ -16,7 +18,7 @@ public class Web3jProvider {
   private final NetworkInfo networkInfo;
   private Web3j web3j;
 
-  public Web3jProvider(OkHttpClient client, NetworkInfo networkInfo) {
+  public @Inject Web3jProvider(@Named("blockchain") OkHttpClient client, NetworkInfo networkInfo) {
     httpClient = client;
     this.networkInfo = networkInfo;
     buildWeb3jClient(networkInfo);

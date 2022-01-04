@@ -11,12 +11,13 @@ import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
+import javax.inject.Inject
 
-class AdyenPaymentRepository(private val adyenApi: AdyenApi,
-                             private val bdsApi: RemoteRepository.BdsApi,
-                             private val subscriptionsApi: SubscriptionBillingApi,
-                             private val adyenResponseMapper: AdyenResponseMapper,
-                             private val logger: Logger) {
+class AdyenPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
+                                                 private val bdsApi: RemoteRepository.BdsApi,
+                                                 private val subscriptionsApi: SubscriptionBillingApi,
+                                                 private val adyenResponseMapper: AdyenResponseMapper,
+                                                 private val logger: Logger) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
                       currency: String, walletAddress: String): Single<PaymentInfoModel> {

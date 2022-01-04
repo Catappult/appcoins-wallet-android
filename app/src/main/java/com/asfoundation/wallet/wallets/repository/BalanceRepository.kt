@@ -14,11 +14,12 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
+import javax.inject.Inject
 
-class BalanceRepository(private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-                        private val localCurrencyConversionService: LocalCurrencyConversionService,
-                        private val rxSchedulers: RxSchedulers) {
-
+class BalanceRepository @Inject constructor(
+    private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+    private val localCurrencyConversionService: LocalCurrencyConversionService,
+    private val rxSchedulers: RxSchedulers) {
 
   companion object {
     const val APPC_CURRENCY = "APPC_CURRENCY"

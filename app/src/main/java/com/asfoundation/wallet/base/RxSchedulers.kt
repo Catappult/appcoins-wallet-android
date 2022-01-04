@@ -3,6 +3,8 @@ package com.asfoundation.wallet.base
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
 interface RxSchedulers {
   val main: Scheduler
@@ -10,7 +12,8 @@ interface RxSchedulers {
   val computation: Scheduler
 }
 
-class RxSchedulersImpl : RxSchedulers {
+@BoundTo(supertype = RxSchedulers::class)
+class RxSchedulersImpl @Inject constructor() : RxSchedulers {
   override val main: Scheduler = AndroidSchedulers.mainThread()
   override val io: Scheduler = Schedulers.io()
   override val computation: Scheduler = Schedulers.computation()

@@ -9,8 +9,9 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class PromotionsMapper(private val gamificationMapper: GamificationMapper) {
+class PromotionsMapper @Inject constructor(private val gamificationMapper: GamificationMapper) {
 
   fun mapToPromotionsModel(userStats: UserStats,
                            levels: Levels,

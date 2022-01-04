@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.support
 
+import android.app.Application
 import com.asfoundation.wallet.App
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -11,9 +12,11 @@ import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.intercom.android.sdk.push.IntercomPushClient
+import javax.inject.Inject
 
 
-class SupportRepository(private val preferences: SupportSharedPreferences, val app: App) {
+class SupportRepository @Inject constructor(private val preferences: SupportSharedPreferences,
+                                            val app: Application) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"

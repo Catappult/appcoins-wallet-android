@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.logging.send_logs
+package com.asfoundation.wallet.logging.send_logs.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

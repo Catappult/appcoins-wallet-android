@@ -1,9 +1,12 @@
 package com.asfoundation.wallet.analytics.gamification
 
 import cm.aptoide.analytics.AnalyticsManager
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.util.*
+import javax.inject.Inject
 
-class GamificationAnalytics(private val analytics: AnalyticsManager) :
+@BoundTo(supertype = GamificationEventSender::class)
+class GamificationAnalytics @Inject constructor(private val analytics: AnalyticsManager) :
     GamificationEventSender {
 
   companion object {

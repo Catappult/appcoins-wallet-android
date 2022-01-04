@@ -1,5 +1,7 @@
-package com.asfoundation.wallet.abtesting
+package com.asfoundation.wallet.abtesting.db
 
+import com.asfoundation.wallet.abtesting.Experiment
+import com.asfoundation.wallet.abtesting.ExperimentModel
 import io.reactivex.Completable
 import io.reactivex.Single
 

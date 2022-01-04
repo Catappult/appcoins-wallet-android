@@ -11,8 +11,14 @@ import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.schedulers.Schedulers
-class AmplitudeAnalytics(private val context: Context, private val idsRepository: IdsRepository) :
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
+
+@BoundTo(supertype = AnalyticsSetup::class)
+class AmplitudeAnalytics @Inject constructor(@ApplicationContext private val context: Context,
+                                             private val idsRepository: IdsRepository) :
     AnalyticsSetup {
 
   private val amplitudeClient = Amplitude.getInstance()

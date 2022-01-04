@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.abtesting
+package com.asfoundation.wallet.abtesting.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
