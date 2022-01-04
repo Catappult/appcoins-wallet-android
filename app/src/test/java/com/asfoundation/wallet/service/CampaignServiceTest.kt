@@ -19,9 +19,8 @@ class CampaignServiceTest {
   @Mock
   lateinit var api: CampaignService.CampaignApi
   private lateinit var campaignService: CampaignService
-  private lateinit var scheduler: TestScheduler
   private val fakeSchedulers: RxSchedulers = FakeSchedulers()
-
+  private val scheduler: TestScheduler = fakeSchedulers.main as TestScheduler
 
   companion object {
     const val ELIGIBLE_ADDRESS = "0xAddress1"
@@ -63,7 +62,6 @@ class CampaignServiceTest {
     `when`(
         api.getPoaInformation(ELIGIBLE_ADDRESS)).thenReturn(
         Observable.just(PoaInformationResponse(0, 3, 0)))
-    scheduler = TestScheduler()
     campaignService = CampaignService(api, BuildConfig.VERSION_CODE, fakeSchedulers)
   }
 
