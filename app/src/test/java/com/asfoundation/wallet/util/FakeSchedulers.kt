@@ -1,16 +1,15 @@
 package com.asfoundation.wallet.util
 
 import com.asfoundation.wallet.base.RxSchedulers
-import io.reactivex.Scheduler
 import io.reactivex.schedulers.TestScheduler
 
 class FakeSchedulers : RxSchedulers {
-  var testScheduler: Scheduler = TestScheduler()
+  var testScheduler = TestScheduler()
 
-  override val main: Scheduler
+  override val main
     get() = testScheduler
-  override val io: Scheduler
+  override val io
     get() = testScheduler
-  override val computation: Scheduler
+  override val computation
     get() = testScheduler
 }

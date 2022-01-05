@@ -7,11 +7,14 @@ import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ui.GasSettingsInteractor
 import com.asfoundation.wallet.ui.transact.GasPriceLimitsGwei
 import com.asfoundation.wallet.util.BalanceUtils
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.math.BigDecimal
 import java.math.BigInteger
+import javax.inject.Inject
 
-class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInteractor) :
-    BaseViewModel() {
+@HiltViewModel
+class GasSettingsViewModel @Inject constructor(private val gasSettingsInteractor: GasSettingsInteractor) :
+  BaseViewModel() {
 
   private val gasPrice = MutableLiveData<BigDecimal>()
   private val gasLimit = MutableLiveData<BigDecimal>()

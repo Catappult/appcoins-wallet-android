@@ -78,8 +78,7 @@ class AdyenPaymentInteractorTest {
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 
   private lateinit var interactor: AdyenPaymentInteractor
-  private val fakeSchedulers: RxSchedulers = FakeSchedulers()
-  private val testScheduler: TestScheduler = fakeSchedulers.main as TestScheduler
+  private val fakeSchedulers = FakeSchedulers()
 
   @Before
   fun setup() {
@@ -328,7 +327,7 @@ class AdyenPaymentInteractorTest {
         .thenReturn(Single.just(expectedModel))
     interactor.getAuthorisedTransaction("uid")
         .subscribe(testObserver)
-    testScheduler.advanceTimeTo(10, TimeUnit.SECONDS)
+    fakeSchedulers.testScheduler.advanceTimeTo(10, TimeUnit.SECONDS)
     testObserver.assertNoErrors()
         .assertValue { it == expectedModel }
   }
@@ -345,7 +344,7 @@ class AdyenPaymentInteractorTest {
         .thenReturn(Single.just(expectedModel))
     interactor.getFailedTransactionReason("uid")
         .subscribe(testObserver)
-    testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
+    fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
     testObserver.assertNoErrors()
         .assertValue { it == expectedModel }
   }
@@ -365,8 +364,8 @@ class AdyenPaymentInteractorTest {
         .thenReturn(Single.just(expectedFailModel), Single.just(expectedSuccessModel))
     interactor.getFailedTransactionReason("uid")
         .subscribe(testObserver)
-    testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
-    testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
+    fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
+    fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
     testObserver.assertNoErrors()
         .assertValue { it == expectedSuccessModel }
   }

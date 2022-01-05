@@ -1,10 +1,5 @@
 package com.asfoundation.wallet.ui.splash
 
-import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
-import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
-import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,22 +13,13 @@ import io.reactivex.schedulers.Schedulers
 class SplashModule {
 
   @Provides
-  fun providesSplashPresenter(interactor: SplashInteractor,
-                              navigator: SplashNavigator): SplashPresenter {
-    return SplashPresenter(interactor, navigator, AndroidSchedulers.mainThread(), Schedulers.io(),
-        CompositeDisposable())
-  }
-
-  @Provides
-  fun providesSplashInteractor(autoUpdateInteract: AutoUpdateInteract,
-                               fingerprintPreferencesRepositoryContract: FingerprintPreferencesRepositoryContract,
-                               preferencesRepositoryType: PreferencesRepositoryType): SplashInteractor {
-    return SplashInteractor(autoUpdateInteract,
-        fingerprintPreferencesRepositoryContract, preferencesRepositoryType)
-  }
-
-  @Provides
-  fun providesSplashNavigator(activity: Activity): SplashNavigator {
-    return SplashNavigator(activity as AppCompatActivity)
+  fun providesSplashPresenter(
+    interactor: SplashInteractor,
+    navigator: SplashNavigator
+  ): SplashPresenter {
+    return SplashPresenter(
+      interactor, navigator, AndroidSchedulers.mainThread(), Schedulers.io(),
+      CompositeDisposable()
+    )
   }
 }
