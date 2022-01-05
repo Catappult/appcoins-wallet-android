@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.common.WalletButtonView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -92,12 +93,14 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   override fun hidePasswordFields() {
     password_group.visibility = View.GONE
-    backup_btn.isEnabled = true
+    backup_btn.setType(WalletButtonView.Type.FILLED)
   }
 
   override fun showPasswordFields() {
     password_group.visibility = View.VISIBLE
-    if (areInvalidPasswordFields()) backup_btn.isEnabled = false
+    if (areInvalidPasswordFields()) {
+      backup_btn.setType(WalletButtonView.Type.DISABLED)
+    }
   }
 
   private fun areInvalidPasswordFields(): Boolean {
@@ -109,11 +112,11 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun onPasswordTextChanged(): Observable<PasswordFields> = passwordSubject!!
 
   override fun disableButton() {
-    backup_btn.isEnabled = false
+    backup_btn.setType(WalletButtonView.Type.DISABLED)
   }
 
   override fun enableButton() {
-    backup_btn.isEnabled = true
+    backup_btn.setType(WalletButtonView.Type.FILLED)
   }
 
   override fun clearErrors() {

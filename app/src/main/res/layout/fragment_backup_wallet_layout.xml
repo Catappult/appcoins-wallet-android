@@ -45,13 +45,6 @@
       android:clipToPadding="false"
       app:layout_constraintBottom_toBottomOf="parent"
       >
-    <View
-        android:id="@+id/grid_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/white_transparent_10"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 
     <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/backup_btn"
@@ -62,7 +55,7 @@
         android:layout_marginEnd="@dimen/big_margin"
         app:buttonText="@string/backup_button"
         app:buttonType="filled"
-        app:layout_constraintTop_toTopOf="@+id/grid_line"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <com.asfoundation.wallet.ui.common.WalletButtonView

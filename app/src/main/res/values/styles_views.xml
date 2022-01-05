@@ -17,6 +17,7 @@
       <enum name="filled" value="0" />
       <enum name="outlined" value="1" />
       <enum name="text" value="2" />
+      <enum name="disabled" value="3" />
     </attr>
     <attr format="string" name="buttonText" />
     <attr format="color" name="buttonColor" />

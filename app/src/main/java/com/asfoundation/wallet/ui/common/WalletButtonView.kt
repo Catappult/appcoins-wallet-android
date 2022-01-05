@@ -68,6 +68,7 @@ class WalletButtonView : FrameLayout {
         views.root.strokeWidth = 0
         views.root.setRippleColorResource(R.color.white)
         views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+        views.root.isClickable = true
       }
       Type.OUTLINED -> {
         views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.transparent))
@@ -75,6 +76,7 @@ class WalletButtonView : FrameLayout {
         views.root.strokeWidth = 1.convertDpToPx(resources)
         views.root.rippleColor = ColorStateList.valueOf(color)
         views.text.setTextColor(color)
+        views.root.isClickable = true
       }
       Type.TEXT -> {
         views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.transparent))
@@ -82,6 +84,15 @@ class WalletButtonView : FrameLayout {
         views.root.strokeWidth = 0
         views.root.setRippleColorResource(R.color.transparent)
         views.text.setTextColor(color)
+        views.root.isClickable = true
+      }
+      Type.DISABLED -> {
+        views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.grey_c9))
+        views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
+        views.root.strokeWidth = 0
+        views.root.setRippleColorResource(R.color.white)
+        views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+        views.root.isClickable = false
       }
     }
   }
@@ -90,5 +101,5 @@ class WalletButtonView : FrameLayout {
     views.root.setOnClickListener(l)
   }
 
-  enum class Type { FILLED, OUTLINED, TEXT }
+  enum class Type { FILLED, OUTLINED, TEXT, DISABLED }
 }
