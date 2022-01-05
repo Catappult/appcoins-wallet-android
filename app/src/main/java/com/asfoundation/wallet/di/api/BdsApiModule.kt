@@ -2,11 +2,15 @@ package com.asfoundation.wallet.di.api
 
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -19,10 +23,13 @@ class BdsApiModule {
   @Singleton
   @Provides
   @Named("bds-default")
-  fun provideAnalyticsDefaultRetrofit(@Named("default") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(bdsUrl)
-        .build()
+  fun provideAnalyticsDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(bdsUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Singleton

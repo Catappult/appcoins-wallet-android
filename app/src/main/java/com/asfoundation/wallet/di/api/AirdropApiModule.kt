@@ -2,12 +2,16 @@ package com.asfoundation.wallet.di.api
 
 import com.asfoundation.wallet.AirdropService
 import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -20,10 +24,13 @@ class AirdropApiModule {
   @Singleton
   @Provides
   @Named("airdrop-blockchain")
-  fun provideAirdropDefaultRetrofit(@Named("blockchain") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(airdropUrl)
-        .build()
+  fun provideAirdropDefaultRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(airdropUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Provides
@@ -32,8 +39,10 @@ class AirdropApiModule {
   }
 
   @Provides
-  fun provideAirdropService(airdropApi: AirdropService.Api, gson: Gson,
-                            rxSchedulers: RxSchedulers): AirdropService {
+  fun provideAirdropService(
+    airdropApi: AirdropService.Api, gson: Gson,
+    rxSchedulers: RxSchedulers
+  ): AirdropService {
     return AirdropService(airdropApi, gson, rxSchedulers.io)
   }
 }

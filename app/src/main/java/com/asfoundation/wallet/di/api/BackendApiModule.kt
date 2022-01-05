@@ -5,6 +5,9 @@ import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsSerializer
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
+import com.asfoundation.wallet.di.annotations.DefaultHttpClient
+import com.asfoundation.wallet.di.annotations.LowTimerHttpClient
 import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.nfts.repository.NftApi
@@ -22,7 +25,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
@@ -36,91 +41,109 @@ class BackendApiModule {
   @Singleton
   @Provides
   @Named("backend-blockchain")
-  fun provideBackendBlockchainRetrofit(@Named("blockchain") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(backendUrl)
-        .build()
+  fun provideBackendBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(backendUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Singleton
   @Provides
   @Named("backend-default")
-  fun provideBackendDefaultRetrofit(@Named("default") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(backendUrl)
-        .build()
+  fun provideBackendDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(backendUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Singleton
   @Provides
   @Named("backend-low-timer")
-  fun provideBackendLowTimerRetrofit(@Named("low-timer") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(backendUrl)
-        .build()
+  fun provideBackendLowTimerRetrofit(@LowTimerHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(backendUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Singleton
   @Provides
   fun providesIpCountryCodeApi(
-      @Named("backend-default") retrofit: Retrofit): IpCountryCodeProvider.IpApi {
+    @Named("backend-default") retrofit: Retrofit
+  ): IpCountryCodeProvider.IpApi {
     return retrofit.create(IpCountryCodeProvider.IpApi::class.java)
   }
 
   @Singleton
   @Provides
   fun providesOffChainTransactionsApi(
-      @Named("backend-blockchain")
-      retrofit: Retrofit): OffChainTransactionsRepository.TransactionsApi {
+    @Named("backend-blockchain")
+    retrofit: Retrofit
+  ): OffChainTransactionsRepository.TransactionsApi {
     return retrofit.create(OffChainTransactionsRepository.TransactionsApi::class.java)
   }
 
   @Singleton
   @Provides
   fun providesPromoCodeBackendApi(
-      @Named("backend-default") retrofit: Retrofit): PromoCodeRepository.PromoCodeBackendApi {
+    @Named("backend-default") retrofit: Retrofit
+  ): PromoCodeRepository.PromoCodeBackendApi {
     return retrofit.create(PromoCodeRepository.PromoCodeBackendApi::class.java)
   }
 
   @Singleton
   @Provides
   fun providesSendLogsApi(
-      @Named("backend-default") retrofit: Retrofit): SendLogsRepository.SendLogsApi {
+    @Named("backend-default") retrofit: Retrofit
+  ): SendLogsRepository.SendLogsApi {
     return retrofit.create(SendLogsRepository.SendLogsApi::class.java)
   }
 
   @Singleton
   @Provides
   fun providesNftApi(
-      @Named("backend-default") retrofit: Retrofit): NftApi {
+    @Named("backend-default") retrofit: Retrofit
+  ): NftApi {
     return retrofit.create(NftApi::class.java)
   }
 
   @Singleton
   @Provides
   fun providesWalletInfoApi(
-      @Named("backend-default") retrofit: Retrofit): WalletInfoRepository.WalletInfoApi {
+    @Named("backend-default") retrofit: Retrofit
+  ): WalletInfoRepository.WalletInfoApi {
     return retrofit.create(WalletInfoRepository.WalletInfoApi::class.java)
   }
 
   @Singleton
   @Provides
   fun providesBackupSuccessLogApi(
-      @Named("backend-default") retrofit: Retrofit): BackupSuccessLogRepository.BackupLogApi {
+    @Named("backend-default") retrofit: Retrofit
+  ): BackupSuccessLogRepository.BackupLogApi {
     return retrofit.create(BackupSuccessLogRepository.BackupLogApi::class.java)
   }
 
   @Singleton
   @Provides
   fun provideTokenToFiatApi(
-      @Named("backend-blockchain") retrofit: Retrofit): TokenRateService.TokenToFiatApi {
+    @Named("backend-blockchain") retrofit: Retrofit
+  ): TokenRateService.TokenToFiatApi {
     return retrofit.create(TokenRateService.TokenToFiatApi::class.java)
   }
 
   @Singleton
   @Provides
   fun provideCampaignServiceApi(
-      @Named("backend-blockchain") retrofit: Retrofit): CampaignService.CampaignApi {
+    @Named("backend-blockchain") retrofit: Retrofit
+  ): CampaignService.CampaignApi {
     return retrofit.create(CampaignService.CampaignApi::class.java)
   }
 
@@ -133,21 +156,22 @@ class BackendApiModule {
   @Singleton
   @Provides
   fun provideAutoUpdateApi(
-      @Named("backend-low-timer") retrofit: Retrofit): AutoUpdateService.AutoUpdateApi {
+    @Named("backend-low-timer") retrofit: Retrofit
+  ): AutoUpdateService.AutoUpdateApi {
     return retrofit.create(AutoUpdateService.AutoUpdateApi::class.java)
   }
 
   @Provides
   fun provideGamificationApi(@Named("backend-default") retrofit: Retrofit): GamificationApi {
     val gson = GsonBuilder()
-        .setDateFormat("yyyy-MM-dd HH:mm")
-        .registerTypeAdapter(PromotionsResponse::class.java, PromotionsSerializer())
-        .registerTypeAdapter(PromotionsResponse::class.java, PromotionsDeserializer())
-        .create()
+      .setDateFormat("yyyy-MM-dd HH:mm")
+      .registerTypeAdapter(PromotionsResponse::class.java, PromotionsSerializer())
+      .registerTypeAdapter(PromotionsResponse::class.java, PromotionsDeserializer())
+      .create()
     return retrofit.newBuilder()
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-        .create(GamificationApi::class.java)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .build()
+      .create(GamificationApi::class.java)
   }
 
   @Singleton

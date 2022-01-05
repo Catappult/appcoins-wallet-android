@@ -200,6 +200,9 @@ internal class AppModule {
   fun provideContentResolver(@ApplicationContext context: Context): ContentResolver =
       context.contentResolver
 
+  @Provides
+  fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
+
   @Singleton
   @Provides
   fun providesDefaultNetwork(): NetworkInfo {

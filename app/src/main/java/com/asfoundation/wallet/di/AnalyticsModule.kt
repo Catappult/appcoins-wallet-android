@@ -9,6 +9,7 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.home.HomeAnalytics
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -86,7 +87,7 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideAnalyticsManager(@Named("default") okHttpClient: OkHttpClient, api: AnalyticsAPI,
+  fun provideAnalyticsManager(@DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsAPI,
                               @ApplicationContext context: Context,
                               @Named("bi_event_list") biEventList: List<String>,
                               @Named("facebook_event_list") facebookEventList: List<String>,

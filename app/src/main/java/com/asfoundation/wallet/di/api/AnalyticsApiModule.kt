@@ -1,12 +1,15 @@
 package com.asfoundation.wallet.di.api
 
 import com.asfoundation.wallet.analytics.AnalyticsAPI
+import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.fasterxml.jackson.databind.ObjectMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
@@ -20,19 +23,23 @@ class AnalyticsApiModule {
   @Singleton
   @Provides
   @Named("analytics-default")
-  fun provideAnalyticsDefaultRetrofit(@Named("default") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(analyticsUrl)
-        .build()
+  fun provideAnalyticsDefaultRetrofit(
+    @DefaultHttpClient client: OkHttpClient,
+    objectMapper: ObjectMapper
+  ): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(analyticsUrl)
+      .client(client)
+      .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Singleton
   @Provides
   fun provideAnalyticsAPI(
-      @Named("analytics-default") retrofit: Retrofit, objectMapper: ObjectMapper): AnalyticsAPI {
-    return retrofit.newBuilder()
-        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-        .build()
-        .create(AnalyticsAPI::class.java)
+    @Named("analytics-default") retrofit: Retrofit
+  ): AnalyticsAPI {
+    return retrofit.create(AnalyticsAPI::class.java)
   }
 }

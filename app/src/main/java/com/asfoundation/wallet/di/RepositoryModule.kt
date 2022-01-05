@@ -8,6 +8,7 @@ import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.repository.SharedPreferencesTicketLocalStorage
 import cm.aptoide.skills.repository.TicketApiMapper
 import cm.aptoide.skills.repository.TicketRepository
+import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.poa.BlockchainErrorMapper
@@ -31,7 +32,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -41,30 +41,38 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesAppCoinsOperationRepository(
-      @ApplicationContext context: Context): AppCoinsOperationRepository {
+    @ApplicationContext context: Context
+  ): AppCoinsOperationRepository {
     return AppCoinsOperationRepository(
-        Room.databaseBuilder(context.applicationContext, AppCoinsOperationDatabase::class.java,
-            "appcoins_operations_data")
-            .build()
-            .appCoinsOperationDao(), AppCoinsOperationMapper())
+      Room.databaseBuilder(
+        context.applicationContext, AppCoinsOperationDatabase::class.java,
+        "appcoins_operations_data"
+      )
+        .build()
+        .appCoinsOperationDao(), AppCoinsOperationMapper()
+    )
   }
 
   @Singleton
   @Provides
-  fun provideTransactionRepository(networkInfo: NetworkInfo,
-                                   accountKeystoreService: AccountKeystoreService,
-                                   defaultTokenProvider: DefaultTokenProvider,
-                                   nonceObtainer: MultiWalletNonceObtainer,
-                                   transactionsNetworkRepository: OffChainTransactions,
-                                   sharedPreferences: SharedPreferences,
-                                   transactionsDao: TransactionsDao,
-                                   transactionLinkIdDao: TransactionLinkIdDao): TransactionRepositoryType {
+  fun provideTransactionRepository(
+    networkInfo: NetworkInfo,
+    accountKeystoreService: AccountKeystoreService,
+    defaultTokenProvider: DefaultTokenProvider,
+    nonceObtainer: MultiWalletNonceObtainer,
+    transactionsNetworkRepository: OffChainTransactions,
+    sharedPreferences: SharedPreferences,
+    transactionsDao: TransactionsDao,
+    transactionLinkIdDao: TransactionLinkIdDao
+  ): TransactionRepositoryType {
     val localRepository: TransactionsRepository =
-        TransactionsLocalRepository(transactionsDao, sharedPreferences, transactionLinkIdDao)
-    return BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
-        BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
-        localRepository, TransactionMapper(), TransactionsMapper(), CompositeDisposable(),
-        Schedulers.io())
+      TransactionsLocalRepository(transactionsDao, sharedPreferences, transactionLinkIdDao)
+    return BackendTransactionRepository(
+      networkInfo, accountKeystoreService, defaultTokenProvider,
+      BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
+      localRepository, TransactionMapper(), TransactionsMapper(), CompositeDisposable(),
+      Schedulers.io()
+    )
   }
 
 //  @Provides
@@ -78,36 +86,40 @@ class RepositoryModule {
 //  }
 
   @Provides
-  fun providesRoomApi(@Named("default") client: OkHttpClient): RoomApi {
+  fun providesRoomApi(@DefaultHttpClient client: OkHttpClient): RoomApi {
     val gson = GsonBuilder()
-        .setDateFormat("yyyy-MM-dd HH:mm")
-        .create()
+      .setDateFormat("yyyy-MM-dd HH:mm")
+      .create()
 
     return Retrofit.Builder()
-        .baseUrl(SkillsModule.BASE_URL)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(RoomApi::class.java)
+      .baseUrl(SkillsModule.BASE_URL)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(RoomApi::class.java)
   }
 
   @Provides
-  fun providesTicketsRepository(@Named("default") client: OkHttpClient,
-                                sharedPreferences: SharedPreferences): TicketRepository {
+  fun providesTicketsRepository(
+    @DefaultHttpClient client: OkHttpClient,
+    sharedPreferences: SharedPreferences
+  ): TicketRepository {
     val gson = GsonBuilder()
-        .setDateFormat("yyyy-MM-dd HH:mm")
-        .create()
+      .setDateFormat("yyyy-MM-dd HH:mm")
+      .create()
 
     val api = Retrofit.Builder()
-        .baseUrl(SkillsModule.BASE_URL)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(TicketApi::class.java)
+      .baseUrl(SkillsModule.BASE_URL)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(TicketApi::class.java)
 
-    return TicketRepository(api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson),
-        TicketApiMapper(gson))
+    return TicketRepository(
+      api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson),
+      TicketApiMapper(gson)
+    )
   }
 }

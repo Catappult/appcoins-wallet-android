@@ -10,6 +10,7 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
+import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.topup.TopUpValuesService
@@ -19,6 +20,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,43 +37,57 @@ class BrokerApiModule {
   @Singleton
   @Provides
   @Named("broker-base-blockchain")
-  fun provideBrokerBaseBlockchainRetrofit(@Named("blockchain") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(brokerBaseUrl)
-        .build()
+  fun provideBrokerBaseBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(brokerBaseUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Singleton
   @Provides
   @Named("broker-base-default")
-  fun provideBrokerBaseDefaultRetrofit(@Named("default") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(brokerBaseUrl)
-        .build()
+  fun provideBrokerBaseDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(brokerBaseUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Singleton
   @Provides
   @Named("broker-adyen-default")
-  fun provideBrokerAdyenDefaultRetrofit(@Named("default") retrofit: Retrofit): Retrofit {
-    return retrofit.newBuilder()
-        .baseUrl(brokerAdyenUrl)
-        .build()
+  fun provideBrokerAdyenDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(brokerAdyenUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
   }
 
   @Singleton
   @Provides
   @Named("broker-carrier-default")
-  fun provideBrokerCarrierDefaultRetrofit(@Named("default") retrofit: Retrofit,
-                                          rxSchedulers: RxSchedulers): Retrofit {
-    val gson = GsonBuilder().registerTypeAdapter(CarrierErrorResponse::class.java,
-        CarrierErrorResponseTypeAdapter())
-        .create()
-    return retrofit.newBuilder()
-        .baseUrl(brokerCarrierBillingUrl)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(rxSchedulers.io))
-        .build()
+  fun provideBrokerCarrierDefaultRetrofit(
+    @DefaultHttpClient client: OkHttpClient,
+    rxSchedulers: RxSchedulers
+  ): Retrofit {
+    val gson = GsonBuilder().registerTypeAdapter(
+      CarrierErrorResponse::class.java,
+      CarrierErrorResponseTypeAdapter()
+    )
+      .create()
+    return Retrofit.Builder()
+      .baseUrl(brokerCarrierBillingUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(rxSchedulers.io))
+      .build()
   }
 
   @Singleton
