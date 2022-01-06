@@ -93,13 +93,13 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   override fun hidePasswordFields() {
     password_group.visibility = View.GONE
-    backup_btn.setType(WalletButtonView.Type.FILLED)
+    backup_btn.isEnabled = true
   }
 
   override fun showPasswordFields() {
     password_group.visibility = View.VISIBLE
     if (areInvalidPasswordFields()) {
-      backup_btn.setType(WalletButtonView.Type.DISABLED)
+      backup_btn.isEnabled = false
     }
   }
 
@@ -112,11 +112,11 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   override fun onPasswordTextChanged(): Observable<PasswordFields> = passwordSubject!!
 
   override fun disableButton() {
-    backup_btn.setType(WalletButtonView.Type.DISABLED)
+    backup_btn.isEnabled = false
   }
 
   override fun enableButton() {
-    backup_btn.setType(WalletButtonView.Type.FILLED)
+    backup_btn.isEnabled = true
   }
 
   override fun clearErrors() {
