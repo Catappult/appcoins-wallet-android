@@ -67,6 +67,9 @@ dependencies {
 
   implementation 'com.google.dagger:hilt-android:2.40.5'
   kapt 'com.google.dagger:hilt-compiler:2.40.5'
+  //hilt-extensions to allow injecting an implementation that has an interface
+  implementation 'it.czerwinski.android.hilt:hilt-extensions:1.2.0'
+  kapt'it.czerwinski.android.hilt:hilt-processor:1.2.0'
 
   implementation "com.airbnb.android:lottie:$project.lottie_version"
 

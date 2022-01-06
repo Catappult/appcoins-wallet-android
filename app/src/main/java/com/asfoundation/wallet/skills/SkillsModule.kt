@@ -29,10 +29,6 @@ import javax.inject.Named
 @Module
 class SkillsModule {
 
-  @Provides
-  fun providesWalletAddressObtainer(walletService: WalletService): WalletAddressObtainer {
-    return DefaultWalletAddressObtainer(walletService)
-  }
 
   @Provides
   fun providesSkillsViewModel(
@@ -48,50 +44,6 @@ class SkillsModule {
         GET_ROOM_RETRY_MILLIS,
         loginUseCase, cancelUseCase, PublishSubject.create()
     )
-  }
-
-  @Provides
-  fun providesLoginUseCase(ewtObtainer: EwtObtainer,
-                           loginRepository: LoginRepository): LoginUseCase {
-    return LoginUseCase(ewtObtainer, loginRepository)
-  }
-
-  @Provides
-  fun providesGetTicketUseCase(walletAddressObtainer: WalletAddressObtainer,
-                               ewtObtainer: EwtObtainer,
-                               ticketRepository: TicketRepository): GetTicketUseCase {
-    return GetTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
-  }
-
-  @Provides
-  fun providesPayTicketUseCase(): SkillsNavigator {
-    return SkillsNavigator()
-  }
-
-  @Provides
-  fun providesCreateTicketUseCase(walletAddressObtainer: WalletAddressObtainer,
-                                  ewtObtainer: EwtObtainer,
-                                  ticketRepository: TicketRepository): JoinQueueUseCase {
-    return JoinQueueUseCase(walletAddressObtainer, ewtObtainer, ticketRepository, Schedulers.io())
-  }
-
-  @Provides
-  fun providesEskillsUriParser(): EskillsUriParser {
-    return EskillsUriParser()
-  }
-
-  @Provides
-  fun providesCancelTicketUseCase(
-      walletAddressObtainer: WalletAddressObtainer,
-      ewtObtainer: EwtObtainer,
-      ticketRepository: TicketRepository
-  ): CancelTicketUseCase {
-    return CancelTicketUseCase(walletAddressObtainer, ewtObtainer, ticketRepository)
-  }
-
-  @Provides
-  fun providesEWTObtainer(ewtAuthenticatorService: EwtAuthenticatorService): EwtObtainer {
-    return DefaultEwtObtainer(ewtAuthenticatorService)
   }
 
   companion object {

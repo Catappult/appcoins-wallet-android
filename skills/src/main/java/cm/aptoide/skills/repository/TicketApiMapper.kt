@@ -5,8 +5,9 @@ import cm.aptoide.skills.util.getMessage
 import cm.aptoide.skills.util.isNoNetworkException
 import com.google.gson.Gson
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class TicketApiMapper(private val jsonMapper: Gson) {
+class TicketApiMapper @Inject constructor(private val jsonMapper: Gson) {
   companion object {
     private const val FORBIDDEN_CODE = 403
   }

@@ -12,17 +12,18 @@ import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class JoinQueueUseCase(
+class JoinQueueUseCase @Inject constructor(
     private val walletAddressObtainer: WalletAddressObtainer,
     private val ewtObtainer: EwtObtainer,
     private val ticketRepository: TicketRepository,
-    private val networkScheduler: Scheduler
 ) {
 
   fun joinQueue(eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
     return walletAddressObtainer.getWalletAddress()
-        .subscribeOn(networkScheduler)
+        .subscribeOn(Schedulers.io())
         .flatMap { walletAddress ->
           ewtObtainer.getEWT()
               .flatMap { ewt ->

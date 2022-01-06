@@ -23,7 +23,7 @@ class BdsApiModule {
   @Singleton
   @Provides
   @Named("bds-default")
-  fun provideAnalyticsDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
+  fun provideBdsDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
       .baseUrl(bdsUrl)
       .client(client)

@@ -3,8 +3,9 @@ package cm.aptoide.skills.usecase
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.repository.LoginRepository
 import io.reactivex.Single
+import javax.inject.Inject
 
-class LoginUseCase(private val ewtObtainer: EwtObtainer,
+class LoginUseCase @Inject constructor(private val ewtObtainer: EwtObtainer,
                    private val loginRepository: LoginRepository) {
 
   fun login(roomId: String, ticketId: String): Single<String> {

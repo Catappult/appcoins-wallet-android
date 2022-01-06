@@ -5,9 +5,7 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
-import cm.aptoide.skills.repository.SharedPreferencesTicketLocalStorage
-import cm.aptoide.skills.repository.TicketApiMapper
-import cm.aptoide.skills.repository.TicketRepository
+import cm.aptoide.skills.repository.*
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -72,54 +70,6 @@ class RepositoryModule {
       BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
       localRepository, TransactionMapper(), TransactionsMapper(), CompositeDisposable(),
       Schedulers.io()
-    )
-  }
-
-//  @Provides
-//  fun providesLoginRepository(roomApi: RoomApi): LoginRepository {
-//    return LoginRepository(roomApi)
-//  }
-//
-//  @Provides
-//  fun providesRoomRepository(roomApi: RoomApi): RoomRepository {
-//    return RoomRepository(roomApi)
-//  }
-
-  @Provides
-  fun providesRoomApi(@DefaultHttpClient client: OkHttpClient): RoomApi {
-    val gson = GsonBuilder()
-      .setDateFormat("yyyy-MM-dd HH:mm")
-      .create()
-
-    return Retrofit.Builder()
-      .baseUrl(SkillsModule.BASE_URL)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create(gson))
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
-      .create(RoomApi::class.java)
-  }
-
-  @Provides
-  fun providesTicketsRepository(
-    @DefaultHttpClient client: OkHttpClient,
-    sharedPreferences: SharedPreferences
-  ): TicketRepository {
-    val gson = GsonBuilder()
-      .setDateFormat("yyyy-MM-dd HH:mm")
-      .create()
-
-    val api = Retrofit.Builder()
-      .baseUrl(SkillsModule.BASE_URL)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create(gson))
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
-      .create(TicketApi::class.java)
-
-    return TicketRepository(
-      api, SharedPreferencesTicketLocalStorage(sharedPreferences, gson),
-      TicketApiMapper(gson)
     )
   }
 }

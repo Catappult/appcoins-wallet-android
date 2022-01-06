@@ -9,8 +9,9 @@ import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.Ticket
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
+import javax.inject.Inject
 
-class SkillsNavigator {
+class SkillsNavigator @Inject constructor(){
 
   fun navigateToPayTicket(
       ticket: CreatedTicket, eskillsPaymentData: EskillsPaymentData, fragment: Fragment
