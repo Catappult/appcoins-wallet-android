@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +64,15 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    email_input.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
+      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        email_button.isEnabled = s.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(s)
+            .matches()
+      }
+
+      override fun afterTextChanged(s: Editable) = Unit
+    })
     presenter.present()
   }
 

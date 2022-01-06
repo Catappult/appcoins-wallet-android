@@ -39,6 +39,7 @@
       android:layout_marginBottom="18dp"
       app:buttonText="@string/backup_option_email_button"
       app:buttonType="filled"
+      app:buttonEnabled="false"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/email_input"

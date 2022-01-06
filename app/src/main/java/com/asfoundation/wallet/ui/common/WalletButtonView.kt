@@ -39,6 +39,8 @@ class WalletButtonView : FrameLayout {
     setText(string)
     val buttonColor = typedArray.getColor(R.styleable.WalletButtonView_buttonColor, color)
     setColor(buttonColor)
+    val buttonEnabled = typedArray.getBoolean(R.styleable.WalletButtonView_buttonEnabled, true)
+    isEnabled = buttonEnabled
     typedArray.recycle()
   }
 

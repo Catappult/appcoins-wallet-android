@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.common
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
@@ -82,6 +83,10 @@ class WalletTextFieldView : FrameLayout {
 
   override fun setOnClickListener(l: OnClickListener?) {
     views.root.setOnClickListener(l)
+  }
+
+  fun addTextChangedListener(watcher: TextWatcher) {
+    return views.textInput.addTextChangedListener(watcher)
   }
 
   enum class Type { FILLED, OUTLINED }
