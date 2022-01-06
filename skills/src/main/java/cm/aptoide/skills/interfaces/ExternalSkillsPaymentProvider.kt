@@ -16,4 +16,5 @@ interface ExternalSkillsPaymentProvider {
   fun getFormattedAppcAmount(value: BigDecimal, currency: String): Single<String>
   fun sendUserToTopUpFlow(context: Context)
   fun sendUserToVerificationFlow(context: Context)
+  fun isWalletVerified():Single<Boolean>
 }

@@ -382,9 +382,13 @@ class SkillsFragment : DaggerFragment(), PaymentView {
     }
   }
 
-  override fun showFraudError() {
-    viewModel.sendUserToVerificationFlow(requireContext())
-    finishWithError(SkillsViewModel.RESULT_ERROR)
+  override fun showFraudError(isVerified: Boolean) {
+    if (!isVerified) {
+      viewModel.sendUserToVerificationFlow(requireContext())
+      finishWithError(SkillsViewModel.RESULT_ERROR)
+    } else {
+      showError()
+    }
   }
 
   override fun showNoNetworkError() {

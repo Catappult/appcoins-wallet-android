@@ -23,6 +23,7 @@ import com.asfoundation.wallet.eskills.payments.SkillsPaymentRepository
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.repository.CurrencyConversionService
+import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyInteract
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
@@ -61,6 +62,7 @@ class SkillsModule {
       cachePaymentUseCase: CachePaymentUseCase,
       getCachedPaymentUseCase: GetCachedPaymentUseCase,
       verificationFlowUseCase: SendUserVerificationFlowUseCase,
+      isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
   ): SkillsViewModel {
     return SkillsViewModel(
         walletObtainer, joinQueueUseCase, getTicketUseCase, GET_ROOM_RETRY_MILLIS,
@@ -68,8 +70,7 @@ class SkillsModule {
         saveQueueIdToClipboardUseCase, getApplicationInfoUseCase, getTicketPriceUseCase,
         getUserBalanceUseCase, sendUserToTopUpFlowUseCase, hasAuthenticationPermissionUseCase,
         getAuthenticationIntentUseCase, cachePaymentUseCase, getCachedPaymentUseCase,
-        verificationFlowUseCase
-    )
+        verificationFlowUseCase, isWalletVerifiedUseCase)
   }
 
   @Provides
@@ -89,10 +90,12 @@ class SkillsModule {
       rewardsManager: RewardsManager,
       billing: Billing,
       rxSchedulers: RxSchedulers,
-      getWalletInfoUseCase: GetWalletInfoUseCase
+      getWalletInfoUseCase: GetWalletInfoUseCase,
+      appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
   ): ExternalSkillsPaymentProvider {
     return SkillsPaymentRepository(currencyConversionService, currencyFormatUtils,
-        AppCoinsCreditsPayment(rewardsManager, billing), rxSchedulers, getWalletInfoUseCase)
+        AppCoinsCreditsPayment(rewardsManager, billing), rxSchedulers, getWalletInfoUseCase,
+        appcoinsRewardsBuyInteract)
   }
 
   @Provides

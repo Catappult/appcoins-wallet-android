@@ -4,7 +4,7 @@ interface PaymentView {
   fun showLoading()
   fun hideLoading()
   fun showError()
-  fun showFraudError()
+  fun showFraudError(isVerified: Boolean)
   fun showNoNetworkError()
   fun showFingerprintAuthentication()
 }

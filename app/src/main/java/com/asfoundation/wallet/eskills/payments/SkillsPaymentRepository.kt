@@ -10,6 +10,7 @@ import cm.aptoide.skills.util.EskillsPaymentData
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.repository.CurrencyConversionService
 import com.asfoundation.wallet.topup.TopUpActivity
+import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyInteract
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
@@ -22,7 +23,8 @@ class SkillsPaymentRepository(
     private val currencyFormatUtils: CurrencyFormatUtils,
     private val appCoinsCreditsPayment: AppCoinsCreditsPayment,
     private val schedulers: RxSchedulers,
-    private val getWalletInfoUseCase: GetWalletInfoUseCase
+    private val getWalletInfoUseCase: GetWalletInfoUseCase,
+    private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
 ) : ExternalSkillsPaymentProvider {
   override fun getBalance(): Single<BigDecimal> {
     return getWalletInfoUseCase(null, cached = false, updateFiat = false)
@@ -63,5 +65,9 @@ class SkillsPaymentRepository(
     val intent = VerificationCreditCardActivity.newIntent(context)
         .apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     context.startActivity(intent)
+  }
+
+  override fun isWalletVerified(): Single<Boolean> {
+    return appcoinsRewardsBuyInteract.isWalletVerified()
   }
 }

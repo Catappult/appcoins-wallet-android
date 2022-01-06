@@ -111,4 +111,10 @@ class UseCaseModule {
       paymentLocalStorage: PaymentLocalStorage): GetCachedPaymentUseCase {
     return GetCachedPaymentUseCase(paymentLocalStorage)
   }
+
+  @Provides
+  fun provideIsWalletVerifiedUseCase(
+      externalSkillsPaymentProvider: ExternalSkillsPaymentProvider): IsWalletVerifiedUseCase {
+    return IsWalletVerifiedUseCase(externalSkillsPaymentProvider)
+  }
 }

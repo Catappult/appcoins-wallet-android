@@ -34,7 +34,8 @@ class SkillsViewModel(
     private val getAuthenticationIntentUseCase: GetAuthenticationIntentUseCase,
     private val cachePaymentUseCase: CachePaymentUseCase,
     private val getCachedPaymentUseCase: GetCachedPaymentUseCase,
-    private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase
+    private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase,
+    private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
 ) {
   lateinit var ticketId: String
 
@@ -75,7 +76,9 @@ class SkillsViewModel(
               payTicketUseCase(ticket, eskillsPaymentData)
                   .observeOn(AndroidSchedulers.mainThread())
                   .doOnSubscribe { view.showLoading() }
-                  .map { paymentResult -> handlePaymentResultStatus(view, paymentResult, ticket) }
+                  .flatMap { paymentResult ->
+                    handlePaymentResultStatus(view, paymentResult, ticket)
+                  }
             }
           }
         }
@@ -90,13 +93,14 @@ class SkillsViewModel(
   private fun handlePaymentResultStatus(view: PaymentView,
                                         paymentResult: PaymentResult,
                                         ticket: CreatedTicket): Single<Ticket> {
-    when (paymentResult) {
-      is SuccessfulPayment -> view.hideLoading()
-      is FailedPayment.GenericError -> view.showError()
-      is FailedPayment.FraudError -> view.showFraudError()
-      is FailedPayment.NoNetworkError -> view.showNoNetworkError()
-    }
-    return Single.just(ticket)
+    return when (paymentResult) {
+      is SuccessfulPayment -> Single.fromCallable { view.hideLoading() }
+      is FailedPayment.GenericError -> Single.fromCallable { view.showError() }
+      is FailedPayment.FraudError -> isWalletVerifiedUseCase().observeOn(
+          AndroidSchedulers.mainThread())
+          .doOnSuccess { view.showFraudError(it) }
+      is FailedPayment.NoNetworkError -> Single.fromCallable { view.showNoNetworkError() }
+    }.map { ticket }
   }
 
   private fun handlePurchasedTicketStatus(ticket: Ticket): Observable<UserData> {
