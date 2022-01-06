@@ -14,6 +14,7 @@ class SaveBackupBottomSheetNavigator(val fragment: SaveBackupBottomSheetFragment
   fun navigateToSuccessScreen() {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container, BackupSuccessFragment.newInstance(false))
+        .addToBackStack("SaveBackupDialogFragment")
         .commit()
     fragment.dismiss()
   }

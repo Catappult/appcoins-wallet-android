@@ -16,6 +16,7 @@ class BackupCreationNavigator(private val fragmentManager: FragmentManager) {
   fun navigateToSuccessScreen() {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container, BackupSuccessFragment.newInstance(true))
+        .addToBackStack("BackupCreationFragment")
         .commit()
   }
 }

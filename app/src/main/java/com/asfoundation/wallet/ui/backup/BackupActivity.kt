@@ -39,7 +39,12 @@ class BackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      presenter.sendWalletSaveFileEvent(getCurrentFragment())
+      if (supportFragmentManager.backStackEntryCount >= 1) {
+        supportFragmentManager.popBackStack()
+      } else {
+        finish()
+      }
+      return true
     }
     return super.onOptionsItemSelected(item)
   }
@@ -66,4 +71,6 @@ class BackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
     return if (fragments.isNotEmpty()) fragments[0]::class.java.simpleName
     else BackupWalletFragment::class.java.simpleName
   }
+
+
 }

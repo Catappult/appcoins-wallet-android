@@ -11,6 +11,7 @@ class BackupWalletNavigator(private val fragmentManager: FragmentManager) {
     fragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             BackupCreationFragment.newInstance(walletAddress, password))
+        .addToBackStack("BackupWalletFragment")
         .commit()
   }
 
