@@ -16,11 +16,6 @@ import dagger.hilt.android.components.ActivityComponent
 class MainActivityModule {
 
   @Provides
-  fun provideNavigator(activity: Activity): MainActivityNavigator {
-    return MainActivityNavigator(activity)
-  }
-
-  @Provides
   fun provideData(activity: Activity): MainData {
     return MainData(
         activity.intent.getBooleanExtra(SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,

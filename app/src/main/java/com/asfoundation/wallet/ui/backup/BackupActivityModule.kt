@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.backup
 
 import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.ui.backup.BackupActivity.Companion.WALLET_ADDRESS
 import dagger.Module
@@ -27,10 +26,5 @@ class BackupActivityModule {
     activity.intent.extras!!.apply {
       return BackupActivityData(getString(WALLET_ADDRESS)!!)
     }
-  }
-
-  @Provides
-  fun providesBackupActivityNavigator(activity: Activity): BackupActivityNavigator {
-    return BackupActivityNavigator((activity as AppCompatActivity).supportFragmentManager, activity)
   }
 }

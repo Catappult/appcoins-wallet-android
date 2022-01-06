@@ -24,11 +24,9 @@ import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
-import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
@@ -38,7 +36,6 @@ import static com.asfoundation.wallet.C.GWEI_UNIT;
   private static final String TAG = TransferConfirmationActivity.class.getSimpleName();
 
   AlertDialog dialog;
-  @Inject TransferConfirmationViewModelFactory transferConfirmationViewModelFactory;
   CurrencyFormatUtils currencyFormatUtils;
   TransferConfirmationViewModel viewModel;
   private TextView fromAddressText;
@@ -64,7 +61,7 @@ import static com.asfoundation.wallet.C.GWEI_UNIT;
     sendButton = findViewById(R.id.send_button);
     sendButton.setOnClickListener(view -> onSend());
 
-    viewModel = ViewModelProviders.of(this, transferConfirmationViewModelFactory)
+    viewModel = ViewModelProviders.of(this)
         .get(TransferConfirmationViewModel.class);
     viewModel.transactionBuilder()
         .observe(this, this::onTransactionBuilder);

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di
 
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentResolver
@@ -8,8 +9,10 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.core.app.NotificationCompat
+import androidx.fragment.app.FragmentManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.LogReceiver
@@ -22,7 +25,6 @@ import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.App
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
@@ -61,7 +63,8 @@ import javax.inject.Singleton
 @Module
 internal class AppModule {
   @Provides
-  fun provideContext(application: App): Context = application.applicationContext
+  fun provideFragmentManager(activity: Activity): FragmentManager =
+    (activity as AppCompatActivity).supportFragmentManager
 
   @Singleton
   @Provides
@@ -91,12 +94,12 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideAdsContractAddressSdk(): AppCoinsAddressProxySdk =
-      AppCoinsAddressProxyBuilder().createAddressProxySdk()  //read only?
+    AppCoinsAddressProxyBuilder().createAddressProxySdk()  //read only?
 
   @Singleton
   @Provides
   fun provideHashCalculator(calculator: Calculator) =
-      HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator)
+    HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator)
 
   @Provides
   @Named("MAX_NUMBER_PROOF_COMPONENTS")
@@ -104,12 +107,16 @@ internal class AppModule {
 
   @Provides
   @Singleton
-  fun provideInAppPurchaseDataSaver(@ApplicationContext context: Context,
-                                    operationSources: OperationSources,
-                                    appCoinsOperationRepository: AppCoinsOperationRepository): AppcoinsOperationsDataSaver {
-    return AppcoinsOperationsDataSaver(operationSources.sources, appCoinsOperationRepository,
-        AppInfoProvider(context, ImageSaver(context.filesDir.toString() + "/app_icons/")),
-        Schedulers.io(), CompositeDisposable())
+  fun provideInAppPurchaseDataSaver(
+    @ApplicationContext context: Context,
+    operationSources: OperationSources,
+    appCoinsOperationRepository: AppCoinsOperationRepository
+  ): AppcoinsOperationsDataSaver {
+    return AppcoinsOperationsDataSaver(
+      operationSources.sources, appCoinsOperationRepository,
+      AppInfoProvider(context, ImageSaver(context.filesDir.toString() + "/app_icons/")),
+      Schedulers.io(), CompositeDisposable()
+    )
   }
 
   @Provides
@@ -136,14 +143,17 @@ internal class AppModule {
   @Provides
   fun provideNotificationManager(@ApplicationContext context: Context): NotificationManager {
     return context.applicationContext.getSystemService(
-        Context.NOTIFICATION_SERVICE) as NotificationManager
+      Context.NOTIFICATION_SERVICE
+    ) as NotificationManager
   }
 
   @Singleton
   @Provides
   @Named("heads_up")
-  fun provideHeadsUpNotificationBuilder(@ApplicationContext context: Context,
-                                        notificationManager: NotificationManager): NotificationCompat.Builder {
+  fun provideHeadsUpNotificationBuilder(
+    @ApplicationContext context: Context,
+    notificationManager: NotificationManager
+  ): NotificationCompat.Builder {
     val builder: NotificationCompat.Builder
     val channelId = "notification_channel_heads_up_id"
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -157,9 +167,9 @@ internal class AppModule {
       builder.setVibrate(LongArray(0))
     }
     return builder.setContentTitle(context.getString(R.string.app_name))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setPriority(NotificationCompat.PRIORITY_MAX)
-        .setAutoCancel(true)
+      .setSmallIcon(R.drawable.ic_launcher_foreground)
+      .setPriority(NotificationCompat.PRIORITY_MAX)
+      .setAutoCancel(true)
   }
 
   @Singleton
@@ -171,12 +181,14 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providePackageManager(@ApplicationContext context: Context): PackageManager =
-      context.packageManager
+    context.packageManager
 
   @Provides
   @Named("local_version_code")
-  fun provideLocalVersionCode(@ApplicationContext context: Context,
-                              packageManager: PackageManager): Int {
+  fun provideLocalVersionCode(
+    @ApplicationContext context: Context,
+    packageManager: PackageManager
+  ): Int {
     return try {
       packageManager.getPackageInfo(context.packageName, 0).versionCode
     } catch (e: PackageManager.NameNotFoundException) {
@@ -198,7 +210,7 @@ internal class AppModule {
 
   @Provides
   fun provideContentResolver(@ApplicationContext context: Context): ContentResolver =
-      context.contentResolver
+    context.contentResolver
 
   @Provides
   fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
@@ -207,13 +219,17 @@ internal class AppModule {
   @Provides
   fun providesDefaultNetwork(): NetworkInfo {
     return if (BuildConfig.DEBUG) {
-      NetworkInfo(C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
-          "https://ropsten.infura.io/v3/${BuildConfig.INFURA_API_KEY_ROPSTEN}",
-          "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false)
+      NetworkInfo(
+        C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
+        "https://ropsten.infura.io/v3/${BuildConfig.INFURA_API_KEY_ROPSTEN}",
+        "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false
+      )
     } else {
-      NetworkInfo(C.ETHEREUM_NETWORK_NAME, C.ETH_SYMBOL,
-          "https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}",
-          "https://api.trustwalletapp.com/", "https://etherscan.io/tx/", 1, true)
+      NetworkInfo(
+        C.ETHEREUM_NETWORK_NAME, C.ETH_SYMBOL,
+        "https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}",
+        "https://api.trustwalletapp.com/", "https://etherscan.io/tx/", 1, true
+      )
     }
   }
 
@@ -224,7 +240,7 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesBiometricManager(@ApplicationContext context: Context) =
-      BiometricManager.from(context)
+    BiometricManager.from(context)
 
   @Provides
   fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {

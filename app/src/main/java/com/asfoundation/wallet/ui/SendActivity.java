@@ -17,14 +17,12 @@ import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.viewmodel.SendViewModel;
-import com.asfoundation.wallet.viewmodel.SendViewModelFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.textfield.TextInputLayout;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import javax.inject.Inject;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
@@ -32,7 +30,6 @@ import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
 @AndroidEntryPoint public class SendActivity extends BaseActivity {
 
   private static final int BARCODE_READER_REQUEST_CODE = 1;
-  @Inject SendViewModelFactory sendViewModelFactory;
   private SendViewModel viewModel;
   private EditText toAddressText;
   private EditText amountText;
@@ -63,7 +60,7 @@ import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
     amountInputLayout = findViewById(R.id.amount_input_layout);
     amountText = findViewById(R.id.send_amount);
 
-    viewModel = ViewModelProviders.of(this, sendViewModelFactory)
+    viewModel = ViewModelProviders.of(this)
         .get(SendViewModel.class);
     viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER),
         getIntent().getData());

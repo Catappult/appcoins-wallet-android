@@ -17,13 +17,15 @@ import com.asfoundation.wallet.util.QRUri;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import com.google.android.gms.vision.barcode.Barcode;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
+import javax.inject.Inject;
 import org.web3j.utils.Numeric;
 
 import static com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity.ERROR_CODE;
 
-public class SendViewModel extends BaseViewModel {
+@HiltViewModel public class SendViewModel extends BaseViewModel {
   private final MutableLiveData<String> symbol = new MutableLiveData<>();
   private final MutableLiveData<String> address = new MutableLiveData<>();
   private final MutableLiveData<BigDecimal> amount = new MutableLiveData<>();
@@ -33,18 +35,15 @@ public class SendViewModel extends BaseViewModel {
   private final TransferConfirmationRouter transferConfirmationRouter;
   private final TransferParser transferParser;
   private final CompositeDisposable disposables;
-  private final TransactionsRouter transactionsRouter;
   private TransactionBuilder transactionBuilder;
 
-  SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
+  @Inject SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
       FetchGasSettingsInteract fetchGasSettingsInteract,
-      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
-      TransactionsRouter transactionsRouter) {
+      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.transferConfirmationRouter = transferConfirmationRouter;
     this.transferParser = transferParser;
-    this.transactionsRouter = transactionsRouter;
     disposables = new CompositeDisposable();
   }
 

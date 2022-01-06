@@ -20,11 +20,13 @@ import com.asfoundation.wallet.subscriptions.SubscriptionActivity;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.iab.FiatValue;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import javax.inject.Inject;
 
-public class TransactionDetailViewModel extends BaseViewModel {
+@HiltViewModel public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
   private final DisplayChatUseCase displayChatUseCase;
@@ -36,7 +38,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
       new MutableLiveData<>();
   private final CompositeDisposable disposables;
 
-  TransactionDetailViewModel(FindDefaultWalletUseCase findDefaultWalletUseCase,
+  @Inject TransactionDetailViewModel(FindDefaultWalletUseCase findDefaultWalletUseCase,
       FindNetworkInfoUseCase findNetworkInfoUseCase, ExternalBrowserRouter externalBrowserRouter,
       CompositeDisposable compositeDisposable, DisplayChatUseCase displayChatUseCase,
       TransactionDetailRouter transactionDetailRouter,

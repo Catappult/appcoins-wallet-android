@@ -4,15 +4,15 @@ import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
-import com.asfoundation.wallet.verification.repository.VerificationRepository
+import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class WalletVerificationInteractor @Inject constructor(
-    private val verificationRepository: VerificationRepository,
-    private val walletService: WalletService) {
+  private val brokerVerificationRepository: BrokerVerificationRepository,
+  private val walletService: WalletService) {
 
   enum class VerificationType { PAYPAL, CREDIT_CARD }
 
@@ -23,15 +23,15 @@ class WalletVerificationInteractor @Inject constructor(
 
   private fun getVerificationStatus(address: String,
                                     signature: String): Single<VerificationStatus> {
-    return verificationRepository.getVerificationStatus(address, signature)
+    return brokerVerificationRepository.getVerificationStatus(address, signature)
   }
 
   fun getCachedVerificationStatus(address: String): VerificationStatus {
-    return verificationRepository.getCachedValidationStatus(address)
+    return brokerVerificationRepository.getCachedValidationStatus(address)
   }
 
   fun removeWalletVerificationStatus(address: String): Completable {
-    return verificationRepository.removeCachedWalletValidationStatus(address)
+    return brokerVerificationRepository.removeCachedWalletValidationStatus(address)
   }
 
   internal fun makeVerificationPayment(verificationType: VerificationType,
@@ -41,15 +41,15 @@ class WalletVerificationInteractor @Inject constructor(
         .flatMap { addressModel ->
           when (verificationType) {
             VerificationType.PAYPAL -> {
-              verificationRepository.makePaypalVerificationPayment(adyenPaymentMethod,
+              brokerVerificationRepository.makePaypalVerificationPayment(adyenPaymentMethod,
                   shouldStoreMethod, returnUrl, addressModel.address, addressModel.signedAddress)
             }
             VerificationType.CREDIT_CARD -> {
-              verificationRepository.makeCreditCardVerificationPayment(adyenPaymentMethod,
+              brokerVerificationRepository.makeCreditCardVerificationPayment(adyenPaymentMethod,
                   shouldStoreMethod, returnUrl, addressModel.address, addressModel.signedAddress)
                   .doOnSuccess { paymentModel ->
                     if (paymentModel.success) {
-                      verificationRepository.saveVerificationStatus(addressModel.address,
+                      brokerVerificationRepository.saveVerificationStatus(addressModel.address,
                           VerificationStatus.CODE_REQUESTED)
                     }
                   }
@@ -61,11 +61,11 @@ class WalletVerificationInteractor @Inject constructor(
   internal fun confirmVerificationCode(code: String): Single<VerificationCodeResult> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { addressModel ->
-          verificationRepository.validateCode(code, addressModel.address,
+          brokerVerificationRepository.validateCode(code, addressModel.address,
               addressModel.signedAddress)
               .doOnSuccess { result ->
                 if (result.success) {
-                  verificationRepository.saveVerificationStatus(addressModel.address,
+                  brokerVerificationRepository.saveVerificationStatus(addressModel.address,
                       VerificationStatus.VERIFIED)
                 }
               }

@@ -31,7 +31,6 @@ import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
-import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -49,7 +48,6 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
 @AndroidEntryPoint public class TransactionDetailActivity extends BaseActivity {
 
   private static final int DECIMALS = 18;
-  @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   @Inject CurrencyFormatUtils formatter;
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
@@ -89,7 +87,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
     detailsList = findViewById(R.id.details_list);
     detailsList.setAdapter(adapter);
 
-    viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
+    viewModel = ViewModelProviders.of(this)
         .get(TransactionDetailViewModel.class);
 
     viewModel.initializeView(transaction.getPaidAmount(), transaction.getPaidCurrency(),

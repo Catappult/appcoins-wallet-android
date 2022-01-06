@@ -7,7 +7,7 @@ import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.verification.repository.VerificationRepository
+import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import dagger.Module
@@ -41,12 +41,12 @@ class VerificationIntroModule {
   }
 
   @Provides
-  fun provideWalletVerificationIntroInteractor(verificationRepository: VerificationRepository,
+  fun provideWalletVerificationIntroInteractor(brokerVerificationRepository: BrokerVerificationRepository,
                                                adyenPaymentInteractor: AdyenPaymentInteractor,
                                                walletService: WalletService,
                                                supportInteractor: SupportInteractor,
                                                walletVerificationInteractor: WalletVerificationInteractor): VerificationIntroInteractor {
-    return VerificationIntroInteractor(verificationRepository, adyenPaymentInteractor,
+    return VerificationIntroInteractor(brokerVerificationRepository, adyenPaymentInteractor,
         walletService, supportInteractor, walletVerificationInteractor)
   }
 

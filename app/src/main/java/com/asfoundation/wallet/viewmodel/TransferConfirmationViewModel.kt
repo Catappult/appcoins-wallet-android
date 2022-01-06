@@ -3,24 +3,28 @@ package com.asfoundation.wallet.viewmodel
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.transfers.TransferConfirmationInteractor
 import com.asfoundation.wallet.transfers.TransferConfirmationNavigator
 import com.asfoundation.wallet.util.BalanceUtils
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
 import java.math.BigInteger
+import javax.inject.Inject
 
-class TransferConfirmationViewModel internal constructor(
-    private val transferConfirmationInteractor: TransferConfirmationInteractor,
-    private val gasSettingsRouter: GasSettingsRouter,
-    private val logger: Logger,
-    private val transactionConfirmationNavigator: TransferConfirmationNavigator) : BaseViewModel() {
+
+class TransferConfirmationViewModel @Inject constructor(
+  private val transferConfirmationInteractor: TransferConfirmationInteractor,
+  private val gasSettingsRouter: GasSettingsRouter,
+  private val logger: Logger,
+  private val transactionConfirmationNavigator: TransferConfirmationNavigator
+) : BaseViewModel() {
 
   private val transactionBuilder = MutableLiveData<TransactionBuilder>()
   private val transactionHash = MutableLiveData<PendingTransaction>()

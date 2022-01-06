@@ -7,8 +7,10 @@ import androidx.navigation.NavDeepLinkBuilder
 import com.asf.wallet.R
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class MainActivityNavigator(val context: Context) {
+class MainActivityNavigator @Inject constructor(@ApplicationContext val context: Context) {
 
   fun getHomePendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)

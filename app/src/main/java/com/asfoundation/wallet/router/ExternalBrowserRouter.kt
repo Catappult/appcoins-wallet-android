@@ -6,8 +6,9 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import com.asf.wallet.R
+import javax.inject.Inject
 
-class ExternalBrowserRouter {
+class ExternalBrowserRouter @Inject constructor() {
 
   fun open(context: Context, uri: Uri) {
     try {

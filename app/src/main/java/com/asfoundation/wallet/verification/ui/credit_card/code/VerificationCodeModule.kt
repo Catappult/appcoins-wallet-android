@@ -3,7 +3,7 @@ package com.asfoundation.wallet.verification.ui.credit_card.code
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.verification.repository.VerificationRepository
+import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.*
 import dagger.Module
 import dagger.Provides
@@ -39,10 +39,10 @@ class VerificationCodeModule {
 
   @Provides
   fun provideWalletVerificationCodeInteractor(
-      walletVerificationInteractor: WalletVerificationInteractor,
-      verificationRepository: VerificationRepository,
-      walletService: WalletService): VerificationCodeInteractor {
-    return VerificationCodeInteractor(walletVerificationInteractor, verificationRepository,
+    walletVerificationInteractor: WalletVerificationInteractor,
+    brokerVerificationRepository: BrokerVerificationRepository,
+    walletService: WalletService): VerificationCodeInteractor {
+    return VerificationCodeInteractor(walletVerificationInteractor, brokerVerificationRepository,
         walletService)
   }
 

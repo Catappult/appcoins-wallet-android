@@ -5,7 +5,7 @@ import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.service.AccountWalletService
-import com.asfoundation.wallet.verification.repository.VerificationRepository
+import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import io.reactivex.Observable
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class BalanceInteractor @Inject constructor(private val accountWalletService: AccountWalletService,
                                             private val walletVerificationInteractor: WalletVerificationInteractor,
                                             private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-                                            private val verificationRepository: VerificationRepository,
+                                            private val brokerVerificationRepository: BrokerVerificationRepository,
                                             private val rxSchedulers: RxSchedulers) {
 
   companion object {
@@ -43,7 +43,7 @@ class BalanceInteractor @Inject constructor(private val accountWalletService: Ac
     return Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
         .timeInterval()
         .flatMap {
-          verificationRepository.getVerificationStatus(address, signedAddress)
+          brokerVerificationRepository.getVerificationStatus(address, signedAddress)
               .toObservable()
               .map { status ->
                 mapToBalanceVerificationModel(address, status, getCachedVerificationStatus(address))
