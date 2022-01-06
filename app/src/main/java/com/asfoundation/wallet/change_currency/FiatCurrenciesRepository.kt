@@ -80,7 +80,7 @@ class FiatCurrenciesRepository @Inject constructor(private val fiatCurrenciesApi
   }
 
   interface FiatCurrenciesApi {
-    @GET("broker/8.20210201/currencies?type=FIAT&icon.height=128")
+    @GET("8.20210201/currencies?type=FIAT&icon.height=128")
     fun getFiatCurrencies(): Single<FiatCurrenciesResponse>
   }
 

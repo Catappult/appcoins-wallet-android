@@ -34,7 +34,7 @@ class SkillsPaymentRepository @Inject constructor(private val adyenApi: AdyenApi
   interface AdyenApi {
 
 
-    @POST("transactions")
+    @POST("8.20200815/gateways/adyen_v2/transactions")
     @Headers("Content-Type: application/json;format=product_token")
     fun makePayment(@Query("wallet.address") walletAddress: String,
                     @Query("wallet.signature") walletSignature: String,

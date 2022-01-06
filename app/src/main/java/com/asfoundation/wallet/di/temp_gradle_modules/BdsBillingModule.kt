@@ -17,13 +17,15 @@ import javax.inject.Singleton
 class BdsBillingModule {
   @Singleton
   @Provides
-  fun providesBillingPaymentProofSubmission(api: RemoteRepository.BdsApi,
+  fun providesBillingPaymentProofSubmission(brokerBdsApi: RemoteRepository.BrokerBdsApi,
+                                            inappBdsApi: RemoteRepository.InappBdsApi,
                                             walletService: WalletService,
                                             subscriptionBillingApi: SubscriptionBillingApi,
                                             bdsApi: BdsApiSecondary,
                                             billingSerializer: ExternalBillingSerializer): BillingPaymentProofSubmission {
     return BillingPaymentProofSubmissionImpl.Builder()
-        .setApi(api)
+        .setBrokerBdsApi(brokerBdsApi)
+        .setInappBdsApi(inappBdsApi)
         .setBillingSerializer(billingSerializer)
         .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
@@ -45,9 +47,10 @@ class BdsBillingModule {
   @Singleton
   @Provides
   fun provideRemoteRepository(subscriptionBillingApi: SubscriptionBillingApi,
-                              bdsApi: RemoteRepository.BdsApi,
+                              brokerBdsApi: RemoteRepository.BrokerBdsApi,
+                              inappBdsApi: RemoteRepository.InappBdsApi,
                               api: BdsApiSecondary): RemoteRepository {
-    return RemoteRepository(bdsApi,
+    return RemoteRepository(brokerBdsApi,inappBdsApi,
         BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(ExternalBillingSerializer())), api,
         subscriptionBillingApi, ExternalBillingSerializer())
   }

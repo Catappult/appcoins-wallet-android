@@ -1,4 +1,4 @@
-package com.appcoins.wallet.billing.carrierbilling.response
+package com.asfoundation.wallet.billing.carrier_billing
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal

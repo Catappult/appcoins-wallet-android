@@ -37,7 +37,7 @@ class PromoCodeRepository @Inject constructor(private val promoCodeBrokerApi: Pr
   fun removePromoCode(): Completable = promoCodeLocalDataSource.removePromoCode()
 
   interface PromoCodeBrokerApi {
-    @GET("broker/8.20210201/entity/promo-code/{promoCodeString}")
+    @GET("8.20210201/entity/promo-code/{promoCodeString}")
     fun getPromoCode(@Path("promoCodeString") promoCodeString: String): Single<PromoCodeResponse>
   }
 

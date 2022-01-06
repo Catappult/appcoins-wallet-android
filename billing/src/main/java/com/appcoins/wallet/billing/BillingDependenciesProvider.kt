@@ -10,7 +10,9 @@ import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 interface BillingDependenciesProvider {
   fun supportedVersion(): Int
 
-  fun bdsApi(): RemoteRepository.BdsApi
+  fun brokerBdsApi(): RemoteRepository.BrokerBdsApi
+
+  fun inappBdsApi(): RemoteRepository.InappBdsApi
 
   fun walletService(): WalletService
 

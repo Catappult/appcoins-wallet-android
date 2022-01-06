@@ -1,30 +1,27 @@
-package com.appcoins.wallet.billing.carrierbilling
+package com.asfoundation.wallet.billing.carrier_billing
 
+import com.appcoins.wallet.billing.carrierbilling.AvailableCountryListModel
+import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
+import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
 import com.appcoins.wallet.billing.carrierbilling.request.CarrierTransactionBody
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
-import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.commons.Logger
 import io.reactivex.Observable
 import io.reactivex.Single
-import retrofit2.Retrofit
 import retrofit2.http.*
 import javax.inject.Inject
-import javax.inject.Named
 
 class CarrierBillingRepository @Inject constructor(private val api: CarrierBillingApi,
                                                    private val preferences: CarrierBillingPreferencesRepository,
-                                                   @Named("broker-carrier-default")
-                                                   retrofit: Retrofit,
-                                                   billingErrorMapper: BillingErrorMapper,
+                                                   private val mapper: CarrierResponseMapper,
                                                    private val logger: Logger) {
 
   companion object {
     private const val METHOD = "onebip"
   }
 
-  private val mapper = CarrierResponseMapper(retrofit, billingErrorMapper)
   private val packageName = "com.appcoins.wallet.dev"
   private val RETURN_URL = "https://${packageName}/return/carrier_billing"
 
@@ -71,19 +68,19 @@ class CarrierBillingRepository @Inject constructor(private val api: CarrierBilli
   fun retrievePhoneNumber() = preferences.retrievePhoneNumber()
 
   interface CarrierBillingApi {
-    @POST("gateways/dimoco/transactions")
+    @POST("8.20210329/gateways/dimoco/transactions")
     fun makePayment(@Query("wallet.address") walletAddress: String,
                     @Query("wallet.signature") walletSignature: String,
                     @Body carrierTransactionBody: CarrierTransactionBody)
         : Single<CarrierCreateTransactionResponse>
 
-    @GET("gateways/dimoco/transactions/{uid}")
+    @GET("8.20210329/gateways/dimoco/transactions/{uid}")
     fun getPayment(@Path("uid") uid: String,
                    @Query("wallet.address") walletAddress: String,
                    @Query("wallet.signature")
                    walletSignature: String): Observable<TransactionResponse>
 
-    @GET("dimoco/countries")
+    @GET("8.20210329/dimoco/countries")
     fun getAvailableCountryList(): Single<CountryListResponse>
   }
 }

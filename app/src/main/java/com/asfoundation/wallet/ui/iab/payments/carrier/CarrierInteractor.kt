@@ -7,6 +7,7 @@ import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
+import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase

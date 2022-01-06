@@ -1,27 +1,31 @@
-package com.appcoins.wallet.billing.carrierbilling
+package com.asfoundation.wallet.billing.carrier_billing
 
+import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
-import com.appcoins.wallet.billing.carrierbilling.response.CarrierErrorResponse
 import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.util.isNoNetworkException
+import com.asfoundation.wallet.di.annotations.BrokerDefaultRetrofit
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.HttpException
 import retrofit2.Retrofit
+import javax.inject.Inject
 
-class CarrierResponseMapper(private val retrofit: Retrofit,
-                            private val billingErrorMapper: BillingErrorMapper) {
+class CarrierResponseMapper @Inject constructor(@BrokerDefaultRetrofit private val retrofit: Retrofit,
+                                                private val billingErrorMapper: BillingErrorMapper) {
 
   fun mapPayment(response: CarrierCreateTransactionResponse): CarrierPaymentModel {
     return CarrierPaymentModel(response.uid, null, null, response.url, response.fee,
-        response.carrier, null, response.status, NoError)
+        response.carrier, null, response.status, NoError
+    )
   }
 
   fun mapPayment(response: TransactionResponse): CarrierPaymentModel {
     return CarrierPaymentModel(response.uid, response.hash, response.orderReference, null, null,
-        null, response.metadata?.purchaseUid, response.status, NoError)
+        null, response.metadata?.purchaseUid, response.status, NoError
+    )
   }
 
   fun mapPaymentError(throwable: Throwable): CarrierPaymentModel {
@@ -37,7 +41,8 @@ class CarrierResponseMapper(private val retrofit: Retrofit,
           ?.errorBody()
           ?.let { body ->
             val errorConverter: Converter<ResponseBody, CarrierErrorResponse> = retrofit
-                .responseBodyConverter(CarrierErrorResponse::class.java,
+                .responseBodyConverter(
+                  CarrierErrorResponse::class.java,
                     arrayOfNulls<Annotation>(0))
             val bodyErrorResponse = try {
               errorConverter.convert(body)

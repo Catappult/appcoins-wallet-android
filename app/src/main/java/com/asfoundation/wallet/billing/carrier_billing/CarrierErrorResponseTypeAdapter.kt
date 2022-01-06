@@ -1,4 +1,4 @@
-package com.appcoins.wallet.billing.carrierbilling.response
+package com.asfoundation.wallet.billing.carrier_billing
 
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -51,6 +51,11 @@ class CarrierErrorResponseTypeAdapter : TypeAdapter<CarrierErrorResponse>() {
     }
 
     reader.endObject();
-    return CarrierErrorResponse(code, path, text, data)
+    return CarrierErrorResponse(
+      code,
+      path,
+      text,
+      data
+    )
   }
 }

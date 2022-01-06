@@ -10,7 +10,7 @@ import javax.inject.Qualifier
   AnnotationTarget.FUNCTION,
   AnnotationTarget.VALUE_PARAMETER
 )
-annotation class BackendRetrofitBlockchain
+annotation class BackendBlockchainRetrofit
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)

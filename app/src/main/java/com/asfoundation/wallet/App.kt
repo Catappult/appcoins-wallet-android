@@ -52,7 +52,10 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
 
   @Inject
-  lateinit var bdsApi: RemoteRepository.BdsApi
+  lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
+
+  @Inject
+  lateinit var inappBdsApi: RemoteRepository.InappBdsApi
 
   @Inject
   lateinit var walletService: WalletService
@@ -185,7 +188,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   override fun supportedVersion() = BuildConfig.BILLING_SUPPORTED_VERSION
 
-  override fun bdsApi() = bdsApi
+  override fun brokerBdsApi() = brokerBdsApi
+
+  override fun inappBdsApi() = inappBdsApi
 
   override fun walletService() = walletService
 

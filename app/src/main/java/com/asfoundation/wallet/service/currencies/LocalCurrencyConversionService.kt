@@ -72,17 +72,17 @@ class LocalCurrencyConversionService @Inject constructor(
   }
 
   interface TokenToLocalFiatApi {
-    @GET("broker/8.20180518/exchanges/{currency}/convert/{value}")
+    @GET("8.20180518/exchanges/{currency}/convert/{value}")
     fun getValueToTargetFiat(@Path("currency") currency: String,
                              @Path("value") value: String): Single<ConversionResponseBody>
 
-    @GET("broker/8.20180518/exchanges/{currency}/convert/{value}")
+    @GET("8.20180518/exchanges/{currency}/convert/{value}")
     fun getValueToTargetFiat(@Path("currency") currency: String,
                              @Path("value") value: String,
                              @Query("to")
                              targetCurrency: String): Single<ConversionResponseBody>
 
-    @GET("broker/8.20180518/exchanges/{currency}/convert/{value}?to=APPC")
+    @GET("8.20180518/exchanges/{currency}/convert/{value}?to=APPC")
     fun convertFiatToAppc(@Path("currency") currency: String,
                           @Path("value") value: String): Single<ConversionResponseBody>
   }
