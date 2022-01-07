@@ -12,8 +12,7 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import javax.inject.Inject
 
-@HiltViewModel
-class GasSettingsViewModel @Inject constructor(private val gasSettingsInteractor: GasSettingsInteractor) :
+class GasSettingsViewModel constructor(private val gasSettingsInteractor: GasSettingsInteractor) :
   BaseViewModel() {
 
   private val gasPrice = MutableLiveData<BigDecimal>()

@@ -14,6 +14,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
@@ -31,6 +32,7 @@ import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
+import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
@@ -49,6 +51,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
   private static final int DECIMALS = 18;
   @Inject CurrencyFormatUtils formatter;
+  @Inject TransactionDetailViewModelFactory viewModelFactory;
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
   private String globalBalanceCurrency;
@@ -87,7 +90,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
     detailsList = findViewById(R.id.details_list);
     detailsList.setAdapter(adapter);
 
-    viewModel = ViewModelProviders.of(this)
+    viewModel = new ViewModelProvider(this,viewModelFactory)
         .get(TransactionDetailViewModel.class);
 
     viewModel.initializeView(transaction.getPaidAmount(), transaction.getPaidCurrency(),

@@ -19,7 +19,7 @@ import java.math.BigInteger
 import javax.inject.Inject
 
 
-class TransferConfirmationViewModel @Inject constructor(
+class TransferConfirmationViewModel constructor(
   private val transferConfirmationInteractor: TransferConfirmationInteractor,
   private val gasSettingsRouter: GasSettingsRouter,
   private val logger: Logger,

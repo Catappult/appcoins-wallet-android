@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
@@ -23,10 +24,13 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
+import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
+import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
@@ -37,7 +41,8 @@ import static com.asfoundation.wallet.C.GWEI_UNIT;
 
   AlertDialog dialog;
   CurrencyFormatUtils currencyFormatUtils;
-  TransferConfirmationViewModel viewModel;
+  @Inject TransferConfirmationViewModelFactory viewModelFactory;
+  private TransferConfirmationViewModel viewModel;
   private TextView fromAddressText;
   private TextView toAddressText;
   private TextView valueText;
@@ -61,7 +66,7 @@ import static com.asfoundation.wallet.C.GWEI_UNIT;
     sendButton = findViewById(R.id.send_button);
     sendButton.setOnClickListener(view -> onSend());
 
-    viewModel = ViewModelProviders.of(this)
+    viewModel = new ViewModelProvider(this, viewModelFactory)
         .get(TransferConfirmationViewModel.class);
     viewModel.transactionBuilder()
         .observe(this, this::onTransactionBuilder);

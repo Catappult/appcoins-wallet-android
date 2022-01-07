@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
@@ -17,13 +18,16 @@ import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
+import com.asfoundation.wallet.viewmodel.GasSettingsViewModelFactory;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import javax.inject.Inject;
 
 @AndroidEntryPoint public class GasSettingsActivity extends BaseActivity {
 
-  GasSettingsViewModel viewModel;
+  @Inject GasSettingsViewModelFactory viewModelFactory;
+  private GasSettingsViewModel viewModel;
   private CurrencyFormatUtils currencyFormatUtils;
   private TextView gasPriceText;
   private TextView gasLimitText;
@@ -51,7 +55,7 @@ import java.math.BigInteger;
     gasPriceSlider.setPadding(0, 0, 0, 0);
     gasLimitSlider.setPadding(0, 0, 0, 0);
 
-    viewModel = ViewModelProviders.of(this)
+    viewModel = new ViewModelProvider(this, viewModelFactory)
         .get(GasSettingsViewModel.class);
 
     viewModel.gasPrice()

@@ -38,7 +38,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
       new MutableLiveData<>();
   private final CompositeDisposable disposables;
 
-  @Inject TransactionDetailViewModel(FindDefaultWalletUseCase findDefaultWalletUseCase,
+  public TransactionDetailViewModel(FindDefaultWalletUseCase findDefaultWalletUseCase,
       FindNetworkInfoUseCase findNetworkInfoUseCase, ExternalBrowserRouter externalBrowserRouter,
       CompositeDisposable compositeDisposable, DisplayChatUseCase displayChatUseCase,
       TransactionDetailRouter transactionDetailRouter,
