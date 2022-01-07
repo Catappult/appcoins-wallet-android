@@ -20,10 +20,4 @@ class RestoreWalletActivityModule {
     return RestoreWalletActivityPresenter(activity as RestoreWalletActivityView, walletsEventSender,
         navigator)
   }
-
-  @Provides
-  fun providesRestoreWalletActivityNavigator(activity: Activity): RestoreWalletActivityNavigator {
-    return RestoreWalletActivityNavigator(MainActivityNavigator(activity),
-        (activity as AppCompatActivity).supportFragmentManager)
-  }
 }

@@ -10,7 +10,7 @@ class VerificationErrorNavigator @Inject constructor(private val fragmentManager
                                  fragment: Fragment,
                                  private val activityNavigator: VerificationCreditCardActivityNavigator) {
 
-  private val activityView=  fragment.activity as VerificationCreditCardActivityView
+  private val activityView = fragment.activity as VerificationCreditCardActivityView
 
   fun navigateToInitialWalletVerification() {
     for (i in 0 until fragmentManager.backStackEntryCount) {

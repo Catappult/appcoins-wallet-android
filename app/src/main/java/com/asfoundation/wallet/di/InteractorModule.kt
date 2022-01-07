@@ -104,19 +104,4 @@ class InteractorModule {
         Airdrop(AppcoinsTransactionService(pendingTransactionService), BehaviorSubject.create(),
             airdropService), findDefaultWalletInteract, airdropChainIdMapper)
   }
-
-  @Singleton
-  @Provides
-  fun providesTopUpInteractor(repository: BdsRepository,
-                              conversionService: LocalCurrencyConversionService,
-                              gamificationInteractor: GamificationInteractor,
-                              topUpValuesService: TopUpValuesService,
-                              walletBlockedInteract: WalletBlockedInteract,
-                              inAppPurchaseInteractor: InAppPurchaseInteractor,
-                              supportInteractor: SupportInteractor,
-                              topUpDefaultValueExperiment: TopUpDefaultValueExperiment,
-                              getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) =
-      TopUpInteractor(repository, conversionService, gamificationInteractor, topUpValuesService,
-          LinkedHashMap(), TopUpLimitValues(), walletBlockedInteract, inAppPurchaseInteractor,
-          supportInteractor, topUpDefaultValueExperiment, getCurrentPromoCodeUseCase)
 }

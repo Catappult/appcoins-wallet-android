@@ -7,13 +7,14 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.util.List;
+import javax.inject.Inject;
 
 @BoundTo(supertype = Repository.class)
 public class AppCoinsOperationRepository implements Repository<String, AppCoinsOperation> {
   private final AppCoinsOperationDao inAppPurchaseDataDao;
   private final AppCoinsOperationMapper mapper;
 
-  public AppCoinsOperationRepository(AppCoinsOperationDao inAppPurchaseDataDao,
+  public @Inject AppCoinsOperationRepository(AppCoinsOperationDao inAppPurchaseDataDao,
       AppCoinsOperationMapper mapper) {
     this.inAppPurchaseDataDao = inAppPurchaseDataDao;
     this.mapper = mapper;
