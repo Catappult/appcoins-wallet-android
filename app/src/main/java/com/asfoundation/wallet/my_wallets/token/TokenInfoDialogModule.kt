@@ -18,11 +18,6 @@ class TokenInfoDialogModule {
   }
 
   @Provides
-  fun provideTokenInfoDialogNavigator(fragment: Fragment): TokenInfoDialogNavigator {
-    return TokenInfoDialogNavigator(fragment.findNavController())
-  }
-
-  @Provides
   fun provideTokenInfoDialogData(fragment: Fragment): TokenInfoDialogData {
     fragment.requireArguments()
         .apply {

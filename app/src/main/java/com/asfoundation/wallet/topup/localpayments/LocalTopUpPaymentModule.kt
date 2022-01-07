@@ -49,10 +49,4 @@ class LocalTopUpPaymentModule {
               getSerializable(PAYMENT_DATA) as TopUpPaymentData)
         }
   }
-
-  @Provides
-  fun providesTopUpPaymentNavigator(fragment: Fragment): TopUpNavigator {
-    return TopUpNavigator(fragment.requireFragmentManager(), fragment.activity as UriNavigator,
-        fragment.activity as TopUpActivityView)
-  }
 }

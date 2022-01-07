@@ -22,12 +22,6 @@ import java.math.BigDecimal
 class CarrierVerifyModule {
 
   @Provides
-  fun providesCarrierVerifyNavigator(fragment: Fragment): CarrierVerifyNavigator {
-    return CarrierVerifyNavigator(fragment.requireFragmentManager(),
-        fragment.activity as IabActivity)
-  }
-
-  @Provides
   fun providesCarrierVerifyPhoneData(fragment: Fragment): CarrierVerifyData {
     fragment.requireArguments()
         .apply {

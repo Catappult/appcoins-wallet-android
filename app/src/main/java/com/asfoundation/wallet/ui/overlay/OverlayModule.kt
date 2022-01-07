@@ -18,15 +18,4 @@ class OverlayModule {
                                interactor: OverlayInteractor): OverlayPresenter {
     return OverlayPresenter(fragment as OverlayView, interactor, CompositeDisposable())
   }
-
-  @Provides
-  fun providesOverlayInteractor(
-      preferencesRepositoryType: PreferencesRepositoryType): OverlayInteractor {
-    return OverlayInteractor(preferencesRepositoryType)
-  }
-
-//  @Provides
-//  fun providesMainActivityNavigator(fragment: Fragment): MainActivityNavigator {
-//    return MainActivityNavigator(fragment.requireContext())
-//  }
 }

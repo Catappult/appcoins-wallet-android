@@ -54,14 +54,4 @@ class LocalPaymentModule {
               getInt(LocalPaymentFragment.GAMIFICATION_LEVEL))
         }
   }
-
-  @Provides
-  fun providesLocalPaymentNavigator(uriNavigator: UriNavigator): LocalPaymentNavigator {
-    return LocalPaymentNavigator(uriNavigator)
-  }
-
-  @Provides
-  fun providesUriNavigator(fragment: Fragment): UriNavigator {
-    return fragment.activity as UriNavigator
-  }
 }

@@ -28,9 +28,4 @@ class SubscriptionSuccessModule {
               SubscriptionSuccessFragment.SUCCESS_TYPE_KEY)!! as SubscriptionSuccessFragment.SubscriptionSuccess)
         }
   }
-
-  @Provides
-  fun providesSubscriptionSuccessNavigator(fragment: Fragment): SubscriptionSuccessNavigator {
-    return SubscriptionSuccessNavigator(fragment.requireFragmentManager())
-  }
 }

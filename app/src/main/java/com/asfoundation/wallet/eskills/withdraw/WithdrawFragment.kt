@@ -25,13 +25,11 @@ import javax.inject.Inject
 class WithdrawFragment : BasePageViewFragment(),
     SingleStateFragment<WithdrawState, WithdrawSideEffect> {
 
-  @Inject
-  lateinit var withdrawViewModelFactory: WithdrawViewModelFactory
 
   @Inject
   lateinit var navigator: WithdrawNavigator
 
-  private val viewModel: WithdrawViewModel by viewModels { withdrawViewModelFactory }
+  private val viewModel: WithdrawViewModel by viewModels()
   private val views by viewBinding(FragmentWithdrawBinding::bind)
 
   companion object {

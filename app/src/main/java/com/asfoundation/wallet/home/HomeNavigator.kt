@@ -20,8 +20,9 @@ import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity.Companion.newIntent
+import javax.inject.Inject
 
-class HomeNavigator(private val fragment: Fragment,
+class HomeNavigator @Inject constructor(private val fragment: Fragment,
                     private val mainActivityNavigator: MainActivityNavigator) : Navigator {
 
   fun navigateToRateUs(shouldNavigate: Boolean) {

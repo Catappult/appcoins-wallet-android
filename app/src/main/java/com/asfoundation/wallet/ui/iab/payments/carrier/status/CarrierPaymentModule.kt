@@ -18,12 +18,6 @@ import java.math.BigDecimal
 @InstallIn(FragmentComponent::class)
 @Module
 class CarrierPaymentModule {
-  @Provides
-  fun providesCarrierPaymentNavigator(fragment: Fragment,
-                                      uriNavigator: UriNavigator): CarrierPaymentNavigator {
-    return CarrierPaymentNavigator(fragment.requireFragmentManager(), uriNavigator,
-        fragment.activity as IabActivity)
-  }
 
   @Provides
   fun providesCarrierPaymentStatusData(fragment: Fragment): CarrierPaymentData {
@@ -52,9 +46,4 @@ class CarrierPaymentModule {
         CompositeDisposable(), fragment as CarrierPaymentView, data, navigator, carrierInteractor,
         billingAnalytics, logger, AndroidSchedulers.mainThread(), Schedulers.io())
   }
-//
-//  @Provides
-//  fun providesUriNavigator(fragment: Fragment): UriNavigator {
-//    return fragment.activity as UriNavigator
-//  }
 }

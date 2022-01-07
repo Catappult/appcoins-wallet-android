@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.verification.ui.credit_card.code
 
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.*
 import dagger.Module
 import dagger.Provides
@@ -17,13 +15,6 @@ import io.reactivex.schedulers.Schedulers
 @Module
 class VerificationCodeModule {
 
-//  @Provides
-//  fun providesVerificationActivityData(fragment: Fragment): VerificationCreditCardActivityData {
-//    return VerificationCreditCardActivityData(
-//        (fragment.activity as VerificationCreditCardActivity).intent.getBooleanExtra(
-//            VerificationCreditCardActivity.IS_WALLET_VERIFIED, false))
-//  }
-
   @Provides
   fun providesWalletVerificationCodePresenter(fragment: Fragment,
                                               data: VerificationCodeData,
@@ -36,29 +27,6 @@ class VerificationCodeModule {
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
         verificationCodeInteractor, verificationCodeNavigator, logger, analytics)
   }
-
-  @Provides
-  fun provideWalletVerificationCodeInteractor(
-    walletVerificationInteractor: WalletVerificationInteractor,
-    brokerVerificationRepository: BrokerVerificationRepository,
-    walletService: WalletService): VerificationCodeInteractor {
-    return VerificationCodeInteractor(walletVerificationInteractor, brokerVerificationRepository,
-        walletService)
-  }
-
-  @Provides
-  fun providesWalletVerificationCodeNavigator(fragment: Fragment,
-                                              activityNavigator: VerificationCreditCardActivityNavigator): VerificationCodeNavigator {
-    return VerificationCodeNavigator(fragment.requireFragmentManager(),
-        fragment.activity as VerificationCreditCardActivityView, activityNavigator)
-  }
-
-//  @Provides
-//  fun providesWalletVerificationActivityNavigator(
-//      fragment: Fragment): VerificationCreditCardActivityNavigator {
-//    return VerificationCreditCardActivityNavigator(fragment.requireActivity(),
-//        fragment.requireActivity().supportFragmentManager)
-//  }
 
   @Provides
   fun providesVerificationCodeData(fragment: Fragment): VerificationCodeData {

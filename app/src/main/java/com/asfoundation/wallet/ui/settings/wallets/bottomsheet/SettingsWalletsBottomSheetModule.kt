@@ -31,10 +31,4 @@ class SettingsWalletsBottomSheetModule {
           return SettingsWalletsBottomSheetData(getSerializable(WALLET_MODEL_KEY) as WalletsModel)
         }
   }
-
-  @Provides
-  fun providesSettingsWalletsBottomSheetNavigator(
-      fragment: Fragment): SettingsWalletsBottomSheetNavigator {
-    return SettingsWalletsBottomSheetNavigator(fragment.requireFragmentManager(), fragment)
-  }
 }

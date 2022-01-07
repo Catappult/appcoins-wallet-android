@@ -9,8 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import javax.inject.Inject
 
-class TermsConditionsBottomSheetNavigator(private val fragment: Fragment) : Navigator {
+class TermsConditionsBottomSheetNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
 
   fun navigateToBrowser(uri: Uri) {
     try {

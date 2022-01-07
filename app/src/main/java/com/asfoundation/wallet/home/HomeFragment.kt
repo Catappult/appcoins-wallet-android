@@ -45,15 +45,12 @@ class HomeFragment : BasePageViewFragment(),
     SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
-  lateinit var homeViewModelFactory: HomeViewModelFactory
-
-  @Inject
   lateinit var navigator: HomeNavigator
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  private val viewModel: HomeViewModel by viewModels { homeViewModelFactory }
+  private val viewModel: HomeViewModel by viewModels()
 
   private var _views: ActivityTransactionsBinding? = null
   private val views get() = _views!!

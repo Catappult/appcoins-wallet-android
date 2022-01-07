@@ -47,24 +47,4 @@ class SettingsModule {
           return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
         }
   }
-
-  @Provides
-  fun providesSettingsInteractor(findDefaultWalletInteract: FindDefaultWalletInteract,
-                                 supportInteractor: SupportInteractor,
-                                 walletsInteract: WalletsInteract,
-                                 autoUpdateInteract: AutoUpdateInteract,
-                                 fingerprintInteractor: FingerprintInteractor,
-                                 walletsEventSender: WalletsEventSender,
-                                 preferencesRepositoryType: PreferencesRepositoryType,
-                                 fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract): SettingsInteractor {
-    return SettingsInteractor(findDefaultWalletInteract, supportInteractor, walletsInteract,
-        autoUpdateInteract, fingerprintInteractor, walletsEventSender, preferencesRepositoryType,
-        fingerprintPreferencesRepository)
-  }
-
-  @Provides
-  fun providesSettingsNavigator(settingsFragment: Fragment): SettingsNavigator {
-    return SettingsNavigator(settingsFragment.requireFragmentManager(),
-        settingsFragment.requireActivity())
-  }
 }

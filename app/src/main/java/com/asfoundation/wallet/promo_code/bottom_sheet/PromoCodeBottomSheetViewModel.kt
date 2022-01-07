@@ -8,6 +8,8 @@ import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 sealed class PromoCodeBottomSheetSideEffect : SideEffect {
   object NavigateBack : PromoCodeBottomSheetSideEffect()
@@ -17,7 +19,8 @@ data class PromoCodeBottomSheetState(val promoCodeAsync: Async<PromoCode> = Asyn
                                      val submitClickAsync: Async<Unit> = Async.Uninitialized,
                                      val shouldShowDefault: Boolean = false) : ViewState
 
-class PromoCodeBottomSheetViewModel(
+@HiltViewModel
+class PromoCodeBottomSheetViewModel @Inject constructor(
     private val observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase,
     private val setPromoCodeUseCase: SetPromoCodeUseCase,
     private val deletePromoCodeUseCase: DeletePromoCodeUseCase) :

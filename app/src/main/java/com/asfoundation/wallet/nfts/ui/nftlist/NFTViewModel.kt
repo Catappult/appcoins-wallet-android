@@ -7,6 +7,8 @@ import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTClick
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 sealed class NFTSideEffect : SideEffect {
   data class NavigateToInfo(val nftData: NFTItem) : NFTSideEffect()
@@ -14,7 +16,8 @@ sealed class NFTSideEffect : SideEffect {
 
 data class NFTState(val nftListModelAsync: Async<List<NFTItem>> = Async.Uninitialized) : ViewState
 
-class NFTViewModel(private val getNFTList: GetNFTListUseCase) :
+@HiltViewModel
+class NFTViewModel @Inject constructor(private val getNFTList: GetNFTListUseCase) :
     BaseViewModel<NFTState, NFTSideEffect>(initialState()) {
 
   companion object {

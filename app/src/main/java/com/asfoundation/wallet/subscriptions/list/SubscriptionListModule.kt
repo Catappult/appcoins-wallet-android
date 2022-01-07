@@ -30,9 +30,4 @@ class SubscriptionListModule {
           return SubscriptionListData(getBoolean(SubscriptionListFragment.FRESH_RELOAD_KEY))
         }
   }
-
-  @Provides
-  fun providesSubscriptionListNavigator(fragment: Fragment): SubscriptionListNavigator {
-    return SubscriptionListNavigator(fragment.requireFragmentManager())
-  }
 }

@@ -14,11 +14,6 @@ import io.reactivex.disposables.CompositeDisposable
 class IabErrorModule {
 
   @Provides
-  fun providesIabErrorNavigator(fragment: Fragment): IabErrorNavigator {
-    return IabErrorNavigator(fragment.activity as IabActivity, fragment.requireFragmentManager())
-  }
-
-  @Provides
   fun providesIabErrorData(fragment: Fragment): IabErrorData {
     fragment.requireArguments()
         .apply {

@@ -31,12 +31,9 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
 
 
   @Inject
-  lateinit var termsConditionsBottomSheetViewModelFactory: TermsConditionsBottomSheetViewModelFactory
-
-  @Inject
   lateinit var navigator: TermsConditionsBottomSheetNavigator
 
-  private val viewModel: TermsConditionsBottomSheetViewModel by viewModels { termsConditionsBottomSheetViewModelFactory }
+  private val viewModel: TermsConditionsBottomSheetViewModel by viewModels()
   private val views by viewBinding(TermsConditionsBottomSheetBinding::bind)
 
   companion object {

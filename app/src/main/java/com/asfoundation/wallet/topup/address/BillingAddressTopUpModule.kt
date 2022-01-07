@@ -41,11 +41,4 @@ class BillingAddressTopUpModule {
         CompositeDisposable(),
         AndroidSchedulers.mainThread(), navigator, billingAddressRepository, topUpAnalytics)
   }
-
-  @Provides
-  fun providesBillingAddressTopUpNavigator(
-      fragment: Fragment): BillingAddressTopUpNavigator {
-    return BillingAddressTopUpNavigator(fragment.requireFragmentManager(),
-        fragment.context as TopUpActivityView)
-  }
 }

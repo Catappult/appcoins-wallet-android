@@ -22,15 +22,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PromotionsFragment : BasePageViewFragment(),
     SingleStateFragment<PromotionsState, PromotionsSideEffect> {
-  @Inject
-  lateinit var promotionsViewModelFactory: PromotionsViewModelFactory
 
   @Inject
   lateinit var navigator: PromotionsNavigator
 
   private lateinit var promotionsController: PromotionsController
 
-  private val viewModel: PromotionsViewModel by viewModels { promotionsViewModelFactory }
+  private val viewModel: PromotionsViewModel by viewModels()
   private val views by viewBinding(FragmentPromotionsBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

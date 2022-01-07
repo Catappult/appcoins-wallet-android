@@ -16,11 +16,6 @@ import java.math.BigDecimal
 class BillingAddressModule {
 
   @Provides
-  fun providesBillingAddressNavigator(fragment: Fragment): BillingAddressNavigator {
-    return BillingAddressNavigator(fragment, fragment.activity as IabActivity)
-  }
-
-  @Provides
   fun providesBillingAddressPresenter(fragment: Fragment,
                                       navigator: BillingAddressNavigator,
                                       data: BillingAddressData,

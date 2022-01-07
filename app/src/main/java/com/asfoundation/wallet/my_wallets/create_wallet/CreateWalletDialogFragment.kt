@@ -23,13 +23,11 @@ import javax.inject.Inject
 class CreateWalletDialogFragment : DialogFragment(),
     SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
 
-  @Inject
-  lateinit var viewModelFactory: CreateWalletDialogViewModelFactory
 
   @Inject
   lateinit var navigator: CreateWalletDialogNavigator
 
-  private val viewModel: CreateWalletDialogViewModel by viewModels { viewModelFactory }
+  private val viewModel: CreateWalletDialogViewModel by viewModels()
   private val views by viewBinding(FragmentCreateWalletDialogLayoutBinding::bind)
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

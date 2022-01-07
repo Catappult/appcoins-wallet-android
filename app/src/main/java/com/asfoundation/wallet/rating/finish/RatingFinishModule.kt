@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.rating.finish
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.rating.RatingNavigator
 import dagger.Module
@@ -21,9 +20,4 @@ class RatingFinishModule {
     return RatingFinishPresenter(fragment as RatingFinishView, ratingAnalytics, navigator,
         CompositeDisposable())
   }
-
-//  @Provides
-//  fun providesRatingNavigator(fragment: Fragment): RatingNavigator {
-//    return RatingNavigator(fragment.activity as RatingActivity, fragment.requireFragmentManager())
-//  }
 }

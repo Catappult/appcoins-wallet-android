@@ -17,10 +17,4 @@ class SettingsWalletsModule {
     return SettingsWalletsPresenter(fragment as SettingsWalletsView, navigator,
         CompositeDisposable())
   }
-
-  @Provides
-  fun providesSettingsWalletsNavigator(
-      fragment: Fragment): SettingsWalletsNavigator {
-    return SettingsWalletsNavigator(fragment.requireFragmentManager())
-  }
 }

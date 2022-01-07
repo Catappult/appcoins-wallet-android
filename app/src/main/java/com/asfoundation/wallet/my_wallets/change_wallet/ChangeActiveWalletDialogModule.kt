@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.my_wallets.change_wallet
 
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import dagger.Module
@@ -27,11 +26,5 @@ class ChangeActiveWalletDialogModule {
           return ChangeActiveWalletDialogData(getSerializable(
               ChangeActiveWalletDialogFragment.WALLET_BALANCE_KEY)!! as WalletBalance)
         }
-  }
-
-  @Provides
-  fun provideChangeActiveWalletDialogNavigator(
-      fragment: Fragment): ChangeActiveWalletDialogNavigator {
-    return ChangeActiveWalletDialogNavigator(fragment.findNavController())
   }
 }

@@ -89,6 +89,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @Inject
   lateinit var logger: Logger
 
+  @Inject
+  lateinit var navigator: TopUpNavigator
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectComponent: RedirectComponent
@@ -96,7 +99,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private lateinit var adyenCardNumberLayout: TextInputLayout
   private lateinit var adyenExpiryDateLayout: TextInputLayout
   private lateinit var adyenSecurityCodeLayout: TextInputLayout
-  private lateinit var navigator: TopUpNavigator
   private lateinit var presenter: AdyenTopUpPresenter
 
   private var adyenCardImageLayout: RoundCornerImageView? = null
@@ -130,7 +132,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     check(
         context is TopUpActivityView) { "Payment Auth fragment must be attached to TopUp activity" }
     topUpView = context
-    navigator = TopUpNavigator(requireFragmentManager(), (activity as UriNavigator?)!!, topUpView)
 
   }
 

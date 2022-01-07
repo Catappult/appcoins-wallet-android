@@ -22,12 +22,9 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
     SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
 
   @Inject
-  lateinit var changeFiatCurrencyViewModelFactory: ChangeFiatCurrencyViewModelFactory
-
-  @Inject
   lateinit var changeFiatCurrencyNavigator: ChangeFiatCurrencyNavigator
 
-  private val viewModel: ChangeFiatCurrencyViewModel by viewModels { changeFiatCurrencyViewModelFactory }
+  private val viewModel: ChangeFiatCurrencyViewModel by viewModels()
   private val views by viewBinding(FragmentChangeFiatCurrencyBinding::bind)
 
   private val changeFiatCurrencyController = ChangeFiatCurrencyController()

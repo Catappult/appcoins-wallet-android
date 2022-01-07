@@ -31,10 +31,4 @@ class ChooseCurrencyBottomSheetModule {
               getString(ChooseCurrencyBottomSheetFragment.SIGN) as String)
         }
   }
-
-  @Provides
-  fun providesChooseCurrencyBottomSheetNavigator(
-      fragment: Fragment): ChooseCurrencyBottomSheetNavigator {
-    return ChooseCurrencyBottomSheetNavigator(fragment)
-  }
 }

@@ -27,9 +27,4 @@ class VerificationPaypalModule {
     return VerificationPaypalViewModelFactory(data, getVerificationInfoUseCase,
         makeVerificationPaymentUseCase, setCachedVerificationUseCase)
   }
-
-  @Provides
-  fun provideVerificationPaypalNavigator(fragment: Fragment): VerificationPaypalNavigator {
-    return VerificationPaypalNavigator(fragment)
-  }
 }

@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.main.MainActivityNavigator
+import javax.inject.Inject
 
-class EtherTransactionBottomSheetNavigator(val fragmentManager: FragmentManager,
+class EtherTransactionBottomSheetNavigator @Inject constructor(val fragmentManager: FragmentManager,
                                            val fragment: Fragment,
                                            val mainActivityNavigator: MainActivityNavigator,
                                            val networkInfo: NetworkInfo) {

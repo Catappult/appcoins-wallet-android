@@ -7,8 +7,9 @@ import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import io.reactivex.Single
+import javax.inject.Inject
 
-class VerificationCodeInteractor(
+class VerificationCodeInteractor @Inject constructor(
   private val walletVerificationInteractor: WalletVerificationInteractor,
   private val brokerVerificationRepository: BrokerVerificationRepository,
   private val walletService: WalletService

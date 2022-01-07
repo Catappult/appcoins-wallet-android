@@ -62,9 +62,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 internal class AppModule {
-  @Provides
-  fun provideFragmentManager(activity: Activity): FragmentManager =
-    (activity as AppCompatActivity).supportFragmentManager
 
   @Singleton
   @Provides

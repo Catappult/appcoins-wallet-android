@@ -23,12 +23,9 @@ class OnboardingFragment : BasePageViewFragment(),
     SingleStateFragment<OnboardingState, OnboardingSideEffect> {
 
   @Inject
-  lateinit var onboardingViewModelFactory: OnboardingViewModelFactory
-
-  @Inject
   lateinit var navigator: OnboardingNavigator
 
-  private val viewModel: OnboardingViewModel by viewModels { onboardingViewModelFactory }
+  private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {

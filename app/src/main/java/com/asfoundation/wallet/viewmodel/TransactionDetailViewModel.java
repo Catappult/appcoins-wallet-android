@@ -26,7 +26,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 
-@HiltViewModel public class TransactionDetailViewModel extends BaseViewModel {
+public class TransactionDetailViewModel extends BaseViewModel {
 
   private final ExternalBrowserRouter externalBrowserRouter;
   private final DisplayChatUseCase displayChatUseCase;

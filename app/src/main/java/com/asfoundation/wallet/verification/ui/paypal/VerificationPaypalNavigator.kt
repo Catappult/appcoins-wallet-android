@@ -5,8 +5,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
+import javax.inject.Inject
 
-class VerificationPaypalNavigator(private val fragment: Fragment) :
+class VerificationPaypalNavigator @Inject constructor(private val fragment: Fragment) :
     Navigator {
 
   fun navigateToPayment(url: String, launcher: ActivityResultLauncher<Intent>) {

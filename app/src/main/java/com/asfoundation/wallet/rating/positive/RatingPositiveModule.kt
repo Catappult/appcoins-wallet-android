@@ -25,9 +25,4 @@ class RatingPositiveModule {
     return RatingPositivePresenter(fragment as RatingPositiveView, navigator, interactor, analytics,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
   }
-
-//  @Provides
-//  fun providesRatingNavigator(fragment: Fragment): RatingNavigator {
-//    return RatingNavigator(fragment.activity as RatingActivity, fragment.requireFragmentManager())
-//  }
 }

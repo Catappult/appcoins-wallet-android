@@ -33,9 +33,4 @@ class SubscriptionDetailsModule {
               getString(SubscriptionDetailsFragment.TRANSITION_NAME_KEY, ""))
         }
   }
-
-  @Provides
-  fun providesSubscriptionDetailsNavigator(fragment: Fragment): SubscriptionDetailsNavigator {
-    return SubscriptionDetailsNavigator(fragment.requireFragmentManager())
-  }
 }

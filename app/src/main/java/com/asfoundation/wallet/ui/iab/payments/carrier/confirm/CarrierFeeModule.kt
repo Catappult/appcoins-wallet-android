@@ -17,11 +17,6 @@ import java.math.BigDecimal
 class CarrierFeeModule {
 
   @Provides
-  fun providesCarrierFeeNavigator(fragment: Fragment): CarrierFeeNavigator {
-    return CarrierFeeNavigator(fragment.activity as IabActivity, fragment.requireFragmentManager())
-  }
-
-  @Provides
   fun providesCarrierFeePhoneData(fragment: Fragment): CarrierFeeData {
     fragment.requireArguments()
         .apply {

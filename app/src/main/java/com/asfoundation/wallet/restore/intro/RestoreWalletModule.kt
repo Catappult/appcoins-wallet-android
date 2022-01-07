@@ -19,12 +19,6 @@ import io.reactivex.disposables.CompositeDisposable
 class RestoreWalletModule {
 
   @Provides
-  fun providesRestoreWalletNavigator(fragment: Fragment,
-                                     activityNavigator: ActivityNavigatorContract): RestoreWalletNavigator {
-    return RestoreWalletNavigator(fragment.requireFragmentManager(), activityNavigator)
-  }
-
-  @Provides
   fun providesRestoreWalletPresenter(fragment: Fragment,
                                      navigator: RestoreWalletNavigator,
                                      updateWalletInfoUseCase: UpdateWalletInfoUseCase,

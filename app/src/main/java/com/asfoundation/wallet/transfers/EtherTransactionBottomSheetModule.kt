@@ -31,12 +31,4 @@ class EtherTransactionBottomSheetModule {
               getString(EtherTransactionBottomSheetFragment.TRANSACTION_KEY) as String)
         }
   }
-
-  @Provides
-  fun providesEtherTransactionBottomSheetNavigator(fragment: Fragment,
-                                                   networkInfo: NetworkInfo): EtherTransactionBottomSheetNavigator {
-    return EtherTransactionBottomSheetNavigator(fragment.parentFragmentManager, fragment,
-        MainActivityNavigator(fragment.requireActivity()),
-        networkInfo)
-  }
 }

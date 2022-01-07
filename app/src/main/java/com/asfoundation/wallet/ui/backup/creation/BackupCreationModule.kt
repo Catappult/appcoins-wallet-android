@@ -51,14 +51,6 @@ class BackupCreationModule {
   }
 
   @Provides
-  fun providesBackupCreationInteractor(exportWalletInteractor: ExportWalletInteractor,
-                                       fileInteractor: FileInteractor,
-                                       backupRestorePreferencesRepository: BackupRestorePreferencesRepository): BackupCreationInteractor {
-    return BackupCreationInteractor(exportWalletInteractor, fileInteractor,
-        backupRestorePreferencesRepository)
-  }
-
-  @Provides
   @Named("temporary-path")
   fun providesTemporaryPath(@ActivityContext context: Context): File? = context.externalCacheDir
 
@@ -69,15 +61,4 @@ class BackupCreationModule {
         Environment.DIRECTORY_DOWNLOADS)
     else null
   }
-
-  @Provides
-  fun providesBackupCreationNavigator(fragment: Fragment,
-                                      activityNavigator: BackupActivityNavigator): BackupCreationNavigator {
-    return BackupCreationNavigator(fragment.requireFragmentManager(), activityNavigator)
-  }
-
-//  @Provides
-//  fun providesBackupActivityNavigator(fragment: Fragment): BackupActivityNavigator {
-//    return BackupActivityNavigator(fragment.requireFragmentManager(), fragment.requireActivity())
-//  }
 }

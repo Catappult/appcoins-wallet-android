@@ -23,20 +23,6 @@ class VerificationErrorModule {
   }
 
   @Provides
-  fun providesVerificationErrorNavigator(fragment: Fragment,
-                                         activityNavigator: VerificationCreditCardActivityNavigator): VerificationErrorNavigator {
-    return VerificationErrorNavigator(fragment.requireFragmentManager(),
-        fragment.activity as VerificationCreditCardActivityView, activityNavigator)
-  }
-
-//  @Provides
-//  fun providesWalletVerificationActivityNavigator(
-//      fragment: Fragment): VerificationCreditCardActivityNavigator {
-//    return VerificationCreditCardActivityNavigator(fragment.requireActivity(),
-//        fragment.requireActivity().supportFragmentManager)
-//  }
-
-  @Provides
   fun providesVerificationErrorData(fragment: Fragment): VerificationErrorData {
     fragment.requireArguments()
         .apply {

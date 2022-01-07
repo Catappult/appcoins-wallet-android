@@ -10,8 +10,9 @@ import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
+import javax.inject.Inject
 
-class SettingsNavigator(private val fragmentManager: FragmentManager,
+class SettingsNavigator @Inject constructor(private val fragmentManager: FragmentManager,
                         private val activity: FragmentActivity) {
 
   companion object {

@@ -10,8 +10,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
 import com.asfoundation.wallet.ui.wallets.WalletBalance
+import javax.inject.Inject
 
-class MyWalletsNavigator(private val fragment: Fragment,
+class MyWalletsNavigator @Inject constructor(private val fragment: Fragment,
                          private val navController: NavController) : Navigator {
 
   fun navigateToChangeActiveWallet(walletBalance: WalletBalance) {

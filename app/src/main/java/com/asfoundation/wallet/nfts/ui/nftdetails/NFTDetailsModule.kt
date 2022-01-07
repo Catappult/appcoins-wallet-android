@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.nfts.ui.nftdetails
 
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import dagger.Module
 import dagger.Provides
@@ -22,10 +21,5 @@ class NFTDetailsModule {
         .apply {
           return getSerializable(NFTDetailsFragment.NFT_ITEM_DATA)!! as NFTItem
         }
-  }
-
-  @Provides
-  fun provideNFTDetailsNavigator(fragment: Fragment): NFTDetailsNavigator {
-    return NFTDetailsNavigator(fragment.findNavController())
   }
 }

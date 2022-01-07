@@ -20,15 +20,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NFTFragment : BasePageViewFragment(), SingleStateFragment<NFTState, NFTSideEffect> {
 
-  @Inject
-  lateinit var viewModelFactory: NFTViewModelFactory
 
   @Inject
   lateinit var navigator: NFTNavigator
 
   private lateinit var nftsController: NFTsController
 
-  private val viewModel: NFTViewModel by viewModels { viewModelFactory }
+  private val viewModel: NFTViewModel by viewModels()
   private val views by viewBinding(FragmentNftsBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

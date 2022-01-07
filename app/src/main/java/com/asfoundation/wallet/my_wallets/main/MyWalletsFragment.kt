@@ -36,15 +36,12 @@ class MyWalletsFragment : BasePageViewFragment(),
     SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
 
   @Inject
-  lateinit var viewModelFactory: MyWalletsViewModelFactory
-
-  @Inject
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
   lateinit var navigator: MyWalletsNavigator
 
-  private val viewModel: MyWalletsViewModel by viewModels { viewModelFactory }
+  private val viewModel: MyWalletsViewModel by viewModels()
 
   private var binding: FragmentMyWalletsBinding? = null
   private val views get() = binding!!

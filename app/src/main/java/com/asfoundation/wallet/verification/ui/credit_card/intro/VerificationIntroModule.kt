@@ -23,12 +23,6 @@ import io.reactivex.schedulers.Schedulers
 class VerificationIntroModule {
 
   @Provides
-  fun providesWalletVerificationIntroNavigator(
-      fragment: Fragment): VerificationIntroNavigator {
-    return VerificationIntroNavigator(fragment.requireFragmentManager())
-  }
-
-  @Provides
   fun providesWalletVerificationIntroPresenter(fragment: Fragment,
                                                navigator: VerificationIntroNavigator,
                                                logger: Logger,
@@ -38,16 +32,6 @@ class VerificationIntroModule {
     return VerificationIntroPresenter(fragment as VerificationIntroView,
         CompositeDisposable(), navigator, logger, AndroidSchedulers.mainThread(),
         Schedulers.io(), interactor, AdyenErrorCodeMapper(), data, analytics)
-  }
-
-  @Provides
-  fun provideWalletVerificationIntroInteractor(brokerVerificationRepository: BrokerVerificationRepository,
-                                               adyenPaymentInteractor: AdyenPaymentInteractor,
-                                               walletService: WalletService,
-                                               supportInteractor: SupportInteractor,
-                                               walletVerificationInteractor: WalletVerificationInteractor): VerificationIntroInteractor {
-    return VerificationIntroInteractor(brokerVerificationRepository, adyenPaymentInteractor,
-        walletService, supportInteractor, walletVerificationInteractor)
   }
 
   @Provides

@@ -34,9 +34,4 @@ class BackupWalletModule {
           return BackupWalletData(getString(PARAM_WALLET_ADDR)!!)
         }
   }
-
-  @Provides
-  fun providesBackupNavigator(fragment: Fragment): BackupWalletNavigator {
-    return BackupWalletNavigator(fragment.requireFragmentManager())
-  }
 }

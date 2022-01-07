@@ -33,10 +33,4 @@ class SubscriptionCancelModule {
               getString(SubscriptionCancelFragment.TRANSITION_NAME_KEY, ""))
         }
   }
-
-  @Provides
-  fun providesSubscriptionCancelNavigator(fragment: Fragment): SubscriptionCancelNavigator {
-    return SubscriptionCancelNavigator(fragment.requireFragmentManager(),
-        fragment.requireActivity())
-  }
 }

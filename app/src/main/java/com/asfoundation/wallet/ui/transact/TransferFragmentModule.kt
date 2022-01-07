@@ -35,20 +35,4 @@ class TransferFragmentModule {
   fun providesTransferFragmentData(fragment: Fragment): TransferFragmentData {
     return TransferFragmentData(fragment.requireContext().packageName)
   }
-
-  @Provides
-  fun providesTransferInteractor(rewardsManager: RewardsManager,
-                                 getWalletInfoUseCase: GetWalletInfoUseCase,
-                                 findWallet: FindDefaultWalletInteract,
-                                 walletBlockedInteract: WalletBlockedInteract) =
-      TransferInteractor(rewardsManager, TransactionDataValidator(), getWalletInfoUseCase,
-          findWallet,
-          walletBlockedInteract)
-
-  @Provides
-  fun providesTransferFragmentNavigator(fragment: Fragment,
-                                        defaultTokenProvider: DefaultTokenProvider): TransferFragmentNavigator {
-    return TransferFragmentNavigator(fragment.requireFragmentManager(), fragment,
-        fragment.requireActivity(), defaultTokenProvider)
-  }
 }

@@ -9,8 +9,9 @@ import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class TransferInteractor(private val rewardsManager: RewardsManager,
+class TransferInteractor @Inject constructor(private val rewardsManager: RewardsManager,
                          private val transactionDataValidator: TransactionDataValidator,
                          private val getWalletInfoUseCase: GetWalletInfoUseCase,
                          private val findDefaultWalletInteract: FindDefaultWalletInteract,

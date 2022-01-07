@@ -30,12 +30,9 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
 
 
   @Inject
-  lateinit var promoCodeBottomSheetViewModelFactory: PromoCodeBottomSheetViewModelFactory
-
-  @Inject
   lateinit var navigator: PromoCodeBottomSheetNavigator
 
-  private val viewModel: PromoCodeBottomSheetViewModel by viewModels { promoCodeBottomSheetViewModelFactory }
+  private val viewModel: PromoCodeBottomSheetViewModel by viewModels()
   private val views by viewBinding(SettingsPromoCodeBottomSheetLayoutBinding::bind)
 
   companion object {

@@ -12,8 +12,9 @@ import com.asfoundation.wallet.verification.repository.BrokerVerificationReposit
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class VerificationIntroInteractor(
+class VerificationIntroInteractor @Inject constructor(
   private val brokerVerificationRepository: BrokerVerificationRepository,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val walletService: WalletService,
