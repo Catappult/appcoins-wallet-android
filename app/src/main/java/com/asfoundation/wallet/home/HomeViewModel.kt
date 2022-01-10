@@ -3,6 +3,7 @@ package com.asfoundation.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import android.util.Log
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.base.*
@@ -23,6 +24,7 @@ import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -228,6 +230,7 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
     return getLevelsUseCase()
         .subscribeOn(rxSchedulers.io)
         .flatMap { (status, list) ->
+          Log.d("Hilt-", "getMaxBonus: status -> $status -- list -> $list")
           if (status
               == Levels.Status.OK) {
             return@flatMap Single.just(list[list

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.service.currencies
 
-import com.asfoundation.wallet.entity.ConversionResponseBody
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -48,8 +47,8 @@ class LocalCurrencyConversionService @Inject constructor(
   fun getFiatToAppc(currency: String, value: String, scale: Int): Single<FiatValue> {
     return tokenToLocalFiatApi.convertFiatToAppc(currency, value)
         .map { response: ConversionResponseBody ->
-          FiatValue(response.appcValue
-              .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
+          FiatValue(response.value
+              .setScale(scale, RoundingMode.FLOOR), response.currency, response.sign)
         }
   }
 
@@ -58,16 +57,16 @@ class LocalCurrencyConversionService @Inject constructor(
     val api = if (targetCurrency != null) tokenToLocalFiatApi.getValueToTargetFiat(currency, value,
         targetCurrency) else tokenToLocalFiatApi.getValueToTargetFiat(currency, value)
     return api.map { response: ConversionResponseBody ->
-      FiatValue(response.appcValue
-          .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
+      FiatValue(response.value
+          .setScale(scale, RoundingMode.FLOOR), response.currency, response.sign)
     }
   }
 
   fun getFiatToLocalFiat(currency: String, value: String, scale: Int): Single<FiatValue> {
     return tokenToLocalFiatApi.getValueToTargetFiat(currency, value)
         .map { response: ConversionResponseBody ->
-          FiatValue(response.appcValue
-              .setScale(scale, RoundingMode.FLOOR), response.currency, response.symbol)
+          FiatValue(response.value
+              .setScale(scale, RoundingMode.FLOOR), response.currency, response.sign)
         }
   }
 
