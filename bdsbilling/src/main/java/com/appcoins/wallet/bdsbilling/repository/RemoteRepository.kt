@@ -243,29 +243,29 @@ class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
 
   interface InappBdsApi{
 
-    @GET("inapp/8.20180518/packages/{packageName}")
+    @GET("8.20180518/packages/{packageName}")
     fun getPackage(@Path("packageName") packageName: String, @Query("type")
     type: String): Single<GetPackageResponse>
 
-    @GET("inapp/8.20180518/packages/{packageName}/products")
+    @GET("8.20180518/packages/{packageName}/products")
     fun getPackages(@Path("packageName") packageName: String,
                     @Query("names") names: String): Single<DetailsResponseBody>
 
-    @GET("inapp/8.20180518/packages/{packageName}/products/{skuId}/purchase")
+    @GET("8.20180518/packages/{packageName}/products/{skuId}/purchase")
     fun getSkuPurchase(@Path("packageName") packageName: String,
                        @Path("skuId") skuId: String?,
                        @Query("wallet.address") walletAddress: String,
                        @Query("wallet.signature")
                        walletSignature: String): Single<InappPurchaseResponse>
 
-    @GET("inapp/8.20180518/packages/{packageName}/purchases")
+    @GET("8.20180518/packages/{packageName}/purchases")
     fun getPurchases(@Path("packageName") packageName: String,
                      @Query("wallet.address") walletAddress: String,
                      @Query("wallet.signature") walletSignature: String,
                      @Query("type") type: String): Single<GetPurchasesResponse>
 
     @Headers("Content-Type: application/json")
-    @PATCH("inapp/8.20180518/packages/{packageName}/purchases/{purchaseId}")
+    @PATCH("8.20180518/packages/{packageName}/purchases/{purchaseId}")
     fun consumePurchase(@Path("packageName") packageName: String,
                         @Path("purchaseId") purchaseToken: String,
                         @Query("wallet.address") walletAddress: String,
@@ -276,7 +276,7 @@ class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
 
   interface BrokerBdsApi {
 
-    @GET("broker/8.20180518/transactions")
+    @GET("8.20180518/transactions")
     fun getSkuTransaction(
         @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String,
@@ -289,7 +289,7 @@ class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
         @Query("domain") packageName: String
     ): Single<TransactionsResponse>
 
-    @GET("broker/8.20180518/transactions/{uId}")
+    @GET("8.20180518/transactions/{uId}")
     fun getAppcoinsTransaction(@Path("uId") uId: String,
                                @Query("wallet.address") walletAddress: String,
                                @Query("wallet.signature")
@@ -306,7 +306,7 @@ class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
      * if null no filter is applied by transactionType
      *
      */
-    @GET("broker/8.20210208/methods")
+    @GET("8.20210208/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null,
                           @Query("price.currency") currency: String? = null,
                           @Query("currency.type") currencyType: String? = null,
@@ -314,7 +314,7 @@ class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
                           @Query("transaction.type") type: String?): Single<GetMethodsResponse>
 
     @FormUrlEncoded
-    @PATCH("broker/8.20200810/gateways/{gateway}/transactions/{uid}")
+    @PATCH("8.20200810/gateways/{gateway}/transactions/{uid}")
     fun patchTransaction(
         @Path("gateway") gateway: String,
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
@@ -327,7 +327,7 @@ class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
      * @param walletAddress address of the user wallet
      * @param walletSignature signature obtained after signing the wallet
      */
-    @POST("broker/8.20200810/gateways/{gateway}/transactions")
+    @POST("8.20200810/gateways/{gateway}/transactions")
     @Headers("Content-Type: application/json; format=product_token")
     fun createTransaction(@Path("gateway") gateway: String,
                           @Body creditsPurchaseBody: CreditsPurchaseBody,
@@ -358,7 +358,7 @@ class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
      * @param walletSignature signature obtained after signing the wallet
      */
     @FormUrlEncoded
-    @POST("broker/8.20200810/gateways/{gateway}/transactions")
+    @POST("8.20200810/gateways/{gateway}/transactions")
     fun createTransaction(@Path("gateway") gateway: String,
                           @Field("origin") origin: String?,
                           @Field("domain") domain: String,
@@ -403,7 +403,7 @@ class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
      * @param walletSignature signature obtained after signing the wallet
      */
     @FormUrlEncoded
-    @POST("broker/8.20200810/gateways/myappcoins/transactions")
+    @POST("8.20200810/gateways/myappcoins/transactions")
     fun createTransaction(@Field("origin") origin: String?,
                           @Field("domain") domain: String,
                           @Field("price.value") priceValue: String?,
