@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.common.WalletButtonView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -58,8 +57,8 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   }
 
   private fun setTextWatchers() {
-    val passwordEditText = backup_password_edit_text
-    val repeatPasswordEditText = backup_repeat_password_edit_text
+    val passwordEditText = backup_password_input
+    val repeatPasswordEditText = backup_repeat_password_input
     passwordEditText.addTextChangedListener(
         PasswordTextWatcher(passwordSubject!!, repeatPasswordEditText))
     repeatPasswordEditText.addTextChangedListener(
@@ -81,7 +80,7 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
 
   override fun getBackupClick(): Observable<PasswordStatus> = RxView.clicks(backup_btn)
       .map {
-        PasswordStatus(backup_password_edit_text.text.toString(), backup_password_toggle.isChecked)
+        PasswordStatus(backup_password_input.getText(), backup_password_toggle.isChecked)
       }
 
   override fun getSkipClick(): Observable<Any> = RxView.clicks(backup_skip_btn)
@@ -104,8 +103,8 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   }
 
   private fun areInvalidPasswordFields(): Boolean {
-    val password = backup_password_edit_text.text.toString()
-    val repeatedPassword = backup_repeat_password_edit_text.text.toString()
+    val password = backup_password_input.getText()
+    val repeatedPassword = backup_repeat_password_input.getText()
     return password.isEmpty() || password != repeatedPassword
   }
 
@@ -120,12 +119,12 @@ class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
   }
 
   override fun clearErrors() {
-    backup_repeat_password_input.error = null
+    backup_repeat_password_input.setError(null)
   }
 
   override fun showPasswordError() {
-    backup_repeat_password_input.error =
-        getString(R.string.backup_additional_security_password_not_march)
+    backup_repeat_password_input.setError(
+        getString(R.string.backup_additional_security_password_not_march))
   }
 
   private fun setTransitionListener() {

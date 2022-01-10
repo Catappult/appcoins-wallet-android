@@ -69,10 +69,9 @@
   <com.asfoundation.wallet.ui.common.WalletTextFieldView
       android:id="@+id/file_name_input"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/large_button_height"
+      android:layout_height="wrap_content"
       android:layout_marginTop="12dp"
       android:layout_marginEnd="25dp"
-      app:buttonText="@string/backup_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/store_path"

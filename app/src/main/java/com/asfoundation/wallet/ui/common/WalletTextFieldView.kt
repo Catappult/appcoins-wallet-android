@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.common
 
 import android.content.Context
-import android.content.res.ColorStateList
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import com.asf.wallet.R
 import com.asf.wallet.databinding.LayoutWalletTextFieldViewBinding
 import com.asfoundation.wallet.util.convertDpToPx
+import com.google.android.material.textfield.TextInputLayout.END_ICON_NONE
 
 class WalletTextFieldView : FrameLayout {
 
@@ -48,15 +49,15 @@ class WalletTextFieldView : FrameLayout {
   }
 
   fun setHint(text: CharSequence) {
-    views.textInput.hint = text
+    views.textInputEditText.hint = text
   }
 
   fun setText(text: CharSequence) {
-    views.textInput.setText(text)
+    views.textInputEditText.setText(text)
   }
 
   fun getText(): String {
-    return views.textInput.text.toString()
+    return views.textInputEditText.text.toString()
   }
 
   fun setColor(@ColorInt color: Int) {
@@ -64,19 +65,35 @@ class WalletTextFieldView : FrameLayout {
     applyType()
   }
 
+  fun setError(errorText: CharSequence?) {
+    views.textInputLayout.error = errorText
+  }
+
   private fun applyType() {
     when (type) {
       Type.FILLED -> {
-        views.root.setCardBackgroundColor(color)
-        views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
-        views.root.strokeWidth = 0
-        views.root.setRippleColorResource(R.color.white)
+        views.textInputLayout.boxBackgroundColor = color
+        views.textInputLayout.boxStrokeColor =
+            ContextCompat.getColor(this.context, R.color.transparent)
+        views.textInputLayout.boxStrokeWidth = 0
+        views.textInputLayout.endIconMode = END_ICON_NONE
+        views.textInputEditText.inputType = InputType.TYPE_CLASS_TEXT
       }
       Type.OUTLINED -> {
-        views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.transparent))
-        views.root.strokeColor = color
-        views.root.strokeWidth = 1.convertDpToPx(resources)
-        views.root.rippleColor = ColorStateList.valueOf(color)
+        views.textInputLayout.boxBackgroundColor =
+            ContextCompat.getColor(this.context, R.color.transparent)
+        views.textInputLayout.boxStrokeColor = color
+        views.textInputLayout.boxStrokeWidth = 1.convertDpToPx(resources)
+        views.textInputLayout.endIconMode = END_ICON_NONE
+        views.textInputEditText.inputType = InputType.TYPE_CLASS_TEXT
+      }
+      Type.PASSWORD -> {
+        views.textInputLayout.boxBackgroundColor = color
+        views.textInputLayout.boxStrokeColor =
+            ContextCompat.getColor(this.context, R.color.transparent)
+        views.textInputLayout.boxStrokeWidth = 0
+        views.textInputLayout.isPasswordVisibilityToggleEnabled = true
+        views.textInputEditText.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
       }
     }
   }
@@ -86,8 +103,8 @@ class WalletTextFieldView : FrameLayout {
   }
 
   fun addTextChangedListener(watcher: TextWatcher) {
-    return views.textInput.addTextChangedListener(watcher)
+    return views.textInputEditText.addTextChangedListener(watcher)
   }
 
-  enum class Type { FILLED, OUTLINED }
+  enum class Type { FILLED, OUTLINED, PASSWORD }
 }

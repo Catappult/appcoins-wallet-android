@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/transparent"
-    android:theme="@style/MaterialAppTheme"
-    app:cardBackgroundColor="@color/gamification_yellow"
-    app:cardElevation="0dp"
-    app:rippleColor="@color/white"
-    app:shapeAppearance="@style/Commons.RoundedRectangleShape"
+    android:layout_height="wrap_content"
     >
-
-  <EditText
-      android:id="@+id/text_input"
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/text_input_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:layout_marginHorizontal="@dimen/big_margin"
-      android:background="@android:color/transparent"
       android:fontFamily="sans-serif"
-      android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
       android:inputType="text"
-      android:maxLines="1"
       android:textColor="@color/black"
       android:textColorHint="@color/grey_70"
       android:textSize="14sp"
-      tools:hint="Insert text here..."
-      />
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      app:boxStrokeErrorColor="@color/warning_text_red"
+      app:errorIconDrawable="@null"
+      app:errorTextColor="@color/warning_text_red"
+      app:hintEnabled="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
 
-</com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/text_input_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+        android:maxLines="1"
+        tools:text="Text"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,15 +2,15 @@ package com.asfoundation.wallet.ui.backup.entry
 
 import android.text.Editable
 import android.text.TextWatcher
-import com.google.android.material.textfield.TextInputEditText
+import com.asfoundation.wallet.ui.common.WalletTextFieldView
 import io.reactivex.subjects.PublishSubject
 
 class PasswordTextWatcher(private val passwordSubject: PublishSubject<PasswordFields>,
-                          private val otherPassword: TextInputEditText) : TextWatcher {
+                          private val otherPassword: WalletTextFieldView) : TextWatcher {
 
   override fun afterTextChanged(s: Editable?) {
     val passwordText = s.toString()
-    val otherPasswordText = otherPassword.text.toString()
+    val otherPasswordText = otherPassword.getText()
     val passwordFields = checkPasswordFields(passwordText, otherPasswordText)
     passwordSubject.onNext(passwordFields)
   }

@@ -29,6 +29,7 @@
     <attr name="textFieldType" format="enum">
       <enum name="filled" value="0" />
       <enum name="outlined" value="1" />
+      <enum name="password" value="2" />
     </attr>
     <attr name="textFieldHint" format="string" />
     <attr name="textFieldColor" format="color" />
