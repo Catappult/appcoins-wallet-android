@@ -1,15 +1,19 @@
 package cm.aptoide.skills
 
+import android.net.Uri
 import androidx.fragment.app.Fragment
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsPaymentData
+import cm.aptoide.skills.util.UriValidationResult
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class SkillsViewModel(
@@ -31,6 +35,7 @@ class SkillsViewModel(
     const val RESULT_SERVICE_UNAVAILABLE = 3
     const val RESULT_ERROR = 6
     const val RESULT_INVALID_URL = 7
+    const val RESULT_INVALID_USERNAME = 8
   }
 
   fun handleWalletCreationIfNeeded(): Observable<String> {
@@ -114,6 +119,34 @@ class SkillsViewModel(
               Pair(RESULT_ERROR, UserData.fromStatus(UserData.Status.REFUNDED))
           )
         }
+  }
+
+  fun validateUrl(uriString: String): UriValidationResult {
+    val uri: Uri = Uri.parse(uriString)
+    if (hasInvalidRequestStructure(uriString, uri)) {
+      return UriValidationResult.Invalid(RESULT_INVALID_URL)
+    }
+    if (usernameContainsInvalidCharacters(uri)) {
+      return UriValidationResult.Invalid(RESULT_INVALID_USERNAME)
+    }
+    return UriValidationResult.Valid(uri)
+  }
+
+  private fun usernameContainsInvalidCharacters(eskillsUri: Uri): Boolean {
+    val pattern = Pattern.compile("[^A-Za-z0-9_ ]+")
+    val username = eskillsUri.getQueryParameter("user_name")!!
+    val matcher: Matcher = pattern.matcher(username)
+    return matcher.find()
+
+  }
+
+  private fun hasInvalidRequestStructure(uriString: String, parsedUri: Uri): Boolean {
+    val parametersString = uriString.split("?")[1]
+    if (parametersString.contains("#")) {
+      return true
+    }
+    val parametersArray = parametersString.split("&")
+    return parsedUri.queryParameterNames.size != parametersArray.size
   }
 
   fun closeView(): Observable<Pair<Int, UserData>> {
