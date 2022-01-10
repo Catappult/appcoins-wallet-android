@@ -22,18 +22,15 @@ class BackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
         }
 
     const val WALLET_ADDRESS = "wallet_addr"
-    const val ACTION_OPEN_DOCUMENT_TREE_REQUEST_CODE = 1001
   }
 
   @Inject
   lateinit var presenter: BackupActivityPresenter
-  private lateinit var onDocumentFileSubject: PublishSubject<SystemFileIntentResult>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_backup)
-    onDocumentFileSubject = PublishSubject.create()
     presenter.present(savedInstanceState == null)
   }
 
@@ -51,26 +48,7 @@ class BackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
 
   override fun closeScreen() = finish()
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    presenter.onActivityResult(requestCode, resultCode, data, this)
-  }
-
-  override fun onDocumentFile(systemFileIntentResult: SystemFileIntentResult) {
-    onDocumentFileSubject.onNext(systemFileIntentResult)
-  }
-
-  override fun onSystemFileIntentResult() = onDocumentFileSubject
-
   override fun setupToolbar() {
     toolbar()
   }
-
-  private fun getCurrentFragment(): String {
-    val fragments = supportFragmentManager.fragments
-    return if (fragments.isNotEmpty()) fragments[0]::class.java.simpleName
-    else BackupWalletFragment::class.java.simpleName
-  }
-
-
 }
