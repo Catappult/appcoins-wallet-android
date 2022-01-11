@@ -59,7 +59,7 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
 
   fun validateEthTransferData(walletAddress: String,
                               amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
-    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(walletAddress, cached = false, updateFiat = false)
         .map { walletInfo ->
           val ethAmount = walletInfo.walletBalance.ethBalance.token.amount
           validateData(transactionDataValidator.validateData(walletAddress, amount, ethAmount))
@@ -68,7 +68,7 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
 
   fun validateAppcTransferData(walletAddress: String,
                                amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
-    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(walletAddress, cached = false, updateFiat = false)
         .map { walletInfo ->
           val appcAmount = walletInfo.walletBalance.appcBalance.token.amount
           validateData(transactionDataValidator.validateData(walletAddress, amount, appcAmount))
