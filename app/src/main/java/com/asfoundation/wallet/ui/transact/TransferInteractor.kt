@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.transact
 
+import android.util.Log
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.iab.RewardsManager
@@ -60,7 +61,7 @@ class TransferInteractor @Inject constructor(private val rewardsManager: Rewards
 
   fun validateEthTransferData(walletAddress: String,
                               amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
-    return getWalletInfoUseCase(walletAddress, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
         .map { walletInfo ->
           val ethAmount = walletInfo.walletBalance.ethBalance.token.amount
           validateData(transactionDataValidator.validateData(walletAddress, amount, ethAmount))
@@ -69,7 +70,7 @@ class TransferInteractor @Inject constructor(private val rewardsManager: Rewards
 
   fun validateAppcTransferData(walletAddress: String,
                                amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
-    return getWalletInfoUseCase(walletAddress, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
         .map { walletInfo ->
           val appcAmount = walletInfo.walletBalance.appcBalance.token.amount
           validateData(transactionDataValidator.validateData(walletAddress, amount, appcAmount))
