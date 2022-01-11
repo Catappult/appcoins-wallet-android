@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.documentfile.provider.DocumentFile
@@ -123,5 +124,12 @@ class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
   override fun onSideEffect(sideEffect: SaveBackupBottomSheetSideEffect) = when (sideEffect) {
     SaveBackupBottomSheetSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen()
+    SaveBackupBottomSheetSideEffect.ShowError -> showError()
+  }
+
+  fun showError() {
+    Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG)
+        .show()
+    requireActivity().finish()
   }
 }

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.backup.save
 
 import android.os.Build
 import android.os.Environment
+import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import dagger.Module
 import dagger.Provides
@@ -15,9 +16,10 @@ class SaveBackupBottomSheetModule {
   fun providesSaveBackupBottomSheetViewModelFactory(
       saveBackupBottomSheetData: SaveBackupBottomSheetData,
       saveBackupFileUseCase: SaveBackupFileUseCase,
+      backupSuccessLogUseCase: BackupSuccessLogUseCase,
       @Named("downloads-path") downloadsPath: File?): SaveBackupBottomSheetViewModelFactory {
     return SaveBackupBottomSheetViewModelFactory(saveBackupBottomSheetData, saveBackupFileUseCase,
-        downloadsPath)
+        backupSuccessLogUseCase, downloadsPath)
   }
 
   @Provides

@@ -1,57 +1,35 @@
 package com.asfoundation.wallet.ui.backup.creation
 
-import com.asfoundation.wallet.backup.FileInteractor
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.interact.ExportWalletInteractor
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
-import com.asfoundation.wallet.ui.backup.BackupActivityNavigator
-import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment.Companion.PASSWORD_KEY
-import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment.Companion.WALLET_ADDRESS_KEY
+import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 import dagger.Module
 import dagger.Provides
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class BackupCreationModule {
 
   @Provides
-  fun providesBackupCreationPresenter(fragment: BackupCreationFragment,
-                                      backupCreationInteractor: BackupCreationInteractor,
-                                      walletsEventSender: WalletsEventSender,
-                                      logger: Logger,
-                                      data: BackupCreationData,
-                                      navigator: BackupCreationNavigator,
-                                      sendBackupToEmailUseCase: SendBackupToEmailUseCase)
-      : BackupCreationPresenter {
-    return BackupCreationPresenter(fragment as BackupCreationView, backupCreationInteractor,
-        walletsEventSender, logger, AndroidSchedulers.mainThread(), CompositeDisposable(), data,
-        navigator,
-        sendBackupToEmailUseCase)
+  fun providesBackupCreationViewModelFactory(
+      data: BackupCreationData,
+      sendBackupToEmailUseCase: SendBackupToEmailUseCase,
+      backupSuccessLogUseCase: BackupSuccessLogUseCase,
+      logger: Logger): BackupCreationViewModelFactory {
+    return BackupCreationViewModelFactory(data, sendBackupToEmailUseCase, backupSuccessLogUseCase,
+        logger)
   }
 
   @Provides
   fun providesBackupCreationData(fragment: BackupCreationFragment): BackupCreationData {
-    fragment.arguments!!.apply {
-      return BackupCreationData(getString(WALLET_ADDRESS_KEY)!!, getString(PASSWORD_KEY)!!)
-    }
-  }
-
-  @Provides
-  fun providesBackupCreationInteractor(
-      backupRestorePreferencesRepository: BackupRestorePreferencesRepository): BackupCreationInteractor {
-    return BackupCreationInteractor(backupRestorePreferencesRepository)
+    fragment.requireArguments()
+        .apply {
+          return BackupCreationData(getString(BackupCreationFragment.WALLET_ADDRESS_KEY)!!,
+              getString(BackupCreationFragment.PASSWORD_KEY)!!)
+        }
   }
 
   @Provides
   fun providesBackupCreationNavigator(fragment: BackupCreationFragment): BackupCreationNavigator {
     return BackupCreationNavigator(fragment.requireFragmentManager())
-  }
-
-  @Provides
-  fun providesBackupActivityNavigator(fragment: BackupCreationFragment): BackupActivityNavigator {
-    return BackupActivityNavigator(fragment.requireFragmentManager(), fragment.activity!!)
   }
 }
