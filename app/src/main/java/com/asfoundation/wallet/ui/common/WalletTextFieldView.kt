@@ -98,10 +98,6 @@ class WalletTextFieldView : FrameLayout {
     }
   }
 
-  override fun setOnClickListener(l: OnClickListener?) {
-    views.root.setOnClickListener(l)
-  }
-
   fun addTextChangedListener(watcher: TextWatcher) {
     return views.textInputEditText.addTextChangedListener(watcher)
   }

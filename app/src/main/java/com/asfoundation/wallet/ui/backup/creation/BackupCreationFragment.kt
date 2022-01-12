@@ -53,7 +53,6 @@ class BackupCreationFragment : DaggerFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    views.emailButton.isEnabled = false
     views.emailInput.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -67,6 +66,7 @@ class BackupCreationFragment : DaggerFragment(),
     views.emailButton.setOnClickListener {
       viewModel.sendBackupToEmail(views.emailInput.getText())
     }
+    views.emailButton.isEnabled = false // this needs to be after setOnClickListener
     views.deviceButton.setOnClickListener {
       navigator.navigateToSaveOnDeviceScreen(requireArguments().getString(WALLET_ADDRESS_KEY)!!,
           requireArguments().getString(
