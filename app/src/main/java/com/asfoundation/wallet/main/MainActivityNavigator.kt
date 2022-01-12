@@ -65,7 +65,7 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
 
   fun navigateToTopUp() {
     val intent = TopUpActivity.newIntent(context)
-        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK}
     context.startActivity(intent)
   }
 
