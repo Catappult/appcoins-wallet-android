@@ -18,6 +18,8 @@ import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -27,7 +29,9 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
+import retrofit2.converter.jackson.JacksonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -83,9 +87,19 @@ class BackendApiModule {
   @Singleton
   @Provides
   fun providesOffChainTransactionsApi(
-    @BackendBlockchainRetrofit retrofit: Retrofit
+    @BlockchainHttpClient client: OkHttpClient
   ): OffChainTransactionsRepository.TransactionsApi {
-    return retrofit.create(OffChainTransactionsRepository.TransactionsApi::class.java)
+    val objectMapper = ObjectMapper()
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
+    objectMapper.dateFormat = dateFormat
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+    return Retrofit.Builder()
+      .baseUrl(backendUrl)
+      .client(client)
+      .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(OffChainTransactionsRepository.TransactionsApi::class.java)
   }
 
   @Singleton
@@ -162,15 +176,18 @@ class BackendApiModule {
 
   @Provides
   fun provideGamificationApi(
-    @BackendDefaultRetrofit retrofit: Retrofit
+    @DefaultHttpClient client: OkHttpClient
   ): GamificationApi {
     val gson = GsonBuilder()
       .setDateFormat("yyyy-MM-dd HH:mm")
       .registerTypeAdapter(PromotionsResponse::class.java, PromotionsSerializer())
       .registerTypeAdapter(PromotionsResponse::class.java, PromotionsDeserializer())
       .create()
-    return retrofit.newBuilder()
+    return Retrofit.Builder()
+      .baseUrl(backendUrl)
+      .client(client)
       .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .build()
       .create(GamificationApi::class.java)
   }
