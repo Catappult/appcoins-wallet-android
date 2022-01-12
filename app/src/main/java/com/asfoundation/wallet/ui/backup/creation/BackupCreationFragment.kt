@@ -66,7 +66,8 @@ class BackupCreationFragment : DaggerFragment(),
     views.emailButton.setOnClickListener {
       viewModel.sendBackupToEmail(views.emailInput.getText())
     }
-    views.emailButton.isEnabled = false // this needs to be after setOnClickListener
+    views.emailButton.isEnabled =
+        false // this needs to be after setOnClickListener, otherwise button will be clickable
     views.deviceButton.setOnClickListener {
       navigator.navigateToSaveOnDeviceScreen(requireArguments().getString(WALLET_ADDRESS_KEY)!!,
           requireArguments().getString(

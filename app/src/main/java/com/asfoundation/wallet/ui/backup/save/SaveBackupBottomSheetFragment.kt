@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.backup.save
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -31,7 +32,8 @@ class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   @Inject
   lateinit var navigator: SaveBackupBottomSheetNavigator
 
-  private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+  private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
+  private lateinit var openDocumentTreeResultLauncher: ActivityResultLauncher<Intent>
 
   private val viewModel: SaveBackupBottomSheetViewModel by viewModels { saveBackupBottomSheetViewModelFactory }
   private val views by viewBinding(SaveBackupLayoutBinding::bind)
@@ -56,8 +58,11 @@ class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    createLaunchers()
+  }
 
-    activityResultLauncher = registerForActivityResult(
+  private fun createLaunchers() {
+    openDocumentTreeResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { activityResult ->
       val data = activityResult.data
       if (activityResult.resultCode == Activity.RESULT_OK && data != null) {
@@ -65,6 +70,12 @@ class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
           val documentFile = DocumentFile.fromTreeUri(requireContext(), it)
           viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
         }
+      }
+    }
+    requestPermissionsLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()) { isGranted ->
+      if (isGranted) {
+        viewModel.saveBackupFile(views.fileNameInput.getText())
       }
     }
   }
@@ -81,10 +92,9 @@ class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
           putExtra(FILE_NAME_EXTRA_KEY, views.fileNameInput.getText())
         }
-        activityResultLauncher.launch(intent)
+        openDocumentTreeResultLauncher.launch(intent)
       } else {
-        viewModel.saveBackupFile(views.fileNameInput.getText())
-        navigator.navigateToSuccessScreen()
+        requestPermissionsLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
       }
     }
     views.backupCancel.setOnClickListener {
