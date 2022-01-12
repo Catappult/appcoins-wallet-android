@@ -22,7 +22,7 @@ class AmplitudeAnalytics @Inject constructor(@ApplicationContext private val con
     AnalyticsSetup {
 
   private val amplitudeClient = Amplitude.getInstance()
-  private lateinit var entryPoint: String
+  private var entryPoint: String = ""
 
   override fun setUserId(walletAddress: String) {
     amplitudeClient.userId = walletAddress

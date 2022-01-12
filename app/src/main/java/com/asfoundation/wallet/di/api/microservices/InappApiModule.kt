@@ -36,7 +36,7 @@ class InappApiModule {
   @Singleton
   @Provides
   fun providesInappBdsApi(
-    @BrokerBlockchainRetrofit retrofit: Retrofit
+    @InappBlockchainRetrofit retrofit: Retrofit
   ): RemoteRepository.InappBdsApi {
     return retrofit.create(RemoteRepository.InappBdsApi::class.java)
   }

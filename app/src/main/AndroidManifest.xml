@@ -107,6 +107,20 @@
         android:name="com.asfoundation.wallet.ui.GasSettingsActivity"
         android:label="@string/title_send_settings" />
     <activity
+        android:name="com.asfoundation.wallet.ui.SendActivity"
+        android:label="@string/title_activity_send" />
+    <activity
+        android:name="com.asfoundation.wallet.ui.Erc681Receiver"
+        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data android:scheme="ethereum" />
+      </intent-filter>
+    </activity>
+    <activity
         android:name="com.asfoundation.wallet.ui.OneStepPaymentReceiver"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter android:autoVerify="true">
