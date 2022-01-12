@@ -102,6 +102,24 @@ class BackendApiModule {
       .create(OffChainTransactionsRepository.TransactionsApi::class.java)
   }
 
+  @Provides
+  fun provideGamificationApi(
+    @DefaultHttpClient client: OkHttpClient
+  ): GamificationApi {
+    val gson = GsonBuilder()
+      .setDateFormat("yyyy-MM-dd HH:mm")
+      .registerTypeAdapter(PromotionsResponse::class.java, PromotionsSerializer())
+      .registerTypeAdapter(PromotionsResponse::class.java, PromotionsDeserializer())
+      .create()
+    return Retrofit.Builder()
+      .baseUrl(backendUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+      .create(GamificationApi::class.java)
+  }
+
   @Singleton
   @Provides
   fun providesPromoCodeBackendApi(
@@ -172,24 +190,6 @@ class BackendApiModule {
     @BackendLowTimerRetrofit retrofit: Retrofit
   ): AutoUpdateService.AutoUpdateApi {
     return retrofit.create(AutoUpdateService.AutoUpdateApi::class.java)
-  }
-
-  @Provides
-  fun provideGamificationApi(
-    @DefaultHttpClient client: OkHttpClient
-  ): GamificationApi {
-    val gson = GsonBuilder()
-      .setDateFormat("yyyy-MM-dd HH:mm")
-      .registerTypeAdapter(PromotionsResponse::class.java, PromotionsSerializer())
-      .registerTypeAdapter(PromotionsResponse::class.java, PromotionsDeserializer())
-      .create()
-    return Retrofit.Builder()
-      .baseUrl(backendUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create(gson))
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
-      .create(GamificationApi::class.java)
   }
 
   @Singleton
