@@ -19,10 +19,6 @@ class AdyenPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
                                                  private val adyenResponseMapper: AdyenResponseMapper,
                                                  private val logger: Logger) {
 
-  companion object {
-    private const val ADYEN_PATH ="8.20200815/gateways/adyen_v2/"
-  }
-
   fun loadPaymentInfo(methods: Methods, value: String,
                       currency: String, walletAddress: String): Single<PaymentInfoModel> {
     return adyenApi.loadPaymentInfo(walletAddress, value, currency, methods.transactionType)
