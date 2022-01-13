@@ -53,7 +53,7 @@
         android:layout_marginTop="@dimen/big_margin"
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/big_margin"
-        app:buttonText="@string/backup_button"
+        app:buttonText="@string/backup_wallet_button"
         app:buttonType="filled"
         app:layout_constraintTop_toTopOf="parent"
         />

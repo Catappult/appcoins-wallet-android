@@ -63,7 +63,7 @@
         android:layout_width="200dp"
         android:layout_height="@dimen/large_button_height"
         android:layout_marginVertical="20dp"
-        app:buttonText="@string/backup_button"
+        app:buttonText="@string/backup_wallet_button"
         app:buttonType="filled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
