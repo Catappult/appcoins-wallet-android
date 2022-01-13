@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.backup.save
+package com.asfoundation.wallet.ui.backup.save_on_device
 
 import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.base.BaseViewModel
@@ -16,7 +16,7 @@ sealed class SaveBackupBottomSheetSideEffect : SideEffect {
 data class SaveBackupBottomSheetState(val fileName: String, val downloadsPath: String?) : ViewState
 
 class SaveBackupBottomSheetViewModel(
-    private val data: SaveBackupBottomSheetData,
+    private val data: SaveOnDeviceDialogData,
     private val saveBackupFileUseCase: SaveBackupFileUseCase,
     private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
     private val downloadsPath: File?) :
@@ -24,7 +24,7 @@ class SaveBackupBottomSheetViewModel(
         initialState(data, downloadsPath)) {
 
   companion object {
-    fun initialState(data: SaveBackupBottomSheetData,
+    fun initialState(data: SaveOnDeviceDialogData,
                      downloadsPath: File?): SaveBackupBottomSheetState {
       return SaveBackupBottomSheetState("walletbackup${data.walletAddress}",
           downloadsPath?.absolutePath)

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.backup.save
+package com.asfoundation.wallet.ui.backup.save_on_device
 
 import android.os.Build
 import android.os.Environment
@@ -10,33 +10,33 @@ import java.io.File
 import javax.inject.Named
 
 @Module
-class SaveBackupBottomSheetModule {
+class SaveOnDeviceDialogModule {
 
   @Provides
   fun providesSaveBackupBottomSheetViewModelFactory(
-      saveBackupBottomSheetData: SaveBackupBottomSheetData,
+      saveOnDeviceDialogData: SaveOnDeviceDialogData,
       saveBackupFileUseCase: SaveBackupFileUseCase,
       backupSuccessLogUseCase: BackupSuccessLogUseCase,
-      @Named("downloads-path") downloadsPath: File?): SaveBackupBottomSheetViewModelFactory {
-    return SaveBackupBottomSheetViewModelFactory(saveBackupBottomSheetData, saveBackupFileUseCase,
+      @Named("downloads-path") downloadsPath: File?): SaveOnDeviceDialogViewModelFactory {
+    return SaveOnDeviceDialogViewModelFactory(saveOnDeviceDialogData, saveBackupFileUseCase,
         backupSuccessLogUseCase, downloadsPath)
   }
 
   @Provides
   fun providesSaveBackupBottomSheetNavigator(
-      fragment: SaveBackupBottomSheetFragment
-  ): SaveBackupBottomSheetNavigator {
-    return SaveBackupBottomSheetNavigator(fragment, fragment.requireFragmentManager())
+      fragment: SaveOnDeviceDialogFragment
+  ): SaveOnDeviceDialogNavigator {
+    return SaveOnDeviceDialogNavigator(fragment, fragment.requireFragmentManager())
   }
 
   @Provides
   fun providesSaveBackupBottomSheetData(
-      fragment: SaveBackupBottomSheetFragment): SaveBackupBottomSheetData {
+      fragment: SaveOnDeviceDialogFragment): SaveOnDeviceDialogData {
     fragment.requireArguments()
         .apply {
-          return SaveBackupBottomSheetData(
-              getString(SaveBackupBottomSheetFragment.WALLET_ADDRESS_KEY)!!, getString(
-              SaveBackupBottomSheetFragment.PASSWORD_KEY)!!)
+          return SaveOnDeviceDialogData(
+              getString(SaveOnDeviceDialogFragment.WALLET_ADDRESS_KEY)!!, getString(
+              SaveOnDeviceDialogFragment.PASSWORD_KEY)!!)
         }
   }
 

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.backup.save
+package com.asfoundation.wallet.ui.backup.save_on_device
 
 import android.Manifest
 import android.app.Activity
@@ -22,20 +22,20 @@ import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject
 
-class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
+class SaveOnDeviceDialogFragment : DaggerBottomSheetDialogFragment(),
     SingleStateFragment<SaveBackupBottomSheetState, SaveBackupBottomSheetSideEffect> {
 
 
   @Inject
-  lateinit var saveBackupBottomSheetViewModelFactory: SaveBackupBottomSheetViewModelFactory
+  lateinit var saveOnDeviceDialogViewModelFactory: SaveOnDeviceDialogViewModelFactory
 
   @Inject
-  lateinit var navigator: SaveBackupBottomSheetNavigator
+  lateinit var navigator: SaveOnDeviceDialogNavigator
 
   private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
   private lateinit var openDocumentTreeResultLauncher: ActivityResultLauncher<Intent>
 
-  private val viewModel: SaveBackupBottomSheetViewModel by viewModels { saveBackupBottomSheetViewModelFactory }
+  private val viewModel: SaveBackupBottomSheetViewModel by viewModels { saveOnDeviceDialogViewModelFactory }
   private val views by viewBinding(SaveBackupLayoutBinding::bind)
 
   companion object {
@@ -44,8 +44,8 @@ class SaveBackupBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     private const val FILE_NAME_EXTRA_KEY = "file_name"
 
     @JvmStatic
-    fun newInstance(walletAddress: String, password: String): SaveBackupBottomSheetFragment {
-      return SaveBackupBottomSheetFragment()
+    fun newInstance(walletAddress: String, password: String): SaveOnDeviceDialogFragment {
+      return SaveOnDeviceDialogFragment()
           .apply {
             arguments = Bundle().apply {
               putString(WALLET_ADDRESS_KEY, walletAddress)

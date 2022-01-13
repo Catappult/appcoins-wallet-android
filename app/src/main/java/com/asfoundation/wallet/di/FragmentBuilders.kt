@@ -79,8 +79,8 @@ import com.asfoundation.wallet.ui.backup.creation.BackupCreationFragment
 import com.asfoundation.wallet.ui.backup.creation.BackupCreationModule
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletModule
-import com.asfoundation.wallet.ui.backup.save.SaveBackupBottomSheetFragment
-import com.asfoundation.wallet.ui.backup.save.SaveBackupBottomSheetModule
+import com.asfoundation.wallet.ui.backup.save_on_device.SaveOnDeviceDialogFragment
+import com.asfoundation.wallet.ui.backup.save_on_device.SaveOnDeviceDialogModule
 import com.asfoundation.wallet.ui.backup.skip.SkipDialogModule
 import com.asfoundation.wallet.ui.backup.skip.SkipDialogFragment
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
@@ -399,8 +399,8 @@ abstract class FragmentBuilders {
   abstract fun bindTermsConditionsBottomSheetFragment(): TermsConditionsBottomSheetFragment
 
   @FragmentScope
-  @ContributesAndroidInjector(modules = [SaveBackupBottomSheetModule::class])
-  abstract fun bindSaveBackupBottomSheetFragment(): SaveBackupBottomSheetFragment
+  @ContributesAndroidInjector(modules = [SaveOnDeviceDialogModule::class])
+  abstract fun bindSaveBackupBottomSheetFragment(): SaveOnDeviceDialogFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [SkipDialogModule::class])

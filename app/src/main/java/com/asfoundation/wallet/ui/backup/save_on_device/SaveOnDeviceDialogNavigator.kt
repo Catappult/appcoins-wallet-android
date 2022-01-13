@@ -1,11 +1,11 @@
-package com.asfoundation.wallet.ui.backup.save
+package com.asfoundation.wallet.ui.backup.save_on_device
 
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
 
-class SaveBackupBottomSheetNavigator(val fragment: SaveBackupBottomSheetFragment,
-                                     private val fragmentManager: FragmentManager) {
+class SaveOnDeviceDialogNavigator(val fragment: SaveOnDeviceDialogFragment,
+                                  private val fragmentManager: FragmentManager) {
 
   fun navigateBack() {
     fragment.dismiss()
