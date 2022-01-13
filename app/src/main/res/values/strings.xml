@@ -695,9 +695,6 @@
   <string name="backup_save_dialogue_title">Save Backup</string>
   <string name="backup_save_dialogue_body">Please enter a name for the backup file.</string>
   <string name="backup_confirmation_tips_title">Keep the file safe!</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
   <string name="backup_confirmation_tips_1_title">Print it</string>
   <string name="backup_confirmation_tips_1_body"> and store it somewhere safe.</string>
   <string name="backup_confirmation_tips_2_title">Save it</string>
