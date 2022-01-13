@@ -201,32 +201,6 @@ class HomeFragment : BasePageViewFragment(),
     }
   }
 
-//  private fun setTransactionsModel(asyncTransactionsModel: Async<TransactionsModel>) {
-//    when (asyncTransactionsModel) {
-//      Async.Uninitialized,
-//      is Async.Loading -> {
-//        if (asyncTransactionsModel() == null) {
-//          showLoading()
-//        }
-//      }
-//      is Async.Fail -> {
-//        onError(ErrorEnvelope(C.ErrorCode.UNKNOWN, null, asyncTransactionsModel.error.throwable))
-//      }
-//      is Async.Success -> {
-//        //setTransactions(asyncTransactionsModel())
-//      }
-//    }
-//  }
-
-  private fun setDefaultWalletBalance(asyncDefaultWalletBalance: Async<GlobalBalance>) {
-    when (asyncDefaultWalletBalance) {
-      is Async.Fail -> {
-        onError(ErrorEnvelope(C.ErrorCode.UNKNOWN, null, asyncDefaultWalletBalance.error.throwable))
-      }
-      else -> Unit
-    }
-  }
-
   private fun showVipBadge(shouldShow: Boolean) {
     views.actionButtonVip.root.visibility = if (shouldShow) View.VISIBLE else View.GONE
   }
@@ -260,12 +234,6 @@ class HomeFragment : BasePageViewFragment(),
 
   private fun onTransactionClick(transaction: Transaction) {
     viewModel.onTransactionDetailsClick(transaction)
-  }
-
-  private fun onError(errorEnvelope: ErrorEnvelope) {
-    if (errorEnvelope.code == C.ErrorCode.EMPTY_COLLECTION) {
-//      views.systemView.showEmpty(showEmptyView(maxBonus))
-    }
   }
 
   private fun setFingerprintTooltip() {
