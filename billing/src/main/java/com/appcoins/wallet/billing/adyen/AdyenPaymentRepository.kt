@@ -123,13 +123,13 @@ class AdyenPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
                        @Query("wallet.signature")
                        walletSignature: String): Single<TransactionResponse>
 
-    @GET("8.20200815/gateways/adyen_v2/transactions")
+    @POST("8.20200815/gateways/adyen_v2/transactions")
     fun makePayment(@Query("wallet.address") walletAddress: String,
                     @Query("wallet.signature") walletSignature: String,
                     @Body payment: Payment): Single<AdyenTransactionResponse>
 
     @Headers("Content-Type: application/json;format=product_token")
-    @GET("8.20200815/gateways/adyen_v2/transactions")
+    @POST("8.20200815/gateways/adyen_v2/transactions")
     fun makeTokenPayment(@Query("wallet.address") walletAddress: String,
                          @Query("wallet.signature") walletSignature: String,
                          @Body payment: TokenPayment): Single<AdyenTransactionResponse>
