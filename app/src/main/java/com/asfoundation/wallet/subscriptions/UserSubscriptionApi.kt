@@ -14,7 +14,7 @@ interface UserSubscriptionApi {
    * @param applicationName Filter based on the package name
    * @param limit Limit for the max number of subscriptions to be returned
    */
-  @GET("8.20200701/applications/inapp/subscription/purchases")
+  @GET("8.20200701/application/inapp/subscription/purchases")
   fun getUserSubscriptions(@Header("Accept-Language") language: String,
                            @Query("wallet.address") walletAddress: String,
                            @Query("wallet.signature") walletSignature: String,
