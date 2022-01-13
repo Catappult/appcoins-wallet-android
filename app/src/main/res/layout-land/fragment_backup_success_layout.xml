@@ -5,50 +5,63 @@
     android:layout_height="match_parent"
     android:background="@color/blue_dark"
     >
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/backup_half_guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.5"
-      />
-  <include
-      android:id="@+id/backup_success_info"
-      layout="@layout/layout_backup_success_info"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/backup_half_guideline"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/backup_half_guideline"
       app:layout_constraintTop_toTopOf="parent"
       >
-    <include
-        android:id="@+id/tips"
-        layout="@layout/layout_backup_success_tips"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <com.asfoundation.wallet.ui.common.WalletButtonView
-        android:id="@+id/close_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/large_button_height"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="@dimen/large_margin"
-        app:buttonText="@string/backup_confirmation_button"
-        app:buttonType="filled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tips"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
+        >
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/backup_half_guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.5"
+          />
+      <include
+          android:id="@+id/backup_success_info"
+          layout="@layout/layout_backup_success_info"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginVertical="@dimen/half_large_margin"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/backup_half_guideline"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/backup_half_guideline"
+          app:layout_constraintTop_toTopOf="parent"
+          >
+        <include
+            android:id="@+id/tips"
+            layout="@layout/layout_backup_success_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <com.asfoundation.wallet.ui.common.WalletButtonView
+            android:id="@+id/close_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/large_button_height"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="@dimen/large_margin"
+            app:buttonText="@string/backup_confirmation_button"
+            app:buttonType="filled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tips"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

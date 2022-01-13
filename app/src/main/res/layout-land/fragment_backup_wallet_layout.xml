@@ -7,49 +7,47 @@
     android:paddingHorizontal="@dimen/big_padding"
     android:paddingTop="@dimen/normal_margin"
     >
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <ScrollView
+      android:id="@+id/backup_scroll_view"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:focusableInTouchMode="true"
-      android:orientation="vertical"
       app:layout_constraintBottom_toTopOf="@id/backup_button_layout"
       app:layout_constraintTop_toTopOf="parent"
       >
-    <include
-        android:id="@+id/wallet_backup_info"
-        layout="@layout/layout_wallet_backup_info"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/normal_margin"
-        app:layout_constraintEnd_toEndOf="@id/backup_half_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/backup_half_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"
-        />
-    <ScrollView
-        android:id="@+id/backup_scroll_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/backup_half_guideline"
-        app:layout_constraintTop_toTopOf="parent"
         >
       <include
-          layout="@layout/layout_backup_password_toggle"
-          android:layout_width="match_parent"
+          android:id="@+id/wallet_backup_info"
+          layout="@layout/layout_wallet_backup_info"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/normal_margin"
+          android:layout_marginEnd="@dimen/normal_margin"
+          app:layout_constraintEnd_toEndOf="@id/backup_half_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
-    </ScrollView>
-  </androidx.constraintlayout.widget.ConstraintLayout>
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/backup_half_guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.5"
+          />
+      <include
+          layout="@layout/layout_backup_password_toggle"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/normal_margin"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/backup_half_guideline"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/backup_button_layout"
