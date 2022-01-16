@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
+  <string name="iab_wallet_not_installed_popup_body">Щоб купити цей предмет, спочатку потрібно отримати %s.</string>
   <string name="appcoins_wallet">AppCoins Wallet</string>
-  <string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
+  <string name="iab_wallet_not_installed_popup_close_button">ЗАКРИТИ</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">Щоб зробити цю покупку, вам потрібен AppCoins Wallet. Завантажте його з Aptoide або Play Store і поверніться, щоб завершити покупку!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">ЗРОЗУМІВ!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">Вам потрібен AppCoins Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_body">Щоб отримати свою винагороду, вам потрібен AppCoins Wallet.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
-  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
+  <string name="iab_pay_as_guest_title">Оплатити як гість</string>
+  <string name="iab_pay_as_guest_credit_card">Кредитна карта</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
-  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
-  <string name="iab_card_number">Card number</string>
-  <string name="iab_card_expiry">MM/YY</string>
+  <string name="iab_switch_to_paypal">Оплатити з допомогою PAYPAL</string>
+  <string name="iab_switch_to_credit_card">Оплатити за допомогою кредитної карти</string>
+  <string name="iab_card_number">Номер карти</string>
+  <string name="iab_card_expiry">ММ/РР</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">CHANGE CARD</string>
