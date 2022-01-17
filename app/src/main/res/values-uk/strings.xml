@@ -703,36 +703,36 @@
   <string name="remove_wallet_removed_body">Гаманець видалено!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Переведення</string>
-  <string name="transfer_title">Transfer Funds</string>
-  <string name="transfer_send_tab_title">Send</string>
-  <string name="transfer_receive_tab_title">Receive</string>
-  <string name="transfer_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="transfer_send_recipient_title">Wallet Address</string>
-  <string name="transfer_send_token_title">Token:</string>
-  <string name="transfer_send_amount_title">Amount</string>
-  <string name="transfer_send_current_balance_title">Current Balance:</string>
-  <string name="transfer_send_button">SEND</string>
-  <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
+  <string name="transfer_title">Переказ коштів</string>
+  <string name="transfer_send_tab_title">Надіслати</string>
+  <string name="transfer_receive_tab_title">Отримати</string>
+  <string name="transfer_send_body">Відскануйте або введіть адресу гаманця вашого друга.</string>
+  <string name="transfer_send_recipient_title">Адреса гаманця</string>
+  <string name="transfer_send_token_title">Токен:</string>
+  <string name="transfer_send_amount_title">Рахунок</string>
+  <string name="transfer_send_current_balance_title">Поточний баланс:</string>
+  <string name="transfer_send_button">НАДІСЛАТИ</string>
+  <string name="transfer_receive_body">Поділіться адресою гаманця, щоб отримати кошти.</string>
   <!--Support Notifications-->
-  <string name="support_new_message_title">You\'ve got a new message!</string>
-  <string name="support_new_message_button">Tap to open</string>
+  <string name="support_new_message_title">Ви отримали нове повідомлення!</string>
+  <string name="support_new_message_button">Торкніться, щоб відкрити</string>
   <!--Pioneers-->
-  <string name="pioneer_bonus_updated_body">Bonus percentages were updated on %s.</string>
-  <string name="pioneer_gamification_title">You\'re a Pioneer</string>
-  <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
+  <string name="pioneer_bonus_updated_body">Відсотки бонусів оновлено %s.</string>
+  <string name="pioneer_gamification_title">Ви Pioneer</string>
+  <string name="pioneer_gamification_body">Pioneer - це ранній користувач із збільшеними бонусами.</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_title">Check for updates</string>
-  <string name="check_updates_settings_subtitle">Current version %s</string>
-  <string name="check_updates_checking_body">Searching for a new version</string>
-  <string name="check_updates_no_updates_body">You\'re up to date!</string>
-  <string name="check_updates_updates_available_title">New version available</string>
-  <string name="check_updates_update_button">UPDATE NOW</string>
-  <string name="check_updates_settings_available_title">New version available</string>
-  <string name="check_updates_settings_available_subtitle_button">Tap to update</string>
+  <string name="check_updates_settings_title">Перевірити наявність оновлень</string>
+  <string name="check_updates_settings_subtitle">Поточна версія %s</string>
+  <string name="check_updates_checking_body">Пошук нової версії</string>
+  <string name="check_updates_no_updates_body">Ви в курсі!</string>
+  <string name="check_updates_updates_available_title">Доступна нова версія</string>
+  <string name="check_updates_update_button">ОНОВИТИ ЗАРАЗ</string>
+  <string name="check_updates_settings_available_title">Доступна нова версія</string>
+  <string name="check_updates_settings_available_subtitle_button">Торкніться, щоб оновити</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage subscriptions</string>
-  <string name="subscriptions_title">Subscriptions</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_settings_title">Керуйте підписками</string>
+  <string name="subscriptions_title">Підписки</string>
+  <string name="subscriptions_subscribe_button">Підписатися</string>
   <string name="subscriptions_active_title">Активний</string>
   <string name="subscriptions_expired_title">Термін дії закінчився</string>
   <string name="subscriptions_inactive_title">Неактивний</string>
