@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="processing_loading_title">Getting your entry ticket</string>
-  <string name="finding_room_loading_title">Waiting for opponents</string>
-  <string name="finding_room_loading_message">This may take a while…</string>
-  <string name="refunded">Your money has been refunded.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Cancel</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
-  <string name="dismiss_button">Dismiss</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="provide_wallet_creating_wallet_header">Створення адреси гаманця&#8230;</string>
+  <string name="processing_loading_title">Отримання вхідного квитка</string>
+  <string name="finding_room_loading_title">В очікуванні суперників</string>
+  <string name="finding_room_loading_message">Це може зайняти деякий час…</string>
+  <string name="refunded">Ваші гроші повернуто.</string>
+  <string name="ok">ОК</string>
+  <string name="cancel">Скасувати</string>
+  <string name="connection_error_body">Здається, ви не підключені до Інтернету. Перевірте з’єднання та спробуйте ще раз!</string>
+  <string name="playing_game_notification_title">Зараз граю в e-Skills</string>
+  <string name="playing_game_notification_body">Отримання інформації про гру…</string>
+  <string name="finish_game_notification_title">Ваша гра e-Skills завершена</string>
+  <string name="won_game_notification_body">Ви виграли! Ваш гаманець тепер на $%1$.2f важчий!</string>
+  <string name="lost_game_notification_body">Ви програли… Удачі наступного разу!</string>
+  <string name="dismiss_button">Розійтись</string>
+  <string name="location_not_available_title">ігри e-Skills недоступні у вашому регіоні</string>
+  <string name="location_not_available_body">Ми наполегливо працюємо, щоб донести їх до всіх, тож повертайтеся швидше!</string>
+  <string name="shared_room_waiting">Чекаємо, поки опоненти приєднаються до %s</string>
 </resources>
