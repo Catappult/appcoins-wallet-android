@@ -45,14 +45,6 @@ class NFTTransactDialogViewModel(private val data: NFTItem,
         .repeatableScopedSubscribe(NFTTransactState::gasPriceAsync.name) { e ->
           e.printStackTrace()
         }
-
-    /*
-    estimateNFTSendGas(data, toAddress).doOnSuccess {
-      gasPrice -> sendSideEffect { gasPrice }
-    }.repeatableScopedSubscribe(NFTTransactState::gasPriceAsync.name) { e ->
-      e.printStackTrace()
-    }
-    */
   }
 }
 

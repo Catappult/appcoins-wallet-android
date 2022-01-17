@@ -13,6 +13,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import org.apache.commons.lang3.StringUtils.capitalize
 import java.math.BigInteger
 import javax.inject.Inject
 
@@ -51,8 +52,10 @@ class NFTTransactDialogFragment : DaggerBottomSheetDialogFragment(),
     when (val transactionHash = state.transactionHashAsync) {
       is Async.Fail -> showError(getString(R.string.nfts_generic_error))
       is Async.Loading -> showLoading()
-      is Async.Success -> if (transactionHash.value!!.startsWith(
-              "0x")) showSuccess() else showError(transactionHash.value!!)
+      is Async.Success -> if (transactionHash.value?.startsWith(
+              "0x") == true) showSuccess() else transactionHash.value?.let {
+        showError(it)
+      }
       Async.Uninitialized -> setGasPrice(state.gasPriceAsync)
     }
   }
@@ -81,12 +84,12 @@ class NFTTransactDialogFragment : DaggerBottomSheetDialogFragment(),
     views.layoutNftTransactDone.root.visibility = View.VISIBLE
   }
 
-  private fun showError(errorMensage: String) {
+  private fun showError(errorMessage: String) {
     views.layoutNftTransactEntry.root.visibility = View.INVISIBLE
     views.layoutNftTransactLoading.root.visibility = View.INVISIBLE
     views.layoutNftTransactDone.successAnimation.visibility = View.INVISIBLE
     views.layoutNftTransactDone.errorAnimation.visibility = View.VISIBLE
-    views.layoutNftTransactDone.doneMensage.text = errorMensage.capitalize()
+    views.layoutNftTransactDone.doneMensage.text = capitalize(errorMessage)
     views.layoutNftTransactDone.root.visibility = View.VISIBLE
   }
 

@@ -112,7 +112,6 @@ class NFTRepository(private val nftApi: NftApi, private val rxSchedulers: RxSche
     val gasPrice = web3j.ethGasPrice()
         .send().gasPrice
     var gasLimit = BigDecimal(144000).toBigInteger()
-    Log.d("NFT", gasPrice.toString() + "   " + gasLimit.toString())
     return Transaction(fromAddress, nonce, gasPrice, gasLimit, contractAddress, BigInteger.ZERO,
         Hex.toHexString(data))
   }
