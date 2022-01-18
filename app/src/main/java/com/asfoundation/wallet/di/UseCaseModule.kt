@@ -51,8 +51,7 @@ import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.backup.repository.BackupRepository
 import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
-import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
-import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.CreateBackupUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 import com.asfoundation.wallet.verification.repository.VerificationRepository
@@ -368,8 +367,8 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesBackupSuccessLogUseCase(ewt: EwtAuthenticatorService,
-                                      backupSuccessLogRepository: BackupSuccessLogRepository): BackupSuccessLogUseCase {
-    return BackupSuccessLogUseCase(ewt, backupSuccessLogRepository)
+                                      backupRepository: BackupRepository): BackupSuccessLogUseCase {
+    return BackupSuccessLogUseCase(ewt, backupRepository)
   }
 
   @Singleton

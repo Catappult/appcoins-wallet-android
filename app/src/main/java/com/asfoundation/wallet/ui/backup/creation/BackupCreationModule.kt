@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.backup.creation
 
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 import dagger.Module
 import dagger.Provides

@@ -69,7 +69,6 @@ import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.support.SupportSharedPreferences
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.backup.repository.BackupRepository
-import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesUserStatsLocalData
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
@@ -494,22 +493,6 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun providesBackupSuccessLogRepository(@Named("default") client: OkHttpClient,
-                                         rxSchedulers: RxSchedulers): BackupSuccessLogRepository {
-    val baseUrl = BuildConfig.BACKEND_HOST
-    val api = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(BackupSuccessLogRepository.BackupLopApi::class.java)
-    return BackupSuccessLogRepository(api, rxSchedulers)
-
-  }
-
-  @Singleton
-  @Provides
   fun providesBalanceRepository(getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
                                 localCurrencyConversionService: LocalCurrencyConversionService,
                                 rxSchedulers: RxSchedulers): BalanceRepository {
@@ -525,13 +508,21 @@ class RepositoryModule {
                                rxSchedulers: RxSchedulers,
                                walletService: WalletService): BackupRepository {
     val baseUrl = BuildConfig.BASE_HOST
-    val api = Retrofit.Builder()
+    val emailApi = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(BackupRepository.BackupEmailApi::class.java)
-    return BackupRepository(contentResolver, api, rxSchedulers, walletService)
+    val backendUrl = BuildConfig.BACKEND_HOST
+    val logApi = Retrofit.Builder()
+        .baseUrl(backendUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BackupRepository.BackupLopApi::class.java)
+    return BackupRepository(contentResolver, emailApi, rxSchedulers, walletService, logApi)
   }
 }

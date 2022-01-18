@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.backup.creation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 
 class BackupCreationViewModelFactory(

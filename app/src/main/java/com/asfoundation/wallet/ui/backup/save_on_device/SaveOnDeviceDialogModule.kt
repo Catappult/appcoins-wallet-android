@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.backup.save_on_device
 
 import android.os.Build
 import android.os.Environment
-import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import dagger.Module
 import dagger.Provides

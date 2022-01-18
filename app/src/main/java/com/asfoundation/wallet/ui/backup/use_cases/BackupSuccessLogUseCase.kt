@@ -1,14 +1,15 @@
-package com.asfoundation.wallet.ui.backup.success
+package com.asfoundation.wallet.ui.backup.use_cases
 
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.asfoundation.wallet.ui.backup.repository.BackupRepository
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 
 class BackupSuccessLogUseCase(private val ewtObtainer: EwtAuthenticatorService,
-                              private val backupSuccessLogRepository: BackupSuccessLogRepository) {
+                              private val backupRepository: BackupRepository) {
   operator fun invoke(address: String): Completable {
     return ewtObtainer.getEwtAuthenticationWithAddress(address)
         .subscribeOn(Schedulers.io())
-        .flatMapCompletable { backupSuccessLogRepository.logBackupSuccess(it) }
+        .flatMapCompletable { backupRepository.logBackupSuccess(it) }
   }
 }

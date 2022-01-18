@@ -4,7 +4,7 @@ import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogUseCase
+import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 
 sealed class BackupCreationSideEffect : SideEffect {
@@ -33,9 +33,9 @@ class BackupCreationViewModel(
 
   fun sendBackupToEmail(text: String) {
     sendBackupToEmailUseCase(data.walletAddress, data.password, text)
-        .doOnComplete { backupSuccessLogUseCase(data.walletAddress) }
+        .andThen(backupSuccessLogUseCase(data.walletAddress))
         .doOnComplete { sendSideEffect { BackupCreationSideEffect.NavigateToSuccess } }
-        .repeatableScopedSubscribe("sendBackupToEmail") { showError(it) }
+        .scopedSubscribe { showError(it) }
   }
 
   private fun showError(throwable: Throwable) {
