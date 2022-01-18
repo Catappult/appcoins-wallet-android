@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.util.Log
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.asf.wallet.R
@@ -7,6 +8,7 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Completable
@@ -14,6 +16,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.plugins.RxJavaPlugins
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -70,11 +73,13 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
               handlePaymentStatus(paymentStatus, transactionBuilder.skuId,
                   transactionBuilder.amount())
             }
-            .doOnSubscribe { view.showLoading() }
-            .subscribe({}, {
+            .doOnSubscribe {
+              view.showLoading() }
+            .doOnError {
               logger.log(TAG, it)
               view.showError(null)
-            }))
+            }
+            .subscribe())
   }
 
   private fun getOrigin(isBds: Boolean, transaction: TransactionBuilder): String? {
