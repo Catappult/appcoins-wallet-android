@@ -68,18 +68,19 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
         )
             .andThen(rewardsManager.getPaymentStatus(packageName, transactionBuilder.skuId,
                 transactionBuilder.amount()))
-            .observeOn(viewScheduler)
+            .subscribeOn(networkScheduler)
             .flatMapCompletable { paymentStatus: RewardPayment ->
               handlePaymentStatus(paymentStatus, transactionBuilder.skuId,
                   transactionBuilder.amount())
             }
+            .observeOn(viewScheduler)
             .doOnSubscribe {
               view.showLoading() }
             .doOnError {
               logger.log(TAG, it)
               view.showError(null)
             }
-            .subscribe())
+            .subscribe({},{}))
   }
 
   private fun getOrigin(isBds: Boolean, transaction: TransactionBuilder): String? {
