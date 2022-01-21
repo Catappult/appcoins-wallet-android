@@ -72,7 +72,9 @@ public abstract class TransactionRepository implements TransactionRepositoryType
         transactionBuilder.contractAddress(), BigDecimal.ZERO,
         nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
             getChainId(transactionBuilder))).map(
-        signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+        signedTransaction ->
+                Numeric.toHexString(new Transaction(signedTransaction).getHash())
+    );
   }
 
   @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
@@ -84,7 +86,9 @@ public abstract class TransactionRepository implements TransactionRepositoryType
             nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
                 getChainId(transactionBuilder))))
         .map(
-            signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+            signedTransaction ->
+                    Numeric.toHexString(new Transaction(signedTransaction).getHash())
+        );
   }
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
@@ -95,8 +99,9 @@ public abstract class TransactionRepository implements TransactionRepositoryType
             getChainId(transactionBuilder)))
         .flatMap(nonceValue -> createRawTransaction(transactionBuilder, password, data, toAddress,
             amount, nonceValue).flatMap(signedMessage -> Single.fromCallable(() -> {
-          EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
-              .send();
+              String hexSignedMessage = Numeric.toHexString(signedMessage);
+              EthSendTransaction raw = web3j.ethSendRawTransaction(hexSignedMessage)
+                .send();
           if (raw.hasError()) {
             throw new TransactionException(raw.getError()
                 .getCode(), raw.getError()

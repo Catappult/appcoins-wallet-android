@@ -11,9 +11,14 @@ class GasSettingsRepository(private val gasService: GasService) : GasSettingsRep
   private var lastFlushTime = 0L
   private var cachedGasPrice: BigDecimal? = null
 
-  override fun getGasSettings(forTokenTransfer: Boolean): Single<GasSettings> {
+  override fun getGasSettings(forTokenTransfer: Boolean, multiplier: Double): Single<GasSettings> {
     return getGasPrice()
-        .map { GasSettings(it, getGasLimit(forTokenTransfer)) }
+        .map {
+          GasSettings(
+            it.multiply(BigDecimal(multiplier)).setScale(0,BigDecimal.ROUND_DOWN),
+            getGasLimit(forTokenTransfer)
+          )
+        }
   }
 
   private fun getGasPriceNetwork(): Single<BigDecimal> {
