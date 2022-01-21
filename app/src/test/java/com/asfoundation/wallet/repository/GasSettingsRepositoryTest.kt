@@ -43,7 +43,7 @@ class GasSettingsRepositoryTest {
 
     val observable = TestObserver<GasSettings>()
 
-    gasSettingsRepository.getGasSettings(true)
+    gasSettingsRepository.getGasSettings(true, 1.0)
         .subscribe(observable)
 
     val expected = GasSettings(gasPriceBigDecimal, BigDecimal(DEFAULT_GAS_LIMIT_FOR_TOKENS))
@@ -62,7 +62,7 @@ class GasSettingsRepositoryTest {
 
     val observable = TestObserver<GasSettings>()
 
-    gasSettingsRepository.getGasSettings(true)
+    gasSettingsRepository.getGasSettings(true, 1.0)
         .subscribe(observable)
 
     val expected =
@@ -82,7 +82,7 @@ class GasSettingsRepositoryTest {
 
     val observable = TestObserver<GasSettings>()
 
-    gasSettingsRepository.getGasSettings(false)
+    gasSettingsRepository.getGasSettings(false, 1.0)
         .subscribe(observable)
 
     val expected = GasSettings(gasPriceBigDecimal, BigDecimal(

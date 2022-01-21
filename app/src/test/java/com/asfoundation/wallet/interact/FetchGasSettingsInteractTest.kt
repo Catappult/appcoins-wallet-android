@@ -8,6 +8,7 @@ import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.*
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
@@ -38,7 +39,7 @@ class FetchGasSettingsInteractTest {
 
     val expectedGasSettings = GasSettings(BigDecimal.TEN, BigDecimal.ONE)
 
-    `when`(gasSettingsRepositoryType.getGasSettings(true)).thenReturn(
+    `when`(gasSettingsRepositoryType.getGasSettings(anyBoolean(), anyDouble())).thenReturn(
         Single.just(expectedGasSettings))
 
     fetchGasSettingsInteract.fetch(true)
