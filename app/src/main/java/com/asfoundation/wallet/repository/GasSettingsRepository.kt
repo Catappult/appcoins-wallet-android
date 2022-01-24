@@ -1,24 +1,47 @@
 package com.asfoundation.wallet.repository
 
+import android.util.Log
 import com.asfoundation.wallet.entity.GasSettings
+import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.service.GasService
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import org.web3j.protocol.Web3jFactory
+import org.web3j.protocol.http.HttpService
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-class GasSettingsRepository(private val gasService: GasService) : GasSettingsRepositoryType {
+class GasSettingsRepository(private val gasService: GasService, private val networkInfo: NetworkInfo) : GasSettingsRepositoryType {
 
   private var lastFlushTime = 0L
   private var cachedGasPrice: BigDecimal? = null
 
   override fun getGasSettings(forTokenTransfer: Boolean, multiplier: Double): Single<GasSettings> {
-    return getGasPrice()
-        .map {
-          GasSettings(
-            it.multiply(BigDecimal(multiplier)).setScale(0,BigDecimal.ROUND_DOWN),
-            getGasLimit(forTokenTransfer)
-          )
-        }
+    val web3j = Web3jFactory.build(HttpService(networkInfo.rpcServerUrl))
+    return Single.fromCallable {
+      var gasPrice = BigDecimal(web3j.ethGasPrice().send().gasPrice)
+      gasPrice = gasPrice.multiply(BigDecimal(multiplier)).setScale(0,BigDecimal.ROUND_DOWN)
+      Log.d(
+        "gas_price",
+        " web3j price estimate: " + gasPrice
+      )
+      return@fromCallable GasSettings(
+                        gasPrice,
+                        getGasLimit(forTokenTransfer)
+                      )
+    }
+    .subscribeOn(Schedulers.io())
+
+    // gas price using the back-end estimate:
+//    return getGasPrice()
+//      .map {
+//        GasSettings(
+//          it.multiply(BigDecimal(multiplier)).setScale(0,BigDecimal.ROUND_DOWN),
+//          getGasLimit(forTokenTransfer)
+//        )
+//      }
+
   }
 
   private fun getGasPriceNetwork(): Single<BigDecimal> {

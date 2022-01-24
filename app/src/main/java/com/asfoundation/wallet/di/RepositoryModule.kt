@@ -116,8 +116,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideGasSettingsRepository(gasService: GasService): GasSettingsRepositoryType =
-      GasSettingsRepository(gasService)
+  fun provideGasSettingsRepository(gasService: GasService, networkInfo: NetworkInfo): GasSettingsRepositoryType =
+      GasSettingsRepository(gasService, networkInfo)
 
   @Singleton
   @Provides

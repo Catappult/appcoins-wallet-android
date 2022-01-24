@@ -24,6 +24,8 @@ import org.web3j.utils.Numeric;
 import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
 import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
 
+import android.util.Log;
+
 public abstract class TransactionRepository implements TransactionRepositoryType {
 
   private final NetworkInfo defaultNetwork;
