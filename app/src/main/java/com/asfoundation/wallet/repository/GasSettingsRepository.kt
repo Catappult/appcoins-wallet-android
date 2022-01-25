@@ -3,18 +3,11 @@ package com.asfoundation.wallet.repository
 import android.util.Log
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.GasSettings
-import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.service.GasService
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import org.web3j.protocol.Web3jFactory
-import org.web3j.protocol.http.HttpService
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-class GasSettingsRepository(private val gasService: GasService,
-                            private val web3jProvider: Web3jProvider,
+class GasSettingsRepository(private val web3jProvider: Web3jProvider,
                             private val rxSchedulers: RxSchedulers
                             ) : GasSettingsRepositoryType {
 
@@ -42,21 +35,6 @@ class GasSettingsRepository(private val gasService: GasService,
           return@fromCallable BigDecimal(gasPrice)
     }
     .subscribeOn(rxSchedulers.io)
-
-      // gas price using the back-end estimate:
-//    return gasService.getGasPrice()
-//        .map { BigDecimal(it.price) }
-//        .doOnSuccess {
-//          cachedGasPrice = it
-//          lastFlushTime = System.nanoTime()
-//        }
-//        .onErrorReturn {
-//          if (cachedGasPrice == null) {
-//            BigDecimal(DEFAULT_GAS_PRICE)
-//          } else {
-//            cachedGasPrice
-//          }
-//        }
   }
 
   private fun shouldRefresh() =
@@ -83,7 +61,7 @@ class GasSettingsRepository(private val gasService: GasService,
   companion object {
     const val DEFAULT_GAS_LIMIT = "90000"
     const val DEFAULT_GAS_LIMIT_FOR_TOKENS = "144000"
-    const val DEFAULT_GAS_PRICE = "30000000000"
+//    const val DEFAULT_GAS_PRICE = "30000000000"
   }
 
 }

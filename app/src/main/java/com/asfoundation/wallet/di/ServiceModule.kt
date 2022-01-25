@@ -296,18 +296,6 @@ class ServiceModule {
 
   @Singleton
   @Provides
-  fun provideGasService(@Named("blockchain") client: OkHttpClient, gson: Gson): GasService {
-    return Retrofit.Builder()
-        .baseUrl(GasService.API_BASE_URL)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(GasService::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun provideOemIdExtractorService(context: Context, extractor: IExtract): OemIdExtractorService {
     return OemIdExtractorService(OemIdExtractorV1(context),
         OemIdExtractorV2(context, extractor))

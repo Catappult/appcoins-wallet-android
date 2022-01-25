@@ -57,7 +57,6 @@ import com.asfoundation.wallet.repository.*
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository.TransactionsApi
 import com.asfoundation.wallet.service.AccountKeystoreService
 import com.asfoundation.wallet.service.AutoUpdateService
-import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.subscriptions.UserSubscriptionRepository
@@ -116,8 +115,8 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideGasSettingsRepository(gasService: GasService, web3jProvider: Web3jProvider, rxSchedulers: RxSchedulers): GasSettingsRepositoryType =
-      GasSettingsRepository(gasService, web3jProvider, rxSchedulers)
+  fun provideGasSettingsRepository(web3jProvider: Web3jProvider, rxSchedulers: RxSchedulers): GasSettingsRepositoryType =
+      GasSettingsRepository(web3jProvider, rxSchedulers)
 
   @Singleton
   @Provides
