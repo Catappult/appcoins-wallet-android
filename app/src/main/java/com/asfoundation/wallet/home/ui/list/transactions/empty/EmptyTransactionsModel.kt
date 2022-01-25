@@ -34,10 +34,9 @@ abstract class EmptyTransactionsModel :
     holder.viewPager.adapter = emptyPagerController.adapter
     val data = listOf(
         EmptyItem(CAROUSEL_TOP_APPS, R.raw.carousel_empty_screen_animation,
-            ctx.getString(R.string.home_empty_discover_apps_body), ""),
+            ctx.getString(R.string.home_empty_discover_apps_body)),
         EmptyItem(CAROUSEL_GAMIFICATION, R.raw.transactions_empty_screen_animation,
-            ctx.getString(R.string.gamification_home_body, bonus.toString()),
-            ctx.getString(R.string.gamification_home_button))
+            ctx.getString(R.string.gamification_home_body, bonus.toString()))
     )
     holder.pageIndicator.count = data.size
     holder.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

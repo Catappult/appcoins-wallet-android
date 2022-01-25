@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.home.ui.list.transactions.empty
 
-import android.view.View
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
@@ -25,16 +24,7 @@ abstract class EmptyItemModel :
     holder.animation.setAnimation(emptyItem.animationRes)
     holder.emptyBodyText.text = emptyItem.bodyText
 
-    if (emptyItem.actionText.isNotEmpty()) {
-      holder.emptyActionText.text = emptyItem.actionText
-      holder.emptyActionText.visibility = View.VISIBLE
-    } else {
-      holder.emptyActionText.visibility = View.GONE
-    }
     holder.animation.setOnClickListener {
-      clickListener?.invoke(HomeListClick.EmptyStateClick(emptyItem.id))
-    }
-    holder.emptyActionText.setOnClickListener {
       clickListener?.invoke(HomeListClick.EmptyStateClick(emptyItem.id))
     }
   }
@@ -44,6 +34,5 @@ abstract class EmptyItemModel :
   class EmptyItemHolder : BaseViewHolder() {
     val animation by bind<LottieAnimationView>(R.id.transactions_empty_screen_animation)
     val emptyBodyText by bind<TextView>(R.id.empty_body_text)
-    val emptyActionText by bind<TextView>(R.id.empty_action_text)
   }
 }
