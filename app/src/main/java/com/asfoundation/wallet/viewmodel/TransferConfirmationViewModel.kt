@@ -14,7 +14,6 @@ import com.asfoundation.wallet.util.BalanceUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
-import java.math.BigInteger
 
 class TransferConfirmationViewModel internal constructor(
     private val transferConfirmationInteractor: TransferConfirmationInteractor,
@@ -99,42 +98,9 @@ class TransferConfirmationViewModel internal constructor(
     }
   }
 
-  private fun getGasPreferences(): GasSettings = transferConfirmationInteractor.getGasPreferences()
-
-  private fun getMaxGasPriceGwei(networkFeeMax: BigInteger, gasLimitMax: BigDecimal,
-                                 gasPriceMin: BigDecimal): BigDecimal {
-    return BalanceUtils.weiToGwei(BigDecimal(networkFeeMax.divide(gasLimitMax.toBigInteger())
-        .subtract(gasPriceMin.toBigInteger())))
+  fun handleSavedGasSettings(gasPrice: BigDecimal, gasLimit: BigDecimal): GasSettings {
+      return GasSettings(BalanceUtils.weiToGwei(gasPrice), gasLimit)
   }
 
-  private fun getMinGasPriceGwei(gasPriceMin: BigDecimal): BigDecimal =
-      BalanceUtils.weiToGwei(gasPriceMin)
-
-  fun handleSavedGasSettings(gasPrice: BigDecimal, gasLimitMin: BigDecimal,
-                             networkFeeMax: BigInteger,
-                             gasPriceMinWei: BigDecimal, gasLimitMax: BigDecimal,
-                             gasLimit: BigDecimal): GasSettings {
-    val gasPriceMaxGwei = getMaxGasPriceGwei(networkFeeMax, gasLimitMax, gasPriceMinWei)
-    val gasPriceMinGwei = getMinGasPriceGwei(gasPriceMinWei)
-    val savedGasPreferences = getGasPreferences()
-    val displayedGasPrice =
-        if (isSavedLimitInRange(savedGasPreferences.gasPrice, gasPriceMinGwei, gasPriceMaxGwei)) {
-          savedGasPreferences.gasPrice
-        } else {
-          BalanceUtils.weiToGwei(gasPrice)
-        }
-    val displayedGasLimit =
-        if (isSavedLimitInRange(savedGasPreferences.gasLimit, gasLimitMin, gasLimitMax)) {
-          savedGasPreferences.gasLimit
-        } else {
-          gasLimit
-        }
-    return GasSettings(displayedGasPrice, displayedGasLimit)
-  }
-
-  private fun isSavedLimitInRange(savedValue: BigDecimal?, minValue: BigDecimal,
-                                  maxValue: BigDecimal): Boolean {
-    return savedValue != null && savedValue > minValue && savedValue < maxValue
-  }
 
 }
