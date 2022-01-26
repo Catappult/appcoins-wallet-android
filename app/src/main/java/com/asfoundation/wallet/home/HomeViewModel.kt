@@ -185,8 +185,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
     return Observable.combineLatest(getTransactions(walletModel.wallet), getCardNotifications(),
         getMaxBonus(), observeNetworkAndWallet(),
         { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
-          createTransactionsModel(transactions, notifications, maxBonus,
-              transactionsWalletModel)
+          createTransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
         })
         .doOnNext { (transactions) ->
           updateTransactionsNumberUseCase(

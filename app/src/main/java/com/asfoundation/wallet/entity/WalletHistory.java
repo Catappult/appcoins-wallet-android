@@ -49,6 +49,7 @@ import javax.annotation.Nullable;
     @JsonProperty("operations") private List<Operation> operations;
     @JsonProperty("linked_tx") private List<String> linkedTx;
     @JsonProperty("reference") private String orderReference;
+    @JsonProperty("fee") private String fee;
 
     public List<Operation> getOperations() {
       return operations;
@@ -200,6 +201,14 @@ import javax.annotation.Nullable;
 
     public void setOrderReference(String orderReference) {
       this.orderReference = orderReference;
+    }
+
+    public String getFee() {
+      return fee;
+    }
+
+    public void setFee(String fee) {
+      this.fee = fee;
     }
 
     @Override public String toString() {

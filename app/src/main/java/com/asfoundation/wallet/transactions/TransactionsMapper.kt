@@ -29,7 +29,7 @@ class TransactionsMapper {
         transaction.title, transaction.description, transaction.ts.time,
         transaction.processedTime.time, status, transaction.amount.toString(), currency,
         transaction.paidAmount, transaction.paidCurrency, transaction.sender,
-        transaction.receiver, details, operations, transaction.orderReference)
+        transaction.receiver, details, operations, transaction.orderReference, transaction.fee)
   }
 
   private fun mapSource(txType: TransactionEntity.TransactionType,
