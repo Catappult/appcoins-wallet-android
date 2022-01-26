@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AsfInAppPurchaseInteractor {
-  private static final double GAS_PRICE_MULTIPLIER = 1.25;
   private final InAppPurchaseService inAppPurchaseService;
   private final CurrencyConversionService currencyConversionService;
   private final FindDefaultWalletInteract defaultWalletInteract;
@@ -198,7 +197,7 @@ public class AsfInAppPurchaseInteractor {
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> {
               transactionBuilder.gasSettings(new GasSettings(
-                  gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                  gasSettings.gasPrice,
                   paymentGasLimit));
               return transactionBuilder.amount(amount);
             }))
@@ -251,7 +250,7 @@ public class AsfInAppPurchaseInteractor {
   Single<Boolean> isAppcoinsPaymentReady(TransactionBuilder transactionBuilder) {
     return gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
-            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+            new GasSettings(gasSettings.gasPrice,
                 paymentGasLimit)))
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
   }
@@ -260,7 +259,7 @@ public class AsfInAppPurchaseInteractor {
       TransactionBuilder transactionBuilder) {
     return gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
-            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+            new GasSettings(gasSettings.gasPrice,
                 paymentGasLimit)))
         .flatMap(__ -> inAppPurchaseService.getBalanceState(transactionBuilder));
   }
