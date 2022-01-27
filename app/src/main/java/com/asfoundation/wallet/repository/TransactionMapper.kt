@@ -22,7 +22,7 @@ class TransactionMapper {
         transaction.from, transaction.to, map(transaction.details),
         transaction.currency, mapToOperations(transaction.operations),
         listOf(mapLink(link, transaction)), transaction.paidAmount, transaction.paidCurrency,
-        transaction.orderReference, transaction.fee)
+        transaction.orderReference)
   }
 
   private fun map(method: TransactionEntity.Method?): Transaction.Method {
@@ -41,7 +41,7 @@ class TransactionMapper {
         transaction.processedTime, map(transaction.status), transaction.value, transaction.from,
         transaction.to, map(transaction.details), transaction.currency,
         mapToOperations(transaction.operations), listOf(map(link)), transaction.paidAmount,
-        transaction.paidCurrency, transaction.orderReference, transaction.fee)
+        transaction.paidCurrency, transaction.orderReference)
   }
 
   fun map(transaction: TransactionEntity): Transaction {
@@ -51,7 +51,7 @@ class TransactionMapper {
         transaction.processedTime, map(transaction.status), transaction.value,
         transaction.from, transaction.to, map(transaction.details),
         transaction.currency, mapToOperations(transaction.operations),
-        emptyList(), transaction.paidAmount, transaction.paidCurrency, transaction.orderReference, transaction.fee)
+        emptyList(), transaction.paidAmount, transaction.paidCurrency, transaction.orderReference)
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {
@@ -113,7 +113,7 @@ class TransactionMapper {
         transaction.processedTime, map(transaction.status), transaction.value, transaction.currency,
         transaction.paidAmount, transaction.paidCurrency,
         transaction.from, transaction.to, map(transaction.details),
-        mapToOperationEntities(transaction.operations), transaction.orderReference, transaction.fee)
+        mapToOperationEntities(transaction.operations), transaction.orderReference)
   }
 
   private fun map(method: Transaction.Method): TransactionEntity.Method {

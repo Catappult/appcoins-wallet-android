@@ -25,7 +25,6 @@ data class TransactionEntity(val transactionId: String,
                              @Embedded val details: TransactionDetailsEntity?,
                              val operations: List<OperationEntity>?,
                              val orderReference: String?,
-                             val fee: String?
                              ) {
 
   enum class Method {

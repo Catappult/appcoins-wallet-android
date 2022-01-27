@@ -104,12 +104,5 @@ abstract class TransactionsDatabase : RoomDatabase() {
       }
     }
 
-    // Adds new column for fee
-    val MIGRATION_8_9: Migration = object : Migration(8, 9) {
-      override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN fee TEXT")
-      }
-    }
-
   }
 }
