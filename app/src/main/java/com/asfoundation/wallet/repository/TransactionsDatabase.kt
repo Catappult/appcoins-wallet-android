@@ -18,7 +18,7 @@ import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
       TransactionLinkIdEntity::class,
       LastUpdatedWalletEntity::class
     ],
-    version = 9)
+    version = 8)
 @TypeConverters(TransactionTypeConverter::class)
 abstract class TransactionsDatabase : RoomDatabase() {
 
