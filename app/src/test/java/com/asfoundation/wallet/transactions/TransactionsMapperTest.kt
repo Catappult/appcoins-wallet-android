@@ -87,7 +87,7 @@ class TransactionsMapperTest {
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://apichain.dev.blockchainds.com/appc/icons/topup.png"),
-            null, null), Collections.emptyList(), "1637599586285")
+            null, null), Collections.emptyList(), "1637599586285", "0.0001")
   }
 
   private fun createTopUpBonusTransaction(): TransactionEntity {
@@ -106,7 +106,7 @@ class TransactionsMapperTest {
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://apichain.dev.blockchainds.com/appc/icons/bonus.png"),
-            "10", null), Collections.emptyList(), "1637599586285")
+            "10", null), Collections.emptyList(), "1637599586285", "0.0001")
   }
 
   private fun createPerkBonusTransaction(): TransactionEntity {
@@ -125,7 +125,7 @@ class TransactionsMapperTest {
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://apichain.dev.blockchainds.com/appc/icons/bonus.png"),
-            null, null), Collections.emptyList(), "1637599586285")
+            null, null), Collections.emptyList(), "1637599586285","0.0001")
   }
 
   private fun createIapTransaction(): TransactionEntity {
@@ -142,7 +142,7 @@ class TransactionsMapperTest {
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://cdn6.aptoide.com/imgs/5/1/d/51d9afee5beb29fd38c46d5eabcdefbe_icon.png"),
-            "Appcoins Trivial Drive demo sample", "gas"), Collections.emptyList(), "1637599586285")
+            "Appcoins Trivial Drive demo sample", "gas"), Collections.emptyList(), "1637599586285", "0.0001")
   }
 
   private fun createIapBonusTransaction(): TransactionEntity {
@@ -159,7 +159,7 @@ class TransactionsMapperTest {
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
             "https://apichain.dev.blockchainds.com/appc/icons/bonus.png"),
-            "11.5", "gas"), Collections.emptyList(), "1637599586285")
+            "11.5", "gas"), Collections.emptyList(), "1637599586285", "0.0001")
   }
 
   @Test
