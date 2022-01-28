@@ -24,8 +24,7 @@ data class TransactionEntity(val transactionId: String,
                              val to: String,
                              @Embedded val details: TransactionDetailsEntity?,
                              val operations: List<OperationEntity>?,
-                             val orderReference: String?,
-                             ) {
+                             val orderReference: String?) {
 
   enum class Method {
     UNKNOWN, APPC, APPC_C, ETH
