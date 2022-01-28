@@ -46,6 +46,7 @@
         android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
         android:inputType="text"
         android:maxLines="1"
+        android:maxLength="16"
         android:paddingEnd="@dimen/large_margin"
         app:layout_constraintBottom_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
         app:layout_constraintStart_toStartOf="parent"
