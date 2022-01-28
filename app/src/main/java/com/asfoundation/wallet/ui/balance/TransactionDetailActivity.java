@@ -141,6 +141,7 @@ public class TransactionDetailActivity extends BaseActivity {
     String id = null;
     String description = null;
     String to = null;
+    String from = null;
     TransactionDetails details = transaction.getDetails();
 
     if (details != null) {
@@ -200,6 +201,7 @@ public class TransactionDetailActivity extends BaseActivity {
           revertedDescription = R.string.transaction_type_reverted_purchase_title;
         }
         symbol = "APPC-C" ;
+        from = transaction.getFrom() ;
         break;
       case BONUS_REVERT:
         typeStr = R.string.transaction_type_bonus;
@@ -264,7 +266,6 @@ public class TransactionDetailActivity extends BaseActivity {
         if (transaction.getMethod() == Transaction.Method.APPC) {
           symbol = getString(R.string.p2p_send_currency_appc);
         } else if (transaction.getMethod() == Transaction.Method.ETH) {
-
           String fee = "0" ;
           if(transaction.getOperations() != null && !transaction.getOperations().isEmpty() &&
                   transaction.getOperations().get(0) != null &&
@@ -279,6 +280,7 @@ public class TransactionDetailActivity extends BaseActivity {
         } else {
           symbol = getString(R.string.p2p_send_currency_appc_c);
         }
+        from = transaction.getFrom() ;
         break;
       case TRANSFER_OFF_CHAIN:
         typeStr = R.string.transaction_type_p2p;
@@ -327,13 +329,9 @@ public class TransactionDetailActivity extends BaseActivity {
         manageSubscriptions.setVisibility(View.GONE);
         break;
       case IAP: // (on-chain)
-        String fee = "0" ;
-        if (transaction.getOperations() != null && !transaction.getOperations().isEmpty() &&
-                transaction.getOperations().get(0) != null &&
-                transaction.getOperations().get(0).getFee() != null) {
-          fee = transaction.getOperations().get(0).getFee() ;
-        }
         symbol = "APPC" ;
+//        to = transaction.getTo() ;
+        from = transaction.getFrom() ;
         break;
     }
 
@@ -361,7 +359,7 @@ public class TransactionDetailActivity extends BaseActivity {
         transaction.getPaidCurrency(), transactionsDetailsModel.getFiatValue()
             .getAmount()
             .toString(), localFiatCurrency, icon, id, description, typeStr, typeIcon, statusStr,
-        statusColor, transaction.getOrderReference(), to, isSent, isRevertTransaction,
+        statusColor, transaction.getOrderReference(), to, from, isSent, isRevertTransaction,
         isRevertedTransaction, revertedDescription, descriptionColor,
         transactionsDetailsModel.getWallet().address);
   }
@@ -401,7 +399,7 @@ public class TransactionDetailActivity extends BaseActivity {
   private void setUiContent(long timeStamp, String value, String symbol, String paidAmount,
       String paidCurrency, String localFiatAmount, String localFiatCurrency, String icon, String id,
       String description, int typeStr, int typeIcon, int statusStr, int statusColor,
-      String orderReference, String to, boolean isSent, boolean isRevertTransaction,
+      String orderReference, String to, String from, boolean isSent, boolean isRevertTransaction,
       boolean isRevertedTransaction, int revertedDescription, int descriptionColor,
       String walletAddress) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
@@ -462,13 +460,20 @@ public class TransactionDetailActivity extends BaseActivity {
     }
 
     if (to != null) {
-      ((TextView) findViewById(R.id.to)).setText(
-          isSent ? getString(R.string.label_to) : getString(R.string.label_from));
-      findViewById(R.id.to_label).setVisibility(View.VISIBLE);
-      ((TextView) findViewById(R.id.to)).setText(to);
-      findViewById(R.id.to).setVisibility(View.VISIBLE);
       detailsList.setVisibility(View.GONE);
       findViewById(R.id.details_label).setVisibility(View.GONE);
+    }
+
+    if (to != null && !to.isEmpty()) {
+      ((TextView) findViewById(R.id.to)).setText(to);
+      findViewById(R.id.to).setVisibility(View.VISIBLE);
+      findViewById(R.id.to_label).setVisibility(View.VISIBLE);
+    }
+
+    if (from != null && !from.isEmpty()) {
+      ((TextView) findViewById(R.id.from)).setText(from);
+      findViewById(R.id.from).setVisibility(View.VISIBLE);
+      findViewById(R.id.from_label).setVisibility(View.VISIBLE);
     }
 
     if (isRevertTransaction || isRevertedTransaction) {
