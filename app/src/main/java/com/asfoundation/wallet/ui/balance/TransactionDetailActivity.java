@@ -263,7 +263,6 @@ public class TransactionDetailActivity extends BaseActivity {
         if (transaction.getMethod() == Transaction.Method.APPC) {
           symbol = getString(R.string.p2p_send_currency_appc);
         } else if (transaction.getMethod() == Transaction.Method.ETH) {
-          // Fee doesn't matter to open more details
           Operation operation = new Operation(transaction.getTransactionId(), transaction.getFrom(),
               transaction.getTo(), "0");
           button.setOnClickListener(
