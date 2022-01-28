@@ -23,7 +23,6 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/promo_code_bottom_sheet_text_rectangle"
       android:layout_width="match_parent"
