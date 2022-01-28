@@ -65,7 +65,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   override fun onResume() {
     super.onResume()
-    viewModel.refreshData()
+    viewModel.refreshData(flushAsync = false)
   }
 
   override fun onDestroyView() {

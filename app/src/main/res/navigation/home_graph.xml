@@ -7,6 +7,6 @@
 
   <fragment
       android:id="@+id/home_fragment"
-      android:name="com.asfoundation.wallet.home.HomeFragment"
-      tools:layout="@layout/activity_transactions"/>
+      android:name="com.asfoundation.wallet.home.ui.HomeFragment"
+      tools:layout="@layout/fragment_home" />
 </navigation>

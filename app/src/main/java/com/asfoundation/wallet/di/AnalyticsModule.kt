@@ -9,7 +9,7 @@ import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.billing.analytics.*
-import com.asfoundation.wallet.home.HomeAnalytics
+import com.asfoundation.wallet.home.ui.HomeAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.rating.RatingAnalytics
