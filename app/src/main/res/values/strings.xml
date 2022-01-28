@@ -1076,6 +1076,7 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <string name="promo_code_activated">Promo code activated!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">REPLACE</string>
   <string name="promo_code_active_tag">Active</string>
   <string name="promo_code_expired_tag">Expired</string>
