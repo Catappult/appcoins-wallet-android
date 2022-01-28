@@ -103,6 +103,5 @@ abstract class TransactionsDatabase : RoomDatabase() {
         database.execSQL("ALTER TABLE TransactionEntity ADD COLUMN method TEXT")
       }
     }
-
   }
 }
