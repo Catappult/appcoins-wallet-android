@@ -24,21 +24,12 @@ class CardNotificationListModel(val data: List<CardNotification>,
                 .clickListener(listener)
         )
       }
-      val defaultCarouselModel =
+      return listOf(
         DefaultCarouselModel_()
           .id("card_notification_list")
+          .numViewsToShowOnScreen(if(appModels.size==1) 0.0f else 1.05f ) // This should be consistent on every screen
           .models(appModels)
-
-      return if (appModels.size==1){
-        listOf(
-          defaultCarouselModel
-        )
-      }else{
-        listOf(
-          defaultCarouselModel
-            .numViewsToShowOnScreen(1.05f) // This should be consistent on every screen
-        )
-      }
+      )
     }
   }
 }
