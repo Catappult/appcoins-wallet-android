@@ -200,7 +200,6 @@ public class TransactionDetailActivity extends BaseActivity {
         if (isRevertedTransaction) {
           revertedDescription = R.string.transaction_type_reverted_purchase_title;
         }
-        symbol = "APPC-C" ;
         from = transaction.getFrom() ;
         break;
       case BONUS_REVERT:
@@ -266,14 +265,9 @@ public class TransactionDetailActivity extends BaseActivity {
         if (transaction.getMethod() == Transaction.Method.APPC) {
           symbol = getString(R.string.p2p_send_currency_appc);
         } else if (transaction.getMethod() == Transaction.Method.ETH) {
-          String fee = "0" ;
-          if(transaction.getOperations() != null && !transaction.getOperations().isEmpty() &&
-                  transaction.getOperations().get(0) != null &&
-                  transaction.getOperations().get(0).getFee() != null) {
-            fee = transaction.getOperations().get(0).getFee() ;
-          }
+
           Operation operation = new Operation(transaction.getTransactionId(), transaction.getFrom(),
-              transaction.getTo(), fee);
+              transaction.getTo(), "0");
           button.setOnClickListener(
               view -> viewModel.showMoreDetails(view.getContext(), operation));
           symbol = getString(R.string.p2p_send_currency_eth);
