@@ -92,11 +92,11 @@
   <Button
       android:id="@+id/promo_code_bottom_sheet_delete_button"
       style="@style/ButtonStyle.Light"
-      android:layout_width="120dp"
+      android:layout_width="wrap_content"
       android:layout_height="40dp"
       android:layout_marginTop="35dp"
       android:layout_marginEnd="16dp"
-      android:text="DELETE"
+      android:text="@string/promo_code_delete_button"
       android:visibility="gone"
       app:layout_constraintEnd_toStartOf="@id/promo_code_bottom_sheet_replace_button"
       app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
@@ -105,7 +105,7 @@
   <Button
       android:id="@+id/promo_code_bottom_sheet_replace_button"
       style="@style/ButtonStyle"
-      android:layout_width="120dp"
+      android:layout_width="wrap_content"
       android:layout_height="40dp"
       android:layout_marginTop="35dp"
       android:text="@string/promo_code_replace_button"
