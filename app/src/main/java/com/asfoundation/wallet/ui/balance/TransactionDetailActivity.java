@@ -199,7 +199,6 @@ public class TransactionDetailActivity extends BaseActivity {
         if (isRevertedTransaction) {
           revertedDescription = R.string.transaction_type_reverted_purchase_title;
         }
-        symbol = "APPC-C" ;
         break;
       case BONUS_REVERT:
         typeStr = R.string.transaction_type_bonus;
@@ -264,7 +263,6 @@ public class TransactionDetailActivity extends BaseActivity {
         if (transaction.getMethod() == Transaction.Method.APPC) {
           symbol = getString(R.string.p2p_send_currency_appc);
         } else if (transaction.getMethod() == Transaction.Method.ETH) {
-
           String fee = "0" ;
           if(transaction.getOperations() != null && !transaction.getOperations().isEmpty() &&
                   transaction.getOperations().get(0) != null &&
@@ -327,13 +325,6 @@ public class TransactionDetailActivity extends BaseActivity {
         manageSubscriptions.setVisibility(View.GONE);
         break;
       case IAP: // (on-chain)
-        String fee = "0" ;
-        if (transaction.getOperations() != null && !transaction.getOperations().isEmpty() &&
-                transaction.getOperations().get(0) != null &&
-                transaction.getOperations().get(0).getFee() != null) {
-          fee = transaction.getOperations().get(0).getFee() ;
-        }
-        symbol = "APPC" ;
         break;
     }
 

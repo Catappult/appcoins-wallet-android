@@ -202,8 +202,6 @@ import javax.annotation.Nullable;
       this.orderReference = orderReference;
     }
 
-
-
     @Override public String toString() {
       return "Result{"
           + "txID='"
