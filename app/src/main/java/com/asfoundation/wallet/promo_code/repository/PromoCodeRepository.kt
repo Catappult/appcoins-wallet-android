@@ -16,9 +16,9 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
 
   fun setPromoCode(promoCodeString: String): Completable {
     return Single.zip(promoCodeApi.getPromoCode(promoCodeString),
-        promoCodeBackendApi.getPromoCodeBonus(promoCodeString), { promoCode, bonus ->
-      Pair(promoCode, bonus)
-    })
+        promoCodeBackendApi.getPromoCodeBonus(promoCodeString)) {
+          promoCode, bonus -> Pair(promoCode, bonus)
+        }
         .flatMap { promoCodePair ->
           promoCodeLocalDataSource.savePromoCode(promoCodePair.first, promoCodePair.second)
         }
@@ -36,7 +36,7 @@ class PromoCodeRepository(private val promoCodeApi: PromoCodeApi,
   fun removePromoCode(): Completable = promoCodeLocalDataSource.removePromoCode()
 
   interface PromoCodeApi {
-    @GET("broker/8.20210201/entity/promo-code/{promoCodeString}")
+    @GET("broker/8.20220101/entity/promo-code/{promoCodeString}")
     fun getPromoCode(@Path("promoCodeString") promoCodeString: String): Single<PromoCodeResponse>
   }
 
