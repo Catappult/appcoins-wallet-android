@@ -287,6 +287,7 @@ public class TransactionDetailActivity extends BaseActivity {
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
+        from = transaction.getFrom() ;
         break;
       case SUBS_OFFCHAIN:
         typeStr = R.string.subscriptions_category_title;
