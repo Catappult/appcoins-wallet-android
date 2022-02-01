@@ -13,7 +13,7 @@ android {
   ndkVersion "21.3.6528147"
   defaultConfig {
 
-    def inputFile = new File("appcoins-services.json")
+    def inputFile = new File("$rootDir/appcoins-services.json")
     def json = new JsonSlurper().parseText(inputFile.text)
     buildConfigField 'String', 'DEFAULT_OEM_ADDRESS', "\"" + json.oems.default_address + "\""
     buildConfigField 'String', 'DEFAULT_STORE_ADDRESS', "\"" + json.stores.default_address + "\""
