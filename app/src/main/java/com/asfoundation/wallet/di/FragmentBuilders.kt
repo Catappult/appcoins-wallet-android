@@ -10,8 +10,8 @@ import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottom
 import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
 import com.asfoundation.wallet.eskills.withdraw.WithdrawFragment
 import com.asfoundation.wallet.eskills.withdraw.WithdrawModule
-import com.asfoundation.wallet.home.HomeFragment
-import com.asfoundation.wallet.home.HomeModule
+import com.asfoundation.wallet.home.ui.HomeFragment
+import com.asfoundation.wallet.home.ui.HomeModule
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogModule
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment

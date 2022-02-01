@@ -18,9 +18,11 @@
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/collapsible_bar"
+      android:id="@+id/toolbar"
       android:layout_width="0dp"
       android:layout_height="56dp"
+      android:clickable="true"
+      android:focusable="true"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -37,32 +39,32 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <com.asfoundation.wallet.ui.common.ToolbarTextSwitcher
+    <com.asfoundation.wallet.ui.common.AnimatedTextSwitcher
         android:id="@+id/title_switcher"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:toolbarText="@string/wallets_active_wallet_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/action_button_more"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:toolbarText="@string/wallets_active_wallet_title"
         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/action_button_nfts"
-        android:text="NFTs"
         style="@style/NFTs.GoToNFTS"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/action_button_more"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:icon="@drawable/ic_arrow_right"
+        android:paddingVertical="10dp"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
-        android:paddingVertical="10dp"
+        android:text="NFTs"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_arrow_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/action_button_more"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
 
