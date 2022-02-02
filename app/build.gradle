@@ -60,10 +60,8 @@ android {
     buildConfigField 'String', 'RAKAM_API_KEY', project.RAKAM_API_KEY
     buildConfigField "String", "APTOIDE_WEB_SERVICES_AB_TEST_HOST",
         project.APTOIDE_WEB_SERVICES_AB_TEST_HOST
-    resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
     buildConfigField 'String', 'INFURA_API_KEY_MAIN', project.INFURA_API_KEY_MAIN
     buildConfigField 'String', 'INFURA_API_KEY_ROPSTEN', project.INFURA_API_KEY_ROPSTEN
-    buildConfigField 'String', 'AMPLITUDE_API_KEY', project.AMPLITUDE_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_API_KEY', project.FEEDBACK_ZENDESK_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
@@ -71,7 +69,6 @@ android {
     buildConfigField 'String', 'APPSFLYER_KEY', project.APPSFLYER_KEY
     buildConfigField 'String', 'TERMS_CONDITIONS_URL', project.TERMS_CONDITIONS_URL
     buildConfigField 'String', 'PRIVACY_POLICY_URL', project.PRIVACY_POLICY_URL
-    manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
   }
 
   signingConfigs {
@@ -270,9 +267,6 @@ dependencies {
   kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
 
   implementation "com.appsflyer:af-android-sdk:6.3.2"
-
-  //Amplitude
-  implementation "com.amplitude:android-sdk:$project.amplitude_version"
 
   implementation "androidx.biometric:biometric:$project.biometrics_version"
 
