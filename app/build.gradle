@@ -191,6 +191,7 @@ dependencies {
   implementation "androidx.room:room-runtime:$project.room_version"
   implementation "androidx.room:room-rxjava2:$project.room_version"
   kapt "androidx.room:room-compiler:$project.room_version"
+  implementation "androidx.browser:browser:$project.androidx_browser_version"
 
   implementation "android.arch.lifecycle:runtime:$project.lifecycle_version"
   implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
@@ -242,8 +243,6 @@ dependencies {
   kapt "com.github.bumptech.glide:compiler:$project.glide_version"
 
   implementation "com.flurry.android:analytics:$project.flurry_version"
-
-  implementation "com.facebook.android:facebook-android-sdk:$project.facebook_sdk_version"
 
   implementation "io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_version"
   debugImplementation "io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_dev_version"

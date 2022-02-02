@@ -17,7 +17,6 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
-import com.facebook.appevents.AppEventsLogger
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -105,7 +104,6 @@ class AnalyticsModule {
                               amplitudeEventList: List<String>): AnalyticsManager {
     return AnalyticsManager.Builder()
         .addLogger(BackendEventLogger(api), biEventList)
-        .addLogger(FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
         .addLogger(RakamEventLogger(), rakamEventList)
         .addLogger(AmplitudeEventLogger(), amplitudeEventList)
         .setAnalyticsNormalizer(KeysNormalizer())
