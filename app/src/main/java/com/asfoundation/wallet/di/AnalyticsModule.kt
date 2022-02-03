@@ -17,7 +17,6 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
-import com.facebook.appevents.AppEventsLogger
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -48,15 +47,6 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  @Named("facebook_event_list")
-  fun provideFacebookEventList() =
-      listOf(BillingAnalytics.PURCHASE_DETAILS, BillingAnalytics.PAYMENT_METHOD_DETAILS,
-          BillingAnalytics.PAYMENT, BillingAnalytics.REVENUE, PoaAnalytics.POA_STARTED,
-          PoaAnalytics.POA_COMPLETED, HomeAnalytics.OPEN_APPLICATION,
-          GamificationAnalytics.GAMIFICATION, GamificationAnalytics.GAMIFICATION_MORE_INFO)
-
-  @Singleton
-  @Provides
   @Named("rakam_event_list")
   fun provideRakamEventList() =
       listOf(LaunchAnalytics.FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
@@ -83,31 +73,13 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  @Named("amplitude_event_list")
-  fun provideAmplitudeEventList() = listOf(BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD,
-      BillingAnalytics.RAKAM_PAYMENT_METHOD, BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION,
-      BillingAnalytics.RAKAM_PAYMENT_CONCLUSION, BillingAnalytics.RAKAM_PAYMENT_START,
-      BillingAnalytics.RAKAM_PAYPAL_URL, TopUpAnalytics.WALLET_TOP_UP_START,
-      TopUpAnalytics.WALLET_TOP_UP_SELECTION, TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION,
-      TopUpAnalytics.WALLET_TOP_UP_CONCLUSION, TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL,
-      PoaAnalytics.RAKAM_POA_EVENT, WalletsAnalytics.WALLET_CREATE_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_BACKUP, WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
-      WalletsAnalytics.WALLET_SAVE_FILE, WalletsAnalytics.WALLET_IMPORT_RESTORE,
-      WalletsAnalytics.WALLET_PASSWORD_RESTORE, PageViewAnalytics.WALLET_PAGE_VIEW)
-
-  @Singleton
-  @Provides
   fun provideAnalyticsManager(@Named("default") okHttpClient: OkHttpClient, api: AnalyticsAPI,
-                              context: Context, @Named("bi_event_list") biEventList: List<String>,
-                              @Named("facebook_event_list") facebookEventList: List<String>,
-                              @Named("rakam_event_list") rakamEventList: List<String>,
-                              @Named("amplitude_event_list")
-                              amplitudeEventList: List<String>): AnalyticsManager {
+                              context: Context,
+                              @Named("bi_event_list") biEventList: List<String>,
+                              @Named("rakam_event_list") rakamEventList: List<String>): AnalyticsManager {
     return AnalyticsManager.Builder()
         .addLogger(BackendEventLogger(api), biEventList)
-        .addLogger(FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
         .addLogger(RakamEventLogger(), rakamEventList)
-        .addLogger(AmplitudeEventLogger(), amplitudeEventList)
         .setAnalyticsNormalizer(KeysNormalizer())
         .setDebugLogger(LogcatAnalyticsLogger())
         .setKnockLogger(HttpClientKnockLogger(okHttpClient))
@@ -150,13 +122,6 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideAmplitudeAnalytics(context: Context,
-                                idsRepository: IdsRepository): AmplitudeAnalytics {
-    return AmplitudeAnalytics(context, idsRepository)
-  }
-
-  @Singleton
-  @Provides
   fun provideLaunchAnalytics(analyticsManager: AnalyticsManager) = LaunchAnalytics(analyticsManager)
 
   @Singleton
@@ -168,10 +133,8 @@ class AnalyticsModule {
   @Provides
   fun providePaymentMethodsAnalytics(analyticsManager: AnalyticsManager,
                                      billingAnalytics: BillingAnalytics,
-                                     rakamAnalytics: RakamAnalytics,
-                                     amplitudeAnalytics: AmplitudeAnalytics): PaymentMethodsAnalytics {
-    return PaymentMethodsAnalytics(analyticsManager, billingAnalytics, rakamAnalytics,
-        amplitudeAnalytics)
+                                     rakamAnalytics: RakamAnalytics): PaymentMethodsAnalytics {
+    return PaymentMethodsAnalytics(analyticsManager, billingAnalytics, rakamAnalytics)
   }
 
   @Singleton

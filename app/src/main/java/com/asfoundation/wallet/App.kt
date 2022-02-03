@@ -12,7 +12,6 @@ import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.di.DaggerAppComponent
@@ -82,9 +81,6 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   lateinit var rakamAnalytics: RakamAnalytics
 
   @Inject
-  lateinit var amplitudeAnalytics: AmplitudeAnalytics
-
-  @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   @Inject
@@ -117,7 +113,6 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
-    amplitudeAnalytics.start()
     initializeRakam()
     initiateIntercom()
     initiateSentry()

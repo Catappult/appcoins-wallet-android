@@ -13,7 +13,6 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -513,7 +512,7 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   private fun sendRevenueEvent() {
     disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
       analytics.sendRevenueEvent(adyenPaymentInteractor.convertToFiat(transactionBuilder.amount()
-          .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+          .toDouble(), BillingAnalytics.EVENT_REVENUE_CURRENCY)
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
           .blockingGet()

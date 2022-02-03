@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab
 import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.appcoins.wallet.commons.Logger
@@ -201,7 +200,7 @@ class OnChainBuyPresenter(private val view: OnChainBuyView,
   fun sendRevenueEvent() {
     disposables.add(
         onChainBuyInteract.convertToFiat(transactionBuilder.amount()
-            .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+            .toDouble(), BillingAnalytics.EVENT_REVENUE_CURRENCY)
             .doOnSuccess { (amount) -> analytics.sendRevenueEvent(amount.toString()) }
             .subscribe({ }, { it.printStackTrace() }))
   }
