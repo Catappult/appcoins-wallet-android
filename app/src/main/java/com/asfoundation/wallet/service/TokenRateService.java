@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.service;
 
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.AppcToFiatResponseBody;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Observable;
@@ -25,7 +24,7 @@ public class TokenRateService {
   public Single<FiatValue> getAppcRate(String currency) {
     return tokenToFiatApi.getAppcToFiatRate(currency)
         .map(appcToFiatResponseBody -> appcToFiatResponseBody)
-        .map(AppcToFiatResponseBody::getFiatValue)
+        .map(AppcToFiatResponseBody::getAppcValue)
         .map(value -> new FiatValue(value, currency, ""))
         .subscribeOn(Schedulers.io())
         .singleOrError();
