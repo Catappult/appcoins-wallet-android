@@ -58,6 +58,7 @@ android {
         project.TRANSACTION_DETAILS_HOST_ROPSTEN
     buildConfigField 'String', 'RAKAM_BASE_HOST', project.RAKAM_BASE_HOST
     buildConfigField 'String', 'RAKAM_API_KEY', project.RAKAM_API_KEY
+    buildConfigField 'String', 'INDICATIVE_API_KEY', project.INDICATIVE_API_KEY
     buildConfigField "String", "APTOIDE_WEB_SERVICES_AB_TEST_HOST",
         project.APTOIDE_WEB_SERVICES_AB_TEST_HOST
     buildConfigField 'String', 'INFURA_API_KEY_MAIN', project.INFURA_API_KEY_MAIN
@@ -274,6 +275,8 @@ dependencies {
 
   implementation "org.apache.commons:commons-lang3:$project.commons_lang3_version"
   implementation "com.android.support:support-annotations:$project.support_annotations"
+
+  implementation "com.indicative.client.android:Indicative-Android:$project.indicative_version"
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
