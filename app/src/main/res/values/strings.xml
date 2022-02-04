@@ -1049,7 +1049,7 @@
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 
-  <!--  Withdraw Funds-->
+  <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
   <string name="e_skills_withdraw_email">PayPal e-mail address</string>
   <string name="e_skills_withdraw_amount">Amount (USD)</string>
@@ -1067,7 +1067,6 @@
   <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-
 
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo Code</string>
