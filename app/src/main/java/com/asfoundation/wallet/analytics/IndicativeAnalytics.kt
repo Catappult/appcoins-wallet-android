@@ -16,13 +16,13 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 
-class IndicativeAnalytics(private val context: Context, private val idsRepository: IdsRepository,
-                     private val promotionsRepository: PromotionsRepository,
-                     private val logger: Logger,
-                     private val promoCodeLocalDataSource: PromoCodeLocalDataSource) :
-    AnalyticsSetup {
-
-  private val indicativeClient = Indicative.launch(context, BuildConfig.INDICATIVE_API_KEY);
+class IndicativeAnalytics(
+  private val context: Context, private val idsRepository: IdsRepository,
+  private val promotionsRepository: PromotionsRepository,
+  private val logger: Logger,
+  private val promoCodeLocalDataSource: PromoCodeLocalDataSource
+) :
+  AnalyticsSetup {
 
   var usrId: String = ""  // wallet address
   var superProperties: MutableMap<String, Any> = HashMap()
@@ -32,7 +32,7 @@ class IndicativeAnalytics(private val context: Context, private val idsRepositor
   }
 
   override fun setUserId(walletAddress: String) {
-      usrId = walletAddress
+    usrId = walletAddress
   }
 
   override fun setGamificationLevel(level: Int) {
@@ -47,52 +47,64 @@ class IndicativeAnalytics(private val context: Context, private val idsRepositor
     superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)
   }
 
-    fun initialize(): Completable {
-        return Single.just(idsRepository.getAndroidId())
-            .flatMap { deviceId: String ->
-                Single.zip(idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
-                    Single.just(idsRepository.getGamificationLevel()), Single.just(hasGms()),
-                    Single.just(idsRepository.getActiveWalletAddress()),
-                    promoCodeLocalDataSource.getSavedPromoCode(),
-                    { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
-                        IndicativeInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode)
-                    })
-                    .flatMap {
-                        promotionsRepository.getWalletOrigin(it.walletAddress,
-                            it.promoCode.code)
-                            .doOnSuccess { walletOrigin ->
-                                setIndicativeSuperProperties(it.installerPackage,
-                                    it.level, it.walletAddress, it.hasGms, walletOrigin)
-                            }
-                    }
-            }
-            .ignoreElement()
-    }
+  fun initialize(): Completable {
+    Indicative.launch(context, BuildConfig.INDICATIVE_API_KEY);
+    return Single.just(idsRepository.getAndroidId())
+      .flatMap { deviceId: String ->
+        Single.zip(idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
+          Single.just(idsRepository.getGamificationLevel()), Single.just(hasGms()),
+          Single.just(idsRepository.getActiveWalletAddress()),
+          promoCodeLocalDataSource.getSavedPromoCode(),
+          { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
+            IndicativeInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode)
+          })
+          .flatMap {
+            promotionsRepository.getWalletOrigin(
+              it.walletAddress,
+              it.promoCode.code
+            )
+              .doOnSuccess { walletOrigin ->
+                setIndicativeSuperProperties(
+                  it.installerPackage,
+                  it.level, it.walletAddress, it.hasGms, walletOrigin
+                )
+              }
+          }
+      }
+      .ignoreElement()
+  }
 
-    private fun hasGms(): Boolean {
-        return GoogleApiAvailability.getInstance()
-            .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
-    }
+  private fun hasGms(): Boolean {
+    return GoogleApiAvailability.getInstance()
+      .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
+  }
 
 
-  private fun setIndicativeSuperProperties(installerPackage: String,
-                                      userLevel: Int,
-                                      userId: String, hasGms: Boolean, walletOrigin: WalletOrigin) {
+  private fun setIndicativeSuperProperties(
+    installerPackage: String,
+    userLevel: Int,
+    userId: String, hasGms: Boolean, walletOrigin: WalletOrigin
+  ) {
 
-      superProperties.put(AnalyticsLabels.APTOIDE_PACKAGE,
-          BuildConfig.APPLICATION_ID)
-      superProperties.put(AnalyticsLabels.VERSION_CODE, BuildConfig.VERSION_CODE)
-      superProperties.put(AnalyticsLabels.ENTRY_POINT,
-          if (installerPackage.isEmpty()) "other" else installerPackage)
-      superProperties.put(AnalyticsLabels.USER_LEVEL, userLevel)
-      superProperties.put(AnalyticsLabels.HAS_GMS, hasGms)
-      superProperties.put(AnalyticsLabels.WALLET_ORIGIN, walletOrigin)
+    superProperties.put(
+      AnalyticsLabels.APTOIDE_PACKAGE,
+      BuildConfig.APPLICATION_ID
+    )
+    superProperties.put(AnalyticsLabels.VERSION_CODE, BuildConfig.VERSION_CODE)
+    superProperties.put(
+      AnalyticsLabels.ENTRY_POINT, if (installerPackage.isEmpty()) "other" else installerPackage
+    )
+    superProperties.put(AnalyticsLabels.USER_LEVEL, userLevel)
+    superProperties.put(AnalyticsLabels.HAS_GMS, hasGms)
+    superProperties.put(AnalyticsLabels.WALLET_ORIGIN, walletOrigin)
 
-      if (userId.isNotEmpty()) this.usrId = userId
+    if (userId.isNotEmpty()) this.usrId = userId
   }
 
 }
 
-private data class IndicativeInitializeWrapper(val installerPackage: String, val level: Int,
-                                          val hasGms: Boolean, val walletAddress: String,
-                                          val promoCode: PromoCode)
+private data class IndicativeInitializeWrapper(
+  val installerPackage: String, val level: Int,
+  val hasGms: Boolean, val walletAddress: String,
+  val promoCode: PromoCode
+)

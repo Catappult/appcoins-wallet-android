@@ -58,7 +58,6 @@ android {
         project.TRANSACTION_DETAILS_HOST_ROPSTEN
     buildConfigField 'String', 'RAKAM_BASE_HOST', project.RAKAM_BASE_HOST
     buildConfigField 'String', 'RAKAM_API_KEY', project.RAKAM_API_KEY
-    buildConfigField 'String', 'INDICATIVE_API_KEY', project.INDICATIVE_API_KEY
     buildConfigField "String", "APTOIDE_WEB_SERVICES_AB_TEST_HOST",
         project.APTOIDE_WEB_SERVICES_AB_TEST_HOST
     buildConfigField 'String', 'INFURA_API_KEY_MAIN', project.INFURA_API_KEY_MAIN
@@ -99,6 +98,7 @@ android {
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
       buildConfigField 'String', 'SUBS_BASE_HOST', project.BASE_HOST_PROD
+      buildConfigField 'String', 'INDICATIVE_API_KEY', project.INDICATIVE_API_KEY
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
     }
@@ -125,6 +125,7 @@ android {
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
       buildConfigField 'String', 'SUBS_BASE_HOST', project.SUBS_BASE_HOST_DEV
+      buildConfigField 'String', 'INDICATIVE_API_KEY', project.INDICATIVE_API_KEY_DEV
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
