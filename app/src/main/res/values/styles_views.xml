@@ -22,7 +22,6 @@
     <attr format="string" name="buttonText" />
     <attr format="color" name="buttonColor" />
     <attr format="boolean" name="buttonCaps" />
-    <attr name="buttonEnabled" format="boolean" />
   </declare-styleable>
 
   <declare-styleable name="WalletTextFieldView">

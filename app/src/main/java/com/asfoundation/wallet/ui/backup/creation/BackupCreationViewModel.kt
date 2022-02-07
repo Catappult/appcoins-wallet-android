@@ -39,7 +39,6 @@ class BackupCreationViewModel(
   }
 
   private fun showError(throwable: Throwable) {
-    throwable.printStackTrace()
     logger.log(TAG, throwable)
     sendSideEffect { BackupCreationSideEffect.ShowError }
   }

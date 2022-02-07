@@ -41,8 +41,6 @@ class WalletButtonView : FrameLayout {
     setText(string)
     val buttonColor = typedArray.getColor(R.styleable.WalletButtonView_buttonColor, color)
     setColor(buttonColor)
-    val buttonEnabled = typedArray.getBoolean(R.styleable.WalletButtonView_buttonEnabled, true)
-    isEnabled = buttonEnabled
     typedArray.recycle()
   }
 
@@ -100,24 +98,11 @@ class WalletButtonView : FrameLayout {
       }
     } else {
       views.root.isClickable = false
-
-      when (type) {
-        Type.TEXT -> {
-          views.root.setCardBackgroundColor(
-              ContextCompat.getColor(this.context, R.color.transparent))
-          views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
-          views.root.strokeWidth = 0
-          views.root.setRippleColorResource(R.color.transparent)
-          views.text.setTextColor(ContextCompat.getColor(this.context, R.color.grey_c9))
-        }
-        else -> {
-          views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.grey_c9))
-          views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
-          views.root.strokeWidth = 0
-          views.root.setRippleColorResource(R.color.white)
-          views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
-        }
-      }
+      views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.grey_c9))
+      views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
+      views.root.strokeWidth = 0
+      views.root.setRippleColorResource(R.color.white)
+      views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
     }
   }
 
