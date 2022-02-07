@@ -826,8 +826,11 @@
   </style>
 
   <style name="WalletBackupTextStyle.Normal.White.M">
-    <item name="android:textColor">@color/white</item>
     <item name="android:textSize">@dimen/backup_m_text_size</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Normal.White.S">
+    <item name="android:textSize">@dimen/backup_s_text_size</item>
   </style>
 
   <style name="WalletBackupTextStyle.Bold.White.Small">

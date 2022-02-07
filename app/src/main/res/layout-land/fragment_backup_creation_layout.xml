@@ -23,31 +23,40 @@
           android:orientation="vertical"
           app:layout_constraintGuide_percent="0.5"
           />
-      <include
-          android:id="@+id/backup_creation_info"
-          layout="@layout/layout_backup_creation_info"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/big_margin"
-          app:layout_constraintEnd_toStartOf="@+id/backup_half_guideline"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-      <TextView
-          android:id="@+id/backup_creation_disclaimer"
-          style="@style/WalletBackupTextStyle.Normal.White"
+      <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/half_large_margin"
-          android:layout_marginTop="@dimen/half_large_margin"
-          android:layout_marginBottom="@dimen/big_margin"
-          android:gravity="center"
-          android:text="@string/backup_body"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@+id/backup_half_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/backup_creation_info"
-          />
+          app:layout_constraintTop_toTopOf="parent"
+          >
+        <include
+            android:id="@+id/backup_creation_info"
+            layout="@layout/layout_backup_creation_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/backup_creation_disclaimer"
+            style="@style/WalletBackupTextStyle.Normal.White"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/half_large_margin"
+            android:layout_marginTop="@dimen/half_large_margin"
+            android:layout_marginBottom="@dimen/big_margin"
+            android:gravity="center"
+            android:text="@string/backup_body"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backup_creation_info"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
       <include
           layout="@layout/layout_backup_creation_options"
           android:layout_width="0dp"

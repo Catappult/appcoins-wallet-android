@@ -51,14 +51,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_button_height"
         android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/half_large_margin"
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/big_margin"
         app:buttonText="@string/backup_wallet_button"
         app:buttonType="filled"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
     <com.asfoundation.wallet.ui.common.WalletButtonView
+        android:visibility="gone"
         android:id="@+id/backup_skip_btn"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/large_button_height"
