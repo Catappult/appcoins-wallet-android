@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.nfts.ui.nftTransactDialog
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,21 +65,33 @@ class NFTTransactDialogFragment : DaggerBottomSheetDialogFragment(),
     when (gasPriceAsync) {
       is Async.Fail -> showError(getString(R.string.nfts_generic_error))
       is Async.Loading -> showLoading()
-      is Async.Success -> viewModel.send(views.layoutNftTransactEntry.sendToAddress.text.toString(),
-          gasPriceAsync().first, gasPriceAsync().second)
+      is Async.Success -> showPickGas(gasPriceAsync().first, gasPriceAsync().second)
       Async.Uninitialized -> Unit
     }
+  }
+
+  private fun showPickGas(gasPrice: BigInteger, gasLimit: BigInteger) {
+    views.layoutNftTransactEntry.root.visibility = View.INVISIBLE
+    views.layoutNftTransactDone.root.visibility = View.GONE
+    views.layoutNftTransactLoading.root.visibility = View.GONE
+    views.layoutNftTransactPickGas.gasPriceInput.text = Editable.Factory.getInstance()
+        .newEditable(gasPrice.toString())
+    views.layoutNftTransactPickGas.gasLimitInput.text = Editable.Factory.getInstance()
+        .newEditable(gasLimit.toString())
+    views.layoutNftTransactPickGas.root.visibility = View.VISIBLE
   }
 
   private fun showLoading() {
     views.layoutNftTransactEntry.root.visibility = View.INVISIBLE
     views.layoutNftTransactDone.root.visibility = View.GONE
+    views.layoutNftTransactPickGas.root.visibility = View.GONE
     views.layoutNftTransactLoading.root.visibility = View.VISIBLE
   }
 
   private fun showSuccess() {
     views.layoutNftTransactEntry.root.visibility = View.INVISIBLE
     views.layoutNftTransactLoading.root.visibility = View.INVISIBLE
+    views.layoutNftTransactPickGas.root.visibility = View.GONE
     views.layoutNftTransactDone.errorAnimation.visibility = View.GONE
     views.layoutNftTransactDone.successAnimation.visibility = View.VISIBLE
     views.layoutNftTransactDone.root.visibility = View.VISIBLE
@@ -87,6 +100,7 @@ class NFTTransactDialogFragment : DaggerBottomSheetDialogFragment(),
   private fun showError(errorMessage: String) {
     views.layoutNftTransactEntry.root.visibility = View.INVISIBLE
     views.layoutNftTransactLoading.root.visibility = View.INVISIBLE
+    views.layoutNftTransactPickGas.root.visibility = View.GONE
     views.layoutNftTransactDone.successAnimation.visibility = View.INVISIBLE
     views.layoutNftTransactDone.errorAnimation.visibility = View.VISIBLE
     views.layoutNftTransactDone.doneMensage.text = capitalize(errorMessage)
@@ -106,6 +120,12 @@ class NFTTransactDialogFragment : DaggerBottomSheetDialogFragment(),
 
     views.layoutNftTransactDone.doneButton.setOnClickListener {
       dismiss()
+    }
+
+    views.layoutNftTransactPickGas.sendButton.setOnClickListener {
+      viewModel.send(views.layoutNftTransactEntry.sendToAddress.text.toString(),
+          BigInteger(views.layoutNftTransactPickGas.gasPriceInput.text.toString()),
+          BigInteger(views.layoutNftTransactPickGas.gasLimitInput.text.toString()))
     }
   }
 }

@@ -41,5 +41,17 @@
       app:layout_constraintLeft_toLeftOf="parent"
       />
 
+  <include
+      android:id="@+id/layout_nft_transact_pick_gas"
+      layout="@layout/layout_nft_transact_pick_gas"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
