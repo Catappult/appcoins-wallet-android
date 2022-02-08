@@ -8,8 +8,8 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-  buildToolsVersion '30.0.3'
-  compileSdkVersion 30
+  buildToolsVersion project.build_tools_version
+  compileSdkVersion project.compile_sdk_version
   ndkVersion "21.3.6528147"
   defaultConfig {
 
@@ -19,8 +19,8 @@ android {
     buildConfigField 'String', 'DEFAULT_STORE_ADDRESS', "\"" + json.stores.default_address + "\""
 
     applicationId "com.appcoins.wallet"
-    minSdkVersion 21
-    targetSdkVersion 30
+    minSdkVersion project.min_sdk_version
+    targetSdkVersion project.target_sdk_version
     versionCode 213
     versionName "2.3.2.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
