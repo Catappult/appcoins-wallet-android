@@ -18,7 +18,6 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.asfoundation.wallet.promo_code.repository.PromoCode
-import com.asfoundation.wallet.promo_code.repository.PromoCodeEntity
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.setReadOnly
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -83,8 +82,20 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   }
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
-    setPromoCode(state.promoCodeAsync, state.shouldShowDefault)
-    setSubmitClick(state.submitClickAsync, state.promoCodeAsync)
+    when (val clickAsync = state.submitClickAsync) {
+      is Async.Uninitialized -> setPromoCode(state.promoCodeAsync, state.shouldShowDefault)
+      is Async.Loading -> {
+        if (clickAsync.value == null) {
+          showLoading()
+        }
+      }
+      is Async.Fail -> {
+        showErrorMessage()
+      }
+      is Async.Success -> {
+        state.promoCodeAsync.value?.let { promoCode -> showSuccess(promoCode) }
+      }
+    }
   }
 
   override fun onSideEffect(sideEffect: PromoCodeBottomSheetSideEffect) {
@@ -111,24 +122,6 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
             showCurrentCodeScreen(promoCodeAsync.value.code)
           }
         }
-      }
-    }
-  }
-
-  fun setSubmitClick(clickAsync: Async<Unit>, promoCodeAsync: Async<PromoCode>) {
-    when (clickAsync) {
-      is Async.Uninitialized -> {
-      }
-      is Async.Loading -> {
-        if (clickAsync.value == null) {
-          showLoading()
-        }
-      }
-      is Async.Fail -> {
-        showErrorMessage()
-      }
-      is Async.Success -> {
-        promoCodeAsync.value?.bonus?.let { showSuccess(it) }
       }
     }
   }
@@ -176,7 +169,7 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
   }
 
   @SuppressLint("StringFormatMatches")
-  private fun showSuccess(bonus: Double) {
+  private fun showSuccess(promoCode: PromoCode) {
     hideAll()
     KeyboardUtils.hideKeyboard(view)
     views.promoCodeBottomSheetSuccessAnimation.visibility = View.VISIBLE
@@ -186,8 +179,15 @@ class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
     views.promoCodeBottomSheetSuccessAnimation.playAnimation()
     views.promoCodeBottomSheetSuccessTitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetSuccessSubtitle.visibility = View.VISIBLE
-    views.promoCodeBottomSheetSuccessSubtitle.text =
-        this.getString(R.string.promo_code_success_body, bonus.toString())
+    if (promoCode.appName != null) {
+      views.promoCodeBottomSheetSuccessSubtitle.text =
+          this.getString(R.string.promo_code_success_body_specific_app, promoCode.bonus.toString(),
+              promoCode.appName)
+    } else {
+      views.promoCodeBottomSheetSuccessSubtitle.text =
+          this.getString(R.string.promo_code_success_body, promoCode.bonus.toString())
+    }
+
     views.promoCodeBottomSheetSuccessGotItButton.visibility = View.VISIBLE
 
   }

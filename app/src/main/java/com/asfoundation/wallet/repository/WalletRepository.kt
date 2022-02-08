@@ -1,20 +1,15 @@
 package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.service.AccountKeystoreService
-import com.asfoundation.wallet.service.WalletBalanceService
 import io.reactivex.*
-import java.math.BigDecimal
 
 class WalletRepository(private val preferencesRepositoryType: PreferencesRepositoryType,
                        private val accountKeystoreService: AccountKeystoreService,
-                       private val walletBalanceService: WalletBalanceService,
                        private val networkScheduler: Scheduler,
-                       private val analyticsSetUp: AnalyticsSetup,
-                       private val amplitudeAnalytics: AmplitudeAnalytics) : WalletRepositoryType {
+                       private val analyticsSetUp: AnalyticsSetup) : WalletRepositoryType {
 
   override fun fetchWallets(): Single<Array<Wallet>> {
     return accountKeystoreService.fetchAccounts()
@@ -56,7 +51,6 @@ class WalletRepository(private val preferencesRepositoryType: PreferencesReposit
   override fun setDefaultWallet(address: String): Completable {
     return Completable.fromAction {
       analyticsSetUp.setUserId(address)
-      amplitudeAnalytics.setUserId(address)
       preferencesRepositoryType.setCurrentWalletAddress(address)
     }
   }
@@ -94,17 +88,5 @@ class WalletRepository(private val preferencesRepositoryType: PreferencesReposit
           preferencesRepositoryType.addChangeListener(listener)
         } as ObservableOnSubscribe<String>)
         .flatMapSingle { address -> findWallet(address) }
-  }
-
-  override fun getEthBalanceInWei(address: String): Single<BigDecimal> {
-    return walletBalanceService.getWalletBalance(address)
-        .map { walletBalance -> BigDecimal(walletBalance.eth) }
-        .subscribeOn(networkScheduler)
-  }
-
-  override fun getAppcBalanceInWei(address: String): Single<BigDecimal> {
-    return walletBalanceService.getWalletBalance(address)
-        .map { (appc) -> BigDecimal(appc) }
-        .subscribeOn(networkScheduler)
   }
 }

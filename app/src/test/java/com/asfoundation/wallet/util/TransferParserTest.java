@@ -4,7 +4,6 @@ import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -17,7 +16,6 @@ import static org.mockito.Mockito.when;
 public class TransferParserTest {
 
   @Test public void parse() {
-    mock(TokenRepositoryType.class);
     DefaultTokenProvider defaultTokenProvider = mock(DefaultTokenProvider.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
     EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
@@ -45,7 +43,6 @@ public class TransferParserTest {
   }
 
   @Test public void parseWithData() {
-    mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
     DefaultTokenProvider defaultTokenProvider = mock(DefaultTokenProvider.class);
     EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
@@ -79,7 +76,6 @@ public class TransferParserTest {
   }
 
   @Test public void parseTransferToken() {
-    mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
     DefaultTokenProvider defaultTokenProvider = mock(DefaultTokenProvider.class);
     EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);

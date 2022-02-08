@@ -16,7 +16,6 @@ import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -28,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AsfInAppPurchaseInteractor {
-  private static final double GAS_PRICE_MULTIPLIER = 1.25;
   private final InAppPurchaseService inAppPurchaseService;
   private final CurrencyConversionService currencyConversionService;
   private final FindDefaultWalletInteract defaultWalletInteract;
@@ -199,7 +197,7 @@ public class AsfInAppPurchaseInteractor {
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> {
               transactionBuilder.gasSettings(new GasSettings(
-                  gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                  gasSettings.gasPrice,
                   paymentGasLimit));
               return transactionBuilder.amount(amount);
             }))
@@ -252,16 +250,16 @@ public class AsfInAppPurchaseInteractor {
   Single<Boolean> isAppcoinsPaymentReady(TransactionBuilder transactionBuilder) {
     return gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
-            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+            new GasSettings(gasSettings.gasPrice,
                 paymentGasLimit)))
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
   }
 
-  Single<GetDefaultWalletBalanceInteract.BalanceState> getAppcoinsBalanceState(
+  Single<InAppPurchaseService.BalanceState> getAppcoinsBalanceState(
       TransactionBuilder transactionBuilder) {
     return gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
-            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+            new GasSettings(gasSettings.gasPrice,
                 paymentGasLimit)))
         .flatMap(__ -> inAppPurchaseService.getBalanceState(transactionBuilder));
   }

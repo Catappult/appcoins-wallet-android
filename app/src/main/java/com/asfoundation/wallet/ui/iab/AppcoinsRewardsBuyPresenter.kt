@@ -2,13 +2,11 @@ package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -22,10 +20,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
                                   private val viewScheduler: Scheduler,
                                   private val networkScheduler: Scheduler,
                                   private val disposables: CompositeDisposable,
-                                  private val amount: BigDecimal,
-                                  private val uri: String,
                                   private val packageName: String,
-                                  private val transferParser: TransferParser,
                                   private val isBds: Boolean,
                                   private val analytics: BillingAnalytics,
                                   private val transactionBuilder: TransactionBuilder,
@@ -181,7 +176,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
   fun sendRevenueEvent() {
     analytics.sendRevenueEvent(formatter.scaleFiat(appcoinsRewardsBuyInteract.convertToFiat(
         transactionBuilder.amount()
-            .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+            .toDouble(), BillingAnalytics.EVENT_REVENUE_CURRENCY)
         .blockingGet()
         .amount)
         .toString())

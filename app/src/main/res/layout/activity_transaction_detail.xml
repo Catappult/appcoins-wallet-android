@@ -246,6 +246,48 @@
       </FrameLayout>
 
       <TextView
+          android:id="@+id/order_reference_label"
+          style="@style/TransactionDetailsTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/half_large_margin"
+          android:layout_marginTop="@dimen/big_margin"
+          android:text="@string/transaction_order_reference_label"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/category_label"
+          />
+
+      <TextView
+          android:id="@+id/order_reference_name"
+          style="@style/TransactionDetailsTextStyle.Content"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/half_large_margin"
+          android:singleLine="true"
+          android:visibility="gone"
+          app:layout_constrainedWidth="true"
+          app:layout_constraintTop_toTopOf="@id/order_reference_label"
+          app:layout_constraintBottom_toBottomOf="@id/order_reference_label"
+          app:layout_constraintStart_toEndOf="@id/guideline_mid"
+          app:layout_constraintEnd_toEndOf="parent"
+          tools:text="orderID_ESOANPCOC_orderID_ESOANPCOC"
+          />
+      <ImageView
+          android:id="@+id/order_reference_copy_icon"
+          android:layout_width="16dp"
+          android:layout_height="16dp"
+          android:layout_marginEnd="@dimen/normal_margin"
+          android:contentDescription="@string/empty"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/order_reference_name"
+          app:layout_constraintEnd_toStartOf="@id/order_reference_name"
+          app:layout_constraintTop_toTopOf="@id/order_reference_name"
+          android:src="@drawable/ic_copy_to_clip"
+          app:tint="@color/color_grey_9e"
+          />
+
+      <TextView
           android:id="@+id/to_label"
           style="@style/TransactionDetailsTextStyle"
           android:layout_width="wrap_content"
@@ -255,7 +297,7 @@
           android:text="@string/transaction_to_label"
           android:visibility="gone"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/category_label"
+          app:layout_constraintTop_toBottomOf="@id/order_reference_label"
           />
 
       <TextView
@@ -269,7 +311,34 @@
           app:layout_constrainedWidth="true"
           app:layout_constraintBottom_toBottomOf="@id/to_label"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toEndOf="@id/guideline_mid"
+          tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
+          />
+
+      <TextView
+          android:id="@+id/from_label"
+          style="@style/TransactionDetailsTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/half_large_margin"
+          android:layout_marginTop="@dimen/big_margin"
+          android:text="@string/label_from"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/to_label"
+          />
+
+      <TextView
+          android:id="@+id/from"
+          style="@style/TransactionDetailsTextStyle.Content.Address"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/half_large_margin"
+          android:singleLine="true"
+          android:visibility="gone"
+          app:layout_constrainedWidth="true"
+          app:layout_constraintBottom_toBottomOf="@id/from_label"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/guideline_mid"
           tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
           />
@@ -283,7 +352,7 @@
           android:layout_marginEnd="32dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/to_label"
+          app:layout_constraintTop_toBottomOf="@id/from_label"
           />
 
       <TextView

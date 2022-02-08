@@ -14,16 +14,13 @@ class CurrencyConversionService(private val tokenRateService: TokenRateService,
 
   fun getLocalFiatAmount(appcValue: String): Single<FiatValue> {
     return localCurrencyConversionService.getAppcToLocalFiat(appcValue, 18)
-        .firstOrError()
   }
 
   fun getLocalFiatAmount(value: String, currency: String): Single<FiatValue> {
     return localCurrencyConversionService.getFiatToLocalFiat(currency, value, 2)
-      .firstOrError()
   }
 
   fun getFiatToAppcAmount(value: String, currency: String): Single<FiatValue> {
     return localCurrencyConversionService.getFiatToAppc(currency, value, 18)
-      .firstOrError()
   }
 }

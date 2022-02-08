@@ -10,12 +10,12 @@ import io.reactivex.schedulers.Schedulers
 class CancelTicketUseCase(private val walletAddressObtainer: WalletAddressObtainer,
                           private val ewtObtainer: EwtObtainer,
                           private val ticketRepository: TicketRepository) {
-  fun cancelTicket(ticketId: String): Single<TicketResponse> {
+  operator fun invoke(ticketId: String): Single<TicketResponse> {
     return walletAddressObtainer.getWalletAddress()
         .flatMap {
           ewtObtainer.getEWT()
-              .flatMap {
-                ewt -> ticketRepository.cancelTicket(ewt, ticketId)
+              .flatMap { ewt ->
+                ticketRepository.cancelTicket(ewt, ticketId)
               }
         }
         .subscribeOn(Schedulers.io())

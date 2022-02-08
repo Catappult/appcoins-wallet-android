@@ -6,53 +6,50 @@ import com.airbnb.epoxy.VisibilityState
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.my_wallets.main.list.WalletsListEvent
-import com.asfoundation.wallet.ui.balance.BalanceScreenModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 
 class ActiveWalletModelGroup(
-    walletsAsync: Async<WalletsModel>,
     walletVerifiedAsync: Async<BalanceVerificationModel>,
-    balanceAsync: Async<BalanceScreenModel>,
+    walletInfoAsync: Async<WalletInfo>,
     backedUpOnceAsync: Async<Boolean>,
     currencyFormatUtils: CurrencyFormatUtils,
     walletClickListener: ((WalletsListEvent) -> Unit)?
 ) : EpoxyModelGroup(R.layout.item_active_wallet,
-    buildModels(walletsAsync, walletVerifiedAsync, balanceAsync, backedUpOnceAsync,
+    buildModels(walletVerifiedAsync, walletInfoAsync, backedUpOnceAsync,
         currencyFormatUtils, walletClickListener)) {
 
   companion object {
-    fun buildModels(walletsAsync: Async<WalletsModel>,
-                    walletVerifiedAsync: Async<BalanceVerificationModel>,
-                    balanceAsync: Async<BalanceScreenModel>,
+    fun buildModels(walletVerifiedAsync: Async<BalanceVerificationModel>,
+                    walletInfoAsync: Async<WalletInfo>,
                     backedUpOnceAsync: Async<Boolean>,
                     currencyFormatUtils: CurrencyFormatUtils,
                     walletClickListener: ((WalletsListEvent) -> Unit)?): List<EpoxyModel<*>> {
       val models = mutableListOf<EpoxyModel<*>>()
-      models.addWalletInfo(walletsAsync, walletClickListener)
-      models.addBalance(balanceAsync, currencyFormatUtils, walletClickListener)
+      models.addWalletInfo(walletInfoAsync, walletClickListener)
+      models.addBalance(walletInfoAsync, currencyFormatUtils, walletClickListener)
       models.addBackupCard(backedUpOnceAsync, walletClickListener)
       models.addVerify(walletVerifiedAsync, walletClickListener)
       return models
     }
 
-    private fun MutableList<EpoxyModel<*>>.addWalletInfo(walletsAsync: Async<WalletsModel>,
+    private fun MutableList<EpoxyModel<*>>.addWalletInfo(walletInfoAsync: Async<WalletInfo>,
                                                          walletClickListener: ((WalletsListEvent) -> Unit)?) {
       add(WalletInfoModel_()
           .id("active_wallet_info")
-          .walletBalanceAsync(walletsAsync)
+          .walletInfoAsync(walletInfoAsync)
           .walletClickListener(walletClickListener)
       )
     }
 
-    private fun MutableList<EpoxyModel<*>>.addBalance(balanceAsync: Async<BalanceScreenModel>,
+    private fun MutableList<EpoxyModel<*>>.addBalance(walletInfoAsync: Async<WalletInfo>,
                                                       currencyFormatUtils: CurrencyFormatUtils,
                                                       walletClickListener: ((WalletsListEvent) -> Unit)?) {
       add(WalletBalanceModel_()
           .id("active_wallet_balance")
-          .balanceAsync(balanceAsync)
+          .walletInfoAsync(walletInfoAsync)
           .formatter(currencyFormatUtils)
           .onVisibilityStateChanged { _, _, visibilityState ->
             if (visibilityState == VisibilityState.VISIBLE) {
@@ -68,38 +65,37 @@ class ActiveWalletModelGroup(
     private fun MutableList<EpoxyModel<*>>.addVerify(
         walletVerifiedAsync: Async<BalanceVerificationModel>,
         walletClickListener: ((WalletsListEvent) -> Unit)?) {
-      when (walletVerifiedAsync) {
-        is Async.Success -> {
-          val verifiedModel = walletVerifiedAsync()
-          when (verifiedModel.status) {
-            BalanceVerificationStatus.VERIFIED -> addVerified()
-            BalanceVerificationStatus.UNVERIFIED -> addUnverified(false, walletClickListener)
-            BalanceVerificationStatus.CODE_REQUESTED -> addUnverifiedInsertCode(false,
-                walletClickListener)
-            BalanceVerificationStatus.NO_NETWORK, BalanceVerificationStatus.ERROR -> {
-              // Set cached value
-              when (verifiedModel.cachedStatus) {
-                BalanceVerificationStatus.VERIFIED -> addVerified()
-                BalanceVerificationStatus.UNVERIFIED -> addUnverified(true, walletClickListener)
-                BalanceVerificationStatus.CODE_REQUESTED -> addUnverifiedInsertCode(true,
-                    walletClickListener)
-                else -> addUnverified(true, walletClickListener)
-              }
+      val verifiedModel = walletVerifiedAsync()
+      if (verifiedModel == null) {
+        addVerifyLoading()
+      } else {
+        when (verifiedModel.status) {
+          BalanceVerificationStatus.VERIFIED -> addVerified()
+          BalanceVerificationStatus.UNVERIFIED -> addUnverified(false, walletClickListener)
+          BalanceVerificationStatus.CODE_REQUESTED -> addUnverifiedInsertCode(false,
+              walletClickListener)
+          BalanceVerificationStatus.NO_NETWORK, BalanceVerificationStatus.ERROR -> {
+            // Set cached value
+            when (verifiedModel.cachedStatus) {
+              BalanceVerificationStatus.VERIFIED -> addVerified()
+              BalanceVerificationStatus.UNVERIFIED -> addUnverified(true, walletClickListener)
+              BalanceVerificationStatus.CODE_REQUESTED -> addUnverifiedInsertCode(true,
+                  walletClickListener)
+              else -> addUnverified(true, walletClickListener)
             }
-            else -> {
-              // Set cached value
-              when (verifiedModel.cachedStatus) {
-                BalanceVerificationStatus.VERIFIED -> addVerified()
-                BalanceVerificationStatus.UNVERIFIED -> addUnverified(false, walletClickListener)
-                BalanceVerificationStatus.CODE_REQUESTED -> addUnverifiedInsertCode(false,
-                    walletClickListener)
-                BalanceVerificationStatus.VERIFYING -> addVerifying()
-                else -> addUnverified(true, walletClickListener)
-              }
+          }
+          else -> {
+            // Set cached value
+            when (verifiedModel.cachedStatus) {
+              BalanceVerificationStatus.VERIFIED -> addVerified()
+              BalanceVerificationStatus.UNVERIFIED -> addUnverified(false, walletClickListener)
+              BalanceVerificationStatus.CODE_REQUESTED -> addUnverifiedInsertCode(false,
+                  walletClickListener)
+              BalanceVerificationStatus.VERIFYING -> addVerifying()
+              else -> addUnverified(true, walletClickListener)
             }
           }
         }
-        else -> addVerifyLoading()
       }
     }
 

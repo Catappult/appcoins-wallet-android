@@ -20,6 +20,10 @@ class EwtAuthenticatorService(private val walletService: WalletService,
         .map { address -> getEwtAuthentication(address) }
   }
 
+  fun getEwtAuthenticationWithAddress(address: String): Single<String> {
+    return Single.just(getEwtAuthentication(address))
+  }
+
   @Synchronized
   fun getEwtAuthentication(address: String): String {
     return if (shouldBuildEwtAuth(address))

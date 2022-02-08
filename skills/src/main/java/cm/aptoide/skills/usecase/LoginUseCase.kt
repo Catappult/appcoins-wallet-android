@@ -7,11 +7,11 @@ import io.reactivex.Single
 class LoginUseCase(private val ewtObtainer: EwtObtainer,
                    private val loginRepository: LoginRepository) {
 
-  fun login(roomId: String): Single<String> {
+  operator fun invoke(roomId: String, ticketId: String): Single<String> {
     return ewtObtainer.getEWT()
         .flatMap {
-          loginRepository.login(it, roomId)
-              .map { it.token }
+          loginRepository.login(it, roomId, ticketId)
+              .map { loginResponse -> loginResponse.token }
         }
   }
 }

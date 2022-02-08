@@ -12,4 +12,27 @@
     </attr>
   </declare-styleable>
 
+  <declare-styleable name="WalletButtonView">
+    <attr format="enum" name="buttonType">
+      <enum name="filled" value="0" />
+      <enum name="outlined" value="1" />
+      <enum name="text" value="2" />
+    </attr>
+    <attr format="string" name="buttonText" />
+    <attr format="color" name="buttonColor" />
+    <attr format="boolean" name="buttonCaps" />
+  </declare-styleable>
+
+  <declare-styleable name="AnimatedTextSwitcher">
+    <attr format="string" name="toolbarText" />
+  </declare-styleable>
+
+  <style name="ToolbarTextSwitcher" />
+
+  <style name="ToolbarTextSwitcher.Title">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
 </resources>

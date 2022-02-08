@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.my_wallets.change_wallet
 
+import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
@@ -10,9 +11,8 @@ sealed class ChangeActiveWalletSideEffect : SideEffect {
   object NavigateBack : ChangeActiveWalletSideEffect()
 }
 
-data class ChangeActiveWalletState(
-    val walletBalance: WalletBalance
-) : ViewState
+data class ChangeActiveWalletState(val walletBalance: WalletBalance,
+                                   val changeWalletAsync: Async<Unit> = Async.Uninitialized) : ViewState
 
 class ChangeActiveWalletDialogViewModel(
     val data: ChangeActiveWalletDialogData,
@@ -27,6 +27,7 @@ class ChangeActiveWalletDialogViewModel(
 
   fun changeActiveWallet() {
     walletDetailsInteractor.setActiveWallet(data.walletBalance.walletAddress)
+        .asAsyncLoadingToState { copy(changeWalletAsync = it) }
         .doOnComplete { sendSideEffect { ChangeActiveWalletSideEffect.NavigateBack } }
         .scopedSubscribe { it.printStackTrace() }
   }

@@ -3,26 +3,26 @@ package com.asfoundation.wallet.ui.transact
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.iab.RewardsManager
-import com.asfoundation.wallet.util.BalanceUtils
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import java.math.BigDecimal
-import java.math.RoundingMode
 import java.net.UnknownHostException
 
 class TransferInteractor(private val rewardsManager: RewardsManager,
                          private val transactionDataValidator: TransactionDataValidator,
-                         private val balanceInteractor: GetDefaultWalletBalanceInteract,
+                         private val getWalletInfoUseCase: GetWalletInfoUseCase,
                          private val findDefaultWalletInteract: FindDefaultWalletInteract,
                          private val walletBlockedInteract: WalletBlockedInteract) {
 
   fun transferCredits(toWallet: String, amount: BigDecimal,
                       packageName: String): Single<AppcoinsRewardsRepository.Status> {
-    return rewardsManager.balance.map {
-      transactionDataValidator.validateData(toWallet, amount.multiply(BigDecimal.TEN.pow(18)), it)
-    }
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+        .map { walletInfo ->
+          val creditsAmount = walletInfo.walletBalance.creditsBalance.token.amount
+          transactionDataValidator.validateData(toWallet, amount, creditsAmount)
+        }
         .flatMap {
           val validateStatus = validateData(it)
           if (validateStatus == AppcoinsRewardsRepository.Status.SUCCESS) {
@@ -51,36 +51,28 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
   }
 
   fun getCreditsBalance(): Single<BigDecimal> {
-    return rewardsManager.balance.map {
-      BalanceUtils.weiToEth(it)
-          .setScale(4, RoundingMode.FLOOR)
-    }
-  }
-
-  fun getAppcoinsBalance(): Single<BigDecimal> {
-    return findDefaultWalletInteract.find()
-        .flatMap { balanceInteractor.getAppcBalance(it.address) }
-        .map { it.value }
-  }
-
-  fun getEthBalance(): Single<BigDecimal> {
-    return findDefaultWalletInteract.find()
-        .flatMap { balanceInteractor.getEthereumBalance(it.address) }
-        .map { it.value }
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+        .map { walletInfo ->
+          walletInfo.walletBalance.creditsBalance.token.amount
+        }
   }
 
   fun validateEthTransferData(walletAddress: String,
                               amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
-    return getEthBalance().map {
-      validateData(transactionDataValidator.validateData(walletAddress, amount, it))
-    }
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+        .map { walletInfo ->
+          val ethAmount = walletInfo.walletBalance.ethBalance.token.amount
+          validateData(transactionDataValidator.validateData(walletAddress, amount, ethAmount))
+        }
   }
 
   fun validateAppcTransferData(walletAddress: String,
                                amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
-    return getAppcoinsBalance().map {
-      validateData(transactionDataValidator.validateData(walletAddress, amount, it))
-    }
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+        .map { walletInfo ->
+          val appcAmount = walletInfo.walletBalance.appcBalance.token.amount
+          validateData(transactionDataValidator.validateData(walletAddress, amount, appcAmount))
+        }
   }
 
   fun isWalletBlocked(): Single<Boolean> = walletBlockedInteract.isWalletBlocked()

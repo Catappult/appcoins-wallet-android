@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.billing;
 
-import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import io.reactivex.Completable;
@@ -11,17 +10,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class CreditsRemoteRepository
     implements com.appcoins.wallet.appcoins.rewards.repository.RemoteRepository {
-  private final BackendApi backendApi;
   private final RemoteRepository remoteRepository;
 
-  public CreditsRemoteRepository(BackendApi backendApi, RemoteRepository remoteRepository) {
-    this.backendApi = backendApi;
+  public CreditsRemoteRepository(RemoteRepository remoteRepository) {
     this.remoteRepository = remoteRepository;
-  }
-
-  @NotNull @Override
-  public Single<BackendApi.RewardBalanceResponse> getBalance(@NotNull String address) {
-    return backendApi.getBalance(address);
   }
 
   @NotNull @Override

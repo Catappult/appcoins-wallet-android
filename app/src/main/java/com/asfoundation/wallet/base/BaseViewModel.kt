@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.base
 
+import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.asfoundation.wallet.util.isNoNetworkException
@@ -269,6 +270,7 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
     }
   }
 
+  @CallSuper
   override fun onCleared() {
     repeatableSubscriptionMap.clear()
     compositeDisposable.clear()

@@ -11,14 +11,16 @@ class TicketApiMapper(private val jsonMapper: Gson) {
     private const val FORBIDDEN_CODE = 403
   }
 
-  fun map(ticketResponse: TicketResponse): Ticket {
+  fun map(ticketResponse: TicketResponse, queueId: QueueIdentifier?): Ticket {
     return when (ticketResponse.ticketStatus) {
       TicketStatus.COMPLETED -> PurchasedTicket(ticketResponse.ticketId,
-          ticketResponse.walletAddress, ticketResponse.userId, ticketResponse.roomId!!)
+          WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.userId,
+          ticketResponse.roomId!!, queueId ?: QueueIdentifier(ticketResponse.queueId, false))
       else -> CreatedTicket(ticketResponse.ticketId,
           ProcessingStatus.fromTicketStatus(ticketResponse.ticketStatus),
-          ticketResponse.walletAddress, ticketResponse.callbackUrl, ticketResponse.ticketPrice,
-          ticketResponse.priceCurrency, ticketResponse.productToken)
+          WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.callbackUrl,
+          ticketResponse.ticketPrice, ticketResponse.priceCurrency, ticketResponse.productToken,
+          queueId ?: QueueIdentifier(ticketResponse.queueId, false))
     }
   }
 
@@ -31,8 +33,8 @@ class TicketApiMapper(private val jsonMapper: Gson) {
   }
 
   private fun mapHttpException(exception: HttpException): FailedTicket {
-    val response = jsonMapper.fromJson(exception.getMessage(), Response::class.java)
     return if (exception.code() == FORBIDDEN_CODE) {
+      val response = jsonMapper.fromJson(exception.getMessage(), Response::class.java)
       return when (response.detail.code) {
         ErrorCode.REGION_NOT_SUPPORTED -> FailedTicket(ErrorStatus.REGION_NOT_SUPPORTED)
         ErrorCode.NOT_AUTHENTICATED -> FailedTicket(ErrorStatus.GENERIC)

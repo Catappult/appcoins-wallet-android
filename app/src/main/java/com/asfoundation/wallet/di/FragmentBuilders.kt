@@ -10,8 +10,8 @@ import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottom
 import com.asfoundation.wallet.change_currency.bottom_sheet.ChooseCurrencyBottomSheetModule
 import com.asfoundation.wallet.eskills.withdraw.WithdrawFragment
 import com.asfoundation.wallet.eskills.withdraw.WithdrawModule
-import com.asfoundation.wallet.home.HomeFragment
-import com.asfoundation.wallet.home.HomeModule
+import com.asfoundation.wallet.home.ui.HomeFragment
+import com.asfoundation.wallet.home.ui.HomeModule
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment
 import com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogModule
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
@@ -24,12 +24,16 @@ import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogFragment
 import com.asfoundation.wallet.my_wallets.token.TokenInfoDialogModule
 import com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogFragment
 import com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogModule
-import com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogFragment
-import com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogModule
 import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsFragment
 import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsModule
 import com.asfoundation.wallet.nfts.ui.nftlist.NFTFragment
 import com.asfoundation.wallet.nfts.ui.nftlist.NFTModule
+import com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogFragment
+import com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogModule
+import com.asfoundation.wallet.onboarding.OnboardingFragment
+import com.asfoundation.wallet.onboarding.OnboardingModule
+import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
+import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetModule
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment
@@ -53,7 +57,7 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.restore.intro.RestoreWalletModule
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordModule
-import com.asfoundation.wallet.skills.SkillsModule
+import com.asfoundation.wallet.eskills.di.SkillsModule
 import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelFragment
 import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelModule
 import com.asfoundation.wallet.subscriptions.details.SubscriptionDetailsFragment
@@ -387,5 +391,13 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [PromoCodeBottomSheetModule::class])
   abstract fun bindPromoCodeBottomSheetFragment(): PromoCodeBottomSheetFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [OnboardingModule::class])
+  abstract fun bindOnboardingFragment(): OnboardingFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [TermsConditionsBottomSheetModule::class])
+  abstract fun bindTermsConditionsBottomSheetFragment(): TermsConditionsBottomSheetFragment
 
 }

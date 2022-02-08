@@ -218,9 +218,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         && data.currency.fiatValue != DEFAULT_VALUE) {
       interactor.convertLocal(data.currency.fiatCurrencyCode,
           data.currency.fiatValue, 2)
+          .toObservable()
     } else if (data.selectedCurrencyType == TopUpData.APPC_C_CURRENCY
         && data.currency.appcValue != DEFAULT_VALUE) {
       interactor.convertAppc(data.currency.appcValue)
+          .toObservable()
     } else {
       Observable.just(FiatValue(BigDecimal.ZERO, ""))
     }
@@ -235,10 +237,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun loadBonusIntoView(appPackage: String, amount: String,
                                 currency: String): Completable {
     return interactor.convertLocal(currency, amount, 18)
-        .flatMapSingle { interactor.getEarningBonus(appPackage, it.amount) }
+        .flatMap { interactor.getEarningBonus(appPackage, it.amount) }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnNext {
+        .doOnSuccess {
           if (interactor.isBonusValidAndActive(it)) {
             val scaledBonus = formatter.scaleFiat(it.amount)
             view.showBonus(scaledBonus, it.currency)
@@ -248,7 +250,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           view.setNextButtonState(true)
           cachedGamificationLevel = it.level
         }
-        .ignoreElements()
+        .ignoreElement()
   }
 
   private fun handleInsertedValue(packageName: String, topUpData: TopUpData,
@@ -357,7 +359,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(interactor.convertLocal(currency, amount.toString(), 2)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnNext { view.changeMainValueText(it.amount.toString()) }
+        .doOnSuccess { view.changeMainValueText(it.amount.toString()) }
         .doOnError { handleError(it) }
         .subscribe({}, { it.printStackTrace() }))
   }

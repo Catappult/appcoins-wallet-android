@@ -26,5 +26,4 @@ class PartnerAddressService(private val installerService: InstallerService,
           AttributionEntity(oemId.ifEmpty { null }, installerPackage.ifEmpty { null })
         })
   }
-
 }

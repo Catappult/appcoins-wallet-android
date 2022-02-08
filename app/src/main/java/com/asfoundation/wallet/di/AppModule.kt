@@ -15,7 +15,6 @@ import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
-import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
@@ -56,7 +55,6 @@ import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.change_currency.FiatCurrenciesDao
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
-import com.asfoundation.wallet.interact.BalanceGetter
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.logging.DebugReceiver
@@ -95,13 +93,14 @@ import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils.Companion.create
 import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.asfoundation.wallet.wallets.db.WalletInfoDao
+import com.asfoundation.wallet.wallets.db.WalletInfoDatabase
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
@@ -336,11 +335,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideAppcoinsRewards(walletService: WalletService, billing: Billing, backendApi: BackendApi,
+  fun provideAppcoinsRewards(walletService: WalletService, billing: Billing,
                              remoteRepository: RemoteRepository,
                              errorMapper: ErrorMapper): AppcoinsRewards {
     return AppcoinsRewards(
-        BdsAppcoinsRewardsRepository(CreditsRemoteRepository(backendApi, remoteRepository)),
+        BdsAppcoinsRewardsRepository(CreditsRemoteRepository(remoteRepository)),
         object : com.appcoins.wallet.appcoins.rewards.repository.WalletService {
           override fun getWalletAddress() = walletService.getWalletAddress()
 
@@ -386,21 +385,6 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideBalanceGetter(appcoinsRewards: AppcoinsRewards): BalanceGetter {
-    return object : BalanceGetter {
-      override fun getBalance(address: String): Single<BigDecimal> {
-        return appcoinsRewards.getBalance(address)
-            .subscribeOn(Schedulers.io())
-      }
-
-      override fun getBalance(): Single<BigDecimal> {
-        return Single.just(BigDecimal.ZERO)
-      }
-    }
-  }
-
-  @Singleton
-  @Provides
   fun providesPermissions(context: Context): Permissions {
     return Permissions(PermissionRepository(
         Room.databaseBuilder(context.applicationContext, PermissionsDatabase::class.java,
@@ -437,6 +421,19 @@ internal class AppModule {
   @Provides
   fun providesWalletOriginDao(promotionDatabase: PromotionDatabase): WalletOriginDao {
     return promotionDatabase.walletOriginDao()
+  }
+
+  @Singleton
+  @Provides
+  fun providesWalletInfoDatabase(context: Context): WalletInfoDatabase {
+    return Room.databaseBuilder(context, WalletInfoDatabase::class.java, "wallet_info_database")
+        .build()
+  }
+
+  @Singleton
+  @Provides
+  fun providesWalletInfoDao(walletInfoDatabase: WalletInfoDatabase): WalletInfoDao {
+    return walletInfoDatabase.walletInfoDao()
   }
 
   @Singleton
@@ -596,7 +593,8 @@ internal class AppModule {
         "transactions_database")
         .addMigrations(TransactionsDatabase.MIGRATION_1_2, TransactionsDatabase.MIGRATION_2_3,
             TransactionsDatabase.MIGRATION_3_4, TransactionsDatabase.MIGRATION_4_5,
-            TransactionsDatabase.MIGRATION_5_6, TransactionsDatabase.MIGRATION_6_7)
+            TransactionsDatabase.MIGRATION_5_6, TransactionsDatabase.MIGRATION_6_7,
+            TransactionsDatabase.MIGRATION_7_8)
         .build()
   }
 
@@ -721,8 +719,8 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providePromoCodeDatabase(context: Context): PromoCodeDatabase {
-    return Room.databaseBuilder(context, PromoCodeDatabase::class.java,
-        "promo_code_database")
+    return Room.databaseBuilder(context, PromoCodeDatabase::class.java, "promo_code_database")
+        .addMigrations(PromoCodeDatabase.MIGRATION_1_2)
         .build()
   }
 

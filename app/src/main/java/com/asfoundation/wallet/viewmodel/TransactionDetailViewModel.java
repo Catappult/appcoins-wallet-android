@@ -17,7 +17,6 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity;
-import com.asfoundation.wallet.support.SupportInteractor;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.iab.FiatValue;
@@ -73,8 +72,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
   private Single<FiatValue> convertValueToTargetCurrency(String paidValue, String paidCurrency,
       String targetCurrency) {
     return conversionService.getValueToFiat(paidValue, paidCurrency, targetCurrency, 2)
-        .subscribeOn(Schedulers.io())
-        .firstOrError();
+        .subscribeOn(Schedulers.io());
   }
 
   public LiveData<TransactionsDetailsModel> transactionsDetailsModel() {

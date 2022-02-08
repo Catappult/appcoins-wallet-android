@@ -1,22 +1,24 @@
 package com.asfoundation.wallet.restore.password
 
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
 import com.asfoundation.wallet.wallets.WalletModel
-import io.reactivex.Scheduler
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.disposables.CompositeDisposable
 
 class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView,
                                      private val data: RestoreWalletPasswordData,
+                                     private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                                      private val interactor: RestoreWalletPasswordInteractor,
                                      private val walletsEventSender: WalletsEventSender,
                                      private val currencyFormatUtils: CurrencyFormatUtils,
+                                     private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
                                      private val disposable: CompositeDisposable,
-                                     private val viewScheduler: Scheduler,
-                                     private val networkScheduler: Scheduler,
-                                     private val computationScheduler: Scheduler) {
+                                     private val rxSchedulers: RxSchedulers) {
 
   fun present() {
     val keystore = data.keystore
@@ -26,16 +28,17 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
 
   private fun populateUi(keystore: String) {
     disposable.add(interactor.extractWalletAddress(keystore)
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
         .flatMapObservable { address ->
-          interactor.getOverallBalance(address)
-              .observeOn(viewScheduler)
-              .doOnNext { fiatValue ->
-                view.updateUi(address, currencyFormatUtils.formatCurrency(fiatValue.amount),
-                    fiatValue.symbol)
+          observeWalletInfoUseCase(address, update = true, updateFiat = true)
+              .observeOn(rxSchedulers.main)
+              .doOnNext { walletInfo ->
+                val overallFiat = walletInfo.walletBalance.overallFiat
+                view.updateUi(address, currencyFormatUtils.formatCurrency(overallFiat.amount),
+                    overallFiat.symbol)
               }
         }
-        .observeOn(viewScheduler)
+        .observeOn(rxSchedulers.main)
         .subscribe({}, {
           it.printStackTrace()
           view.showError(RestoreErrorType.GENERIC)
@@ -56,9 +59,9 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
           walletsEventSender.sendWalletPasswordRestoreEvent(WalletsAnalytics.ACTION_IMPORT,
               WalletsAnalytics.STATUS_FAIL, it.message)
         }
-        .observeOn(computationScheduler)
+        .observeOn(rxSchedulers.computation)
         .flatMapSingle { interactor.restoreWallet(keystore, it) }
-        .observeOn(viewScheduler)
+        .observeOn(rxSchedulers.main)
         .doOnNext { handleWalletModel(it) }
         .doOnError {
           walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
@@ -73,7 +76,10 @@ class RestoreWalletPasswordPresenter(private val view: RestoreWalletPasswordView
 
   private fun setDefaultWallet(address: String) {
     disposable.add(interactor.setDefaultWallet(address)
-        .doOnComplete { view.showWalletRestoredAnimation() }
+        .doOnComplete {
+          setOnboardingCompletedUseCase()
+          view.showWalletRestoredAnimation()
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 

@@ -13,7 +13,7 @@ android {
   ndkVersion "21.3.6528147"
   defaultConfig {
 
-    def inputFile = new File("appcoins-services.json")
+    def inputFile = new File("$rootDir/appcoins-services.json")
     def json = new JsonSlurper().parseText(inputFile.text)
     buildConfigField 'String', 'DEFAULT_OEM_ADDRESS', "\"" + json.oems.default_address + "\""
     buildConfigField 'String', 'DEFAULT_STORE_ADDRESS', "\"" + json.stores.default_address + "\""
@@ -21,8 +21,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 30
-    versionCode 204
-    versionName "2.2.0.0"
+    versionCode 213
+    versionName "2.3.2.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -60,7 +60,6 @@ android {
     buildConfigField 'String', 'RAKAM_API_KEY', project.RAKAM_API_KEY
     buildConfigField "String", "APTOIDE_WEB_SERVICES_AB_TEST_HOST",
         project.APTOIDE_WEB_SERVICES_AB_TEST_HOST
-    resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
     buildConfigField 'String', 'INFURA_API_KEY_MAIN', project.INFURA_API_KEY_MAIN
     buildConfigField 'String', 'INFURA_API_KEY_ROPSTEN', project.INFURA_API_KEY_ROPSTEN
     buildConfigField 'String', 'INFURA_API_KEY_RINKEBY', project.INFURA_API_KEY_RINKEBY
@@ -70,7 +69,8 @@ android {
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
     buildConfigField 'String', 'VIP_PROGRAM_BADGE_URL', project.VIP_PROGRAM_BADGE_URL
     buildConfigField 'String', 'APPSFLYER_KEY', project.APPSFLYER_KEY
-    manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
+    buildConfigField 'String', 'TERMS_CONDITIONS_URL', project.TERMS_CONDITIONS_URL
+    buildConfigField 'String', 'PRIVACY_POLICY_URL', project.PRIVACY_POLICY_URL
   }
 
   signingConfigs {
@@ -190,6 +190,7 @@ dependencies {
   implementation "androidx.room:room-runtime:$project.room_version"
   implementation "androidx.room:room-rxjava2:$project.room_version"
   kapt "androidx.room:room-compiler:$project.room_version"
+  implementation "androidx.browser:browser:$project.androidx_browser_version"
 
   implementation "android.arch.lifecycle:runtime:$project.lifecycle_version"
   implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
@@ -242,8 +243,6 @@ dependencies {
 
   implementation "com.flurry.android:analytics:$project.flurry_version"
 
-  implementation "com.facebook.android:facebook-android-sdk:$project.facebook_sdk_version"
-
   implementation "io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_version"
   debugImplementation "io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_dev_version"
 
@@ -270,9 +269,6 @@ dependencies {
   kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
 
   implementation "com.appsflyer:af-android-sdk:6.3.2"
-
-  //Amplitude
-  implementation "com.amplitude:android-sdk:$project.amplitude_version"
 
   implementation "androidx.biometric:biometric:$project.biometrics_version"
 

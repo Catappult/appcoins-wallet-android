@@ -54,18 +54,10 @@
     </receiver>
 
     <receiver
-        android:name="com.asfoundation.wallet.wallet_validation.dialog.WalletValidationBroadcastReceiver"
-        android:enabled="true"
-        android:exported="false" />
-
-    <receiver
         android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
         android:enabled="true"
         android:exported="false" />
 
-    <meta-data
-        android:name="com.facebook.sdk.ApplicationId"
-        android:value="@string/facebook_app_id" />
 
     <activity
         android:name="com.asfoundation.wallet.ui.splash.SplashActivity"
@@ -77,7 +69,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name="com.asfoundation.wallet.ui.onboarding.OnboardingActivity"
+        android:name="com.asfoundation.wallet.onboarding.OnboardingActivity"
         android:label="" />
     <activity
         android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
@@ -203,27 +195,6 @@
             android:scheme="adyencheckout" />
       </intent-filter>
     </activity>
-    <activity
-        android:name="com.asfoundation.wallet.wallet_validation.dialog.WalletValidationDialogActivity"
-        android:launchMode="singleInstance"
-        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-
-        <category android:name="android.intent.category.DEFAULT" />
-
-        <data
-            android:host="wallet"
-            android:path="/validation/1"
-            android:scheme="appcoins" />
-      </intent-filter>
-    </activity>
-    <activity
-        android:name="com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity"
-        android:label="" />
-    <activity
-        android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
-        android:label="@string/promotions_title" />
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
         android:label="@string/subscriptions_title"/>

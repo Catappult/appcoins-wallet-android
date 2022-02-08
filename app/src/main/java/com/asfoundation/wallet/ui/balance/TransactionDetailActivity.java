@@ -1,11 +1,15 @@
 package com.asfoundation.wallet.ui.balance;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
@@ -137,6 +141,7 @@ public class TransactionDetailActivity extends BaseActivity {
     String id = null;
     String description = null;
     String to = null;
+    String from = null;
     TransactionDetails details = transaction.getDetails();
 
     if (details != null) {
@@ -195,6 +200,7 @@ public class TransactionDetailActivity extends BaseActivity {
         if (isRevertedTransaction) {
           revertedDescription = R.string.transaction_type_reverted_purchase_title;
         }
+        from = transaction.getFrom() ;
         break;
       case BONUS_REVERT:
         typeStr = R.string.transaction_type_bonus;
@@ -246,6 +252,30 @@ public class TransactionDetailActivity extends BaseActivity {
           revertedDescription = R.string.transaction_type_reverted_topup_title;
         }
         break;
+      case TRANSFER:
+        typeStr = R.string.transaction_type_p2p;
+        id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
+        typeIcon = R.drawable.transaction_type_transfer_off_chain;
+        categoryBackground.setBackground(null);
+        to = transaction.getTo();
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        manageSubscriptions.setVisibility(View.GONE);
+        if (transaction.getMethod() == Transaction.Method.APPC) {
+          symbol = getString(R.string.p2p_send_currency_appc);
+        } else if (transaction.getMethod() == Transaction.Method.ETH) {
+
+          Operation operation = new Operation(transaction.getTransactionId(), transaction.getFrom(),
+              transaction.getTo(), "0");
+          button.setOnClickListener(
+              view -> viewModel.showMoreDetails(view.getContext(), operation));
+          symbol = getString(R.string.p2p_send_currency_eth);
+        } else {
+          symbol = getString(R.string.p2p_send_currency_appc_c);
+        }
+        from = transaction.getFrom() ;
+        break;
       case TRANSFER_OFF_CHAIN:
         typeStr = R.string.transaction_type_p2p;
         id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
@@ -257,6 +287,7 @@ public class TransactionDetailActivity extends BaseActivity {
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
+        from = transaction.getFrom() ;
         break;
       case SUBS_OFFCHAIN:
         typeStr = R.string.subscriptions_category_title;
@@ -280,7 +311,7 @@ public class TransactionDetailActivity extends BaseActivity {
         categoryBackground.setBackground(null);
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
-                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         to = transaction.getTo();
         break;
       case ESKILLS:
@@ -289,8 +320,13 @@ public class TransactionDetailActivity extends BaseActivity {
         typeStr = R.string.transaction_type_eskills;
         typeIcon = R.drawable.ic_transaction_iab;
         button.setOnClickListener(
-                view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         manageSubscriptions.setVisibility(View.GONE);
+        break;
+      case IAP: // (on-chain)
+        symbol = "APPC" ;
+//        to = transaction.getTo() ;
+        from = transaction.getFrom() ;
         break;
     }
 
@@ -318,8 +354,9 @@ public class TransactionDetailActivity extends BaseActivity {
         transaction.getPaidCurrency(), transactionsDetailsModel.getFiatValue()
             .getAmount()
             .toString(), localFiatCurrency, icon, id, description, typeStr, typeIcon, statusStr,
-        statusColor, to, isSent, isRevertTransaction, isRevertedTransaction, revertedDescription,
-        descriptionColor, transactionsDetailsModel.getWallet().address);
+        statusColor, transaction.getOrderReference(), to, from, isSent, isRevertTransaction,
+        isRevertedTransaction, revertedDescription, descriptionColor,
+        transactionsDetailsModel.getWallet().address);
   }
 
   private String getScaledValue(String valueStr, long decimals, String currencySymbol,
@@ -356,9 +393,10 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private void setUiContent(long timeStamp, String value, String symbol, String paidAmount,
       String paidCurrency, String localFiatAmount, String localFiatCurrency, String icon, String id,
-      String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to,
-      boolean isSent, boolean isRevertTransaction, boolean isRevertedTransaction,
-      int revertedDescription, int descriptionColor, String walletAddress) {
+      String description, int typeStr, int typeIcon, int statusStr, int statusColor,
+      String orderReference, String to, String from, boolean isSent, boolean isRevertTransaction,
+      boolean isRevertedTransaction, int revertedDescription, int descriptionColor,
+      String walletAddress) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDateAndTime(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
@@ -405,14 +443,32 @@ public class TransactionDetailActivity extends BaseActivity {
     ((TextView) findViewById(R.id.status)).setText(statusStr);
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
 
+    if (orderReference != null) {
+      findViewById(R.id.order_reference_label).setVisibility(View.VISIBLE);
+      findViewById(R.id.order_reference_name).setVisibility(View.VISIBLE);
+      findViewById(R.id.order_reference_copy_icon).setVisibility(View.VISIBLE);
+      ((TextView) findViewById(R.id.order_reference_name)).setText(orderReference);
+      findViewById(R.id.order_reference_name).setOnClickListener(
+          v -> copyToClipboard(orderReference));
+      findViewById(R.id.order_reference_copy_icon).setOnClickListener(
+          v -> copyToClipboard(orderReference));
+    }
+
     if (to != null) {
-      ((TextView) findViewById(R.id.to)).setText(
-          isSent ? getString(R.string.label_to) : getString(R.string.label_from));
-      findViewById(R.id.to_label).setVisibility(View.VISIBLE);
-      ((TextView) findViewById(R.id.to)).setText(to);
-      findViewById(R.id.to).setVisibility(View.VISIBLE);
       detailsList.setVisibility(View.GONE);
       findViewById(R.id.details_label).setVisibility(View.GONE);
+    }
+
+    if (to != null && !to.isEmpty()) {
+      ((TextView) findViewById(R.id.to)).setText(to);
+      findViewById(R.id.to).setVisibility(View.VISIBLE);
+      findViewById(R.id.to_label).setVisibility(View.VISIBLE);
+    }
+
+    if (from != null && !from.isEmpty()) {
+      ((TextView) findViewById(R.id.from)).setText(from);
+      findViewById(R.id.from).setVisibility(View.VISIBLE);
+      findViewById(R.id.from_label).setVisibility(View.VISIBLE);
     }
 
     if (isRevertTransaction || isRevertedTransaction) {
@@ -433,6 +489,14 @@ public class TransactionDetailActivity extends BaseActivity {
         setupRevertedUi(link, isRevertTransaction, isRevertedTransaction, walletAddress);
       }
     }
+  }
+
+  private void copyToClipboard(String text) {
+    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+    ClipData clip = ClipData.newPlainText("order_id", text);
+    clipboard.setPrimaryClip(clip);
+    Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT)
+        .show();
   }
 
   private void setupRevertedUi(Transaction linkTransaction, boolean isRevertTransaction,

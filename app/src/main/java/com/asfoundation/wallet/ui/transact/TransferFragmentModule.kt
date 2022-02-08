@@ -5,7 +5,7 @@ import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
-import com.asfoundation.wallet.wallets.GetDefaultWalletBalanceInteract
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,13 +17,14 @@ class TransferFragmentModule {
 
   @Provides
   fun providesTransferFragmentPresenter(transferFragment: TransferFragment,
+                                        getWalletInfoUseCase: GetWalletInfoUseCase,
                                         interactor: TransferInteractor,
                                         data: TransferFragmentData,
                                         navigator: TransferFragmentNavigator,
                                         currencyFormatUtils: CurrencyFormatUtils): TransferFragmentPresenter {
     return TransferFragmentPresenter(transferFragment as TransferFragmentView,
-        CompositeDisposable(), CompositeDisposable(), interactor, navigator, Schedulers.io(),
-        AndroidSchedulers.mainThread(), data, currencyFormatUtils)
+        CompositeDisposable(), CompositeDisposable(), getWalletInfoUseCase, interactor, navigator,
+        Schedulers.io(), AndroidSchedulers.mainThread(), data, currencyFormatUtils)
   }
 
   @Provides
@@ -33,10 +34,11 @@ class TransferFragmentModule {
 
   @Provides
   fun providesTransferInteractor(rewardsManager: RewardsManager,
-                                 balance: GetDefaultWalletBalanceInteract,
+                                 getWalletInfoUseCase: GetWalletInfoUseCase,
                                  findWallet: FindDefaultWalletInteract,
                                  walletBlockedInteract: WalletBlockedInteract) =
-      TransferInteractor(rewardsManager, TransactionDataValidator(), balance, findWallet,
+      TransferInteractor(rewardsManager, TransactionDataValidator(), getWalletInfoUseCase,
+          findWallet,
           walletBlockedInteract)
 
   @Provides

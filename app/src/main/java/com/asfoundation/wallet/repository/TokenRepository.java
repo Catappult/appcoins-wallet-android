@@ -1,13 +1,9 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.entity.Token;
-import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
@@ -19,16 +15,7 @@ import org.web3j.abi.datatypes.generated.Bytes2;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.utils.Numeric;
 
-public class TokenRepository implements TokenRepositoryType {
-
-  private final DefaultTokenProvider defaultTokenProvider;
-  private final WalletRepositoryType walletRepositoryType;
-
-  public TokenRepository(DefaultTokenProvider defaultTokenProvider,
-      WalletRepositoryType walletRepositoryType) {
-    this.defaultTokenProvider = defaultTokenProvider;
-    this.walletRepositoryType = walletRepositoryType;
-  }
+public class TokenRepository {
 
   public static byte[] createTokenTransferData(String to, BigDecimal tokenAmount) {
     List<Type> params = Arrays.asList(new Address(to), new Uint256(tokenAmount.toBigInteger()));
@@ -65,11 +52,5 @@ public class TokenRepository implements TokenRepositoryType {
     Function function = new Function("buy", params, returnTypes);
     String encodedFunction = FunctionEncoder.encode(function);
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
-  }
-
-  @NotNull @Override public Single<Token> getAppcBalance(@NotNull String address) {
-    return defaultTokenProvider.getDefaultToken()
-        .flatMap(tokenInfo -> walletRepositoryType.getAppcBalanceInWei(address)
-            .map(appcBalance -> new Token(tokenInfo, appcBalance)));
   }
 }
