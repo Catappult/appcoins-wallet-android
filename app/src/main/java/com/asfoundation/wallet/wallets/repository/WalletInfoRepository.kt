@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallets.repository
 
+import com.asfoundation.wallet.analytics.SentryEventLogger
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
@@ -17,6 +18,7 @@ class WalletInfoRepository(
     private val api: WalletInfoApi,
     private val walletInfoDao: WalletInfoDao,
     private val balanceRepository: BalanceRepository,
+    private val sentryEventLogger: SentryEventLogger,
     private val rxSchedulers: RxSchedulers
 ) {
 
@@ -80,6 +82,7 @@ class WalletInfoRepository(
                               updateFiatValues: Boolean): Single<WalletInfoEntity> {
     return api.getWalletInfo(walletAddress)
         .flatMap { walletInfoResponse ->
+          sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
           if (updateFiatValues) {
             return@flatMap balanceRepository.getWalletBalance(
                 walletInfoResponse.appcCreditsBalanceWei, walletInfoResponse.appcBalanceWei,

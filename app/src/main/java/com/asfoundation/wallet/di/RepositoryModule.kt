@@ -24,6 +24,7 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.abtesting.*
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.analytics.SentryEventLogger
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.InstallerService
@@ -477,6 +478,7 @@ class RepositoryModule {
   fun providesWalletInfoRepository(@Named("default") client: OkHttpClient,
                                    walletInfoDao: WalletInfoDao,
                                    balanceRepository: BalanceRepository,
+                                   sentryEventLogger: SentryEventLogger,
                                    rxSchedulers: RxSchedulers): WalletInfoRepository {
     val api = Retrofit.Builder()
         .baseUrl(BuildConfig.BACKEND_HOST)
@@ -485,7 +487,7 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(WalletInfoRepository.WalletInfoApi::class.java)
-    return WalletInfoRepository(api, walletInfoDao, balanceRepository, rxSchedulers)
+    return WalletInfoRepository(api, walletInfoDao, balanceRepository, sentryEventLogger, rxSchedulers)
   }
 
   @Singleton

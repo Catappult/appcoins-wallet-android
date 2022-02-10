@@ -133,19 +133,25 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
+  fun provideSentryEventLogger(): SentryEventLogger =
+    SentryEventLogger()
+
+  @Singleton
+  @Provides
   fun provideAnalyticsManager(
     @Named("default") okHttpClient: OkHttpClient, api: AnalyticsAPI,
     @Named("bi_event_list") biEventList: List<String>,
     @Named("rakam_event_list") rakamEventList: List<String>,
     @Named("indicative_event_list") indicativeEventList: List<String>,
     @Named("indicative_event_list") sentryEventList: List<String>,
+    sentryEventLogger: SentryEventLogger,
     indicativeAnalytics: IndicativeAnalytics
   ): AnalyticsManager {
     return AnalyticsManager.Builder()
       .addLogger(BackendEventLogger(api), biEventList)
       .addLogger(IndicativeEventLogger(indicativeAnalytics), indicativeEventList)
       .addLogger(RakamEventLogger(), rakamEventList)
-      .addLogger(SentryEventLogger(), sentryEventList)
+      .addLogger(sentryEventLogger, sentryEventList)
       .setAnalyticsNormalizer(KeysNormalizer())
       .setDebugLogger(LogcatAnalyticsLogger())
       .setKnockLogger(HttpClientKnockLogger(okHttpClient))
