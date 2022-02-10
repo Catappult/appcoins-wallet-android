@@ -21,7 +21,6 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.Parameters.Companion.ESKILLS
 import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -157,8 +156,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     presenter.present(savedInstanceState)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+      inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.payment_methods_layout, container, false)
   }
 
@@ -173,10 +174,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     super.onDestroyView()
   }
 
-  override fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, currency: String,
-                                  paymentMethodId: String, fiatAmount: String, appcAmount: String,
-                                  appcEnabled: Boolean, creditsEnabled: Boolean, frequency: String?,
-                                  isSubscription: Boolean) {
+  override fun showPaymentMethods(
+      paymentMethods: MutableList<PaymentMethod>, currency: String,
+      paymentMethodId: String, fiatAmount: String, appcAmount: String,
+      appcEnabled: Boolean, creditsEnabled: Boolean,
+      frequency: String?, isSubscription: Boolean
+  ) {
     updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
     setupPaymentMethods(paymentMethods, paymentMethodId)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
@@ -191,8 +194,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     super.onResume()
   }
 
-  private fun setupPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
-                                  paymentMethodId: String) {
+  private fun setupPaymentMethods(
+      paymentMethods: MutableList<PaymentMethod>,
+      paymentMethodId: String
+  ) {
     if (paymentMethods.size == 1 && paymentMethods[0].showTopup) {
       buy_button.tag = !paymentMethods[0].showTopup
     } else {
@@ -211,8 +216,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     }
   }
 
-  private fun updateHeaderInfo(currency: String, fiatAmount: String, appcAmount: String,
-                               frequency: String?, isSubscription: Boolean) {
+  private fun updateHeaderInfo(
+      currency: String, fiatAmount: String, appcAmount: String,
+      frequency: String?, isSubscription: Boolean
+  ) {
     var appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription) {
@@ -235,10 +242,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         ?.let { getString(it.stringId) } ?: paymentMethod.label
   }
 
-  override fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, currency: String,
-                                            fiatAmount: String, appcAmount: String,
-                                            isBonusActive: Boolean, frequency: String?,
-                                            isSubscription: Boolean) {
+  override fun showPreSelectedPaymentMethod(
+      paymentMethod: PaymentMethod, currency: String,
+      fiatAmount: String, appcAmount: String,
+      isBonusActive: Boolean, frequency: String?,
+      isSubscription: Boolean
+  ) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
     updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
 
@@ -247,8 +256,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     setupSubject!!.onNext(true)
   }
 
-  private fun setupPaymentMethod(paymentMethod: PaymentMethod, isBonusActive: Boolean,
-                                 isSubscription: Boolean) {
+  private fun setupPaymentMethod(
+      paymentMethod: PaymentMethod,
+      isBonusActive: Boolean, isSubscription: Boolean
+  ) {
+
     if (paymentMethod.showTopup) {
       buy_button.tag = !paymentMethod.showTopup
     } else {
@@ -387,11 +399,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun updateProductName() {
-    if (transactionBuilder?.type == ESKILLS) {
-      app_sku_description.text = getString(R.string.purchase_eskills_sku)
-    } else {
-      app_sku_description.text = transactionBuilder?.productName
-    }
+    app_sku_description.text = transactionBuilder?.productName
   }
 
   override fun close(bundle: Bundle) {
@@ -498,9 +506,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     return RxView.clicks(more_payment_methods)
   }
 
-  override fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
-                                async: Boolean, fiatAmount: String, fiatCurrency: String,
-                                gamificationLevel: Int) {
+  override fun showLocalPayment(
+      selectedPaymentMethod: String, iconUrl: String, label: String,
+      async: Boolean, fiatAmount: String, fiatCurrency: String,
+      gamificationLevel: Int
+  ) {
     iabView.showLocalPayment(
         transactionBuilder!!.domain, transactionBuilder!!.skuId,
         fiatAmount, fiatCurrency, bonusMessageValue, selectedPaymentMethod,
@@ -539,9 +549,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     buy_button.setText(buyButtonText)
   }
 
-  override fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
-                                  transaction: TransactionBuilder, frequency: String?,
-                                  isSubscription: Boolean) {
+  override fun showMergedAppcoins(
+      gamificationLevel: Int, fiatValue: FiatValue,
+      transaction: TransactionBuilder, frequency: String?,
+      isSubscription: Boolean
+  ) {
     iabView.showMergedAppcoins(
         fiatValue.amount, fiatValue.currency, bonusMessageValue,
         isBds, isDonation, gamificationLevel, transaction, isSubscription, frequency

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.service.AccountKeystoreService
@@ -13,8 +12,7 @@ import javax.inject.Inject
 class WalletRepository @Inject constructor(
     private val preferencesRepositoryType: PreferencesRepositoryType,
     private val accountKeystoreService: AccountKeystoreService,
-    private val analyticsSetUp: AnalyticsSetup,
-    private val amplitudeAnalytics: AmplitudeAnalytics) : WalletRepositoryType {
+    private val analyticsSetUp: AnalyticsSetup) : WalletRepositoryType {
 
   override fun fetchWallets(): Single<Array<Wallet>> {
     return accountKeystoreService.fetchAccounts()
@@ -56,7 +54,6 @@ class WalletRepository @Inject constructor(
   override fun setDefaultWallet(address: String): Completable {
     return Completable.fromAction {
       analyticsSetUp.setUserId(address)
-      amplitudeAnalytics.setUserId(address)
       preferencesRepositoryType.setCurrentWalletAddress(address)
     }
   }

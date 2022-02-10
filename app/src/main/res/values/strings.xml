@@ -1049,7 +1049,7 @@
   <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
 
-  <!--  Withdraw Funds-->
+  <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
   <string name="e_skills_withdraw_email">PayPal e-mail address</string>
   <string name="e_skills_withdraw_amount">Amount (USD)</string>
@@ -1068,7 +1068,6 @@
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Maybe later</string>
 
-
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo Code</string>
   <string name="promo_code_view_title">Promo Code</string>
@@ -1076,6 +1075,7 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <string name="promo_code_activated">Promo code activated!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">REPLACE</string>
   <string name="promo_code_active_tag">Active</string>
   <string name="promo_code_expired_tag">Expired</string>

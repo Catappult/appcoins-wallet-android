@@ -1,18 +1,16 @@
 package com.asfoundation.wallet.di
 
-import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.ClipboardManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.preference.PreferenceManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.core.app.NotificationCompat
-import androidx.fragment.app.FragmentManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.LogReceiver
@@ -50,6 +48,7 @@ import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.reactivex.disposables.CompositeDisposable
@@ -66,6 +65,11 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideGson() = Gson()
+
+  @Provides
+  fun providesClipboardManager(@ApplicationContext context: Context): ClipboardManager {
+    return context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+  }
 
   @Singleton
   @Provides

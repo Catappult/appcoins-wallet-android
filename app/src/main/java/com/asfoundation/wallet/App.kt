@@ -13,11 +13,11 @@ import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
+import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -82,7 +82,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var rakamAnalytics: RakamAnalytics
 
   @Inject
-  lateinit var amplitudeAnalytics: AmplitudeAnalytics
+  lateinit var indicativeAnalytics: IndicativeAnalytics
 
   @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
@@ -113,7 +113,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
-    amplitudeAnalytics.start()
+    initializeIndicative()
     initializeRakam()
     initiateIntercom()
     initiateSentry()
@@ -130,6 +130,11 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
         })
         .subscribeOn(Schedulers.io())
         .subscribe()
+  }
+  private fun initializeIndicative() {
+    indicativeAnalytics.initialize()
+      .subscribeOn(Schedulers.io())
+      .subscribe()
   }
 
   private fun setupRxJava() {
@@ -171,7 +176,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   private fun initiateIntercom() {
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
-
     Intercom.client()
         .setInAppMessageVisibility(Intercom.Visibility.GONE)
   }

@@ -33,14 +33,15 @@ class SettingsPreferencePromoCodeState(context: Context?, attrs: AttributeSet?) 
 
   private fun setCurrencyTextView() {
     when {
-      promoCode?.code != null && promoCode?.expired == null -> {
-        promoCodeState?.text = context.getString(R.string.promo_code_active_tag)
-        promoCodeState?.setTextColor(
+      promoCode?.code != null -> {
+        if (promoCode?.expired == false){
+          promoCodeState?.text = context.getString(R.string.promo_code_active_tag)
+          promoCodeState?.setTextColor(
             ResourcesCompat.getColor(context.resources, R.color.gamification_green, null))
-      }
-      promoCode?.code != null && promoCode?.expired != null -> {
-        promoCodeState?.text = context.getString(R.string.promo_code_expired_tag)
-        promoCodeState?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.red, null))
+        } else {
+          promoCodeState?.text = context.getString(R.string.promo_code_expired_tag)
+          promoCodeState?.setTextColor(ResourcesCompat.getColor(context.resources, R.color.red, null))
+        }
       }
       else -> {
         promoCodeState?.text = null
@@ -48,6 +49,5 @@ class SettingsPreferencePromoCodeState(context: Context?, attrs: AttributeSet?) 
             ResourcesCompat.getColor(context.resources, R.color.black, null))
       }
     }
-
   }
 }

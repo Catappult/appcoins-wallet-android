@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/motion_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+      android:id="@+id/refresh_layout"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <com.asfoundation.wallet.home.ui.list.HomeRecyclerView
+        android:id="@+id/home_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_background_color"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        />
+
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+  <FrameLayout
+      android:id="@+id/empty_box"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/toolbar"
+      android:layout_width="0dp"
+      android:layout_height="56dp"
+      android:animateLayoutChanges="true"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/backgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/appbar_background_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.asfoundation.wallet.ui.common.AnimatedViewSwitcher
+        android:id="@+id/toolbar_view_switcher"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/action_button_vip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+      <ImageView
+          android:id="@+id/toolbar_layout_logo"
+          android:layout_width="67dp"
+          android:layout_height="24dp"
+          android:layout_margin="16dp"
+          android:src="@drawable/ic_app_logo"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <FrameLayout
+          android:layout_width="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_height="wrap_content"
+          >
+
+        <TextView
+            android:id="@+id/balance"
+            style="@style/ToolbarTextAppearance.Title"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/balance_skeleton"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:layout_gravity="center_vertical"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/balance_skeleton"
+            />
+      </FrameLayout>
+
+    </com.asfoundation.wallet.ui.common.AnimatedViewSwitcher>
+
+    <include
+        android:id="@+id/action_button_vip"
+        layout="@layout/layout_vip_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/action_button_support"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        />
+
+    <FrameLayout
+        android:id="@+id/action_button_support"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="42dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toStartOf="@id/action_button_settings"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        >
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/intercom_animation"
+          android:layout_width="26dp"
+          android:layout_height="26dp"
+          android:layout_gravity="center"
+          app:layout_constraintBottom_toBottomOf="@id/toolbar"
+          app:layout_constraintEnd_toStartOf="@id/action_button_settings"
+          app:layout_constraintTop_toTopOf="@id/toolbar"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_rawRes="@raw/intercom_unread_animation"
+          app:lottie_repeatCount="2"
+          />
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/action_button_settings"
+        style="@style/Widget.AppCompat.ActionButton"
+        android:layout_width="42dp"
+        android:layout_marginEnd="5dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_settings_white_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <FrameLayout
+      android:id="@+id/faded_background"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@color/faded_background_color"
+      android:clickable="true"
+      android:elevation="8dp"
+      android:focusable="true"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

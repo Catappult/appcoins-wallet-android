@@ -1,15 +1,8 @@
 package com.asfoundation.wallet.di.api
 
-import android.content.SharedPreferences
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
-import cm.aptoide.skills.repository.SharedPreferencesTicketLocalStorage
-import cm.aptoide.skills.repository.TicketApiMapper
-import cm.aptoide.skills.repository.TicketRepository
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
-import com.asfoundation.wallet.skills.SkillsModule
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

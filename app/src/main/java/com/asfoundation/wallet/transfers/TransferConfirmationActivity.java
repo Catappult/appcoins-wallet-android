@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.transfers;
 
+import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
+import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
+import static com.asfoundation.wallet.C.GWEI_UNIT;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -24,17 +26,10 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
-import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
 import dagger.hilt.android.AndroidEntryPoint;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.inject.Inject;
-
-import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
-import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
-import static com.asfoundation.wallet.C.GWEI_UNIT;
 
 @AndroidEntryPoint public class TransferConfirmationActivity extends BaseActivity {
   private static final String TAG = TransferConfirmationActivity.class.getSimpleName();
@@ -110,13 +105,8 @@ import static com.asfoundation.wallet.C.GWEI_UNIT;
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
     valueText.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
-    BigDecimal gasLimitMin = BigDecimal.valueOf(C.GAS_LIMIT_MIN);
-    BigDecimal gasLimitMax = BigDecimal.valueOf(C.GAS_LIMIT_MAX);
-    BigDecimal gasPriceMin = BigDecimal.valueOf(C.GAS_PRICE_MIN);
-    BigInteger networkFeeMax = BigInteger.valueOf(C.NETWORK_FEE_MAX);
     final GasSettings gasSettings =
-        viewModel.handleSavedGasSettings(transactionBuilder.gasSettings().gasPrice, gasLimitMin,
-            networkFeeMax, gasPriceMin, gasLimitMax, transactionBuilder.gasSettings().gasLimit);
+        viewModel.handleSavedGasSettings(transactionBuilder.gasSettings().gasPrice, transactionBuilder.gasSettings().gasLimit);
 
     String formattedGasPrice = getString(R.string.gas_price_value,
         currencyFormatUtils.formatTransferCurrency(gasSettings.gasPrice, WalletCurrency.ETHEREUM),

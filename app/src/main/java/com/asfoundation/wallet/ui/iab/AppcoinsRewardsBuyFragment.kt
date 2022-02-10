@@ -63,8 +63,8 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter = AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable(), amount, uri, transactionBuilder.domain,
-        transferParser, isBds, analytics, transactionBuilder, formatter, gamificationLevel,
+        Schedulers.io(), CompositeDisposable(), transactionBuilder.domain,
+        isBds, analytics, transactionBuilder, formatter, gamificationLevel,
         appcoinsRewardsBuyInteract, logger)
     setupTransactionCompleteAnimation()
     presenter.present()

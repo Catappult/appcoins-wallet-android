@@ -5,6 +5,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.ProcessingStatus
 import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.model.WalletAddress
 import cm.aptoide.skills.repository.EmptyStoredTicket
 import cm.aptoide.skills.repository.StoredTicket
 import cm.aptoide.skills.repository.StoredTicketInQueue
@@ -21,7 +22,7 @@ class JoinQueueUseCase @Inject constructor(
     private val ticketRepository: TicketRepository,
 ) {
 
-  fun joinQueue(eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
+  operator fun invoke(eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
     return walletAddressObtainer.getWalletAddress()
         .subscribeOn(Schedulers.io())
         .flatMap { walletAddress ->
@@ -46,7 +47,7 @@ class JoinQueueUseCase @Inject constructor(
       storedTicket: StoredTicket,
       eskillsPaymentData: EskillsPaymentData,
       ewt: String,
-      walletAddress: String): Single<Ticket> {
+      walletAddress: WalletAddress): Single<Ticket> {
     return when (storedTicket) {
       EmptyStoredTicket -> ticketRepository.createTicket(
           eskillsPaymentData, ewt, walletAddress
@@ -61,9 +62,9 @@ class JoinQueueUseCase @Inject constructor(
       ewt: String,
       ticketInQueue: StoredTicketInQueue,
       eskillsPaymentData: EskillsPaymentData,
-      walletAddress: String
+      walletAddress: WalletAddress,
   ): Single<Ticket> {
-    return ticketRepository.getTicket(ewt, ticketInQueue.ticketId)
+    return ticketRepository.getTicket(ewt, ticketInQueue.ticketId, eskillsPaymentData.queueId)
         .flatMap {
           if (it is CreatedTicket && it.processingStatus == ProcessingStatus.IN_QUEUE) {
             Single.just(it)

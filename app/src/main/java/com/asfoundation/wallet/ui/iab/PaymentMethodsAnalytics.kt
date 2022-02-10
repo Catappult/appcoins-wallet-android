@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import cm.aptoide.analytics.AnalyticsManager
-import com.asfoundation.wallet.analytics.AmplitudeAnalytics
+import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import javax.inject.Inject
@@ -9,7 +9,8 @@ import javax.inject.Inject
 class PaymentMethodsAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager,
                               private val billingAnalytics: BillingAnalytics,
                               private val rakamAnalytics: RakamAnalytics,
-                              private val amplitudeAnalytics: AmplitudeAnalytics) {
+                              private val indicativeAnalytics: IndicativeAnalytics
+) {
 
   companion object {
     private const val WALLET = "WALLET"
@@ -28,7 +29,7 @@ class PaymentMethodsAnalytics @Inject constructor(private val analyticsManager: 
 
   fun setGamificationLevel(cachedGamificationLevel: Int) {
     rakamAnalytics.setGamificationLevel(cachedGamificationLevel)
-    amplitudeAnalytics.setGamificationLevel(cachedGamificationLevel)
+    indicativeAnalytics.setGamificationLevel(cachedGamificationLevel)
   }
 
   fun sendPurchaseDetailsEvent(appPackage: String, skuId: String?, amount: String,
