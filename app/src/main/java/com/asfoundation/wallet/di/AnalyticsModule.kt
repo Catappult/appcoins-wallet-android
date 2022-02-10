@@ -122,6 +122,12 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
+  fun provideUxCamSetup(context: Context): UxCamUtils {
+    return UxCamUtils(context)
+  }
+
+  @Singleton
+  @Provides
   fun provideLaunchAnalytics(analyticsManager: AnalyticsManager) = LaunchAnalytics(analyticsManager)
 
   @Singleton

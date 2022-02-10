@@ -18,6 +18,7 @@ import com.asfoundation.wallet.di.DaggerAppComponent
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.analytics.UxCamUtils
 import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -95,6 +96,9 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   @Inject
   lateinit var billingSerializer: ExternalBillingSerializer
 
+  @Inject
+  lateinit var uxCamUtils: UxCamUtils
+
   companion object {
     private val TAG = App::class.java.name
   }
@@ -116,6 +120,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     initializeRakam()
     initiateIntercom()
     initiateSentry()
+    initiateUxCam()
     initializeWalletId()
   }
 
@@ -129,6 +134,10 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         })
         .subscribeOn(Schedulers.io())
         .subscribe()
+  }
+
+  private fun initiateUxCam() {
+    uxCamUtils.initialize()
   }
 
   private fun setupRxJava() {

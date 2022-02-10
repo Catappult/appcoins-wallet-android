@@ -25,6 +25,7 @@ allprojects {
     google()
     mavenCentral()
     maven { url 'https://jitpack.io' }
+    maven { url 'https://sdk.uxcam.com/android/'}
     maven { url "https://dl.bintray.com/asf/asf" }
     maven { url "https://dl.bintray.com/aptoide/Aptoide" }
     maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots" }
@@ -87,6 +88,7 @@ project.ext {
   shimmer_version = '0.5.0'
   spongycastle_version = '1.58.0.0@jar'
   test_ext_version = '1.1.1'
+  uxcam_version = '3.3.7@aar'
   vector_drawable_version = '1.0.1'
   viewpager_version = '1.0.0'
   web3j_version = "3.3.1-android"
