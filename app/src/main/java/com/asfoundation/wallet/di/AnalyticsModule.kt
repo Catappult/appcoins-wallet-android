@@ -218,6 +218,16 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
+  fun provideAnalyticsSetup(
+    rakamAnalytics: RakamAnalytics,
+    indicativeAnalytics: IndicativeAnalytics,
+    sentryAnalytics: SentryAnalytics
+  ): AnalyticsSetup {
+    return JoinedAnalytics(rakamAnalytics, indicativeAnalytics, sentryAnalytics)
+  }
+
+  @Singleton
+  @Provides
   fun provideLaunchAnalytics(analyticsManager: AnalyticsManager) = LaunchAnalytics(analyticsManager)
 
   @Singleton
@@ -232,14 +242,12 @@ class AnalyticsModule {
   fun providePaymentMethodsAnalytics(
     analyticsManager: AnalyticsManager,
     billingAnalytics: BillingAnalytics,
-    rakamAnalytics: RakamAnalytics,
-    indicativeAnalytics: IndicativeAnalytics
+    analyticsSetup: AnalyticsSetup
   ): PaymentMethodsAnalytics {
     return PaymentMethodsAnalytics(
       analyticsManager,
       billingAnalytics,
-      rakamAnalytics,
-      indicativeAnalytics
+      analyticsSetup
     )
   }
 
