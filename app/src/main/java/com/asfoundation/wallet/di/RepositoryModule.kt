@@ -23,6 +23,7 @@ import com.appcoins.wallet.gamification.repository.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.App
 import com.asfoundation.wallet.abtesting.*
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.analytics.SentryEventLogger
 import com.asfoundation.wallet.base.RxSchedulers
@@ -279,8 +280,8 @@ class RepositoryModule {
   @Provides
   fun provideWalletRepository(preferencesRepositoryType: PreferencesRepositoryType,
                               accountKeystoreService: AccountKeystoreService,
-                              analyticsSetup: RakamAnalytics): WalletRepositoryType {
-    return WalletRepository(preferencesRepositoryType, accountKeystoreService, Schedulers.io(),
+                              analyticsSetup: AnalyticsSetup): WalletRepositoryType {
+    return WalletRepository(preferencesRepositoryType, accountKeystoreService,
         analyticsSetup)
   }
 

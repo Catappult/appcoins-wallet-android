@@ -20,7 +20,6 @@ import io.sentry.event.Breadcrumb
 import io.sentry.event.BreadcrumbBuilder
 import io.sentry.event.User
 
-
 class SentryAnalytics(
   private val context: Context, private val idsRepository: IdsRepository,
   private val promotionsRepository: PromotionsRepository,
