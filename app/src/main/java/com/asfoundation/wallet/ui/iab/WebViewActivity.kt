@@ -11,10 +11,11 @@ import android.os.Bundle
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.UxCamUtils
 import com.asfoundation.wallet.util.Log
 import dagger.android.AndroidInjection
 
-class WebViewActivity : AppCompatActivity() {
+class WebViewActivity () : AppCompatActivity() {
 
   override fun getAssets(): AssetManager {
     //Workaround for crash when inflating the webView
@@ -32,7 +33,7 @@ class WebViewActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.web_view_activity)
     lockCurrentPosition()
-
+    UxCamUtils.hideScreen(true)
     if (savedInstanceState == null) {
       val url = intent.getStringExtra(URL)
       billingWebViewFragment = BillingWebViewFragment.newInstance(url)
@@ -40,6 +41,11 @@ class WebViewActivity : AppCompatActivity() {
           .add(R.id.container, billingWebViewFragment)
           .commit()
     }
+  }
+
+  override fun onStop() {
+    super.onStop()
+    UxCamUtils.hideScreen(false)
   }
 
   override fun onBackPressed() {
