@@ -124,14 +124,14 @@ class RakamAnalytics(private val context: Context, private val idsRepository: Id
                                       userId: String, hasGms: Boolean, walletOrigin: WalletOrigin) {
     val superProperties = instance.superProperties ?: JSONObject()
     try {
-      superProperties.put(RakamEventLogger.APTOIDE_PACKAGE,
+      superProperties.put(AnalyticsLabels.APTOIDE_PACKAGE,
           BuildConfig.APPLICATION_ID)
-      superProperties.put(RakamEventLogger.VERSION_CODE, BuildConfig.VERSION_CODE)
-      superProperties.put(RakamEventLogger.ENTRY_POINT,
+      superProperties.put(AnalyticsLabels.VERSION_CODE, BuildConfig.VERSION_CODE)
+      superProperties.put(AnalyticsLabels.ENTRY_POINT,
           if (installerPackage.isEmpty()) "other" else installerPackage)
-      superProperties.put(RakamEventLogger.USER_LEVEL, userLevel)
-      superProperties.put(RakamEventLogger.HAS_GMS, hasGms)
-      superProperties.put(RakamEventLogger.WALLET_ORIGIN, walletOrigin)
+      superProperties.put(AnalyticsLabels.USER_LEVEL, userLevel)
+      superProperties.put(AnalyticsLabels.HAS_GMS, hasGms)
+      superProperties.put(AnalyticsLabels.WALLET_ORIGIN, walletOrigin)
     } catch (e: JSONException) {
       e.printStackTrace()
     }
