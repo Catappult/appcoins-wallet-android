@@ -1,14 +1,13 @@
 package com.asfoundation.wallet.ui.iab
 
 import cm.aptoide.analytics.AnalyticsManager
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
-import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 
 class PaymentMethodsAnalytics(private val analyticsManager: AnalyticsManager,
                               private val billingAnalytics: BillingAnalytics,
-                              private val rakamAnalytics: RakamAnalytics,
-                              private val indicativeAnalytics: IndicativeAnalytics
+                              private val analyticsSetup: AnalyticsSetup
 ) {
 
   companion object {
@@ -27,8 +26,7 @@ class PaymentMethodsAnalytics(private val analyticsManager: AnalyticsManager,
   }
 
   fun setGamificationLevel(cachedGamificationLevel: Int) {
-    rakamAnalytics.setGamificationLevel(cachedGamificationLevel)
-    indicativeAnalytics.setGamificationLevel(cachedGamificationLevel)
+    analyticsSetup.setGamificationLevel(cachedGamificationLevel)
   }
 
   fun sendPurchaseDetailsEvent(appPackage: String, skuId: String?, amount: String,

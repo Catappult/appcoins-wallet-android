@@ -11,16 +11,16 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.analytics.SentryAnalytics
+import com.asfoundation.wallet.analytics.UxCamUtils
 import com.asfoundation.wallet.di.DaggerAppComponent
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
-import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.analytics.IndicativeAnalytics
-import com.asfoundation.wallet.analytics.UxCamUtils
-import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
@@ -29,7 +29,6 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.flurry.android.FlurryAgent
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.indicative.client.android.Indicative
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import io.intercom.android.sdk.Intercom
@@ -37,9 +36,6 @@ import io.reactivex.Completable
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
-import io.sentry.Sentry
-import io.sentry.android.AndroidSentryClientFactory
-import java.lang.Thread.sleep
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -86,6 +82,9 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   @Inject
   lateinit var indicativeAnalytics: IndicativeAnalytics
+
+  @Inject
+  lateinit var sentryAnalytics: SentryAnalytics
 
   @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
@@ -185,8 +184,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   }
 
   private fun initiateSentry() {
-    Sentry.init(BuildConfig.SENTRY_DSN_KEY, AndroidSentryClientFactory(this))
-    logger.addReceiver(SentryReceiver())
+    sentryAnalytics.initialize().subscribe()
   }
 
   private fun initiateIntercom() {
