@@ -149,7 +149,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   }
 
   private fun initiateUxCam() {
-    uxCamUtils.initialize()?.subscribeOn(Schedulers.io())?.subscribe()
+    uxCamUtils.initialize()?.subscribe()
   }
 
   private fun setupRxJava() {

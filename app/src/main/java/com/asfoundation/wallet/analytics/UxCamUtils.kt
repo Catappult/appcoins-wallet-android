@@ -7,6 +7,7 @@ import com.asfoundation.wallet.identification.IdsRepository
 import com.uxcam.UXCam
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 class UxCamUtils (private val context: Context, private val idsRepository: IdsRepository) {
 
@@ -25,7 +26,7 @@ class UxCamUtils (private val context: Context, private val idsRepository: IdsRe
   /** Time allowed to keep the same session when the user exits the app. For example, when checking
    * etherscan or navigating file explorer.
    */
-  private val timeBreak = 20000    //20s
+  private val timeBreak = 20_000    //20s
 
   fun initialize(): Completable? {
     //val countryCode: String = context.resources.configuration.locale.getCountry()   // to use system language instead of carrier
@@ -42,6 +43,8 @@ class UxCamUtils (private val context: Context, private val idsRepository: IdsRe
       UXCam.allowShortBreakForAnotherApp(timeBreak)
 
       return Single.just(idsRepository.getActiveWalletAddress())
+        .subscribeOn(Schedulers.io())
+        .observeOn(Schedulers.computation())
         .doOnSuccess { walletAddress ->
           UXCam.setUserIdentity(walletAddress)
         }
@@ -55,5 +58,4 @@ class UxCamUtils (private val context: Context, private val idsRepository: IdsRe
       UXCam.occludeSensitiveScreen(hide)
     }
   }
-
 }
