@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.promotions.ui
 
-import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
@@ -18,10 +18,10 @@ class PromotionsModuleNew {
 
   @Provides
   fun providesPromotionViewModelFactory(getPromotionsUseCase: GetPromotionsUseCase,
-                                        rakamAnalytics: RakamAnalytics,
+                                        analyticsSetup: AnalyticsSetup,
                                         setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
                                         setSeenWalletOriginUseCase: SetSeenWalletOriginUseCase): PromotionsViewModelFactory {
-    return PromotionsViewModelFactory(getPromotionsUseCase, rakamAnalytics,
+    return PromotionsViewModelFactory(getPromotionsUseCase, analyticsSetup,
         setSeenPromotionsUseCase, setSeenWalletOriginUseCase, Schedulers.io())
   }
 }

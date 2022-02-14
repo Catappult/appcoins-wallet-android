@@ -30,9 +30,9 @@ import com.asfoundation.wallet.abtesting.ABTestRepository
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper
 import com.asfoundation.wallet.advertise.CampaignInteract
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.analytics.LaunchAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
-import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.backup.BackupInteract
 import com.asfoundation.wallet.backup.BackupInteractContract
 import com.asfoundation.wallet.backup.FileInteractor
@@ -281,13 +281,13 @@ class InteractorModule {
       promotionsRepository: PromotionsRepository,
       findWalletUseCase: FindDefaultWalletUseCase,
       getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-      rakamAnalytics: RakamAnalytics,
+      analyticsSetup: AnalyticsSetup,
       userStatsLocalData: UserStatsLocalData,
       gamificationMapper: GamificationMapper,
   ): PromotionsInteractor {
     return PromotionsInteractor(referralInteractor, gamificationInteractor,
         promotionsRepository, findWalletUseCase, getCurrentPromoCodeUseCase, userStatsLocalData,
-        rakamAnalytics,
+        analyticsSetup,
         gamificationMapper)
   }
 

@@ -8,7 +8,6 @@ import io.reactivex.*
 
 class WalletRepository(private val preferencesRepositoryType: PreferencesRepositoryType,
                        private val accountKeystoreService: AccountKeystoreService,
-                       private val networkScheduler: Scheduler,
                        private val analyticsSetUp: AnalyticsSetup) : WalletRepositoryType {
 
   override fun fetchWallets(): Single<Array<Wallet>> {
