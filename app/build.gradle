@@ -99,6 +99,7 @@ android {
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
       buildConfigField 'String', 'SUBS_BASE_HOST', project.BASE_HOST_PROD
       buildConfigField 'String', 'INDICATIVE_API_KEY', project.INDICATIVE_API_KEY
+      buildConfigField 'String', 'UXCAM_API_KEY', project.UXCAM_API_KEY
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
     }
@@ -125,6 +126,7 @@ android {
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
       buildConfigField 'String', 'SUBS_BASE_HOST', project.SUBS_BASE_HOST_DEV
+      buildConfigField 'String', 'UXCAM_API_KEY', project.UXCAM_API_KEY_DEV
       buildConfigField 'String', 'INDICATIVE_API_KEY', project.INDICATIVE_API_KEY_DEV
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
@@ -276,6 +278,8 @@ dependencies {
 
   implementation "org.apache.commons:commons-lang3:$project.commons_lang3_version"
   implementation "com.android.support:support-annotations:$project.support_annotations"
+
+  implementation "com.uxcam:uxcam:$project.uxcam_version"
 
   implementation "com.indicative.client.android:Indicative-Android:$project.indicative_version"
 
