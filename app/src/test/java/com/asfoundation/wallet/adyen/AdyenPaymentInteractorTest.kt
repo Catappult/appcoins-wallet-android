@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.adyen
 
 import android.os.Bundle
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
+import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper

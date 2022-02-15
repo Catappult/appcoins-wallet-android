@@ -73,7 +73,10 @@ dependencies {
 
   implementation "com.airbnb.android:lottie:$project.lottie_version"
   implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
-  implementation "org.web3j:core:$project.web3j_version"
+  implementation ("org.web3j:core:$project.web3j_version"){
+    // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)
+    exclude group: 'org.bouncycastle', module: 'bcprov-jdk15to18'
+  }
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"

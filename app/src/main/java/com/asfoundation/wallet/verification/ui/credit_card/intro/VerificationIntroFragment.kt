@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
-import com.adyen.checkout.base.ui.view.RoundCornerImageView
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.components.ui.view.RoundCornerImageView
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
@@ -113,7 +113,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     adyenCardNumberLayout = adyen_card_form.findViewById(R.id.textInputLayout_cardNumber)
     adyenExpiryDateLayout = adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
     adyenSecurityCodeLayout = adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
-    adyenCardImageLayout = adyen_card_form.findViewById(R.id.cardBrandLogo_imageView)
+    adyenCardImageLayout = adyen_card_form.findViewById(R.id.cardBrandLogo_imageView_primary)
     adyenSaveDetailsSwitch = adyen_card_form.findViewById(R.id.switch_storePaymentMethod)
 
     adyenCardNumberLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
@@ -140,13 +140,10 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   }
 
   private fun setupCardConfiguration() {
-    val cardConfigurationBuilder =
-      CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-
-    cardConfiguration = cardConfigurationBuilder.let {
-      it.setEnvironment(adyenEnvironment)
-      it.build()
-    }
+    cardConfiguration = CardConfiguration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment)
+      .build()
   }
 
   @SuppressLint("StringFormatInvalid")

@@ -14,11 +14,13 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
-import com.adyen.checkout.base.model.payments.response.Action
-import com.adyen.checkout.base.ui.view.RoundCornerImageView
+import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.components.model.payments.response.Action
+import com.adyen.checkout.components.ui.view.RoundCornerImageView
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
+import com.adyen.checkout.redirect.RedirectConfiguration
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.commons.Logger
@@ -92,6 +94,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
+  private lateinit var redirectConfiguration: RedirectConfiguration
+  private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
   private lateinit var redirectComponent: RedirectComponent
   private lateinit var adyen3DS2Component: Adyen3DS2Component
   private lateinit var adyenCardNumberLayout: TextInputLayout
@@ -176,12 +180,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   override fun setup3DSComponent() {
-    adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
-    adyen3DS2Component.observe(this) {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
-    }
-    adyen3DS2Component.observeErrors(this) {
-      adyen3DSErrorSubject?.onNext(it.errorMessage)
+    activity?.application?.let {
+      adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this, it, adyen3DS2Configuration)
+      adyen3DS2Component.observe(this) {
+        paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+      }
+      adyen3DS2Component.observeErrors(this) {
+        adyen3DSErrorSubject?.onNext(it.errorMessage)
+      }
     }
   }
 
@@ -390,9 +396,11 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   override fun setupRedirectComponent() {
-    redirectComponent = RedirectComponent.PROVIDER.get(this)
-    redirectComponent.observe(this) {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+    activity?.application?.let {
+      redirectComponent = RedirectComponent.PROVIDER.get(this, it, redirectConfiguration)
+      redirectComponent.observe(this) {
+        paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+      }
     }
   }
 
@@ -429,7 +437,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     else RxView.clicks(change_card_button_pre_selected)
   }
 
-  override fun submitUriResult(uri: Uri) = redirectComponent.handleRedirectResponse(uri)
+  // TODO: Refactor this to pass the whole Intent.
+  // TODO: Currently this relies on the fact that Adyen 4.4.0 internally uses only Intent.getData().
+  override fun submitUriResult(uri: Uri) = redirectComponent.handleIntent(Intent("", uri))
 
   override fun updateTopUpButton(valid: Boolean) {
     button.isEnabled = valid
@@ -482,6 +492,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       setupAdyenLayouts()
       setupCardConfiguration()
     }
+    setupRedirectConfiguration()
+    setupAdyen3DS2ConfigurationBuilder()
 
     topUpView.showToolbar()
     main_value.visibility = INVISIBLE
@@ -489,13 +501,24 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   private fun setupCardConfiguration() {
-    val cardConfigurationBuilder =
-      CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+    cardConfiguration = CardConfiguration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment)
+      .build()
+  }
 
-    cardConfiguration = cardConfigurationBuilder.let {
-      it.setEnvironment(adyenEnvironment)
-      it.build()
-    }
+  private fun setupRedirectConfiguration() {
+    redirectConfiguration = RedirectConfiguration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment)
+      .build()
+  }
+
+  private fun setupAdyen3DS2ConfigurationBuilder() {
+    adyen3DS2Configuration = Adyen3DS2Configuration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment)
+      .build()
   }
 
   private fun setupAdyenLayouts() {
@@ -508,8 +531,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     adyenSecurityCodeLayout =
       adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_securityCode)
         ?: adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
-    adyenCardImageLayout = adyen_card_form_pre_selected?.findViewById(R.id.cardBrandLogo_imageView)
-      ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView)
+    adyenCardImageLayout =
+      adyen_card_form_pre_selected?.findViewById(R.id.cardBrandLogo_imageView_primary)
+        ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView_primary)
     adyenSaveDetailsSwitch =
       adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
         ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)

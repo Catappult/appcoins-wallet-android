@@ -1,10 +1,10 @@
 package com.appcoins.wallet.billing.adyen
 
 import androidx.fragment.app.Fragment
-import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
+import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.util.Error
 import java.math.BigDecimal
@@ -39,6 +39,6 @@ data class PaymentInfoModel(
     { fragment: Fragment, config: CardConfiguration ->
       CardComponent.PROVIDER.get(fragment, paymentMethod, config)
     },
-    paymentMethod.supportedShopperInteractions
+    paymentMethod.supportedShopperInteractions ?: emptyList()
   )
 }

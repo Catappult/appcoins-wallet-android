@@ -2,7 +2,7 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.net.Uri
 import android.os.Bundle
-import com.adyen.checkout.base.model.payments.response.Action
+import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import io.reactivex.Observable
