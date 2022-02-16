@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">ਤੁਸੀਂ ਇੱਕ ਪਾਇਨੀਅਰ ਹੋ</string>
   <string name="pioneer_gamification_body">ਇੱਕ ਪਾਇਨੀਅਰ ਵਧੇ ਹੋਏ ਬੋਨਸਾਂ ਵਾਲਾ ਇੱਕ ਆਰੰਭਕ ਧਾਰਕ ਹੈ|</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">ਅਪਡੇਟ ਦੇਖੋ</string>
   <string name="check_updates_settings_subtitle">ਮੌਜੂਦਾ ਵਰਜਨ %s</string>
   <string name="check_updates_checking_body">ਇੱਕ ਨਵੇਂ ਵਰਜਨ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
