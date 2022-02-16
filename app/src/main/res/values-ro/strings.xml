@@ -718,6 +718,7 @@
   <string name="pioneer_gamification_title">Ești un Pionier</string>
   <string name="pioneer_gamification_body">Un Pionier este unul dintre primii utilizatorii, cu acces la bonusuri mai mari.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Caută actualizări</string>
   <string name="check_updates_settings_subtitle">Versiune curentă %s</string>
   <string name="check_updates_checking_body">Se caută o versiune nouă</string>
