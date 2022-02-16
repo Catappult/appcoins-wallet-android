@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallets.repository
 
+import com.asfoundation.wallet.analytics.SentryEventLogger
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
@@ -14,10 +15,13 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
-class WalletInfoRepository @Inject constructor(private val api: WalletInfoApi,
-                                               private val walletInfoDao: WalletInfoDao,
-                                               private val balanceRepository: BalanceRepository,
-                                               private val rxSchedulers: RxSchedulers) {
+class WalletInfoRepository @Inject constructor(
+    private val api: WalletInfoApi,
+    private val walletInfoDao: WalletInfoDao,
+    private val balanceRepository: BalanceRepository,
+    private val sentryEventLogger: SentryEventLogger,
+    private val rxSchedulers: RxSchedulers
+) {
 
   fun getLatestWalletInfo(walletAddress: String,
                           updateFiatValues: Boolean): Single<WalletInfo> {
@@ -79,6 +83,7 @@ class WalletInfoRepository @Inject constructor(private val api: WalletInfoApi,
                               updateFiatValues: Boolean): Single<WalletInfoEntity> {
     return api.getWalletInfo(walletAddress)
         .flatMap { walletInfoResponse ->
+          sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
           if (updateFiatValues) {
             return@flatMap balanceRepository.getWalletBalance(
                 walletInfoResponse.appcCreditsBalanceWei, walletInfoResponse.appcBalanceWei,

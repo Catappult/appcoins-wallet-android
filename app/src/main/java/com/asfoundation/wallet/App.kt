@@ -13,8 +13,12 @@ import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.analytics.SentryAnalytics
+import com.asfoundation.wallet.analytics.UxCamUtils
+import com.asfoundation.wallet.di.DaggerAppComponent
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
@@ -85,6 +89,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var indicativeAnalytics: IndicativeAnalytics
 
   @Inject
+  lateinit var sentryAnalytics: SentryAnalytics
+
+  @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   @Inject
@@ -98,6 +105,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   @Inject
   lateinit var billingSerializer: ExternalBillingSerializer
+
+  @Inject
+  lateinit var uxCamUtils: UxCamUtils
 
   companion object {
     private val TAG = App::class.java.name
@@ -117,6 +127,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initializeRakam()
     initiateIntercom()
     initiateSentry()
+    initiateUxCam()
     initializeWalletId()
   }
 
@@ -135,6 +146,10 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     indicativeAnalytics.initialize()
       .subscribeOn(Schedulers.io())
       .subscribe()
+  }
+
+  private fun initiateUxCam() {
+    uxCamUtils.initialize()?.subscribe()
   }
 
   private fun setupRxJava() {
@@ -170,8 +185,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   }
 
   private fun initiateSentry() {
-    Sentry.init(BuildConfig.SENTRY_DSN_KEY, AndroidSentryClientFactory(this))
-    logger.addReceiver(SentryReceiver())
+    sentryAnalytics.initialize().subscribe()
   }
 
   private fun initiateIntercom() {
