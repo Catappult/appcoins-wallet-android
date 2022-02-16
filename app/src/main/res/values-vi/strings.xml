@@ -716,6 +716,7 @@
   <string name="pioneer_gamification_title">Bạn là người tiên phong</string>
   <string name="pioneer_gamification_body">Người tiên phong là người sớm tiếp nhận với số tiền thưởng tăng vọt.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Kiểm tra cập nhật</string>
   <string name="check_updates_settings_subtitle">Phiên bản hiện tại %s</string>
   <string name="check_updates_checking_body">Tìm kiếm phiên bản mới</string>
