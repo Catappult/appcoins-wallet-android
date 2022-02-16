@@ -718,6 +718,7 @@
   <string name="pioneer_gamification_title">คุณคือระดับ Pioneer</string>
   <string name="pioneer_gamification_body">ระดับ Pioneer เป็นผู้เริ่มต้นได้โบนัสเพิ่มขึ้น</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">ตรวจสอบการอัพเดต</string>
   <string name="check_updates_settings_subtitle">เวอร์ชั่นปัจจุบัน %s</string>
   <string name="check_updates_checking_body">กำลังค้นหาเวอร์ชั่นใหม่</string>
