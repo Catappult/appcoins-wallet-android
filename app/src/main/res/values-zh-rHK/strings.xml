@@ -716,6 +716,7 @@
   <string name="pioneer_gamification_title">You\'re a Pioneer</string>
   <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Check for updates</string>
   <string name="check_updates_settings_subtitle">Current version %s</string>
   <string name="check_updates_checking_body">Searching for a new version</string>
