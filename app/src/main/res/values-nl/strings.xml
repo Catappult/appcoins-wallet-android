@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">Je bent een pionier</string>
   <string name="pioneer_gamification_body">Een pionier is een vroege gebruiker en krijgt hogere bonussen.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Controleer op updates</string>
   <string name="check_updates_settings_subtitle">Huidige versie %s</string>
   <string name="check_updates_checking_body">Aan het zoeken naar een nieuwe versie</string>
