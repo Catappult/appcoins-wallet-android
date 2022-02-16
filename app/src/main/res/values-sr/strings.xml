@@ -718,6 +718,7 @@
   <string name="pioneer_gamification_title">Vi ste pionir</string>
   <string name="pioneer_gamification_body">Pioniri su prvi korisnici koji dobijaju veće bonuse.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Potraži ažuriranja</string>
   <string name="check_updates_settings_subtitle">Aktuelna verzija %s</string>
   <string name="check_updates_checking_body">Traži se nova verzija</string>
