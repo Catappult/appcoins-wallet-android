@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">شما یک پیشرو هستید</string>
   <string name="pioneer_gamification_body">یک پیشرو، یک فرزندخوانده قدیمی با پاداش افزایش یافته است.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">بررسی برای بروزرسانی</string>
   <string name="check_updates_settings_subtitle">نسخه فعلی %s</string>
   <string name="check_updates_checking_body">جستجو برای یک نسخه جدید</string>
