@@ -721,6 +721,7 @@
   <string name="pioneer_gamification_title">Ви Pioneer</string>
   <string name="pioneer_gamification_body">Pioneer - це ранній користувач із збільшеними бонусами.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Перевірити наявність оновлень</string>
   <string name="check_updates_settings_subtitle">Поточна версія %s</string>
   <string name="check_updates_checking_body">Пошук нової версії</string>
