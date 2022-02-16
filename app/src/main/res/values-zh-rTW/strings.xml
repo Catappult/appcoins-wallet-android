@@ -716,6 +716,7 @@
   <string name="pioneer_gamification_title">您是一名先驅者！</string>
   <string name="pioneer_gamification_body">先驅者是獎勵計畫的早期採用者。</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">檢查更新</string>
   <string name="check_updates_settings_subtitle">軟體版本 %s</string>
   <string name="check_updates_checking_body">搜尋新版本</string>
