@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">Είστε Πρωτοπόρος</string>
   <string name="pioneer_gamification_body">Στους Πρωτοπόρους εντάσσονται οι πρώτοι χρήστες και λαμβάνουν αυξημένα bonus.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Έλεγχος για ενημερώσεις</string>
   <string name="check_updates_settings_subtitle">Τρέχουσα έκδοση %s</string>
   <string name="check_updates_checking_body">Αναζήτηση νέας έκδοσης</string>
