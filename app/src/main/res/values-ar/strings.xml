@@ -722,6 +722,7 @@
   <string name="pioneer_gamification_title">أنت من الروّاد</string>
   <string name="pioneer_gamification_body">الروّاد هم أول المنتمين مع مكافآت متزايدة.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">اطلع على التحديثات</string>
   <string name="check_updates_settings_subtitle">النسخة الحالية %s</string>
   <string name="check_updates_checking_body">جاري البحث عن نسخة جديدة</string>
