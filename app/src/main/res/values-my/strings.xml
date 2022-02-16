@@ -716,6 +716,7 @@
   <string name="pioneer_gamification_title">သင္က ေရွ႔ေဆာင္လမ္းျပတစ္ဦး ျဖစ္ပါသည္</string>
   <string name="pioneer_gamification_body">ေရွ႔ေဆာင္လမ္းျပသူဆိုသည္မွာ ေဘာနပ္စ္မ်ားမ်ားပိုရသည့္ အေစာပိုင္းသံုးစြဲသူ ျဖစ္ပါသည္။</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">အပ္ဒိတ္မ်ားကို စစ္ၾကည့္လိုက္ပါ</string>
   <string name="check_updates_settings_subtitle">လက္ရွိဗားရွင္း %s</string>
   <string name="check_updates_checking_body">ဗားရွင္းအသစ္ကို ရွာေနပါသည္</string>
