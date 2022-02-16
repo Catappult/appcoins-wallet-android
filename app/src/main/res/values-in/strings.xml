@@ -716,6 +716,7 @@
   <string name="pioneer_gamification_title">Anda seorang Pelopor</string>
   <string name="pioneer_gamification_body">Pelopor adalah pengguna awal dengan bonus yang ditingkatkan.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Periksa pembaruan</string>
   <string name="check_updates_settings_subtitle">Versi saat ini %s</string>
   <string name="check_updates_checking_body">Mencari versi baru</string>
