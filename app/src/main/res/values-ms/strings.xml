@@ -716,6 +716,7 @@
   <string name="pioneer_gamification_title">Anda Perintis</string>
   <string name="pioneer_gamification_body">Perintis ialah penerima guna awal dengan bonus dipertingkat.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Semak kemas kini</string>
   <string name="check_updates_settings_subtitle">Versi semasa %s</string>
   <string name="check_updates_checking_body">Mencari versi baharu</string>
