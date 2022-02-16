@@ -719,6 +719,7 @@
   <string name="pioneer_gamification_title">Вы – первопроходец</string>
   <string name="pioneer_gamification_body">Первопроходец – один из первых участников с увеличенными бонусами.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Проверьте обновления</string>
   <string name="check_updates_settings_subtitle">Текущая версия %s</string>
   <string name="check_updates_checking_body">Ищем новую версию</string>
