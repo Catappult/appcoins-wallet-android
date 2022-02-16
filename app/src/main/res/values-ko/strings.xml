@@ -716,6 +716,7 @@
   <string name="pioneer_gamification_title">선지자입니다</string>
   <string name="pioneer_gamification_body">선지자는 증가된 보너스를 받는 얼리 어댑터입니다.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">업데이트 학인</string>
   <string name="check_updates_settings_subtitle">현재 버전 %s</string>
   <string name="check_updates_checking_body">새로운 버전 찾기</string>
