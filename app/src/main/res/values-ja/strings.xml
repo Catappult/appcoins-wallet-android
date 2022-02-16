@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">あなたはパイオニア</string>
   <string name="pioneer_gamification_body">パイオニアとは、増額ボーナスを受けとることができる早期アダプターのこと。</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">アップデートの確認</string>
   <string name="check_updates_settings_subtitle">現在のバージョン %s</string>
   <string name="check_updates_checking_body">新バージョンの検索中</string>
