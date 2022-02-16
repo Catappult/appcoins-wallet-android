@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">Úttörő vagy</string>
   <string name="pioneer_gamification_body">Az Úttörő nagyobb bónuszokat kap, mivel korábban lesz belőle felhasználó.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Frissítések keresése</string>
   <string name="check_updates_settings_subtitle">Jelenlegi verzió %s</string>
   <string name="check_updates_checking_body">Új verzió keresése</string>
