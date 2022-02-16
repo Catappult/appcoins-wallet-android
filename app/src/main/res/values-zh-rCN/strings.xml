@@ -716,6 +716,7 @@
   <string name="pioneer_gamification_title">您属于先锋用户</string>
   <string name="pioneer_gamification_body">先锋用户是指早期采用者，享有更高的奖励。</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">查看更新</string>
   <string name="check_updates_settings_subtitle">当前版本%s</string>
   <string name="check_updates_checking_body">正在搜索新版本</string>
