@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">Öncü\'sünüz</string>
   <string name="pioneer_gamification_body">Öncü, artan bonuslara sahip kullanmaya erken başlayan bir kullanıcıdır.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Güncellemeleri kontrol et</string>
   <string name="check_updates_settings_subtitle">Mevcut sürüm %s</string>
   <string name="check_updates_checking_body">Yeni sürüm aranıyor</string>
