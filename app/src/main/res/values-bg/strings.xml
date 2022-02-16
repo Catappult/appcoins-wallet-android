@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">Ти си Пионер</string>
   <string name="pioneer_gamification_body">Пионерът е ранен осиновител с увеличени бонуси.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Провери за ъпдейти</string>
   <string name="check_updates_settings_subtitle">Настояща версия %s</string>
   <string name="check_updates_checking_body">Търсене на нова версия</string>
