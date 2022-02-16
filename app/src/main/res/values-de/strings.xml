@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">Sie sind ein Pionier</string>
   <string name="pioneer_gamification_body">Ein Pionier ist ein Erstanwender mit höheren Prämien.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Nach Updates suchen</string>
   <string name="check_updates_settings_subtitle">Aktuelle Version %s</string>
   <string name="check_updates_checking_body">Suche nach einer neuen Version</string>
