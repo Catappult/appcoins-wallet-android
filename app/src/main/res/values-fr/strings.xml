@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">Vous êtes un pionnier</string>
   <string name="pioneer_gamification_body">Un Pionnier fait parti des premiers et a des bonus plus importants.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Vérifier les mises à jour</string>
   <string name="check_updates_settings_subtitle">Version courante %s</string>
   <string name="check_updates_checking_body">Rechercher une nouvelle version</string>
