@@ -717,6 +717,7 @@
   <string name="pioneer_gamification_title">Eres un pionero</string>
   <string name="pioneer_gamification_body">Un pionero es un jugador anticipado con bonificaciones aumentadas.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Comprobar actulizaciones</string>
   <string name="check_updates_settings_subtitle">Versión actual %s</string>
   <string name="check_updates_checking_body">Buscando una nueva versión</string>
