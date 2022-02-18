@@ -263,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Estado</string>
   <string name="transaction_category_label">Categoría</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Detalles</string>
   <string name="transaction_to_label">Destinatario</string>
   <string name="dialog_credit_card_remember">Recordar Tarjeta</string>
@@ -444,6 +445,9 @@
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
   <string name="terms_and_conditions">Términos y Condiciones</string>
   <string name="privacy_policy">Política de Privacidad</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
@@ -992,6 +996,7 @@
   <string name="promo_code_view_field">El código promocional aquí...</string>
   <string name="promo_code_view_error">Código no válido. ¡Prueba con otro!</string>
   <string name="promo_code_activated">¡Código promocional activado!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">SUBSTITUIR</string>
   <string name="promo_code_active_tag">Activo</string>
   <string name="promo_code_expired_tag">Caducado</string>
