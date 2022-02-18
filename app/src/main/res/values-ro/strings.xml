@@ -120,7 +120,7 @@
   <string name="intro_2_title">Joci mai mult, plătești mai puțin</string>
   <string name="intro_2_body">Primești recompense pentru cumpărarea articolelor în aplicațiile și jocurile preferate.</string>
   <string name="intro_3_title">Simplu și Ușor</string>
-  <string name="intro_3_body">Păstrează AppCoins Wallet instalat pentru a face achiziții direct în jocurile tale.</string>
+  <string name="intro_3_body">Procesează-ți toate cumpărăturile in-app folosind metoda ta de plată preferată.</string>
   <string name="intro_4_title">Sigur și Privat</string>
   <string name="intro_4_body">Cheile tale private nu vor părăsi niciodată dispozitivul tău, așa că AppCoins sunt sigure în orice moment.</string>
   <string name="intro_4_body_2">Toate tranzacțiile tale sunt întotdeauna sigure datorită tehnologiei de ultimă generație.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Recompensă e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Achiziție e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher pentru %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Cele mai bune aplicații Android te așteaptă.</string>
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
   <!--Tokens-->
   <!--Settings-->
@@ -898,7 +898,7 @@
   <string name="perks_level_up_amount_left">Mai ai %1$s %2$s până la nivelul următor!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s în AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Toate cumpărăturile in-app și alimentările efectuate cu orice metodă de plată, cu excepția AppCoins Credits, se vor califica pentru creșterea nivelului tău și primirea de recompense.</string>
   <string name="perks_empty_state_first_purchase_body">Fă prima ta achiziție într-o aplicație compatibilă cu AppCoins pentru a debloca promoțiile pe care ți le-am pregătit!</string>
   <string name="perks_empty_body">Fără promoții disponibile momentan.</string>
   <!--Fingerprint Authentication-->
@@ -911,7 +911,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Trimite jurnale către Echipa de asistență</string>
   <string name="send_logs_sending">Se trimit&#8230;</string>
-  <string name="send_logs_sent">Trimis!</string>
+  <string name="send_logs_sent">Trimise!</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Îți place AppCoins Wallet?</string>
