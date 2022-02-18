@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">Saat ini memainkan e-Skills</string>
   <string name="playing_game_notification_body">Memuat info game…</string>
   <string name="finish_game_notification_title">Game e-Skills Anda sudah selesai</string>
-  <string name="won_game_notification_body">Anda menang! Dompet Anda sekarang $%1$.2f lebih berat!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">Anda kalah… Semoga beruntung lain kali!</string>
   <string name="dismiss_button">Tutup</string>
   <string name="location_not_available_title">Game e-Skills tidak tersedia di lokasi Anda</string>
