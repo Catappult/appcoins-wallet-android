@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins वॉलेट</string>
   <string name="title_send">भेजें</string>
   <string name="title_send_with_token">%s भेजें</string>
   <string name="title_request">प्राप्त करें</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">अधिक खेलें, कम भुगतान करें</string>
   <string name="intro_2_body">अपनी पसंदीदा ऐप्स और गेम्स में चीजें खरीदने के लिए पुरस्कार पाएँ।</string>
   <string name="intro_3_title">सरल एवं आसान</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">अपनी पसंदीदा भुगतान विधि का उपयोग कर अपने सभी इन-एप्प खरीद संसाधित करें।</string>
   <string name="intro_4_title">सुरक्षित एवं निजी</string>
   <string name="intro_4_body">आपकी निजी कुंजी आपकी डिवाइस को कभी नहीं छोड़ेगी, इसलिए आपके AppCoins हर समय सुरक्षित हैं।</string>
   <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">अंतरण करें</string>
   <string name="transaction_type_bonus">बोनस</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher for %s</string>
@@ -429,13 +429,13 @@
   <string name="discover_button">पता लगाएँ</string>
   <string name="retry_button">पुनः करें</string>
   <string name="do_it_later_button">इसे बाद में करें</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connection_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
   <string name="common_or">या</string>
   <string name="share_via">साझा करें:</string>
   <string name="password">पासवर्ड</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No, thanks</string>
+  <string name="no_thanks_button">No,thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">पुष्टि करें</string>
@@ -449,14 +449,14 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">सबसे अच्छे एंड्रॉयड एप्प आपकी प्रतीक्षा कर रहे हैं।</string>
   <string name="home_empty_discover_apps_button">शीर्ष ऐप्स का पता लगाएँ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">कोड भुनाएं</string>
   <string name="settings_item_support">Contact Support Team</string>
   <string name="settings_subheader_support">सहायता</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">हमारे बारे में</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">प्रगति पर&#8230;</string>
   <string name="local_payments_inprogress_body">एक बार जब आप भुगतान पूरा कर लेंगे तो आपको अपने वॉलेट में AppCoins Credits मिल जाएगा। फिर खरीद करने के लिए गेम पर वापस जाएँ!</string>
@@ -533,7 +533,7 @@
   <string name="purchase_error_wallet_block_code_403">It seems something isn\'t ok with your wallet. Please contact us.</string>
   <string name="purchase_card_error_CVV">गलत सीवीवी/सीवीसी</string>
   <string name="error_contac_us_body">अगर समस्या रहती है तो कृपया हमसे संपर्क करें।</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
   <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
   <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
@@ -824,7 +824,7 @@
   <string name="carrier_billing_insert_phone_body">Please insert your phone number</string>
   <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Your phone number...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s will charge a fee of %2$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s in %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
   <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
@@ -847,8 +847,8 @@
   <string name="manage_cards_remove_no">NO, CANCEL</string>
   <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
   <string name="manage_cards_card_ending_body">Card ending in %s</string>
-  <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
-  <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
+  <string name="manage_cards_error_details">क्या आपके कार्ड के विवरण सही हैं? कृपया पुन: प्रयास करें!</string>
+  <string name="manage_cards_error_card_problem">लगता है कि आपके कार्ड में कोई समस्या है। कृपया किसी अन्य के साथ प्रयास करें।</string>
   <string name="manage_cards_select_title">Select payment card</string>
   <string name="manage_cards_remember">Remember card</string>
   <!--Perks-->
@@ -891,7 +891,7 @@
   <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
@@ -923,13 +923,13 @@
   <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Check the code in the transaction details</string>
-  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
   <string name="card_verification_code_example_date">Trans. Date</string>
   <string name="card_verification_code_example_description">Description</string>
   <string name="card_verification_code_example_amount">राशि</string>
-  <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
-  <string name="card_verification_code_enter_title">Enter the %s digits code</string>
+  <string name="card_verification_code_example_code">Unique code</string>
+  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="one">%1$s will be refunded within %2$s hour after you confirm the code.</item>
     <item quantity="other">%1$s will be refunded within %2$s hours after you confirm the code.</item>
@@ -1000,12 +1000,12 @@
   <string name="promo_code_replace_button">REPLACE</string>
   <string name="promo_code_active_tag">Active</string>
   <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_success_title">पूर्ण!</string>
   <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
   <string name="promo_code_promotions_tag">Promotional code</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">AppCoins के बारे में</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
