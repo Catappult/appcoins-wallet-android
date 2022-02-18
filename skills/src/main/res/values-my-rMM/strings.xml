@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">လက္ရွိကစားေနေသာ e-Skills</string>
   <string name="playing_game_notification_body">ဂိမ္းအခ်က္အလက္ကို ရယူေနပါသည္…</string>
   <string name="finish_game_notification_title">သင့္ e-Skills ဂိမ္း ၿပီးသြားပါၿပီ</string>
-  <string name="won_game_notification_body">သင္ႏိုင္သြားပါသည္။ ယခုအခါ သင့္ပိုက္ဆံအိတ္တြင္ $%1$.2f ပိုမ်ားသြားပါၿပီ။</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">သင္ရႈံးသြားပါသည္… ေနာက္တစ္ခါ ကံပိုေကာင္းပါေစ။</string>
   <string name="dismiss_button">ဖယ္မည္</string>
   <string name="location_not_available_title">e-Skills ဂိမ္းမ်ားကို သင့္ေဒသတြင္ မကစားႏိုင္ပါ</string>
