@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins ပိုက္ဆံအိတ္</string>
   <string name="title_send">ေပးပို႔မည္</string>
   <string name="title_send_with_token">%s ကို ေပးပို႔မည္</string>
   <string name="title_request">ရယူမည္</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">မ်ားမ်ားကစားပါ၊ နည္းနည္းပဲေပးပါ</string>
   <string name="intro_2_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းအတြက္ ဆုရယူလိုက္ပါ။</string>
   <string name="intro_3_title">႐ိုးရွင္းၿပီး လြယ္ကူပါသည္</string>
-  <string name="intro_3_body">ထည့္သြင္းထားေသာ AppCoins Wallet ကို သင့္ဂိမ္းမ်ားတြင္ တိုက္႐ိုက္ဝယ္ယူရန္ ထားရွိပါ။</string>
+  <string name="intro_3_body">သင့္စိတ္ႀကိဳက္ ေငြေပးေခ်မႈ နည္းလမ္းကို အသံုးျပဳ၍ အက္ပ္အတြင္း ဝယ္ယူမႈမ်ား အားလံုးကို စီစဥ္ေဆာင္ရြက္လိုက္ပါ။</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
   <string name="intro_4_body">သင့္သီးသန္႔ကီးမ်ားသည္ သင့္စက္ပစၥည္းတြင္သာ ရွိေနမည္ ျဖစ္ေသာေၾကာင့္ သင့္ AppCoins မ်ားမွာ အခ်ိန္ျပည့္ လံုျခံဳပါသည္။</string>
   <string name="intro_4_body_2">ေနာက္ဆံုးေပၚနည္းပညာေၾကာင့္ သင့္ေငြလႊဲေျပာင္းမႈအားလံုး အၿမဲလံုျခံဳပါသည္။</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">လႊဲေျပာင္းမည္</string>
   <string name="transaction_type_bonus">ေဘာနပ္စ္</string>
-  <string name="transaction_type_eskills_reward">e-Skills ဆု</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills ဝယ္ယူမႈ</string>
   <string name="transaction_type_voucher">အီးေဘာက္ခ်ာ</string>
   <string name="transaction_type_voucher_title">%s အတြက္ ေဘာက္ခ်ာ</string>
@@ -449,11 +449,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">အေကာင္းဆံုး အန္းဒ႐ိုက္အက္ပ္မ်ားက သင့္ကိုေစာင့္ေနပါသည္။</string>
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">လဲလွယ္ရန္ကုဒ္</string>
   <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
   <string name="settings_subheader_support">ပံ့ပိုးေရး</string>
   <string name="settings_subheader_about_us">ကၽြႏ္ုပ္တို႔အေၾကာင္း</string>
@@ -735,7 +735,7 @@
   <string name="subscriptions_subscribe_button">ပုံမွန္ရယူမည္</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
   <string name="subscriptions_expired_title">သက္တမ္းကုန္သြားပါၿပီ</string>
-  <string name="subscriptions_inactive_title">သက္ဝင္ျခင္း မရွိပါ</string>
+  <string name="subscriptions_inactive_title">မ၀ယ္ထားေသာ</string>
   <string name="subscriptions_empty_title">ပံုမွန္၀ယ္ယူမႈမ်ား မရွိေသးပါ</string>
   <string name="subscriptions_empty_body">သင့့္စိတ္ႀကိဳက္အက္ပ္မ်ားနွင့္ ဂိမ္မ်ားတြင္ ၀န္ေဆာင္မႈမ်ားကို ပံုမွန္၀ယ္ယူလိုက္ပါ။ ကာလအလိုက္ ေငြေပးေခ်မႈမ်ားကို ကၽြႏ္ုပ္တို႔ လုပ္ေဆာင္ေပးပါမည္။</string>
   <string name="subscriptions_details_billing_title">က်သင့္ေငြေကာက္ခံျခင္း -</string>
@@ -884,7 +884,7 @@
   <string name="perks_level_up_amount_left">ေနာက္တစ္ဆင့္သို႔ သင္ေရာက္ရွိရန္ %1$s %2$s သာ လိုအပ္ပါသည္။</string>
   <string name="perks_level_up_level_tag">အဆင့္ %s</string>
   <string name="perks_bonus_purchase_flow">%1$s ေဘာနပ္စ္ - %2$s ကို AppCoins Credits အေနျဖင့္</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">AppCoins Credits မွလြဲ၍ မည္သည့္ေငြေပးေခ်မႈ နည္းလမ္းျဖင့္မဆို ျပဳလုပ္ေသာ ဝယ္ယူမႈမ်ားႏွင့္ ေငြျဖည့္မႈမ်ား အားလံုးသည္ သင့္အဆင့္ကို ျမင့္ေစရန္ႏွင့္ ဆုကို ရရွိေစရန္ အက်ံဳးဝင္မည္ ျဖစ္ပါသည္။</string>
   <string name="perks_empty_state_first_purchase_body">သင့္အတြက္ ကၽြႏ္ုပ္တို႔ေပးထားေသာ ပ႐ိုမိုးရွင္းမ်ားကို ပြင့္လာေစရန္ AppCoins အသံုးျပဳႏိုင္ေသာ အက္ပ္တစ္ခုတြင္ ပထမဆံုးဝယ္ယူမႈကို ျပဳလုပ္လိုက္ပါ။</string>
   <string name="perks_empty_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရရွိႏိုင္ပါ။</string>
   <!--Fingerprint Authentication-->
