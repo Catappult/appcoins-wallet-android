@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">Зараз граю в e-Skills</string>
   <string name="playing_game_notification_body">Отримання інформації про гру…</string>
   <string name="finish_game_notification_title">Ваша гра e-Skills завершена</string>
-  <string name="won_game_notification_body">Ви виграли! Ваш гаманець тепер на $%1$.2f важчий!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">Ви програли… Удачі наступного разу!</string>
   <string name="dismiss_button">Розійтись</string>
   <string name="location_not_available_title">ігри e-Skills недоступні у вашому регіоні</string>
