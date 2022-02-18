@@ -120,7 +120,7 @@
   <string name="intro_2_title">Joga Mais, Paga Menos</string>
   <string name="intro_2_body">Recebe recompensas ao comprares itens nas tuas apps e jogos preferidos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
-  <string name="intro_3_body">Mantém a AppCoins Wallet instalada para comprares diretamente nos teus jogos.</string>
+  <string name="intro_3_body">Processa todas as tuas compras integradas utilizando o teu método de pagamento preferido.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">As tuas private keys nunca deixarão o teu dispositivo, e por isso as tuas AppCoins estão sempre seguras.</string>
   <string name="intro_4_body_2">Todas as tuas transações são sempre seguras graças à mais recente tecnologia.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferência</string>
   <string name="transaction_type_bonus">Bônus</string>
-  <string name="transaction_type_eskills_reward">Recompensa e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Compra e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher para %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">As melhores apps Android estão à tua espera.</string>
   <string name="home_empty_discover_apps_button">Descobre apps top</string>
   <!--Tokens-->
   <!--Settings-->
@@ -982,7 +982,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">Podes levantar:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">sabe mais sobre e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">só podes levantar os fundos ganhos em jogos e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">só podes levantar os fundos ganhos nos jogos e-Skills</string>
   <string name="e_skills_withdraw_started">Foi iniciado um levantamento de $%1$.2f \n</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Talvez mais tarde</string>
