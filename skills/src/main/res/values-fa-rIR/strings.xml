@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">در حال بازی e-Skills</string>
   <string name="playing_game_notification_body">در حال دریاف اطلاعات بازی…</string>
   <string name="finish_game_notification_title">بازی e-Skills شما به پایان رسیده‌ است</string>
-  <string name="won_game_notification_body">برنده شدید! کیف پول شما %1$.2f$ سنگین‌تر است!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">باختید… آرزوی شانس بیشتری برای سری بعدی داریم!</string>
   <string name="dismiss_button">رد کردن</string>
   <string name="location_not_available_title">بازی‌های e-Skills در منطقه جغرافیایی شما موجود نیست</string>
