@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">e-Skills التي تلعبها حاليًا</string>
   <string name="playing_game_notification_body">معلومات اللعبة قادمة…</string>
   <string name="finish_game_notification_title">انتهت لعبتك من e-Skills</string>
-  <string name="won_game_notification_body">لقد ربحت! محفظتك الآن أثقل بـ%1$.2f$!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">لقد خسرت… حظًّا أوفر المرة القادمة!</string>
   <string name="dismiss_button">تجاهل</string>
   <string name="location_not_available_title">ألعاب e-Skills ليست متوفرة في منطقتك</string>
