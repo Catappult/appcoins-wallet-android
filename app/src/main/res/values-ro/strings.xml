@@ -263,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Categorie</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Detalii</string>
   <string name="transaction_to_label">Către</string>
   <string name="dialog_credit_card_remember">Ține minte card</string>
@@ -444,6 +445,9 @@
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
   <string name="terms_and_conditions">Termenii și condițiile</string>
   <string name="privacy_policy">Politica de confidențialitate</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
@@ -1001,6 +1005,7 @@
   <string name="promo_code_view_field">Cod Promo aici...</string>
   <string name="promo_code_view_error">Cod nevalid. Încearcă cu un alt cod!</string>
   <string name="promo_code_activated">Cod Promo activat!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">ÎNLOCUIEȘTE</string>
   <string name="promo_code_active_tag">Activ</string>
   <string name="promo_code_expired_tag">Expirat</string>
