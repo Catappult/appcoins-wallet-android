@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">کیف پول AppCoins</string>
   <string name="provide_wallet_creating_wallet_header">ایجاد آدرس کیف پول&#8230;</string>
   <string name="processing_loading_title">دریافت بلیت ورودی خود</string>
   <string name="finding_room_loading_title">انتظار برای حریف</string>
@@ -11,23 +11,23 @@
   <string name="cancel">لغو</string>
   <string name="buy_button">Buy</string>
   <string name="topup_button">Top Up</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
-  <string name="dismiss_button">Dismiss</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="connection_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
+  <string name="playing_game_notification_title">در حال بازی e-Skills</string>
+  <string name="playing_game_notification_body">در حال دریاف اطلاعات بازی…</string>
+  <string name="finish_game_notification_title">بازی e-Skills شما به پایان رسیده‌ است</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">باختید… آرزوی شانس بیشتری برای سری بعدی داریم!</string>
+  <string name="dismiss_button">رد کردن</string>
+  <string name="location_not_available_title">بازی‌های e-Skills در منطقه جغرافیایی شما موجود نیست</string>
+  <string name="location_not_available_body">به سختی در حال تلاش هستیم تا آن را به همه برسانیم. پس بزودی دوباره برگردید!</string>
+  <string name="e_skills_room_create_title">یک اتاق بسازید یا در آن عضو شوید</string>
+  <string name="e_skills_room_create_body">یک اتاق بسازید و آن را با رقبای خود به اشتراک بگذارید یا در یک اتاق فعلی عضو شوید.</string>
   <string name="e_skills_room_field">Your room name here…</string>
   <string name="e_skills_payment_title">Payment with</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="processing_payment_title">Processing your payment</string>
   <string name="purchase_error_title">Oops, something went wrong.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="purchase_eskills_sku">بلیت ورود</string>
+  <string name="shared_room_waiting">درحال انتظار برای عضو شدن در %s</string>
 </resources>
