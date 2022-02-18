@@ -120,7 +120,7 @@
   <string name="intro_2_title">Играй больше, плати меньше</string>
   <string name="intro_2_body">Получите награду для покупок в ваших любимых приложениях и играх.</string>
   <string name="intro_3_title">Простой в использовании</string>
-  <string name="intro_3_body">Сохраняйте AppCoins Wallet на устройстве, чтобы совершать покупки в ваших играх напрямую.</string>
+  <string name="intro_3_body">Производите все встроенные покупки с использованием предпочтительного метода оплаты.</string>
   <string name="intro_4_title">Безопасно и конфиденциально</string>
   <string name="intro_4_body">Ваши приватные ключи никогда не покидают устройство, поэтому ваши AppCoins всегда в безопасности.</string>
   <string name="intro_4_body_2">Все ваши транзакции всегда в безопасности благодаря новейшим технологиям.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Перевод</string>
   <string name="transaction_type_bonus">Бонус</string>
-  <string name="transaction_type_eskills_reward">Награда e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Покупка e-Skills</string>
   <string name="transaction_type_voucher">Купон</string>
   <string name="transaction_type_voucher_title">Купон для %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">ОТКРОЙТЕ ЛУЧШИЕ ПРИЛОЖЕНИЯ</string>
   <!--Tokens-->
   <!--Settings-->
