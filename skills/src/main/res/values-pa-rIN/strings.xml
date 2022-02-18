@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">ਇਸ ਸਮੇਂ ਈ-ਹੁਨਰ ਖੇਡ ਰਿਹਾ ਹੈ</string>
   <string name="playing_game_notification_body">ਗੇਮ ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...</string>
   <string name="finish_game_notification_title">ਤੁਹਾਡੀ ਈ-ਸਕਿੱਲ ਗੇਮ ਖਤਮ ਹੋ ਗਈ ਹੈ</string>
-  <string name="won_game_notification_body">ਤੁਸੀ ਜਿੱਤੇ! ਤੁਹਾਡਾ ਬਟੂਆ ਹੁਣ ਪਹਿਲਾਂ ਨਾਲੋਂ $%1$.2f ਭਾਰੀ ਹੈ!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">ਤੁਸੀਂ ਹਾਰ ਗਏ… ਅਗਲੀ ਵਾਰ ਤੁਸੀ ਜਿਤੋਂ!</string>
   <string name="dismiss_button">ਬਰਖਾਸਤ</string>
   <string name="location_not_available_title">ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਤੁਹਾਡੇ ਸਥਾਨ ਤੇ ਉਪਲਬਧ ਨਹੀਂ ਹਨ</string>
