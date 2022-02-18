@@ -120,7 +120,7 @@
   <string name="intro_2_title">Грайте більше, Платіть менше</string>
   <string name="intro_2_body">Отримуйте винагороду за покупку предметів у ваших улюблених додатках та іграх.</string>
   <string name="intro_3_title">Просто і Легко</string>
-  <string name="intro_3_body">Залиште встановлений гаманець AppCoins, щоб безпосередньо купувати у своїх іграх.</string>
+  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
   <string name="intro_4_title">Безпека та конфіденційність</string>
   <string name="intro_4_body">Ваша особиста інформація ніколи не залишить ваш пристрій, тому ваші AppCoins завжди в безпеці.</string>
   <string name="intro_4_body_2">Усі ваші транзакції завжди безпечні завдяки новітнім технологіям.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Переведення</string>
   <string name="transaction_type_bonus">Бонус</string>
-  <string name="transaction_type_eskills_reward">Винагорода e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Отримання e-Skills</string>
   <string name="transaction_type_voucher">електронний ваучер</string>
   <string name="transaction_type_voucher_title">Ваучер на %s</string>
@@ -451,7 +451,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Зробіть покупку своєї улюбленої гри, і ми все зробимо.</string>
+  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">ВІДКРАЙТЕ НАЙКРАЩІ ДОДАТКИ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -907,7 +907,7 @@
   <string name="perks_level_up_amount_left">Ви %1$s %2$s від наступного рівня!</string>
   <string name="perks_level_up_level_tag">Рівень %s</string>
   <string name="perks_bonus_purchase_flow">Бонус %1$s: %2$s в AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Усі покупки та поповнення, зроблені будь-яким способом оплати, крім AppCoins Credits, підвищать ваш рівень та ви отримаєте винагороди.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Зробіть свою першу покупку в додатку, сумісному з AppCoins, щоб розблокувати акції, які ми підготували для вас!</string>
   <string name="perks_empty_body">На цей час немає доступних акцій.</string>
   <!--Fingerprint Authentication-->
