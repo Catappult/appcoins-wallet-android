@@ -120,7 +120,7 @@
   <string name="intro_2_title">花費更少，歡樂更多</string>
   <string name="intro_2_body">購買喜愛的應用程式和遊戲中的物品，同時獲得獎勵。</string>
   <string name="intro_3_title">簡單易用</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">透過您喜歡的付款方式處理所有的應用程式內購。</string>
   <string name="intro_4_title">安全私密</string>
   <string name="intro_4_body">您的私人資訊永遠不會離開您的裝置，因此您的AppCoins隨時是安全的。</string>
   <string name="intro_4_body_2">得益於最新技術，您的所有交易隨時都是安全的。</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">轉賬</string>
   <string name="transaction_type_bonus">獎勵</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">電子兌換券</string>
   <string name="transaction_type_voucher_title">%s兌換券</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">最棒的Android應用程式商店等你來探索。</string>
   <string name="home_empty_discover_apps_button">發現暢銷應用程式</string>
   <!--Tokens-->
   <!--Settings-->
@@ -884,7 +884,7 @@
   <string name="perks_level_up_amount_left">您距離下一個等級還有%1$s %2$s！</string>
   <string name="perks_level_up_level_tag">等級 %s</string>
   <string name="perks_bonus_purchase_flow">%1$s獎勵：價值%2$s的AppCoins點數</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">除了AppCoins點數之外，透過任何付款方式進行的購買和儲值都可以提高您的等級並獲得獎勵。</string>
   <string name="perks_empty_state_first_purchase_body">在與AppCoins相容的應用程式中進行首購，即可解鎖我們為您準備的促銷活動！</string>
   <string name="perks_empty_body">當前沒有促銷活動。</string>
   <!--Fingerprint Authentication-->
@@ -897,7 +897,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">傳送日誌給支援團隊</string>
   <string name="send_logs_sending">傳送中&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">已傳送！</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins錢包好用嗎？</string>
@@ -989,9 +989,9 @@
   <string name="promo_code_activated">Promo code activated!</string>
   <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
-  <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_active_tag">訂閱項目</string>
+  <string name="promo_code_expired_tag">已到期</string>
+  <string name="promo_code_success_title">兌換成功！</string>
   <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
   <string name="promo_code_promotions_tag">Promotional code</string>
