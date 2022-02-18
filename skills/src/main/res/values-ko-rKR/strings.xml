@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">AppCoins 지갑</string>
   <string name="provide_wallet_creating_wallet_header">지갑 주소 생성 중&#8230;</string>
   <string name="processing_loading_title">입장권 받기</string>
   <string name="finding_room_loading_title">상대방을 기다리는 중</string>
@@ -11,13 +11,13 @@
   <string name="cancel">취소</string>
   <string name="buy_button">Buy</string>
   <string name="topup_button">Top Up</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connection_error_body">인터넷에 연결되지 않은 것 같습니다. 인터넷 연결을 확인하시고 다시 시도해 주세요!</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
   <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">You lost… Better luck next time!</string>
-  <string name="dismiss_button">Dismiss</string>
+  <string name="dismiss_button">무시</string>
   <string name="location_not_available_title">e-Skills games are not available in your location</string>
   <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
   <string name="e_skills_room_create_title">Create or join a room</string>
@@ -28,6 +28,6 @@
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="processing_payment_title">Processing your payment</string>
   <string name="purchase_error_title">Oops, something went wrong.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
+  <string name="purchase_eskills_sku">입장권</string>
   <string name="shared_room_waiting">Waiting for opponents to join %s</string>
 </resources>
