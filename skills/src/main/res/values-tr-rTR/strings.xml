@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">Şu anda e-Skills\'le oynanıyor</string>
   <string name="playing_game_notification_body">Oyun bilgileri alınıyor…</string>
   <string name="finish_game_notification_title">e-Skills oyununuz bitti</string>
-  <string name="won_game_notification_body">Kazandınız! Cüzdanınız artık %1$.2f $ daha ağır!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">Kaybettiniz… Gelecek sefere bol şans!</string>
   <string name="dismiss_button">Kapat</string>
   <string name="location_not_available_title">e-Skills oyunları bulunduğunuz yerde kullanılamıyor</string>
