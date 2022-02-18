@@ -120,7 +120,7 @@
   <string name="intro_2_title">Main Banyak, Bayar Sedikit</string>
   <string name="intro_2_body">Dapatkan ganjaran kerana membeli item dalam aplikasi dan permainan kegemaran anda.</string>
   <string name="intro_3_title">Ringkas dan Mudah</string>
-  <string name="intro_3_body">Kekalkan Dompet AppCoins yang dipasang untuk buat pembelian dalam permainan anda.</string>
+  <string name="intro_3_body">Proses semua pembelian dalam aplikasi anda dengan menggunakan kaedah pembayaran kegemaran anda.</string>
   <string name="intro_4_title">Selamat dan Terjamin</string>
   <string name="intro_4_body">Kunci peribadi anda tidak sesekali akan meninggalkan peranti anda, jadi AppCoins anda adalah selamat pada setiap masa.</string>
   <string name="intro_4_body_2">Setiap transaksi anda adalah selamat dengan adanya teknologi terkini.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Pemindahan</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Ganjaran e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Pembelian e-Skills</string>
   <string name="transaction_type_voucher">e-Baucar</string>
   <string name="transaction_type_voucher_title">Baucar untuk %s</string>
@@ -449,11 +449,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Aplikasi Android terbaik sedang menanti anda.</string>
   <string name="home_empty_discover_apps_button">TEMUI APLIKASI HEBAT</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Tebus Kod</string>
   <string name="settings_item_support">Hubungi Pasukan Sokongan</string>
   <string name="settings_subheader_support">Sokongan</string>
   <string name="settings_subheader_about_us">Perihal Kami</string>
@@ -735,7 +735,7 @@
   <string name="subscriptions_subscribe_button">Langgan</string>
   <string name="subscriptions_active_title">Aktif</string>
   <string name="subscriptions_expired_title">Luput</string>
-  <string name="subscriptions_inactive_title">Tidak aktif</string>
+  <string name="subscriptions_inactive_title">Tidak Aktif</string>
   <string name="subscriptions_empty_title">Tiada Langganan Semasa</string>
   <string name="subscriptions_empty_body">Langgan perkhidmatan dalam aplikasi dan permainan kegemaran anda dan biar kami uruskan pembayaran berkala.</string>
   <string name="subscriptions_details_billing_title">Pembilan:</string>
@@ -884,7 +884,7 @@
   <string name="perks_level_up_amount_left">Anda perlu %1$s%2$s untuk ke tahap seterusnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s dalam Kredit AppCoins</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Semua pembelian dan tambah nilai yang dibuat dengan sebarang kaedah bayaran selain Kredit AppCoins akan melayakkan anda untuk meningkatkan tahap anda dan menerima ganjaran.</string>
   <string name="perks_empty_state_first_purchase_body">Buat pembelian pertama anda dalam aplikasi serasi AppCoins dan peroleh promosi yang kami tawarkan kepada anda!</string>
   <string name="perks_empty_body">Tiada promosi buat masa ini.</string>
   <!--Fingerprint Authentication-->
