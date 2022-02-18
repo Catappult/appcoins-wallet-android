@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">Aktuell spielende e-Skills</string>
   <string name="playing_game_notification_body">Spieleinfo erhalten…</string>
   <string name="finish_game_notification_title">Dein e-Skills Spiel wurde beendet</string>
-  <string name="won_game_notification_body">Du hast gewonnen! Dein Walletguthaben um $%1$.2f angewachsen!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">Du hast verloren... Viel Glück beim nächsten mal!</string>
   <string name="dismiss_button">Ablehnen</string>
   <string name="location_not_available_title">e-Skills Spiele sind in deiner Region nicht verfügbar</string>
