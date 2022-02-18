@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">Je speelt momenteel een game met e-Skills</string>
   <string name="playing_game_notification_body">Informatie over game ophalen…</string>
   <string name="finish_game_notification_title">Je game met e-Skills is afgelopen</string>
-  <string name="won_game_notification_body">Je hebt gewonnen! Er is $ %1$.2f aan je wallet toegevoegd!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">Je hebt verloren... Volgende keer beter!</string>
   <string name="dismiss_button">Niet accepteren</string>
   <string name="location_not_available_title">Op jouw locatie zijn games met e-Skills niet beschikbaar</string>
