@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import org.reactivestreams.Publisher;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
@@ -92,7 +91,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
       String password, byte[] data, String toAddress, BigDecimal amount) {
-    final Web3j web3j = Web3jFactory.build(new HttpService(defaultNetwork.rpcServerUrl));
+    final Web3j web3j = Web3j.build(new HttpService(defaultNetwork.rpcServerUrl));
     return Single.fromCallable(
         () -> nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
             getChainId(transactionBuilder)))

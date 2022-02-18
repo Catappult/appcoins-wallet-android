@@ -97,7 +97,7 @@ project.ext {
   uxcam_version = '3.3.7@aar'
   vector_drawable_version = '1.0.1'
   viewpager_version = '1.0.0'
-  web3j_version = "3.3.1-android"
+  web3j_version = "4.6.0-android"
   zxing_android_version = '3.6.0'
   zxing_version = '3.4.0'
   sentry_version = '1.7.30'

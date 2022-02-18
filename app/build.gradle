@@ -140,13 +140,8 @@ android {
   packagingOptions {
     exclude 'META-INF/NOTICE' // will not include NOTICE file
     exclude 'META-INF/LICENSE' // will not include LICENSE file
-    // as noted by @Vishnuvathsan you may also need to include
-    // variations on the file name. It depends on your dependencies.
-    // Some other common variations on notice and license file names
-    //exclude 'META-INF/notice'
-    //exclude 'META-INF/notice.txt'
-    //exclude 'META-INF/license'
-    //exclude 'META-INF/license.txt'
+    pickFirst  'org/bouncycastle/x509/CertPathReviewerMessages_de.properties'
+    pickFirst  'org/bouncycastle/x509/CertPathReviewerMessages.properties'
   }
   lintOptions {
     abortOnError false
@@ -256,6 +251,13 @@ dependencies {
   implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
 
   implementation "org.web3j:core:$project.web3j_version"
+//  implementation ("org.web3j:core:$project.web3j_version"){
+//    exclude group: "org.bouncycastle"
+//  }
+
+//  implementation "com.madgag.spongycastle:core:$project.spongycastle_version"
+
+//  implementation 'com.github.ethereum:ethereumj:0.5.7'
 
   implementation "com.github.walleth.kethereum:erc681:$project.erc681_version"
 

@@ -8,7 +8,7 @@ import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.wallets.repository.BalanceRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import org.spongycastle.util.encoders.Hex
+import org.bouncycastle.util.encoders.Hex
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.*
@@ -18,15 +18,12 @@ import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
 import org.web3j.protocol.Web3j
-import org.web3j.protocol.Web3jFactory
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
-import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import java.math.BigDecimal
 import java.math.BigInteger
 import javax.inject.Inject
-import javax.inject.Named
 
 class NFTRepository @Inject constructor(
   private val nftApi: NftApi,
@@ -136,7 +133,7 @@ class NFTRepository @Inject constructor(
     val nonce = ethGetTransactionCount.transactionCount
     val gasPrice = web3j.ethGasPrice()
       .send().gasPrice
-    var gasLimit = BigDecimal(144000).toBigInteger()
+    val gasLimit = BigDecimal(144000).toBigInteger()
     return Transaction(
       fromAddress, nonce, gasPrice, gasLimit, contractAddress, BigInteger.ZERO,
       Hex.toHexString(data)
