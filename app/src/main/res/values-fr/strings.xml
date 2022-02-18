@@ -120,7 +120,7 @@
   <string name="intro_2_title">Jouez plus, payez moins</string>
   <string name="intro_2_body">Soyez récompensé pour acheter des objets dans vos applications et jeux préférés.</string>
   <string name="intro_3_title">Simple et facile</string>
-  <string name="intro_3_body">Ayez toujours AppCoins Wallet d\'installé pour acheter directement dans vos jeux.</string>
+  <string name="intro_3_body">Traitez tous vos achats in-app en utilisant votre méthode de paiement préférée.</string>
   <string name="intro_4_title">Sécurisé et privé</string>
   <string name="intro_4_body">Vos clés privées ne quitterons jamais votre appareil, vos AppCoins sont donc sécurisés en permanence.</string>
   <string name="intro_4_body_2">Toutes vos transactions sont sécurisées grâce aux technologies les plus récentes.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfert</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Récompense e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Achat e-Skills</string>
   <string name="transaction_type_voucher">e-Coupon</string>
   <string name="transaction_type_voucher_title">Bon pour %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Les meilleures applications Android vous attendent.</string>
   <string name="home_empty_discover_apps_button">DÉCOUVREZ LES APPLICATIONS AU TOP</string>
   <!--Tokens-->
   <!--Settings-->
@@ -891,7 +891,7 @@
   <string name="perks_level_up_amount_left">Vous êtes à %1$s %2$s du prochain niveau !</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">Bonus %1$s : %2$s en AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">Tous les achats et les recharges effectués avec une méthode de paiement autre que les AppCoins Credits vous permettront d\'augmenter votre niveau et de recevoir des récompenses.</string>
+  <string name="perks_purchases_disclaimer_body">Tous les achats et les recharges effectués avec une méthode de paiement autre que les AppCoins Credits vous permettront d\'augmenter votre niveau et de recevoir une récompense.</string>
   <string name="perks_empty_state_first_purchase_body">Effectuez votre premier achat dans une application compatible AppCoins pour débloquer les promotions que nous vous réservons !</string>
   <string name="perks_empty_body">Aucune promotion n\'est disponible pour le moment.</string>
   <!--Fingerprint Authentication-->
