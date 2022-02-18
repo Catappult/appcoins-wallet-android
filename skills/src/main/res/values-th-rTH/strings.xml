@@ -11,7 +11,7 @@
   <string name="playing_game_notification_title">กำลังเล่น e-Skills</string>
   <string name="playing_game_notification_body">กำลังรับข้อมูลเกม...</string>
   <string name="finish_game_notification_title">เกม e-Skills ของคุณเสร็จแล้ว</string>
-  <string name="won_game_notification_body">คุณได้รับรางวัล! กระเป๋าเงินของคุณตอนนี้หนักกว่า $%1$.2f!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
   <string name="lost_game_notification_body">คุณแพ้… ครั้งหน้าขอให้โชคดีกว่านี้!</string>
   <string name="dismiss_button">ละทิ้ง</string>
   <string name="location_not_available_title">เกม e-Skills ไม่พร้อมให้บริการในพื้นที่ของคุณ</string>
