@@ -120,7 +120,7 @@
   <string name="intro_2_title">Mehr spielen, weniger zahlen</string>
   <string name="intro_2_body">Erhalten Sie einen Bonus, wenn Sie Artikel in ihren Lieblings-Apps und -Spielen kaufen.</string>
   <string name="intro_3_title">Leicht und Einfach</string>
-  <string name="intro_3_body">Das AppCoins Wallet muss installiert bleiben, um direkte Einkäufe in ihren Spielen zu tätigen.</string>
+  <string name="intro_3_body">Erledigen Sie alle ihre In-App Einkäufe durch ihre bevorzugte Bezahlmethode.</string>
   <string name="intro_4_title">Sicher und Privat</string>
   <string name="intro_4_body">Ihre privaten Schlüssel werden nie ihr Gerät verlassen, ihre AppCoins sind also zu jeder Zeit sicher.</string>
   <string name="intro_4_body_2">Dank der neuesten Technologie sind ihre Transaktionen immer sicher.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Überweisen</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">e-Skills Belohung</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills Einkauf</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher für %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Die besten Android-Apps warten auf Sie.</string>
   <string name="home_empty_discover_apps_button">ENTDECKEN SIE DIE BESTEN APPS</string>
   <!--Tokens-->
   <!--Settings-->
@@ -982,7 +982,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">Sie können abheben:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">Erfahren Sie mehr über e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">Sie können nur das Guthaben abheben dass Sie in e-Skill Spielen verdient haben</string>
+  <string name="e_skills_know_more_about_tmp">sie können nur das Guthaben abheben dass sie in e-Skill Spielen verdient haben</string>
   <string name="e_skills_withdraw_started">Ihre Abhebung von $%1$.2f \nwurde gestartet</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Vielleicht später</string>
