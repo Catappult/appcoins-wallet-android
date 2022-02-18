@@ -120,7 +120,7 @@
   <string name="intro_2_title">เล่นเมาก จ่ายน้อยลง</string>
   <string name="intro_2_body">รับรางวัลสำหรับการซื้อสินค้าในแอปพลิเคชันที่ชื่นชอบและเกมของคุณ</string>
   <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
-  <string name="intro_3_body">ติดตั้ง AppCoins Wallet เพื่อใช้จ่ายแกมส์ได้โดยตรง</string>
+  <string name="intro_3_body">ดำเนินการการซื้อของในแอปทั้งหมดโดยใช้วิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
   <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
   <string name="intro_4_body_2">ธุรกรรมทั้งหมดของคุณปลอดภัยด้วยเทคโนโลยีล่าสุด</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
-  <string name="transaction_type_eskills_reward">รางวัล e-Skill</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">ซื้อ e-Skills</string>
   <string name="transaction_type_voucher">เวาเชอร์อิเล็กทรอนิกส์</string>
   <string name="transaction_type_voucher_title">บัตรกำนัลสำหรับ %s</string>
@@ -429,7 +429,7 @@
   <string name="discover_button">เปิด</string>
   <string name="retry_button">ลอง</string>
   <string name="do_it_later_button">ทำภายหลัง</string>
-  <string name="connection_error_body">ดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต โปรดเช็คการเชื่อมต่อและลองอีกครั้ง!</string>
+  <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
   <string name="common_or">หรือ</string>
   <string name="share_via">แชร์ไปยัง:</string>
   <string name="password">รหัสผ่าน</string>
@@ -449,11 +449,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">แอปแอนดรอยด์ที่ดีที่สุดกำลังรอคุณอยู่</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">แลกใช้รหัส</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
   <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
@@ -886,7 +886,7 @@
   <string name="perks_level_up_amount_left">อีก %1$s%2$s จะถึงเลเวลถัดไป!</string>
   <string name="perks_level_up_level_tag">เลเวล %s</string>
   <string name="perks_bonus_purchase_flow">%1$s โบนัส: %2$s ใน AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">การซื้อและการเติมเงินด้วยวิธีการชำระเงินใดๆ นอกเหนือจาก AppCoins Credits จะมีคุณสมบัติในการเพิ่มระดับของคุณและรับรางวัล</string>
+  <string name="perks_purchases_disclaimer_body">การซื้อในแอปและการเติมเงินทั้งหมดที่ทำด้วยวิธีการซื้อใดๆ นอกเหนือจากเครดิต AppCoins จะมีสิทธิ์เพิ่มระดับโบนัสของคุณและรับรางวัล</string>
   <string name="perks_empty_state_first_purchase_body">ดำเนินการซื้อครั้งแรกของคุณในแอพที่รองรับ AppCoins เพื่อปลดล็อกโปรโมชั่นที่เรามีให้คุณ!</string>
   <string name="perks_empty_body">ในขณะนี้ไม่มีโปรโมชั่น</string>
   <!--Fingerprint Authentication-->
