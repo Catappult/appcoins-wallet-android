@@ -120,7 +120,7 @@
   <string name="intro_2_title">少花钱，多玩乐</string>
   <string name="intro_2_body">在你最喜爱的应用和游戏中购买物品即可获得奖励。</string>
   <string name="intro_3_title">简单易用</string>
-  <string name="intro_3_body">继续安装AppCoins钱包，以直接在游戏中购买。</string>
+  <string name="intro_3_body">使用你最喜爱的付款方式处理所有应用内购买。</string>
   <string name="intro_4_title">安全私密</string>
   <string name="intro_4_body">你的私钥永远不会离开你的设备，因此你的AppCoins始终安全。</string>
   <string name="intro_4_body_2">得益于最新技术，您的所有交易都始终安全。</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">转移</string>
   <string name="transaction_type_bonus">奖励</string>
-  <string name="transaction_type_eskills_reward">e-Skills奖励</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills购买</string>
   <string name="transaction_type_voucher">电子优惠券</string>
   <string name="transaction_type_voucher_title">%s优惠券</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">最精彩的安卓应用正等你去探索。</string>
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
@@ -884,7 +884,7 @@
   <string name="perks_level_up_amount_left">您还要%1$s %2$s升到下一级！</string>
   <string name="perks_level_up_level_tag">%s级</string>
   <string name="perks_bonus_purchase_flow">%1$s奖励：%2$s 的AppCoins积金</string>
-  <string name="perks_purchases_disclaimer_body">除AppCoins积金以外，通过任何付款方式进行的所有购买和充值都将提升等级并获得奖励。</string>
+  <string name="perks_purchases_disclaimer_body">除AppCoins积金以外，通过任何付款方式进行的所有应用内购买和充值都将可以提升等级并获得奖励。</string>
   <string name="perks_empty_state_first_purchase_body">在AppCoins兼容应用内完成首次购买，即可解锁我们为您准备的促销！</string>
   <string name="perks_empty_body">目前没有可用的促销。</string>
   <!--Fingerprint Authentication-->
@@ -973,7 +973,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">你可以取款：</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">深入了解e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">你只能提取在e-Skills游戏中获得的资金</string>
+  <string name="e_skills_know_more_about_tmp">你只能取在e-Skills游戏中获得的资金</string>
   <string name="e_skills_withdraw_started">取款$%1$.2f\n现已开始</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">以后再说</string>
