@@ -263,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">狀態</string>
   <string name="transaction_category_label">類別</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">詳情</string>
   <string name="transaction_to_label">至</string>
   <string name="dialog_credit_card_remember">記住此卡片</string>
@@ -444,6 +445,9 @@
   <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
   <string name="terms_and_conditions">使用條款</string>
   <string name="privacy_policy">隱私權政策</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">發現暢銷應用程式</string>
@@ -983,6 +987,7 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <string name="promo_code_activated">Promo code activated!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">REPLACE</string>
   <string name="promo_code_active_tag">Active</string>
   <string name="promo_code_expired_tag">Expired</string>
