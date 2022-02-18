@@ -120,7 +120,7 @@
   <string name="intro_2_title">Chơi nhiều hơn, trả ít hơn</string>
   <string name="intro_2_body">Nhận thưởng khi mua vật phẩm trong các ứng dụng và trò chơi yêu thích của bạn.</string>
   <string name="intro_3_title">Đơn giản và Dễ dàng</string>
-  <string name="intro_3_body">Cài đặt Ví AppCoins để mua trực tiếp trong trò chơi của bạn.</string>
+  <string name="intro_3_body">Xử lý tất cả các giao dịch mua trong ứng dụng bằng phương thức thanh toán yêu thích của bạn.</string>
   <string name="intro_4_title">Bảo mật và Riêng tư</string>
   <string name="intro_4_body">Khóa cá nhân sẽ không bao giờ rời khỏi thiết bị của bạn, vì vậy AppCoin của bạn sẽ luôn được an toàn.</string>
   <string name="intro_4_body_2">Mọi giao dịch của bạn luôn được an toàn nhờ vào công nghệ hiện đại nhất.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Chuyển khoản</string>
   <string name="transaction_type_bonus">Tiền thưởng</string>
-  <string name="transaction_type_eskills_reward">Phần thưởng e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Mua hàng e-Skills</string>
   <string name="transaction_type_voucher">Phiếu mua hàng điện tử</string>
   <string name="transaction_type_voucher_title">Phiếu mua hàng dành cho %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Các ứng dụng Android tốt nhất đang chờ bạn.</string>
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
   <!--Tokens-->
   <!--Settings-->
@@ -884,7 +884,7 @@
   <string name="perks_level_up_amount_left">Bạn còn %1$s %2$s nữa để đạt được cấp kế tiếp!</string>
   <string name="perks_level_up_level_tag">Cấp %s</string>
   <string name="perks_bonus_purchase_flow">%1$s tiền thưởng: %2$s bằng AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Tất cả các giao dịch mua và nạp tiền được thực hiện bằng bất kỳ phương thức thanh toán nào ngoài AppCoins Credits sẽ đủ điều kiện để tăng cấp của bạn và được nhận phần thưởng.</string>
   <string name="perks_empty_state_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong một ứng dụng tương thích với AppCoins để mở khóa các chương trình khuyến mãi mà chúng tôi dành cho bạn!</string>
   <string name="perks_empty_body">Hiện tại không có khuyến mãi nào.</string>
   <!--Fingerprint Authentication-->
@@ -973,7 +973,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">Bạn có thể rút:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">tìm hiểu thêm về e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">bạn chỉ có thể rút tiền kiếm được trong các trò chơi e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">bạn chỉ có thể rút tiền kiếm được từ các trò chơi e-Skills</string>
   <string name="e_skills_withdraw_started">Việc rút $%1$.2f \nđã được bắt đầu</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Để sau</string>
