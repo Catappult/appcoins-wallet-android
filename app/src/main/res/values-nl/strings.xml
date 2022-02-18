@@ -120,7 +120,7 @@
   <string name="intro_2_title">Speel meer, betaal minder</string>
   <string name="intro_2_body">Krijg een beloning door items in je favoriete apps en games te kopen.</string>
   <string name="intro_3_title">Simpel en eenvoudig</string>
-  <string name="intro_3_body">Zorg ervoor dat je de AppCoins Wallet hebt geïnstalleerd om rechtstreeks in games te aankopen doen.</string>
+  <string name="intro_3_body">Verwerk al je in-app aankopen met je favoriete betaalmethode.</string>
   <string name="intro_4_title">Veilig en persoonlijk</string>
   <string name="intro_4_body">Je privésleutels staan alleen op jouw apparaat waardoor je AppCoins altijd beveiligd zijn.</string>
   <string name="intro_4_body_2">Al je transacties zijn altijd veilig dankzij de nieuwste technologie.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Overboeking</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Beloning voor e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Aankoop voor e-Skills</string>
   <string name="transaction_type_voucher">E-voucher</string>
   <string name="transaction_type_voucher_title">Voucher voor %s</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Kaartnummer</string>
   <string name="dialog_credit_card_expiration">Vervaldatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Creditcard/betaalkaart</string>
   <string name="dialog_expiry_date">Vervaldatum</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
@@ -449,11 +449,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">De beste Android-apps wachten op je.</string>
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Code inwisselen</string>
   <string name="settings_item_support">Neem contact op met support</string>
   <string name="settings_subheader_support">Ondersteuning</string>
   <string name="settings_subheader_about_us">Over ons</string>
@@ -838,7 +838,7 @@
   <string name="carrier_billing_terms_button">Algemene voorwaarden</string>
   <string name="carrier_billing_privacy_button">Privacybeleid</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Creditcard/betaalkaart toevoegen</string>
   <string name="manage_cards_settings_manage_title">Kaarten beheren</string>
   <string name="manage_cards_view_title">Kaarten beheren</string>
   <string name="manage_cards_view_manage_subtitle">Beheer je betaalkaarten</string>
@@ -891,7 +891,7 @@
   <string name="perks_level_up_amount_left">Je bent %1$s %2$s verwijderd van het volgende niveau!</string>
   <string name="perks_level_up_level_tag">Niveau %s</string>
   <string name="perks_bonus_purchase_flow">%1$s bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Behalve AppCoins Credits komen alle betaalmethoden voor het uitvoeren van aankopen en opwaarderingen in aanmerking om je niveau te verhogen en beloningen te ontvangen.</string>
   <string name="perks_empty_state_first_purchase_body">Doe je eerste aankoop in een app die AppCoins ondersteunt om de acties die we voor je hebben te ontgrendelen!</string>
   <string name="perks_empty_body">Er zijn momenteel geen acties beschikbaar.</string>
   <!--Fingerprint Authentication-->
@@ -982,7 +982,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">Bedrag dat je kunt opnemen:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">Meer informatie over e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">Je kunt alleen saldo laten uitbetalen dat je in games met e-Skills hebt verdiend</string>
+  <string name="e_skills_know_more_about_tmp">je kunt alleen saldo laten uitbetalen dat je in games met e-Skills hebt verdiend</string>
   <string name="e_skills_withdraw_started">Uitbetaling van $ %1$.2f \nis geïnitieerd</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Misschien later</string>
