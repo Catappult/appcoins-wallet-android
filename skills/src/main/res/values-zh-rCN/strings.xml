@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">AppCoins钱包</string>
   <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
   <string name="processing_loading_title">获取入场券</string>
   <string name="finding_room_loading_title">正在等待对手</string>
@@ -11,23 +11,23 @@
   <string name="cancel">取消</string>
   <string name="buy_button">Buy</string>
   <string name="topup_button">Top Up</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
-  <string name="dismiss_button">Dismiss</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="connection_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
+  <string name="playing_game_notification_title">当前游玩的e-Skills</string>
+  <string name="playing_game_notification_body">正在获得游戏信息……</string>
+  <string name="finish_game_notification_title">你的e-Skills游戏已完成</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">你输了……下次好运吧！</string>
+  <string name="dismiss_button">取消</string>
+  <string name="location_not_available_title">e-Skills游戏在你的位置不可用</string>
+  <string name="location_not_available_body">我们正在努力向所有人开放，请尽快回来吧！</string>
+  <string name="e_skills_room_create_title">创建或加入房间</string>
+  <string name="e_skills_room_create_body">创建新房间并与对手分享房间或加入现有房间。</string>
   <string name="e_skills_room_field">Your room name here…</string>
   <string name="e_skills_payment_title">Payment with</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="processing_payment_title">Processing your payment</string>
   <string name="purchase_error_title">Oops, something went wrong.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="purchase_eskills_sku">入场券</string>
+  <string name="shared_room_waiting">正在等待对手加入%s</string>
 </resources>
