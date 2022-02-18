@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins ウォレット</string>
   <string name="title_send">送信する</string>
   <string name="title_send_with_token">%s を送信します。</string>
   <string name="title_request">受信する</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
   <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
   <string name="intro_3_title">シンプルで簡単</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">お気に入りの支払い方法を使用して、アプリ内購入をすべて処理します。</string>
   <string name="intro_4_title">安全でプレイベート</string>
   <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
   <string name="intro_4_body_2">最新のテクノロジーにより、お客様の取引は常に安全です。</string>
@@ -242,7 +242,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">移動</string>
   <string name="transaction_type_bonus">ボーナス</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">eギフト券</string>
   <string name="transaction_type_voucher_title">%sのクーポン</string>
@@ -450,7 +450,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">最高のAndroidアプリがあなたを待っています。</string>
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
@@ -885,7 +885,7 @@
   <string name="perks_level_up_amount_left">あなたは次のレベルまで、あと %1$s %2$s です!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s ボーナス： %2$s の AppCoins クレジット</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">AppCoinsクレジット以外のすべての支払い方法で購入およびチャージすると、レベルアップおよび報酬の受け取りが可能になります。</string>
   <string name="perks_empty_state_first_purchase_body">AppCoinsに対応したアプリで初めてのお買い物をすると、お得なキャンペーンをご利用いただけます。</string>
   <string name="perks_empty_body">現在、プロモーションはありません。</string>
   <!--Fingerprint Authentication-->
@@ -898,7 +898,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">サポートチームにログを送信</string>
   <string name="send_logs_sending">送信中&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">送信しました！</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins Walletをお楽しみ頂けていますか？</string>
@@ -974,7 +974,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_know_more_about_tmp">e-Skillsゲームで獲得した資金のみを引き出すことができます。</string>
   <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Maybe later</string>
