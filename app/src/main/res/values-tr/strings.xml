@@ -120,7 +120,7 @@
   <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
   <string name="intro_2_body">En sevdiğiniz uygulama ve oyunlarda ürün satın aldığınızda ödül kazanın.</string>
   <string name="intro_3_title">Basit ve Kolay</string>
-  <string name="intro_3_body">Oyunlarınızda doğrudan satın alma işlemi gerçekleştirebilmek için AppCoins Wallet yüklü kalsın.</string>
+  <string name="intro_3_body">Favori ödeme yönteminizi kullanarak tüm uygulama için satın alımlarınızı işleyin.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
   <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
   <string name="intro_4_body_2">En yeni teknoloji sayesinde tüm işlemleriniz her zaman güvenli.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">e-Skills Ödülü</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills Satın Alma İşlemi</string>
   <string name="transaction_type_voucher">e-Kupon</string>
   <string name="transaction_type_voucher_title">%s kuponu</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">En iyi Android uygulamaları sizi bekliyor.</string>
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
   <!--Tokens-->
   <!--Settings-->
@@ -891,7 +891,7 @@
   <string name="perks_level_up_amount_left">Bir sonraki seviyeden %1$s %2$s uzaksınız!</string>
   <string name="perks_level_up_level_tag">%s. Svy</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">AppCoins Credits dışında başka bir ödeme yöntemiyle yapılan tüm satın alma işlemleri ve yüklemeler, seviyenizi artırıp ödüller kazanmaya hak kazanmanızı sağlar.</string>
+  <string name="perks_purchases_disclaimer_body">AppCoins Credits dışında başka bir ödeme yöntemiyle yapılan tüm satın alma işlemleri ve yüklemeler, seviyenizi artırıp ödül kazanmaya hak kazanmanızı sağlar.</string>
   <string name="perks_empty_state_first_purchase_body">Sizin için hazırladığımız promosyonların kilidini açmak için AppCoins uyumlu bir uygulamada ilk satın alma işleminizi gerçekleştirin!</string>
   <string name="perks_empty_body">Şu anda uygun promosyon yok.</string>
   <!--Fingerprint Authentication-->
