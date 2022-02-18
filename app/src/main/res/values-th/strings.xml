@@ -263,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">สถานะ</string>
   <string name="transaction_category_label">ประเภท</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">รายละเอียด</string>
   <string name="transaction_to_label">ถึง</string>
   <string name="dialog_credit_card_remember">จดจำบัตร</string>
@@ -444,6 +445,9 @@
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
   <string name="terms_and_conditions">ข้อกำหนดและเงื่อนไข</string>
   <string name="privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
@@ -985,6 +989,7 @@
   <string name="promo_code_view_field">Promo Code ที่นี่...</string>
   <string name="promo_code_view_error">รหัสไม่ถูกต้อง ลองกับอันอื่นสิ!</string>
   <string name="promo_code_activated">รหัสโปรโมชั่นเปิดใช้งาน!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">แทนที่</string>
   <string name="promo_code_active_tag">ใช้งาน</string>
   <string name="promo_code_expired_tag">หมดอายุ</string>
