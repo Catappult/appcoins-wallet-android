@@ -4,13 +4,13 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: th\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] translations_update/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 4700\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/app/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 6706\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Thai\n"
 "Language: th_TH\n"
-"PO-Revision-Date: 2021-10-24 14:20\n"
+"PO-Revision-Date: 2022-02-18 18:00\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "เพราะคุณถึงเลเวลถัดไป"
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "รับโบนัสพิเศษ {0}% จากการซื้อทั้งหมดของคุณใน {1} ยกเว้นเมื่อคุณใช้เครดิต AppCoins"
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
