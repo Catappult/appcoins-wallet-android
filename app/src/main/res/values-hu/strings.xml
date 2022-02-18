@@ -120,7 +120,7 @@
   <string name="intro_2_title">Játssz többet, fizess kevesebbet</string>
   <string name="intro_2_body">Jutalmakat kaphat, ha kedvenc appjaiban és játékaiban vásárol.</string>
   <string name="intro_3_title">Egyszerű és könnyű</string>
-  <string name="intro_3_body">Az AppCoins Wallet maradjon telepítve, hogy közvetlenül vásárolhass a játékaidban.</string>
+  <string name="intro_3_body">Alkalmazáson belüli vásárlásaidat a kedvenc fizetési módszereddel hajthatod végre.</string>
   <string name="intro_4_title">Biztonságos és privát</string>
   <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoinsaid mindig biztonságban lesznek.</string>
   <string name="intro_4_body_2">A legújabb technológiáknak köszönhetően a tranzakcióid mindig biztonságban lesznek.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Tranzakció</string>
   <string name="transaction_type_bonus">Bónusz</string>
-  <string name="transaction_type_eskills_reward">e-Skills jutalom</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills vásárlás</string>
   <string name="transaction_type_voucher">e-Utalvány</string>
   <string name="transaction_type_voucher_title">%s utalvány</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Várnak rád a legjobb Android appok.</string>
   <string name="home_empty_discover_apps_button">FEDEZD FEL A LEGJOBB APPOKAT</string>
   <!--Tokens-->
   <!--Settings-->
@@ -891,7 +891,7 @@
   <string name="perks_level_up_amount_left">Még %1$s %2$s választ el a következő szinttől!</string>
   <string name="perks_level_up_level_tag">%s. szint</string>
   <string name="perks_bonus_purchase_flow">%1$s Bónusz: %2$s AppCoins kreditben</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Az AppCoins krediteken kívül minden más fizetési móddal történő vásárlás és feltöltés magasabb szintre emelhet és jutalmakat hozhat számodra.</string>
   <string name="perks_empty_state_first_purchase_body">Itt az ideje az első vásárlásnak egy AppCoins kompatibilis alkalmazásban. Felfedezheted, milyen promóciók várnak rád!</string>
   <string name="perks_empty_body">Jelenleg nincs aktív promóció.</string>
   <!--Fingerprint Authentication-->
@@ -982,7 +982,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">Lehívható összeg:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">tudj meg többet az e-Skills-ről</string>
-  <string name="e_skills_know_more_about_tmp">csak az e-Skills játékokban szerzett összeget hívhatod le</string>
+  <string name="e_skills_know_more_about_tmp">csak az e-Skills játékokban szerzett összeget veheted fel</string>
   <string name="e_skills_withdraw_started">Megkezdődött a(z) $%1$.2f \n összeg lehívása</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Talán később</string>
