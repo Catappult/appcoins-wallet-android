@@ -120,7 +120,7 @@
   <string name="intro_2_title">ਪੈਸੇ ਘੱਟ ਦਿਓ, ਖੇਡੋ ਜ਼ਿਆਦਾ</string>
   <string name="intro_2_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ ਆਈਟਮਾਂ ਖਰੀਦਣ ਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
   <string name="intro_3_title">ਆਸਾਨ ਅਤੇ ਸੌਖਾ</string>
-  <string name="intro_3_body">ਆਪਣੀਆਂ ਗੇਮਾਂ ਵਿੱਚ ਸਿੱਧੇ ਖਰੀਦਣ ਲਈ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਸਥਾਪਿਤ ਰੱਖੋ।</string>
+  <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
   <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
   <string name="intro_4_body_2">ਤੁਹਾਡੀਆਂ ਸਾਰੇ ਲੈਣ-ਦੇਣ ਹਮੇਸ਼ਾ ਸੁਰੱਖਿਅਤ ਹਨ, ਨਵੀਨਤਮ ਤਕਨਾਲੋਜੀ ਦਾ ਧੰਨਵਾਦ|</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
-  <string name="transaction_type_eskills_reward">ਈ-ਹੁਨਰ ਇਨਾਮ</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">ਈ-ਹੁਨਰ ਖਰੀਦਦਾਰੀ</string>
   <string name="transaction_type_voucher">ਈ-ਵਾਊਚਰ</string>
   <string name="transaction_type_voucher_title">%s ਲਈ ਵਾਊਚਰ</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">ਵਧੀਆ ਐਂਡਰਾਇਡ ਐਪਾਂ ਤੁਹਾਡੀ ਉਡੀਕ ਕਰ ਰਹੀਆਂ ਹਨ|</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -982,7 +982,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">ਤੁਸੀਂ ਲੈ ਸਕਦੇ ਹੋ:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">ਈ-ਹੁਨਰ ਬਾਰੇ ਹੋਰ ਜਾਣੋ</string>
-  <string name="e_skills_know_more_about_tmp">ਤੁਸੀਂ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਲੈ ਸਕਦੇ ਹੋ</string>
+  <string name="e_skills_know_more_about_tmp">ਤੁਸੀਂ ਸਿਰਫ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ</string>
   <string name="e_skills_withdraw_started">$%1$.2f \n ਕੱਢਣਾ ਸ਼ੁਰੂ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">ਫੇਰ ਕਦੇ</string>
