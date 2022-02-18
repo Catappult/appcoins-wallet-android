@@ -120,7 +120,7 @@
   <string name="intro_2_title">Играй повече, плащай по-малко</string>
   <string name="intro_2_body">Получи награда при купуване на артикули в любимите си приложения и игри.</string>
   <string name="intro_3_title">Просто и Лесно</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Обработи всичките си покупки в приложението, използвайки любимия си метод за плащане.</string>
   <string name="intro_4_title">Сигурно и Частно</string>
   <string name="intro_4_body">Твоите частни ключове никога няма да напуснат устройството ти, така че твоите AppCoins са в безопасност по всяко време.</string>
   <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Трансфер</string>
   <string name="transaction_type_bonus">Бонус</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher for %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Най-добрите Android приложения те очакват.</string>
   <string name="home_empty_discover_apps_button">ОТКРИЙ ТОП ПРИЛОЖЕНИЯ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -891,7 +891,7 @@
   <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
@@ -998,9 +998,9 @@
   <string name="promo_code_activated">Promo code activated!</string>
   <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
+  <string name="promo_code_active_tag">Активни</string>
   <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_success_title">Готово!</string>
   <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
   <string name="promo_code_promotions_tag">Promotional code</string>
