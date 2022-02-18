@@ -120,7 +120,7 @@
   <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
   <string name="intro_2_body">Dapatkan hadiah untuk pembelian item di aplikasi dan permainan favorit Anda.</string>
   <string name="intro_3_title">Sederhana dan Mudah</string>
-  <string name="intro_3_body">Tetap instal AppCoins Wallet agar bisa langsung membeli di game Anda.</string>
+  <string name="intro_3_body">Proses semua pembelian in-app Anda dengan metode pembayaran favorit.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
   <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
   <string name="intro_4_body_2">Semua transaksi yang Anda lakukan selalu aman berkat teknologi terkini.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Hadiah e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Pembelian e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher untuk %s</string>
@@ -449,11 +449,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Aplikasi Android terbaik menunggu Anda.</string>
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Dapatkan Kode</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
   <string name="settings_subheader_support">Dukungan</string>
   <string name="settings_subheader_about_us">Tentang Kami</string>
@@ -884,7 +884,7 @@
   <string name="perks_level_up_amount_left">Anda tinggal %1$s %2$s dari level berikutnya!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">Bonus %1$s: Kredit AppCoins sebesar %2$s</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Semua pembelian dan top up yang dilakukan dengan metode pembayaran selain Kredit AppCoins akan memenuhi syarat untuk meningkatkan level Anda dan menerima hadiah.</string>
   <string name="perks_empty_state_first_purchase_body">Lakukan pembelian pertama Anda di aplikasi yang kompatibel dengan AppCoins untuk membuka promosi yang kami sediakan untuk Anda!</string>
   <string name="perks_empty_body">Tidak tersedia promosi saat ini.</string>
   <!--Fingerprint Authentication-->
@@ -973,7 +973,7 @@
   <string name="e_skills_withdraw_max_amount_part_1">Anda bisa menarik:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">ketahui lebih banyak tentang e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">Anda hanya bisa menarik dana yang diperoleh di game e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">anda hanya bisa menarik dana yang diperoleh di game e-Skills</string>
   <string name="e_skills_withdraw_started">Penarikan sebesar $%1$.2f \nsudah dimulai</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Mungkin nanti</string>
