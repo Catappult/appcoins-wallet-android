@@ -263,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">الحالة</string>
   <string name="transaction_category_label">الفئة</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">تفاصيل</string>
   <string name="transaction_to_label">إلى</string>
   <string name="dialog_credit_card_remember">تذكر البطاقة</string>
@@ -444,6 +445,9 @@
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
   <string name="terms_and_conditions">القواعد والشروط</string>
   <string name="privacy_policy">سياسة الخصوصية</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
@@ -1029,6 +1033,7 @@
   <string name="promo_code_view_field">الرمز الترويجي هنا...</string>
   <string name="promo_code_view_error">رمز غير صالح. جرب رمزًا آخر!</string>
   <string name="promo_code_activated">تم تنشيط الرمز الترويجي!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">استبدال</string>
   <string name="promo_code_active_tag">نشط</string>
   <string name="promo_code_expired_tag">منتهي الصلاحية</string>
