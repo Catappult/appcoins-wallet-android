@@ -263,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Статус</string>
   <string name="transaction_category_label">Категорія</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Деталі</string>
   <string name="transaction_to_label">До</string>
   <string name="dialog_credit_card_remember">Запам\'ятати картку</string>
@@ -446,6 +447,9 @@
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
   <string name="terms_and_conditions">Правила та умови</string>
   <string name="privacy_policy">Політика конфіденційності</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Зробіть покупку своєї улюбленої гри, і ми все зробимо.</string>
   <string name="home_empty_discover_apps_button">ВІДКРАЙТЕ НАЙКРАЩІ ДОДАТКИ</string>
@@ -1012,6 +1016,7 @@
   <string name="promo_code_view_field">Введіть промокод...</string>
   <string name="promo_code_view_error">Невірний код. Спробуйте інший!</string>
   <string name="promo_code_activated">Промокод активовано!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">ЗАМІНИТИ</string>
   <string name="promo_code_active_tag">Активний</string>
   <string name="promo_code_expired_tag">Термін дії закінчився</string>
