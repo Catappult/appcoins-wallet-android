@@ -120,7 +120,7 @@
   <string name="intro_2_title">Igrajte više, platite manje</string>
   <string name="intro_2_body">Dobijte nagrade za kupovinu u svojim omiljenim aplikacijama i igrama.</string>
   <string name="intro_3_title">Jednostavno i lako</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
   <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
   <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Prenos</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher for %s</string>
@@ -429,13 +429,13 @@
   <string name="discover_button">Otkrij</string>
   <string name="retry_button">Pokušaj ponovo</string>
   <string name="do_it_later_button">Pokušaj kasnije</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connection_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
   <string name="common_or">ILI</string>
   <string name="share_via">Podeli preko:</string>
   <string name="password">Lozinka</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No, thanks</string>
+  <string name="no_thanks_button">No,thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">Potvrdi</string>
@@ -449,14 +449,14 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Čekaju vas najbolje aplikacije za Android.</string>
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Iskoristite kod</string>
   <string name="settings_item_support">Obratite se timu korisničke podrške</string>
   <string name="settings_subheader_support">Podrška</string>
-  <string name="settings_subheader_about_us">About Us</string>
+  <string name="settings_subheader_about_us">O nama</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">U toku&#8230;</string>
   <string name="local_payments_inprogress_body">Kada dovršite plaćanje, u novčanik ćete dobiti AppCoins Credits. Zatim se vratite u igru da obavite kupovinu!</string>
@@ -533,7 +533,7 @@
   <string name="purchase_error_wallet_block_code_403">Izgleda da nešto nije u redu sa vašim novčanikom. Javite nam se.</string>
   <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
   <string name="error_contac_us_body">Ako se problem i dalje javlja, obratite nam se.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
   <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
   <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
@@ -737,7 +737,7 @@
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Aktivne</string>
   <string name="subscriptions_expired_title">Expired</string>
-  <string name="subscriptions_inactive_title">Inactive</string>
+  <string name="subscriptions_inactive_title">Neaktivne</string>
   <string name="subscriptions_empty_title">Još nema pretplata</string>
   <string name="subscriptions_empty_body">Pretplatite se na usluge u svojim omiljenim aplikacijama i igrama, a mi ćemo obraditi periodična plaćanja.</string>
   <string name="subscriptions_details_billing_title">Naplata:</string>
@@ -762,10 +762,10 @@
   <string name="subscriptions_cancel_confirmation_body">Više vam se neće naplaćivati ova pretplata, a možete da je koristite do dana %s.</string>
   <string name="subscriptions_category_title">Pretplata</string>
   <string name="subscriptions_bonus_body">Dobićete ovaj bonus za svaku uplatu.</string>
-  <string name="subscriptions_per_day">%1$s/day</string>
-  <string name="subscriptions_per_week">%1$s/week</string>
-  <string name="subscriptions_per_month">%1$s/month</string>
-  <string name="subscriptions_per_year">%1$s/year</string>
+  <string name="subscriptions_per_day">%1$s dnevno</string>
+  <string name="subscriptions_per_week">%1$s nedeljno</string>
+  <string name="subscriptions_per_month">%1$s mesečno</string>
+  <string name="subscriptions_per_year">%1$s godišnje</string>
   <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
   <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
   <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
@@ -825,7 +825,7 @@
   <string name="carrier_billing_insert_phone_body">Unesite svoj broj telefona</string>
   <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Vaš broj telefona...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">%1$s će naplatiti naknadu od %2$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s u aplikaciji %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Vaš broj telefona je %s.</string>
   <string name="carrier_billing_enter_pin_body">Unesite PIN kod koji ste dobili u SMS poruci.</string>
@@ -898,7 +898,7 @@
   <string name="perks_level_up_amount_left">Nedostaje vam još %1$s %2$s do sledećeg nivoa!</string>
   <string name="perks_level_up_level_tag">N.</string>
   <string name="perks_bonus_purchase_flow">%1$s bonusa: %2$s u AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
@@ -911,7 +911,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Pošaljite evidenciju timu korisničke podrške</string>
   <string name="send_logs_sending">Slanje&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">Poslato!</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
@@ -930,13 +930,13 @@
   <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Check the code in the transaction details</string>
-  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
   <string name="card_verification_code_example_date">Trans. Date</string>
-  <string name="card_verification_code_example_description">Description</string>
+  <string name="card_verification_code_example_description">Opis</string>
   <string name="card_verification_code_example_amount">Iznos</string>
-  <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
-  <string name="card_verification_code_enter_title">Enter the %s digits code</string>
+  <string name="card_verification_code_example_code">Unique code</string>
+  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="one">%1$s will be refunded within %2$s hour after you confirm the code.</item>
     <item quantity="few">%1$s will be refunded within %2$s hours after you confirm the code.</item>
@@ -1007,14 +1007,14 @@
   <string name="promo_code_activated">Promo code activated!</string>
   <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
+  <string name="promo_code_active_tag">Aktivne</string>
   <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_success_title">Gotovo!</string>
   <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
   <string name="promo_code_promotions_tag">Promotional code</string>
   <!--AppCoins Info Page-->
-  <string name="appcoins_info_title">About AppCoins</string>
+  <string name="appcoins_info_title">O AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
   <string name="appcoins_info_title_1">What are AppCoins?</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
