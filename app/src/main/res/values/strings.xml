@@ -131,7 +131,7 @@
   <string name="intro_2_title">Play More, Pay Less</string>
   <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
   <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
+  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
   <string name="intro_4_title">Secure and Private</string>
   <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
@@ -141,6 +141,11 @@
   <string name="intro_wallet_created_short">Wallet created!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
   <string name="intro_skip_button">SKIP</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
+  
 
   <!-- Menus -->
   <!-- Labels -->
@@ -474,12 +479,12 @@
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
-  <string name="decline_button">Decline</string>
+  <string name="decline_button">Reject</string>
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
 
   <!--Home-->
-  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
 
   <!--Tokens-->
@@ -715,6 +720,7 @@
   <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
 
 
   <!--Wallets Management-->
@@ -776,6 +782,7 @@
   <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
 
 <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Check for updates</string>
   <string name="check_updates_settings_subtitle">Current version %s</string>
   <string name="check_updates_checking_body">Searching for a new version</string>
@@ -958,7 +965,7 @@
   <string name="perks_level_up_amount_left">You\'re %1$s %2$s away from the next level!</string>
   <string name="perks_level_up_level_tag">Lv %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s in AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive reward.</string>
+  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
 
@@ -1067,6 +1074,9 @@
   <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
   <string name="e_skills_withdraw_maybe_later">Maybe later</string>
+  <string name="e_skills_room_create_title">Create or join a room</string>
+  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="e_skills_room_field">Your room name here...</string>
 
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo Code</string>
@@ -1075,7 +1085,7 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_delete_button">DELETE</string>
+  <string name="promo_code_delete_button">DELETE</string> 
   <string name="promo_code_replace_button">REPLACE</string>
   <string name="promo_code_active_tag">Active</string>
   <string name="promo_code_expired_tag">Expired</string>
