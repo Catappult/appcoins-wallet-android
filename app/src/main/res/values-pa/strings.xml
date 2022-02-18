@@ -263,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">ਸਥਿਤੀ</string>
   <string name="transaction_category_label">ਸ਼੍ਰੇਣੀ</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">ਵੇਰਵਾ</string>
   <string name="transaction_to_label">ਲਈ</string>
   <string name="dialog_credit_card_remember">ਕਾਰਡ ਯਾਦ ਰੱਖੋ</string>
@@ -444,6 +445,9 @@
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
   <string name="terms_and_conditions">ਨਿਬੰਧਨ ਅਤੇ ਸ਼ਰਤਾਂ</string>
   <string name="privacy_policy">ਪਰਾਈਵੇਟ ਨੀਤੀ</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
@@ -992,6 +996,7 @@
   <string name="promo_code_view_field">ਪ੍ਰੋਮੋ ਕੋਡ ਇੱਥੇ...</string>
   <string name="promo_code_view_error">ਗਲਤ ਕੋਡ| ਕਿਸੇ ਹੋਰ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="promo_code_activated">ਪ੍ਰੋਮੋ ਕੋਡ ਲਗਾ ਦਿੱਤਾ ਗਿਆ!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">ਬਦਲੋ</string>
   <string name="promo_code_active_tag">ਐਕਟਿਵ</string>
   <string name="promo_code_expired_tag">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
