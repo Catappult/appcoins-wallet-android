@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Saltar, estará a concordar com os %1$s e com a %2$s da AppCoins Wallet</string>
   <string name="intro_skip_button">Saltar</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -237,6 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferência</string>
   <string name="transaction_type_bonus">Bônus</string>
+  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
+  <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher para %s</string>
   <string name="transaction_type_reverted_bonus_title">Bónus Revertido</string>
@@ -257,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Categoria</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Detalhes</string>
   <string name="transaction_to_label">Para</string>
   <string name="dialog_credit_card_remember">Memorizar Cartão</string>
@@ -386,7 +393,6 @@
   <string name="my_wallets_action_backup_wallet">Backup da wallet</string>
   <string name="my_wallets_action_verify_new_card">Verificar novo cartão</string>
   <string name="my_wallets_action_delete_wallet">Apagar wallet</string>
-  <string name="verify_card_title">Verificar Cartão</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pede a alguém para pagar</string>
   <string name="askafriend_generating_link_message">Estamos a gerar o link para pagamento &#8230;</string>
@@ -439,6 +445,9 @@
   <string name="terms_and_conditions_error">Por favor aceita os nossos Termos e Condições e a Política de Privacidade para continuar</string>
   <string name="terms_and_conditions">Termos e Condições</string>
   <string name="privacy_policy">Política de Privacidade</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">As melhores apps Android estão à tua espera.</string>
   <string name="home_empty_discover_apps_button">Descobre apps top</string>
@@ -477,6 +486,10 @@
   <string name="verification_settings_unverified_title">Verificar Wallet</string>
   <string name="verification_settings_unverified_body">Recebe recompensas e convida amigos</string>
   <string name="verification_settings_verified_title">Wallet Verificada</string>
+  <string name="verification_settings_verifying_title">Verifying wallet…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
+  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_button">Verify Now</string>
   <string name="verification_settings_card_verified_title">Cartão Verificado</string>
   <string name="verification_settings_no_internet">Tens de estar ligado à internet</string>
   <string name="verification_error_time_expired">Ups, o teu tempo terminou. Começa de novo!</string>
@@ -534,6 +547,8 @@
   <string name="purchase_error_card_already_in_progress">O teu pedido já foi processado ou está em curso. Por favor aguarda.</string>
   <string name="purchase_error_payment_rejected">Pagamento rejeitado! Por favor, tenta com um cartão diferente ou utiliza outro método de pagamento.</string>
   <string name="purchase_error_verify_wallet">Tenta verificar a tua wallet para desbloquear esta situação.</string>
+  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">Bilhete de entrada</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Morada de faturação</string>
@@ -654,6 +669,7 @@
   <string name="backup_additional_security_disclaimer_title">Por favor mantém a tua password segura.</string>
   <string name="backup_additional_security_disclaimer_body">Não há recuperação de password.</string>
   <string name="backup_additional_security_password_not_march">As password não coincidem.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total em %s</string>
@@ -705,6 +721,7 @@
   <string name="pioneer_gamification_title">És um Pioneiro</string>
   <string name="pioneer_gamification_body">Um Pioneiro é um adotante inicial com aumento de bónus.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Ver se há atualizações</string>
   <string name="check_updates_settings_subtitle">Versão atual %s</string>
   <string name="check_updates_checking_body">A procurar uma nova versão</string>
@@ -888,6 +905,7 @@
   <string name="send_logs_settings">Enviar registos para a Equipa de Apoio</string>
   <string name="send_logs_sending">A enviar&#8230;</string>
   <string name="send_logs_sent">Enviado!</string>
+  <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Gostas da AppCoins Wallet?</string>
   <string name="rate_us_no">Nem por isso</string>
@@ -927,6 +945,8 @@
   <string name="card_verification_wallets_insert_bode_button">Inserir código</string>
   <string name="card_verification_no_attempts_title">Ups, inseriste um código errado demasiadas vezes, por isso %1$s vão ser reembolsados no teu cartão.</string>
   <string name="card_verification_no_attempts_body">Por favor, inicia novamente o processo de verificação.</string>
+  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="verify_card_title">Verificar Cartão</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Compra este voucher e recebe</string>
   <string name="voucher_card_body_2"> até %s%% de bónus.</string>
@@ -948,7 +968,7 @@
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transação a caminho!</string>
   <string name="block_transaction_disclaimer_body">Podes segui-la no Etherscan.</string>
-  <!--  Withdraw Funds-->
+  <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">Levantar e-Skills</string>
   <string name="e_skills_withdraw_email">Endereço de e-mail do PayPal</string>
   <string name="e_skills_withdraw_amount">Montante (USD)</string>
@@ -958,8 +978,17 @@
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail inválido</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Sem saldo suficiente</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">Só podes levantar os fundos ganhos nos jogos e-Skills</string>
-  <string name="e_skills_withdraw_max_amount">Montante máximo que podes levantar: %s</string>
-  <string name="e_skills_more_info_button">Mais info.</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
+  <string name="e_skills_room_create_title">Create or join a room</string>
+  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="e_skills_room_field">Your room name here...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Código Promocional</string>
   <string name="promo_code_view_title">Código Promocional</string>
@@ -967,11 +996,14 @@
   <string name="promo_code_view_field">Código Promocional aqui...</string>
   <string name="promo_code_view_error">Código inválido. Tenta com outro!</string>
   <string name="promo_code_activated">Código promocional ativado!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">SUBSTITUIR</string>
   <string name="promo_code_active_tag">Ativo</string>
   <string name="promo_code_expired_tag">Expirado</string>
   <string name="promo_code_success_title">Feito!</string>
   <string name="promo_code_success_body">Vais receber %s%% de bónus extra em todas as tuas compras.</string>
+  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
+  <string name="promo_code_promotions_tag">Promotional code</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Sobre as AppCoins</string>
   <string name="appcoins_info_prince_title">Preço AppCoins (APPC)</string>
@@ -984,4 +1016,7 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Valor de Mercado</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <!--  NFTs -->
+  <string name="nfts_title">NFTs</string>
+  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
 </resources>

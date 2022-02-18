@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
   <string name="intro_agree_terms_and_conditions_body">Dengan mengetuk Lewatkan, Anda menyetujui %1$s dan %2$s Dompet AppCoins</string>
   <string name="intro_skip_button">LEWATKAN</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
@@ -237,6 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
+  <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher untuk %s</string>
   <string name="transaction_type_reverted_bonus_title">Bonus yang Dikembalikan</string>
@@ -257,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Kategori</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Rincian</string>
   <string name="transaction_to_label">Ke</string>
   <string name="dialog_credit_card_remember">Ingat Kartu</string>
@@ -386,7 +393,6 @@
   <string name="my_wallets_action_backup_wallet">Cadangkan dompet</string>
   <string name="my_wallets_action_verify_new_card">Verifikasi kartu baru</string>
   <string name="my_wallets_action_delete_wallet">Hapus dompet</string>
-  <string name="verify_card_title">Verifikasi Kartu</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang untuk membayar</string>
   <string name="askafriend_generating_link_message">Kami sedang membuat tautan pembayaran Anda &#8230;</string>
@@ -439,6 +445,9 @@
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
   <string name="terms_and_conditions">Syarat dan Ketentuan</string>
   <string name="privacy_policy">Kebijakan Privasi</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Aplikasi Android terbaik menunggu Anda.</string>
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
@@ -477,6 +486,10 @@
   <string name="verification_settings_unverified_title">Verifikasi Dompet</string>
   <string name="verification_settings_unverified_body">Dapatkan hadiah dan undang teman</string>
   <string name="verification_settings_verified_title">Dompet Terverifikasi</string>
+  <string name="verification_settings_verifying_title">Verifying wallet…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
+  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_button">Verify Now</string>
   <string name="verification_settings_card_verified_title">Kartu Terverifikasi</string>
   <string name="verification_settings_no_internet">Anda harus terhubung ke internet</string>
   <string name="verification_error_time_expired">Ups, waktu Anda sudah habis. Mulai lagi!</string>
@@ -534,6 +547,8 @@
   <string name="purchase_error_card_already_in_progress">Permintaan Anda sudah diproses atau sedang dijalankan. Mohon tunggu.</string>
   <string name="purchase_error_payment_rejected">Pembayaran ditolak! Silakan coba dengan kartu dari penerbit kartu lain atau gunakan metode pembayaran lain.</string>
   <string name="purchase_error_verify_wallet">Coba verifikasi dompet Anda untuk mengatasi situasi ini.</string>
+  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
@@ -654,6 +669,7 @@
   <string name="backup_additional_security_disclaimer_title">Harap jaga keamanan kata sandi Anda.</string>
   <string name="backup_additional_security_disclaimer_body">Tidak ada pemulihan kata sandi.</string>
   <string name="backup_additional_security_password_not_march">Kata sandi tidak cocok.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Total saldo dalam %s</string>
@@ -704,6 +720,7 @@
   <string name="pioneer_gamification_title">Anda seorang Pelopor</string>
   <string name="pioneer_gamification_body">Pelopor adalah pengguna awal dengan bonus yang ditingkatkan.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Periksa pembaruan</string>
   <string name="check_updates_settings_subtitle">Versi saat ini %s</string>
   <string name="check_updates_checking_body">Mencari versi baru</string>
@@ -881,6 +898,7 @@
   <string name="send_logs_settings">Kirim log ke Tim Dukungan</string>
   <string name="send_logs_sending">Mengirim&#8230;</string>
   <string name="send_logs_sent">Terkirim!</string>
+  <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Menyukai Dompet AppCoins?</string>
   <string name="rate_us_no">Kurang suka</string>
@@ -918,6 +936,8 @@
   <string name="card_verification_wallets_insert_bode_button">Masukkan kode</string>
   <string name="card_verification_no_attempts_title">Ups, Anda terlalu banyak memasukkan kode yang salah, jadi dana sebesar %1$s akan dikembalikan ke kartu Anda.</string>
   <string name="card_verification_no_attempts_body">Silakan mulai lagi proses verifikasinya.</string>
+  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="verify_card_title">Verifikasi Kartu</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Beli voucher ini dan dapatkan</string>
   <string name="voucher_card_body_2"> bonus hingga %s%%.</string>
@@ -939,7 +959,7 @@
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">Transaksi sedang berlangsung!</string>
   <string name="block_transaction_disclaimer_body">Anda bisa melacaknya di Etherscan.</string>
-  <!--  Withdraw Funds-->
+  <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">Penarikan e-Skills</string>
   <string name="e_skills_withdraw_email">Alamat e-mail PayPal</string>
   <string name="e_skills_withdraw_amount">Jumlah (USD)</string>
@@ -949,8 +969,17 @@
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail tidak valid</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Saldo tidak cukup</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">Anda hanya bisa menarik dana yang diperoleh di game e-Skills</string>
-  <string name="e_skills_withdraw_max_amount">Jumlah maksimal yang bisa Anda tarik: %s</string>
-  <string name="e_skills_more_info_button">Info lainnya.</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
+  <string name="e_skills_room_create_title">Create or join a room</string>
+  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="e_skills_room_field">Your room name here...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Kode Promo</string>
   <string name="promo_code_view_title">Kode Promo</string>
@@ -958,11 +987,14 @@
   <string name="promo_code_view_field">Kode Promo di sini...</string>
   <string name="promo_code_view_error">Kode salah. Coba dengan kode lain!</string>
   <string name="promo_code_activated">Kode promo diaktifkan!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">GANTI</string>
   <string name="promo_code_active_tag">Aktif</string>
   <string name="promo_code_expired_tag">Kedaluwarsa</string>
   <string name="promo_code_success_title">Selesai!</string>
   <string name="promo_code_success_body">Anda akan mendapatkan bonus tambahan sebesar %s%% pada semua pembelian Anda.</string>
+  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
+  <string name="promo_code_promotions_tag">Promotional code</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Tentang AppCoins</string>
   <string name="appcoins_info_prince_title">Harga AppCoins (APPC)</string>
@@ -975,4 +1007,7 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Kapitalisasi Pasar</string>
   <string name="appcoins_info_volume_title">Volume (24 jam)</string>
+  <!--  NFTs -->
+  <string name="nfts_title">NFTs</string>
+  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
 </resources>
