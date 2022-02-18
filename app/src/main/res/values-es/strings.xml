@@ -120,7 +120,7 @@
   <string name="intro_2_title">Juega Más, Paga Menos</string>
   <string name="intro_2_body">Obtén recompensas al hacer compras en tus juegos favoritos.</string>
   <string name="intro_3_title">Fácil y Sencillo</string>
-  <string name="intro_3_body">Mantén de AppCoins Wallet instalada para poder hacer compras directamente en los juegos.</string>
+  <string name="intro_3_body">Procesa todas tus compras in-app con tu método de pago preferido.</string>
   <string name="intro_4_title">Seguro y Privado</string>
   <string name="intro_4_body">Tus private keys no abandonan tu dispositivo, por lo que tus APPC siempre están seguras.</string>
   <string name="intro_4_body_2">Todas tus transacciones están siempre seguras gracias a la última tecnología.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transferencia</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Premio de e-Skills</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">Compra en e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher para %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Las mejores apps de Android te esperan.</string>
   <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
   <!--Tokens-->
   <!--Settings-->
@@ -904,7 +904,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Enviar logs al Equipo de Apoyo</string>
   <string name="send_logs_sending">Enviando&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">¡Enviado!</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">¿Te gusta la AppCoins Wallet?</string>
@@ -998,8 +998,8 @@
   <string name="promo_code_activated">¡Código promocional activado!</string>
   <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">SUBSTITUIR</string>
-  <string name="promo_code_active_tag">Activo</string>
-  <string name="promo_code_expired_tag">Caducado</string>
+  <string name="promo_code_active_tag">Activa</string>
+  <string name="promo_code_expired_tag">Caducada</string>
   <string name="promo_code_success_title">¡Hecho!</string>
   <string name="promo_code_success_body">Recibirás %s%% extra de bonus en todas tus compras.</string>
   <string name="promo_code_success_body_specific_app">Recibirás %1$s%% en todas tus compras en %2$s.</string>
