@@ -120,7 +120,7 @@
   <string name="intro_2_title">Παίξτε Περισσότερο, Πληρώστε Λιγότερα</string>
   <string name="intro_2_body">Λάβετε ανταμοιβές για την αγορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια.</string>
   <string name="intro_3_title">Απλό και Εύκολο</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Πραγματοποιήστε όλες σας τις πληρωμές σας εντός εφαρμογών, χρησιμοποιώντας την αγαπημένη σας μέθοδο πληρωμής.</string>
   <string name="intro_4_title">Ασφαλές και Ιδιωτικό</string>
   <string name="intro_4_body">Τα ιδιωτικά σας κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας, επομένως τα AppCoins σας θα είναι πάντα ασφαλή.</string>
   <string name="intro_4_body_2">Όλες οι συναλλαγές σας είναι πάντα ασφαλείς, χάρις στη χρήση τεχνολογιών αιχμής.</string>
@@ -241,7 +241,7 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Μεταφορά</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
   <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher για %s</string>
@@ -449,7 +449,7 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Οι καλύτερες Android εφαρμογές σάς περιμένουν.</string>
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -891,7 +891,7 @@
   <string name="perks_level_up_amount_left">Είστε %1$s %2$s μακριά από το επόμενο επίπεδο!</string>
   <string name="perks_level_up_level_tag">Επ. %s</string>
   <string name="perks_bonus_purchase_flow">%1$s Bonus: %2$s σε AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Κάθε αγορά και κάθε φόρτιση που πραγματοποιείται με οποιαδήποτε μέθοδο πληρωμής, εκτός από AppCoins Credits, θα πληροί τις προϋποθέσεις για την αύξηση του επιπέδου σας και τη λήψη αμοιβής.</string>
   <string name="perks_empty_state_first_purchase_body">Κάντε την πρώτη σας αγορά σε μία εφαρμογή συμβατή με AppCoins, ώστε να ξεκλειδώσετε τις προωθήσεις που έχουμε για εσάς!</string>
   <string name="perks_empty_body">Δεν υπάρχουν διαθέσιμες προωθήσεις αυτή τη στιγμή.</string>
   <!--Fingerprint Authentication-->
@@ -904,7 +904,7 @@
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Αποστολή αρχείων καταγραφής στην Ομάδα Υποστήριξης</string>
   <string name="send_logs_sending">Αποστολή&#8230;</string>
-  <string name="send_logs_sent">Sent!</string>
+  <string name="send_logs_sent">Στάλθηκαν!</string>
   <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Απολαμβάνετε το AppCoins Wallet;</string>
@@ -998,9 +998,9 @@
   <string name="promo_code_activated">Promo code activated!</string>
   <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">REPLACE</string>
-  <string name="promo_code_active_tag">Active</string>
-  <string name="promo_code_expired_tag">Expired</string>
-  <string name="promo_code_success_title">Done!</string>
+  <string name="promo_code_active_tag">Ενεργές</string>
+  <string name="promo_code_expired_tag">Έληξε</string>
+  <string name="promo_code_success_title">Τέλος!</string>
   <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
   <string name="promo_code_promotions_tag">Promotional code</string>
