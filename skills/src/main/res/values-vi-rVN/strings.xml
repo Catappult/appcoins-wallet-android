@@ -15,7 +15,7 @@
   <string name="playing_game_notification_title">Hiện đang chơi e-Skills</string>
   <string name="playing_game_notification_body">Đang tải thông tin trò chơi…</string>
   <string name="finish_game_notification_title">Trò chơi e-Skills của bạn đã kết thúc</string>
-  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
   <string name="lost_game_notification_body">Bạn thua rồi… Chúc bạn may mắn lần sau!</string>
   <string name="dismiss_button">Bỏ qua</string>
   <string name="location_not_available_title">Trò chơi e-Skills không khả dụng ở địa điểm của bạn</string>
