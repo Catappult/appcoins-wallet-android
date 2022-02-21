@@ -21,15 +21,17 @@ import io.reactivex.Single
 import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class PromotionsInteractor(private val referralInteractor: ReferralInteractorContract,
-                           private val gamificationInteractor: GamificationInteractor,
-                           private val promotionsRepo: PromotionsRepository,
-                           private val findWalletUseCase: FindDefaultWalletUseCase,
-                           private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                           private val userStatsPreferencesRepository: UserStatsLocalData,
-                           private val analyticsSetup: AnalyticsSetup,
-                           private val mapper: GamificationMapper) {
+class PromotionsInteractor @Inject constructor(
+    private val referralInteractor: ReferralInteractorContract,
+    private val gamificationInteractor: GamificationInteractor,
+    private val promotionsRepo: PromotionsRepository,
+    private val findWalletUseCase: FindDefaultWalletUseCase,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+    private val userStatsPreferencesRepository: UserStatsLocalData,
+    private val analyticsSetup: AnalyticsSetup,
+    private val mapper: GamificationMapper) {
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"

@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
 
 public class TaggedCompositeDisposable {
-  private final HashMap<String, List<Disposable>> map;
+  private final HashMap<String, List<Disposable>> map = new HashMap();
 
-  public TaggedCompositeDisposable(HashMap<String, List<Disposable>> map) {
-    this.map = map;
-  }
+  public @Inject TaggedCompositeDisposable() {
+   }
 
   public void add(String key, Disposable disposable) {
     List<Disposable> disposables = get(key);

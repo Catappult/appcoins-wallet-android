@@ -7,8 +7,9 @@ import com.asfoundation.wallet.util.UnknownTokenException
 import com.google.gson.Gson
 import retrofit2.HttpException
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class PaymentErrorMapper(private val gson: Gson) {
+class PaymentErrorMapper @Inject constructor(private val gson: Gson) {
 
   fun map(throwable: Throwable): PaymentError {
     throwable.printStackTrace()

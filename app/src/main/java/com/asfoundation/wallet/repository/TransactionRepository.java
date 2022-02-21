@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -11,8 +12,10 @@ import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import javax.inject.Inject;
 import org.reactivestreams.Publisher;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.protocol.Web3j;
@@ -31,18 +34,18 @@ public abstract class TransactionRepository implements TransactionRepositoryType
   private final DefaultTokenProvider defaultTokenProvider;
   private final BlockchainErrorMapper errorMapper;
   private final MultiWalletNonceObtainer nonceObtainer;
-  private final Scheduler scheduler;
+  private final RxSchedulers rxSchedulers;
 
   public TransactionRepository(NetworkInfo defaultNetwork,
       AccountKeystoreService accountKeystoreService, DefaultTokenProvider defaultTokenProvider,
       BlockchainErrorMapper errorMapper, MultiWalletNonceObtainer nonceObtainer,
-      Scheduler scheduler) {
+      RxSchedulers rxSchedulers) {
     this.defaultNetwork = defaultNetwork;
     this.accountKeystoreService = accountKeystoreService;
     this.defaultTokenProvider = defaultTokenProvider;
     this.errorMapper = errorMapper;
     this.nonceObtainer = nonceObtainer;
-    this.scheduler = scheduler;
+    this.rxSchedulers = rxSchedulers;
   }
 
   public Single<String> createTransaction(TransactionBuilder transactionBuilder, String password) {
@@ -59,7 +62,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
 
   @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
     return defaultTokenProvider.getDefaultToken()
-        .observeOn(scheduler)
+        .observeOn(rxSchedulers.getIo())
         .flatMap(
             token -> createTransactionAndSend(transaction, password, transaction.appcoinsData(),
                 transaction.getIabContract(), BigDecimal.ZERO));
@@ -78,7 +81,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
   @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
       String password) {
     return defaultTokenProvider.getDefaultToken()
-        .observeOn(scheduler)
+        .observeOn(rxSchedulers.getIo())
         .flatMap(tokenInfo -> createRawTransaction(transactionBuilder, password,
             transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(), BigDecimal.ZERO,
             nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),

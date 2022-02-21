@@ -14,8 +14,10 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.base.SingleStateFragment
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 import com.asf.wallet.databinding.LayoutBackupCreationOptionsBinding
 
+@AndroidEntryPoint
 class BackupCreationFragment : DaggerFragment(),
     SingleStateFragment<BackupCreationState, BackupCreationSideEffect> {
 

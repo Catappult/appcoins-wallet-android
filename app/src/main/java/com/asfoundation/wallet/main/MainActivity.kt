@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
@@ -14,17 +15,19 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.navigator.setupWithNavController
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
+import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
  * Container activity for main screen with bottom navigation (Home, Promotions, My Wallets, Top up)
  */
-class MainActivity : DaggerAppCompatActivity(), SingleStateFragment<MainState, MainSideEffect> {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSideEffect> {
 
   enum class BottomNavItem(val navGraphIdRes: Int) {
     HOME(R.navigation.home_graph),

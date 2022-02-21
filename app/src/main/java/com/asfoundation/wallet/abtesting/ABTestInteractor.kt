@@ -2,9 +2,10 @@ package com.asfoundation.wallet.abtesting
 
 import io.reactivex.Observable
 import io.reactivex.Single
+import javax.inject.Inject
 
 
-class ABTestInteractor(private val abTestRepository: ABTestRepository) {
+class ABTestInteractor @Inject constructor(private val abTestRepository: ABTestRepository) {
 
   fun getExperiment(identifier: String): Single<Experiment> {
     return abTestRepository.getExperiment(identifier)

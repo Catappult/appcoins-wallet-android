@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository
 
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.WalletHistory
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -13,30 +14,31 @@ import io.reactivex.*
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class BackendTransactionRepository(
-    networkInfo: NetworkInfo,
-    accountKeystoreService: AccountKeystoreService,
-    defaultTokenProvider: DefaultTokenProvider,
-    errorMapper: BlockchainErrorMapper,
-    nonceObtainer: MultiWalletNonceObtainer,
-    scheduler: Scheduler,
-    private val offChainTransactions: OffChainTransactions,
-    private val localRepository: TransactionsRepository,
-    private val mapper: TransactionMapper,
-    private val transactionsMapper: TransactionsMapper,
-    private val disposables: CompositeDisposable,
-    private val ioScheduler: Scheduler) :
+@BoundTo(supertype = TransactionRepositoryType::class)
+class BackendTransactionRepository @Inject constructor(networkInfo: NetworkInfo,
+                                                       accountKeystoreService: AccountKeystoreService,
+                                                       defaultTokenProvider: DefaultTokenProvider,
+                                                       errorMapper: BlockchainErrorMapper,
+                                                       nonceObtainer: MultiWalletNonceObtainer,
+                                                       private val offChainTransactions: OffChainTransactions,
+                                                       private val localRepository: TransactionsRepository,
+                                                       private val mapper: TransactionMapper,
+                                                       private val transactionsMapper: TransactionsMapper,
+                                                       private val disposables: CompositeDisposable,
+                                                       private val rxSchedulers: RxSchedulers) :
     TransactionRepository(networkInfo, accountKeystoreService,
-        defaultTokenProvider, errorMapper, nonceObtainer, scheduler) {
+        defaultTokenProvider, errorMapper, nonceObtainer, rxSchedulers) {
 
   private lateinit var disposable: Disposable
   override fun fetchTransaction(wallet: String): Observable<List<Transaction>> {
     if (!::disposable.isInitialized || disposable.isDisposed) {
       disposable = getLastProcessedTime(wallet)
-          .subscribeOn(ioScheduler)
+          .subscribeOn(rxSchedulers.io)
           .flatMapObservable { startingDate ->
             return@flatMapObservable Observable.merge(
                 fetchNewTransactions(wallet, startingDate = startingDate),
@@ -67,7 +69,7 @@ class BackendTransactionRepository(
     return localRepository.getNewestTransaction(wallet)
         .map { it.processedTime }
         .defaultIfEmpty(0)
-        .subscribeOn(ioScheduler)
+        .subscribeOn(rxSchedulers.io)
         .flatMapSingle { startingDate ->
           //We need +1 otherwise since the transaction on the backend is stored with 6 milliseconds
           // and we store with 3, so the last transaction will always be returned

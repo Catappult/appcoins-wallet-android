@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.interact
 
-import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.asfoundation.wallet.repository.AutoUpdateRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -9,7 +8,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
 
@@ -36,7 +34,7 @@ class AutoUpdateInteractTest {
   fun setup() {
     autoUpdateInteract =
         AutoUpdateInteract(autoUpdateRepository, WALLET_VERSION_CODE, DEVICE_SDK,
-            packageManager, WALLET_PACKAGE_NAME, sharePreferences)
+            WALLET_PACKAGE_NAME, packageManager, sharePreferences)
   }
 
   @Test

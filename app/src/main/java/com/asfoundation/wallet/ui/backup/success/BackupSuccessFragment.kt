@@ -12,7 +12,9 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
 import kotlinx.android.synthetic.main.layout_backup_success_info.view.*
 import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
 
   @Inject

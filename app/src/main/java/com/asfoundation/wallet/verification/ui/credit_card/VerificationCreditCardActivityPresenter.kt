@@ -1,20 +1,19 @@
 package com.asfoundation.wallet.verification.ui.credit_card
 
 import android.os.Bundle
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
-import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class VerificationCreditCardActivityPresenter(
-    private val view: VerificationCreditCardActivityView,
-    private val navigator: VerificationCreditCardActivityNavigator,
-    private val interactor: VerificationCreditCardActivityInteractor,
-    private val viewScheduler: Scheduler,
-    private val ioScheduler: Scheduler,
-    private val disposable: CompositeDisposable,
-    private val analytics: VerificationAnalytics
+  private val view: VerificationCreditCardActivityView,
+  private val navigator: VerificationCreditCardActivityNavigator,
+  private val interactor: VerificationCreditCardActivityInteractor,
+  private val rxSchedulers: RxSchedulers,
+  private val disposable: CompositeDisposable,
+  private val analytics: VerificationAnalytics
 ) {
 
   fun present(savedInstanceState: Bundle?) {
@@ -39,11 +38,11 @@ class VerificationCreditCardActivityPresenter(
 
   private fun handleVerificationStatus() {
     disposable.add(
-        interactor.getVerificationStatus()
-            .subscribeOn(ioScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess { onVerificationStatusSuccess(it) }
-            .subscribe({}, { it.printStackTrace() })
+      interactor.getVerificationStatus()
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.main)
+        .doOnSuccess { onVerificationStatusSuccess(it) }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 

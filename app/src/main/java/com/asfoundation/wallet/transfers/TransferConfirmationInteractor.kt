@@ -6,10 +6,13 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import com.asfoundation.wallet.repository.GasPreferenceRepository
 import io.reactivex.Single
+import javax.inject.Inject
 
-class TransferConfirmationInteractor(private val sendTransactionInteract: SendTransactionInteract,
-                                     private val fetchGasSettingsInteract: FetchGasSettingsInteract,
-                                     private val gasPreferencesRepository: GasPreferenceRepository) {
+class TransferConfirmationInteractor @Inject constructor(
+  private val sendTransactionInteract: SendTransactionInteract,
+  private val fetchGasSettingsInteract: FetchGasSettingsInteract,
+  private val gasPreferencesRepository: GasPreferenceRepository
+) {
 
   fun fetchGasSettings(shouldSendToken: Boolean): Single<GasSettings> {
     return fetchGasSettingsInteract.fetch(shouldSendToken)
@@ -20,8 +23,10 @@ class TransferConfirmationInteractor(private val sendTransactionInteract: SendTr
   }
 
   fun getGasPreferences(): GasSettings {
-    return GasSettings(gasPreferencesRepository.getSavedGasPrice(),
-        gasPreferencesRepository.getSavedGasLimit())
+    return GasSettings(
+      gasPreferencesRepository.getSavedGasPrice(),
+      gasPreferencesRepository.getSavedGasLimit()
+    )
   }
 
 }

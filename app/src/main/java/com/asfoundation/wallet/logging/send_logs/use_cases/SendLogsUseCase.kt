@@ -4,8 +4,9 @@ import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class SendLogsUseCase(
+class SendLogsUseCase @Inject constructor(
     private val sendLogsRepository: SendLogsRepository,
     private val ewtObtainer: EwtAuthenticatorService) {
 

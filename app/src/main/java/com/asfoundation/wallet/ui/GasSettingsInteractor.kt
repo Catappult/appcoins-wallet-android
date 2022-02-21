@@ -6,9 +6,12 @@ import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import com.asfoundation.wallet.repository.GasPreferenceRepository
 import io.reactivex.Single
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class GasSettingsInteractor(private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
-                            private val gasPreferencesRepository: GasPreferenceRepository) {
+class GasSettingsInteractor @Inject constructor(
+  private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
+  private val gasPreferencesRepository: GasPreferenceRepository
+) {
 
   fun findDefaultNetwork(): Single<NetworkInfo> = findNetworkInfoUseCase()
 

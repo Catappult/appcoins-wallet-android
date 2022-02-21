@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.subscriptions.cancel
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
+import javax.inject.Inject
 
-class SubscriptionCancelNavigator(private val fragmentManager: FragmentManager,
-                                  private val activity: FragmentActivity) {
+class SubscriptionCancelNavigator @Inject constructor(private val fragmentManager: FragmentManager,
+                                  private val fragment: Fragment) {
 
   fun showCancelSuccess() {
     fragmentManager.beginTransaction()
@@ -18,6 +20,6 @@ class SubscriptionCancelNavigator(private val fragmentManager: FragmentManager,
 
   fun navigateBack() {
     if (fragmentManager.backStackEntryCount > 1) fragmentManager.popBackStack()
-    else activity.finish()
+    else fragment.requireActivity().finish()
   }
 }

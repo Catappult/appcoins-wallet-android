@@ -13,13 +13,15 @@ import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.scaleToString
 import io.reactivex.Completable
+import javax.inject.Inject
 
-class DismissCardNotificationUseCase(private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
-                                     private val preferences: SharedPreferencesReferralLocalData,
-                                     private val autoUpdateRepository: AutoUpdateRepository,
-                                     private val sharedPreferencesRepository: PreferencesRepositoryType,
-                                     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-                                     private val promotionsRepo: PromotionsRepository) {
+class DismissCardNotificationUseCase @Inject constructor(
+    private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
+    private val preferences: SharedPreferencesReferralLocalData,
+    private val autoUpdateRepository: AutoUpdateRepository,
+    private val sharedPreferencesRepository: PreferencesRepositoryType,
+    private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+    private val promotionsRepo: PromotionsRepository) {
 
   operator fun invoke(cardNotification: CardNotification): Completable {
     return when (cardNotification) {

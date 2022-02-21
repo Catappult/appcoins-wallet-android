@@ -11,6 +11,8 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 public class BdsInAppPurchaseInteractor {
   private final AsfInAppPurchaseInteractor inAppPurchaseInteractor;
@@ -18,7 +20,8 @@ public class BdsInAppPurchaseInteractor {
   private final ApproveKeyProvider approveKeyProvider;
   private final Billing billing;
 
-  public BdsInAppPurchaseInteractor(AsfInAppPurchaseInteractor inAppPurchaseInteractor,
+  public @Inject BdsInAppPurchaseInteractor(
+      @Named("ASF_BDS_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor inAppPurchaseInteractor,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       ApproveKeyProvider approveKeyProvider, Billing billing) {
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;

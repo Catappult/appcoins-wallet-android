@@ -5,11 +5,12 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import javax.inject.Inject;
 
 public class ApproveKeyProvider {
   private final Billing billing;
 
-  public ApproveKeyProvider(Billing billing) {
+  public @Inject ApproveKeyProvider(Billing billing) {
     this.billing = billing;
   }
 

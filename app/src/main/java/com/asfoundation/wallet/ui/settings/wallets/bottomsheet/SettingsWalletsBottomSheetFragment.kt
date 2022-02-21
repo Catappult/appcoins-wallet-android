@@ -14,10 +14,12 @@ import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.addBottomItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.settings_wallet_bottom_sheet_layout.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalletsBottomSheetView {
 
   @Inject

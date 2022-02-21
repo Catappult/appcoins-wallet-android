@@ -8,7 +8,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
 import com.asfoundation.wallet.ui.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SubscriptionActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {

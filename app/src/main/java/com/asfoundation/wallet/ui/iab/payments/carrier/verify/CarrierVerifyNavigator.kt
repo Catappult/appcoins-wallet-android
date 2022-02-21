@@ -1,15 +1,19 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.confirm.CarrierFeeFragment
 import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import java.math.BigDecimal
+import javax.inject.Inject
 
 
-class CarrierVerifyNavigator(private val fragmentManager: FragmentManager,
-                             private val iabActivity: IabActivity) {
+class CarrierVerifyNavigator @Inject constructor(private val fragmentManager: FragmentManager,
+                             fragment: Fragment) {
+
+  private val iabActivity = fragment.activity as IabActivity
 
   fun navigateBack() = fragmentManager.popBackStack()
 

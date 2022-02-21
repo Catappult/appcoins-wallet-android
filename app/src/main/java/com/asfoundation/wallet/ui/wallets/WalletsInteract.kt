@@ -17,16 +17,18 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class WalletsInteract(private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-                      private val getWalletInfoUseCase: GetWalletInfoUseCase,
-                      private val fetchWalletsInteract: FetchWalletsInteract,
-                      private val walletCreatorInteract: WalletCreatorInteract,
-                      private val supportInteractor: SupportInteractor,
-                      private val preferencesRepository: SharedPreferencesRepository,
-                      private val gamificationRepository: Gamification,
-                      private val logger: Logger,
-                      private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class WalletsInteract @Inject constructor(
+    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+    private val getWalletInfoUseCase: GetWalletInfoUseCase,
+    private val fetchWalletsInteract: FetchWalletsInteract,
+    private val walletCreatorInteract: WalletCreatorInteract,
+    private val supportInteractor: SupportInteractor,
+    private val preferencesRepository: SharedPreferencesRepository,
+    private val gamificationRepository: Gamification,
+    private val logger: Logger,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   fun observeWalletsModel(): Observable<WalletsModel> {
     return retrieveWallets().filter { it.isNotEmpty() }

@@ -18,8 +18,9 @@ import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_billing_address_top_up.*
 import kotlinx.android.synthetic.main.layout_billing_address.*
@@ -27,7 +28,8 @@ import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class BillingAddressTopUpFragment : DaggerFragment(), BillingAddressTopUpView {
+@AndroidEntryPoint
+class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpView {
 
   companion object {
 

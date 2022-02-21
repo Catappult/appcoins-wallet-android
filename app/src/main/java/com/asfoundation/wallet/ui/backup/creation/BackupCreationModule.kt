@@ -5,7 +5,10 @@ import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 
+@InstallIn(FragmentComponent::class)
 @Module
 class BackupCreationModule {
 

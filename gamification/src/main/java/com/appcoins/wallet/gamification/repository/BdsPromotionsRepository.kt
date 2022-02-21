@@ -5,14 +5,18 @@ import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.io.IOException
 import java.math.BigDecimal
 import java.net.UnknownHostException
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class BdsPromotionsRepository(private val api: GamificationApi,
-                              private val local: UserStatsLocalData) : PromotionsRepository {
+@BoundTo(supertype = PromotionsRepository::class)
+class BdsPromotionsRepository @Inject constructor(private val api: GamificationApi,
+                                                  private val local: UserStatsLocalData) :
+    PromotionsRepository {
 
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.

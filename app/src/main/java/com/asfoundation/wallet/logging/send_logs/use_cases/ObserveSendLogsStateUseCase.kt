@@ -5,14 +5,15 @@ import com.asfoundation.wallet.logging.send_logs.SendLogsState
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ObserveSendLogsStateUseCase(
+class ObserveSendLogsStateUseCase @Inject constructor(
     private val sendLogsRepository: SendLogsRepository,
     private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
 
   operator fun invoke(): Observable<SendLogsState> {
     return getCurrentWalletUseCase()
-            .subscribeOn(Schedulers.io())
-            .flatMapObservable { sendLogsRepository.observeSendLogsState(it.address) }
+        .subscribeOn(Schedulers.io())
+        .flatMapObservable { sendLogsRepository.observeSendLogsState(it.address) }
   }
 }

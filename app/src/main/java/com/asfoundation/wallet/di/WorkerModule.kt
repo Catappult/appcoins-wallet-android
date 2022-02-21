@@ -7,8 +7,12 @@ import androidx.work.WorkManager
 import com.asfoundation.wallet.util.Log
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class WorkerModule {
 
@@ -20,7 +24,7 @@ class WorkerModule {
    */
   @Singleton
   @Provides
-  fun providesWorkManager(context: Context,
+  fun providesWorkManager(@ApplicationContext context: Context,
                           delegatingWorkerFactory: DelegatingWorkerFactory): WorkManager {
     val config = Configuration.Builder()
         .setWorkerFactory(delegatingWorkerFactory)

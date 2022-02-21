@@ -3,8 +3,9 @@ package com.asfoundation.wallet.router
 import android.content.Context
 import android.content.Intent
 import com.asfoundation.wallet.main.MainActivity
+import javax.inject.Inject
 
-class TransactionsRouter {
+class TransactionsRouter @Inject constructor() {
 
   fun navigateFromSplash(context: Context, fromSupportNotification: Boolean) {
     val intent = MainActivity.newIntent(context, fromSupportNotification)

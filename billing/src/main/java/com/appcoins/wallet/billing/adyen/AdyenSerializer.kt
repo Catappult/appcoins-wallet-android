@@ -6,8 +6,9 @@ import com.adyen.checkout.base.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.base.model.payments.response.Threeds2FingerprintAction
 import com.google.gson.JsonObject
 import org.json.JSONObject
+import javax.inject.Inject
 
-open class AdyenSerializer {
+open class AdyenSerializer @Inject constructor() {
 
   open fun deserializePaymentMethods(response: PaymentMethodsResponse): PaymentMethodsApiResponse {
     return PaymentMethodsApiResponse.SERIALIZER.deserialize(JSONObject(response.payment.toString()))

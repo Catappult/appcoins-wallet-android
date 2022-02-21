@@ -12,11 +12,13 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTokenInfoBinding
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class TokenInfoDialogFragment : DaggerBottomSheetDialogFragment(),
+@AndroidEntryPoint
+class TokenInfoDialogFragment : BottomSheetDialogFragment(),
     SingleStateFragment<TokenInfoState, TokenInfoSideEffect> {
 
   @Inject

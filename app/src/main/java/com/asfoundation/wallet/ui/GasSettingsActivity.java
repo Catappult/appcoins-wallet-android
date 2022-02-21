@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
@@ -18,15 +19,15 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModelFactory;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.inject.Inject;
 
-public class GasSettingsActivity extends BaseActivity {
+@AndroidEntryPoint public class GasSettingsActivity extends BaseActivity {
 
   @Inject GasSettingsViewModelFactory viewModelFactory;
-  GasSettingsViewModel viewModel;
+  private GasSettingsViewModel viewModel;
   private CurrencyFormatUtils currencyFormatUtils;
   private TextView gasPriceText;
   private TextView gasLimitText;
@@ -37,14 +38,12 @@ public class GasSettingsActivity extends BaseActivity {
   private SeekBar gasPriceSlider;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
-
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_gas_settings);
     toolbar();
 
-    currencyFormatUtils = CurrencyFormatUtils.Companion.create();
+    currencyFormatUtils = new CurrencyFormatUtils();
     gasPriceSlider = findViewById(R.id.gas_price_slider);
     gasLimitSlider = findViewById(R.id.gas_limit_slider);
     gasPriceText = findViewById(R.id.gas_price_text);
@@ -56,7 +55,7 @@ public class GasSettingsActivity extends BaseActivity {
     gasPriceSlider.setPadding(0, 0, 0, 0);
     gasLimitSlider.setPadding(0, 0, 0, 0);
 
-    viewModel = ViewModelProviders.of(this, viewModelFactory)
+    viewModel = new ViewModelProvider(this, viewModelFactory)
         .get(GasSettingsViewModel.class);
 
     viewModel.gasPrice()

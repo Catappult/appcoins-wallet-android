@@ -8,17 +8,18 @@ import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.verification.repository.VerificationRepository
+import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class VerificationIntroInteractor(
-    private val verificationRepository: VerificationRepository,
-    private val adyenPaymentInteractor: AdyenPaymentInteractor,
-    private val walletService: WalletService,
-    private val supportInteractor: SupportInteractor,
-    private val walletVerificationInteractor: WalletVerificationInteractor
+class VerificationIntroInteractor @Inject constructor(
+  private val brokerVerificationRepository: BrokerVerificationRepository,
+  private val adyenPaymentInteractor: AdyenPaymentInteractor,
+  private val walletService: WalletService,
+  private val supportInteractor: SupportInteractor,
+  private val walletVerificationInteractor: WalletVerificationInteractor
 ) {
 
   companion object {
@@ -56,7 +57,7 @@ class VerificationIntroInteractor(
   private fun getVerificationInfo(): Single<VerificationInfoModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap {
-          verificationRepository.getVerificationInfo(it.address, it.signedAddress)
+          brokerVerificationRepository.getVerificationInfo(it.address, it.signedAddress)
               .map { info -> mapToVerificationInfoModel(info) }
         }
   }

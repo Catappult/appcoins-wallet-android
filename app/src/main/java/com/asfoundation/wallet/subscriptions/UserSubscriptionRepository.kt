@@ -7,11 +7,13 @@ import com.appcoins.wallet.bdsbilling.subscriptions.UserSubscriptionsListRespons
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import java.util.*
+import javax.inject.Inject
 
-class UserSubscriptionRepository(private val subscriptionApi: UserSubscriptionApi,
-                                 private val local: UserSubscriptionsLocalData,
-                                 private val walletService: WalletService,
-                                 private val subscriptionsMapper: UserSubscriptionsMapper) {
+class UserSubscriptionRepository @Inject constructor(
+    private val subscriptionApi: UserSubscriptionApi,
+    private val local: UserSubscriptionsLocalData,
+    private val walletService: WalletService,
+    private val subscriptionsMapper: UserSubscriptionsMapper) {
 
   fun getUserSubscriptions(walletAddress: String,
                            freshReload: Boolean): Observable<SubscriptionModel> {

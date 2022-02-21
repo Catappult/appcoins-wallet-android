@@ -9,7 +9,7 @@
       android:id="@+id/processing_loading"
       android:layout_width="340dp"
       android:layout_height="wrap_content"
-      android:background="@drawable/background_card"
+      android:background="@drawable/background_card_bottom_rounded"
       android:orientation="vertical"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -19,10 +19,12 @@
 
     <TextView
         android:id="@+id/loading_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
         android:gravity="center"
         android:lineSpacingExtra="8sp"
         android:text="@string/finding_room_loading_title"
@@ -36,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="@string/finding_room_loading_message"
         android:textColor="@color/grey_alpha_active_54"
@@ -50,6 +52,17 @@
         android:layout_marginTop="44dp"
         android:layout_marginBottom="38dp"
         android:indeterminateDrawable="@drawable/gradient_progress"
+        />
+
+    <View
+        android:id="@+id/line_separator_info"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/light_gray"
         />
 
     <Button

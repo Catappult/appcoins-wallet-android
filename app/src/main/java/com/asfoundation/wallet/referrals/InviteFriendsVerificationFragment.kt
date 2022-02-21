@@ -10,11 +10,13 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invite_friends_verification_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsVerificationView {
 
   @Inject
@@ -65,16 +67,16 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
   }
 
   val amount: BigDecimal by lazy {
-    if (arguments!!.containsKey(AMOUNT)) {
-      arguments!!.getSerializable(AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(AMOUNT)) {
+      requireArguments().getSerializable(AMOUNT) as BigDecimal
     } else {
       throw IllegalArgumentException("Amount not found")
     }
   }
 
   val currency: String by lazy {
-    if (arguments!!.containsKey(CURRENCY)) {
-      arguments!!.getString(CURRENCY)!!
+    if (requireArguments().containsKey(CURRENCY)) {
+      requireArguments().getString(CURRENCY)!!
     } else {
       throw IllegalArgumentException("Currency not found")
     }

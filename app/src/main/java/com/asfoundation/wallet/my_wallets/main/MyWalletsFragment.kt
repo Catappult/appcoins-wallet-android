@@ -27,14 +27,13 @@ import com.asfoundation.wallet.util.safeLet
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MyWalletsFragment : BasePageViewFragment(),
     SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
-
-  @Inject
-  lateinit var viewModelFactory: MyWalletsViewModelFactory
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -42,7 +41,7 @@ class MyWalletsFragment : BasePageViewFragment(),
   @Inject
   lateinit var navigator: MyWalletsNavigator
 
-  private val viewModel: MyWalletsViewModel by viewModels { viewModelFactory }
+  private val viewModel: MyWalletsViewModel by viewModels()
 
   private var binding: FragmentMyWalletsBinding? = null
   private val views get() = binding!!
@@ -136,7 +135,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   private fun setListeners() {
     views.actionButtonMore.setOnClickListener { navigateToMore() }
-    views.actionButtonNfts.setOnClickListener { navigator.navigateToNfts()}
+    views.actionButtonNfts.setOnClickListener { navigator.navigateToNfts() }
   }
 
   override fun onStateChanged(state: MyWalletsState) {

@@ -2,8 +2,9 @@ package com.asfoundation.wallet.rating
 
 import cm.aptoide.analytics.AnalyticsManager
 import java.util.*
+import javax.inject.Inject
 
-class RatingAnalytics(private val analyticsManager: AnalyticsManager) {
+class RatingAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {
 
   companion object {
     const val WALLET_RATING_WELCOME_EVENT = "wallet_rating_welcome"

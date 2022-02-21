@@ -4,8 +4,9 @@ import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.ui.backup.repository.BackupRepository
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class BackupSuccessLogUseCase(private val ewtObtainer: EwtAuthenticatorService,
+class BackupSuccessLogUseCase @Inject constructor(private val ewtObtainer: EwtAuthenticatorService,
                               private val backupRepository: BackupRepository) {
   operator fun invoke(address: String): Completable {
     return ewtObtainer.getEwtAuthenticationWithAddress(address)

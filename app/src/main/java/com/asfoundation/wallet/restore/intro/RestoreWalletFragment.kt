@@ -11,14 +11,16 @@ import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.restore.RestoreWalletActivityView
 import com.asfoundation.wallet.util.RestoreErrorType
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_restore_wallet_first.*
 import javax.inject.Inject
 
-class RestoreWalletFragment : DaggerFragment(), RestoreWalletView {
+@AndroidEntryPoint
+class RestoreWalletFragment : BasePageViewFragment(), RestoreWalletView {
 
   @Inject
   lateinit var presenter: RestoreWalletPresenter

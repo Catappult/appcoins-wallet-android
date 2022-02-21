@@ -8,8 +8,9 @@ import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
 import com.asfoundation.wallet.util.BalanceUtils
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class TransactionMapper {
+class TransactionMapper @Inject constructor(){
 
   fun map(transactions: List<TransactionEntity>) = transactions.map { map(it) }
 

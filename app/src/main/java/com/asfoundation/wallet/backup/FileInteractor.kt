@@ -9,13 +9,15 @@ import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.io.*
+import javax.inject.Inject
 
-class FileInteractor(private val context: Context,
-                     private val contentResolver: ContentResolver,
-                     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository) {
+class FileInteractor @Inject constructor(@ApplicationContext private val context: Context,
+                                         private val contentResolver: ContentResolver,
+                                         private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository) {
 
   private var cachedFile: File? = null
 

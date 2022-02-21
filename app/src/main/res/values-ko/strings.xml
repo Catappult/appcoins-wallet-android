@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins 지갑</string>
   <string name="title_send">전송</string>
   <string name="title_send_with_token">%s 전송</string>
   <string name="title_request">수신</string>
@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">지갑이 생성되었습니다!</string>
   <string name="intro_agree_terms_and_conditions_body">건너뛰기를 탭하는 것으로, AppCoins 지갑의 %1$s 그리고 %2$s에 동의합니다</string>
   <string name="intro_skip_button">건너뛰기</string>
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_already_have_wallet_button">I already have a wallet</string>
+  <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">송신</string>
@@ -237,6 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">전송</string>
   <string name="transaction_type_bonus">보너스</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills">e-Skills Purchase</string>
   <string name="transaction_type_voucher">e-바우처</string>
   <string name="transaction_type_voucher_title">%s 바우처</string>
   <string name="transaction_type_reverted_bonus_title">복귀된 보너스</string>
@@ -257,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">상태</string>
   <string name="transaction_category_label">카테고리</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">상세내용</string>
   <string name="transaction_to_label">수신</string>
   <string name="dialog_credit_card_remember">카드 기억하기</string>
@@ -386,7 +393,6 @@
   <string name="my_wallets_action_backup_wallet">지갑 백업하기</string>
   <string name="my_wallets_action_verify_new_card">새로운 카드 검증</string>
   <string name="my_wallets_action_delete_wallet">지갑 삭제</string>
-  <string name="verify_card_title">카드 검증</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">누군가에게 지불하라고 하세요</string>
   <string name="askafriend_generating_link_message">귀하의 지불 링크를 생성하고 있습니다&#8230;</string>
@@ -439,6 +445,9 @@
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
   <string name="terms_and_conditions">이용약관</string>
   <string name="privacy_policy">개인정보 보호정책</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">최고의 Android 앱이 당신을 위해 기다리고 있습니다.</string>
   <string name="home_empty_discover_apps_button">최고의 앱 찾아보기</string>
@@ -477,6 +486,10 @@
   <string name="verification_settings_unverified_title">지갑 확인</string>
   <string name="verification_settings_unverified_body">보상을 받고 친구를 초대하세요</string>
   <string name="verification_settings_verified_title">지갑 확인됨</string>
+  <string name="verification_settings_verifying_title">Verifying wallet…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
+  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_button">Verify Now</string>
   <string name="verification_settings_card_verified_title">카드 검증됨</string>
   <string name="verification_settings_no_internet">인터넷 연결이 필요합니다</string>
   <string name="verification_error_time_expired">이런, 시간이 만료되었습니다. 다시 시작해 주세요!</string>
@@ -534,6 +547,8 @@
   <string name="purchase_error_card_already_in_progress">요청이 이미 처리되었거나 진행 중입니다. 기다려 주세요.</string>
   <string name="purchase_error_payment_rejected">결제가 거부되었습니다! 다른 발급사의 카드로 시도하거나 다른 결제 방법을 사용하십시오.</string>
   <string name="purchase_error_verify_wallet">이 상황의 잠금을 해제하려면 지갑을 확인하십시오.</string>
+  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">입장권</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
@@ -654,6 +669,7 @@
   <string name="backup_additional_security_disclaimer_title">비밀번호를 안전하게 보관하세요.</string>
   <string name="backup_additional_security_disclaimer_body">비밀번호 복구가 없습니다.</string>
   <string name="backup_additional_security_password_not_march">비밀번호가 일치하지 않습니다.</string>
+  <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">지갑</string>
   <string name="wallets_total_balance_title">%s의 총 잔액</string>
@@ -704,6 +720,7 @@
   <string name="pioneer_gamification_title">선지자입니다</string>
   <string name="pioneer_gamification_body">선지자는 증가된 보너스를 받는 얼리 어댑터입니다.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">업데이트 학인</string>
   <string name="check_updates_settings_subtitle">현재 버전 %s</string>
   <string name="check_updates_checking_body">새로운 버전 찾기</string>
@@ -881,6 +898,7 @@
   <string name="send_logs_settings">로그를 지원 팀으로 전송해 주세요</string>
   <string name="send_logs_sending">전송중&#8230;</string>
   <string name="send_logs_sent">전송됨!</string>
+  <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins 지갑을 잘 사용하고 계시나요?</string>
   <string name="rate_us_no">전혀</string>
@@ -918,6 +936,8 @@
   <string name="card_verification_wallets_insert_bode_button">코드 입력</string>
   <string name="card_verification_no_attempts_title">이런, 잘못된 코드를 여러번 입력하셔서 %1$s 금액이 카드로 환불됩니다.</string>
   <string name="card_verification_no_attempts_body">인증 절차를 다시 진행해 주세요.</string>
+  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="verify_card_title">카드 검증</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">이 바우처를 구매하고 받는</string>
   <string name="voucher_card_body_2"> 최대 %s%% 보너스.</string>
@@ -939,7 +959,7 @@
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">거래 중입니다!</string>
   <string name="block_transaction_disclaimer_body">이더스캔에서 추적할 수 있습니다.</string>
-  <!--  Withdraw Funds-->
+  <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">e-Skills 인출</string>
   <string name="e_skills_withdraw_email">페이팔 이메일 주소</string>
   <string name="e_skills_withdraw_amount">금액 (USD)</string>
@@ -949,8 +969,17 @@
   <string name="e_skills_withdraw_invalid_email_error_message">잘못된 이메일</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">잔액 부족</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">e-Skills 게임에서 벌어들인 자금만 인출할 수 있습니다.</string>
-  <string name="e_skills_withdraw_max_amount">최대. 인출 가능 금액: %s</string>
-  <string name="e_skills_more_info_button">더 많은 정보.</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">e-Skills 게임에서 벌어들인 자금만 인출할 수 있습니다.</string>
+  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
+  <string name="e_skills_room_create_title">Create or join a room</string>
+  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="e_skills_room_field">Your room name here...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">프로모션 코드</string>
   <string name="promo_code_view_title">프로모션 코드</string>
@@ -958,11 +987,14 @@
   <string name="promo_code_view_field">프로모션 코드 입력...</string>
   <string name="promo_code_view_error">잘못된 코드. 다른 코드를 입력해주세요!</string>
   <string name="promo_code_activated">프로모션 코드가 활성화되었습니다!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">바꾸기</string>
   <string name="promo_code_active_tag">활성</string>
   <string name="promo_code_expired_tag">만료됨</string>
   <string name="promo_code_success_title">되었습니다!</string>
   <string name="promo_code_success_body">모든 구매에 대해서 %s%% 추가 보너스를 받게됩니다.</string>
+  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
+  <string name="promo_code_promotions_tag">Promotional code</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">AppCoins 소개</string>
   <string name="appcoins_info_prince_title">AppCoins 가격 (APPC)</string>
@@ -975,4 +1007,7 @@
   <string name="appcoins_info_explorer_title">탐색기</string>
   <string name="appcoins_info_market_cap_title">시가총액</string>
   <string name="appcoins_info_volume_title">거래량 (24h)</string>
+  <!--  NFTs -->
+  <string name="nfts_title">NFTs</string>
+  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
 </resources>

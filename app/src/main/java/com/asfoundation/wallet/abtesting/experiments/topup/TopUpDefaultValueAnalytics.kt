@@ -2,8 +2,9 @@ package com.asfoundation.wallet.abtesting.experiments.topup
 
 import cm.aptoide.analytics.AnalyticsManager
 import java.util.*
+import javax.inject.Inject
 
-class TopUpABTestingAnalytics(private val analyticsManager: AnalyticsManager) {
+class TopUpABTestingAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {
 
   private var cachedAssignment = TopUpDefaultValueExperiment.NO_EXPERIMENT
 

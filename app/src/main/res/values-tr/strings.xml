@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Cüzdanlarım</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Şifre</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Oluştur</string>
   <!-- String related to sending -->
   <string name="prompt_to">Adres</string>
   <string name="action_send">Gönder</string>
@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
   <string name="intro_agree_terms_and_conditions_body">Atla\'ya dokunarak AppCoins Cüzdanının %1$s ve %2$s\'nı kabul etmiş olursunuz</string>
   <string name="intro_skip_button">ATLA</string>
+  <string name="intro_welcome_header">AppCoins Wallet\'a hoş geldiniz</string>
+  <string name="intro_welcome_body">Uygulama içi satın alma işlemleri uygulamanız.</string>
+  <string name="intro_already_have_wallet_button">Zaten cüzdanım var</string>
+  <string name="intro_get_started_button">Başlayın</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Kimden</string>
@@ -237,6 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills">e-Skills Satın Alma İşlemi</string>
   <string name="transaction_type_voucher">e-Kupon</string>
   <string name="transaction_type_voucher_title">%s kuponu</string>
   <string name="transaction_type_reverted_bonus_title">Geri Alınan Bonus</string>
@@ -257,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Durum</string>
   <string name="transaction_category_label">Kategori</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Bilgiler</string>
   <string name="transaction_to_label">Adres</string>
   <string name="dialog_credit_card_remember">Kartı Hatırla</string>
@@ -386,7 +393,6 @@
   <string name="my_wallets_action_backup_wallet">Yedek cüzdan</string>
   <string name="my_wallets_action_verify_new_card">Yeni kartı doğrula</string>
   <string name="my_wallets_action_delete_wallet">Cüzdanı sil</string>
-  <string name="verify_card_title">Kartı Doğrula</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Birinden ödemesini isteyin</string>
   <string name="askafriend_generating_link_message">Ödemenizi oluşturuyoruz&#8230;</string>
@@ -439,6 +445,9 @@
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
   <string name="terms_and_conditions">Şartlar ve Koşullar</string>
   <string name="privacy_policy">Gizlilik Politikası</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">En iyi Android uygulamaları sizi bekliyor.</string>
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
@@ -477,6 +486,10 @@
   <string name="verification_settings_unverified_title">Cüzdanı Doğrulayın</string>
   <string name="verification_settings_unverified_body">Ödül kazanın ve arkadaşlarınızı davet edin</string>
   <string name="verification_settings_verified_title">Cüzdan Doğrulandı</string>
+  <string name="verification_settings_verifying_title">Cüzdan doğrulanıyor…</string>
+  <string name="verification_verified_paypal_description">Anında iade alacaksınız. Cüzdanınız kısa süre içinde doğrulanacak.</string>
+  <string name="verification_verify_paypal_description">Hesabınızı doğrulamak için %s tutarında cüzi bir tutar çekilecek. Tutar anında iade edilecek.</string>
+  <string name="verification_verify_paypal_button">Hemen Doğrula</string>
   <string name="verification_settings_card_verified_title">Kart Doğrulandı</string>
   <string name="verification_settings_no_internet">İnternete bağlı olmanız gerekiyor</string>
   <string name="verification_error_time_expired">Hay aksi, süreniz doldu. Tekrar başlayın!</string>
@@ -534,6 +547,8 @@
   <string name="purchase_error_card_already_in_progress">Talebiniz zaten işlenmiş veya işleniyor. Lütfen bekleyin.</string>
   <string name="purchase_error_payment_rejected">Ödeme reddedildi! Lütfen farklı bir bankanın kartıyla deneyin veya farklı bir ödeme yöntemi kullanın.</string>
   <string name="purchase_error_verify_wallet">Bu durumun çözmek için cüzdanınızı doğrulamaya çalışın.</string>
+  <string name="purchase_error_verify_card">Bu satın alma işlemini tamamlamak için kartınızı doğrulayın.</string>
+  <string name="purachse_error_verify_card_button">KARTI DOĞRULAYIN</string>
   <string name="purchase_eskills_sku">Giriş bileti</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
@@ -654,6 +669,7 @@
   <string name="backup_additional_security_disclaimer_title">Lütfen şifrenizi güvende tutun.</string>
   <string name="backup_additional_security_disclaimer_body">Şifre kurtarma yapılamıyor.</string>
   <string name="backup_additional_security_password_not_march">Şifreler eşleşmiyor.</string>
+  <string name="import_wallet_recovering_body">Cüzdan geri yükleniyor...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
   <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>
@@ -686,7 +702,7 @@
   <string name="remove_wallet_yes_button">EVET, CÜZDANI KALDIR</string>
   <string name="remove_wallet_removed_body">Cüzdan kaldırıldı!</string>
   <!--Tranfer-->
-  <string name="tranfer_bottom_navigation">Transfer</string>
+  <string name="tranfer_bottom_navigation">Transfer et</string>
   <string name="transfer_title">Fon Transfer Et</string>
   <string name="transfer_send_tab_title">Gönder</string>
   <string name="transfer_receive_tab_title">Al</string>
@@ -705,6 +721,7 @@
   <string name="pioneer_gamification_title">Öncü\'sünüz</string>
   <string name="pioneer_gamification_body">Öncü, artan bonuslara sahip kullanmaya erken başlayan bir kullanıcıdır.</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Güncellemeleri kontrol et</string>
   <string name="check_updates_settings_subtitle">Mevcut sürüm %s</string>
   <string name="check_updates_checking_body">Yeni sürüm aranıyor</string>
@@ -888,6 +905,7 @@
   <string name="send_logs_settings">Destek Ekibine günlükleri gönderin</string>
   <string name="send_logs_sending">Gönderiliyor&#8230;</string>
   <string name="send_logs_sent">Gönderildi!</string>
+  <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins Wallet\'ı sevdiniz mi?</string>
   <string name="rate_us_no">Pek sayılmaz</string>
@@ -927,6 +945,8 @@
   <string name="card_verification_wallets_insert_bode_button">Kodu girin</string>
   <string name="card_verification_no_attempts_title">Hay aksi, çok kez yanlış kod girdiniz, dolayısıyla %1$s kartınıza iade edilecek.</string>
   <string name="card_verification_no_attempts_body">Lütfen doğrulama sürecine tekrar başlayın.</string>
+  <string name="wallet_verify_header">En az bir ödeme yöntemi doğrulayın</string>
+  <string name="verify_card_title">Kartı Doğrula</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Bu kuponu satın alın ve</string>
   <string name="voucher_card_body_2"> %%%s oranına varan bonus kazanın.</string>
@@ -948,7 +968,7 @@
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">İşlem yolda!</string>
   <string name="block_transaction_disclaimer_body">Etherscan\'de takip edebilirsiniz.</string>
-  <!--  Withdraw Funds-->
+  <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">e-Skills Çekme İşlemi</string>
   <string name="e_skills_withdraw_email">PayPal e-posta adresi</string>
   <string name="e_skills_withdraw_amount">Tutar (USD)</string>
@@ -958,8 +978,17 @@
   <string name="e_skills_withdraw_invalid_email_error_message">Geçersiz e-posta</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Yetersiz bakiye</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">Sadece e-Skills oyunlarında kazanılan fonları çekebilirsiniz</string>
-  <string name="e_skills_withdraw_max_amount">Çekebileceğiniz maksimum tutar: %s</string>
-  <string name="e_skills_more_info_button">Daha fazla bilgi.</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum çekme tutarı %1$.2f $\'dır</string>
+  <string name="e_skills_withdraw_max_amount_part_1">Çekebileceğiniz tutar:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">e-Skills hakkında daha fazla bilgi alın</string>
+  <string name="e_skills_know_more_about_tmp">sadece e-Skills oyunlarında kazanılan fonları çekebilirsiniz</string>
+  <string name="e_skills_withdraw_started">%1$.2f $\'lık çekme işlemi\nbaşlatıldı</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">Belki daha sonra</string>
+  <string name="e_skills_room_create_title">Bir oda oluşturun veya bir odaya katılın</string>
+  <string name="e_skills_room_create_body">Yeni bir oda yaratın ve rakiplerinizle paylaşın ya da mevcut bir odaya katılın.</string>
+  <string name="e_skills_room_field">Oda adınızı buraya girin...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promosyon Kodu</string>
   <string name="promo_code_view_title">Promosyon Kodu</string>
@@ -967,11 +996,14 @@
   <string name="promo_code_view_field">Promosyon Kodunu buraya girin...</string>
   <string name="promo_code_view_error">Geçersiz kod. Başka bir kod deneyin!</string>
   <string name="promo_code_activated">Promosyon kodu aktive edildi!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">DEĞİŞTİR</string>
   <string name="promo_code_active_tag">Aktif</string>
   <string name="promo_code_expired_tag">Süresi doldu</string>
   <string name="promo_code_success_title">Bitti!</string>
   <string name="promo_code_success_body">Tüm satın alma işlemlerinden %%%s ekstra bonus kazanacaksınız.</string>
+  <string name="promo_code_success_body_specific_app">%2$s adlı oyundaki bütün satın alma işlemlerinden %%%1$s ekstra bonus kazanacaksınız.</string>
+  <string name="promo_code_promotions_tag">Promosyon kodu</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">AppCoins hakkında</string>
   <string name="appcoins_info_prince_title">AppCoins Fiyatı (APPC)</string>
@@ -984,4 +1016,7 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Piyasa Değeri</string>
   <string name="appcoins_info_volume_title">Hacim (24 sa)</string>
+  <!--  NFTs -->
+  <string name="nfts_title">NFT\'ler</string>
+  <string name="nfts_no_nfts">Şu anda kullanılabilir NFT yok.</string>
 </resources>

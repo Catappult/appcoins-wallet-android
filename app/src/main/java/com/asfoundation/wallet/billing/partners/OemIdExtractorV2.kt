@@ -2,12 +2,15 @@ package com.asfoundation.wallet.billing.partners
 
 import android.content.Context
 import com.aptoide.apk.injector.extractor.domain.IExtract
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.io.File
+import javax.inject.Inject
 
-class OemIdExtractorV2 @JvmOverloads constructor(private val context: Context,
-                                                 private val extractor: IExtract) :
-    IExtractOemId {
+@BoundTo(supertype = IExtractOemId::class)
+class OemIdExtractorV2 @Inject constructor(@ApplicationContext private val context: Context,
+                                           private val extractor: IExtract) : IExtractOemId {
 
   override fun extract(packageName: String): Single<String> {
     return Single.fromCallable {

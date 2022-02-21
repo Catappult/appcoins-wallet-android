@@ -18,8 +18,9 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.getStringSpanned
 import com.asfoundation.wallet.util.withNoLayoutTransition
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_carrier_confirm.*
@@ -27,7 +28,8 @@ import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
-class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
+@AndroidEntryPoint
+class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
 
   private val formatter = CurrencyFormatUtils()
 
@@ -81,7 +83,9 @@ class CarrierFeeFragment : DaggerFragment(), CarrierFeeView {
     payment_methods_header.hideSkeleton()
 
     val fiat =
-        "${formatter.formatPaymentCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)} $currency"
+        "${
+          formatter.formatPaymentCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)
+        } $currency"
     val appc = "${
       formatter.formatPaymentCurrency(appcAmount,
           WalletCurrency.APPCOINS)
