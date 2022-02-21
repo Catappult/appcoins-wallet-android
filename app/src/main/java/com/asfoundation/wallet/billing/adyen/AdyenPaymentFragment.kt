@@ -502,7 +502,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   @Throws(PackageManager.NameNotFoundException::class)
-  private fun getApplicationName(appPackage: String): CharSequence? {
+  private fun getApplicationName(appPackage: String): CharSequence {
     val packageManager = requireContext().packageManager
     val packageInfo = packageManager.getApplicationInfo(appPackage, 0)
     return packageManager.getApplicationLabel(packageInfo)
