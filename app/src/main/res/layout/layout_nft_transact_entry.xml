@@ -52,7 +52,7 @@
       android:layout_gravity="center_horizontal"
       android:layout_marginBottom="27dp"
       android:layout_marginHorizontal="16dp"
-      android:text="@string/nfts_transact_button_send"
+      android:text="@string/nfts_transact_button_next"
       app:layout_constraintBottom_toBottomOf="parent"
       />
 

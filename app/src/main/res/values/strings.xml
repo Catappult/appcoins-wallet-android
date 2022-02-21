@@ -1102,6 +1102,7 @@
   <string name="nfts_no_nfts">No NFTs available at the moment.</string>
   <string name="nfts_transact_button">Transaction</string>
   <string name="nfts_transact_button_send">Send</string>
+  <string name="nfts_transact_button_next">Next</string>
   <string name="nfts_transact_button_done">Done</string>
   <string name="nfts_transact_button_success">Got it</string>
   <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
