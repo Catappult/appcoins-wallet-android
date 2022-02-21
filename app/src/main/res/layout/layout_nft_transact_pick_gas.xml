@@ -12,7 +12,7 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
       android:layout_marginTop="31dp"
-      android:layout_marginBottom="13dp"
+      android:layout_marginBottom="0dp"
       android:ellipsize="end"
       android:maxLines="1"
       app:layout_constraintTop_toTopOf="parent"
@@ -27,8 +27,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
-      android:layout_marginTop="31dp"
-      android:layout_marginBottom="13dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="25dp"
       android:ellipsize="end"
       android:textAlignment="textStart"
       app:layout_constraintTop_toBottomOf="@+id/speed_title"
@@ -39,9 +39,10 @@
       />
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/gas_inputs"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
+      android:layout_marginBottom="25dp"
       app:layout_constraintBottom_toTopOf="@id/fee"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
@@ -49,11 +50,13 @@
       >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gas_fee"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/gas_limit"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="10dp"
         >
       <TextView
           android:id="@+id/gas_fee_title"
@@ -79,7 +82,6 @@
             android:id="@+id/gas_price_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/nfts_transact_input_tip"
             android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
             android:inputType="text"
             android:maxLines="1"
@@ -89,11 +91,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gas_limit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/gas_fee"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="10dp"
         >
       <TextView
           android:id="@+id/gas_limit_title"
@@ -119,7 +123,6 @@
             android:id="@+id/gas_limit_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/nfts_transact_input_tip"
             android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
             android:inputType="text"
             android:maxLines="1"
@@ -127,7 +130,6 @@
       </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
-
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/fee"
       android:layout_width="match_parent"
@@ -135,7 +137,8 @@
       app:layout_constraintTop_toBottomOf="@id/gas_inputs"
       app:layout_constraintBottom_toTopOf="@id/send_button"
       android:layout_marginHorizontal="16dp"
-      android:background="#EAECED"
+      android:background="@color/nft_transferfee_bg"
+      android:layout_marginBottom="20dp"
       >
     <TextView
         android:id="@+id/fee_title"
@@ -155,7 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:text="$0.3123 USD"
+        android:text=""
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/price_eth"
         app:layout_constraintRight_toRightOf="parent"
@@ -168,7 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:text=".02231 ETH"
+        android:text=""
         app:layout_constraintTop_toBottomOf="@id/price_fiat"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

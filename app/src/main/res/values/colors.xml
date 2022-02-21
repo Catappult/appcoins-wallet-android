@@ -211,4 +211,7 @@
   <color name="promo_code_text_box_default_border">#969696</color>
   <color name="promo_code_promotions_border">#F7C337</color>
 
+  <!-- NFTs -->
+  <color name="nft_transferfee_bg">#EAECED</color>
+
 </resources>

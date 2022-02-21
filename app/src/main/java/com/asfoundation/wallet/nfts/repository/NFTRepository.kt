@@ -2,7 +2,10 @@ package com.asfoundation.wallet.nfts.repository
 
 import android.util.Log
 import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
+import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.wallets.repository.BalanceRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.spongycastle.util.encoders.Hex
@@ -24,7 +27,8 @@ import java.math.BigInteger
 
 
 class NFTRepository(private val nftApi: NftApi, private val rxSchedulers: RxSchedulers,
-                    private val nftNetwork: String) {
+                    private val nftNetwork: String,
+                    private val localCurrencyConversionService: LocalCurrencyConversionService) {
 
   fun getNFTAssetList(address: String): Single<List<NFTItem>> {
     return nftApi.getWalletNFTs(address)
@@ -39,9 +43,12 @@ class NFTRepository(private val nftApi: NftApi, private val rxSchedulers: RxSche
   }
 
   fun estimateSendNFTGas(fromAddress: String, toAddress: String, tokenID: BigDecimal,
-                         contractAddress: String,
-                         schema: String): Single<Pair<BigInteger, BigInteger>> {
+                         contractAddress: String, schema: String,
+                         selectedCurrency: String): Single<GasInfo> {
     return Single.fromCallable {
+      val rate = localCurrencyConversionService.getValueToFiat("1.0", "ETH", selectedCurrency,
+          BalanceRepository.FIAT_SCALE)
+          .blockingGet()
       val web3j = Web3jFactory.build(HttpService(nftNetwork))
       val estimateGasTransaction =
           createEstimateGasTransaction(fromAddress, toAddress, tokenID, contractAddress, schema)
@@ -53,7 +60,8 @@ class NFTRepository(private val nftApi: NftApi, private val rxSchedulers: RxSche
       if (!estimatedGas.hasError()) {
         gasLimit = estimatedGas.amountUsed
       }
-      return@fromCallable Pair(gasPrice, gasLimit)
+      Log.d("NFT", rate.currency)
+      return@fromCallable GasInfo(gasPrice, gasLimit, rate.amount, rate.symbol, rate.currency)
     }
         .subscribeOn(Schedulers.io())
   }
@@ -151,5 +159,9 @@ class NFTRepository(private val nftApi: NftApi, private val rxSchedulers: RxSche
       Log.d("NFT", raw.transactionHash)
       raw.transactionHash
     }
+  }
+
+  companion object {
+    const val FIAT_SCALE = 4
   }
 }

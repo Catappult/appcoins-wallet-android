@@ -460,7 +460,8 @@ class RepositoryModule {
   @Singleton
   @Provides
   fun providesNFTRepository(@Named("default") client: OkHttpClient, rxSchedulers: RxSchedulers,
-                            @Named("NFTNetwork") nftNetwork: String): NFTRepository {
+                            @Named("NFTNetwork") nftNetwork: String,
+                            localCurrencyConversionService: LocalCurrencyConversionService): NFTRepository {
     val baseUrl = BuildConfig.BACKEND_HOST
     val api = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -469,7 +470,8 @@ class RepositoryModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(NftApi::class.java)
-    return NFTRepository(api, rxSchedulers, nftNetwork)
+    return NFTRepository(api, rxSchedulers, nftNetwork, localCurrencyConversionService)
+  }
 
   @Singleton
   @Provides

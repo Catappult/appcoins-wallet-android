@@ -59,10 +59,9 @@ import com.asfoundation.wallet.verification.repository.VerificationRepository
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.asfoundation.wallet.wallets.usecases.*
+import com.fasterxml.jackson.databind.ObjectMapper
 import dagger.Module
 import dagger.Provides
 import java.io.File
@@ -299,8 +298,9 @@ class UseCaseModule {
   @Singleton
   @Provides
   fun providesEstimateNFTSendGasUseCase(getCurrentWallet: GetCurrentWalletUseCase,
+                                        getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
                                         NFTRepository: NFTRepository): EstimateNFTSendGasUseCase {
-    return EstimateNFTSendGasUseCase(getCurrentWallet, NFTRepository)
+    return EstimateNFTSendGasUseCase(getCurrentWallet, getSelectedCurrencyUseCase, NFTRepository)
   }
 
   @Singleton

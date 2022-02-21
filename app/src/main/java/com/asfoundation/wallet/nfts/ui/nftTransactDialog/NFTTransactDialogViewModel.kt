@@ -4,6 +4,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.usecases.EstimateNFTSendGasUseCase
 import com.asfoundation.wallet.nfts.usecases.SendNFTUseCase
@@ -13,7 +14,7 @@ object NFTTransactSideEffect : SideEffect
 
 
 data class NFTTransactState(val data: NFTItem,
-                            val gasPriceAsync: Async<Pair<BigInteger, BigInteger>> = Async.Uninitialized,
+                            val gasPriceAsync: Async<GasInfo> = Async.Uninitialized,
                             val transactionHashAsync: Async<String> = Async.Uninitialized) :
     ViewState
 
