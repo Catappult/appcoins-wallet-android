@@ -12,11 +12,11 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSkipLayoutBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class SkipDialogFragment : DaggerBottomSheetDialogFragment(),
+class SkipDialogFragment : BottomSheetDialogFragment(),
     SingleStateFragment<SkipDialogState, SkipDialogSideEffect> {
 
 

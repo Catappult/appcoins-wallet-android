@@ -1,9 +1,12 @@
 package com.asfoundation.wallet.ui.backup.skip
 
-class SkipDialogNavigator(val fragment: SkipDialogFragment) {
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
+class SkipDialogNavigator(val fragment: Fragment) {
 
   fun navigateBack() {
-    fragment.dismiss()
+    (fragment as BottomSheetDialogFragment).dismiss()
   }
 
   fun finishBackup() {

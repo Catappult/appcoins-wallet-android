@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.BackupActivityView
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
 import kotlinx.android.synthetic.main.layout_backup_success_info.view.*
 import javax.inject.Inject
-import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
+class BackupSuccessFragment : BasePageViewFragment(), BackupSuccessFragmentView {
 
   @Inject
   lateinit var presenter: BackupSuccessPresenter

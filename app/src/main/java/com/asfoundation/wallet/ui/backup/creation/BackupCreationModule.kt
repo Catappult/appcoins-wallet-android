@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.backup.creation
 
+import androidx.fragment.app.Fragment
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SendBackupToEmailUseCase
@@ -23,16 +24,11 @@ class BackupCreationModule {
   }
 
   @Provides
-  fun providesBackupCreationData(fragment: BackupCreationFragment): BackupCreationData {
+  fun providesBackupCreationData(fragment: Fragment): BackupCreationData {
     fragment.requireArguments()
         .apply {
           return BackupCreationData(getString(BackupCreationFragment.WALLET_ADDRESS_KEY)!!,
               getString(BackupCreationFragment.PASSWORD_KEY)!!)
         }
-  }
-
-  @Provides
-  fun providesBackupCreationNavigator(fragment: BackupCreationFragment): BackupCreationNavigator {
-    return BackupCreationNavigator(fragment.requireFragmentManager())
   }
 }

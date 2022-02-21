@@ -2,13 +2,17 @@ package com.asfoundation.wallet.ui.backup.save_on_device
 
 import android.os.Build
 import android.os.Environment
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import java.io.File
 import javax.inject.Named
 
+@InstallIn(FragmentComponent::class)
 @Module
 class SaveOnDeviceDialogModule {
 
@@ -23,15 +27,8 @@ class SaveOnDeviceDialogModule {
   }
 
   @Provides
-  fun providesSaveBackupBottomSheetNavigator(
-      fragment: SaveOnDeviceDialogFragment
-  ): SaveOnDeviceDialogNavigator {
-    return SaveOnDeviceDialogNavigator(fragment, fragment.requireFragmentManager())
-  }
-
-  @Provides
   fun providesSaveBackupBottomSheetData(
-      fragment: SaveOnDeviceDialogFragment): SaveOnDeviceDialogData {
+      fragment: Fragment): SaveOnDeviceDialogData {
     fragment.requireArguments()
         .apply {
           return SaveOnDeviceDialogData(

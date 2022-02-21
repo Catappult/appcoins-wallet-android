@@ -10,12 +10,10 @@ import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponse
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponseTypeAdapter
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
-import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
-import com.asfoundation.wallet.di.annotations.BrokerBlockchainRetrofit
-import com.asfoundation.wallet.di.annotations.BrokerDefaultRetrofit
-import com.asfoundation.wallet.di.annotations.DefaultHttpClient
+import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.ui.backup.repository.BackupRepository
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -139,5 +137,13 @@ class BrokerApiModule {
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): BrokerVerificationRepository.BrokerVerificationApi {
     return retrofit.create(BrokerVerificationRepository.BrokerVerificationApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBackupEmailApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): BackupRepository.BackupEmailApi {
+    return retrofit.create(BackupRepository.BackupEmailApi::class.java)
   }
 }

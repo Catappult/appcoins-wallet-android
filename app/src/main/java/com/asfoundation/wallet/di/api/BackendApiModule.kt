@@ -16,7 +16,7 @@ import com.asfoundation.wallet.service.AutoUpdateService
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.TokenRateService
-import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
+import com.asfoundation.wallet.ui.backup.repository.BackupRepository
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -154,10 +154,10 @@ class BackendApiModule {
 
   @Singleton
   @Provides
-  fun providesBackupSuccessLogApi(
+  fun providesBackupLogApi(
     @BackendDefaultRetrofit retrofit: Retrofit
-  ): BackupSuccessLogRepository.BackupLogApi {
-    return retrofit.create(BackupSuccessLogRepository.BackupLogApi::class.java)
+  ): BackupRepository.BackupLogApi {
+    return retrofit.create(BackupRepository.BackupLogApi::class.java)
   }
 
   @Singleton

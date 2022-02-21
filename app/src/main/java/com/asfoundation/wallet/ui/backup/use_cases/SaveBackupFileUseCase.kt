@@ -3,9 +3,10 @@ package com.asfoundation.wallet.ui.backup.use_cases
 import androidx.documentfile.provider.DocumentFile
 import com.asfoundation.wallet.ui.backup.repository.BackupRepository
 import io.reactivex.Completable
+import javax.inject.Inject
 
-class SaveBackupFileUseCase(private val createBackupUseCase: CreateBackupUseCase,
-                            private val backupRepository: BackupRepository) {
+class SaveBackupFileUseCase @Inject constructor(private val createBackupUseCase: CreateBackupUseCase,
+                                                private val backupRepository: BackupRepository) {
 
   operator fun invoke(walletAddress: String,
                       password: String,

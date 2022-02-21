@@ -11,14 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.SingleStateFragment
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
-import dagger.hilt.android.AndroidEntryPoint
 import com.asf.wallet.databinding.LayoutBackupCreationOptionsBinding
+import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupCreationFragment : DaggerFragment(),
+class BackupCreationFragment : BasePageViewFragment(),
     SingleStateFragment<BackupCreationState, BackupCreationSideEffect> {
 
   @Inject

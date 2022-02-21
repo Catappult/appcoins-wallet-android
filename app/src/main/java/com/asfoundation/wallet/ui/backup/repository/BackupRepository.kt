@@ -11,12 +11,13 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 import java.io.IOException
+import javax.inject.Inject
 
-class BackupRepository(private val contentResolver: ContentResolver,
-                       private val backupEmailApi: BackupEmailApi,
-                       private val rxSchedulers: RxSchedulers,
-                       private val walletService: WalletService,
-                       private val backupLogApi: BackupLopApi) {
+class BackupRepository @Inject constructor(private val contentResolver: ContentResolver,
+                                            private val backupEmailApi: BackupEmailApi,
+                                            private val rxSchedulers: RxSchedulers,
+                                            private val walletService: WalletService,
+                                            private val backupLogApi: BackupLogApi) {
   fun saveFile(content: String, filePath: DocumentFile?,
                fileName: String): Completable {
 
@@ -54,14 +55,14 @@ class BackupRepository(private val contentResolver: ContentResolver,
   }
 
   interface BackupEmailApi {
-    @POST("broker/8.20210201/wallet/backup")
+    @POST("8.20210201/wallet/backup")
     fun sendBackupEmail(
         @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String,
         @Body emailBody: EmailBody): Completable
   }
 
-  interface BackupLopApi {
+  interface BackupLogApi {
     @POST("/transaction/wallet/backup/")
     fun logBackupSuccess(
         @Header("authorization") authorization: String): Completable

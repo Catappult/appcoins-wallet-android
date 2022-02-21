@@ -7,7 +7,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class BackupSuccessLogUseCase @Inject constructor(private val ewtObtainer: EwtAuthenticatorService,
-                              private val backupRepository: BackupRepository) {
+                                                  private val backupRepository: BackupRepository) {
+
   operator fun invoke(address: String): Completable {
     return ewtObtainer.getEwtAuthenticationWithAddress(address)
         .subscribeOn(Schedulers.io())

@@ -20,7 +20,7 @@ class BackupSuccessModule {
 
   @Provides
   fun providesBackupSuccessDataData(
-      fragment: BackupSuccessFragment): BackupSuccessData {
+      fragment: Fragment): BackupSuccessData {
     fragment.requireArguments()
         .apply {
           return BackupSuccessData(
